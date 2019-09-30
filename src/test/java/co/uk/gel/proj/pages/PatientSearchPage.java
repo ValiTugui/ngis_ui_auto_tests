@@ -253,4 +253,14 @@ public class PatientSearchPage {
 
     }
 
+    public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader){
+
+        Wait.forElementToBeDisplayed(driver, patientCard);
+        Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
+        System.out.println("The actual search result header is :" + patientSearchResultsHeader.getText());
+        Assert.assertEquals(resultHeader, patientSearchResultsHeader.getText().trim());
+
+
+    }
+
 }

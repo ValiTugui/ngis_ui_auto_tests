@@ -35,7 +35,7 @@ Feature: Patient search page
   Scenario Outline: patient search - <patient-search-type> Spine1 - With NHS Number and Date of Birth
     When the user types in valid details of a "NHS Spine" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
-    Then The patient records is displayed with a heading of "We found a result"
+    Then The patient record is displayed with a heading of "We found a result"
     And a "NHS Spine" result is successfully returned
     And the correct details of the "NHS Spine" patient are displayed in the card
 
