@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SeleniumDriver extends EventFiringWebDriver {
 
-    private static final WebDriver DRIVER;
+    private static  WebDriver DRIVER;
 
     private static final Thread CLOSE_THREAD = new Thread() {
         @Override
@@ -31,6 +31,11 @@ public class SeleniumDriver extends EventFiringWebDriver {
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
 
+
+
+
+
+
     public SeleniumDriver() {
         super(DRIVER);
     }
@@ -44,7 +49,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
         Debugger.println("From SeleniumDriver...........Close");
     }
 
-    @Before
+    //@Before
     /**
      * Delete all cookies at the start of each scenario to avoid
      * shared state between tests
