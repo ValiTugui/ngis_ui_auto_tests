@@ -1,6 +1,7 @@
 package co.uk.gel.config;
 
 import co.uk.gel.proj.util.Debugger;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,6 +27,7 @@ public class BrowserFactory {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
         switch (browserEnum) {
             case CHROME:
+                WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                 driver = getChromeDriver(null, javascriptEnabled);
                 break;
             case FIREFOX:
@@ -105,12 +107,19 @@ public class BrowserFactory {
         return firefoxOptions;
     }
 
-    private WebDriver getChromeDriver(String userAgent,
-                                      boolean javascriptEnabled) {
+    //Deprecated Selenium Driver Path 30/09/2019
+    /*private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
         System.setProperty("webdriver.chrome.driver",
-                System.getProperty("user.dir") + File.separator + "drivers/chromedriver.exe");
+                //System.getProperty("user.dir") + File.separator + "drivers/chromedriver.exe");
+                System.getProperty("user.dir") + File.separator + "drivers/chromedriver_mac_76v");
         return new ChromeDriver(getChromeOptions(userAgent, javascriptEnabled));
+    } */
+
+    // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
+    private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
+        return  new ChromeDriver();
     }
+
 
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
