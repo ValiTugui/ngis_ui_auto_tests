@@ -18,17 +18,17 @@ import java.util.Set;
 
 public class PatientSearchPage {
 
-      //WebDriver driver;
+      WebDriver driver;
 
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
     }*/
 
-      /*public PatientSearchPage (WebDriver driver) {
+      public PatientSearchPage (WebDriver driver) {
           this.driver = driver;
           PageFactory.initElements(driver, this);
-      }*/
+      }
 
 
     @FindBy(name = "loginfmt")
@@ -43,10 +43,26 @@ public class PatientSearchPage {
     @FindBy(id="nhsNumber")
     public WebElement nhsNumber;
 
+    @FindBy(css = "label[for*='nhsNumber']")
+    public WebElement nhsNumberLabel;
+
+    @FindBy(xpath = "//legend[text()='Date of birth']")
+    public WebElement dateOfBirthLabel;
+
+    @FindBy(css = "div[class*='error-message__text']")
+    public List<WebElement> validationErrors;
+
     public WebElement dateDay;
     public WebElement dateMonth;
     public WebElement dateYear;
     public WebElement firstName;
+    @FindBy(css = "label[for*='firstName']")
+    public WebElement firstNameLabel;
+    @FindBy(css = "label[for*='lastName']")
+    public WebElement lastNameLabel;
+    @FindBy(css ="label[for*='gender']")
+    public WebElement genderLabel;
+
     public WebElement lastName;
     public WebElement familyName;
     public WebElement postcode;
@@ -262,5 +278,40 @@ public class PatientSearchPage {
 
 
     }
+
+    public String getText(WebElement element) {
+        Wait.forElementToBeDisplayed(driver, element);
+        return element.getText();
+    }
+
+    public void validationErrorsAreDisplayedForSkippingMandatoryValues(){
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Assert.assertEquals("NHS Number is required.", getText(validationErrors.get(0)));
+        Assert.assertEquals("Enter a day", getText(validationErrors.get(1)));
+        Assert.assertEquals("Enter a month", getText(validationErrors.get(2)));
+        Assert.assertEquals("Enter a year", getText(validationErrors.get(3)));
+        Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
+        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
+
+ }
+
+
+
+    public void validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO(){
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Assert.assertEquals("Enter a day", getText(validationErrors.get(0)));
+        Assert.assertEquals("Enter a month", getText(validationErrors.get(1)));
+        Assert.assertEquals("Enter a year", getText(validationErrors.get(2)));
+        Assert.assertEquals("First name is required.", getText(validationErrors.get(3)));
+        Assert.assertEquals("Last name is required.", getText(validationErrors.get(4)));
+        Assert.assertEquals("Gender is required.", getText(validationErrors.get(5)));
+        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
+        Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
+        Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
+        Assert.assertEquals("rgba(221, 37, 9, 1)", genderLabel.getCssValue("color").toString());
+
+    }
+
+
 
 }

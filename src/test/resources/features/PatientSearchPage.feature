@@ -42,3 +42,18 @@ Feature: Patient search page
     Examples:
       | NhsNumber  | DOB        |
       | 9449310602 | 23-03-2011 |
+
+
+
+  @E2EUI-1481
+  Scenario: Validation errors are displayed when clicking the Search button without typing mandatory fields - Do you have NHS patient Number - Yes
+    When the user clicks the Search button
+    Then the mandatory fields such as NHS Number and DOB should be highlighted with a red mark
+
+
+  @E2EUI-1481
+  Scenario: Validation errors are displayed when clicking the Search button without typing mandatory fields - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user clicks the Search button
+    Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
+

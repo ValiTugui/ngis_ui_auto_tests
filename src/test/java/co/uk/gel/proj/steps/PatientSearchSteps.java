@@ -8,6 +8,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class PatientSearchSteps extends Pages {
 
@@ -68,5 +71,15 @@ public class PatientSearchSteps extends Pages {
 
          patientSearchPage.checkSearchResultHeaderIsDisplayed(driver, expectedResultHeader);
 
+    }
+
+    @Then("^the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark$")
+    public void theMandatoryFieldsSuchAsDOBFirstNameLastNameAndGenderShouldBeHighlightedWithARedMark() {
+        patientSearchPage.validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO();
+    }
+
+    @Then("^the mandatory fields such as NHS Number and DOB should be highlighted with a red mark$")
+    public void theMandatoryFieldsSuchAsNHSNumberAndDOBShouldBeHighlightedWithARedMark() {
+        patientSearchPage.validationErrorsAreDisplayedForSkippingMandatoryValues();
     }
 }
