@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class PatientSearchPage {
 
@@ -158,56 +161,128 @@ public class PatientSearchPage {
     }
 
 
-    public void patientDetailsAreDisplayedInTheCard() {
+    public void patientDetailsAreDisplayedInTheCard(String patientSearchType) {
 
 
-        String expectedFirstname = "NELLY";
-        String expectedLastname = "STAMBUKDELIFSCHITZ";
-        String expectedTitle = "MRS";
-        String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
-        String actualFullName = patientFullName.getText().trim();
+        switch(patientSearchType)
 
-        String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+        {
 
-        String expectedDayOfBirth = "23";
-        String expectedMonthOfBirth = "03";
-        String expectedYearOfBirth =  "2011";
-        String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
-        System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
-        String actualFullDOB = patientDateOfBirth.getText().trim();
+            case "NHS Spine":
+            {
+                String expectedFirstname = "NELLY";
+                String expectedLastname = "STAMBUKDELIFSCHITZ";
+                String expectedTitle = "MRS";
+                String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+                String actualFullName = patientFullName.getText().trim();
+
+                String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+
+                String expectedDayOfBirth = "23";
+                String expectedMonthOfBirth = "03";
+                String expectedYearOfBirth =  "2011";
+                String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+                System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                String actualFullDOB = patientDateOfBirth.getText().trim();
+
+                String expectedGender = "Female";
+                String actualGender = patientGender.getText().trim();
+
+                String expectedNHSNumber = "9449310602";
+                String actualNHSNumber = patientNSNo.getText().trim();
+
+                String expectedAddressLine1 ="4 HAYWARD ROAD";
+                String expectedAddressLine2 = "THAMES DITTON";
+                String expectedAddressLine3 ="SURREY";
+                String expectedAddressLine4 ="";
+                String expectedPostcode = "KT7 0BE";
+                String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
+                        expectedAddressLine3 + ", " + expectedPostcode;
+
+                String actualAddress = patientAddress.getText().trim();
+
+                System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Assert.assertEquals("Gender " + expectedGender, actualGender);
+
+                System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+
+                System.out.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Assert.assertEquals(expectedFullAddress, actualAddress);
+
+                break;
+            }
 
 
-        String expectedGender = "Female";
-        String actualGender = patientGender.getText().trim();
+            case "NGIS":
+            {
+                String expectedFirstname = "GORE";
+                String expectedLastname = "PHONANAN";
+                String expectedTitle = "MR";
+                String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+                String actualFullName = patientFullName.getText().trim();
 
-        String expectedNHSNumber = "9449310602";
-        String actualNHSNumber = patientNSNo.getText().trim();
+                String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
 
-        String expectedAddressLine1 ="4 HAYWARD ROAD";
-        String expectedAddressLine2 = "THAMES DITTON";
-        String expectedAddressLine3 ="SURREY";
-        String expectedAddressLine4 ="";
-        String expectedPostcode = "KT7 0BE";
-        String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
-                expectedAddressLine3 + ", " + expectedPostcode;
+                String expectedDayOfBirth = "14";
+                String expectedMonthOfBirth = "06";
+                String expectedYearOfBirth =  "2011";
+                String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+                System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                String actualFullDOB = patientDateOfBirth.getText().trim();
 
-        String actualAddress = patientAddress.getText().trim();
 
-        System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
-        Assert.assertEquals(expectedFullName, actualFullName);
+                String expectedGender = "Male";
+                String actualGender = patientGender.getText().trim();
 
-        System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
-        //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
-        Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+                String expectedNHSNumber = "9449306680";
+                String actualNHSNumber = patientNSNo.getText().trim();
 
-        System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
-        Assert.assertEquals("Gender " + expectedGender, actualGender);
+                String expectedAddressLine1 = "18 WOODFIELD LANE";
+                String expectedAddressLine2 = "ASHTEAD";
+                String expectedAddressLine3 = "SURREY";
+                String expectedAddressLine4 = "";
+                String expectedPostcode = "KT21 2BE";
+                String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
+                        expectedAddressLine3 + ", " + expectedPostcode;
 
-        System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
-        Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+                String actualAddress = patientAddress.getText().trim();
 
-        System.out.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
-        Assert.assertEquals(expectedFullAddress, actualAddress);
+                System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Assert.assertEquals("Gender " + expectedGender, actualGender);
+
+                System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+
+                System.out.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Assert.assertEquals(expectedFullAddress, actualAddress);
+
+                break;
+            }
+
+            default:
+
+                throw new IllegalArgumentException("Invalid query search parameters");
+
+        }
+
+
+
+
 
     }
 
