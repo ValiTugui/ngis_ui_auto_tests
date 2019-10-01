@@ -45,8 +45,8 @@ public class PatientSearchSteps extends Pages {
 
 
     @And("^the correct details of the \"([^\"]*)\" patient are displayed in the card$")
-    public void theCorrectDetailsOfThePatientAreDisplayedInTheCard(String badgeText) throws Throwable {
-        patientSearchPage.patientDetailsAreDisplayedInTheCard();
+    public void theCorrectDetailsOfThePatientAreDisplayedInTheCard(String patientSearchType) throws Throwable {
+        patientSearchPage.patientDetailsAreDisplayedInTheCard(patientSearchType);
     }
 
 
