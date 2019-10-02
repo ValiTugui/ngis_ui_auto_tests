@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,6 +49,12 @@ public class PatientSearchPage {
 
     @FindBy(css = "label[for*='nhsNumber']")
     public WebElement nhsNumberLabel;
+
+    @FindBy(xpath = "//p[contains(text(),'ve searched for')]/strong")
+    public WebElement nhsNumberHiddenLabel;
+
+    @FindBy(css = "a[href*='/test-order/new-patient']")
+    public WebElement createNewPatientLink;
 
     @FindBy(xpath = "//legend[text()='Date of birth']")
     public WebElement dateOfBirthLabel;
@@ -115,6 +122,9 @@ public class PatientSearchPage {
 
     @FindBy(xpath = "//p[contains(string(),'Address')]")
     public WebElement patientAddress;
+
+    @FindBy(xpath ="//div[@class='styles_no-results__2P0aw']/h3")
+    public WebElement noPatientFoundLabel;
 
 
 
@@ -388,5 +398,19 @@ public class PatientSearchPage {
     }
 
 
+    public void checkNHSNumberAndDOBareDisplayed(String expectedNHSNumber, String expectedDOB, String expErrorText) {
+        Wait.forElementToBeDisplayed(driver, nhsNumberHiddenLabel);
+        System.out.println("Actual NHS Number and DOB displayed on the page " + nhsNumberHiddenLabel.getText());
+        Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedNHSNumber));
+        String expectedDOBInYYYYDDMM = TestUtils.dateFormatReverserToYYYYMMDD(expectedDOB.trim());
+        Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedDOBInYYYYDDMM));
+        Wait.forElementToBeDisplayed(driver,noPatientFoundLabel);
+        Assert.assertEquals(expErrorText, noPatientFoundLabel.getText());
+ }
+
+    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
+        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
+        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
+    }
 
 }

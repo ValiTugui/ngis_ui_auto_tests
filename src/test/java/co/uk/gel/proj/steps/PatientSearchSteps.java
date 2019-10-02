@@ -82,4 +82,14 @@ public class PatientSearchSteps extends Pages {
     public void theMandatoryFieldsSuchAsNHSNumberAndDOBShouldBeHighlightedWithARedMark() {
         patientSearchPage.validationErrorsAreDisplayedForSkippingMandatoryValues();
     }
+
+    @Then("^The message will be displayed as You’ve searched for \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+    public void theMessageWillBeDisplayedAsYouVeSearchedFor(String nhsNumber, String dOB, String error_message) throws Throwable {
+        patientSearchPage.checkNHSNumberAndDOBareDisplayed(nhsNumber, dOB, error_message );
+    }
+
+    @And("^There is a \"([^\"]*)\"link available$")
+    public void thereIsALinkAvailable(String hyperLinkText) throws Throwable {
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
+    }
 }
