@@ -68,3 +68,9 @@ Feature: Patient search page
   Examples:
       | patient-search-type | NhsNumber  | DOB        | error_message              | hyperlinkText                |
       | NHS Spine           | 9449305099 | 05-11-2005 | No patient found           | create a new patient record  |
+
+  @E2EUI-1211
+  Scenario: Patient Search Form label color validation
+    Then form labels should be consistent to font colour "#212b32"
+    And  form labels should be consistent to font size "16px"
+    And  form labels should be consistent to font face "bold"

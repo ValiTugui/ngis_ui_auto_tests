@@ -92,4 +92,19 @@ public class PatientSearchSteps extends Pages {
     public void thereIsALinkAvailable(String hyperLinkText) throws Throwable {
         patientSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
     }
+
+    @Then("^form labels should be consistent to font colour \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontColour(String fontColor) throws Throwable {
+        patientSearchPage.validateFormLabelColour(fontColor);
+    }
+
+    @And("^form labels should be consistent to font size \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontSize(String fontSize) throws Throwable {
+       patientSearchPage.validateFormLabelSize(fontSize);
+    }
+
+    @And("^form labels should be consistent to font face \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontFace(String fontFace) throws Throwable {
+       patientSearchPage.validateFormLabelFontFace(fontFace);
+    }
 }

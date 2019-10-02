@@ -1,8 +1,8 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class PatientSearchPage {
@@ -378,7 +375,7 @@ public class PatientSearchPage {
         Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
 
- }
+    }
 
 
 
@@ -404,13 +401,29 @@ public class PatientSearchPage {
         Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedNHSNumber));
         String expectedDOBInYYYYDDMM = TestUtils.dateFormatReverserToYYYYMMDD(expectedDOB.trim());
         Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedDOBInYYYYDDMM));
-        Wait.forElementToBeDisplayed(driver,noPatientFoundLabel);
+        Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
         Assert.assertEquals(expErrorText, noPatientFoundLabel.getText());
- }
+    }
 
     public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
         Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
     }
 
+    public void validateFormLabelFontFace(String fontFace) {
+        String expectedFontFace = StylesUtils.convertFontFaceStringToCSSProperty(fontFace);
+        Assert.assertEquals(expectedFontFace, nhsNumberLabel.getCssValue("font-weight"));
+        Assert.assertEquals(expectedFontFace, dateOfBirthLabel.getCssValue("font-weight"));
+    }
+
+    public void validateFormLabelSize(String fontSize) {
+        Assert.assertEquals(String.valueOf(fontSize), nhsNumberLabel.getCssValue("font-size"));
+        Assert.assertEquals(String.valueOf(fontSize), dateOfBirthLabel.getCssValue("font-size"));
+    }
+
+    public void validateFormLabelColour(String fontColor) {
+        String expectedFontColour = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        Assert.assertEquals(expectedFontColour, nhsNumberLabel.getCssValue("color"));
+        Assert.assertEquals(expectedFontColour, dateOfBirthLabel.getCssValue("color"));
+    }
 }
