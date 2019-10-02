@@ -36,6 +36,20 @@ public class PatientSearchPage {
       }
 
 
+    public WebElement dateDay;
+    public WebElement dateMonth;
+    public WebElement dateYear;
+    public WebElement firstName;
+    public WebElement lastName;
+    public WebElement familyName;
+    public WebElement postcode;
+
+    @FindBy(css = "h1[class*='page-title']")
+    public WebElement pageTitle;
+
+    @FindBy(css = "p[class*='patient-search__intro']")
+    public WebElement pageDescription;
+
     @FindBy(name = "loginfmt")
     public WebElement emailAddressField;
 
@@ -57,20 +71,14 @@ public class PatientSearchPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
-    public WebElement dateDay;
-    public WebElement dateMonth;
-    public WebElement dateYear;
-    public WebElement firstName;
     @FindBy(css = "label[for*='firstName']")
     public WebElement firstNameLabel;
+
     @FindBy(css = "label[for*='lastName']")
     public WebElement lastNameLabel;
+
     @FindBy(css ="label[for*='gender']")
     public WebElement genderLabel;
-
-    public WebElement lastName;
-    public WebElement familyName;
-    public WebElement postcode;
 
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
@@ -513,5 +521,17 @@ public class PatientSearchPage {
             }
         }
 
+    }
+
+    public void  verifyTheTitleOfThePage(String titleOfPage){
+        Wait.forElementToBeDisplayed(driver, searchButton);
+        System.out.println("The actual page title  is :" + pageTitle.getText());
+        Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
+    }
+
+    public void verifyTheDescriptionOfThePage(String DescriptionOfPage){
+        String actualPageDescription = pageDescription.getText();
+        System.out.println("The actual Description title  is :" + pageDescription.getText());
+        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
 }
