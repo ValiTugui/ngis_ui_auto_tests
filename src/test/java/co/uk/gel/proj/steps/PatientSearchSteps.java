@@ -83,6 +83,31 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.validationErrorsAreDisplayedForSkippingMandatoryValues();
     }
 
+    @Then("^The message will be displayed as You’ve searched for \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+    public void theMessageWillBeDisplayedAsYouVeSearchedFor(String nhsNumber, String dOB, String error_message) throws Throwable {
+        patientSearchPage.checkNHSNumberAndDOBareDisplayed(nhsNumber, dOB, error_message );
+    }
+
+    @And("^There is a \"([^\"]*)\"link available$")
+    public void thereIsALinkAvailable(String hyperLinkText) throws Throwable {
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
+    }
+
+    @Then("^form labels should be consistent to font colour \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontColour(String fontColor) throws Throwable {
+        patientSearchPage.validateFormLabelColour(fontColor);
+    }
+
+    @And("^form labels should be consistent to font size \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontSize(String fontSize) throws Throwable {
+       patientSearchPage.validateFormLabelSize(fontSize);
+    }
+
+    @And("^form labels should be consistent to font face \"([^\"]*)\"$")
+    public void formLabelsShouldBeConsistentToFontFace(String fontFace) throws Throwable {
+       patientSearchPage.validateFormLabelFontFace(fontFace);
+    }
+
     @And("^the user clicks the patient result card$")
     public void theUserClicksThePatientResultCard() {
         patientSearchPage.clickPatientCard();
