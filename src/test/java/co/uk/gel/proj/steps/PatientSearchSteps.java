@@ -60,7 +60,7 @@ public class PatientSearchSteps extends Pages {
 
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
-    public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String arg1) throws Throwable {
+    public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
 
         patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
     }
@@ -81,5 +81,34 @@ public class PatientSearchSteps extends Pages {
     @Then("^the mandatory fields such as NHS Number and DOB should be highlighted with a red mark$")
     public void theMandatoryFieldsSuchAsNHSNumberAndDOBShouldBeHighlightedWithARedMark() {
         patientSearchPage.validationErrorsAreDisplayedForSkippingMandatoryValues();
+    }
+
+    @And("^the user clicks the patient result card$")
+    public void theUserClicksThePatientResultCard() {
+        patientSearchPage.clickPatientCard();
+    }
+
+
+    @When("^the user types in different valid details in the NHS number \"([^\"]*)\" and DOB \"([^\"]*)\" fields$")
+    public void theUserTypesInDifferentValidDetailsInTheNHSNumberAndDOBFields(String nhsNo, String dob) throws Throwable {
+        String[] value=  dob.split("-");  // Split DOB in the format 01-01-1900
+        patientSearchPage.fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(nhsNo,value[0],value[1],value[2]);
+
+    }
+
+    @Then("^the correct details of the second \"([^\"]*)\" patient are displayed in the result card$")
+    public void theCorrectDetailsOfTheSecondPatientAreDisplayedInTheResultCard(String patientSearchType) throws Throwable {
+        patientSearchPage.secondPatientDetailsAreDisplayedInTheCard();
+    }
+
+
+    @When("^the user types in different valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
+    public void theUserTypesInDifferentValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
+        patientSearchPage.fillInValidSecondPatientDetailsUsingNOFields(searchDetails);
+    }
+
+    @Then("^the correct details of the second \"([^\"]*)\" patient using alternative searches are displayed in the result card$")
+    public void theCorrectDetailsOfTheSecondPatientUsingAlternativeSearchesAreDisplayedInTheResultCard(String patientSearchType) throws Throwable {
+        patientSearchPage.secondPatientDetailsAreDisplayedInTheCard();
     }
 }

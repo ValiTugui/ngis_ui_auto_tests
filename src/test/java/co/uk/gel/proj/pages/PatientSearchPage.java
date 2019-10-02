@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.config.AppConfig;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 
 
 public class PatientSearchPage {
@@ -118,13 +120,12 @@ public class PatientSearchPage {
 
 
 
-
-
-    public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String day, String month, String year) {
+    public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
         nhsNumber.sendKeys(nhsNo);
-        dateDay.sendKeys(day);
-        dateMonth.sendKeys(month);
-        dateYear.sendKeys(year);
+        dateDay.sendKeys(dayOfBirth);
+        dateMonth.sendKeys(monthOfBirth);
+        dateYear.sendKeys(yearOfBirth);
     }
 
     public void clickNoButton() {
@@ -280,10 +281,6 @@ public class PatientSearchPage {
 
         }
 
-
-
-
-
     }
 
 
@@ -303,6 +300,7 @@ public class PatientSearchPage {
         {
             System.out.println("Key is :"+ m.getKey() +" and value is :"+ m.getValue());
         }
+
         Set<String> paramsKey= paramNameValue.keySet();
         for(String s:paramsKey)
         {
@@ -384,9 +382,136 @@ public class PatientSearchPage {
         Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", genderLabel.getCssValue("color").toString());
+    }
 
+    public void clickPatientCard() {
+        patientCard.click();
+    }
+
+    public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
+
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        nhsNumber.sendKeys(nhsNo);
+        Actions.clearField(dateDay);
+        dateDay.sendKeys(dayOfBirth);
+        Actions.clearField(dateMonth);
+        dateMonth.sendKeys(monthOfBirth);
+        Actions.clearField(dateYear);
+        dateYear.sendKeys(yearOfBirth);
+    }
+
+    public void secondPatientDetailsAreDisplayedInTheCard() {
+
+        String expectedFirstname = "ALEXANDRINA";
+        String expectedLastname = "MCBRYDE";
+        String expectedTitle = "MISS";
+        String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+        String actualFullName = patientFullName.getText().trim();
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+
+        String expectedDayOfBirth = "11";
+        String expectedMonthOfBirth = "04";
+        String expectedYearOfBirth =  "1909";
+        String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+        System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+        String actualFullDOB = patientDateOfBirth.getText().trim();
+
+        String expectedGender = "Female";
+        String actualGender = patientGender.getText().trim();
+
+        String expectedNHSNumber = "9449304580";
+        String actualNHSNumber = patientNSNo.getText().trim();
+
+        String expectedAddressLine1 ="27 KINGSTON ROAD";
+        String expectedAddressLine2 = "EPSOM";
+        String expectedAddressLine3 ="SURREY";
+        String expectedAddressLine4 ="";
+        String expectedPostcode = "KT17 2EG";
+        String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
+                expectedAddressLine3 + ", " + expectedPostcode;
+        String actualAddress = patientAddress.getText().trim();
+
+        System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+        Assert.assertEquals(expectedFullName, actualFullName);
+
+        System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+        //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
+        Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+        System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+        Assert.assertEquals("Gender " + expectedGender, actualGender);
+
+        System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+        Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+
+        System.out.println("Expected address = "+expectedFullAddress  + ", Actual address: "+actualAddress );
+        Assert.assertEquals(expectedFullAddress, actualAddress);
     }
 
 
 
+    public void  fillInValidSecondPatientDetailsUsingNOFields(String searchParams){
+
+        //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
+        // Extract the patient details from the example-table
+        HashMap<String,String> paramNameValue = new HashMap<>();
+        String[] allParams = searchParams.split(":");
+        for(String s : allParams)
+        {
+            paramNameValue.put(s.split("=")[0],s.split("=")[1]);
+        }
+
+        Set<Map.Entry<String,String>> val = paramNameValue.entrySet();
+        for(Map.Entry m : val)
+        {
+            System.out.println("Key is :"+ m.getKey() +" and value is :"+ m.getValue());
+        }
+
+        Set<String> paramsKey= paramNameValue.keySet();
+        for(String s:paramsKey)
+        {
+            switch (s)
+            {
+                case "DOB":
+                {
+                    String dobValue = paramNameValue.get(s);
+                    String[] dobSplit = dobValue.split("-");
+                    Actions.clearField(dateDay);
+                    dateDay.sendKeys(dobSplit[0]);
+                    Actions.clearField(dateMonth);
+                    dateMonth.sendKeys(dobSplit[1]);
+                    Actions.clearField(dateYear);
+                    dateYear.sendKeys(dobSplit[2]);
+                    break;
+                }
+                case "FirstName":
+                {
+                    Actions.clearField(firstName);
+                    firstName.sendKeys(paramNameValue.get(s));
+                    break;
+                }
+                case "LastName":
+                {
+                    Actions.clearField(lastName);
+                    lastName.sendKeys(paramNameValue.get(s));
+                    break;
+                }
+                case "Gender":
+                {
+                    genderButton.click();
+                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(s) + "']")).click();
+                    break;
+                }
+                case "Postcode":
+                {
+                    Actions.clearField(postcode);
+                    postcode.sendKeys(paramNameValue.get(s));
+                    break;
+                }
+            }
+        }
+
+    }
 }
