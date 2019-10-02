@@ -111,4 +111,15 @@ public class PatientSearchSteps extends Pages {
     public void theCorrectDetailsOfTheSecondPatientUsingAlternativeSearchesAreDisplayedInTheResultCard(String patientSearchType) throws Throwable {
         patientSearchPage.secondPatientDetailsAreDisplayedInTheCard();
     }
+
+
+    @Then("^the display title of the page is \"([^\"]*)\"$")
+    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
+        patientSearchPage.verifyTheTitleOfThePage(titlePage);
+    }
+
+    @And("^the display description title contains the phrase \"([^\"]*)\"$")
+    public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
+        patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+    }
 }
