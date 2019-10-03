@@ -53,7 +53,7 @@ Feature: Patient search page
     Then the mandatory fields such as NHS Number and DOB should be highlighted with a red mark
 
 
-  @E2EUI-1481
+  @E2EUI-1188
   Scenario: Validation errors are displayed when clicking the Search button without typing mandatory fields - Do you have NHS patient Number - No
     And the user clicks the NO button
     When the user clicks the Search button
@@ -65,9 +65,9 @@ Feature: Patient search page
     And the user clicks the Search button
     Then The message will be displayed as You’ve searched for "<NhsNumber>" "<DOB> " "<error_message>"
     And There is a "<hyperlinkText>"link available
-  Examples:
-      | patient-search-type | NhsNumber  | DOB        | error_message              | hyperlinkText                |
-      | NHS Spine           | 9449305099 | 05-11-2005 | No patient found           | create a new patient record  |
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | error_message    | hyperlinkText               |
+      | NHS Spine           | 9449305099 | 05-11-2005 | No patient found | create a new patient record |
 
   @E2EUI-1211
   Scenario: Patient Search Form label color validation
