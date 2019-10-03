@@ -60,7 +60,7 @@ Feature: Patient search page
     When the user clicks the Search button
     Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
 
-  @E2EUI-1304
+  @patientSearch_06 @E2EUI-1304
   Scenario Outline: Patient Search Results Page invalid data
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -70,13 +70,13 @@ Feature: Patient search page
       | patient-search-type | NhsNumber  | DOB        | error_message              | hyperlinkText                |
       | NHS Spine           | 9449305099 | 05-11-2005 | No patient found           | create a new patient record  |
 
-  @E2EUI-1211
+  @patientSearch_07 @E2EUI-1211
   Scenario: Patient Search Form label color validation
     Then form labels should be consistent to font colour "#212b32"
     And  form labels should be consistent to font size "16px"
     And  form labels should be consistent to font face "bold"
 
-  @patientSearch_06 @E2EUI-1182
+  @patientSearch_08 @E2EUI-1182
   Scenario Outline: Verifying the Patient Details page after successful search for "<patient-search-type>" patient
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -90,7 +90,7 @@ Feature: Patient search page
       | NGIS                | 9449306680 | 14-06-2011 |
 
 
-  @patientSearch_07 @E2EUI-2162
+  @patientSearch_09 @E2EUI-2162
   Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -104,8 +104,7 @@ Feature: Patient search page
       | NHS Spine           | 9449310602 | 23-03-2011 | 9449304580 | 11-04-1909 |
 
 
-
-  @patientSearch_08 @E2EUI-2161
+  @patientSearch_10 @E2EUI-2161
   Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful alternative search
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -121,7 +120,7 @@ Feature: Patient search page
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
 
-  @patientSearch_08 @E2EUI-1390
+  @patientSearch_11 @E2EUI-1390
   Scenario: To verify the text information present on the 'Find a Patient' page
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
