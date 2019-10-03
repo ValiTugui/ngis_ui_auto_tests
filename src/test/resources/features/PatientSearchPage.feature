@@ -74,3 +74,27 @@ Feature: Patient search page
     Then form labels should be consistent to font colour "#212b32"
     And  form labels should be consistent to font size "16px"
     And  form labels should be consistent to font face "bold"
+
+
+  @E2EUI-1114
+  Scenario Outline: Patient Search- NHS number Validations - number of digits limited to 10
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+    Examples:
+      | patient-search-type | NhsNumber | DOB        | error_message                                     |
+      | NHS Spine           | 94493     | 23-03-2011 | Please enter your full NHS Number (10 characters) |
+      | NGIS                | 944956    | 14-06-2011 | Please enter your full NHS Number (10 characters) |
+
+
+  @E2EUI-1114
+  Scenario Outline: Patient Search- NHS number Validations - special character & alphabets
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | error_message                                     |
+      | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
+      | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
+
+

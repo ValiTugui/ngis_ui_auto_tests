@@ -107,4 +107,9 @@ public class PatientSearchSteps extends Pages {
     public void formLabelsShouldBeConsistentToFontFace(String fontFace) throws Throwable {
        patientSearchPage.validateFormLabelFontFace(fontFace);
     }
+
+    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color$")
+    public void theMessageWillBeDisplayedAsInColor(String errorMessage, String fontColor) throws Throwable {
+        patientSearchPage.checkTheErrorMessage(errorMessage, fontColor);
+    }
 }
