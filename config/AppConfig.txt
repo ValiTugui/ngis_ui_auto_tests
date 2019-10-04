@@ -1,5 +1,6 @@
 #APP URL (If we have more than one urls to be used, we have to add accordingly). Any modifications here accordingly incorporated in AppConfig.java
-APP_URL=https://applicationurl.com/
-APP_USERNAME=username
-APP_PASSWORD=password
+#APP_URL=https://applicationurl.com/
+APP_URL=https://test-ordering.e2e.ngis.io/test-order/
+APP_USERNAME=ClinicalViewer.E2ETest@ngisnonprod.onmicrosoft.com
+APP_PASSWORD=Nolu12575
 #ANY OTHER APP SPECIFIC CONFIGUTATIONS CAN BE ADDED HERE (LIKE LOCATIONS TO ANY DATA REFERENCE...)

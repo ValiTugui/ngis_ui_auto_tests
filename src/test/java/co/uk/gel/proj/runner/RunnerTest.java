@@ -1,4 +1,4 @@
-package co.uk.gel.proj.steps;
+package co.uk.gel.proj.runner;
 
 import co.uk.gel.proj.util.Debugger;
 import cucumber.api.CucumberOptions;
@@ -7,8 +7,12 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(format = {"pretty", "html:target/cucumber","json:target/cucumber.json",},
-        tags="@general",features = {"src/test/features"})
+@CucumberOptions(
+         plugin = {"pretty", "html:target/cucumber","json:target/cucumber.json"},
+         glue = {"co.uk.gel.proj.steps"},
+         features = {"src/test/features"},
+         tags = {"@patientSearch"}
+        )
     public class RunnerTest {
 
         @BeforeClass
