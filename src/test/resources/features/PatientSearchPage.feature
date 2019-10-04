@@ -18,8 +18,8 @@ Feature: Patient search page
       | NGIS                | 9449306680 | 14-06-2011 |
 
 
-  @patientSearch_02 @E2EUI-2129  @E2EUI-2136
-  Scenario Outline: patient search "<patient-search-type>" - Alternate Search without NHS Number
+  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-2140
+  Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button
@@ -27,11 +27,13 @@ Feature: Patient search page
     And the correct details of the "<patient-search-type>" patient are displayed in the card
 
     Examples:
-      | patient-search-type | SearchDetails                                                                             |
-      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  |
-      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+      | ui-ticket-no | patient-search-type | SearchDetails                                                                             |
+      | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
+      | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
+      | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
+      | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=n:LastName=Stambukdelifsch:Gender=Female:Postcode=Kt7 0BE        |
+      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
+      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
 
 
   @patientSearch_03 @E2EUI-1472

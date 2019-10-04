@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
@@ -161,7 +162,7 @@ public class PatientSearchPage {
     public void checkThatPatientCardIsDisplayed(WebDriver driver, String badgeText) {
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
-        System.out.println("The search result is from :" + patientCardBadge.getText());
+        Debugger.println("The search result is from :" + patientCardBadge.getText());
         Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
     }
 
@@ -186,6 +187,7 @@ public class PatientSearchPage {
 
             case "NHS Spine":
             {
+                // Hard-coded values are used temporarily pending external data file is implemented
                 String expectedFirstname = "NELLY";
                 String expectedLastname = "STAMBUKDELIFSCHITZ";
                 String expectedTitle = "MRS";
@@ -198,7 +200,7 @@ public class PatientSearchPage {
                 String expectedMonthOfBirth = "03";
                 String expectedYearOfBirth =  "2011";
                 String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
-                System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
                 String actualFullDOB = patientDateOfBirth.getText().trim();
 
                 String expectedGender = "Female";
@@ -217,20 +219,20 @@ public class PatientSearchPage {
 
                 String actualAddress = patientAddress.getText().trim();
 
-                System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
                 Assert.assertEquals(expectedFullName, actualFullName);
 
-                System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
                 //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
                 Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
 
-                System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
                 Assert.assertEquals("Gender " + expectedGender, actualGender);
 
-                System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
                 Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
 
-                System.out.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
                 Assert.assertEquals(expectedFullAddress, actualAddress);
 
                 break;
@@ -251,7 +253,7 @@ public class PatientSearchPage {
                 String expectedMonthOfBirth = "06";
                 String expectedYearOfBirth =  "2011";
                 String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
-                System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
                 String actualFullDOB = patientDateOfBirth.getText().trim();
 
 
@@ -271,20 +273,20 @@ public class PatientSearchPage {
 
                 String actualAddress = patientAddress.getText().trim();
 
-                System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
                 Assert.assertEquals(expectedFullName, actualFullName);
 
-                System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
                 //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
                 Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
 
-                System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
                 Assert.assertEquals("Gender " + expectedGender, actualGender);
 
-                System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
                 Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
 
-                System.out.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
                 Assert.assertEquals(expectedFullAddress, actualAddress);
 
                 break;
@@ -303,26 +305,12 @@ public class PatientSearchPage {
 
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
-        HashMap<String,String> paramNameValue = new HashMap<>();
-        String[] allParams = searchParams.split(":");
-        for(String s : allParams)
-        {
-            paramNameValue.put(s.split("=")[0],s.split("=")[1]);
-        }
-
-        Set<Map.Entry<String,String>> val = paramNameValue.entrySet();
-        for(Map.Entry m : val)
-        {
-            System.out.println("Key is :"+ m.getKey() +" and value is :"+ m.getValue());
-        }
-
+        
+        HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
-        for(String s:paramsKey)
-        {
-            switch (s)
-            {
-                case "DOB":
-                {
+        for (String s : paramsKey) {
+            switch (s) {
+                case "DOB": {
                     String dobValue = paramNameValue.get(s);
                     String[] dobSplit = dobValue.split("-");
                     dateDay.sendKeys(dobSplit[0]);
@@ -330,24 +318,20 @@ public class PatientSearchPage {
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
-                case "FirstName":
-                {
+                case "FirstName": {
                     firstName.sendKeys(paramNameValue.get(s));
                     break;
                 }
-                case "LastName":
-                {
+                case "LastName": {
                     lastName.sendKeys(paramNameValue.get(s));
                     break;
                 }
-                case "Gender":
-                {
+                case "Gender": {
                     genderButton.click();
                     genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(s) + "']")).click();
                     break;
                 }
-                case "Postcode":
-                {
+                case "Postcode": {
                     postcode.sendKeys(paramNameValue.get(s));
                     break;
                 }
@@ -361,7 +345,7 @@ public class PatientSearchPage {
 
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
-        System.out.println("The actual search result header is :" + patientSearchResultsHeader.getText());
+        Debugger.println("The actual search result header is :" + patientSearchResultsHeader.getText());
         Assert.assertEquals(resultHeader, patientSearchResultsHeader.getText().trim());
 
 
@@ -430,7 +414,7 @@ public class PatientSearchPage {
         String expectedMonthOfBirth = "04";
         String expectedYearOfBirth =  "1909";
         String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
-        System.out.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+        Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
         String actualFullDOB = patientDateOfBirth.getText().trim();
 
         String expectedGender = "Female";
@@ -448,27 +432,27 @@ public class PatientSearchPage {
                 expectedAddressLine3 + ", " + expectedPostcode;
         String actualAddress = patientAddress.getText().trim();
 
-        System.out.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+        Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
         Assert.assertEquals(expectedFullName, actualFullName);
 
-        System.out.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+        Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
         //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
         Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
 
-        System.out.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+        Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
         Assert.assertEquals("Gender " + expectedGender, actualGender);
 
-        System.out.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+        Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
         Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
 
-        System.out.println("Expected address = "+expectedFullAddress  + ", Actual address: "+actualAddress );
+        Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address: "+actualAddress );
         Assert.assertEquals(expectedFullAddress, actualAddress);
     }
 
 
     public void checkNHSNumberAndDOBareDisplayed(String expectedNHSNumber, String expectedDOB, String expErrorText) {
         Wait.forElementToBeDisplayed(driver, nhsNumberHiddenLabel);
-        System.out.println("Actual NHS Number and DOB displayed on the page " + nhsNumberHiddenLabel.getText());
+        Debugger.println("Actual NHS Number and DOB displayed on the page " + nhsNumberHiddenLabel.getText());
         Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedNHSNumber));
         String expectedDOBInYYYYDDMM = TestUtils.dateFormatReverserToYYYYMMDD(expectedDOB.trim());
         Assert.assertTrue(nhsNumberHiddenLabel.getText().contains(expectedDOBInYYYYDDMM));
@@ -501,26 +485,12 @@ public class PatientSearchPage {
 
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
-        HashMap<String,String> paramNameValue = new HashMap<>();
-        String[] allParams = searchParams.split(":");
-        for(String s : allParams)
-        {
-            paramNameValue.put(s.split("=")[0],s.split("=")[1]);
-        }
-
-        Set<Map.Entry<String,String>> val = paramNameValue.entrySet();
-        for(Map.Entry m : val)
-        {
-            System.out.println("Key is :"+ m.getKey() +" and value is :"+ m.getValue());
-        }
-
+        
+        HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
-        for(String s:paramsKey)
-        {
-            switch (s)
-            {
-                case "DOB":
-                {
+        for (String s : paramsKey) {
+            switch (s) {
+                case "DOB": {
                     String dobValue = paramNameValue.get(s);
                     String[] dobSplit = dobValue.split("-");
                     Actions.clearField(dateDay);
@@ -531,26 +501,22 @@ public class PatientSearchPage {
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
-                case "FirstName":
-                {
+                case "FirstName": {
                     Actions.clearField(firstName);
                     firstName.sendKeys(paramNameValue.get(s));
                     break;
                 }
-                case "LastName":
-                {
+                case "LastName": {
                     Actions.clearField(lastName);
                     lastName.sendKeys(paramNameValue.get(s));
                     break;
                 }
-                case "Gender":
-                {
+                case "Gender": {
                     genderButton.click();
                     genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(s) + "']")).click();
                     break;
                 }
-                case "Postcode":
-                {
+                case "Postcode": {
                     Actions.clearField(postcode);
                     postcode.sendKeys(paramNameValue.get(s));
                     break;
@@ -562,13 +528,13 @@ public class PatientSearchPage {
 
     public void  verifyTheTitleOfThePage(String titleOfPage){
         Wait.forElementToBeDisplayed(driver, searchButton);
-        System.out.println("The actual page title  is :" + pageTitle.getText());
+        Debugger.println("The actual page title  is :" + pageTitle.getText());
         Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
     }
 
     public void verifyTheDescriptionOfThePage(String DescriptionOfPage){
         String actualPageDescription = pageDescription.getText();
-        System.out.println("The actual Description title  is :" + pageDescription.getText());
+        Debugger.println("The actual Description title  is :" + pageDescription.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
 }
