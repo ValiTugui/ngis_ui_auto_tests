@@ -112,4 +112,9 @@ public class PatientSearchSteps extends Pages {
     public void theMessageWillBeDisplayedAsInColor(String errorMessage, String fontColor) throws Throwable {
         patientSearchPage.checkTheErrorMessage(errorMessage, fontColor);
     }
+
+    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color for the DOB field$")
+    public void theMessageWillBeDisplayedAsInColorForTheDOBField(String errorMessage, String fontColor) throws Throwable {
+        patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
+    }
 }

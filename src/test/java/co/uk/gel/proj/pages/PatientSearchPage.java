@@ -125,7 +125,10 @@ public class PatientSearchPage {
     public WebElement noPatientFoundLabel;
 
     @FindBy(css ="div[class*='styles_error-message']")
-    public WebElement enterYour10DigitNHSNumberErrorMessageLabel;
+    public WebElement nHSNumberFieldValidationErrorMessageLabel;
+
+    @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
+    public WebElement dobFieldValidationErrorMessageLabel;
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String day, String month, String year) {
         nhsNumber.sendKeys(nhsNo);
@@ -430,11 +433,21 @@ public class PatientSearchPage {
     }
 
     public void checkTheErrorMessage(String errorMessage, String fontColor) {
-        Wait.forElementToBeDisplayed(driver, enterYour10DigitNHSNumberErrorMessageLabel);
+        Wait.forElementToBeDisplayed(driver, nHSNumberFieldValidationErrorMessageLabel);
         Debugger.println("EXPECTED RESULT: " + errorMessage);
-        Debugger.println("ACTUAL RESULT  : " + enterYour10DigitNHSNumberErrorMessageLabel.getText());
-        Assert.assertEquals(errorMessage, enterYour10DigitNHSNumberErrorMessageLabel.getText());
+        Debugger.println("ACTUAL RESULT  : " + nHSNumberFieldValidationErrorMessageLabel.getText());
+        Assert.assertEquals(errorMessage, nHSNumberFieldValidationErrorMessageLabel.getText());
         String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-        Assert.assertEquals(expectedFontColor, enterYour10DigitNHSNumberErrorMessageLabel.getCssValue("color"));
+        Assert.assertEquals(expectedFontColor, nHSNumberFieldValidationErrorMessageLabel.getCssValue("color"));
+    }
+
+    public void checkTheErrorMessagesInDOB(String errorMessage, String fontColor) {
+
+        Wait.forElementToBeDisplayed(driver, dobFieldValidationErrorMessageLabel);
+        Debugger.println("EXPECTED RESULT: " + errorMessage);
+        Debugger.println("ACTUAL RESULT  : " + dobFieldValidationErrorMessageLabel.getText());
+        Assert.assertEquals(errorMessage, dobFieldValidationErrorMessageLabel.getText());
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        Assert.assertEquals(expectedFontColor, dobFieldValidationErrorMessageLabel.getCssValue("color"));
     }
 }

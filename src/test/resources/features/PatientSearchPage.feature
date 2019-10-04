@@ -77,24 +77,45 @@ Feature: Patient search page
 
 
   @E2EUI-1114
-  Scenario Outline: Patient Search- NHS number Validations - number of digits limited to 10
+  Scenario Outline: Patient Search - NHS number Validations - number of digits limited to 10
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then the message will be displayed as "<error_message>" in "#212b32" color
-    Examples:
-      | patient-search-type | NhsNumber | DOB        | error_message                                     |
-      | NHS Spine           | 94493     | 23-03-2011 | Please enter your full NHS Number (10 characters) |
-      | NGIS                | 944956    | 14-06-2011 | Please enter your full NHS Number (10 characters) |
+    Examples: of number of digits limited to 10 validation
+      | patient-search-type | NhsNumber      | DOB        | error_message                                     |
+      | NHS Spine           | 94493          | 23-03-2011 | Please enter your full NHS Number (10 characters) |
+      | NGIS                | 94495644442    | 14-06-2011 | Invalid NHS Number. Check and try again           |
 
-
-  @E2EUI-1114
-  Scenario Outline: Patient Search- NHS number Validations - special character & alphabets
-    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user clicks the Search button
-    Then the message will be displayed as "<error_message>" in "#212b32" color
-    Examples:
+    Examples: of special character & alphabets
       | patient-search-type | NhsNumber  | DOB        | error_message                                     |
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
+
+
+  @E2EUI-1114
+  Scenario Outline: Patient Search - DOB field Validations - invalid day , month , year values
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+    Examples: of invalid day
+      | patient-search-type | NhsNumber  | DOB        | error_message                       |
+      | NHS Spine           | 9449305099 | 32-03-2011 | Enter a day between 1 and 31        |
+      | NHS Spine           | 9449305099 | 0-04-2011  | Enter a day between 1 and 31        |
+      | NHS Spine           | 9449305099 | -05-2011   | Enter a day                         |
+
+    Examples: of invalid month
+      | patient-search-type | NhsNumber  | DOB        | error_message                       |
+      | NGIS                | 9449305099 | 10-18-2011 | Enter a month between 1 and 12      |
+      | NGIS                | 9449305099 | 10-0-2011  | Enter a month between 1 and 12      |
+      | NGIS                | 9449305099 | 10- -2011  | Enter a month                       |
+      #Date in US format MM-DD-YYYY
+      | NGIS                | 9449305099 | 01-16-2011 | Enter a month between 1 and 12      |
+
+    Examples: of invalid year
+      | patient-search-type | NhsNumber  | DOB        | error_message                       |
+      | NGIS                | 9449305099 | 14-11-1111 | Enter a year beyond 1900            |
+      | NGIS                | 9449305099 | 14-11-19   | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900            |
+      | NGIS                | 9449305099 | 14-11- -   | Enter a year                        |
 
 
