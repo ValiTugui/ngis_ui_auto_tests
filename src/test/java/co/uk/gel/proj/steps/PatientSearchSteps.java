@@ -108,6 +108,11 @@ public class PatientSearchSteps extends Pages {
        patientSearchPage.validateFormLabelFontFace(fontFace);
     }
 
+    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color$")
+    public void theMessageWillBeDisplayedAsInColor(String errorMessage, String fontColor) throws Throwable {
+        patientSearchPage.checkTheErrorMessage(errorMessage, fontColor);
+    }
+
     @And("^the user clicks the patient result card$")
     public void theUserClicksThePatientResultCard() {
         patientSearchPage.clickPatientCard();

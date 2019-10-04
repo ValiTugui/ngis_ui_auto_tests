@@ -134,7 +134,8 @@ public class PatientSearchPage {
     @FindBy(xpath ="//div[@class='styles_no-results__2P0aw']/h3")
     public WebElement noPatientFoundLabel;
 
-
+    @FindBy(css ="div[class*='styles_error-message']")
+    public WebElement enterYour10DigitNHSNumberErrorMessageLabel;
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
@@ -305,7 +306,7 @@ public class PatientSearchPage {
 
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
-        
+
         HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
         for (String s : paramsKey) {
@@ -478,14 +479,25 @@ public class PatientSearchPage {
 
     public void validateFormLabelColour(String fontColor) {
         String expectedFontColour = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        Debugger.println("EXPECTED RESULT: " + expectedFontColour);
+        Debugger.println("ACTUAL RESULT  : " + nhsNumberLabel.getCssValue("color"));
         Assert.assertEquals(expectedFontColour, nhsNumberLabel.getCssValue("color"));
         Assert.assertEquals(expectedFontColour, dateOfBirthLabel.getCssValue("color"));
+    }
+
+    public void checkTheErrorMessage(String errorMessage, String fontColor) {
+        Wait.forElementToBeDisplayed(driver, enterYour10DigitNHSNumberErrorMessageLabel);
+        Debugger.println("EXPECTED RESULT: " + errorMessage);
+        Debugger.println("ACTUAL RESULT  : " + enterYour10DigitNHSNumberErrorMessageLabel.getText());
+        Assert.assertEquals(errorMessage, enterYour10DigitNHSNumberErrorMessageLabel.getText());
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        Assert.assertEquals(expectedFontColor, enterYour10DigitNHSNumberErrorMessageLabel.getCssValue("color"));
     }
     public void  fillInValidSecondPatientDetailsUsingNOFields(String searchParams){
 
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
-        
+
         HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
         for (String s : paramsKey) {

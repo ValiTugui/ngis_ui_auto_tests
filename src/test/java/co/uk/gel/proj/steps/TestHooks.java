@@ -37,6 +37,7 @@ public class TestHooks  extends Pages {
             temptagname = currentTagName;
             new_scenario_feature = true;
             Debugger.println("FEATURE: " + currentFeature.replaceAll("-", " "));
+            Debugger.println("SCENARIO: "+ scenario.getName());
         }else{
             new_scenario_feature = false;
         }
