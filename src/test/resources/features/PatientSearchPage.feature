@@ -59,7 +59,18 @@ Feature: Patient search page
     When the user clicks the Search button
     Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
 
-  @E2EUI-827
+  @E2EUI-904
+  Scenario Outline:  Invalid data - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    When the user clicks the Search button
+    Then The message will be displayed as You’ve searched for "<SearchDetails>" "<error_message>" in "bold" font
+
+    Examples:
+      | patient-search-type | SearchDetails                                                            | error_message                    |
+      | NHS Spine           | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found                 |
+
+  @E2EUI-827 @E2EUI-1294
   Scenario: Validation errors are not displayed when clicking the Search button without typing Gender - Do you have NHS patient Number - No
     And the user clicks the NO button
     When the user clicks the Search button

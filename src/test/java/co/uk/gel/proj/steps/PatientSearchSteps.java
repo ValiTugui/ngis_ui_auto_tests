@@ -122,4 +122,9 @@ public class PatientSearchSteps extends Pages {
     public void theNonMandatoryFieldShouldnTBeHighlightedWithARedMark(String postcodeLabel) throws Throwable {
         patientSearchPage.checkThatPostcode(postcodeLabel);
     }
+
+    @Then("^The message will be displayed as You’ve searched for \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+    public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
+        patientSearchPage.checkTheNoPatientFoundLabel(expSearchString, errorMessage, fontFace);
+    }
 }

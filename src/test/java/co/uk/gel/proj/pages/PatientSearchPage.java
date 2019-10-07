@@ -123,7 +123,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//p[contains(string(),'Address')]")
     public WebElement patientAddress;
 
-    @FindBy(xpath ="//div[@class='styles_no-results__2P0aw']/h3")
+    @FindBy(xpath ="//h3[contains(string(), 'No patient found')]")
     public WebElement noPatientFoundLabel;
 
     @FindBy(css ="div[class*='styles_error-message']")
@@ -131,6 +131,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
     public WebElement dobFieldValidationErrorMessageLabel;
+
+    @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
+    public WebElement youHaveSearchedForLabel;
+
+   //
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String day, String month, String year) {
         nhsNumber.sendKeys(nhsNo);
@@ -462,6 +467,25 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, postcodeLabel);
         Assert.assertEquals(postcode, postcodeLabel.getText());
         Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), postcodeLabel.getCssValue("color"));
+
+    }
+
+    public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage , String expectedFontFace) {
+        Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
+        Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
+
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("FirstName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("LastName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("Gender")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(TestUtils.dateFormatReverserToYYYYMMDD(expectedResultMap.get("DOB"))));
+
+        expectedFontFace = StylesUtils.convertFontFaceStringToCSSProperty(expectedFontFace);
+        Assert.assertEquals(expectedFontFace, youHaveSearchedForLabel.getCssValue("font-weight"));
+
+        Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+        Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
+        Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
+
 
     }
 }
