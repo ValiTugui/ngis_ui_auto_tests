@@ -195,12 +195,6 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
 
-    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color$")
-    public void theMessageWillBeDisplayedAsInColor(String errorMessage, String fontColor) throws Throwable {
-        patientSearchPage.checkTheErrorMessage(errorMessage, fontColor);
-    }
-
-
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
         String[] textFieldElements =  allTextFields.split(":");  // Split all textFieldElement

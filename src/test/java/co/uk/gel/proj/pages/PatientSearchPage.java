@@ -153,6 +153,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
     public WebElement dobFieldValidationErrorMessageLabel;
 
+    @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
+    public WebElement youHaveSearchedForLabel;
 
 
     public String getYesBtnSelectedAttribute()
@@ -168,16 +170,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Debugger.println("colour is: " + backGroundColour);
         return backGroundColour;
     }
-
-    public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-    @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
-    public WebElement dobFieldValidationErrorMessageLabel;
-
-    @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
-    public WebElement youHaveSearchedForLabel;
-
-    //
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
 
@@ -188,6 +180,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickNoButton() {
+        Wait.forElementToBeDisplayed(driver, noButton);
         noButton.click();
     }
 
@@ -648,7 +641,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     verifyFieldHasAutoCompleteDisabled(lastName);
                     break;
                 }
-    }
 
                 case "postcode": {
                     verifyFieldHasAutoCompleteDisabled(postcode);

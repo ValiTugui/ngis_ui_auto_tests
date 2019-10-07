@@ -125,8 +125,6 @@ Feature: Patient search page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientSearch_08 @E2EUI-1114
-  Scenario Outline: Patient Search- NHS number Validations - number of digits limited to 10
 
   @patientSearch_09 @E2EUI-2162
   Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
