@@ -60,7 +60,7 @@ public class PatientSearchSteps extends Pages {
 
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
-    public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String arg1) throws Throwable {
+    public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
 
         patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
     }
@@ -106,6 +106,46 @@ public class PatientSearchSteps extends Pages {
     @And("^form labels should be consistent to font face \"([^\"]*)\"$")
     public void formLabelsShouldBeConsistentToFontFace(String fontFace) throws Throwable {
        patientSearchPage.validateFormLabelFontFace(fontFace);
+    }
+
+    @And("^the user clicks the patient result card$")
+    public void theUserClicksThePatientResultCard() {
+        patientSearchPage.clickPatientCard();
+    }
+
+
+    @When("^the user types in different valid details in the NHS number \"([^\"]*)\" and DOB \"([^\"]*)\" fields$")
+    public void theUserTypesInDifferentValidDetailsInTheNHSNumberAndDOBFields(String nhsNo, String dob) throws Throwable {
+        String[] value=  dob.split("-");  // Split DOB in the format 01-01-1900
+        patientSearchPage.fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(nhsNo,value[0],value[1],value[2]);
+
+    }
+
+    @Then("^the correct details of the second \"([^\"]*)\" patient are displayed in the result card$")
+    public void theCorrectDetailsOfTheSecondPatientAreDisplayedInTheResultCard(String patientSearchType) throws Throwable {
+        patientSearchPage.secondPatientDetailsAreDisplayedInTheCard();
+    }
+
+
+    @When("^the user types in different valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
+    public void theUserTypesInDifferentValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
+        patientSearchPage.fillInValidSecondPatientDetailsUsingNOFields(searchDetails);
+    }
+
+    @Then("^the correct details of the second \"([^\"]*)\" patient using alternative searches are displayed in the result card$")
+    public void theCorrectDetailsOfTheSecondPatientUsingAlternativeSearchesAreDisplayedInTheResultCard(String patientSearchType) throws Throwable {
+        patientSearchPage.secondPatientDetailsAreDisplayedInTheCard();
+    }
+
+
+    @Then("^the display title of the page is \"([^\"]*)\"$")
+    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
+        patientSearchPage.verifyTheTitleOfThePage(titlePage);
+    }
+
+    @And("^the display description title contains the phrase \"([^\"]*)\"$")
+    public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
+        patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
 
     @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color$")
