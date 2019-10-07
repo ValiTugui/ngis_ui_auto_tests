@@ -19,6 +19,8 @@ public class StylesUtils {
                  return "rgba(33, 43, 50, 1)";
               case "#dd2509":
                  return "rgba(221, 37, 9, 1)";
+             case "#005eb8":
+                 return "rgba(0, 94, 184, 1)";
 
 
              default:
