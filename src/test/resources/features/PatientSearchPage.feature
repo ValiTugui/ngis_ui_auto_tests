@@ -4,6 +4,18 @@ Feature: Patient search page
   Background:
     Given a web browser is at the patient search page
 
+
+  @patientSearch_00 @E2EUI-914
+  Scenario: The default patient search page is properly displayed
+    Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
+    And the YES button is selected by default on patient search
+    And the background colour of the YES button is strong blue "#005eb8"
+
+  @patientSearch_00 @E2EUI-831
+  Scenario: Patient search page is correctly rendered when NO button is selected
+    When the user clicks the NO button
+    Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
+
   @patientSearch_01 @E2EUI-2128 @E2EUI-1109
   Scenario Outline: patient search "<patient-search-type>" With NHS Number and Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -13,13 +25,13 @@ Feature: Patient search page
 
 
     Examples:
-     |patient-search-type  | NhsNumber  | DOB        |
-     | NHS Spine           | 9449310602 | 23-03-2011 |
-     | NGIS                | 9449306680 | 14-06-2011 |
+      | patient-search-type | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 23-03-2011 |
+      | NGIS                | 9449306680 | 14-06-2011 |
 
 
-  @patientSearch_02 @E2EUI-2129  @E2EUI-2136
-  Scenario Outline: patient search "<patient-search-type>" - Alternate Search without NHS Number
+  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1662 @E2EUI-1788 @E2EUI-2140 @E2EUI-1662
+  Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button
@@ -27,14 +39,16 @@ Feature: Patient search page
     And the correct details of the "<patient-search-type>" patient are displayed in the card
 
     Examples:
-      | patient-search-type | SearchDetails                                                                             |
-      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  |
-      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+      | ui-ticket-no | patient-search-type | SearchDetails                                                                             |
+      | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
+      | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
+      | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
+      | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=n:LastName=Stambukdelifsch:Gender=Female:Postcode=Kt7 0BE        |
+      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
+      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
 
 
-  @patientSearch_02 @E2EUI-1472
+  @patientSearch_03 @E2EUI-1472
   Scenario Outline: patient search - "<patient-search-type>" Patient Search Results Page validation
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -47,15 +61,221 @@ Feature: Patient search page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @E2EUI-1481
+
+  @patientSearch_04 @E2EUI-1481
   Scenario: Validation errors are displayed when clicking the Search button without typing mandatory fields - Do you have NHS patient Number - Yes
     When the user clicks the Search button
     Then the mandatory fields such as NHS Number and DOB should be highlighted with a red mark
 
 
-  @E2EUI-1481
+  @patientSearch_05 @E2EUI-1188
+  @patientSearch_05 @E2EUI-1481
+  @E2EUI-1188
   Scenario: Validation errors are displayed when clicking the Search button without typing mandatory fields - Do you have NHS patient Number - No
     And the user clicks the NO button
     When the user clicks the Search button
     Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
 
+  @E2EUI-827
+  @patientSearch_06 @E2EUI-1304
+  @E2EUI-904
+  Scenario Outline:  Invalid data - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    When the user clicks the Search button
+    Then The message will be displayed as You’ve searched for "<SearchDetails>" "<error_message>" in "bold" font
+
+    Examples:
+      | patient-search-type | SearchDetails                                                            | error_message                    |
+      | NHS Spine           | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found                 |
+
+  @E2EUI-827 @E2EUI-1294
+  Scenario: Validation errors are not displayed when clicking the Search button without typing Gender - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user clicks the Search button
+    Then the non mandatory field "Postcode" shouldn't be highlighted with a red mark
+
+  @patientSearch_06 @E2EUI-1304
+  @E2EUI-1304
+  Scenario Outline: Patient Search Results Page invalid data
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then The message will be displayed as You’ve searched for "<NhsNumber>" "<DOB> " "<error_message>"
+    And There is a "<hyperlinkText>"link available
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | error_message    | hyperlinkText               |
+      | NHS Spine           | 9449305099 | 05-11-2005 | No patient found | create a new patient record |
+
+  @patientSearch_07 @E2EUI-1211
+  Scenario: Patient Search Form label color validation
+    Then form labels should be consistent to font colour "#212b32"
+    And  form labels should be consistent to font size "16px"
+    And  form labels should be consistent to font face "bold"
+
+  @patientSearch_08 @E2EUI-1182
+  Scenario Outline: Verifying the Patient Details page after successful search for "<patient-search-type>" patient
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+
+    Examples:
+      |patient-search-type  | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 23-03-2011 |
+      | NGIS                | 9449306680 | 14-06-2011 |
+
+
+  @patientSearch_09 @E2EUI-2162
+  Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    When the user types in different valid details in the NHS number "<NhsNumber2>" and DOB "<DOB2>" fields
+    And the user clicks the Search button
+    Then the correct details of the second "<patient-search-type>" patient are displayed in the result card
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | NhsNumber2 | DOB2       |
+      | NHS Spine           | 9449310602 | 23-03-2011 | 9449304580 | 11-04-1909 |
+
+
+  @patientSearch_10 @E2EUI-2161
+  Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful alternative search
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    When the user types in different valid details "<SearchDetails2>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the correct details of the second "<patient-search-type>" patient using alternative searches are displayed in the result card
+
+    Examples:
+      | patient-search-type | SearchDetails                                                                             | SearchDetails2                                                                        |
+      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female                   |
+      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
+
+
+  @patientSearch_11 @E2EUI-1390
+  Scenario: To verify the text information present on the 'Find a Patient' page
+    Then the display title of the page is "Find your patient"
+    And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
+
+
+
+  @E2EUI-1114
+  Scenario Outline: Patient Search - NHS number Validations - number of digits limited to 10
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+    Examples: of number of digits limited to 10 validation
+      | patient-search-type | NhsNumber      | DOB        | error_message                                     |
+      | NHS Spine           | 94493          | 23-03-2011 | Please enter your full NHS Number (10 characters) |
+      | NGIS                | 94495644442    | 14-06-2011 | Invalid NHS Number. Check and try again           |
+
+    Examples: of special character & alphabets
+      | patient-search-type | NhsNumber  | DOB        | error_message                                     |
+      | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
+      | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
+
+
+  @E2EUI-1114  @E2EUI-1840
+  Scenario Outline: Patient Search - DOB field Validations - invalid day , month , year values
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+    Examples: of invalid day
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NHS Spine           | 9449305099 | 32-03-2011 | Enter a day between 1 and 31         |
+      | NHS Spine           | 9449305099 | 0-04-2011  | Enter a day between 1 and 31         |
+      | NHS Spine           | 9449305099 |  -05-2011  | Enter a day                          |
+
+    Examples: of invalid month
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12       |
+      | NGIS                | 9449305099 | 10-0-2011  | Enter a month between 1 and 12       |
+      | NGIS                | 9449305099 | 10- -2011  | Enter a month                        |
+      #Date in US format MM-DD-YYYY
+      | NGIS                | 9449305099 | 01-16-2011 | Enter a month between 1 and 12       |
+
+    Examples: of invalid year
+      | patient-search-type | NhsNumber  | DOB         | error_message                       |
+      | NGIS                | 9449305099 | 14-11-1     | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-19    | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-193   | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-1800  | Enter a year beyond 1900            |
+      | NGIS                | 9449305099 | 14-11- -    | Enter a year                        |
+
+    Examples: of future date scenario
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NHS Spine           | 9449305099 | 12-03-2150 | Please enter a date before today     |
+
+  @E2EUI-1840
+  Scenario Outline: Patient Search - DOB field Validations - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+    Examples: of future date scenario
+      | patient-search-type | SearchDetails                                                            | error_message                    |
+      | NHS Spine           | DOB=12-03-2150:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | Please enter a date before today |
+
+  @patientSearch_10 @E2EUI-1182 @E2EUI-926
+  Scenario Outline: Verifying the Patient Details page after successful search for "<patient-search-type>" patient
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+
+    Examples:
+      |patient-search-type  | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 23-03-2011 |
+      | NGIS                | 9449306680 | 14-06-2011 |
+
+
+  @patientSearch_11 @E2EUI-2162
+  Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    When the user types in different valid details in the NHS number "<NhsNumber2>" and DOB "<DOB2>" fields
+    And the user clicks the Search button
+    Then the correct details of the second "<patient-search-type>" patient are displayed in the result card
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | NhsNumber2 | DOB2       |
+      | NHS Spine           | 9449310602 | 23-03-2011 | 9449304580 | 11-04-1909 |
+
+
+  @patientSearch_12 @E2EUI-2161
+  Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful alternative search
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    When the user types in different valid details "<SearchDetails2>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the correct details of the second "<patient-search-type>" patient using alternative searches are displayed in the result card
+
+    Examples:
+      | patient-search-type | SearchDetails                                                                             | SearchDetails2                                                                        |
+      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female                   |
+      | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
+
+
+  @patientSearch_13 @E2EUI-1390
+  Scenario: To verify the text information present on the 'Find a Patient' page
+    Then the display title of the page is "Find your patient"
+    And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
+
+
+  @patientSearch_14 @E2EU-1840
+  Scenario: To verify auto-complete and auto-fill are disabled on the patient search page with NHS Number field
+    Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
+
+
+  @patientSearch_14 @E2EU-1840
+  Scenario: To verify auto-complete and auto-fill are disabled on the patient search page without NHS Number field
+    And the user clicks the NO button
+    Then User clicks on a field "dateDay:dateMonth:dateYear:firstName:lastName:postcode" and auto-complete is disabled

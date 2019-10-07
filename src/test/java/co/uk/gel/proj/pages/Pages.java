@@ -12,6 +12,7 @@ public class Pages {
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
     protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
+    protected PatientDetailsPage patientDetailsPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -22,5 +23,6 @@ public class Pages {
 
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
         patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
+        patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
     }
 }//end class
