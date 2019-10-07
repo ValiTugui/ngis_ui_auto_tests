@@ -4,6 +4,18 @@ Feature: Patient search page
   Background:
     Given a web browser is at the patient search page
 
+
+  @patientSearch_00 @E2EUI-914
+  Scenario: The default patient search page is properly displayed
+    Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
+    And the YES button is selected by default on patient search
+    And the background colour of the YES button is strong blue "#005eb8"
+
+  @patientSearch_00 @E2EUI-831
+  Scenario: Patient search page is correctly rendered when NO button is selected
+    When the user clicks the NO button
+    Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
+
   @patientSearch_01 @E2EUI-2128 @E2EUI-1109
   Scenario Outline: patient search "<patient-search-type>" With NHS Number and Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -18,7 +30,7 @@ Feature: Patient search page
       | NGIS                | 9449306680 | 14-06-2011 |
 
 
-  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-2140
+  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1662 @E2EUI-1788 @E2EUI-2140 @E2EUI-1662
   Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -79,7 +91,7 @@ Feature: Patient search page
     And  form labels should be consistent to font face "bold"
 
 
-  @E2EUI-1114
+  @patientSearch_08 @E2EUI-1114
   Scenario Outline: Patient Search- NHS number Validations - number of digits limited to 10
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -90,7 +102,7 @@ Feature: Patient search page
       | NGIS                | 944956    | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
 
-  @E2EUI-1114
+  @patientSearch_09 @E2EUI-1114
   Scenario Outline: Patient Search- NHS number Validations - special character & alphabets
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -101,9 +113,7 @@ Feature: Patient search page
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
 
-
-
-  @patientSearch_08 @E2EUI-1182
+  @patientSearch_10 @E2EUI-1182 @E2EUI-926
   Scenario Outline: Verifying the Patient Details page after successful search for "<patient-search-type>" patient
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -117,7 +127,7 @@ Feature: Patient search page
       | NGIS                | 9449306680 | 14-06-2011 |
 
 
-  @patientSearch_09 @E2EUI-2162
+  @patientSearch_11 @E2EUI-2162
   Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -131,7 +141,7 @@ Feature: Patient search page
       | NHS Spine           | 9449310602 | 23-03-2011 | 9449304580 | 11-04-1909 |
 
 
-  @patientSearch_10 @E2EUI-2161
+  @patientSearch_12 @E2EUI-2161
   Scenario Outline: "<patient-search-type>" - User can search for a different patient after successful alternative search
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -147,7 +157,18 @@ Feature: Patient search page
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
 
-  @patientSearch_11 @E2EUI-1390
+  @patientSearch_13 @E2EUI-1390
   Scenario: To verify the text information present on the 'Find a Patient' page
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
+
+
+  @patientSearch_14 @E2EU-1840
+  Scenario: To verify auto-complete and auto-fill are disabled on the patient search page with NHS Number field
+    Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
+
+
+  @patientSearch_14 @E2EU-1840
+  Scenario: To verify auto-complete and auto-fill are disabled on the patient search page without NHS Number field
+    And the user clicks the NO button
+    Then User clicks on a field "dateDay:dateMonth:dateYear:firstName:lastName:postcode" and auto-complete is disabled

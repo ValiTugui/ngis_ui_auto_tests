@@ -1,8 +1,12 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -11,6 +15,11 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+import static co.uk.gel.lib.Actions.getText;
 
 public class PatientSearchSteps extends Pages {
 
@@ -21,8 +30,41 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
-        driver.get(AppConfig.getApp_url());
+        driver.get(AppConfig.getApp_url() + "patient-search");
         patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+
+    }
+
+
+    @Then("^the default patient search page is correctly displayed with the NHS number and Date of Birth fields$")
+    public void theDefaultPatientSearchPageIsCorrectlyDisplayedWithTheNHSNumberAndDateOfBirthFields() {
+        boolean eachElementIsLoaded;
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+    }
+
+    @And("^the YES button is selected by default on patient search$")
+    public void theYESButtonIsSelectedByDefaultOnPatientSearch() {
+
+        String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
+        Assert.assertEquals(selectedStatus,"true");
+
+    }
+
+    @And("^the background colour of the YES button is strong blue \"([^\"]*)\"$")
+    public void theBackgroundColourOfTheYESButtonIsStrongBlue(String buttonColour) throws Throwable {
+        String expectedYesButtonColour = StylesUtils.convertFontColourStringToCSSProperty(buttonColour);
+        String actualYesButtonColour = patientSearchPage.getYesButtonColour();
+        //  Assert.assertEquals(expectedButtonColour,"rgba(0, 94, 184, 1)");
+        Assert.assertEquals(expectedYesButtonColour, actualYesButtonColour );
+    }
+
+    @Then("^the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons$")
+    public void thePatientSearchPageDisplaysInputFieldsSuchAsDOBFirstNameLastNameGenderPostcodeAndSearchButtons() {
+
+        boolean eachElementIsLoaded;
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
 
     }
 
@@ -152,4 +194,15 @@ public class PatientSearchSteps extends Pages {
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
         patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
+
+
+    @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
+    public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
+        String[] textFieldElements =  allTextFields.split(":");  // Split all textFieldElement
+        for (String eachElement : textFieldElements) {
+            Debugger.println("Show eachElement: " + eachElement);
+        }
+        patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+    }
+
 }

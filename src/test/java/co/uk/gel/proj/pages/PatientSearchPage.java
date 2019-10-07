@@ -49,6 +49,15 @@ public class PatientSearchPage {
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
+    @FindBy(css = "h3[class*='field-label']")
+    public WebElement yesNoFieldLabel;
+
+    @FindBy(xpath = "//button[text()='Yes']")
+    public WebElement yesButton;
+
+    @FindBy(css = "legend[class*='field-label']")
+    public WebElement dateLabel;
+
     @FindBy(name = "loginfmt")
     public WebElement emailAddressField;
 
@@ -136,6 +145,22 @@ public class PatientSearchPage {
 
     @FindBy(css ="div[class*='styles_error-message']")
     public WebElement enterYour10DigitNHSNumberErrorMessageLabel;
+
+
+    public String getYesBtnSelectedAttribute()
+    {
+        String value = yesButton.getAttribute("aria-pressed");
+        Debugger.println("colour is: " + value);
+        return value;
+    }
+
+    public String getYesButtonColour()
+    {
+        String backGroundColour = yesButton.getCssValue("background-color");
+        Debugger.println("colour is: " + backGroundColour);
+        return backGroundColour;
+    }
+
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
@@ -549,4 +574,107 @@ public class PatientSearchPage {
         Debugger.println("The actual Description title  is :" + pageDescription.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
+
+    public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(/*WebElement element*/String[] textFieldElements ){
+
+        for (String s : textFieldElements) {
+            switch(s)
+            {
+                case "nhsNumber": {
+                    verifyFieldHasAutoCompleteDisabled(nhsNumber);
+                    break;
+                }
+
+                case "dateDay": {
+                    verifyFieldHasAutoCompleteDisabled(dateDay);
+                    break;
+                }
+
+                case "dateMonth": {
+                    verifyFieldHasAutoCompleteDisabled(dateMonth);
+                    break;
+                }
+
+                case "dateYear": {
+                    verifyFieldHasAutoCompleteDisabled(dateYear);
+                    break;
+                }
+
+                case "firstName": {
+                    verifyFieldHasAutoCompleteDisabled(firstName);
+                    break;
+                }
+
+                case "lastName": {
+                    verifyFieldHasAutoCompleteDisabled(lastName);
+                    break;
+                }
+
+                case "postcode": {
+                    verifyFieldHasAutoCompleteDisabled(postcode);
+                    break;
+                }
+                default:
+
+                    throw new IllegalArgumentException("Invalid text field name");
+            }
+        }
+    }
+
+    public void verifyFieldHasAutoCompleteDisabled(WebElement element){
+
+        Wait.forElementToBeDisplayed(driver, element);
+        element.click();
+        Wait.seconds(1);
+        String autoCompleteValue= element.getAttribute("list");
+        Debugger.println("The values for auto complete is: " + autoCompleteValue);
+        Assert.assertEquals("autocompleteOff", autoCompleteValue);
+        Debugger.println("Test passed for the element field" + element);
+    }
+
+    public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
+
+        // Find elements
+
+        Wait.forElementToBeDisplayed(driver, searchButton);
+        pageTitle.isDisplayed();
+        pageDescription.isDisplayed();
+        yesNoFieldLabel.isDisplayed();
+        yesButton.isDisplayed();
+        noButton.isDisplayed();
+        nhsNumberLabel.isDisplayed();
+        nhsNumber.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        dateDay.isDisplayed();
+        dateMonth.isDisplayed();
+        dateYear.isDisplayed();
+        searchButton.isDisplayed();
+
+        return true;
+    }
+
+
+    public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
+
+        Wait.forElementToBeDisplayed(driver, searchButton);
+        pageTitle.isDisplayed();
+        pageDescription.isDisplayed();
+        yesNoFieldLabel.isDisplayed();
+        yesButton.isDisplayed();
+        noButton.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        dateDay.isDisplayed();
+        dateMonth.isDisplayed();
+        dateYear.isDisplayed();
+        firstName.isDisplayed();
+        lastName.isDisplayed();
+        postcode.isDisplayed();
+        searchButton.isDisplayed();
+
+        return true;
+    }
+
+
+
 }
+
