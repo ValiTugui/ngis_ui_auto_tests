@@ -205,4 +205,14 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
     }
 
+
+    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color for the DOB field$")
+    public void theMessageWillBeDisplayedAsInColorForTheDOBField(String errorMessage, String fontColor) throws Throwable {
+        patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
+    }
+
+    @Then("^the non mandatory field \"([^\"]*)\" shouldn't be highlighted with a red mark$")
+    public void theNonMandatoryFieldShouldnTBeHighlightedWithARedMark(String postcodeLabel) throws Throwable {
+        patientSearchPage.checkThatPostcode(postcodeLabel);
+    }
 }

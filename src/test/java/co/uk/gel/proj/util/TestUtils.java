@@ -1,10 +1,12 @@
 package co.uk.gel.proj.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Date;
 
 public class TestUtils {
 
@@ -38,4 +40,18 @@ public class TestUtils {
 
     }
 
+
+    public static String todayInDDMMYYYFormat(){
+        SimpleDateFormat expectedFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = expectedFormat.format(new Date());
+        return date;
+    }
+
+    public static String removeAWord(String sentence, String word){
+        String str = sentence;
+        if (sentence.contains(word)) {
+            str = sentence.replaceAll(word, "");
+        }
+        return str;
+    }
 }

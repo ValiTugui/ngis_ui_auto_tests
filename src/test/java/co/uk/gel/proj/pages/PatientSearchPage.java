@@ -19,8 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-
-public class PatientSearchPage {
+public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
       WebDriver driver;
 
@@ -94,6 +93,9 @@ public class PatientSearchPage {
     @FindBy(css ="label[for*='gender']")
     public WebElement genderLabel;
 
+    @FindBy(css ="label[for*='postcode']")
+    public WebElement postcodeLabel;
+
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
@@ -144,7 +146,11 @@ public class PatientSearchPage {
     public WebElement noPatientFoundLabel;
 
     @FindBy(css ="div[class*='styles_error-message']")
-    public WebElement enterYour10DigitNHSNumberErrorMessageLabel;
+    public WebElement nHSNumberFieldValidationErrorMessageLabel;
+
+    @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
+    public WebElement dobFieldValidationErrorMessageLabel;
+
 
 
     public String getYesBtnSelectedAttribute()
@@ -160,7 +166,6 @@ public class PatientSearchPage {
         Debugger.println("colour is: " + backGroundColour);
         return backGroundColour;
     }
-
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
@@ -511,12 +516,34 @@ public class PatientSearchPage {
     }
 
     public void checkTheErrorMessage(String errorMessage, String fontColor) {
-        Wait.forElementToBeDisplayed(driver, enterYour10DigitNHSNumberErrorMessageLabel);
+        Wait.forElementToBeDisplayed(driver, nHSNumberFieldValidationErrorMessageLabel);
         Debugger.println("EXPECTED RESULT: " + errorMessage);
-        Debugger.println("ACTUAL RESULT  : " + enterYour10DigitNHSNumberErrorMessageLabel.getText());
-        Assert.assertEquals(errorMessage, enterYour10DigitNHSNumberErrorMessageLabel.getText());
+        Debugger.println("ACTUAL RESULT  : " + nHSNumberFieldValidationErrorMessageLabel.getText());
+        Assert.assertEquals(errorMessage, nHSNumberFieldValidationErrorMessageLabel.getText());
         String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-        Assert.assertEquals(expectedFontColor, enterYour10DigitNHSNumberErrorMessageLabel.getCssValue("color"));
+        Assert.assertEquals(expectedFontColor, nHSNumberFieldValidationErrorMessageLabel.getCssValue("color"));
+    }
+
+    public void checkTheErrorMessagesInDOB(String errorMessage, String fontColor) {
+        // dynamically construct the expected validation error for the future date scenario by appending today's date
+        if(errorMessage.endsWith("today")){
+            errorMessage =  TestUtils.removeAWord(errorMessage, "today");
+            errorMessage = errorMessage + TestUtils.todayInDDMMYYYFormat();
+        }
+
+        Wait.forElementToBeDisplayed(driver, dobFieldValidationErrorMessageLabel);
+        Debugger.println("EXPECTED RESULT: " + errorMessage);
+        Debugger.println("ACTUAL RESULT  : " + dobFieldValidationErrorMessageLabel.getText());
+        Assert.assertEquals(errorMessage, dobFieldValidationErrorMessageLabel.getText());
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        Assert.assertEquals(expectedFontColor, dobFieldValidationErrorMessageLabel.getCssValue("color"));
+    }
+
+    public void checkThatPostcode(String postcode) {
+        Wait.forElementToBeDisplayed(driver, postcodeLabel);
+        Assert.assertEquals(postcode, postcodeLabel.getText());
+        Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), postcodeLabel.getCssValue("color"));
+
     }
     public void  fillInValidSecondPatientDetailsUsingNOFields(String searchParams){
 
