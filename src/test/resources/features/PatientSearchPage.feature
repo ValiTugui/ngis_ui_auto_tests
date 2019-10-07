@@ -59,6 +59,12 @@ Feature: Patient search page
     When the user clicks the Search button
     Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
 
+  @E2EUI-827
+  Scenario: Validation errors are not displayed when clicking the Search button without typing Gender - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user clicks the Search button
+    Then the non mandatory field "Postcode" shouldn't be highlighted with a red mark
+
   @E2EUI-1304
   Scenario Outline: Patient Search Results Page invalid data
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -92,30 +98,44 @@ Feature: Patient search page
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
 
-  @E2EUI-1114
+  @E2EUI-1114  @E2EUI-1840
   Scenario Outline: Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
     Examples: of invalid day
-      | patient-search-type | NhsNumber  | DOB        | error_message                       |
-      | NHS Spine           | 9449305099 | 32-03-2011 | Enter a day between 1 and 31        |
-      | NHS Spine           | 9449305099 | 0-04-2011  | Enter a day between 1 and 31        |
-      | NHS Spine           | 9449305099 | -05-2011   | Enter a day                         |
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NHS Spine           | 9449305099 | 32-03-2011 | Enter a day between 1 and 31         |
+      | NHS Spine           | 9449305099 | 0-04-2011  | Enter a day between 1 and 31         |
+      | NHS Spine           | 9449305099 |  -05-2011  | Enter a day                          |
 
     Examples: of invalid month
-      | patient-search-type | NhsNumber  | DOB        | error_message                       |
-      | NGIS                | 9449305099 | 10-18-2011 | Enter a month between 1 and 12      |
-      | NGIS                | 9449305099 | 10-0-2011  | Enter a month between 1 and 12      |
-      | NGIS                | 9449305099 | 10- -2011  | Enter a month                       |
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12       |
+      | NGIS                | 9449305099 | 10-0-2011  | Enter a month between 1 and 12       |
+      | NGIS                | 9449305099 | 10- -2011  | Enter a month                        |
       #Date in US format MM-DD-YYYY
-      | NGIS                | 9449305099 | 01-16-2011 | Enter a month between 1 and 12      |
+      | NGIS                | 9449305099 | 01-16-2011 | Enter a month between 1 and 12       |
 
     Examples: of invalid year
-      | patient-search-type | NhsNumber  | DOB        | error_message                       |
-      | NGIS                | 9449305099 | 14-11-1111 | Enter a year beyond 1900            |
-      | NGIS                | 9449305099 | 14-11-19   | Enter a year in 4 figures e.g. 1983 |
-      | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900            |
-      | NGIS                | 9449305099 | 14-11- -   | Enter a year                        |
+      | patient-search-type | NhsNumber  | DOB         | error_message                       |
+      | NGIS                | 9449305099 | 14-11-1     | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-19    | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-193   | Enter a year in 4 figures e.g. 1983 |
+      | NGIS                | 9449305099 | 14-11-1800  | Enter a year beyond 1900            |
+      | NGIS                | 9449305099 | 14-11- -    | Enter a year                        |
 
+    Examples: of future date scenario
+      | patient-search-type | NhsNumber  | DOB        | error_message                        |
+      | NHS Spine           | 9449305099 | 12-03-2150 | Please enter a date before today     |
+
+  @E2EUI-1840
+  Scenario Outline: Patient Search - DOB field Validations - Do you have NHS patient Number - No
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+    Examples: of future date scenario
+      | patient-search-type | SearchDetails                                                            | error_message                    |
+      | NHS Spine           | DOB=12-03-2150:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | Please enter a date before today |
 

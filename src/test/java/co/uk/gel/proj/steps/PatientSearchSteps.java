@@ -117,4 +117,9 @@ public class PatientSearchSteps extends Pages {
     public void theMessageWillBeDisplayedAsInColorForTheDOBField(String errorMessage, String fontColor) throws Throwable {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
     }
+
+    @Then("^the non mandatory field \"([^\"]*)\" shouldn't be highlighted with a red mark$")
+    public void theNonMandatoryFieldShouldnTBeHighlightedWithARedMark(String postcodeLabel) throws Throwable {
+        patientSearchPage.checkThatPostcode(postcodeLabel);
+    }
 }

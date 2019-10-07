@@ -15,7 +15,6 @@ public class StylesUtils {
 
     public static String convertFontColourStringToCSSProperty(String fontColor) {
          switch(fontColor) {
-             // Color : RED
              case "#212b32":
                  return "rgba(33, 43, 50, 1)";
               case "#dd2509":

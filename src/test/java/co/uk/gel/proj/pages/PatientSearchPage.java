@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class PatientSearchPage {
+public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
       WebDriver driver;
 
@@ -74,6 +74,8 @@ public class PatientSearchPage {
     public WebElement lastName;
     public WebElement familyName;
     public WebElement postcode;
+    @FindBy(css ="label[for*='postcode']")
+    public WebElement postcodeLabel;
 
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
@@ -442,6 +444,11 @@ public class PatientSearchPage {
     }
 
     public void checkTheErrorMessagesInDOB(String errorMessage, String fontColor) {
+        // dynamically construct the expected validation error for the future date scenario by appending today's date
+        if(errorMessage.endsWith("today")){
+            errorMessage =  TestUtils.removeAWord(errorMessage, "today");
+            errorMessage = errorMessage + TestUtils.todayInDDMMYYYFormat();
+        }
 
         Wait.forElementToBeDisplayed(driver, dobFieldValidationErrorMessageLabel);
         Debugger.println("EXPECTED RESULT: " + errorMessage);
@@ -449,5 +456,12 @@ public class PatientSearchPage {
         Assert.assertEquals(errorMessage, dobFieldValidationErrorMessageLabel.getText());
         String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
         Assert.assertEquals(expectedFontColor, dobFieldValidationErrorMessageLabel.getCssValue("color"));
+    }
+
+    public void checkThatPostcode(String postcode) {
+        Wait.forElementToBeDisplayed(driver, postcodeLabel);
+        Assert.assertEquals(postcode, postcodeLabel.getText());
+        Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), postcodeLabel.getCssValue("color"));
+
     }
 }
