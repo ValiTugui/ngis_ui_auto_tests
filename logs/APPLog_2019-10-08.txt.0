@@ -396,3 +396,17 @@ Test passed for the element field[[ChromeDriver: chrome on MAC (f2b77ba77daaf06e
 The values for auto complete is: autocompleteOff
 Test passed for the element field[[ChromeDriver: chrome on MAC (f2b77ba77daaf06eb93f887b76e8bb7b)] -> id: postcode]
 STATUS: PASSED
+
+******* RUN STARTS Tue Oct 08 15:13:41 BST 2019 *******************************
+
+[@E2EUI-827, @E2EUI-904, @patientSearch_06, @patientSearch, @E2EUI-1304, @debugging] STARTED
+FEATURE: file:src/test/resources/features/PatientSearchPage.feature:87
+SCENARIO: Invalid data - Do you have NHS patient Number - No
+STATUS: FAILED
+
+******* RUN STARTS Tue Oct 08 15:20:02 BST 2019 *******************************
+
+[@E2EUI-827, @E2EUI-904, @patientSearch_06, @patientSearch, @E2EUI-1304, @debugging] STARTED
+FEATURE: file:src/test/resources/features/PatientSearchPage.feature:87
+SCENARIO: Invalid data - Do you have NHS patient Number - No
+STATUS: PASSED

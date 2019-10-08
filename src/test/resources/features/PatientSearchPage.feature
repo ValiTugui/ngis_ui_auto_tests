@@ -5,7 +5,7 @@ Feature: Patient search page
     Given a web browser is at the patient search page
 
 
-  @patientSearch_00 @E2EUI-914   @shukla
+  @patientSearch_00 @E2EUI-914
   Scenario: The default patient search page is properly displayed
     Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     And the YES button is selected by default on patient search
