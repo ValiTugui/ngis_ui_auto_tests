@@ -10,6 +10,7 @@
 
 # Generated files
 .idea/**/contentModel.xml
+ ngis_ui_auto_tests.iml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
@@ -19,6 +20,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/codeStyles/codeStyleConfig.xml
 
 # Gradle
 .idea/**/gradle.xml
@@ -76,4 +78,10 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+.idea/misc.xml
+.idea/
 .mvn/wrapper/maven-wrapper.usage-without-binary-jar
+**/.idea/
+ngis_ui_auto_tests.iml
+*.iml

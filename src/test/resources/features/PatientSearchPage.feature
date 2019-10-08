@@ -5,7 +5,7 @@ Feature: Patient search page
     Given a web browser is at the patient search page
 
 
-  @patientSearch_00 @E2EUI-914
+  @patientSearch_00 @E2EUI-914   @shukla
   Scenario: The default patient search page is properly displayed
     Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     And the YES button is selected by default on patient search
@@ -22,13 +22,10 @@ Feature: Patient search page
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the correct details of the "<patient-search-type>" patient are displayed in the card
-
-
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
-
 
   @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1662 @E2EUI-1788 @E2EUI-2140 @E2EUI-1662
   Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number

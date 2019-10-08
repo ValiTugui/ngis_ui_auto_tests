@@ -6,6 +6,7 @@ import org.junit.Assert;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class BrowserConfig {
@@ -17,11 +18,29 @@ public class BrowserConfig {
         if (browser != null) {//Already Loaded, No need to Load again.
             return;
         }
-        config          = loadConfigProperties("BrowserConfig.properties");
-        browser         = config.getProperty("Browser");
+
+        String configFileName = "%s-BrowserConfig.properties";
+        String EnvironmentName = System.getProperty("TestEnvironment");
+        System.out.println("TestEnvironment: " + EnvironmentName);
+
+        configFileName = String.format(configFileName, EnvironmentName);
+        Properties  properties = new Properties();
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
+                //  properties.load(new FileInputStream(new File(configFileName)));
+                properties.load(resourceStream);
+            }
+            System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        config          = properties;
+        browser         = properties.getProperty("Browser");
     }
     public static Properties loadConfigProperties(String filename) {
-        String configlocation = System.getProperty("user.dir") + File.separator + "config";
+        String configlocation = System.getProperty("user.dir") + File.separator + "co/uk/gel/config";
         Properties pro = new Properties();
         try {
             pro.load(new FileInputStream(configlocation +File.separator+ filename));

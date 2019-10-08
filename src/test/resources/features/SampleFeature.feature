@@ -1,6 +1,7 @@
 @general
 Feature: This is a sample feature
 
+
   Scenario:Sample scenario
 
     Given application is up and running

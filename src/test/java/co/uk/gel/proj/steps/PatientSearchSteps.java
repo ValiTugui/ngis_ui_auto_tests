@@ -1,25 +1,15 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.awt.*;
-import java.util.ArrayList;
-
-import static co.uk.gel.lib.Actions.getText;
 
 public class PatientSearchSteps extends Pages {
 

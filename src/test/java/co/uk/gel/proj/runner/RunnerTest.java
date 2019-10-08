@@ -1,8 +1,8 @@
 package co.uk.gel.proj.runner;
 
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
