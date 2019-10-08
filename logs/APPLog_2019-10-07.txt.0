@@ -1,0 +1,3 @@
+
+******* RUN STARTS Mon Oct 07 21:22:59 BST 2019 *******************************
+File: BrowserConfig.properties Not present in location :/Users/krishanshukla/Documents/work/ui_automation_code/ngis_ui_auto_tests/co/uk/gel/config, java.io.FileNotFoundException: /Users/krishanshukla/Documents/work/ui_automation_code/ngis_ui_auto_tests/co/uk/gel/config/BrowserConfig.properties (No such file or directory)
