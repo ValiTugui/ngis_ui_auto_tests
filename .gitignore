@@ -82,3 +82,6 @@ buildNumber.properties
 .idea/misc.xml
 .idea/
 .mvn/wrapper/maven-wrapper.usage-without-binary-jar
+**/.idea/
+ngis_ui_auto_tests.iml
+*.iml
