@@ -230,12 +230,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
                 String actualFullName = patientFullName.getText().trim();
 
-                String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
-
                 String expectedDayOfBirth = "23";
                 String expectedMonthOfBirth = "03";
                 String expectedYearOfBirth =  "2011";
-                String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+                String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
                 String actualFullDOB = patientDateOfBirth.getText().trim();
 
@@ -273,8 +271,57 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
                 break;
             }
+            case "NHS Spine2":
+            {
+                // Hard-coded values are used temporarily pending external data file is implemented
+                String expectedFirstname = "GILLIAN";
+                String expectedLastname = "O'HERN";
+                String expectedTitle = "MS";
+                String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+                String actualFullName = patientFullName.getText().trim();
 
 
+                String expectedDayOfBirth = "07";
+                String expectedMonthOfBirth = "03";
+                String expectedYearOfBirth =  "1997";
+                String expectedDateOfBirth =expectedDayOfBirth+"-"+TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+"-"+expectedYearOfBirth;
+                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                String actualFullDOB = patientDateOfBirth.getText().trim();
+
+                String expectedGender = "Female";
+                String actualGender = patientGender.getText().trim();
+
+                String expectedNHSNumber = "9449303592";
+                String actualNHSNumber = patientNSNo.getText().trim();
+
+                String expectedAddressLine1 ="2 WOODLANDS CLOSE";
+                String expectedAddressLine2 = "CLAYGATE";
+                String expectedAddressLine3 ="ESHER";
+                String expectedAddressLine4 ="SURREY";
+                String expectedPostcode = "KT10 0JF";
+                String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
+                        expectedAddressLine3 + ", " + expectedAddressLine4 + ", " + expectedPostcode;
+
+                String actualAddress = patientAddress.getText().trim();
+
+                Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Assert.assertEquals("Gender " + expectedGender, actualGender);
+
+                Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+
+                Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Assert.assertEquals(expectedFullAddress, actualAddress);
+
+                break;
+            }
             case "NGIS":
             {
                 String expectedFirstname = "GORE";
@@ -283,15 +330,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
                 String actualFullName = patientFullName.getText().trim();
 
-                String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
-
                 String expectedDayOfBirth = "14";
                 String expectedMonthOfBirth = "06";
                 String expectedYearOfBirth =  "2011";
-                String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+                String expectedDateOfBirth =expectedDayOfBirth+"-"+ TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth) +"-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
                 String actualFullDOB = patientDateOfBirth.getText().trim();
-
 
                 String expectedGender = "Male";
                 String actualGender = patientGender.getText().trim();
@@ -306,6 +350,58 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 String expectedPostcode = "KT21 2BE";
                 String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
                         expectedAddressLine3 + ", " + expectedPostcode;
+
+                String actualAddress = patientAddress.getText().trim();
+
+                Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+                //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+                Assert.assertEquals("Gender " + expectedGender, actualGender);
+
+                Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+                Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
+
+                Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address"+actualAddress );
+                Assert.assertEquals(expectedFullAddress, actualAddress);
+
+                break;
+            }
+            case "NGIS2":
+            {
+                String expectedFirstname = "Bén";
+                String expectedLastname = "O'MÜLLER";
+                String expectedTitle = "Mr";
+                String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+                String actualFullName = patientFullName.getText().trim();
+
+
+                String expectedDayOfBirth = "12";
+                String expectedMonthOfBirth = "12";
+                String expectedYearOfBirth =  "2012";
+                String expectedDateOfBirth =expectedDayOfBirth+ "-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth) + "-"+expectedYearOfBirth;
+                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
+                String actualFullDOB = patientDateOfBirth.getText().trim();
+
+
+                String expectedGender = "Male";
+                String actualGender = patientGender.getText().trim();
+
+                String expectedNHSNumber = "9437139229";
+                String actualNHSNumber = patientNSNo.getText().trim();
+
+                String expectedAddressLine1 = "1 Primrose St";
+                String expectedAddressLine2 = "Spitalfields";
+                String expectedAddressLine3 = "London";
+                String expectedAddressLine4 = "England";
+                String expectedAddressLine5 = "United Kingdom";
+                String expectedPostcode = "EC2A 2EX";
+                String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
+                        expectedAddressLine3 + ", " +  expectedAddressLine4 + ", " +  expectedAddressLine5 + ", " +  expectedPostcode;
 
                 String actualAddress = patientAddress.getText().trim();
 

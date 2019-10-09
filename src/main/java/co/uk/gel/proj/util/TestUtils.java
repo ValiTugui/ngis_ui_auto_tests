@@ -67,4 +67,13 @@ public class TestUtils {
                 .split(input);
         return resultantStr;
     }
+
+    //Change month number to equivalent month form e.g 01 = Jan
+    public static String convertMonthNumberToMonthForm (String monthBirthNumber){
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+        String monthForm = months[Integer.parseInt(monthBirthNumber)-1];
+        return monthForm;
+    }
+
 }

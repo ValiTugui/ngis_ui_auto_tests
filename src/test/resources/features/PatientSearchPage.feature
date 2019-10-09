@@ -27,7 +27,7 @@ Feature: Patient search page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1662 @E2EUI-1788 @E2EUI-2140 @E2EUI-1662
+  @patientSearch_02 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788
   Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -40,9 +40,32 @@ Feature: Patient search page
       | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
-      | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=n:LastName=Stambukdelifsch:Gender=Female:Postcode=Kt7 0BE        |
       | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
       | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+
+
+  @patientSearch_02 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
+  Scenario Outline: patient search - "<ui-ticket-no>" - "<patient-search-type>" Defuzzing, accented and special characters
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    And the correct details of the "<patient-search-type>" patient are displayed in the card
+
+    Examples: De-fuzzing
+      | ui-ticket-no | patient-search-type | SearchDetails                                                                 |
+      | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=n:LastName=Stambukdelifsch:Gender=Female             |
+      | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=nell:LastName=Stambuk:Gender=Female:Postcode=Kt7 0BE |
+
+    Examples: Accented and Special Characters Characters
+      | ui-ticket-no | patient-search-type | SearchDetails                                                  |
+      | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'hern:Gender=Female                   |
+      | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'HERN:Gender=Female:Postcode=KT10 0JF |
+      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Bén:LastName=O'Müller:Gender=Male:Postcode=EC2A 2EX     |
+      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Bén:LastName=O'Muller:Gender=Male                       |
+      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=O'Müller:Gender=Male                       |
+      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMüller:Gender=Male                        |
+      | E2EUI-2132   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMuller:Gender=Male                        |
+#       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
 
 
   @patientSearch_03 @E2EUI-1472
@@ -267,12 +290,12 @@ Feature: Patient search page
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
 
 
-  @patientSearch_14 @E2EU-1840
+  @patientSearch_14  @E2EU-1990
   Scenario: To verify auto-complete and auto-fill are disabled on the patient search page with NHS Number field
     Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
 
 
-  @patientSearch_14 @E2EU-1840
+  @patientSearch_14  @E2EU-1990
   Scenario: To verify auto-complete and auto-fill are disabled on the patient search page without NHS Number field
     And the user clicks the NO button
     Then User clicks on a field "dateDay:dateMonth:dateYear:firstName:lastName:postcode" and auto-complete is disabled
