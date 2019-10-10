@@ -72,7 +72,7 @@ Feature: Patient search page
   Scenario Outline: patient search - "<patient-search-type>" Patient Search Results Page validation
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
-    Then The patient record is displayed with a heading of "We found a result"
+    Then The patient record is displayed with a heading of "1 patient record found"
     And a "<patient-search-type>" result is successfully returned
     And the correct details of the "<patient-search-type>" patient are displayed in the card
 
