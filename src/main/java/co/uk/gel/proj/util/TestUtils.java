@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
 import com.google.common.base.Splitter;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -66,5 +67,19 @@ public class TestUtils {
                                 .trimResults())
                 .split(input);
         return resultantStr;
+    }
+
+    //Change month number to equivalent month form e.g 01 = Jan
+    public static String convertMonthNumberToMonthForm (String monthBirthNumber){
+        String monthForm=null;
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+
+        if (Integer.parseInt(monthBirthNumber)-1 > 11 || Integer.parseInt(monthBirthNumber)-1 < 0 || monthBirthNumber.isEmpty() || monthBirthNumber==null){
+            monthForm = "invalid number";
+        }
+        else {
+           monthForm = months[Integer.parseInt(monthBirthNumber)-1];
+        }
+        return monthForm;
     }
 }
