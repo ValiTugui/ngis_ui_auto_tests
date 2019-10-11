@@ -3,8 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
 import cucumber.api.java.en.Then;
-
-
+import io.cucumber.java.en.Given;
 
 public class PatientDetailsSteps extends Pages {
 
@@ -18,5 +17,6 @@ public class PatientDetailsSteps extends Pages {
     public void thePatientDetailsPageIsDisplayed() {
         patientDetailsPage.patientDetailsPageIsDisplayed();
     }
+
 
 }

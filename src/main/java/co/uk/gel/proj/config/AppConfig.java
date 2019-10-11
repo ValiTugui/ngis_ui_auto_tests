@@ -15,6 +15,7 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String td_private_url;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -29,7 +30,7 @@ public class AppConfig {
                 //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-            System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,6 +38,7 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
     }
 
 
@@ -86,6 +88,12 @@ public class AppConfig {
         return app_url;
     }
 
+    public static String getTd_private_url() {
+        if (td_private_url == null || td_private_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_private_url;
+    }
     public static void setApp_url(String app_url) {
         AppConfig.app_url = app_url;
     }

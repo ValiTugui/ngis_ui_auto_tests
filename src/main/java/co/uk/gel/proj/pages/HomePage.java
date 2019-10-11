@@ -1,5 +1,8 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -170,10 +173,17 @@ public class HomePage {
 	
 	@FindBy(id = "login-form")
 	public WebElement serviceDeskLoginForm;
-	
 
 
+	public void navigateToPrivateTestDirectoryHomePage() {
+		driver.get(AppConfig.getTd_private_url() + "test-selection/clinical-tests");
 
+	}
+
+	public void waitUntilHomePageResultsContainerIsLoaded() {
+		Wait.forElementToBeDisplayed(driver, filtersPanel);
+		Wait.forElementToBeDisplayed(driver, resultsPanel);
+	}
 
 }
 

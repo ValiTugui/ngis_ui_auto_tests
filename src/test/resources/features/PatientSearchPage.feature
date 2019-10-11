@@ -299,3 +299,7 @@ Feature: Patient search page
   Scenario: To verify auto-complete and auto-fill are disabled on the patient search page without NHS Number field
     And the user clicks the NO button
     Then User clicks on a field "dateDay:dateMonth:dateYear:firstName:lastName:postcode" and auto-complete is disabled
+
+  Scenario: E2UI-1636 - UseCase#21: NGIS Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
+    #Test Directory
+    Given a web browser is at the Private Test Selection homepage

@@ -5,7 +5,7 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tum
   @UserJourneys-CANCER @UserJourneys-E2EUI-1802
   Scenario Outline: E2EUI-1802 - UseCase#27: NEW Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
     #Test Directory
-    Given a web browser is at the Test Directory homepage
+    Given a web browser is at the Private Test Selection homepage
     And the user types in the CI term "<clinical-indication>" in the search field and selects the first result from the results list
     When the user clicks the Start referral button
     And the user clicks the "Sign in to the online service" hyperlink
