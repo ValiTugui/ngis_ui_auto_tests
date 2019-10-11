@@ -1,17 +1,18 @@
 @UserJourneys
-Feature: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search Spine Patient
+Feature: Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Search NGIS Patient
 
 
-  @UserJourneys-CANCER @UserJourneys-E2EUI-1803
-  Scenario Outline: E2EUI-1803 - UseCase#28: SPINE Patient -> Create Referral for Proband only -> Patient Choice No -> Tumour -> Sample
+  @UserJourneys-CANCER @UserJourneys-E2EUI-1804
+  Scenario Outline: E2EUI-1804 - UseCase#29: SPINE Patient -> Create Referral for Proband only -> Patient Choice Not given -> Tumour -> Sample
     #Test Directory
     Given a web browser is at the Test Directory homepage
     And the user types in the CI term "<clinical-indication>" in the search field and selects the first result from the results list
     When the user clicks the Start referral button
     And the user clicks the "Sign in to the online service" hyperlink
      #Test Ordering
-    Then the user logs in to the Test Order system successfully
-    When  the user searches for a "<patient-search-type>" patient with the NHS number "<NhsNumber>" and Date of Birth "<DOB>"
+    Then the user logs in to the Test Order system successfully using the super user credentials
+    When  the user searches for a NGIS patient record with NHS number "<NhsNumber>" and Date of Birth "<DOB>"
+      #When  the user searches for a "<patient-search-type>" patient with the NHS number "<NhsNumber>" and Date of Birth "<DOB>"
     And the user clicks the patient result card that is shown on the page
     And the Patient Details page is displayed
     When the user clicks the Start Referral button
@@ -37,9 +38,9 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumo
     When the user adds "1" tumors info in the Add a tumour form
     And the user provides the details to the tumour questionnaire form
     Then the "Tumours" stage is marked as Completed
-    #Samples - add two samples
+    #Samples
     And the "Samples" stage is selected
-    When the user adds "2" samples info to the tumour sample form
+    When the user adds "1" samples info to the tumour sample form
     Then the "Samples" stage is marked as Completed
     #Notes
     And the "Notes" stage is selected
@@ -55,11 +56,9 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumo
     When the user clicks the Submit button
     Then the submission confirmation message is displayed
     And the referral status is set to "Submitted"
+    And the user cancels a referral by setting Marked in error state
 
 
-    #patient details - test data needs to be updated with Spine patient data - currently this one is NGIS
     Examples:
-      | clinical-indication     | patient-search-type | NhsNumber  | DOB        | referral-priority | patient-choice-info |
-      | WGS Germline and Tumour | NHS Spine           | 9449309086 | 09-09-2008 | Urgent            | Not Given           |
-      #| WGS Germline and Tumour | NHS Spine           | 9449309086 | 09-09-2008 |Routine           | No                  |
-
+      | clinical-indication     | patient-search-type | NhsNumber  | DOB        |  organisation | referral-priority | patient-choice-info |
+      | WGS Germline and Tumour | NGIS                | 9449309086 | 09-09-2008 |  manchester   | Urgent            | Not Given           |
