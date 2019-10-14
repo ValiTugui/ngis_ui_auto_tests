@@ -212,6 +212,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         searchButtonByXpath.click();
     }
 
+
+
     public void checkThatPatientCardIsDisplayed(WebDriver driver, String badgeText) {
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
@@ -741,6 +743,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
         Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
         Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
+
 
     }
 

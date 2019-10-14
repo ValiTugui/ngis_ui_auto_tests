@@ -208,5 +208,25 @@ public class HomePage {
 
 
 
+	public void typeInSearchField(String searchTerm) {
+		Wait.forElementToBeDisplayed(driver, searchField);
+		searchField.sendKeys(searchTerm);
+	}
+
+	public void clickSearchIconFromSearchField() {
+		Click.element(driver, searchIcon);
+	}
+
+	public void closeCookiesBannerFromFooter() {
+		if (cookiesUnderstandButton.size() > 0) {
+			Click.element(driver, cookiesUnderstandButton.get(0));
+			Wait.forNumberOfElementsToBeEqualTo(driver, By.xpath("//*[contains(@class,'cta__')]//descendant::button"), 0);
+		}
+	}
+
+	public void selectFirstEntityFromResultList() {
+		waitUntilHomePageResultsContainerIsLoaded();
+		Click.element(driver, resultsPanels.get(0));
+	}
 }
 
