@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Wait;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -135,6 +136,12 @@ public class ReferralPage {
 	public List<WebElement> helix;
 
 
+	public void checkThatReferalWasSuccessfullyCreated() {
+		Wait.forElementToBeDisplayed(driver, referralHeader, 100);
+		Wait.forElementToBeDisplayed(driver, toDoList, 100);
+		Wait.forElementToBeDisplayed(driver, sectionBody);
+		Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector("strong[class*='header-item']"), 7);
+	}
 
 
 }

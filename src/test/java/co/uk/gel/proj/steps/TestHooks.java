@@ -52,9 +52,9 @@ public class TestHooks  extends Pages {
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
-        System.out.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        driver.manage().deleteAllCookies();
+        //System.out.println("deleted cookies");
+        //driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
+        //driver.manage().deleteAllCookies();
 //        driver.quit();//28 /09/2019  -To delete cookies to terminate session /28 /09/2019  -To delete cookies to terminate session
        // driver=null;
 

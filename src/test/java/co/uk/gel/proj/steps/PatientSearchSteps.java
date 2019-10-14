@@ -7,8 +7,8 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class PatientSearchSteps extends Pages {
@@ -20,9 +20,16 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
-        driver.get(AppConfig.getApp_url() + "patient-search");
-        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
 
+        driver.get(AppConfig.getApp_url() + "patient-search");
+
+        if(!(driver.getCurrentUrl().contains("patient-search")))
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+    }
+
+    @Then("the Patient Search page is displayed")
+    public void thePatientSearchPageIsDisplayed() {
+         patientSearchPage.pageIsDisplayed();
     }
 
 
@@ -209,4 +216,5 @@ public class PatientSearchSteps extends Pages {
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         patientSearchPage.checkTheNoPatientFoundLabel(expSearchString, errorMessage, fontFace);
     }
+
 }

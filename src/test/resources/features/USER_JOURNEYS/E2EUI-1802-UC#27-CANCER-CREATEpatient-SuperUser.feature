@@ -16,7 +16,7 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tum
     Then The message will be displayed as You’ve searched for "<NhsNumber>" "<DOB> " "<error_message>"
     And There is a "<hyperlinkText>"link available
     And the user creates the new patient record in the NGIS by clicking the "<hyperlinkText>"link
-    When the user clicks the Start Referral button
+    And the user clicks the Start Referral button to display the referral page
     #Patient Details
     Then the "Patient details" stage is selected
     When the user does not modify the existing information on the "Patient details" form

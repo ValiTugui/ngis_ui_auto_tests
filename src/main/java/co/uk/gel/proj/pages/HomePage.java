@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import org.openqa.selenium.By;
@@ -184,6 +185,28 @@ public class HomePage {
 		Wait.forElementToBeDisplayed(driver, filtersPanel);
 		Wait.forElementToBeDisplayed(driver, resultsPanel);
 	}
+	public void typeInSearchField(String searchTerm) {
+		Wait.forElementToBeDisplayed(driver, searchField);
+		searchField.sendKeys(searchTerm);
+	}
+
+	public void clickSearchIconFromSearchField() {
+		Click.element(driver, searchIcon);
+	}
+
+	public void closeCookiesBannerFromFooter() {
+		if (cookiesUnderstandButton.size() > 0) {
+			Click.element(driver, cookiesUnderstandButton.get(0));
+			Wait.forNumberOfElementsToBeEqualTo(driver, By.xpath("//*[contains(@class,'cta__')]//descendant::button"), 0);
+		}
+	}
+
+	public void selectFirstEntityFromResultList() {
+		waitUntilHomePageResultsContainerIsLoaded();
+		Click.element(driver, resultsPanels.get(0));
+	}
+
+
 
 }
 

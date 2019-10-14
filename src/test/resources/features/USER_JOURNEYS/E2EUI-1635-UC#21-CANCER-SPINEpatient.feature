@@ -15,7 +15,7 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tum
     #When  the user searches for a "<patient-search-type>" patient with the NHS number "<NhsNumber>" and Date of Birth "<DOB>"
     And the user clicks the patient result card that is shown on the page
     And the Patient Details page is displayed
-    When the user clicks the Start Referral button
+    And the user clicks the Start Referral button to display the referral page
     #Patient Details
     Then the "Patient details" stage is selected
     When the user does not modify the existing information on the "Patient details" form

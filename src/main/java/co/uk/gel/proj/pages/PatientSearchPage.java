@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.config.AppConfig;
@@ -158,6 +159,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
     public WebElement youHaveSearchedForLabel;
 
+    @FindBy(css = "*[class*='no-results__help']")
+    public WebElement noResultsHelp;
+
+    @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
+    public WebElement noResultsHelpLink;
+
+    @FindBy(css ="a[class*='inline-link']")
+    public WebElement noResultsHelpLink2; // create a new patient link
+
+    @FindBy(css = "p[class*='no-results__duplicate']")
+    public WebElement noResultsDuplicate;
+
+    public void pageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/patient-search");
+        Wait.forElementToBeDisplayed(driver, yesButton);
+    }
 
     public String getYesBtnSelectedAttribute()
     {
@@ -194,8 +211,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeClickable(driver,searchButtonByXpath);
         searchButtonByXpath.click();
     }
-
-
 
     public void checkThatPatientCardIsDisplayed(WebDriver driver, String badgeText) {
         Wait.forElementToBeDisplayed(driver, patientCard);
@@ -446,6 +461,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String expectedLastname = "MCBRYDE";
         String expectedTitle = "MISS";
         String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+        Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
@@ -561,10 +577,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
         HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
-        for (String s : paramsKey) {
-            switch (s) {
+        for (String key : paramsKey) {
+            switch (key) {
                 case "DOB": {
-                    String dobValue = paramNameValue.get(s);
+                    String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
                     Actions.clearField(dateDay);
                     dateDay.sendKeys(dobSplit[0]);
@@ -576,22 +592,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 }
                 case "FirstName": {
                     Actions.clearField(firstName);
-                    firstName.sendKeys(paramNameValue.get(s));
+                    firstName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "LastName": {
                     Actions.clearField(lastName);
-                    lastName.sendKeys(paramNameValue.get(s));
+                    lastName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "Gender": {
                     genderButton.click();
-                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(s) + "']")).click();
+                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
                     break;
                 }
                 case "Postcode": {
                     Actions.clearField(postcode);
-                    postcode.sendKeys(paramNameValue.get(s));
+                    postcode.sendKeys(paramNameValue.get(key));
                     break;
                 }
             }
@@ -726,9 +742,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
         Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
 
-
     }
 
+    public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("img[class*='no-results__img']"), 0);
+        Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
+        Click.element(driver, noResultsHelpLink);
+    }
 
 
 }

@@ -11,12 +11,15 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tum
     And the user clicks the "Sign in to the online service" hyperlink
      #Test Ordering
     Then the user logs in to the Test Order system successfully
+    Then the Patient Search page is displayed
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then The message will be displayed as You’ve searched for "<NhsNumber>" "<DOB> " "<error_message>"
     And There is a "<hyperlinkText>"link available
-    And the user creates the new patient record in the NGIS by clicking the "<hyperlinkText>"link
-    When the user clicks the Start Referral button
+    When the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "Patient is a foreign national"
+#    And the user creates the new patient record without NHS number by clicking the "<hyperlinkText>"link
+#    And the user clicks the Start Referral button
+    And the user clicks the Start Referral button to display the referral page
     #Patient Details
     Then the "Patient details" stage is selected
     When the user does not modify the existing information on the "Patient details" form
@@ -62,4 +65,4 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tum
     #patient details - test data needs to be updated with Spine patient data - currently this one is NGIS
     Examples:
       | clinical-indication     | patient-search-type | NhsNumber  | DOB        | error_message   |hyperlinkText                |  organisation | referral-priority | patient-choice-info |
-      | WGS Germline and Tumour | NHS Spine           | 9449309086 | 09-09-2008 | No patient found| create a new patient record | manchester    | Urgent            | Yes                 |
+      | WGS Germline and Tumour | NHS Spine           | 9449309086 | 19-09-2008 | No patient found| create a new patient record | manchester    | Urgent            | Yes                 |
