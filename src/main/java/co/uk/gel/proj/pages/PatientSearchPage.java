@@ -538,6 +538,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String expectedLastname = "MCBRYDE";
         String expectedTitle = "MISS";
         String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+        Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};

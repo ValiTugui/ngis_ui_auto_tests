@@ -20,8 +20,11 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
+
         driver.get(AppConfig.getApp_url() + "patient-search");
-        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        // if the url does not contain the text "patient-search", then user is on login page.
+        if(!(driver.getCurrentUrl().contains("patient-search")))
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
 
     }
 
