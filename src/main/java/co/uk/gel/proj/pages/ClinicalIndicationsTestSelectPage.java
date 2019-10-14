@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Click;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,11 +9,11 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 
-public class ClinicalIndicationTestSelectPage {
+public class ClinicalIndicationsTestSelectPage {
 
 	WebDriver driver;
 
-	public ClinicalIndicationTestSelectPage(WebDriver driver) {
+	public ClinicalIndicationsTestSelectPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -82,5 +83,8 @@ public class ClinicalIndicationTestSelectPage {
 	@FindBy(xpath = "//div[contains(@class,'back')]//descendant::a")
 	public WebElement backToSearch;
 
+	public void clickStartReferralButton() {
+		Click.element(driver, startTestOrderButton);
+	}
 
 }
