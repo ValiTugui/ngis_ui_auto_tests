@@ -156,6 +156,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
     public WebElement youHaveSearchedForLabel;
 
+    @FindBy(xpath = "//a[text()='Log out']")
+    public WebElement logout;
 
     public String getYesBtnSelectedAttribute()
     {
