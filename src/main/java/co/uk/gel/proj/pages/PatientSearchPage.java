@@ -171,6 +171,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "p[class*='no-results__duplicate']")
     public WebElement noResultsDuplicate;
 
+    @FindBy(xpath = "//a[text()='Log out']" )
+    public WebElement logout;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
