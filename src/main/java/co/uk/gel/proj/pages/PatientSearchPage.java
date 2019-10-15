@@ -156,6 +156,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
     public WebElement youHaveSearchedForLabel;
 
+    @FindBy(xpath = "//a[text()='Log out']")
+    public WebElement logout;
 
     public String getYesBtnSelectedAttribute()
     {
@@ -538,6 +540,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String expectedLastname = "MCBRYDE";
         String expectedTitle = "MISS";
         String expectedFullName = expectedLastname + ", " + expectedFirstname + " (" + expectedTitle + ")";
+        Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};

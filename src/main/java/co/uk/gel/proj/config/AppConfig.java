@@ -15,6 +15,7 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String to_patient_search_url;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -37,6 +38,7 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
     }
 
 
@@ -84,6 +86,12 @@ public class AppConfig {
             loadAppConfig();
         }
         return app_url;
+    }
+    public static String getTo_patient_search_url() {
+        if (to_patient_search_url == null || to_patient_search_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return to_patient_search_url;
     }
 
     public static void setApp_url(String app_url) {
