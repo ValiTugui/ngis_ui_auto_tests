@@ -1,14 +1,14 @@
 package co.uk.gel.proj.steps;
 
-import co.uk.gel.config.BrowserFactory;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.lib.SeleniumLib;
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import org.apache.commons.lang.ObjectUtils;
+import io.cucumber.core.api.Scenario;
+import io.cucumber.core.event.Status;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.*;
+import io.cucumber.java.After;
+//import cucumber.api.java.After;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -44,22 +44,20 @@ public class TestHooks  extends Pages {
 
     }
 
-
-
-
     @After(order=0)
     public void tearDown(Scenario scenario){
-        String scenarioStatus =  scenario.getStatus();
-        if(!scenarioStatus.equalsIgnoreCase("PASSED")){
+        Status scenarioStatus =  scenario.getStatus();
+        if(!scenarioStatus.toString().equalsIgnoreCase("PASSED")){
             scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
-        Debugger.println("STATUS: " + scenarioStatus.toUpperCase());
+        Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
-        System.out.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        driver.manage().deleteAllCookies();
-//        driver.quit();//28 /09/2019  -To delete cookies to terminate session /28 /09/2019  -To delete cookies to terminate session
-       // driver=null;
+        // 14/10/2019 - Log-out now commented as Test will continue running until the session times-out, and user will be prompted to log-in
+        // once the session times-out
+        // driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
+        // driver.manage().deleteAllCookies(); //
+        // driver.quit();//28 /09/2019  -To delete cookies to terminate session /28 /09/2019
+        // driver=null;
 
     }
     @After(order=1)

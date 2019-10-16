@@ -1,7 +1,7 @@
 package co.uk.gel.proj.util;
 
 
-import javafx.scene.text.FontWeight;
+
 
 import java.awt.*;
 
@@ -10,7 +10,7 @@ public class StylesUtils {
 
     public static String convertFontFaceStringToCSSProperty(String fontFace) {
         //example convert property Bold to equivalent CSS property 700
-        return String.valueOf(FontWeight.findByName(fontFace).getWeight());
+       return String.valueOf(FontWeight.findByName(fontFace).getWeight());
     }
 
     public static String convertFontColourStringToCSSProperty(String fontColor) {
@@ -21,8 +21,6 @@ public class StylesUtils {
                  return "rgba(221, 37, 9, 1)";
              case "#005eb8":
                  return "rgba(0, 94, 184, 1)";
-
-
              default:
                  throw new IllegalStateException("Unexpected value: " + fontColor);
          }

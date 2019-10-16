@@ -1,6 +1,5 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.proj.pages.AppHomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import co.uk.gel.config.SeleniumDriver;
