@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -199,18 +200,24 @@ public class PatientDetailsPage {
 
 
     public void fillInNewPatientDetailsWithoutAddressFields() {
+
         Wait.forElementToBeDisplayed(driver, title);
-        //newPatient.setTitle("Mr");
+        newPatient.setTitle("Mr");
         title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
+
         newPatient.setFirstName(faker.name().firstName());
         Actions.fillInValue(firstName, newPatient.getFirstName());
+
         newPatient.setLastName(faker.name().lastName());
         Actions.fillInValue(familyName, newPatient.getLastName());
+
         newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
         newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+
         newPatient.setNhsNumber(Actions.createValidNHSNumber());
        // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
@@ -278,33 +285,13 @@ public class PatientDetailsPage {
         Actions.clickElement(driver, startNewReferralButton);
     }
 
-    public void  TestTest() {
-        Wait.forElementToBeDisplayed(driver, title);
-        String expectedTitle= newPatient.getTitle();
-        String expectedFirstName = newPatient.getFirstName();
-        String expectedLastName= newPatient.getLastName();
-        String expectedDateOFBirth = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
-        String expectedGender = newPatient.getGender();
-
-        String patientTitle = title.getAttribute("value");
-        String patientFirstName = firstName.getAttribute("value");
-        String patientLastName = familyName.getAttribute("value");
-        String patientDateOfBirth = dateOfBirth.getAttribute("value");
-        String patientGender = administrativeGenderButton.getAttribute("value");
-
-
-        System.out.println("Gender- Actual:"+patientGender +" Expected :"+expectedGender);
-        System.out.println("Title- Actual:"+patientTitle +" Expected :"+expectedTitle);
-        System.out.println("FirstName- Actual:"+patientFirstName +" Expected :"+expectedFirstName);
-        System.out.println("LastName- Actual:"+patientLastName +" Expected :"+expectedLastName);
-        System.out.println("DOB- Actual:"+patientDateOfBirth +" Expected :"+expectedDateOFBirth);
-
-        Assert.assertEquals(expectedTitle,patientTitle);
-        Assert.assertEquals(expectedFirstName,patientFirstName);
-        Assert.assertEquals(expectedLastName,patientLastName);
-        Assert.assertEquals(expectedDateOFBirth,patientDateOfBirth);
-        Assert.assertEquals(expectedGender,patientGender);
-
+    public void clinicalIndicationIDMissingBannerIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
+        Assert.assertTrue(!Actions.getText(patientDetailsnotificationBanner).isEmpty());
     }
 
+    public void startReferralButtonIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
+        Assert.assertTrue(!startReferralButton.isEnabled());
+    }
 }

@@ -15,6 +15,7 @@ public class Pages {
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
+    protected NewPatientPage newPatientPage;
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
     protected TestPackagePage testPackagePage;
@@ -35,6 +36,7 @@ public class Pages {
         referralPage = PageFactory.initElements(driver,ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
         patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
+        newPatientPage = PageFactory.initElements(driver,NewPatientPage.class);
         patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
         requestingOrganisationPage = PageFactory.initElements(driver,RequestingOrganisationPage.class);
         testPackagePage = PageFactory.initElements(driver,TestPackagePage.class);

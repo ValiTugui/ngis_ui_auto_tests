@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 
 import io.cucumber.java.en.And;
@@ -44,7 +46,17 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user does not modify the existing information on the {string} form")
     public void theUserDoesNotModifyTheExistingInformationOnTheForm(String arg0) {
-        patientDetailsPage.TestTest();
+        //patientDetailsPage.TestTest() - part of e2e user journey. To be continued once e2e commences
 
+    }
+
+    @Then("the clinical indication ID missing banner is displayed")
+    public void theClinicalIndicationIDMissingBannerIsDisplayed() {
+        patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
+    }
+
+    @And("the Start Referral button is disabled")
+    public void theStartReferralButtonIsDisabled() {
+        patientDetailsPage.startReferralButtonIsDisabled();
     }
 }
