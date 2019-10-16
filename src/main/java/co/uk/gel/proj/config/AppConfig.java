@@ -41,6 +41,7 @@ public class AppConfig {
         app_password = properties.getProperty("APP_PASSWORD");
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
+        to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
     }
 
 
