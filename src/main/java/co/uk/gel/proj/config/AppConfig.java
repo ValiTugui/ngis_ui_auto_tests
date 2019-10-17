@@ -16,6 +16,7 @@ public class AppConfig {
     private static String app_username;
     private static String app_password;
     private static String to_patient_search_url;
+    private static String td_private_url;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -39,6 +40,7 @@ public class AppConfig {
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
+        td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
     }
 
 
@@ -94,6 +96,12 @@ public class AppConfig {
         return to_patient_search_url;
     }
 
+    public static String getTd_private_url() {
+        if (td_private_url == null || td_private_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_private_url;
+    }
     public static void setApp_url(String app_url) {
         AppConfig.app_url = app_url;
     }

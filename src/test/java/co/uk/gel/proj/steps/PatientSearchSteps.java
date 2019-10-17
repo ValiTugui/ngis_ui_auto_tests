@@ -1,15 +1,16 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class PatientSearchSteps extends Pages {
@@ -22,26 +23,15 @@ public class PatientSearchSteps extends Pages {
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
 
-        driver.get(AppConfig.getTo_patient_search_url());
+        driver.get(AppConfig.getApp_url() + "patient-search");
 
-        if (driver.getCurrentUrl().contains("patient-search")) {
-            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
-            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+        if(!(driver.getCurrentUrl().contains("patient-search")))
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+    }
 
-        } else {
-            if (driver.getCurrentUrl().contains("login.microsoft")) {
-                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-            } else {
-                if(patientSearchPage.logout.isDisplayed()) {
-                    patientSearchPage.logout.click();
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                }else
-                    Debugger.println(" User is at url "+driver.getCurrentUrl());
-            }
-        }
-
+    @Then("the Patient Search page is displayed")
+    public void thePatientSearchPageIsDisplayed() {
+         patientSearchPage.pageIsDisplayed();
     }
 
 
@@ -227,5 +217,18 @@ public class PatientSearchSteps extends Pages {
     @Then("^The message will be displayed as You’ve searched for \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         patientSearchPage.checkTheNoPatientFoundLabel(expSearchString, errorMessage, fontFace);
+    }
+
+
+    @And("the user types in valid details of a {string} patient in the NHS number and DOB fields")
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(String patient_type) {
+        if(patient_type.equals("NGIS")){
+            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER,NgisPatientOne.DAY_OF_BIRTH,NgisPatientOne.MONTH_OF_BIRTH,NgisPatientOne.YEAR_OF_BIRTH);
+        } else if(patient_type.equals("SPINE")){
+            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER,SpinePatientOne.DAY_OF_BIRTH,SpinePatientOne.MONTH_OF_BIRTH,SpinePatientOne.YEAR_OF_BIRTH);
+        } else {
+            throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
+        }
+
     }
 }
