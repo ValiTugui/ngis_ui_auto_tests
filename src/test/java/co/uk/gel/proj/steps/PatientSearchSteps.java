@@ -1,17 +1,23 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class PatientSearchSteps extends Pages {
 
@@ -221,11 +227,16 @@ public class PatientSearchSteps extends Pages {
 
 
     @And("the user types in valid details of a {string} patient in the NHS number and DOB fields")
-    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(String patient_type) {
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(String patient_type) throws IOException {
         if(patient_type.equals("NGIS")){
             patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER,NgisPatientOne.DAY_OF_BIRTH,NgisPatientOne.MONTH_OF_BIRTH,NgisPatientOne.YEAR_OF_BIRTH);
         } else if(patient_type.equals("SPINE")){
-            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER,SpinePatientOne.DAY_OF_BIRTH,SpinePatientOne.MONTH_OF_BIRTH,SpinePatientOne.YEAR_OF_BIRTH);
+            SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
+            ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
+            String dayOfBirth = dobString.get(0);
+            String monthOfBirth = dobString.get(1);
+            String yearOfBirth = dobString.get(2);
+            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(),dayOfBirth,monthOfBirth ,yearOfBirth);
         } else {
             throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
         }

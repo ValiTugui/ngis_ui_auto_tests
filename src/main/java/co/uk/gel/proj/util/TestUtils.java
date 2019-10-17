@@ -82,4 +82,20 @@ public class TestUtils {
         }
         return monthForm;
     }
+
+    public static ArrayList<String> convertDOBNumbersToStrings(String dobInNumbers) {
+        int strLength = dobInNumbers.length();
+        String yearOfBirth = dobInNumbers.substring(0, 4);
+        String monthOfBirth = dobInNumbers.substring(4, 6);
+        String dayOfBirth = dobInNumbers.substring(6, strLength);
+
+        ArrayList<String> strList = new ArrayList<String>();
+        strList.add(0, dayOfBirth);
+        strList.add(1, monthOfBirth);
+        strList.add(2, yearOfBirth);
+
+        return strList;
+
+
+    }
 }
