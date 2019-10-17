@@ -1,6 +1,8 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -22,7 +24,6 @@ public class PaperFormPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	//Random random = new Random();
 
 	@FindBy(xpath = "//div[contains(@class, 'main')]//descendant::strong")
 	public WebElement yourOrderText;
@@ -204,10 +205,21 @@ public class PaperFormPage {
 	@FindBy(css = "*[class*='tumourWarning']")
 	public WebElement cancerOfflineOrderwarningBanner;
 
+	public void fillInSpecificKeywordInSearchField(String keyword) {
+		Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+		orderEntitySearchField.clear();
+		orderEntitySearchField.sendKeys(keyword);
+	}
+
+	public void checkThatEntitySuggestionsAreDisplayed() {
+		Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='suggestions']"), 0);
+	}
 
 	public void clickSignInToTheOnlineServiceButton() {
 		Actions.clickElement(driver, signInToOnlineServiceButton);
 	}
-	
+	public void selectRandomEntityFromSuggestionsList() {
+		Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+	}
 }
 

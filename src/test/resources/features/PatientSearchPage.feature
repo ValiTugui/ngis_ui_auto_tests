@@ -134,7 +134,7 @@ Feature: Patient search page
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
-    Then the Patient Details page is displayed
+    #Then the Patient Details page is displayed
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
@@ -246,7 +246,7 @@ Feature: Patient search page
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
-    Then the Patient Details page is displayed
+    #Then the Patient Details page is displayed
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        |

@@ -1,6 +1,10 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,7 +35,7 @@ public class ClinicalIndicationsTestSelectPage {
 
 	@FindBy(css = "div[class*='eligibilityCard']")
 	public List<WebElement> eligibilityCriteriaSections;
-	
+
 	@FindBy(css = "div[class*='markdownStyling']")
 	public List<WebElement> whoToTestText;
 
@@ -55,7 +59,7 @@ public class ClinicalIndicationsTestSelectPage {
 
 	@FindBy(css = "*[class*='testCard']")
 	public List <WebElement> testsFromTestPackageList;
-	
+
 	@FindBy(xpath = "//*[contains(@class,'testCard')]//child::td[5]")
 	public WebElement testInfoIcon;
 
