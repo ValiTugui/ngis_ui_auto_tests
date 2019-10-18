@@ -65,7 +65,7 @@ public class TestHooks  extends Pages {
         Debugger.println("deleted cookies");
         driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
         driver.manage().deleteAllCookies();
-        Wait.seconds(5);
+        Wait.seconds(10);
     }
 
     @After(order = 1)

@@ -9,7 +9,7 @@ Feature: Requesting Organisation page
     And the user clicks the "Sign in to the online service" hyperlink
      #Test Ordering
     And the user logs in to the Test Order system successfully
-    And the Patient Search page is displayed
+    And the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     And the user types in valid details of a "NGIS" patient in the NHS number and DOB fields
     And the user clicks the Search button
     And the user clicks the patient result card
