@@ -2,8 +2,10 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -34,6 +36,32 @@ public class PatientSearchSteps extends Pages {
         if(!(driver.getCurrentUrl().contains("patient-search")))
             patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
     }
+
+
+   /* @Given("^a web browser is at the patient search page$")
+    public void navigateToPatientSearchPage() {
+
+        driver.get(AppConfig.getTo_patient_search_url());
+
+        if (driver.getCurrentUrl().contains("patient-search")) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            } else {
+                if(patientSearchPage.logout.isDisplayed()) {
+                    patientSearchPage.logout.click();
+                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                }else
+                    Debugger.println(" User is at url "+driver.getCurrentUrl());
+            }
+        }
+
+    }*/
 
     @Then("the Patient Search page is displayed")
     public void thePatientSearchPageIsDisplayed() {

@@ -15,6 +15,7 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String to_patient_search_url;
     private static String td_private_url;
 
     public static void loadAppConfig() {
@@ -30,7 +31,7 @@ public class AppConfig {
                 //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-
+            System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,6 +40,7 @@ public class AppConfig {
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
+        to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
     }
 
 
@@ -86,6 +88,12 @@ public class AppConfig {
             loadAppConfig();
         }
         return app_url;
+    }
+    public static String getTo_patient_search_url() {
+        if (to_patient_search_url == null || to_patient_search_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return to_patient_search_url;
     }
 
     public static String getTd_private_url() {
