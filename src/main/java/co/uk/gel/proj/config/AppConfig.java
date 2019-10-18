@@ -16,6 +16,8 @@ public class AppConfig {
     private static String app_username;
     private static String app_password;
     private static String to_patient_search_url;
+    private static String MYNewName;
+  public static Properties properties = null;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -23,14 +25,14 @@ public class AppConfig {
         System.out.println("TestEnvironment: " + EnvironmentName);
 
         configFileName = String.format(configFileName, EnvironmentName);
-        Properties properties = new Properties();
+        properties = new Properties();
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
                 //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-            System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
+          //  System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,33 +41,11 @@ public class AppConfig {
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
+        MYNewName = properties.getProperty("MYNewName");
     }
 
-
-    public static void loadAppConfig2() {
-        Scanner file_scanner = loadFile("AppConfig.txt");
-        String line = "";
-        String[] linearray;
-        while (file_scanner.hasNextLine()) {
-            line = file_scanner.nextLine();
-            if (line == null || line.trim().length() == 0) {
-                continue;
-            }
-            if (line.startsWith("#")) {
-                continue;
-            }
-            linearray = line.split("=");
-            if (linearray == null || linearray.length != 2) {
-                continue;
-            }
-            if (linearray[0].trim().equalsIgnoreCase("APP_URL")) {
-                app_url = linearray[1].trim();
-            } else if (linearray[0].trim().equalsIgnoreCase("APP_USERNAME")) {
-                app_username = linearray[1].trim();
-            } else if (linearray[0].trim().equalsIgnoreCase("APP_PASSWORD")) {
-                app_password = linearray[1].trim();
-            }
-        }
+    public static String getPropertyValueFromPropertyFile(String propertyVal){
+        return properties.getProperty(propertyVal);
     }
 
     private static Scanner loadFile(String filename) {
@@ -112,5 +92,9 @@ public class AppConfig {
 
     public static void setApp_password(String app_password) {
         AppConfig.app_password = app_password;
+    }
+
+    public static String getMYNewName() {
+        return MYNewName;
     }
 }//end
