@@ -6,10 +6,10 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class PatientSearchSteps extends Pages {
@@ -21,27 +21,7 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
-
-        driver.get(AppConfig.getTo_patient_search_url());
-
-        if (driver.getCurrentUrl().contains("patient-search")) {
-            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
-            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
-
-        } else {
-            if (driver.getCurrentUrl().contains("login.microsoft")) {
-                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-            } else {
-                if(patientSearchPage.logout.isDisplayed()) {
-                    patientSearchPage.logout.click();
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                }else
-                    Debugger.println(" User is at url "+driver.getCurrentUrl());
-            }
-        }
-
+        NavigateTo(AppConfig.getTo_patient_search_url() , "patient-search");
     }
 
 
