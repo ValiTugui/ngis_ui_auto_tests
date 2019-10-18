@@ -56,7 +56,7 @@ Feature: Patient search page
       | E2EUI-2140   | NHS Spine           | DOB=23-03-2011:FirstName=nell:LastName=Stambuk:Gender=Female:Postcode=Kt7 0BE |
 
     Examples: Accented and Special Characters Characters
-      | ui-ticket-no | patient-search-type | SearchDetails                                                  |
+      | ui-ticket-no | patient-search-type | SearchDetails                                                                    |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'hern:Gender=Female                   |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'HERN:Gender=Female:Postcode=KT10 0JF |
       | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Bén:LastName=O'Müller:Gender=Male:Postcode=EC2A 2EX     |
@@ -302,3 +302,4 @@ Feature: Patient search page
   Scenario: E2UI-1636 - UseCase#21: NGIS Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
     #Test Directory
     Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |

@@ -1,17 +1,10 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.csvmodels.SpineDataModelFromCSV;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -19,7 +12,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PatientSearchSteps extends Pages {
 
@@ -30,9 +23,9 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
-        NavigateTo(AppConfig.getTo_patient_search_url() , "patient-search");
+        NavigateTo(AppConfig.getTo_patient_search_url(), "patient-search");
 
-        if(!(driver.getCurrentUrl().contains("patient-search")))
+        if (!(driver.getCurrentUrl().contains("patient-search")))
             patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
 
     }
@@ -49,7 +42,7 @@ public class PatientSearchSteps extends Pages {
     public void theYESButtonIsSelectedByDefaultOnPatientSearch() {
 
         String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
-        Assert.assertEquals(selectedStatus,"true");
+        Assert.assertEquals(selectedStatus, "true");
 
     }
 
@@ -58,7 +51,7 @@ public class PatientSearchSteps extends Pages {
         String expectedYesButtonColour = StylesUtils.convertFontColourStringToCSSProperty(buttonColour);
         String actualYesButtonColour = patientSearchPage.getYesButtonColour();
         //  Assert.assertEquals(expectedButtonColour,"rgba(0, 94, 184, 1)");
-        Assert.assertEquals(expectedYesButtonColour, actualYesButtonColour );
+        Assert.assertEquals(expectedYesButtonColour, actualYesButtonColour);
     }
 
     @Then("^the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons$")
@@ -73,13 +66,13 @@ public class PatientSearchSteps extends Pages {
 
     @When("^the user types in valid details of a \"([^\"]*)\" patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String arg0, String nhsNo, String dob) throws Throwable {
-       String[] value=  dob.split("-");  // Split DOB in the format 01-01-1900
-       patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo,value[0],value[1],value[2]);
+        String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
+        patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
     }
 
 
     @And("^the user clicks the Search button$")
-    public void theUserClicksTheSearchButton() throws Throwable{
+    public void theUserClicksTheSearchButton() throws Throwable {
 
         patientSearchPage.clickSearchButtonByXpath(driver);
     }
@@ -87,7 +80,7 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-       patientSearchPage.checkThatPatientCardIsDisplayed(driver,badgeText);
+        patientSearchPage.checkThatPatientCardIsDisplayed(driver, badgeText);
     }
 
 
@@ -113,7 +106,7 @@ public class PatientSearchSteps extends Pages {
     @Then("^The patient record is displayed with a heading of \"([^\"]*)\"$")
     public void thePatientRecordIsDisplayedWithAHeadingOf(String expectedResultHeader) throws Throwable {
 
-         patientSearchPage.checkSearchResultHeaderIsDisplayed(driver, expectedResultHeader);
+        patientSearchPage.checkSearchResultHeaderIsDisplayed(driver, expectedResultHeader);
 
     }
 
@@ -129,7 +122,7 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^The message will be displayed as You’ve searched for \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
     public void theMessageWillBeDisplayedAsYouVeSearchedFor(String nhsNumber, String dOB, String error_message) throws Throwable {
-        patientSearchPage.checkNHSNumberAndDOBareDisplayed(nhsNumber, dOB, error_message );
+        patientSearchPage.checkNHSNumberAndDOBareDisplayed(nhsNumber, dOB, error_message);
     }
 
     @And("^There is a \"([^\"]*)\"link available$")
@@ -144,12 +137,12 @@ public class PatientSearchSteps extends Pages {
 
     @And("^form labels should be consistent to font size \"([^\"]*)\"$")
     public void formLabelsShouldBeConsistentToFontSize(String fontSize) throws Throwable {
-       patientSearchPage.validateFormLabelSize(fontSize);
+        patientSearchPage.validateFormLabelSize(fontSize);
     }
 
     @And("^form labels should be consistent to font face \"([^\"]*)\"$")
     public void formLabelsShouldBeConsistentToFontFace(String fontFace) throws Throwable {
-       patientSearchPage.validateFormLabelFontFace(fontFace);
+        patientSearchPage.validateFormLabelFontFace(fontFace);
     }
 
     @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color$")
@@ -165,8 +158,8 @@ public class PatientSearchSteps extends Pages {
 
     @When("^the user types in different valid details in the NHS number \"([^\"]*)\" and DOB \"([^\"]*)\" fields$")
     public void theUserTypesInDifferentValidDetailsInTheNHSNumberAndDOBFields(String nhsNo, String dob) throws Throwable {
-        String[] value=  dob.split("-");  // Split DOB in the format 01-01-1900
-        patientSearchPage.fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(nhsNo,value[0],value[1],value[2]);
+        String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
+        patientSearchPage.fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
 
     }
 
@@ -199,7 +192,7 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
-        String[] textFieldElements =  allTextFields.split(":");  // Split all textFieldElement
+        String[] textFieldElements = allTextFields.split(":");  // Split all textFieldElement
         for (String eachElement : textFieldElements) {
             Debugger.println("Show eachElement: " + eachElement);
         }
@@ -223,20 +216,16 @@ public class PatientSearchSteps extends Pages {
     }
 
 
-    @And("the user types in valid details of a {string} patient in the NHS number and DOB fields")
-    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(String patient_type) throws IOException {
-        if(patient_type.equals("NGIS")){
-            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER,NgisPatientOne.DAY_OF_BIRTH,NgisPatientOne.MONTH_OF_BIRTH,NgisPatientOne.YEAR_OF_BIRTH);
-        } else if(patient_type.equals("SPINE")){
-            SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
-            ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
-            String dayOfBirth = dobString.get(0);
-            String monthOfBirth = dobString.get(1);
-            String yearOfBirth = dobString.get(2);
-            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(),dayOfBirth,monthOfBirth ,yearOfBirth);
-        } else {
-            throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
-        }
+    @And("the user types in valid details of a patient in the NHS number and DOB fields")
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(List<String> patientTypesList) throws IOException {
+        String patientType = patientTypesList.get(0);
+        patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
+    }
 
+    @And("the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page")
+    public void theUserSearchesForAPatientByProvidingValidDetailsOfNHSNumberAndDOBFieldsInThePatientSearchPage(List<String> patientTypesList) throws IOException {
+        String patientType = patientTypesList.get(0);
+        patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
+        patientSearchPage.clickSearchButtonByXpath(driver);
     }
 }
