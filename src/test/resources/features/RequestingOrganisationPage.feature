@@ -28,7 +28,7 @@ Feature: Requesting Organisation page
     Examples:
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
-    
+
   @E2EUI-916 @NTS-3069 @LOGOUT
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
