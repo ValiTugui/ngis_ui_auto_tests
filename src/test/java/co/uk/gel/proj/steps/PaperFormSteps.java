@@ -4,6 +4,9 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.junit.Assert;
+
+import java.util.List;
 
 public class PaperFormSteps extends Pages {
 
@@ -11,14 +14,13 @@ public class PaperFormSteps extends Pages {
         super(driver);
     }
 
-    @And("the user clicks the {string} hyperlink")
-    public void theUserClicksTheHyperlink(String arg0) {
-        paperFormPage.clickSignInToTheOnlineServiceButton();
-    }
-
     @Then("the user logs in to the Test Order system successfully")
     public void theUserLogsInToTheTestOrderSystemSuccessfully() {
         patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+
+        boolean eachElementIsLoaded;
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
     }
 
 
@@ -36,5 +38,11 @@ public class PaperFormSteps extends Pages {
     @And("the user enters the invalid keyword {string} in the search field")
     public void theUserEntersTheInvalidKeywordInTheSearchField(String ordering_entity) {
         paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
+    }
+
+    @And("the user clicks the Sign in hyperlink")
+    public void theUserClicksTheSignInHyperlink(List<String> hyperLinks) {
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+
     }
 }
