@@ -1,22 +1,21 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.lib.Actions;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
-import co.uk.gel.proj.TestDataProvider.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.provider.ConfigFile;
 
 import java.io.IOException;
 import java.util.*;

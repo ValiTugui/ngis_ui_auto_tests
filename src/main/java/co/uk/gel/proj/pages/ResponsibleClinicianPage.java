@@ -1,6 +1,5 @@
 package co.uk.gel.proj.pages;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -92,9 +91,4 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 
-
-
-	
-
-	
 }

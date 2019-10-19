@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.*;
 
-
 public class Debugger {
     private static Logger logger;
     private static FileHandler	handler		= null;

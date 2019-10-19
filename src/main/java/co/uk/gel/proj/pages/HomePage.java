@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-
 public class HomePage {
 
     WebDriver driver;
@@ -19,7 +18,6 @@ public class HomePage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
     @FindBy(css = "div[class*='header']")
     public WebElement header;

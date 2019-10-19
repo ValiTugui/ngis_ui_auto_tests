@@ -1,17 +1,12 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
-import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.config.AppConfig;
-import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-
 
 public class ClinicalIndicationsTestSelectPage {
 
@@ -21,8 +16,6 @@ public class ClinicalIndicationsTestSelectPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-
-
 
 	@FindBy(css = "div[class*='icon']")
 	public WebElement clinicalIndicationIcon;

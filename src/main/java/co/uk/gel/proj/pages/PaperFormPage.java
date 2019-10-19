@@ -3,15 +3,12 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
-import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +20,6 @@ public class PaperFormPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-
 
 	@FindBy(xpath = "//div[contains(@class, 'main')]//descendant::strong")
 	public WebElement yourOrderText;

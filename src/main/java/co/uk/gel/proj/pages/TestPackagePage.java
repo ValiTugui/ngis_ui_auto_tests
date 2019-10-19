@@ -1,6 +1,5 @@
 package co.uk.gel.proj.pages;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -85,7 +84,5 @@ public class TestPackagePage {
 
 	@FindBy(css = "*[class*='relationship-tag']")
 	public List<WebElement> selectedFamilyMembers;
-	
 
-	
 }
