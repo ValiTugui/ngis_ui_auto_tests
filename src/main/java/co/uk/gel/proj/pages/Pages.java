@@ -1,10 +1,13 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import co.uk.gel.config.SeleniumDriver;
 
-public class Pages {
+public class Pages implements Navigable {
 
     protected WebDriver driver;
 
@@ -43,5 +46,38 @@ public class Pages {
         responsibleClinicianPage = PageFactory.initElements(driver,ResponsibleClinicianPage.class);
         tumoursPage = PageFactory.initElements(driver,TumoursPage.class);
         samplesPage = PageFactory.initElements(driver,SamplesPage .class);
+    }
+
+
+   @Override
+    public void NavigateTo(String pageToNavigate) {
+
+    }
+
+    public void NavigateTo(String urlToNavigate, String pageToNavigate) {
+        driver.get(urlToNavigate);
+        //Navigate to Test Directory
+        if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
+            homePage.waitUntilHomePageResultsContainerIsLoaded();
+        }
+        // Navigate to specific pages in Test Order
+        else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            } else {
+                if (patientSearchPage.logout.isDisplayed()) {
+                    patientSearchPage.logout.click();
+                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                } else
+                    Debugger.println(" User is at url " + driver.getCurrentUrl());
+            }
+        }
+
     }
 }//end class

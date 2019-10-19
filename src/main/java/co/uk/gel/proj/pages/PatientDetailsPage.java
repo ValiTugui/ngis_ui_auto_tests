@@ -4,7 +4,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -17,19 +16,13 @@ import java.util.List;
 
 public class PatientDetailsPage {
 
-	WebDriver driver;
+    WebDriver driver;
     Faker faker = new Faker();
     NewPatient newPatient = new NewPatient();
-
-    /*public PatientDetailsPage(SeleniumDriver driver) {
-        super(driver);
-    }*/
-
-      public PatientDetailsPage (WebDriver driver) {
-          this.driver = driver;
-          PageFactory.initElements(driver, this);
-      }
-
+    public PatientDetailsPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     public WebElement title;
     public WebElement firstName;
@@ -187,6 +180,8 @@ public class PatientDetailsPage {
 
     public WebElement otherReasonExplanation;
 
+    String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
+
 
 
     public void patientDetailsPageIsDisplayed() {
@@ -197,7 +192,6 @@ public class PatientDetailsPage {
     public void newPatientPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/new-patient");
     }
-
 
     public void fillInNewPatientDetailsWithoutAddressFields() {
 
@@ -279,6 +273,11 @@ public class PatientDetailsPage {
     public void patientIsCreated() {
         Wait.forElementToBeDisplayed(driver, successNotification);
         Assert.assertEquals("Details saved", Actions.getText(successNotification));
+    }
+
+    public void clickStartReferralButton() {
+        Actions.clickElement(driver, startReferralButton);
+        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
     }
 
     public void clickStartNewReferralButton() {

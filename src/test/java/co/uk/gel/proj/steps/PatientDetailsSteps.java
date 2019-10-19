@@ -4,15 +4,16 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-
+import co.uk.gel.proj.pages.PatientDetailsPage;
+import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
+
 
 public class PatientDetailsSteps extends Pages {
 
-
+    PatientDetailsPage patientDetails;
     public PatientDetailsSteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -31,7 +32,6 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();
     }
-
 
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {

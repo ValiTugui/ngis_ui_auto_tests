@@ -1,6 +1,5 @@
 package co.uk.gel.proj.pages;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +15,6 @@ public class TestPackagePage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-
 
 	@FindBy(xpath = "//label[contains(@class,'field-label')]")
 	public WebElement priorityLabel;
@@ -85,7 +83,5 @@ public class TestPackagePage {
 
 	@FindBy(css = "*[class*='relationship-tag']")
 	public List<WebElement> selectedFamilyMembers;
-	
 
-	
 }

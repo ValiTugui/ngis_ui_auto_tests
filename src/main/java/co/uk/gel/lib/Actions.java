@@ -98,4 +98,30 @@ public class Actions {
 		js.executeScript("window.scrollTo(0, 0);"); 
 	}
 
+	public boolean isAlertPresent(WebDriver driver) {
+		try {
+			driver.switchTo().alert();
+			return true;
+		}
+		catch (NoAlertPresentException Ex) {
+			return false;
+		}
+	}
+
+	public void acceptAlert(WebDriver driver)  {
+		if (isAlertPresent(driver)) {
+			driver.switchTo().alert().accept();
+			driver.switchTo().defaultContent();
+			Wait.seconds(2);
+		}
+	}
+
+	public void dismissAlert(WebDriver driver)  {
+		if (isAlertPresent(driver)) {
+			driver.switchTo().alert().dismiss();
+			driver.switchTo().defaultContent();
+			Wait.seconds(2);
+		}
+	}
+
 }
