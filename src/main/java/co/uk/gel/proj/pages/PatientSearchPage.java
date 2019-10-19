@@ -171,6 +171,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "p[class*='no-results__duplicate']")
     public WebElement noResultsDuplicate;
 
+    String noResultsLocator = "img[class*='no-results__img']";
+    String errorMessageLocator = "div[class*='error-message']";
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -508,7 +511,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void validationErrorsAreDisplayedForSkippingMandatoryValues(){
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("NHS Number is required.", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a day", getText(validationErrors.get(1)));
         Assert.assertEquals("Enter a month", getText(validationErrors.get(2)));
@@ -521,7 +524,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public void validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO(){
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("Enter a day", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a month", getText(validationErrors.get(1)));
         Assert.assertEquals("Enter a year", getText(validationErrors.get(2)));
@@ -842,7 +845,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("img[class*='no-results__img']"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
         Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
         Click.element(driver, noResultsHelpLink);
     }

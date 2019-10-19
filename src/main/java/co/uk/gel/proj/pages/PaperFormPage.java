@@ -201,6 +201,8 @@ public class PaperFormPage {
 	@FindBy(css = "*[class*='tumourWarning']")
 	public WebElement cancerOfflineOrderwarningBanner;
 
+	String entitySuggestionLocatior = "div[class*='suggestions']";
+
 	public void fillInSpecificKeywordInSearchField(String keyword) {
 		Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
 		orderEntitySearchField.clear();
@@ -208,7 +210,7 @@ public class PaperFormPage {
 	}
 
 	public void checkThatEntitySuggestionsAreDisplayed() {
-		Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='suggestions']"), 0);
+		Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
 	}
 
 	public void clickSignInToTheOnlineServiceButton() {

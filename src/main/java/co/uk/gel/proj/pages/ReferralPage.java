@@ -140,33 +140,6 @@ public class ReferralPage<check> {
 	public List<WebElement> helix;
 
 
-	public boolean isAlertPresent() {
-		try {
-			driver.switchTo().alert();
-			return true;
-		}
-		catch (NoAlertPresentException Ex) {
-			return false;
-		}
-	}
-
-	public void acceptAlert() {
-		if (isAlertPresent()) {
-			driver.switchTo().alert().accept();
-			driver.switchTo().defaultContent();
-			Wait.seconds(2);
-		}
-	}
-
-	public void dismissAlert() {
-		if (isAlertPresent()) {
-			driver.switchTo().alert().dismiss();
-			driver.switchTo().defaultContent();
-			Wait.seconds(2);
-		}
-	}
-
-
 	public String getText(WebElement element) {
 		Wait.forElementToBeDisplayed(driver, element);
 		return element.getText();

@@ -16,7 +16,6 @@ public class TestPackagePage {
 		PageFactory.initElements(driver, this);
 	}
 
-
 	@FindBy(xpath = "//label[contains(@class,'field-label')]")
 	public WebElement priorityLabel;
 

@@ -162,9 +162,11 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='required-icon']")
     public List<WebElement> requiredRedAsterix;
 
+    String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
+
     public void clickStartReferralButton() {
         Actions.clickElement(driver, startReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath("//button[contains(@class,'submit-button') and @type='button']"));
+        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
     }
 
     public void clickStartNewReferralButton() {
