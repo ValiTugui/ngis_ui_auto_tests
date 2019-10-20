@@ -4,12 +4,12 @@
 #
 #  @UserJourneys-CANCER @UserJourneys-E2EUI-1637
 #  Scenario Outline: E2EUI-1637 - UseCase#21: NEW Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
-#    #Test Directory
+    #Test Directory
 #    Given a web browser is at the Private Test Selection homepage
 #    And the user types in the CI term "<clinical-indication>" in the search field and selects the first result from the results list
 #    When the user clicks the Start referral button
 #    And the user clicks the "Sign in to the online service" hyperlink
-#     #Test Ordering
+#     Test Ordering
 #    Then the user logs in to the Test Order system successfully
 #    Then the Patient Search page is displayed
 #    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -17,10 +17,10 @@
 #    Then The message will be displayed as You’ve searched for "<NhsNumber>" "<DOB> " "<error_message>"
 #    And There is a "<hyperlinkText>"link available
 #    When the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "Patient is a foreign national"
-##    And the user creates the new patient record without NHS number by clicking the "<hyperlinkText>"link
-##    And the user clicks the Start Referral button
+#    And the user creates the new patient record without NHS number by clicking the "<hyperlinkText>"link
+#     And the user clicks the Start a new Referral button
 #    And the user clicks the Start Referral button to display the referral page
-#    #Patient Details
+#    Patient Details
 #    Then the "Patient details" stage is selected
 #    When the user does not modify the existing information on the "Patient details" form
 #    And the "Patient details" stage is marked as Completed

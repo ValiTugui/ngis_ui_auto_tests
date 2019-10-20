@@ -33,9 +33,13 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.patientIsCreated();
     }
 
+    @And("the user clicks the Start a new Referral button")
+    public void theUserClicksTheStartANewReferralButton() {
+        patientDetailsPage.clickStartNewReferralButton();
+    }
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {
-        patientDetailsPage.clickStartNewReferralButton();
+        patientDetailsPage.clickStartReferralButton();
     }
 
     @And("the user clicks the Start Referral button to display the referral page")
