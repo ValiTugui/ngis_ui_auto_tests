@@ -16,8 +16,9 @@ public class AppConfig {
     private static String app_username;
     private static String app_password;
     private static String to_patient_search_url;
+    private static String td_private_url;
     private static String MYNewName;
-  public static Properties properties = null;
+    public static Properties properties = null;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -32,7 +33,7 @@ public class AppConfig {
                 //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-          //  System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
+            //  System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,11 +41,14 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
         MYNewName = properties.getProperty("MYNewName");
     }
 
-    public static String getPropertyValueFromPropertyFile(String propertyVal){
+    public static String getPropertyValueFromPropertyFile(String propertyVal) {
+        if (properties == null)
+            loadAppConfig();
         return properties.getProperty(propertyVal);
     }
 
@@ -67,6 +71,7 @@ public class AppConfig {
         }
         return app_url;
     }
+
     public static String getTo_patient_search_url() {
         if (to_patient_search_url == null || to_patient_search_url.isEmpty()) {
             loadAppConfig();

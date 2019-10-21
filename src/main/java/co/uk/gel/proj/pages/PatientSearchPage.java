@@ -1,9 +1,13 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Wait;
+import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
@@ -13,11 +17,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import java.io.IOException;
+import java.util.*;
 
 
 //public class PatientSearchPage {
@@ -158,6 +159,25 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
+    @FindBy(css = "*[class*='no-results__help']")
+    public WebElement noResultsHelp;
+
+    @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
+    public WebElement noResultsHelpLink;
+
+    @FindBy(css ="a[class*='inline-link']")
+    public WebElement noResultsHelpLink2; // create a new patient link
+
+    @FindBy(css = "p[class*='no-results__duplicate']")
+    public WebElement noResultsDuplicate;
+
+    String noResultsLocator = "img[class*='no-results__img']";
+    String errorMessageLocator = "div[class*='error-message']";
+
+    public void pageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/patient-search");
+        Wait.forElementToBeDisplayed(driver, yesButton);
+    }
 
     public String getYesBtnSelectedAttribute()
     {
@@ -491,7 +511,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void validationErrorsAreDisplayedForSkippingMandatoryValues(){
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("NHS Number is required.", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a day", getText(validationErrors.get(1)));
         Assert.assertEquals("Enter a month", getText(validationErrors.get(2)));
@@ -504,7 +524,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public void validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO(){
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='error-message']"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("Enter a day", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a month", getText(validationErrors.get(1)));
         Assert.assertEquals("Enter a year", getText(validationErrors.get(2)));
@@ -656,10 +676,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
         HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey= paramNameValue.keySet();
-        for (String s : paramsKey) {
-            switch (s) {
+        for (String key : paramsKey) {
+            switch (key) {
                 case "DOB": {
-                    String dobValue = paramNameValue.get(s);
+                    String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
                     Actions.clearField(dateDay);
                     dateDay.sendKeys(dobSplit[0]);
@@ -671,22 +691,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 }
                 case "FirstName": {
                     Actions.clearField(firstName);
-                    firstName.sendKeys(paramNameValue.get(s));
+                    firstName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "LastName": {
                     Actions.clearField(lastName);
-                    lastName.sendKeys(paramNameValue.get(s));
+                    lastName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "Gender": {
                     genderButton.click();
-                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(s) + "']")).click();
+                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
                     break;
                 }
                 case "Postcode": {
                     Actions.clearField(postcode);
-                    postcode.sendKeys(paramNameValue.get(s));
+                    postcode.sendKeys(paramNameValue.get(key));
                     break;
                 }
             }
@@ -824,6 +844,26 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
+    public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
+        Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
+        Click.element(driver, noResultsHelpLink);
+    }
+
+    public void fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {
+        if (patientType.equals("NGIS")) {
+            fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+        } else if (patientType.equals("SPINE")) {
+            SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
+            ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
+            String dayOfBirth = dobString.get(0);
+            String monthOfBirth = dobString.get(1);
+            String yearOfBirth = dobString.get(2);
+            fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+        } else {
+            throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
+        }
+    }
 
 
 }

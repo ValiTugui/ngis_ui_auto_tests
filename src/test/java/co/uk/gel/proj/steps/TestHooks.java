@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.core.api.Scenario;
@@ -8,10 +9,8 @@ import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import io.cucumber.java.After;
-//import cucumber.api.java.After;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.*;
+
 
 public class TestHooks  extends Pages {
 
@@ -60,8 +59,17 @@ public class TestHooks  extends Pages {
         // driver=null;
 
     }
-    @After(order=1)
-    public void afterScenario(){
+
+    @After("@LOGOUT")
+    public void logOutAndTearDown() {
+        Debugger.println("deleted cookies");
+        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
+        driver.manage().deleteAllCookies();
+        Wait.seconds(10);
+    }
+
+    @After(order = 1)
+    public void afterScenario() {
         //login_page.logoutFromMI();
     }
 }//end class
