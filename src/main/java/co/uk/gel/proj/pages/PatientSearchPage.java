@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -850,21 +851,21 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Click.element(driver, noResultsHelpLink);
     }
 
-    public void fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {
-        if (patientType.equals("NGIS")) {
-            fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
-        } else if (patientType.equals("SPINE")) {
+    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne() {
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+    }
+    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo() {
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientTwo.NHS_NUMBER, NgisPatientTwo.DAY_OF_BIRTH, NgisPatientTwo.MONTH_OF_BIRTH, NgisPatientTwo.YEAR_OF_BIRTH);
+    }
+
+   public void fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord() throws IOException {
             SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
             ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
             String dayOfBirth = dobString.get(0);
             String monthOfBirth = dobString.get(1);
             String yearOfBirth = dobString.get(2);
             fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
-        } else {
-            throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
         }
-    }
-
 
 }
 

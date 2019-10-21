@@ -1,9 +1,11 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.List;
 
@@ -16,16 +18,18 @@ public class TestPackagePage {
 		PageFactory.initElements(driver, this);
 	}
 
+	@FindBy(css = "h1[class*='page-title']")
+	public WebElement testPackagePageTitle;
 	@FindBy(xpath = "//label[contains(@class,'field-label')]")
 	public WebElement priorityLabel;
 
-	@FindBy(xpath = "//div[contains(@class,'test-package__priority')]//following::button")
+	@FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
 	public WebElement routinePriorityButton;
 
-	@FindBy(xpath = "//div[contains(@class,'test-package__priority')]//following::button[2]")
+	@FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
 	public WebElement urgentPriorityButton;
 
-	@FindBy(xpath = "//div[contains(@class,'test-package__priority')]//following::p")
+	@FindBy(css = "p[class*='hint__text'")
 	public WebElement priorityHintText;
 
 	@FindBy(css = "*[class*='test-package__select-tests-heading']")
@@ -58,6 +62,9 @@ public class TestPackagePage {
 	@FindBy(css = "*[class*='test-list-item__target']")
 	public WebElement targetedGenesHeader;
 
+	@FindBy(css = "[class*='test-list-item__section']")
+	public WebElement targetedGenesTestInfoLabel;
+
 	@FindBy(css = "p[class*='test-list-item__description']")
 	public WebElement testTargetDescription;
 
@@ -84,4 +91,54 @@ public class TestPackagePage {
 	@FindBy(css = "*[class*='relationship-tag']")
 	public List<WebElement> selectedFamilyMembers;
 
+	public boolean verifyTestPackagePageTitle(String title){
+		return testPackagePageTitle.getText().equalsIgnoreCase(title);
+	}
+
+	public boolean verifyPriorityButtonLabels(String expectedLabelTexts){
+       boolean priorityButtonLabelsAreDisplayedCorrectly = false;
+       if(expectedLabelTexts != null){
+		   routinePriorityButton.getText().contains(expectedLabelTexts);
+		   urgentPriorityButton.getText().contains(expectedLabelTexts);
+		   priorityButtonLabelsAreDisplayedCorrectly = true;
+	   }
+       return  priorityButtonLabelsAreDisplayedCorrectly;
+	}
+
+	public boolean verifyTheHelpText(String expectedHelpText){
+		boolean helpTextIsMatching = false;
+		return priorityHintText.getText().contains(expectedHelpText);
+	}
+
+	public boolean verifyTestsSection(String expectedSectionText){
+       return selectTestsHeader.getText().contains(expectedSectionText);
+	}
+
+	public boolean verifyTargetedGenes(String expectedTargetedGenesText){
+		boolean targetedGenesSectionIsCorrect = false;
+		if(expectedTargetedGenesText != null){
+			targetedGenesSectionIsCorrect = testTargetDescription.isDisplayed();
+		}
+		return targetedGenesSectionIsCorrect;
+	}
+
+	public boolean verifyTestCardDetails(String testCardInfo){
+		boolean testCardDetailsAreCorrect = false;
+		if(testCardInfo != null){
+			testCardDetailsAreCorrect = true;
+			// check for Default Test card details - Routine priority & Singleton test
+			if( testCardCategory.get(0).getText().contains(testCardInfo) &&
+			testCardCategory.get(1).getText().contains(testCardInfo) ) {
+			}
+		}
+		return testCardDetailsAreCorrect;
+	}
+
+	public boolean verifyTotalNumberOfParticipantsDropDownBox(){
+		return numberOfParticipantsDropdown.get(0).isDisplayed();
+	}
+
+	public boolean verifyDefaultSelectedFamilyMembersInfo(String testRelationshipInfo){
+		return selectedFamilyMembers.get(0).isDisplayed();
+	}
 }
