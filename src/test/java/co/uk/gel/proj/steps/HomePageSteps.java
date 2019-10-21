@@ -5,6 +5,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 
 import java.util.List;
 
@@ -32,5 +33,10 @@ public class HomePageSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
+    }
+
+    @Then("the Test Directory homepage is displayed")
+    public void theTestDirectoryHomepageIsDisplayed() {
+        homePage.TestDirectoryHomePageIsDisplayed();
     }
 }
