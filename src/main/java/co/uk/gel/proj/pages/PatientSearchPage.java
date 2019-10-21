@@ -226,11 +226,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
 
 
-    public void checkThatPatientCardIsDisplayed(WebDriver driver, String badgeText) {
+    public String checkThatPatientCardIsDisplayed(WebDriver driver) {
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
         Debugger.println("The search result is from :" + patientCardBadge.getText());
-        Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
+        //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
+        return patientCardBadge.getText().trim();
     }
 
 

@@ -9,11 +9,13 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
+import org.junit.Assert;
 
 
 public class PatientDetailsSteps extends Pages {
 
     PatientDetailsPage patientDetails;
+    PatientSearchSteps patientSearchSteps;
     public PatientDetailsSteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -62,5 +64,27 @@ public class PatientDetailsSteps extends Pages {
     @And("the Start Referral button is disabled")
     public void theStartReferralButtonIsDisabled() {
         patientDetailsPage.startReferralButtonIsDisabled();
+    }
+
+    @When("the user clicks the Back link")
+    public void theUserClicksTheBackLink() {
+        patientDetailsPage.clickGoBackToPatientSearchLink();
+    }
+
+    @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
+    public void aWebBrowserIsAtThePatientDetailsPageOfAPatientWithNHSNumberAndDateOfBirthWithoutClinicalIndicationTestSelected(String patientType, String nhsNo, String dob) {
+
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile("TO_PATIENT_SEARCH_URL"), "patient-search");
+        String[] value=  dob.split("-");  // Split DOB in the format 01-01-1900
+        patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo,value[0],value[1],value[2]);
+        patientSearchPage.clickSearchButtonByXpath(driver);
+        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        patientSearchPage.clickPatientCard();
+        Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
+    }
+
+    @When("the user clicks the Test Directory link from the notification banner")
+    public void theUserClicksTheTestDirectoryLinkFromTheNotificationBanner() {
+        patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
     }
 }

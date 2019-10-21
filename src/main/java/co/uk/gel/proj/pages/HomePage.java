@@ -200,4 +200,9 @@ public class HomePage {
         waitUntilHomePageResultsContainerIsLoaded();
         Click.element(driver, resultsPanels.get(0));
     }
+
+    public void TestDirectoryHomePageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+        Wait.forElementToBeDisplayed(driver, searchField);
+    }
 }

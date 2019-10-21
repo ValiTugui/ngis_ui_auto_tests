@@ -184,9 +184,10 @@ public class PatientDetailsPage {
 
 
 
-    public void patientDetailsPageIsDisplayed() {
+    public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
         Wait.forElementToBeDisplayed(driver, startReferralButton);
+        return true;
     }
 
     public void newPatientPageIsDisplayed() {
@@ -292,5 +293,14 @@ public class PatientDetailsPage {
     public void startReferralButtonIsDisabled() {
         Wait.forElementToBeDisplayed(driver, startReferralButton);
         Assert.assertTrue(!startReferralButton.isEnabled());
+    }
+
+    public void clickGoBackToPatientSearchLink() {
+        Click.element(driver, goBackToPatientSearchLink);
+    }
+
+    public void clickTestDirectoryLinkFromNotificationBanner() {
+        Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
+        Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
     }
 }

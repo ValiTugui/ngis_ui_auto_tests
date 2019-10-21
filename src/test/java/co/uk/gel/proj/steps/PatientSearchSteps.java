@@ -88,7 +88,7 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-        patientSearchPage.checkThatPatientCardIsDisplayed(driver, badgeText);
+        Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
     }
 
 
