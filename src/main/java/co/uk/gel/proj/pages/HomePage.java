@@ -175,10 +175,10 @@ public class HomePage {
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
 
-    public void waitUntilHomePageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, filtersPanel);
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
-    }
+	public void waitUntilHomePageResultsContainerIsLoaded() {
+		Wait.forElementToBeDisplayed(driver, filtersPanel);
+		Wait.forElementToBeDisplayed(driver, resultsPanel);
+	}
 
     public void typeInSearchField(String searchTerm) {
         Wait.forElementToBeDisplayed(driver, searchField);
@@ -199,5 +199,10 @@ public class HomePage {
     public void selectFirstEntityFromResultList() {
         waitUntilHomePageResultsContainerIsLoaded();
         Click.element(driver, resultsPanels.get(0));
+    }
+
+    public void TestDirectoryHomePageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+        Wait.forElementToBeDisplayed(driver, searchField);
     }
 }

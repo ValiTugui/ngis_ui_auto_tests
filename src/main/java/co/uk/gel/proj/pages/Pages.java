@@ -18,6 +18,7 @@ public class Pages implements Navigable {
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
+    protected NewPatientPage newPatientPage;
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
     protected TestPackagePage testPackagePage;
@@ -32,22 +33,23 @@ public class Pages implements Navigable {
 
     public void PageObjects() {
 
-        homePage = PageFactory.initElements(driver, HomePage.class);
-        clinicalIndicationsTestSelect = PageFactory.initElements(driver, ClinicalIndicationsTestSelectPage.class);
-        paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
-        referralPage = PageFactory.initElements(driver, ReferralPage.class);
+        homePage= PageFactory.initElements(driver,HomePage.class);
+        clinicalIndicationsTestSelect = PageFactory.initElements(driver,ClinicalIndicationsTestSelectPage.class);
+        paperFormPage = PageFactory.initElements(driver,PaperFormPage.class);
+        referralPage = PageFactory.initElements(driver,ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
-        patientSearchPage = PageFactory.initElements(driver, PatientSearchPage.class);
-        patientDetailsPage = PageFactory.initElements(driver, PatientDetailsPage.class);
-        requestingOrganisationPage = PageFactory.initElements(driver, RequestingOrganisationPage.class);
-        testPackagePage = PageFactory.initElements(driver, TestPackagePage.class);
-        responsibleClinicianPage = PageFactory.initElements(driver, ResponsibleClinicianPage.class);
-        tumoursPage = PageFactory.initElements(driver, TumoursPage.class);
-        samplesPage = PageFactory.initElements(driver, SamplesPage.class);
+        patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
+        newPatientPage = PageFactory.initElements(driver,NewPatientPage.class);
+        patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
+        requestingOrganisationPage = PageFactory.initElements(driver,RequestingOrganisationPage.class);
+        testPackagePage = PageFactory.initElements(driver,TestPackagePage.class);
+        responsibleClinicianPage = PageFactory.initElements(driver,ResponsibleClinicianPage.class);
+        tumoursPage = PageFactory.initElements(driver,TumoursPage.class);
+        samplesPage = PageFactory.initElements(driver,SamplesPage .class);
     }
 
 
-    @Override
+   @Override
     public void NavigateTo(String pageToNavigate) {
 
     }

@@ -71,12 +71,18 @@ public class AppConfig {
         }
         return app_url;
     }
-
     public static String getTo_patient_search_url() {
         if (to_patient_search_url == null || to_patient_search_url.isEmpty()) {
             loadAppConfig();
         }
         return to_patient_search_url;
+    }
+
+    public static String getTd_private_url() {
+        if (td_private_url == null || td_private_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return td_private_url;
     }
 
     public static void setApp_url(String app_url) {

@@ -14,6 +14,7 @@ public class NgisPatientTwo {
     public static final String DATE_OF_BIRTH = DAY_OF_BIRTH + "-" + TestUtils.convertMonthNumberToMonthForm(MONTH_OF_BIRTH)
                                             + "-" + YEAR_OF_BIRTH;
     public static final String GENDER = "Male";
+    public static final String LIFE_STATUS = "Alive";
     public static final String NHS_NUMBER = "9437139229";
     public static final String ADDRESS_LINE1 = "1 Primrose St";
     public static final String ADDRESS_LINE2 = "Spitalfields";
