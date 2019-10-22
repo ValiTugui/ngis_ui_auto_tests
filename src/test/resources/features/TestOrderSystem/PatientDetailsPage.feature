@@ -1,3 +1,4 @@
+@patientDetails
 Feature: Patient details page
 
 #  Background:

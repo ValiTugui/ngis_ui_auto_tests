@@ -1,3 +1,4 @@
+@testPackage
 Feature: Test Package page
 
   @E2EUI-911 @NTS-3073 @LOGOUT @V1

@@ -1,3 +1,4 @@
+@requestingOrganisation
 Feature: Requesting Organisation page
 
   Background:
