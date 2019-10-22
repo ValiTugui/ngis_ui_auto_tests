@@ -4,13 +4,12 @@ import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
-import co.uk.gel.proj.TestDataProvider.*;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -21,27 +20,23 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 //public class PatientSearchPage {
 public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
-      WebDriver driver;
-      public static NewPatient testData = new NewPatient();
-      static Faker faker = new Faker();
+    WebDriver driver;
+    public static NewPatient testData = new NewPatient();
+    static Faker faker = new Faker();
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
     }*/
 
-      public PatientSearchPage (WebDriver driver) {
-          this.driver = driver;
-          PageFactory.initElements(driver, this);
-      }
+    public PatientSearchPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
 
     public WebElement title;
@@ -78,7 +73,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
 
-    @FindBy(id="nhsNumber")
+    @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
 
     @FindBy(css = "label[for*='nhsNumber']")
@@ -102,10 +97,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "label[for*='lastName']")
     public WebElement lastNameLabel;
 
-    @FindBy(css ="label[for*='gender']")
+    @FindBy(css = "label[for*='gender']")
     public WebElement genderLabel;
 
-    @FindBy(css ="label[for*='postcode']")
+    @FindBy(css = "label[for*='postcode']")
     public WebElement postcodeLabel;
 
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
@@ -154,10 +149,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//p[contains(string(),'Address')]")
     public WebElement patientAddress;
 
-    @FindBy(xpath ="//h3[contains(string(), 'No patient found')]")
+    @FindBy(xpath = "//h3[contains(string(), 'No patient found')]")
     public WebElement noPatientFoundLabel;
 
-    @FindBy(css ="div[class*='styles_error-message']")
+    @FindBy(css = "div[class*='styles_error-message']")
     public WebElement nHSNumberFieldValidationErrorMessageLabel;
 
     @FindBy(css = "div[class*='styles_error-message__text__1v2Kl']")
@@ -174,7 +169,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
     public WebElement noResultsHelpLink;
 
-    @FindBy(css ="a[class*='inline-link']")
+    @FindBy(css = "a[class*='inline-link']")
     public WebElement noResultsHelpLink2; // create a new patient link
 
     @FindBy(css = "p[class*='no-results__duplicate']")
@@ -188,19 +183,18 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, yesButton);
     }
 
-    public String getYesBtnSelectedAttribute()
-    {
+    public String getYesBtnSelectedAttribute() {
         String value = yesButton.getAttribute("aria-pressed");
         Debugger.println("colour is: " + value);
         return value;
     }
 
-    public String getYesButtonColour()
-    {
+    public String getYesButtonColour() {
         String backGroundColour = yesButton.getCssValue("background-color");
         Debugger.println("colour is: " + backGroundColour);
         return backGroundColour;
     }
+
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
 
@@ -216,11 +210,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickSearchButton(WebDriver driver) {
-        Wait.forElementToBeClickable(driver,searchButton);
+        Wait.forElementToBeClickable(driver, searchButton);
         searchButton.click();
     }
+
     public void clickSearchButtonByXpath(WebDriver driver) {
-        Wait.forElementToBeClickable(driver,searchButtonByXpath);
+        Wait.forElementToBeClickable(driver, searchButtonByXpath);
         searchButtonByXpath.click();
     }
 
@@ -268,8 +263,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
 
-        HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey= paramNameValue.keySet();
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
             switch (key) {
                 case "DOB": {
@@ -303,7 +298,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader){
+    public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader) {
 
         Wait.forElementToBeDisplayed(driver, patientCard);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
@@ -318,7 +313,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         return element.getText();
     }
 
-    public void validationErrorsAreDisplayedForSkippingMandatoryValues(){
+    public void validationErrorsAreDisplayedForSkippingMandatoryValues() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("NHS Number is required.", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a day", getText(validationErrors.get(1)));
@@ -330,8 +325,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-
-    public void validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO(){
+    public void validationErrorsAreDisplayedForSkippingMandatoryValuesDoYouHavePatientNHSNumberNO() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("Enter a day", getText(validationErrors.get(0)));
         Assert.assertEquals("Enter a month", getText(validationErrors.get(1)));
@@ -371,12 +365,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
         String expectedDayOfBirth = "11";
         String expectedMonthOfBirth = "04";
-        String expectedYearOfBirth =  "1909";
-        String expectedDateOfBirth =expectedDayOfBirth+"-"+months[Integer.parseInt(expectedMonthOfBirth)-1]+"-"+expectedYearOfBirth;
+        String expectedYearOfBirth = "1909";
+        String expectedDateOfBirth = expectedDayOfBirth + "-" + months[Integer.parseInt(expectedMonthOfBirth) - 1] + "-" + expectedYearOfBirth;
         Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + expectedDateOfBirth);
         String actualFullDOB = patientDateOfBirth.getText().trim();
 
@@ -386,29 +380,29 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String expectedNHSNumber = "9449304580";
         String actualNHSNumber = patientNSNo.getText().trim();
 
-        String expectedAddressLine1 ="27 KINGSTON ROAD";
+        String expectedAddressLine1 = "27 KINGSTON ROAD";
         String expectedAddressLine2 = "EPSOM";
-        String expectedAddressLine3 ="SURREY";
-        String expectedAddressLine4 ="";
+        String expectedAddressLine3 = "SURREY";
+        String expectedAddressLine4 = "";
         String expectedPostcode = "KT17 2EG";
         String expectedFullAddress = "Address " + expectedAddressLine1 + ", " + expectedAddressLine2 + ", " +
                 expectedAddressLine3 + ", " + expectedPostcode;
         String actualAddress = patientAddress.getText().trim();
 
-        Debugger.println("Expected full name = "+expectedFullName  + ", Actual full name "+actualFullName );
+        Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
         Assert.assertEquals(expectedFullName, actualFullName);
 
-        Debugger.println("Expected DOB = "+expectedDateOfBirth  + ", Actual DOB: "+ actualFullDOB );
+        Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
         //Assert.assertTrue(actualFullDOB.contains("Born " + expectedDayOfBirth));
         Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
 
-        Debugger.println("Expected Gender= "+expectedGender  + ", Actual Gender: "+ actualGender );
+        Debugger.println("Expected Gender= " + expectedGender + ", Actual Gender: " + actualGender);
         Assert.assertEquals("Gender " + expectedGender, actualGender);
 
-        Debugger.println("Expected nhs no = "+expectedNHSNumber  + ", Actual nhs no: "+actualNHSNumber );
+        Debugger.println("Expected nhs no = " + expectedNHSNumber + ", Actual nhs no: " + actualNHSNumber);
         Assert.assertEquals("NHS No. " + expectedNHSNumber, actualNHSNumber);
 
-        Debugger.println("Expected address = "+expectedFullAddress  + ", Actual address: "+actualAddress );
+        Debugger.println("Expected address = " + expectedFullAddress + ", Actual address: " + actualAddress);
         Assert.assertEquals(expectedFullAddress, actualAddress);
     }
 
@@ -458,8 +452,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void checkTheErrorMessagesInDOB(String errorMessage, String fontColor) {
         // dynamically construct the expected validation error for the future date scenario by appending today's date
-        if(errorMessage.endsWith("today")){
-            errorMessage =  TestUtils.removeAWord(errorMessage, "today");
+        if (errorMessage.endsWith("today")) {
+            errorMessage = TestUtils.removeAWord(errorMessage, "today");
             errorMessage = errorMessage + TestUtils.todayInDDMMYYYFormat();
         }
 
@@ -477,13 +471,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), postcodeLabel.getCssValue("color"));
 
     }
-    public void  fillInValidSecondPatientDetailsUsingNOFields(String searchParams){
+
+    public void fillInValidSecondPatientDetailsUsingNOFields(String searchParams) {
 
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
 
-        HashMap<String,String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey= paramNameValue.keySet();
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
             switch (key) {
                 case "DOB": {
@@ -522,22 +517,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public void  verifyTheTitleOfThePage(String titleOfPage){
+    public void verifyTheTitleOfThePage(String titleOfPage) {
         Wait.forElementToBeDisplayed(driver, searchButton);
         Debugger.println("The actual page title  is :" + pageTitle.getText());
         Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
     }
 
-    public void verifyTheDescriptionOfThePage(String DescriptionOfPage){
+    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
         String actualPageDescription = pageDescription.getText();
         Debugger.println("The actual Description title  is :" + pageDescription.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
 
-    public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(/*WebElement element*/String[] textFieldElements ){
+    public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(String[] textFieldElements) {
 
-        for (String s : textFieldElements) {
-            switch(s)
+        for (String fieldElement : textFieldElements) {
+            switch(fieldElement)
             {
                 case "nhsNumber": {
                     verifyFieldHasAutoCompleteDisabled(nhsNumber);
@@ -580,12 +575,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void verifyFieldHasAutoCompleteDisabled(WebElement element){
+    public void verifyFieldHasAutoCompleteDisabled(WebElement element) {
 
         Wait.forElementToBeDisplayed(driver, element);
         element.click();
         Wait.seconds(1);
-        String autoCompleteValue= element.getAttribute("list");
+        String autoCompleteValue = element.getAttribute("list");
         Debugger.println("The values for auto complete is: " + autoCompleteValue);
         Assert.assertEquals("autocompleteOff", autoCompleteValue);
         Debugger.println("Test passed for the element field" + element);
@@ -633,7 +628,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         return true;
     }
 
-    public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage , String expectedFontFace) {
+    public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage, String expectedFontFace) {
         Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
         Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
 
@@ -675,6 +670,23 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne() {
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+    }
+
+    public void fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo() {
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientTwo.NHS_NUMBER, NgisPatientTwo.DAY_OF_BIRTH, NgisPatientTwo.MONTH_OF_BIRTH, NgisPatientTwo.YEAR_OF_BIRTH);
+    }
+
+    public void fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord() throws IOException {
+        SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
+        ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
+        String dayOfBirth = dobString.get(0);
+        String monthOfBirth = dobString.get(1);
+        String yearOfBirth = dobString.get(2);
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+    }
+
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
         testData.setNhsNumber(Actions.createValidNHSNumber());
@@ -689,11 +701,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 //        Debugger.println("Expected DOB tobe :" + DOB1);
     }
 
-    	public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
-		String DOB = testData.getDay()  + "/" + testData.getMonth() + "/" + testData.getYear();
-		Debugger.println("Expected DOB:" + DOB + " Actual DOB :" + Actions.getValue(dateOfBirth));
-		Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
-	}
+    public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
+        String DOB = testData.getDay() + "/" + testData.getMonth() + "/" + testData.getYear();
+        Debugger.println("Expected DOB:" + DOB + " Actual DOB :" + Actions.getValue(dateOfBirth));
+        Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
+    }
 
 
     public void fillInInvalidPatientDetailsInTheNOFields() {
@@ -715,7 +727,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void noFieldsArePrePopulatedInNewPatientPage() {
-        String DOB = testData.getDay()  + "/" + testData.getMonth() + "/" + testData.getYear();
+        String DOB = testData.getDay() + "/" + testData.getMonth() + "/" + testData.getYear();
         Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
         Assert.assertEquals(testData.getFirstName(), Actions.getValue(firstName));
         Assert.assertEquals(testData.getLastName(), Actions.getValue(familyName));

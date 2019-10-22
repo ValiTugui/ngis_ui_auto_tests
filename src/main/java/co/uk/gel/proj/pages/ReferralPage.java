@@ -222,6 +222,7 @@ public class ReferralPage<check> {
 	public boolean stageIsCompleted(String stage) {
 		Wait.forElementToBeDisplayed(driver, toDoList);
 		WebElement referralStage = toDoList.findElement(By.cssSelector("a[href*='" + getPartialUrl(stage) + "']"));
+		Wait.forElementToBeDisplayed(driver, referralStage);
 		boolean status = referralStage.getAttribute("class").contains("todo--is-complete");
 		if(status == true) return true;
 		else return false;
