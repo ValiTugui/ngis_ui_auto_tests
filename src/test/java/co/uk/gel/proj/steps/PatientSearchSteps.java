@@ -342,13 +342,13 @@ public class PatientSearchSteps extends Pages {
     @And("the user types in valid details of a patient in the NHS number and DOB fields")
     public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(List<String> patientTypesList) throws IOException {
         String patientType = patientTypesList.get(0);
-        patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
+        if(patientType.equalsIgnoreCase("NGIS"))
+        patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne();
     }
 
     @And("the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page")
     public void theUserSearchesForAPatientByProvidingValidDetailsOfNHSNumberAndDOBFieldsInThePatientSearchPage(List<String> patientTypesList) throws IOException {
-        String patientType = patientTypesList.get(0);
-        patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
+        theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(patientTypesList);
         patientSearchPage.clickSearchButtonByXpath(driver);
     }
     @When("the user types in invalid details of a patient in the NHS number and DOB fields")

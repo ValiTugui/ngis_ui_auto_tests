@@ -33,8 +33,6 @@ public class RequestingOrganisationSteps extends Pages {
     public void theSaveAndContinueButtonShouldBeClickable() {
         Assert.assertTrue("Stage : Requesting Organisation - Save And Continue button should be clickable ", requestingOrganisationPage.checkTheContinueButtonIsClickable());
         requestingOrganisationPage.clickTheContinueButton();
-        Wait.seconds(5);
-        Assert.assertTrue(referralPage.stageIsCompleted("Requesting organisation"));
         Assert.assertTrue(referralPage.stageIsSelected("Test package"));
     }
 }
