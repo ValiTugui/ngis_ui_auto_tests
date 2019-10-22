@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -16,11 +18,19 @@ public class PaperFormSteps extends Pages {
 
     @Then("the user logs in to the Test Order system successfully")
     public void theUserLogsInToTheTestOrderSystemSuccessfully() {
-        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
 
-        boolean eachElementIsLoaded;
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        // NavigateTo(AppConfig.getPropertyValueFromPropertyFile("APP_URL"), "patient-search");
+
+        if (driver.getCurrentUrl().contains("patient-search")) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            }
+        }
     }
 
 

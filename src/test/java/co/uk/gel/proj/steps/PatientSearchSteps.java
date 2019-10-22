@@ -31,7 +31,11 @@ public class PatientSearchSteps extends Pages {
     public void aWebBrowserIsAtThePatientSearchPage(List<String> attributeOfUrl) {
         String baseURL = attributeOfUrl.get(0);
         String confirmationPage = attributeOfUrl.get(1);
-        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        String userType = attributeOfUrl.get(2);
+        if(userType != null){
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
+        }
+
     }
 
     @Then("the Patient Search page is displayed")

@@ -80,4 +80,36 @@ public class Pages implements Navigable {
         }
 
     }
+
+   public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
+
+        driver.get(urlToNavigate);
+        //Navigate to Test Directory
+        if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
+            homePage.waitUntilHomePageResultsContainerIsLoaded();
+        }
+        // Navigate to specific pages in Test Order
+        else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystem(driver, userType);
+            } else {
+                if (patientSearchPage.logout.isDisplayed()) {
+                    patientSearchPage.logout.click();
+                    patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                } else
+                    Debugger.println(" User is at url " + driver.getCurrentUrl());
+            }
+        }
+
+    }
+
+
+
+
 }//end class

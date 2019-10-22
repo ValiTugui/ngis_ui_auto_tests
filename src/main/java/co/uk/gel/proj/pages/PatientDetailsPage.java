@@ -4,6 +4,9 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -11,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerBase;
 
 import java.util.List;
 
@@ -303,4 +307,24 @@ public class PatientDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
         Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
     }
+
+    public boolean nhsNumberFieldIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For normal user, NHSNumber field is disabled and set to FALSE:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean nhsNumberFieldIsEnabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean editAndAddNhsNumberAsSuperUser() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
+        return true;
+    }
+
 }

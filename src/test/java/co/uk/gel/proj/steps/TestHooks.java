@@ -7,7 +7,6 @@ import co.uk.gel.proj.util.Debugger;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.*;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
 
@@ -43,6 +42,12 @@ public class TestHooks  extends Pages {
 
     }
 
+    @Before("@LOGIN_AS_SUPERUSER")
+    public void loginAsASuperUser(){
+           logoutAfterTest(5);
+    }
+
+
     @After(order=0)
     public void tearDown(Scenario scenario){
         Status scenarioStatus =  scenario.getStatus();
@@ -62,14 +67,21 @@ public class TestHooks  extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown() {
-        Debugger.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        driver.manage().deleteAllCookies();
-        Wait.seconds(10);
+          logoutAfterTest(10);
     }
 
     @After(order = 1)
     public void afterScenario() {
         //login_page.logoutFromMI();
     }
+
+    private void logoutAfterTest(int waitingTime) {
+        Debugger.println("deleted cookies");
+        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
+        driver.manage().deleteAllCookies();
+        Wait.seconds(waitingTime);
+
+    }
 }//end class
+
+
