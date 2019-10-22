@@ -83,7 +83,7 @@ public class Pages implements Navigable {
 
    public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
 
-        driver.get(urlToNavigate);
+          driver.get(urlToNavigate);
         //Navigate to Test Directory
         if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
             homePage.waitUntilHomePageResultsContainerIsLoaded();

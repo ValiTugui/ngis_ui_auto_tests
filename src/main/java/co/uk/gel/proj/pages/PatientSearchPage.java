@@ -661,6 +661,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         if (patientType.equals("NGIS")) {
             fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
         } else if (patientType.equals("NHS Spine")) {
+            // used to validate the spine details in patient result card
+            fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER, SpinePatientOne.DAY_OF_BIRTH, SpinePatientOne.MONTH_OF_BIRTH, SpinePatientOne.YEAR_OF_BIRTH);
+        } else if (patientType.equals("SPINE")) {
             SpineDataModelFromCSV randomNHSDataFromSpineCSV = RandomDataCreator.getAnyNHSDataFromSpineCSV();
             ArrayList<String> dobString = TestUtils.convertDOBNumbersToStrings(randomNHSDataFromSpineCSV.getDATE_OF_BIRTH());
             String dayOfBirth = dobString.get(0);
