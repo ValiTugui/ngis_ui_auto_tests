@@ -107,7 +107,7 @@ Feature: Patient details page
       | NHS Spine           |
 
 
-  @patientDetails_07 @E2EUI-2146 @LOGIN_AS_SUPERUSER
+  @patientDetails_07 @E2EUI-2146 @LOGOUT_BEFORE_TEST
   Scenario Outline: A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-super-user|

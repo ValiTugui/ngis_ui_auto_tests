@@ -1,7 +1,7 @@
 @testPackage
 Feature: Test Package page
 
-  @E2EUI-911 @NTS-3073 @LOGOUT @V1
+  @E2EUI-911 @NTS-3073 @LOGOUT_BEFORE_TEST @LOGOUT @V1
   Scenario Outline: @NTS-3073 - Test package Page Layout - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |

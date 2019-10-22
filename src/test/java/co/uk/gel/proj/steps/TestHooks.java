@@ -42,8 +42,8 @@ public class TestHooks  extends Pages {
 
     }
 
-    @Before("@LOGIN_AS_SUPERUSER")
-    public void loginAsASuperUser(){
+    @Before("@LOGOUT_BEFORE_TEST")
+    public void logoutCurrentSession(){
            logoutAfterTest(5);
     }
 
