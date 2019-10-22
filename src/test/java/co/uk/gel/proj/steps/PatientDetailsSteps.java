@@ -119,10 +119,4 @@ public class PatientDetailsSteps extends Pages {
     public void theNHSNumberFieldIsEnabled() {
         Assert.assertTrue("NHS Number field is not enabled",(patientDetailsPage.nhsNumberFieldIsEnabled())) ;
     }
-
-    @And("the GEL-ops user is able to edit and add an NHS Number")
-    public void theGELOpsUserIsAbleToEditAndAddANHSNumber() {
-        Assert.assertTrue("NHs field is not editable",(patientDetailsPage.editAndAddNhsNumberAsSuperUser())) ;
-    }
-
 }

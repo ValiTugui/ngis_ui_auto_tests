@@ -113,7 +113,7 @@ Feature: Patient details page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-super-user|
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the NHS number field is enabled
-    And the GEL-ops user is able to edit and add an NHS Number
+
 
     Examples:
       | patient-search-type |
