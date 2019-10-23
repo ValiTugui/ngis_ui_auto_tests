@@ -1,7 +1,7 @@
 Feature: New Patient page
 
 
-  @newPaitentPage_01 @NTS-3072 @E2EUI-981
+  @newPatientPage_01 @NTS-3072 @E2EUI-981
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-normal-user|
@@ -17,7 +17,7 @@ Feature: New Patient page
       | create a new patient record | Save patient details to NGIS |
 
 
-  @newPaitentPage_01 @NTS-3072 @E2EUI-981
+  @newPatientPage_02 @NTS-3072 @E2EUI-981
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-normal-user|
@@ -31,3 +31,16 @@ Feature: New Patient page
     Examples:
       | hyperlinkText               | label_on_submit_button       |
       | create a new patient record | Save patient details to NGIS |
+
+  @newPatientPage_03  @E2EUI-2122
+  Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-normal-user|
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+
+    Examples:
+      | hyperlinkText               | reason_for_no_nhsNumber       |
+      | create a new patient record | Other - provide explanation   |
+      | create a new patient record | Patient is a foreign national |

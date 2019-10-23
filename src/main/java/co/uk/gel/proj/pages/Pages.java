@@ -18,7 +18,6 @@ public class Pages implements Navigable {
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
-    protected NewPatientPage newPatientPage;
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
     protected TestPackagePage testPackagePage;
@@ -39,7 +38,6 @@ public class Pages implements Navigable {
         referralPage = PageFactory.initElements(driver,ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
         patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
-        newPatientPage = PageFactory.initElements(driver,NewPatientPage.class);
         patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
         requestingOrganisationPage = PageFactory.initElements(driver,RequestingOrganisationPage.class);
         testPackagePage = PageFactory.initElements(driver,TestPackagePage.class);
@@ -81,9 +79,8 @@ public class Pages implements Navigable {
 
     }
 
-   public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
-
-          driver.get(urlToNavigate);
+    public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
+        driver.get(urlToNavigate);
         //Navigate to Test Directory
         if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
             homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -97,19 +94,22 @@ public class Pages implements Navigable {
             if (driver.getCurrentUrl().contains("login.microsoft")) {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
                 Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-                patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                if(userType !=null)
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                else
+                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
             } else {
                 if (patientSearchPage.logout.isDisplayed()) {
                     patientSearchPage.logout.click();
-                    patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                    if(userType !=null)
+                        patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                    else
+                        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                 } else
                     Debugger.println(" User is at url " + driver.getCurrentUrl());
             }
         }
-
     }
-
-
 
 
 }//end class

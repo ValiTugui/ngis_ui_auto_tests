@@ -5,6 +5,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -118,5 +119,22 @@ public class PatientDetailsSteps extends Pages {
     @Then("the NHS number field is enabled")
     public void theNHSNumberFieldIsEnabled() {
         Assert.assertTrue("NHS Number field is not enabled",(patientDetailsPage.nhsNumberFieldIsEnabled())) ;
+    }
+
+    @Then("the new patient page is opened")
+    public void theNewPatientPageIsOpened() {
+        patientDetailsPage.newPatientPageIsDisplayed();
+    }
+
+    @And("the NHS number and DOB fields are pre-populated in the new patient page from the search page")
+    public void theNHSNumberAndDOBFieldsArePrePopulatedInTheNewPatientPageFromTheSearchPage() {
+        patientDetailsPage.nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage();
+    }
+
+    @And("the new patient page displays expected input-fields and a {string} submit button")
+    public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
+        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPage());
+        Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " +  "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
+        Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
     }
 }
