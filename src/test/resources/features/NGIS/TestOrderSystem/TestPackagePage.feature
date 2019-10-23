@@ -1,7 +1,7 @@
 @testPackage
 Feature: Test Package page
 
-  @E2EUI-911 @NTS-3073 @LOGOUT_BEFORE_TEST @LOGOUT @V1
+  @E2EUI-911 @NTS-3073 @LOGOUT @V1
   Scenario Outline: @NTS-3073 - Test package Page Layout - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -33,7 +33,7 @@ Feature: Test Package page
       | stage        | title                    | priority        | helpText                                                                          | section        | text                         | testInfo           | membersInfo |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine, Singleton | Proband     |
 
-  @E2EUI-2139 @NTS-3109  @V1 @P0
+  @E2EUI-2139 @NTS-3109 @V1 @P0
   Scenario Outline: NTS-3109 - Test package Page - verify Warning Messages of unsaved changes - Moving to another To do list - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Cancer |
@@ -46,7 +46,7 @@ Feature: Test Package page
       | stage        | new_stage             |
       | Test package | Responsible clinician |
 
-  @E2EUI-2139 @NTS-3109  @V1 @P0
+  @E2EUI-2139 @NTS-3109 @LOGOUT_BEFORE_TEST @V1 @P0
   Scenario Outline: NTS-3109 - Test package Page - verify Warning Messages of unsaved changes - Moving to another To do list - Rare-Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |

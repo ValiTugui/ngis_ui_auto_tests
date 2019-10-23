@@ -81,7 +81,6 @@ public class TestPackageSteps extends Pages {
     public void theUserSeesAWarningMessageOnThePage() {
         Wait.forAlertToBePresent(driver);
         Actions.acceptAlert(driver);
-        System.out.println("ALERT BOX GONE !!!! :: ");
         Wait.seconds(10);
     }
 

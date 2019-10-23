@@ -43,16 +43,16 @@ public class TestHooks extends Pages {
     }
 
     @Before("@LOGOUT_BEFORE_TEST")
-    public void logoutCurrentSession(){
-           logoutAfterTest(5);
+    public void logoutCurrentSession() {
+        logoutAfterTest(5);
     }
 
 
-    @After(order=0)
-    public void tearDown(Scenario scenario){
-        Status scenarioStatus =  scenario.getStatus();
-        if(!scenarioStatus.toString().equalsIgnoreCase("PASSED")){
-            scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
+    @After(order = 0)
+    public void tearDown(Scenario scenario) {
+        Status scenarioStatus = scenario.getStatus();
+        if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
+            scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
@@ -67,7 +67,7 @@ public class TestHooks extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown() {
-          logoutAfterTest(10);
+        logoutAfterTest(10);
     }
 
     @After("@CLEANUP")
@@ -94,7 +94,8 @@ public class TestHooks extends Pages {
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();
             }
-        Wait.seconds(waitingTime);
+            Wait.seconds(waitingTime);
 
-    }}
+        }
+    }
 }//end class

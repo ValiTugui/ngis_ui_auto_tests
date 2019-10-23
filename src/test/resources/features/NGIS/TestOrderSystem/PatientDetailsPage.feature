@@ -111,7 +111,7 @@ Feature: Patient details page
   Scenario Outline: A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-super-user|
-    Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    When a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the NHS number field is enabled
 
 

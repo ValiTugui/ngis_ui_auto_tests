@@ -30,7 +30,7 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @E2EUI-916 @NTS-3069 @LOGOUT
+  @E2EUI-916 @NTS-3069
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
