@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
@@ -56,24 +58,32 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
-        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
-        // utilising static NGIS test data for now. In future test framework will support api calls to get a random NGIS record
-        if (diseaseType.equalsIgnoreCase("cancer") && patientType.equalsIgnoreCase("NGIS")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne();
-        } else if (diseaseType.equalsIgnoreCase("rare-disease") && patientType.equalsIgnoreCase("NGIS")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo();
-        } else if (patientType.equalsIgnoreCase("SPINE")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
+        if (driver.getCurrentUrl().contains("patient-search")) {
+            Actions.cleanUpSession(driver);
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            }
+            eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+            Assert.assertTrue(eachElementIsLoaded);
+            // utilising static NGIS test data for now. In future test framework will support api calls to get a random NGIS record
+            if (diseaseType.equalsIgnoreCase("cancer") && patientType.equalsIgnoreCase("NGIS")) {
+                patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne();
+            } else if (diseaseType.equalsIgnoreCase("rare-disease") && patientType.equalsIgnoreCase("NGIS")) {
+                patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo();
+            } else if (patientType.equalsIgnoreCase("SPINE")) {
+                patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
+            }
+            patientSearchPage.clickSearchButtonByXpath(driver);
+            patientSearchPage.clickPatientCard();
+            patientDetailsPage.clickStartReferralButton();
+            referralPage.checkThatReferralWasSuccessfullyCreated();
+            referralPage.saveAndContinueButtonIsDisplayed();
+            referralPage.clickSaveAndContinueButton();
+
+
         }
-        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.clickPatientCard();
-        patientDetailsPage.clickStartReferralButton();
-        referralPage.checkThatReferralWasSuccessfullyCreated();
-        referralPage.saveAndContinueButtonIsDisplayed();
-        referralPage.clickSaveAndContinueButton();
-
-
     }
 }
