@@ -20,7 +20,6 @@ public class Pages implements Navigable {
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
-    protected NewPatientPage newPatientPage;
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
     protected TestPackagePage testPackagePage;
@@ -35,58 +34,72 @@ public class Pages implements Navigable {
 
     public void PageObjects() {
 
-        homePage = PageFactory.initElements(driver, HomePage.class);
-        clinicalIndicationsTestSelect = PageFactory.initElements(driver, ClinicalIndicationsTestSelectPage.class);
-        paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
-        referralPage = PageFactory.initElements(driver, ReferralPage.class);
+        homePage= PageFactory.initElements(driver,HomePage.class);
+        clinicalIndicationsTestSelect = PageFactory.initElements(driver,ClinicalIndicationsTestSelectPage.class);
+        paperFormPage = PageFactory.initElements(driver,PaperFormPage.class);
+        referralPage = PageFactory.initElements(driver,ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
-        patientSearchPage = PageFactory.initElements(driver, PatientSearchPage.class);
-        newPatientPage = PageFactory.initElements(driver, NewPatientPage.class);
-        patientDetailsPage = PageFactory.initElements(driver, PatientDetailsPage.class);
-        requestingOrganisationPage = PageFactory.initElements(driver, RequestingOrganisationPage.class);
-        testPackagePage = PageFactory.initElements(driver, TestPackagePage.class);
-        responsibleClinicianPage = PageFactory.initElements(driver, ResponsibleClinicianPage.class);
-        tumoursPage = PageFactory.initElements(driver, TumoursPage.class);
-        samplesPage = PageFactory.initElements(driver, SamplesPage.class);
+        patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
+        patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
+        requestingOrganisationPage = PageFactory.initElements(driver,RequestingOrganisationPage.class);
+        testPackagePage = PageFactory.initElements(driver,TestPackagePage.class);
+        responsibleClinicianPage = PageFactory.initElements(driver,ResponsibleClinicianPage.class);
+        tumoursPage = PageFactory.initElements(driver,TumoursPage.class);
+        samplesPage = PageFactory.initElements(driver,SamplesPage .class);
     }
 
 
-    @Override
+   @Override
     public void NavigateTo(String pageToNavigate) {
 
     }
 
     public void NavigateTo(String urlToNavigate, String pageToNavigate) {
+        login(urlToNavigate, pageToNavigate, null);
+    }
+
+    public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
+        login(urlToNavigate, pageToNavigate, userType);
+    }
+
+    private void login(String urlToNavigate, String pageToNavigate, String userType) {
         driver.get(urlToNavigate);
         //Navigate to Test Directory
-        try {
-            if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
-                homePage.waitUntilHomePageResultsContainerIsLoaded();
-            }
-            // Navigate to specific pages in Test Order
-            else if (driver.getCurrentUrl().contains(pageToNavigate)) {
-                Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
-                Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+        try{
+        if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
+            homePage.waitUntilHomePageResultsContainerIsLoaded();
+        }
+        // Navigate to specific pages in Test Order
+        else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
 
-            } else {
-                if (driver.getCurrentUrl().contains("login.microsoft")) {
-                    Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-                    Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                if(userType !=null)
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                else
                     patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                } else {
-                    if (patientSearchPage.logout.isDisplayed()) {
-                        patientSearchPage.logout.click();
+            } else {
+                if (patientSearchPage.logout.isDisplayed()) {
+                    patientSearchPage.logout.click();
+                    if(userType !=null)
+                        patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                    else
                         patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                    } else
-                        Debugger.println(" User is at url " + driver.getCurrentUrl());
-                }
+                } else
+                    Debugger.println(" User is at url " + driver.getCurrentUrl());
             }
-        } catch (UnhandledAlertException f) {
+        }
+    } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().parentFrame();
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();
             }
+
 
         }
     }

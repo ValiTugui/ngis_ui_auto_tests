@@ -7,7 +7,6 @@ import co.uk.gel.proj.util.Debugger;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
-import io.cucumber.java.en.*;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
 
@@ -43,11 +42,17 @@ public class TestHooks extends Pages {
 
     }
 
-    @After(order = 0)
-    public void tearDown(Scenario scenario) {
-        Status scenarioStatus = scenario.getStatus();
-        if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
-            scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
+    @Before("@LOGOUT_BEFORE_TEST")
+    public void logoutCurrentSession(){
+           logoutAfterTest(5);
+    }
+
+
+    @After(order=0)
+    public void tearDown(Scenario scenario){
+        Status scenarioStatus =  scenario.getStatus();
+        if(!scenarioStatus.toString().equalsIgnoreCase("PASSED")){
+            scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
@@ -62,20 +67,7 @@ public class TestHooks extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown() {
-        Debugger.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        try {
-            driver.manage().deleteAllCookies();
-        } catch (UnhandledAlertException f) {
-            try {
-                driver.switchTo().defaultContent();
-                driver.manage().deleteAllCookies();
-
-            } catch (NoAlertPresentException e) {
-                e.printStackTrace();
-            }
-            Wait.seconds(10);
-        }
+          logoutAfterTest(10);
     }
 
     @After("@CLEANUP")
@@ -88,4 +80,21 @@ public class TestHooks extends Pages {
     public void afterScenario() {
         //login_page.logoutFromMI();
     }
+
+    private void logoutAfterTest(int waitingTime) {
+        Debugger.println("deleted cookies");
+        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
+        try {
+            driver.manage().deleteAllCookies();
+        } catch (UnhandledAlertException f) {
+            try {
+                driver.switchTo().defaultContent();
+                driver.manage().deleteAllCookies();
+
+            } catch (NoAlertPresentException e) {
+                e.printStackTrace();
+            }
+        Wait.seconds(waitingTime);
+
+    }}
 }//end class
