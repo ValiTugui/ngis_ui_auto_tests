@@ -4,6 +4,9 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -11,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerBase;
 
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class PatientDetailsPage {
     WebDriver driver;
     Faker faker = new Faker();
     NewPatient newPatient = new NewPatient();
+
     public PatientDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -36,6 +41,7 @@ public class PatientDetailsPage {
     public WebElement dateDay;
     public WebElement dateMonth;
     public WebElement dateYear;
+    public WebElement otherReasonExplanation;
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
@@ -70,6 +76,9 @@ public class PatientDetailsPage {
     @FindBy(css = "label[for*='nhsNumber']")
     public WebElement nhsNumberLabel;
 
+    @FindBy(css = "label[for*='hospitalNumber']")
+    public WebElement hospitalNumberLabel;
+
     @FindBy(css = "label[for*='address']")
     public WebElement addressLabel;
 
@@ -93,6 +102,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'noNhsNumberReason')]//following::div")
     public WebElement noNhsNumberReasonDropdown;
+
+    @FindBy(xpath = "textarea[class*='textarea']")
+    public WebElement explanationForNoNhsNumber;
 
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
@@ -178,8 +190,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Yes']")
     public WebElement yesButton;
 
-    public WebElement otherReasonExplanation;
-
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
 
 
@@ -225,6 +235,11 @@ public class PatientDetailsPage {
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
         fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+           // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
     }
 
     public void fillInAllNewPatientDetails() {
@@ -303,4 +318,66 @@ public class PatientDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
         Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
     }
+
+    public boolean nhsNumberFieldIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For normal user, NHSNumber field is disabled and set to FALSE:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean nhsNumberFieldIsEnabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean editAndAddNhsNumberAsSuperUser() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
+        return true;
+    }
+
+    public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
+        String DOB = PatientSearchPage.testData.getDay()  + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
+        Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
+        Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
+    }
+
+
+    public boolean verifyTheElementsOnAddNewPatientPage() {
+
+        Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
+        pageTitle.isDisplayed();
+        title.isDisplayed();
+        titleLabel.isDisplayed();
+        firstName.isDisplayed();
+        firstnameLabel.isDisplayed();
+        familyName.isDisplayed();
+        familyNameLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        administrativeGenderButton.isDisplayed();
+        administrativeGenderLabel.isDisplayed();
+        lifeStatusButton.isDisplayed();
+        lifeStatusLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        ethnicityButton.isDisplayed();
+        ethnicityLabel.isDisplayed();
+        noNhsNumberReasonDropdown.isDisplayed();
+        hospitalNumber.isDisplayed();
+        hospitalNumberLabel.isDisplayed();
+        addressLabel.isDisplayed();
+        addressLine0.isDisplayed();
+        addressLine1.isDisplayed();
+        addressLine2.isDisplayed();
+        addressLine3.isDisplayed();
+        addressLine4.isDisplayed();
+        postcodeLabel.isDisplayed();
+        postcode.isDisplayed();
+
+        return true;
+    }
+
 }

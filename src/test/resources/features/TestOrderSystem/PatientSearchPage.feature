@@ -3,7 +3,7 @@ Feature: Patient search page
 
   Background:
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL  |  patient-search |
+      | TO_PATIENT_SEARCH_URL  |  patient-search | GEL-normal-user|
 
 
   @patientSearch_01 @NTS-2818 @E2EUI-914
