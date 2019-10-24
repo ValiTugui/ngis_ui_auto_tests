@@ -71,16 +71,16 @@ Feature: Patient search page
 
   @patientSearch_06 @NTS-2796 @E2EUI-1472
   Scenario Outline:NTS-2796:patient search - "<patient-search-type>" Patient Search Results Page validation
-    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number and Date of Birth fields
     And the user clicks the Search button
     Then The patient record is displayed with a heading of "<result_message>"
     And a "<patient-search-type>" result is successfully returned
     And the correct details of the "<patient-search-type>" patient are displayed in the card
 
     Examples:
-      | patient-search-type | NhsNumber  | DOB        | result_message         |
-      | NHS Spine           | 9449310602 | 23-03-2011 | 1 patient record found |
-      | NGIS                | 9449306680 | 14-06-2011 | 1 patient record found |
+      | patient-search-type | result_message         |
+      | NHS Spine           | 1 patient record found |
+      | NGIS                | 1 patient record found |
 
 
   @patientSearch_07 @NTS-2781 @E2EUI-1481
@@ -131,16 +131,16 @@ Feature: Patient search page
 
   @patientSearch_13 @NTS-3068 @E2EUI-1182
   Scenario Outline: NTS-3068:Verifying the Patient Details page after successful search for "<patient-search-type>" patient
-    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number and Date of Birth fields
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
 
     Examples:
-      | patient-search-type | NhsNumber  | DOB        |
-      | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+      | patient-search-type |
+      | NHS Spine           |
+      | NGIS                |
 
 
   @patientSearch_14 @NTS-2798 @E2EUI-2162
@@ -243,16 +243,16 @@ Feature: Patient search page
 
   @patientSearch_20 @NTS-2819 @E2EUI-1182 @E2EUI-926
   Scenario Outline: NTS-2819:Verifying the Patient Details page after successful search for "<patient-search-type>" patient
-    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number and Date of Birth fields
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
 
     Examples:
-      | patient-search-type | NhsNumber  | DOB        |
-      | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+      | patient-search-type |
+      | NHS Spine           |
+      | NGIS                |
 
 
   @patientSearch_21 @NTS-2798 @E2EUI-2162
