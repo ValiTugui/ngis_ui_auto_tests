@@ -115,6 +115,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
+    @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
+    public WebElement firstReferralIDInReferralCard;
+
     //	@FindBy(xpath = "//button[text()='Start referral']")
     //	public WebElement startReferralButton;
 
@@ -129,6 +132,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//*[contains(@class,'patient-details-form__back')]//child::a")
     public WebElement goBackToPatientSearchLink;
+
+    @FindBy(css = "a[class*='referral-list']")
+    public List<WebElement> referralListCards;
 
     @FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
@@ -193,7 +199,6 @@ public class PatientDetailsPage {
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
 
 
-
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
         Wait.forElementToBeDisplayed(driver, startReferralButton);
@@ -221,7 +226,7 @@ public class PatientDetailsPage {
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
         newPatient.setNhsNumber(Actions.createValidNHSNumber());
-       // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+        // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
@@ -237,7 +242,7 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-           // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
+            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
     }
@@ -339,7 +344,7 @@ public class PatientDetailsPage {
     }
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
-        String DOB = PatientSearchPage.testData.getDay()  + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
+        String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
         Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
         Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
     }
@@ -380,4 +385,13 @@ public class PatientDetailsPage {
         return true;
     }
 
+    public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
+
+        Wait.forElementToBeDisplayed(driver, referralCard, 70);
+        if (referralListCards.size() > 0)
+            referralListCards.get(0).click();
+        else {
+            Debugger.println("No referral card found");
+        }
+    }
 }
