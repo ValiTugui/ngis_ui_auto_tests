@@ -387,8 +387,7 @@ public class PatientDetailsPage {
 
     public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
 
-        Wait.forElementToBeDisplayed(driver, referralCard);
-        Wait.seconds(6);
+        Wait.forElementToBeDisplayed(driver, referralCard, 70);
         if (referralListCards.size() > 0)
             referralListCards.get(0).click();
         else {

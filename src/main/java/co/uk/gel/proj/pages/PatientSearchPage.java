@@ -229,11 +229,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        Wait.seconds(2);
+        //Wait.seconds(2);
         Wait.forElementToBeClickable(driver, emailAddressField);
         emailAddressField.sendKeys(AppConfig.getApp_username());
         nextButton.click();
-        Wait.seconds(2);
+        //Wait.seconds(2);
         Wait.forElementToBeClickable(driver, passwordField);
         passwordField.sendKeys(AppConfig.getApp_password());
         nextButton.click();
@@ -249,7 +249,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
         }
         Click.element(driver, nextButton);
-        Wait.seconds(1);
         Wait.forElementToBeClickable(driver, passwordField);
         if (userType.equalsIgnoreCase("GEL-normal-user")) {
             passwordField.sendKeys(AppConfig.getApp_password());
