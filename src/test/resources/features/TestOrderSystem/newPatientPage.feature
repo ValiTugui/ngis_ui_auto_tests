@@ -2,7 +2,7 @@
 Feature: New Patient page
 
 
-  @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1
+  @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -18,7 +18,7 @@ Feature: New Patient page
       | create a new patient record | Save patient details to NGIS |
 
 
-  @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1
+  @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -33,7 +33,8 @@ Feature: New Patient page
       | hyperlinkText               | label_on_submit_button       |
       | create a new patient record | Save patient details to NGIS |
 
-  @newPatientPage_03 @NTS-3150 @E2EUI-2122 @P0
+  @COMP2_TO_NewPatient
+  @newPatientPage_03 @NTS-3150 @E2EUI-2122 @P0 @v_1
   Scenario Outline:NTS-3150:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
