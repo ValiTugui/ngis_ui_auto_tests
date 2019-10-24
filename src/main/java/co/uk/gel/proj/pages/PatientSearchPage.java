@@ -229,6 +229,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+        Wait.seconds(2);
         Wait.forElementToBeClickable(driver, emailAddressField);
         emailAddressField.sendKeys(AppConfig.getApp_username());
         nextButton.click();
