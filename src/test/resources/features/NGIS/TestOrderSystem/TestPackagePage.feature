@@ -1,7 +1,7 @@
 @testPackage
 Feature: Test Package page
 
-  @E2EUI-911 @NTS-3073 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-911 @NTS-3073 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: @NTS-3073 - Test package - Page Layout - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -16,7 +16,7 @@ Feature: Test Package page
       | stage        | title                    | priority        | helpText                                                                          | section        | text                                                                | testInfo           |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | All including burden / signature, This test is for one person only. | Routine, Singleton |
 
-  @E2EUI-911 @NTS-3080 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-911 @NTS-3080 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: @NTS-3080 - Test package - Page Layout - Rare Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -33,7 +33,7 @@ Feature: Test Package page
       | stage        | title                    | priority        | helpText                                                                          | section        | text                         | testInfo           | membersInfo |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine, Singleton | Proband     |
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Cancer |
@@ -46,7 +46,7 @@ Feature: Test Package page
       | stage        | new_stage             |
       | Test package | Responsible clinician |
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Rare-Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -60,7 +60,7 @@ Feature: Test Package page
       | Test package | 2      | Responsible clinician |
 
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: @NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Rare-Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -76,7 +76,7 @@ Feature: Test Package page
 
 
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Cancer |
