@@ -130,6 +130,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[contains(@class,'patient-details-form__back')]//child::a")
     public WebElement goBackToPatientSearchLink;
 
+    @FindBy(css = "a[class*='referral-list']")
+    public List<WebElement> referralListCards;
+
     @FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
