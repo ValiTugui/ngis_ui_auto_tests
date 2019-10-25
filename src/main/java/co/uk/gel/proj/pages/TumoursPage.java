@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -72,7 +73,6 @@ public class TumoursPage {
 
     @FindBy(css = "*[class*='checkbox-row__arrow']")
     public WebElement editTumourArrow;
-
 
 
     public void fillInDateOfDiagnosis (String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {

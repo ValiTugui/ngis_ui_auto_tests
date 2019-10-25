@@ -689,7 +689,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        testData.setNhsNumber(Actions.createValidNHSNumber());
+        testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+        //testData.setNhsNumber(Actions.createValidNHSNumber());
         nhsNumber.sendKeys(testData.getNhsNumber());
         testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
         testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
