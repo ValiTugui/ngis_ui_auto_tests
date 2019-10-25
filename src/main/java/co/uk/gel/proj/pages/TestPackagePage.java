@@ -95,6 +95,7 @@ public class TestPackagePage {
     private String checkboxValue = "checked";
 
     public boolean verifyTestPackagePageTitle(String title) {
+        Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
         return testPackagePageTitle.getText().equalsIgnoreCase(title);
     }
 

@@ -340,6 +340,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
+        Wait.forElementToBeDisplayed(driver,patientCard);
         patientCard.click();
     }
 
@@ -689,7 +690,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        testData.setNhsNumber(Actions.createValidNHSNumber());
+        testData.setNhsNumber(RandomDataCreator.createValidNHSNumber());
         nhsNumber.sendKeys(testData.getNhsNumber());
         testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
         testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));

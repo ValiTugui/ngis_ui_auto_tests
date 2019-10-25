@@ -66,10 +66,7 @@ public class TestPackageSteps extends Pages {
             case "refresh":
                 Actions.refreshBrowser(driver);
                 break;
-            case "forward":
-                Actions.browseForward(driver);
-                break;
-            case "backward":
+            case "back":
                 Actions.browseBackward(driver);
                 break;
             default:
@@ -82,6 +79,7 @@ public class TestPackageSteps extends Pages {
         Wait.forAlertToBePresent(driver);
         Actions.acceptAlert(driver);
         Wait.seconds(10);
+        System.out.println("URL info after accepting alert :: " + driver.getCurrentUrl());
     }
 
     @And("the user clicks a test to de-select it")

@@ -4,9 +4,9 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -220,7 +220,7 @@ public class PatientDetailsPage {
         newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
-        newPatient.setNhsNumber(Actions.createValidNHSNumber());
+        newPatient.setNhsNumber(RandomDataCreator.createValidNHSNumber());
        // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
 
         editDropdownField(administrativeGenderButton, "Male");
@@ -292,8 +292,8 @@ public class PatientDetailsPage {
     }
 
     public void clickStartReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
         Actions.clickElement(driver, startReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
     }
 
     public void clickStartNewReferralButton() {

@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
@@ -65,12 +66,13 @@ public class Pages implements Navigable {
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
         driver.get(urlToNavigate);
         //Navigate to Test Directory
-        try{
+       // try{
         if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
             homePage.waitUntilHomePageResultsContainerIsLoaded();
         }
         // Navigate to specific pages in Test Order
         else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+            System.out.println("NavigateTO URL in Pages.java ::: "+ driver.getCurrentUrl());
             Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
             Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
 
@@ -93,14 +95,18 @@ public class Pages implements Navigable {
                     Debugger.println(" User is at url " + driver.getCurrentUrl());
             }
         }
-    } catch (UnhandledAlertException f) {
-            try {
-                driver.switchTo().parentFrame();
-            } catch (NoAlertPresentException e) {
-                e.printStackTrace();
-            }
+    }
 
-
+    @Override
+    public void switchToURL(String currentURL) {
+        Debugger.println("CURRENT URL: "+ currentURL);
+        if (driver.getCurrentUrl().contains("patient-search")) {
+            Actions.cleanUpSession(driver);
+        } else if (driver.getCurrentUrl().contains("login.microsoft") || driver.getCurrentUrl().contains("test-order")) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+            Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         }
+        Debugger.println("NEW URL    : "+ driver.getCurrentUrl());
     }
 }//end class
