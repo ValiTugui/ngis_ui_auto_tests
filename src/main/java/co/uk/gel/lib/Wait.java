@@ -11,7 +11,7 @@ public class Wait {
 	protected static WebDriverWait wait;
 	
 	public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
-		wait = new WebDriverWait(driver, 50);
+		wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 	

@@ -193,7 +193,6 @@ public class PatientDetailsPage {
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
 
 
-
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
         Wait.forElementToBeDisplayed(driver, startReferralButton);
@@ -237,7 +236,7 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-           // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
+            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
     }
@@ -339,7 +338,7 @@ public class PatientDetailsPage {
     }
 
     public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
-        String DOB = PatientSearchPage.testData.getDay()  + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
+        String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
         Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
         Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
     }
@@ -380,4 +379,13 @@ public class PatientDetailsPage {
         return true;
     }
 
+    public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
+
+        Wait.forElementToBeDisplayed(driver, referralCard, 70);
+        if (referralListCards.size() > 0)
+            referralListCards.get(0).click();
+        else {
+            Debugger.println("No referral card found");
+        }
+    }
 }
