@@ -86,4 +86,19 @@ public class TestPackageSteps extends Pages {
     public void theUserClicksATestToDeSelectIt() {
         if (testPackagePage.testIsSelected()) testPackagePage.clickTest();
     }
+
+    @Then("the user selects the {string}")
+    public void theUserSelectsThe(String testReferralUrgencyInfo) {
+        if(testReferralUrgencyInfo.contains("Urgent")){
+            testPackagePage.clickUrgentPriority();
+        }
+        else {
+            testPackagePage.clickRoutinePriority();
+        }
+    }
+
+    @And("And the user selects the number of participants: {int}")
+    public void andTheUserSelectsTheNumberOfParticipants(int numberOfParticipants) {
+        testPackagePage.setTotalNumberOfParticipantsField(numberOfParticipants);
+    }
 }

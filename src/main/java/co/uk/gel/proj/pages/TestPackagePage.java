@@ -94,6 +94,8 @@ public class TestPackagePage {
 
     private String checkboxValue = "checked";
 
+    private String urgentTestsRequired = "Urgent";
+
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
         return testPackagePageTitle.getText().equalsIgnoreCase(title);
@@ -164,4 +166,21 @@ public class TestPackagePage {
         Wait.forElementToBeDisplayed(driver, routinePriorityButton);
         Click.element(driver, testCheckBoxCard);
     }
+
+    public void clickUrgentPriority() {
+        Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+        urgentPriorityButton.click();
+    }
+
+    public void clickRoutinePriority() {
+        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+        routinePriorityButton.click();
+    }
+
+    public void setTotalNumberOfParticipantsField(int number){
+            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+            Actions.clickElement(driver, numberOfParticipants);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        }
 }
