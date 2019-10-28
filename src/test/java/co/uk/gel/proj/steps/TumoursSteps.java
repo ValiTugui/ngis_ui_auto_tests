@@ -45,7 +45,7 @@ public class TumoursSteps extends Pages {
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
         tumoursPage.selectTumourType(tumourType);
-        tumoursPage.fillnSpecimenID();
+        tumoursPage.fillInSpecimenID();
     }
 
     @And("the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation {string}")

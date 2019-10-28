@@ -127,18 +127,14 @@ public class TumoursPage {
     }
 
     public String selectTumourType(String type) {
-
-       // Wait.forElementToBeDisplayed(driver, tumourType);
-       Wait.forElementToBeClickable(driver, tumourType);
+        Wait.forElementToBeClickable(driver, tumourType);
         Actions.clickElement(driver, tumourType);
-       // Wait.forElementToBeDisplayed(driver, dropdownValue);
-       // Wait.forElementToBeClickable(driver,dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, type);
         tumourDetails.setTumourType(type);
         return Actions.getText(tumourType);
     }
 
-    public String fillnSpecimenID() {
+    public String fillInSpecimenID() {
         String ID = faker.numerify("N#####");
         Actions.fillInValue(pathologyReportId, ID);
         tumourDetails.setTumourSpecimenID(ID);

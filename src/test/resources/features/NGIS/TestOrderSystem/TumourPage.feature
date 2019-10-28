@@ -2,9 +2,9 @@
 Feature: Tumours Page
 
 
-#  @LOGOUT_BEFORE_TEST @v_1
-    @COMP6_TO_TumourCreate
-    @tumoursPage_01 @NTS-3152 @P @E2EUI-2018 @E2EUI-1840
+
+    @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_01 @NTS-3152 @P @E2EUI-2018 @E2EUI-1840 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -16,10 +16,10 @@ Feature: Tumours Page
         | stage   | Date_of_Diagnosis | error_message                    |
         | Tumours | 12-03-2150        | Please enter a date before today |
 
-  @LOGOUT_BEFORE_TEST
-  @COMP6_TO_TumourCreate
+
+  @COMP6_TO_TumourCreate @LOGOUT
   @tumoursPage_02 @NTS-3154 @P @E2EUI-1320 @@E2EUI-894 @v_1
-  Scenario Outline:  @NTS-3154: Add a new tumour for an existing patient
+  Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     When the user navigates to the "<stage>" stage
