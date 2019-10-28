@@ -229,7 +229,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        //Wait.seconds(2);
         Wait.forElementToBeClickable(driver, emailAddressField);
         emailAddressField.sendKeys(AppConfig.getApp_username());
         nextButton.click();
@@ -340,6 +339,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
+        Wait.forElementToBeDisplayed(driver,patientCard);
         patientCard.click();
     }
 

@@ -1,5 +1,8 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -89,7 +92,10 @@ public class TestPackagePage {
     @FindBy(css = "*[class*='relationship-tag']")
     public List<WebElement> selectedFamilyMembers;
 
+    private String checkboxValue = "checked";
+
     public boolean verifyTestPackagePageTitle(String title) {
+        Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
         return testPackagePageTitle.getText().equalsIgnoreCase(title);
     }
 
@@ -138,5 +144,24 @@ public class TestPackagePage {
 
     public boolean verifyDefaultSelectedFamilyMembersInfo(String testRelationshipInfo) {
         return selectedFamilyMembers.get(0).isDisplayed();
+    }
+
+    public void selectNumberOfParticipants(int number) {
+        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+        Wait.forElementToBeDisplayed(driver, testCardBody);
+        Actions.clickElement(driver, numberOfParticipants);
+        //Wait.seconds(1);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+    }
+    public boolean testIsSelected() {
+    	Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+		Wait.forElementToBeDisplayed(driver, testCardBody);
+		return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+    }
+
+    public void clickTest() {
+        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+        Click.element(driver, testCheckBoxCard);
     }
 }

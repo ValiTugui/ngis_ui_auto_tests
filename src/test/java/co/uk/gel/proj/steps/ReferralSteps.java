@@ -61,7 +61,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
-        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
         // utilising static NGIS test data for now. In future test framework will support api calls to get a random NGIS record
@@ -109,5 +109,4 @@ public class ReferralSteps extends Pages {
             Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
         }
     }
-
 }

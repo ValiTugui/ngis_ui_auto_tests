@@ -4,7 +4,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -115,9 +114,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
-
-    @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
-    public WebElement firstReferralIDInReferralCard;
 
     //	@FindBy(xpath = "//button[text()='Start referral']")
     //	public WebElement startReferralButton;
@@ -299,8 +295,8 @@ public class PatientDetailsPage {
     }
 
     public void clickStartReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
         Actions.clickElement(driver, startReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
     }
 
     public void clickStartNewReferralButton() {
