@@ -1,9 +1,12 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class TestPackageSteps extends Pages {
@@ -50,5 +53,37 @@ public class TestPackageSteps extends Pages {
     @And("the test package page has Selected family members with the {string}")
     public void theTestPackagePageHasSelectedFamilyMembersWithThe(String relationshipInfo) {
         Assert.assertTrue(testPackagePage.verifyDefaultSelectedFamilyMembersInfo(relationshipInfo));
+    }
+
+    @And("the user selects the number of participants as {string}")
+    public void theUserSelectsTheNumberOfParticipantsAs(String numberOfParticipants) {
+        testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
+    }
+
+    @When("the user attempts to navigate away by clicking {string}")
+    public void theUserAttemptsToNavigateAwayByClicking(String browserInteraction) {
+        switch (browserInteraction) {
+            case "refresh":
+                Actions.refreshBrowser(driver);
+                break;
+            case "back":
+                Actions.browseBackward(driver);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected Browser Interaction value: " + browserInteraction);
+        }
+    }
+
+    @Then("the user sees a warning message on the page")
+    public void theUserSeesAWarningMessageOnThePage() {
+        Wait.forAlertToBePresent(driver);
+        Actions.acceptAlert(driver);
+        Wait.seconds(10);
+        System.out.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+    }
+
+    @And("the user clicks a test to de-select it")
+    public void theUserClicksATestToDeSelectIt() {
+        if (testPackagePage.testIsSelected()) testPackagePage.clickTest();
     }
 }

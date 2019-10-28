@@ -1,15 +1,22 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class Pages implements Navigable {
+
+    public final String patientSearchURL = "patient-search";
+    public final String testOrderLoginURL = "login.microsoft";
+    public final String testOrderURL = "test-order";
 
     protected WebDriver driver;
 
@@ -94,5 +101,16 @@ public class Pages implements Navigable {
         }
     }
 
-
+    @Override
+    public void switchToURL(String currentURL) {
+        Debugger.println("CURRENT URL: "+ currentURL);
+        if (driver.getCurrentUrl().contains(patientSearchURL)) {
+            Actions.cleanUpSession(driver);
+        } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+            Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        }
+        Debugger.println("NEW URL    : "+ driver.getCurrentUrl());
+    }
 }//end class

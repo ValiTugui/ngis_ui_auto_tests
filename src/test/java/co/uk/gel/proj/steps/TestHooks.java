@@ -11,7 +11,7 @@ import io.cucumber.java.After;
 import org.openqa.selenium.*;
 
 
-public class TestHooks  extends Pages {
+public class TestHooks extends Pages {
 
     //SeleniumLib seleniumLib;
     public static String currentTagName = "";
@@ -20,39 +20,39 @@ public class TestHooks  extends Pages {
     public static String temptagname = "";
     public static boolean new_scenario_feature = false;
 
-    public TestHooks(SeleniumDriver driver){
+    public TestHooks(SeleniumDriver driver) {
         super(driver);
         //seleniumLib = new SeleniumLib(driver);
     }
 
     @Before
-    public void begininingOfTest(Scenario scenario){
+    public void begininingOfTest(Scenario scenario) {
         currentTagName = scenario.getSourceTagNames().toString();
         currentTags = scenario.getSourceTagNames().toString();
         currentFeature = scenario.getId().split(";")[0];
-        if(temptagname.isEmpty() || !(temptagname.equalsIgnoreCase(currentTagName))){
-            Debugger.println("\n"+scenario.getSourceTagNames()+" STARTED");
+        if (temptagname.isEmpty() || !(temptagname.equalsIgnoreCase(currentTagName))) {
+            Debugger.println("\n" + scenario.getSourceTagNames() + " STARTED");
             temptagname = currentTagName;
             new_scenario_feature = true;
             Debugger.println("FEATURE: " + currentFeature.replaceAll("-", " "));
-            Debugger.println("SCENARIO: "+ scenario.getName());
-        }else{
+            Debugger.println("SCENARIO: " + scenario.getName());
+        } else {
             new_scenario_feature = false;
         }
 
     }
 
     @Before("@LOGOUT_BEFORE_TEST")
-    public void logoutCurrentSession(){
-           logoutAfterTest(5);
+    public void logoutCurrentSession() {
+        logoutAfterTest(5);
     }
 
 
-    @After(order=0)
-    public void tearDown(Scenario scenario){
-        Status scenarioStatus =  scenario.getStatus();
-        if(!scenarioStatus.toString().equalsIgnoreCase("PASSED")){
-            scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
+    @After(order = 0)
+    public void tearDown(Scenario scenario) {
+        Status scenarioStatus = scenario.getStatus();
+        if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
+            scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
 
@@ -67,7 +67,13 @@ public class TestHooks  extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown() {
-          logoutAfterTest(10);
+        logoutAfterTest(10);
+        cleanUp();
+    }
+
+    @After("@CLEANUP")
+    public void cleanUp() {
+        driver = null;
     }
 
     @After(order = 1)
@@ -78,10 +84,18 @@ public class TestHooks  extends Pages {
     private void logoutAfterTest(int waitingTime) {
         Debugger.println("deleted cookies");
         driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        driver.manage().deleteAllCookies();
-        Wait.seconds(waitingTime);
+        try {
+            driver.manage().deleteAllCookies();
+        } catch (UnhandledAlertException f) {
+            try {
+                driver.switchTo().defaultContent();
+                driver.manage().deleteAllCookies();
 
+            } catch (NoAlertPresentException e) {
+                e.printStackTrace();
+            }
+            Wait.seconds(waitingTime);
+
+        }
     }
 }//end class
-
-

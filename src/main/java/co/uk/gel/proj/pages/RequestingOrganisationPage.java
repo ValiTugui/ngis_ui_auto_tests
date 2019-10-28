@@ -41,6 +41,15 @@ public class RequestingOrganisationPage {
     @FindBy(xpath = "//strong[contains(text(),'0 results')]")
     public WebElement zeroResulsFoundLabel;
 
+    @FindBy(css = "[class*='page-title']")
+    public WebElement orderingEntityPageTitle;
+
+    @FindBy(css = "[class*='ordering-entity__sub-title']")
+    public WebElement orderEntityPageSubtitle;
+
+    @FindBy(css = "[class*='search-input__icon']")
+    public WebElement orderingEntitySearchIcon;
+
     public boolean verifyOrganisationDetails() {
         Wait.forElementToBeDisplayed(driver, organisationDetailsContainer);
         return organisationDetailsContainer.getText().contains(organisationDetailText.get(0).getText());
@@ -60,6 +69,19 @@ public class RequestingOrganisationPage {
         Wait.forElementToBeDisplayed(driver, zeroResulsFoundLabel);
         return zeroResulsFoundLabel.isDisplayed();
 
+    }
+
+    public boolean checkPageTitleInfo(String pageTitle){
+        Wait.forElementToBeDisplayed(driver, orderingEntityPageTitle);
+        return orderingEntityPageTitle.getText().contains(pageTitle);
+    }
+
+    public boolean checkOrderingEntityPageLabel(){
+        return  orderEntityPageSubtitle.isDisplayed();
+    }
+
+    public boolean checkSearchIcon(){
+        return orderingEntitySearchIcon.isDisplayed();
     }
 
 }

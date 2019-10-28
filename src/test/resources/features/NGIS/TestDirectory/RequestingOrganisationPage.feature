@@ -18,7 +18,7 @@ Feature: Requesting Organisation page
     And the user clicks the Start Referral button
     And the referral page is displayed
 
-  @E2EUI-1413 @NTS-3047 @LOGOUT
+  @E2EUI-1413 @E2EUI-1360 @NTS-3047 @LOGOUT @v_1 @P0 @COMP3_TO_OrderingEntity
   Scenario Outline: NTS-3047 - Find my ordering entity via name to order a test from the correct Lab/GLH
     #And the "Requesting organisation" stage is marked as Mandatory To Do
     When the user navigates to the "<stage>" stage
@@ -30,7 +30,7 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @E2EUI-916 @NTS-3069 @LOGOUT
+  @E2EUI-916 @E2EUI-936 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
@@ -39,6 +39,27 @@ Feature: Requesting Organisation page
     Examples:
       | stage                   | ordering_entity_name |
       | Requesting organisation | lllLondon            |
+
+
+  @E2EUI-924 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
+  Scenario Outline: NTS-3069 - Feature: page validation with a single character
+    When the user navigates to the "<stage>" stage
+    And the user enters the invalid keyword "<ordering_entity_name>" in the search field
+    Then  the Save and Continue button should be disabled
+    Examples:
+      | stage                   | ordering_entity_name |
+      | Requesting organisation | k                    |
+
+  @E2EUI-1361 @NTS-3155 @LOGOUT @v_1 @P0 @COMP3_TO_OrderingEntity
+  Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
+    When the user navigates to the "<stage>" stage
+    Then the requesting organisation page has the "<title>"
+    And the requesting organisation has search label displayed
+    And the user sees the search field with search icon
+    And  the Save and Continue button should be disabled
+    Examples:
+      | stage                   | title                         |
+      | Requesting organisation | Add a requesting organisation |
 
 
 
