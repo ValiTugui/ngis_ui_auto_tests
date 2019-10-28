@@ -12,6 +12,7 @@ public class RequestingOrganisationSteps extends Pages {
     public RequestingOrganisationSteps(SeleniumDriver driver) {
         super(driver);
     }
+
     @Then("the details of the new organisation are displayed")
     public void theDetailsOfTheNewOrganisationAreDisplayed() {
         Assert.assertTrue("Stage : Requesting Organisation - Ordering entity details are not shown", requestingOrganisationPage.verifyOrganisationDetails());
@@ -34,5 +35,20 @@ public class RequestingOrganisationSteps extends Pages {
         Assert.assertTrue("Stage : Requesting Organisation - Save And Continue button should be clickable ", requestingOrganisationPage.checkTheContinueButtonIsClickable());
         requestingOrganisationPage.clickTheContinueButton();
         Assert.assertTrue(referralPage.stageIsSelected("Test package"));
+    }
+
+    @And("the requesting organisation has search label displayed")
+    public void theRequestingOrganisationHasSearchLabelDisplayed() {
+        Assert.assertTrue(requestingOrganisationPage.checkOrderingEntityPageLabel());
+    }
+
+    @Then("the requesting organisation page has the {string}")
+    public void the_requesting_organisation_page_has_the(String pageTitle) {
+        Assert.assertTrue(requestingOrganisationPage.checkPageTitleInfo(pageTitle));
+    }
+
+    @And("the user sees the search field with search icon")
+    public void theUserSeesTheSearchFieldWithSearchIcon() {
+        Assert.assertTrue(requestingOrganisationPage.checkSearchIcon());
     }
 }
