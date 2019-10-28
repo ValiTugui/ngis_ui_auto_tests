@@ -61,8 +61,7 @@ public class TumoursSteps extends Pages {
 
     @Then("the new tumour is displayed in the landing page")
     public void theNewTumourIsDisplayedInTheLandingPage() {
-        tumoursPage.newTumourIsDisplayedInLandingPage(1);
-
+        Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
     }
 
     @And("the new tumour is not highlighted")

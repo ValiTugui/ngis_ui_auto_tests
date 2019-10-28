@@ -160,11 +160,12 @@ public class TumoursPage {
         Actions.selectRandomValueFromDropdown(dropdownValues);
     }
 
-    public void newTumourIsDisplayedInLandingPage(int i) {
+    public boolean newTumourIsDisplayedInLandingPage(int i) {
         Wait.forElementToBeDisplayed(driver, successNotification);
         Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
         int numberOfTumours = tumoursLandingPageList.size() - 1;
         Assert.assertEquals(i, numberOfTumours);
+        return true;
     }
 
     public void tumourIsNotHighlighted() {
