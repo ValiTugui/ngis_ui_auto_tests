@@ -12,6 +12,10 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Pages implements Navigable {
 
+    public final String patientSearchURL = "patient-search";
+    public final String testOrderLoginURL = "login.microsoft";
+    public final String testOrderURL = "test-order";
+
     protected WebDriver driver;
 
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
@@ -100,9 +104,9 @@ public class Pages implements Navigable {
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: "+ currentURL);
-        if (driver.getCurrentUrl().contains("patient-search")) {
+        if (driver.getCurrentUrl().contains(patientSearchURL)) {
             Actions.cleanUpSession(driver);
-        } else if (driver.getCurrentUrl().contains("login.microsoft") || driver.getCurrentUrl().contains("test-order")) {
+        } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
             Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
             Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
             patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
