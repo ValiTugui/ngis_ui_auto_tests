@@ -4,7 +4,9 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class Pages implements Navigable {

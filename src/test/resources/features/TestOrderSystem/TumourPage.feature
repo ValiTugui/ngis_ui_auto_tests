@@ -16,3 +16,24 @@ Feature: Tumours Page
         | stage   | Date_of_Diagnosis | error_message                    |
         | Tumours | 12-03-2150        | Please enter a date before today |
 
+  @LOGOUT_BEFORE_TEST
+  @COMP6_TO_TumourCreate
+  @tumoursPage_02 @NTS-3154 @P @E2EUI-1320 @v_1
+  Scenario Outline:  @NTS-3154: Add a new tumour for an existing patient
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test   |
+
+

@@ -4,7 +4,7 @@
 #
 #  @UserJourneys-CANCER @UserJourneys-E2EUI-1637
 #  Scenario Outline: E2EUI-1637 - UseCase#21: NEW Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
-    #Test Directory
+#    Test Directory
 #    Given a web browser is at the Private Test Selection homepage
 #    And the user types in the CI term "<clinical-indication>" in the search field and selects the first result from the results list
 #    When the user clicks the Start referral button
@@ -24,7 +24,7 @@
 #    Then the "Patient details" stage is selected
 #    When the user does not modify the existing information on the "Patient details" form
 #    And the "Patient details" stage is marked as Completed
-#    #Requesting organisation
+    #Requesting organisation
 #    Then the "Requesting organisation" stage is selected
 #    When the user provides the "<organisation>" detail
 #    Then the "Requesting organisation" stage is marked as Completed

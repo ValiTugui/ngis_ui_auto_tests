@@ -74,7 +74,24 @@ public class ReferralSteps extends Pages {
         }
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.clickPatientCard();
-        patientDetailsPage.clickStartReferralButton();
+
+        // Check condition for different scenarios when submit button is displayed
+        if (patientDetailsPage.addDetailsToNGISButtonList.size()>0) {
+            Debugger.println("Add Patient Details button shown");
+            patientDetailsPage.addDetailsToNGISButton.click();
+            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+            patientDetailsPage.clickStartReferralButton();
+        }else if (patientDetailsPage.updateNGISRecordButtonList.size()>0){
+            Debugger.println("Update Patient Details button shown");
+            patientDetailsPage.updateNGISRecordButton.click();
+            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+            patientDetailsPage.clickStartReferralButton();
+        }else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size()>0) {
+            Debugger.println("Save Patient Details button shown");
+            patientDetailsPage.clickSavePatientDetailsToNGISButton();
+            patientDetailsPage.patientIsCreated();
+            patientDetailsPage.clickStartNewReferralButton();
+        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
         referralPage.clickSaveAndContinueButton();
@@ -108,6 +125,12 @@ public class ReferralSteps extends Pages {
             Debugger.println("Expected nhs no = " + NgisPatientOne.NHS_NUMBER + ", Actual nhs no: " + actualNHSNumber);
             Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
         }
+    }
+
+
+    @And("the {string} stage is marked as Completed")
+    public void theStageIsMarkedAsCompleted(String stage) {
+        referralPage.stageIsCompleted(stage);
     }
 
 }

@@ -116,6 +116,15 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
+    @FindBy(xpath = "//button[text()='Update NGIS record']")
+    public List<WebElement> updateNGISRecordButtonList;
+
+    @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
+    public List<WebElement> savePatientDetailsToNGISButtonList;
+
+    @FindBy(xpath = "//button[text()='Add details to NGIS']")
+    public List<WebElement> addDetailsToNGISButtonList;
+
     @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
     public WebElement firstReferralIDInReferralCard;
 
@@ -198,6 +207,7 @@ public class PatientDetailsPage {
     public WebElement yesButton;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
+    String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
 
 
     public boolean patientDetailsPageIsDisplayed() {
@@ -299,12 +309,16 @@ public class PatientDetailsPage {
     }
 
     public void clickStartReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
         Actions.clickElement(driver, startReferralButton);
         Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+
     }
 
     public void clickStartNewReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
         Actions.clickElement(driver, startNewReferralButton);
+        Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
     }
 
     public void clinicalIndicationIDMissingBannerIsDisplayed() {

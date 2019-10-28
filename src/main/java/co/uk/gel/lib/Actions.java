@@ -98,7 +98,7 @@ public class Actions {
 		js.executeScript("window.scrollTo(0, 0);"); 
 	}
 
-	public boolean isAlertPresent(WebDriver driver) {
+	public static boolean isAlertPresent(WebDriver driver) {
 		try {
 			driver.switchTo().alert();
 			return true;
@@ -108,7 +108,7 @@ public class Actions {
 		}
 	}
 
-	public void acceptAlert(WebDriver driver)  {
+	public static void acceptAlert(WebDriver driver)  {
 		if (isAlertPresent(driver)) {
 			driver.switchTo().alert().accept();
 			driver.switchTo().defaultContent();
@@ -116,7 +116,7 @@ public class Actions {
 		}
 	}
 
-	public void dismissAlert(WebDriver driver)  {
+	public static void dismissAlert(WebDriver driver)  {
 		if (isAlertPresent(driver)) {
 			driver.switchTo().alert().dismiss();
 			driver.switchTo().defaultContent();
