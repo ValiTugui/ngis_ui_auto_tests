@@ -34,8 +34,12 @@ public class TumoursSteps extends Pages {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
     }
 
-    @And("the user enters an invalid date in the date of diagnosis field and generate an error message")
-    public void theUserEntersAnInvalidDateInTheDateOfDiagnosisFieldAndGenerateAnErrorMessage(DataTable datatable) {
+    @And("the user answers all tumour system questions by selecting tumour type {string} and leaves date of diagnosis field blank")
+    public void theUserAnswersAllTumourSystemQuestionsBySelectingTumourTypeAndLeavesDateOfDiagnosisFieldBlank(String tumourType) {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.selectTumourType(tumourType);
+        tumoursPage.fillInSpecimenID();
 
     }
 
@@ -69,4 +73,6 @@ public class TumoursSteps extends Pages {
         tumoursPage.tumourIsNotHighlighted();
         tumoursPage.warningMessageIsNotDisplayed();
     }
+
+
 }

@@ -2,9 +2,8 @@
 Feature: Tumours Page
 
 
-
     @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_01 @NTS-3152 @P0 @E2EUI-2018 @E2EUI-1840 @v_1
+    @tumoursPage_01 @NTS-3152 @E2EUI-2018 @E2EUI-1840 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -17,8 +16,23 @@ Feature: Tumours Page
         | Tumours | 12-03-2150        | Please enter a date before today |
 
 
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_01 @NTS-3157 @E2EUI-1020 @P0 @v_1
+  Scenario Outline: NTS-3157:Validate the mandatory input field 'Date of diagnosis' for the Tumour Section
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
+    When the user navigates to the "<stage>" stage
+    And the user answers all tumour system questions by selecting tumour type "<tumour_type>" and leaves date of diagnosis field blank
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
+
+    Examples: of future date scenario
+      | stage   | tumour_type              | error_message |
+      | Tumours | Solid tumour: metastatic | Enter a year  |
+
+
   @COMP6_TO_TumourCreate
-  @tumoursPage_02 @NTS-3154 @P0 @E2EUI-1320 @@E2EUI-894 @v_1
+  @tumoursPage_02 @NTS-3154 @E2EUI-1320 @@E2EUI-894 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |

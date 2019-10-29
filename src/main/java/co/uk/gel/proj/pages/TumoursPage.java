@@ -87,16 +87,15 @@ public class TumoursPage {
     public WebElement editTumourArrow;
 
 
+    public void navigateToAddTumourPageIfOnEditTumourPage() {
 
-    public void navigateToAddTumourPageIfOnEditTumourPage(){
-
-        if (descriptiveNameList.size()>0) {
+        if (descriptiveNameList.size() > 0) {
             Debugger.println("User is on Add Tumour Page");
         } else if (addAnotherTumourLinkList.size() > 0) {
             Debugger.println("User is on Edit Tumour Page");
             addAnotherTumourLink.click();
             Debugger.println("User is NOW on Add Tumour Page");
-        }else {
+        } else {
             Debugger.println("User is not on tumour page");
         }
 
@@ -110,7 +109,7 @@ public class TumoursPage {
         return description;
     }
 
-    public void fillInDateOfDiagnosis (String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+    public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
 
         dateDay.sendKeys(dayOfDiagnosis);
         dateMonth.sendKeys(monthOfDiagnosis);
@@ -127,7 +126,7 @@ public class TumoursPage {
     }
 
     public String selectTumourType(String type) {
-        Wait.forElementToBeClickable(driver, tumourType);
+        //Wait.forElementToBeClickable(driver, tumourType);
         Actions.clickElement(driver, tumourType);
         Actions.selectValueFromDropdown(dropdownValue, type);
         tumourDetails.setTumourType(type);
@@ -176,22 +175,5 @@ public class TumoursPage {
     public void warningMessageIsNotDisplayed() {
         Assert.assertTrue(tumoursWarningMessage.size() == 0);
     }
-
-  /*
-    public void fillInDateOfDiagnosisOnAddOrTumourPage (String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis)  {
-
-
-        if (descriptiveNameList.size()>0) {
-            Debugger.println("User is on Add Tumour Page");
-            fillInDateOfDiagnosis(dayOfDiagnosis, monthOfDiagnosis, yearOfDiagnosis);
-        } else if (addAnotherTumourLinkList.size() > 0) {
-            Debugger.println("User is on Edit Tumour Page");
-            addAnotherTumourLink.click();
-            fillInDateOfDiagnosis(dayOfDiagnosis, monthOfDiagnosis, yearOfDiagnosis);
-        }else {
-            Debugger.println("User is not on tumour page");
-        }
-    }
-*/
 
 }

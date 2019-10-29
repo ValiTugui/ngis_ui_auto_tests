@@ -167,13 +167,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement noResultsHelp;
 
     @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
-    public WebElement noResultsHelpLink;
+    public WebElement noResultsHelpLink1;
+
+    @FindBy(xpath = "//a[text()='create a new patient record']")
+    public WebElement noResultsHelpLink2;
 
     @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink2; // create a new patient link
+    public WebElement noResultsHelpLink; // create a new patient link
 
     @FindBy(css = "p[class*='no-results__duplicate']")
     public WebElement noResultsDuplicate;
+
+    @FindBy(css = "*[class*='helix']")
+    public List<WebElement> helix;
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
@@ -648,7 +654,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-        Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
+        //Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
+        Wait.forElementToBeClickable(driver, noResultsHelpLink);
         Click.element(driver, noResultsHelpLink);
     }
 
