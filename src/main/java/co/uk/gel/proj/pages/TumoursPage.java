@@ -32,11 +32,20 @@ public class TumoursPage {
     public WebElement dateYear;
     public WebElement pathologyReportId;
 
+    @FindBy(css = "h1[class*='page-title']")
+    public WebElement AddATumourPageTitle;
+
+    @FindBy(css = "p[class*='subtitle']")
+    public WebElement TumourSubTitle;
+
     @FindBy(css = "input[id*='descriptiveName']")  //added
     public List<WebElement> descriptiveNameList;
 
     @FindBy(css = "label[for*='descriptiveName']")
     public WebElement descriptiveNameLabel;
+
+    @FindBy(xpath = "//legend[text()='Date of diagnosis']")
+    public WebElement dateOfDiagnosisLabel;
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
@@ -44,8 +53,14 @@ public class TumoursPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
+    @FindBy(css = "label[for*='tumourType']")
+    public WebElement tumourTypeLabel;
+
     @FindBy(xpath = "//label[contains(@for,'tumourType')]//following::div")
     public WebElement tumourType;
+
+    @FindBy(css = "label[for*='pathologyReportId']")
+    public WebElement PathologyIdOrSampleIdLabel;
 
     @FindBy(xpath = "//table[contains(@class,'table')]//child::tbody")
     public WebElement tumoursLandingPageTable;
@@ -126,8 +141,9 @@ public class TumoursPage {
     }
 
     public String selectTumourType(String type) {
-        //Wait.forElementToBeClickable(driver, tumourType);
+        Wait.forElementToBeClickable(driver, tumourType);
         Actions.clickElement(driver, tumourType);
+        Wait.forElementToBeClickable(driver, dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, type);
         tumourDetails.setTumourType(type);
         return Actions.getText(tumourType);
@@ -174,6 +190,19 @@ public class TumoursPage {
 
     public void warningMessageIsNotDisplayed() {
         Assert.assertTrue(tumoursWarningMessage.size() == 0);
+    }
+
+    public boolean verifyTheElementsOnAddTumoursPageAreDisplayed() {
+
+        AddATumourPageTitle.isDisplayed();
+        descriptiveName.isDisplayed();
+        dateOfDiagnosisLabel.isDisplayed();
+        tumourTypeLabel.isDisplayed();
+        PathologyIdOrSampleIdLabel.isDisplayed();
+        dateMonth.isDisplayed();
+        dateYear.isDisplayed();
+
+        return true;
     }
 
 }

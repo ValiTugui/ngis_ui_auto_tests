@@ -238,7 +238,7 @@ public class PatientDetailsPage {
 
         //newPatient.setNhsNumber(Actions.createValidNHSNumber());
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");

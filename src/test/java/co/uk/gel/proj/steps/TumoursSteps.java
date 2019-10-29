@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.TumoursPage;
 import co.uk.gel.proj.util.Debugger;
@@ -75,4 +76,19 @@ public class TumoursSteps extends Pages {
     }
 
 
+    @Then("the tumours stage displays Add a tumour page with appropriate fields - description, Date of diagnosis etc")
+    public void theTumoursStageDisplaysAddATumourPageWithAppropriateFieldsDescriptionDateOfDiagnosisEtc() {
+
+        boolean eachElementIsLoaded;
+        eachElementIsLoaded = tumoursPage.verifyTheElementsOnAddTumoursPageAreDisplayed();
+        Assert.assertTrue(eachElementIsLoaded);
+
+    }
+
+    @And("an information {string} is displayed that a test cannot start without a tumour")
+    public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
+        Debugger.println("Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
+        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(tumourInformation));
+
+    }
 }

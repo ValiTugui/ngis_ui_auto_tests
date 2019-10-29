@@ -89,13 +89,13 @@ public class Actions {
         }
     }
 
-	public static void dismissAlert(WebDriver driver)  {
-		if (isAlertPresent(driver)) {
-			driver.switchTo().alert().dismiss();
-			driver.switchTo().defaultContent();
-			Wait.seconds(2);
-		}
-	}
+    public static void dismissAlert(WebDriver driver) {
+        if (isAlertPresent(driver)) {
+            driver.switchTo().alert().dismiss();
+            driver.switchTo().defaultContent();
+            Wait.seconds(2);
+        }
+    }
 
     public static void refreshBrowser(WebDriver driver) {
         driver.navigate().refresh();

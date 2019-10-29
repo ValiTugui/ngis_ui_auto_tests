@@ -217,7 +217,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButton(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButton);
-        searchButton.click();
+        Click.element(driver, searchButton);
     }
 
     public void clickSearchButtonByXpath(WebDriver driver) {
@@ -345,7 +345,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
-        Wait.forElementToBeDisplayed(driver,patientCard);
+        Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
 
@@ -538,8 +538,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(String[] textFieldElements) {
 
         for (String fieldElement : textFieldElements) {
-            switch(fieldElement)
-            {
+            switch (fieldElement) {
                 case "nhsNumber": {
                     verifyFieldHasAutoCompleteDisabled(nhsNumber);
                     break;
