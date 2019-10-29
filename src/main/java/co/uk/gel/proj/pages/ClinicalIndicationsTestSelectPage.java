@@ -5,6 +5,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -87,8 +88,49 @@ public class ClinicalIndicationsTestSelectPage {
 	@FindBy(xpath = "//div[contains(@class,'back')]//descendant::a")
 	public WebElement backToSearch;
 
+	@FindBy(css = "div[class*='helix-dot][1]")
+	public WebElement loadingWheel;
+
+	@FindBy(css = "h2[class*='relatedContainer__header']")
+	public WebElement loadingText;
+
 	public void clickStartReferralButton() {
 		Click.element(driver, startTestOrderButton);
 	}
 
+	public boolean validateIfLoadingWheelIsPresent() {
+		if (driver.findElements(By.className("styles_helix__1AyYD")).size() >= 0)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean validateIfCorrectTextIsDisplayed(WebElement element)
+	{
+		String actual = element.getText();
+		String expected = "Please wait a moment - clinical indications are loading";
+		if (actual.equalsIgnoreCase(expected))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean validateIfWrongTextIsNotDisplayed(WebElement element)
+	{
+		String actual = element.getText();
+		String expected = "This test cannot be ordered yet";
+		if (actual!= expected)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

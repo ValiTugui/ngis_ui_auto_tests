@@ -22,6 +22,8 @@ public class HomePage {
     }
 
 
+    public String tabTitle = "NHS England | Public Genetic Test Directory";
+
     @FindBy(css = "div[class*='header']")
     public WebElement header;
 
@@ -51,6 +53,33 @@ public class HomePage {
 
     @FindBy(css = "ul[class*='imageRadioButtons']")
     public WebElement filterButtons;
+
+    @FindBy(xpath = "//div[contains(text(), 'Clinical Indications')]")
+    public WebElement clinicalIndicationsTab;
+
+    @FindBy(xpath = "//div[contains(text(), 'Tests')]")
+    public WebElement testsTab;
+
+    @FindBy(xpath = "//div[contains(text(), 'Clinical Indications')]/span")
+    public WebElement clinicalIndicationsTabValue;
+
+    @FindBy(xpath = "//div[contains(text(), 'Tests')]/span")
+    public WebElement testsTabValue;
+
+    @FindBy(xpath = "//div/ul/li[1]/label")
+    public WebElement rareAndInheritedDiseasesChkBox;
+
+    @FindBy(xpath = "//div/ul/li[3]/label")
+    public WebElement tumorChkBox;
+
+    @FindBy(xpath = "//div/ul/li[2]/label")
+    public WebElement inheritedCancerPredispositionChkBox;
+
+    @FindBy(xpath = "//div/ul/li[4]/label")
+    public WebElement otherChkBox;
+
+    @FindBy(className = "btn btn-secondary btn-xs")
+    public WebElement clearAllButton;
 
     @FindBy(css = "a[class*='tab']")
     public List<WebElement> tabs;
@@ -206,4 +235,41 @@ public class HomePage {
         waitUntilHomePageResultsContainerIsLoaded();
         Click.element(driver, resultsPanels.get(0));
     }
+
+    public long rareAndInheritedDiseasesSearchResult() throws InterruptedException {
+        rareAndInheritedDiseasesChkBox.click();
+        Thread.sleep(1500);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
+        System.out.println("Rare is " + (Integer.valueOf(a)+Integer.valueOf(b)));
+        rareAndInheritedDiseasesChkBox.click();
+        Thread.sleep(500);
+        return Integer.valueOf(a)+Integer.valueOf(b);
+    }
+
+    public long tumorSearchResult() throws InterruptedException {
+        tumorChkBox.click();
+        Thread.sleep(1500);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
+        System.out.println("Tumor is " + (Integer.valueOf(a)+Integer.valueOf(b)));
+        tumorChkBox.click();
+        Thread.sleep(500);
+        return Integer.valueOf(a)+Integer.valueOf(b);
+    }
+
+    public long totalSearchResult() throws InterruptedException {
+        Thread.sleep(1500);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
+        System.out.println("Total is " + (Integer.valueOf(a)+Integer.valueOf(b)));
+        return Integer.valueOf(a)+Integer.valueOf(b);
+    }
+
 }

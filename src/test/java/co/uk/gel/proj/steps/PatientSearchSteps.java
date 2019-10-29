@@ -22,11 +22,11 @@ public class PatientSearchSteps extends Pages {
 
     @Given("^a web browser is at the patient search page$")
     public void navigateToPatientSearchPage() {
-
         driver.get(AppConfig.getApp_url() + "patient-search");
-
         if(!(driver.getCurrentUrl().contains("patient-search")))
+        {
             patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        }
     }
 
     @Then("the Patient Search page is displayed")
@@ -222,13 +222,26 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user types in valid details of a {string} patient in the NHS number and DOB fields")
     public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(String patient_type) {
-        if(patient_type.equals("NGIS")){
-            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER,NgisPatientOne.DAY_OF_BIRTH,NgisPatientOne.MONTH_OF_BIRTH,NgisPatientOne.YEAR_OF_BIRTH);
-        } else if(patient_type.equals("SPINE")){
-            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER,SpinePatientOne.DAY_OF_BIRTH,SpinePatientOne.MONTH_OF_BIRTH,SpinePatientOne.YEAR_OF_BIRTH);
+        if (patient_type.equals("NGIS")) {
+            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(NgisPatientOne.NHS_NUMBER, NgisPatientOne.DAY_OF_BIRTH, NgisPatientOne.MONTH_OF_BIRTH, NgisPatientOne.YEAR_OF_BIRTH);
+        } else if (patient_type.equals("SPINE")) {
+            patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(SpinePatientOne.NHS_NUMBER, SpinePatientOne.DAY_OF_BIRTH, SpinePatientOne.MONTH_OF_BIRTH, SpinePatientOne.YEAR_OF_BIRTH);
         } else {
             throw new RuntimeException(" Patient type not found -> provide either NGIS or SPINE patient");
         }
-
     }
-}
+
+        @And ("^User place the cursor over the tab in which the Dashboard - Home page is opened$")
+        public void theUserPlaceTheCursorOverTheTab() {
+
+        }
+
+        @Then("The user should see the tab title as Genomic Medicine Service | Test Ordering Application - NGIS")
+            public void theTabTitleValidation ()  {
+                String titleText = "Genomic Medicine Service | Test Ordering Application - NGIS";
+                Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
+            }
+
+        }
+
+

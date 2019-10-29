@@ -21,6 +21,7 @@ public class Pages {
     protected ResponsibleClinicianPage responsibleClinicianPage;
     protected TumoursPage tumoursPage;
     protected SamplesPage samplesPage;
+    protected DashBoardPage dashBoardPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -41,5 +42,6 @@ public class Pages {
         responsibleClinicianPage = PageFactory.initElements(driver,ResponsibleClinicianPage.class);
         tumoursPage = PageFactory.initElements(driver,TumoursPage.class);
         samplesPage = PageFactory.initElements(driver,SamplesPage .class);
+        dashBoardPage = PageFactory.initElements(driver,DashBoardPage .class);
     }
 }//end class

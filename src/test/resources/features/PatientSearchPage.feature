@@ -303,3 +303,8 @@ Feature: Patient search page
   Scenario: E2UI-1636 - UseCase#21: NGIS Patient -> Create Referral for Proband only -> Patient Choice Yes -> Tumour -> Sample
     #Test Directory
     Given a web browser is at the Private Test Selection homepage
+
+@E2EU-1973 @NTS-3159 @v_1 @P0 @COMP1_TO_PatientDetails
+  Scenario: NTS-3159 - Patient Search - To verify the Tab Title displayed correctly if cursor is mover over the Tab
+  And User place the cursor over the tab in which the Dashboard - Home page is opened
+  Then The user should see the tab title as Genomic Medicine Service | Test Ordering Application - NGIS

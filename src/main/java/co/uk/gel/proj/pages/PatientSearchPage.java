@@ -14,7 +14,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.provider.ConfigFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -752,6 +751,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
         Click.element(driver, noResultsHelpLink);
     }
+
+    public boolean windowTitleValidation(String titleText) {
+
+        String actual = driver.getTitle();
+         if (actual.equalsIgnoreCase(titleText))
+        {return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 
 
 }
