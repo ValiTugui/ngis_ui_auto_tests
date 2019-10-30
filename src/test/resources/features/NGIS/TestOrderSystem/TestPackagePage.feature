@@ -99,8 +99,8 @@ Feature: Test Package page
     Then the user clicks the Save and Continue button
     Then the "<new_stage>" stage is selected
     Examples:
-      | stage        | priority | new_stage           |
-      | Test package | Routine  | Clinical details    |
+      | stage        | priority | new_stage                |
+      | Test package | Routine  | Responsible clinician    |
 
   @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
@@ -112,5 +112,5 @@ Feature: Test Package page
     Then the user clicks the Save and Continue button
     Then the "<new_stage>" stage is selected
     Examples:
-      | stage        | priority | count | new_stage           |
-      | Test package | Urgent   |  2    | Clinical details    |
+      | stage        | priority | count | new_stage                |
+      | Test package | Urgent   |  2    | Responsible clinician    |
