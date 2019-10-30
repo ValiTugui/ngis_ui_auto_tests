@@ -109,4 +109,9 @@ public class ReferralSteps extends Pages {
             Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
         }
     }
+
+    @Then("the {string} stage is selected")
+    public void theStageIsSelected(String newStage) {
+        Assert.assertTrue(referralPage.stageIsSelected(newStage));
+    }
 }

@@ -97,9 +97,10 @@ Feature: Test Package page
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
     Then the user clicks the Save and Continue button
+    Then the "<new_stage>" stage is selected
     Examples:
-      | stage        | priority |
-      | Test package | Routine  |
+      | stage        | priority | new_stage           |
+      | Test package | Routine  | Clinical details    |
 
   @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
@@ -107,8 +108,9 @@ Feature: Test Package page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
-    And And the user selects the number of participants: 2
+    And the user selects the number of participants: "<count>"
     Then the user clicks the Save and Continue button
+    Then the "<new_stage>" stage is selected
     Examples:
-      | stage        | priority |
-      | Test package | Urgent   |
+      | stage        | priority | count | new_stage           |
+      | Test package | Urgent   |  2    | Clinical details    |

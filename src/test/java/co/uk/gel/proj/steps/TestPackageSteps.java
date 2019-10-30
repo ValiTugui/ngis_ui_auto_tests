@@ -97,8 +97,8 @@ public class TestPackageSteps extends Pages {
         }
     }
 
-    @And("And the user selects the number of participants: {int}")
-    public void andTheUserSelectsTheNumberOfParticipants(int numberOfParticipants) {
-        testPackagePage.setTotalNumberOfParticipantsField(numberOfParticipants);
+    @And("the user selects the number of participants: {string}")
+    public void theUserSelectsTheNumberOfParticipants(String numberOfParticipants) {
+        testPackagePage.setTotalNumberOfParticipantsField(Integer.parseInt(numberOfParticipants));
     }
 }
