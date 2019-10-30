@@ -24,9 +24,8 @@ public class DashBoardSteps extends Pages {
         dashBoardPage.dashboardPageResultsIsLoaded();
     }
 
-    @Then("The user should see the Page title as Welcome to the National Genomic Informatics System")
-    public void thePageTitleValidation () {
-        String titleText = "Welcome to the National Genomic Informatics System";
+    @Then("The user should see the Page title as {string}")
+    public void theUserShouldSeeThePageTitleAs(String titleText) {
         Assert.assertTrue("The Correct Page Title is Displayed", dashBoardPage.pageTitleValidation(titleText));
     }
 }

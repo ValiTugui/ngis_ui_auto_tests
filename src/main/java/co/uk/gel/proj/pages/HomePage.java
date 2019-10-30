@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -238,38 +239,41 @@ public class HomePage {
 
     public long rareAndInheritedDiseasesSearchResult() throws InterruptedException {
         rareAndInheritedDiseasesChkBox.click();
-        Thread.sleep(1500);
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
         String a = clinicalIndicationsTabValue.getText();
         String b = testsTabValue.getText();
-        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
-        System.out.println("Rare is " + (Integer.valueOf(a)+Integer.valueOf(b)));
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Rare is " + (Integer.valueOf(a) + Integer.valueOf(b)));
         rareAndInheritedDiseasesChkBox.click();
-        Thread.sleep(500);
-        return Integer.valueOf(a)+Integer.valueOf(b);
+        Wait.seconds(1);
+        return Integer.valueOf(a) + Integer.valueOf(b);
     }
 
     public long tumorSearchResult() throws InterruptedException {
         tumorChkBox.click();
-        Thread.sleep(1500);
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
         String a = clinicalIndicationsTabValue.getText();
         String b = testsTabValue.getText();
-        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
-        System.out.println("Tumor is " + (Integer.valueOf(a)+Integer.valueOf(b)));
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Tumor is " + (Integer.valueOf(a) + Integer.valueOf(b)));
         tumorChkBox.click();
-        Thread.sleep(500);
-        return Integer.valueOf(a)+Integer.valueOf(b);
+        Wait.seconds(1);
+        return Integer.valueOf(a) + Integer.valueOf(b);
     }
 
     public long totalSearchResult() throws InterruptedException {
-        Thread.sleep(1500);
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
         String a = clinicalIndicationsTabValue.getText();
         String b = testsTabValue.getText();
-        a=a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b=b.replaceAll("\\(", "").replaceAll("\\)", "");
-        System.out.println("Total is " + (Integer.valueOf(a)+Integer.valueOf(b)));
-        return Integer.valueOf(a)+Integer.valueOf(b);
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Total is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        return Integer.valueOf(a) + Integer.valueOf(b);
     }
 
 }

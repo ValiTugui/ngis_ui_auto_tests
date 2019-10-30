@@ -51,13 +51,13 @@ public class HomePageSteps extends Pages {
 
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
-        long a=homePage.totalSearchResult();
-        long b=homePage.rareAndInheritedDiseasesSearchResult();
-        long c=homePage.tumorSearchResult();
-        Assert.assertEquals(a, b+c);
+        long a = homePage.totalSearchResult();
+        long b = homePage.rareAndInheritedDiseasesSearchResult();
+        long c = homePage.tumorSearchResult();
+        Assert.assertEquals(a, b + c);
     }
 
-    @When ("the user has selected a test {string}")
+    @When("the user has selected a test {string}")
     public void theUserSelectsATest(String searchTerm) {
         homePage.testsTab.click();
         homePage.typeInSearchField(searchTerm);

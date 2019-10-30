@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.config.AppConfig;
@@ -12,6 +14,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.awt.*;
 
 public class PatientSearchSteps extends Pages {
 
@@ -232,16 +236,14 @@ public class PatientSearchSteps extends Pages {
     }
 
         @And ("^User place the cursor over the tab in which the Dashboard - Home page is opened$")
-        public void theUserPlaceTheCursorOverTheTab() {
-
+        public void theUserPlaceTheCursorOverTheTab() throws AWTException {
+            Click.mouseMoveByLocation(driver, 5,200);
         }
 
-        @Then("The user should see the tab title as Genomic Medicine Service | Test Ordering Application - NGIS")
-            public void theTabTitleValidation ()  {
-                String titleText = "Genomic Medicine Service | Test Ordering Application - NGIS";
-                Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
-            }
-
-        }
+    @Then("The user should see the tab title as {string}")
+    public void theUserShouldSeeTheTabTitleAs(String titleText) {
+        Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
+    }
+}
 
 

@@ -35,22 +35,12 @@ public class DashBoardPage {
 
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
-        if(!(driver.getCurrentUrl().contains("patient-search")))
-        {loginToDashboardAsServiceDeskUser(driver);
+        if (!(driver.getCurrentUrl().contains("patient-search"))) {
+            Pages.login(this.driver, emailAddressField, passwordField, nextButton );
         }
     }
 
-    public void loginToDashboardAsServiceDeskUser(WebDriver driver) {
-        Wait.forElementToBeClickable(driver, emailAddressField);
-        emailAddressField.sendKeys(AppConfig.getApp_username());
-        nextButton.click();
-        Wait.seconds(2);
-        Wait.forElementToBeClickable(driver, passwordField);
-        passwordField.sendKeys(AppConfig.getApp_password());
-        nextButton.click();
-    }
-
-    public void waitUntilDashboardPageResultsContainerIsLoaded() {
+     public void waitUntilDashboardPageResultsContainerIsLoaded() {
         Wait.forElementToBeDisplayed(driver, resultsPanel);
     }
 
@@ -59,13 +49,10 @@ public class DashBoardPage {
     }
 
     public boolean pageTitleValidation(String titleText) {
-
         String actual = pageTitle.getText();
-        if (actual.equalsIgnoreCase(titleText))
-        {return true;
-        }
-        else
-        {
+        if (actual.equalsIgnoreCase(titleText)) {
+            return true;
+        } else {
             return false;
         }
     }

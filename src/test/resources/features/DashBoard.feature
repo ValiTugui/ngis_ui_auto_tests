@@ -9,5 +9,5 @@ Feature: Dashboard Page
 
 Scenario: NTS-3158 - Dashboard - To verify the Dashboard - Home Page Title displayed correctly
     And User should be able to see my Dashboard
-    Then The user should see the Page title as Welcome to the National Genomic Informatics System
+    Then The user should see the Page title as "Welcome to the National Genomic Informatics System"
 
