@@ -74,7 +74,24 @@ public class ReferralSteps extends Pages {
         }
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.clickPatientCard();
-        patientDetailsPage.clickStartReferralButton();
+
+        // Check condition for different scenarios when referral submit button is displayed
+        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {
+            Debugger.println("Add Patient Details button shown");
+            patientDetailsPage.addDetailsToNGISButton.click();
+            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+            patientDetailsPage.clickStartReferralButton();
+        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+            Debugger.println("Update Patient Details button shown");
+            patientDetailsPage.updateNGISRecordButton.click();
+            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+            patientDetailsPage.clickStartReferralButton();
+        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
+            Debugger.println("Save Patient Details button shown");
+            patientDetailsPage.clickSavePatientDetailsToNGISButton();
+            patientDetailsPage.patientIsCreated();
+            patientDetailsPage.clickStartNewReferralButton();
+        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
         referralPage.clickSaveAndContinueButton();
@@ -108,5 +125,49 @@ public class ReferralSteps extends Pages {
             Debugger.println("Expected nhs no = " + NgisPatientOne.NHS_NUMBER + ", Actual nhs no: " + actualNHSNumber);
             Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
         }
+    }
+
+    @And("the {string} stage is marked as Completed")
+    public void theStageIsMarkedAsCompleted(String stage) {
+        referralPage.stageIsCompleted(stage);
+    }
+
+    @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
+    public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
+        boolean eachElementIsLoaded;
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String searchTerm = attributeOfURL.get(2);
+        String diseaseType = attributeOfURL.get(3);
+        String createPatientHyperTextLink = attributeOfURL.get(4);
+        String reasonForNoNHSNumber = attributeOfURL.get(5);
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        switchToURL(driver.getCurrentUrl());
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        patientSearchPage.clickSearchButtonByXpath(driver);
+        Assert.assertEquals("No patient found", patientSearchPage.noPatientFoundLabel.getText());
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
+        //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
+        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        patientDetailsPage.newPatientPageIsDisplayed();
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.patientIsCreated();
+        patientDetailsPage.clickStartNewReferralButton();
+        referralPage.checkThatReferralWasSuccessfullyCreated();
+        referralPage.saveAndContinueButtonIsDisplayed();
+
     }
 }

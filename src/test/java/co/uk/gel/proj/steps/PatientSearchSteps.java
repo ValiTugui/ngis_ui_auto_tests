@@ -90,7 +90,6 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-
         patientSearchPage.clickSearchButtonByXpath(driver);
     }
 

@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -115,6 +116,18 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
+    @FindBy(xpath = "//button[text()='Update NGIS record']")
+    public List<WebElement> updateNGISRecordButtonList;
+
+    @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
+    public List<WebElement> savePatientDetailsToNGISButtonList;
+
+    @FindBy(xpath = "//button[text()='Add details to NGIS']")
+    public List<WebElement> addDetailsToNGISButtonList;
+
+    @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
+    public WebElement firstReferralIDInReferralCard;
+
     //	@FindBy(xpath = "//button[text()='Start referral']")
     //	public WebElement startReferralButton;
 
@@ -194,6 +207,7 @@ public class PatientDetailsPage {
     public WebElement yesButton;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
+    String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
 
 
     public boolean patientDetailsPageIsDisplayed() {
@@ -224,7 +238,7 @@ public class PatientDetailsPage {
 
         //newPatient.setNhsNumber(Actions.createValidNHSNumber());
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        // Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
@@ -297,10 +311,14 @@ public class PatientDetailsPage {
     public void clickStartReferralButton() {
         Wait.forElementToBeDisplayed(driver, startReferralButton);
         Actions.clickElement(driver, startReferralButton);
+        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+
     }
 
     public void clickStartNewReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
         Actions.clickElement(driver, startNewReferralButton);
+        Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
     }
 
     public void clinicalIndicationIDMissingBannerIsDisplayed() {
