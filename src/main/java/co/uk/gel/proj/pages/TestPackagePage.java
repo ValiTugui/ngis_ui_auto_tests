@@ -93,6 +93,8 @@ public class TestPackagePage {
     public List<WebElement> selectedFamilyMembers;
 
     private String checkboxValue = "checked";
+    private String routine = "Routine";
+    private String urgent = "Urgent";
 
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
@@ -164,4 +166,32 @@ public class TestPackagePage {
         Wait.forElementToBeDisplayed(driver, routinePriorityButton);
         Click.element(driver, testCheckBoxCard);
     }
+
+    public void clickUrgentPriority() {
+        Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+        urgentPriorityButton.click();
+    }
+
+    public void clickRoutinePriority() {
+        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+        routinePriorityButton.click();
+    }
+
+    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
+        return priorityLabel.getText().contains(expectedHeaderText);
+    }
+
+    public boolean verifyGivenPriorityIsSelected(String priority){
+        if(priority.equals(routine)){
+            return  routinePriorityButton.isSelected();
+        }
+        else if (priority.equals(urgent)){
+            return urgentPriorityButton.isSelected();
+        }
+        else{
+         new RuntimeException("Priority options should be in Routine or Urgent");
+         return false;
+        }
+    }
 }
+

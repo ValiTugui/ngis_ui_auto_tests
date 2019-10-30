@@ -90,3 +90,16 @@ Feature: Test Package page
       | Test package | refresh             |
 
 
+  @E2EUI-1123 @NTS-3070 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3070 - Test package - Urgency selection
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the Test Package page priority header has "<priority_label>"
+    When the user selects the "<priority>"
+    And the Test Package page "<previous_priority>" is de-selected
+    Then the user clicks the Save and Continue button
+    Then the "<new_stage>" stage is selected
+    Examples:
+      | stage        | priority | previous_priority | new_stage             | priority_label                         |
+      | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? |

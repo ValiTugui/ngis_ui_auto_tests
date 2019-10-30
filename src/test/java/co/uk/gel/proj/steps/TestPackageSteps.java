@@ -86,4 +86,29 @@ public class TestPackageSteps extends Pages {
     public void theUserClicksATestToDeSelectIt() {
         if (testPackagePage.testIsSelected()) testPackagePage.clickTest();
     }
+
+    @When("the user selects the {string}")
+    public void theUserSelectsThe(String testReferralUrgencyInfo) {
+        if(testReferralUrgencyInfo.contains("Urgent")){
+            testPackagePage.clickUrgentPriority();
+        }
+        else {
+            testPackagePage.clickRoutinePriority();
+        }
+    }
+
+    @Then("the {string} stage is selected")
+    public void theStageIsSelected(String newStage) {
+        Assert.assertTrue(referralPage.stageIsSelected(newStage));
+    }
+
+    @And("the Test Package page priority header has {string}")
+    public void theTestPackagePagePriorityHeaderHas(String expectedPriorityLabel) {
+        Assert.assertTrue(testPackagePage.verifyPrioritySectionHeaderText(expectedPriorityLabel));
+    }
+
+    @And("the Test Package page {string} is de-selected")
+    public void theTestPackagePageIsDeSelected(String previousPriority) {
+       Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
+    }
 }
