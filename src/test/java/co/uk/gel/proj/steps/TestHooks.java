@@ -10,6 +10,9 @@ import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
 
+import static co.uk.gel.lib.Actions.acceptAlert;
+import static co.uk.gel.lib.Actions.isAlertPresent;
+
 
 public class TestHooks extends Pages {
 
@@ -85,6 +88,9 @@ public class TestHooks extends Pages {
         Debugger.println("deleted cookies");
         driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
         try {
+           if(isAlertPresent(driver)){
+                acceptAlert(driver);
+            }
             driver.manage().deleteAllCookies();
         } catch (UnhandledAlertException f) {
             try {

@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Wait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -91,4 +92,25 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 
+    public void enterEmail(String emailValue) {
+        Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+        clinicianEmailField.sendKeys(emailValue);
+    }
+
+    public boolean verifyInvalidEmailWarningMessage(String expectedErrorMessage) {
+        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+    }
+
+    public void enterPhoneNumber(String phoneNumberValue) {
+        clinicianPhoneNumberField.sendKeys(phoneNumberValue);
+    }
+
+    public boolean verifyTotalNumberOfDigitsInPhoneNumberField() {
+        if (clinicianPhoneNumberField.getText().length() == 15) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
