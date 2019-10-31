@@ -27,6 +27,7 @@ public class HomePageSteps extends Pages {
         String confirmationPage = attributeOfURL.get(1);
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
         Assert.assertEquals(driver.getTitle(), homePage.tabTitle);
     }
 
@@ -45,8 +46,7 @@ public class HomePageSteps extends Pages {
     }
 
     @When("^a user clicks on any search filter$")
-    public void userClicksOnAnySearchFilter() throws InterruptedException {
-        //SeleniumLib.isClickable(testDirectoryPage.rareAndInheritedDiseasesChkBox);
+    public void userClicksOnAnySearchFilter() {
         homePage.rareAndInheritedDiseasesChkBox.click();
         homePage.tumorChkBox.click();
     }
@@ -54,7 +54,6 @@ public class HomePageSteps extends Pages {
 
     @Then("^the search results have been displayed$")
     public void searchResultsDisplays() throws InterruptedException {
-        //SeleniumLib.isClickable(testDirectoryPage.rareAndInheritedDiseasesChkBox);
         homePage.rareAndInheritedDiseasesSearchResult();
         homePage.tumorSearchResult();
     }

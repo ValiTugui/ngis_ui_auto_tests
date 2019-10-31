@@ -44,20 +44,21 @@ public class Pages implements Navigable {
 
     public void PageObjects() {
 
-        homePage= PageFactory.initElements(driver,HomePage.class);
-        clinicalIndicationsTestSelect = PageFactory.initElements(driver,ClinicalIndicationsTestSelectPage.class);
-        paperFormPage = PageFactory.initElements(driver,PaperFormPage.class);
-        referralPage = PageFactory.initElements(driver,ReferralPage.class);
+        homePage = PageFactory.initElements(driver, HomePage.class);
+        clinicalIndicationsTestSelect = PageFactory.initElements(driver, ClinicalIndicationsTestSelectPage.class);
+        paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
+        referralPage = PageFactory.initElements(driver, ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
-        patientSearchPage = PageFactory.initElements(driver,PatientSearchPage.class);
-        patientDetailsPage = PageFactory.initElements(driver,PatientDetailsPage.class);
-        requestingOrganisationPage = PageFactory.initElements(driver,RequestingOrganisationPage.class);
-        testPackagePage = PageFactory.initElements(driver,TestPackagePage.class);
-        responsibleClinicianPage = PageFactory.initElements(driver,ResponsibleClinicianPage.class);
-        tumoursPage = PageFactory.initElements(driver,TumoursPage.class);
-        samplesPage = PageFactory.initElements(driver,SamplesPage .class);
-        dashBoardPage = PageFactory.initElements(driver,DashBoardPage .class);
+        patientSearchPage = PageFactory.initElements(driver, PatientSearchPage.class);
+        patientDetailsPage = PageFactory.initElements(driver, PatientDetailsPage.class);
+        requestingOrganisationPage = PageFactory.initElements(driver, RequestingOrganisationPage.class);
+        testPackagePage = PageFactory.initElements(driver, TestPackagePage.class);
+        responsibleClinicianPage = PageFactory.initElements(driver, ResponsibleClinicianPage.class);
+        tumoursPage = PageFactory.initElements(driver, TumoursPage.class);
+        samplesPage = PageFactory.initElements(driver, SamplesPage.class);
+        dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
     }
+
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
         Wait.forElementToBeClickable(driver, emailAddressField);
         emailAddressField.sendKeys(AppConfig.getApp_username());
@@ -69,7 +70,7 @@ public class Pages implements Navigable {
     }
 
 
-   @Override
+    @Override
     public void NavigateTo(String pageToNavigate) {
 
     }
@@ -97,15 +98,15 @@ public class Pages implements Navigable {
             if (driver.getCurrentUrl().contains("login.microsoft")) {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
                 Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-                if(userType !=null)
+                if (userType != null)
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 else
                     patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
             } else {
                 if (patientSearchPage.logout.isDisplayed()) {
                     patientSearchPage.logout.click();
-                    if(userType !=null)
-                        patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                    if (userType != null)
+                        patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     else
                         patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                 } else
@@ -116,7 +117,7 @@ public class Pages implements Navigable {
 
     @Override
     public void switchToURL(String currentURL) {
-        Debugger.println("CURRENT URL: "+ currentURL);
+        Debugger.println("CURRENT URL: " + currentURL);
         if (driver.getCurrentUrl().contains(patientSearchURL)) {
             Actions.cleanUpSession(driver);
         } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
@@ -124,6 +125,6 @@ public class Pages implements Navigable {
             Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
             patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         }
-        Debugger.println("NEW URL    : "+ driver.getCurrentUrl());
+        Debugger.println("NEW URL    : " + driver.getCurrentUrl());
     }
 }//end class

@@ -4,6 +4,8 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.TestDataProvider.SpinePatientTwo;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -440,14 +442,6 @@ public class PatientSearchSteps extends Pages {
                 Assert.assertEquals(NgisPatientOne.LIFE_STATUS, actualLifeStatus);
                 Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
 
-        @And ("^User place the cursor over the tab in which the Dashboard - Home page is opened$")
-        public void theUserPlaceTheCursorOverTheTab() throws AWTException {
-            Click.mouseMoveByLocation(driver, 5,200);
-        }
-
-    @Then("The user should see the tab title as {string}")
-    public void theUserShouldSeeTheTabTitleAs(String titleText) {
-        Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
                 break;
             }
 
@@ -457,6 +451,16 @@ public class PatientSearchSteps extends Pages {
 
         }
 
+    }
+
+    @And("^User place the cursor over the tab in which the Dashboard - Home page is opened$")
+    public void theUserPlaceTheCursorOverTheTab() throws AWTException {
+        Click.mouseMoveByLocation(driver, 5, 200);
+    }
+
+    @Then("The user should see the tab title as {string}")
+    public void theUserShouldSeeTheTabTitleAs(String titleText) {
+        Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
     }
 
     @And("the user navigates back to patient search page")

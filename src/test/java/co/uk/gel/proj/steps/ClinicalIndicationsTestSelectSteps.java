@@ -43,9 +43,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Assert.assertTrue(correctText + "  is Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
     }
 
-    @And("the list of clinical indications is loading")
+    @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
-        Assert.assertTrue("The List of Clinical Indication is Loading", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
+        clinicalIndicationsTestSelect.waitUntilClinicalIndicationsResultsContainerIsLoaded();
+        Assert.assertTrue("The List of Clinical Indication are Loaded", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
     }
 
 }

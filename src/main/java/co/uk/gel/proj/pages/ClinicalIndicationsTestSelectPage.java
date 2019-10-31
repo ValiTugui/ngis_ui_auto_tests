@@ -91,6 +91,9 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(css = "h2[class*='relatedContainer__header']")
     public WebElement loadingText;
 
+    @FindBy (xpath = "//div [contains (@class, 'styles_relatedContainer__3Ma3o')]/ul")
+	public WebElement clinicalIndicationsResultContainer;
+
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
     }
@@ -120,4 +123,8 @@ public class ClinicalIndicationsTestSelectPage {
             return false;
         }
     }
+
+	public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
+		Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
+	}
 }
