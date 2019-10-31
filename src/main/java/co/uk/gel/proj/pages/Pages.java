@@ -7,7 +7,9 @@ import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class Pages implements Navigable {
@@ -70,13 +72,11 @@ public class Pages implements Navigable {
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
         driver.get(urlToNavigate);
         //Navigate to Test Directory
-       // try{
         if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
             homePage.waitUntilHomePageResultsContainerIsLoaded();
         }
         // Navigate to specific pages in Test Order
         else if (driver.getCurrentUrl().contains(pageToNavigate)) {
-            System.out.println("NavigateTO URL in Pages.java ::: "+ driver.getCurrentUrl());
             Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
             Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
 

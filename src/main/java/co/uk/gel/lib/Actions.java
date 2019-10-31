@@ -89,7 +89,7 @@ public class Actions {
         }
     }
 
-    public void dismissAlert(WebDriver driver) {
+    public static void dismissAlert(WebDriver driver) {
         if (isAlertPresent(driver)) {
             driver.switchTo().alert().dismiss();
             driver.switchTo().defaultContent();
