@@ -183,4 +183,9 @@ public class TestPackagePage {
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
         }
+
+        public boolean verifyTheTestsList(String expectedNumberOfTests){
+          Wait.forElementToBeDisplayed(driver, selectTestsHeader);
+          return selectTestsHeader.getText().contains(expectedNumberOfTests);
+        }
 }

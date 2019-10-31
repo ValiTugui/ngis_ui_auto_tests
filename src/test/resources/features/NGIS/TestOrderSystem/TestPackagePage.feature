@@ -74,8 +74,6 @@ Feature: Test Package page
       | Test package | 2      | refresh             |
 
 
-
-
   @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
@@ -97,10 +95,12 @@ Feature: Test Package page
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
     Then the user clicks the Save and Continue button
-    Then the "<new_stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
     Examples:
-      | stage        | priority | new_stage                |
-      | Test package | Routine  | Responsible clinician    |
+      | stage        | priority | new_stage             | number_of |
+      | Test package | Routine  | Responsible clinician | 1         |
 
   @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
@@ -110,7 +110,9 @@ Feature: Test Package page
     When the user selects the "<priority>"
     And the user selects the number of participants: "<count>"
     Then the user clicks the Save and Continue button
-    Then the "<new_stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
     Examples:
-      | stage        | priority | count | new_stage                |
-      | Test package | Urgent   |  2    | Responsible clinician    |
+      | stage        | priority | count | new_stage             | number_of |
+      | Test package | Urgent   | 2     | Responsible clinician | 1         |
