@@ -129,6 +129,11 @@ public class ReferralSteps extends Pages {
         }
     }
 
+    @Then("the {string} stage is selected")
+    public void theStageIsSelected(String newStage) {
+        Assert.assertTrue(referralPage.stageIsSelected(newStage));
+    }
+
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
         referralPage.stageIsCompleted(stage);
