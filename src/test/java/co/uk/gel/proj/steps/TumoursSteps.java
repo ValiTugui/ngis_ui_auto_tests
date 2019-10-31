@@ -3,12 +3,15 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.ConstantsData;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.TumoursPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
@@ -28,11 +31,13 @@ public class TumoursSteps extends Pages {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
         tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+        tumoursPage.tumourTypeLabel.click(); //click on descriptiveName label to move cursor away from dateYear field
     }
 
     @Then("the message will be displayed as {string} in {string} color for the date of diagnosis field")
     public void theMessageWillBeDisplayedAsInColorForTheDateOfDiagnosisField(String errorMessage, String fontColor) {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
+        tumoursPage.clearDateOfDiagnosisFields();
     }
 
     @And("the user answers all tumour system questions by selecting tumour type {string} and leaves date of diagnosis field blank")

@@ -128,8 +128,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
     public WebElement firstReferralIDInReferralCard;
 
-    //	@FindBy(xpath = "//button[text()='Start referral']")
-    //	public WebElement startReferralButton;
+    @FindBy(xpath = "//button[text()='Start referral']")
+    public WebElement startReferralButton2;
 
     @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
     public WebElement startReferralButton;
@@ -236,7 +236,6 @@ public class PatientDetailsPage {
         newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
-        //newPatient.setNhsNumber(Actions.createValidNHSNumber());
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
         //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
 
