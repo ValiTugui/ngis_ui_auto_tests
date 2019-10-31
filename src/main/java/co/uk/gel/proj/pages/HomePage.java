@@ -206,6 +206,12 @@ public class HomePage {
 
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
+    @FindBy(xpath = "//div [contains (@class, 'styles_contentContainer__3xbAF')][2]")
+    public WebElement NGISVersion;
+
+    @FindBy(className = "styles_link__2terw")
+    public List<WebElement> tabResults;
+
 
 	public void waitUntilHomePageResultsContainerIsLoaded() {
 		Wait.forElementToBeDisplayed(driver, filtersPanel);
@@ -275,6 +281,23 @@ public class HomePage {
         b = b.replaceAll("\\(", "").replaceAll("\\)", "");
         Debugger.println("Total is " + (Integer.valueOf(a) + Integer.valueOf(b)));
         return Integer.valueOf(a) + Integer.valueOf(b);
+    }
+
+    public boolean testResultsAreLoaded() {
+        if (tabResults.size() == 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isNGISVersionPresent() {
+        Debugger.println(NGISVersion.getText());
+        if (NGISVersion.getText().contains("NGIS")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

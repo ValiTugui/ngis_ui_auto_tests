@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -74,5 +75,29 @@ public class HomePageSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
+    }
+
+    @And("The user selects the Tests tab")
+    public void theUserSelectsTheTestsTab() {
+        homePage.testsTab.click();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
+    }
+
+    @Then("Various test details are displayed")
+    public void variousTestDetailsAreDisplayed() {
+        Assert.assertTrue("Various test details are displayed Properly", homePage.testResultsAreLoaded());
+    }
+
+    @And("The user has scrolled down the page to the bottom \\(Footer)")
+    public void theUserHasScrolledDownThePageToTheBottomFooter() {
+        Actions.scrollToBottom(driver);
+        Wait.forElementToBeDisplayed(driver, homePage.NGISVersion);
+    }
+
+    @Then("The user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
+    public void theUserCanSeeTheNGISVersionNumberOnTheRightSideBottomOfThePageNextToThePrivacyPolicyLink() {
+        Assert.assertTrue("The NGIS version number is present next to the privacy policy link", homePage.isNGISVersionPresent());
+
     }
 }
