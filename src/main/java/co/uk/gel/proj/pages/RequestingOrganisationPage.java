@@ -1,16 +1,12 @@
 package co.uk.gel.proj.pages;
 
-
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-import java.util.Map;
 
 public class RequestingOrganisationPage {
 
@@ -20,7 +16,6 @@ public class RequestingOrganisationPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
     @FindBy(css = "input[class*='search-input']")
     public WebElement searchField;
@@ -46,6 +41,15 @@ public class RequestingOrganisationPage {
     @FindBy(xpath = "//strong[contains(text(),'0 results')]")
     public WebElement zeroResulsFoundLabel;
 
+    @FindBy(css = "[class*='page-title']")
+    public WebElement orderingEntityPageTitle;
+
+    @FindBy(css = "[class*='ordering-entity__sub-title']")
+    public WebElement orderEntityPageSubtitle;
+
+    @FindBy(css = "[class*='search-input__icon']")
+    public WebElement orderingEntitySearchIcon;
+
     public boolean verifyOrganisationDetails() {
         Wait.forElementToBeDisplayed(driver, organisationDetailsContainer);
         return organisationDetailsContainer.getText().contains(organisationDetailText.get(0).getText());
@@ -65,6 +69,19 @@ public class RequestingOrganisationPage {
         Wait.forElementToBeDisplayed(driver, zeroResulsFoundLabel);
         return zeroResulsFoundLabel.isDisplayed();
 
+    }
+
+    public boolean checkPageTitleInfo(String pageTitle){
+        Wait.forElementToBeDisplayed(driver, orderingEntityPageTitle);
+        return orderingEntityPageTitle.getText().contains(pageTitle);
+    }
+
+    public boolean checkOrderingEntityPageLabel(){
+        return  orderEntityPageSubtitle.isDisplayed();
+    }
+
+    public boolean checkSearchIcon(){
+        return orderingEntitySearchIcon.isDisplayed();
     }
 
 }

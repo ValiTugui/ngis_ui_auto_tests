@@ -85,3 +85,4 @@ buildNumber.properties
 **/.idea/
 ngis_ui_auto_tests.iml
 *.iml
+logs/

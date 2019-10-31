@@ -62,6 +62,7 @@ public class RandomDataCreator {
         System.out.println(RandomDataCreator.getRandomNumberOfGivenSize(11));
         System.out.println(RandomDataCreator.getRandomPrefix());
         System.out.println(RandomDataCreator.getRandomNumberRange(3, 125));
+        System.out.println(RandomDataCreator.generateRandomNHSNumber());
         //currentDate();
     }
 

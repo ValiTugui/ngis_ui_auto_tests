@@ -14,6 +14,7 @@ public class SpinePatientTwo {
     public static final String DATE_OF_BIRTH = DAY_OF_BIRTH + "-" + TestUtils.convertMonthNumberToMonthForm(MONTH_OF_BIRTH)
                                             + "-" + YEAR_OF_BIRTH;
     public static final String GENDER = "Female";
+    public static final String LIFE_STATUS = "Alive";
     public static final String NHS_NUMBER = "9449303592";
     public static final String ADDRESS_LINE1 = "2 WOODLANDS CLOSE";
     public static final String ADDRESS_LINE2 = "CLAYGATE";

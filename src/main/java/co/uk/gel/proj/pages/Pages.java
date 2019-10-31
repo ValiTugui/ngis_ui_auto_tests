@@ -2,12 +2,23 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import co.uk.gel.config.SeleniumDriver;
 
-public class Pages {
+public class Pages implements Navigable {
+
+    public final String patientSearchURL = "patient-search";
+    public final String testOrderLoginURL = "login.microsoft";
+    public final String testOrderURL = "test-order";
 
     protected WebDriver driver;
 
@@ -55,5 +66,64 @@ public class Pages {
         Wait.forElementToBeClickable(driver, passwordField);
         passwordField.sendKeys(AppConfig.getApp_password());
         nextButton.click();
+    }
+
+
+   @Override
+    public void NavigateTo(String pageToNavigate) {
+
+    }
+
+    public void NavigateTo(String urlToNavigate, String pageToNavigate) {
+        login(urlToNavigate, pageToNavigate, null);
+    }
+
+    public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
+        login(urlToNavigate, pageToNavigate, userType);
+    }
+
+    private void login(String urlToNavigate, String pageToNavigate, String userType) {
+        driver.get(urlToNavigate);
+        //Navigate to Test Directory
+        if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
+            homePage.waitUntilHomePageResultsContainerIsLoaded();
+        }
+        // Navigate to specific pages in Test Order
+        else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
+
+        } else {
+            if (driver.getCurrentUrl().contains("login.microsoft")) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                if(userType !=null)
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                else
+                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            } else {
+                if (patientSearchPage.logout.isDisplayed()) {
+                    patientSearchPage.logout.click();
+                    if(userType !=null)
+                        patientSearchPage.loginToTestOrderingSystem(driver,userType);
+                    else
+                        patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                } else
+                    Debugger.println(" User is at url " + driver.getCurrentUrl());
+            }
+        }
+    }
+
+    @Override
+    public void switchToURL(String currentURL) {
+        Debugger.println("CURRENT URL: "+ currentURL);
+        if (driver.getCurrentUrl().contains(patientSearchURL)) {
+            Actions.cleanUpSession(driver);
+        } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+            Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+            Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        }
+        Debugger.println("NEW URL    : "+ driver.getCurrentUrl());
     }
 }//end class

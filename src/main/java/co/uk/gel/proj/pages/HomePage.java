@@ -12,7 +12,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-
 public class HomePage {
 
     WebDriver driver;
@@ -205,16 +204,13 @@ public class HomePage {
     @FindBy(id = "login-form")
     public WebElement serviceDeskLoginForm;
 
+    public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
-    public void navigateToPrivateTestDirectoryHomePage() {
-        driver.get(AppConfig.getTd_private_url() + "test-selection/clinical-tests");
 
-    }
-
-    public void waitUntilHomePageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, filtersPanel);
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
-    }
+	public void waitUntilHomePageResultsContainerIsLoaded() {
+		Wait.forElementToBeDisplayed(driver, filtersPanel);
+		Wait.forElementToBeDisplayed(driver, resultsPanel);
+	}
 
     public void typeInSearchField(String searchTerm) {
         Wait.forElementToBeDisplayed(driver, searchField);
@@ -228,13 +224,18 @@ public class HomePage {
     public void closeCookiesBannerFromFooter() {
         if (cookiesUnderstandButton.size() > 0) {
             Click.element(driver, cookiesUnderstandButton.get(0));
-            Wait.forNumberOfElementsToBeEqualTo(driver, By.xpath("//*[contains(@class,'cta__')]//descendant::button"), 0);
+            Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
         }
     }
 
     public void selectFirstEntityFromResultList() {
         waitUntilHomePageResultsContainerIsLoaded();
         Click.element(driver, resultsPanels.get(0));
+    }
+
+    public void TestDirectoryHomePageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+        Wait.forElementToBeDisplayed(driver, searchField);
     }
 
     public long rareAndInheritedDiseasesSearchResult() throws InterruptedException {

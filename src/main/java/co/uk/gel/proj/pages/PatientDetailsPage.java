@@ -1,17 +1,30 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
+import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
+import com.github.javafaker.Faker;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerBase;
 
 import java.util.List;
 
 public class PatientDetailsPage {
+
     WebDriver driver;
+    Faker faker = new Faker();
+    NewPatient newPatient = new NewPatient();
+
     public PatientDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -29,6 +42,7 @@ public class PatientDetailsPage {
     public WebElement dateDay;
     public WebElement dateMonth;
     public WebElement dateYear;
+    public WebElement otherReasonExplanation;
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
@@ -63,6 +77,9 @@ public class PatientDetailsPage {
     @FindBy(css = "label[for*='nhsNumber']")
     public WebElement nhsNumberLabel;
 
+    @FindBy(css = "label[for*='hospitalNumber']")
+    public WebElement hospitalNumberLabel;
+
     @FindBy(css = "label[for*='address']")
     public WebElement addressLabel;
 
@@ -84,6 +101,12 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
 
+    @FindBy(xpath = "//label[contains(@for,'noNhsNumberReason')]//following::div")
+    public WebElement noNhsNumberReasonDropdown;
+
+    @FindBy(xpath = "textarea[class*='textarea']")
+    public WebElement explanationForNoNhsNumber;
+
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
 
@@ -92,6 +115,18 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
+
+    @FindBy(xpath = "//button[text()='Update NGIS record']")
+    public List<WebElement> updateNGISRecordButtonList;
+
+    @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
+    public List<WebElement> savePatientDetailsToNGISButtonList;
+
+    @FindBy(xpath = "//button[text()='Add details to NGIS']")
+    public List<WebElement> addDetailsToNGISButtonList;
+
+    @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
+    public WebElement firstReferralIDInReferralCard;
 
     //	@FindBy(xpath = "//button[text()='Start referral']")
     //	public WebElement startReferralButton;
@@ -107,6 +142,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//*[contains(@class,'patient-details-form__back')]//child::a")
     public WebElement goBackToPatientSearchLink;
+
+    @FindBy(css = "a[class*='referral-list']")
+    public List<WebElement> referralListCards;
 
     @FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
@@ -162,15 +200,214 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='required-icon']")
     public List<WebElement> requiredRedAsterix;
 
+    @FindBy(xpath = "//button[text()='No']")
+    public WebElement noButton;
+
+    @FindBy(xpath = "//button[text()='Yes']")
+    public WebElement yesButton;
+
+    String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
+    String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
+
+
+    public boolean patientDetailsPageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/patient-details");
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
+        return true;
+    }
+
+    public void newPatientPageIsDisplayed() {
+        Wait.forURLToContainSpecificText(driver, "/new-patient");
+    }
+
+    public void fillInNewPatientDetailsWithoutAddressFields() {
+
+        Wait.forElementToBeDisplayed(driver, title);
+        newPatient.setTitle("Mr");
+        title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
+
+        newPatient.setFirstName(faker.name().firstName());
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+
+        newPatient.setLastName(faker.name().lastName());
+        Actions.fillInValue(familyName, newPatient.getLastName());
+
+        newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+        newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+        newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+
+        //newPatient.setNhsNumber(Actions.createValidNHSNumber());
+        newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
+        editDropdownField(administrativeGenderButton, "Male");
+        editDropdownField(lifeStatusButton, "Alive");
+        Actions.fillInValue(dateOfDeath, "01/01/2015");
+        editDropdownField(ethnicityButton, "A - White - British");
+        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+        //Actions.clickElement(driver, yesButton);  NHS available YES or NO - not visible for a standard user
+        //Actions.fillInValue(nhsNumber, newPatient.getNhsNumber()); NHS field not visible for a standard user
+    }
+
+    public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
+        fillInAllNewPatientDetails();
+        selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
+    }
+
+    public void fillInAllNewPatientDetails() {
+        fillInNewPatientDetailsWithoutAddressFields();
+        Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+        Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+        Actions.fillInValue(addressLine2, faker.address().streetName());
+        Actions.fillInValue(addressLine3, faker.address().cityName());
+        Actions.fillInValue(addressLine4, faker.address().state());
+        newPatient.setPostCode(faker.address().zipCode());
+        Actions.fillInValue(postcode, newPatient.getPostCode());
+    }
+
+    public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason() {
+        Wait.forElementToBeDisplayed(driver, firstName);
+        newPatient.setFirstName(faker.name().firstName());
+        newPatient.setLastName(faker.name().lastName());
+        newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+        newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+        newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+        Actions.fillInValue(familyName, newPatient.getLastName());
+        Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+        editDropdownField(administrativeGenderButton, "Male");
+        editDropdownField(lifeStatusButton, "Alive");
+        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+    }
+
+    public void editDropdownField(WebElement element, String value) {
+        Click.element(driver, element);
+        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+    }
+
+    public void fillInAllMandatoryPatientDetailsWithoutNhsNumber(String reason) {
+        fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason();
+        selectMissingNhsNumberReason(reason);
+    }
+
+    public void selectMissingNhsNumberReason(String reason) {
+        editDropdownField(noNhsNumberReasonDropdown, reason);
+    }
+
+    public void clickSavePatientDetailsToNGISButton() {
+        Actions.clickElement(driver, savePatientDetailsToNGISButton);
+    }
+
+    public void patientIsCreated() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        Assert.assertEquals("Details saved", Actions.getText(successNotification));
+    }
+
     public void clickStartReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
         Actions.clickElement(driver, startReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath("//button[contains(@class,'submit-button') and @type='button']"));
+        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+
     }
 
     public void clickStartNewReferralButton() {
+        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
         Actions.clickElement(driver, startNewReferralButton);
+        Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+    }
+
+    public void clinicalIndicationIDMissingBannerIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
+        Assert.assertTrue(!Actions.getText(patientDetailsnotificationBanner).isEmpty());
+    }
+
+    public void startReferralButtonIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, startReferralButton);
+        Assert.assertTrue(!startReferralButton.isEnabled());
+    }
+
+    public void clickGoBackToPatientSearchLink() {
+        Click.element(driver, goBackToPatientSearchLink);
+    }
+
+    public void clickTestDirectoryLinkFromNotificationBanner() {
+        Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
+        Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
+    }
+
+    public boolean nhsNumberFieldIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For normal user, NHSNumber field is disabled and set to FALSE:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean nhsNumberFieldIsEnabled() {
+        Wait.forElementToBeDisplayed(driver, title);
+        Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
+        return nhsNumber.isEnabled();
+    }
+
+    public boolean editAndAddNhsNumberAsSuperUser() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
+        return true;
+    }
+
+    public void nhsNumberAndDOBFieldsArePrePopulatedInNewPatientPage() {
+        String DOB = PatientSearchPage.testData.getDay() + "/" + PatientSearchPage.testData.getMonth() + "/" + PatientSearchPage.testData.getYear();
+        Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
+        Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
     }
 
 
+    public boolean verifyTheElementsOnAddNewPatientPage() {
 
+        Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
+        pageTitle.isDisplayed();
+        title.isDisplayed();
+        titleLabel.isDisplayed();
+        firstName.isDisplayed();
+        firstnameLabel.isDisplayed();
+        familyName.isDisplayed();
+        familyNameLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        administrativeGenderButton.isDisplayed();
+        administrativeGenderLabel.isDisplayed();
+        lifeStatusButton.isDisplayed();
+        lifeStatusLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        ethnicityButton.isDisplayed();
+        ethnicityLabel.isDisplayed();
+        noNhsNumberReasonDropdown.isDisplayed();
+        hospitalNumber.isDisplayed();
+        hospitalNumberLabel.isDisplayed();
+        addressLabel.isDisplayed();
+        addressLine0.isDisplayed();
+        addressLine1.isDisplayed();
+        addressLine2.isDisplayed();
+        addressLine3.isDisplayed();
+        addressLine4.isDisplayed();
+        postcodeLabel.isDisplayed();
+        postcode.isDisplayed();
+
+        return true;
+    }
+
+    public void verifyAndClickOnTheReferralCardOnPatientDetailsPage() {
+
+        Wait.forElementToBeDisplayed(driver, referralCard, 70);
+        if (referralListCards.size() > 0)
+            referralListCards.get(0).click();
+        else {
+            Debugger.println("No referral card found");
+        }
+    }
 }
