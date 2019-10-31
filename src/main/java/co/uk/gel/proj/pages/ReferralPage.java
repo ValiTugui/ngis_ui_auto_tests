@@ -256,4 +256,23 @@ public class ReferralPage<check> {
         if (status == true) return true;
         else return false;
     }
+
+    public boolean acknowledgeThePromptPopMessage(String acknowledgeMessage) {
+
+        if (acknowledgeMessage.equalsIgnoreCase("Accept")) {
+            Wait.forAlertToBePresent(driver);
+            Assert.assertTrue(!driver.switchTo().alert().getText().isEmpty());
+            Actions.acceptAlert(driver);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
+            Wait.forAlertToBePresent(driver);
+            Assert.assertTrue(!driver.switchTo().alert().getText().isEmpty());
+            Wait.seconds(10);
+            Actions.dismissAlert(driver);
+            Debugger.println("URL info after dismissing alert :: " + driver.getCurrentUrl());
+        }
+        return true;
+
+    }
+
 }
