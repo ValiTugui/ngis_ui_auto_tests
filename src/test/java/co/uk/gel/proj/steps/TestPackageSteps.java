@@ -86,4 +86,25 @@ public class TestPackageSteps extends Pages {
     public void theUserClicksATestToDeSelectIt() {
         if (testPackagePage.testIsSelected()) testPackagePage.clickTest();
     }
+
+    @Then("the user selects the {string}")
+    public void theUserSelectsThe(String testReferralUrgencyInfo) {
+        if(testReferralUrgencyInfo.contains("Urgent")){
+            testPackagePage.clickUrgentPriority();
+        }
+        else {
+            testPackagePage.clickRoutinePriority();
+        }
+    }
+
+    @And("the user selects the number of participants: {string}")
+    public void theUserSelectsTheNumberOfParticipants(String numberOfParticipants) {
+        testPackagePage.setTotalNumberOfParticipantsField(Integer.parseInt(numberOfParticipants));
+    }
+
+    @And("the correct {string} tests are saved to the referral in  {string}")
+    public void theCorrectTestsAreSavedToTheReferralIn(String numberOfTests, String stage) {
+        referralPage.navigateToStage(stage);
+        Assert.assertTrue(testPackagePage.verifyTheTestsList(numberOfTests));
+    }
 }
