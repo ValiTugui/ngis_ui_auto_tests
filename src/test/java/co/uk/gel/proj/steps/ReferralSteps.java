@@ -177,5 +177,19 @@ public class ReferralSteps extends Pages {
         referralPage.saveAndContinueButtonIsDisplayed();
     }
 
+    @Then("the user sees a warning prompt message on the page and {string} it")
+    public void theUserSeesAWarningPromptMessageOnThePageAndIt(String acknowledgeMessage) {
 
+        if (acknowledgeMessage.equalsIgnoreCase("Accept")) {
+            Wait.forAlertToBePresent(driver);
+            Assert.assertTrue(!driver.switchTo().alert().getText().isEmpty());
+            Actions.acceptAlert(driver);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
+            Wait.forAlertToBePresent(driver);
+            Assert.assertTrue(!driver.switchTo().alert().getText().isEmpty());
+            Actions.dismissAlert(driver);
+            Debugger.println("URL info after dismissing alert :: " + driver.getCurrentUrl());
+        }
+    }
 }

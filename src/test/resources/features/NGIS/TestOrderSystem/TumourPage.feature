@@ -122,3 +122,20 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType   | searchTerm |
       | Tumours | Solid tumour: metastatic | First presentation | test       |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_07  @P0 @v_1 @NTS:3171 @E2EUI-2145
+  Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    When the user navigates to the "<new_stage>" stage
+    Then the user sees a warning prompt message on the page and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl>" page
+
+
+    Examples:
+      | stage   | tumour_type              | new_stage | acknowledgeMessage | partialCurrentUrl |
+      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | tumours/create    |
