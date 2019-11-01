@@ -139,3 +139,18 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partialCurrentUrl |
       | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | tumours/create    |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_08 @NTS-3172 @E2EUI-1465 @P0 @v_1
+  Scenario Outline: NTS-3172:Validate the mandatory input field 'The tumour is' for the Tumour Section
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    When the user navigates to the "<stage>" stage
+    And the user answers all tumour system questions without selecting any tumour type
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
+
+    Examples: Tumour type is not selected
+      | stage   | error_message                 |
+      | Tumours | Please select the tumour type |

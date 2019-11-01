@@ -17,6 +17,7 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class TumoursSteps extends Pages {
 
@@ -102,4 +103,14 @@ public class TumoursSteps extends Pages {
         String fullCurrentURL = driver.getCurrentUrl();
         Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
     }
+
+    @And("the user answers all tumour system questions without selecting any tumour type")
+    public void theUserAnswersAllTumourSystemQuestionsWithoutSelectingAnyTumourType() {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.fillInSpecimenID();
+    }
+
+
 }
