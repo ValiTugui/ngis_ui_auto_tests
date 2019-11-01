@@ -7,6 +7,7 @@ import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -129,6 +130,12 @@ public class TumoursPage {
         dateDay.sendKeys(dayOfDiagnosis);
         dateMonth.sendKeys(monthOfDiagnosis);
         dateYear.sendKeys(yearOfDiagnosis);
+    }
+
+    public void clearDateOfDiagnosisFields() {
+        Actions.clearField(dateDay);
+        Actions.clearField(dateMonth);
+        Actions.clearField(dateYear);
     }
 
     public void fillInDateOfDiagnosis() {
