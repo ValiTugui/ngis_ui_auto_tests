@@ -12,6 +12,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import java.io.IOException;
@@ -108,5 +109,17 @@ public class ReferralSteps extends Pages {
             Debugger.println("Expected nhs no = " + NgisPatientOne.NHS_NUMBER + ", Actual nhs no: " + actualNHSNumber);
             Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
         }
+    }
+
+    @Then("the user sees a warning message {string} on the page")
+    public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
+        Wait.forAlertToBePresent(driver);
+        Alert alertBox = driver.switchTo().alert();
+        Wait.seconds(10);
+        String actualWarningText = alertBox.getText();
+        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+        Actions.acceptAlert(driver);
+        Wait.seconds(10);
+        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
     }
 }

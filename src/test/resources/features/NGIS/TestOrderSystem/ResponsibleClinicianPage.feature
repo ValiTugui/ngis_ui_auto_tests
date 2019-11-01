@@ -8,11 +8,11 @@ Feature: Responsible Clinician
     And the user navigates to the "<stage>" stage
     And the user fills in all the clinician form fields
     When the user attempts to navigate away by clicking "<browser_exit_option>"
-    Then the user sees a warning message on the page
+    Then the user sees a warning message "<warning_text>" on the page
 
     Examples:
-      | stage                 | browser_exit_option |
-      | Responsible clinician | refresh             |
+      | stage                 | browser_exit_option | warning_text                           |
+      | Responsible clinician | refresh             | Changes that you made may not be saved |
 
   @E2EUI-2133 @NTS-3149 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
   Scenario Outline: NTS-3149 - Responsible Clinician Page - verify Warning Messages of unsaved changes - Moving to another To do list
@@ -21,8 +21,8 @@ Feature: Responsible Clinician
     And the user navigates to the "<stage>" stage
     And the user fills in all the clinician form fields
     When the user navigates to the "<new_stage>" stage
-    Then the user sees a warning message on the page
+    Then the user sees a warning message "<warning_text>" on the page
 
     Examples:
-      | stage                 | new_stage      |
-      | Responsible clinician | Patient choice |
+      | stage                 | new_stage      | warning_text                                                |
+      | Responsible clinician | Patient choice | This section contains unsaved information. Discard changes? |
