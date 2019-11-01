@@ -134,7 +134,7 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
-        referralPage.stageIsCompleted(stage);
+        Assert.assertTrue(referralPage.stageIsCompleted(stage));
     }
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
@@ -174,5 +174,10 @@ public class ReferralSteps extends Pages {
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
 
+    }
+
+    @And("the {string} stage is marked as Mandatory To Do")
+    public void theStageIsMarkedAsMandatoryToDo(String stage) {
+        Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
     }
 }

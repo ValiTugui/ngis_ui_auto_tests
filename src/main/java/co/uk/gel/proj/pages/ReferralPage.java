@@ -253,4 +253,16 @@ public class ReferralPage<check> {
         if (status == true) return true;
         else return false;
     }
+
+    public boolean stageIsMandatoryToDo(String stage) {
+        Wait.forElementToBeDisplayed(driver, toDoList);
+        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath("//a[contains(@href,'" + getPartialUrl(stage) + "')]//descendant::span[3]"));
+        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains("todo__required-icon");
+        boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
+        if( isStageStatusIsToDO && isStageHasAsteriskPresent){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

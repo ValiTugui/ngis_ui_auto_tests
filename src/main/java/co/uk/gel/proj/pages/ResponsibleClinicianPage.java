@@ -1,5 +1,10 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +15,7 @@ import java.util.List;
 public class ResponsibleClinicianPage {
 
 	WebDriver driver;
+	Faker fake = new Faker();
 
 	public ResponsibleClinicianPage(WebDriver driver) {
 		this.driver = driver;
@@ -90,5 +96,67 @@ public class ResponsibleClinicianPage {
 
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
+
+	@FindBy(xpath = "//label[@for='responsibleClinician.departmentalAddress']//span[@class='label__required-icon']")
+	public WebElement clinicianDepartmentalAddressLabelRequired;
+
+	public void fillInClinicianFormFieldsExceptLastNameAndDepartmentAddress() {
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		Actions.clearField(clinicianFirstNameField);
+		Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+		Actions.clearField(clinicianPhoneNumberField);
+		Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+		Actions.clearField(clinicianEmailField);
+		Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+		Actions.clearField(clinicianProfesionalRegistrationNumberField);
+		Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+	}
+
+	public void fillInClinicianFormFieldsExceptDepartmentAddressField() {
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		Actions.clearField(clinicianFirstNameField);
+		Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+		Actions.clearField(clinicianLastNameField);
+		Actions.fillInValue(clinicianLastNameField, fake.name().lastName());
+		Actions.clearField(clinicianPhoneNumberField);
+		Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+		Actions.clearField(clinicianEmailField);
+		Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+		Actions.clearField(clinicianProfesionalRegistrationNumberField);
+		Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+	}
+
+
+	public boolean verifyHyperlinkExists(String expectedHyperlinkText){
+      Wait.forElementToBeDisplayed(driver, addAnotherClinicianButton);
+      if(addAnotherClinicianButton.isDisplayed() && addAnotherClinicianButton.getText().contains(expectedHyperlinkText)){
+      	return true;
+	  }
+      else return false;
+	}
+
+	public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
+		return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+	}
+
+	public boolean verifyLastNameFieldIsHighlightedInRed(String expectedColourUponError){
+		Wait.forElementToBeDisplayed(driver, clinicianLastNameLabel);
+		Wait.forElementToBeDisplayed(driver, clinicianLastNameField);
+		String lastNameLabelActualColorUponError = clinicianLastNameLabel.getCssValue("color").toString();
+		String lastNameFieldErrorMessageActualColorUponError = clinicianErrorMessages.get(0).getCssValue("color").toString();
+		String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
+        if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
+        	return true;
+		}
+        else return false;
+	}
+
+	public boolean verifyDepartmentalAddressIsDisplayedAsMandatoryField(){
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentalAddressLabelRequired);
+		// verify the asterisk (*) symbol is shown next to the Departmental Address label on the Responsible Clinician page
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentalAddressLabelRequired);
+		return clinicianDepartmentalAddressLabelRequired.getText().contains("*");
+	}
+	//
 
 }
