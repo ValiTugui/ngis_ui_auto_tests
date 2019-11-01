@@ -112,5 +112,19 @@ public class TumoursSteps extends Pages {
         tumoursPage.fillInSpecimenID();
     }
 
+    @And("the tumours stage is at Add a Tumour page")
+    public void theTumoursStageIsAtAddATumourPage() {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+    }
+
+    @Then("the error messages for the tumour mandatory fields are displayed")
+    public void theErrorMessagesForTheTumourMandatoryFieldsAreDisplayed(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        for (int i = 0; i < list.size(); i++) {
+            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
+            Assert.assertEquals(list.get(i).get("errorMessageHeader"), Actions.getText(tumoursPage.errorMessages.get(i)));
+        }
+    }
 
 }
