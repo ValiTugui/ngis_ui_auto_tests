@@ -244,8 +244,6 @@ public class PatientDetailsPage {
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
-        //Actions.clickElement(driver, yesButton);  NHS available YES or NO - not visible for a standard user
-        //Actions.fillInValue(nhsNumber, newPatient.getNhsNumber()); NHS field not visible for a standard user
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
@@ -253,7 +251,6 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
     }
