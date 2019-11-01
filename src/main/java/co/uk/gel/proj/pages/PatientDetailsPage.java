@@ -237,7 +237,7 @@ public class PatientDetailsPage {
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
