@@ -23,7 +23,7 @@ Feature: Tumours Page
     Then an information "<information>" is displayed that a test cannot start without a tumour
 
     Examples:
-      | stage   | information                                                                                                |
+      | stage   | information                                                                                              |
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
 
