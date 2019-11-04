@@ -122,3 +122,53 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType   | searchTerm |
       | Tumours | Solid tumour: metastatic | First presentation | test       |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_07a  @P0 @v_1 @NTS:3171 @E2EUI-2145
+  Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+# moving to another Stage e.g Samples page
+    When the user navigates to the "<new_stage>" stage
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+
+#    User click on close button
+#    When the user attempts to navigate away by clicking "<browser_exit1>"
+#    Then the user sees a prompt alert "<partOfMessage>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
+#    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 | browser_exit1 |
+      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     | close         |
+
+
+  @COMP6_TOC_Tumour  @LOGOUT
+    @tumoursPage_07b  @P0 @v_1 @NTS:3171 @E2EUI-2145
+  Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+   #  User click on refresh button
+    When the user attempts to navigate away by clicking "<browser_exit1>"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+#     User click on back button
+    When the user attempts to navigate away by clicking "<browser_exit2>"
+    Then the user sees a prompt alert "<partOfMessage2>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl2>" page
+   #  User click on logout button
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit3>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+      | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
+      | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |

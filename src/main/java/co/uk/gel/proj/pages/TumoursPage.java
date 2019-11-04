@@ -5,6 +5,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -211,5 +212,4 @@ public class TumoursPage {
 
         return true;
     }
-
 }

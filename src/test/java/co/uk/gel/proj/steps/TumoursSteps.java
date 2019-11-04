@@ -95,4 +95,14 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(tumourInformation));
 
     }
+
+    @And("the web browser is still at the same {string} page")
+    public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
+        String fullCurrentURL = driver.getCurrentUrl();
+        partCurrentUrl = partCurrentUrl.toLowerCase();
+        Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
+
+    }
+
+
 }
