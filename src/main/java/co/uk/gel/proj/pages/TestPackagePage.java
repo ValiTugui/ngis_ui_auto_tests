@@ -177,6 +177,18 @@ public class TestPackagePage {
         routinePriorityButton.click();
     }
 
+    public void setTotalNumberOfParticipantsField(int number){
+            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+            Actions.clickElement(driver, numberOfParticipants);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        }
+
+        public boolean verifyTheTestsList(String expectedNumberOfTests) {
+            Wait.forElementToBeDisplayed(driver, selectTestsHeader);
+            return selectTestsHeader.getText().contains(expectedNumberOfTests);
+        }
+
     public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
         return priorityLabel.getText().contains(expectedHeaderText);
     }
@@ -194,4 +206,3 @@ public class TestPackagePage {
         }
     }
 }
-

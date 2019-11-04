@@ -36,7 +36,7 @@ Feature: Test Package page
   @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Cancer |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
     When the user navigates to the "<new_stage>" stage
@@ -74,12 +74,10 @@ Feature: Test Package page
       | Test package | 2      | refresh             |
 
 
-
-
   @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Cancer |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
     When the user attempts to navigate away by clicking "<browser_exit_option>"
@@ -90,6 +88,19 @@ Feature: Test Package page
       | Test package | refresh             |
 
 
+  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3156 - Test package - selecting Routine for the question priority of the test - Cancer
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
+    And the user navigates to the "<stage>" stage
+    When the user selects the "<priority>"
+    Then the user clicks the Save and Continue button
+    And the "<stage>" stage is marked as Completed
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
+    Examples:
+      | stage        | priority | new_stage             | number_of |
+      | Test package | Routine  | Responsible clinician | 1         |
   @E2EUI-1123 @NTS-3070 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
@@ -103,3 +114,18 @@ Feature: Test Package page
     Examples:
       | stage        | priority | previous_priority | new_stage             | priority_label                         |
       | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? |
+
+  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    And the user navigates to the "<stage>" stage
+    When the user selects the "<priority>"
+    And the user selects the number of participants: "<count>"
+    Then the user clicks the Save and Continue button
+    And the "<stage>" stage is marked as Completed
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
+    Examples:
+      | stage        | priority | count | new_stage             | number_of |
+      | Test package | Urgent   | 2     | Responsible clinician | 1         |

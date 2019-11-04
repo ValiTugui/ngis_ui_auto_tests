@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
@@ -12,13 +13,14 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-//import cucumber.api.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
+
+import java.awt.*;
 
 public class PatientSearchSteps extends Pages {
 
@@ -90,7 +92,6 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-
         patientSearchPage.clickSearchButtonByXpath(driver);
     }
 
@@ -450,6 +451,16 @@ public class PatientSearchSteps extends Pages {
 
         }
 
+    }
+
+    @And("^User place the cursor over the tab in which the Dashboard - Home page is opened$")
+    public void theUserPlaceTheCursorOverTheTab() throws AWTException {
+        Click.mouseMoveByLocation(driver, 5, 200);
+    }
+
+    @Then("The user should see the tab title as {string}")
+    public void theUserShouldSeeTheTabTitleAs(String titleText) {
+        Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
     }
 
     @And("the user navigates back to patient search page")

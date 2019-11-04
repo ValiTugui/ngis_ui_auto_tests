@@ -163,17 +163,24 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
+
     @FindBy(css = "*[class*='no-results__help']")
     public WebElement noResultsHelp;
 
     @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
-    public WebElement noResultsHelpLink;
+    public WebElement noResultsHelpLink1;
+
+    @FindBy(xpath = "//a[text()='create a new patient record']")
+    public WebElement noResultsHelpLink2;
 
     @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink2; // create a new patient link
+    public WebElement noResultsHelpLink; // create a new patient link
 
     @FindBy(css = "p[class*='no-results__duplicate']")
     public WebElement noResultsDuplicate;
+
+    @FindBy(css = "*[class*='helix']")
+    public List<WebElement> helix;
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
@@ -211,7 +218,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButton(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButton);
-        searchButton.click();
+        Click.element(driver, searchButton);
     }
 
     public void clickSearchButtonByXpath(WebDriver driver) {
@@ -339,7 +346,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
-        Wait.forElementToBeDisplayed(driver,patientCard);
+        Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
 
@@ -365,7 +372,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
 
         String expectedDayOfBirth = "11";
         String expectedMonthOfBirth = "04";
@@ -532,8 +539,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(String[] textFieldElements) {
 
         for (String fieldElement : textFieldElements) {
-            switch(fieldElement)
-            {
+            switch (fieldElement) {
                 case "nhsNumber": {
                     verifyFieldHasAutoCompleteDisabled(nhsNumber);
                     break;
@@ -648,8 +654,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-        Wait.forElementToBeDisplayed(driver, noResultsHelpLink);
-        Click.element(driver, noResultsHelpLink);
+        Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
     }
 
     public void fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {
@@ -685,6 +690,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String monthOfBirth = dobString.get(1);
         String yearOfBirth = dobString.get(2);
         fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+    }
+    public boolean windowTitleValidation(String titleText) {
+        String actual = driver.getTitle();
+        if (actual.equalsIgnoreCase(titleText)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {
