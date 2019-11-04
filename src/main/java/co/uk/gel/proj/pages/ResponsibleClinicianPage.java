@@ -124,12 +124,13 @@ public class ResponsibleClinicianPage {
         clinicianPhoneNumberField.sendKeys(phoneNumberValue);
     }
 
-    public boolean verifyTotalNumberOfDigitsInPhoneNumberField() {
-        if (clinicianPhoneNumberField.getText().length() == 15) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
+	public boolean verifyTotalNumberOfDigitsInPhoneNumberField(int maxNumberOfAllowedDigits) {
+		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
+		int actualNumberOfDigits = clinicianPhoneNumberField.getText().length();
+		if (actualNumberOfDigits <= maxNumberOfAllowedDigits) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

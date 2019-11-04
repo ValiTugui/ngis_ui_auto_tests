@@ -27,14 +27,14 @@ public class ResponsibleClinicianSteps extends Pages {
         Assert.assertTrue(responsibleClinicianPage.verifyInvalidEmailWarningMessage(errorMessage));
     }
 
-    @When("the user fills in invalid phone number value exceeding fifteen digits in clinician form fields")
-    public void theUserFillsInInvalidPhoneNumberValueExceedingFifteenDigitsInClinicianFormFields() {
-        Faker fakeData = new Faker();
-        responsibleClinicianPage.enterPhoneNumber(fakeData.number().digits(16));
+    @And("The user should be restricted to enter more than {string} digits in the Phone number field.")
+    public void theUserShouldBeRestrictedToEnterMoreThanDigitsInThePhoneNumberField(String maxNumberOfDigits) {
+        Assert.assertTrue(responsibleClinicianPage.verifyTotalNumberOfDigitsInPhoneNumberField(Integer.parseInt(maxNumberOfDigits)));
     }
 
-    @Then("The user should be restricted to enter more than fifteen digits in the Phone number field.")
-    public void theUserShouldBeRestrictedToEnterMoreThanFifteenDigitsInThePhoneNumberField() {
-        responsibleClinicianPage.verifyTotalNumberOfDigitsInPhoneNumberField();
+    @And("the user fills in invalid phone number value by providing {string} digits in clinician form fields")
+    public void theUserFillsInInvalidPhoneNumberValueByProvidingDigitsInClinicianFormFields(String invalidNumberOfDigits) {
+        Faker fakeData = new Faker();
+        responsibleClinicianPage.enterPhoneNumber(fakeData.number().digits(Integer.parseInt(invalidNumberOfDigits)));
     }
 }
