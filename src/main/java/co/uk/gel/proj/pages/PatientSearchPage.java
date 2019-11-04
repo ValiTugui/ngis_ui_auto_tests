@@ -163,6 +163,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
+
     @FindBy(css = "*[class*='no-results__help']")
     public WebElement noResultsHelp;
 
@@ -371,7 +372,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Wait.forElementToBeDisplayed(driver, patientFullName);
         String actualFullName = patientFullName.getText().trim();
 
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"};
 
         String expectedDayOfBirth = "11";
         String expectedMonthOfBirth = "04";
@@ -653,8 +654,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-        //Wait.forElementToBeClickable(driver, noResultsHelpLink);
-        //Click.element(driver, noResultsHelpLink);
         Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
     }
 
@@ -691,6 +690,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         String monthOfBirth = dobString.get(1);
         String yearOfBirth = dobString.get(2);
         fillInValidPatientDetailsUsingNHSNumberAndDOB(randomNHSDataFromSpineCSV.getNHS_NUMBER(), dayOfBirth, monthOfBirth, yearOfBirth);
+    }
+    public boolean windowTitleValidation(String titleText) {
+        String actual = driver.getTitle();
+        if (actual.equalsIgnoreCase(titleText)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {

@@ -136,3 +136,31 @@ Feature: Patient details page
     Examples:
       | patient-search-type |
       | NGIS                |
+
+  @E2EUI-1364 @NTS-3173 @PO @v_1 @COMP2_TO_PatientDetails
+  Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Renal Tumours - Paediatric | NGIS | Cancer |
+    And the user navigates back to patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+    And a web browser is logged in as a "GEL-normal-user" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    Then the Patient Details page is displayed
+    And the user click on the referral card on patient details page to navigate to referral page
+    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
+    And the referral page is displayed
+    And the "<stage1>" stage is marked as Completed
+    And the user navigates to the "<stage2>" stage
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    And the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<stage2>" stage is marked as Completed
+    And the user navigates to the "<stage3>" stage
+    And the user selects the "<priority>"
+    And the user clicks the Save and Continue button
+    And the "<stage3>" stage is marked as Completed
+    And the "<stage4>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage3>"
+    Examples:
+      | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
+      | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |

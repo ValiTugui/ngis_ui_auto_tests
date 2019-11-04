@@ -78,7 +78,11 @@
             <artifactId>cucumber-core</artifactId>
             <version>${io.cucumber.version}</version>
         </dependency>
-
+        <!--<dependency>
+            <groupId>sun.jvm.hotspot</groupId>
+            <artifactId>sa-jdi</artifactId>
+            <version>24.0-b56.BuildVersion</version>
+        </dependency>-->
 
         <dependency>
             <groupId>io.cucumber</groupId>
