@@ -111,4 +111,26 @@ public class ResponsibleClinicianPage {
         Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
     }
 
+    public void enterEmail(String emailValue) {
+        Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+        clinicianEmailField.sendKeys(emailValue);
+    }
+
+    public boolean verifyInvalidEmailWarningMessage(String expectedErrorMessage) {
+        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+    }
+
+    public void enterPhoneNumber(String phoneNumberValue) {
+        clinicianPhoneNumberField.sendKeys(phoneNumberValue);
+    }
+
+	public boolean verifyTotalNumberOfDigitsInPhoneNumberField(int maxNumberOfAllowedDigits) {
+		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
+		int actualNumberOfDigits = clinicianPhoneNumberField.getText().length();
+		if (actualNumberOfDigits <= maxNumberOfAllowedDigits) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
