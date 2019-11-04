@@ -27,7 +27,6 @@ Feature: Tumours Page
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm). | Each referral can only include one tumour. |
 
 
-
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
@@ -137,15 +136,9 @@ Feature: Tumours Page
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
 
-#    User click on close button
-#    When the user attempts to navigate away by clicking "<browser_exit1>"
-#    Then the user sees a prompt alert "<partOfMessage>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
-#    And the web browser is still at the same "<partialCurrentUrl1>" page
-    And the user clicks the Save and Continue button
-
     Examples:
-      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 | browser_exit1 |
-      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     | close         |
+      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
+      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
 
 
   @COMP6_TOC_Tumour  @LOGOUT
@@ -173,7 +166,7 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
       | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |
-    
+
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3172 @E2EUI-1465 @P0 @v_1
   Scenario Outline: NTS-3172:Validate the mandatory input field 'The tumour is' for the Tumour Section
