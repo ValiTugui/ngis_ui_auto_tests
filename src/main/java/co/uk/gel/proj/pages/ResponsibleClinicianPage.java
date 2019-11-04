@@ -1,5 +1,8 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +13,7 @@ import java.util.List;
 public class ResponsibleClinicianPage {
 
 	WebDriver driver;
+	Faker fake = new Faker();
 
 	public ResponsibleClinicianPage(WebDriver driver) {
 		this.driver = driver;
@@ -90,5 +94,21 @@ public class ResponsibleClinicianPage {
 
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
+
+    public void fillInClinicianFormFields() {
+        Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+        Actions.clearField(clinicianFirstNameField);
+        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Actions.clearField(clinicianLastNameField);
+        Actions.fillInValue(clinicianLastNameField, fake.name().lastName());
+        Actions.clearField(clinicianPhoneNumberField);
+        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Actions.clearField(clinicianEmailField);
+        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Actions.clearField(clinicianDepartmentAddressField);
+        Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+        Actions.clearField(clinicianProfesionalRegistrationNumberField);
+        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+    }
 
 }
