@@ -653,8 +653,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-        //Wait.forElementToBeClickable(driver, noResultsHelpLink);
-        //Click.element(driver, noResultsHelpLink);
         Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
     }
 

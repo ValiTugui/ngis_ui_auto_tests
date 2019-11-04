@@ -20,11 +20,12 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    Then an information "<information>" is displayed that a test cannot start without a tumour
+    Then information "<subTitle1>" and "<subTitle2>" are displayed that a test cannot start without a tumour
 
     Examples:
-      | stage   | information                      |
-      | Tumours | A laboratory cannot start a test |
+      | stage   | subTitle1                                                     | subTitle2                                  |
+      | Tumours | A laboratory cannot start a test without a tumour (neoplasm). | Each referral can only include one tumour. |
+
 
 
   @COMP6_TOC_Tumour @LOGOUT
