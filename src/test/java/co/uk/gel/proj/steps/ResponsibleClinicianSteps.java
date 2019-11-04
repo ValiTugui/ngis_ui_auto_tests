@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import io.cucumber.java.en.And;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +13,10 @@ public class ResponsibleClinicianSteps extends Pages {
         super(driver);
     }
 
+    @And("the user fills in all the clinician form fields")
+    public void theUserFillsInAllTheClinicianFormFields() {
+        responsibleClinicianPage.fillInClinicianFormFields();
+    }
     @When("the user fills in {string} in clinician form fields")
     public void the_user_fills_in_in_clinician_form_fields(String emailValue) {
         responsibleClinicianPage.enterEmail(emailValue);

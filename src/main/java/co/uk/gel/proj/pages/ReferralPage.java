@@ -43,6 +43,9 @@ public class ReferralPage<check> {
     @FindBy(className = "todo-list")
     public WebElement toDoList;
 
+    @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
+    public WebElement tumourToDoList;
+
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
 

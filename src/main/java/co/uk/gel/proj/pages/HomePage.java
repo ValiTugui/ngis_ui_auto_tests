@@ -2,6 +2,8 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +20,9 @@ public class HomePage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
+
+    public String tabTitle = "NHS England | Public Genetic Test Directory";
 
     @FindBy(css = "div[class*='header']")
     public WebElement header;
@@ -48,6 +53,33 @@ public class HomePage {
 
     @FindBy(css = "ul[class*='imageRadioButtons']")
     public WebElement filterButtons;
+
+    @FindBy(xpath = "//div[contains(text(), 'Clinical Indications')]")
+    public WebElement clinicalIndicationsTab;
+
+    @FindBy(xpath = "//div[contains(text(), 'Tests')]")
+    public WebElement testsTab;
+
+    @FindBy(xpath = "//div[contains(text(), 'Clinical Indications')]/span")
+    public WebElement clinicalIndicationsTabValue;
+
+    @FindBy(xpath = "//div[contains(text(), 'Tests')]/span")
+    public WebElement testsTabValue;
+
+    @FindBy(xpath = "//div/ul/li[1]/label")
+    public WebElement rareAndInheritedDiseasesChkBox;
+
+    @FindBy(xpath = "//div/ul/li[3]/label")
+    public WebElement tumorChkBox;
+
+    @FindBy(xpath = "//div/ul/li[2]/label")
+    public WebElement inheritedCancerPredispositionChkBox;
+
+    @FindBy(xpath = "//div/ul/li[4]/label")
+    public WebElement otherChkBox;
+
+    @FindBy(className = "btn btn-secondary btn-xs")
+    public WebElement clearAllButton;
 
     @FindBy(css = "a[class*='tab']")
     public List<WebElement> tabs;
@@ -205,4 +237,44 @@ public class HomePage {
         Wait.forURLToContainSpecificText(driver, "/clinical-tests");
         Wait.forElementToBeDisplayed(driver, searchField);
     }
+
+    public long rareAndInheritedDiseasesSearchResult() throws InterruptedException {
+        rareAndInheritedDiseasesChkBox.click();
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Rare is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        rareAndInheritedDiseasesChkBox.click();
+        Wait.seconds(1);
+        return Integer.valueOf(a) + Integer.valueOf(b);
+    }
+
+    public long tumorSearchResult() throws InterruptedException {
+        tumorChkBox.click();
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Tumor is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        tumorChkBox.click();
+        Wait.seconds(1);
+        return Integer.valueOf(a) + Integer.valueOf(b);
+    }
+
+    public long totalSearchResult() throws InterruptedException {
+        waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(1);
+        String a = clinicalIndicationsTabValue.getText();
+        String b = testsTabValue.getText();
+        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+        Debugger.println("Total is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        return Integer.valueOf(a) + Integer.valueOf(b);
+    }
+
 }
