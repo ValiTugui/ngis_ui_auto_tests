@@ -2,8 +2,6 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.proj.TestDataProvider.ConstantsData;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -13,8 +11,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import sun.jvm.hotspot.debugger.DebuggerUtilities;
 
 import java.io.IOException;
 import java.util.List;
@@ -177,10 +173,26 @@ public class ReferralSteps extends Pages {
         referralPage.saveAndContinueButtonIsDisplayed();
     }
 
-    @Then("the user sees a warning prompt message on the page and {string} it")
-    public void theUserSeesAWarningPromptMessageOnThePageAndIt(String acknowledgeMessage) {
-        boolean promptMessage;
-        promptMessage = referralPage.acknowledgeThePromptPopMessage(acknowledgeMessage);
-        Assert.assertTrue(promptMessage);
+    @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
+    public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
+
+        String actualAlertMessage;
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back"))) {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
+            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+        } else {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
+        }
+
+
     }
+
+    @When("the user clicks the Log out button")
+    public void theUserClicksTheLogOutButton() {
+        referralPage.clickLogoutButton();
+    }
+
+
 }
