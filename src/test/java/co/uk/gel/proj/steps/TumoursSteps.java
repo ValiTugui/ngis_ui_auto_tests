@@ -92,8 +92,14 @@ public class TumoursSteps extends Pages {
 
     @And("an information {string} is displayed that a test cannot start without a tumour")
     public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
-        Debugger.println("Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(tumourInformation));
+        Wait.forElementToBeDisplayed(driver, tumoursPage.TumourSubTitle);
+        String actualTumourSubTitle = tumoursPage.TumourSubTitle.getText();
+        Debugger.println("Actual Tumour subtitle : " + actualTumourSubTitle);
+        String[] expectedTumourSubTitle = tumourInformation.split("-");
+        for  (int i = 0; i < expectedTumourSubTitle.length; i ++) {
+            Assert.assertTrue(actualTumourSubTitle.contains(expectedTumourSubTitle[i]));
+            Debugger.println("Expected SubTitle: " + i + ": " + expectedTumourSubTitle[i]);
+        }
 
     }
 

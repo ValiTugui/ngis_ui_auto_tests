@@ -23,8 +23,8 @@ Feature: Tumours Page
     Then an information "<information>" is displayed that a test cannot start without a tumour
 
     Examples:
-      | stage   | information                      |
-      | Tumours | A laboratory cannot start a test |
+      | stage   | information                                                                                                |
+      | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
 
   @COMP6_TOC_Tumour @LOGOUT
@@ -135,11 +135,6 @@ Feature: Tumours Page
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
-
-#    User click on close button
-#    When the user attempts to navigate away by clicking "<browser_exit1>"
-#    Then the user sees a prompt alert "<partOfMessage>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
-#    And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save and Continue button
 
     Examples:
