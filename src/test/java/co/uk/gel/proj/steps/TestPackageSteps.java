@@ -108,11 +108,6 @@ public class TestPackageSteps extends Pages {
         Assert.assertTrue(testPackagePage.verifyTheTestsList(numberOfTests));
     }
 
-    @Then("the {string} stage is selected")
-    public void theStageIsSelected(String newStage) {
-        Assert.assertTrue(referralPage.stageIsSelected(newStage));
-    }
-
     @And("the Test Package page priority header has {string}")
     public void theTestPackagePagePriorityHeaderHas(String expectedPriorityLabel) {
         Assert.assertTrue(testPackagePage.verifyPrioritySectionHeaderText(expectedPriorityLabel));
@@ -121,5 +116,17 @@ public class TestPackageSteps extends Pages {
     @And("the Test Package page {string} is de-selected")
     public void theTestPackagePageIsDeSelected(String previousPriority) {
        Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
+    }
+
+    @And("the Test Package page has the help text as {string} on the page")
+    public void theTestPackagePageHasTheHelpTextAsOnThePage(String helpText) {
+        Assert.assertTrue(testPackagePage.verifyTheHelpText(helpText));
+    }
+
+    @And("the correct {string} tests are saved to the referral in  {string} with the chosen {string}")
+    public void theCorrectTestsAreSavedToTheReferralInWithTheChosen(String expectedNumberOfTests, String stage, String expectedPriority) {
+        referralPage.navigateToStage(stage);
+        Assert.assertTrue(testPackagePage.verifyTheTestsList(expectedNumberOfTests));
+        Assert.assertTrue(testPackagePage.verifyGivenPriorityIsSelected(expectedPriority));
     }
 }

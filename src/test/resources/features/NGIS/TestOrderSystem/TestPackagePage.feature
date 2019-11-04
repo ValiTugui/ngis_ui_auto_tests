@@ -109,11 +109,14 @@ Feature: Test Package page
     And the Test Package page priority header has "<priority_label>"
     When the user selects the "<priority>"
     And the Test Package page "<previous_priority>" is de-selected
+    And the Test Package page has the help text as "<help_text>" on the page
     Then the user clicks the Save and Continue button
-    Then the "<new_stage>" stage is selected
+    And the "<new_stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>" with the chosen "<priority>"
     Examples:
-      | stage        | priority | previous_priority | new_stage             | priority_label                         |
-      | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? |
+      | stage        | priority | previous_priority | new_stage             | priority_label                         | help_text                                                                         | number_of |
+      | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | 1         |
 
   @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease

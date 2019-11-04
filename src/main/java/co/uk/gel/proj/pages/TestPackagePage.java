@@ -24,11 +24,14 @@ public class TestPackagePage {
     @FindBy(xpath = "//label[contains(@class,'field-label')]")
     public WebElement priorityLabel;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
     public WebElement routinePriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
     public WebElement urgentPriorityButton;
+
+    @FindBy(css = "[class*='button--selected']")
+    public WebElement chosenPriorityButton;
 
     @FindBy(css = "p[class*='hint__text'")
     public WebElement priorityHintText;
@@ -112,8 +115,9 @@ public class TestPackagePage {
     }
 
     public boolean verifyTheHelpText(String expectedHelpText) {
-        boolean helpTextIsMatching = false;
-        return priorityHintText.getText().contains(expectedHelpText);
+        Wait.forElementToBeDisplayed(driver, priorityHintText);
+        String actualHelpText = priorityHintText.getText();
+        return actualHelpText.contains(expectedHelpText);
     }
 
     public boolean verifyTestsSection(String expectedSectionText) {
@@ -193,16 +197,8 @@ public class TestPackagePage {
         return priorityLabel.getText().contains(expectedHeaderText);
     }
 
-    public boolean verifyGivenPriorityIsSelected(String priority){
-        if(priority.equals(routine)){
-            return  routinePriorityButton.isSelected();
-        }
-        else if (priority.equals(urgent)){
-            return urgentPriorityButton.isSelected();
-        }
-        else{
-         new RuntimeException("Priority options should be in Routine or Urgent");
-         return false;
-        }
+    public boolean verifyGivenPriorityIsSelected(String expectedPriority){
+        Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
+        return chosenPriorityButton.getText().contains(expectedPriority);
     }
 }
