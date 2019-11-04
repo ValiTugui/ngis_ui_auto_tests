@@ -103,6 +103,7 @@ public class TumoursSteps extends Pages {
 
     }
 
+
     @And("the web browser is still at the same {string} page")
     public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
         String fullCurrentURL = driver.getCurrentUrl();
@@ -110,6 +111,7 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
 
     }
+
 
     @And("the user answers all tumour system questions without selecting any tumour type")
     public void theUserAnswersAllTumourSystemQuestionsWithoutSelectingAnyTumourType() {

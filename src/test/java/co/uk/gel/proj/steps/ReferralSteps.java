@@ -12,6 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.List;
@@ -133,7 +135,7 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
-        referralPage.stageIsCompleted(stage);
+        Assert.assertTrue(referralPage.stageIsCompleted(stage));
     }
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
@@ -187,7 +189,6 @@ public class ReferralSteps extends Pages {
             Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
         }
 
-
     }
 
     @When("the user clicks the Log out button")
@@ -195,5 +196,16 @@ public class ReferralSteps extends Pages {
         referralPage.clickLogoutButton();
     }
 
+    @Then("the user sees a warning message {string} on the page")
+    public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
+        Wait.forAlertToBePresent(driver);
+        Alert alertBox = driver.switchTo().alert();
+        Wait.seconds(10);
+        String actualWarningText = alertBox.getText();
+        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+        Actions.acceptAlert(driver);
+        Wait.seconds(10);
+        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
 
+    }
 }

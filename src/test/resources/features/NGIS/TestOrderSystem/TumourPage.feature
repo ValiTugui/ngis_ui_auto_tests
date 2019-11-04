@@ -137,9 +137,10 @@ Feature: Tumours Page
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save and Continue button
 
+
     Examples:
-      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 | browser_exit1 |
-      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     | close         |
+      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
+      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
 
 
   @COMP6_TOC_Tumour  @LOGOUT
@@ -167,7 +168,6 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
       | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3172 @E2EUI-1465 @P0 @v_1
