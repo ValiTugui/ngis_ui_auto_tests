@@ -69,6 +69,9 @@ public class TestPackageSteps extends Pages {
             case "back":
                 Actions.browseBackward(driver);
                 break;
+            case "close":
+                Actions.closeBrowser(driver);
+                break;
             default:
                 throw new IllegalStateException("Unexpected Browser Interaction value: " + browserInteraction);
         }
@@ -89,10 +92,9 @@ public class TestPackageSteps extends Pages {
 
     @Then("the user selects the {string}")
     public void theUserSelectsThe(String testReferralUrgencyInfo) {
-        if(testReferralUrgencyInfo.contains("Urgent")){
+        if (testReferralUrgencyInfo.contains("Urgent")) {
             testPackagePage.clickUrgentPriority();
-        }
-        else {
+        } else {
             testPackagePage.clickRoutinePriority();
         }
     }

@@ -176,6 +176,27 @@ public class ReferralSteps extends Pages {
         referralPage.saveAndContinueButtonIsDisplayed();
     }
 
+    @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
+    public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
+
+        String actualAlertMessage;
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back"))) {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
+            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+        } else {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
+        }
+
+
+    }
+
+    @When("the user clicks the Log out button")
+    public void theUserClicksTheLogOutButton() {
+        referralPage.clickLogoutButton();
+    }
+
 
 
     @Then("the user sees a warning message {string} on the page")
