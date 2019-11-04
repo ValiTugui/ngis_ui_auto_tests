@@ -1,6 +1,11 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -80,8 +85,46 @@ public class ClinicalIndicationsTestSelectPage {
 	@FindBy(xpath = "//div[contains(@class,'back')]//descendant::a")
 	public WebElement backToSearch;
 
-	public void clickStartReferralButton() {
-		Click.element(driver, startTestOrderButton);
-	}
+    @FindBy(className = "styles_helix__1AyYD")
+    public List<WebElement> loadingWheel;
 
+    @FindBy(css = "h2[class*='relatedContainer__header']")
+    public WebElement loadingText;
+
+    @FindBy (xpath = "//div [contains (@class, 'styles_relatedContainer__3Ma3o')]/ul")
+	public WebElement clinicalIndicationsResultContainer;
+
+    public void clickStartReferralButton() {
+        Click.element(driver, startTestOrderButton);
+    }
+
+    public boolean validateIfLoadingWheelIsPresent() {
+        if (loadingWheel.size() >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateIfCorrectTextIsDisplayed(WebElement element, String expected) {
+        String actual = element.getText();
+        if (actual.equalsIgnoreCase(expected)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean validateIfWrongTextIsNotDisplayed(WebElement element, String expected) {
+        String actual = element.getText();
+        if (actual != expected) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+	public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
+		Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
+	}
 }

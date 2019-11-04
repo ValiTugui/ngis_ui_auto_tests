@@ -15,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.jvm.hotspot.debugger.DebuggerBase;
 
 import java.util.List;
 
@@ -237,15 +236,13 @@ public class PatientDetailsPage {
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
-        //Actions.clickElement(driver, yesButton);  NHS available YES or NO - not visible for a standard user
-        //Actions.fillInValue(nhsNumber, newPatient.getNhsNumber()); NHS field not visible for a standard user
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
@@ -253,7 +250,6 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
     }
