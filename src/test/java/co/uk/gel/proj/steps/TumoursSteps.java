@@ -16,6 +16,7 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class TumoursSteps extends Pages {
 
@@ -89,12 +90,20 @@ public class TumoursSteps extends Pages {
 
     }
 
-    @And("an information {string} is displayed that a test cannot start without a tumour")
-    public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
-        Debugger.println("Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(tumourInformation));
+
+    @Then("information {string} and {string} are displayed that a test cannot start without a tumour")
+    public void informationAndAreDisplayedThatATestCannotStartWithoutATumour(String subTitleOne, String subTitleTwo) {
+
+        Debugger.println("Actual Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
+
+        Debugger.println("Expected Tumour subtitleOne : " + subTitleOne);
+        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleOne));
+
+        Debugger.println("Expected Tumour subtitleTwo : " + subTitleTwo);
+        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleTwo));
 
     }
+
 
     @And("the web browser is still at the same {string} page")
     public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
@@ -102,6 +111,14 @@ public class TumoursSteps extends Pages {
         partCurrentUrl = partCurrentUrl.toLowerCase();
         Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
 
+    }
+
+    @And("the user answers all tumour system questions without selecting any tumour type")
+    public void theUserAnswersAllTumourSystemQuestionsWithoutSelectingAnyTumourType() {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.fillInSpecimenID();
     }
 
 
