@@ -24,11 +24,14 @@ public class TestPackagePage {
     @FindBy(xpath = "//label[contains(@class,'field-label')]")
     public WebElement priorityLabel;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
     public WebElement routinePriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
     public WebElement urgentPriorityButton;
+
+    @FindBy(css = "[class*='button--selected']")
+    public WebElement chosenPriorityButton;
 
     @FindBy(css = "p[class*='hint__text'")
     public WebElement priorityHintText;
@@ -93,8 +96,8 @@ public class TestPackagePage {
     public List<WebElement> selectedFamilyMembers;
 
     private String checkboxValue = "checked";
-
-    private String urgentTestsRequired = "Urgent";
+    private String routine = "Routine";
+    private String urgent = "Urgent";
 
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
@@ -112,8 +115,9 @@ public class TestPackagePage {
     }
 
     public boolean verifyTheHelpText(String expectedHelpText) {
-        boolean helpTextIsMatching = false;
-        return priorityHintText.getText().contains(expectedHelpText);
+        Wait.forElementToBeDisplayed(driver, priorityHintText);
+        String actualHelpText = priorityHintText.getText();
+        return actualHelpText.contains(expectedHelpText);
     }
 
     public boolean verifyTestsSection(String expectedSectionText) {
@@ -184,8 +188,17 @@ public class TestPackagePage {
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
         }
 
-        public boolean verifyTheTestsList(String expectedNumberOfTests){
-          Wait.forElementToBeDisplayed(driver, selectTestsHeader);
-          return selectTestsHeader.getText().contains(expectedNumberOfTests);
+        public boolean verifyTheTestsList(String expectedNumberOfTests) {
+            Wait.forElementToBeDisplayed(driver, selectTestsHeader);
+            return selectTestsHeader.getText().contains(expectedNumberOfTests);
         }
+
+    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
+        return priorityLabel.getText().contains(expectedHeaderText);
+    }
+
+    public boolean verifyGivenPriorityIsSelected(String expectedPriority){
+        Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
+        return chosenPriorityButton.getText().contains(expectedPriority);
+    }
 }
