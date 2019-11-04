@@ -173,8 +173,7 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
       | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |
-
-
+    
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3172 @E2EUI-1465 @P0 @v_1
   Scenario Outline: NTS-3172:Validate the mandatory input field 'The tumour is' for the Tumour Section

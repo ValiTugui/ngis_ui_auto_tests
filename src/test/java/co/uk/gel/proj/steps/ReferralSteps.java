@@ -189,22 +189,12 @@ public class ReferralSteps extends Pages {
             Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
         }
 
-
     }
 
     @When("the user clicks the Log out button")
     public void theUserClicksTheLogOutButton() {
         referralPage.clickLogoutButton();
     }
-
-
-    @Then("the user sees a warning prompt message on the page and {string} it")
-    public void theUserSeesAWarningPromptMessageOnThePageAndIt(String acknowledgeMessage) {
-        boolean promptMessage;
-        promptMessage = referralPage.acknowledgeThePromptPopMessage(acknowledgeMessage);
-        Assert.assertTrue(promptMessage);
-
-
 
     @Then("the user sees a warning message {string} on the page")
     public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
