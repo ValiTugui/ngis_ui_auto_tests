@@ -17,6 +17,7 @@ public class AppConfig {
     private static String app_password;
     private static String to_patient_search_url;
     private static String td_private_url;
+    private static String to_dashboard_url;
     private static String MYNewName;
     public static Properties properties = null;
 
@@ -41,8 +42,9 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
-        td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
+        td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
+        to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");
         MYNewName = properties.getProperty("MYNewName");
     }
 
@@ -85,6 +87,12 @@ public class AppConfig {
         return td_private_url;
     }
 
+    public static String getTo_dashboard_url() {
+        if (to_dashboard_url == null || to_dashboard_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return to_dashboard_url;
+    }
     public static void setApp_url(String app_url) {
         AppConfig.app_url = app_url;
     }
