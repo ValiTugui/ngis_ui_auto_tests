@@ -20,11 +20,11 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    Then information "<subTitle1>" and "<subTitle2>" are displayed that a test cannot start without a tumour
+    Then an information "<information>" is displayed that a test cannot start without a tumour
 
     Examples:
-      | stage   | subTitle1                                                     | subTitle2                                  |
-      | Tumours | A laboratory cannot start a test without a tumour (neoplasm). | Each referral can only include one tumour. |
+      | stage   | information                                                                                              |
+      | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
 
   @COMP6_TOC_Tumour @LOGOUT
@@ -135,6 +135,8 @@ Feature: Tumours Page
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
 
     Examples:
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
@@ -180,3 +182,22 @@ Feature: Tumours Page
     Examples: Tumour type is not selected
       | stage   | error_message                 |
       | Tumours | Please select the tumour type |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_09 @NTS-3174 @E2EUI-1159 @P0 @v_1
+  Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the tumours stage is at Add a Tumour page
+    When the user clicks the Save and Continue button
+    Then the error messages for the tumour mandatory fields are displayed
+      | errorMessageHeader                                           |
+      | Enter a year                                                 |
+      | Please select the tumour type                                |
+      | Histopathology laboratory ID or local sample ID is required. |
+
+    Examples: Tumour type is not selected
+      | stage   |
+      | Tumours |
