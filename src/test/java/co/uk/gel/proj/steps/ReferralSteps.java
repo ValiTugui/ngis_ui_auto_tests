@@ -3,7 +3,6 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.proj.TestDataProvider.ConstantsData;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -13,8 +12,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import sun.jvm.hotspot.debugger.DebuggerUtilities;
 
 import java.io.IOException;
 import java.util.List;
@@ -136,7 +135,7 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
-        referralPage.stageIsCompleted(stage);
+        Assert.assertTrue(referralPage.stageIsCompleted(stage));
     }
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
@@ -177,5 +176,36 @@ public class ReferralSteps extends Pages {
         referralPage.saveAndContinueButtonIsDisplayed();
     }
 
+    @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
+    public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
 
+        String actualAlertMessage;
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back"))) {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
+            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+        } else {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
+        }
+
+    }
+
+    @When("the user clicks the Log out button")
+    public void theUserClicksTheLogOutButton() {
+        referralPage.clickLogoutButton();
+    }
+
+    @Then("the user sees a warning message {string} on the page")
+    public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
+        Wait.forAlertToBePresent(driver);
+        Alert alertBox = driver.switchTo().alert();
+        Wait.seconds(10);
+        String actualWarningText = alertBox.getText();
+        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+        Actions.acceptAlert(driver);
+        Wait.seconds(10);
+        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+
+    }
 }
