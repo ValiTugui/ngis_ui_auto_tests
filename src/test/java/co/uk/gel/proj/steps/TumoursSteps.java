@@ -90,17 +90,16 @@ public class TumoursSteps extends Pages {
 
     }
 
-
-    @Then("information {string} and {string} are displayed that a test cannot start without a tumour")
-    public void informationAndAreDisplayedThatATestCannotStartWithoutATumour(String subTitleOne, String subTitleTwo) {
-
-        Debugger.println("Actual Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
-
-        Debugger.println("Expected Tumour subtitleOne : " + subTitleOne);
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleOne));
-
-        Debugger.println("Expected Tumour subtitleTwo : " + subTitleTwo);
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleTwo));
+    @And("an information {string} is displayed that a test cannot start without a tumour")
+    public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
+        Wait.forElementToBeDisplayed(driver, tumoursPage.TumourSubTitle);
+        String actualTumourSubTitle = tumoursPage.TumourSubTitle.getText();
+        Debugger.println("Actual Tumour subtitle : " + actualTumourSubTitle);
+        String[] expectedTumourSubTitle = tumourInformation.split("-");
+        for  (int i = 0; i < expectedTumourSubTitle.length; i ++) {
+            Assert.assertTrue(actualTumourSubTitle.contains(expectedTumourSubTitle[i]));
+            Debugger.println("Expected SubTitle: " + i + ": " + expectedTumourSubTitle[i]);
+        }
 
     }
 
@@ -113,6 +112,7 @@ public class TumoursSteps extends Pages {
 
     }
 
+
     @And("the user answers all tumour system questions without selecting any tumour type")
     public void theUserAnswersAllTumourSystemQuestionsWithoutSelectingAnyTumourType() {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
@@ -120,6 +120,22 @@ public class TumoursSteps extends Pages {
         tumoursPage.fillInDateOfDiagnosis();
         tumoursPage.fillInSpecimenID();
     }
+
+    @And("the tumours stage is at Add a Tumour page")
+    public void theTumoursStageIsAtAddATumourPage() {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+    }
+
+    @Then("the error messages for the tumour mandatory fields are displayed")
+    public void theErrorMessagesForTheTumourMandatoryFieldsAreDisplayed(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        for (int i = 0; i < list.size(); i++) {
+            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
+            Assert.assertEquals(list.get(i).get("errorMessageHeader"), Actions.getText(tumoursPage.errorMessages.get(i)));
+        }
+    }
+
 
 
 }
