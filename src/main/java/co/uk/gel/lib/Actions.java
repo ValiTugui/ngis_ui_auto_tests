@@ -1,10 +1,8 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.SeleniumDriver;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 
-import java.awt.*;
 import java.text.DateFormatSymbols;
 import java.util.Iterator;
 import java.util.List;
@@ -122,11 +120,6 @@ public class Actions {
 
     public static void cleanUpSession(WebDriver driver) {
         driver.quit();
-    }
-
-    public static void mouseMoveByLocation(WebDriver driver, int x, int y) throws AWTException {
-        Robot robot = new Robot();
-        robot.mouseMove(x, y);
     }
 
     public static void scrollToBottom(WebDriver driver) {

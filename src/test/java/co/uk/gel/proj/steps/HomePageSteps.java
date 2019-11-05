@@ -67,16 +67,6 @@ public class HomePageSteps extends Pages {
         Assert.assertEquals(a, b + c);
     }
 
-    @When("the user has selected a test {string}")
-    public void theUserSelectsATest(String searchTerm) {
-        homePage.testsTab.click();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
-    }
-
     @And("The user selects the Tests tab")
     public void theUserSelectsTheTestsTab() {
         homePage.testsTab.click();
