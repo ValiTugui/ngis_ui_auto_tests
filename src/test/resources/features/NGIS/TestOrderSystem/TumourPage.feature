@@ -185,7 +185,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_09 @NTS-3174 @E2EUI-1159 @P0 @v_1
+    @tumoursPage_09 @NTS-3174 @E2EUI-1159  @E2EUI-1157 @P0 @v_1
   Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -205,7 +205,7 @@ Feature: Tumours Page
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_10 @NTS-3176 @E2EUI-1171 @P0 @v_1
-  Scenario Outline: NTS-3176:Select or edit a tumour page
+  Scenario Outline: NTS-3176:Select or edit a tumour page - Upon Adding a Tumour
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -220,7 +220,7 @@ Feature: Tumours Page
     And the tumour stage is on select or edit a tumour page showing
       | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
       | Select or edit a tumour | Tumour added           | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
-    And information text are displayed on the the select or edit a tumour page
+    And information text are displayed on the select or edit a tumour page
       | informationTextHeader                           |
       | Only one tumour can be tested in each referral. |
       | If the tumour to be tested is:                  |

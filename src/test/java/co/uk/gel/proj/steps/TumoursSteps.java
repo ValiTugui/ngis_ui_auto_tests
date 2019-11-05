@@ -163,7 +163,7 @@ public class TumoursSteps extends Pages {
     }
 
 
-    @And("information text are displayed on the the select or edit a tumour page")
+    @And("information text are displayed on the select or edit a tumour page")
     public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
 
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
