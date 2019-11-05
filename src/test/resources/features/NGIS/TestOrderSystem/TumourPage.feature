@@ -15,7 +15,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_02 @NTS-3165 @E2EUI-823  @P0 @v_1
+    @tumoursPage_02 @NTS-3165 @E2EUI-823 @E2EUI-1120 @P0 @v_1
   Scenario Outline: NTS-3165: Text information for user on Tumour referral page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -185,7 +185,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_09 @NTS-3174 @E2EUI-1159 @P0 @v_1
+    @tumoursPage_09 @NTS-3174 @E2EUI-1159  @E2EUI-1577 @P0 @v_1
   Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -201,3 +201,37 @@ Feature: Tumours Page
     Examples: Tumour type is not selected
       | stage   |
       | Tumours |
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_10 @NTS-3176 @E2EUI-1171 @P0 @v_1
+  Scenario Outline: NTS-3176:Select or edit a tumour page - Upon Adding a Tumour
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the tumour stage is on select or edit a tumour page showing
+      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
+      | Select or edit a tumour | Tumour added           | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
+    And information text are displayed on the select or edit a tumour page
+      | informationTextHeader                           |
+      | Only one tumour can be tested in each referral. |
+      | If the tumour to be tested is:                  |
+      | not shown                                       |
+      | a metastasis of one that is shown               |
+      | you must add a new tumour then select it.       |
+    And on the select or edit a tumour page, the tumour table list shows the column names
+      | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
+      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+    And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
