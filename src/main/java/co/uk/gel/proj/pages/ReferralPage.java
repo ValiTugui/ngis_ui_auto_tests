@@ -165,6 +165,8 @@ public class ReferralPage<check> {
     public List<WebElement> helix;
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
+    String  stageIsMarkedAsMandatoryToDo= "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String mandatoryToDOIconLocator = "todo__required-icon";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -256,8 +258,9 @@ public class ReferralPage<check> {
 
     public boolean stageIsMandatoryToDo(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
-        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath("//a[contains(@href,'" + getPartialUrl(stage) + "')]//descendant::span[3]"));
-        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains("todo__required-icon");
+        String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
+        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
+        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
         boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
         if( isStageStatusIsToDO && isStageHasAsteriskPresent){
             return true;
