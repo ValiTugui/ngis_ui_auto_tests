@@ -301,3 +301,27 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_13 @E2EUI-890 @P0 @v_1
+  Scenario Outline: Edit a tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the "<pageTitle>" page is displayed
+    And an information "<information>" is displayed that a test cannot start without a tumour
+
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |

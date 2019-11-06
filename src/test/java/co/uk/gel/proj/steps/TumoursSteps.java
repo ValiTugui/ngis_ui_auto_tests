@@ -240,4 +240,14 @@ public class TumoursSteps extends Pages {
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
 
     }
+
+    @And("the {string} page is displayed")
+    public void thePageIsDisplayed(String expectedPageTitle) {
+
+        String actualPageTitle = referralPage.getTheCurrentPageTitle();
+        Debugger.println("Actual PageTitle : " + actualPageTitle);
+        Debugger.println("Expected PageTitle : " + expectedPageTitle);
+        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+    }
+
 }
