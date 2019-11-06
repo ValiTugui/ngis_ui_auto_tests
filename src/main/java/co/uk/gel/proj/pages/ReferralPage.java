@@ -284,4 +284,13 @@ public class ReferralPage<check> {
     }
 
 
+    public String getTheCurrentPageTitle() {
+        return Actions.getText(pageTitle);
+    }
+
+    public void pageTitleIsDisplayed(String title) {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Assert.assertEquals(title, getText(pageTitle));
+    }
+
 }
