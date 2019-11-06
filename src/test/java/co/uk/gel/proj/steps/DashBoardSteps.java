@@ -26,6 +26,6 @@ public class DashBoardSteps extends Pages {
 
     @Then("The user should see the Page title as {string}")
     public void theUserShouldSeeThePageTitleAs(String titleText) {
-        Assert.assertTrue("The Correct Page Title is Displayed", dashBoardPage.pageTitleValidation(titleText));
+        Assert.assertTrue("The Correct Page Title is NOT Displayed", dashBoardPage.pageTitleValidation(titleText));
     }
 }

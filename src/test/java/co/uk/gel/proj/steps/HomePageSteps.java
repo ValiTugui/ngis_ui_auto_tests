@@ -75,7 +75,7 @@ public class HomePageSteps extends Pages {
 
     @Then("various test details are displayed")
     public void variousTestDetailsAreDisplayed() {
-        Assert.assertTrue("Various test details are displayed Properly", homePage.testResultsAreLoaded());
+        Assert.assertTrue("Various test details are NOT displayed Properly", homePage.testResultsAreLoaded());
     }
 
     @And("the user has scrolled down the page to the bottom \\(Footer)")
@@ -86,7 +86,7 @@ public class HomePageSteps extends Pages {
 
     @Then("the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
     public void theUserCanSeeTheNGISVersionNumberOnTheRightSideBottomOfThePageNextToThePrivacyPolicyLink() {
-        Assert.assertTrue("The NGIS version number is present next to the privacy policy link", homePage.isNGISVersionPresent());
+        Assert.assertTrue("The NGIS version number is NOT present next to the privacy policy link", homePage.isNGISVersionPresent());
 
     }
 }

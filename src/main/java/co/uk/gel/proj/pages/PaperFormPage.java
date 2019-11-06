@@ -95,6 +95,9 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='alertWarning']")
     public WebElement warningBanner;
 
+    @FindBy (xpath = "//div [contains (@class, 'styles_content__3wxNJ')]/strong")
+    public WebElement warningBannerText;
+
     @FindBy(css = "div[class*='body']")
     public List<WebElement> downloadSections;
 
@@ -239,6 +242,10 @@ public class PaperFormPage {
     public boolean checkThatTestIsSelected() {
         Wait.forElementToBeDisplayed(driver, testCardContainer);
         return (testList.getAttribute("class").contains("checked"));
+    }
+
+    public boolean checkTheWarningText(String expected) {
+        return warningBannerText.getText().contentEquals(expected);
     }
 }
 

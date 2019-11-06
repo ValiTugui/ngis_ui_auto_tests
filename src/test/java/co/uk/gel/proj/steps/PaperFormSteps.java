@@ -64,7 +64,7 @@ public class PaperFormSteps extends Pages {
     public void checkThatReviewTestSelectionPageIsProperlyOpened() {
         paperFormPage.checkThatReviewTestSelectionIsOpened();
         Assert.assertTrue((paperFormPage.paperFormHeader.getText()).toLowerCase().contains("review test selection"));
-        Assert.assertTrue("First Test is selected by Default", paperFormPage.checkThatTestIsSelected());
+        Assert.assertTrue("First Test is NOT selected by Default", paperFormPage.checkThatTestIsSelected());
         Assert.assertTrue((paperFormPage.confirmTestsSubCaption.getText()).contains("1 of " + Integer.toString(paperFormPage.testsPackage.size())));
     }
 
@@ -84,5 +84,15 @@ public class PaperFormSteps extends Pages {
     public void theUserShouldBeAbleToSeeTextReplacedWithForm(String wrongText, String correctText) {
         Assert.assertTrue(paperFormPage.downloadSections.get(1).findElement(By.tagName("h3")).getText().contains(correctText));
         Assert.assertFalse(paperFormPage.downloadSections.get(1).findElement(By.tagName("h3")).getText().contains(wrongText));
+    }
+
+    @And("the warning message is present on the Offline order page")
+    public void theWarningMessageIsPresentOnTheOfflineOrderPage() {
+        Assert.assertTrue("Warning Message is NOT Present", paperFormPage.warningBanner.isDisplayed());
+    }
+
+    @And("the warning message contains the text {string} in the Referral section")
+    public void theWarningMessageContainsTheTextInTheReferralSection(String warningText) {
+        Assert.assertTrue("Warning Message DO NOT contain the correct text", paperFormPage.checkTheWarningText(warningText));
     }
 }
