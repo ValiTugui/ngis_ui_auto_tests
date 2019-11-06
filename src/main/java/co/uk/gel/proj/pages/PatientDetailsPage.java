@@ -127,8 +127,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
     public WebElement firstReferralIDInReferralCard;
 
-    //	@FindBy(xpath = "//button[text()='Start referral']")
-    //	public WebElement startReferralButton;
+    @FindBy(xpath = "//button[text()='Start referral']")
+    public WebElement startReferralButton2;
 
     @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
     public WebElement startReferralButton;
@@ -235,17 +235,14 @@ public class PatientDetailsPage {
         newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
 
-        //newPatient.setNhsNumber(Actions.createValidNHSNumber());
         newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
-        //Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+
 
         editDropdownField(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
-        //Actions.clickElement(driver, yesButton);  NHS available YES or NO - not visible for a standard user
-        //Actions.fillInValue(nhsNumber, newPatient.getNhsNumber()); NHS field not visible for a standard user
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
@@ -253,7 +250,6 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            // Wait.forElementToBeDisplayed(driver,explanationForNoNhsNumber);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
     }

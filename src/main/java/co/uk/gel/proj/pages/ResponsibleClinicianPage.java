@@ -2,6 +2,9 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
+import com.github.javafaker.Faker;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
@@ -97,6 +100,44 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 
+    public void fillInClinicianFormFields() {
+        Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+        Actions.clearField(clinicianFirstNameField);
+        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Actions.clearField(clinicianLastNameField);
+        Actions.fillInValue(clinicianLastNameField, fake.name().lastName());
+        Actions.clearField(clinicianPhoneNumberField);
+        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Actions.clearField(clinicianEmailField);
+        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Actions.clearField(clinicianDepartmentAddressField);
+        Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+        Actions.clearField(clinicianProfesionalRegistrationNumberField);
+        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+    }
+
+    public void enterEmail(String emailValue) {
+        Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+        clinicianEmailField.sendKeys(emailValue);
+    }
+
+    public boolean verifyInvalidEmailWarningMessage(String expectedErrorMessage) {
+        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+    }
+
+    public void enterPhoneNumber(String phoneNumberValue) {
+        clinicianPhoneNumberField.sendKeys(phoneNumberValue);
+    }
+
+	public boolean verifyTotalNumberOfDigitsInPhoneNumberField(int maxNumberOfAllowedDigits) {
+		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
+		int actualNumberOfDigits = clinicianPhoneNumberField.getText().length();
+		if (actualNumberOfDigits <= maxNumberOfAllowedDigits) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	@FindBy(xpath = "//label[@for='responsibleClinician.departmentalAddress']//span[@class='label__required-icon']")
 	public WebElement clinicianDepartmentalAddressLabelRequired;
 

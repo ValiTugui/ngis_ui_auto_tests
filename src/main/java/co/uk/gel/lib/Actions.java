@@ -1,5 +1,6 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.config.SeleniumDriver;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 
@@ -97,6 +98,10 @@ public class Actions {
         }
     }
 
+    public static String getTextOfAlertMessage(WebDriver driver) {
+        return driver.switchTo().alert().getText();
+    }
+
     public static void refreshBrowser(WebDriver driver) {
         driver.navigate().refresh();
     }
@@ -109,8 +114,31 @@ public class Actions {
         driver.navigate().forward();
     }
 
+    public static void closeBrowser(WebDriver driver) {
+        driver.close();
+    }
+
     public static void cleanUpSession(WebDriver driver) {
         driver.quit();
+    }
 
+    /*
+     Implemented the method retryClickAndIgnoreElementInterception() fix the intermittent ElementClickInterceptedException
+   // org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+   // Element <a class="styles_inline-link__3cAK2" href="/test-order/new-patient">...</a> is not clickable at point (502, 537).
+   // Other element would receive the click: <html lang="en">...</html> ...30/10/2019
+     */
+
+    public static void retryClickAndIgnoreElementInterception(WebDriver driver, WebElement element) {
+        boolean flag = true;
+        while (flag) {
+            try {
+                Wait.forElementToBeClickable(driver, element);
+                Click.element(driver, element);
+                flag = false;
+            } catch (ElementClickInterceptedException e) {
+                Wait.forElementToBeClickable(driver, element);
+            }
+        }
     }
 }

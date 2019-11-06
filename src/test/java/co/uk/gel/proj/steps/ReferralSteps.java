@@ -12,6 +12,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import java.io.IOException;
@@ -173,6 +174,38 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.clickStartNewReferralButton();
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
+    }
+
+    @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
+    public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
+
+        String actualAlertMessage;
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back"))) {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
+            Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
+        } else {
+            actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
+            Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
+        }
+
+    }
+
+    @When("the user clicks the Log out button")
+    public void theUserClicksTheLogOutButton() {
+        referralPage.clickLogoutButton();
+    }
+
+    @Then("the user sees a warning message {string} on the page")
+    public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
+        Wait.forAlertToBePresent(driver);
+        Alert alertBox = driver.switchTo().alert();
+        Wait.seconds(10);
+        String actualWarningText = alertBox.getText();
+        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+        Actions.acceptAlert(driver);
+        Wait.seconds(10);
+        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
 
     }
 

@@ -5,14 +5,17 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TumoursPage {
@@ -101,6 +104,30 @@ public class TumoursPage {
     @FindBy(css = "*[class*='checkbox-row__arrow']")
     public WebElement editTumourArrow;
 
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    public WebElement tumourSuccessNotification;
+
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
+    public WebElement tumourInformationText;
+
+    @FindBy(css = "div[class*='tumour-list__sub-title']")
+    public List<WebElement> tumourInformationTextList;
+
+    @FindBy(xpath = "(//div[contains(@class,'tumour-list__sub-title')])[3]")
+    public WebElement addANewTumourTextInformation;
+
+    @FindBy(xpath = "//table/thead/tr/th[text()!='']")
+    public List<WebElement> tumourTableHeaders;
+
+    @FindBy(xpath = "//span[contains(@class,'checkmark-text__checkmark--checked')]")
+    public WebElement checkedRadioButton;
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public List<WebElement> newlyAddedTumourDetailsList;
+
+    @FindBy(xpath = "//table//tbody/tr")
+    public List<WebElement> listOfTumoursInTheTable;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -129,6 +156,12 @@ public class TumoursPage {
         dateDay.sendKeys(dayOfDiagnosis);
         dateMonth.sendKeys(monthOfDiagnosis);
         dateYear.sendKeys(yearOfDiagnosis);
+    }
+
+    public void clearDateOfDiagnosisFields() {
+        Actions.clearField(dateDay);
+        Actions.clearField(dateMonth);
+        Actions.clearField(dateYear);
     }
 
     public void fillInDateOfDiagnosis() {
@@ -203,6 +236,28 @@ public class TumoursPage {
         dateYear.isDisplayed();
 
         return true;
+    }
+
+
+    public List<String> getTumourTableHeaders()
+    {
+        List<String> actualTableHeaders = new ArrayList<>();
+        for(WebElement header : tumourTableHeaders)
+        {
+            actualTableHeaders.add(header.getText().trim());
+        }
+        return actualTableHeaders;
+    }
+
+
+    public List<String> getInformationTextOnEditTumourPage()
+    {
+        List<String> actualInformationText = new ArrayList<>();
+        for(WebElement header : tumourInformationTextList)
+        {
+            actualInformationText.add(header.getText().trim());
+        }
+        return actualInformationText;
     }
 
 }

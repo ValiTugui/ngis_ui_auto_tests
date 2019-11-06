@@ -5,6 +5,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
@@ -42,6 +43,9 @@ public class ReferralPage<check> {
 
     @FindBy(className = "todo-list")
     public WebElement toDoList;
+
+    @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
+    public WebElement tumourToDoList;
 
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
@@ -280,4 +284,40 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    public String acknowledgeThePromptAlertPopups(String acknowledgeMessage) {
+        String actualAlertText = null;
+        if (acknowledgeMessage.equalsIgnoreCase("Accept")) {
+            Wait.forAlertToBePresent(driver);
+            Wait.seconds(2);
+            actualAlertText = driver.switchTo().alert().getText();
+            Actions.acceptAlert(driver);
+            Debugger.println("The alert message :: " + actualAlertText);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
+            Wait.forAlertToBePresent(driver);
+            Wait.seconds(2);
+            actualAlertText = Actions.getTextOfAlertMessage(driver);
+            Actions.dismissAlert(driver);
+            Debugger.println("The alert message :: " + actualAlertText);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }
+        return actualAlertText;
+    }
+
+    public void clickLogoutButton() {
+        Wait.forElementToBeDisplayed(driver, headerRightArea);
+        Actions.clickElement(driver, logoutButton);
+    }
+
+
+    public String getTheCurrentPageTitle() {
+        return Actions.getText(pageTitle);
+    }
+
+    public void pageTitleIsDisplayed(String title) {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Assert.assertEquals(title, getText(pageTitle));
+    }
+
 }
