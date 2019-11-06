@@ -41,22 +41,21 @@ public class HomePageSteps extends Pages {
         homePage.selectFirstEntityFromResultList();
     }
 
+    @And("the user types in the CI term  in the search field")
+    public void theUserTypesInTheCITermInTheSearchField(List<String> searchTerms) {
+        homePage.typeInSearchField(searchTerms.get(0));
+        homePage.clickSearchIconFromSearchField();
+    }
+
     @Then("the Test Directory homepage is displayed")
     public void theTestDirectoryHomepageIsDisplayed() {
         homePage.TestDirectoryHomePageIsDisplayed();
     }
 
-    @When("^a user clicks on any search filter$")
-    public void userClicksOnAnySearchFilter() {
-        homePage.rareAndInheritedDiseasesChkBox.click();
-        homePage.tumorChkBox.click();
-    }
-
-
     @Then("^the search results have been displayed$")
     public void searchResultsDisplays() throws InterruptedException {
-        homePage.rareAndInheritedDiseasesSearchResult();
-        homePage.tumorSearchResult();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
     }
 
     @And("^the number of results shown in each filters & total results should match$")
@@ -67,25 +66,25 @@ public class HomePageSteps extends Pages {
         Assert.assertEquals(a, b + c);
     }
 
-    @And("The user selects the Tests tab")
+    @And("the user selects the Tests tab")
     public void theUserSelectsTheTestsTab() {
         homePage.testsTab.click();
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
     }
 
-    @Then("Various test details are displayed")
+    @Then("various test details are displayed")
     public void variousTestDetailsAreDisplayed() {
         Assert.assertTrue("Various test details are displayed Properly", homePage.testResultsAreLoaded());
     }
 
-    @And("The user has scrolled down the page to the bottom \\(Footer)")
+    @And("the user has scrolled down the page to the bottom \\(Footer)")
     public void theUserHasScrolledDownThePageToTheBottomFooter() {
         Actions.scrollToBottom(driver);
         Wait.forElementToBeDisplayed(driver, homePage.NGISVersion);
     }
 
-    @Then("The user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
+    @Then("the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
     public void theUserCanSeeTheNGISVersionNumberOnTheRightSideBottomOfThePageNextToThePrivacyPolicyLink() {
         Assert.assertTrue("The NGIS version number is present next to the privacy policy link", homePage.isNGISVersionPresent());
 

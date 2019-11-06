@@ -95,29 +95,17 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean validateIfLoadingWheelIsPresent() {
-        if (loadingWheel.size() >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return loadingWheel.size() >= 0;
     }
 
     public boolean validateIfCorrectTextIsDisplayed(WebElement element, String expected) {
         String actual = element.getText();
-        if (actual.equalsIgnoreCase(expected)) {
-            return true;
-        } else {
-            return false;
-        }
+        return actual.equalsIgnoreCase(expected);
     }
 
     public boolean validateIfWrongTextIsNotDisplayed(WebElement element, String expected) {
         String actual = element.getText();
-        if (actual.equalsIgnoreCase(expected)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !actual.equalsIgnoreCase(expected);
     }
 
     public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {

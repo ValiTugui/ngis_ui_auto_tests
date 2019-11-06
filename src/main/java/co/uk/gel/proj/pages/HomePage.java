@@ -212,10 +212,10 @@ public class HomePage {
     public List<WebElement> tabResults;
 
 
-	public void waitUntilHomePageResultsContainerIsLoaded() {
-		Wait.forElementToBeDisplayed(driver, filtersPanel);
-		Wait.forElementToBeDisplayed(driver, resultsPanel);
-	}
+    public void waitUntilHomePageResultsContainerIsLoaded() {
+        Wait.forElementToBeDisplayed(driver, filtersPanel);
+        Wait.forElementToBeDisplayed(driver, resultsPanel);
+    }
 
     public void typeInSearchField(String searchTerm) {
         Wait.forElementToBeDisplayed(driver, searchField);
@@ -243,7 +243,7 @@ public class HomePage {
         Wait.forElementToBeDisplayed(driver, searchField);
     }
 
-    public long rareAndInheritedDiseasesSearchResult() throws InterruptedException {
+    public long rareAndInheritedDiseasesSearchResult() {
         rareAndInheritedDiseasesChkBox.click();
         waitUntilHomePageResultsContainerIsLoaded();
         Wait.seconds(1);
@@ -251,13 +251,13 @@ public class HomePage {
         String b = testsTabValue.getText();
         a = a.replaceAll("\\(", "").replaceAll("\\)", "");
         b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Rare is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
         rareAndInheritedDiseasesChkBox.click();
         Wait.seconds(1);
-        return Integer.valueOf(a) + Integer.valueOf(b);
+        return Integer.parseInt(a) + Integer.parseInt(b);
     }
 
-    public long tumorSearchResult() throws InterruptedException {
+    public long tumorSearchResult() {
         tumorChkBox.click();
         waitUntilHomePageResultsContainerIsLoaded();
         Wait.seconds(1);
@@ -265,38 +265,28 @@ public class HomePage {
         String b = testsTabValue.getText();
         a = a.replaceAll("\\(", "").replaceAll("\\)", "");
         b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Tumor is " + (Integer.valueOf(a) + Integer.valueOf(b)));
+        Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
         tumorChkBox.click();
-        Wait.seconds(1);
-        return Integer.valueOf(a) + Integer.valueOf(b);
+        waitUntilHomePageResultsContainerIsLoaded();
+        return Integer.parseInt(a) + Integer.parseInt(b);
     }
 
-    public long totalSearchResult() throws InterruptedException {
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
+    public long totalSearchResult() {
         String a = clinicalIndicationsTabValue.getText();
         String b = testsTabValue.getText();
         a = a.replaceAll("\\(", "").replaceAll("\\)", "");
         b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Total is " + (Integer.valueOf(a) + Integer.valueOf(b)));
-        return Integer.valueOf(a) + Integer.valueOf(b);
+        Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+        return Integer.parseInt(a) + Integer.parseInt(b);
     }
 
     public boolean testResultsAreLoaded() {
-        if (tabResults.size() == 10) {
-            return true;
-        } else {
-            return false;
-        }
+        return tabResults.size() == 10;
     }
 
     public boolean isNGISVersionPresent() {
         Debugger.println(NGISVersion.getText());
-        if (NGISVersion.getText().contains("NGIS")) {
-            return true;
-        } else {
-            return false;
-        }
+        return NGISVersion.getText().contains("NGIS");
     }
 
 }

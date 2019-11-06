@@ -7,7 +7,7 @@ Feature: Home Page
 
   @E2EUI-2093 @NTS-3161 @v_1 @P0
   Scenario: NTS-3161 - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
-    When The user selects the Tests tab
+    When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | 270 |
     Then the text "Please wait a moment - clinical indications are loading" is displayed
