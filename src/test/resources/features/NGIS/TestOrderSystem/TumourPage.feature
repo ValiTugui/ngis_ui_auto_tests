@@ -239,7 +239,7 @@ Feature: Tumours Page
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_11 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
-  Scenario Outline: NTS-3190:Select or edit a tumour page - User edits a tumour and Tumour updated notification is shown
+  Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -268,6 +268,34 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
       | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+    And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_12 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
+  Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the user edits the tumour system questions by selecting tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    And the tumour stage is on select or edit a tumour page showing
+      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
+      | Select or edit a tumour | Tumour updated         | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
