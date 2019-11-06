@@ -28,7 +28,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @P0 @v_1
+    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -67,6 +67,10 @@ Feature: Tumours Page
     Examples: of entering day and month without a year
       | stage   | Date_of_Diagnosis | error_message |
       | Tumours | 14-11-null        | Enter a year  |
+
+    Examples: of entering invalid date for February month
+      | stage   | Date_of_Diagnosis | error_message |
+      | Tumours | 30-02-2012        | Check the day and month are valid  |
 
 
   @COMP6_TOC_Tumour @LOGOUT
