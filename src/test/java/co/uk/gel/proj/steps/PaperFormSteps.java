@@ -85,4 +85,10 @@ public class PaperFormSteps extends Pages {
         Assert.assertTrue(paperFormPage.downloadSections.get(1).findElement(By.tagName("h3")).getText().contains(correctText));
         Assert.assertFalse(paperFormPage.downloadSections.get(1).findElement(By.tagName("h3")).getText().contains(wrongText));
     }
+
+    @And("the user should able to select online or offline order")
+    public void theUserShouldAbleToSelectOnlineOrOfflineOrder() {
+        Assert.assertTrue(paperFormPage.usePDFOrderFormButton.isEnabled());
+        Assert.assertTrue(paperFormPage.signInToOnlineServiceButton.isEnabled());
+    }
 }

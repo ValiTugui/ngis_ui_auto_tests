@@ -111,4 +111,22 @@ public class ClinicalIndicationsTestSelectPage {
     public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
         Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
     }
+
+    public boolean isTabSelected(String tabName) {
+        switch (tabName) {
+            case "Eligibility Criteria": {
+                return clinicalIndicationTabs.get(0).getAttribute("class").contains("activeTab");
+            }
+            case "Test Package": {
+                return clinicalIndicationTabs.get(1).getAttribute("class").contains("activeTab");
+            }
+            case "Further Info": {
+                return clinicalIndicationTabs.get(2).getAttribute("class").contains("activeTab");
+            }
+            case "Order process": {
+                return clinicalIndicationTabs.get(3).getAttribute("class").contains("activeTab");
+            }
+        }
+        return false;
+    }
 }

@@ -14,3 +14,12 @@ Feature: Home Page
     And the text "This test cannot be ordered yet" is not displayed
     And the loading wheel is displayed
     And the list of clinical indications are loaded
+
+  @E2EUI-1530 @NTS-**** @v_1 @P0
+  Scenario: NTS-**** - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | R100 |
+    And the user sees the "Eligibility Criteria" tab is selected by default
+    And the user sees the button "Yes, start Referral" on Bottom right
+    Then the user clicks the Start referral button
+    And the user should able to select online or offline order
