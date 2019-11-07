@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -90,5 +91,11 @@ public class PaperFormSteps extends Pages {
     public void theUserShouldAbleToSelectOnlineOrOfflineOrder() {
         Assert.assertTrue(paperFormPage.usePDFOrderFormButton.isEnabled());
         Assert.assertTrue(paperFormPage.signInToOnlineServiceButton.isEnabled());
+    }
+
+    @And("the user selects the test in the test page and clicks on Continue button")
+    public void theUserSelectsTheTestInTheTestPageAndClicksOnContinueButton() {
+        Click.element(driver, paperFormPage.clinicalCardCheckbox);
+        Click.element(driver, paperFormPage.continueButton.get(0));
     }
 }

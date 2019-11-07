@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -56,5 +58,21 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user sees the button {string} on Bottom right")
     public void theUserSeesTheButtonOnBottomRight(String buttonName) {
         Assert.assertTrue(clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.startTestOrderButton, buttonName));
+    }
+
+    @And("the user selects the {string} tab")
+    public void theUserClicksOnTab(String tabName) {
+        clinicalIndicationsTestSelect.selectTab(tabName);
+    }
+
+    @And("the user clicks on view more icon")
+    public void theUserClicksOnViewMoreIcon() {
+        Click.element(driver, clinicalIndicationsTestSelect.testInfoIcon);
+    }
+
+    @And("the user click on Go to test page button")
+    public void theUserClickOnGoToTestPageButtom() {
+        Wait.seconds(1);
+        Click.element(driver, clinicalIndicationsTestSelect.goToTestPageButtonFromPopup);
     }
 }
