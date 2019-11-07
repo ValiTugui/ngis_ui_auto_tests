@@ -13,8 +13,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,17 +92,16 @@ public class TumoursSteps extends Pages {
 
     }
 
-
-    @Then("information {string} and {string} are displayed that a test cannot start without a tumour")
-    public void informationAndAreDisplayedThatATestCannotStartWithoutATumour(String subTitleOne, String subTitleTwo) {
-
-        Debugger.println("Actual Tumour subtitle : " + tumoursPage.TumourSubTitle.getText());
-
-        Debugger.println("Expected Tumour subtitleOne : " + subTitleOne);
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleOne));
-
-        Debugger.println("Expected Tumour subtitleTwo : " + subTitleTwo);
-        Assert.assertTrue(tumoursPage.TumourSubTitle.getText().contains(subTitleTwo));
+    @And("an information {string} is displayed that a test cannot start without a tumour")
+    public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
+        Wait.forElementToBeDisplayed(driver, tumoursPage.TumourSubTitle);
+        String actualTumourSubTitle = tumoursPage.TumourSubTitle.getText();
+        Debugger.println("Actual Tumour subtitle : " + actualTumourSubTitle);
+        String[] expectedTumourSubTitle = tumourInformation.split("-");
+        for  (int i = 0; i < expectedTumourSubTitle.length; i ++) {
+            Assert.assertTrue(actualTumourSubTitle.contains(expectedTumourSubTitle[i]));
+            Debugger.println("Expected SubTitle: " + i + ": " + expectedTumourSubTitle[i]);
+        }
 
     }
 
@@ -113,12 +114,100 @@ public class TumoursSteps extends Pages {
 
     }
 
+
     @And("the user answers all tumour system questions without selecting any tumour type")
     public void theUserAnswersAllTumourSystemQuestionsWithoutSelectingAnyTumourType() {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
         tumoursPage.fillInSpecimenID();
+    }
+
+    @And("the tumours stage is at Add a Tumour page")
+    public void theTumoursStageIsAtAddATumourPage() {
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+    }
+
+
+    @Then("the error messages for the tumour mandatory fields are displayed")
+    public void theErrorMessagesForTheTumourMandatoryFieldsAreDisplayed(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        for (int i = 0; i < list.size(); i++) {
+            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
+            Assert.assertEquals(list.get(i).get("errorMessageHeader"), Actions.getText(tumoursPage.errorMessages.get(i)));
+        }
+    }
+
+    @And("the tumour stage is on select or edit a tumour page showing")
+    public void theTumourStageIsOnSelectOrEditATumourPageShowing(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+
+        Debugger.println("Expected :" + list.get(0).get("pageTitleHeader") + " Actual:" + referralPage.getTheCurrentPageTitle());
+        Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
+
+        Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + Actions.getText(tumoursPage.successNotification));
+        Assert.assertEquals(list.get(0).get("notificationTextHeader"), Actions.getText(tumoursPage.successNotification));
+
+        Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + Actions.getText(tumoursPage.tumourInformationText));
+        Assert.assertEquals(list.get(0).get("textInformationHeader"), Actions.getText(tumoursPage.tumourInformationText));
+
+        Debugger.println("Expected :" + list.get(0).get("linkToAddANewTumourHeader") + " Actual:" + Actions.getText(tumoursPage.addAnotherTumourLink));
+        Assert.assertEquals(list.get(0).get("linkToAddANewTumourHeader"), Actions.getText(tumoursPage.addAnotherTumourLink));
+
+        int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
+        int actualListOfTumours = tumoursPage.listOfTumoursInTheTable.size();
+        Debugger.println("Expected: " + list.get(0).get("NumberOfTumoursAdded") + " Actual: " + tumoursPage.listOfTumoursInTheTable.size());
+        Assert.assertEquals(expectedListOfTumours, actualListOfTumours);
+    }
+
+
+    @And("information text are displayed on the select or edit a tumour page")
+    public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
+
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedInformationText = new ArrayList<>();
+        List<String> actualInformationText = tumoursPage.getInformationTextOnEditTumourPage();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedInformationText.add(expectedList.get(i).get("informationTextHeader"));
+            Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
+        }
+
+        for (int i = 0; i < actualInformationText.size(); i++) {
+            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
+        }
+
+        Assert.assertEquals(expectedInformationText.get(0), actualInformationText.get(0));
+        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(1)));
+        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(2)));
+        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(3)));
+        Assert.assertTrue(actualInformationText.get(2).contains(expectedInformationText.get(4)));
+    }
+
+    @And("on the select or edit a tumour page, the tumour table list shows the column names")
+    public void onTheSelectOrEditATumourPageTheTumourTableListShowsTheColumnNames(DataTable dataTable) {
+
+        List<List<String>> list = dataTable.asLists(String.class);
+        List<String> headerRow = list.get(1);  //i starts from 1 because i=0 represents the header
+        List<String> expectedHeaders = new ArrayList<>();
+        List<String> actualHeaders = new ArrayList<>();
+
+        for (int i = 0; i < headerRow.size(); i++) {
+            expectedHeaders.add(headerRow.get(i));
+        }
+        Debugger.println("Expected Table columns: " + expectedHeaders);
+        actualHeaders = tumoursPage.getTumourTableHeaders();
+        Debugger.println("Actual Table columns: " + actualHeaders.toString());
+        Assert.assertEquals(expectedHeaders, actualHeaders);
+    }
+
+    @And("the new tumour is added as a list, with a checked radio button and a chevron right arrow icon")
+    public void theNewTumourIsAddedAsAListWithACheckedRadioButtonAndAChevronRightArrowIcon() {
+
+        Assert.assertTrue(tumoursPage.editTumourArrow.isDisplayed());
+        Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 
 

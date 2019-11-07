@@ -115,7 +115,6 @@ public class Actions {
     }
 
     public static void closeBrowser(WebDriver driver) {
-        SeleniumDriver sd = new SeleniumDriver();
         driver.close();
     }
 
