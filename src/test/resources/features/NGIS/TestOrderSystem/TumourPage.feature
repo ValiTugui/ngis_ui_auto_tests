@@ -256,7 +256,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions fields and select a new tumour type "<tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
@@ -294,7 +294,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions fields and select a new tumour type "<tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
