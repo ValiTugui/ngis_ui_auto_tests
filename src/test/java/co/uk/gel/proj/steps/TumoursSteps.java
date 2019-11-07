@@ -43,8 +43,8 @@ public class TumoursSteps extends Pages {
         tumoursPage.clearDateOfDiagnosisFields();
     }
 
-    @And("the user answers all tumour system questions by selecting tumour type {string} and leaves date of diagnosis field blank")
-    public void theUserAnswersAllTumourSystemQuestionsBySelectingTumourTypeAndLeavesDateOfDiagnosisFieldBlank(String tumourType) {
+    @And("the user answers all tumour system questions fields, select tumour type {string} and leaves date of diagnosis field blank")
+    public void theUserAnswersAllTumourSystemQuestionsFieldsSelectTumourTypeAndLeavesDateOfDiagnosisFieldBlank(String tumourType) {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.selectTumourType(tumourType);
@@ -52,8 +52,8 @@ public class TumoursSteps extends Pages {
 
     }
 
-    @And("the user answers the tumour system questions selecting tumour type {string}")
-    public void theUserAnswersTheTumourSystemQuestionsSelectingTumourType(String tumourType) {
+    @And("the user answers the tumour system questions fields and select a tumour type {string}")
+    public void theUserAnswersTheTumourSystemQuestionsFieldsAndSelectATumourType(String tumourType) {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
@@ -218,8 +218,8 @@ public class TumoursSteps extends Pages {
         tumoursPage.clickEditTumourArrow();
     }
 
-    @And("the user edits the tumour system questions by selecting tumour type {string}")
-    public void theUserEditsTheTumourSystemQuestionsBySelectingTumourType(String tumourType) {
+    @And("the user edits the tumour system questions fields and select a new tumour type {string}")
+    public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
         tumoursPage.editTumourDescription();
         tumoursPage.editDateOfDiagnosis();
         tumoursPage.selectTumourType(tumourType);

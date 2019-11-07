@@ -79,7 +79,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     When the user navigates to the "<stage>" stage
-    And the user answers all tumour system questions by selecting tumour type "<tumour_type>" and leaves date of diagnosis field blank
+    And the user answers all tumour system questions fields, select tumour type "<tumour_type>" and leaves date of diagnosis field blank
     And the user clicks the Save and Continue button
     Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
 
@@ -94,7 +94,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -114,7 +114,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -134,7 +134,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     And the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
 # moving to another Stage e.g Samples page
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
@@ -153,7 +153,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     And the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
    #  User click on refresh button
     When the user attempts to navigate away by clicking "<browser_exit1>"
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
@@ -163,7 +163,7 @@ Feature: Tumours Page
     Then the user sees a prompt alert "<partOfMessage2>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl2>" page
    #  User click on logout button
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     When the user clicks the Log out button
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit3>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
@@ -213,7 +213,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -247,7 +247,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -256,7 +256,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions by selecting tumour type "<tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
@@ -285,7 +285,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -294,7 +294,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions by selecting tumour type "<tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
@@ -313,7 +313,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
