@@ -275,8 +275,8 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+      | stage   | tumour_type              | presentationType | searchTerm |  updated_tumour_type  |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -303,8 +303,8 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary|
 
 
   @COMP6_TO_TumourCreate @LOGOUT
