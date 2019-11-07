@@ -208,4 +208,9 @@ public class ReferralSteps extends Pages {
         Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
 
     }
+
+    @And("the {string} stage is marked as Mandatory To Do")
+    public void theStageIsMarkedAsMandatoryToDo(String stage) {
+        Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+    }
 }

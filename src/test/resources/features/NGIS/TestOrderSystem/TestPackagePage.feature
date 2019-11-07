@@ -101,6 +101,7 @@ Feature: Test Package page
     Examples:
       | stage        | priority | new_stage             | number_of |
       | Test package | Routine  | Responsible clinician | 1         |
+
   @E2EUI-1123 @NTS-3070 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
@@ -132,3 +133,43 @@ Feature: Test Package page
     Examples:
       | stage        | priority | count | new_stage             | number_of |
       | Test package | Urgent   | 2     | Responsible clinician | 1         |
+
+  @E2EUI-1547 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do - verify permissible Number of Participants
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    And the user navigates to the "<stage>" stage
+    And the Test Package page header is shown as "<title>"
+    And The user sees a drop down box for the Total number of participants
+    And the drop down box is displayed as empty by default
+    When the user clicks on the drop down box to see the values between "<minParticipants>" - "<maxParticipants>" displayed
+    And the "<stage>" stage is marked as Mandatory To Do
+    When the user clicks the Save and Continue button
+    Then the "<stage>" stage is marked as Mandatory To Do
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
+    Examples:
+      | stage        | title                    | minParticipants | maxParticipants | new_stage             | number_of |
+      | Test package | Confirm the test package | 1               | 8               | Responsible clinician | 1         |
+
+
+  @E2EUI-1547 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    And the user navigates to the "<stage>" stage
+    And the Test Package page header is shown as "<title>"
+    And The user sees a drop down box for the Total number of participants
+    And the drop down box is displayed as empty by default
+    When the user does not select one of the values
+    And the user sees an error message "<errorMessage>"
+    And the "<stage>" stage is marked as Mandatory To Do
+    And the user selects the number of participants: "<count>"
+    When the user clicks the Save and Continue button
+    Then the "<stage>" stage is marked as Completed
+    And the "<new_stage>" stage is selected
+    And the correct "<number_of>" tests are saved to the referral in  "<stage>"
+    And the correct "<count>" of participants are saved to the referral in "<stage>"
+    Examples:
+      | stage        | title                    | errorMessage                                                     | count | new_stage             | number_of |
+      | Test package | Confirm the test package | Select the total number of participants you expect for this test | 2     | Responsible clinician | 1         |
