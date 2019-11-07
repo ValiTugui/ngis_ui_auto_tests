@@ -205,9 +205,6 @@ public class HomePage {
 
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
-    @FindBy(xpath = "//div [contains (@class, 'styles_contentContainer__3xbAF')][2]")
-    public WebElement NGISVersion;
-
     @FindBy(className = "styles_link__2terw")
     public List<WebElement> tabResults;
 
@@ -283,10 +280,4 @@ public class HomePage {
     public boolean testResultsAreLoaded() {
         return tabResults.size() == 10;
     }
-
-    public boolean isNGISVersionPresent() {
-        Debugger.println(NGISVersion.getText());
-        return NGISVersion.getText().contains("NGIS");
-    }
-
 }
