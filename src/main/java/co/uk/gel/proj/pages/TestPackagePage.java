@@ -81,7 +81,6 @@ public class TestPackagePage {
 
 
     public WebElement numberOfParticipants;
-    //@FindBy(xpath = "//input[@id='numberOfParticipants']")
 
     @FindBy(xpath = "//*[contains(@id,'numberOfParticipants')]//following::path")
     public WebElement clearNumberOfParticipantsButton;
