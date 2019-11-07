@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
@@ -15,6 +16,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TumoursPage {
@@ -102,6 +104,30 @@ public class TumoursPage {
 
     @FindBy(css = "*[class*='checkbox-row__arrow']")
     public WebElement editTumourArrow;
+
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    public WebElement tumourSuccessNotification;
+
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
+    public WebElement tumourInformationText;
+
+    @FindBy(css = "div[class*='tumour-list__sub-title']")
+    public List<WebElement> tumourInformationTextList;
+
+    @FindBy(xpath = "(//div[contains(@class,'tumour-list__sub-title')])[3]")
+    public WebElement addANewTumourTextInformation;
+
+    @FindBy(xpath = "//table/thead/tr/th[text()!='']")
+    public List<WebElement> tumourTableHeaders;
+
+    @FindBy(xpath = "//span[contains(@class,'checkmark-text__checkmark--checked')]")
+    public WebElement checkedRadioButton;
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public List<WebElement> newlyAddedTumourDetailsList;
+
+    @FindBy(xpath = "//table//tbody/tr")
+    public List<WebElement> listOfTumoursInTheTable;
 
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
@@ -211,5 +237,86 @@ public class TumoursPage {
         dateYear.isDisplayed();
 
         return true;
+    }
+
+
+    public List<String> getTumourTableHeaders()
+    {
+        List<String> actualTableHeaders = new ArrayList<>();
+        for(WebElement header : tumourTableHeaders)
+        {
+            actualTableHeaders.add(header.getText().trim());
+        }
+        return actualTableHeaders;
+    }
+
+
+    public List<String> getInformationTextOnEditTumourPage()
+    {
+        List<String> actualInformationText = new ArrayList<>();
+        for(WebElement header : tumourInformationTextList)
+        {
+            actualInformationText.add(header.getText().trim());
+        }
+        return actualInformationText;
+    }
+
+    public void clickEditTumourArrow() {
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        Wait.seconds(3);
+        Actions.clickElement(driver, editTumourArrow);
+    }
+
+    public void editTumourDescription() {
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        Actions.clearTextField(descriptiveName);
+        fillInTumourDescription();
+    }
+
+    public void editDateOfDiagnosis() {
+        Actions.clearField(dateDay);
+        Actions.clearField(dateMonth);
+        Actions.clearField(dateYear);
+        fillInDateOfDiagnosis();
+    }
+
+    public void editSpecimenID() {
+        Actions.clearTextField(pathologyReportId);
+        fillInSpecimenID();
+    }
+
+    public List<String> getExpectedTumourTestDataForAddATumourPage() {
+        String dayFormatToDoubleDigit;
+        List<String> expectedTumourTestData = new ArrayList<>();
+
+        expectedTumourTestData.add(tumourDetails.getTumourDescription());
+        expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
+
+        // set day format from "d" 1 to "dd" 01
+        int result = Integer.parseInt(tumourDetails.getDay());
+        if (result < 10) {
+            dayFormatToDoubleDigit = "0" + tumourDetails.getDay();
+        } else {
+            dayFormatToDoubleDigit = tumourDetails.getDay();
+        }
+        String expectedDateOfDiagnosed = dayFormatToDoubleDigit + "-" + TestUtils.convertMonthNumberToMonthForm(tumourDetails.getMonth()) + "-" + tumourDetails.getYear();
+
+        expectedTumourTestData.add(expectedDateOfDiagnosed);
+        expectedTumourTestData.add(tumourDetails.getTumourType());
+
+        Debugger.println("Method Expected TumourTestData : " + expectedTumourTestData);
+        return expectedTumourTestData;
+
+    }
+
+    public List<String> getActualTumourTestDataForAddATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        List<String> actualTumourTestData = new ArrayList<>();
+        for (WebElement tumourDetails : newlyAddedTumourDetailsList) {
+            actualTumourTestData.add(tumourDetails.getText().trim());
+        }
+        Debugger.println("Method Actual TumourTestData " + actualTumourTestData);
+        return actualTumourTestData;
     }
 }

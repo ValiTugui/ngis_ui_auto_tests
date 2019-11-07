@@ -169,6 +169,14 @@ public class ReferralPage<check> {
     public List<WebElement> helix;
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
+    String  stageIsMarkedAsMandatoryToDo= "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String stageIsToDo = "a[href*='" + "dummyStage" + "']";
+    String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
+    String helixIcon = "*[class*='helix']";
+    String mandatoryToDOIconLocator = "todo__required-icon";
+    String currentStageLocator = "todo--is-current";
+    String stageCompleteLocator = "todo--is-complete";
+
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -186,7 +194,7 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
         Click.element(driver, saveAndContinueButton);
         if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector("*[class*='helix']"));
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
     }
 
@@ -230,7 +238,8 @@ public class ReferralPage<check> {
 
     public void navigateToStage(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        WebElement referralStage = toDoList.findElement(By.cssSelector("a[href*='" + getPartialUrl(stage) + "']"));
+        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         Actions.clickElement(driver, referralStage);
     }
@@ -238,10 +247,13 @@ public class ReferralPage<check> {
     public boolean stageIsSelected(String stage) {
         Wait.forURLToContainSpecificText(driver, getPartialUrl(stage));
         Wait.forElementToBeDisplayed(driver, toDoList);
-        WebElement referralStage = toDoList.findElement(By.cssSelector("a[href*='" + getPartialUrl(stage) + "']"));
-        WebElement stageName = toDoList.findElement(By.xpath("//a[contains(@href,'" + getPartialUrl(stage) + "')]//child::span[2]"));
+        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+        webElementLocator = "";
+        webElementLocator = stageName.replace("dummyStage", getPartialUrl(stage));
+        WebElement stageName = toDoList.findElement(By.xpath(webElementLocator));
 
-        boolean check1 = referralStage.getAttribute("class").contains("todo--is-current");
+        boolean check1 = referralStage.getAttribute("class").contains(currentStageLocator);
         boolean check2 = getText(stageName).contains(stage);
 
         if (check1 == true && check2 == true) return true;
@@ -251,11 +263,26 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
-        WebElement referralStage = toDoList.findElement(By.cssSelector("a[href*='" + getPartialUrl(stage) + "']"));
+
+        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
-        boolean status = referralStage.getAttribute("class").contains("todo--is-complete");
+        boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
         if (status == true) return true;
         else return false;
+    }
+
+    public boolean stageIsMandatoryToDo(String stage) {
+        Wait.forElementToBeDisplayed(driver, toDoList);
+        String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
+        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
+        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
+        boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
+        if( isStageStatusIsToDO && isStageHasAsteriskPresent){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public String acknowledgeThePromptAlertPopups(String acknowledgeMessage) {
@@ -283,5 +310,14 @@ public class ReferralPage<check> {
         Actions.clickElement(driver, logoutButton);
     }
 
+
+    public String getTheCurrentPageTitle() {
+        return Actions.getText(pageTitle);
+    }
+
+    public void pageTitleIsDisplayed(String title) {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Assert.assertEquals(title, getText(pageTitle));
+    }
 
 }
