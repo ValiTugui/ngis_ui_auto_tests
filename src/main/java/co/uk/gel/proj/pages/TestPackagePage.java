@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -76,9 +77,11 @@ public class TestPackagePage {
     public WebElement numberOfParticipantsLabel;
 
     @FindBy(id = "numberOfParticipants")
-    public List<WebElement> numberOfParticipantsDropdown;
+    public List<WebElement> numberOfParticipantsDropDown;
+
 
     public WebElement numberOfParticipants;
+    //@FindBy(xpath = "//input[@id='numberOfParticipants']")
 
     @FindBy(xpath = "//*[contains(@id,'numberOfParticipants')]//following::path")
     public WebElement clearNumberOfParticipantsButton;
@@ -95,9 +98,16 @@ public class TestPackagePage {
     @FindBy(css = "*[class*='relationship-tag']")
     public List<WebElement> selectedFamilyMembers;
 
+    @FindBy(css = "[class*='error-message__text'])")
+    public WebElement errorMessageNumberOfParticipants;
+
+    @FindBy(css = "[class*='css-ljit9a-placeholder']")
+    public WebElement participantsFieldPlaceHolder;
+
     private String checkboxValue = "checked";
     private String routine = "Routine";
     private String urgent = "Urgent";
+    private String dropDownBoxValues = "";
 
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
@@ -145,7 +155,7 @@ public class TestPackagePage {
     }
 
     public boolean verifyTotalNumberOfParticipantsDropDownBox() {
-        return numberOfParticipantsDropdown.get(0).isDisplayed();
+        return numberOfParticipantsDropDown.get(0).isDisplayed();
     }
 
     public boolean verifyDefaultSelectedFamilyMembersInfo(String testRelationshipInfo) {
@@ -201,4 +211,51 @@ public class TestPackagePage {
         Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
         return chosenPriorityButton.getText().contains(expectedPriority);
     }
+
+    public boolean verifyNumberOfParticipantsFieldExists(){
+        Wait.forElementToBeDisplayed(driver, numberOfParticipantsLabel);
+        Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
+        return (numberOfParticipantsLabel.isDisplayed() && numberOfParticipantsDropDown.get(0).isDisplayed());
+    }
+
+    public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty(){
+        Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
+        return numberOfParticipantsDropDown.get(0).getText().contains("");
+    }
+
+    public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue){
+        Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+        Actions.clickElement(driver, numberOfParticipants);
+        dropDownBoxValues = numberOfParticipants.getText();
+        return (dropDownBoxValues.contains(String.valueOf(minExpectedValue)) && dropDownBoxValues.contains(String.valueOf(maxExpectedValue)));
+    }
+
+    public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage){
+        Wait.forElementToBeDisplayed(driver, errorMessage);
+        return errorMessage.getText().contains(expectedErrorMessage);
+    }
+
+    public void clearNumberOfParticipants() {
+        if (!getText(numberOfParticipants).contains("Select")) {
+            Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
+            Actions.clickElement(driver, selectTestsHeader);
+            Wait.forElementToBeDisplayed(driver, errorMessage);
+        }
+    }
+
+    public String getText(WebElement element) {
+        Wait.forElementToBeDisplayed(driver, element);
+        return element.getText();
+    }
+
+    public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants){
+        Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+        int actualNumberOfParticipants = Integer.parseInt(numberOfParticipants.getText());
+        if(actualNumberOfParticipants == Integer.parseInt(expectedNumberOfParticipants)){
+            return true;
+        }
+        else return false;
+
+    }
+
 }
