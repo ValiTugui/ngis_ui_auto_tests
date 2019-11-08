@@ -1,3 +1,4 @@
+@paperForm
 Feature: Paper Form page functionalities
 
   Background:
