@@ -81,12 +81,6 @@ public class HomePageSteps extends Pages {
     @And("the user has scrolled down the page to the bottom \\(Footer)")
     public void theUserHasScrolledDownThePageToTheBottomFooter() {
         Actions.scrollToBottom(driver);
-        Wait.forElementToBeDisplayed(driver, homePage.NGISVersion);
-    }
-
-    @Then("the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link")
-    public void theUserCanSeeTheNGISVersionNumberOnTheRightSideBottomOfThePageNextToThePrivacyPolicyLink() {
-        Assert.assertTrue("The NGIS version number is NOT present next to the privacy policy link", homePage.isNGISVersionPresent());
-
+        Wait.forElementToBeDisplayed(driver, globalBehaviourPage.footerText);
     }
 }
