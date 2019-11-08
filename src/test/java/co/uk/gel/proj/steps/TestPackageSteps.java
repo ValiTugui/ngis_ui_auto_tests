@@ -131,4 +131,40 @@ public class TestPackageSteps extends Pages {
         Assert.assertTrue(testPackagePage.verifyTheTestsList(expectedNumberOfTests));
         Assert.assertTrue(testPackagePage.verifyGivenPriorityIsSelected(expectedPriority));
     }
+
+    @And("the drop down box is displayed as empty by default")
+    public void theDropDownBoxIsDisplayedAsEmptyByDefault() {
+        Assert.assertTrue(testPackagePage.verifyNumberOfParticipantsFieldDefaultValueIsEmpty());
+    }
+
+    @And("the user does not select one of the values")
+    public void theUserDoesNotSelectOneOfTheValues() {
+        testPackagePage.setTotalNumberOfParticipantsField(2);
+        testPackagePage.clearNumberOfParticipants();
+    }
+
+    @And("the user sees an error message {string}")
+    public void theUserSeesAnErrorMessage(String errorMessage) {
+        Assert.assertTrue(testPackagePage.verifyErrorMessageInTotalNumberOfParticipants(errorMessage));
+    }
+
+    @When("the user clicks on the drop down box to see the values between {string} - {string} displayed")
+    public void theUserClicksOnTheDropDownBoxToSeeTheValuesBetweenDisplayed(String minValueParticipantsDropBox, String maxValueParticipantsDropBox) {
+        int intMinValueParticipantsDropBox = Integer.parseInt(minValueParticipantsDropBox);
+        int intMaxValueParticipantsDropBox = Integer.parseInt(maxValueParticipantsDropBox);
+        Assert.assertTrue(testPackagePage.verifyTheValuesShownInNumberOfParticipantsField(intMinValueParticipantsDropBox, intMaxValueParticipantsDropBox));
+
+
+    }
+
+    @And("The user sees a drop down box for the Total number of participants")
+    public void theUserSeesADropDownBoxForTheTotalNumberOfParticipants() {
+        Assert.assertTrue(testPackagePage.verifyNumberOfParticipantsFieldExists());
+    }
+
+    @And("the correct {string} of participants are saved to the referral in {string}")
+    public void theCorrectOfParticipantsAreSavedToTheReferralIn(String participantsCount, String stage) {
+        referralPage.navigateToStage(stage);
+        Assert.assertTrue(testPackagePage.verifyTheNumberOfParticipants(participantsCount));
+    }
 }
