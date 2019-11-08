@@ -56,7 +56,7 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(css = "*[class*='testCard']")
     public List<WebElement> testsFromTestPackageList;
 
-    @FindBy(className = "styles_infoIcon__1tKgx")
+    @FindBy(xpath = "//*[contains(@class,'styles_infoIcon')]")
     public WebElement testInfoIcon;
 
     @FindBy(css = "g[id*='Illustration/blue/test']")
@@ -83,13 +83,13 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//div[contains(@class,'back')]//descendant::a")
     public WebElement backToSearch;
 
-    @FindBy(className = "styles_helix__1AyYD")
+    @FindBy(xpath = "//*[contains(@class,'styles_helix')]")
     public List<WebElement> loadingWheel;
 
     @FindBy(css = "h2[class*='relatedContainer__header']")
     public WebElement loadingText;
 
-    @FindBy(xpath = "//div [contains (@class, 'styles_relatedContainer__3Ma3o')]/ul")
+    @FindBy(xpath = "//*[contains (@class, 'styles_relatedContainer')]/ul")
     public WebElement clinicalIndicationsResultContainer;
 
     public void clickStartReferralButton() {
