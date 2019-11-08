@@ -200,10 +200,10 @@ public class PaperFormPage {
     @FindBy(css = "*[class*='tumourWarning']")
     public WebElement cancerOfflineOrderwarningBanner;
 
-    @FindBy(className = "styles_list__1njw4")
+    @FindBy(xpath = "//*[contains(@class,'styles_list')]")
     public WebElement offlineOrderContainer;
 
-    @FindBy(xpath = "//*[contains(@class,'styles_card__3zIvG')]/label")
+    @FindBy(xpath = "//*[contains(@class,'styles_card')]/label")
     public WebElement testList;
 
     String entitySuggestionLocatior = "div[class*='suggestions']";
