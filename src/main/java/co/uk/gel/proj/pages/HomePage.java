@@ -205,7 +205,7 @@ public class HomePage {
 
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
-    @FindBy(className = "styles_link__2terw")
+    @FindBy(xpath = "//*[contains(@class, 'styles_link')]")
     public List<WebElement> tabResults;
 
 
@@ -278,6 +278,6 @@ public class HomePage {
     }
 
     public boolean testResultsAreLoaded() {
-        return tabResults.size() == 10;
+        return tabResults.size()>0;
     }
 }
