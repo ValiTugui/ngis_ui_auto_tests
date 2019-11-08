@@ -95,7 +95,7 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='alertWarning']")
     public WebElement warningBanner;
 
-    @FindBy (xpath = "//div [contains (@class, 'styles_content__3wxNJ')]/strong")
+    @FindBy (xpath = "//div [contains (@class, 'styles_content')]/strong")
     public WebElement warningBannerText;
 
     @FindBy(css = "div[class*='body']")
