@@ -5,7 +5,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -257,6 +256,5 @@ public class TumoursSteps extends Pages {
         Debugger.println("Actual TumourTestData on Edit a Tumour Pge:" + actualTumourTestData);
 
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
-        TestUtils.convertMonthFormToMonthNumber("JUL");
     }
 }
