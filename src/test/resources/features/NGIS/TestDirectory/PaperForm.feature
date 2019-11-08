@@ -8,8 +8,8 @@ Feature: Paper Form page functionalities
     And the user clicks the Start referral button
     When the user clicks the PDF order form button
 
-  @E2EUI-1756 @NTS-3193 @v_1 @P0 @COMP1_TD_OrderTests
-  Scenario: Verify 'Consent' is replaced with 'Patient choice' on the Offline Order screen
+  @E2EUI-1756 @E2EUI-1506 @NTS-3195 @v_1 @P0 @COMP1_TD_OrderTests
+  Scenario: Verify Offline Order Page is Displayed
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
