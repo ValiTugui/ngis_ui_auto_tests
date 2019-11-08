@@ -2,6 +2,8 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
+import cucumber.api.java.hu.De;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,7 +56,7 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(css = "*[class*='testCard']")
     public List<WebElement> testsFromTestPackageList;
 
-    @FindBy(xpath = "//*[contains(@class,'testCard')]//child::td[5]")
+    @FindBy(xpath = "//*[contains(@class,'styles_infoIcon')]")
     public WebElement testInfoIcon;
 
     @FindBy(css = "g[id*='Illustration/blue/test']")
@@ -81,13 +83,13 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//div[contains(@class,'back')]//descendant::a")
     public WebElement backToSearch;
 
-    @FindBy(className = "styles_helix__1AyYD")
+    @FindBy(xpath = "//*[contains(@class,'styles_helix')]")
     public List<WebElement> loadingWheel;
 
     @FindBy(css = "h2[class*='relatedContainer__header']")
     public WebElement loadingText;
 
-    @FindBy(xpath = "//div [contains (@class, 'styles_relatedContainer__3Ma3o')]/ul")
+    @FindBy(xpath = "//*[contains (@class, 'styles_relatedContainer')]/ul")
     public WebElement clinicalIndicationsResultContainer;
 
     public void clickStartReferralButton() {
@@ -110,5 +112,53 @@ public class ClinicalIndicationsTestSelectPage {
 
     public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
         Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
+    }
+
+    public boolean isTabSelected(String tabName) {
+        switch (tabName) {
+            case "Eligibility Criteria":
+            case "Clinical Indications": {
+                return clinicalIndicationTabs.get(0).getAttribute("class").contains("activeTab");
+            }
+            case "Test Package":
+            case "Test details": {
+                return clinicalIndicationTabs.get(1).getAttribute("class").contains("activeTab");
+            }
+            case "Further Info":
+            case "Labs": {
+                return clinicalIndicationTabs.get(2).getAttribute("class").contains("activeTab");
+            }
+            case "Order process": {
+                return clinicalIndicationTabs.get(3).getAttribute("class").contains("activeTab");
+            }
+        }
+        return false;
+    }
+
+    public void selectTab(String tabName) {
+        switch (tabName) {
+            case "Eligibility Criteria": {
+                Click.element(driver, clinicalIndicationTabs.get(0));
+                Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
+                break;
+            }
+            case "Test Package": {
+                Click.element(driver, clinicalIndicationTabs.get(1));
+                Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
+                break;
+            }
+            case "Further Info": {
+                Click.element(driver, clinicalIndicationTabs.get(2));
+                Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
+                break;
+            }
+            case "Order process": {
+                Click.element(driver, clinicalIndicationTabs.get(3));
+                Debugger.println(clinicalIndicationTabs.get(3).getAttribute("href"));
+                break;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + tabName);
+        }
     }
 }

@@ -37,4 +37,3 @@ Feature: Paper Form page functionalities
     Then the Offline order page is properly displayed for chosen clinical indication
     And the warning message is present on the Offline order page
     And the warning message contains the text "If there is more than one tumour (distinct tissue mass) to be tested, please complete separate referral forms for each tumour and provide a different identifying description to distinguish them (e.g. 3 o`clock and 12 o`clock)" in the Referral section
-
