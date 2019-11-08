@@ -29,23 +29,23 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the loading wheel is displayed")
     public void theLoadingWheelIsDisplayed() {
-        Assert.assertTrue("The Loading Wheel is Displayed", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
+        Assert.assertTrue("The Loading Wheel is NOT Displayed", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
     }
 
     @And("the text {string} is not displayed")
     public void theTextIsNotDisplayed(String wrongText) {
-        Assert.assertTrue(wrongText + "  is not Displayed", clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(clinicalIndicationsTestSelect.loadingText, wrongText));
+        Assert.assertTrue(wrongText + "  is Displayed", clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(clinicalIndicationsTestSelect.loadingText, wrongText));
     }
 
     @Then("the text {string} is displayed")
     public void theTextIsDisplayed(String correctText) {
-        Assert.assertTrue(correctText + "  is Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
+        Assert.assertTrue(correctText + "  is NOT Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
     }
 
     @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
         clinicalIndicationsTestSelect.waitUntilClinicalIndicationsResultsContainerIsLoaded();
-        Assert.assertTrue("The List of Clinical Indication are Loaded", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
+        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
     }
 
 }
