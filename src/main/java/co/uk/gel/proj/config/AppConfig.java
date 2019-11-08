@@ -19,6 +19,8 @@ public class AppConfig {
     private static String td_private_url;
     private static String to_dashboard_url;
     private static String MYNewName;
+    private static String NGIS_Version_Number;
+    private static String NGIS_Version_URL;
     public static Properties properties = null;
 
     public static void loadAppConfig() {
@@ -46,6 +48,8 @@ public class AppConfig {
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");
         MYNewName = properties.getProperty("MYNewName");
+        NGIS_Version_Number = properties.getProperty("NGIS_Version_Number");
+        NGIS_Version_URL = properties.getProperty("NGIS_Version_URL");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -93,6 +97,13 @@ public class AppConfig {
         }
         return to_dashboard_url;
     }
+
+    public static String getTo_NGISVerion_url() {
+        if (NGIS_Version_URL == null || NGIS_Version_URL.isEmpty()) {
+            loadAppConfig();
+        }
+        return NGIS_Version_URL;
+    }
     public static void setApp_url(String app_url) {
         AppConfig.app_url = app_url;
     }
@@ -115,5 +126,9 @@ public class AppConfig {
 
     public static String getMYNewName() {
         return MYNewName;
+    }
+
+    public static String getNGISVersion() {
+        return NGIS_Version_Number;
     }
 }//end
