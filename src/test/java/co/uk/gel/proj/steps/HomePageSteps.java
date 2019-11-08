@@ -75,7 +75,7 @@ public class HomePageSteps extends Pages {
 
     @Then("various test details are displayed")
     public void variousTestDetailsAreDisplayed() {
-        Assert.assertTrue("Various test details are displayed Properly", homePage.testResultsAreLoaded());
+        Assert.assertTrue("Various test details are NOT displayed Properly", homePage.testResultsAreLoaded());
     }
 
     @And("the user has scrolled down the page to the bottom \\(Footer)")
