@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
@@ -260,4 +261,62 @@ public class TumoursPage {
         return actualInformationText;
     }
 
+    public void clickEditTumourArrow() {
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        Wait.seconds(3);
+        Actions.clickElement(driver, editTumourArrow);
+    }
+
+    public void editTumourDescription() {
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        Actions.clearTextField(descriptiveName);
+        fillInTumourDescription();
+    }
+
+    public void editDateOfDiagnosis() {
+        Actions.clearField(dateDay);
+        Actions.clearField(dateMonth);
+        Actions.clearField(dateYear);
+        fillInDateOfDiagnosis();
+    }
+
+    public void editSpecimenID() {
+        Actions.clearTextField(pathologyReportId);
+        fillInSpecimenID();
+    }
+
+    public List<String> getExpectedTumourTestDataForAddATumourPage() {
+        String dayFormatToDoubleDigit;
+        List<String> expectedTumourTestData = new ArrayList<>();
+
+        expectedTumourTestData.add(tumourDetails.getTumourDescription());
+        expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
+
+        // set day format from "d" 1 to "dd" 01
+        int result = Integer.parseInt(tumourDetails.getDay());
+        if (result < 10) {
+            dayFormatToDoubleDigit = "0" + tumourDetails.getDay();
+        } else {
+            dayFormatToDoubleDigit = tumourDetails.getDay();
+        }
+        String expectedDateOfDiagnosed = dayFormatToDoubleDigit + "-" + TestUtils.convertMonthNumberToMonthForm(tumourDetails.getMonth()) + "-" + tumourDetails.getYear();
+
+        expectedTumourTestData.add(expectedDateOfDiagnosed);
+        expectedTumourTestData.add(tumourDetails.getTumourType());
+
+        Debugger.println("Method Expected TumourTestData : " + expectedTumourTestData);
+        return expectedTumourTestData;
+
+    }
+
+    public List<String> getActualTumourTestDataForAddATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        List<String> actualTumourTestData = new ArrayList<>();
+        for (WebElement tumourDetails : newlyAddedTumourDetailsList) {
+            actualTumourTestData.add(tumourDetails.getText().trim());
+        }
+        Debugger.println("Method Actual TumourTestData " + actualTumourTestData);
+        return actualTumourTestData;
+    }
 }

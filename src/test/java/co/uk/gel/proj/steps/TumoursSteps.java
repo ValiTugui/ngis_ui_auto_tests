@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -211,4 +212,32 @@ public class TumoursSteps extends Pages {
     }
 
 
+    @And("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
+    public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
+
+        tumoursPage.clickEditTumourArrow();
+    }
+
+    @And("the user edits the tumour system questions by selecting tumour type {string}")
+    public void theUserEditsTheTumourSystemQuestionsBySelectingTumourType(String tumourType) {
+        tumoursPage.editTumourDescription();
+        tumoursPage.editDateOfDiagnosis();
+        tumoursPage.selectTumourType(tumourType);
+        tumoursPage.editSpecimenID();
+    }
+
+    @And("on the select or edit a tumour page, the new tumour details are displayed in the tumour table list")
+    public void onTheSelectOrEditATumourPageTheNewTumourDetailsAreDisplayedInTheTumourTableList() {
+
+        List<String> expectedTumourTestData;
+        List<String> actualTumourTestData;
+
+        expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
+        Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
+        actualTumourTestData = tumoursPage.getActualTumourTestDataForAddATumourPage();
+        Debugger.println("Actual TumourTestData:" + actualTumourTestData);
+
+        Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
+
+    }
 }
