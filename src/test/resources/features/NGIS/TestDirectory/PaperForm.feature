@@ -1,4 +1,5 @@
 @paperForm
+@testDirectory
 Feature: Paper Form page functionalities
 
   Background:
