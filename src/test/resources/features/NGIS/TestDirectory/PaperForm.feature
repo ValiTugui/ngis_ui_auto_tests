@@ -16,3 +16,4 @@ Feature: Paper Form page functionalities
     Then the Review test selection page is properly opened and by default a test is selected
     And the user clicks the Continue button again
     Then the Offline order page is properly displayed for chosen clinical indication
+    And The user should be able to see text "Consent" replaced with "Patient choice" Form
