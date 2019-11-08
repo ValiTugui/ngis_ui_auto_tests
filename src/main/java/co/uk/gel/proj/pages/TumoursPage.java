@@ -309,7 +309,7 @@ public class TumoursPage {
 
     }
 
-    public List<String> getActualTumourTestDataForAddATumourPage() {
+    public List<String> getTheTumourDetailsOnTableList() {
 
         Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
         List<String> actualTumourTestData = new ArrayList<>();
@@ -318,5 +318,36 @@ public class TumoursPage {
         }
         Debugger.println("Method Actual TumourTestData " + actualTumourTestData);
         return actualTumourTestData;
+    }
+
+    public List<String> getTheTumourDetailsOnEditATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        List<String> actualTumourDetails = new ArrayList<>();
+
+        actualTumourDetails.add(Actions.getValue(descriptiveName));
+        actualTumourDetails.add(Actions.getValue(dateDay));
+        actualTumourDetails.add(Actions.getValue(dateMonth));
+        actualTumourDetails.add(Actions.getValue(dateYear));
+        actualTumourDetails.add(Actions.getText(tumourType));
+        actualTumourDetails.add(Actions.getValue(pathologyReportId));
+
+        Debugger.println("Actual Tumour Details on Edit a Tumour " + actualTumourDetails);
+        return actualTumourDetails;
+    }
+
+    public List<String> getTheExpectedTumourDetailsForAddATumourPage() {
+
+        List<String> expectedTumourTestData = new ArrayList<>();
+
+        expectedTumourTestData.add(tumourDetails.getTumourDescription());
+        expectedTumourTestData.add(tumourDetails.getDay());
+        expectedTumourTestData.add(tumourDetails.getMonth());
+        expectedTumourTestData.add(tumourDetails.getYear());
+        expectedTumourTestData.add(tumourDetails.getTumourType());
+        expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
+
+        Debugger.println("Expected Test data " + expectedTumourTestData);
+        return expectedTumourTestData;
     }
 }
