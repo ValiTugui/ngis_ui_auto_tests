@@ -3,21 +3,15 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
-import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.pages.TumoursPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
-import org.junit.Test;
 
-import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -234,7 +228,7 @@ public class TumoursSteps extends Pages {
 
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
         Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
-        actualTumourTestData = tumoursPage.getActualTumourTestDataForAddATumourPage();
+        actualTumourTestData = tumoursPage.getTheTumourDetailsOnTableList();
         Debugger.println("Actual TumourTestData:" + actualTumourTestData);
 
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
@@ -250,4 +244,17 @@ public class TumoursSteps extends Pages {
         Assert.assertEquals(expectedPageTitle, actualPageTitle);
     }
 
+    @And("the new tumour details are displayed in the Edit a Tumour page")
+    public void theNewTumourDetailsAreDisplayedInTheEditATumourPage() throws ParseException {
+
+        List<String> expectedTumourTestData;
+        List<String> actualTumourTestData;
+
+        expectedTumourTestData = tumoursPage.getTheTumourDetailsOnEditATumourPage();
+        Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
+        actualTumourTestData = tumoursPage.getTheExpectedTumourDetailsForAddATumourPage();
+        Debugger.println("Actual TumourTestData on Edit a Tumour Pge:" + actualTumourTestData);
+
+        Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
+    }
 }
