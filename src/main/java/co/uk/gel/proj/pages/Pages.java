@@ -38,6 +38,7 @@ public class Pages implements Navigable {
     protected DashBoardPage dashBoardPage;
     protected FamilyMemberSearchPage familyMemberSearchPage;
     protected GlobalBehaviourPage globalBehaviourPage;
+    protected FamilyMemberDetailsPage familyMemberDetailsPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -61,6 +62,7 @@ public class Pages implements Navigable {
         dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
         familyMemberSearchPage = PageFactory.initElements(driver, FamilyMemberSearchPage.class);
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
+        familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

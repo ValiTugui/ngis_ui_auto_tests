@@ -90,4 +90,37 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
         familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
     }
+
+    @And("the user search the family member with the specified details {string}")
+    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
+        familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+    }
+
+    @Then("the message will be displayed as {string} in {string} for the invalid field")
+    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
+       familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
+    }
+
+    @And("the user selects the patient search result tab")
+    public void theUserSelectsThePatientSearchResultTab() {
+        familyMemberDetailsPage.clickPatientCard();
+    }
+
+    @When("the user clicks the Save and Continue button in family member details page")
+    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
+        familyMemberDetailsPage.clickOnSaveAndContinueButton();
+    }
+    @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
+    public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        Assert.assertTrue(testResult);
+    }
 }//end

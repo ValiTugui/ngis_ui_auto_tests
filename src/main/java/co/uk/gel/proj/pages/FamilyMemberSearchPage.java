@@ -6,6 +6,8 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +16,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class FamilyMemberSearchPage {
 
@@ -94,11 +98,11 @@ public class FamilyMemberSearchPage {
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement genderValue;
+
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
     static String searchString = "";
-
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -150,6 +154,7 @@ public class FamilyMemberSearchPage {
     public void clickNoButton() {
         seleniumLib.clickOnWebElement(noButton);
     }
+
     public void clickYesButton() {
         seleniumLib.clickOnWebElement(yesButton);
     }
@@ -184,29 +189,24 @@ public class FamilyMemberSearchPage {
         seleniumLib.clickOnWebElement(searchButton);
     }
 
-    public String getText(WebElement element) {
-        Wait.forElementToBeDisplayed(driver, element);
-        return element.getText();
-    }
-
-    public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
+   public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("NHS Number is required.", getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a day", getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a month", getText(validationErrors.get(2)));
-        Assert.assertEquals("Enter a year", getText(validationErrors.get(3)));
+        Assert.assertEquals("NHS Number is required.", seleniumLib.getText(validationErrors.get(0)));
+        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(1)));
+        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(2)));
+        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(3)));
         Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
     }
 
     public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("Enter a day", getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a month", getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a year", getText(validationErrors.get(2)));
-        Assert.assertEquals("First name is required.", getText(validationErrors.get(3)));
-        Assert.assertEquals("Last name is required.", getText(validationErrors.get(4)));
-        Assert.assertEquals("Gender is required.", getText(validationErrors.get(5)));
+        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(0)));
+        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(1)));
+        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(2)));
+        Assert.assertEquals("First name is required.", seleniumLib.getText(validationErrors.get(3)));
+        Assert.assertEquals("Last name is required.", seleniumLib.getText(validationErrors.get(4)));
+        Assert.assertEquals("Gender is required.", seleniumLib.getText(validationErrors.get(5)));
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
@@ -255,4 +255,77 @@ public class FamilyMemberSearchPage {
         searchString = "You’ve searched for "+NgisPatientTwo.FIRST_NAME+", "+NgisPatientTwo.LAST_NAME+", "+NgisPatientTwo.GENDER+", "+NgisPatientTwo.YEAR_OF_BIRTH+"-"+NgisPatientTwo.MONTH_OF_BIRTH+"-"+NgisPatientTwo.DAY_OF_BIRTH;
         seleniumLib.clickOnWebElement(searchButton);
     }
+
+    public void searchFamilyMemberWithGivenParams(String searchParams) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "NHSNumber": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        nhsNumber.sendKeys(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "DOB": {
+                    String dobValue = paramNameValue.get(key);
+                    if(dobValue != null && !dobValue.isEmpty()) {
+                        String[] dobSplit = dobValue.split("-");
+                        dateDay.sendKeys(dobSplit[0]);
+                        dateMonth.sendKeys(dobSplit[1]);
+                        dateYear.sendKeys(dobSplit[2]);
+                    }
+                    break;
+                }
+                case "FirstName": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        firstName.sendKeys(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "LastName": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        lastName.sendKeys(paramNameValue.get(key));
+                    }
+                    break;
+                }
+                case "Gender": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        genderButton.click();
+                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                    }
+                    break;
+                }
+                case "Postcode": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        postcode.sendKeys(paramNameValue.get(key));
+                    }
+                    break;
+                }
+            }//switch
+        }//for
+        seleniumLib.clickOnWebElement(searchButton);
+    }//method
+
+    public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
+        try {
+            String actualMessage = seleniumLib.getText(validationErrors.get(0));
+            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                return false;
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = validationErrors.get(0).getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from validating Error Message "+exp);
+            return false;
+        }
+
+    }
+
 }//end
