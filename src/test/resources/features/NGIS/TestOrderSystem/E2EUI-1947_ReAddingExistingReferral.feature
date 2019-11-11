@@ -13,7 +13,7 @@ Feature: FamilyMember search page
     Then the message should display as "<ErrorMessage1>" and "<ErrorMessage2>" along with search string
 
     Examples:
-      | stage          | ErrorMessage1                                      | ErrorMessage2                                      |
+      | stage          | ErrorMessage1                                      | ErrorMessage2                                       |
       | Family members | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @COMP8_TO_Familymembers
@@ -24,5 +24,5 @@ Feature: FamilyMember search page
     Then the message should display as "<ErrorMessage1>" and "<ErrorMessage2>" along with search string
 
     Examples:
-     | ErrorMessage1                                      | ErrorMessage2                                      |
-     | That person has already been added to the referral | Check that all details have been entered correctly. |
+      | ErrorMessage1                                      | ErrorMessage2                                       |
+      | That person has already been added to the referral | Check that all details have been entered correctly. |

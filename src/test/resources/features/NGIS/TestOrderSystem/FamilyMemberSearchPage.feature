@@ -34,8 +34,8 @@ Feature: FamilyMember search page
     Then the mandatory fields should be highlighted with a red mark in family member search page with No option
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_05 @NTS-<TODO> @E2EUI-1249 @v_1 @P0
-  Scenario Outline:NTS-3207: Verify the family member search without providing first name displays correct error message
+    @familyMemberSearchPage_05 @NTS-3234 @E2EUI-1249 @v_1 @P0
+  Scenario Outline:NTS-3234: Verify the family member search without providing first name displays correct error message
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
@@ -45,12 +45,11 @@ Feature: FamilyMember search page
       | DOB=23-03-2011:LastName=StaMbukdelifschitZ:Gender=Female | First name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_06 @NTS-<TODO> @E2EUI-1394 @v_1 @P0
-  Scenario Outline:NTS-3207: Verify the family member search without providing first name displays correct error message
+    @familyMemberSearchPage_06 @NTS-3233 @E2EUI-1394 @v_1 @P0
+  Scenario Outline:NTS-3233: Verify the family member search with invalid NHS Number displays correct error message
     When the user clicks the Yes button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
-    ##Do not provide first name in the search details
     Examples:
       | SearchDetails  | ErrorMessage                                      | MessageColor |
       | NHSNumber=1234 | Please enter your full NHS Number (10 characters) | #dd2509      |
