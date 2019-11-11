@@ -108,4 +108,9 @@ public class PaperFormSteps extends Pages {
         Click.element(driver, paperFormPage.clinicalCardCheckbox);
         Click.element(driver, paperFormPage.continueButton.get(0));
     }
+
+    @And("the user should be able to see text {string} under Review Test Selection heading")
+    public void theUserShouldBeAbleToSeeTextUnderReviewTestSelectionHeading(String headerText) {
+        Assert.assertTrue("Header Text DO NOT contain the correct text", paperFormPage.checkTheReviewSelectionPageHeaderText(headerText));
+    }
 }
