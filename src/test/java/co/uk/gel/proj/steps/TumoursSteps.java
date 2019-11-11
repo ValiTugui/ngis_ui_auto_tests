@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -9,6 +10,7 @@ import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.text.ParseException;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TumoursSteps extends Pages {
+    SeleniumLib seleniumLib = new SeleniumLib(driver);
 
     public TumoursSteps(SeleniumDriver driver) {
         super(driver);
@@ -94,7 +97,7 @@ public class TumoursSteps extends Pages {
         String actualTumourSubTitle = tumoursPage.TumourSubTitle.getText();
         Debugger.println("Actual Tumour subtitle : " + actualTumourSubTitle);
         String[] expectedTumourSubTitle = tumourInformation.split("-");
-        for  (int i = 0; i < expectedTumourSubTitle.length; i ++) {
+        for (int i = 0; i < expectedTumourSubTitle.length; i++) {
             Assert.assertTrue(actualTumourSubTitle.contains(expectedTumourSubTitle[i]));
             Debugger.println("Expected SubTitle: " + i + ": " + expectedTumourSubTitle[i]);
         }
@@ -143,8 +146,16 @@ public class TumoursSteps extends Pages {
         Debugger.println("Expected :" + list.get(0).get("pageTitleHeader") + " Actual:" + referralPage.getTheCurrentPageTitle());
         Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
 
-        Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + Actions.getText(tumoursPage.successNotification));
-        Assert.assertEquals(list.get(0).get("notificationTextHeader"), Actions.getText(tumoursPage.successNotification));
+        if (list.get(0).get("notificationTextHeader").equalsIgnoreCase("None")) { //assert that notification success is not displayed
+            // Boolean flagStatus =  tumoursPage.checkNotificationElementIsNotPresent();
+            boolean flagStatus = seleniumLib.isElementPresent(tumoursPage.successNotification);
+            Debugger.println("Success notification Element is displayed but it's not meant to be displayed " + flagStatus);
+            Assert.assertFalse("Success notification Element is not displayed", flagStatus);
+
+        } else {
+            Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + Actions.getText(tumoursPage.successNotification));
+            Assert.assertEquals(list.get(0).get("notificationTextHeader"), Actions.getText(tumoursPage.successNotification));
+        }
 
         Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + Actions.getText(tumoursPage.tumourInformationText));
         Assert.assertEquals(list.get(0).get("textInformationHeader"), Actions.getText(tumoursPage.tumourInformationText));
@@ -246,7 +257,7 @@ public class TumoursSteps extends Pages {
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")
-    public void theNewTumourDetailsAreDisplayedInTheEditATumourPage() throws ParseException {
+    public void theNewTumourDetailsAreDisplayedInTheEditATumourPage() {
 
         List<String> expectedTumourTestData;
         List<String> actualTumourTestData;
@@ -257,6 +268,17 @@ public class TumoursSteps extends Pages {
         Debugger.println("Actual TumourTestData on Edit a Tumour Pge:" + actualTumourTestData);
 
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
-        TestUtils.convertMonthFormToMonthNumber("JUL");
+
     }
+
+    @And("the success notification is displayed {string}")
+    public void theSuccessNotificationIsDisplayed(String notificationText) {
+
+        String actualNotificationText = tumoursPage.successNotificationIsDisplayed();
+        Debugger.println("Actual Notification text :" + actualNotificationText);
+
+        Debugger.println("Expected Notification text :" + notificationText);
+
+    }
+
 }
