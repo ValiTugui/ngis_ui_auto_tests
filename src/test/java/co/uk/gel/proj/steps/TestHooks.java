@@ -42,7 +42,11 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
+    }
 
+    @Before
+    public void getNGISVersion() {
+        globalBehaviourPage.getNGISVersion();
     }
 
     @Before("@LOGOUT_BEFORE_TEST")
@@ -88,7 +92,7 @@ public class TestHooks extends Pages {
         Debugger.println("deleted cookies");
         driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
         try {
-           if(isAlertPresent(driver)){
+            if (isAlertPresent(driver)) {
                 acceptAlert(driver);
             }
             driver.manage().deleteAllCookies();

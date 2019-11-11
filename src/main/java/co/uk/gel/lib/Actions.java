@@ -22,6 +22,10 @@ public class Actions {
         dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
     }
 
+    public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index){
+        dropDownValues.get(index).click();
+    }
+
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
         int index = random.nextInt(dropdownValues.size() - 1);
         dropdownValues.get(index).click();

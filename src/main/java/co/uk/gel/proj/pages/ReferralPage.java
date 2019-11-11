@@ -167,6 +167,9 @@ public class ReferralPage<check> {
 
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
+    //Family Member Search
+    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    public WebElement addFamilyMember;
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
@@ -319,6 +322,11 @@ public class ReferralPage<check> {
     public void pageTitleIsDisplayed(String title) {
         Wait.forElementToBeDisplayed(driver, pageTitle);
         Assert.assertEquals(title, getText(pageTitle));
+    }
+
+    public void navigateToFamilyMemberSearchPage(){
+        Wait.forElementToBeDisplayed(driver,addFamilyMember);
+        Actions.clickElement(driver,addFamilyMember);
     }
 
 }
