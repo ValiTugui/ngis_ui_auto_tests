@@ -204,7 +204,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-
         nhsNumber.sendKeys(nhsNo);
         dateDay.sendKeys(dayOfBirth);
         dateMonth.sendKeys(monthOfBirth);
@@ -480,7 +479,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void fillInValidSecondPatientDetailsUsingNOFields(String searchParams) {
-
         //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
         // Extract the patient details from the example-table
 
