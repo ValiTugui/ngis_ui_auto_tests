@@ -693,11 +693,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean windowTitleValidation(String titleText) {
         String actual = driver.getTitle();
-        if (actual.equalsIgnoreCase(titleText)) {
-            return true;
-        } else {
-            return false;
-        }
+        return actual.equalsIgnoreCase(titleText);
     }
 
     public void fillInNonExistingPatientDetailsUsingNHSNumberAndDOB() {

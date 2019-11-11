@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -40,22 +41,21 @@ public class HomePageSteps extends Pages {
         homePage.selectFirstEntityFromResultList();
     }
 
+    @And("the user types in the CI term  in the search field")
+    public void theUserTypesInTheCITermInTheSearchField(List<String> searchTerms) {
+        homePage.typeInSearchField(searchTerms.get(0));
+        homePage.clickSearchIconFromSearchField();
+    }
+
     @Then("the Test Directory homepage is displayed")
     public void theTestDirectoryHomepageIsDisplayed() {
         homePage.TestDirectoryHomePageIsDisplayed();
     }
 
-    @When("^a user clicks on any search filter$")
-    public void userClicksOnAnySearchFilter() {
-        homePage.rareAndInheritedDiseasesChkBox.click();
-        homePage.tumorChkBox.click();
-    }
-
-
     @Then("^the search results have been displayed$")
     public void searchResultsDisplays() throws InterruptedException {
-        homePage.rareAndInheritedDiseasesSearchResult();
-        homePage.tumorSearchResult();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
     }
 
     @And("^the number of results shown in each filters & total results should match$")
@@ -66,13 +66,21 @@ public class HomePageSteps extends Pages {
         Assert.assertEquals(a, b + c);
     }
 
-    @When("the user has selected a test {string}")
-    public void theUserSelectsATest(String searchTerm) {
+    @And("the user selects the Tests tab")
+    public void theUserSelectsTheTestsTab() {
         homePage.testsTab.click();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+    }
+
+    @Then("various test details are displayed")
+    public void variousTestDetailsAreDisplayed() {
+        Assert.assertTrue("Various test details are NOT displayed Properly", homePage.testResultsAreLoaded());
+    }
+
+    @And("the user has scrolled down the page to the bottom \\(Footer)")
+    public void theUserHasScrolledDownThePageToTheBottomFooter() {
+        Actions.scrollToBottom(driver);
+        Wait.forElementToBeDisplayed(driver, globalBehaviourPage.footerText);
     }
 }

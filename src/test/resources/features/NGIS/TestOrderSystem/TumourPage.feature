@@ -333,7 +333,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_14 @NTS-3225 @E2EUI-2279 @P0 @v_1
+    @tumoursPage_14 @NTS-3225 @E2EUI-2279 @E2EUI-1434 @P0 @v_1
   Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |

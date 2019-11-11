@@ -4,12 +4,8 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.UnhandledAlertException;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -36,6 +32,7 @@ public class Pages implements Navigable {
     protected TumoursPage tumoursPage;
     protected SamplesPage samplesPage;
     protected DashBoardPage dashBoardPage;
+    protected GlobalBehaviourPage globalBehaviourPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -57,6 +54,7 @@ public class Pages implements Navigable {
         tumoursPage = PageFactory.initElements(driver, TumoursPage.class);
         samplesPage = PageFactory.initElements(driver, SamplesPage.class);
         dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
+        globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

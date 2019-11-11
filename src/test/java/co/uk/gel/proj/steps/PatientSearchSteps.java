@@ -460,7 +460,7 @@ public class PatientSearchSteps extends Pages {
 
     @Then("The user should see the tab title as {string}")
     public void theUserShouldSeeTheTabTitleAs(String titleText) {
-        Assert.assertTrue("The Correct Text is Displayed", patientSearchPage.windowTitleValidation(titleText));
+        Assert.assertTrue("The Correct Text is NOT Displayed", patientSearchPage.windowTitleValidation(titleText));
     }
 
     @And("the user navigates back to patient search page")
