@@ -168,6 +168,9 @@ public class ReferralPage<check> {
 
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
+    //Family Member Search
+    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    public WebElement addFamilyMember;
 
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
@@ -325,6 +328,10 @@ public class ReferralPage<check> {
         Assert.assertEquals(title, getText(pageTitle));
     }
 
+    public void navigateToFamilyMemberSearchPage(){
+        Wait.forElementToBeDisplayed(driver,addFamilyMember);
+        Actions.clickElement(driver,addFamilyMember);
+    }
     public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
         Wait.forElementToBeDisplayed(driver, pageTitle);
         List<String> actualHelpHintTexts = new ArrayList<>();

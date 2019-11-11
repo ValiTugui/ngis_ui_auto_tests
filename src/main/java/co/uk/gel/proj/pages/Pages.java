@@ -4,8 +4,12 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -21,6 +25,7 @@ public class Pages implements Navigable {
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
     protected HomePage homePage;
     protected ClinicalIndicationsTestSelectPage clinicalIndicationsTestSelect;
+    protected ClinicalQuestionsPage clinicalQuestionsPage;
     protected PaperFormPage paperFormPage;
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
@@ -32,7 +37,9 @@ public class Pages implements Navigable {
     protected TumoursPage tumoursPage;
     protected SamplesPage samplesPage;
     protected DashBoardPage dashBoardPage;
+    protected FamilyMemberSearchPage familyMemberSearchPage;
     protected GlobalBehaviourPage globalBehaviourPage;
+    protected FamilyMemberDetailsPage familyMemberDetailsPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -43,6 +50,7 @@ public class Pages implements Navigable {
 
         homePage = PageFactory.initElements(driver, HomePage.class);
         clinicalIndicationsTestSelect = PageFactory.initElements(driver, ClinicalIndicationsTestSelectPage.class);
+        clinicalQuestionsPage = PageFactory.initElements(driver, ClinicalQuestionsPage.class);
         paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
         referralPage = PageFactory.initElements(driver, ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
@@ -54,7 +62,9 @@ public class Pages implements Navigable {
         tumoursPage = PageFactory.initElements(driver, TumoursPage.class);
         samplesPage = PageFactory.initElements(driver, SamplesPage.class);
         dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
+        familyMemberSearchPage = PageFactory.initElements(driver, FamilyMemberSearchPage.class);
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
+        familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

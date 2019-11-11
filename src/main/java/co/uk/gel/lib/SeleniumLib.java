@@ -403,6 +403,10 @@ public class SeleniumLib {
         driver.navigate().refresh();
     }
 
+    public String getText(WebElement element) {
+        Wait.forElementToBeDisplayed(driver, element);
+        return element.getText();
+    }
     /**
      * @param element
      * @return
