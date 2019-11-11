@@ -8,8 +8,8 @@ Feature: Paper Form page functionalities
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
     And the user clicks the Start referral button
-    When the user clicks the PDF order form button
-    And the user enters the keyword "manchester" in the search field
+    When the user clicks the PDF order form button    
+    When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
 
