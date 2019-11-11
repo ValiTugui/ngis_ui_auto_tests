@@ -11,10 +11,9 @@ import org.junit.runner.RunWith;
          plugin = {"pretty", "html:target/cucumber","json:target/cucumber.json"},
          glue = {"co.uk.gel.proj.steps"},
          features = {"src/test/resources/features"},
-         tags = {"@patientSearch"}
+         tags = {"@FamilyMembers"}
         )
     public class RunnerTest {
-
         @BeforeClass
         public static void setup() {
             Debugger.println("\n******* RUN STARTS " + new java.util.Date() + " *******************************");
