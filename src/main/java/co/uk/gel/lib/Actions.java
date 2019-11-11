@@ -1,7 +1,6 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.SeleniumDriver;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.*;
 
 import java.text.DateFormatSymbols;
@@ -120,6 +119,11 @@ public class Actions {
 
     public static void cleanUpSession(WebDriver driver) {
         driver.quit();
+    }
+
+    public static void scrollToBottom(WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript( "window.scrollTo(0,document.body.scrollHeight);");
     }
 
     /*
