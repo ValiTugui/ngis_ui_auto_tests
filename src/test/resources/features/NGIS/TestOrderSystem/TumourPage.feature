@@ -28,6 +28,25 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_02b @E2EUI-1576 @P0 @v_1
+  Scenario Outline:  Hint text are displayed in Add a Tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then hint text is displayed for each of the text field
+      | HintTextHeader                                                                                             |
+      | Describe in a way that distinguishes this tumour from others the patient may have                          |
+      | Year is required. Enter day and month if known.                                                            |
+      | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
+
+    Examples:
+      | stage   |
+      | Tumours |
+
+
+
+
+  @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

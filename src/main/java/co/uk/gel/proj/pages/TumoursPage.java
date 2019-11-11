@@ -135,6 +135,9 @@ public class TumoursPage {
     @FindBy(xpath = "//table//tbody/tr")
     public List<WebElement> listOfTumoursInTheTable;
 
+    @FindBy(xpath = "//p[contains(@class,'hint__text')]")
+    public List<WebElement> hintText;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 

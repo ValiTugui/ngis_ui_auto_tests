@@ -280,4 +280,22 @@ public class TumoursSteps extends Pages {
 
     }
 
+    @Then("hint text is displayed for each of the text field")
+    public void hintTextIsDisplayedForEachOfTheTextField(DataTable dataTable) {
+
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedHelpHintTexts = new ArrayList<>();
+        List actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedHelpHintTexts.add(expectedList.get(i).get("HintTextHeader"));
+            Debugger.println("Expected : " + i + " : " + expectedHelpHintTexts.get(i));
+        }
+
+        for (int i = 0; i < actualHelpHintTexts.size(); i++) {
+            Debugger.println("Actual : " + i + " : " + actualHelpHintTexts.get(i));
+        }
+        Assert.assertEquals(expectedHelpHintTexts, actualHelpHintTexts);
+
+    }
 }
