@@ -3,21 +3,15 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
-import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.pages.TumoursPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
-import org.junit.Test;
 
-import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +37,8 @@ public class TumoursSteps extends Pages {
         tumoursPage.clearDateOfDiagnosisFields();
     }
 
-    @And("the user answers all tumour system questions by selecting tumour type {string} and leaves date of diagnosis field blank")
-    public void theUserAnswersAllTumourSystemQuestionsBySelectingTumourTypeAndLeavesDateOfDiagnosisFieldBlank(String tumourType) {
+    @And("the user answers all tumour system questions fields, select tumour type {string} and leaves date of diagnosis field blank")
+    public void theUserAnswersAllTumourSystemQuestionsFieldsSelectTumourTypeAndLeavesDateOfDiagnosisFieldBlank(String tumourType) {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.selectTumourType(tumourType);
@@ -52,8 +46,8 @@ public class TumoursSteps extends Pages {
 
     }
 
-    @And("the user answers the tumour system questions selecting tumour type {string}")
-    public void theUserAnswersTheTumourSystemQuestionsSelectingTumourType(String tumourType) {
+    @And("the user answers the tumour system questions fields and select a tumour type {string}")
+    public void theUserAnswersTheTumourSystemQuestionsFieldsAndSelectATumourType(String tumourType) {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
@@ -218,8 +212,8 @@ public class TumoursSteps extends Pages {
         tumoursPage.clickEditTumourArrow();
     }
 
-    @And("the user edits the tumour system questions by selecting tumour type {string}")
-    public void theUserEditsTheTumourSystemQuestionsBySelectingTumourType(String tumourType) {
+    @And("the user edits the tumour system questions fields and select a new tumour type {string}")
+    public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
         tumoursPage.editTumourDescription();
         tumoursPage.editDateOfDiagnosis();
         tumoursPage.selectTumourType(tumourType);
@@ -234,10 +228,33 @@ public class TumoursSteps extends Pages {
 
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
         Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
-        actualTumourTestData = tumoursPage.getActualTumourTestDataForAddATumourPage();
+        actualTumourTestData = tumoursPage.getTheTumourDetailsOnTableList();
         Debugger.println("Actual TumourTestData:" + actualTumourTestData);
 
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
 
+    }
+
+    @And("the {string} page is displayed")
+    public void thePageIsDisplayed(String expectedPageTitle) {
+
+        String actualPageTitle = referralPage.getTheCurrentPageTitle();
+        Debugger.println("Actual PageTitle : " + actualPageTitle);
+        Debugger.println("Expected PageTitle : " + expectedPageTitle);
+        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+    }
+
+    @And("the new tumour details are displayed in the Edit a Tumour page")
+    public void theNewTumourDetailsAreDisplayedInTheEditATumourPage() throws ParseException {
+
+        List<String> expectedTumourTestData;
+        List<String> actualTumourTestData;
+
+        expectedTumourTestData = tumoursPage.getTheTumourDetailsOnEditATumourPage();
+        Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
+        actualTumourTestData = tumoursPage.getTheExpectedTumourDetailsForAddATumourPage();
+        Debugger.println("Actual TumourTestData on Edit a Tumour Pge:" + actualTumourTestData);
+
+        Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
     }
 }

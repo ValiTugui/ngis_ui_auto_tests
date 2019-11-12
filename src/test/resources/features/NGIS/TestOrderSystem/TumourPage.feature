@@ -28,7 +28,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @P0 @v_1
+    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -68,6 +68,10 @@ Feature: Tumours Page
       | stage   | Date_of_Diagnosis | error_message |
       | Tumours | 14-11-null        | Enter a year  |
 
+    Examples: of entering invalid date for February month
+      | stage   | Date_of_Diagnosis | error_message |
+      | Tumours | 30-02-2012        | Check the day and month are valid  |
+
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_04 @NTS-3157 @E2EUI-1020 @P0 @v_1
@@ -75,7 +79,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     When the user navigates to the "<stage>" stage
-    And the user answers all tumour system questions by selecting tumour type "<tumour_type>" and leaves date of diagnosis field blank
+    And the user answers all tumour system questions fields, select tumour type "<tumour_type>" and leaves date of diagnosis field blank
     And the user clicks the Save and Continue button
     Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
 
@@ -90,7 +94,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -110,7 +114,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -130,7 +134,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     And the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
 # moving to another Stage e.g Samples page
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
@@ -149,7 +153,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     And the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
    #  User click on refresh button
     When the user attempts to navigate away by clicking "<browser_exit1>"
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
@@ -159,7 +163,7 @@ Feature: Tumours Page
     Then the user sees a prompt alert "<partOfMessage2>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl2>" page
    #  User click on logout button
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     When the user clicks the Log out button
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit3>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
@@ -209,7 +213,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -243,7 +247,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -252,7 +256,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions by selecting tumour type "<updated_tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
@@ -281,7 +285,7 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions selecting tumour type "<tumour_type>"
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -290,7 +294,7 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
-    And the user edits the tumour system questions by selecting tumour type "<updated_tumour_type>"
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage>" stage
     And the tumour stage is on select or edit a tumour page showing
@@ -301,3 +305,59 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary|
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_13 @NTS-3204 @E2EUI-890 @P0 @v_1
+  Scenario Outline: NTS-3204:Edit a tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the "<pageTitle>" page is displayed
+    And an information "<information>" is displayed that a test cannot start without a tumour
+
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
+
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_14 @NTS-3225 @E2EUI-2279 @E2EUI-1434 @P0 @v_1
+  Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    And the tumour stage is on select or edit a tumour page showing
+      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
+      | Select or edit a tumour | Tumour updated         | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the "<pageTitle>" page is displayed
+    And the new tumour details are displayed in the Edit a Tumour page
+
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  | pageTitle |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary| Edit a tumour|

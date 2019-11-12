@@ -36,20 +36,83 @@ Feature: FamilyMember search page
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_05 @NTS-3234 @E2EUI-1249 @v_1 @P0
   Scenario Outline:NTS-3234: Verify the family member search without providing first name displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
     ##Do not provide first name in the search details
     Examples:
-      | SearchDetails                                            | ErrorMessage            | MessageColor |
-      | DOB=23-03-2011:LastName=StaMbukdelifschitZ:Gender=Female | First name is required. | #dd2509      |
+      | stage          | SearchDetails                                            | ErrorMessage            | MessageColor |
+      | Family members | DOB=23-03-2011:LastName=StaMbukdelifschitZ:Gender=Female | First name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_06 @NTS-3233 @E2EUI-1394 @v_1 @P0
   Scenario Outline:NTS-3233: Verify the family member search with invalid NHS Number displays correct error message
-    When the user clicks the Yes button in family member search page
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
     Examples:
-      | SearchDetails  | ErrorMessage                                      | MessageColor |
-      | NHSNumber=1234 | Please enter your full NHS Number (10 characters) | #dd2509      |
+      | stage          | SearchDetails  | ErrorMessage                                      | MessageColor |
+      | Family members | NHSNumber=1234 | Please enter your full NHS Number (10 characters) | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_07 @E2EUI-841 @v_1 @P0
+  Scenario Outline: Verify the family member search with invalid DOB displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+    Examples:
+      | stage          | SearchDetails                       | ErrorMessage                                                                         | MessageColor |
+      | Family members | NHSNumber=9449310351:DOB=00-00-0000 | Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_08 @E2EUI-1016 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing first name displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails               | ErrorMessage                                                                       | MessageColor |
+      | Family members | LastName=StaMbukdelifschitZ | Enter a day,Enter a month,Enter a year,First name is required.,Gender is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_09 @E2EUI-1401 @v_1 @P0
+  Scenario Outline: Verify the family member search with invalid NHS Number displays correct error message
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+    Examples:
+      | stage          | SearchDetails  | ErrorMessage            | MessageColor |
+      | Family members | DOB=23-03-2011 | NHS Number is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_10 @E2EUI-1493 @v_1 @P0
+  Scenario Outline: Verify the family member search with valid NHS Number and DOB displays result message
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    And the user search the family member with the specified details "<YesSearchDetails>"
+    Then the message will be displayed as "<ResultMessage>" result found
+
+    Examples:
+      | stage          | YesSearchDetails                    | ResultMessage          |
+      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_11 @E2EUI-1493 @v_1 @P0
+  Scenario Outline:NTS-Todo: Verify the family member search with valid DOB, First name, Last name and gender displays result message
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<NoSearchDetails>"
+    Then the message will be displayed as "<ResultMessage>" result found
+
+    Examples:
+      | stage          | NoSearchDetails                                               | ResultMessage          |
+      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male | 1 patient record found |

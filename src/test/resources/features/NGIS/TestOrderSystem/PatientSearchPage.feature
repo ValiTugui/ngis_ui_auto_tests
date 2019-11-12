@@ -195,7 +195,6 @@ Feature: Patient search page
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
-
   @patientSearch_18 @NTS-2801 @E2EUI-1114  @E2EUI-1840  @E2EUI-2163 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields

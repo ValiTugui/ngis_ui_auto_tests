@@ -14,7 +14,7 @@ public class FamilyMemberSearchSteps extends Pages {
         super(driver);
     }
 
-    @When("the user navigates to the family member search Page")
+    @And("the user navigates to the family member search Page")
     public void theUserNavigatesToTheFamilyMemberSearchPage() {
         referralPage.navigateToFamilyMemberSearchPage();
     }
@@ -121,6 +121,17 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the FamilyMemberDetailsPage with the {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+            familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+    }
+    @Then("the message will be displayed as {string} result found")
+    public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
         Assert.assertTrue(testResult);
     }
 }//end

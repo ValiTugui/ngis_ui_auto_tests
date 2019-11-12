@@ -2,7 +2,7 @@
 Feature: Relationship to proband field validation
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @v_1 @P0
+    @familyMemberDetailsPage_01 @LOGOUT @NTS-3235 @E2EUI-908 @v_1 @P0
   Scenario Outline: NTS-3235: Verify the family member relationship to proband field is mandatory
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |

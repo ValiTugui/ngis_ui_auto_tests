@@ -25,6 +25,7 @@ public class Pages implements Navigable {
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
     protected HomePage homePage;
     protected ClinicalIndicationsTestSelectPage clinicalIndicationsTestSelect;
+    protected ClinicalQuestionsPage clinicalQuestionsPage;
     protected PaperFormPage paperFormPage;
     protected ReferralPage referralPage;
     protected AppHomePage appHomePage;
@@ -49,6 +50,7 @@ public class Pages implements Navigable {
 
         homePage = PageFactory.initElements(driver, HomePage.class);
         clinicalIndicationsTestSelect = PageFactory.initElements(driver, ClinicalIndicationsTestSelectPage.class);
+        clinicalQuestionsPage = PageFactory.initElements(driver, ClinicalQuestionsPage.class);
         paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
         referralPage = PageFactory.initElements(driver, ReferralPage.class);
         appHomePage = PageFactory.initElements(driver, AppHomePage.class);
