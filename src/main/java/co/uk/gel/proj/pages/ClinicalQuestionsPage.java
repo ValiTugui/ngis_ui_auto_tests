@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -71,7 +72,6 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//span[contains(@class,'radio__text')]")
     public List<WebElement> radioButtonsTexts;
 
-    //@FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::input")
     @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
 
@@ -140,7 +140,7 @@ public class ClinicalQuestionsPage {
 
     public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
         if (!Actions.getText(diagnosisField).isEmpty()) {
-            System.out.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
+            Debugger.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
             diagnosisValue.click();
             Actions.clearField(driver, diagnosisValue);
             Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
