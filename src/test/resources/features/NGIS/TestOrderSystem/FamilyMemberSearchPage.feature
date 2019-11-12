@@ -1,4 +1,4 @@
-@FamilyMembers
+@FamilyMembers1
 Feature: FamilyMember search page
 
   @COMP8_TO_PatientSearch
@@ -53,3 +53,24 @@ Feature: FamilyMember search page
     Examples:
       | SearchDetails  | ErrorMessage                                      | MessageColor |
       | NHSNumber=1234 | Please enter your full NHS Number (10 characters) | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_07 @NTS-TODO @E2EUI-841 @v_1 @P0
+  Scenario Outline:NTS-TODO: Verify the family member search with invalid DOB displays correct error message
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<error_message>" in "<MessageColor>" color for the fields in family member page
+
+    Examples:
+      | SearchDetails                       | error_message                                                                        | MessageColor |
+      | NHSNumber=9449310351:DOB=00-00-0000 | Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_08 @NTS-TODO @E2EUI-1016 @v_1 @P0
+  Scenario Outline:NTS-TODO: Verify the family member search without providing first name displays correct error message
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" color for the fields in family member page
+
+    Examples:
+      | SearchDetails               | ErrorMessage                                                                       | MessageColor |
+      | LastName=StaMbukdelifschitZ | Enter a day,Enter a month,Enter a year,First name is required.,Gender is required. | #dd2509      |

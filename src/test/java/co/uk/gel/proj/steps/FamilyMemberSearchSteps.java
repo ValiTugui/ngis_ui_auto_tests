@@ -123,4 +123,9 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
         Assert.assertTrue(testResult);
     }
+    @Then("^the message will be displayed as \"([^\"]*)\" in \"([^\"]*)\" color for the fields in family member page$")
+    public void theMessageWillBeDisplayedAsInColorForTheFields(String errorMessage, String fontColor) throws Throwable {
+        familyMemberSearchPage.checkTheErrorMessagesInFamilyMember(errorMessage, fontColor);
+    }
+
 }//end

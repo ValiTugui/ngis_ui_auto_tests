@@ -257,6 +257,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
+        Wait.forElementToBeDisplayed(driver,dateDay);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
@@ -304,6 +305,7 @@ public class FamilyMemberSearchPage {
                 }
             }//switch
         }//for
+        Debugger.println("Entered the values as search param.........");
         seleniumLib.clickOnWebElement(searchButton);
     }//method
 
@@ -325,7 +327,24 @@ public class FamilyMemberSearchPage {
             Debugger.println("Exception from validating Error Message "+exp);
             return false;
         }
+    }
 
+    public void checkTheErrorMessagesInFamilyMember(String errorMessage, String fontColor) {
+        String[] expMessages = null;
+        if(errorMessage.indexOf(",") == -1){
+            expMessages = new String[]{errorMessage};
+        }else{
+            expMessages = errorMessage.split(",");
+        }
+        String actualMessage = "";
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        for(int i=0; i<expMessages.length;i++) {
+            actualMessage = seleniumLib.getText(validationErrors.get(i));
+            Debugger.println("EXPECTED RESULT: " + expMessages[i]);
+            Debugger.println("ACTUAL RESULT  : " + actualMessage);
+            Assert.assertEquals(expMessages[i], actualMessage);
+            Assert.assertEquals(expectedFontColor, validationErrors.get(i).getCssValue("color"));
+        }
     }
 
 }//end
