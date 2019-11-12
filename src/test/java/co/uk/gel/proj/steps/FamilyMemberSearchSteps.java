@@ -128,4 +128,10 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
             familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
+    @Then("the message will be displayed as {string} result found")
+    public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
+        Assert.assertTrue(testResult);
+    }
 }//end

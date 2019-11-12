@@ -44,9 +44,9 @@ public class TestHooks extends Pages {
         }
     }
 
-    @Before
+    @Before("@TEST_DIRECTORY")
     public void getNGISVersion() {
-        //globalBehaviourPage.getNGISVersion();
+        globalBehaviourPage.getNGISVersion();
     }
 
     @Before("@LOGOUT_BEFORE_TEST")

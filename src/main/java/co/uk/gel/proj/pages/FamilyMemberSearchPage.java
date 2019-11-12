@@ -104,6 +104,9 @@ public class FamilyMemberSearchPage {
 
     static String searchString = "";
 
+    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
+    public WebElement familyMemeberFound;
+
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -309,6 +312,31 @@ public class FamilyMemberSearchPage {
 
     public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
         try {
+            String[] expMessages = null;
+            if(errorMessage.indexOf(",") == -1){
+                expMessages = new String[]{errorMessage};
+            }else{
+                expMessages = errorMessage.split(",");
+            }
+            String actualMessage = "";
+            String actColor = "";
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            for(int i=0; i<expMessages.length;i++) {
+                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
+                    Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                    return false;
+                }
+                actColor = validationErrors.get(i).getCssValue("color");
+                if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                    Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                    return false;
+                }
+            }
+            validationErrors.clear();
+            return true;
+
+        /*try {
             String actualMessage = seleniumLib.getText(validationErrors.get(0));
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
@@ -320,12 +348,24 @@ public class FamilyMemberSearchPage {
                 Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                 return false;
             }
-            return true;
+            return true;*/
         }catch(Exception exp){
             Debugger.println("Exception from validating Error Message "+exp);
             return false;
         }
 
     }
-
+    public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
+        try {
+            String actualMessage = familyMemeberFound.getText();
+            if (!resultMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + resultMessage + ", but Actual Message: " + actualMessage);
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from validating result Message "+exp);
+            return false;
+        }
+    }
 }//end
