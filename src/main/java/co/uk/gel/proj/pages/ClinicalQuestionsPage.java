@@ -1,13 +1,18 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.TestUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
@@ -17,7 +22,8 @@ public class ClinicalQuestionsPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
+    //@FindBy(xpath = "//*[contains(@id,'question-id-q96')]") - Commented by STAG as this gives two elements
+    @FindBy(xpath = "(//label[text()='Disease status']//following::div)[1]")
     public WebElement diseaseStatusDropdown;
 
     @FindBy(css = "div[id*='react-select']")
@@ -92,6 +98,10 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//button[text()='Delete']")
     public WebElement deleteLink;
 
+    @FindBy(xpath = "//button[@type='submit'][text()='Save and continue']")
+    public WebElement saveAndContinueButton;
+
+
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         int actualNumberOfHPOTerms = hpoTerms.size();
@@ -120,4 +130,40 @@ public class ClinicalQuestionsPage {
         String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
         return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
     }
-}
+    //Method added by @Stag for filling the ClinicalQuestionsPage
+    public void fillClinicalQuestionPageWithGivenParams(String searchParams) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        Click.element(driver, diseaseStatusDropdown);
+                        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+paramNameValue.get(key)+"']")));
+                    }
+                    break;
+                }
+                case "AgeOfOnset": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        String[] age_of_onsets = paramNameValue.get(key).split(",");
+                        ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
+                        ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+                    }
+                    break;
+                }
+                case "HpoPhenoType": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                    }
+                    break;
+                }
+
+            }//switch
+        }//for
+    }//method
+    public void clickOnSaveAndContinue(){
+        Wait.forElementToBeDisplayed(driver,saveAndContinueButton);
+        saveAndContinueButton.click();
+    }
+
+}//end

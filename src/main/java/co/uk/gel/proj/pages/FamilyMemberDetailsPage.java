@@ -46,6 +46,12 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
+    @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
+    public WebElement relationshipToProbandDropdown;
+
+    @FindBy(css = "div[id*='react-select']")
+    public WebElement dropdownValue;
+
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -97,6 +103,9 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception from validating Error Message "+exp);
             return false;
         }
-
+    }
+    public void fillTheRelationshipToProband(String relationToProband){
+        Click.element(driver, relationshipToProbandDropdown);
+        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
     }
 }//ends

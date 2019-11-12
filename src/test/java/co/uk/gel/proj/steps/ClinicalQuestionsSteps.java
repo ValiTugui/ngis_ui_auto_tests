@@ -37,4 +37,14 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theClinicalQuestionsPageIsDisplayedWithAtLeastHPOTermsInTheHPOPhenotypeSection(String expectedNumberOfHPOTerms) {
         Assert.assertTrue(clinicalQuestionsPage.verifyTheCountOfHPOTerms(Integer.parseInt(expectedNumberOfHPOTerms)));
     }
-}
+
+    @And("the user fills the ClinicalQuestionsPage with the {string}")
+    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
+        clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
+    }
+
+    @And("the user clicks on save and continue in Clinical questions page")
+    public void theUserClicksOnSaveAndContinueInClinicalQuestionsPage() {
+        clinicalQuestionsPage.clickOnSaveAndContinue();
+    }
+}//end
