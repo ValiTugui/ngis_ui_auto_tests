@@ -44,7 +44,7 @@ public class TestHooks extends Pages {
         }
     }
 
-    @Before
+    @Before ("@testDirectory, @E2EUI-1755 @NTS-3169")
     public void getNGISVersion() {
         globalBehaviourPage.getNGISVersion();
     }
