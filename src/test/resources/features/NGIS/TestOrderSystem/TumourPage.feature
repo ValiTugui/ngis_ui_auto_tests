@@ -28,22 +28,21 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_02b @E2EUI-1576 @P0 @v_1
-  Scenario Outline:  Hint text are displayed in Add a Tumour page
+    @tumoursPage_02b @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @P0 @v_1
+  Scenario Outline: NTS-3241: Labels and help hint texts are displayed in Add a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    Then hint text is displayed for each of the text field
-      | HintTextHeader                                                                                             |
-      | Describe in a way that distinguishes this tumour from others the patient may have                          |
-      | Year is required. Enter day and month if known.                                                            |
-      | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
+    And the labels and help hint texts are displayed
+      | labelHeader                                       | HintTextHeader                                                                                             |
+      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                          |
+      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                            |
+      | Histopathology laboratory ID or local sample ID ✱ | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
+      | The tumour is... ✱                                | None                                                                                                       |
 
     Examples:
       | stage   |
       | Tumours |
-
-
 
 
   @COMP6_TOC_Tumour @LOGOUT

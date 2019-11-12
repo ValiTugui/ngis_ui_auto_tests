@@ -356,9 +356,25 @@ public class TumoursPage {
         return expectedTumourTestData;
     }
 
-
     public String successNotificationIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, successNotification);
         return Actions.getText(successNotification);
     }
+
+    public List<String> getTheTumourFieldsLabelsOnAddATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        List<String> expectedTumourFieldsLabels = new ArrayList<>();
+
+        expectedTumourFieldsLabels.add(Actions.getText(descriptiveNameLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(dateOfDiagnosisLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(PathologyIdOrSampleIdLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(tumourTypeLabel));
+
+        Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
+        return expectedTumourFieldsLabels;
+    }
+
+
+
 }

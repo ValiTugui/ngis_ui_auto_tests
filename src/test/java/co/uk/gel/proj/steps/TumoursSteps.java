@@ -280,22 +280,30 @@ public class TumoursSteps extends Pages {
 
     }
 
-    @Then("hint text is displayed for each of the text field")
-    public void hintTextIsDisplayedForEachOfTheTextField(DataTable dataTable) {
+    @And("the labels and help hint texts are displayed")
+    public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
 
-        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<Map<String, String>> expectedLabelsAndHintTextsListMap = dataTable.asMaps(String.class, String.class);
+        List<String> expectedLabels = new ArrayList<>();
         List<String> expectedHelpHintTexts = new ArrayList<>();
         List actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+        List actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
 
-        for (int i = 0; i < expectedList.size(); i++) {
-            expectedHelpHintTexts.add(expectedList.get(i).get("HintTextHeader"));
-            Debugger.println("Expected : " + i + " : " + expectedHelpHintTexts.get(i));
+        /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
+        actualHelpHintTexts.add(3, "None");
+
+        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
+            expectedLabels.add(expectedLabelsAndHintTextsListMap.get(i).get("labelHeader"));
+            Debugger.println("Expected Labels: " + i + " : " + expectedLabels.get(i));
+            Debugger.println("Actual Labels:  " + i + " : " + actualFieldsLabels.get(i));
         }
+        Assert.assertEquals(expectedLabels, actualFieldsLabels);
 
-        for (int i = 0; i < actualHelpHintTexts.size(); i++) {
-            Debugger.println("Actual : " + i + " : " + actualHelpHintTexts.get(i));
+        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
+            expectedHelpHintTexts.add(expectedLabelsAndHintTextsListMap.get(i).get("HintTextHeader"));
+            Debugger.println("Expected HelpHints: " + i + " : " + expectedHelpHintTexts.get(i));
+            Debugger.println("Actual HelpHints: " + i + " : " + actualHelpHintTexts.get(i));
         }
         Assert.assertEquals(expectedHelpHintTexts, actualHelpHintTexts);
-
     }
 }
