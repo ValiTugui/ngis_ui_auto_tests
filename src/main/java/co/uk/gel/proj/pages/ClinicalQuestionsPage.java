@@ -7,10 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
 import java.util.List;
+import java.util.Random;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
+    Random random = new Random();
 
     public ClinicalQuestionsPage(WebDriver driver) {
         this.driver = driver;
@@ -68,11 +71,15 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//span[contains(@class,'radio__text')]")
     public List<WebElement> radioButtonsTexts;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::input")
+    //@FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::input")
+    @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::div")
     public WebElement diagnosisField;
+
+    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//*[@class='css-19bqh2r']")
+    public WebElement cancelDiagnosisValue;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseStatusDropdown;
@@ -119,5 +126,31 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
         String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
         return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
+    }
+
+    public String searchAndSelectARandomDiagnosis(String diagnosis) {
+        if (Actions.getText(diagnosisField).isEmpty()) {
+            Actions.fillInValue(driver, diagnosisValue, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Wait.seconds(10);
+        }
+        return Actions.getText(diagnosisField);
+    }
+
+    public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
+        if (!Actions.getText(diagnosisField).isEmpty()) {
+            System.out.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
+            diagnosisValue.click();
+            Actions.clearField(driver, diagnosisValue);
+            Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
+            Wait.seconds(10);
+        }
+    }
+
+    public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
+        Wait.forElementToBeDisplayed(driver, diagnosisField);
+        return (!diagnosisField.getText().contains(diagnosisValue));
+
     }
 }
