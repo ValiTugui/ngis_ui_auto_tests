@@ -76,9 +76,15 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Click.element(driver, clinicalIndicationsTestSelect.goToTestPageButtonFromPopup);
     }
 
-    @And("the user sees all {string} tabs and are clickable")
-    public void theUserSeesAllTabsAndAreClickable(String tabCount) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount)));
+    @And("the user should be able to see all {string} tabs - {string}, {string}, {string} and {string} and are clickable")
+    public void theUserSeesAllTabsAndAndAreClickable(String tabCount, String tab1, String tab2, String tab3, String tab4) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tab1, tab2, tab3, tab4));
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabClickable(Integer.parseInt(tabCount)));
+    }
+
+    @Then("the user should be able to see a new modal window")
+    public void theUserShouldBeAbleToSeeANewModalWindow() {
+        clinicalIndicationsTestSelect.testPackagePopUpValidations();
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedTest());
     }
 }
