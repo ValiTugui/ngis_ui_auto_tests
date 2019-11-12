@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ClinicalIndicationsTestSelectPage {
@@ -160,5 +162,19 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Unexpected value: " + tabName);
         }
+    }
+
+    public boolean isTabPresent(Integer tabCount) {
+        return clinicalIndicationTabs.size() == tabCount;
+    }
+
+    public boolean isTabClickable(Integer tabCount) {
+        Iterator<WebElement> itr = clinicalIndicationTabs.iterator();
+        int i = 0;
+        while (itr.hasNext()) {
+            Wait.forElementToBeClickable(driver, itr.next());
+            i++;
+        }
+        return i == tabCount;
     }
 }

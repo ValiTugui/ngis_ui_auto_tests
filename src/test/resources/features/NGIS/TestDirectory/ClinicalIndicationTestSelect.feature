@@ -30,3 +30,13 @@ Feature: Home Page
     Then the user clicks the Start referral button
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
+
+  @E2EUI-1501 @NTS-**** @v_1 @P0 @COMP1_TD_ClinicalTests
+  Scenario: NTS-**** - Clinical Indication Page -  View details for a Tumor Clinical Indication.
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | M85 |
+    And the user clicks on view more icon
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "Clinical Indications" tab is selected by default
+    And the user sees all "4" tabs and are clickable

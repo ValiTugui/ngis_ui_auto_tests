@@ -75,4 +75,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Wait.seconds(1);
         Click.element(driver, clinicalIndicationsTestSelect.goToTestPageButtonFromPopup);
     }
+
+    @And("the user sees all {string} tabs and are clickable")
+    public void theUserSeesAllTabsAndAreClickable(String tabCount) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount)));
+        Assert.assertTrue(clinicalIndicationsTestSelect.isTabClickable(Integer.parseInt(tabCount)));
+    }
 }
