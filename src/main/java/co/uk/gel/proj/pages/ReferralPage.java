@@ -172,7 +172,7 @@ public class ReferralPage<check> {
     public WebElement addFamilyMember;
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
-    String  stageIsMarkedAsMandatoryToDo= "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
     String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
     String helixIcon = "*[class*='helix']";
@@ -201,8 +201,9 @@ public class ReferralPage<check> {
         }
     }
 
-    public void saveAndContinueButtonIsDisplayed() {
+    public boolean saveAndContinueButtonIsDisplayed() {
         Wait.forElementToBeClickable(driver, saveAndContinueButton);
+        return true;
     }
 
 
@@ -281,9 +282,9 @@ public class ReferralPage<check> {
         List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
         boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
         boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
-        if( isStageStatusIsToDO && isStageHasAsteriskPresent){
+        if (isStageStatusIsToDO && isStageHasAsteriskPresent) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }

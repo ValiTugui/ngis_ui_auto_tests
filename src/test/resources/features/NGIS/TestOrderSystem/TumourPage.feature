@@ -329,3 +329,74 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
+
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_14 @NTS-3225 @E2EUI-2279 @E2EUI-1434 @P0 @v_1
+  Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the user edits the tumour system questions fields and select a new tumour type "<updated_tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    And the tumour stage is on select or edit a tumour page showing
+      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
+      | Select or edit a tumour | Tumour updated         | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
+    And the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    And the "<pageTitle>" page is displayed
+    And the new tumour details are displayed in the Edit a Tumour page
+
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  | pageTitle |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary| Edit a tumour|
+
+
+  @COMP6_TO_TumourCreate @LOGOUT
+    @tumoursPage_15 @NTS-3176 @E2EUI-1412 @P0 @v_1
+  Scenario Outline: NTS-3176: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
+    When the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    And the tumour stage is on select or edit a tumour page showing
+      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
+      | Select or edit a tumour | None                   | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
+    And information text are displayed on the select or edit a tumour page
+      | informationTextHeader                           |
+      | Only one tumour can be tested in each referral. |
+      | If the tumour to be tested is:                  |
+      | not shown                                       |
+      | a metastasis of one that is shown               |
+      | you must add a new tumour then select it.       |
+    And on the select or edit a tumour page, the tumour table list shows the column names
+      | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
+      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+    And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
+    And Save and Continue button is displayed
+#
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+

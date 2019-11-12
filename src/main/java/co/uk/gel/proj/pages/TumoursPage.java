@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import co.uk.gel.lib.SeleniumLib;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class TumoursPage {
     WebDriver driver;
     NewPatient tumourDetails = new NewPatient();
     Faker faker = new Faker();
+    SeleniumLib seleniumLib;
 
     public TumoursPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     public WebElement descriptiveName;
@@ -109,6 +112,9 @@ public class TumoursPage {
     public WebElement tumourSuccessNotification;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
+    public WebElement tumourInformationText_withNotificationSuccess;
+
+    @FindBy(xpath = "(//div[contains(@class,'tumour-list__sub-title')])[1]")
     public WebElement tumourInformationText;
 
     @FindBy(css = "div[class*='tumour-list__sub-title']")
@@ -240,22 +246,18 @@ public class TumoursPage {
     }
 
 
-    public List<String> getTumourTableHeaders()
-    {
+    public List<String> getTumourTableHeaders() {
         List<String> actualTableHeaders = new ArrayList<>();
-        for(WebElement header : tumourTableHeaders)
-        {
+        for (WebElement header : tumourTableHeaders) {
             actualTableHeaders.add(header.getText().trim());
         }
         return actualTableHeaders;
     }
 
 
-    public List<String> getInformationTextOnEditTumourPage()
-    {
+    public List<String> getInformationTextOnEditTumourPage() {
         List<String> actualInformationText = new ArrayList<>();
-        for(WebElement header : tumourInformationTextList)
-        {
+        for (WebElement header : tumourInformationTextList) {
             actualInformationText.add(header.getText().trim());
         }
         return actualInformationText;
@@ -309,7 +311,7 @@ public class TumoursPage {
 
     }
 
-    public List<String> getActualTumourTestDataForAddATumourPage() {
+    public List<String> getTheTumourDetailsOnTableList() {
 
         Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
         List<String> actualTumourTestData = new ArrayList<>();
@@ -318,5 +320,42 @@ public class TumoursPage {
         }
         Debugger.println("Method Actual TumourTestData " + actualTumourTestData);
         return actualTumourTestData;
+    }
+
+    public List<String> getTheTumourDetailsOnEditATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        List<String> actualTumourDetails = new ArrayList<>();
+
+        actualTumourDetails.add(Actions.getValue(descriptiveName));
+        actualTumourDetails.add(Actions.getValue(dateDay));
+        actualTumourDetails.add(Actions.getValue(dateMonth));
+        actualTumourDetails.add(Actions.getValue(dateYear));
+        actualTumourDetails.add(Actions.getText(tumourType));
+        actualTumourDetails.add(Actions.getValue(pathologyReportId));
+
+        Debugger.println("Actual Tumour Details on Edit a Tumour " + actualTumourDetails);
+        return actualTumourDetails;
+    }
+
+    public List<String> getTheExpectedTumourDetailsForAddATumourPage() {
+
+        List<String> expectedTumourTestData = new ArrayList<>();
+
+        expectedTumourTestData.add(tumourDetails.getTumourDescription());
+        expectedTumourTestData.add(tumourDetails.getDay());
+        expectedTumourTestData.add(tumourDetails.getMonth());
+        expectedTumourTestData.add(tumourDetails.getYear());
+        expectedTumourTestData.add(tumourDetails.getTumourType());
+        expectedTumourTestData.add(tumourDetails.getTumourSpecimenID());
+
+        Debugger.println("Expected Test data " + expectedTumourTestData);
+        return expectedTumourTestData;
+    }
+
+
+    public String successNotificationIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        return Actions.getText(successNotification);
     }
 }
