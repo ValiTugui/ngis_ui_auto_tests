@@ -226,6 +226,12 @@ public class TumoursPage {
         return true;
     }
 
+    public int getTheNumbersOfTumoursDisplayedInLandingPage() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        return listOfTumoursInTheTable.size();
+    }
+
     public void tumourIsNotHighlighted() {
         Wait.forElementToBeDisplayed(driver, successNotification);
         Assert.assertTrue(!tumoursLandingPageList.get(1).getAttribute("class").contains("row--warning"));
