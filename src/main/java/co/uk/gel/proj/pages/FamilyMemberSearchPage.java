@@ -107,6 +107,21 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
     public WebElement familyMemeberFound;
 
+    @FindBy(xpath="//p[@class='styles_text__1aikh styles_text--6__3mCVT styles_patient-name__2PfmN']")
+    public WebElement resultCardPatientName;
+
+    @FindBy(xpath="//p[contains(text(),'Born')]")
+    public WebElement resultCardDOB;
+
+    @FindBy(xpath="//p[contains(text(),'Gender')]")
+    public WebElement resultCardGender;
+
+    @FindBy(xpath="//p[contains(text(),'NHS No.')]")
+    public WebElement resultCardNHSNo;
+
+    @FindBy(xpath="//p[contains(text(),'Address')]")
+    public WebElement resultCardAddress;
+
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -367,5 +382,22 @@ public class FamilyMemberSearchPage {
             Debugger.println("Exception from validating result Message "+exp);
             return false;
         }
+    }
+
+    public boolean verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed() {
+        Wait.forElementToBeDisplayed(driver, familyMemeberFound);
+        Actions.scrollToBottom(driver);
+        List<WebElement> expResultElements = new ArrayList<WebElement>();
+        expResultElements.add(resultCardPatientName);
+        expResultElements.add(resultCardDOB);
+        expResultElements.add(resultCardGender);
+        expResultElements.add(resultCardNHSNo);
+        expResultElements.add(resultCardAddress);
+        for(int i=0; i<expResultElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expResultElements.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }//end
