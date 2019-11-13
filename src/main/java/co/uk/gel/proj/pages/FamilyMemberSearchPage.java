@@ -389,7 +389,6 @@ public class FamilyMemberSearchPage {
 
     public boolean verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed() {
         Wait.forElementToBeDisplayed(driver, familyMemeberFound);
-        Actions.scrollToBottom(driver);
         List<WebElement> expResultElements = new ArrayList<WebElement>();
         expResultElements.add(resultCardPatientName);
         expResultElements.add(resultCardDOB);

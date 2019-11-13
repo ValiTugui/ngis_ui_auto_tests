@@ -176,6 +176,7 @@ public class FamilyMemberDetailsPage {
         return true;
     }
     public boolean verifyAddedFamilyMemberDetailsInLandingPage(){
+       //This step has to be implemented.
         return true;
     }
 
@@ -189,13 +190,9 @@ public class FamilyMemberDetailsPage {
                          try {
                              Click.element(driver, diseaseStatusDropdown);
                              Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
-                             Debugger.println("Disease for Family Member DONE:");
                          }catch(Exception exp){
-                             By dd = By.xpath("//*[contains(@id,'question-id-q96')]");
-                             seleniumLib.moveMouseAndClickOnElement(dd);
-                             Wait.seconds(2);
-                             By selEle = By.xpath("//span[text()='" + paramNameValue.get(key) + "']");
-                             seleniumLib.clickOnElement(selEle);
+                             Debugger.println("Exception...:"+exp);
+                             //diseaseStatusDropdown.refresh();
                          }
                     }
                     break;
