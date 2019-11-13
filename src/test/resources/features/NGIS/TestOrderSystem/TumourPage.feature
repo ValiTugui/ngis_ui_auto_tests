@@ -120,10 +120,11 @@ Feature: Tumours Page
     Then the new tumour is displayed in the landing page for the existing patient with tumour list
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
 
   @COMP6_TOC_Tumour @LOGOUT
@@ -140,10 +141,11 @@ Feature: Tumours Page
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType   | searchTerm |
-      | Tumours | Solid tumour: metastatic | First presentation | test       |
+      | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
+      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added    |
 
 
   @COMP6_TOC_Tumour @LOGOUT
