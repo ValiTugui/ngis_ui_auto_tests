@@ -168,7 +168,6 @@ Feature: FamilyMember search page
     And the display title of the family member search page is "Find a family member"
     And the family member search page display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
     And the display question for NHS Number of the family member search page is "Do you have the family member’s NHS Number?"
-    #    reusing the methods
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
 
     Examples:
