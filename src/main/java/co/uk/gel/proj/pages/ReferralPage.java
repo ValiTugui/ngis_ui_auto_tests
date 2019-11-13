@@ -213,8 +213,6 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
-
-
     }
 
 
@@ -267,7 +265,6 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
-
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);

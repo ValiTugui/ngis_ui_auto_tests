@@ -134,4 +134,23 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the family member details with the selected test are added to the referral")
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the DiseaseStatusDetails for family member with the with the {string}")
+    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
+        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
+    }
+
+    @Then("the user returns to family member landing page with the added family member details")
+    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+        Assert.assertTrue(testResult);
+    }
 }//end

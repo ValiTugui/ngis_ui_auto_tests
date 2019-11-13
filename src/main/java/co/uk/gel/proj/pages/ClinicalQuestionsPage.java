@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
@@ -16,14 +17,17 @@ import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public ClinicalQuestionsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
-    //@FindBy(xpath = "//*[contains(@id,'question-id-q96')]") - Commented by STAG as this gives two elements
-    @FindBy(xpath = "(//label[text()='Disease status']//following::div)[1]")
+
+    //@FindBy(xpath = "(//label[text()='Disease status']//following::div)[1]")
+    @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
     @FindBy(css = "div[id*='react-select']")
@@ -138,6 +142,7 @@ public class ClinicalQuestionsPage {
             switch (key) {
                 case "DiseaseStatus": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        Wait.forElementToBeClickable(driver,diseaseStatusDropdown);
                         Click.element(driver, diseaseStatusDropdown);
                         Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+paramNameValue.get(key)+"']")));
                     }
@@ -146,6 +151,7 @@ public class ClinicalQuestionsPage {
                 case "AgeOfOnset": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         String[] age_of_onsets = paramNameValue.get(key).split(",");
+                        Wait.forElementToBeDisplayed(driver,ageOfOnsetYearsField);
                         ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
                         ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
                     }
@@ -153,7 +159,24 @@ public class ClinicalQuestionsPage {
                 }
                 case "HpoPhenoType": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                        //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
+                        String hpoValue="";
+                        boolean isExists = false;
+                        List<WebElement> hpoRows = seleniumLib.getElements(By.xpath("//table[contains(@class,'--hpo')]/tbody/tr"));
+                        if(hpoRows != null && hpoRows.size() > 0){
+                            for(WebElement row:hpoRows){
+                                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                                if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
+                                  isExists = true;
+                                  break;//for loop
+                                }
+                                //Ideally we need to check where Present is selected or not also.
+                                ////table[contains(@class,'--hpo')]/tbody/tr[1]/td[2]//input[@value='Present']
+                            }//for
+                        }
+                        if(!isExists) {
+                            searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                        }
                     }
                     break;
                 }
@@ -161,9 +184,5 @@ public class ClinicalQuestionsPage {
             }//switch
         }//for
     }//method
-    public void clickOnSaveAndContinue(){
-        Wait.forElementToBeDisplayed(driver,saveAndContinueButton);
-        saveAndContinueButton.click();
-    }
 
 }//end

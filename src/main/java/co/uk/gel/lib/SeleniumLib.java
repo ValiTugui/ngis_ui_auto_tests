@@ -2,6 +2,7 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
@@ -130,6 +131,19 @@ public class SeleniumLib {
                 Debugger.println("Webelement Click exception2 on ...." + webele.toString());
                 throw exp1;
             }
+        }
+    }
+    public void scrollToElement(WebElement element) {
+        try {
+            if(element == null){
+                return;
+            }
+            Point location = element.getLocation();
+            String script = "scroll(" + location.x + "," + (location.y - 120) + ")";
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript(script);
+        } catch (Exception e) {
+
         }
     }
 
@@ -592,6 +606,16 @@ public class SeleniumLib {
             WebElement we = driver.findElement(element);
             action.moveToElement(we).build().perform();
             action.click(we).build().perform();
+            return true;
+        } catch (Exception exp) {
+            return false;
+        }
+    }
+    public boolean moveMouseAndClickOnElement(WebElement element) {
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(element).build().perform();
+            action.click(element).build().perform();
             return true;
         } catch (Exception exp) {
             return false;

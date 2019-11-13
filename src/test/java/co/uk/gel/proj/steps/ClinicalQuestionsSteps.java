@@ -43,8 +43,4 @@ public class ClinicalQuestionsSteps extends Pages {
         clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
     }
 
-    @And("the user clicks on save and continue in Clinical questions page")
-    public void theUserClicksOnSaveAndContinueInClinicalQuestionsPage() {
-        clinicalQuestionsPage.clickOnSaveAndContinue();
-    }
 }//end
