@@ -123,8 +123,9 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText|
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
+
 
 
   @COMP6_TOC_Tumour @LOGOUT
@@ -420,8 +421,8 @@ Feature: Tumours Page
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-
-  @COMP6_TOC_Tumour @LOGOUT
+ 
+ @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_16 @E2EUI-1459 @P0 @v_1
   Scenario Outline: Fuzzy date on Date of Diagnosis field
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -450,4 +451,5 @@ Feature: Tumours Page
     Examples: of filling out day, month and year field
       | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | 10-11-2018        | Solid tumour: metastatic | Unknown          | test       | Tumour added     |
+
 
