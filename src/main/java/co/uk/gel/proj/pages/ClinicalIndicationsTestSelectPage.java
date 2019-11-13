@@ -1,10 +1,8 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.hu.De;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -188,7 +186,7 @@ public class ClinicalIndicationsTestSelectPage {
         testPackagePopupTitle.isDisplayed();
     }
 
-    public boolean checkTestPagePopUpTitleMatchesSearchedTest() {
+    public boolean checkTestPagePopUpTitleMatchesSearchedText() {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
 }

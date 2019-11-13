@@ -85,6 +85,6 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @Then("the user should be able to see a new modal window")
     public void theUserShouldBeAbleToSeeANewModalWindow() {
         clinicalIndicationsTestSelect.testPackagePopUpValidations();
-        Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedTest());
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
     }
 }
