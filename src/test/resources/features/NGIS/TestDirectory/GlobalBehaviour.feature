@@ -5,7 +5,7 @@ Feature: Global Behaviour Page
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
-  @E2EUI-1755 @NTS-3169 @v_1 @P0 @COMP1_TD
+  @E2EUI-1755 @NTS-3169 @TD_VERSION_INFO @v_1 @P0 @COMP1_TD
   Scenario: NTS-3169 - Home Page - User is able to see the version of NGIS at the bottom of the page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
@@ -28,8 +28,8 @@ Feature: Global Behaviour Page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
 
-  @E2EUI-1658 @NTS-**** @v_1 @P0 @COMP1_TD
-  Scenario: NTS-**** - Home Page - User is able to see the privacy policy link at the bottom of the page
+  @E2EUI-1658 @NTS-3236 @v_1 @P0 @COMP1_TD_ClinicalTests
+  Scenario: NTS-3236 - Home Page - User is able to see the privacy policy link at the bottom of the page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
     When the user clicks the privacy policy link
