@@ -165,4 +165,11 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
     }
+
+    @Then("the search results have been displayed with Patient Name, dob, gender, NHS number and address")
+    public void theSearchResultsHaveBeenDisplayedWithPatientNameDobGenderNHSNumberAndAddress() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
+        Assert.assertTrue(testResult);
+    }
 }//end
