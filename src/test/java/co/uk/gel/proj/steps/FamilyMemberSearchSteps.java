@@ -134,4 +134,16 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
         Assert.assertTrue(testResult);
     }
+    @And("^the display title of the family member search page is \"([^\"]*)\"$")
+    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
+        familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
+    }
+    @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
+    public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
+        familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+    }
+    @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
+    public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
+        familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
+    }
 }//end

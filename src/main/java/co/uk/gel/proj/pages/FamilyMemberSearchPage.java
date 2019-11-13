@@ -58,6 +58,9 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButton;
 
+    @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
+    public WebElement nhsQuestion;
+
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
 
@@ -367,5 +370,20 @@ public class FamilyMemberSearchPage {
             Debugger.println("Exception from validating result Message "+exp);
             return false;
         }
+    }
+    public void verifyTheTitleOfThePage(String titleOfPage) {
+        Wait.forElementToBeDisplayed(driver, searchButton);
+        Debugger.println("The actual page title  is :" + pageTitle.getText());
+        Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
+    }
+    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+        String actualPageDescription = pageDescription.getText();
+        Debugger.println("The actual Description title  is :" + pageDescription.getText());
+        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    }
+    public void verifyTheQuestionOfThePage(String DescriptionOfPage) {
+        String actualPageDescription = nhsQuestion.getText();
+        Debugger.println("The actual Description title  is :" + nhsQuestion.getText());
+        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
 }//end

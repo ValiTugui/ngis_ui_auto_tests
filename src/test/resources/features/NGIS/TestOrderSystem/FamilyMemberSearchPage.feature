@@ -115,3 +115,44 @@ Feature: FamilyMember search page
     Examples:
       | stage          | NoSearchDetails                                               | ResultMessage          |
       | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male | 1 patient record found |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_15 @E2EUI-851 @v_1 @P0
+  Scenario Outline: Verify the family member search landing page with displayed properly
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the display title of the family member search page is "Find a family member"
+    And the family member search page display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
+    And the display question for NHS Number of the family member search page is "Do you have the family member’s NHS Number?"
+    #    reusing the methods
+    Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
+
+    Examples:
+      | stage          |
+      | Family members |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_16 @ @E2EUI-1254 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing last name displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+    ##Do not provide last name in the search details
+    Examples:
+      | stage          | SearchDetails                                | ErrorMessage           | MessageColor |
+      | Family members | DOB=23-03-2011:FirstName=Smith:Gender=Female | Last name is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+  @familyMemberSearchPage_17 @E2EUI-965 @v_1 @P0
+  Scenario Outline: Verify the family member search with valid DOB displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the default family member search page is correctly displayed with the NHS number and Date of Birth fields
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<MandatoryFieldsMessage>" in "<MandatoryFieldsColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails            | MandatoryFieldsMessage                                                                                                                 | MandatoryFieldsColor |
+      | Family members | NHSNumber=1234:DOB=0-0-0 | Please enter your full NHS Number (10 characters),Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509              |
