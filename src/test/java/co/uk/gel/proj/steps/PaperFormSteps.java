@@ -61,10 +61,10 @@ public class PaperFormSteps extends Pages {
         paperFormPage.clickContinueButton();
     }
 
-    @Then("the Review test selection page is properly opened and by default a test is selected")
-    public void checkThatReviewTestSelectionPageIsProperlyOpened() {
+    @Then("the {string} page is properly opened and by default a test is selected")
+    public void checkThatReviewTestSelectionPageIsProperlyOpened(String pageTitle) {
         paperFormPage.checkThatReviewTestSelectionIsOpened();
-        Assert.assertTrue((paperFormPage.paperFormHeader.getText()).toLowerCase().contains("review test selection"));
+        Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
         Assert.assertTrue("First Test is NOT selected by Default", paperFormPage.checkThatTestIsSelected());
         Assert.assertTrue((paperFormPage.confirmTestsSubCaption.getText()).contains("1 of " + Integer.toString(paperFormPage.testsPackage.size())));
     }
@@ -74,11 +74,11 @@ public class PaperFormSteps extends Pages {
         paperFormPage.clickContinueButton();
     }
 
-    @Then("the Offline order page is properly displayed for chosen clinical indication")
-    public void offlineOrderPageIsDisplayedForRareDiseaseClinicalIndication() {
+    @Then("the {string} page is properly displayed for chosen clinical indication")
+    public void offlineOrderPageIsDisplayedForRareDiseaseClinicalIndication(String pageTitle) {
         Wait.forElementToBeDisplayed(driver, paperFormPage.offlineOrderContainer);
         Wait.forElementToBeDisplayed(driver, paperFormPage.paperFormHeader);
-        Assert.assertTrue((paperFormPage.paperFormHeader.getText()).contains("Offline order"));
+        Assert.assertTrue((paperFormPage.paperFormHeader.getText()).matches(pageTitle));
     }
 
     @And("The user should be able to see text {string} replaced with {string} Form")
@@ -107,5 +107,10 @@ public class PaperFormSteps extends Pages {
     public void theUserSelectsTheTestInTheTestPageAndClicksOnContinueButton() {
         Click.element(driver, paperFormPage.clinicalCardCheckbox);
         Click.element(driver, paperFormPage.continueButton.get(0));
+    }
+
+    @And("the user should be able to see text {string} under Review Test Selection heading")
+    public void theUserShouldBeAbleToSeeTextUnderReviewTestSelectionHeading(String headerText) {
+        Assert.assertTrue("Header Text DO NOT contain the correct text", paperFormPage.checkTheReviewSelectionPageHeaderText(headerText));
     }
 }
