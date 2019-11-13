@@ -29,6 +29,8 @@ Feature: Clinical Questions stage
     Then the value "<rareDiseaseDiagnosisValue>" should be cleared from the Rare disease diagnosis field
 
     Examples:
-      | stage              | title                     |rareDiseaseDiagnosisValue |
-      | Clinical questions | Answer clinical questions |  rudimentary             |
+      | stage              | title                     | rareDiseaseDiagnosisValue |
+      | Clinical questions | Answer clinical questions | rudimentary               |
+      | Clinical questions | Answer clinical questions | ABDUCENS                  |
+      | Clinical questions | Answer clinical questions | TRANSCOBALAMIN            |
 
