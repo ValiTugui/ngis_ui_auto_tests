@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
@@ -79,7 +80,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user should be able to see all {string} tabs - {string}, {string}, {string} and {string} and are clickable")
     public void theUserSeesAllTabsAndAndAreClickable(String tabCount, String tab1, String tab2, String tab3, String tab4) {
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tab1, tab2, tab3, tab4));
-        Assert.assertTrue(clinicalIndicationsTestSelect.isTabClickable(Integer.parseInt(tabCount)));
+        Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount),clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }
 
     @Then("the user should be able to see a new modal window")
