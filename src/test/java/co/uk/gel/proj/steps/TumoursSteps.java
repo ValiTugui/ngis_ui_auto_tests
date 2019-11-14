@@ -320,4 +320,19 @@ public class TumoursSteps extends Pages {
         tumoursPage.selectTumourType(tumourType);
         tumoursPage.fillInSpecimenID();
     }
+
+    @And("the user enters {string} in the Pathology Sample ID field")
+    public void theUserEntersInThePathologySampleIDField(String pathologySampleId) {
+        Actions.fillInValue(tumoursPage.pathologyReportId, pathologySampleId);
+    }
+
+
+    @And("the user answers the tumour system specific question fields - Description, Date of Diagnosis, amd Select a tumour type {string}")
+    public void theUserAnswersTheTumourSystemSpecificQuestionFieldsDescriptionDateOfDiagnosisAmdSelectATumourType(String tumourType) {
+
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.selectTumourType(tumourType);
+    }
 }
