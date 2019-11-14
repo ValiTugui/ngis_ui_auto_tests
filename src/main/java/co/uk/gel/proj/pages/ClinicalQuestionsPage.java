@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -152,5 +153,38 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, diagnosisField);
         return (!diagnosisField.getText().contains(diagnosisValue));
 
+    }
+
+    public boolean selectDiseaseStatus(String diseaseStatusValue){
+        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        Actions.clickElement(driver, diseaseStatusDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+        return true;
+    }
+
+    public void fillInYearsOfOnset(String years){
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+        Actions.fillInValue(ageOfOnsetYearsField, years);
+  }
+
+    public void fillInMonthsOfOnset(String months) {
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        Actions.fillInValue(ageOfOnsetMonthsField, months);
+    }
+
+    public String getErrorMessageText(){
+        Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
+        String actualErrorMessage = nonNullableFieldErrorMessage.getText();
+        return actualErrorMessage;
+    }
+
+    public boolean checkNoErrorMessageIsDisplayed() {
+        try {
+            return nonNullableFieldErrorMessage.isDisplayed();
+        } catch (NoSuchElementException nseException) {
+            Debugger.println("Web element locator for error message is not visible , hence Error message is not shown on the page");
+            return false;
+        }
     }
 }

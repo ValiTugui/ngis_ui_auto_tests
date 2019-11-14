@@ -3,10 +3,12 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.awt.*;
 
@@ -54,5 +56,41 @@ public class ClinicalQuestionsSteps extends Pages {
     @Then("the value {string} should be cleared from the Rare disease diagnosis field")
     public void theValueShouldBeClearedFromTheRareDiseaseDiagnosisField(String diagnosis) {
         Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
+    }
+
+    @And("the user selects {string}")
+    public void theUserSelects(String diseaseStatus) {
+        if(diseaseStatus.contentEquals("USER_DOES_NOT_SELECT_ANY_VALUE")){
+            // No need to set a disease value in UI if User doesn't select a value
+        } else {
+            clinicalQuestionsPage.selectDiseaseStatus(diseaseStatus);
+        }
+    }
+
+    @When("the user provided the values {string} {string} for Age of onset fields")
+    public void theUserProvidedTheValuesForAgeOfOnsetFields(String year, String month) {
+        clinicalQuestionsPage.fillInYearsOfOnset(year);
+        clinicalQuestionsPage.fillInMonthsOfOnset(month);
+   }
+
+    @When("the user provided the values {string} for Age of onset fields")
+    public void theUserProvidedTheValuesForAgeOfOnsetFields(String months) {
+        clinicalQuestionsPage.fillInMonthsOfOnset(months);
+    }
+
+    @When("the user provided the year values {string} for Age of onset fields")
+    public void theUserProvidedTheYearValuesForAgeOfOnsetFields(String year) {
+        clinicalQuestionsPage.fillInYearsOfOnset(year);
+    }
+
+    @And("the user sees an error {string} message on the page")
+    public void theUserSeesAnErrorMessageOnThePage(String expectedErrorMessage) {
+        String actualErrorMessage = clinicalQuestionsPage.getErrorMessageText();
+        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+    }
+
+    @And("the user does not see an error message on the page")
+    public void theUserDoesNotSeeAnErrorMessageOnThePage() {
+            Assert.assertFalse(clinicalQuestionsPage.checkNoErrorMessageIsDisplayed());
     }
 }
