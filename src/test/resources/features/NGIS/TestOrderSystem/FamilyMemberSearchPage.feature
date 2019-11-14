@@ -9,7 +9,7 @@ Feature: FamilyMember search page
     When the user navigates to the family member search Page
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
     And the YES button is selected by default on family member search
-    And the background colour of the YES button in family member is strong blue "#005eb8"
+#    And the background colour of the YES button in family member is strong blue "#005eb8"
     Examples:
       | stage          |
       | Family members |
