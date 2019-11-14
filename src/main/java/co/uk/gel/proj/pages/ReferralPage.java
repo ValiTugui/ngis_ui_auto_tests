@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -171,6 +172,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//button[contains(text(),'Add family member')]")
     public WebElement addFamilyMember;
 
+    @FindBy(xpath = "//p[contains(@class,'hint__text')]")
+    public List<WebElement> hintText;
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
@@ -325,5 +329,15 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver,addFamilyMember);
         Actions.clickElement(driver,addFamilyMember);
     }
+    public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualHelpHintTexts = new ArrayList<>();
 
-}//end
+        for (WebElement fieldHelpHintText : hintText) {
+            actualHelpHintTexts.add(fieldHelpHintText.getText().trim());
+        }
+        String currentPage = getTheCurrentPageTitle();
+        Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
+        return actualHelpHintTexts;
+    }
+}

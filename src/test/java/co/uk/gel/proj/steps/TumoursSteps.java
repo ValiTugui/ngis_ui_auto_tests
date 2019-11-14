@@ -74,6 +74,15 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
     }
 
+
+    @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
+    public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
+
+        int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
+        Debugger.println("Number of Tumour(s) :" + numberOfTumours);
+        Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
+    }
+
     @And("the new tumour is not highlighted")
     public void theNewTumourIsNotHighlighted() {
         tumoursPage.tumourIsNotHighlighted();
@@ -280,4 +289,30 @@ public class TumoursSteps extends Pages {
 
     }
 
+    @And("the labels and help hint texts are displayed")
+    public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
+
+        List<Map<String, String>> expectedLabelsAndHintTextsListMap = dataTable.asMaps(String.class, String.class);
+        List<String> expectedLabels = new ArrayList<>();
+        List<String> expectedHelpHintTexts = new ArrayList<>();
+        List actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+        List actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
+
+        /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
+        actualHelpHintTexts.add(3, "None");
+
+        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
+            expectedLabels.add(expectedLabelsAndHintTextsListMap.get(i).get("labelHeader"));
+            Debugger.println("Expected Labels: " + i + " : " + expectedLabels.get(i));
+            Debugger.println("Actual Labels:  " + i + " : " + actualFieldsLabels.get(i));
+        }
+        Assert.assertEquals(expectedLabels, actualFieldsLabels);
+
+        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
+            expectedHelpHintTexts.add(expectedLabelsAndHintTextsListMap.get(i).get("HintTextHeader"));
+            Debugger.println("Expected HelpHints: " + i + " : " + expectedHelpHintTexts.get(i));
+            Debugger.println("Actual HelpHints: " + i + " : " + actualHelpHintTexts.get(i));
+        }
+        Assert.assertEquals(expectedHelpHintTexts, actualHelpHintTexts);
+    }
 }

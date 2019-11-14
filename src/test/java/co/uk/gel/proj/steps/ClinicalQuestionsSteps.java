@@ -7,6 +7,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.awt.*;
+
 public class ClinicalQuestionsSteps extends Pages {
     public ClinicalQuestionsSteps(SeleniumDriver driver) {
         super(driver);
@@ -38,9 +40,23 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertTrue(clinicalQuestionsPage.verifyTheCountOfHPOTerms(Integer.parseInt(expectedNumberOfHPOTerms)));
     }
 
+    @And("the user selects a value {string} from the Rare disease diagnosis")
+    public void theUserSelectsAValueFromTheRareDiseaseDiagnosis(String diagnosis) {
+        clinicalQuestionsPage.searchAndSelectARandomDiagnosis(diagnosis);
+    }
+
+    @When("the user presses the backspace key on the Rare disease diagnosis field")
+    public void theUserPressesTheBackspaceKeyOnTheRareDiseaseDiagnosisField() throws AWTException {
+        clinicalQuestionsPage.clearRareDiseaseDiagnosisFieldByPressingBackspaceKey();
+    }
+
+    @Then("the value {string} should be cleared from the Rare disease diagnosis field")
+    public void theValueShouldBeClearedFromTheRareDiseaseDiagnosisField(String diagnosis) {
+        Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
+    }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
     }
 
-}//end
+}

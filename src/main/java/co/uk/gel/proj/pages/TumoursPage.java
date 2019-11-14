@@ -135,6 +135,9 @@ public class TumoursPage {
     @FindBy(xpath = "//table//tbody/tr")
     public List<WebElement> listOfTumoursInTheTable;
 
+    @FindBy(xpath = "//p[contains(@class,'hint__text')]")
+    public List<WebElement> hintText;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -221,6 +224,12 @@ public class TumoursPage {
         int numberOfTumours = tumoursLandingPageList.size() - 1;
         Assert.assertEquals(i, numberOfTumours);
         return true;
+    }
+
+    public int getTheNumbersOfTumoursDisplayedInLandingPage() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        return listOfTumoursInTheTable.size();
     }
 
     public void tumourIsNotHighlighted() {
@@ -353,9 +362,25 @@ public class TumoursPage {
         return expectedTumourTestData;
     }
 
-
     public String successNotificationIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, successNotification);
         return Actions.getText(successNotification);
     }
+
+    public List<String> getTheTumourFieldsLabelsOnAddATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        List<String> expectedTumourFieldsLabels = new ArrayList<>();
+
+        expectedTumourFieldsLabels.add(Actions.getText(descriptiveNameLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(dateOfDiagnosisLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(PathologyIdOrSampleIdLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(tumourTypeLabel));
+
+        Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
+        return expectedTumourFieldsLabels;
+    }
+
+
+
 }

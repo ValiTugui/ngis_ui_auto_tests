@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class ClinicalQuestionsPage {
@@ -25,8 +28,6 @@ public class ClinicalQuestionsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-
-    //@FindBy(xpath = "(//label[text()='Disease status']//following::div)[1]")
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
@@ -78,11 +79,14 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//span[contains(@class,'radio__text')]")
     public List<WebElement> radioButtonsTexts;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::input")
+    @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::div")
     public WebElement diagnosisField;
+
+    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//*[@class='css-19bqh2r']")
+    public WebElement cancelDiagnosisValue;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseStatusDropdown;
@@ -101,10 +105,6 @@ public class ClinicalQuestionsPage {
 
     @FindBy(xpath = "//button[text()='Delete']")
     public WebElement deleteLink;
-
-    @FindBy(xpath = "//button[@type='submit'][text()='Save and continue']")
-    public WebElement saveAndContinueButton;
-
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -133,6 +133,32 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
         String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
         return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
+    }
+
+    public String searchAndSelectARandomDiagnosis(String diagnosis) {
+        if (Actions.getText(diagnosisField).isEmpty()) {
+            Actions.fillInValue(driver, diagnosisValue, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Wait.seconds(10);
+        }
+        return Actions.getText(diagnosisField);
+    }
+
+    public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
+        if (!Actions.getText(diagnosisField).isEmpty()) {
+            Debugger.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
+            diagnosisValue.click();
+            Actions.clearField(driver, diagnosisValue);
+            Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
+            Wait.seconds(10);
+        }
+    }
+
+    public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
+        Wait.forElementToBeDisplayed(driver, diagnosisField);
+        return (!diagnosisField.getText().contains(diagnosisValue));
+
     }
     //Method added by @Stag for filling the ClinicalQuestionsPage
     public void fillClinicalQuestionPageWithGivenParams(String searchParams) {
@@ -167,8 +193,8 @@ public class ClinicalQuestionsPage {
                             for(WebElement row:hpoRows){
                                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
                                 if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
-                                  isExists = true;
-                                  break;//for loop
+                                    isExists = true;
+                                    break;//for loop
                                 }
                                 //Ideally we need to check where Present is selected or not also.
                                 ////table[contains(@class,'--hpo')]/tbody/tr[1]/td[2]//input[@value='Present']
@@ -184,5 +210,4 @@ public class ClinicalQuestionsPage {
             }//switch
         }//for
     }//method
-
-}//end
+}
