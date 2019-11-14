@@ -172,4 +172,16 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
         Assert.assertTrue(testResult);
     }
+
+       @And("There is a {string} link available to create a new patient")
+    public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
+        familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
+    }
+
+    @And("the user clicks the {string} to create a new patient")
+    public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
+        familyMemberSearchPage.CreateNewPatientLinkDisplayed(hyperLinkText);
+
+    }
+
 }//end
