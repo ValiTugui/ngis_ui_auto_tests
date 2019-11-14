@@ -27,7 +27,6 @@ Feature: Navigation: Family Members stage
     ##Last step implementation is pending
     Then the user returns to family member landing page with the added family member details
 
-
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=lymphedema | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=lymphedema |

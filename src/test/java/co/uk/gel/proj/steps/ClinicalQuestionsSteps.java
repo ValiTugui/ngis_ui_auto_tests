@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -55,4 +54,9 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theValueShouldBeClearedFromTheRareDiseaseDiagnosisField(String diagnosis) {
         Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
     }
+    @And("the user fills the ClinicalQuestionsPage with the {string}")
+    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
+        clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
+    }
+
 }

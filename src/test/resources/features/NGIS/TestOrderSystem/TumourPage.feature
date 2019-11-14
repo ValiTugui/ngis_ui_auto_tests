@@ -141,7 +141,6 @@ Feature: Tumours Page
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
 
     Examples:
       | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
@@ -419,6 +418,4 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-
 

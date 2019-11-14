@@ -14,7 +14,7 @@ public class FamilyMemberSearchSteps extends Pages {
         super(driver);
     }
 
-    @When("the user navigates to the family member search Page")
+    @And("the user navigates to the family member search Page")
     public void theUserNavigatesToTheFamilyMemberSearchPage() {
         referralPage.navigateToFamilyMemberSearchPage();
     }
@@ -121,6 +121,55 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the FamilyMemberDetailsPage with the {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+            familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+    }
+    @Then("the message will be displayed as {string} result found")
+    public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the family member details with the selected test are added to the referral")
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the DiseaseStatusDetails for family member with the with the {string}")
+    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
+        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
+    }
+
+    @Then("the user returns to family member landing page with the added family member details")
+    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+        Assert.assertTrue(testResult);
+    }
+    @And("^the display title of the family member search page is \"([^\"]*)\"$")
+    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
+        familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
+    }
+    @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
+    public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
+        familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+    }
+    @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
+    public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
+        familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
+    }
+
+    @Then("the search results have been displayed with Patient Name, dob, gender, NHS number and address")
+    public void theSearchResultsHaveBeenDisplayedWithPatientNameDobGenderNHSNumberAndAddress() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
         Assert.assertTrue(testResult);
     }
 }//end
