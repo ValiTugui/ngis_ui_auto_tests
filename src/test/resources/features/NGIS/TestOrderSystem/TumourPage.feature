@@ -46,7 +46,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @P0 @v_1
+    @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -125,6 +125,7 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText|
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
+
 
 
   @COMP6_TOC_Tumour @LOGOUT
@@ -420,5 +421,35 @@ Feature: Tumours Page
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
+ 
+ @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_16 @E2EUI-1459 @P0 @v_1
+  Scenario Outline: Fuzzy date on Date of Diagnosis field
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
+    And the user answers the tumour system specific question fields - Description, Select a tumour type "<tumour_type>" and Pathology Sample ID
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
+
+
+    Examples: of filling out the year and leaving the month and day blank
+      | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | null-null-2018    | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+
+    Examples: of filling out the month and year and leaving the day blank
+      | stage   | Date_of_Diagnosis | tumour_type              | presentationType   | searchTerm | notificationText |
+      | Tumours | null-11-2018      | Solid tumour: metastatic | First presentation | test       | Tumour added     |
+
+    Examples: of filling out day, month and year field
+      | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | 10-11-2018        | Solid tumour: metastatic | Unknown          | test       | Tumour added     |
 
 
