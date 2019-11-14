@@ -28,6 +28,24 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_02b @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @P0 @v_1
+  Scenario Outline: NTS-3241: Labels and help hint texts are displayed in Add a Tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the labels and help hint texts are displayed
+      | labelHeader                                       | HintTextHeader                                                                                             |
+      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                          |
+      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                            |
+      | Histopathology laboratory ID or local sample ID ✱ | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
+      | The tumour is... ✱                                | None                                                                                                       |
+
+    Examples:
+      | stage   |
+      | Tumours |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_03 @NTS-3152 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -89,7 +107,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_05 @NTS-3154 @E2EUI-1320 @E2EUI-894 @P0 @v_1
+    @tumoursPage_05 @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -99,17 +117,18 @@ Feature: Tumours Page
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
     And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
+    Then the new tumour is displayed in the landing page for the existing patient with tumour list
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       |
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText|
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_06 @NTS-3154 @E2EUI-894 @P0 @v_1
+    @tumoursPage_06 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -124,8 +143,8 @@ Feature: Tumours Page
     And the "<stage>" stage is marked as Completed
 
     Examples:
-      | stage   | tumour_type              | presentationType   | searchTerm |
-      | Tumours | Solid tumour: metastatic | First presentation | test       |
+      | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
+      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added    |
 
 
   @COMP6_TOC_Tumour @LOGOUT
