@@ -2,6 +2,7 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
@@ -868,6 +869,19 @@ public class SeleniumLib {
         } catch (Exception exp) {
             Debugger.println("Exception is Found in get Element Of Hidden Visibility : " + exp);
             throw exp;
+        }
+    }
+    public void scrollToElement(WebElement element) {
+        try {
+            if(element == null){
+                return;
+            }
+            Point location = element.getLocation();
+            String script = "scroll(" + location.x + "," + (location.y - 120) + ")";
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript(script);
+        } catch (Exception e) {
+
         }
     }
 
