@@ -40,4 +40,26 @@ Feature: Home Page
     And the user click on Go to test page button
     Then the list of clinical indications are loaded
     And the user sees the "Clinical Indications" tab is selected by default
-    And the user should be able to see all "4" tabs - "Clinical Indications", "Test details", "Labs" and "Order process" and are clickable
+    And the user should be able to see all "4" tabs and are clickable
+      | Clinical Indications | Test details | Labs | Order process |
+
+  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @NTS-3251 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
+  Scenario: NTS-3251 - Clinical Indication Page - View details for a Rare Disease Clinical Indication.
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | R100 |
+    And the user selects the "Test Package" tab
+    And the user clicks on view more icon
+    Then the user should be able to see a new modal window
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "Clinical Indications" tab is selected by default
+    And the user should be able to see all "4" tabs and are clickable
+      | Clinical Indications | Test details | Labs | Order process |
+    And the user selects the "Test details" tab
+    And the user should be able to see sections are displayed based on Clinical Indications type
+      | Targeted regions | Required samples | Optimal family structure |
+    And the user selects the "Labs" tab
+    And the user should be able to see "Lab details" section is displayed
+    And the user selects the "Order process" tab
+    And the user should be able to see "5" sections of Order process are displayed
+      | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |

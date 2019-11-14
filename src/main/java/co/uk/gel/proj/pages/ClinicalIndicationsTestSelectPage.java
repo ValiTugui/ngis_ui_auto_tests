@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ClinicalIndicationsTestSelectPage {
@@ -31,6 +30,9 @@ public class ClinicalIndicationsTestSelectPage {
 
     @FindBy(css = "div[class*='eligibilityCard']")
     public List<WebElement> eligibilityCriteriaSections;
+
+    @FindBy(xpath = "//*[contains(@class,'grid')]//descendant::div/h2/span")
+    public List<WebElement> testDetailsSubSections;
 
     @FindBy(css = "div[class*='markdownStyling']")
     public List<WebElement> whoToTestText;
@@ -95,6 +97,21 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'styles_relatedContainer')]/ul")
     public WebElement clinicalIndicationsResultContainer;
 
+    @FindBy(xpath = "//*[contains (@class, 'styles_card')]")
+    public List<WebElement> clinicalIndicationsResults;
+
+    @FindBy(xpath = "//*[contains (@class, 'styles_processCardImg')]")
+    public List<WebElement> orderProcessResults;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::img")
+    public List<WebElement> orderProcessCardImage;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::h2")
+    public List<WebElement> orderProcesssTitles;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::p")
+    public List<WebElement> orderProcesssDescriptions;
+
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
     }
@@ -113,8 +130,9 @@ public class ClinicalIndicationsTestSelectPage {
         return !actual.equalsIgnoreCase(expected);
     }
 
-    public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
+    public boolean checkIfClinicalIndicationsAreLoaded() {
         Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
+        return clinicalIndicationsResults.size() >= 0;
     }
 
     public boolean isTabSelected(String tabName) {
@@ -140,17 +158,20 @@ public class ClinicalIndicationsTestSelectPage {
 
     public void selectTab(String tabName) {
         switch (tabName) {
-            case "Eligibility Criteria": {
+            case "Eligibility Criteria":
+            case "Clinical Indications": {
                 Click.element(driver, clinicalIndicationTabs.get(0));
                 Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
                 break;
             }
-            case "Test Package": {
+            case "Test Package":
+            case "Test details": {
                 Click.element(driver, clinicalIndicationTabs.get(1));
                 Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
                 break;
             }
-            case "Further Info": {
+            case "Further Info":
+            case "Labs": {
                 Click.element(driver, clinicalIndicationTabs.get(2));
                 Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
                 break;
@@ -179,4 +200,29 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean checkTestPagePopUpTitleMatchesSearchedText() {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
+
+    public boolean testDetailsTabValidation(String sectionName1, String sectionName2, String sectionName3) {
+        switch (testDetailsSubSections.size()) {
+            case 1: {
+                return testDetailsSubSections.get(0).getText().matches(sectionName1);
+            }
+            case 2: {
+                return ((testDetailsSubSections.get(0).getText().matches(sectionName1)) && (testDetailsSubSections.get(1).getText().matches(sectionName2)));
+            }
+            case 3: {
+                return ((testDetailsSubSections.get(0).getText().matches(sectionName1)) && (testDetailsSubSections.get(1).getText().matches(sectionName2)) && (testDetailsSubSections.get(2).getText().matches(sectionName3)));
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + testDetailsSubSections.size());
+        }
+    }
+
+    public boolean labsTabValidation(String sectionName) {
+        return (eligibilityCriteriaSections.size() == 1 && eligibilityCriteriaSections.get(0).getText().contains(sectionName));
+    }
+
+    public boolean orderProcessTabValidation(int numOfSection) {
+        return orderProcessResults.size() == numOfSection;
+    }
+
 }
