@@ -451,8 +451,8 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_16 @E2EUI-1459 @P0 @v_1
-  Scenario Outline: Fuzzy date on Date of Diagnosis field
+    @tumoursPage_17 @E2EUI-1247 @P0 @v_1
+  Scenario Outline: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -467,7 +467,6 @@ Feature: Tumours Page
     And the "<stage>" stage is marked as Completed
     And the success notification is displayed "<notificationText>"
 
-
     Examples: of filling out the year and leaving the month and day blank
-      | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | null-null-2018    | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+      | stage   | pathologySampleId                 | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
