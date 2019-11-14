@@ -1,4 +1,4 @@
-@FamilyMembers
+@FamilyMemberSearch
 Feature: Relationship to proband field validation
 
   @COMP8_TO_PatientSearch
