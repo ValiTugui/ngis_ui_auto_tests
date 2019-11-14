@@ -13,9 +13,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TumoursSteps extends Pages {
     SeleniumLib seleniumLib = new SeleniumLib(driver);
@@ -283,27 +281,22 @@ public class TumoursSteps extends Pages {
     @And("the labels and help hint texts are displayed")
     public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
 
-        List<Map<String, String>> expectedLabelsAndHintTextsListMap = dataTable.asMaps(String.class, String.class);
-        List<String> expectedLabels = new ArrayList<>();
-        List<String> expectedHelpHintTexts = new ArrayList<>();
-        List actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
-        List actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
+        List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
+        List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+        List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
 
         /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
         actualHelpHintTexts.add(3, "None");
 
-        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
-            expectedLabels.add(expectedLabelsAndHintTextsListMap.get(i).get("labelHeader"));
-            Debugger.println("Expected Labels: " + i + " : " + expectedLabels.get(i));
-            Debugger.println("Actual Labels:  " + i + " : " + actualFieldsLabels.get(i));
-        }
-        Assert.assertEquals(expectedLabels, actualFieldsLabels);
+        for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
 
-        for (int i = 0; i < expectedLabelsAndHintTextsListMap.size(); i++) {
-            expectedHelpHintTexts.add(expectedLabelsAndHintTextsListMap.get(i).get("HintTextHeader"));
-            Debugger.println("Expected HelpHints: " + i + " : " + expectedHelpHintTexts.get(i));
-            Debugger.println("Actual HelpHints: " + i + " : " + actualHelpHintTexts.get(i));
+            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
+            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
         }
-        Assert.assertEquals(expectedHelpHintTexts, actualHelpHintTexts);
+
     }
 }
