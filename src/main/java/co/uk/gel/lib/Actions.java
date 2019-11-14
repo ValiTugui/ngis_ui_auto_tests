@@ -3,6 +3,8 @@ package co.uk.gel.lib;
 import co.uk.gel.config.SeleniumDriver;
 import org.openqa.selenium.*;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.text.DateFormatSymbols;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +45,11 @@ public class Actions {
         element.sendKeys(value);
     }
 
+    public static void fillInValue(WebDriver driver, WebElement element, String value) {
+        new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
+        element.sendKeys(value);
+    }
+
     public static void clearTextField(WebElement element) {
         element.clear();
     }
@@ -50,6 +57,15 @@ public class Actions {
     public static void clearField(WebElement element) {
         while (!getValue(element).isEmpty()) {
             element.sendKeys(Keys.BACK_SPACE);
+        }
+    }
+
+    public static void clearField(WebDriver driver, WebElement element) throws AWTException{
+        while (!getText(element).isEmpty()) {
+            new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_BACK_SPACE);
+            robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         }
     }
 
