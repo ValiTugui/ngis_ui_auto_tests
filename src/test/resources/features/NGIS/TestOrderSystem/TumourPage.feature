@@ -422,8 +422,8 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_16 @E2EUI-1459 @P0 @v_1
-  Scenario Outline: Fuzzy date on Date of Diagnosis field
+    @tumoursPage_16 @NTS-3249 @E2EUI-1459 @P0 @v_1
+  Scenario Outline: NTS-3249: Fuzzy date on Date of Diagnosis field
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -453,8 +453,8 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_17 @E2EUI-1247 @P0 @v_1
-  Scenario Outline: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
+    @tumoursPage_17 @NTS-3250 @E2EUI-1247 @P0 @v_1
+  Scenario Outline: NTS-3250: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
