@@ -454,7 +454,7 @@ public class FamilyMemberSearchPage {
 
 }
 
-    public void CreateNewPatientLinkDisplayed(String hyperLinkText) {
+    public void createNewPatientLinkDisplayed(String hyperLinkText) {
 
         seleniumLib.clickOnWebElement(createNewPatientLink);
         Actions.clearField(firstName);

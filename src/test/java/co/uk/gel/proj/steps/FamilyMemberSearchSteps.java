@@ -180,7 +180,7 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @And("the user clicks the {string} to create a new patient")
     public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.CreateNewPatientLinkDisplayed(hyperLinkText);
+        familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
 
     }
 

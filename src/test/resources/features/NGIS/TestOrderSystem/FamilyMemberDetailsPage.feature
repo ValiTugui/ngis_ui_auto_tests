@@ -27,7 +27,7 @@ Feature: Relationship to proband field validation
     Then The message will be displayed as You’ve searched for "<SearchDetails>" "<ErrorMessage>" in "bold" font
     And There is a "<hyperlinkText>" link available to create a new patient
     And the user clicks the "<hyperlinkText>" to create a new patient
-
+    ##This is incomplete - Create NTS First - In progress
     Examples:
       | stage          | SearchDetails                                               | ErrorMessage     | hyperlinkText               |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found | create a new patient record |

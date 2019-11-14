@@ -225,4 +225,4 @@ Feature: FamilyMember search page
 
     Examples:
       | stage          | SearchDetails | ErrorMessage                                                                           | MessageColor |
-      | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required., | #dd2509      |
+      | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
