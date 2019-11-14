@@ -18,7 +18,54 @@ Feature: Relationship to proband field validation
       | Family members | 9449310602 | 23-03-2011 |Relationship to proband is required.  |#dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_2 @ @E2EUI-1038 @v_1 @P0
+    @familyMemberDetailsPage_02 @E2EUI-1012 @v_1 @P0
+  Scenario Outline: Family member Details page field validation
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user selects the patient search result tab
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    Then the user clicks the Save and Continue button in family member details page
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310122 | 30-06-1974 | Son                   |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_03 @E2EUI-1349 @v_1 @P0
+  Scenario Outline: Family member Details page field validation
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user selects the patient search result tab
+    Then the default family member details page is correctly displayed with the proper number of fields
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    Then the user clicks the Save and Continue button in family member details page
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310602 | 23-03-2011 | Maternal Aunt         |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_04 @E2EUI-1369 @v_1 @P0
+  Scenario Outline: Family member Details page field validation
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user selects the patient search result tab
+    Then the default family member details page is correctly displayed with the proper number of fields
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And the user removes the data from all fields "<ClearFields>" in the family member details page
+    Then the user clicks the Save and Continue button in family member details page
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband | ClearFields                                          | ErrorMessage                                                                                                                                                | MessageColor |
+      | Family members | 9449310602 | 23-03-2011 | Maternal Aunt         | Gender,Life status,Ethnicity,Relationship to proband | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Relationship to proband is required. | #dd2509      |
+
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_5 @ @E2EUI-1038 @v_1 @P0
   Scenario Outline: Verify the family member search without providing last name displays correct error message
     And the user navigates to the "<stage>" stage
     When the user navigates to the family member search Page
@@ -27,7 +74,7 @@ Feature: Relationship to proband field validation
     Then The message will be displayed as You’ve searched for "<SearchDetails>" "<ErrorMessage>" in "bold" font
     And There is a "<hyperlinkText>" link available to create a new patient
     And the user clicks the "<hyperlinkText>" to create a new patient
-    ##This is incomplete - Create NTS First - In progress
+
     Examples:
       | stage          | SearchDetails                                               | ErrorMessage     | hyperlinkText               |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found | create a new patient record |

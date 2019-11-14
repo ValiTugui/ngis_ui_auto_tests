@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -22,8 +23,65 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
+    @FindBy(xpath = "//label[contains(text(),'Title')]")
+    public WebElement pageTitleLabel;
+
+    @FindBy(id = "title")
+    public WebElement pageTitle;
+
+    @FindBy(xpath = "//label[contains(text(),'First name')]")
+    public WebElement firstNameLabel;
+
+    @FindBy(id = "firstName")
+    public WebElement firstName;
+
+    @FindBy(xpath = "//label[contains(text(),'Last name')]")
+    public WebElement lastNameLabel;
+
+    @FindBy(id = "familyName")
+    public WebElement lastName;
+
+    @FindBy(xpath = "//label[contains(text(),'Date of birth')]")
+    public WebElement dobLabel;
+
+    @FindBy(id = "dateOfBirth")
+    public WebElement dobOfFamilyMember;
+
+    @FindBy(xpath = "//label[text()='Gender']")
+    public WebElement genderLabel;
+
+    @FindBy(xpath = "//label[text()='Gender']//following::div")
+    public WebElement gender;
+
+    @FindBy(xpath = "//label[contains(text(),'Life status')]")
+    public WebElement lifeStatusLabel;
+
+    @FindBy(xpath = "//label[contains(text(),'Life status')]//following::div[1]")
+    public WebElement lifeStatus;
+
+    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]")
+    public WebElement ethnicityLabel;
+
+    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]//following::div[1]")
+    public WebElement ethnicity;
+
+    @FindBy(xpath = "//label[contains(text(),'Relationship to proband')]")
+    public WebElement relationshipToProbandLabel;
+
+    @FindBy(xpath = "//label[text()='Relationship to proband']//following::div[1]")
+    public WebElement relationshipToProband;
+
+    @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
+    public WebElement nhsNumberLabel;
+
     @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
+
+    @FindBy(xpath = "//label[contains(text(),'Hospital Number')]")
+    public WebElement hospitalNumberLabel;
+
+    @FindBy(id = "hospitalNumber")
+    public WebElement hospitalNumber;
 
     @FindBy(id = "dateDay")
     public WebElement dateDay;
@@ -76,6 +134,9 @@ public class FamilyMemberDetailsPage {
     public List<WebElement> hpoTerms;
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
+
+    @FindBy(xpath = "//div[@class='css-s17594-control']//*[@class='css-19bqh2r']")
+    WebElement crossClearFields;
 
     static NGISPatient familyMember;
 
@@ -253,5 +314,55 @@ public class FamilyMemberDetailsPage {
             return false;
         }
         return true;
+    }
+    public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
+        Wait.forElementToBeDisplayed(driver, pageTitleLabel);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(pageTitleLabel);
+        expElements.add(pageTitle);
+        expElements.add(firstNameLabel);
+        expElements.add(firstName);
+        expElements.add(lastName);
+        expElements.add(lastNameLabel);
+        expElements.add(dobLabel);
+        expElements.add(dobOfFamilyMember);
+        expElements.add(genderLabel);
+        expElements.add(gender);
+        expElements.add(lifeStatusLabel);
+        expElements.add(lifeStatus);
+        expElements.add(ethnicityLabel);
+        expElements.add(ethnicity);
+        expElements.add(relationshipToProbandLabel);
+        expElements.add(relationshipToProband);
+        expElements.add(nhsNumberLabel);
+        expElements.add(nhsNumber);
+        expElements.add(hospitalNumberLabel);
+        expElements.add(hospitalNumber);
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void removeFetchedDataInFamilyMemberDetailsPage(String clearToDropdown){
+        Actions.clearField(firstName);
+        Actions.clearField(lastName);
+        Actions.clearField(dobOfFamilyMember);
+        String[] expInputs = null;
+        expInputs = clearToDropdown.split(",");
+        String pathToElement = "";
+        By xpathElement = null;
+        for(int i=0; i<expInputs.length;i++) {
+            Debugger.println(expInputs[i]);
+            pathToElement = "//label[text()='"+expInputs[i]+"']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
+            xpathElement = By.xpath(pathToElement);
+            if(!seleniumLib.isElementPresent(xpathElement)){
+                Debugger.println("Path :"+pathToElement+" Could not locate");
+                break;
+            }
+            seleniumLib.clickOnElement(xpathElement);
+        }
     }
 }//ends

@@ -183,5 +183,16 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
 
     }
+    @Then("the default family member details page is correctly displayed with the proper number of fields")
+    public void theDefaultFamilyMemberDetailsPageIsCorrectlyDisplayedWithTheProperNumberOfFields() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberDetailsPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user removes the data from all fields {string} in the family member details page")
+    public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberDetailsPage(String clearDropdown) {
+        familyMemberDetailsPage.removeFetchedDataInFamilyMemberDetailsPage(clearDropdown);
+    }
 
 }//end
