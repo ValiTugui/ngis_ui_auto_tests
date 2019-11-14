@@ -169,16 +169,6 @@ public class ClinicalIndicationsTestSelectPage {
         return ((clinicalIndicationTabs.size() == tabCount) && (clinicalIndicationTabs.get(0).getText().matches(tab1)) && (clinicalIndicationTabs.get(1).getText().matches(tab2)) && (clinicalIndicationTabs.get(2).getText().matches(tab3)) && (clinicalIndicationTabs.get(3).getText().matches(tab4)));
     }
 
-    public boolean isTabClickable(Integer tabCount) {
-        Iterator<WebElement> itr = clinicalIndicationTabs.iterator();
-        int i = 0;
-        while (itr.hasNext()) {
-            Wait.forElementToBeClickable(driver, itr.next());
-            i++;
-        }
-        return i == tabCount;
-    }
-
     public void testPackagePopUpValidations() {
         testPackagePopupIcon.isDisplayed();
         testPackagePopupProps.isDisplayed();
