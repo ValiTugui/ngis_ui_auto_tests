@@ -67,17 +67,17 @@ Feature: Relationship to proband field validation
       | Family members | 9449310602 | 23-03-2011 | Maternal Aunt         | Gender,Life status,Ethnicity,Relationship to proband | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required. | #dd2509      |
 
 
-  @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_5 @ @E2EUI-1038 @v_1 @P0
-  Scenario Outline: Verify the family member search without providing last name displays correct error message
-    And the user navigates to the "<stage>" stage
-    When the user navigates to the family member search Page
-    When the user clicks the NO button in family member search page
-    And the user search the family member with the specified details "<SearchDetails>"
-    Then The message will be displayed as You’ve searched for "<SearchDetails>" "<ErrorMessage>" in "bold" font
-    And There is a "<hyperlinkText>" link available to create a new patient
-    And the user clicks the "<hyperlinkText>" to create a new patient
-    ##This test is yet to complete - in progress
-    Examples:
-      | stage          | SearchDetails                                               | ErrorMessage     | hyperlinkText               |
-      | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found | create a new patient record |
+#  @COMP8_TO_PatientSearch
+#    @familyMemberSearchPage_5 @ @E2EUI-1038 @v_1 @P0
+#  Scenario Outline: Verify the family member search without providing last name displays correct error message
+#    And the user navigates to the "<stage>" stage
+#    When the user navigates to the family member search Page
+#    When the user clicks the NO button in family member search page
+#    And the user search the family member with the specified details "<SearchDetails>"
+#    Then The message will be displayed as You’ve searched for "<SearchDetails>" "<ErrorMessage>" in "bold" font
+#    And There is a "<hyperlinkText>" link available to create a new patient
+#    And the user clicks the "<hyperlinkText>" to create a new patient
+#    ##This test is yet to complete - in progress
+#    Examples:
+#      | stage          | SearchDetails                                               | ErrorMessage     | hyperlinkText               |
+#      | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found | create a new patient record |
