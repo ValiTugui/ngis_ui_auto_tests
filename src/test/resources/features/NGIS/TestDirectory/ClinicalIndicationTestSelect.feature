@@ -65,8 +65,8 @@ Feature: Home Page
     And the user should be able to see "5" sections of Order process are displayed
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
-  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @NTS-**** @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
-  Scenario: NTS-**** - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
+  Scenario: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
     Then the user should be able to see all "4" tabs and are clickable
