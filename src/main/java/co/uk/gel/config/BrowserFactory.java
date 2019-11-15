@@ -25,6 +25,7 @@ public class BrowserFactory {
     public WebDriver getDriver(String browser,
                                boolean javascriptEnabled) {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
+        Debugger.println("BrowserEnum: "+browserEnum);
         switch (browserEnum) {
             case CHROME:
                 WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download

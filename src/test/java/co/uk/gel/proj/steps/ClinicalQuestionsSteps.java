@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -55,25 +54,9 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theValueShouldBeClearedFromTheRareDiseaseDiagnosisField(String diagnosis) {
         Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
     }
-
-    @When("the user selects {string}")
-    public void theUserSelects(String diseaseStatus) {
-        if(diseaseStatus.contentEquals("USER_DOES_NOT_SELECT_ANY_VALUE")){
-            // No need to set a disease value in UI if User doesn't select a value
-        } else {
-            clinicalQuestionsPage.selectDiseaseStatus(diseaseStatus);
-        }
-    }
-
-    @Then("the HPO phenotype details mandatory state is {string}")
-    public void theHPOPhenotypeDetailsMandatoryStateIs(String mandatoryValue) {
-        boolean expectedMandatoryValue = Boolean.valueOf(mandatoryValue);
-        boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
-
-        Assert.assertTrue( actualMandatoryValue == expectedMandatoryValue);
-    }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
     }
+
 }
