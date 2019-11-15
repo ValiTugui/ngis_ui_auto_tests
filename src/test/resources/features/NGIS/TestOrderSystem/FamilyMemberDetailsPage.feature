@@ -1,5 +1,5 @@
-@regression
-@FamilyMembers
+@regression1
+@FamilyMembersDetailsPage
 Feature: Relationship to proband field validation
 
   @COMP8_TO_PatientSearch
@@ -50,7 +50,7 @@ Feature: Relationship to proband field validation
       | Family members | 9449310165 | 25-12-2000 | Maternal Aunt         |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @E2EUI-1369 @v_1 @P0
+    @familyMemberDetailsPage_04 @LOGOUT @E2EUI-1369 @v_1 @P0
   Scenario Outline: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user navigates to the family member search Page

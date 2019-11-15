@@ -1,3 +1,4 @@
+@regression1
 @FamilyMemberStage
 Feature: Navigation: Family Members stage
 
@@ -24,7 +25,6 @@ Feature: Navigation: Family Members stage
     When the user clicks the Save and Continue button in family member details page
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     When the user clicks the Save and Continue button in family member details page
-    ##Last step implementation is pending
     Then the user returns to family member landing page with the added family member details
 
     Examples:

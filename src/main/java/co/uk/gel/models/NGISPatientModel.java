@@ -1,8 +1,6 @@
-package co.uk.gel.proj.TestDataProvider;
+package co.uk.gel.models;
 
-import co.uk.gel.proj.util.Debugger;
-
-public class NGISPatient {
+public class NGISPatientModel {
 
     private String FIRST_NAME;
     private String LAST_NAME;
@@ -49,20 +47,35 @@ public class NGISPatient {
     }
 
     public String getFULL_NAME() {
-        FULL_NAME = LAST_NAME + ", " + FIRST_NAME + " (" + TITLE +  ")";
         return FULL_NAME;
+    }
+
+    public void setFULL_NAME(String FULL_NAME) {
+        this.FULL_NAME = FULL_NAME;
     }
 
     public String getDAY_OF_BIRTH() {
         return DAY_OF_BIRTH;
     }
 
+    public void setDAY_OF_BIRTH(String DAY_OF_BIRTH) {
+        this.DAY_OF_BIRTH = DAY_OF_BIRTH;
+    }
+
     public String getMONTH_OF_BIRTH() {
         return MONTH_OF_BIRTH;
     }
 
+    public void setMONTH_OF_BIRTH(String MONTH_OF_BIRTH) {
+        this.MONTH_OF_BIRTH = MONTH_OF_BIRTH;
+    }
+
     public String getYEAR_OF_BIRTH() {
         return YEAR_OF_BIRTH;
+    }
+
+    public void setYEAR_OF_BIRTH(String YEAR_OF_BIRTH) {
+        this.YEAR_OF_BIRTH = YEAR_OF_BIRTH;
     }
 
     public String getDATE_OF_BIRTH() {
@@ -71,14 +84,6 @@ public class NGISPatient {
 
     public void setDATE_OF_BIRTH(String DATE_OF_BIRTH) {
         this.DATE_OF_BIRTH = DATE_OF_BIRTH;
-        try {
-            //Set Day,month and year of birth also.
-            this.DAY_OF_BIRTH = DATE_OF_BIRTH.split("-")[0];
-            this.MONTH_OF_BIRTH = DATE_OF_BIRTH.split("-")[1];
-            this.YEAR_OF_BIRTH = DATE_OF_BIRTH.split("-")[2];
-        }catch(Exception exp){
-            Debugger.println("Exception in setting DAY,MONTH and YEAR from Given DOB: "+DATE_OF_BIRTH);
-        }
     }
 
     public String getGENDER() {
@@ -154,8 +159,11 @@ public class NGISPatient {
     }
 
     public String getFULL_ADDRESS() {
-        FULL_ADDRESS = "Address " + ADDRESS_LINE1 + ", " + ADDRESS_LINE2 + ", " + ADDRESS_LINE3 + ", " + POST_CODE;
         return FULL_ADDRESS;
+    }
+
+    public void setFULL_ADDRESS(String FULL_ADDRESS) {
+        this.FULL_ADDRESS = FULL_ADDRESS;
     }
 
     public String getRELATIONSHIP_TO_PROBAND() {

@@ -4,7 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NGISPatient;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
@@ -138,7 +138,17 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[@class='css-s17594-control']//*[@class='css-19bqh2r']")
     WebElement crossClearFields;
 
-    static NGISPatient familyMember;
+    By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
+
+    By genderTitle              = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
+    By isTestSelected           = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
+    String selectedTestTitle    = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
+    String selectedMemberTitle  = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
+    String addFamilyMemberTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),";
+    String addFamilyMemberReferralTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),";
+    By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+
+    static NGISPatientModel familyMember;
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -196,17 +206,16 @@ public class FamilyMemberDetailsPage {
         Click.element(driver, relationshipToProbandDropdown);
         Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
         //Here reading the Family member details to verify in next page  - whether details loaded with the expected details
-        familyMember = new NGISPatient();
+        familyMember = new NGISPatientModel();
         try {
-            By firstLastName = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
-            if (seleniumLib.isElementPresent(firstLastName)) {
-                String f_l_name = seleniumLib.getText(firstLastName);
+            if (seleniumLib.isElementPresent(firstLastNameTitle)) {
+                String f_l_name = seleniumLib.getText(firstLastNameTitle);
                 familyMember.setFIRST_NAME(f_l_name.split(",")[0].trim());
                 familyMember.setLAST_NAME(f_l_name.split(",")[1].trim());
             }
-            By gender = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
-            if (seleniumLib.isElementPresent(gender)) {
-                familyMember.setGENDER(seleniumLib.getText(gender));
+
+            if (seleniumLib.isElementPresent(genderTitle)) {
+                familyMember.setGENDER(seleniumLib.getText(genderTitle));
             }
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }catch(Exception exp){
@@ -216,20 +225,19 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestAndDetailsOfAddedFamilyMember(){
         Wait.seconds(5);
         //1. Verify the display of Title for the added Test.
-        By testTitle = By.xpath("//h3[contains(text(),'Selected tests for')]/span[contains(text(),'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
+        By testTitle = By.xpath(selectedTestTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
         if(!seleniumLib.isElementPresent(testTitle)){
             Debugger.println("Selected Test Title for Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
-        By selectedFamilyMember = By.xpath("//h4[contains(text(),'Selected family members')]/..//span[contains(text(),'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
+        By selectedFamilyMember = By.xpath(selectedMemberTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
         if(!seleniumLib.isElementPresent(selectedFamilyMember)){
             Debugger.println("Selected Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
             return false;
         }
         //3. Verify the select as checked by default.
-        By isTestSelected = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
-        if(!seleniumLib.isElementPresent(isTestSelected)){
+         if(!seleniumLib.isElementPresent(isTestSelected)){
             Debugger.println("Test for Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in SELECTED State.");
             return false;
         }
@@ -266,9 +274,9 @@ public class FamilyMemberDetailsPage {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         String hpoValue="";
                         boolean isExists = false;
-                        List<WebElement> hpoRows = seleniumLib.getElements(By.xpath("//table[contains(@class,'--hpo')]/tbody/tr"));
-                        if(hpoRows != null && hpoRows.size() > 0){
-                            for(WebElement row:hpoRows){
+                        List<WebElement> rows = seleniumLib.getElements(hpoRows);
+                        if(rows != null && rows.size() > 0){
+                            for(WebElement row:rows){
                                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
                                 if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
                                     isExists = true;
@@ -302,13 +310,13 @@ public class FamilyMemberDetailsPage {
     }
     public boolean verifyAddedFamilyMemberDetailsInLandingPage(){
         //1. Verify the display of Title for the added Test.
-        By firstNameLastName = By.xpath("//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),'"+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME()+"')]");
+        By firstNameLastName = By.xpath(addFamilyMemberTitle+"'"+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME()+"')]");
         if(!seleniumLib.isElementPresent(firstNameLastName)){
             Debugger.println("Selected Family member not displayed in Landing Page: "+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME());
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
-        By selectedFamilyMember = By.xpath("//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
+        By selectedFamilyMember = By.xpath(addFamilyMemberReferralTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
         if(!seleniumLib.isElementPresent(selectedFamilyMember)){
             Debugger.println("Selected Family member's Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
             return false;

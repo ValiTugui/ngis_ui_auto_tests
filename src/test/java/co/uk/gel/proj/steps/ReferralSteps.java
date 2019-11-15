@@ -1,10 +1,9 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.proj.TestDataProvider.NGISPatient;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -16,7 +15,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -249,7 +247,7 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
-            NGISPatient ngisPatient = new NGISPatient();
+            NGISPatientModel ngisPatient = new NGISPatientModel();
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {

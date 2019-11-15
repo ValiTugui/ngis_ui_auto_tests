@@ -4,6 +4,7 @@ import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
@@ -742,7 +743,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals("Male", Actions.getText(administrativeGenderButton));
         Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
     }
-    public void fillInNHSNumberAndDateOfBirth(NGISPatient ngisPatient) {
+    public void fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
         fillInValidPatientDetailsUsingNHSNumberAndDOB(ngisPatient.getNHS_NUMBER(), ngisPatient.getDAY_OF_BIRTH(), ngisPatient.getMONTH_OF_BIRTH(), ngisPatient.getYEAR_OF_BIRTH());
     }
 }

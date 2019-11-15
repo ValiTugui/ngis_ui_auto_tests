@@ -20,6 +20,7 @@ import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
+    Random random = new Random();
     SeleniumLib seleniumLib;
 
     public ClinicalQuestionsPage(WebDriver driver) {
@@ -111,6 +112,8 @@ public class ClinicalQuestionsPage {
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
 
+    By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -166,6 +169,7 @@ public class ClinicalQuestionsPage {
         return (!diagnosisField.getText().contains(diagnosisValue));
 
     }
+
     public boolean selectDiseaseStatus(String diseaseStatusValue){
         Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
         Actions.clickElement(driver, diseaseStatusDropdown);
@@ -208,17 +212,15 @@ public class ClinicalQuestionsPage {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         String hpoValue="";
                         boolean isExists = false;
-                        List<WebElement> hpoRows = seleniumLib.getElements(By.xpath("//table[contains(@class,'--hpo')]/tbody/tr"));
-                        if(hpoRows != null && hpoRows.size() > 0){
-                            for(WebElement row:hpoRows){
+                        List<WebElement> rows = seleniumLib.getElements(hpoRows);
+                        if(rows != null && rows.size() > 0){
+                            for(WebElement row:rows){
                                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
                                 if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
                                     isExists = true;
                                     break;//for loop
                                 }
-                                //Ideally we need to check where Present is selected or not also.
-                                ////table[contains(@class,'--hpo')]/tbody/tr[1]/td[2]//input[@value='Present']
-                            }//for
+                             }//for
                         }
                         if(!isExists) {
                             searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method

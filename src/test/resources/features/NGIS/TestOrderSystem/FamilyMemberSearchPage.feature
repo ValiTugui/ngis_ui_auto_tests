@@ -1,4 +1,4 @@
-@regression
+@regression1
 @FamilyMembers
 Feature: FamilyMember search page
 
