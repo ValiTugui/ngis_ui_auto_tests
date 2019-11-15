@@ -1,3 +1,4 @@
+@regression
 @testDirectory
 Feature: Home Page
 

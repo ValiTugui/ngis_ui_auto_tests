@@ -1,3 +1,4 @@
+@regression
 @clinicalIndicationTestSelect
 Feature: Home Page
 

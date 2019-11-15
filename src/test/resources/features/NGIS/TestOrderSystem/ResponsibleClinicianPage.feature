@@ -1,3 +1,4 @@
+@regression
 @responsibleClinicianOrg
 Feature: Responsible Clinician
 

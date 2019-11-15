@@ -1,3 +1,4 @@
+@regression
 @tumoursPage
 Feature: Tumours Page
 
