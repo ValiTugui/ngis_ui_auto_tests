@@ -106,6 +106,12 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//button[text()='Delete']")
     public WebElement deleteLink;
 
+    @FindBy(css = "div[class*='hpo__search']")
+    public WebElement hpoSectionLabel;
+
+    String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
+
+
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         int actualNumberOfHPOTerms = hpoTerms.size();
@@ -158,6 +164,20 @@ public class ClinicalQuestionsPage {
     public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
         Wait.forElementToBeDisplayed(driver, diagnosisField);
         return (!diagnosisField.getText().contains(diagnosisValue));
+
+    }
+    public boolean selectDiseaseStatus(String diseaseStatusValue){
+        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        Actions.clickElement(driver, diseaseStatusDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+        return true;
+    }
+
+    public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory(){
+        Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
+        Debugger.println(" HPO section Label :  "+ hpoSectionLabel.getText());
+        return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
 
     }
     //Method added by @Stag for filling the ClinicalQuestionsPage

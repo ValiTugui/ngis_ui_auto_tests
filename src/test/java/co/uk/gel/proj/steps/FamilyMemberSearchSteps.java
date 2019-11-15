@@ -14,7 +14,7 @@ public class FamilyMemberSearchSteps extends Pages {
         super(driver);
     }
 
-    @And("the user navigates to the family member search Page")
+    @When("the user navigates to the family member search Page")
     public void theUserNavigatesToTheFamilyMemberSearchPage() {
         referralPage.navigateToFamilyMemberSearchPage();
     }
@@ -56,7 +56,6 @@ public class FamilyMemberSearchSteps extends Pages {
         boolean eachElementIsLoaded;
         eachElementIsLoaded = familyMemberSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
-
     }
 
     @When("^the user clicks the Search button in family member search page$")
@@ -99,35 +98,10 @@ public class FamilyMemberSearchSteps extends Pages {
     @Then("the message will be displayed as {string} in {string} for the invalid field")
     public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
-    @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
-    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
-       familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
-    }
-
-    @And("the user selects the patient search result tab")
-    public void theUserSelectsThePatientSearchResultTab() {
-        familyMemberDetailsPage.clickPatientCard();
-    }
-
-    @When("the user clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        familyMemberDetailsPage.clickOnSaveAndContinueButton();
-    }
-    @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
-    public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user fills the FamilyMemberDetailsPage with the {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
-            familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-    }
     @Then("the message will be displayed as {string} result found")
     public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
         boolean testResult = false;
@@ -135,32 +109,16 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the family member details with the selected test are added to the referral")
-    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user fills the DiseaseStatusDetails for family member with the with the {string}")
-    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
-        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
-    }
-
-    @Then("the user returns to family member landing page with the added family member details")
-    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
-        Assert.assertTrue(testResult);
-    }
     @And("^the display title of the family member search page is \"([^\"]*)\"$")
     public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
         familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
     }
+
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
+
     @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
@@ -171,5 +129,15 @@ public class FamilyMemberSearchSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
         Assert.assertTrue(testResult);
+    }
+
+    @And("There is a {string} link available to create a new patient")
+    public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
+        familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
+    }
+
+    @And("the user clicks the {string} to create a new patient")
+    public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
+        familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
     }
 }//end

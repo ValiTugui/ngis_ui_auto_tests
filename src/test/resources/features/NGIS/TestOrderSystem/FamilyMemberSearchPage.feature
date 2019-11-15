@@ -1,5 +1,6 @@
-@FamilyMembers
+@FamilyMemberSearchPage
 Feature: FamilyMember search page
+
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0
   Scenario Outline: NTS-3207: Verify the family member search page with Yes option displayed properly
@@ -199,3 +200,30 @@ Feature: FamilyMember search page
     Examples:
       | stage          | SearchDetails            | MandatoryFieldsMessage                                                                                                                 | MandatoryFieldsColor |
       | Family members | NHSNumber=1234:DOB=0-0-0 | Please enter your full NHS Number (10 characters),Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509              |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_21 @E2EUI-983 @v_1 @P0
+  Scenario Outline: Verify the family member search with invalid nhs no and blank DOB displays correct error message
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    And the default family member search page is correctly displayed with the NHS number and Date of Birth fields
+    And the user search the family member with the specified details "<SearchDetails>"
+    And the user clicks the Search button in family member search page
+    Then the message will be displayed as "<MandatoryFieldsMessage>" in "<MandatoryFieldsColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails   | MandatoryFieldsMessage                                                                   | MandatoryFieldsColor |
+      | Family members | NHSNumber=12345 | Please enter your full NHS Number (10 characters),Enter a day,Enter a month,Enter a year | #dd2509              |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_22 @E2EUI-829 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing Dob, first name and last name  displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails | ErrorMessage                                                                           | MessageColor |
+      | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |

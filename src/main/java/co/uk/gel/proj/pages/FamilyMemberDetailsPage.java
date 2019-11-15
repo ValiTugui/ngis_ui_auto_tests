@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -22,8 +23,65 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
+    @FindBy(xpath = "//label[contains(text(),'Title')]")
+    public WebElement pageTitleLabel;
+
+    @FindBy(id = "title")
+    public WebElement pageTitle;
+
+    @FindBy(xpath = "//label[contains(text(),'First name')]")
+    public WebElement firstNameLabel;
+
+    @FindBy(id = "firstName")
+    public WebElement firstName;
+
+    @FindBy(xpath = "//label[contains(text(),'Last name')]")
+    public WebElement lastNameLabel;
+
+    @FindBy(id = "familyName")
+    public WebElement lastName;
+
+    @FindBy(xpath = "//label[contains(text(),'Date of birth')]")
+    public WebElement dobLabel;
+
+    @FindBy(id = "dateOfBirth")
+    public WebElement dobOfFamilyMember;
+
+    @FindBy(xpath = "//label[text()='Gender']")
+    public WebElement genderLabel;
+
+    @FindBy(xpath = "//label[text()='Gender']//following::div")
+    public WebElement gender;
+
+    @FindBy(xpath = "//label[contains(text(),'Life status')]")
+    public WebElement lifeStatusLabel;
+
+    @FindBy(xpath = "//label[contains(text(),'Life status')]//following::div[1]")
+    public WebElement lifeStatus;
+
+    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]")
+    public WebElement ethnicityLabel;
+
+    @FindBy(xpath = "//label[contains(text(),'Ethnicity')]//following::div[1]")
+    public WebElement ethnicity;
+
+    @FindBy(xpath = "//label[contains(text(),'Relationship to proband')]")
+    public WebElement relationshipToProbandLabel;
+
+    @FindBy(xpath = "//label[text()='Relationship to proband']//following::div[1]")
+    public WebElement relationshipToProband;
+
+    @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
+    public WebElement nhsNumberLabel;
+
     @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
+
+    @FindBy(xpath = "//label[contains(text(),'Hospital Number')]")
+    public WebElement hospitalNumberLabel;
+
+    @FindBy(id = "hospitalNumber")
+    public WebElement hospitalNumber;
 
     @FindBy(id = "dateDay")
     public WebElement dateDay;
@@ -66,7 +124,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q97-months')]")
     public WebElement ageOfOnsetMonthsField;
 
-    @FindBy(css = "#react-select-3-input")
+    @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
 
     @FindBy(css = "table[class*='table--hpo']")
@@ -76,6 +134,9 @@ public class FamilyMemberDetailsPage {
     public List<WebElement> hpoTerms;
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
+
+    @FindBy(xpath = "//div[@class='css-s17594-control']//*[@class='css-19bqh2r']")
+    WebElement crossClearFields;
 
     static NGISPatient familyMember;
 
@@ -174,40 +235,34 @@ public class FamilyMemberDetailsPage {
         }
         return true;
     }
-    public boolean verifyAddedFamilyMemberDetailsInLandingPage(){
-       //This step has to be implemented.
-        return true;
-    }
 
     public void fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
+        //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
+        if(paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
+            try {
+                Click.element(driver, diseaseStatusDropdown);
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
+            }catch(Exception exp){
+                Debugger.println("Exception from selecting disease from the disease dropdown...:"+exp);
+            }
+        }
         for (String key : paramsKey) {
+            if(key.equalsIgnoreCase("DiseaseStatus")){
+                continue;
+            }
             switch (key) {
-                case "DiseaseStatus": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                         try {
-                             Click.element(driver, diseaseStatusDropdown);
-                             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
-                         }catch(Exception exp){
-                             Debugger.println("Exception...:"+exp);
-                             //diseaseStatusDropdown.refresh();
-                         }
-                    }
-                    break;
-                }
                 case "AgeOfOnset": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         String[] age_of_onsets = paramNameValue.get(key).split(",");
                         ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
                         ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
-                        Debugger.println("Age of Onset DONE:");
                     }
                     break;
                 }
                 case "HpoPhenoType": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        Debugger.println("Phenotype doing:");
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         String hpoValue="";
                         boolean isExists = false;
@@ -220,32 +275,97 @@ public class FamilyMemberDetailsPage {
                                     Debugger.println("Phenotype already exists:");
                                     break;//for loop
                                 }
-                                //Ideally we need to check where Present is selected or not also.
-                                ////table[contains(@class,'--hpo')]/tbody/tr[1]/td[2]//input[@value='Present']
                             }//for
                         }
                         if(!isExists) {
-                            Debugger.println("Phenotype not exists adding...:");
-                            searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                           searchAndSelectSpecificHPOPhenotype(paramNameValue.get(key));
                         }
                     }
                     break;
                 }
-
             }//switch
         }//for
     }//method
-    public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
-        Wait.seconds(5);
-        new org.openqa.selenium.interactions.Actions(driver).moveToElement(hpoSearchField).perform();
-        Actions.fillInValue(hpoSearchField, hpoTerm);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectByIndexFromDropDown(dropdownValues, 0);
-        // determine the total number of HPO terms
-        Wait.seconds(2);
-        Wait.forElementToBeDisplayed(driver, hpoTable);
-        int numberOfHPO = hpoTerms.size();
-        return numberOfHPO;
+    public void searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
+        try {
+            Wait.seconds(3);
+            if (!seleniumLib.isElementPresent(hpoSearchField)) {
+                seleniumLib.scrollToElement(hpoSearchField);
+            }
+            seleniumLib.clickOnWebElement(hpoSearchField);
+            Actions.fillInValue(hpoSearchField, hpoTerm);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
+        }catch(Exception exp){
+            Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: "+exp);
+        }
+    }
+    public boolean verifyAddedFamilyMemberDetailsInLandingPage(){
+        //1. Verify the display of Title for the added Test.
+        By firstNameLastName = By.xpath("//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),'"+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME()+"')]");
+        if(!seleniumLib.isElementPresent(firstNameLastName)){
+            Debugger.println("Selected Family member not displayed in Landing Page: "+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME());
+            return false;
+        }
+        //2. Verify the display of Relation to Proband as given.
+        By selectedFamilyMember = By.xpath("//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
+        if(!seleniumLib.isElementPresent(selectedFamilyMember)){
+            Debugger.println("Selected Family member's Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
+            return false;
+        }
+        return true;
+    }
+    public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
+        Wait.forElementToBeDisplayed(driver, pageTitleLabel);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(pageTitleLabel);
+        expElements.add(pageTitle);
+        expElements.add(firstNameLabel);
+        expElements.add(firstName);
+        expElements.add(lastName);
+        expElements.add(lastNameLabel);
+        expElements.add(dobLabel);
+        expElements.add(dobOfFamilyMember);
+        expElements.add(genderLabel);
+        expElements.add(gender);
+        expElements.add(lifeStatusLabel);
+        expElements.add(lifeStatus);
+        expElements.add(ethnicityLabel);
+        expElements.add(ethnicity);
+        expElements.add(relationshipToProbandLabel);
+        expElements.add(relationshipToProband);
+        expElements.add(nhsNumberLabel);
+        expElements.add(nhsNumber);
+        expElements.add(hospitalNumberLabel);
+        expElements.add(hospitalNumber);
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 
+    public void removeFetchedDataInFamilyMemberDetailsPage(String clearToDropdown){
+        Actions.clearField(firstName);
+        Actions.clearField(lastName);
+        Actions.clearField(dobOfFamilyMember);
+        String[] expInputs = null;
+        expInputs = clearToDropdown.split(",");
+        String pathToElement = "";
+        By xpathElement = null;
+        for(int i=0; i<expInputs.length;i++) {
+            pathToElement = "//label[text()='"+expInputs[i]+"']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
+            xpathElement = By.xpath(pathToElement);
+            if(!seleniumLib.isElementPresent(xpathElement)){
+                Debugger.println("Path :"+pathToElement+" Could not locate");
+                break;
+            }
+            try {
+                seleniumLib.clickOnElement(xpathElement);
+            }catch(Exception exp){
+                //seleniumLib.moveMouseAndClickOnElement(xpathElement);
+            }
+        }
+    }
 }//ends

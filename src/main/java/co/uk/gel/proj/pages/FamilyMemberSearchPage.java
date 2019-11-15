@@ -58,6 +58,9 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButton;
 
+    @FindBy(xpath = "//button[@class='styles_button__12U2K styles_button--medium__O8vZ3 styles_new-patient-form__submit-button__1VyYW']")
+    public WebElement AddReferralButton;
+
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
@@ -73,6 +76,9 @@ public class FamilyMemberSearchPage {
     @FindBy(id = "lastName")
     public WebElement lastName;
 
+    @FindBy(id = "familyName")
+    public WebElement familyName;
+
     @FindBy(css = "label[for*='lastName']")
     public WebElement lastNameLabel;
 
@@ -84,6 +90,15 @@ public class FamilyMemberSearchPage {
 
     @FindBy(id = "postcode")
     public WebElement postcode;
+
+    @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
+    public WebElement youHaveSearchedForLabel;
+
+    @FindBy(xpath = "//h3[contains(string(), 'No patient found')]")
+    public WebElement noPatientFoundLabel;
+
+    @FindBy(xpath = "//a[@class='styles_inline-link__3cAK2']")
+    public WebElement createNewPatientLink;
 
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
@@ -105,6 +120,16 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
+    @FindBy(css = "#dateOfBirth")
+    public WebElement dateOfBirthclear;
+
+    @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
+    public WebElement genderClear;
+
+
+
+
+
     static String searchString = "";
 
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
@@ -124,6 +149,12 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath="//p[contains(text(),'Address')]")
     public WebElement resultCardAddress;
+
+    @FindBy(css = "a[class*='inline-link']")
+    public WebElement noResultsHelpLink;
+
+    String noResultsLocator = "img[class*='no-results__img']";
+
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -336,6 +367,8 @@ public class FamilyMemberSearchPage {
             }else{
                 expMessages = errorMessage.split(",");
             }
+            Debugger.println("lenght of ExpMessages: "+expMessages.length);
+            Debugger.println("Length of erros: "+validationErrors.size());
             String actualMessage = "";
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
@@ -354,19 +387,6 @@ public class FamilyMemberSearchPage {
             validationErrors.clear();
             return true;
 
-        /*try {
-            String actualMessage = seleniumLib.getText(validationErrors.get(0));
-            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-                return false;
-            }
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = validationErrors.get(0).getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-                return false;
-            }
-            return true;*/
         }catch(Exception exp){
             Debugger.println("Exception from validating Error Message "+exp);
             return false;
@@ -417,4 +437,22 @@ public class FamilyMemberSearchPage {
         Debugger.println("The actual Description title  is :" + nhsQuestion.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
+    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
+        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
+        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
+
+}
+
+    public void createNewPatientLinkDisplayed(String hyperLinkText) {
+
+        seleniumLib.clickOnWebElement(createNewPatientLink);
+        Actions.clearField(firstName);
+        Actions.clearField(familyName);
+        Actions.clearField(dateOfBirthclear);
+        Click.element(driver, genderClear);
+        Wait.seconds(3);
+        Click.element(driver,AddReferralButton);
+
+    }
+
 }//end
