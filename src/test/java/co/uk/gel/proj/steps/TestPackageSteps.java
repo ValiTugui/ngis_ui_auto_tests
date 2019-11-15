@@ -167,4 +167,14 @@ public class TestPackageSteps extends Pages {
         referralPage.navigateToStage(stage);
         Assert.assertTrue(testPackagePage.verifyTheNumberOfParticipants(participantsCount));
     }
+
+    @Then("the user sees the test has become deselected")
+    public void theUserSeesTheTestHasBecomeDeselected() {
+        Assert.assertTrue(testPackagePage.testIsDeselected());
+    }
+
+    @And("the Total number of participants field is disappeared for the deselected test")
+    public void theTotalNumberOfParticipantsFieldIsDisappearedForTheDeselectedTest() {
+        Assert.assertTrue(testPackagePage.numberOfParticipantsFieldIsNotDisplayed());
+    }
 }
