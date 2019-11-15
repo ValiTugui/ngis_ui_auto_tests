@@ -21,6 +21,7 @@ public class AppConfig {
     private static String MYNewName;
     public static String NGIS_Version_Number;
     private static String NGIS_Version_URL;
+    public static String searchTerm;
     public static Properties properties = null;
 
     public static void loadAppConfig() {
@@ -132,5 +133,9 @@ public class AppConfig {
     public static String getNGISVersion() {
         NGIS_Version_Number = properties.getProperty("NGIS_Version_Number");
         return NGIS_Version_Number;
+    }
+    public static String getSearchTerm() {
+        searchTerm = properties.getProperty("Search_Term");
+        return searchTerm;
     }
 }//end
