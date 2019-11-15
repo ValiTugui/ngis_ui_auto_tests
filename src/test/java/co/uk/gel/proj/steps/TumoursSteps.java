@@ -294,7 +294,7 @@ public class TumoursSteps extends Pages {
         List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
         List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
         List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
-   
+
         /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
         actualHelpHintTexts.add(3, "None");
 

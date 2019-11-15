@@ -23,10 +23,10 @@ Feature: Navigation: Family Members stage
     Then the family member details with the selected test are added to the referral
     When the user clicks the Save and Continue button in family member details page
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And the user clicks the Save and Continue button in family member details page
+    When the user clicks the Save and Continue button in family member details page
     ##Last step implementation is pending
     Then the user returns to family member landing page with the added family member details
 
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=lymphedema | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=lymphedema |
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |

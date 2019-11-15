@@ -55,11 +55,6 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theValueShouldBeClearedFromTheRareDiseaseDiagnosisField(String diagnosis) {
         Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
     }
-    @And("the user fills the ClinicalQuestionsPage with the {string}")
-    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
-    }
-
 
     @When("the user selects {string}")
     public void theUserSelects(String diseaseStatus) {
@@ -76,5 +71,9 @@ public class ClinicalQuestionsSteps extends Pages {
         boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
 
         Assert.assertTrue( actualMandatoryValue == expectedMandatoryValue);
+    }
+    @And("the user fills the ClinicalQuestionsPage with the {string}")
+    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
+        clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
     }
 }

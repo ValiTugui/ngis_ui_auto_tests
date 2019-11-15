@@ -166,7 +166,6 @@ public class ClinicalQuestionsPage {
         return (!diagnosisField.getText().contains(diagnosisValue));
 
     }
-
     public boolean selectDiseaseStatus(String diseaseStatusValue){
         Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
         Actions.clickElement(driver, diseaseStatusDropdown);
