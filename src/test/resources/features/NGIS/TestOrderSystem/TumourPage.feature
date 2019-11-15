@@ -107,7 +107,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_05 @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @P0 @v_1
+    @tumoursPage_05 @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -473,3 +473,24 @@ Feature: Tumours Page
     Examples: of filling out the year and leaving the month and day blank
       | stage   | pathologySampleId                 | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_18 @NTS-3252 @E2EUI-1107 @P0 @v_1
+  Scenario Outline: NTS-3252: Tumour-list - Indicate any tumour list with incomplete or outstanding mandatory questions
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "<notificationText>"
+    And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
+    And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
+    And the new tumour details added in the tumour list are indicated as in-complete with "<messageColor>" fonts colour
+    And the error message "<errorMessage>" is displayed in "<messageColor>" fonts colour in the page
+
+    Examples:
+      | stage   | pageTitle               | tumour_type              | notificationText | errorMessage                                           | messageColor |
+      | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
