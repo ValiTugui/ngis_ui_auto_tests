@@ -2,6 +2,7 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
