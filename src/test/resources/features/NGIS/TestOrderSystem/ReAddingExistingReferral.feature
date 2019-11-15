@@ -1,4 +1,5 @@
-@ReAddExistingFamilyMember
+@regression
+@FamilyMember
 Feature: FamilyMember search page
 
   @COMP8_TO_Familymembers

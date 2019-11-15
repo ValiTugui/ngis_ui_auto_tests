@@ -1,3 +1,4 @@
+@regression
 @dashBoard
 Feature: Dashboard Page
 

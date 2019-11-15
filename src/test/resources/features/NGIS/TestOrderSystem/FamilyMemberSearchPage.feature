@@ -1,4 +1,5 @@
-@FamilyMemberSearchPage
+@regression
+@FamilyMembers
 Feature: FamilyMember search page
 
   @COMP8_TO_PatientSearch

@@ -1,3 +1,4 @@
+@regression
 @newPatientPage
 Feature: New Patient page
 
