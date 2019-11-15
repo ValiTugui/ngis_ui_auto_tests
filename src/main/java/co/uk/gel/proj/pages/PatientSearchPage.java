@@ -205,10 +205,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(nhsNo);
-        dateDay.sendKeys(dayOfBirth);
-        dateMonth.sendKeys(monthOfBirth);
-        dateYear.sendKeys(yearOfBirth);
+
+           nhsNumber.sendKeys(nhsNo);
+           dateDay.sendKeys(dayOfBirth);
+           dateMonth.sendKeys(monthOfBirth);
+           dateYear.sendKeys(yearOfBirth);
+
     }
 
     public void clickNoButton() {
@@ -744,7 +746,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
     }
     public void fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
-        fillInValidPatientDetailsUsingNHSNumberAndDOB(ngisPatient.getNHS_NUMBER(), ngisPatient.getDAY_OF_BIRTH(), ngisPatient.getMONTH_OF_BIRTH(), ngisPatient.getYEAR_OF_BIRTH());
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+
+        nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
+        dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
+        dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
+        dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
     }
 }
 

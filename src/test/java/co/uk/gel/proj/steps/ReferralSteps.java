@@ -253,11 +253,11 @@ public class ReferralSteps extends Pages {
             for (String key : paramsKey) {
                 switch (key) {
                     case "NHSNumber": {
-                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key));
+                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key).trim());
                         break;
                     }
                     case "DOB": {
-                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key));
+                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key).trim());
                         break;
                     }
                     case "FirstName": {
