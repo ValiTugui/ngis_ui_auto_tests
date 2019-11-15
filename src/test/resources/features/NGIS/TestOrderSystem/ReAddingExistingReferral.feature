@@ -6,7 +6,7 @@ Feature: FamilyMember search page
     @familyMembersSearchPage_01 @NTS-3227 @E2EUI-1947 @v_1 @P0
   Scenario Outline: NTS-3227:Verify that re-adding a patient who is already included in referral via Yes option displays error message
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
     And the user navigates to the "<stage>" stage
     When the user navigates to the family member search Page
     And the YES button is selected by default on family member search
