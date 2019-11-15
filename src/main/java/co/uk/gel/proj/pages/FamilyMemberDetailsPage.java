@@ -355,14 +355,17 @@ public class FamilyMemberDetailsPage {
         String pathToElement = "";
         By xpathElement = null;
         for(int i=0; i<expInputs.length;i++) {
-            Debugger.println(expInputs[i]);
             pathToElement = "//label[text()='"+expInputs[i]+"']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
             xpathElement = By.xpath(pathToElement);
             if(!seleniumLib.isElementPresent(xpathElement)){
                 Debugger.println("Path :"+pathToElement+" Could not locate");
                 break;
             }
-            seleniumLib.clickOnElement(xpathElement);
+            try {
+                seleniumLib.clickOnElement(xpathElement);
+            }catch(Exception exp){
+                //seleniumLib.moveMouseAndClickOnElement(xpathElement);
+            }
         }
     }
 }//ends

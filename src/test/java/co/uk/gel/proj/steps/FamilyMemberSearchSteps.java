@@ -56,7 +56,6 @@ public class FamilyMemberSearchSteps extends Pages {
         boolean eachElementIsLoaded;
         eachElementIsLoaded = familyMemberSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
-
     }
 
     @When("^the user clicks the Search button in family member search page$")
@@ -99,7 +98,7 @@ public class FamilyMemberSearchSteps extends Pages {
     @Then("the message will be displayed as {string} in {string} for the invalid field")
     public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
@@ -114,10 +113,12 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
         familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
     }
+
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
+
     @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
@@ -130,7 +131,7 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-       @And("There is a {string} link available to create a new patient")
+    @And("There is a {string} link available to create a new patient")
     public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
         familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
     }
@@ -138,6 +139,5 @@ public class FamilyMemberSearchSteps extends Pages {
     @And("the user clicks the {string} to create a new patient")
     public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
         familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
-
     }
 }//end
