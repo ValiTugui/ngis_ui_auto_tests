@@ -1,3 +1,4 @@
+@regression
 @patientDetails
 Feature: Patient details page
 

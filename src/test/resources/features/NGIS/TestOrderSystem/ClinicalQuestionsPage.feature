@@ -1,3 +1,4 @@
+@regression
 @clinicalQuestions
 Feature: Clinical Questions stage
 

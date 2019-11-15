@@ -1,3 +1,4 @@
+@regression
 @patientSearch
 Feature: Patient search page
 
