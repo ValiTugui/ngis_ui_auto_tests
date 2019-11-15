@@ -95,7 +95,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure"));
         Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
 
-        for (int i=0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
+        for (int i = 0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
             Assert.assertTrue(!clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
         }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
@@ -119,11 +119,9 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user should be able to see {string} sections of Order process are displayed")
     public void theUserShouldBeAbleToSeeSectionsOfOrderProcessAreDisplayed(String numOfSection, List<String> sectionName) {
         Assert.assertTrue(clinicalIndicationsTestSelect.orderProcessTabValidation(Integer.parseInt(numOfSection)));
-        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(0).getText().matches(sectionName.get(0)));
-        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(1).getText().matches(sectionName.get(1)));
-        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(2).getText().matches(sectionName.get(2)));
-        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(3).getText().matches(sectionName.get(3)));
-        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(4).getText().matches(sectionName.get(4)));
+        for (int i = 0; i < clinicalIndicationsTestSelect.orderProcesssTitles.size(); i++) {
+            Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(i).getText().matches(sectionName.get(i)));
+        }
     }
 
     @Then("the user should be able to see a link {string} at left side top of the page")
