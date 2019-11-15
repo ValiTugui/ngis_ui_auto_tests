@@ -3,6 +3,8 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -175,6 +177,21 @@ public class TestPackagePage {
 		return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
     }
 
+    public boolean testIsDeselected() {
+        Wait.forElementToBeDisplayed(driver, testCardBody);
+        boolean testCardIsSelected = testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+        boolean testIsSelected = testCheckMark.getAttribute("class").contains(checkboxValue);
+
+        // ensure test card is deselected & test is deselected
+        if (!testCardIsSelected && !testIsSelected) {
+            //Selected tests for pro-band section should now be updated with 0 tests
+            Debugger.println(" HEADER text info ::::  "+ selectTestsHeader.getText());
+            return selectTestsHeader.getText().contains("0");
+        } else {
+            return false;
+        }
+    }
+
     public void clickTest() {
         Wait.forElementToBeDisplayed(driver, routinePriorityButton);
         Click.element(driver, testCheckBoxCard);
@@ -255,6 +272,13 @@ public class TestPackagePage {
         }
         else return false;
 
+    }
+
+    public boolean numberOfParticipantsFieldIsNotDisplayed() {
+       if(numberOfParticipantsDropDown.size() == 0) {
+           return true;
+       }
+       else return false;
     }
 
 }
