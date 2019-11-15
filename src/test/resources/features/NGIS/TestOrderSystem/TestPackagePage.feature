@@ -1,3 +1,4 @@
+@regression
 @testPackage
 Feature: Test Package page
 

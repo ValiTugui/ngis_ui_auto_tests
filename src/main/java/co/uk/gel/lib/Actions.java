@@ -165,4 +165,14 @@ public class Actions {
             }
         }
     }
+
+    public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List <WebElement> element) {
+        Iterator<WebElement> itr = element.iterator();
+        int actualTabCount = 0;
+        while (itr.hasNext()) {
+            Wait.forElementToBeClickable(driver, itr.next());
+            actualTabCount++;
+        }
+        return actualTabCount == expectedTabCount;
+    }
 }

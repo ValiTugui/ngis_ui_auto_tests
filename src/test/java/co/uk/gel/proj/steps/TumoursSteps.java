@@ -13,9 +13,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TumoursSteps extends Pages {
     SeleniumLib seleniumLib = new SeleniumLib(driver);
@@ -72,6 +70,15 @@ public class TumoursSteps extends Pages {
     @Then("the new tumour is displayed in the landing page")
     public void theNewTumourIsDisplayedInTheLandingPage() {
         Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
+    }
+
+
+    @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
+    public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
+
+        int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
+        Debugger.println("Number of Tumour(s) :" + numberOfTumours);
+        Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }
 
     @And("the new tumour is not highlighted")
@@ -280,4 +287,52 @@ public class TumoursSteps extends Pages {
 
     }
 
+    @And("the labels and help hint texts are displayed")
+    public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
+
+
+        List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
+        List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+        List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
+   
+        /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
+        actualHelpHintTexts.add(3, "None");
+
+        for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
+
+            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
+            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
+        }
+
+
+    }
+
+
+    @And("the user answers the tumour system specific question fields - Description, Select a tumour type {string} and Pathology Sample ID")
+    public void theUserAnswersTheTumourSystemSpecificQuestionFieldsDescriptionSelectATumourTypeAndPathologySampleID(String tumourType) {
+
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.selectTumourType(tumourType);
+        tumoursPage.fillInSpecimenID();
+    }
+
+    @And("the user enters {string} in the Pathology Sample ID field")
+    public void theUserEntersInThePathologySampleIDField(String pathologySampleId) {
+        Actions.fillInValue(tumoursPage.pathologyReportId, pathologySampleId);
+    }
+
+
+    @And("the user answers the tumour system specific question fields - Description, Date of Diagnosis, amd Select a tumour type {string}")
+    public void theUserAnswersTheTumourSystemSpecificQuestionFieldsDescriptionDateOfDiagnosisAmdSelectATumourType(String tumourType) {
+
+        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+        tumoursPage.fillInTumourDescription();
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.selectTumourType(tumourType);
+    }
 }

@@ -100,6 +100,12 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//button[text()='Delete']")
     public WebElement deleteLink;
 
+    @FindBy(css = "div[class*='hpo__search']")
+    public WebElement hpoSectionLabel;
+
+    String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
+
+
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
         int actualNumberOfHPOTerms = hpoTerms.size();
@@ -161,6 +167,13 @@ public class ClinicalQuestionsPage {
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
         return true;
+    }
+
+    public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory(){
+        Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
+        Debugger.println(" HPO section Label :  "+ hpoSectionLabel.getText());
+        return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
+
     }
 
     public void fillInYearsOfOnset(String years){

@@ -1,14 +1,11 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
-import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.NoSuchElementException;
 
 import java.awt.*;
 
@@ -58,13 +55,21 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertTrue(clinicalQuestionsPage.confirmRareDiseaseDiagnosisFieldIsEmpty(diagnosis));
     }
 
-    @And("the user selects {string}")
+    @When("the user selects {string}")
     public void theUserSelects(String diseaseStatus) {
         if(diseaseStatus.contentEquals("USER_DOES_NOT_SELECT_ANY_VALUE")){
             // No need to set a disease value in UI if User doesn't select a value
         } else {
             clinicalQuestionsPage.selectDiseaseStatus(diseaseStatus);
         }
+    }
+
+    @Then("the HPO phenotype details mandatory state is {string}")
+    public void theHPOPhenotypeDetailsMandatoryStateIs(String mandatoryValue) {
+        boolean expectedMandatoryValue = Boolean.parseBoolean(mandatoryValue);
+        boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
+
+        Assert.assertEquals(actualMandatoryValue, expectedMandatoryValue);
     }
 
     @When("the user provided the values {string} {string} for Age of onset fields")

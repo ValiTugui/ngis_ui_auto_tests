@@ -1,3 +1,4 @@
+@regression
 @FamilyMembers
 Feature: Relationship to proband field validation
 

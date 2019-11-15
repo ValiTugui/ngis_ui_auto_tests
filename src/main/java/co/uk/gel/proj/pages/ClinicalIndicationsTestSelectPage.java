@@ -3,12 +3,12 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.hu.De;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ClinicalIndicationsTestSelectPage {
@@ -67,6 +67,9 @@ public class ClinicalIndicationsTestSelectPage {
 
     @FindBy(css = "div[class*='testPackageProps']")
     public WebElement testPackagePopupProps;
+
+    @FindBy(css = "*[class*='styles_mainHeader']")
+    public WebElement testPackagePopupTitle;
 
     @FindBy(xpath = "//div[contains(@class,'ctaBlock')]//child::a")
     public WebElement goToTestPageButtonFromPopup;
@@ -160,5 +163,20 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Unexpected value: " + tabName);
         }
+    }
+
+    public boolean isTabPresent(Integer tabCount, String tab1, String tab2, String tab3, String tab4) {
+        return ((clinicalIndicationTabs.size() == tabCount) && (clinicalIndicationTabs.get(0).getText().matches(tab1)) && (clinicalIndicationTabs.get(1).getText().matches(tab2)) && (clinicalIndicationTabs.get(2).getText().matches(tab3)) && (clinicalIndicationTabs.get(3).getText().matches(tab4)));
+    }
+
+    public void testPackagePopUpValidations() {
+        testPackagePopupIcon.isDisplayed();
+        testPackagePopupProps.isDisplayed();
+        testPackagePopupTime.isDisplayed();
+        testPackagePopupTitle.isDisplayed();
+    }
+
+    public boolean checkTestPagePopUpTitleMatchesSearchedText() {
+        return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
 }
