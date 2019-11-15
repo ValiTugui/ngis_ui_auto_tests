@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -67,9 +66,36 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @Then("the HPO phenotype details mandatory state is {string}")
     public void theHPOPhenotypeDetailsMandatoryStateIs(String mandatoryValue) {
-        boolean expectedMandatoryValue = Boolean.valueOf(mandatoryValue);
+        boolean expectedMandatoryValue = Boolean.parseBoolean(mandatoryValue);
         boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
 
-        Assert.assertTrue( actualMandatoryValue == expectedMandatoryValue);
+        Assert.assertEquals(actualMandatoryValue, expectedMandatoryValue);
+    }
+
+    @When("the user provided the values {string} {string} for Age of onset fields")
+    public void theUserProvidedTheValuesForAgeOfOnsetFields(String year, String month) {
+        clinicalQuestionsPage.fillInYearsOfOnset(year);
+        clinicalQuestionsPage.fillInMonthsOfOnset(month);
+   }
+
+    @When("the user provided the values {string} for Age of onset fields")
+    public void theUserProvidedTheValuesForAgeOfOnsetFields(String months) {
+        clinicalQuestionsPage.fillInMonthsOfOnset(months);
+    }
+
+    @When("the user provided the year values {string} for Age of onset fields")
+    public void theUserProvidedTheYearValuesForAgeOfOnsetFields(String year) {
+        clinicalQuestionsPage.fillInYearsOfOnset(year);
+    }
+
+    @And("the user sees an error {string} message on the page")
+    public void theUserSeesAnErrorMessageOnThePage(String expectedErrorMessage) {
+        String actualErrorMessage = clinicalQuestionsPage.getErrorMessageText();
+        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+    }
+
+    @And("the user does not see an error message on the page")
+    public void theUserDoesNotSeeAnErrorMessageOnThePage() {
+            Assert.assertFalse(clinicalQuestionsPage.checkNoErrorMessageIsDisplayed());
     }
 }
