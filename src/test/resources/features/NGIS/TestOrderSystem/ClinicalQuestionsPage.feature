@@ -50,6 +50,8 @@ Feature: Clinical Questions stage
     | Clinical questions | Answer clinical questions | Affected           | 1    | 12    | Number of months can only exceed 11 if years is 0 |
     | Clinical questions | Answer clinical questions | Affected           | 1000 | 0     | Patient age cannot exceed 125 years               |
     | Clinical questions | Answer clinical questions | Affected           | 24   | -1    | Only prenatal cases can have a negative number    |
+    | Clinical questions | Answer clinical questions | Affected           | 0    | -10   | Patient cannot be younger than -9 months          |
+
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
@@ -65,6 +67,7 @@ Feature: Clinical Questions stage
     | Clinical questions | Answer clinical questions | Affected           | 1    | 2     |
     | Clinical questions | Answer clinical questions | Affected           | 2    | 8     |
     | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
+    | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
@@ -80,6 +83,7 @@ Feature: Clinical Questions stage
     | Clinical questions | Answer clinical questions | Affected           | 10    |
     | Clinical questions | Answer clinical questions | Affected           | 15    |
     | Clinical questions | Answer clinical questions | Affected           | 20    |
+    | Clinical questions | Answer clinical questions | Affected           | -2    |
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
@@ -93,5 +97,5 @@ Feature: Clinical Questions stage
   Examples:
     | stage              | title                     | diseaseStatueValue | year |
     | Clinical questions | Answer clinical questions | Affected           | 1    |
-    | Clinical questions | Answer clinical questions | Affected           | 5    |
-    | Clinical questions | Answer clinical questions | Affected           | 7    |
+    | Clinical questions | Answer clinical questions | Affected           | 15   |
+    | Clinical questions | Answer clinical questions | Affected           | 125  |
