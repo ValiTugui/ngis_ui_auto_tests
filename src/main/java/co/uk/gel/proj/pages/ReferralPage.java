@@ -252,7 +252,6 @@ public class ReferralPage<check> {
             Actions.clickElement(driver, referralStage);
         }catch(Exception exp){
             //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
-            Debugger.println("Exception in clicking stage: "+stage+"\n"+exp);
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }

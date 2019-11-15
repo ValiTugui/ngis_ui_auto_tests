@@ -217,7 +217,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=12345 | Please enter your full NHS Number (10 characters),Enter a day,Enter a month,Enter a year | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_22 @E2EUI-829 @v_1 @P0
+    @familyMemberSearchPage_22 @LOGOUT @E2EUI-829 @v_1 @P0
   Scenario Outline: Verify the family member search without providing Dob, first name and last name  displays correct error message
     And the user navigates to the "<stage>" stage
     When the user navigates to the family member search Page
