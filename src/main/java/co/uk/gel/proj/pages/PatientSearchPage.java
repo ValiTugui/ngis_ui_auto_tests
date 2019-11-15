@@ -742,5 +742,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals("Male", Actions.getText(administrativeGenderButton));
         Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
     }
+    public void fillInNHSNumberAndDateOfBirth(NGISPatient ngisPatient) {
+        fillInValidPatientDetailsUsingNHSNumberAndDOB(ngisPatient.getNHS_NUMBER(), ngisPatient.getDAY_OF_BIRTH(), ngisPatient.getMONTH_OF_BIRTH(), ngisPatient.getYEAR_OF_BIRTH());
+    }
 }
 

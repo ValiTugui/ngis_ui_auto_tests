@@ -1,12 +1,15 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.proj.TestDataProvider.NGISPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,7 +19,9 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ReferralSteps extends Pages {
 
@@ -212,5 +217,93 @@ public class ReferralSteps extends Pages {
     @And("the {string} stage is marked as Mandatory To Do")
     public void theStageIsMarkedAsMandatoryToDo(String stage) {
         Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+    }
+
+    @And("Save and Continue button is displayed")
+    public void saveAndContinueButtonIsDisplayed() {
+        Assert.assertTrue("Save and Continue is meant to be displayed", referralPage.saveAndContinueButtonIsDisplayed());
+    }
+
+    //Added by STAG to create referral with the given patient details than taking from Test Data Provider
+    @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
+    public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
+        boolean eachElementIsLoaded;
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String searchTerm = attributeOfURL.get(2);
+        String patientType = attributeOfURL.get(3);
+        String diseaseType = attributeOfURL.get(4);
+        String referralDetails = attributeOfURL.get(5);
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        switchToURL(driver.getCurrentUrl());
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+        if (patientType.equalsIgnoreCase("NGIS")) {
+            //Create NGIS Patient with the given Details and the use for referral Creation
+            NGISPatient ngisPatient = new NGISPatient();
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                switch (key) {
+                    case "NHSNumber": {
+                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key));
+                        break;
+                    }
+                    case "DOB": {
+                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key));
+                        break;
+                    }
+                    case "FirstName": {
+                        ngisPatient.setFIRST_NAME(paramNameValue.get(key));
+                        break;
+                    }
+                    case "LastName": {
+                        ngisPatient.setLAST_NAME(paramNameValue.get(key));
+                        break;
+                    }
+                    case "Gender": {
+                        ngisPatient.setGENDER(paramNameValue.get(key));
+                        break;
+                    }
+                    case "Postcode": {
+                        ngisPatient.setPOST_CODE(paramNameValue.get(key));
+                        break;
+                    }
+                    case "Title": {
+                        ngisPatient.setTITLE(paramNameValue.get(key));
+                        break;
+                    }
+                }//switch
+            }//for
+            patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+        }else if (patientType.equalsIgnoreCase("SPINE")) {
+            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
+        }
+        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickPatientCard();
+        // Check condition for different scenarios when referral submit button is displayed
+        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {
+            Debugger.println("Add Patient Details button shown");
+            patientDetailsPage.addDetailsToNGISButton.click();
+            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+            patientDetailsPage.clickStartReferralButton();
+        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+            patientDetailsPage.clickStartReferralButton();
+        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
+            Debugger.println("Save Patient Details button shown");
+            patientDetailsPage.clickSavePatientDetailsToNGISButton();
+            patientDetailsPage.patientIsCreated();
+            patientDetailsPage.clickStartNewReferralButton();
+        }
+        referralPage.checkThatReferralWasSuccessfullyCreated();
     }
 }

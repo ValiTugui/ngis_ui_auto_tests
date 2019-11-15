@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
@@ -14,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -171,8 +173,11 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//button[contains(text(),'Add family member')]")
     public WebElement addFamilyMember;
 
+    @FindBy(xpath = "//p[contains(@class,'hint__text')]")
+    public List<WebElement> hintText;
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
-    String  stageIsMarkedAsMandatoryToDo= "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
     String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
     String helixIcon = "*[class*='helix']";
@@ -201,8 +206,9 @@ public class ReferralPage<check> {
         }
     }
 
-    public void saveAndContinueButtonIsDisplayed() {
+    public boolean saveAndContinueButtonIsDisplayed() {
         Wait.forElementToBeClickable(driver, saveAndContinueButton);
+        return true;
     }
 
 
@@ -212,8 +218,6 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
-
-
     }
 
 
@@ -240,11 +244,19 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
-        Actions.clickElement(driver, referralStage);
+        try {
+            Actions.clickElement(driver, referralStage);
+        }catch(Exception exp){
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
+            Debugger.println("Exception in clicking stage: "+stage+"\n"+exp);
+            Actions.scrollToTop(driver);
+            Actions.clickElement(driver, referralStage);
+        }
+
     }
 
     public boolean stageIsSelected(String stage) {
@@ -266,7 +278,6 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
-
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
@@ -281,9 +292,9 @@ public class ReferralPage<check> {
         List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
         boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
         boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
-        if( isStageStatusIsToDO && isStageHasAsteriskPresent){
+        if (isStageStatusIsToDO && isStageHasAsteriskPresent) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -327,5 +338,15 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver,addFamilyMember);
         Actions.clickElement(driver,addFamilyMember);
     }
+    public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualHelpHintTexts = new ArrayList<>();
 
+        for (WebElement fieldHelpHintText : hintText) {
+            actualHelpHintTexts.add(fieldHelpHintText.getText().trim());
+        }
+        String currentPage = getTheCurrentPageTitle();
+        Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
+        return actualHelpHintTexts;
+    }
 }

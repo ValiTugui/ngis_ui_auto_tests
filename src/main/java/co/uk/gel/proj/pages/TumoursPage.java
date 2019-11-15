@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import co.uk.gel.lib.SeleniumLib;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class TumoursPage {
     WebDriver driver;
     NewPatient tumourDetails = new NewPatient();
     Faker faker = new Faker();
+    SeleniumLib seleniumLib;
 
     public TumoursPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     public WebElement descriptiveName;
@@ -109,6 +112,9 @@ public class TumoursPage {
     public WebElement tumourSuccessNotification;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
+    public WebElement tumourInformationText_withNotificationSuccess;
+
+    @FindBy(xpath = "(//div[contains(@class,'tumour-list__sub-title')])[1]")
     public WebElement tumourInformationText;
 
     @FindBy(css = "div[class*='tumour-list__sub-title']")
@@ -128,6 +134,9 @@ public class TumoursPage {
 
     @FindBy(xpath = "//table//tbody/tr")
     public List<WebElement> listOfTumoursInTheTable;
+
+    @FindBy(xpath = "//p[contains(@class,'hint__text')]")
+    public List<WebElement> hintText;
 
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
@@ -217,6 +226,12 @@ public class TumoursPage {
         return true;
     }
 
+    public int getTheNumbersOfTumoursDisplayedInLandingPage() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        return listOfTumoursInTheTable.size();
+    }
+
     public void tumourIsNotHighlighted() {
         Wait.forElementToBeDisplayed(driver, successNotification);
         Assert.assertTrue(!tumoursLandingPageList.get(1).getAttribute("class").contains("row--warning"));
@@ -240,22 +255,18 @@ public class TumoursPage {
     }
 
 
-    public List<String> getTumourTableHeaders()
-    {
+    public List<String> getTumourTableHeaders() {
         List<String> actualTableHeaders = new ArrayList<>();
-        for(WebElement header : tumourTableHeaders)
-        {
+        for (WebElement header : tumourTableHeaders) {
             actualTableHeaders.add(header.getText().trim());
         }
         return actualTableHeaders;
     }
 
 
-    public List<String> getInformationTextOnEditTumourPage()
-    {
+    public List<String> getInformationTextOnEditTumourPage() {
         List<String> actualInformationText = new ArrayList<>();
-        for(WebElement header : tumourInformationTextList)
-        {
+        for (WebElement header : tumourInformationTextList) {
             actualInformationText.add(header.getText().trim());
         }
         return actualInformationText;
@@ -350,4 +361,26 @@ public class TumoursPage {
         Debugger.println("Expected Test data " + expectedTumourTestData);
         return expectedTumourTestData;
     }
+
+    public String successNotificationIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        return Actions.getText(successNotification);
+    }
+
+    public List<String> getTheTumourFieldsLabelsOnAddATumourPage() {
+
+        Wait.forElementToBeDisplayed(driver, descriptiveName);
+        List<String> expectedTumourFieldsLabels = new ArrayList<>();
+
+        expectedTumourFieldsLabels.add(Actions.getText(descriptiveNameLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(dateOfDiagnosisLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(PathologyIdOrSampleIdLabel));
+        expectedTumourFieldsLabels.add(Actions.getText(tumourTypeLabel));
+
+        Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
+        return expectedTumourFieldsLabels;
+    }
+
+
+
 }
