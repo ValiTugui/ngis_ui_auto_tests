@@ -1,5 +1,6 @@
 @FamilyMembers
 Feature: FamilyMember search page
+
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0
   Scenario Outline: NTS-3207: Verify the family member search page with Yes option displayed properly

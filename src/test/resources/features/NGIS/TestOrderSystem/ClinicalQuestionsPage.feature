@@ -34,3 +34,19 @@ Feature: Clinical Questions stage
       | Clinical questions | Answer clinical questions | ABDUCENS                  |
       | Clinical questions | Answer clinical questions | TRANSCOBALAMIN            |
 
+  @E2EUI-1610 @NTS-3245 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
+  Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    And the user navigates to the "<stage>" stage
+    And the Clinical Questions page header is shown as "<title>"
+    When the user selects "<diseaseStatueValue>"
+    Then the HPO phenotype details mandatory state is "<mandatory>"
+    Examples:
+      | stage              | title                     |   diseaseStatueValue                |mandatory |
+      | Clinical questions | Answer clinical questions |  USER_DOES_NOT_SELECT_ANY_VALUE     |   false  |
+      | Clinical questions | Answer clinical questions |  Affected                           |   true   |
+      | Clinical questions | Answer clinical questions |  Unaffected                         |   false  |
+      | Clinical questions | Answer clinical questions |  Uncertain                          |   false  |
+      | Clinical questions | Answer clinical questions |  Unknown                            |   false  |
+

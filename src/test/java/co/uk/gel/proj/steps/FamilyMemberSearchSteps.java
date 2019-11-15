@@ -14,7 +14,7 @@ public class FamilyMemberSearchSteps extends Pages {
         super(driver);
     }
 
-    @And("the user navigates to the family member search Page")
+    @When("the user navigates to the family member search Page")
     public void theUserNavigatesToTheFamilyMemberSearchPage() {
         referralPage.navigateToFamilyMemberSearchPage();
     }
