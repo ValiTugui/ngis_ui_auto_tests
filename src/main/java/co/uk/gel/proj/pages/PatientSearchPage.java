@@ -248,8 +248,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
         }catch(StaleElementReferenceException exp){
-            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Reinitializing the elements and proceeding."+exp);
+            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Reinitializing the elements and proceeding.");
             //Re-initializing the elements and going forward.
+            driver.navigate().refresh();
+            Wait.seconds(5);
             emailAddressField = driver.findElement(By.xpath("//input[@type='email' and @name='loginfmt']"));
             nextButton        = driver.findElement(By.xpath("//input[@type='submit' and @value='Next']"));
             emailAddressField.sendKeys(AppConfig.getApp_username());
@@ -258,7 +260,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             WebElement signInButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Sign in']"));
             passwordField.sendKeys(AppConfig.getApp_password());
             signInButton.click();
-
         }
     }
 

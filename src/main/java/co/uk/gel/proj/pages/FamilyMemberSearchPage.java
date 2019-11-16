@@ -367,8 +367,6 @@ public class FamilyMemberSearchPage {
             }else{
                 expMessages = errorMessage.split(",");
             }
-            Debugger.println("lenght of ExpMessages: "+expMessages.length);
-            Debugger.println("Length of erros: "+validationErrors.size());
             String actualMessage = "";
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
@@ -388,7 +386,7 @@ public class FamilyMemberSearchPage {
             return true;
 
         }catch(Exception exp){
-            Debugger.println("Exception from validating Error Message "+exp);
+            Debugger.println("FamilyMemberSearchPage:Exception from validating Error Message "+exp);
             return false;
         }
 
