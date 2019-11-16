@@ -14,33 +14,33 @@ public class FamilyMemberDetailsSteps extends Pages {
         super(driver);
     }
 
-    @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
-    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
+    @And("^the user search a patient with valid NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
+    public void theUserSearchAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
     }
 
-    @And("the user selects the patient search result tab")
+    @When("the user clicks on the patient card")
     public void theUserSelectsThePatientSearchResultTab() {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @When("the user clicks the Save and Continue button in family member details page")
+    @And("clicks the Save and Continue button in family member details page")
     public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
         familyMemberDetailsPage.clickOnSaveAndContinueButton();
     }
-    @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
-    public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
+    @Then("the message displays as {string} in color {string}")
+    public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage,messageColor);
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage,messageColor);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user fills the FamilyMemberDetailsPage with the {string}")
+    @When("the user fills the FamilyMemberDetailsPage with the {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
-    @Then("the family member details with the selected test are added to the referral")
+    @And("the user can select the test to add to the family member")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
@@ -71,4 +71,16 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.removeFetchedDataInFamilyMemberDetailsPage(clearDropdown);
     }
 
+    @Then("the patient card displays with Born,Gender and NHS No details")
+    public void thePatientCardDisplaysWithBornGenderAndNHSNoDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user is navigated to a page with title (.*)")
+    public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(title);
+    }
 }//end

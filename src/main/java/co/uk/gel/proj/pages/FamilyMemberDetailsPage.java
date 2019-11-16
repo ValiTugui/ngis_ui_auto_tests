@@ -140,13 +140,28 @@ public class FamilyMemberDetailsPage {
 
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
-    By genderTitle              = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
-    By isTestSelected           = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
+    By genderTitle            = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
+    By selectedTest           = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
+    By unSelectedTest         = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
     String selectedTestTitle    = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
     String selectedMemberTitle  = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
     String addFamilyMemberTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),";
     String addFamilyMemberReferralTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+
+    @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]")
+    WebElement patientRecordFoundTitle;
+
+    @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='Born']")
+    WebElement patientCardBorn;
+
+    @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='Gender']")
+    WebElement patientCardGender;
+
+    @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='NHS No.']")
+    WebElement patientCardNHSNo;
+
+
 
     static NGISPatientModel familyMember;
 
@@ -167,9 +182,39 @@ public class FamilyMemberDetailsPage {
 
             searchButton.click();
         }catch (Exception exp){
-            Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB "+exp);
+            Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB "+exp+" DOB expected in DD-MM-YYYY Format: "+dob);
         }
     }
+    public boolean verifyPatientRecordDetailsDisplay(){
+        //Verify the Title
+        if(!seleniumLib.isElementPresent(patientRecordFoundTitle)){
+            Debugger.println("Patient found title not displayed.");
+            return false;
+        }
+        //Verify other details - Born, Gender and NHS Number
+        if(!seleniumLib.isElementPresent(patientCardBorn)){
+            Debugger.println("Patient Born not displayed in Search Result.");
+            return false;
+        }
+        if(!seleniumLib.isElementPresent(patientCardGender)){
+            Debugger.println("Patient Gender not displayed in Search Result.");
+            return false;
+        }
+        if(!seleniumLib.isElementPresent(patientCardNHSNo)){
+            Debugger.println("Patient NHS number not displayed in Search Result.");
+            return false;
+        }
+        return true;
+    }
+    public boolean verifyThePageTitlePresence(String expTitle){
+        By pageTitle = By.xpath("//h1[contains(text(),'"+expTitle+"')]");
+        if(!seleniumLib.isElementPresent(pageTitle)){
+            Debugger.println("Expected title :"+expTitle+" not loaded in the page.");
+            return false;
+        }
+        return true;
+    }
+
     public void clickPatientCard() {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
@@ -182,7 +227,7 @@ public class FamilyMemberDetailsPage {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
     }
-    public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
+    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
 
             String actualMessage = seleniumLib.getText(validationErrors.get(0));
@@ -237,10 +282,14 @@ public class FamilyMemberDetailsPage {
             return false;
         }
         //3. Verify the select as checked by default.
-         if(!seleniumLib.isElementPresent(isTestSelected)){
-            Debugger.println("Test for Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in SELECTED State.");
-            return false;
-        }
+         if(!seleniumLib.isElementPresent(selectedTest)){
+            if(!seleniumLib.isElementPresent(unSelectedTest)){
+                Debugger.println("Option to select test not present in Select Test Page.");
+                return false;
+            }else{
+                seleniumLib.clickOnElement(unSelectedTest);//To make the test selected by default.
+            }
+         }
         return true;
     }
 

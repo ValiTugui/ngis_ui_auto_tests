@@ -1,5 +1,7 @@
 package co.uk.gel.models;
 
+import co.uk.gel.proj.util.Debugger;
+
 public class NGISPatientModel {
 
     private String FIRST_NAME;
@@ -84,6 +86,15 @@ public class NGISPatientModel {
 
     public void setDATE_OF_BIRTH(String DATE_OF_BIRTH) {
         this.DATE_OF_BIRTH = DATE_OF_BIRTH;
+        try {
+            //Split and set the DAY, MONTH and YEAR OF BIRTH ALSO
+            String[] dobs = DATE_OF_BIRTH.split("-");
+            this.DAY_OF_BIRTH = dobs[0];
+            this.MONTH_OF_BIRTH = dobs[1];
+            this.YEAR_OF_BIRTH = dobs[2];
+        }catch(Exception exp){
+            Debugger.println("DATE OF BIRTH EXPECTED FORMAT : DD-MM-YYYY. NOT "+DATE_OF_BIRTH);
+        }
     }
 
     public String getGENDER() {

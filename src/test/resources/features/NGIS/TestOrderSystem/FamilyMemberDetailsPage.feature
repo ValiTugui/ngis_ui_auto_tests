@@ -1,33 +1,38 @@
-@regression2
+@regression21
 @FamilyMembersDetailsPage
-Feature: Relationship to proband field validation
+Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @v_1 @P0
-  Scenario Outline: NTS-3235: Verify the family member relationship to proband field is mandatory
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
-   And the user navigates to the "<stage>" stage
-    When the user navigates to the family member search Page
-    And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user selects the patient search result tab
-    When the user clicks the Save and Continue button in family member details page
-    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field in family member details page
+    @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @E2EUI-908 @v_1 @P0
+  Scenario Outline: NTS-3235: To verify the addition of a family member to a referral without providing Relationship to proband field.
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And  clicks the Save and Continue button in family member details page
+    Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
     Examples:
       | stage          | NhsNumber  | DOB        | ErrorMessage                         | MessageColor |
-      | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      |
+      | Family members | 9449310157 | 15-01-2000 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_02 @E2EUI-1012 @v_1 @P0
-  Scenario Outline: Family member Details page field validation
+  Scenario Outline: To validate the flow when the user chooses to add a test for family members
     When the user navigates to the "<stage>" stage
-    And the user navigates to the family member search Page
-    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user selects the patient search result tab
-    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    When the user clicks the Save and Continue button in family member details page
-    Then the family member details with the selected test are added to the referral
+    And the user clicks on Add family member button
+    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And the user can select the test to add to the family member
 
     Examples:
       | stage          | NhsNumber  | DOB        | RelationshipToProband |
@@ -35,15 +40,17 @@ Feature: Relationship to proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_03 @E2EUI-1349 @v_1 @P0
-  Scenario Outline: Check family member Details validation
+  Scenario Outline: Verify The family member details on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     When the user navigates to the "<stage>" stage
-    And the user navigates to the family member search Page
-    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user selects the patient search result tab
-    Then the default family member details page is correctly displayed with the proper number of fields
-    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    When the user clicks the Save and Continue button in family member details page
-    Then the family member details with the selected test are added to the referral
+    And the user clicks on Add family member button
+    When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the default family member details page is correctly displayed with the proper number of fields
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
 
     Examples:
       | stage          | NhsNumber  | DOB        | RelationshipToProband |
@@ -53,19 +60,24 @@ Feature: Relationship to proband field validation
     @familyMemberDetailsPage_04 @LOGOUT @E2EUI-1369 @v_1 @P0
   Scenario Outline: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
-    And the user navigates to the family member search Page
-    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    And the user selects the patient search result tab
+    And the user clicks on Add family member button
+    When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
     Then the default family member details page is correctly displayed with the proper number of fields
-    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And the user removes the data from all fields "<ClearFields>" in the family member details page
-    When the user clicks the Save and Continue button in family member details page
-    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
-
+    And  clicks the Save and Continue button in family member details page
+    Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
+#
+#    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+#    And the user removes the data from all fields "<ClearFields>" in the family member details page
+#    When the user clicks the Save and Continue button in family member details page
+#    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+#  RelationshipToProband | ClearFields                                          | ErrorMessage                                                                                                           | MessageColor |
+#  Maternal Aunt         | Gender,Life status,Ethnicity,Relationship to proband | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required. | #dd2509      |
     Examples:
-      | stage          | NhsNumber  | DOB        | RelationshipToProband | ClearFields                                          | ErrorMessage                                                                                                           | MessageColor |
-      | Family members | 9449310602 | 23-03-2011 | Maternal Aunt         | Gender,Life status,Ethnicity,Relationship to proband | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required. | #dd2509      |
-
+      | stage          | NhsNumber  | DOB        | ErrorMessage                         | MessageColor |
+      | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      |
 
 #  @COMP8_TO_PatientSearch
 #    @familyMemberSearchPage_5 @ @E2EUI-1038 @v_1 @P0

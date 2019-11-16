@@ -763,7 +763,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public void fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-
         nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
         dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
         dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
