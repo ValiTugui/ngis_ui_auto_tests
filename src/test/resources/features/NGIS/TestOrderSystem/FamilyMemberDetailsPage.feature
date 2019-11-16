@@ -1,4 +1,4 @@
-@regression1
+@regression2
 @FamilyMembersDetailsPage
 Feature: Relationship to proband field validation
 
