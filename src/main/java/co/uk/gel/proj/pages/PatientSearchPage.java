@@ -14,6 +14,7 @@ import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -238,13 +239,27 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        Wait.forElementToBeClickable(driver, emailAddressField);
-        emailAddressField.sendKeys(AppConfig.getApp_username());
-        nextButton.click();
-        //Wait.seconds(2);
-        Wait.forElementToBeClickable(driver, passwordField);
-        passwordField.sendKeys(AppConfig.getApp_password());
-        nextButton.click();
+        try {
+            Wait.forElementToBeClickable(driver, emailAddressField);
+            emailAddressField.sendKeys(AppConfig.getApp_username());
+            nextButton.click();
+            //Wait.seconds(2);
+            Wait.forElementToBeClickable(driver, passwordField);
+            passwordField.sendKeys(AppConfig.getApp_password());
+            nextButton.click();
+        }catch(StaleElementReferenceException exp){
+            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Reinitializing the elements and proceeding."+exp);
+            //Re-initializing the elements and going forward.
+            emailAddressField = driver.findElement(By.xpath("//input[@type='email' and @name='loginfmt']"));
+            nextButton        = driver.findElement(By.xpath("//input[@type='submit' and @value='Next']"));
+            emailAddressField.sendKeys(AppConfig.getApp_username());
+            nextButton.click();
+            passwordField = driver.findElement(By.xpath("//input[@type='password' and @name='passwd']"));
+            WebElement signInButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Sign in']"));
+            passwordField.sendKeys(AppConfig.getApp_password());
+            signInButton.click();
+
+        }
     }
 
 
