@@ -6,7 +6,7 @@ Feature: Relationship to Proband field validation
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @E2EUI-908 @v_1 @P0
   Scenario Outline: NTS-3235: To verify the addition of a family member to a referral without providing Relationship to proband field.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
