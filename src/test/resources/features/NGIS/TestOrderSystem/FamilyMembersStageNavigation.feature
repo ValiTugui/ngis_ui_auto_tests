@@ -1,10 +1,10 @@
-@regression
+@regression_stag
 @FamilyMemberStage
 Feature: Navigation: Family Members stage
 
   @COMP8_TO_Familymembers
     @familyMemberStageNavigation_01 @LOGOUT @NTS-3243 @E2EUI-1287 @v_1 @P0
-  Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
+  Scenario Outline: E2EUI-1287: Verify the Family Members stage Navigation Flow
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310327:DOB=16-12-1970|
     When the user navigates to the "<TestPackage>" stage

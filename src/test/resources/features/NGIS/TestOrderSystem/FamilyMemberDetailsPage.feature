@@ -1,10 +1,10 @@
-@regression
+@regression_stag
 @FamilyMembersDetailsPage
 Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @E2EUI-908 @v_1 @P0
-  Scenario Outline: NTS-3235: To verify the addition of a family member to a referral without providing Relationship to proband field.
+  Scenario Outline: E2EUI-908: To verify the addition of a family member to a referral without providing Relationship to proband field.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
     When the user navigates to the "<stage>" stage
@@ -22,7 +22,7 @@ Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_02 @E2EUI-1012 @v_1 @P0
-  Scenario Outline: To validate the flow when the user chooses to add a test for family members
+  Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -41,7 +41,7 @@ Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_03 @E2EUI-1349 @v_1 @P0
-  Scenario Outline: Verify The family member details on the 'Check family member Details' Page with respect to the 'Find a family member' Page
+  Scenario Outline: E2EUI-1349: Verify The family member details on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -59,7 +59,7 @@ Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_04 @E2EUI-1369 @v_1 @P0
-  Scenario Outline: Verify "relationship to proband" field mandatory when adding a family member to referral
+  Scenario Outline: E2EUI-1369: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -82,7 +82,7 @@ Feature: Relationship to Proband field validation
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_05 @LOGOUT @E2EUI-1038 @v_1 @P0
-  Scenario Outline: Verify the mandatory input fields validations for non-NHS family member creation
+  Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user clicks the NO button in family member search page
