@@ -220,7 +220,7 @@ public class ReferralPage<check> {
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
     public void checkThatToDoListSuccessfullyLoaded() {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+        Wait.forElementToBeDisplayed(driver, toDoList, 300);
     }
 
     public String getPartialUrl(String stage) {
