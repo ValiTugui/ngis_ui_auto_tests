@@ -8,7 +8,9 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.java.hu.De;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +30,9 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(id = "title")
     public WebElement pageTitle;
+
+    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_no-results__header__1RMRD']")
+    public WebElement errorMessage;
 
     @FindBy(xpath = "//label[contains(text(),'First name')]")
     public WebElement firstNameLabel;
@@ -127,17 +132,6 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
 
-    @FindBy(css = "table[class*='table--hpo']")
-    public WebElement hpoTable;
-
-    @FindBy(css = "[class*='hpo-term__name']")
-    public List<WebElement> hpoTerms;
-    @FindBy(css = "div[id*='react-select']")
-    public List<WebElement> dropdownValues;
-
-    @FindBy(xpath = "//div[@class='css-s17594-control']//*[@class='css-19bqh2r']")
-    WebElement crossClearFields;
-
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
     By genderTitle            = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
@@ -160,8 +154,6 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='NHS No.']")
     WebElement patientCardNHSNo;
-
-
 
     static NGISPatientModel familyMember;
 
@@ -189,6 +181,9 @@ public class FamilyMemberDetailsPage {
         //Verify the Title
         if(!seleniumLib.isElementPresent(patientRecordFoundTitle)){
             Debugger.println("Patient found title not displayed.");
+            if(seleniumLib.isElementPresent(errorMessage)){
+                Debugger.println("Error: "+errorMessage.getText());
+            }
             return false;
         }
         //Verify other details - Born, Gender and NHS Number
@@ -209,8 +204,11 @@ public class FamilyMemberDetailsPage {
     public boolean verifyThePageTitlePresence(String expTitle){
         By pageTitle = By.xpath("//h1[contains(text(),'"+expTitle+"')]");
         if(!seleniumLib.isElementPresent(pageTitle)){
-            Debugger.println("Expected title :"+expTitle+" not loaded in the page.");
-            return false;
+            Wait.forElementToBeDisplayed(driver,driver.findElement(pageTitle));
+            if(!seleniumLib.isElementPresent(pageTitle)) {
+                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                return false;
+            }
         }
         return true;
     }
@@ -221,15 +219,35 @@ public class FamilyMemberDetailsPage {
     }
 
     public void clickOnSaveAndContinueButton() {
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Click.element(driver, saveAndContinueButton);
+            Wait.seconds(5);
+            if (helix.size() > 0) {
+                Debugger.println("Helix1 yes...");
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }else{
+                Debugger.println("Helix1 No...");
+                if(seleniumLib.isElementPresent(saveAndContinueButton)) {
+                    Debugger.println("Clicked on Save and Continue via seleniumLib.");
+                    seleniumLib.clickOnWebElement(saveAndContinueButton);
+                    Wait.seconds(5);
+                    if (helix.size() > 0) {
+                        Debugger.println("Helix2 yes...");
+                        Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                    } else {
+                        Debugger.println("Helix2 No...");
+                    }
+                }
+            }
+        }catch(Exception exp){
+            Debugger.println("Could not click on Save and Continue...."+exp);
         }
+
     }
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
-
+            Wait.seconds(5);
             String actualMessage = seleniumLib.getText(validationErrors.get(0));
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
@@ -248,8 +266,12 @@ public class FamilyMemberDetailsPage {
         }
     }
     public void fillTheRelationshipToProband(String relationToProband){
+        Debugger.println("Entering Relation to Proband....");
         Click.element(driver, relationshipToProbandDropdown);
         Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
+        Debugger.println("RTPB..DONE.");
+    }
+    public void readFamilyMemberDetailsFor(String relationToProband){
         //Here reading the Family member details to verify in next page  - whether details loaded with the expected details
         familyMember = new NGISPatientModel();
         try {

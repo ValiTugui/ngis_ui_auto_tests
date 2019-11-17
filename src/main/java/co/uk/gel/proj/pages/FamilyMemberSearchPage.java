@@ -15,10 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FamilyMemberSearchPage {
 
@@ -439,7 +436,9 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
         Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
 
-}
+}   public void clickOnNewPatientLink() {
+        seleniumLib.clickOnWebElement(createNewPatientLink);
+    }
 
     public void createNewPatientLinkDisplayed(String hyperLinkText) {
 
@@ -450,6 +449,23 @@ public class FamilyMemberSearchPage {
         Click.element(driver, genderClear);
         Wait.seconds(3);
         Click.element(driver,AddReferralButton);
+
+    }
+    public void verifyNoPatientFoundDetails(String expSearchString, String errorMessage, String expectedFontFace) {
+        Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
+        Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
+
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("FirstName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("LastName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("Gender")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(TestUtils.dateFormatReverserToYYYYMMDD(expectedResultMap.get("DOB"))));
+
+        expectedFontFace = StylesUtils.convertFontFaceStringToCSSProperty(expectedFontFace);
+        Assert.assertEquals(expectedFontFace, youHaveSearchedForLabel.getCssValue("font-weight"));
+
+        Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+        Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
+        Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
 
     }
 

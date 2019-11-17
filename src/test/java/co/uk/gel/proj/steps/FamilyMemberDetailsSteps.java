@@ -39,6 +39,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
+    @When("reads the details of selected family member {string}")
+    public void readsTheDetailsOfSelectedMember(String relationToProband) {
+        familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
+    }
 
     @And("the user can select the test to add to the family member")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
@@ -47,7 +51,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user fills the DiseaseStatusDetails for family member with the with the {string}")
+    @When("the user fills the DiseaseStatusDetails for family member with the with the {string}")
     public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
         familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
     }
@@ -82,5 +86,30 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyThePageTitlePresence(title);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the new patient page is correctly displayed with expected fields")
+    public void theNewPatientPageIsCorrectlyDisplayedWithExpectedFields() {
+        boolean testResult = false;
+        testResult = familyMemberNewPatientPage.verifyTheElementsOnFamilyMemberNewPatientPage();
+        Assert.assertTrue(testResult);
+    }
+    @When("the user removes the data from all fields {string} in the family member new patient page")
+    public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberNewPatientPage(String clearDropdown) {
+        familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
+    }
+
+    @And("the user clicks the Add new patient to referral button")
+    public void theUserClicksTheAddNewPatientToReferralButton() {
+        familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
+    }
+
+    @Then("the message will be displayed as {string} in {string} in new patient page")
+    public void theMessageWillBeDisplayedAsInInNewPatientPage(String errorMessage, String fontColor) {
+        boolean testResult = false;
+        testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage,fontColor);
+        Assert.assertTrue(testResult);
+
     }
 }//end

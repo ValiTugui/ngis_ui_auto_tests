@@ -73,22 +73,17 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
     }
 
-    @When("the user provides NHS and DOB of an already added patient and search")
-    public void theUserProvidesDetailsOfExistingPatientAndSearch() {
-        familyMemberSearchPage.searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB();
-    }
-
     @Then("^the message should display as \"([^\"]*)\" and \"([^\"]*)\" along with search string")
     public void theFamilyMemberSearchMessage(String message1, String message2) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
         Assert.assertTrue(testResult);
     }
-
-    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
-    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
-        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
-    }
+//
+//    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
+//    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
+//        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
+//    }
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
@@ -140,4 +135,14 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
         familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
     }
+    @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+    public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
+        familyMemberSearchPage.verifyNoPatientFoundDetails(expSearchString, errorMessage, fontFace);
+    }
+
+    @When("the user clicks on the create new patient record")
+    public void theUserClicksOnThe() {
+        familyMemberSearchPage.clickOnNewPatientLink();
+    }
+
 }//end
