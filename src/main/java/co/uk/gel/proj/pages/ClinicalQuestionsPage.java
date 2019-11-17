@@ -112,7 +112,7 @@ public class ClinicalQuestionsPage {
     public WebElement hpoSectionLabel;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
-
+    By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);

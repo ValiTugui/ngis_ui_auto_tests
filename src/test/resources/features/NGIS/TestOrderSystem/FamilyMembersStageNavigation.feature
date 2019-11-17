@@ -1,4 +1,4 @@
-@regression2
+@regression
 @FamilyMemberStage
 Feature: Navigation: Family Members stage
 
