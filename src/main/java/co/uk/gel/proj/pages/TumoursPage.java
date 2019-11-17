@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
@@ -380,7 +381,6 @@ public class TumoursPage {
         Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
         return expectedTumourFieldsLabels;
     }
-
 
 
 }

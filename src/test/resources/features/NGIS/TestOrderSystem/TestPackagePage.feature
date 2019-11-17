@@ -120,7 +120,7 @@ Feature: Test Package page
       | stage        | priority | previous_priority | new_stage             | priority_label                         | help_text                                                                         | number_of |
       | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | 1         |
 
-  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-828 @E2EUI-1585 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -135,7 +135,7 @@ Feature: Test Package page
       | stage        | priority | count | new_stage             | number_of |
       | Test package | Urgent   | 2     | Responsible clinician | 1         |
 
-  @E2EUI-1547 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-1547 @E2EUI-1585 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do - verify permissible Number of Participants
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -154,7 +154,7 @@ Feature: Test Package page
       | Test package | Confirm the test package | 1               | 8               | Responsible clinician | 1         |
 
 
-  @E2EUI-1547 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-1547 @E2EUI-1585 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -174,3 +174,17 @@ Feature: Test Package page
     Examples:
       | stage        | title                    | errorMessage                                                     | count | new_stage             | number_of |
       | Test package | Confirm the test package | Select the total number of participants you expect for this test | 2     | Responsible clinician | 1         |
+
+  @E2EUI-1585 @NTS-3253 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3253 - Test package - If the test is de-selected then Total number of participants field should disappear
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    And the user navigates to the "<stage>" stage
+    And the Test Package page header is shown as "<title>"
+    When the user clicks a test to de-select it
+    Then the user sees the test has become deselected
+    And the Total number of participants field is disappeared for the deselected test
+
+    Examples:
+      | stage        | title                    |
+      | Test package | Confirm the test package |
