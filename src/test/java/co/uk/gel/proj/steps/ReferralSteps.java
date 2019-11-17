@@ -304,6 +304,6 @@ public class ReferralSteps extends Pages {
             patientDetailsPage.patientIsCreated();
             patientDetailsPage.clickStartNewReferralButton();
         }
-        referralPage.checkThatToDoListSuccessfullyLoaded();
+        referralPage.checkThatReferralWasSuccessfullyCreated();
     }
 }
