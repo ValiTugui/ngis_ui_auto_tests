@@ -92,8 +92,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope"));
         Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes"));
         Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpElements());
 
         for (int i = 0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
             Assert.assertTrue(!clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());

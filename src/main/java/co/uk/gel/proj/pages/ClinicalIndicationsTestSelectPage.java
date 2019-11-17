@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -199,6 +200,14 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean checkTestPagePopUpTitleMatchesSearchedText() {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
+    }
+
+    public boolean checkTestPagePopUpElements() {
+        if (testPackagePopupProps.findElements(By.tagName("h5")).size() == 6) {
+            return (testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure") && testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
+        } else {
+            return testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Eligibility criteria");
+        }
     }
 
     public boolean testDetailsTabValidation(String sectionName1, String sectionName2, String sectionName3) {
