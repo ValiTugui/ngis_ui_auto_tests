@@ -768,5 +768,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
         dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
     }
+    public void waitForSearchPageTobeLoaded(){
+        Wait.forElementToBeDisplayed(driver, searchButton,300);
+    }
 }
 
