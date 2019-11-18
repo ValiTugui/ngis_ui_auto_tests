@@ -70,6 +70,12 @@ public class TumoursSteps extends Pages {
         tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
     }
 
+
+    @And("the user answers the tumour dynamic questions {string} for Tumour Diagnosis by selecting a SnomedCT from the searched {string} result drop list")
+    public void theUserAnswersTheTumourDynamicQuestionsForTumourDiagnosisBySelectingASnomedCTFromTheSearchedResultDropList(String tumourType, String snomedTest) {
+        tumoursPage.answerTumourDiagnosisQuestionsBasedOnTumourType(tumourType, snomedTest);
+    }
+
     @Then("the new tumour is displayed in the landing page")
     public void theNewTumourIsDisplayedInTheLandingPage() {
         Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
@@ -359,5 +365,4 @@ public class TumoursSteps extends Pages {
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
-
 }
