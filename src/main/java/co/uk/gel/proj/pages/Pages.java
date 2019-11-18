@@ -124,12 +124,13 @@ public class Pages implements Navigable {
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: " + currentURL);
+        Debugger.println("Switched URL: "+driver.getCurrentUrl());
         try {
             if (driver.getCurrentUrl().contains(patientSearchURL)) {
                 Actions.cleanUpSession(driver);
             } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                //Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                //Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
                 patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
             }
         }catch(StaleElementReferenceException exp ){

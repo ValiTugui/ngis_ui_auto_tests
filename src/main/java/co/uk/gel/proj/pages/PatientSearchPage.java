@@ -241,6 +241,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
         try {
+            Wait.forElementToBeDisplayed(driver, emailAddressField);
             Wait.forElementToBeClickable(driver, emailAddressField);
             emailAddressField.sendKeys(AppConfig.getApp_username());
             nextButton.click();
@@ -249,18 +250,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
         }catch(StaleElementReferenceException exp){
-            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Reinitializing the elements and proceeding.");
+            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Attempting multiple times...Exception is: \n"+exp);
             //Re-initializing the elements and going forward.
-            driver.navigate().refresh();
-            Wait.seconds(5);
-            emailAddressField = driver.findElement(By.xpath("//input[@type='email' and @name='loginfmt']"));
-            nextButton        = driver.findElement(By.xpath("//input[@type='submit' and @value='Next']"));
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-            nextButton.click();
-            passwordField = driver.findElement(By.xpath("//input[@type='password' and @name='passwd']"));
-            WebElement signInButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Sign in']"));
-            passwordField.sendKeys(AppConfig.getApp_password());
-            signInButton.click();
+
         }
     }
 
