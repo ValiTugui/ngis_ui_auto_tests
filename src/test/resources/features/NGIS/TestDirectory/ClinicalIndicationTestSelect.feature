@@ -86,3 +86,20 @@ Feature: Home Page
     Examples:
       | tabName1     | tabName2             | linkName       |
       | Test Package | Clinical Indications | Back to search |
+
+  @E2EUI-1003 @NTS-**** @v_1 @P0 @COMP1_TD_ClinicalTests
+  Scenario Outline: NTS-**** - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | <searchTerm> |
+    Then the user should be able to see all "4" tabs and are clickable
+      | Eligibility Criteria | Test Package | Further Info | Order process |
+    And the user sees the "<tabName1>" tab is selected by default
+    And the user selects the "Eligibility Criteria" tab
+    And the user should be able to see the following under Eligibility Criteria tab
+      | <tab1> | <tab2> | <tab3> | <tab4> |
+    And the user should be able to see "<whoCanOrderContent>" according to the CI selected
+
+    Examples:
+      | searchTerm | tabName1             | tab1        | tab2          | tab3                | tab4          | whoCanOrderContent                                                    |
+      | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
+      | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
