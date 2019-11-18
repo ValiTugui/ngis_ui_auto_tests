@@ -35,6 +35,7 @@ public class HomePageSteps extends Pages {
     @And("the user types in the CI term  in the search field and selects the first result from the results list")
     public void theUserTypesInTheCITermInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(List<String> searchTerms) {
         homePage.typeInSearchField(searchTerms.get(0));
+        AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
         homePage.clickSearchIconFromSearchField();
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
@@ -82,5 +83,13 @@ public class HomePageSteps extends Pages {
     public void theUserHasScrolledDownThePageToTheBottomFooter() {
         Actions.scrollToBottom(driver);
         Wait.forElementToBeDisplayed(driver, globalBehaviourPage.footerText);
+    }
+
+    @And("the browser navigates to the Private Test Selection Homepage with the user's last search and results automatically loaded in")
+    public void theBrowserNavigatesToThePageWithTheUserSLastSearchAndResultsAutomaticallyLoadedIn() {
+        Assert.assertEquals(driver.getTitle(), homePage.tabTitle);
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(homePage.searchField.getAttribute("value").matches(AppConfig.getSearchTerm()));
+
     }
 }

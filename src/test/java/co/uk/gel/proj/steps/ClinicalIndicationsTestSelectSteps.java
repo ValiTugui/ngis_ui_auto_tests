@@ -88,22 +88,12 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @Then("the user should be able to see a new modal window")
     public void theUserShouldBeAbleToSeeANewModalWindow() {
         clinicalIndicationsTestSelect.testPackagePopUpValidations();
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(0).getText().contains("Technology"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure"));
-        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpContents());
 
         for (int i = 0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
-            Assert.assertTrue(!clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
+            Assert.assertFalse(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
         }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
-    }
-
-    @And("the user clicks on {string} tab and see the clinical indications are loaded")
-    public void theUserClicksOnTabAndSeeTheClinicalIndicationsAreLoaded(String arg0) {
-        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
     }
 
     @And("the user should be able to see sections are displayed based on Clinical Indications type")
@@ -122,5 +112,15 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         for (int i = 0; i < clinicalIndicationsTestSelect.orderProcesssTitles.size(); i++) {
             Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(i).getText().matches(sectionName.get(i)));
         }
+    }
+
+    @Then("the user should be able to see a link {string} at left side top of the page")
+    public void theUserShouldBeAbleToSeeALinkAtLeftSideTopOfThePage(String buttonName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkIfBackToSearchButtonPresent(buttonName));
+    }
+
+    @And("the user clicks on Back to Search button")
+    public void theUserClicksOnBackToSearchButton() {
+        clinicalIndicationsTestSelect.clickBackToSearchButton();
     }
 }
