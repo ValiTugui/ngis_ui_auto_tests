@@ -1,4 +1,5 @@
 @regression
+@regression_set2
 @patientSearch
 Feature: Patient search page
 
@@ -69,7 +70,6 @@ Feature: Patient search page
       | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMüller:Gender=Male                        |
       | E2EUI-2132   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMuller:Gender=Male                        |
 #       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
-
 
   @patientSearch_06 @NTS-2796 @E2EUI-1472 @v_1
   Scenario Outline:NTS-2796:patient search - "<patient-search-type>" Patient Search Results Page validation

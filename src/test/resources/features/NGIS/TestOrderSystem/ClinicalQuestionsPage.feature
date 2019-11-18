@@ -1,4 +1,5 @@
 @regression
+@regression_set1
 @clinicalQuestions
 Feature: Clinical Questions stage
 
