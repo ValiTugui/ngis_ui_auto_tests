@@ -263,16 +263,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
                 Wait.seconds(30);
                 try{
-                    Debugger.println("Trying with move mouse and click.");
+                    Debugger.println("Refreshing Page and trying.");
+                    driver.navigate().refresh();
+                    Wait.seconds(10);
                     seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
                     seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
                     seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
                     seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
+                    attempts = 5;
                 }catch(Exception exp){
                     Debugger.println("Exception from using refreshed elements: "+exp);
                     attempts++;
                 }
-                attempts = 5;
+
             }catch (Exception exp) {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: EXCEPTION: Waiting for 30 secs to retry. Exception is: \n" + exp);
                 Wait.seconds(30);
