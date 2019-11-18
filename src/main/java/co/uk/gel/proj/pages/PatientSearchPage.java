@@ -255,8 +255,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 break;
             } catch (StaleElementReferenceException exp) {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry. Exception is: \n" + exp);
-                Wait.seconds(30);//Waiting for a minute and retrying.
-                //Re-initializing the elements and going forward.
+                Wait.seconds(30);
                 attempts++;
             }
         }//while
