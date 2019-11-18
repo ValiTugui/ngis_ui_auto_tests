@@ -247,7 +247,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         int attempts = 0;
         Debugger.println("Logging to ...loginToTestOrderingSystemAsServiceDeskUser");
         while(attempts < 5) {
-            Debugger.println("Attemps: " + attempts);
+            Debugger.println("Attempt: " + attempts);
             try {
                 Wait.forElementToBeDisplayed(driver, emailAddressField);
                 Wait.forElementToBeClickable(driver, emailAddressField);
@@ -257,19 +257,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Wait.forElementToBeClickable(driver, passwordField);
                 passwordField.sendKeys(AppConfig.getApp_password());
                 nextButton.click();
-                Debugger.println("Attemps..Done....................."+attempts);
+                Debugger.println("Attempt..Done....................."+attempts);
                 break;
             } catch (StaleElementReferenceException staleexp) {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
                 Wait.seconds(30);
                 try{
                     Debugger.println("Refreshing Page and trying.");
-                    driver.navigate().refresh();
+                    seleniumLib.refreshPage();
                     Wait.seconds(10);
-                    seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
-                    seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
-                    seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
-                    seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
+                    seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                    seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
+                    seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                    seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
                     attempts = 5;
                 }catch(Exception exp){
                     Debugger.println("Exception from using refreshed elements: "+exp);

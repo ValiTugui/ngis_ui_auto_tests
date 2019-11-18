@@ -164,6 +164,19 @@ public class SeleniumLib {
             webElement.sendKeys(value);
         }
     }
+    public void sendValue(WebElement element, String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+        try {
+            element.clear();
+            element.sendKeys(value);
+        } catch (Exception exp) {
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            element = wait.until(ExpectedConditions.elementToBeClickable(element));
+            element.sendKeys(value);
+        }
+    }
 
     public void focusElement(By element) {
         webElement = getElement(element);
