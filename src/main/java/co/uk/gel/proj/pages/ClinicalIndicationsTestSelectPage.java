@@ -3,7 +3,6 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -142,24 +141,27 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean isTabSelected(String tabName) {
+        String attribute = "class";
+        String select = "activeTab";
         switch (tabName) {
             case "Eligibility Criteria":
             case "Clinical Indications": {
-                return clinicalIndicationTabs.get(0).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(0).getAttribute(attribute).contains(select);
             }
             case "Test Package":
             case "Test details": {
-                return clinicalIndicationTabs.get(1).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(1).getAttribute(attribute).contains(select);
             }
             case "Further Info":
             case "Labs": {
-                return clinicalIndicationTabs.get(2).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(2).getAttribute(attribute).contains(select);
             }
             case "Order process": {
-                return clinicalIndicationTabs.get(3).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(3).getAttribute(attribute).contains(select);
             }
+            default:
+                return false;
         }
-        return false;
     }
 
     public void selectTab(String tabName) {
