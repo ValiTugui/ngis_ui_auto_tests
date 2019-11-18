@@ -5,8 +5,8 @@ Feature: FamilyMember search page
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0
   Scenario Outline: E2EUI-1116: Verify the family member search page with Yes option displayed properly
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
