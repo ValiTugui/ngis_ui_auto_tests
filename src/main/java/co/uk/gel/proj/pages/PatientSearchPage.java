@@ -13,15 +13,14 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -250,19 +249,29 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Attempt: " + attempts);
             try {
                 Wait.forElementToBeDisplayed(driver, emailAddressField);
+                Debugger.println("Element emailAddressField displayed...");
                 Wait.forElementToBeClickable(driver, emailAddressField);
+                Debugger.println("Element clickable...");
                 emailAddressField.sendKeys(AppConfig.getApp_username());
+                Debugger.println("Sending values...");
                 nextButton.click();
+                Debugger.println("Clicking on next button...");
                 //Wait.seconds(2);
                 Wait.forElementToBeClickable(driver, passwordField);
+                Debugger.println("Element passwordField clickable...");
                 passwordField.sendKeys(AppConfig.getApp_password());
+                Debugger.println("Sending values...");
                 nextButton.click();
                 Debugger.println("Attempt..Done....................."+attempts);
                 break;
             } catch (StaleElementReferenceException staleexp) {
+                try{
+                File screenshot = ((TakesScreenshot) driver)
+                        .getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(screenshot, new File("staleexception"));
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
                 Wait.seconds(30);
-                try{
+
                     Debugger.println("Refreshing Page and trying.");
                     seleniumLib.refreshPage();
                     Wait.seconds(10);
