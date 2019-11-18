@@ -245,7 +245,6 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-
         patientSearchPage.waitForSearchPageTobeLoaded();
         //Assert.assertTrue(eachElementIsLoaded);
         //Wait.seconds();

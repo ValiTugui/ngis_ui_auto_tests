@@ -770,6 +770,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     //Method added as a temporary fix for trial. Will be removed/modified based on run result.
     public void waitForSearchPageTobeLoaded(){
         try {
+            Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
             By searchTitle = By.xpath("//h1[text()='Find your patient']");
             WebElement patientSearchTitle = driver.findElement(searchTitle);
             Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
