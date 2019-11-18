@@ -93,6 +93,7 @@ public class Pages implements Navigable {
         try {
             Debugger.println("Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
             driver.get(urlToNavigate);
+            Debugger.println("Current URL After getting: "+driver.getCurrentUrl());
             //Navigate to Test Directory
             if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
                 homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -101,7 +102,6 @@ public class Pages implements Navigable {
             else if (driver.getCurrentUrl().contains(pageToNavigate)) {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
                 Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
-
             } else {
                 if (driver.getCurrentUrl().contains("login.microsoft")) {
                     Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
@@ -121,6 +121,7 @@ public class Pages implements Navigable {
                         Debugger.println(" User is at url " + driver.getCurrentUrl());
                 }
             }
+            Debugger.println("Done with Navigation:");
         }catch(Exception exp){
             Debugger.println("Exception in Navigating to URL: "+urlToNavigate+"\nExp:"+exp);
         }
