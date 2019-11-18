@@ -113,6 +113,9 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains(@class,'processCard')]//child::p")
     public List<WebElement> orderProcesssDescriptions;
 
+    @FindBy(xpath = "//*/h4")
+    public List<WebElement> clinicalIndicationsHeadings;
+
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
     }
@@ -279,6 +282,14 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Section Mismatch: " + testDetailsSubSections.size());
         }
+    }
+
+    public void clickFirstResultInClinicalIndications() {
+        Click.element(driver, clinicalIndicationsResults.get(0));
+    }
+
+    public boolean clinicalIndicationsTabValidation(String sectionName1, String sectionName2) {
+        return ((clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
     }
 
 }

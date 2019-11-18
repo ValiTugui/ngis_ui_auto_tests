@@ -94,6 +94,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
             Assert.assertFalse(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
         }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
+        Assert.assertTrue(clinicalIndicationsTestSelect.goToTestPageButtonFromPopup.isDisplayed());
     }
 
     @And("the user should be able to see sections are displayed based on Clinical Indications type")
@@ -132,5 +133,22 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user should be able to see {string} according to the CI selected")
     public void theUserShouldBeAbleToSeeAccordingToTheCISelected(String whoCanOrderContent) {
         Assert.assertTrue(clinicalIndicationsTestSelect.whoCanOrderContentValidation(whoCanOrderContent));
+    }
+
+    @Then("the user clicks on first Clinical indications results displayed")
+    public void theUserClicksOnClinicalIndicationsResultsDisplayed() {
+        clinicalIndicationsTestSelect.clickFirstResultInClinicalIndications();
+    }
+
+    @And("the user sees Clinical indications modal with two sections")
+    public void theUserSeesClinicalIndicationsModalWithTwoSections(List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsTabValidation(sectionName.get(0), sectionName.get(1)));
+    }
+
+    @And("the user should be able to see Clinical indications list is displayed containing clickable cards for each clinical indication")
+    public void theUserShouldBeAbleToSeeClinicalIndicationsListIsDisplayedContainingClickableCardsForEachClinicalIndication() {
+        for (int i = 0; i < clinicalIndicationsTestSelect.clinicalIndicationsResults.size(); i++) {
+            Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsResults.get(i).isEnabled());
+        }
     }
 }
