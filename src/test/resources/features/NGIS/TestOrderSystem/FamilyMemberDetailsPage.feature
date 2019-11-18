@@ -1,6 +1,6 @@
 @regression_stag
 @FamilyMembersDetailsPage
-Feature: Relationship to Proband field validation
+Feature: Family Member Details Page
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @E2EUI-908 @v_1 @P0
@@ -70,18 +70,12 @@ Feature: Relationship to Proband field validation
     And  clicks the Save and Continue button in family member details page
     Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
-##    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-##    And the user removes the data from all fields "<ClearFields>" in the family member details page
-##    When the user clicks the Save and Continue button in family member details page
-##    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
-##  RelationshipToProband | ClearFields                                          | ErrorMessage                                                                                                           | MessageColor |
-##  Maternal Aunt         | Gender,Life status,Ethnicity,Relationship to proband | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required. | #dd2509      |
     Examples:
       | stage          | NhsNumber  | DOB        | ErrorMessage                         | MessageColor |
       | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_05 @LOGOUT @E2EUI-1038 @v_1 @P0
+    @familyMemberSearchPage_05 @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

@@ -221,6 +221,7 @@ public class FamilyMemberDetailsPage {
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            seleniumLib.scrollToElement(saveAndContinueButton);
             Click.element(driver, saveAndContinueButton);
             Wait.seconds(5);
             if (helix.size() > 0) {
