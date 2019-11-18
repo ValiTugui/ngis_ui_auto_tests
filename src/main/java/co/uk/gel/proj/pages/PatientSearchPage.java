@@ -244,6 +244,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         int attempts = 0;
         while(attempts < 5) {
             try {
+
                 Wait.forElementToBeDisplayed(driver, emailAddressField);
                 Wait.forElementToBeClickable(driver, emailAddressField);
                 emailAddressField.sendKeys(AppConfig.getApp_username());
