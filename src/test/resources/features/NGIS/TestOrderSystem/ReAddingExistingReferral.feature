@@ -1,3 +1,4 @@
+@regression
 @regression_stag
 @FamilyMember
 Feature: FamilyMember search page

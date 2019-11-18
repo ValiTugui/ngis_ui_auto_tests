@@ -1,3 +1,4 @@
+@regression
 @regression_stag
 @FamilyMembersDetailsPage
 Feature: Family Member Details Page
@@ -56,7 +57,7 @@ Feature: Family Member Details Page
       | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_04 @E2EUI-1038 @v_1 @P0
+    @familyMemberSearchPage_04 @LOGOUT @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -91,4 +92,3 @@ Feature: Family Member Details Page
 #    Examples:
 #      | stage          | NhsNumber  | DOB        | RelationshipToProband |
 #      | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
-
