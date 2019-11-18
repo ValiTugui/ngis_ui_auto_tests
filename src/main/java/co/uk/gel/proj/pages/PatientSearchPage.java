@@ -256,7 +256,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Debugger.println("Sending values...");
                 nextButton.click();
                 Debugger.println("Clicking on next button...");
-                //Wait.seconds(2);
+                Wait.seconds(2);
+                Wait.forElementToBeDisplayed(driver, passwordField);
                 Wait.forElementToBeClickable(driver, passwordField);
                 Debugger.println("Element passwordField clickable...");
                 passwordField.sendKeys(AppConfig.getApp_password());
@@ -268,7 +269,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 try{
                 File screenshot = ((TakesScreenshot) driver)
                         .getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(screenshot, new File("staleexception"));
+                FileUtils.copyFile(screenshot, new File("staleexception.jpg"));
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
                 Wait.seconds(30);
 
