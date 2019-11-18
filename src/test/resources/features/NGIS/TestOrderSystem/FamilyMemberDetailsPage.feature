@@ -21,26 +21,7 @@ Feature: Family Member Details Page
       | Family members | 9449310157 | 15-01-2000 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_02 @E2EUI-1012 @v_1 @P0
-  Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
-    When the user navigates to the "<stage>" stage
-    And the user clicks on Add family member button
-    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
-    Then the user is navigated to a page with title Select tests for
-    And the user can select the test to add to the family member
-
-    Examples:
-      | stage          | NhsNumber  | DOB        | RelationshipToProband |
-      | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
-
-  @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_03 @E2EUI-1349 @v_1 @P0
+    @familyMemberDetailsPage_02 @E2EUI-1349 @v_1 @P0
   Scenario Outline: E2EUI-1349: Verify The family member details on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -58,7 +39,7 @@ Feature: Family Member Details Page
       | Family members | 9449310165 | 25-12-2000 | Maternal Aunt         |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @E2EUI-1369 @v_1 @P0
+    @familyMemberDetailsPage_03 @E2EUI-1369 @v_1 @P0
   Scenario Outline: E2EUI-1369: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -75,7 +56,7 @@ Feature: Family Member Details Page
       | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_05 @E2EUI-1038 @v_1 @P0
+    @familyMemberSearchPage_04 @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -91,3 +72,23 @@ Feature: Family Member Details Page
     Examples:
       | stage          | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     |  Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
+#
+#  @COMP8_TO_PatientSearch
+#    @familyMemberDetailsPage_05 @E2EUI-1012 @v_1 @P0
+#  Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
+#    When the user navigates to the "<stage>" stage
+#    And the user clicks on Add family member button
+#    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+#    Then the patient card displays with Born,Gender and NHS No details
+#    When the user clicks on the patient card
+#    Then the user is navigated to a page with title Confirm family member details
+#    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+#    And reads the details of selected family member "<RelationshipToProband>"
+#    And  clicks the Save and Continue button in family member details page
+#    Then the user is navigated to a page with title Select tests for
+#    And the user can select the test to add to the family member
+#
+#    Examples:
+#      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+#      | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
+

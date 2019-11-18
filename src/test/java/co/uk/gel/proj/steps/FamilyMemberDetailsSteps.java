@@ -39,7 +39,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
-    @When("reads the details of selected family member {string}")
+    @And("reads the details of selected family member {string}")
     public void readsTheDetailsOfSelectedMember(String relationToProband) {
         familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
     }

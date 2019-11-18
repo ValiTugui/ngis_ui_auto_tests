@@ -222,7 +222,8 @@ public class FamilyMemberDetailsPage {
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            seleniumLib.scrollToElement(saveAndContinueButton);
+            Actions.scrollToTop(driver);
+            Wait.seconds(2);
             Click.element(driver, saveAndContinueButton);
             Wait.seconds(5);
             if (helix.size() > 0) {
@@ -230,17 +231,19 @@ public class FamilyMemberDetailsPage {
                 Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
             }else{
                 Debugger.println("Helix1 No...");
-                if(seleniumLib.isElementPresent(saveAndContinueButton)) {
-                    Debugger.println("Clicked on Save and Continue via seleniumLib.");
-                    seleniumLib.clickOnWebElement(saveAndContinueButton);
-                    Wait.seconds(5);
-                    if (helix.size() > 0) {
-                        Debugger.println("Helix2 yes...");
-                        Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                    } else {
-                        Debugger.println("Helix2 No...");
-                    }
-                }
+                Click.element(driver, saveAndContinueButton);
+                Wait.seconds(10);
+//                if(seleniumLib.isElementPresent(saveAndContinueButton)) {
+//                    Debugger.println("Clicked on Save and Continue via seleniumLib.");
+//                    seleniumLib.clickOnWebElement(saveAndContinueButton);
+//                    Wait.seconds(5);
+//                    if (helix.size() > 0) {
+//                        Debugger.println("Helix2 yes...");
+//                        Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+//                    } else {
+//                        Debugger.println("Helix2 No...");
+//                    }
+//                }
             }
         }catch(Exception exp){
             Debugger.println("Could not click on Save and Continue...."+exp);
@@ -287,6 +290,8 @@ public class FamilyMemberDetailsPage {
                 familyMember.setGENDER(seleniumLib.getText(genderTitle));
             }
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
+            Debugger.println("Read Family Member Details........."+familyMember.getFIRST_NAME());
+            Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("Exception in Reading Family Details from Confirmation Page. "+exp);
         }
