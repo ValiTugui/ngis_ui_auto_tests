@@ -9,6 +9,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class ClinicalIndicationsTestSelectSteps extends Pages {
 
@@ -47,8 +50,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
-        clinicalIndicationsTestSelect.waitUntilClinicalIndicationsResultsContainerIsLoaded();
-        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.validateIfLoadingWheelIsPresent());
+        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
     }
 
     @And("the user sees the {string} tab is selected by default")
@@ -77,15 +79,48 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         Click.element(driver, clinicalIndicationsTestSelect.goToTestPageButtonFromPopup);
     }
 
-    @And("the user should be able to see all {string} tabs - {string}, {string}, {string} and {string} and are clickable")
-    public void theUserSeesAllTabsAndAndAreClickable(String tabCount, String tab1, String tab2, String tab3, String tab4) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tab1, tab2, tab3, tab4));
-        Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount),clinicalIndicationsTestSelect.clinicalIndicationTabs));
+    @And("the user should be able to see all {string} tabs and are clickable")
+    public void theUserShouldBeAbleToSeeAllTabsAndAreClickable(String tabCount, List<String> tabName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tabName.get(0), tabName.get(1), tabName.get(2), tabName.get(3)));
+        Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }
 
     @Then("the user should be able to see a new modal window")
     public void theUserShouldBeAbleToSeeANewModalWindow() {
         clinicalIndicationsTestSelect.testPackagePopUpValidations();
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(0).getText().contains("Technology"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure"));
+        Assert.assertTrue(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
+
+        for (int i = 0; i < clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).size(); i++) {
+            Assert.assertTrue(!clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
+        }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
+    }
+
+    @And("the user clicks on {string} tab and see the clinical indications are loaded")
+    public void theUserClicksOnTabAndSeeTheClinicalIndicationsAreLoaded(String arg0) {
+        Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
+    }
+
+    @And("the user should be able to see sections are displayed based on Clinical Indications type")
+    public void theUserShouldBeAbleToSeeSectionsAreDisplayedBasedOnClinicalIndicationsType(List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.testDetailsTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2)));
+    }
+
+    @And("the user should be able to see {string} section is displayed")
+    public void theUserShouldBeAbleToSeeSectionsAreDisplayed(String sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.labsTabValidation(sectionName));
+    }
+
+    @And("the user should be able to see {string} sections of Order process are displayed")
+    public void theUserShouldBeAbleToSeeSectionsOfOrderProcessAreDisplayed(String numOfSection, List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.orderProcessTabValidation(Integer.parseInt(numOfSection)));
+        for (int i = 0; i < clinicalIndicationsTestSelect.orderProcesssTitles.size(); i++) {
+            Assert.assertTrue(clinicalIndicationsTestSelect.orderProcesssTitles.get(i).getText().matches(sectionName.get(i)));
+        }
     }
 }
