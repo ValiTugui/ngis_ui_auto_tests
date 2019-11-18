@@ -179,6 +179,7 @@ public class FamilyMemberDetailsPage {
     }
     public boolean verifyPatientRecordDetailsDisplay(){
         //Verify the Title
+        Wait.forElementToBeDisplayed(driver,patientRecordFoundTitle);
         if(!seleniumLib.isElementPresent(patientRecordFoundTitle)){
             Debugger.println("Patient found title not displayed.");
             if(seleniumLib.isElementPresent(errorMessage)){
