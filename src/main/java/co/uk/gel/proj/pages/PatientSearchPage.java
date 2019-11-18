@@ -242,9 +242,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
         boolean result = false;
         int attempts = 0;
+        Debugger.println("Logging to ...loginToTestOrderingSystemAsServiceDeskUser");
         while(attempts < 5) {
+            Debugger.println("Attemps: " + attempts);
             try {
-
                 Wait.forElementToBeDisplayed(driver, emailAddressField);
                 Wait.forElementToBeClickable(driver, emailAddressField);
                 emailAddressField.sendKeys(AppConfig.getApp_username());
@@ -253,6 +254,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Wait.forElementToBeClickable(driver, passwordField);
                 passwordField.sendKeys(AppConfig.getApp_password());
                 nextButton.click();
+                Debugger.println("Attemps..Done....................."+attempts);
                 break;
             } catch (StaleElementReferenceException exp) {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry. Exception is: \n" + exp);

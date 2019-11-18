@@ -224,6 +224,7 @@ public class PaperFormPage {
 
     public void clickSignInToTheOnlineServiceButton() {
         try {
+            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
             Click.element(driver, signInToOnlineServiceButton);
             Wait.seconds(5);
         }catch(Exception exp){

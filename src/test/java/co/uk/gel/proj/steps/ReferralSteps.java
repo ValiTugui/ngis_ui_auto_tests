@@ -242,8 +242,12 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
+        Debugger.println("Clicking on Start Referral....");
+
         clinicalIndicationsTestSelect.clickStartReferralButton();
+        Debugger.println("Clicking on clickSignInToTheOnlineServiceButton....");
         paperFormPage.clickSignInToTheOnlineServiceButton();
+        Debugger.println("Switching URL: ");
         switchToURL(driver.getCurrentUrl());
         patientSearchPage.waitForSearchPageTobeLoaded();
         //Assert.assertTrue(eachElementIsLoaded);
