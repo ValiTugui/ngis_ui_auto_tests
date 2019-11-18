@@ -87,8 +87,8 @@ Feature: Home Page
       | tabName1     | tabName2             | linkName       |
       | Test Package | Clinical Indications | Back to search |
 
-  @E2EUI-1003 @NTS-**** @v_1 @P0 @COMP1_TD_ClinicalTests
-  Scenario Outline: NTS-**** - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+  @E2EUI-1003 @NTS-3260 @v_1 @P0 @COMP1_TD_EligibilityCriteria
+  Scenario Outline: NTS-3260 - Clinical Indication Page - Display additional details on who can order card.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     Then the user should be able to see all "4" tabs and are clickable
