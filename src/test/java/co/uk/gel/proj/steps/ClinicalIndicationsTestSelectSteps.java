@@ -95,6 +95,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
         Assert.assertTrue(clinicalIndicationsTestSelect.goToTestPageButtonFromPopup.isDisplayed());
+        Assert.assertTrue(clinicalIndicationsTestSelect.closePopupButton.isDisplayed());
     }
 
     @And("the user should be able to see sections are displayed based on Clinical Indications type")
@@ -150,5 +151,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
         for (int i = 0; i < clinicalIndicationsTestSelect.clinicalIndicationsResults.size(); i++) {
             Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsResults.get(i).isEnabled());
         }
+    }
+
+    @And("the user should be able to see the following under Further Info tab")
+    public void theUserShouldBeAbleToSeeTheFollowingUnderFurtherInfoTab(List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.furtherInfoTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2), sectionName.get(3)));
     }
 }

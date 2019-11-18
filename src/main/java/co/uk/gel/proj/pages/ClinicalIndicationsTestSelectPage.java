@@ -77,7 +77,7 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//div[contains(@class,'ctaBlock')]//child::a")
     public WebElement goToTestPageButtonFromPopup;
 
-    @FindBy(css = "div[class*='card_']")
+    @FindBy(xpath = "//*[contains (@class, 'card_')]")
     public List<WebElement> furtherInfoSections;
 
     @FindBy(css = ".btn.btn-md.btn-primary")
@@ -290,6 +290,29 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean clinicalIndicationsTabValidation(String sectionName1, String sectionName2) {
         return ((clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
+    }
+
+    public boolean furtherInfoTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {
+        Wait.waitForPageToBeLoaded(driver);
+        for (int i = 0; i < furtherInfoSections.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, furtherInfoSections.get(i));
+        }
+        switch (furtherInfoSections.size()) {
+            case 1: {
+                return (furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName4));
+            }
+            case 2: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            case 3: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName3)) && (furtherInfoSections.get(2).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            case 4: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName1)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(2).findElement(By.tagName("h2")).getText().contains(sectionName3)) && (furtherInfoSections.get(3).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + furtherInfoSections.size());
+        }
     }
 
 }

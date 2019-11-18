@@ -32,7 +32,7 @@ Feature: Home Page
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
 
-  @E2EUI-1501 @NTS-3244 @v_1 @P0 @COMP1_TD_ClinicalTests
+  @E2EUI-1501 @E2EUI-1033 @NTS-3244 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage
   Scenario: NTS-3244 - Clinical Indication Page -  View details for a Tumor Clinical Indication.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | M85 |
@@ -123,3 +123,18 @@ Feature: Home Page
       | searchTerm | tabName1     | tabName2             | sectionName1 | sectionName2             |
       | R100       | Test Package | Clinical Indications | Who to test  | Test package includes... |
       | 270        | Test Package | Clinical Indications | Who to test  | Test package includes... |
+
+  @E2EUI-1063 @NTS-3265 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  Scenario Outline: NTS-3265 - Clinical Indication Page - View details for Further Info Tab..
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | <searchTerm> |
+    Then the user should be able to see all "4" tabs and are clickable
+      | Eligibility Criteria | Test Package | Further Info | Order process |
+    And the user selects the "Further Info" tab
+    And the user should be able to see the following under Further Info tab
+      | References | Age group relevancy | Pseudonyms | Associated terms |
+
+    Examples:
+      | searchTerm |
+      | R100       |
+      | R237       |
