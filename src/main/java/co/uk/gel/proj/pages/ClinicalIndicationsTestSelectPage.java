@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -116,6 +117,10 @@ public class ClinicalIndicationsTestSelectPage {
         Click.element(driver, startTestOrderButton);
     }
 
+    public void clickBackToSearchButton() {
+        Click.element(driver, backToSearch);
+    }
+
     public boolean validateIfLoadingWheelIsPresent() {
         return loadingWheel.size() >= 0;
     }
@@ -136,24 +141,27 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean isTabSelected(String tabName) {
+        String attribute = "class";
+        String select = "activeTab";
         switch (tabName) {
             case "Eligibility Criteria":
             case "Clinical Indications": {
-                return clinicalIndicationTabs.get(0).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(0).getAttribute(attribute).contains(select);
             }
             case "Test Package":
             case "Test details": {
-                return clinicalIndicationTabs.get(1).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(1).getAttribute(attribute).contains(select);
             }
             case "Further Info":
             case "Labs": {
-                return clinicalIndicationTabs.get(2).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(2).getAttribute(attribute).contains(select);
             }
             case "Order process": {
-                return clinicalIndicationTabs.get(3).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(3).getAttribute(attribute).contains(select);
             }
+            default:
+                return false;
         }
-        return false;
     }
 
     public void selectTab(String tabName) {
@@ -201,6 +209,23 @@ public class ClinicalIndicationsTestSelectPage {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
 
+    public boolean checkTestPagePopUpContents() {
+        boolean contentField1 = testPackagePopupProps.findElements(By.tagName("h5")).get(0).getText().contains("Technology");
+        boolean contentField2 = testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope");
+        boolean contentField3 = testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes");
+        boolean contentField4 = testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state");
+        boolean contentField5;
+        boolean contentField6;
+        if (testPackagePopupProps.findElements(By.tagName("h5")).size() == 6) {
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure");
+            contentField6 = testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5 && contentField6);
+        } else {
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5);
+        }
+    }
+
     public boolean testDetailsTabValidation(String sectionName1, String sectionName2, String sectionName3) {
         switch (testDetailsSubSections.size()) {
             case 1: {
@@ -223,6 +248,11 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean orderProcessTabValidation(int numOfSection) {
         return orderProcessResults.size() == numOfSection;
+    }
+
+    public boolean checkIfBackToSearchButtonPresent(String buttonName) {
+        Wait.forElementToBeDisplayed(driver, backToSearch);
+        return backToSearch.getText().matches(buttonName);
     }
 
 }
