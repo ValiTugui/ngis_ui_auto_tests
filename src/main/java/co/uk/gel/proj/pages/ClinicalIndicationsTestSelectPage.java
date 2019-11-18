@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -117,6 +118,10 @@ public class ClinicalIndicationsTestSelectPage {
         Click.element(driver, startTestOrderButton);
     }
 
+    public void clickBackToSearchButton() {
+        Click.element(driver, backToSearch);
+    }
+
     public boolean validateIfLoadingWheelIsPresent() {
         return loadingWheel.size() >= 0;
     }
@@ -202,11 +207,20 @@ public class ClinicalIndicationsTestSelectPage {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
 
-    public boolean checkTestPagePopUpElements() {
+    public boolean checkTestPagePopUpContents() {
+        boolean contentField1 = testPackagePopupProps.findElements(By.tagName("h5")).get(0).getText().contains("Technology");
+        boolean contentField2 = testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope");
+        boolean contentField3 = testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes");
+        boolean contentField4 = testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state");
+        boolean contentField5;
+        boolean contentField6;
         if (testPackagePopupProps.findElements(By.tagName("h5")).size() == 6) {
-            return (testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure") && testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria"));
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure");
+            contentField6 = testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5 && contentField6);
         } else {
-            return testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Eligibility criteria");
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5);
         }
     }
 
@@ -232,6 +246,11 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean orderProcessTabValidation(int numOfSection) {
         return orderProcessResults.size() == numOfSection;
+    }
+
+    public boolean checkIfBackToSearchButtonPresent(String buttonName) {
+        Wait.forElementToBeDisplayed(driver, backToSearch);
+        return backToSearch.getText().matches(buttonName);
     }
 
 }

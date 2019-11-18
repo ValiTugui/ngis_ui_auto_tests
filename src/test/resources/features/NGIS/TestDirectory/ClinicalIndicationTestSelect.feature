@@ -66,19 +66,23 @@ Feature: Home Page
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
   @E2EUI-1495 @E2EUI-986 @E2EUI-982 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
-  Scenario: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+  Scenario Outline: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
     Then the user should be able to see all "4" tabs and are clickable
       | Eligibility Criteria | Test Package | Further Info | Order process |
-    And the user selects the "Test Package" tab
+    And the user selects the "<tabName1>" tab
     And the user clicks on view more icon
     Then the user should be able to see a new modal window
     And the user click on Go to test page button
     Then the list of clinical indications are loaded
-    And the user sees the "Clinical Indications" tab is selected by default
+    And the user sees the "<tabName2>" tab is selected by default
     And the user should be able to see all "4" tabs and are clickable
       | Clinical Indications | Test details | Labs | Order process |
-    Then the user should be able to see a link "Back to search" at left side top of the page
+    Then the user should be able to see a link "<linkName>" at left side top of the page
     And the user clicks on Back to Search button
     And the browser navigates to the Private Test Selection Homepage with the user's last search and results automatically loaded in
+
+    Examples:
+      | tabName1     | tabName2             | linkName       |
+      | Test Package | Clinical Indications | Back to search |
