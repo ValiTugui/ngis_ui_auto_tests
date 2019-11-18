@@ -19,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import java.io.IOException;
 import java.util.*;
@@ -768,8 +769,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
         dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
     }
+    //Method added as a temporary fix for trial. Will be removed/modified based on run result.
     public void waitForSearchPageTobeLoaded(){
-        Wait.forElementToBeDisplayed(driver, searchButton,300);
+        try {
+            By searchTitle = By.xpath("//h1[text()='Find your patient']");
+            WebElement patientSearchTitle = driver.findElement(searchTitle);
+            Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+        }catch(Exception exp){
+            Debugger.println("Patient Search Page did not loaded......."+exp);
+        }
     }
 }
 
