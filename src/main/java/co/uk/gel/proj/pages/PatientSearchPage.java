@@ -240,20 +240,26 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        try {
-            Wait.forElementToBeDisplayed(driver, emailAddressField);
-            Wait.forElementToBeClickable(driver, emailAddressField);
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-            nextButton.click();
-            //Wait.seconds(2);
-            Wait.forElementToBeClickable(driver, passwordField);
-            passwordField.sendKeys(AppConfig.getApp_password());
-            nextButton.click();
-        }catch(StaleElementReferenceException exp){
-            Debugger.println("PatientSearchPage: Stale Element Reference Exception: Attempting multiple times...Exception is: \n"+exp);
-            //Re-initializing the elements and going forward.
-
-        }
+        boolean result = false;
+        int attempts = 0;
+        while(attempts < 5) {
+            try {
+                Wait.forElementToBeDisplayed(driver, emailAddressField);
+                Wait.forElementToBeClickable(driver, emailAddressField);
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+                nextButton.click();
+                //Wait.seconds(2);
+                Wait.forElementToBeClickable(driver, passwordField);
+                passwordField.sendKeys(AppConfig.getApp_password());
+                nextButton.click();
+                break;
+            } catch (StaleElementReferenceException exp) {
+                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry. Exception is: \n" + exp);
+                Wait.seconds(30);//Waiting for a minute and retrying.
+                //Re-initializing the elements and going forward.
+                attempts++;
+            }
+        }//while
     }
 
 
