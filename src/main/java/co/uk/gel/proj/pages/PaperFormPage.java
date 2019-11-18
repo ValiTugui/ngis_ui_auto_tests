@@ -26,7 +26,7 @@ public class PaperFormPage {
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(css = "p[class*='subHeader']")
+    @FindBy(css = "p[class*='sub-title-copy']")
     public WebElement orderEntitySubHeader;
 
     @FindBy(css = "p[class*='explanatoryText']")
@@ -34,6 +34,8 @@ public class PaperFormPage {
 
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
+
+
 
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
@@ -251,5 +253,16 @@ public class PaperFormPage {
     public boolean checkTheReviewSelectionPageHeaderText(String headerText) {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
+
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
+        orderEntitySubHeader.isDisplayed();
+        return orderEntitySubHeader.getText().matches(expectedLabelText);
+    }
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
+    }
+
 }
 
