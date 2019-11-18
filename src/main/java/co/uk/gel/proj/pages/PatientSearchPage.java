@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
@@ -31,6 +32,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     WebDriver driver;
     public static NewPatient testData = new NewPatient();
     static Faker faker = new Faker();
+    SeleniumLib seleniumLib;
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
@@ -39,6 +41,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
 
@@ -256,10 +259,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 nextButton.click();
                 Debugger.println("Attemps..Done....................."+attempts);
                 break;
-            } catch (StaleElementReferenceException exp) {
-                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry. Exception is: \n" + exp);
+            } catch (StaleElementReferenceException staleexp) {
+                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
                 Wait.seconds(30);
-                attempts++;
+                try{
+                    Debugger.println("Trying with move mouse and click.");
+                    seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
+                    seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
+                    seleniumLib.sendValue(By.xpath("//input[@name='loginfmt']"),AppConfig.getApp_username());
+                    seleniumLib.clickOnElement(By.xpath("//input[@type='submit']"));
+                }catch(Exception exp){
+                    Debugger.println("Exception from using refreshed elements: "+exp);
+                    attempts++;
+                }
+                attempts = 5;
             }catch (Exception exp) {
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: EXCEPTION: Waiting for 30 secs to retry. Exception is: \n" + exp);
                 Wait.seconds(30);
