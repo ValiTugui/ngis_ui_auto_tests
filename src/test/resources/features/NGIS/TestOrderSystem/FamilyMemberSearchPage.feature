@@ -234,7 +234,7 @@ Feature: FamilyMember search page
     @familyMemberSearchPage_24 @E2EUI-830 @v_1 @P0
   Scenario Outline: Verify the family member search without providing Dob, last name and gender  displays correct error message
     And the user navigates to the "<stage>" stage
-    When the user navigates to the family member search Page
+    When the user clicks on Add family member button
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
@@ -266,7 +266,7 @@ Feature: FamilyMember search page
     And the user clicks the Save and Continue button
     Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<stage>" stage
-    And the user navigates to the family member search Page
+    And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the user selects the patient search result tab
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -274,8 +274,8 @@ Feature: FamilyMember search page
     And the user clicks the Save and Continue button in family member details page
     Then the user navigates to the family member questionnaire Page
     When the user navigates to the "<stage>" stage
-#    And the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
-#    Then the user should be able to see in complete family member in "<MessageColor>"
+    And the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
+    Then the user should be able to see in complete family member in "<MessageColor>"
 
     Examples:
       | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor |

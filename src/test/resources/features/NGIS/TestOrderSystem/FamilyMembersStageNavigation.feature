@@ -27,13 +27,13 @@ Feature: Navigation: Family Members stage
     #And  clicks the Save and Continue button in family member details page
     And the user clicks the Save and Continue button
  #   Then the user is navigated to a page with title Select tests for
-    And the user can select the test to add to the family member
+#    And the user can select the test to add to the family member
 #    And  clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+#    And the user clicks the Save and Continue button
+#    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     #And  clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button
-    Then the user returns to family member landing page with the added family member details
+#    And the user clicks the Save and Continue button
+#    Then the user returns to family member landing page with the added family member details
 
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
