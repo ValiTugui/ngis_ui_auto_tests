@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -222,7 +223,13 @@ public class PaperFormPage {
     }
 
     public void clickSignInToTheOnlineServiceButton() {
-        Click.element(driver, signInToOnlineServiceButton);
+        try {
+            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
+            Click.element(driver, signInToOnlineServiceButton);
+            Wait.seconds(5);
+        }catch(Exception exp){
+            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: "+exp);
+        }
     }
 
     public void selectRandomEntityFromSuggestionsList() {

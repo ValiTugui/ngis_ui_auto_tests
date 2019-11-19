@@ -3,7 +3,9 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
@@ -11,13 +13,14 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -28,6 +31,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     WebDriver driver;
     public static NewPatient testData = new NewPatient();
     static Faker faker = new Faker();
+    SeleniumLib seleniumLib;
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
@@ -36,6 +40,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
 
@@ -204,10 +209,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(nhsNo);
-        dateDay.sendKeys(dayOfBirth);
-        dateMonth.sendKeys(monthOfBirth);
-        dateYear.sendKeys(yearOfBirth);
+
+           nhsNumber.sendKeys(nhsNo);
+           dateDay.sendKeys(dayOfBirth);
+           dateMonth.sendKeys(monthOfBirth);
+           dateYear.sendKeys(yearOfBirth);
+
     }
 
     public void clickNoButton() {
@@ -235,13 +242,49 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        Wait.forElementToBeClickable(driver, emailAddressField);
-        emailAddressField.sendKeys(AppConfig.getApp_username());
-        nextButton.click();
-        //Wait.seconds(2);
-        Wait.forElementToBeClickable(driver, passwordField);
-        passwordField.sendKeys(AppConfig.getApp_password());
-        nextButton.click();
+        boolean result = false;
+        int attempts = 1;
+        Debugger.println("LoginToTestOrderingSystemAsServiceDeskUser...");
+        while(attempts < 5) {
+            Debugger.println("Attempt: " + attempts);
+            try {
+                Wait.forElementToBeDisplayed(driver, emailAddressField);
+                Wait.forElementToBeClickable(driver, emailAddressField);
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+                nextButton.click();
+                Wait.seconds(2);
+                Wait.forElementToBeDisplayed(driver, passwordField);
+                Wait.forElementToBeClickable(driver, passwordField);
+                passwordField.sendKeys(AppConfig.getApp_password());
+                nextButton.click();
+                Debugger.println("Attempt.."+attempts+" Success.");
+                break;
+            } catch (StaleElementReferenceException staleExp) {
+                try{
+                    //This is for testing purpose, once the report configuration done properly, the screenshot will be attached to the failed scenarios automatically.
+                File screenshot = ((TakesScreenshot) driver)
+                        .getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(screenshot, new File("staleException.jpg"));
+                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
+                Debugger.println("Refreshing Page and trying.");
+                seleniumLib.refreshPage();
+                Wait.seconds(10);
+                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
+                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
+                attempts = 5;//If no exception here, break the loop and go ahead.
+                }catch(Exception exp){
+                    Debugger.println("Exception from using refreshed elements: "+exp);
+                    attempts++;
+                }
+            }catch (Exception exp) {
+                //To handle exception other than StaleException.
+                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: EXCEPTION: Waiting for 30 secs to retry. Exception is: \n" + exp);
+                Wait.seconds(30);
+                attempts++;
+            }
+        }//while
     }
 
 
@@ -742,8 +785,25 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals("Male", Actions.getText(administrativeGenderButton));
         Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
     }
-    public void fillInNHSNumberAndDateOfBirth(NGISPatient ngisPatient) {
-        fillInValidPatientDetailsUsingNHSNumberAndDOB(ngisPatient.getNHS_NUMBER(), ngisPatient.getDAY_OF_BIRTH(), ngisPatient.getMONTH_OF_BIRTH(), ngisPatient.getYEAR_OF_BIRTH());
+    public void fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
+        dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
+        dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
+        dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
+    }
+    //Method added as a temporary fix for trial. Will be removed/modified based on run result.
+    public boolean waitForSearchPageTobeLoaded(){
+        try {
+            Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
+            By searchTitle = By.xpath("//h1[text()='Find your patient']");
+            WebElement patientSearchTitle = driver.findElement(searchTitle);
+            Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Patient Search Page did not loaded......."+exp);
+            return false;
+        }
     }
 }
 

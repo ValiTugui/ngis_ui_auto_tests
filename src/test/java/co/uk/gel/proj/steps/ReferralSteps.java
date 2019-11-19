@@ -4,7 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.proj.TestDataProvider.NGISPatient;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -245,21 +245,22 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+        Assert.assertTrue(searchPageLoaded);
+        //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
-            NGISPatient ngisPatient = new NGISPatient();
+            NGISPatientModel ngisPatient = new NGISPatientModel();
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
                 switch (key) {
                     case "NHSNumber": {
-                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key));
+                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key).trim());
                         break;
                     }
                     case "DOB": {
-                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key));
+                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key).trim());
                         break;
                     }
                     case "FirstName": {
