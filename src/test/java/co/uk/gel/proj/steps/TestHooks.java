@@ -105,6 +105,7 @@ public class TestHooks extends Pages {
                 e.printStackTrace();
             }
             Wait.seconds(waitingTime);
+
         }
     }
 }//end class
