@@ -189,3 +189,20 @@ Feature: Test Package page
     Examples:
       | stage        | title                    |
       | Test package | Confirm the test package |
+
+  @E2EUI-1900 @NTS-3258 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  Scenario Outline: NTS-3258 - Test package - Selection/deselection of test should be saved based on the submission
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease |
+    And the user navigates to the "<stage1>" stage
+    And the Test Package page header is shown as "<title>"
+    And the user sees the test has been selected by default
+    When the user clicks a test to de-select it
+    Then the user sees the test has become deselected
+    When the user navigates to "<stage2>" stage section without clicking on the "save and continue" button from the "<stage1>"
+    Then the user sees a warning message "<message>" on the page
+
+    Examples:
+      | stage1       | title                    | stage2         | message                                                     |
+      | Test package | Confirm the test package | Family members | This section contains unsaved information. Discard changes? |
+
