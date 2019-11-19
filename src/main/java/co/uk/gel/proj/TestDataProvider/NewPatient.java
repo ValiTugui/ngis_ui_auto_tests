@@ -2,7 +2,6 @@ package co.uk.gel.proj.TestDataProvider;
 
 public class NewPatient {
 
-	
 	private int index;
 	private String subHeaderText;
 	private String bodyText;
