@@ -126,6 +126,7 @@ public class Pages implements Navigable {
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: " + currentURL);
+            Wait.seconds(6);
         if (driver.getCurrentUrl().contains(patientSearchURL)) {
             Actions.cleanUpSession(driver);
         } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
