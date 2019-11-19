@@ -365,4 +365,16 @@ public class TumoursSteps extends Pages {
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
+
+    @And("the Tumour page has the label text displayed as {string}")
+    public void theTumourPageHasTheLabelTextDisplayedAs(String expectedLabelName) {
+        String actualSnomedCTText = tumoursPage.getDynamicQuestionsSnomedCTLabelText();
+        Assert.assertEquals(expectedLabelName, actualSnomedCTText);
+    }
+
+    @And("the Tumour page title is shown as {string}")
+    public void theTumourPageTitleIsShownAs(String expectedPageTitle) {
+        String actualPageTitle = referralPage.getTheCurrentPageTitle();
+        Assert.assertTrue(expectedPageTitle.matches(actualPageTitle));
+    }
 }
