@@ -92,3 +92,86 @@ Feature: Family Member Details Page
     Examples:
       | stage          | NhsNumber  | DOB        | RelationshipToProband |
       | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_03 @E2EUI-1349 @v_1 @P0
+  Scenario Outline: Check family member Details validation
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the default family member details page is correctly displayed
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the family member details with the selected test are added to the referral
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310165 | 25-12-2000 | Full Sibling         |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_04 @E2EUI-1369 @v_1 @P0
+  Scenario Outline: Verify "relationship to proband" field mandatory when adding a family member to referral
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    When the default family member details page is correctly displayed
+    Then the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310114 | 01-06-1974 | Full Sibling         |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_05 @ @E2EUI-1038 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing last name displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then The message will be displayed as You’ve searched for "<SearchDetails>" "<ErrorMessage>" in "bold" font
+    And There is a "<hyperlinkText>" link available to create a new patient
+    And the user clicks the "<hyperlinkText>" to create a new patient
+    ##This test is yet to complete - in progress
+    Examples:
+      | stage          | SearchDetails                                               | ErrorMessage     | hyperlinkText               |
+      | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found | create a new patient record |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_06 @E2EUI-1698 @v_1 @P0
+  Scenario Outline: Verify the family members test package are selected by default
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    When the user clicks the Save and Continue button
+    Then the user should be able to see test package for family member is selected by default
+    When the user clicks the checkbox and Save and Continue button in family member test package page
+    And the user navigates back to family member test package page to verify the test remains deselect
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310165 | 25-12-2000 | Full Sibling          |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_07 @E2EUI-1291 @v_1 @P0
+  Scenario Outline: Verify the current additional family member information
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the default family member details page is correctly displayed
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the family member details with the selected test are added to the referral
+    When clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should be able to see family member's details card
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | 9449305749 | 17-12-2006 | Son                   | DiseaseStatus=Unaffected |

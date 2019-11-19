@@ -229,3 +229,16 @@ Feature: FamilyMember search page
     Examples:
       | stage          | SearchDetails | ErrorMessage                                                                           | MessageColor |
       | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_23 @E2EUI-1260 @v_1 @P0
+  Scenario Outline: Verify the family member search with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                                              | MessageColor |
+      | Family members | Postcode=DQ1 EZ3 | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required.,Gender is required. | #dd2509      |

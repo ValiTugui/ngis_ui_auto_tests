@@ -13,6 +13,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public FamilyMemberDetailsSteps(SeleniumDriver driver) {
         super(driver);
     }
+    @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
+        familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
+    }
 
     @And("^the user search a patient with valid NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
     public void theUserSearchAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
@@ -44,12 +48,18 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
     }
 
-    @And("the user can select the test to add to the family member")
+    @Then("the family member details with the selected test are added to the referral")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
         Assert.assertTrue(testResult);
     }
+//    @And("the user can select the test to add to the family member")
+//    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
+//        boolean testResult = false;
+//        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+//        Assert.assertTrue(testResult);
+//    }
 
     @When("the user fills the DiseaseStatusDetails for family member with the with the {string}")
     public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
@@ -74,6 +84,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberDetailsPage(String clearDropdown) {
         familyMemberDetailsPage.removeFetchedDataInFamilyMemberDetailsPage(clearDropdown);
     }
+    @Then("the default family member details page is correctly displayed")
+    public void theDefaultFamilyMemberDetailsPageIsCorrectlyDisplayed() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberDetailsPage();
+        Assert.assertTrue(testResult);
+    }
 
     @Then("the patient card displays with Born,Gender and NHS No details")
     public void thePatientCardDisplaysWithBornGenderAndNHSNoDetails() {
@@ -86,6 +102,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyThePageTitlePresence(title);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see test package for family member is selected by default")
+    public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected();
         Assert.assertTrue(testResult);
     }
 
@@ -111,5 +133,25 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage,fontColor);
         Assert.assertTrue(testResult);
 
+    }
+
+    @When("the user clicks the checkbox and Save and Continue button in family member test package page")
+    public void theUserClicksTheCheckboxAndSaveAndContinueButtonInFamilyMemberTestPackagePage() {
+        familyMemberDetailsPage.clickOnCheckBoxAndSaveAndContinueButton();
+    }
+
+    @And("the user navigates back to family member test package page to verify the test remains deselect")
+    public void theUserNavigatesBackToFamilyMemberTestPackagePage() {
+        familyMemberDetailsPage.clickOnBackButton();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see family member's details card")
+    public void theUserShouldBeAbleToSeeFamilyMemberSDetailsCard() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePatientCardField();
+        Assert.assertTrue(testResult);
+        familyMemberDetailsPage.getTextFromPatientCardFields();
     }
 }//end
