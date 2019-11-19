@@ -1,5 +1,5 @@
 @regression
-@regression_stag_1
+@regression_stag
 @FamilyMembersDetailsPage
 Feature: Family Member Details Page
 

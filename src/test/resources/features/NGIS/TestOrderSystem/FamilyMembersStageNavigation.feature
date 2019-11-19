@@ -1,5 +1,5 @@
-@regression_inprogress
-@regression_stag_inprogress
+@regression
+@regression_stag
 @FamilyMemberStage
 Feature: Navigation: Family Members stage
 

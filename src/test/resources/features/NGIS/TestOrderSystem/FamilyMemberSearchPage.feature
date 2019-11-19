@@ -1,6 +1,6 @@
 @regression
 @regression_stag
-@FamilyMembers
+@FamilyMemberSearchPage
 Feature: FamilyMember search page
 
   @COMP8_TO_PatientSearch

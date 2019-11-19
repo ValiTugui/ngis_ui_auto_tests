@@ -243,50 +243,43 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
         boolean result = false;
-        int attempts = 0;
-        Debugger.println("Logging to ...loginToTestOrderingSystemAsServiceDeskUser");
+        int attempts = 1;
+        Debugger.println("LoginToTestOrderingSystemAsServiceDeskUser...");
         while(attempts < 5) {
             Debugger.println("Attempt: " + attempts);
             try {
                 Wait.forElementToBeDisplayed(driver, emailAddressField);
-                Debugger.println("Element emailAddressField displayed...");
                 Wait.forElementToBeClickable(driver, emailAddressField);
-                Debugger.println("Element clickable...");
                 emailAddressField.sendKeys(AppConfig.getApp_username());
-                Debugger.println("Sending values...");
                 nextButton.click();
-                Debugger.println("Clicking on next button...");
                 Wait.seconds(2);
                 Wait.forElementToBeDisplayed(driver, passwordField);
                 Wait.forElementToBeClickable(driver, passwordField);
-                Debugger.println("Element passwordField clickable...");
                 passwordField.sendKeys(AppConfig.getApp_password());
-                Debugger.println("Sending values...");
                 nextButton.click();
-                Debugger.println("Attempt..Done....................."+attempts);
+                Debugger.println("Attempt.."+attempts+" Success.");
                 break;
-            } catch (StaleElementReferenceException staleexp) {
+            } catch (StaleElementReferenceException staleExp) {
                 try{
+                    //This is for testing purpose, once the report configuration done properly, the screenshot will be attached to the failed scenarios automatically.
                 File screenshot = ((TakesScreenshot) driver)
                         .getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(screenshot, new File("staleexception.jpg"));
+                FileUtils.copyFile(screenshot, new File("staleException.jpg"));
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
-                Wait.seconds(30);
-
-                    Debugger.println("Refreshing Page and trying.");
-                    seleniumLib.refreshPage();
-                    Wait.seconds(10);
-                    seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
-                    seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
-                    seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
-                    seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
-                    attempts = 5;
+                Debugger.println("Refreshing Page and trying.");
+                seleniumLib.refreshPage();
+                Wait.seconds(10);
+                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
+                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
+                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
+                attempts = 5;//If no exception here, break the loop and go ahead.
                 }catch(Exception exp){
                     Debugger.println("Exception from using refreshed elements: "+exp);
                     attempts++;
                 }
-
             }catch (Exception exp) {
+                //To handle exception other than StaleException.
                 Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: EXCEPTION: Waiting for 30 secs to retry. Exception is: \n" + exp);
                 Wait.seconds(30);
                 attempts++;
@@ -800,14 +793,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
     }
     //Method added as a temporary fix for trial. Will be removed/modified based on run result.
-    public void waitForSearchPageTobeLoaded(){
+    public boolean waitForSearchPageTobeLoaded(){
         try {
             Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
             By searchTitle = By.xpath("//h1[text()='Find your patient']");
             WebElement patientSearchTitle = driver.findElement(searchTitle);
             Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+            return true;
         }catch(Exception exp){
             Debugger.println("Patient Search Page did not loaded......."+exp);
+            return false;
         }
     }
 }
