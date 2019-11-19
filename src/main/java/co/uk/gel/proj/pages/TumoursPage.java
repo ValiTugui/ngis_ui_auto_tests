@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
@@ -140,9 +141,6 @@ public class TumoursPage {
 
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
-
-    @FindBy(css = "button[class*='link-button']")
-    public WebElement backLinkButton;
 
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
@@ -446,6 +444,11 @@ public class TumoursPage {
 
         Debugger.println("Expected Tumour Fields-Labels " + expectedTumourFieldsLabels);
         return expectedTumourFieldsLabels;
+    }
+
+    public void clickOnTheAddANewTumourTextLink() {
+        Wait.forElementToBeClickable(driver, addAnotherTumourLink);
+        Click.element(driver, addAnotherTumourLink);
     }
 
 

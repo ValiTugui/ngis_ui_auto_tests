@@ -219,4 +219,9 @@ public class ReferralSteps extends Pages {
     public void saveAndContinueButtonIsDisplayed() {
         Assert.assertTrue("Save and Continue is meant to be displayed", referralPage.saveAndContinueButtonIsDisplayed());
     }
+
+    @When("the user clicks on the Back link")
+    public void theUserClicksOnTheBackLink() {
+       referralPage.clickOnTheBackLink();
+    }
 }

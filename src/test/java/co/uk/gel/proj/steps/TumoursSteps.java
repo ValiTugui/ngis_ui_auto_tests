@@ -264,7 +264,6 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-
         String actualPageTitle = referralPage.getTheCurrentPageTitle();
         Debugger.println("Actual PageTitle : " + actualPageTitle);
         Debugger.println("Expected PageTitle : " + expectedPageTitle);
@@ -365,4 +364,10 @@ public class TumoursSteps extends Pages {
         testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
+
+    @When("user clicks add a new tumour link")
+    public void userClicksAddANewTumourLink() {
+        tumoursPage.clickOnTheAddANewTumourTextLink();
+    }
+
 }
