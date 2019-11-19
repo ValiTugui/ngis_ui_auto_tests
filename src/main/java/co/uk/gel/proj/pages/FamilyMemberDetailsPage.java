@@ -218,37 +218,19 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
-
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            Actions.scrollToTop(driver);
+            Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Wait.seconds(2);
             Click.element(driver, saveAndContinueButton);
             Wait.seconds(5);
             if (helix.size() > 0) {
-                Debugger.println("Helix1 yes...");
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }else{
-                Debugger.println("Helix1 No...");
-                Click.element(driver, saveAndContinueButton);
-                Wait.seconds(10);
-//                if(seleniumLib.isElementPresent(saveAndContinueButton)) {
-//                    Debugger.println("Clicked on Save and Continue via seleniumLib.");
-//                    seleniumLib.clickOnWebElement(saveAndContinueButton);
-//                    Wait.seconds(5);
-//                    if (helix.size() > 0) {
-//                        Debugger.println("Helix2 yes...");
-//                        Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-//                    } else {
-//                        Debugger.println("Helix2 No...");
-//                    }
-//                }
+               Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
             }
         }catch(Exception exp){
             Debugger.println("Could not click on Save and Continue...."+exp);
         }
-
     }
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
@@ -271,10 +253,22 @@ public class FamilyMemberDetailsPage {
         }
     }
     public void fillTheRelationshipToProband(String relationToProband){
-        Debugger.println("Entering Relation to Proband....");
+        validationErrors.clear();
         Click.element(driver, relationshipToProbandDropdown);
+        Wait.seconds(2);
         Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
-        Debugger.println("RTPB..DONE.");
+        Wait.seconds(2);
+        if(validationErrors.size() > 0){
+            validationErrors.clear();
+            Click.element(driver, relationshipToProbandDropdown);
+            Wait.seconds(2);
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
+            Wait.seconds(2);
+        }
+        if(validationErrors.size() > 0){
+            Debugger.println("Relation to Proband Not Selected.");
+        }
+
     }
     public void readFamilyMemberDetailsFor(String relationToProband){
         //Here reading the Family member details to verify in next page  - whether details loaded with the expected details

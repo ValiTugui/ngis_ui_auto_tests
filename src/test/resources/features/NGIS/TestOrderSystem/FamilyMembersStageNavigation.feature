@@ -24,15 +24,12 @@ Feature: Navigation: Family Members stage
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    #And  clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button
- #   Then the user is navigated to a page with title Select tests for
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
     And the user can select the test to add to the family member
-#    And  clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button
+    And  clicks the Save and Continue button in family member details page
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    #And  clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button
+    And  clicks the Save and Continue button in family member details page
     Then the user returns to family member landing page with the added family member details
 
     Examples:
