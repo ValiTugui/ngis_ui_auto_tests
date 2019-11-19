@@ -9,6 +9,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.hu.De;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -139,6 +140,8 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(css = "table[class*='table--hpo']")
     public WebElement hpoTable;
+    @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
+    public WebElement AddReferralButton;
 
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
@@ -477,6 +480,15 @@ public class FamilyMemberDetailsPage {
             return false;
         }
         return true;
+    }
+    public void clickOnAddNewPatientToReferral(){
+        Wait.forElementToBeDisplayed(driver, AddReferralButton);
+        Click.element(driver, AddReferralButton);
+    }
+    public void verifyTheTitleOfTheFamilyMemberDetailsPage(String expTitle) {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Debugger.println("The actual page title  is :" + pageTitle.getText());
+        Assert.assertEquals(expTitle, pageTitle.getText().trim());
     }
     public void clickOnCheckBoxAndSaveAndContinueButton() {
         seleniumLib.clickOnWebElement(testPackageCheckBox);

@@ -231,6 +231,19 @@ Feature: FamilyMember search page
       | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_24 @E2EUI-830 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing Dob, last name and gender  displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user navigates to the family member search Page
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
     @familyMemberSearchPage_23 @E2EUI-1260 @v_1 @P0
   Scenario Outline: Verify the family member search with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
     And the user navigates to the "<stage>" stage
@@ -240,5 +253,42 @@ Feature: FamilyMember search page
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
 
     Examples:
-      | stage          | SearchDetails    | ErrorMessage                                                                                              | MessageColor |
-      | Family members | Postcode=DQ1 EZ3 | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required.,Gender is required. | #dd2509      |
+      | stage          | SearchDetails | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
+
+# Working on this not completed
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_26 @E2EUI-1604 @v_1 @P0
+  Scenario Outline: Verify the family member is complete or incomplete
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<stage>" stage
+    And the user navigates to the family member search Page
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    And the user selects the patient search result tab
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button in family member details page
+    Then the user navigates to the family member questionnaire Page
+    When the user navigates to the "<stage>" stage
+#    And the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
+#    Then the user should be able to see in complete family member in "<MessageColor>"
+
+    Examples:
+      | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor |
+      | Family members | Test package | 2                | NHSNumber=9449310319:DOB=09-12-2010 | Full Sibling          | There is essential clinical information missing from this entry | #da291c      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_30 @LOGOUT @E2EUI-1539 @v_1 @P0
+  Scenario Outline: Verify the family member search with invalid nhs no and blank DOB displays correct error message
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMembers>" stage
+    Examples:
+      | FamilyMembers  | TestPackage  | NoOfParticipants |
+      | Family members | Test package | 2                |

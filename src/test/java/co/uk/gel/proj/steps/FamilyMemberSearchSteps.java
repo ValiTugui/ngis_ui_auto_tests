@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.java.en.And;
@@ -100,12 +102,60 @@ public class FamilyMemberSearchSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
         Assert.assertTrue(testResult);
+
+    }
+
+    @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
+    public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
+        familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
+    }
+
+    @And("the user selects the patient search result tab")
+    public void theUserSelectsThePatientSearchResultTab() {
+        familyMemberDetailsPage.clickPatientCard();
+    }
+
+    @When("the user clicks the Save and Continue button in family member details page")
+    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
+        familyMemberDetailsPage.clickOnSaveAndContinueButton();
+    }
+
+    @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
+    public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+        Actions.scrollToTop(driver);
+    }
+
+    @And("the user fills the FamilyMemberDetailsPage with the {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
     @Then("the message will be displayed as {string} result found")
     public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the family member details with the selected test are added to the referral")
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the DiseaseStatusDetails for family member with the with the {string}")
+    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
+        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
+    }
+
+    @Then("the user returns to family member landing page with the added family member details")
+    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
         Assert.assertTrue(testResult);
     }
 
@@ -150,4 +200,29 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickOnNewPatientLink();
     }
 
+    @And("the display title of the family member details page is {string}")
+    public void theDisplayTitleOfTheFamilyMemberDetailsPageIs(String familyMemeberDeatailsPageTitle) {
+        familyMemberDetailsPage.verifyTheTitleOfTheFamilyMemberDetailsPage(familyMemeberDeatailsPageTitle);
+    }
+
+
+    @And("the user will be able to see an error message as {string} in {string} for the family member")
+    public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user navigates to the family member questionnaire Page")
+    public void theUserNavigatesToTheFamilyMemberQuestionnairePage() {
+        familyMemberSearchPage.verifyTheTitleOfTheFamilyMemberQuestionnairePage();
+        Wait.seconds(5);
+    }
+
+    @Then("the user should be able to see in complete family member in {string}")
+    public void theUserShouldBeAbleToSeeInCompleteFamilyMember(String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
+        Assert.assertTrue(testResult);
+    }
 }//end
