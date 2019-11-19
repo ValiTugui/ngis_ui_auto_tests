@@ -127,6 +127,7 @@ public class Pages implements Navigable {
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: " + currentURL);
         Wait.seconds(6);
+        Debugger.println("ACTUAL  URL: " + driver.getCurrentUrl());
         try {
             if (driver.getCurrentUrl().contains(patientSearchURL)) {
                 Actions.cleanUpSession(driver);
@@ -137,6 +138,7 @@ public class Pages implements Navigable {
             }
             Debugger.println("NEW URL    : " + driver.getCurrentUrl());
         } catch (Exception e) {
+            Debugger.println("I am into switchToURL exception");
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
             try {
