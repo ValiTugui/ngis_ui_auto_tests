@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.java.en.And;
@@ -18,6 +19,29 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
     }
 
+    @When("the user clicks the Save and Continue button in family member details page")
+    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
+        familyMemberDetailsPage.clickOnSaveAndContinueButton();
+    }
+
+    @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
+    public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+        Actions.scrollToTop(driver);
+    }
+
+
+    @Then("the message will be displayed as {string} result found")
+    public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
+        Assert.assertTrue(testResult);
+    }
+
+
+
     @And("^the user search a patient with valid NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
     public void theUserSearchAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
@@ -28,10 +52,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @And("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        familyMemberDetailsPage.clickOnSaveAndContinueButton();
-    }
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
