@@ -123,4 +123,14 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserClicksOnBackToSearchButton() {
         clinicalIndicationsTestSelect.clickBackToSearchButton();
     }
+
+    @And("the user should be able to see the following under Eligibility Criteria tab")
+    public void theUserShouldBeAbleToSeeTheFollowingUnderEligibilityCriteriaTab(List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.eligibilityCriteriaTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2), sectionName.get(3)));
+    }
+
+    @And("the user should be able to see {string} according to the CI selected")
+    public void theUserShouldBeAbleToSeeAccordingToTheCISelected(String whoCanOrderContent) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.whoCanOrderContentValidation(whoCanOrderContent));
+    }
 }
