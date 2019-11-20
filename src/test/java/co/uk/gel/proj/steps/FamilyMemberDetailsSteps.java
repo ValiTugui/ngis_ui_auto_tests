@@ -19,7 +19,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
     }
 
-    @When("the user clicks the Save and Continue button in family member details page")
+    @When("clicks the Save and Continue button in family member details page")
     public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
         familyMemberDetailsPage.clickOnSaveAndContinueButton();
     }
@@ -74,12 +74,12 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
         Assert.assertTrue(testResult);
     }
-//    @And("the user can select the test to add to the family member")
-//    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
-//        boolean testResult = false;
-//        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
-//        Assert.assertTrue(testResult);
-//    }
+    @And("the user can select the test to add to the family member")
+    public void theFamilyMemberDetailsTheSelectedTestAreAddedToTheReferral() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+        Assert.assertTrue(testResult);
+    }
 
     @When("the user fills the DiseaseStatusDetails for family member with the with the {string}")
     public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {

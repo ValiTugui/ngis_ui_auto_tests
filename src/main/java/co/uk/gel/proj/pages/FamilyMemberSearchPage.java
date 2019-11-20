@@ -150,6 +150,9 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath="//p[contains(text(),'Address')]")
     public WebElement resultCardAddress;
 
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
+    public WebElement editBoxTestPackage;
+
     @FindBy(css = "a[class*='inline-link']")
     public WebElement noResultsHelpLink;
 
@@ -521,4 +524,25 @@ public class FamilyMemberSearchPage {
         }
     }
 
+    public void completingQuestionnaireFamilyMember() {
+        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']"));
+        Iterator<WebElement> itr = patientCards.iterator();
+        while (itr.hasNext()) {
+            String resultName = itr.next().getText();
+            Debugger.println(resultName);
+            seleniumLib.clickOnWebElement(editBoxTestPackage);
+        }
+    }
+
+    public boolean checkTheErrorMessageForIncompleteFamilyMember() {
+        try {
+            if (editBoxTestPackage.isDisplayed()) {
+                return true;
+            }
+        }catch (Exception exp){
+            Debugger.println("Error message not found "+exp);
+            return false;
+        }
+        return false;
+    }
 }//end

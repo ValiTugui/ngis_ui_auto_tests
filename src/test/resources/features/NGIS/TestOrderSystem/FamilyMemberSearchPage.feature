@@ -150,18 +150,18 @@ Feature: FamilyMember search page
       | Family members | DOB=14-11-1800   | Enter a year beyond 1900            | #dd2509      |
       | Family members | DOB=29-02-2001   | Check the day and month are valid   | #dd2509      |
 
-#  @COMP8_TO_PatientSearch
-#    @familyMemberSearchPage_14 @E2EUI-1205 @v_1 @P0
-#  Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
-#    When the user navigates to the "<stage>" stage
-#    And the user clicks on Add family member button
-#    And the user search the family member with the specified details "<YesSearchDetails>"
-#    And the message will be displayed as "<ResultMessage>" result found
-#    Then the search results have been displayed with Patient Name, dob, gender, NHS number and address
-#
-#    Examples:
-#      | stage          | YesSearchDetails                    | ResultMessage          |
-#      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_14 @E2EUI-1205 @v_1 @P0
+  Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<YesSearchDetails>"
+    And the message will be displayed as "<ResultMessage>" result found
+    Then the search results have been displayed with Patient Name, dob, gender, NHS number and address
+
+    Examples:
+      | stage          | YesSearchDetails                    | ResultMessage          |
+      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_15 @E2EUI-851 @v_1 @P0
@@ -268,18 +268,25 @@ Feature: FamilyMember search page
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    And the user selects the patient search result tab
+    And the user clicks on the patient card
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And the user clicks the Save and Continue button in family member details page
-    And the user clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button
     Then the user navigates to the family member questionnaire Page
     When the user navigates to the "<stage>" stage
     And the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
-    Then the user should be able to see in complete family member in "<MessageColor>"
+    Then the user should be able to see incomplete family member in "<MessageColor>"
+    And the user should edit to complete the highlighted family member
+    When clicks the Save and Continue button in family member details page
+    And clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And clicks the Save and Continue button in family member details page
+    Then the family member landing page displayed without incomplete error message
 
     Examples:
-      | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor |
-      | Family members | Test package | 2                | NHSNumber=9449310319:DOB=09-12-2010 | Full Sibling          | There is essential clinical information missing from this entry | #da291c      |
+      | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | NHSNumber=9449310319:DOB=09-12-2010 | Full Sibling          | There is essential clinical information missing from this entry | #da291c      | DiseaseStatus=Unaffected |
+
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_30 @LOGOUT @E2EUI-1539 @v_1 @P0
