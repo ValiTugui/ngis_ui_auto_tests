@@ -93,3 +93,65 @@ Feature: Family Member Details Page
     Examples:
       | stage          | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     |  Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_06 @E2EUI-1698 @v_1 @P0
+  Scenario Outline: Verify the family members test package are selected by default
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    When the user clicks the Save and Continue button
+    Then the user should be able to see test package for family member is selected by default
+    When the user clicks the checkbox and Save and Continue button in family member test package page
+    And the user navigates back to family member test package page to verify the test remains deselect
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband |
+      | Family members | 9449310165 | 25-12-2000 | Full Sibling          |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_07 @E2EUI-1291 @v_1 @P0
+  Scenario Outline: Verify the current additional family member information
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the default family member details page is correctly displayed
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should be able to see test package for family member is selected by default
+    When clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    And the user should be able to see family member's details card
+    Then the user should be able to see which patient in my referral currently editing
+
+    Examples:
+      | stage          | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_08 @E2EUI-1279 @v_1 @P0
+  Scenario Outline: Verify the family members page layout
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the default family member details page is correctly displayed
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should be able to see test package for family member is selected by default
+    When clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the family member test package page is correctly displayed
+
+    Examples:
+      | stage          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |

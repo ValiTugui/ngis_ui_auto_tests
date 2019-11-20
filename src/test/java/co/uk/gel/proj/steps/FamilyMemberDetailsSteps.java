@@ -92,6 +92,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
         Assert.assertTrue(testResult);
     }
+    @And("the display title of the family member details page is {string}")
+    public void theDisplayTitleOfTheFamilyMemberDetailsPageIs(String familyMemeberDeatailsPageTitle) {
+        familyMemberDetailsPage.verifyTheTitleOfTheFamilyMemberDetailsPage(familyMemeberDeatailsPageTitle);
+    }
 
     @Then("the default family member details page is correctly displayed with the proper number of fields")
     public void theDefaultFamilyMemberDetailsPageIsCorrectlyDisplayedWithTheProperNumberOfFields() {
@@ -172,6 +176,18 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyThePatientCardField();
         Assert.assertTrue(testResult);
-        familyMemberDetailsPage.getTextFromPatientCardFields();
+
+    }
+
+    @Then("the user should be able to see which patient in my referral currently editing")
+    public void theUserShouldBeAbleToSeeWhichPatientInMyReferralCurrentlyEditing() {
+        familyMemberDetailsPage.verifyThePatientByEdited();
+    }
+
+    @Then("the family member test package page is correctly displayed")
+    public void theFamilyMemberTestPackagePageIsCorrectlyDisplayed() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberTestPackagePage();
+        Assert.assertTrue(testResult);
     }
 }//end

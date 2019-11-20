@@ -26,6 +26,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
     public WebElement familyMemberDetailsTitle;
 
+    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+    public WebElement familyMemeberInfoName;
+
     @FindBy(xpath = "//label[contains(text(),'Title')]")
     public WebElement pageTitleLabel;
 
@@ -79,6 +82,9 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::button[1]")
+    public WebElement editBoxTestPackage;
 
     @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
@@ -173,6 +179,41 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='NHS No.']")
     WebElement patientCardNHSNo;
+
+
+    @FindBy(xpath = "//h1[contains(text(),'Add a family member to this referral')]")
+    public WebElement familyMemberTestPackagePageTitle;
+
+    @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
+    public WebElement familyMemberTestPackagePageSubTitle;
+
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement familyMemberTestPackagePageLink;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
+    public WebElement additionalFamilyMemberName;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
+    public WebElement relationField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-1tu091a']")
+    public WebElement beingTestedField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'dateOfBirth')]")
+    public WebElement dobField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]")
+    public WebElement genderField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'patientChoiceStatus')]")
+    public WebElement patientChoiceStatus;
+
+    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    public WebElement addFamilyMemberButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    public WebElement continueButton;
+
 
     static NGISPatientModel familyMember;
 
@@ -503,6 +544,37 @@ public class FamilyMemberDetailsPage {
         if(!seleniumLib.isElementPresent(patientCardField)){
             Debugger.println("Test for Family member to this referral "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in available.");
             return false;
+        }
+        return true;
+    }
+    public void verifyThePatientByEdited(){
+        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
+        Iterator<WebElement> itr = patientCards.iterator();
+        while(itr.hasNext()) {
+            String resultMessage= itr.next().getText();
+            seleniumLib.clickOnWebElement(editBoxTestPackage);
+            Assert.assertEquals(resultMessage, seleniumLib.getText(familyMemeberInfoName));
+        }
+    }
+    public boolean verifyTheElementsOnFamilyMemberTestPackagePage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberTestPackagePageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberTestPackagePageTitle);
+        expElements.add(familyMemberTestPackagePageSubTitle);
+        expElements.add(familyMemberTestPackagePageLink);
+        expElements.add(additionalFamilyMemberName);
+        expElements.add(relationField);
+        expElements.add(beingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
+        expElements.add(continueButton);
+
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
         }
         return true;
     }
