@@ -41,6 +41,7 @@ public class GlobalBehaviourPage {
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
 
+
     public void getNGISVersion() {
         driver.get(AppConfig.getTo_NGISVerion_url());
         String[] a = versionNumber.getText().split("-");

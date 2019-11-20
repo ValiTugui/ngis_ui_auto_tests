@@ -113,4 +113,14 @@ public class PaperFormSteps extends Pages {
     public void theUserShouldBeAbleToSeeTextUnderReviewTestSelectionHeading(String headerText) {
         Assert.assertTrue("Header Text DO NOT contain the correct text", paperFormPage.checkTheReviewSelectionPageHeaderText(headerText));
     }
+
+    @And("the user sees the search label with {string}")
+    public void theUserSeesTheSearchLabelWith(String expectedSubHeaderText) {
+        Assert.assertTrue(paperFormPage.confirmOrderingEntityLabelText(expectedSubHeaderText));
+    }
+
+    @And("the user see the search field has placeholder text as {string}")
+    public void theUserSeeTheSearchFieldHasPlaceholderTextAs(String expectedPlaceholderText) {
+        Assert.assertTrue(paperFormPage.confirmOrderingEntitySearchFieldPlaceholderText(expectedPlaceholderText));
+    }
 }

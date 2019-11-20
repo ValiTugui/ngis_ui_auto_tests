@@ -6,9 +6,13 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Pages implements Navigable {
 
@@ -130,7 +134,8 @@ public class Pages implements Navigable {
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: " + currentURL);
-        Debugger.println("Switched URL: "+driver.getCurrentUrl());
+        Wait.seconds(6);
+        Debugger.println("ACTUAL  URL: " + driver.getCurrentUrl());
         try {
             if (driver.getCurrentUrl().contains(patientSearchURL)) {
                 Actions.cleanUpSession(driver);
@@ -139,13 +144,17 @@ public class Pages implements Navigable {
                 //Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
                 patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
             }
-        }catch(StaleElementReferenceException exp ){
-            Debugger.println("Stale Exception: "+exp);
+            Debugger.println("NEW URL    : " + driver.getCurrentUrl());
+        } catch (Exception e) {
+            Debugger.println("I am into switchToURL exception");
+            File screenshot = ((TakesScreenshot) driver)
+                    .getScreenshotAs(OutputType.FILE);
+            try {
+                FileUtils.copyFile(screenshot, new File("switchURLException.jpg"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-        }catch(Exception exp){
-
-            Debugger.println("Exception: "+exp);
         }
-        Debugger.println("NEW URL    : " + driver.getCurrentUrl());
     }
 }//end class

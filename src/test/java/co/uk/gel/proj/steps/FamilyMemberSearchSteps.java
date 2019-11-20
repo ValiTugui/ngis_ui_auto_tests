@@ -73,6 +73,11 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
     }
 
+    @When("the user provides NHS and DOB of an already added patient and search")
+    public void theUserProvidesDetailsOfExistingPatientAndSearch() {
+        familyMemberSearchPage.searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB();
+    }
+
     @Then("^the message should display as \"([^\"]*)\" and \"([^\"]*)\" along with search string")
     public void theFamilyMemberSearchMessage(String message1, String message2) {
         boolean testResult = false;
