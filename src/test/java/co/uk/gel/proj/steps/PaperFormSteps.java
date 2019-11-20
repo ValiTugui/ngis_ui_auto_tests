@@ -45,6 +45,11 @@ public class PaperFormSteps extends Pages {
         paperFormPage.selectRandomEntityFromSuggestionsList();
     }
 
+    @And("the user selects the first entity from the suggestions list")
+    public void theUserSelectsTheFirstEntityFromTheSuggestionsList() {
+        paperFormPage.selectFirstEntityFromSuggestionsList();
+    }
+
     @And("the user enters the invalid keyword {string} in the search field")
     public void theUserEntersTheInvalidKeywordInTheSearchField(String ordering_entity) {
         paperFormPage.fillInSpecificKeywordInSearchField(ordering_entity);
@@ -122,5 +127,29 @@ public class PaperFormSteps extends Pages {
     @And("the user see the search field has placeholder text as {string}")
     public void theUserSeeTheSearchFieldHasPlaceholderTextAs(String expectedPlaceholderText) {
         Assert.assertTrue(paperFormPage.confirmOrderingEntitySearchFieldPlaceholderText(expectedPlaceholderText));
+    }
+
+    @And("the user should be able to see two sections as follows and a {string} button")
+    public void theUserShouldBeAbleToSeeTwoSectionsAsFollowsAndAButton(String buttonName, List<String> sectionName) {
+        Assert.assertTrue(paperFormPage.checkThatStepsTitlesForRoutedClinicalIndicationAreCorrect(buttonName, sectionName.get(0), sectionName.get(1)));
+    }
+
+    @And("the Complete the forms with patient information section the following should be displayed")
+    public void theCompleteTheFormsWithPatientInformationSectionTheFollowingShouldBeDisplayed(List<String> sectionName) {
+        Assert.assertTrue(paperFormPage.checkThatNameOfDowmloadSectionIsDisplayed(sectionName.get(0), sectionName.get(1), sectionName.get(2)));
+    }
+
+    @And("the user should be see lab details for {string} under the heading Send samples and completed forms without any warning message")
+    public void theUserShouldBeSeeLabDetailsForUnderTheHeadingSendSamplesAndCompletedFormsWithoutAnyWarningMessage(String placeSearchTerm) {
+        Assert.assertTrue(paperFormPage.checkThataddressOfLabIsDisplayed(placeSearchTerm));
+    }
+
+    @And("the user should see the {string} button next to each of the forms")
+    public void theUserShouldSeeTheButtonNextToEachOfTheForms(String buttonName) {
+        Assert.assertTrue(paperFormPage.checkThatDownloadButtonsAreDisplayed());
+        for (int i = 0; i < paperFormPage.downloadButton.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, paperFormPage.downloadButton.get(i));
+            Assert.assertTrue(paperFormPage.downloadButton.get(i).getText().matches(buttonName));
+        }
     }
 }
