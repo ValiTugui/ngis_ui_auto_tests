@@ -497,7 +497,7 @@ Feature: Tumours Page
       | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_19 @NTS-3255 @E2EUI-993 @P0 @v_1
+    @tumoursPage_19 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1
   Scenario Outline: NTS-3255: Add a new tumour for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
