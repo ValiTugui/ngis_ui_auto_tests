@@ -9,6 +9,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.hu.De;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -16,14 +17,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
+
+    @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
+    public WebElement familyMemberDetailsTitle;
+
+    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+    public WebElement familyMemeberInfoName;
 
     @FindBy(xpath = "//label[contains(text(),'Title')]")
     public WebElement pageTitleLabel;
@@ -79,6 +83,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
 
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::button[1]")
+    public WebElement editBoxTestPackage;
+
     @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
 
@@ -106,6 +113,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "button[class*='referral-navigation__continue']")
     public WebElement saveAndContinueButton;
 
+    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    public WebElement backButton;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
 
@@ -131,6 +141,21 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
+    public WebElement patientCardField;
+
+    @FindBy(css = "table[class*='table--hpo']")
+    public WebElement hpoTable;
+    @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
+    public WebElement AddReferralButton;
+
+    @FindBy(css = "[class*='hpo-term__name']")
+    public List<WebElement> hpoTerms;
+    @FindBy(css = "div[id*='react-select']")
+    public List<WebElement> dropdownValues;
+
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
+    WebElement testPackageCheckBox;
 
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
@@ -155,6 +180,41 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='NHS No.']")
     WebElement patientCardNHSNo;
 
+
+    @FindBy(xpath = "//h1[contains(text(),'Add a family member to this referral')]")
+    public WebElement familyMemberTestPackagePageTitle;
+
+    @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
+    public WebElement familyMemberTestPackagePageSubTitle;
+
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement familyMemberTestPackagePageLink;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
+    public WebElement additionalFamilyMemberName;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
+    public WebElement relationField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-1tu091a']")
+    public WebElement beingTestedField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'dateOfBirth')]")
+    public WebElement dobField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]")
+    public WebElement genderField;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'patientChoiceStatus')]")
+    public WebElement patientChoiceStatus;
+
+    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    public WebElement addFamilyMemberButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    public WebElement continueButton;
+
+
     static NGISPatientModel familyMember;
 
     public FamilyMemberDetailsPage(WebDriver driver) {
@@ -176,7 +236,7 @@ public class FamilyMemberDetailsPage {
         }catch (Exception exp){
             Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB "+exp+" DOB expected in DD-MM-YYYY Format: "+dob);
         }
-    }
+        }
     public boolean verifyPatientRecordDetailsDisplay(){
         //Verify the Title
         Wait.forElementToBeDisplayed(driver,patientRecordFoundTitle);
@@ -210,7 +270,7 @@ public class FamilyMemberDetailsPage {
                 Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
                 return false;
             }
-        }
+    }
         return true;
     }
 
@@ -220,17 +280,17 @@ public class FamilyMemberDetailsPage {
     }
     public void clickOnSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
             Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
+        Click.element(driver, saveAndContinueButton);
             Wait.seconds(5);
-            if (helix.size() > 0) {
-               Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
+        if (helix.size() > 0) {
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        }
         }catch(Exception exp){
             Debugger.println("Could not click on Save and Continue...."+exp);
-        }
+    }
     }
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
@@ -446,6 +506,83 @@ public class FamilyMemberDetailsPage {
             }catch(Exception exp){
                 //seleniumLib.moveMouseAndClickOnElement(xpathElement);
             }
+        }
+    }
+    public boolean verifyTheTestCheckboxIsSelected(){
+        Wait.forElementToBeDisplayed(driver,testPackageCheckBox);
+        if(!seleniumLib.isElementPresent(testPackageCheckBox)){
+            Debugger.println("Test for Family member "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in SELECTED State.");
+            return false;
+        }
+        return true;
+    }
+    public void clickOnAddNewPatientToReferral(){
+        Wait.forElementToBeDisplayed(driver, AddReferralButton);
+        Click.element(driver, AddReferralButton);
+    }
+    public void verifyTheTitleOfTheFamilyMemberDetailsPage(String expTitle) {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Debugger.println("The actual page title  is :" + pageTitle.getText());
+        Assert.assertEquals(expTitle, pageTitle.getText().trim());
+    }
+    public void clickOnCheckBoxAndSaveAndContinueButton() {
+        seleniumLib.clickOnWebElement(testPackageCheckBox);
+        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+        Click.element(driver, saveAndContinueButton);
+        if (helix.size() > 0) {
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        }
+    }
+    public void clickOnBackButton() {
+        seleniumLib.clickOnWebElement(backButton);
+        if (helix.size() > 0) {
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        }
+    }
+    public boolean verifyThePatientCardField(){
+        Wait.forElementToBeDisplayed(driver,patientCardField);
+        if(!seleniumLib.isElementPresent(patientCardField)){
+            Debugger.println("Test for Family member to this referral "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in available.");
+            return false;
+        }
+        return true;
+    }
+    public void verifyThePatientByEdited(){
+        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
+        Iterator<WebElement> itr = patientCards.iterator();
+        while(itr.hasNext()) {
+            String resultMessage= itr.next().getText();
+            seleniumLib.clickOnWebElement(editBoxTestPackage);
+            Assert.assertEquals(resultMessage, seleniumLib.getText(familyMemeberInfoName));
+        }
+    }
+    public boolean verifyTheElementsOnFamilyMemberTestPackagePage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberTestPackagePageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberTestPackagePageTitle);
+        expElements.add(familyMemberTestPackagePageSubTitle);
+        expElements.add(familyMemberTestPackagePageLink);
+        expElements.add(additionalFamilyMemberName);
+        expElements.add(relationField);
+        expElements.add(beingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
+        expElements.add(continueButton);
+
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void getTextFromPatientCardFields(){
+        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
+        Iterator<WebElement> itr = patientCards.iterator();
+        while(itr.hasNext()) {
+            Debugger.println(itr.next().getText());
         }
     }
 }//ends

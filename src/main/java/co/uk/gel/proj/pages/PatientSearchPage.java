@@ -3,7 +3,6 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
-import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
@@ -13,14 +12,13 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -31,7 +29,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     WebDriver driver;
     public static NewPatient testData = new NewPatient();
     static Faker faker = new Faker();
-    SeleniumLib seleniumLib;
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
@@ -40,7 +37,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        seleniumLib = new SeleniumLib(driver);
     }
 
 
@@ -190,6 +186,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
 
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -209,12 +208,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-
-           nhsNumber.sendKeys(nhsNo);
-           dateDay.sendKeys(dayOfBirth);
-           dateMonth.sendKeys(monthOfBirth);
-           dateYear.sendKeys(yearOfBirth);
-
+        nhsNumber.sendKeys(nhsNo);
+        dateDay.sendKeys(dayOfBirth);
+        dateMonth.sendKeys(monthOfBirth);
+        dateYear.sendKeys(yearOfBirth);
     }
 
     public void clickNoButton() {
@@ -240,53 +237,45 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
         return patientCardBadge.getText().trim();
     }
-
-    public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        boolean result = false;
-        int attempts = 1;
-        Debugger.println("LoginToTestOrderingSystemAsServiceDeskUser...");
-        while(attempts < 5) {
-            Debugger.println("Attempt: " + attempts);
-            try {
-                Wait.forElementToBeDisplayed(driver, emailAddressField);
+    /*
+        public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
                 Wait.forElementToBeClickable(driver, emailAddressField);
                 emailAddressField.sendKeys(AppConfig.getApp_username());
                 nextButton.click();
-                Wait.seconds(2);
-                Wait.forElementToBeDisplayed(driver, passwordField);
+                //Wait.seconds(2);
                 Wait.forElementToBeClickable(driver, passwordField);
                 passwordField.sendKeys(AppConfig.getApp_password());
                 nextButton.click();
-                Debugger.println("Attempt.."+attempts+" Success.");
-                break;
-            } catch (StaleElementReferenceException staleExp) {
-                try{
-                    //This is for testing purpose, once the report configuration done properly, the screenshot will be attached to the failed scenarios automatically.
-                File screenshot = ((TakesScreenshot) driver)
-                        .getScreenshotAs(OutputType.FILE);
-                FileUtils.copyFile(screenshot, new File("staleException.jpg"));
-                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: Stale Element Reference Exception: Waiting for 30 secs to retry.");
-                Debugger.println("Refreshing Page and trying.");
-                seleniumLib.refreshPage();
-                Wait.seconds(10);
-                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
-                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
-                seleniumLib.sendValue(driver.findElement(By.xpath("//input[@name='loginfmt']")),AppConfig.getApp_username());
-                seleniumLib.clickOnWebElement(driver.findElement(By.xpath("//input[@type='submit']")));
-                attempts = 5;//If no exception here, break the loop and go ahead.
-                }catch(Exception exp){
-                    Debugger.println("Exception from using refreshed elements: "+exp);
-                    attempts++;
+        }
+        */
+    public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser....");
+        try {
+            Wait.seconds(5);
+            if (!Wait.isElementDisplayed(driver,emailAddressField,15)) {//If the element is not displayed, even after the waiting time
+                Debugger.println("Email Address Field is not visible, even after the waiting period.");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
+                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
+                    useAnotherAccount.click();
+                    Wait.seconds(3);
+                } else {
+                    Debugger.println("Email field or UseAnotherAccount option are not available.");
+                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
                 }
-            }catch (Exception exp) {
-                //To handle exception other than StaleException.
-                Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser: EXCEPTION: Waiting for 30 secs to retry. Exception is: \n" + exp);
-                Wait.seconds(30);
-                attempts++;
+            }else{
+                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via microsoft.");
             }
-        }//while
+            Wait.forElementToBeClickable(driver, emailAddressField);
+            emailAddressField.sendKeys(AppConfig.getApp_username());
+            nextButton.click();
+            Wait.seconds(2);
+            Wait.forElementToBeClickable(driver, passwordField);
+            passwordField.sendKeys(AppConfig.getApp_password());
+            nextButton.click();
+        }catch(Exception exp){
+            Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
+        }
     }
-
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
 
