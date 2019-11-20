@@ -279,6 +279,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
+
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
@@ -349,5 +350,9 @@ public class ReferralPage<check> {
         String currentPage = getTheCurrentPageTitle();
         Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
         return actualHelpHintTexts;
+    }
+
+    public void clickOnTheBackLink() {
+        Actions.retryClickAndIgnoreElementInterception(driver,backLink);
     }
 }

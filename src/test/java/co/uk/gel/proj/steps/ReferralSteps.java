@@ -224,6 +224,11 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue("Save and Continue is meant to be displayed", referralPage.saveAndContinueButtonIsDisplayed());
     }
 
+    @When("the user clicks on the Back link")
+    public void theUserClicksOnTheBackLink() {
+       referralPage.clickOnTheBackLink();
+    }
+
     //Added by STAG to create referral with the given patient details than taking from Test Data Provider
     @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {

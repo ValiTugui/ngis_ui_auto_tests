@@ -600,6 +600,7 @@ public class SeleniumLib {
             action.click(we).build().perform();
             return true;
         } catch (Exception exp) {
+            Debugger.println("Exception in moveMouseAndClick: "+exp);
             return false;
         }
     }

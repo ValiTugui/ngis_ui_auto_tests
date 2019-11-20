@@ -75,12 +75,12 @@ public class TestHooks extends Pages {
     @After("@LOGOUT")
     public void logOutAndTearDown() {
         logoutAfterTest(10);
-        cleanUp();
+       // cleanUp();
     }
 
     @After("@CLEANUP")
     public void cleanUp() {
-        driver = null;
+     //   driver = null;
     }
 
     @After(order = 1)

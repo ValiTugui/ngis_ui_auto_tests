@@ -190,7 +190,7 @@ public class ClinicalIndicationsTestSelectPage {
                 break;
             }
             default:
-                throw new IllegalStateException("Unexpected value: " + tabName);
+                throw new IllegalStateException("Section Number Mismatch " + tabName);
         }
     }
 
@@ -238,7 +238,7 @@ public class ClinicalIndicationsTestSelectPage {
                 return ((testDetailsSubSections.get(0).getText().matches(sectionName1)) && (testDetailsSubSections.get(1).getText().matches(sectionName2)) && (testDetailsSubSections.get(2).getText().matches(sectionName3)));
             }
             default:
-                throw new IllegalStateException("Unexpected value: " + testDetailsSubSections.size());
+                throw new IllegalStateException("Mismatch in No of section: " + testDetailsSubSections.size());
         }
     }
 
@@ -253,6 +253,32 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean checkIfBackToSearchButtonPresent(String buttonName) {
         Wait.forElementToBeDisplayed(driver, backToSearch);
         return backToSearch.getText().matches(buttonName);
+    }
+
+    public boolean eligibilityCriteriaTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {
+        switch (eligibilityCriteriaSections.size()) {
+            case 2: {
+                return ((eligibilityCriteriaSections.get(0).findElement(By.tagName("span")).getText().matches(sectionName1)) && (eligibilityCriteriaSections.get(1).findElement(By.tagName("span")).getText().matches(sectionName2)));
+            }
+            case 4: {
+                return ((eligibilityCriteriaSections.get(0).findElement(By.tagName("span")).getText().matches(sectionName1)) && (eligibilityCriteriaSections.get(1).findElement(By.tagName("span")).getText().matches(sectionName2)) && (eligibilityCriteriaSections.get(2).findElement(By.tagName("span")).getText().matches(sectionName3)) && (eligibilityCriteriaSections.get(3).findElement(By.tagName("span")).getText().matches(sectionName4)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch" + testDetailsSubSections.size());
+        }
+    }
+
+    public boolean whoCanOrderContentValidation(String whoCanOrderContent) {
+        switch (eligibilityCriteriaSections.size()) {
+            case 2: {
+                return (eligibilityCriteriaSections.get(1).findElement(By.tagName("p")).getText().matches(whoCanOrderContent));
+            }
+            case 4: {
+                return (eligibilityCriteriaSections.get(3).findElement(By.tagName("p")).getText().matches(whoCanOrderContent));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + testDetailsSubSections.size());
+        }
     }
 
 }

@@ -36,6 +36,8 @@ public class PaperFormPage {
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
 
+
+
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
 
@@ -258,5 +260,16 @@ public class PaperFormPage {
     public boolean checkTheReviewSelectionPageHeaderText(String headerText) {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
+
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
+        orderEntitySubHeader.isDisplayed();
+        return orderEntitySubHeader.getText().matches(expectedLabelText);
+    }
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
+    }
+
 }
 
