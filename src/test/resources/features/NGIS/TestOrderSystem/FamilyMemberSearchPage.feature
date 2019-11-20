@@ -18,7 +18,7 @@ Feature: FamilyMember search page
       | Family members |
 
   @COMP8_TO_PatientSearch
-  @familyMemberSearchPage_02 @NTS-3207 @E2EUI-1116 @v_1 @P0
+  @familyMemberSearchPage_02 @NTS-3207 @E2EUI-950 @E2EUI-1116 @v_1 @P0
   Scenario: E2EUI-1116: Verify the mandatory field validation errors are displayed when clicking the Search button without typing mandatory fields
     When the user clicks the Search button in family member search page
     Then the mandatory fields should be highlighted with a red mark in family member search page with Yes option selected
@@ -95,7 +95,7 @@ Feature: FamilyMember search page
       | Family members | DOB=23-03-2011 | NHS Number is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_10 @E2EUI-1493 @v_1 @P0
+    @familyMemberSearchPage_10 @E2UI-1388 @E2EUI-1493 @v_1 @P0
   Scenario Outline: E2EUI-1493: Verify the family member search with valid NHS Number and DOB displays result message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -121,7 +121,7 @@ Feature: FamilyMember search page
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_12 @E2EUI-1011 @v_1 @P0
-  Scenario Outline: E2EUI-1091: Verify the family member search with special characters in NHS Number field displays correct error message
+  Scenario Outline: E2EUI-1011: Verify the family member search with special characters in NHS Number field displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<SearchDetails>"
