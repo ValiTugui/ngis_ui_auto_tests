@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
@@ -217,8 +218,6 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
-
-
     }
 
 
@@ -342,5 +341,9 @@ public class ReferralPage<check> {
         String currentPage = getTheCurrentPageTitle();
         Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
         return actualHelpHintTexts;
+    }
+
+    public void clickOnTheBackLink() {
+        Actions.retryClickAndIgnoreElementInterception(driver,backLink);
     }
 }
