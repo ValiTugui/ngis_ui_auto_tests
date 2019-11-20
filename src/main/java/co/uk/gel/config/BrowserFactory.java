@@ -31,6 +31,7 @@ public class BrowserFactory {
                 driver = getChromeDriver(null, javascriptEnabled);
                 break;
             case FIREFOX:
+                WebDriverManager.firefoxdriver().setup();
                 driver = getFirefoxDriver(null, javascriptEnabled);
                 break;
             case SAFARI:
@@ -58,22 +59,6 @@ public class BrowserFactory {
     }
     private WebDriver getFirefoxDriver(String userAgent,
                                        boolean javascriptEnabled) {
-        String osName = System.getProperty("os.name");
-        String osArchitecture = System.getProperty("os.arch");
-        if (osName.toLowerCase().contains("windows")) {
-            if (osArchitecture.contains("64")) {
-                System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver-v0.23.0-win64.exe");
-            } else {
-                System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver-v0.23.0-win32.exe");
-            }
-        } else {
-            if (osArchitecture.contains("64")) {
-                System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver-v0.23.0-linux64");
-            } else {
-                System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver-v0.23.0-linux32");
-            }
-        }
-        //FirefoxDriverService ffDriverService = FirefoxDriverService.CreateDefaultService(<driver path>);
         return new FirefoxDriver(getFirefoxOptions(userAgent, javascriptEnabled));
 
     }

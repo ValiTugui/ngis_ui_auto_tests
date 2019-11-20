@@ -98,4 +98,8 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserDoesNotSeeAnErrorMessageOnThePage() {
             Assert.assertFalse(clinicalQuestionsPage.checkNoErrorMessageIsDisplayed());
     }
+    @And("the user fills the ClinicalQuestionsPage with the {string}")
+    public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
+        clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
+    }
 }

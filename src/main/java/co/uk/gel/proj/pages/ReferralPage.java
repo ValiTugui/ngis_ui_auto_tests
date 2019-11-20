@@ -219,7 +219,9 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
-
+    public void checkThatToDoListSuccessfullyLoaded() {
+        Wait.forElementToBeDisplayed(driver, toDoList, 300);
+    }
 
     public String getPartialUrl(String stage) {
         String partialUrl = null;
@@ -244,11 +246,18 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
-        Actions.clickElement(driver, referralStage);
+        try {
+            Actions.clickElement(driver, referralStage);
+        }catch(Exception exp){
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
+            Actions.scrollToTop(driver);
+            Actions.clickElement(driver, referralStage);
+        }
+
     }
 
     public boolean stageIsSelected(String stage) {

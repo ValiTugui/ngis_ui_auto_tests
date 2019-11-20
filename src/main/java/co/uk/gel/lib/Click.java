@@ -1,5 +1,6 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
