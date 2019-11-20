@@ -138,7 +138,7 @@ public class Pages implements Navigable {
         Debugger.println("ACTUAL  URL: " + driver.getCurrentUrl());
         try {
             if (driver.getCurrentUrl().contains(patientSearchURL)) {
-                Actions.cleanUpSession(driver);
+              //  Actions.cleanUpSession(driver);
             } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
                 Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
