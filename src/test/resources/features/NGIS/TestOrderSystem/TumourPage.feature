@@ -1,4 +1,5 @@
 @regression
+@regression_set3
 @tumoursPage
 Feature: Tumours Page
 

@@ -302,7 +302,7 @@ public class TumoursSteps extends Pages {
         List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
         List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
         List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
-   
+
         /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
         actualHelpHintTexts.add(3, "None");
 
@@ -361,7 +361,7 @@ public class TumoursSteps extends Pages {
         Debugger.println("Expected error message: " + errorMessage);
         Debugger.println("Actual Error message: " + getText(tumoursPage.errorMessages.get(0)));
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
