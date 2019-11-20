@@ -27,7 +27,7 @@ public class PaperFormPage {
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(css = "p[class*='subHeader']")
+    @FindBy(css = "p[class*='sub-title-copy']")
     public WebElement orderEntitySubHeader;
 
     @FindBy(css = "p[class*='explanatoryText']")
