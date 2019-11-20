@@ -135,14 +135,16 @@ public class Pages implements Navigable {
             if (driver.getCurrentUrl().contains(patientSearchURL)) {
                 Actions.cleanUpSession(driver);
             } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                Debugger.println("Contains: testOrderLoginURL,testOrderURL");
-                //Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                 //Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
                 //Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
                 patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
             }
         }catch(StaleElementReferenceException exp ){
             Debugger.println("Stale Exception: "+exp);
 
+        }catch(Exception exp){
+
+            Debugger.println("Exception: "+exp);
         }
         Debugger.println("NEW URL    : " + driver.getCurrentUrl());
     }
