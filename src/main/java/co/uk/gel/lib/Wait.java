@@ -60,7 +60,7 @@ public class Wait {
         }
     }
 
-    public static void waitForPageToBeLoaded(WebDriver driver) {
+    public static void forPageToBeLoaded(WebDriver driver) {
         new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
