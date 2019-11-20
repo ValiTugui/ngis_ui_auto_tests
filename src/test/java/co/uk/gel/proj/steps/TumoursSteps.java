@@ -370,4 +370,21 @@ public class TumoursSteps extends Pages {
         tumoursPage.clickOnTheAddANewTumourTextLink();
     }
 
+
+    @And("the user adds a new tumour")
+    public void theUserAddsANewTumour(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
+
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
+        tumoursPage.fillInSpecimenID();
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
+        tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
+
+    }
 }
