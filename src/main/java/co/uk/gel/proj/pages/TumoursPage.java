@@ -142,9 +142,6 @@ public class TumoursPage {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
-    @FindBy(css = "button[class*='link-button']")
-    public WebElement backLinkButton;
-
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
