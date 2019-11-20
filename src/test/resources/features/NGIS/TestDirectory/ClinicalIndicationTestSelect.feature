@@ -32,7 +32,7 @@ Feature: Home Page
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
 
-  @E2EUI-1501 @NTS-3244 @v_1 @P0 @COMP1_TD_ClinicalTests
+  @E2EUI-1501 @E2EUI-1033 @NTS-3244 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage
   Scenario: NTS-3244 - Clinical Indication Page -  View details for a Tumor Clinical Indication.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | M85 |
@@ -44,7 +44,7 @@ Feature: Home Page
     And the user should be able to see all "4" tabs and are clickable
       | Clinical Indications | Test details | Labs | Order process |
 
-  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @NTS-3251 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
+  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069 @NTS-3251 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
   Scenario: NTS-3251 - Clinical Indication Page - View details for a Rare Disease Clinical Indication.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
@@ -65,7 +65,7 @@ Feature: Home Page
     And the user should be able to see "5" sections of Order process are displayed
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
-  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
+  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail @COMP1_TD_ClinicalIndications
   Scenario Outline: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
@@ -87,7 +87,7 @@ Feature: Home Page
       | tabName1     | tabName2             | linkName       |
       | Test Package | Clinical Indications | Back to search |
 
-  @E2EUI-1003 @NTS-3260 @v_1 @P0 @COMP1_TD_EligibilityCriteria
+  @E2EUI-1003 @E2EUI-1174 @NTS-3260 @v_1 @P0 @COMP1_TD_EligibilityCriteria
   Scenario Outline: NTS-3260 - Clinical Indication Page - Display additional details on who can order card.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
@@ -103,3 +103,60 @@ Feature: Home Page
       | searchTerm | tabName1             | tab1        | tab2          | tab3                | tab4          | whoCanOrderContent                                                    |
       | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
+
+  @E2EUI-1419 @NTS-3262 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  Scenario Outline: NTS-3262 - Clinical Indication Page - View details for Clinical Indications Tab.
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | <searchTerm> |
+    And the user selects the "<tabName1>" tab
+    And the user clicks on view more icon
+    Then the user should be able to see a new modal window
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "<tabName2>" tab is selected by default
+    Then the user clicks on first Clinical indications results displayed
+    And the user sees Clinical indications modal with two sections and "Go to Clinical Indication" is present
+      | <sectionName1> | <sectionName2> |
+    And the user should be able to see Clinical indications list is displayed containing clickable cards for each clinical indication
+
+    Examples:
+      | searchTerm | tabName1     | tabName2             | sectionName1 | sectionName2             |
+      | R100       | Test Package | Clinical Indications | Who to test  | Test package includes... |
+      | 270        | Test Package | Clinical Indications | Who to test  | Test package includes... |
+
+  @E2EUI-1063 @NTS-3265 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  Scenario Outline: NTS-3265 - Clinical Indication Page - View details for Further Info Tab..
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | <searchTerm> |
+    Then the user should be able to see all "4" tabs and are clickable
+      | Eligibility Criteria | Test Package | Further Info | Order process |
+    And the user selects the "Further Info" tab
+    And the user should be able to see the following under Further Info tab
+      | References | Age group relevancy | Pseudonyms | Associated terms |
+
+    Examples:
+      | searchTerm |
+      | R100       |
+      | R237       |
+
+  @E2EUI-948 @NTS-3268 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  Scenario Outline: NTS-3268 - Clinical Indication Page - View details for Clinical Indications Tab.
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | <searchTerm> |
+    And the user selects the "<tabName1>" tab
+    And the user clicks on view more icon
+    Then the user should be able to see a new modal window
+    And the user click on Go to test page button
+    Then the list of clinical indications are loaded
+    And the user sees the "<tabName2>" tab is selected by default
+    Then the user clicks on first Clinical indications results displayed
+    And the user sees Clinical indications modal with two sections and "Go to Clinical Indication" is present
+      | Who to test | Test package includes... |
+    And the user click on Go to Clinical Indication button
+    And the user should be able to see all "4" tabs and are clickable
+      | Eligibility Criteria | Test Package | Further Info | Order process |
+
+    Examples:
+      | searchTerm | tabName1     | tabName2             |
+      | R100       | Test Package | Clinical Indications |
+      | M89        | Test Package | Clinical Indications |
