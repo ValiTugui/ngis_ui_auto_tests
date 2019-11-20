@@ -44,3 +44,28 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_02  @E2EUI-1945 @P0 @v_1
+  Scenario Outline: Add a Sample of tumour-type - tumour sample
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
