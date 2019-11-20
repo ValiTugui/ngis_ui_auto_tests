@@ -6,6 +6,7 @@ import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
@@ -59,15 +60,14 @@ public class SamplesSteps extends Pages {
     }
 
     @And("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state and filling SampleID")
-    public void theUserAnswersTheQuestionsOnAddASamplePageBySelectingTheSampleTypeSampleStateAndFillingSampleID(String arg0) {
-        samplesPage.selectSampleType("Liquid tumour sample");
+    public void theUserAnswersTheQuestionsOnAddASamplePageBySelectingTheSampleTypeSampleStateAndFillingSampleID(String sampleType) {
+        samplesPage.selectSampleType(sampleType);
         samplesPage.selectSampleState();
         samplesPage.fillInSampleID();
     }
 
     @And("the Add Samples details page displays the page title and sub-titles text body")
     public void theAddSamplesDetailsPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
-
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 
         Debugger.println("Expected Page Title:" + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
@@ -80,7 +80,6 @@ public class SamplesSteps extends Pages {
 
     @When("the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search{string}")
     public void theUserAnswersTheSamplesDynamicQuestionsOnAddASampleDetailsPageBySelectingSampleSearch(String sampleTopoMorphyGraphy) {
-
         samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
         samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
         samplesPage.fillInPercentageOfMalignantNuclei();
@@ -88,5 +87,10 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleCollectionDate();
         samplesPage.fillInSampleComments();
 
+    }
+
+    @Then("the new sample is displayed in the landing page")
+    public void theNewSampleIsDisplayedInTheLandingPage() {
+        samplesPage.newSampleIsDisplayedInLandingPage(1);
     }
 }

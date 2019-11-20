@@ -167,6 +167,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[contains(@class,'no-access__copy')]//child::a")
     public List<WebElement> cancelledReferralWarningPageLinks;
 
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    public WebElement genericSuccessNotification;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
     //Family Member Search
@@ -354,5 +357,10 @@ public class ReferralPage<check> {
 
     public void clickOnTheBackLink() {
         Actions.retryClickAndIgnoreElementInterception(driver,backLink);
+    }
+
+    public String successNotificationIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
+        return Actions.getText(genericSuccessNotification);
     }
 }

@@ -47,8 +47,8 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02  @E2EUI-1945 @P0 @v_1
-  Scenario Outline: Add a Sample of tumour-type - tumour sample
+    @samplesPage_02 @NTS-3287 @E2EUI-1945 @P0 @v_1
+  Scenario Outline: NTS-3287:Add a Sample of tumour-type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -65,7 +65,10 @@ Feature: Samples Page
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
     And the user clicks the Save and Continue button
     Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "<notificationText>"
+    Then the new sample is displayed in the landing page
+    And the "<stage2>" stage is marked as Completed
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType          | sampleTopoMorphyGraphy | notificationText |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample | test                   | Sample added     |

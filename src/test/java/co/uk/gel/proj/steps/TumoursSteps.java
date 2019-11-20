@@ -285,16 +285,6 @@ public class TumoursSteps extends Pages {
 
     }
 
-    @And("the success notification is displayed {string}")
-    public void theSuccessNotificationIsDisplayed(String notificationText) {
-
-        String actualNotificationText = tumoursPage.successNotificationIsDisplayed();
-        Debugger.println("Actual Notification text :" + actualNotificationText);
-
-        Debugger.println("Expected Notification text :" + notificationText);
-
-    }
-
     @And("the labels and help hint texts are displayed")
     public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
 
