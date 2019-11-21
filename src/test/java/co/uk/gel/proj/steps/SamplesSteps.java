@@ -93,4 +93,10 @@ public class SamplesSteps extends Pages {
     public void theNewSampleIsDisplayedInTheLandingPage() {
         samplesPage.newSampleIsDisplayedInLandingPage(1);
     }
+
+    @When("the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page")
+    public void theUserAnswersTheSamplesDynamicQuestionsForNonTumourSampleOnAddASampleDetailsPage() {
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
 }

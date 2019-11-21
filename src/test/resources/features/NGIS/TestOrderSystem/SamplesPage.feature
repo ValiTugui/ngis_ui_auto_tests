@@ -48,27 +48,23 @@ Feature: Samples Page
 
   @COMP7_TOC_Samples @LOGOUT
     @samplesPage_02 @NTS-3287 @E2EUI-1945 @P0 @v_1
-  Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
+  Scenario Outline: NTS-3287: Add a Sample without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user adds a new tumour
-      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
-      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
-    And the user clicks the Save and Continue button
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
-    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
     And the user clicks the Save and Continue button
     Then the "<pageTitle>" page is displayed
     And the success notification is displayed "<notificationText>"
     Then the new sample is displayed in the landing page
-    And the "<stage2>" stage is marked as Completed
+    And the "<stage>" stage is marked as Completed
 
     Examples:
-      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType          | sampleTopoMorphyGraphy | notificationText |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample | test                   | Sample added     |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType   | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Omics sample | Sample added     |
