@@ -306,6 +306,7 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*/h4"), 0);
         return (((goToClinicalIndicationsButtonInPopup.getText().matches(buttonName)) && (closePopupButton.isDisplayed()) && clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
     }
 

@@ -104,7 +104,7 @@ Feature: Home Page
       | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
 
-  @E2EUI-1419 @NTS-3262 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  @E2EUI-1419 @E2EUI-1497 @NTS-3262 @v_1 @P0 @COMP1_TD_ClinicalIndications @COMP1_TD_ClinicalTests
   Scenario Outline: NTS-3262 - Clinical Indication Page - View details for Clinical Indications Tab.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
@@ -123,6 +123,7 @@ Feature: Home Page
       | searchTerm | tabName1     | tabName2             | sectionName1 | sectionName2             |
       | R100       | Test Package | Clinical Indications | Who to test  | Test package includes... |
       | 270        | Test Package | Clinical Indications | Who to test  | Test package includes... |
+      | M85        | Test Package | Clinical Indications | Who to test  | Test package includes... |
 
   @E2EUI-1063 @NTS-3265 @v_1 @P0 @COMP1_TD_ClinicalIndications
   Scenario Outline: NTS-3265 - Clinical Indication Page - View details for Further Info Tab..
