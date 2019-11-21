@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.Map;
@@ -93,4 +94,47 @@ public class SamplesSteps extends Pages {
     public void theNewSampleIsDisplayedInTheLandingPage() {
         samplesPage.newSampleIsDisplayedInLandingPage(1);
     }
+
+    @And("the user answers all sample questions on Add a Sample page without selecting any sample type")
+    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSelectingAnySampleType() {
+        samplesPage.selectSampleState();
+        samplesPage.fillInSampleID();
+    }
+
+    @And("the user answers all sample questions on Add a Sample page without selecting a Sample state")
+    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSelectingASampleState() {
+        samplesPage.selectSampleType("Omics sample"); // Sample type hard-coded in order to have Example table and reduce duplication for validation test
+        samplesPage.fillInSampleID();
+    }
+
+    @And("the user answers all sample questions on Add a Sample page without SampleID")
+    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSampleID() {
+        samplesPage.selectSampleType("Omics sample");
+        samplesPage.selectSampleState();
+    }
+
+    @And("the user answers all sample questions on Add a Sample page without the {string}")
+    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutThe(String sampleField) {
+
+        switch (sampleField) {
+            case "sampleType": {
+                samplesPage.selectSampleState();
+                samplesPage.fillInSampleID();
+                break;
+            }
+            case "sampleState": {
+                samplesPage.selectSampleType("Omics sample");
+                samplesPage.fillInSampleID();
+                break;
+            }
+            case "sampleID": {
+                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleState();
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid text field name");
+        }
+    }
+
 }

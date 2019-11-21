@@ -72,3 +72,77 @@ Feature: Samples Page
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType          | sampleTopoMorphyGraphy | notificationText |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample | test                   | Sample added     |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_03  @NTS-3308 @E2EUI-943 @P0 @v_1
+  Scenario Outline: NTS-3308: Add a sample page - sample type field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without selecting any sample type
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage             | messageColor |
+      | Samples | Manage samples | Add a sample | Sample type is required. | #dd2509      |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_04  @NTS-3308 @E2EUI-1050 @P0 @v_1
+  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without selecting a Sample state
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage             | messageColor |
+      | Samples | Manage samples | Add a sample | Sample state is required. | #dd2509      |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_05  @NTS-3308 @E2EUI-1186 @P0 @v_1
+  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without SampleID
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor |
+      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_06  @NTS-3308 @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @P0 @v_1
+  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without the "<sampleField>"
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
+      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType   |
+      | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState  |
+      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID     |
