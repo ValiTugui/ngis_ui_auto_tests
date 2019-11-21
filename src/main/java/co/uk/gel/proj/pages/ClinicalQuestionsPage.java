@@ -1,8 +1,12 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,16 +14,20 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
     Random random = new Random();
+    SeleniumLib seleniumLib;
 
     public ClinicalQuestionsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
@@ -104,7 +112,7 @@ public class ClinicalQuestionsPage {
     public WebElement hpoSectionLabel;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
-
+    By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -200,4 +208,52 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+    //Method added by @Stag for filling the ClinicalQuestionsPage
+    public void fillClinicalQuestionPageWithGivenParams(String searchParams) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+        Set<String> paramsKey = paramNameValue.keySet();
+        for (String key : paramsKey) {
+            switch (key) {
+                case "DiseaseStatus": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        Wait.forElementToBeClickable(driver,diseaseStatusDropdown);
+                        Click.element(driver, diseaseStatusDropdown);
+                        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+paramNameValue.get(key)+"']")));
+                    }
+                    break;
+                }
+                case "AgeOfOnset": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        String[] age_of_onsets = paramNameValue.get(key).split(",");
+                        Wait.forElementToBeDisplayed(driver,ageOfOnsetYearsField);
+                        ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
+                        ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+                    }
+                    break;
+                }
+                case "HpoPhenoType": {
+                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
+                        String hpoValue="";
+                        boolean isExists = false;
+                        List<WebElement> rows = seleniumLib.getElements(hpoRows);
+                        if(rows != null && rows.size() > 0){
+                            for(WebElement row:rows){
+                                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                                if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
+                                    isExists = true;
+                                    break;//for loop
+                                }
+                             }//for
+                        }
+                        if(!isExists) {
+                            searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                        }
+                    }
+                    break;
+                }
+
+            }//switch
+        }//for
+    }//method
 }

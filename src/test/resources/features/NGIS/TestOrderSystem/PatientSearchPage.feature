@@ -1,4 +1,5 @@
 @regression
+@regression_set2
 @patientSearch
 Feature: Patient search page
 

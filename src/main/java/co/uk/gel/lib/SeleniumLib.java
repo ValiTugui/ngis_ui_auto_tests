@@ -2,6 +2,7 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
@@ -84,6 +85,7 @@ public class SeleniumLib {
         }
     }
 
+
     /**
      * @param element
      */
@@ -104,12 +106,10 @@ public class SeleniumLib {
             webele = getElement(element);
             webele.click();
         } catch (Exception exp) {
-            Debugger.println("SeleniumLib: Click exception on ...." + element.toString()+exp);
             try {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].click();", webele);
             } catch (Exception exp1) {
-                Debugger.println("SeleniumLib: Click exception1 on ...." + element.toString()+exp);
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
                 throw exp1;
@@ -118,16 +118,13 @@ public class SeleniumLib {
     }
 
     public void clickOnWebElement(WebElement webele) {
-        //Debugger.println("Clicking on Web Element..."+webele.toString());
-        try {
+       try {
             webele.click();
         } catch (Exception exp) {
-            Debugger.println("Webelement Click exception1 on ...." + webele.toString());
             try {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(webele).click();
             } catch (Exception exp1) {
-                Debugger.println("Webelement Click exception2 on ...." + webele.toString());
                 throw exp1;
             }
         }
@@ -135,11 +132,9 @@ public class SeleniumLib {
 
     public List<WebElement> getElements(By ele) {
         try {
-
             waitForElementVisible(driver.findElement(ele));
             return driver.findElements(ele);
         } catch (NoSuchElementException exp) {
-            Debugger.println("E5.[Error]" + ele.toString() + " Not Found ");
             return null;
         }
     }
@@ -162,12 +157,24 @@ public class SeleniumLib {
             webElement.clear();
             webElement.sendKeys(value);
         } catch (NoSuchElementException J) {
-            LOGGER.error("element not found " + element);
             throw new NoSuchElementException(timeoutErrorMessage(element) + J);
         } catch (Exception exp) {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             webElement = wait.until(ExpectedConditions.elementToBeClickable(webElement));
             webElement.sendKeys(value);
+        }
+    }
+    public void sendValue(WebElement element, String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+        try {
+            element.clear();
+            element.sendKeys(value);
+        } catch (Exception exp) {
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            element = wait.until(ExpectedConditions.elementToBeClickable(element));
+            element.sendKeys(value);
         }
     }
 
@@ -182,7 +189,6 @@ public class SeleniumLib {
             webElement = getWebElement(element);
             webElement.sendKeys(key);
         } catch (NoSuchElementException J) {
-            LOGGER.error("element not found " + element);
             throw new NoSuchElementException(timeoutErrorMessage(element) + J);
         }
     }
@@ -594,6 +600,7 @@ public class SeleniumLib {
             action.click(we).build().perform();
             return true;
         } catch (Exception exp) {
+            Debugger.println("Exception in moveMouseAndClick: "+exp);
             return false;
         }
     }
@@ -868,6 +875,19 @@ public class SeleniumLib {
         } catch (Exception exp) {
             Debugger.println("Exception is Found in get Element Of Hidden Visibility : " + exp);
             throw exp;
+        }
+    }
+    public void scrollToElement(WebElement element) {
+        try {
+            if(element == null){
+                return;
+            }
+            Point location = element.getLocation();
+            String script = "scroll(" + location.x + "," + (location.y - 120) + ")";
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript(script);
+        } catch (Exception e) {
+
         }
     }
 

@@ -90,8 +90,8 @@ public class TestHooks extends Pages {
 
     private void logoutAfterTest(int waitingTime) {
         Debugger.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        try {
+       try {
+            driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
             if (isAlertPresent(driver)) {
                 acceptAlert(driver);
             }

@@ -231,8 +231,14 @@ public class HomePage {
     }
 
     public void selectFirstEntityFromResultList() {
-        waitUntilHomePageResultsContainerIsLoaded();
-        Click.element(driver, resultsPanels.get(0));
+        try {
+            waitUntilHomePageResultsContainerIsLoaded();
+            Click.element(driver, resultsPanels.get(0));
+        }catch(IndexOutOfBoundsException exp){
+            Debugger.println("Results Panel Yet to load...waiting for another 30 seconds.");
+            Wait.seconds(30);//Waiting additional 30 to load the list as it is observed IndexOut exception many times here.
+            Click.element(driver, resultsPanels.get(0));
+        }
     }
 
     public void TestDirectoryHomePageIsDisplayed() {
