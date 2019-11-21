@@ -150,18 +150,18 @@ Feature: FamilyMember search page
       | Family members | DOB=14-11-1800   | Enter a year beyond 1900            | #dd2509      |
       | Family members | DOB=29-02-2001   | Check the day and month are valid   | #dd2509      |
 
-#  @COMP8_TO_PatientSearch
-#    @familyMemberSearchPage_14 @E2EUI-1205 @v_1 @P0
-#  Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
-#    When the user navigates to the "<stage>" stage
-#    And the user clicks on Add family member button
-#    And the user search the family member with the specified details "<YesSearchDetails>"
-#    And the message will be displayed as "<ResultMessage>" result found
-#    Then the search results have been displayed with Patient Name, dob, gender, NHS number and address
-#
-#    Examples:
-#      | stage          | YesSearchDetails                    | ResultMessage          |
-#      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_14 @E2EUI-1205 @v_1 @P0
+  Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<YesSearchDetails>"
+    And the message will be displayed as "<ResultMessage>" result found
+    Then the search results have been displayed with Patient Name, dob, gender, NHS number and address
+
+    Examples:
+      | stage          | YesSearchDetails                    | ResultMessage          |
+      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_15 @E2EUI-851 @v_1 @P0

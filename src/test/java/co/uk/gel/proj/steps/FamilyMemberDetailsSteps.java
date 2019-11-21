@@ -19,11 +19,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
     }
 
-    @When("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetails() {
-        familyMemberDetailsPage.clickOnSaveAndContinueButton();
-    }
-
     @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
     public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
         boolean testResult = false;
