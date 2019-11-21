@@ -377,4 +377,10 @@ public class TumoursSteps extends Pages {
         tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
 
     }
+
+    @And("the Tumour page has the label text displayed as {string}")
+    public void theTumourPageHasTheLabelTextDisplayedAs(String expectedLabelName) {
+        String actualSnomedCTText = tumoursPage.getDynamicQuestionsSnomedCTLabelText();
+        Assert.assertEquals(expectedLabelName, actualSnomedCTText);
+    }
 }
