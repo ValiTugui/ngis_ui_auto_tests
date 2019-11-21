@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
@@ -12,13 +13,14 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,6 +31,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     WebDriver driver;
     public static NewPatient testData = new NewPatient();
     static Faker faker = new Faker();
+    SeleniumLib seleniumLib;
 
     /*public PatientSearchPage(SeleniumDriver driver) {
         super(driver);
@@ -37,6 +40,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
 
@@ -208,10 +212,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
+
         nhsNumber.sendKeys(nhsNo);
         dateDay.sendKeys(dayOfBirth);
         dateMonth.sendKeys(monthOfBirth);
         dateYear.sendKeys(yearOfBirth);
+
     }
 
     public void clickNoButton() {

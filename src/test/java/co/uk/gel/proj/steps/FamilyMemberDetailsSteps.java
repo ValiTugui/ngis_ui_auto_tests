@@ -20,7 +20,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @When("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
+    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetails() {
         familyMemberDetailsPage.clickOnSaveAndContinueButton();
     }
 
@@ -43,7 +43,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-
+    @And("clicks the Save and Continue button in family member details page")
+    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
+        familyMemberDetailsPage.clickOnSaveAndContinueButton();
+    }
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
@@ -61,13 +64,13 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @Then("the family member details with the selected test are added to the referral")
-    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToReferral() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
         Assert.assertTrue(testResult);
     }
     @And("the user can select the test to add to the family member")
-    public void theFamilyMemberDetailsTheSelectedTestAreAddedToTheReferral() {
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
         Assert.assertTrue(testResult);
