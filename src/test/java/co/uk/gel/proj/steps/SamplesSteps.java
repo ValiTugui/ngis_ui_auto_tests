@@ -120,22 +120,10 @@ public class SamplesSteps extends Pages {
         samplesPage.newSampleIsDisplayedInLandingPage(1);
     }
 
-    @And("the user answers all sample questions on Add a Sample page without selecting any sample type")
-    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSelectingAnySampleType() {
-        samplesPage.selectSampleState();
-        samplesPage.fillInSampleID();
-    }
-
-    @And("the user answers all sample questions on Add a Sample page without selecting a Sample state")
-    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSelectingASampleState() {
-        samplesPage.selectSampleType("Omics sample"); // Sample type hard-coded in order to have Example table and reduce duplication for validation test
-        samplesPage.fillInSampleID();
-    }
-
-    @And("the user answers all sample questions on Add a Sample page without SampleID")
-    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutSampleID() {
-        samplesPage.selectSampleType("Omics sample");
-        samplesPage.selectSampleState();
+    @When("the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page")
+    public void theUserAnswersTheSamplesDynamicQuestionsForNonTumourSampleOnAddASampleDetailsPage() {
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
     }
 
     @And("the user answers all sample questions on Add a Sample page without the {string}")
