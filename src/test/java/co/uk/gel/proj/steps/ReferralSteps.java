@@ -317,8 +317,7 @@ public class ReferralSteps extends Pages {
     public void theSuccessNotificationIsDisplayed(String notificationText) {
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
         Debugger.println("Actual Notification text :" + actualNotificationText);
-
         Debugger.println("Expected Notification text :" + notificationText);
-
+        Assert.assertEquals(notificationText, actualNotificationText);
     }
 }
