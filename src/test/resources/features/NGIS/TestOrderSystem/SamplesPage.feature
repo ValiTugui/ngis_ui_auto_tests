@@ -48,7 +48,7 @@ Feature: Samples Page
 
   @COMP7_TOC_Samples @LOGOUT
     @samplesPage_02 @NTS-3287 @E2EUI-1945 @P0 @v_1
-  Scenario Outline: NTS-3287:Add a Sample of tumour-type - tumour sample
+  Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
