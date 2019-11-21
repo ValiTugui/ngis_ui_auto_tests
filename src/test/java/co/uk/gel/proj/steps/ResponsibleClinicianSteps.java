@@ -67,4 +67,19 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsInAllClinicianFormFieldsExceptDepartmentNameAndAddress() {
         responsibleClinicianPage.fillInClinicianFormFieldsExceptDepartmentAddressField();
     }
+
+    @And("the user sees the title text as {string}")
+    public void theUserSeesTheTitleTextAs(String expectedPageTitle) {
+        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
+    }
+
+    @When("the user fills in all clinician form fields except Last name")
+    public void theUserFillsInAllClinicianFormFieldsExceptLastName() {
+        responsibleClinicianPage.fillInClinicianFormFieldsExceptLastNameField();
+    }
+
+    @And("the user sees First name, Last name, Phone number and email, Department name and address, Professional registration number")
+    public void theUserSeesFirstNameLastNamePhoneNumberAndEmailDepartmentNameAndAddressProfessionalRegistrationNumber() {
+        responsibleClinicianPage.confirmTheExpectedFieldsToBeSeemInClinicianForm();
+    }
 }
