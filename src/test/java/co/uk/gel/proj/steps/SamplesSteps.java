@@ -6,6 +6,7 @@ import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
@@ -88,6 +89,16 @@ public class SamplesSteps extends Pages {
 
     }
 
+    @Then("the new sample is displayed in the landing page")
+    public void theNewSampleIsDisplayedInTheLandingPage() {
+        samplesPage.newSampleIsDisplayedInLandingPage(1);
+    }
+
+    @When("the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page")
+    public void theUserAnswersTheSamplesDynamicQuestionsForNonTumourSampleOnAddASampleDetailsPage() {
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+
     @And("the user adds a tumour sample by providing sample type {string}")
     public void theUserAddsATumourSampleByProvidingSampleType(String sampleType) {
         samplesPage.selectSampleType(sampleType);
@@ -111,5 +122,6 @@ public class SamplesSteps extends Pages {
         samplesPage.fillInSampleComments();
         referralPage.clickSaveAndContinueButton();
         Assert.assertTrue(samplesPage.newSampleIsDisplayedInLandingPage());
+
     }
 }
