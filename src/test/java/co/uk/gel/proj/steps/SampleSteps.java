@@ -24,11 +24,6 @@ public class SampleSteps extends Pages {
         referralPage.clickSaveAndContinueButton();
     }
 
-    @And("the Sample page title is shown as {string}")
-    public void theSamplePageTitleIsShownAs(String expectedPageTitle) {
-        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
-    }
-
     @And("the Sample page has the label text is shown as {string}")
     public void theSamplePageHasTheLabelTextIsShownAs(String expectedDynamicQuestionsLabel) {
         Assert.assertEquals(expectedDynamicQuestionsLabel, samplesPage.getDynamicQuestionsLabelText());

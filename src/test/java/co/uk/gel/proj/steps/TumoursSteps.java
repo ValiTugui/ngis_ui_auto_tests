@@ -371,10 +371,4 @@ public class TumoursSteps extends Pages {
         String actualSnomedCTText = tumoursPage.getDynamicQuestionsSnomedCTLabelText();
         Assert.assertEquals(expectedLabelName, actualSnomedCTText);
     }
-
-    @And("the Tumour page title is shown as {string}")
-    public void theTumourPageTitleIsShownAs(String expectedPageTitle) {
-        String actualPageTitle = referralPage.getTheCurrentPageTitle();
-        Assert.assertTrue(expectedPageTitle.matches(actualPageTitle));
-    }
 }

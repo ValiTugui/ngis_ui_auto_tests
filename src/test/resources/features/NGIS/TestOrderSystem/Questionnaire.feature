@@ -10,7 +10,7 @@ Feature: Component name - Questionnaire
     When the user navigates to the "<stage1>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
-    Then the Tumour page title is shown as "<pageTitle>"
+    And the "<pageTitle>" page is displayed
     Then the Tumour page has the label text displayed as "<dynamicQuestionsLabel>"
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
     And the user answers the tumour dynamic questions "<tumour_type>" for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
@@ -22,7 +22,7 @@ Feature: Component name - Questionnaire
     And the user clicks the Save and Continue button
     When the user clicks the Add sample button
     And the user adds a tumour sample by providing sample type "<sampleType>"
-    And the Sample page title is shown as "<sampleDynamicQuestionsPageTitle>"
+    And the "<sampleDynamicQuestionsPageTitle>" page is displayed
     And the Sample page has the label text is shown as "<sampleDynamicQuestionsLabel>"
     And the user answers the sample dynamic questions by providing topography "<topography>" morphology "<morphology>"
     Then the "<stage2>" stage is marked as Completed
