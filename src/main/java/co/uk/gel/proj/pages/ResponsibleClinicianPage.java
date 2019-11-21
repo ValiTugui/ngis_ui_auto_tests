@@ -198,6 +198,29 @@ public class ResponsibleClinicianPage {
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentalAddressLabelRequired);
 		return clinicianDepartmentalAddressLabelRequired.getText().contains("*");
 	}
-	//
+
+	public void fillInClinicianFormFieldsExceptLastNameField() {
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		Actions.clearField(clinicianFirstNameField);
+		Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+		Actions.clearField(clinicianPhoneNumberField);
+		Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+		Actions.clearField(clinicianEmailField);
+		Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+		Actions.clearField(clinicianDepartmentAddressField);
+		Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+		Actions.clearField(clinicianProfesionalRegistrationNumberField);
+		Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
+	}
+
+	public void confirmTheExpectedFieldsToBeSeemInClinicianForm(){
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		clinicianFirstNameField.isDisplayed();
+		clinicianLastNameField.isDisplayed();
+		clinicianPhoneNumberField.isDisplayed();
+		clinicianEmailField.isDisplayed();
+		clinicianDepartmentAddressField.isDisplayed();
+		clinicianProfesionalRegistrationNumberField.isDisplayed();
+	}
 
 }

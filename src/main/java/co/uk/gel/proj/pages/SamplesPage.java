@@ -108,6 +108,9 @@ public class SamplesPage {
 	@FindBy(xpath = "(//p[contains(@class,'styles_text--7')])[1]")
 	public WebElement addSampleDetailsSubTitle;
 
+	@FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
+	public WebElement tumourSampleDynamicQuestionsLabel;
+
 
 	public void selectSampleType(String type) {
 		Actions.clickElement(driver, sampleType);
@@ -182,5 +185,16 @@ public class SamplesPage {
 
 	public void clickAddSampleButton() {
 		Actions.clickElement(driver, addSampleButton);
+	}
+
+	public String getDynamicQuestionsLabelText(){
+		Wait.forElementToBeDisplayed(driver, tumourSampleDynamicQuestionsLabel);
+		return tumourSampleDynamicQuestionsLabel.getText();
+	}
+
+	public boolean newSampleIsDisplayedInLandingPage() {
+		Wait.forElementToBeDisplayed(driver, successNotification);
+		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+		return successNotification.isDisplayed() && samplesLandingPageTable.isDisplayed();
 	}
 }

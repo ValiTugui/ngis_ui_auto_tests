@@ -90,6 +90,31 @@ public class SamplesSteps extends Pages {
 
     }
 
+    @And("the user adds a tumour sample by providing sample type {string}")
+    public void theUserAddsATumourSampleByProvidingSampleType(String sampleType) {
+        samplesPage.selectSampleType(sampleType);
+        samplesPage.selectSampleState();
+        samplesPage.fillInSampleID();
+        referralPage.clickSaveAndContinueButton();
+    }
+
+    @And("the Sample page has the label text is shown as {string}")
+    public void theSamplePageHasTheLabelTextIsShownAs(String expectedDynamicQuestionsLabel) {
+        Assert.assertEquals(expectedDynamicQuestionsLabel, samplesPage.getDynamicQuestionsLabelText());
+    }
+
+    @And("the user answers the sample dynamic questions by providing topography {string} morphology {string}")
+    public void theUserAnswersTheSampleDynamicQuestionsByProvidingTopographyMorphology(String topographyValue, String morphologyValue) {
+        samplesPage.answerSampleTopography(topographyValue);
+        samplesPage.answerSampleMorphology(morphologyValue);
+        samplesPage.fillInPercentageOfMalignantNuclei();
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+        referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(samplesPage.newSampleIsDisplayedInLandingPage());
+    }
+
     @Then("the new sample is displayed in the landing page")
     public void theNewSampleIsDisplayedInTheLandingPage() {
         samplesPage.newSampleIsDisplayedInLandingPage(1);
