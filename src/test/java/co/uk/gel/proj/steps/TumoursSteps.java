@@ -264,7 +264,6 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-
         String actualPageTitle = referralPage.getTheCurrentPageTitle();
         Debugger.println("Actual PageTitle : " + actualPageTitle);
         Debugger.println("Expected PageTitle : " + expectedPageTitle);
@@ -303,7 +302,7 @@ public class TumoursSteps extends Pages {
         List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
         List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
         List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
-   
+
         /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
         actualHelpHintTexts.add(3, "None");
 
@@ -362,8 +361,31 @@ public class TumoursSteps extends Pages {
         Debugger.println("Expected error message: " + errorMessage);
         Debugger.println("Actual Error message: " + getText(tumoursPage.errorMessages.get(0)));
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         Assert.assertTrue(testResult);
+    }
+
+    @When("user clicks add a new tumour link")
+    public void userClicksAddANewTumourLink() {
+        tumoursPage.clickOnTheAddANewTumourTextLink();
+    }
+
+
+    @And("the user adds a new tumour")
+    public void theUserAddsANewTumour(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
+
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
+        tumoursPage.fillInSpecimenID();
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
+        tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
+
     }
 
     @And("the Tumour page has the label text displayed as {string}")

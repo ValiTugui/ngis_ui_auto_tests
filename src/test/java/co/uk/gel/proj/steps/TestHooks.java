@@ -75,12 +75,12 @@ public class TestHooks extends Pages {
     @After("@LOGOUT")
     public void logOutAndTearDown() {
         logoutAfterTest(10);
-        cleanUp();
+       // cleanUp();
     }
 
     @After("@CLEANUP")
     public void cleanUp() {
-        driver = null;
+     //   driver = null;
     }
 
     @After(order = 1)
@@ -90,8 +90,8 @@ public class TestHooks extends Pages {
 
     private void logoutAfterTest(int waitingTime) {
         Debugger.println("deleted cookies");
-        driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        try {
+       try {
+            driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
             if (isAlertPresent(driver)) {
                 acceptAlert(driver);
             }

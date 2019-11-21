@@ -15,10 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FamilyMemberSearchPage {
 
@@ -58,6 +55,12 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButton;
 
+    @FindBy(xpath = "//button[@class='styles_button__12U2K styles_button--medium__O8vZ3 styles_new-patient-form__submit-button__1VyYW']")
+    public WebElement AddReferralButton;
+
+    @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
+    public WebElement nhsQuestion;
+
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
 
@@ -70,6 +73,9 @@ public class FamilyMemberSearchPage {
     @FindBy(id = "lastName")
     public WebElement lastName;
 
+    @FindBy(id = "familyName")
+    public WebElement familyName;
+
     @FindBy(css = "label[for*='lastName']")
     public WebElement lastNameLabel;
 
@@ -81,6 +87,15 @@ public class FamilyMemberSearchPage {
 
     @FindBy(id = "postcode")
     public WebElement postcode;
+
+    @FindBy(xpath = "//div[@class='styles_search-terms__1Udiy']/p/strong")
+    public WebElement youHaveSearchedForLabel;
+
+    @FindBy(xpath = "//h3[contains(string(), 'No patient found')]")
+    public WebElement noPatientFoundLabel;
+
+    @FindBy(xpath = "//a[@class='styles_inline-link__3cAK2']")
+    public WebElement createNewPatientLink;
 
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
@@ -102,7 +117,41 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
+    @FindBy(css = "#dateOfBirth")
+    public WebElement dateOfBirthclear;
+
+    @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
+    public WebElement genderClear;
+
+
+
+
+
     static String searchString = "";
+
+    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
+    public WebElement familyMemeberFound;
+
+    @FindBy(xpath="//p[@class='styles_text__1aikh styles_text--6__3mCVT styles_patient-name__2PfmN']")
+    public WebElement resultCardPatientName;
+
+    @FindBy(xpath="//p[contains(text(),'Born')]")
+    public WebElement resultCardDOB;
+
+    @FindBy(xpath="//p[contains(text(),'Gender')]")
+    public WebElement resultCardGender;
+
+    @FindBy(xpath="//p[contains(text(),'NHS No.')]")
+    public WebElement resultCardNHSNo;
+
+    @FindBy(xpath="//p[contains(text(),'Address')]")
+    public WebElement resultCardAddress;
+
+    @FindBy(css = "a[class*='inline-link']")
+    public WebElement noResultsHelpLink;
+
+    String noResultsLocator = "img[class*='no-results__img']";
+
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -309,22 +358,114 @@ public class FamilyMemberSearchPage {
 
     public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
         try {
-            String actualMessage = seleniumLib.getText(validationErrors.get(0));
-            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-                return false;
+            String[] expMessages = null;
+            if(errorMessage.indexOf(",") == -1){
+                expMessages = new String[]{errorMessage};
+            }else{
+                expMessages = errorMessage.split(",");
             }
+            String actualMessage = "";
+            String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = validationErrors.get(0).getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+            for(int i=0; i<expMessages.length;i++) {
+                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
+                    Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                    return false;
+                }
+                actColor = validationErrors.get(i).getCssValue("color");
+                if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                    Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                    return false;
+                }
+            }
+            validationErrors.clear();
+            return true;
+
+        }catch(Exception exp){
+            Debugger.println("FamilyMemberSearchPage:Exception from validating Error Message "+exp);
+            return false;
+        }
+
+    }
+    public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
+        try {
+            String actualMessage = familyMemeberFound.getText();
+            if (!resultMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + resultMessage + ", but Actual Message: " + actualMessage);
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from validating Error Message "+exp);
+            Debugger.println("Exception from validating result Message "+exp);
             return false;
         }
+    }
+
+    public boolean verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed() {
+        Wait.forElementToBeDisplayed(driver, familyMemeberFound);
+        List<WebElement> expResultElements = new ArrayList<WebElement>();
+        expResultElements.add(resultCardPatientName);
+        expResultElements.add(resultCardDOB);
+        expResultElements.add(resultCardGender);
+        expResultElements.add(resultCardNHSNo);
+        expResultElements.add(resultCardAddress);
+        for(int i=0; i<expResultElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expResultElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void verifyTheTitleOfThePage(String titleOfPage) {
+        Wait.forElementToBeDisplayed(driver, searchButton);
+        Debugger.println("The actual page title  is :" + pageTitle.getText());
+        Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
+    }
+    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+        String actualPageDescription = pageDescription.getText();
+        Debugger.println("The actual Description title  is :" + pageDescription.getText());
+        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    }
+    public void verifyTheQuestionOfThePage(String DescriptionOfPage) {
+        String actualPageDescription = nhsQuestion.getText();
+        Debugger.println("The actual Description title  is :" + nhsQuestion.getText());
+        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    }
+    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
+        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
+        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
+
+}   public void clickOnNewPatientLink() {
+        seleniumLib.clickOnWebElement(createNewPatientLink);
+    }
+
+    public void createNewPatientLinkDisplayed(String hyperLinkText) {
+
+        seleniumLib.clickOnWebElement(createNewPatientLink);
+        Actions.clearField(firstName);
+        Actions.clearField(familyName);
+        Actions.clearField(dateOfBirthclear);
+        Click.element(driver, genderClear);
+        Wait.seconds(3);
+        Click.element(driver,AddReferralButton);
+
+    }
+    public void verifyNoPatientFoundDetails(String expSearchString, String errorMessage, String expectedFontFace) {
+        Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
+        Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
+
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("FirstName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("LastName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("Gender")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(TestUtils.dateFormatReverserToYYYYMMDD(expectedResultMap.get("DOB"))));
+
+        expectedFontFace = StylesUtils.convertFontFaceStringToCSSProperty(expectedFontFace);
+        Assert.assertEquals(expectedFontFace, youHaveSearchedForLabel.getCssValue("font-weight"));
+
+        Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+        Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
+        Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
 
     }
 

@@ -25,6 +25,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
 
     static {
         DRIVER = new BrowserFactory().getDriver();
+        DRIVER.manage().deleteAllCookies();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
         DRIVER.manage().window().maximize();
         DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);

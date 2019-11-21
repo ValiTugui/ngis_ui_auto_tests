@@ -1,4 +1,5 @@
 @regression
+@regression_set3
 @responsibleClinicianOrg
 Feature: Responsible Clinician
 
@@ -67,4 +68,22 @@ Feature: Responsible Clinician
     Examples:
       | stage                 |  new_stage   |
       | Responsible clinician |   Tumours    |
+
+  @E2EUI-939 @NTS-3286 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  Scenario Outline: NTS-3286 - Responsible Clinician Page - Save and continue the responsible section by leaving the Last name field empty
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Chondrosarcoma Conventional Central | NGIS | Cancer |
+    And the user navigates to the "<stage>" stage
+    And the user sees the title text as "<pageTitle>"
+    And the user sees First name, Last name, Phone number and email, Department name and address, Professional registration number
+    When the user fills in all clinician form fields except Last name
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    And the user clicks the Save and Continue button
+    Then The Last name field should display an error message "<error_info>"
+    And The mandatory field Last name should be highlighted with a "<red_color_hex_code>" red mark
+    And the "<stage>" stage is marked as Mandatory To Do
+    Examples:
+      | stage                 | pageTitle                 | hyperlinkText | error_info            | red_color_hex_code |
+      | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |
+
 

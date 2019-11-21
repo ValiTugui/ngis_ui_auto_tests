@@ -1,4 +1,5 @@
 @regression
+@regression_set3
 @tumoursPage
 Feature: Tumours Page
 
@@ -29,7 +30,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_02b @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @P0 @v_1
+    @tumoursPage_02b @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @P0 @v_1
   Scenario Outline: NTS-3241: Labels and help hint texts are displayed in Add a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -497,7 +498,7 @@ Feature: Tumours Page
       | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_19 @NTS-3255 @E2EUI-993 @P0 @v_1
+    @tumoursPage_19 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1
   Scenario Outline: NTS-3255: Add a new tumour for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -520,3 +521,33 @@ Feature: Tumours Page
       | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_20 @NTS-3259 @E2EUI-1075 @P0 @v_1
+  Scenario Outline: NTS-3259:Back link button - Create referral navigation component - Tumours
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the "<pageTitle>" page is displayed
+    And the success notification is displayed "<notificationText>"
+    When user clicks add a new tumour link
+    And the "<pageTitle2>" page is displayed
+    When the user clicks on the Back link
+    Then the "<pageTitle>" page is displayed
+
+    Examples:
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText| pageTitle              |   pageTitle2  |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    | Select or edit a tumour| Add a tumour  |
+
+
+
+

@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
@@ -217,10 +218,10 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
-
-
     }
-
+    public void checkThatToDoListSuccessfullyLoaded() {
+        Wait.forElementToBeDisplayed(driver, toDoList, 300);
+    }
 
     public String getPartialUrl(String stage) {
         String partialUrl = null;
@@ -245,11 +246,18 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
-        Actions.clickElement(driver, referralStage);
+        try {
+            Actions.clickElement(driver, referralStage);
+        }catch(Exception exp){
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
+            Actions.scrollToTop(driver);
+            Actions.clickElement(driver, referralStage);
+        }
+
     }
 
     public boolean stageIsSelected(String stage) {
@@ -342,5 +350,9 @@ public class ReferralPage<check> {
         String currentPage = getTheCurrentPageTitle();
         Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
         return actualHelpHintTexts;
+    }
+
+    public void clickOnTheBackLink() {
+        Actions.retryClickAndIgnoreElementInterception(driver,backLink);
     }
 }
