@@ -483,8 +483,8 @@ public class FamilyMemberSearchPage {
                 return false;
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from validating Error Message " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from validating Error Message "+exp);
             return false;
         }
     }

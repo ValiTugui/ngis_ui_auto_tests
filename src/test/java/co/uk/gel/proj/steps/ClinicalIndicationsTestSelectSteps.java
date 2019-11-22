@@ -75,8 +75,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user click on Go to test page button")
     public void theUserClickOnGoToTestPageButtom() {
-        Wait.seconds(1);
-        Click.element(driver, clinicalIndicationsTestSelect.goToTestPageButtonFromPopup);
+        clinicalIndicationsTestSelect.clickGoToTestPageButton();
     }
 
     @And("the user should be able to see all {string} tabs and are clickable")
@@ -94,6 +93,8 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
             Assert.assertFalse(clinicalIndicationsTestSelect.testPackagePopupProps.findElements(By.tagName("p")).get(i).getText().isEmpty());
         }
         Assert.assertTrue(clinicalIndicationsTestSelect.checkTestPagePopUpTitleMatchesSearchedText());
+        Assert.assertTrue(clinicalIndicationsTestSelect.goToTestPageButtonFromPopup.isDisplayed());
+        Assert.assertTrue(clinicalIndicationsTestSelect.closePopupButton.isDisplayed());
     }
 
     @And("the user should be able to see sections are displayed based on Clinical Indications type")
@@ -132,5 +133,32 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @And("the user should be able to see {string} according to the CI selected")
     public void theUserShouldBeAbleToSeeAccordingToTheCISelected(String whoCanOrderContent) {
         Assert.assertTrue(clinicalIndicationsTestSelect.whoCanOrderContentValidation(whoCanOrderContent));
+    }
+
+    @Then("the user clicks on first Clinical indications results displayed")
+    public void theUserClicksOnClinicalIndicationsResultsDisplayed() {
+        clinicalIndicationsTestSelect.clickFirstResultInClinicalIndications();
+    }
+
+    @And("the user sees Clinical indications modal with two sections and {string} is present")
+    public void theUserSeesClinicalIndicationsModalWithTwoSections(String buttonName, List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsTabValidation(buttonName, sectionName.get(0), sectionName.get(1)));
+    }
+
+    @And("the user should be able to see Clinical indications list is displayed containing clickable cards for each clinical indication")
+    public void theUserShouldBeAbleToSeeClinicalIndicationsListIsDisplayedContainingClickableCardsForEachClinicalIndication() {
+        for (int i = 0; i < clinicalIndicationsTestSelect.clinicalIndicationsResults.size(); i++) {
+            Assert.assertTrue(clinicalIndicationsTestSelect.clinicalIndicationsResults.get(i).isEnabled());
+        }
+    }
+
+    @And("the user should be able to see the following under Further Info tab")
+    public void theUserShouldBeAbleToSeeTheFollowingUnderFurtherInfoTab(List<String> sectionName) {
+        Assert.assertTrue(clinicalIndicationsTestSelect.furtherInfoTabValidation(sectionName.get(0), sectionName.get(1), sectionName.get(2), sectionName.get(3)));
+    }
+
+    @And("the user click on Go to Clinical Indication button")
+    public void theUserClickOnGoToClinicalIndicationButton() {
+        clinicalIndicationsTestSelect.clickGoToClinicalIndicationButton();
     }
 }

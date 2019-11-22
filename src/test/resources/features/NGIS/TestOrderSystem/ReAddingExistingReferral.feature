@@ -1,5 +1,5 @@
 @regression
-@regression_stag
+@COMP08_P0
 @ReAddingExistingReferral
 Feature: FamilyMember search page
 
