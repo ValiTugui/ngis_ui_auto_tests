@@ -152,13 +152,6 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
     }
 
-    @Then("the user returns to family member landing page with the added family member details")
-    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
-        Assert.assertTrue(testResult);
-    }
-
     @And("^the display title of the family member search page is \"([^\"]*)\"$")
     public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
         familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);

@@ -167,8 +167,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
-    WebElement testPackageCheckBox;
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checked')]")
+    WebElement testPackageCheckBoxChecked;
 
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
@@ -211,6 +211,8 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
     public WebElement additionalFamilyMemberName;
+
+    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
     public WebElement relationField;
@@ -545,12 +547,18 @@ public class FamilyMemberDetailsPage {
         }
     }
     public boolean verifyTheTestCheckboxIsSelected(){
-        Wait.forElementToBeDisplayed(driver,testPackageCheckBox);
-        if(!seleniumLib.isElementPresent(testPackageCheckBox)){
-            Debugger.println("Test for Family member "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in SELECTED State.");
+        try {
+            Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked);
+            if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
+                Debugger.println("Test for Family member " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not in SELECTED State.");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("FamilyMemberDetailsPage:verifyTheTestCheckboxIsSelected:Exception:"+exp);
             return false;
         }
-        return true;
+
     }
     public void clickOnAddNewPatientToReferral(){
         Wait.forElementToBeDisplayed(driver, AddReferralButton);
@@ -561,15 +569,30 @@ public class FamilyMemberDetailsPage {
         Debugger.println("The actual page title  is :" + pageTitle.getText());
         Assert.assertEquals(expTitle, pageTitle.getText().trim());
     }
-    public void clickOnCheckBoxAndSaveAndContinueButton() {
-        seleniumLib.clickOnWebElement(testPackageCheckBox);
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+
+    public void deSelectTheTest() {
+        try {
+            seleniumLib.clickOnWebElement(testPackageCheckBoxChecked);
+        }catch(Exception exp){
+            Debugger.println("FamilyMemberDetailsPage:deSelectTheTest:Exception:"+exp);
         }
     }
+    public boolean verifyTestPackageCheckBoxDeSelected() {
+        try {
+            if(seleniumLib.isElementPresent(testPackageCheckBoxChecked)){
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("FamilyMemberDetailsPage:verifyTestPackageCheckBoxDeSelected:Exception:"+exp);
+            return false;
+        }
+
+    }
     public void clickOnBackButton() {
+        if(!seleniumLib.isElementPresent(backButton)){
+            Debugger.println("Back button not present on the Family member details page");
+        }
         seleniumLib.clickOnWebElement(backButton);
         if (helix.size() > 0) {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
@@ -584,7 +607,7 @@ public class FamilyMemberDetailsPage {
         return true;
     }
     public void verifyThePatientByEdited(){
-        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
+        List<WebElement> patientCards = driver.findElements(additionalFamilyMemberList);
         Iterator<WebElement> itr = patientCards.iterator();
         while(itr.hasNext()) {
             String resultMessage= itr.next().getText();
@@ -639,7 +662,10 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
-        Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
+        if(deleteMessage.equalsIgnoreCase(successDeletionMessageOfFamilyMember.getText())){
+            Debugger.println("Expected Message: "+deleteMessage+" Not present in the family member landing page.");
+            return false;
+        }
         return true;
     }
 
@@ -697,6 +723,22 @@ public class FamilyMemberDetailsPage {
         expElements.add(patientChoiceStatus);
         expElements.add(addFamilyMemberButton);
         expElements.add(continueButton);
+
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(beingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
 
         for(int i=0; i<expElements.size(); i++){
             if(!seleniumLib.isElementPresent(expElements.get(i))){
