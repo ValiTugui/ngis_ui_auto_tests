@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -115,6 +116,9 @@ public class ClinicalIndicationsTestSelectPage {
 
     @FindBy(xpath = "//*/h4")
     public List<WebElement> clinicalIndicationsHeadings;
+
+    @FindBy(css = "div[class*='mainSection']")
+    public WebElement clinicalIndicationsSearchValue;
 
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
@@ -333,6 +337,10 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Section Mismatch: " + furtherInfoSections.size());
         }
+    }
+
+    public boolean checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven() {
+        return clinicalIndicationsSearchValue.getText().contains(AppConfig.getSearchTerm());
     }
 
 }

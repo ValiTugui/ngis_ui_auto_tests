@@ -58,7 +58,6 @@ public class PaperFormSteps extends Pages {
     @And("the user clicks the Sign in hyperlink")
     public void theUserClicksTheSignInHyperlink(List<String> hyperLinks) {
         paperFormPage.clickSignInToTheOnlineServiceButton();
-
     }
 
     @When("the user clicks the Continue button")
@@ -151,5 +150,27 @@ public class PaperFormSteps extends Pages {
             Wait.forElementToBeDisplayed(driver, paperFormPage.downloadButton.get(i));
             Assert.assertTrue(paperFormPage.downloadButton.get(i).getText().matches(buttonName));
         }
+    }
+
+    @Then("the details of the search results are displayed")
+    public void theDetailsOfTheSearchResultsAreDisplayed() {
+        Assert.assertTrue(paperFormPage.checkThatInformationEntityIsDisplayed());
+        Assert.assertTrue(paperFormPage.checkThatSelectedEntityNameIsTheSameAsTheSearchValue());
+    }
+
+    @And("the Continue button should be clickable")
+    public void theContinueButtonShouldBeClickable() {
+        paperFormPage.checkContinueIsClickable();
+    }
+
+    @And("the user should be able to see a click able link {string} at top right side of the page")
+    public void theUserShouldBeAbleToSeeAClickAbleLinkAtTopRightSideOfThePage(String linkName) {
+        Assert.assertTrue(paperFormPage.checkCancelOrderLinkIdDisplayed(linkName));
+    }
+
+    @When("the use clicks the link Cancel Order")
+    public void theUseClicksTheLinkCancelOrder() {
+        paperFormPage.clickCancelOrderLink();
+        Actions.acceptAlert(driver);
     }
 }
