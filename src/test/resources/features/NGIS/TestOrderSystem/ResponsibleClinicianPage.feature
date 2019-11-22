@@ -69,3 +69,22 @@ Feature: Responsible Clinician
       | stage                 |  new_stage   |
       | Responsible clinician |   Tumours    |
 
+  @E2EUI-972 @NTS-3311 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  Scenario Outline: NTS-3175 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
+    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Chondrosarcoma Conventional Central | NGIS | Cancer |
+    And the user navigates to the "<stage1>" stage
+    And the user is navigated to a page with title <pageTitle>
+    And the user fills in all the clinician form fields
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    When the user clicks the Additional Clinician link
+    And the user fills in all the fields for the additional clinician
+    And the user clicks the Save and Continue button
+    And the "<stage1>" stage is marked as Completed
+    Then the "<stage2>" stage is selected
+    And both clinicians details are persisted when returning to the "<stage1>" stage
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    Examples:
+      | stage1                | stage2  | pageTitle                 | hyperlinkText |
+      | Responsible clinician | Tumours | Add clinician information | Add another   |
+

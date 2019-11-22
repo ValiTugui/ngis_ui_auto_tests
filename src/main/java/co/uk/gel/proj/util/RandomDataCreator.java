@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
+import com.github.javafaker.Faker;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -15,6 +16,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomDataCreator {
+    static Faker fake = new Faker();
 
 
     public static String getRandomAplhabetsOfGivenSize(int size) {
@@ -174,6 +176,30 @@ public class RandomDataCreator {
 
     public static SpineDataModelFromCSV getAnyNHSDataFromSpineCSV() throws IOException {
         return getAnyNHSDataFromSpineCSV("");
+    }
+
+    public static String getRandomFirstName() {
+        return fake.name().firstName();
+    }
+
+    public static String getRandomLastName() {
+        return fake.name().lastName();
+    }
+
+    public static String getRandomPhoneNumber() {
+        return fake.phoneNumber().cellPhone();
+    }
+
+    public static String getRandomEmailAddress() {
+        return fake.internet().emailAddress();
+    }
+
+    public static String getRandomAddress() {
+        return fake.address().streetAddress();
+    }
+
+    public static String getRandomProfessionalRegistrationNumber() {
+        return fake.number().digits(12);
     }
 
 }
