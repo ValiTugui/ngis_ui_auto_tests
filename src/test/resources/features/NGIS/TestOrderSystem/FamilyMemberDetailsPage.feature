@@ -1,5 +1,5 @@
 @regression
-@regression_stag
+@COMP08_P0
 @FamilyMembersDetailsPage
 Feature: Family Member Details Page
 
