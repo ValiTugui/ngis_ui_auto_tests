@@ -88,3 +88,24 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType   |
       | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState  |
       | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID     |
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_04 @NTS-3312 @868 @P0 @v_1
+  Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user clicks the Save and Continue button
+    Then the error messages for the sample mandatory fields on Add a Sample page are displayed
+      | errorMessageHeader                           |
+      | Sample type is required.                     |
+      | Sample state is required.                    |
+      | Sample ID from local laboratory is required. |
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+

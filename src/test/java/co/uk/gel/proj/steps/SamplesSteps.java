@@ -150,4 +150,12 @@ public class SamplesSteps extends Pages {
         }
     }
 
+    @Then("the error messages for the sample mandatory fields on Add a Sample page are displayed")
+    public void theErrorMessagesForTheSampleMandatoryFieldsOnAddASamplePageAreDisplayed(DataTable dataTable) {
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        for (int i = 0; i < list.size(); i++) {
+            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
+            Assert.assertEquals(list.get(i).get("errorMessageHeader"), getText(samplesPage.errorMessages.get(i)));
+        }
+    }
 }
