@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import com.github.javafaker.Faker;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -172,6 +173,15 @@ public class SamplesPage {
 		Actions.fillInValue(sampleCommentsField, comment);
 		return comment;
 	}
+
+
+	public int numberOfNewSamplesDisplayedInLandingPage() {
+		Wait.forElementToBeDisplayed(driver, successNotification);
+		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+		int numberOfSamples = samplesLandingPageList.size() - 1;
+		return numberOfSamples;
+	}
+
 
 	public void clickAddSampleButton() {
 		Actions.clickElement(driver, addSampleButton);
