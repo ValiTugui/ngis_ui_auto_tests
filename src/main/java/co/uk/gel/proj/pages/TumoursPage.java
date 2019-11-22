@@ -142,6 +142,12 @@ public class TumoursPage {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
+    @FindBy(css = "button[class*='link-button']")
+    public WebElement backLinkButton;
+
+    @FindBy(xpath = "//th[contains(text(),'Working diagnosis/morphology')]" )
+    public WebElement snomedCTWorkingDiagnosisLabel;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -449,6 +455,11 @@ public class TumoursPage {
     public void clickOnTheAddANewTumourTextLink() {
         Wait.forElementToBeClickable(driver, addAnotherTumourLink);
         Click.element(driver, addAnotherTumourLink);
+    }
+
+    public String getDynamicQuestionsSnomedCTLabelText(){
+        Wait.forElementToBeDisplayed(driver,snomedCTWorkingDiagnosisLabel);
+        return  snomedCTWorkingDiagnosisLabel.getText();
     }
 
 
