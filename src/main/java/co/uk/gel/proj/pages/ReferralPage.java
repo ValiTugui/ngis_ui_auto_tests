@@ -200,7 +200,9 @@ public class ReferralPage<check> {
 
     public void clickSaveAndContinueButton() {
         Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // Click.element(driver, saveAndContinueButton)
         if (helix.size() > 0) {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
