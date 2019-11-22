@@ -18,20 +18,20 @@ Feature: FamilyMember search page
       | Family members |
 
   @COMP8_TO_PatientSearch
-  @familyMemberSearchPage_02 @NTS-3207 @E2EUI-950 @E2EUI-1116 @v_1 @P0
-  Scenario: E2EUI-1116: Verify the mandatory field validation errors are displayed when clicking the Search button without typing mandatory fields
+  @familyMemberSearchPage_02 @NTS-3207 @E2EUI-1116 @E2EUI-950 @v_1 @P0
+  Scenario: E2EUI-1116-950: Verify the mandatory field validation errors are displayed when clicking the Search button without typing mandatory fields
     When the user clicks the Search button in family member search page
     Then the mandatory fields should be highlighted with a red mark in family member search page with Yes option selected
 
   @COMP8_TO_PatientSearch
   @familyMemberSearchPage_03 @NTS-3207 @E2EUI-1116 @E2EUI-1083 @v_1 @P0
-  Scenario:E2EUI-1116: Verify the family member search page with No option displayed properly
+  Scenario:E2EUI-1116-1083: Verify the family member search page with No option displayed properly
     When the user clicks the NO button in family member search page
     Then the family member search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
 
   @COMP8_TO_PatientSearch
   @familyMemberSearchPage_04 @NTS-3207 @E2EUI-1116 @E2EUI-1083 @v_1 @P0
-  Scenario: E2EUI-1116:Verify the mandatory field validation errors are displayed when clicking the Search button without typing mandatory fields
+  Scenario: E2EUI-1116-1083:Verify the mandatory field validation errors are displayed when clicking the Search button without typing mandatory fields
     When the user clicks the Search button in family member search page
     Then the mandatory fields should be highlighted with a red mark in family member search page with No option
 
@@ -96,7 +96,7 @@ Feature: FamilyMember search page
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_10 @E2UI-1388 @E2EUI-1493 @v_1 @P0
-  Scenario Outline: E2EUI-1493: Verify the family member search with valid NHS Number and DOB displays result message
+  Scenario Outline: E2EUI-1493-1388: Verify the family member search with valid NHS Number and DOB displays result message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<YesSearchDetails>"
@@ -132,7 +132,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=$#%#*&^@% | NHS Number is required.                           | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_13 @E2EUI-1301 @v_1 @P0
+    @familyMemberSearchPage_13 @NTS-3304 @E2EUI-1301 @v_1 @P0
   Scenario Outline: E2EUI-1301: Verify the family member search with invalid DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -191,7 +191,7 @@ Feature: FamilyMember search page
       | Family members | DOB=23-03-2011:FirstName=Smith:Gender=Female | Last name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-  @familyMemberSearchPage_17 @E2EUI-965 @v_1 @P0
+  @familyMemberSearchPage_17 @NTS-3302 @E2EUI-965 @v_1 @P0
   Scenario Outline: E2EUI-965: Verify the family member search with valid DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

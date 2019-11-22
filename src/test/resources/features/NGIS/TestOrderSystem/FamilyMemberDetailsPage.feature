@@ -40,7 +40,7 @@ Feature: Family Member Details Page
       | Family members | 9449310165 | 25-12-2000 | Maternal Aunt         |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_03 @E2EUI-1369 @v_1 @P0
+    @familyMemberDetailsPage_03 @NTS-3298 @E2EUI-1369 @v_1 @P0
   Scenario Outline: E2EUI-1369: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -57,7 +57,7 @@ Feature: Family Member Details Page
       | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      | Full Sibling                    |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @E2EUI-1012 @v_1 @P0
+    @familyMemberDetailsPage_04 @NTS3297 @E2EUI-1012 @v_1 @P0
   Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
 
     When the user navigates to the "<stage>" stage
@@ -77,7 +77,7 @@ Feature: Family Member Details Page
       | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_04 @LOGOUT @E2EUI-1038 @v_1 @P0
+    @familyMemberSearchPage_04 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
