@@ -10,10 +10,7 @@ import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.hu.De;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -83,8 +80,11 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::button[1]")
+    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
     public WebElement editBoxTestPackage;
+
+    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[2]")
+    public WebElement removeFamilyMember;
 
     @FindBy(id = "nhsNumber")
     public WebElement nhsNumber;
@@ -127,6 +127,12 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
     public WebElement relationshipToProbandDropdown;
 
+    @FindBy(xpath = "//div[contains(@class,'styles_notification__1W')]")
+    public WebElement unmatchedParticipantMessage;
+
+    @FindBy(xpath = "//a[contains(text(),'amend')]")
+    public WebElement participantAmendmentLink;
+
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
@@ -146,6 +152,13 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(css = "table[class*='table--hpo']")
     public WebElement hpoTable;
+
+//    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[2]")
+//    public WebElement removeFamilyMember;
+
+    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
+    public WebElement successMessageAfterRemovefamilyMember;
+
     @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
     public WebElement AddReferralButton;
 
@@ -180,15 +193,21 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='NHS No.']")
     WebElement patientCardNHSNo;
 
-
-    @FindBy(xpath = "//h1[contains(text(),'Add a family member to this referral')]")
-    public WebElement familyMemberTestPackagePageTitle;
-
     @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
     public WebElement familyMemberTestPackagePageSubTitle;
 
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement familyMemberTestPackagePageLink;
+
+
+    @FindBy(xpath = "//h1[contains(text(),'Add a family member to this referral')]")
+    public WebElement familyMemberLandingPageTitle;
+
+    @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
+    public WebElement familyMemberLandingPageSubTitle;
+
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement familyMemberLandingPageLink;
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
     public WebElement additionalFamilyMemberName;
@@ -214,6 +233,23 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[contains(text(),'Continue')]")
     public WebElement continueButton;
 
+    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
+    public WebElement successDeletionMessageOfFamilyMember;
+
+    @FindBy(xpath = "//h1[text()='Patient choice']")
+    public WebElement patientChoicePageTitle;
+
+      @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
+    public WebElement printFormsPageTitle;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
+    public WebElement genderResult;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'nhsNumber')]/following::span[1]")
+    public WebElement nhsNumberResult;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
+    public WebElement ngisIdResult;
 
     static NGISPatientModel familyMember;
 
@@ -556,12 +592,13 @@ public class FamilyMemberDetailsPage {
             Assert.assertEquals(resultMessage, seleniumLib.getText(familyMemeberInfoName));
         }
     }
-    public boolean verifyTheElementsOnFamilyMemberTestPackagePage() {
-        Wait.forElementToBeDisplayed(driver, familyMemberTestPackagePageTitle);
+
+    public boolean verifyTheElementsOnFamilyMemberLandingPage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         List<WebElement> expElements = new ArrayList<WebElement>();
-        expElements.add(familyMemberTestPackagePageTitle);
-        expElements.add(familyMemberTestPackagePageSubTitle);
-        expElements.add(familyMemberTestPackagePageLink);
+        expElements.add(familyMemberLandingPageTitle);
+        expElements.add(familyMemberLandingPageSubTitle);
+        expElements.add(familyMemberLandingPageLink);
         expElements.add(additionalFamilyMemberName);
         expElements.add(relationField);
         expElements.add(beingTestedField);
@@ -584,5 +621,88 @@ public class FamilyMemberDetailsPage {
         while(itr.hasNext()) {
             Debugger.println(itr.next().getText());
         }
+    }
+
+    public boolean removeFamilyFromLandingPage() {
+        try {
+            removeFamilyMember.click();
+            Alert alert = driver.switchTo().alert();
+            String alertMessage = driver.switchTo().alert().getText();
+            Debugger.println("Alert message for removing family member" + alertMessage);
+            alert.accept();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from removing family member " + exp);
+            return false;
+        }
+    }
+
+    public boolean verifyTheDeleteMessage(String deleteMessage) {
+        Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
+        Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
+        return true;
+    }
+
+    public void clickOnContinueButton() {
+        Wait.forElementToBeDisplayed(driver, continueButton);
+        continueButton.click();
+    }
+
+    public boolean patientChoicePageIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
+        return true;
+    }
+
+    public boolean verifyTheDeleteMessageIsPresent() {
+        if (seleniumLib.isElementPresent(successDeletionMessageOfFamilyMember)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean unmatchedParticipantErrorMessage() {
+        if (seleniumLib.isElementPresent(unmatchedParticipantMessage)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void clicksOnParticipantAmendmentLink() {
+        seleniumLib.clickOnWebElement(participantAmendmentLink);
+    }
+    public boolean removeAFamilyMember() {
+        try {
+            removeFamilyMember.click();
+            Alert alert = driver.switchTo().alert();
+            String alertMessage = driver.switchTo().alert().getText();
+            Debugger.println("Alert message for removing family member" + alertMessage);
+            alert.accept();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from removing family member " + exp);
+            return false;
+        }
+    }
+    public boolean verifyTheElementsOnFamilyMemberTestPackagePage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberLandingPageTitle);
+        expElements.add(familyMemberTestPackagePageSubTitle);
+        expElements.add(familyMemberTestPackagePageLink);
+        expElements.add(additionalFamilyMemberName);
+        expElements.add(relationField);
+        expElements.add(beingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
+        expElements.add(continueButton);
+
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }//ends
