@@ -229,7 +229,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButtonByXpath);
-        searchButtonByXpath.click();
+        Actions.retryClickAndIgnoreElementInterception(driver,searchButtonByXpath);
+        // replaced searchButtonByXpath.Click due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
     }
 
 
@@ -636,43 +637,56 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        nhsNumberLabel.isDisplayed();
-        nhsNumber.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        searchButton.isDisplayed();
-
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(nhsNumberLabel);
+        expectedElements.add(nhsNumber);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        firstName.isDisplayed();
-        lastName.isDisplayed();
-        postcode.isDisplayed();
-        searchButton.isDisplayed();
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
 
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(firstName);
+        expectedElements.add(dateDay);
+        expectedElements.add(lastName);
+        expectedElements.add(postcode);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
     public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage, String expectedFontFace) {
