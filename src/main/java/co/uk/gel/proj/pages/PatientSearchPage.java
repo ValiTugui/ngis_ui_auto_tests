@@ -230,7 +230,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickSearchButtonByXpath(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButtonByXpath);
         Actions.retryClickAndIgnoreElementInterception(driver,searchButtonByXpath);
-        // replaced searchButtonByXpath.Click due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        // searchButtonByXpath.Click();
     }
 
 
