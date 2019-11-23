@@ -440,20 +440,8 @@ public class FamilyMemberDetailsPage {
                 case "HpoPhenoType": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        String hpoValue="";
-                        boolean isExists = false;
-                        List<WebElement> rows = seleniumLib.getElements(hpoRows);
-                        if(rows != null && rows.size() > 0){
-                            for(WebElement row:rows){
-                                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                                if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
-                                    isExists = true;
-                                    Debugger.println("Phenotype already exists:");
-                                    break;//for loop
-                                }
-                            }//for
-                        }
-                        if(!isExists) {
+                        boolean alreadyPresent = isHPOAlreadyConsidered(paramNameValue.get(key));
+                        if(!alreadyPresent) {
                            searchAndSelectSpecificHPOPhenotype(paramNameValue.get(key));
                         }
                     }
@@ -462,6 +450,22 @@ public class FamilyMemberDetailsPage {
             }//switch
         }//for
     }//method
+    public boolean isHPOAlreadyConsidered(String hpoTerm){
+        String hpoValue="";
+        boolean isExists = false;
+        List<WebElement> rows = seleniumLib.getElements(hpoRows);
+        if(rows != null && rows.size() > 0){
+            for(WebElement row:rows){
+                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                if(hpoValue.equalsIgnoreCase(hpoTerm)){
+                    isExists = true;
+                    Debugger.println("Phenotype already exists:");
+                    break;//for loop
+                }
+            }//for
+        }
+        return isExists;
+    }
     public void searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
         try {
             Wait.seconds(3);

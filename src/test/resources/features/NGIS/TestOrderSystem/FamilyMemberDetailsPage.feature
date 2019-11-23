@@ -59,7 +59,6 @@ Feature: Family Member Details Page
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_04 @NTS3297 @E2EUI-1012 @v_1 @P0
   Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
-
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields

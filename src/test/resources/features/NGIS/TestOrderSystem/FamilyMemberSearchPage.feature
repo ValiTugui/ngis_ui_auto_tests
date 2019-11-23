@@ -204,7 +204,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=1234:DOB=0-0-0 | Please enter your full NHS Number (10 characters),Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_21 @E2EUI-983 @v_1 @P0
+    @familyMemberSearchPage_18 @E2EUI-983 @v_1 @P0
   Scenario Outline: E2EUI-983: Verify the family member search with invalid nhs no and blank DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -218,7 +218,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=12345 | Please enter your full NHS Number (10 characters),Enter a day,Enter a month,Enter a year | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_22 @LOGOUT @E2EUI-829 @v_1 @P0
+    @familyMemberSearchPage_19 @LOGOUT @E2EUI-829 @v_1 @P0
   Scenario Outline: E2EUI-829: Verify the family member search without providing Dob, first name and last name  displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

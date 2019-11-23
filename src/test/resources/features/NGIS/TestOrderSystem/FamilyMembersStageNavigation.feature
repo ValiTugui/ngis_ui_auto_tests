@@ -1,6 +1,6 @@
 @regression
 @COMP08_P0
-@FamilyMemberStage
+@FamilyMemberStageNavigation
 Feature: Navigation: Family Members stage
 
   @COMP8_TO_Familymembers

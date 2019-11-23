@@ -59,6 +59,7 @@ public class TestHooks extends Pages {
     public void tearDown(Scenario scenario) {
         Status scenarioStatus = scenario.getStatus();
         if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
+            Debugger.println("Taking ScreenShot........");
             scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
