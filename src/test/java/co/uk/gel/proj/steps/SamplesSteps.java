@@ -6,8 +6,10 @@ import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 
 import java.util.List;
 import java.util.Map;
@@ -112,4 +114,42 @@ public class SamplesSteps extends Pages {
         referralPage.clickSaveAndContinueButton();
         Assert.assertTrue(samplesPage.newSampleIsDisplayedInLandingPage());
     }
+
+    @Then("the new sample is displayed in the landing page")
+    public void theNewSampleIsDisplayedInTheLandingPage() {
+        int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
+        Debugger.println("Number of sample(s) :" + numberOfSamples);
+        Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
+    }
+
+    @When("the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page")
+    public void theUserAnswersTheSamplesDynamicQuestionsForNonTumourSampleOnAddASampleDetailsPage() {
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
+    @And("the user answers all sample questions on Add a Sample page without the {string}")
+    public void theUserAnswersAllSampleQuestionsOnAddASamplePageWithoutThe(String sampleField) {
+
+        switch (sampleField) {
+            case "sampleType": {
+                samplesPage.selectSampleState();
+                samplesPage.fillInSampleID();
+                break;
+            }
+            case "sampleState": {
+                samplesPage.selectSampleType("Omics sample");
+                samplesPage.fillInSampleID();
+                break;
+            }
+            case "sampleID": {
+                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleState();
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid text field name");
+        }
+    }
+
 }

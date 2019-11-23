@@ -61,7 +61,6 @@ public class ReferralSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
         homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
@@ -311,5 +310,14 @@ public class ReferralSteps extends Pages {
             patientDetailsPage.clickStartNewReferralButton();
         }
         referralPage.checkThatReferralWasSuccessfullyCreated();
+    }
+
+    @And("the success notification is displayed {string}")
+    public void theSuccessNotificationIsDisplayed(String notificationText) {
+        String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        Assert.assertEquals(notificationText,actualNotificationText);
+        Debugger.println("Actual Notification text :" + actualNotificationText);
+        Debugger.println("Expected Notification text :" + notificationText);
+
     }
 }
