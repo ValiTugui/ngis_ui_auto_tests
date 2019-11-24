@@ -119,7 +119,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyThePageTitlePresence(title);
         Assert.assertTrue(testResult);
     }
-    @Then("the user should be able to see test package for family member is selected by default")
+    @And("the user should be able to see test package for family member is selected by default")
     public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected();
@@ -149,6 +149,17 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
 
     }
+    @When("the user deselects the test")
+    public void theUserDeselectTheSelectedTest() {
+        familyMemberDetailsPage.deSelectTheTest();
+    }
+
+    @Then("the user sees test remains as deselected")
+    public void theUserSeesTheTestRemainsUnSelected() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTestPackageCheckBoxDeSelected();
+        Assert.assertTrue(testResult);
+    }
 
     @When("the user clicks the checkbox and Save and Continue button in family member test package page")
     public void theUserClicksTheCheckboxAndSaveAndContinueButtonInFamilyMemberTestPackagePage() {
@@ -162,6 +173,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected();
         Assert.assertTrue(testResult);
     }
+    @When("the user clicks on back button on family member details page")
+    public void clicksOnBackButtonOnFamilyMemberDetailsPage() {
+        familyMemberDetailsPage.clickOnBackButton();
+     }
+
     @Then("the user should be able to see family member's details card")
     public void theUserShouldBeAbleToSeeFamilyMemberSDetailsCard() {
         boolean testResult = false;
@@ -170,9 +186,11 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     }
 
-    @Then("the user should be able to see which patient in my referral currently editing")
-    public void theUserShouldBeAbleToSeeWhichPatientInMyReferralCurrentlyEditing() {
-        familyMemberDetailsPage.verifyThePatientByEdited();
+    @And("the editing referral color in Red")
+    public void theEditingReferralColorInRed() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheEditingReferralColor();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the family member landing page is correctly displayed")
@@ -212,12 +230,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user Should be able to see {string} removal message on the family member landing page")
-    public void theUserShouldBeAbleToSeeRemovalMessageOnTheFamilyMemberLandingPage(String deleteMessage) {
-
-            familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
-    }
-
     @Then("the user should be able to see the error message that the number of participants does not match the number of test package")
     public void theUserShouldBeAbleToSeeTheErrorMessageThatTheNumberOfParticipantsDoesNotMatchTheNumberOfTestPackage() {
         boolean testResult = false;
@@ -237,4 +249,20 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the family member details on family Member landing page is correctly displayed")
+    public void theFamilyMemberDetailsOnFamilyMemberLandingPageIsCorrectlyDisplayed() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
+        Assert.assertTrue(testResult);
+    }
+    @When("the user removes the family member")
+    public void theUserRemoveTheFamilyMember() {
+        familyMemberDetailsPage.removeAFamilyMember();
+
+    }
+
+    @Then("the user should be able to see {string} removal message on the family member landing page")
+    public void theUserShouldBeAbleToSeeRemovalMessageOnTheFamilyMemberLandingPage(String deleteMessage) {
+        familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
+    }
 }//end

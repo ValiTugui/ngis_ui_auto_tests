@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
@@ -304,10 +305,14 @@ public class PatientDetailsPage {
     }
 
     public void clickStartReferralButton() {
-        Wait.forElementToBeDisplayed(driver, startReferralButton);
-        Actions.clickElement(driver, startReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
-
+        try {
+            Wait.forElementToBeDisplayed(driver, startReferralButton);
+            Actions.clickElement(driver, startReferralButton);
+            Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+        }catch(Exception exp){
+            Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:"+exp);
+            SeleniumLib.takeAScreenShot("StartReferralButton.jpg");
+        }
     }
 
     public void clickStartNewReferralButton() {

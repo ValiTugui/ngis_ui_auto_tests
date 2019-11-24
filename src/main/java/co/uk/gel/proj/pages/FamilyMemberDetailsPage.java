@@ -167,16 +167,16 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
-    WebElement testPackageCheckBox;
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checked')]")
+    WebElement testPackageCheckBoxChecked;
 
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
-    By genderTitle            = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
-    By selectedTest           = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
-    By unSelectedTest         = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
-    String selectedTestTitle    = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
-    String selectedMemberTitle  = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
+    By genderTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
+    By selectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
+    By unSelectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
+    String selectedTestTitle = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
+    String selectedMemberTitle = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
     String addFamilyMemberTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),";
     String addFamilyMemberReferralTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
@@ -212,6 +212,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
     public WebElement additionalFamilyMemberName;
 
+    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
+
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
     public WebElement relationField;
 
@@ -239,7 +241,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h1[text()='Patient choice']")
     public WebElement patientChoicePageTitle;
 
-      @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
+    @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
     public WebElement printFormsPageTitle;
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
@@ -259,7 +261,7 @@ public class FamilyMemberDetailsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public void searchPatientDetailsUsingNHSNumberAndDOB(String nhsNo,String dob) {
+    public void searchPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dob) {
         try {
             Wait.forElementToBeDisplayed(driver, nhsNumber);
             String[] dobs = dob.split("-");
@@ -269,44 +271,46 @@ public class FamilyMemberDetailsPage {
             dateYear.sendKeys(dobs[2]);
 
             searchButton.click();
-        }catch (Exception exp){
-            Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB "+exp+" DOB expected in DD-MM-YYYY Format: "+dob);
+        } catch (Exception exp) {
+            Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB " + exp + " DOB expected in DD-MM-YYYY Format: " + dob);
         }
-        }
-    public boolean verifyPatientRecordDetailsDisplay(){
+    }
+
+    public boolean verifyPatientRecordDetailsDisplay() {
         //Verify the Title
-        Wait.forElementToBeDisplayed(driver,patientRecordFoundTitle);
-        if(!seleniumLib.isElementPresent(patientRecordFoundTitle)){
+        Wait.forElementToBeDisplayed(driver, patientRecordFoundTitle);
+        if (!seleniumLib.isElementPresent(patientRecordFoundTitle)) {
             Debugger.println("Patient found title not displayed.");
-            if(seleniumLib.isElementPresent(errorMessage)){
-                Debugger.println("Error: "+errorMessage.getText());
+            if (seleniumLib.isElementPresent(errorMessage)) {
+                Debugger.println("Error: " + errorMessage.getText());
             }
             return false;
         }
         //Verify other details - Born, Gender and NHS Number
-        if(!seleniumLib.isElementPresent(patientCardBorn)){
+        if (!seleniumLib.isElementPresent(patientCardBorn)) {
             Debugger.println("Patient Born not displayed in Search Result.");
             return false;
         }
-        if(!seleniumLib.isElementPresent(patientCardGender)){
+        if (!seleniumLib.isElementPresent(patientCardGender)) {
             Debugger.println("Patient Gender not displayed in Search Result.");
             return false;
         }
-        if(!seleniumLib.isElementPresent(patientCardNHSNo)){
+        if (!seleniumLib.isElementPresent(patientCardNHSNo)) {
             Debugger.println("Patient NHS number not displayed in Search Result.");
             return false;
         }
         return true;
     }
-    public boolean verifyThePageTitlePresence(String expTitle){
-        By pageTitle = By.xpath("//h1[contains(text(),'"+expTitle+"')]");
-        if(!seleniumLib.isElementPresent(pageTitle)){
-            Wait.forElementToBeDisplayed(driver,driver.findElement(pageTitle));
-            if(!seleniumLib.isElementPresent(pageTitle)) {
+
+    public boolean verifyThePageTitlePresence(String expTitle) {
+        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        if (!seleniumLib.isElementPresent(pageTitle)) {
+            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+            if (!seleniumLib.isElementPresent(pageTitle)) {
                 Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
                 return false;
             }
-    }
+        }
         return true;
     }
 
@@ -314,20 +318,23 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
+
     public void clickOnSaveAndContinueButton() {
         try {
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            Wait.forElementToBeClickable(driver,saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
             Wait.seconds(2);
-        Click.element(driver, saveAndContinueButton);
+            Click.element(driver, saveAndContinueButton);
             Wait.seconds(5);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
+            Debugger.println("Could not click on Save and Continue...." + exp);
         }
-        }catch(Exception exp){
-            Debugger.println("Could not click on Save and Continue...."+exp);
     }
-    }
+
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
@@ -343,30 +350,32 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from validating Error Message "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Error Message " + exp);
             return false;
         }
     }
-    public void fillTheRelationshipToProband(String relationToProband){
+
+    public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
         Click.element(driver, relationshipToProbandDropdown);
         Wait.seconds(2);
-        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
+        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
         Wait.seconds(2);
-        if(validationErrors.size() > 0){
+        if (validationErrors.size() > 0) {
             validationErrors.clear();
             Click.element(driver, relationshipToProbandDropdown);
             Wait.seconds(2);
-            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+relationToProband+"']")));
+            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
             Wait.seconds(2);
         }
-        if(validationErrors.size() > 0){
+        if (validationErrors.size() > 0) {
             Debugger.println("Relation to Proband Not Selected.");
         }
 
     }
-    public void readFamilyMemberDetailsFor(String relationToProband){
+
+    public void readFamilyMemberDetailsFor(String relationToProband) {
         //Here reading the Family member details to verify in next page  - whether details loaded with the expected details
         familyMember = new NGISPatientModel();
         try {
@@ -380,35 +389,36 @@ public class FamilyMemberDetailsPage {
                 familyMember.setGENDER(seleniumLib.getText(genderTitle));
             }
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
-            Debugger.println("Read Family Member Details........."+familyMember.getFIRST_NAME());
+            Debugger.println("Read Family Member Details........." + familyMember.getFIRST_NAME());
             Wait.seconds(5);
-        }catch(Exception exp){
-            Debugger.println("Exception in Reading Family Details from Confirmation Page. "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in Reading Family Details from Confirmation Page. " + exp);
         }
     }
-    public boolean verifyTheTestAndDetailsOfAddedFamilyMember(){
+
+    public boolean verifyTheTestAndDetailsOfAddedFamilyMember() {
         Wait.seconds(5);
         //1. Verify the display of Title for the added Test.
-        By testTitle = By.xpath(selectedTestTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
-        if(!seleniumLib.isElementPresent(testTitle)){
-            Debugger.println("Selected Test Title for Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
+        By testTitle = By.xpath(selectedTestTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
+        if (!seleniumLib.isElementPresent(testTitle)) {
+            Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
-        By selectedFamilyMember = By.xpath(selectedMemberTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
-        if(!seleniumLib.isElementPresent(selectedFamilyMember)){
-            Debugger.println("Selected Family member with Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
+        By selectedFamilyMember = By.xpath(selectedMemberTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
+        if (!seleniumLib.isElementPresent(selectedFamilyMember)) {
+            Debugger.println("Selected Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
             return false;
         }
         //3. Verify the select as checked by default.
-         if(!seleniumLib.isElementPresent(selectedTest)){
-            if(!seleniumLib.isElementPresent(unSelectedTest)){
+        if (!seleniumLib.isElementPresent(selectedTest)) {
+            if (!seleniumLib.isElementPresent(unSelectedTest)) {
                 Debugger.println("Option to select test not present in Select Test Page.");
                 return false;
-            }else{
+            } else {
                 seleniumLib.clickOnElement(unSelectedTest);//To make the test selected by default.
             }
-         }
+        }
         return true;
     }
 
@@ -416,21 +426,21 @@ public class FamilyMemberDetailsPage {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
-        if(paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
+        if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
             try {
                 Click.element(driver, diseaseStatusDropdown);
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
-            }catch(Exception exp){
-                Debugger.println("Exception from selecting disease from the disease dropdown...:"+exp);
+            } catch (Exception exp) {
+                Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp);
             }
         }
         for (String key : paramsKey) {
-            if(key.equalsIgnoreCase("DiseaseStatus")){
+            if (key.equalsIgnoreCase("DiseaseStatus")) {
                 continue;
             }
             switch (key) {
                 case "AgeOfOnset": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         String[] age_of_onsets = paramNameValue.get(key).split(",");
                         ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
                         ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
@@ -438,11 +448,11 @@ public class FamilyMemberDetailsPage {
                     break;
                 }
                 case "HpoPhenoType": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         boolean alreadyPresent = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        if(!alreadyPresent) {
-                           searchAndSelectSpecificHPOPhenotype(paramNameValue.get(key));
+                        if (!alreadyPresent) {
+                            searchAndSelectSpecificHPOPhenotype(paramNameValue.get(key));
                         }
                     }
                     break;
@@ -450,14 +460,15 @@ public class FamilyMemberDetailsPage {
             }//switch
         }//for
     }//method
-    public boolean isHPOAlreadyConsidered(String hpoTerm){
-        String hpoValue="";
+
+    public boolean isHPOAlreadyConsidered(String hpoTerm) {
+        String hpoValue = "";
         boolean isExists = false;
         List<WebElement> rows = seleniumLib.getElements(hpoRows);
-        if(rows != null && rows.size() > 0){
-            for(WebElement row:rows){
+        if (rows != null && rows.size() > 0) {
+            for (WebElement row : rows) {
                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                if(hpoValue.equalsIgnoreCase(hpoTerm)){
+                if (hpoValue.equalsIgnoreCase(hpoTerm)) {
                     isExists = true;
                     Debugger.println("Phenotype already exists:");
                     break;//for loop
@@ -466,6 +477,7 @@ public class FamilyMemberDetailsPage {
         }
         return isExists;
     }
+
     public void searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
         try {
             Wait.seconds(3);
@@ -476,25 +488,27 @@ public class FamilyMemberDetailsPage {
             Actions.fillInValue(hpoSearchField, hpoTerm);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
-        }catch(Exception exp){
-            Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
         }
     }
-    public boolean verifyAddedFamilyMemberDetailsInLandingPage(){
+
+    public boolean verifyAddedFamilyMemberDetailsInLandingPage() {
         //1. Verify the display of Title for the added Test.
-        By firstNameLastName = By.xpath(addFamilyMemberTitle+"'"+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME()+"')]");
-        if(!seleniumLib.isElementPresent(firstNameLastName)){
-            Debugger.println("Selected Family member not displayed in Landing Page: "+familyMember.getFIRST_NAME()+", "+familyMember.getLAST_NAME());
+        By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
+        if (!seleniumLib.isElementPresent(firstNameLastName)) {
+            Debugger.println("Selected Family member not displayed in Landing Page: " + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME());
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
-        By selectedFamilyMember = By.xpath(addFamilyMemberReferralTitle+"'"+familyMember.getRELATIONSHIP_TO_PROBAND()+"')]");
-        if(!seleniumLib.isElementPresent(selectedFamilyMember)){
-            Debugger.println("Selected Family member's Relation "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not displayed.");
+        By selectedFamilyMember = By.xpath(addFamilyMemberReferralTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
+        if (!seleniumLib.isElementPresent(selectedFamilyMember)) {
+            Debugger.println("Selected Family member's Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
             return false;
         }
         return true;
     }
+
     public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
         Wait.forElementToBeDisplayed(driver, pageTitleLabel);
         List<WebElement> expElements = new ArrayList<WebElement>();
@@ -518,15 +532,15 @@ public class FamilyMemberDetailsPage {
         expElements.add(nhsNumber);
         expElements.add(hospitalNumberLabel);
         expElements.add(hospitalNumber);
-        for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    public void removeFetchedDataInFamilyMemberDetailsPage(String clearToDropdown){
+    public void removeFetchedDataInFamilyMemberDetailsPage(String clearToDropdown) {
         Actions.clearField(firstName);
         Actions.clearField(lastName);
         Actions.clearField(dobOfFamilyMember);
@@ -534,67 +548,102 @@ public class FamilyMemberDetailsPage {
         expInputs = clearToDropdown.split(",");
         String pathToElement = "";
         By xpathElement = null;
-        for(int i=0; i<expInputs.length;i++) {
-            pathToElement = "//label[text()='"+expInputs[i]+"']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
+        for (int i = 0; i < expInputs.length; i++) {
+            pathToElement = "//label[text()='" + expInputs[i] + "']//following::div[@class='css-16pqwjk-indicatorContainer'][1]";
             xpathElement = By.xpath(pathToElement);
-            if(!seleniumLib.isElementPresent(xpathElement)){
-                Debugger.println("Path :"+pathToElement+" Could not locate");
+            if (!seleniumLib.isElementPresent(xpathElement)) {
+                Debugger.println("Path :" + pathToElement + " Could not locate");
                 break;
             }
             try {
                 seleniumLib.clickOnElement(xpathElement);
-            }catch(Exception exp){
+            } catch (Exception exp) {
                 //seleniumLib.moveMouseAndClickOnElement(xpathElement);
             }
         }
     }
-    public boolean verifyTheTestCheckboxIsSelected(){
-        Wait.forElementToBeDisplayed(driver,testPackageCheckBox);
-        if(!seleniumLib.isElementPresent(testPackageCheckBox)){
-            Debugger.println("Test for Family member "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in SELECTED State.");
+
+    public boolean verifyTheTestCheckboxIsSelected() {
+        try {
+            Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 30);
+            if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
+                Debugger.println("Test for Family member " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not in SELECTED State.");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("FamilyMemberDetailsPage:verifyTheTestCheckboxIsSelected:Exception:" + exp);
             return false;
         }
-        return true;
+
     }
-    public void clickOnAddNewPatientToReferral(){
+
+    public void clickOnAddNewPatientToReferral() {
         Wait.forElementToBeDisplayed(driver, AddReferralButton);
         Click.element(driver, AddReferralButton);
     }
+
     public void verifyTheTitleOfTheFamilyMemberDetailsPage(String expTitle) {
         Wait.forElementToBeDisplayed(driver, pageTitle);
         Debugger.println("The actual page title  is :" + pageTitle.getText());
         Assert.assertEquals(expTitle, pageTitle.getText().trim());
     }
-    public void clickOnCheckBoxAndSaveAndContinueButton() {
-        seleniumLib.clickOnWebElement(testPackageCheckBox);
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+
+    public void deSelectTheTest() {
+        try {
+            seleniumLib.clickOnWebElement(testPackageCheckBoxChecked);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("testSelect.jpg");
+            Debugger.println("FamilyMemberDetailsPage:deSelectTheTest:Exception:" + exp);
         }
     }
+
+    public boolean verifyTestPackageCheckBoxDeSelected() {
+        try {
+            if (seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {
+                Debugger.println("Expected the TestPackage as DeSelected, but it is in Selected State.");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("FamilyMemberDetailsPage:verifyTestPackageCheckBoxDeSelected:Exception:" + exp);
+            return false;
+        }
+
+    }
+
     public void clickOnBackButton() {
-        seleniumLib.clickOnWebElement(backButton);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        try {
+            seleniumLib.clickOnWebElement(backButton);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        }catch(Exception exp){
+            SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
+            Debugger.println("Could not click on Back Button on FamilyDetailsPage: "+exp);
         }
     }
-    public boolean verifyThePatientCardField(){
-        Wait.forElementToBeDisplayed(driver,patientCardField);
-        if(!seleniumLib.isElementPresent(patientCardField)){
-            Debugger.println("Test for Family member to this referral "+familyMember.getRELATIONSHIP_TO_PROBAND()+" not in available.");
+
+    public boolean verifyThePatientCardField() {
+        //1. Verify the display of Title for the added Family Member
+        By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
+        if (!seleniumLib.isElementPresent(firstNameLastName)) {
+            Debugger.println("Selected Family member not displayed in Landing Page: " + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME());
             return false;
         }
         return true;
     }
-    public void verifyThePatientByEdited(){
-        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
-        Iterator<WebElement> itr = patientCards.iterator();
-        while(itr.hasNext()) {
-            String resultMessage= itr.next().getText();
-            seleniumLib.clickOnWebElement(editBoxTestPackage);
-            Assert.assertEquals(resultMessage, seleniumLib.getText(familyMemeberInfoName));
+
+    public boolean verifyTheEditingReferralColor() {
+        By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
+        WebElement webElement_FN = driver.findElement(firstNameLastName);
+        String color = webElement_FN.getCssValue("color").toString();
+        if(!color.equalsIgnoreCase("rgba(218, 41, 28, 1)")){
+            Debugger.println("Expected color : "+color+" not displayed on editing family member.");
+            return false;
         }
+        return true;
+
     }
 
     public boolean verifyTheElementsOnFamilyMemberLandingPage() {
@@ -612,17 +661,18 @@ public class FamilyMemberDetailsPage {
         expElements.add(addFamilyMemberButton);
         expElements.add(continueButton);
 
-        for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
                 return false;
             }
         }
         return true;
     }
-    public void getTextFromPatientCardFields(){
+
+    public void getTextFromPatientCardFields() {
         List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
         Iterator<WebElement> itr = patientCards.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             Debugger.println(itr.next().getText());
         }
     }
@@ -674,6 +724,7 @@ public class FamilyMemberDetailsPage {
     public void clicksOnParticipantAmendmentLink() {
         seleniumLib.clickOnWebElement(participantAmendmentLink);
     }
+
     public boolean removeAFamilyMember() {
         try {
             removeFamilyMember.click();
@@ -687,6 +738,7 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
+
     public boolean verifyTheElementsOnFamilyMemberTestPackagePage() {
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         List<WebElement> expElements = new ArrayList<WebElement>();
@@ -702,11 +754,37 @@ public class FamilyMemberDetailsPage {
         expElements.add(addFamilyMemberButton);
         expElements.add(continueButton);
 
-        for(int i=0; i<expElements.size(); i++){
-            if(!seleniumLib.isElementPresent(expElements.get(i))){
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(beingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
+
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void clickOnCheckBoxAndSaveAndContinueButton() {
+        seleniumLib.clickOnWebElement(testPackageCheckBoxChecked);
+        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+        Click.element(driver, saveAndContinueButton);
+        if (helix.size() > 0) {
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        }
     }
 }//ends

@@ -303,6 +303,7 @@ public class ReferralSteps extends Pages {
             Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+            Debugger.println("Update Patient Details button shown");
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
             Debugger.println("Save Patient Details button shown");

@@ -59,7 +59,7 @@ public class TestHooks extends Pages {
     public void tearDown(Scenario scenario) {
         Status scenarioStatus = scenario.getStatus();
         if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
-            Debugger.println("Taking ScreenShot........");
+            Debugger.println("TestHooks..Taking ScreenShot........");
             scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
@@ -90,7 +90,7 @@ public class TestHooks extends Pages {
     }
 
     private void logoutAfterTest(int waitingTime) {
-        Debugger.println("deleted cookies");
+        Debugger.println("TestHooks:logoutAfterTest...And Deleting Cookies.");
        try {
             driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
             if (isAlertPresent(driver)) {

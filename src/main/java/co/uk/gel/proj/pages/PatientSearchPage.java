@@ -385,7 +385,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
+
         Wait.forElementToBeDisplayed(driver, patientCard);
+        if(!Wait.isElementDisplayed(driver,patientCard,30)){
+            Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
+            SeleniumLib.takeAScreenShot("PatientCard.jpg");
+            Assert.assertFalse("PatientCard not found to be clicked.",true);
+        }
         patientCard.click();
     }
 
