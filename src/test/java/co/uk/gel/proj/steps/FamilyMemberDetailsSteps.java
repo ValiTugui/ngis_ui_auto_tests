@@ -230,10 +230,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should be able to see the error message that the number of participants does not match the number of test package")
-    public void theUserShouldBeAbleToSeeTheErrorMessageThatTheNumberOfParticipantsDoesNotMatchTheNumberOfTestPackage() {
+    @Then("the user should see mismatch message in selected and actual participant as {string}")
+    public void theUserShouldSeeMismatchParticipantMessage(String errorMessage) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage();
+        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
         Assert.assertTrue(testResult);
     }
     @Then("the user should not see the removal message on the family member landing page")
@@ -264,5 +264,9 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the user should be able to see {string} removal message on the family member landing page")
     public void theUserShouldBeAbleToSeeRemovalMessageOnTheFamilyMemberLandingPage(String deleteMessage) {
         familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
+    }
+    @When("the user clicks on participant amendment link to amend the number of participants")
+    public void theUserClicksOnParticipantAmendmentLinkToAmendTestPackage() {
+        familyMemberDetailsPage.clicksOnParticipantAmendmentLink();
     }
 }//end

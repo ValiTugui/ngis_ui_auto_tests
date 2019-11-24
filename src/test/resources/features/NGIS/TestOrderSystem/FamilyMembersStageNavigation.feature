@@ -101,7 +101,7 @@ Feature: Navigation: Family Members stage
     And  clicks the Save and Continue button in family member details page
     Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
+    And  clicks the Save and Continue button in family member details page
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
@@ -128,3 +128,32 @@ Feature: Navigation: Family Members stage
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | FamilyMemberDetails                 | ClinicalQuestionDetails                                         | RelationshipToProband | DiseaseStatusDetails  | SuccessDeleteMessage                |
       | Family members | Test package | Clinical questions | 2                | NHSNumber=9449306680:DOB=14-06-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Full Sibling          | DiseaseStatus=Unknown | Family member removed from referral |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_08 @LOGOUT @NTS-3295 @E2EUI-1279 @v_1 @P0
+  Scenario Outline: E2EUI-1279: Verify the family members page layout
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And  clicks the Save and Continue button in family member details page
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMembers>" stage
+    And  clicks the Save and Continue button in family member details page
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And reads the details of selected family member "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And the user can select the test to add to the family member
+    And  clicks the Save and Continue button in family member details page
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the family member test package page is correctly displayed
+
+    Examples:
+      | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |

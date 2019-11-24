@@ -127,10 +127,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
     public WebElement relationshipToProbandDropdown;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_notification__1W')]")
+    @FindBy(xpath = "//div[contains(@class,'styles_notification__1W')]/div//p")
     public WebElement unmatchedParticipantMessage;
 
-    @FindBy(xpath = "//a[contains(text(),'amend')]")
+    @FindBy(xpath = "//a[contains(text(),'amend the expected number of participants')]")
     public WebElement participantAmendmentLink;
 
     @FindBy(css = "div[id*='react-select']")
@@ -714,14 +714,28 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public boolean unmatchedParticipantErrorMessage() {
-        if (seleniumLib.isElementPresent(unmatchedParticipantMessage)) {
-            return true;
-        }
-        return false;
+    public boolean unmatchedParticipantErrorMessage(String expMessage) {
+       try {
+           if (!seleniumLib.isElementPresent(unmatchedParticipantMessage)) {
+               Debugger.println("Expected Unmatched Participant Error not displayed.");
+               return false;
+           }
+           String actMessage = seleniumLib.getText(unmatchedParticipantMessage);
+           if(!actMessage.contains(expMessage)){
+               Debugger.println("Actual Message: "+actMessage+"\n DOES NOT CONTAINS Expected Message:"+expMessage);
+               return false;
+           }
+           return true;
+       }catch(Exception exp){
+           return false;
+       }
     }
 
     public void clicksOnParticipantAmendmentLink() {
+        if(!seleniumLib.isElementPresent(participantAmendmentLink)){
+            Debugger.println("Link to Amend the number of participant not present as expected.");
+            return;
+        }
         seleniumLib.clickOnWebElement(participantAmendmentLink);
     }
 

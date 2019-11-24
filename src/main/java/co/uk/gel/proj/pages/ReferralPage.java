@@ -286,14 +286,25 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsCompleted(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList);
-
-        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        Wait.forElementToBeDisplayed(driver, referralStage);
-        boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-        if (status == true) return true;
-        else return false;
+       try {
+           Wait.forElementToBeDisplayed(driver, toDoList);
+           String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+           Wait.seconds(2);
+           WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+           Wait.seconds(2);
+           Wait.forElementToBeDisplayed(driver, referralStage);
+           Wait.seconds(2);
+           boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
+           if(status == true){
+               return true;
+           }
+           Debugger.println("Status of Stage.."+stage+" is: "+referralStage.getAttribute("class")+", but expected to be complete.");
+           return false;
+       }catch(Exception exp){
+           Debugger.println("Exception in Checking Stage Completion Status: "+exp);
+           SeleniumLib.takeAScreenShot("StageComplete.jpg");
+           return false;
+       }
     }
 
     public boolean stageIsMandatoryToDo(String stage) {

@@ -74,3 +74,66 @@ Feature: Family Member Details Page
 #    Examples:
 #      | stage          | NhsNumber  | DOB        | RelationshipToProband |
 #      | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
+
+    ##From Here
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_05 @E2EUI-1539 @v_1 @P0
+  Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are less than family member selected
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
+    When the user clicks on participant amendment link to amend the number of participants
+    Then the user is navigated to a page with title Confirm the test package
+    Examples:
+      | FamilyMembers  | TestPackage  | NoOfParticipants | ErrorMessage                                                                                                |
+      | Family members | Test package | 2                | The number of participants you’ve selected for one or more tests does not match the number that was entered |
+
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_06 @E2EUI-1539 @v_1 @P0
+  Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are same as family member
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And reads the details of selected family member "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+    And clicks the Save and Continue button in family member details page
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the "<FamilyMembers>" stage is marked as Completed
+    Examples:
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  |
+      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_07 @E2EUI-1539 @v_1 @P0
+  Scenario Outline: E2EUI-1539:  Verify the message when number of participants in Test Package are less than family member
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And reads the details of selected family member "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And  clicks the Save and Continue button in family member details page
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
+
+    Examples:
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  | ErrorMessage                                                                                                |
+      | Family members | NHSNumber=9449305536:DOB=16-07-2011 | Full Sibling          | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
+
