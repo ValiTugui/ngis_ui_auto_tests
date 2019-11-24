@@ -224,8 +224,9 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
-    public void checkThatToDoListSuccessfullyLoaded() {
+    public boolean checkThatToDoListSuccessfullyLoaded() {
         Wait.forElementToBeDisplayed(driver, toDoList, 300);
+        return Wait.isElementDisplayed(driver,toDoList,30);
     }
 
     public String getPartialUrl(String stage) {
@@ -251,14 +252,16 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-         Wait.forElementToBeDisplayed(driver, toDoList, 100);
+        Wait.forElementToBeDisplayed(driver, toDoList, 100);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
             Actions.clickElement(driver, referralStage);
         }catch(Exception exp){
-            //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
+            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
+            // Below code added to handel that.
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }

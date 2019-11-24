@@ -5,7 +5,7 @@ Feature: Family Member Details Page
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @v_1 @P0
-  Scenario Outline: E2EUI-908: To verify the addition of a family member to a referral without providing Relationship to proband field.
+  Scenario Outline: E2EUI-908: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
     When the user navigates to the "<stage>" stage
@@ -23,7 +23,7 @@ Feature: Family Member Details Page
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_02 @E2EUI-1349 @v_1 @P0
-  Scenario Outline: E2EUI-1349: Verify The family member details on the 'Check family member Details' Page with respect to the 'Find a family member' Page
+  Scenario Outline: E2EUI-1349: Verify family member details page - Confirm family member details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
