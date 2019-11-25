@@ -4,8 +4,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
@@ -113,7 +111,7 @@ public class TumoursPage {
     public WebElement editTumourArrow;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
-    public WebElement tumourSuccessNotification;
+    public WebElement genericSuccessNotification;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
     public WebElement tumourInformationText_withNotificationSuccess;
@@ -141,6 +139,12 @@ public class TumoursPage {
 
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
+
+    @FindBy(css = "button[class*='link-button']")
+    public WebElement backLinkButton;
+
+    @FindBy(xpath = "//th[contains(text(),'Working diagnosis/morphology')]" )
+    public WebElement snomedCTWorkingDiagnosisLabel;
 
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
@@ -449,6 +453,11 @@ public class TumoursPage {
     public void clickOnTheAddANewTumourTextLink() {
         Wait.forElementToBeClickable(driver, addAnotherTumourLink);
         Click.element(driver, addAnotherTumourLink);
+    }
+
+    public String getDynamicQuestionsSnomedCTLabelText(){
+        Wait.forElementToBeDisplayed(driver,snomedCTWorkingDiagnosisLabel);
+        return  snomedCTWorkingDiagnosisLabel.getText();
     }
 
 

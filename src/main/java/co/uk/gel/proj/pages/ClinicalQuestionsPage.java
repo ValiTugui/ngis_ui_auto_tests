@@ -165,7 +165,7 @@ public class ClinicalQuestionsPage {
 
     public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
         Wait.forElementToBeDisplayed(driver, diagnosisField);
-        return (!diagnosisField.getText().contains(diagnosisValue));
+        return (!diagnosisField.getText().equalsIgnoreCase(diagnosisValue));
 
     }
 

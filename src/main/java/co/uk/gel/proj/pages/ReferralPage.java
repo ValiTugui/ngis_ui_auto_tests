@@ -167,6 +167,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[contains(@class,'no-access__copy')]//child::a")
     public List<WebElement> cancelledReferralWarningPageLinks;
 
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    public WebElement genericSuccessNotification;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
     //Family Member Search
@@ -200,7 +203,9 @@ public class ReferralPage<check> {
 
     public void clickSaveAndContinueButton() {
         Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // Click.element(driver, saveAndContinueButton)
         if (helix.size() > 0) {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
@@ -354,5 +359,10 @@ public class ReferralPage<check> {
 
     public void clickOnTheBackLink() {
         Actions.retryClickAndIgnoreElementInterception(driver,backLink);
+    }
+
+    public String successNotificationIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
+        return Actions.getText(genericSuccessNotification);
     }
 }

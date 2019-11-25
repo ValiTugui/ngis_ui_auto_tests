@@ -1,5 +1,11 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
+import com.github.javafaker.Faker;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,10 +16,16 @@ import java.util.List;
 public class SamplesPage {
 
 	WebDriver driver;
+	Faker faker = new Faker();
+	NewPatient sampleDetails = new NewPatient();
+
+	SeleniumLib seleniumLib;
+
 
 	public SamplesPage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		seleniumLib = new SeleniumLib(driver);
 	}
 
 	@FindBy(css = "div[id*='react-select']")
@@ -87,4 +99,102 @@ public class SamplesPage {
 	@FindBy(css = "*[class*='samples-banner']")
 	public WebElement emptyLandingPageBanner;
 
+	@FindBy(xpath = "//p[contains(@class,'sample-detail__sub-title')]")
+	public List<WebElement> manageSamplesSubTitles;
+
+	@FindBy(xpath = "//p[contains(@class,'styles_text--5')]")
+	public WebElement addASampleOrEditASubTitle;
+
+	@FindBy(xpath = "(//p[contains(@class,'styles_text--7')])[1]")
+	public WebElement addSampleDetailsSubTitle;
+
+	@FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
+	public WebElement tumourSampleDynamicQuestionsLabel;
+
+
+	public void selectSampleType(String type) {
+		Actions.clickElement(driver, sampleType);
+		Actions.selectValueFromDropdown(dropdownValue, type);
+		sampleDetails.setSampleType(type);
+		Wait.seconds(1);
+	}
+
+	public void selectSampleState() {
+		Actions.clickElement(driver, sampleState);
+		Actions.selectRandomValueFromDropdown(dropdownValues);
+		sampleDetails.setSampleState(Actions.getText(sampleState));
+	}
+
+	public void fillInSampleID() {
+		Wait.forElementToBeDisplayed(driver, labId);
+		String ID = faker.numerify("S#####");
+		Actions.fillInValue(labId, ID);
+		sampleDetails.setSampleID(ID);
+	}
+
+	public void answerSampleTopography(String value) {
+		Wait.forElementToBeDisplayed(driver, sampleTopographyField);
+		Actions.fillInValue(sampleTopographyField, value);
+		Wait.forElementToBeDisplayed(driver, dropdownValue);
+		Actions.selectRandomValueFromDropdown(dropdownValues);
+	}
+
+	public void answerSampleMorphology(String value) {
+		Actions.fillInValue(sampleMorphologyField, value);
+		Wait.forElementToBeDisplayed(driver, dropdownValue);
+		Actions.selectRandomValueFromDropdown(dropdownValues);
+	}
+
+	public int fillInPercentageOfMalignantNuclei() {
+		Wait.forElementToBeDisplayed(driver, percentageOfMalignantNucleiField);
+		int percentage = faker.number().numberBetween(2, 99);
+		Actions.fillInValue(percentageOfMalignantNucleiField, String.valueOf(percentage));
+		return percentage;
+	}
+
+	public int fillInNumberOfSlides() {
+		Wait.forElementToBeDisplayed(driver, numberOfSlidesField);
+		int slides = faker.number().randomDigitNotZero();
+		Actions.fillInValue(numberOfSlidesField, String.valueOf(slides));
+		return slides;
+	}
+
+	public void selectSampleCollectionDate() {
+		Wait.forElementToBeDisplayed(driver, sampleCollectionDateField);
+		sampleDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+		sampleDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+		sampleDetails.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+		Actions.fillInValue(sampleCollectionDateField, sampleDetails.getDay() + "/" + sampleDetails.getMonth() + "/" + sampleDetails.getYear());
+	}
+
+	public String fillInSampleComments() {
+		Wait.forElementToBeDisplayed(driver, sampleCommentsField);
+		String comment = faker.chuckNorris().fact();
+		Actions.fillInValue(sampleCommentsField, comment);
+		return comment;
+	}
+
+
+	public int numberOfNewSamplesDisplayedInLandingPage() {
+		Wait.forElementToBeDisplayed(driver, successNotification);
+		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+		int numberOfSamples = samplesLandingPageList.size() - 1;
+		return numberOfSamples;
+	}
+
+
+	public void clickAddSampleButton() {
+		Actions.clickElement(driver, addSampleButton);
+	}
+
+	public String getDynamicQuestionsLabelText(){
+		Wait.forElementToBeDisplayed(driver, tumourSampleDynamicQuestionsLabel);
+		return tumourSampleDynamicQuestionsLabel.getText();
+	}
+
+	public boolean newSampleIsDisplayedInLandingPage() {
+		Wait.forElementToBeDisplayed(driver, successNotification);
+		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+		return successNotification.isDisplayed() && samplesLandingPageTable.isDisplayed();
+	}
 }
