@@ -13,6 +13,7 @@ Feature: Requesting Organisation page
       | Sign in to the online service |
      #Test Ordering
     And the user logs in to the Test Order system successfully
+      | Find your patient |
     And the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page
       | NGIS |
     And the user clicks the patient result card
@@ -31,7 +32,7 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @E2EUI-916 @E2EUI-936 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
+  @E2EUI-916 @E2EUI-936 @E2EUI-1421 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
