@@ -107,8 +107,8 @@ Feature: Samples Page
       | Normal or germline sample |
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
-      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType   |
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
 
 
   @COMP7_TOC_Samples @LOGOUT
@@ -122,10 +122,10 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the user clicks the Save and Continue button
     Then the error messages for the sample mandatory fields on Add a Sample page are displayed
-      | errorMessageHeader                           |
-      | Sample type is required.                     |
-      | Sample state is required.                    |
-      | Sample ID from local laboratory is required. |
+      | labelHeader                       | errorMessageHeader                           |
+      | Sample type ✱                     | Sample type is required.                     |
+      | Sample state ✱                    | Sample state is required.                    |
+      | Sample ID from local laboratory ✱ | Sample ID from local laboratory is required. |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |

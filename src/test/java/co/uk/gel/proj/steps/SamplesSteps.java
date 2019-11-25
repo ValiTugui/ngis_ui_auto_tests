@@ -155,10 +155,16 @@ public class SamplesSteps extends Pages {
 
     @Then("the error messages for the sample mandatory fields on Add a Sample page are displayed")
     public void theErrorMessagesForTheSampleMandatoryFieldsOnAddASamplePageAreDisplayed(DataTable dataTable) {
-        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
-        for (int i = 0; i < list.size(); i++) {
-            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
-            Assert.assertEquals(list.get(i).get("errorMessageHeader"), getText(samplesPage.errorMessages.get(i)));
+        List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
+        for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0));
+            Debugger.println("Actual labelHeader " + samplesPage.fieldsLabelErrors.get(i - 1).getText() + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), samplesPage.fieldsLabelErrors.get(i - 1).getText());
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), getText(samplesPage.fieldsLabelErrors.get(i - 1)));
+
+            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1));
+            Debugger.println("Actual ErrorMessage Header " + samplesPage.errorMessages.get(i - 1).getText() + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), getText(samplesPage.errorMessages.get(i - 1)));
         }
     }
 

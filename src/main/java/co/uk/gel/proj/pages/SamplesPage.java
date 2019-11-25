@@ -119,6 +119,18 @@ public class SamplesPage {
 	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
 	public List <WebElement> sampleTypesOptions;
 
+	@FindBy (xpath = "label[for*='sampleType']")
+	public WebElement sampleTypeLabel;
+
+	@FindBy (xpath = "label[for*='sampleState']")
+	public WebElement sampleStateLabel;
+
+	@FindBy (xpath = "label[for*='labId']")
+	public WebElement labIdLabel;
+
+	@FindBy(css = "*[class*='styles_field-label--error']")
+	public List<WebElement> fieldsLabelErrors;
+
 
 	public void selectSampleType(String type) {
 		Actions.clickElement(driver, sampleType);
