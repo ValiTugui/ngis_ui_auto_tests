@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SamplesPage {
@@ -111,6 +113,12 @@ public class SamplesPage {
 	@FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
 	public WebElement tumourSampleDynamicQuestionsLabel;
 
+	@FindBy (xpath = "//label[@for='sampleType']/../div//div[text()='Select...']/../..")
+	public WebElement sampleTypeDropDown;
+
+	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
+	public List <WebElement> sampleTypesOptions;
+
 
 	public void selectSampleType(String type) {
 		Actions.clickElement(driver, sampleType);
@@ -196,5 +204,16 @@ public class SamplesPage {
 		Wait.forElementToBeDisplayed(driver, successNotification);
 		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
 		return successNotification.isDisplayed() && samplesLandingPageTable.isDisplayed();
+	}
+
+	public List<String> getSampleTypesOptions() {
+		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
+		Actions.clickElement(driver,sampleTypeDropDown);
+		List<String> actualSampleTypes = new ArrayList<>();
+		for (WebElement sampleType : sampleTypesOptions) {
+			actualSampleTypes.add(sampleType.getText().trim());
+		}
+		Debugger.println("Print sampleTypes" + actualSampleTypes);
+		return actualSampleTypes;
 	}
 }

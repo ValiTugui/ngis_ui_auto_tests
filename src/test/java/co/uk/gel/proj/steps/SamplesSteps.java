@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -156,6 +157,20 @@ public class SamplesSteps extends Pages {
         for (int i = 0; i < list.size(); i++) {
             Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
             Assert.assertEquals(list.get(i).get("errorMessageHeader"), getText(samplesPage.errorMessages.get(i)));
+        }
+    }
+
+    @And("the following drop-down values are displayed for Sample types on Add a sample page")
+    public void theFollowingDropDownValuesAreDisplayedForSampleTypesOnAddASamplePage(DataTable dataTable) {
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedSampleTypesList = new ArrayList<>();
+        List<String> actualSampleTypesList = samplesPage.getSampleTypesOptions();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedSampleTypesList.add(expectedList.get(i).get("sampleTypesHeader"));
+            Debugger.println("Expected Sample type: " + i + " : " + expectedSampleTypesList.get(i));
+            Debugger.println("Actual Sample type: " + i + " : " + actualSampleTypesList.get(i) + "\n");
+            Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
         }
     }
 }
