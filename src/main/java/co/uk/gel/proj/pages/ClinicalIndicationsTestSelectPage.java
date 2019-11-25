@@ -80,6 +80,8 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'card_')]")
     public List<WebElement> furtherInfoSections;
 
+    String furtherInfoSectionsLocator = "//*[contains (@class, 'card_')]";
+
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement startTestOrderButton;
 
@@ -115,6 +117,8 @@ public class ClinicalIndicationsTestSelectPage {
 
     @FindBy(xpath = "//*/h4")
     public List<WebElement> clinicalIndicationsHeadings;
+
+    String clinicalIndicationsHeadingsLocator = "//*/h4";
 
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
@@ -306,12 +310,12 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*/h4"), 0);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath(clinicalIndicationsHeadingsLocator), 0);
         return (((goToClinicalIndicationsButtonInPopup.getText().matches(buttonName)) && (closePopupButton.isDisplayed()) && clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
     }
 
     public void waitUntilFurtherInfoCardsFromFurtherInfoTabAreLoaded() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'card_')]"), 1);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath(furtherInfoSectionsLocator), 1);
     }
 
     public boolean furtherInfoTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {

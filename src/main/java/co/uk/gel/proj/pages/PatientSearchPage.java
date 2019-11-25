@@ -647,8 +647,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateMonth.isDisplayed();
         dateYear.isDisplayed();
         searchButton.isDisplayed();
-        pageTitle.getText().matches(pageTitleText);
-
         return true;
     }
 
