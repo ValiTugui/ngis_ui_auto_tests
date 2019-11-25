@@ -227,11 +227,11 @@ public class PaperFormPage {
 
     public void clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
+            Debugger.println("clickSignInToTheOnlineServiceButton: " + driver.getCurrentUrl());
             Click.element(driver, signInToOnlineServiceButton);
             Wait.seconds(5);
-        }catch(Exception exp){
-            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
         }
     }
 
@@ -246,6 +246,10 @@ public class PaperFormPage {
     public void clickContinueButton() {
         Wait.forElementToBeDisplayed(driver, continueButton.get(0));
         Click.element(driver, continueButton.get(0));
+    }
+
+    public void clickCancelOrderLink() {
+        Click.element(driver, cancelOrderLink);
     }
 
     public void checkThatReviewTestSelectionIsOpened() {
@@ -266,12 +270,13 @@ public class PaperFormPage {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
 
-    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
         orderEntitySubHeader.isDisplayed();
         return orderEntitySubHeader.getText().matches(expectedLabelText);
     }
-    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
         return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
     }
@@ -312,5 +317,29 @@ public class PaperFormPage {
         }
         return (downloadSections.size() == downloadButton.size());
     }
+
+    public boolean checkCancelOrderLinkIdDisplayed(String linkName) {
+        Wait.forElementToBeDisplayed(driver, cancelOrderLink);
+        cancelOrderLink.isDisplayed();
+        cancelOrderLink.getText().matches(linkName);
+        return true;
+    }
+
+    public boolean checkThatInformationEntityIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, selectedOrderEntityInformationBox);
+        return selectedOrderEntityInformationBox.isDisplayed();
+    }
+
+    public boolean checkThatSelectedEntityNameIsTheSameAsTheSearchValue() {
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        String entitySearchValue = orderEntitySearchField.getAttribute("value");
+        String selectedEntityName = selectedOrderEntityName.getText();
+        return entitySearchValue.matches(selectedEntityName);
+    }
+
+    public void checkContinueIsClickable() {
+        Wait.forElementToBeClickable(driver, continueButton.get(0));
+    }
+
 }
 

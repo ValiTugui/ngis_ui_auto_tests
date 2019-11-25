@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -118,6 +119,9 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*/h4")
     public List<WebElement> clinicalIndicationsHeadings;
 
+    @FindBy(css = "div[class*='mainSection']")
+    public WebElement clinicalIndicationsSearchValue;
+
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
     public void clickStartReferralButton() {
@@ -153,7 +157,7 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'styles_relatedContainer')]/ul"), 0);
+        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
         return clinicalIndicationsResults.size() >= 0;
     }
 
@@ -337,6 +341,10 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Section Mismatch: " + furtherInfoSections.size());
         }
+    }
+
+    public boolean checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven() {
+        return clinicalIndicationsSearchValue.getText().contains(AppConfig.getSearchTerm());
     }
 
 }
