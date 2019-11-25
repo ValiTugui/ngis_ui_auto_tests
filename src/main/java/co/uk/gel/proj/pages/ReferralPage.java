@@ -179,6 +179,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
+    @FindBy(css = "*[class*='error-message__text']")
+    public List<WebElement> errorMessages;
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
