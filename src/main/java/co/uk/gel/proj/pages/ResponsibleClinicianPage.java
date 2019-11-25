@@ -33,7 +33,7 @@ String key2 = "additionalClinician";
 	public WebElement clinicianDetails;
 
 	@FindBy(css = "div[class*='clinician-details-form__heading']")
-	public List<WebElement> clinicianFormHeader;
+	public WebElement clinicianFormHeader;
 
 	@FindBy(css = "div[class*='clinician-details-form__info']")
 	public WebElement clinicianFormInfo;
@@ -61,6 +61,9 @@ String key2 = "additionalClinician";
 
 	@FindBy(css = "label[for*='responsibleClinician.professionalRegistrationNumber']")
 	public WebElement clinicianProfesionalRegistrationNumberLabel;
+
+	@FindBy(css = "div[class*='clinician-details-form__contact__heading']")
+	public WebElement clinicianContactSectionLabel;
 
 	@FindBy(css = "input[id*='responsibleClinician.forename']")
 	public WebElement clinicianFirstNameField;
@@ -310,4 +313,53 @@ String key2 = "additionalClinician";
 		cliniciansMap.put(clinicianIdentifier,clinicianInfo);
 	}
 
+	public String getClinicianHelpText(){
+		Wait.forElementToBeDisplayed(driver, clinicianDetails);
+		return Actions.getText(clinicianDetails);
+	}
+
+	public String getSectionTitle(){
+		Wait.forElementToBeDisplayed(driver, clinicianFormHeader);
+		return Actions.getText(clinicianFormHeader);
+	}
+
+	public boolean firstNameFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		return clinicianFirstNameField.isDisplayed() && clinicianFirstNameLabel.isDisplayed();
+	}
+
+	public boolean lastNameFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianLastNameField);
+		return clinicianLastNameField.isDisplayed() && clinicianLastNameLabel.isDisplayed();
+	}
+
+	public boolean emailFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+		return clinicianEmailField.isDisplayed() && clinicianEmailLabel.isDisplayed();
+	}
+
+	public boolean phoneNumberFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
+		return clinicianPhoneNumberField.isDisplayed() && clinicianPhoneNumberLabel.isDisplayed();
+	}
+
+	public boolean departmentNameAndAddressFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
+		return clinicianDepartmentAddressField.isDisplayed() && clinicianDepartmentAddressLabel.isDisplayed();
+	}
+
+	public boolean professionalRegistrationNumberFieldDisplayed(){
+		Wait.forElementToBeDisplayed(driver, clinicianProfesionalRegistrationNumberField);
+		return clinicianProfesionalRegistrationNumberField.isDisplayed() && clinicianProfesionalRegistrationNumberLabel.isDisplayed();
+	}
+
+	public String getContactSectionTitle(){
+		Wait.forElementToBeDisplayed(driver, clinicianContactSectionLabel);
+		return Actions.getText(clinicianContactSectionLabel);
+	}
+
+	public String getContactSectionHelpText(){
+		Wait.forElementToBeDisplayed(driver, clinicianFormInfo);
+		return Actions.getText(clinicianFormInfo);
+	}
 }
