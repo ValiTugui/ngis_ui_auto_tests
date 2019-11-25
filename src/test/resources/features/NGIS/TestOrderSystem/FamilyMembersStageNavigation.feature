@@ -1,7 +1,7 @@
 @regression
 @COMP08_P0
 @FamilyMemberStageNavigation
-Feature: Navigation: Family Members stage
+Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_Familymembers
     @familyMemberStageNavigation_01 @LOGOUT @NTS-3243 @E2EUI-1287 @v_1 @P0
@@ -101,7 +101,7 @@ Feature: Navigation: Family Members stage
     And  clicks the Save and Continue button in family member details page
     Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
@@ -139,7 +139,7 @@ Feature: Navigation: Family Members stage
     And  clicks the Save and Continue button in family member details page
     Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card

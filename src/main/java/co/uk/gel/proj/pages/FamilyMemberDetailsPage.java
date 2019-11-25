@@ -716,6 +716,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean unmatchedParticipantErrorMessage(String expMessage) {
        try {
+           Wait.forElementToBeDisplayed(driver,unmatchedParticipantMessage,20);
            if (!seleniumLib.isElementPresent(unmatchedParticipantMessage)) {
                Debugger.println("Expected Unmatched Participant Error not displayed.");
                return false;

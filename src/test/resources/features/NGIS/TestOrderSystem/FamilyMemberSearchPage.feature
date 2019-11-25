@@ -1,7 +1,7 @@
 @regression
 @COMP08_P0
 @FamilyMemberSearchPage
-Feature: FamilyMember search page
+Feature: Family Members Search Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0

@@ -126,10 +126,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
     public WebElement genderClear;
 
-
-
-
-
     static String searchString = "";
 
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
@@ -317,9 +313,11 @@ public class FamilyMemberSearchPage {
     }
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
+        Debugger.println("Searching for Family Member: "+searchParams);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
+            Debugger.println("Key: "+key);
             switch (key) {
                 case "NHSNumber": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
