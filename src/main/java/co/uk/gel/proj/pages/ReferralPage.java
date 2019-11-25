@@ -369,4 +369,16 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
         return Actions.getText(genericSuccessNotification);
     }
+
+
+    public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
+
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualErrorMessages = new ArrayList<>();
+        for (WebElement errorMessage : errorMessages) {
+            actualErrorMessages.add(errorMessage.getText().trim());
+        }
+        Debugger.println("Actual-Error Messages" + actualErrorMessages);
+        return actualErrorMessages;
+    }
 }

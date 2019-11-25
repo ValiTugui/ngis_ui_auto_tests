@@ -228,4 +228,17 @@ public class SamplesPage {
 		Debugger.println("Print sampleTypes" + actualSampleTypes);
 		return actualSampleTypes;
 	}
+
+	public List<String> getTheListOfFieldsErrorLabelsOnAddASamplePage() {
+
+		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
+		List<String> actualFieldErrorLabels = new ArrayList<>();
+		for (WebElement fieldLabel : fieldsLabelErrors) {
+			actualFieldErrorLabels.add(fieldLabel.getText().trim());
+		}
+		Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+		return actualFieldErrorLabels;
+	}
+
+
 }
