@@ -161,4 +161,9 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theUserClickOnGoToClinicalIndicationButton() {
         clinicalIndicationsTestSelect.clickGoToClinicalIndicationButton();
     }
+
+    @Then("the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation")
+    public void theBrowserNavigatesToThePreviouslySelectedClinicalIndicationDetailsPageWhileStillSavingTheUserSMostRecentSearchForFurtherPageNavigation() {
+        Assert.assertTrue(clinicalIndicationsTestSelect.checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven());
+    }
 }

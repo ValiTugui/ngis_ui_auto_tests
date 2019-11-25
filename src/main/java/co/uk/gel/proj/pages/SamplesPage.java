@@ -186,11 +186,11 @@ public class SamplesPage {
 	}
 
 
-	public void newSampleIsDisplayedInLandingPage(int i) {
+	public int numberOfNewSamplesDisplayedInLandingPage() {
 		Wait.forElementToBeDisplayed(driver, successNotification);
 		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
 		int numberOfSamples = samplesLandingPageList.size() - 1;
-		Assert.assertEquals(i, numberOfSamples);
+		return numberOfSamples;
 	}
 
 

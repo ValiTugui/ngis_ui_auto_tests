@@ -61,7 +61,6 @@ public class ReferralSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
         homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();

@@ -16,6 +16,17 @@ public class Wait {
         wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+    /*
+	Added this method to verify the element is actually displayed after the specified waiting period.
+	 */
+    public static boolean isElementDisplayed(WebDriver driver, WebElement element,int seconds) {
+        try{
+            wait = new WebDriverWait(driver, seconds);
+            return element.isDisplayed();
+        }catch (Exception exp){
+            return false;
+        }
+    }
 
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
         wait = new WebDriverWait(driver, timeInSeconds);

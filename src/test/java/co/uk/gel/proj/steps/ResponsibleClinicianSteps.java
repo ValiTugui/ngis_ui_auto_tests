@@ -82,4 +82,22 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserSeesFirstNameLastNamePhoneNumberAndEmailDepartmentNameAndAddressProfessionalRegistrationNumber() {
         responsibleClinicianPage.confirmTheExpectedFieldsToBeSeemInClinicianForm();
     }
+
+    @When("the user clicks the Additional Clinician link")
+    public void theUserClicksTheAdditionalClinicianLink() {
+        responsibleClinicianPage.clickAddAnotherLink();
+    }
+
+    @And("the user fills in all the fields for the additional clinician")
+    public void theUserFillsInAllTheFieldsForTheAdditionalClinician() {
+        responsibleClinicianPage.fillInAdditionalClinicianFormFields();
+    }
+
+    @And("both clinicians details are persisted when returning to the {string} stage")
+    public void bothCliniciansDetailsArePersistedWhenReturningToTheStage(String stage) {
+        referralPage.navigateToStage(stage);
+        referralPage.stageIsSelected(stage);
+        Assert.assertTrue(responsibleClinicianPage.clinicianDetailsArePersistedAtLoad());
+        Assert.assertTrue(responsibleClinicianPage.additionalClinicianDetailsArePersistedAtLoad());
+    }
 }

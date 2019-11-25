@@ -251,7 +251,7 @@ public class SeleniumLib {
             }
             return "Option : " + text + " Not Present";
         } catch (NoSuchElementException e) {
-            return "Exception Occured while selecting from DropDown List " + e;
+            return "Exception Occurred while selecting from DropDown List " + e;
         }
     }
 
@@ -277,7 +277,7 @@ public class SeleniumLib {
             elementHighlight(webElement);
             return webElement.isDisplayed();
         } catch (Exception exp) {
-            Debugger.println("Element not Displayed......" + exp + "\nElement..." + element);
+            //Debugger.println("Element not Displayed......" + exp + "\nElement..." + element);
             return false;
         }
     }
@@ -291,7 +291,7 @@ public class SeleniumLib {
             }
             return false;
         } catch (NoSuchElementException e) {
-            Debugger.println("[Error]" + element.toString() + "  Not displayed");
+            //Debugger.println("[Error]" + element.toString() + "  Not displayed");
             return false;
         }
     }
@@ -306,7 +306,7 @@ public class SeleniumLib {
             }
             return false;
         } catch (NoSuchElementException e) {
-            Debugger.println("[Error]" + element.toString() + "  Not displayed");
+            //Debugger.println("[Error]" + element.toString() + "  Not displayed");
             return false;
         }
     }
