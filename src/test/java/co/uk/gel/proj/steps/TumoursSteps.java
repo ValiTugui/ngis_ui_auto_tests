@@ -351,7 +351,7 @@ public class TumoursSteps extends Pages {
         Debugger.println("Expected error message: " + errorMessage);
         Debugger.println("Actual Error message: " + getText(tumoursPage.errorMessages.get(0)));
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
