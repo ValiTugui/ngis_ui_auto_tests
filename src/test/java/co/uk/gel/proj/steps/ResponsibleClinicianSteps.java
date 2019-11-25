@@ -82,7 +82,7 @@ public class ResponsibleClinicianSteps extends Pages {
     public void bothCliniciansDetailsArePersistedWhenReturningToTheStage(String stage) {
         referralPage.navigateToStage(stage);
         referralPage.stageIsSelected(stage);
-        responsibleClinicianPage.clinicianDetailsArePersistedAtLoad();
-        responsibleClinicianPage.additionalClinicianDetailsArePersistedAtLoad();
+        Assert.assertTrue(responsibleClinicianPage.clinicianDetailsArePersistedAtLoad());
+        Assert.assertTrue(responsibleClinicianPage.additionalClinicianDetailsArePersistedAtLoad());
     }
 }

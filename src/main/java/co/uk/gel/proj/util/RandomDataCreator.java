@@ -187,7 +187,7 @@ public class RandomDataCreator {
     }
 
     public static String getRandomPhoneNumber() {
-        return fake.phoneNumber().cellPhone();
+        return fake.number().digits(10);
     }
 
     public static String getRandomEmailAddress() {

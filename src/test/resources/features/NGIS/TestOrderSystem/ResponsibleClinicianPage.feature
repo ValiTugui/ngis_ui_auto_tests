@@ -70,7 +70,7 @@ Feature: Responsible Clinician
       | Responsible clinician |   Tumours    |
 
   @E2EUI-972 @NTS-3311 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
-  Scenario Outline: NTS-3175 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
+  Scenario Outline: NTS-3311 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Chondrosarcoma Conventional Central | NGIS | Cancer |
     And the user navigates to the "<stage1>" stage
