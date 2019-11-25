@@ -64,7 +64,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_06 @LOGOUT @E2EUI-1291 @v_1 @P0
+    @familyMemberDetailsPage_06 @LOGOUT @NTS-3301 @E2EUI-1291 @v_1 @P0
   Scenario Outline: E2EUI-1291: Verify the current additional family member information
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -88,7 +88,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_07 @LOGOUT @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @v_1 @P0
+    @familyMemberDetailsPage_07 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @v_1 @P0
   Scenario Outline: E2EUI-1331-1485-1639: Remove a family member from a referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -120,7 +120,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user should be able to see "<SuccessDeleteMessage>" removal message on the family member landing page
     ##Below Steps for 1639
     And the user clicks on Continue Button
-    Then the Patient Choice page is displayed
+    Then the user is navigated to a page with title Patient choice
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should not see the removal message on the family member landing page
 

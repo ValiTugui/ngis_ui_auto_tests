@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -187,6 +188,10 @@ public class ReferralPage<check> {
     String mandatoryToDOIconLocator = "todo__required-icon";
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
+
+    @FindBy(css = "div[class*='error-message__text']")
+    public List<WebElement> validationErrors;
+
 
 
     public void checkThatReferalWasSuccessfullyCreated() {
@@ -378,5 +383,40 @@ public class ReferralPage<check> {
     public String successNotificationIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
         return Actions.getText(genericSuccessNotification);
+    }
+    public void clickOnSaveAndContinueButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Wait.seconds(2);
+            Click.element(driver, saveAndContinueButton);
+            Wait.seconds(5);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
+            Debugger.println("Could not click on Save and Continue...." + exp);
+        }
+    }
+    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
+        try {
+            Wait.seconds(5);
+            String actualMessage = validationErrors.get(0).getText();
+            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                return false;
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = validationErrors.get(0).getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Error Message " + exp);
+            return false;
+        }
     }
 }

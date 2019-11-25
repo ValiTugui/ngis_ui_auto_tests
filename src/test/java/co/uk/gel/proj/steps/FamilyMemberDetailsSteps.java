@@ -23,7 +23,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the message will be displayed as {string} in {string} for the invalid field in family member details page")
     public void theMessageWillBeDisplayedAsInForTheInvalidFieldInFamilyDetailsPage(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         Assert.assertTrue(testResult);
         Actions.scrollToTop(driver);
     }
@@ -41,12 +41,12 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("clicks the Save and Continue button in family member details page")
     public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        familyMemberDetailsPage.clickOnSaveAndContinueButton();
+        referralPage.clickOnSaveAndContinueButton();
     }
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage,messageColor);
+        testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage,messageColor);
         Assert.assertTrue(testResult);
     }
 
@@ -216,11 +216,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
         familyMemberDetailsPage.clickOnContinueButton();
-    }
-
-    @Then("the Patient Choice page is displayed")
-    public void thePatientChoicePageIsDisplayed() {
-        familyMemberDetailsPage.patientChoicePageIsDisplayed();
     }
 
     @When("the user clicks on dustbin icon of the family member")

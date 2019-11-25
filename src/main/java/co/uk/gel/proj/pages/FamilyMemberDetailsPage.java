@@ -319,42 +319,9 @@ public class FamilyMemberDetailsPage {
         patientCard.click();
     }
 
-    public void clickOnSaveAndContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
-            Wait.seconds(5);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
-            Debugger.println("Could not click on Save and Continue...." + exp);
-        }
-    }
 
-    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
-        try {
-            Wait.seconds(5);
-            String actualMessage = seleniumLib.getText(validationErrors.get(0));
-            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-                return false;
-            }
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = validationErrors.get(0).getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from validating Error Message " + exp);
-            return false;
-        }
-    }
+
+
 
     public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
@@ -700,11 +667,6 @@ public class FamilyMemberDetailsPage {
     public void clickOnContinueButton() {
         Wait.forElementToBeDisplayed(driver, continueButton);
         continueButton.click();
-    }
-
-    public boolean patientChoicePageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
-        return true;
     }
 
     public boolean verifyTheDeleteMessageIsPresent() {
