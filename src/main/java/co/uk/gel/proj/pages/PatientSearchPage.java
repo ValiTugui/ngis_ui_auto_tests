@@ -57,6 +57,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
 
+    String pageTitleText = "Find your patient";
+
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 

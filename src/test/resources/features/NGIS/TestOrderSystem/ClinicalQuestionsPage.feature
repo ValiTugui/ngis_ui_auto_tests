@@ -17,8 +17,8 @@ Feature: Clinical Questions stage
     And the Clinical Questions page is displayed with at least "<hpoTermsCount>" HPO terms in the HPO Phenotype section
 
     Examples:
-      | stage              | title                     |   hpoTerm1                | hpoTerm2               |hpoTermsCount |
-      | Clinical questions | Answer clinical questions |  Sparse and thin eyebrow  | Intestinal malrotation | 2            |
+      | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             |
 
   @E2EUI-1972 @NTS-3240 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field

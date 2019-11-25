@@ -1,24 +1,28 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
+import co.uk.gel.lib.*;
+import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ResponsibleClinicianPage {
 
 	WebDriver driver;
 	Faker fake = new Faker();
+
+String key1 = "mainClinician";
+String key2 = "additionalClinician";
+	public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
 
 	public ResponsibleClinicianPage(WebDriver driver) {
 		this.driver = driver;
@@ -100,21 +104,40 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 
-    public void fillInClinicianFormFields() {
-        Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+	public void fillInClinicianFormFields() {
+		String firstName = RandomDataCreator.getRandomFirstName();
+		String lastName = RandomDataCreator.getRandomLastName();
+		String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
+		String email = RandomDataCreator.getRandomEmailAddress();
+		String departmentAddress = RandomDataCreator.getRandomAddress();
+		String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
+
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
         Actions.clearField(clinicianFirstNameField);
-        Actions.fillInValue(clinicianFirstNameField, fake.name().firstName());
+        Actions.fillInValue(clinicianFirstNameField, firstName);
         Actions.clearField(clinicianLastNameField);
-        Actions.fillInValue(clinicianLastNameField, fake.name().lastName());
+        Actions.fillInValue(clinicianLastNameField, lastName);
         Actions.clearField(clinicianPhoneNumberField);
-        Actions.fillInValue(clinicianPhoneNumberField, fake.phoneNumber().cellPhone());
+        Actions.fillInValue(clinicianPhoneNumberField, phoneNumber);
         Actions.clearField(clinicianEmailField);
-        Actions.fillInValue(clinicianEmailField, fake.internet().emailAddress());
+        Actions.fillInValue(clinicianEmailField, email);
         Actions.clearField(clinicianDepartmentAddressField);
-        Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+        Actions.fillInValue(clinicianDepartmentAddressField, departmentAddress);
         Actions.clearField(clinicianProfesionalRegistrationNumberField);
-        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
-    }
+        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
+
+		ArrayList clinicianDetails = new ArrayList();
+		clinicianDetails.add(0,firstName);
+		clinicianDetails.add(1,lastName);
+		clinicianDetails.add(2,phoneNumber);
+		clinicianDetails.add(3,email);
+		clinicianDetails.add(4,departmentAddress);
+		clinicianDetails.add(5,professionalRegistrationNumber);
+
+		storeClinicianDataForVerification(key1 , clinicianDetails);
+
+
+	}
 
     public void enterEmail(String emailValue) {
         Wait.forElementToBeDisplayed(driver, clinicianEmailField);
@@ -221,6 +244,70 @@ public class ResponsibleClinicianPage {
 		clinicianEmailField.isDisplayed();
 		clinicianDepartmentAddressField.isDisplayed();
 		clinicianProfesionalRegistrationNumberField.isDisplayed();
+	}
+
+	public void clickAddAnotherLink() {
+		if (removeClinicianButton.size() == 0) {
+			Click.element(driver, addAnotherClinicianButton);
+		} else {
+			Click.element(driver, removeClinicianButton.get(0));
+			Click.element(driver, addAnotherClinicianButton);
+		}
+	}
+
+	public void fillInAdditionalClinicianFormFields() {
+		String firstName = RandomDataCreator.getRandomFirstName();
+		String lastName = RandomDataCreator.getRandomLastName();
+		String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
+		String email = RandomDataCreator.getRandomEmailAddress();
+		String departmentAddress = RandomDataCreator.getRandomAddress();
+		String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
+
+		Wait.forElementToBeDisplayed(driver, additionalClinicianFirstNameField);
+		Actions.fillInValue(additionalClinicianFirstNameField, firstName);
+		Actions.fillInValue(additionalClinicianLastNameField, lastName);
+		Actions.fillInValue(additionalClinicianPhoneNumberField, phoneNumber);
+		Actions.fillInValue(additionalClinicianEmailField, email);
+		Actions.fillInValue(additionalClinicianDepartmentAddressField, departmentAddress);
+		Actions.fillInValue(additionalClinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
+
+		ArrayList<String> clinicianDetails = new ArrayList<>();
+		clinicianDetails.add(0,firstName);
+		clinicianDetails.add(1,lastName);
+		clinicianDetails.add(2,phoneNumber);
+		clinicianDetails.add(3,email);
+		clinicianDetails.add(4,departmentAddress);
+		clinicianDetails.add(5,professionalRegistrationNumber);
+
+	    storeClinicianDataForVerification(key2 , clinicianDetails);
+
+	}
+	public boolean clinicianDetailsArePersistedAtLoad() {
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+		boolean doesFirstNameMatch = Actions.getValue(clinicianFirstNameField).matches(cliniciansMap.get(key1).get(0));
+		boolean doesLastNameMatch = Actions.getValue(clinicianLastNameField).matches(cliniciansMap.get(key1).get(1));
+		boolean doesPhoneNumberMatch = Actions.getValue(clinicianPhoneNumberField).matches(cliniciansMap.get(key1).get(2));
+		boolean doesEmailMatch = Actions.getValue(clinicianEmailField).matches(cliniciansMap.get(key1).get(3));
+		boolean doesDepartmentAddressMatch = Actions.getValue(clinicianDepartmentAddressField).matches(cliniciansMap.get(key1).get(4));
+		boolean doesProfessionalRegistrationNumberMatch = Actions.getValue(clinicianProfesionalRegistrationNumberField).matches(cliniciansMap.get(key1).get(5));
+
+		return doesFirstNameMatch && doesLastNameMatch && doesPhoneNumberMatch && doesEmailMatch && doesDepartmentAddressMatch && doesProfessionalRegistrationNumberMatch;
+	}
+
+	public boolean additionalClinicianDetailsArePersistedAtLoad() {
+		Wait.forElementToBeDisplayed(driver, additionalClinicianFirstNameField);
+		boolean doesFirstNameMatch = Actions.getValue(additionalClinicianFirstNameField).matches(cliniciansMap.get(key2).get(0));
+		boolean doesLastNameMatch = Actions.getValue(additionalClinicianLastNameField).matches(cliniciansMap.get(key2).get(1));
+		boolean doesPhoneNumberMatch = Actions.getValue(additionalClinicianPhoneNumberField).matches(cliniciansMap.get(key2).get(2));
+		boolean doesEmailMatch = Actions.getValue(additionalClinicianEmailField).matches(cliniciansMap.get(key2).get(3));
+		boolean doesDepartmentAddressMatch = Actions.getValue(additionalClinicianDepartmentAddressField).matches(cliniciansMap.get(key2).get(4));
+		boolean doesProfessionalRegistrationNumberMatch = Actions.getValue(additionalClinicianProfesionalRegistrationNumberField).matches(cliniciansMap.get(key2).get(5));
+
+		return doesFirstNameMatch && doesLastNameMatch && doesPhoneNumberMatch && doesEmailMatch && doesDepartmentAddressMatch && doesProfessionalRegistrationNumberMatch;
+	}
+
+	public void storeClinicianDataForVerification(String clinicianIdentifier, ArrayList<String> clinicianInfo) {
+		cliniciansMap.put(clinicianIdentifier,clinicianInfo);
 	}
 
 }
