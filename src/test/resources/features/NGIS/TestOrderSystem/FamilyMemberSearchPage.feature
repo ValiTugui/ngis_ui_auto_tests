@@ -7,7 +7,7 @@ Feature: Family Members Search Validation
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0
   Scenario Outline: E2EUI-1116: Verify the family member search page with Yes option displayed properly
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
@@ -191,7 +191,7 @@ Feature: Family Members Search Validation
       | Family members | DOB=23-03-2011:FirstName=Smith:Gender=Female | Last name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-  @familyMemberSearchPage_17 @NTS-3302 @E2EUI-965 @v_1 @P0
+    @familyMemberSearchPage_17 @NTS-3302 @E2EUI-965 @v_1 @P0
   Scenario Outline: E2EUI-965: Verify the family member search with valid DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -218,7 +218,7 @@ Feature: Family Members Search Validation
       | Family members | NHSNumber=12345 | Please enter your full NHS Number (10 characters),Enter a day,Enter a month,Enter a year | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_19 @LOGOUT @E2EUI-829 @v_1 @P0
+    @familyMemberSearchPage_19 @E2EUI-829 @v_1 @P0
   Scenario Outline: E2EUI-829: Verify the family member search without providing Dob, first name and last name  displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -227,5 +227,31 @@ Feature: Family Members Search Validation
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
 
     Examples:
-      | stage          | SearchDetails | ErrorMessage                                                                           | MessageColor |
+      | stage          | SearchDetails | ErrorMessage                                                                          | MessageColor |
       | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_20 @E2EUI-830 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing Dob, last name and gender  displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_21 @LOGOUT @E2EUI-1260 @v_1 @P0
+  Scenario Outline: Verify the family member search with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
