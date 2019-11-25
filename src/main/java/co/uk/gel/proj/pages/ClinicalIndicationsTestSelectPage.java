@@ -153,7 +153,7 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'styles_relatedContainer')]/ul"), 0);
+        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
         return clinicalIndicationsResults.size() >= 0;
     }
 
