@@ -118,7 +118,9 @@ public class SamplesSteps extends Pages {
 
     @Then("the new sample is displayed in the landing page")
     public void theNewSampleIsDisplayedInTheLandingPage() {
-        samplesPage.newSampleIsDisplayedInLandingPage(1);
+        int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
+        Debugger.println("Number of sample(s) :" + numberOfSamples);
+        Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
     }
 
     @When("the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page")
