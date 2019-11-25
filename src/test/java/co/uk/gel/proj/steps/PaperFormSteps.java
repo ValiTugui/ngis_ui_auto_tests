@@ -21,7 +21,7 @@ public class PaperFormSteps extends Pages {
     }
 
     @Then("the user logs in to the Test Order system successfully")
-    public void theUserLogsInToTheTestOrderSystemSuccessfully((List<String> pageTitleText) {
+    public void theUserLogsInToTheTestOrderSystemSuccessfully(List<String> pageTitleText) {
 
         boolean eachElementIsLoaded;
         switchToURL(driver.getCurrentUrl());
