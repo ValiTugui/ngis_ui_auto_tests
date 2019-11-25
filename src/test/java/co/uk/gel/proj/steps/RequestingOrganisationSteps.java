@@ -21,8 +21,8 @@ public class RequestingOrganisationSteps extends Pages {
     @Then("the details of the new organisation are displayed")
     public void theDetailsOfTheNewOrganisationAreDisplayed() {
         Assert.assertTrue("Stage : Requesting Organisation - Ordering entity details are not shown", requestingOrganisationPage.verifyOrganisationDetails());
-        for (WebElement el : requestingOrganisationPage.organisationDetailHeader) {
-            Assert.assertTrue(!Actions.getText(el).isEmpty());
+        for (WebElement header : requestingOrganisationPage.organisationDetailHeader) {
+            Assert.assertTrue(!Actions.getText(header).isEmpty());
         }
         for (WebElement details : requestingOrganisationPage.organisationDetailText) {
             Assert.assertTrue(!Actions.getText(details).isEmpty());

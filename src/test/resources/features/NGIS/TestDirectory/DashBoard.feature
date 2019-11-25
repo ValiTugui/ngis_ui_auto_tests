@@ -1,5 +1,7 @@
 @regression
 @dashBoard
+@testDirectory
+
 Feature: Dashboard Page
 
   Background:

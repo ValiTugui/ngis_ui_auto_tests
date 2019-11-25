@@ -1,5 +1,7 @@
 @regression
 @clinicalIndicationTestSelect
+@testDirectory
+
 Feature: Home Page
 
   Background:

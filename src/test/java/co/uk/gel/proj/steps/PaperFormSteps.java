@@ -168,7 +168,7 @@ public class PaperFormSteps extends Pages {
         Assert.assertTrue(paperFormPage.checkCancelOrderLinkIdDisplayed(linkName));
     }
 
-    @When("the use clicks the link Cancel Order")
+    @When("the user clicks the link Cancel Order")
     public void theUseClicksTheLinkCancelOrder() {
         paperFormPage.clickCancelOrderLink();
         Actions.acceptAlert(driver);

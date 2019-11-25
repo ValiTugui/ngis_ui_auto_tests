@@ -306,7 +306,6 @@ public class PaperFormPage {
 
     public boolean checkThataddressOfLabIsDisplayed(String placeSearchTerm) {
         Wait.forElementToBeDisplayed(driver, addressPanelTitle);
-        System.out.println(addressPanelBody.getText());
         return (!Actions.getText(sendFormsAndSamplesHospitalName).isEmpty() && (Actions.getText(addressPanelTitle).matches("Send to")) && (Actions.getText(addressPanelBody).contains(placeSearchTerm)));
     }
 
