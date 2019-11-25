@@ -21,12 +21,13 @@ public class PaperFormSteps extends Pages {
     }
 
     @Then("the user logs in to the Test Order system successfully")
-    public void theUserLogsInToTheTestOrderSystemSuccessfully() {
+    public void theUserLogsInToTheTestOrderSystemSuccessfully((List<String> pageTitleText) {
 
         boolean eachElementIsLoaded;
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
+        Assert.assertTrue(referralPage.getTheCurrentPageTitle().matches(pageTitleText.get(0)));
     }
 
     @When("the user clicks the PDF order form button")
