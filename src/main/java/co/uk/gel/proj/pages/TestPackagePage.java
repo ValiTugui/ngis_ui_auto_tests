@@ -170,6 +170,7 @@ public class TestPackagePage {
         Wait.seconds(1);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        Wait.seconds(5);
     }
     public boolean testIsSelected() {
     	Wait.forElementToBeDisplayed(driver, routinePriorityButton);

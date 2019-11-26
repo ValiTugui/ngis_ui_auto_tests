@@ -170,6 +170,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checked')]")
     WebElement testPackageCheckBoxChecked;
 
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
+    WebElement testPackageCheckBox;
+
     By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
 
     By genderTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
@@ -195,6 +198,12 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
     public WebElement familyMemberTestPackagePageSubTitle;
+
+    @FindBy(xpath = "//button[@aria-label='edit button']")
+    WebElement editButton;
+
+    @FindBy(xpath = "//button[@aria-label='remove button']")
+    WebElement deleteButton;
 
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement familyMemberTestPackagePageLink;
@@ -230,6 +239,12 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'patientChoiceStatus')]")
     public WebElement patientChoiceStatus;
+
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']")
+    public WebElement patientNGISId;
+
+    @FindBy(xpath = "//span[text()='Patient choice status']")
+    public WebElement patientChoiceStatusField;
 
     @FindBy(xpath = "//button[contains(text(),'Add family member')]")
     public WebElement addFamilyMemberButton;
@@ -275,6 +290,17 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//a[@class='css-14wnp4n']")
     public WebElement patientChoiceStatusResult;
+
+    @FindBy(xpath = "//span[@class='styles_text__1aikh styles_text--5__203Ot']")
+    public WebElement familyMemberTestPackagePageSubTitle2;
+    @FindBy(xpath = "//span[@class='css-1tu091a']")
+    public WebElement familyPageBeingTestedField;
+
+    @FindBy(xpath = "//span[@class='css-weu35e']")
+    public WebElement familyPageNotBeingTestedField;
+
+    @FindBy(xpath ="//h2[@class='css-1ujfcb9']")
+    public WebElement nameField;
 
 
 
@@ -699,6 +725,13 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
+    public void deselectCheckBoxOnFamilyPage(){
+
+        Wait.forElementToBeDisplayed(driver,testPackageCheckBox);
+        seleniumLib.clickOnWebElement(testPackageCheckBox);
+
+    }
+
     public boolean unmatchedParticipantErrorMessage(String expMessage) {
        try {
            Wait.forElementToBeDisplayed(driver,unmatchedParticipantMessage,20);
@@ -918,5 +951,79 @@ public class FamilyMemberDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Not Entered Status editbox not found " + exp);
         }
+    }
+    public boolean testedFieldColor(String testfield, String color) {
+        try {
+            Wait.seconds(5);
+            String actualMessage1 = seleniumLib.getText(familyPageBeingTestedField);
+            String actualMessage2 = seleniumLib.getText(familyPageNotBeingTestedField);
+
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(color);
+            String actColor1 = familyPageBeingTestedField.getCssValue("background-color");
+            String actColor2 = familyPageNotBeingTestedField.getCssValue("background-color");
+
+            if (testfield.equalsIgnoreCase(actualMessage1)) {
+                Debugger.println("Expected field: " + testfield + ", and Actual field: " + actualMessage1);
+                if (!expectedFontColor.equalsIgnoreCase(actColor1)) {
+                    Debugger.println("Expected Color: " + expectedFontColor + ", and Actual Color: " + actColor1);
+                    return false;
+                }
+
+            }
+            else if(testfield.equalsIgnoreCase(actualMessage2)){
+                Debugger.println("Expected field: " + testfield +", and Actual field:" +actualMessage2);
+                if (!expectedFontColor.equalsIgnoreCase(actColor2)) {
+                    Debugger.println("Expected Color: " + expectedFontColor + ", and Actual Color: " + actColor2);
+                    return false;
+                }
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking being tested field "+exp);
+            return false;
+        }
+    }
+
+    public boolean patientChoiceStatusDetail(){
+        Wait.forElementToBeDisplayed(driver,patientChoiceStatusField);
+        if(!Wait.isElementDisplayed(driver,patientChoiceStatusField,10)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean editAndDeleteButtonDisplay(){
+        Wait.forElementToBeDisplayed(driver,editButton);
+        if(!Wait.isElementDisplayed(driver,editButton,10)){
+            return false;
+        }
+        Wait.forElementToBeDisplayed(driver,deleteButton);
+        if(!Wait.isElementDisplayed(driver,deleteButton,10)){
+            return false;
+        }
+        return true;
+    }
+
+    public void subTitleMessage(String subTitlemsg){
+        familyMemberTestPackagePageSubTitle.isDisplayed();
+        String actualMessage1 = familyMemberTestPackagePageSubTitle.getText();
+        String actualMessage2 = familyMemberTestPackagePageSubTitle2.getText();
+        String actualMessage=actualMessage1+actualMessage2;
+        Assert.assertEquals(subTitlemsg,actualMessage);
+
+    }
+    public boolean addFamilyMemberButtonIsDisplayed(){
+        Wait.forElementToBeDisplayed(driver,addFamilyMemberButton);
+        if(!Wait.isElementDisplayed(driver,addFamilyMemberButton,10)){
+            return false;
+        }
+        return true;
+    }
+    public boolean continueButtonDisplayed(){
+        Wait.forElementToBeDisplayed(driver,continueButton);
+        if(!Wait.isElementDisplayed(driver,continueButton,10)){
+            return false;
+        }
+        return true;
     }
 }//ends

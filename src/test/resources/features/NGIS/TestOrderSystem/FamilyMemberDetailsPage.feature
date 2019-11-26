@@ -22,7 +22,7 @@ Feature: Family Members Details Validation
       | Family members | 9449310157 | 15-01-2000 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_02 @E2EUI-1349 @v_1 @P0
+    @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @v_1 @P0
   Scenario Outline: E2EUI-1349: Verify family member details page - Confirm family member details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -76,7 +76,7 @@ Feature: Family Members Details Validation
       | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_05 @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_05 @NTS3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are less than family member selected
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -94,7 +94,7 @@ Feature: Family Members Details Validation
 
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_06 @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are same as family member
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -116,7 +116,7 @@ Feature: Family Members Details Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_07 @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_07 @NTS3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: E2EUI-1539:  Verify the message when number of participants in Test Package are less than family member
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -137,11 +137,10 @@ Feature: Family Members Details Validation
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  | ErrorMessage                                                                                                |
       | Family members | NHSNumber=9449305536:DOB=16-07-2011 | Full Sibling          | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
 
-##Nov 26
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_08 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
-    When the user navigates to the "<stage>" stage
+    When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
@@ -153,6 +152,6 @@ Feature: Family Members Details Validation
     And the user clicks the Add new patient to referral button
     Then the message will be displayed as "<MandatoryFieldErrorMessage>" in "<MessageColor>" in new patient page
     Examples:
-      | stage          | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
+      | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 
