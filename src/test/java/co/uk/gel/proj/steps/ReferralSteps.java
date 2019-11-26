@@ -327,13 +327,4 @@ public class ReferralSteps extends Pages {
         Debugger.println("Expected Notification text :" + notificationText);
 
     }
-
-    @And("the success notification is displayed {string}")
-    public void theSuccessNotificationIsDisplayed(String notificationText) {
-        String actualNotificationText = referralPage.successNotificationIsDisplayed();
-        Assert.assertEquals(notificationText,actualNotificationText);
-        Debugger.println("Actual Notification text :" + actualNotificationText);
-        Debugger.println("Expected Notification text :" + notificationText);
-
-    }
 }
