@@ -1,13 +1,13 @@
 @regression
 @COMP08_P0
 @FamilyMemberSearchPage
-Feature: FamilyMember search page
+Feature: Family Members Search Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_01 @NTS-3207 @E2EUI-1116 @v_1 @P0
   Scenario Outline: E2EUI-1116: Verify the family member search page with Yes option displayed properly
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease |NHSNumber=9449310270:DOB=12-08-2007|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
@@ -60,7 +60,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=1234 | Please enter your full NHS Number (10 characters) | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_07 @E2EUI-841 @v_1 @P0
+    @familyMemberSearchPage_07 @NTS-3328 @E2EUI-841 @v_1 @P0
   Scenario Outline: E2EUI-841: Verify the family member search with invalid DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -71,7 +71,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=9449310351:DOB=00-00-0000 | Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_08 @E2EUI-1016 @v_1 @P0
+    @familyMemberSearchPage_08 @NTS-3328 @E2EUI-1016 @v_1 @P0
   Scenario Outline: E2EUI-1016: Verify the family member search without providing first name displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -84,7 +84,7 @@ Feature: FamilyMember search page
       | Family members | LastName=StaMbukdelifschitZ | Enter a day,Enter a month,Enter a year,First name is required.,Gender is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_09 @E2EUI-1401 @v_1 @P0
+    @familyMemberSearchPage_09 @NTS-3328 @E2EUI-1401 @v_1 @P0
   Scenario Outline: E2EUI-1401: Verify the family member search with invalid NHS Number displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -95,7 +95,7 @@ Feature: FamilyMember search page
       | Family members | DOB=23-03-2011 | NHS Number is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_10 @E2UI-1388 @E2EUI-1493 @v_1 @P0
+    @familyMemberSearchPage_10 @NTS-3328 @E2UI-1388 @E2EUI-1493 @v_1 @P0
   Scenario Outline: E2EUI-1493-1388: Verify the family member search with valid NHS Number and DOB displays result message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -107,7 +107,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_11 @E2EUI-1493 @v_1 @P0
+    @familyMemberSearchPage_11 @NTS-3328 @E2EUI-1493 @v_1 @P0
   Scenario Outline:E2EUI-1493: Verify the family member search with valid DOB, First name, Last name and gender displays result message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -120,7 +120,7 @@ Feature: FamilyMember search page
       | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male | 1 patient record found |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_12 @E2EUI-1011 @v_1 @P0
+    @familyMemberSearchPage_12 @NTS-3328 @E2EUI-1011 @v_1 @P0
   Scenario Outline: E2EUI-1011: Verify the family member search with special characters in NHS Number field displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -151,7 +151,7 @@ Feature: FamilyMember search page
       | Family members | DOB=29-02-2001   | Check the day and month are valid   | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_14 @E2EUI-1205 @v_1 @P0
+    @familyMemberSearchPage_14 @NTS-3328 @E2EUI-1205 @v_1 @P0
   Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -164,7 +164,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_15 @E2EUI-851 @v_1 @P0
+    @familyMemberSearchPage_15 @NTS-3328 @E2EUI-851 @v_1 @P0
   Scenario Outline: E2EUI-851: Verify the family member search landing page with displayed properly
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -178,7 +178,7 @@ Feature: FamilyMember search page
       | Family members |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_16 @ @E2EUI-1254 @v_1 @P0
+    @familyMemberSearchPage_16 @NTS-3328  @E2EUI-1254 @v_1 @P0
   Scenario Outline: E2EUI-1254: Verify the family member search without providing last name displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -191,7 +191,7 @@ Feature: FamilyMember search page
       | Family members | DOB=23-03-2011:FirstName=Smith:Gender=Female | Last name is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-  @familyMemberSearchPage_17 @NTS-3302 @E2EUI-965 @v_1 @P0
+    @familyMemberSearchPage_17 @NTS-3302 @E2EUI-965 @v_1 @P0
   Scenario Outline: E2EUI-965: Verify the family member search with valid DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -204,7 +204,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=1234:DOB=0-0-0 | Please enter your full NHS Number (10 characters),Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_21 @E2EUI-983 @v_1 @P0
+    @familyMemberSearchPage_18 @NTS-3328 @E2EUI-983 @v_1 @P0
   Scenario Outline: E2EUI-983: Verify the family member search with invalid nhs no and blank DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -218,7 +218,7 @@ Feature: FamilyMember search page
       | Family members | NHSNumber=12345 | Please enter your full NHS Number (10 characters),Enter a day,Enter a month,Enter a year | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_22 @LOGOUT @E2EUI-829 @v_1 @P0
+    @familyMemberSearchPage_19 @NTS-3328 @E2EUI-829 @v_1 @P0
   Scenario Outline: E2EUI-829: Verify the family member search without providing Dob, first name and last name  displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -227,5 +227,31 @@ Feature: FamilyMember search page
     Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
 
     Examples:
-      | stage          | SearchDetails | ErrorMessage                                                                           | MessageColor |
+      | stage          | SearchDetails | ErrorMessage                                                                          | MessageColor |
       | Family members | Gender=Female | Enter a day,Enter a month,Enter a year,First name is required.,Last name is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_20 @NTS-3328 @E2EUI-830 @v_1 @P0
+  Scenario Outline: Verify the family member search without providing Dob, last name and gender  displays correct error message
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberSearchPage_21 @LOGOUT @NTS-3328 @E2EUI-1260 @v_1 @P0
+  Scenario Outline: Verify the family member search with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
+    And the user navigates to the "<stage>" stage
+    When the user clicks on Add family member button
+    And the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the message will be displayed as "<ErrorMessage>" in "<MessageColor>" for the invalid field
+
+    Examples:
+      | stage          | SearchDetails    | ErrorMessage                                                                      | MessageColor |
+      | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |

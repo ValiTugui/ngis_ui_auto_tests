@@ -195,6 +195,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
 
+    @FindBy(xpath = "//h1[text()='Find your patient']")
+    public WebElement findYourPatientTitle;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -387,7 +390,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
+
         Wait.forElementToBeDisplayed(driver, patientCard);
+        if(!Wait.isElementDisplayed(driver,patientCard,30)){
+            Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
+            SeleniumLib.takeAScreenShot("PatientCard.jpg");
+            Assert.assertFalse("PatientCard not found to be clicked.",true);
+        }
         patientCard.click();
     }
 
@@ -807,10 +816,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     //Method added as a temporary fix for trial. Will be removed/modified based on run result.
     public boolean waitForSearchPageTobeLoaded(){
         try {
-            Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
-            By searchTitle = By.xpath("//h1[text()='Find your patient']");
-            WebElement patientSearchTitle = driver.findElement(searchTitle);
-            Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+            Wait.forElementToBeDisplayed(driver,findYourPatientTitle,120);
+            if(!Wait.isElementDisplayed(driver,findYourPatientTitle,30)){
+                Debugger.println("Patient Search Page not loaded.");
+                return false;
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Patient Search Page did not loaded......."+exp);
