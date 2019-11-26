@@ -188,4 +188,17 @@ public class ResponsibleClinicianSteps extends Pages {
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianOneDetailsArePersistedAtLoad());
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianTwoDetailsArePersistedAtLoad());
     }
+
+    @When("the user creates additional clinician {int} by filling up all form fields except the mandatory fields Last name")
+    public void theUserCreatesAdditionalClinicianByFillingUpAllFormFieldsExceptTheMandatoryFieldsLastName(int clinicianCount) throws IOException {
+        if(clinicianCount == 1) {
+            responsibleClinicianPage.fillInAdditionalClinicianOneFormFieldsExceptLastNameField();
+        }  else throw new IOException(" Invalid additional clinician number ; please define the additional clinician locators in page objects class");
+
+    }
+
+    @And("The mandatory field Last name should be highlighted with a {string} red mark in additional clinician section")
+    public void theMandatoryFieldLastNameShouldBeHighlightedWithARedMarkInAdditionalClinicianSection(String hexColourString) {
+        Assert.assertTrue(responsibleClinicianPage.verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(hexColourString));
+    }
 }

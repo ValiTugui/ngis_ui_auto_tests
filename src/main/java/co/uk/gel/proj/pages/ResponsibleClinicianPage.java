@@ -126,6 +126,9 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 
+	@FindBy(css = "label[for*='additionalClinicians[0].surname']")
+	public WebElement additionalClinician1LastNameLabel;
+
 	public void fillInClinicianFormFields() {
 		String firstName = RandomDataCreator.getRandomFirstName();
 		String lastName = RandomDataCreator.getRandomLastName();
@@ -242,6 +245,18 @@ public class ResponsibleClinicianPage {
         else return false;
 	}
 
+	public boolean verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(String expectedColourUponError){
+		Wait.forElementToBeDisplayed(driver, additionalClinician1LastNameLabel);
+		Wait.forElementToBeDisplayed(driver, additionalClinician1LastNameField);
+		String lastNameLabelActualColorUponError = additionalClinician1LastNameLabel.getCssValue("color").toString();
+		String lastNameFieldErrorMessageActualColorUponError = clinicianErrorMessages.get(0).getCssValue("color").toString();
+		String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
+        if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
+        	return true;
+		}
+        else return false;
+	}
+
 	public boolean verifyDepartmentalAddressIsDisplayedAsMandatoryField(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentalAddressLabelRequired);
 		// verify the asterisk (*) symbol is shown next to the Departmental Address label on the Responsible Clinician page
@@ -331,6 +346,21 @@ public class ResponsibleClinicianPage {
 
 	    storeClinicianDataForVerification(key3 , clinicianDetails);
 
+	}
+
+	public void fillInAdditionalClinicianOneFormFieldsExceptLastNameField() {
+		String firstName = RandomDataCreator.getRandomFirstName();
+		String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
+		String email = RandomDataCreator.getRandomEmailAddress();
+		String departmentAddress = RandomDataCreator.getRandomAddress();
+		String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
+
+		Wait.forElementToBeDisplayed(driver, additionalClinician1FirstNameField);
+		Actions.fillInValue(additionalClinician1FirstNameField, firstName);
+		Actions.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
+		Actions.fillInValue(additionalClinician1EmailField, email);
+		Actions.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
+		Actions.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
 	}
 	public boolean clinicianDetailsArePersistedAtLoad() {
 		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
