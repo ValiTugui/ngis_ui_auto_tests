@@ -179,6 +179,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
+    @FindBy(css = "*[class*='error-message__text']")
+    public List<WebElement> errorMessages;
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
@@ -333,6 +336,7 @@ public class ReferralPage<check> {
 
 
     public String getTheCurrentPageTitle() {
+        Wait.forElementToBeDisplayed(driver,pageTitle);
         return Actions.getText(pageTitle);
     }
 
@@ -364,5 +368,17 @@ public class ReferralPage<check> {
     public String successNotificationIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
         return Actions.getText(genericSuccessNotification);
+    }
+
+
+    public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
+
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualErrorMessages = new ArrayList<>();
+        for (WebElement errorMessage : errorMessages) {
+            actualErrorMessages.add(errorMessage.getText().trim());
+        }
+        Debugger.println("Actual-Error Messages" + actualErrorMessages);
+        return actualErrorMessages;
     }
 }

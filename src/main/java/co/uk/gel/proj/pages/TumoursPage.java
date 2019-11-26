@@ -208,10 +208,16 @@ public class TumoursPage {
     }
 
     public String selectTumourFirstPresentationOrOccurrenceValue(String value) {
-        Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
-        Actions.clickElement(driver, tumourCoreDataDropdown);
-        Actions.selectValueFromDropdown(dropdownValue, value);
-        return value;
+        Wait.seconds(2);
+        try {
+            Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
+            Actions.clickElement(driver, tumourCoreDataDropdown);
+            Actions.selectValueFromDropdown(dropdownValue, value);
+            return value;
+        } catch (Exception exp) {
+            Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
+            return null;
+        }
     }
 
     public void answerTumourDiagnosisQuestions(String diagnosis) {

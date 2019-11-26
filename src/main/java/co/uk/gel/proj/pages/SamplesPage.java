@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SamplesPage {
@@ -111,6 +113,27 @@ public class SamplesPage {
 	@FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
 	public WebElement tumourSampleDynamicQuestionsLabel;
 
+	@FindBy (xpath = "//label[@for='sampleType']/../div//div[text()='Select...']/../..")
+	public WebElement sampleTypeDropDown;
+
+	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
+	public List <WebElement> sampleTypesOptions;
+
+	@FindBy (xpath = "//div//div[text()='Select...']/../..")
+	public List <WebElement> genericSampleDropDown;
+
+	@FindBy (xpath = "label[for*='sampleType']")
+	public WebElement sampleTypeLabel;
+
+	@FindBy (xpath = "label[for*='sampleState']")
+	public WebElement sampleStateLabel;
+
+	@FindBy (xpath = "label[for*='labId']")
+	public WebElement labIdLabel;
+
+	@FindBy(css = "*[class*='styles_field-label--error']")
+	public List<WebElement> fieldsLabelErrors;
+
 
 	public void selectSampleType(String type) {
 		Actions.clickElement(driver, sampleType);
@@ -197,4 +220,28 @@ public class SamplesPage {
 		Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
 		return successNotification.isDisplayed() && samplesLandingPageTable.isDisplayed();
 	}
+
+	public List<String> getSampleTypesOptions() {
+		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
+		Actions.clickElement(driver,sampleTypeDropDown);
+		List<String> actualSampleTypes = new ArrayList<>();
+		for (WebElement sampleType : sampleTypesOptions) {
+			actualSampleTypes.add(sampleType.getText().trim());
+		}
+		Debugger.println("Print sampleTypes" + actualSampleTypes);
+		return actualSampleTypes;
+	}
+
+	public List<String> getTheListOfFieldsErrorLabelsOnAddASamplePage() {
+
+		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
+		List<String> actualFieldErrorLabels = new ArrayList<>();
+		for (WebElement fieldLabel : fieldsLabelErrors) {
+			actualFieldErrorLabels.add(fieldLabel.getText().trim());
+		}
+		Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+		return actualFieldErrorLabels;
+	}
+
+
 }

@@ -167,7 +167,7 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals("No patient found", patientSearchPage.noPatientFoundLabel.getText());
+        Assert.assertEquals("No patient found", Actions.getText(patientSearchPage.noPatientFoundLabel));
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
