@@ -133,7 +133,7 @@ Feature: Responsible Clinician
       | stage                 | pageTitle                 | sectionName         |hyperlinkText |
       | Responsible clinician | Add clinician information | Additional contacts |Add another   |
 
-  @E2EUI-1104 @NTS-3324 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @E2EUI-1104 @E2EUI-1435 @NTS-3324 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the input fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
