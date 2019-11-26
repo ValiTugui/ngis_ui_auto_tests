@@ -13,6 +13,7 @@ Feature: Requesting Organisation page
       | Sign in to the online service |
      #Test Ordering
     And the user logs in to the Test Order system successfully
+      | Find your patient |
     And the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page
       | NGIS |
     And the user clicks the patient result card
