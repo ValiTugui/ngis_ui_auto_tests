@@ -122,13 +122,13 @@ public class SamplesPage {
 	@FindBy (xpath = "//div//div[text()='Select...']/../..")
 	public List <WebElement> genericSampleDropDown;
 
-	@FindBy (xpath = "label[for*='sampleType']")
+	@FindBy (css = "label[for*='sampleType']")
 	public WebElement sampleTypeLabel;
 
-	@FindBy (xpath = "label[for*='sampleState']")
+	@FindBy (css = "label[for*='sampleState']")
 	public WebElement sampleStateLabel;
 
-	@FindBy (xpath = "label[for*='labId']")
+	@FindBy (css = "label[for*='labId']")
 	public WebElement labIdLabel;
 
 	@FindBy(css = "*[class*='styles_field-label--error']")
@@ -256,5 +256,28 @@ public class SamplesPage {
         Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
         return actualTumourDetailsFromAddSamplePage;
     }
+
+
+	public boolean verifyTheElementsOnAddASamplePage() {
+
+		// Find elements
+		Wait.forElementToBeDisplayed(driver, sampleTypeDropDown);
+		List<WebElement> expectedElements = new ArrayList<WebElement>();
+		expectedElements.add(sampleTypeDropDown);
+		expectedElements.add(sampleTypeLabel);
+		expectedElements.add(sampleStateLabel);
+		expectedElements.add(sampleState);
+		expectedElements.add(labIdLabel);
+		expectedElements.add(labId);
+
+		for (int i = 0; i < expectedElements.size(); i++) {
+			if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+				return false;
+			}
+		}
+		return true;
+
+	}
+
 
 }

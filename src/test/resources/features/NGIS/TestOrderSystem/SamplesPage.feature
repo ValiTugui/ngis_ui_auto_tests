@@ -165,3 +165,20 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample |
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_07  @P0 @v_1 @NTS-3332 @E2EUI-1446
+  Scenario Outline: NTS-3332 - Add a Sample page - Verify sample type, sample state and sampleID are display
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the Add a Sample page displays the appropriate field elements - sample type, sample state and sampleID
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+
+
+

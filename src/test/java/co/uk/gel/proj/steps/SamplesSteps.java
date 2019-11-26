@@ -183,4 +183,11 @@ public class SamplesSteps extends Pages {
             Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
         }
     }
+
+    @And("the Add a Sample page displays the appropriate field elements - sample type, sample state and sampleID")
+    public void theAddASamplePageDisplaysTheAppropriateFieldElementsSampleTypeSampleStateAndSampleID() {
+        boolean eachElementIsLoaded = false;
+        eachElementIsLoaded = samplesPage.verifyTheElementsOnAddASamplePage();
+        Assert.assertTrue(eachElementIsLoaded);
+    }
 }
