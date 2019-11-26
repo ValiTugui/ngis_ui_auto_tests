@@ -270,4 +270,42 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.participantsNotMatchingMsg(expectedMessage);
         Assert.assertTrue(testResult);
     }
+    @Then("the user should be able to see the patient details in family member landing page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInFamilyMemberLandingPage() {
+        familyMemberDetailsPage.patientDetailsInFamilyMemberLandingPage();
+    }
+
+    @And("the user should be able to see the patient details in patient choice page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInPatientChoicePage() {
+        familyMemberDetailsPage.patientDetailsInPatientChoicePage();
+    }
+
+    @Then("the user should verify the data from family member landing page and patient choice page")
+    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPatientChoicePage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPatientChoice();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see the patient details in print forms page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInPrintFormsPage() {
+        familyMemberDetailsPage.printFormsInPatientChoicePage();
+    }
+
+    @Then("the user should verify the data from family member landing page and print forms page")
+    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPrintFormsPage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPrintForms();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the patient choice {string} status")
+    public void theUserSeesThePatientChoiceStatus(String status) {
+        familyMemberDetailsPage.resultOfPatientChoiceStatus(status);
+    }
+
+    @And("the user wants to edit the patient choice {string} status")
+    public void theUserWantsToEditThePatientChoiceStatus(String status) {
+        familyMemberDetailsPage.editThePatientChoiceStatus(status);
+    }
 }//end

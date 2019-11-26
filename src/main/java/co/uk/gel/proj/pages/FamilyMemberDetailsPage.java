@@ -24,7 +24,7 @@ public class FamilyMemberDetailsPage {
     public WebElement familyMemberDetailsTitle;
 
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
-    public WebElement familyMemeberInfoName;
+    public List<WebElement> nameResults;
 
     @FindBy(xpath = "//label[contains(text(),'Title')]")
     public WebElement pageTitleLabel;
@@ -214,6 +214,8 @@ public class FamilyMemberDetailsPage {
 
     By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
 
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
+    public WebElement unsuccessAdditionalFamilyMemberName;
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
     public WebElement relationField;
 
@@ -252,8 +254,29 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
     public WebElement ngisIdResult;
+    @FindBy(xpath = "//span[contains(text(),'Not entered')]")
+    public WebElement patientChoiceNotEnteredStatus;
 
+    @FindBy(xpath = "//span[contains(text(),'Not entered')]/following::button[@aria-label='edit button']")
+    public WebElement notEnteredEditBox;
     static NGISPatientModel familyMember;
+    static ArrayList<String> familyMemberLandingPageDetails;
+    static ArrayList<String> patientChoicePageDetails;
+    static ArrayList<String> printFormsPageDetails;
+
+    @FindBy(xpath = "//span[contains(@aria-labelledby,'nhsNumber')]")
+    public List<WebElement> nhsNumberResults;
+
+    @FindBy(xpath = "//span[contains(@aria-labelledby,'gender')]")
+    public List<WebElement> genderResults;
+
+    @FindBy(xpath = "//span[contains(@aria-labelledby,'ngisId')]")
+    public List<WebElement> ngisIdResults;
+
+    @FindBy(xpath = "//a[@class='css-14wnp4n']")
+    public WebElement patientChoiceStatusResult;
+
+
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -771,5 +794,129 @@ public class FamilyMemberDetailsPage {
             return false;
         }
         return true;
+    }
+    public boolean printFormsPageIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
+        return true;
+    }
+    public boolean verifyTheElementsOnFamilyMemberPage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberLandingPageTitle);
+        expElements.add(familyMemberLandingPageSubTitle);
+        expElements.add(familyMemberLandingPageLink);
+        expElements.add(addFamilyMemberButton);
+        expElements.add(continueButton);
+
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean verifyThePatientCurrentlyEdited() {
+        /*List<WebElement> patientCards = driver.findElements(additionalFamilyMemberList);
+        Iterator<WebElement> itr = patientCards.iterator();
+        while(itr.hasNext()) {
+            String resultMessage= itr.next().getText();
+            seleniumLib.clickOnWebElement(editBoxTestPackage);
+            Assert.assertEquals(resultMessage, seleniumLib.getText(familyMemeberInfoName));
+        }*/
+        if (seleniumLib.isElementPresent(unsuccessAdditionalFamilyMemberName)) {
+            return true;
+        }
+        return false;
+    }
+    public boolean acceptUnsavedInformation() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception for accepting alert popup " + exp);
+            return false;
+        }
+    }
+
+
+    public void patientDetailsInFamilyMemberLandingPage() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        familyMemberLandingPageDetails = new ArrayList<String>();
+        try {
+            for (int i = 0; i < nameResults.size(); i++) {
+                familyMemberLandingPageDetails.add(nameResults.get(i).getText());
+                familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
+                familyMemberLandingPageDetails.add(genderResults.get(i).getText());
+                familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting result");
+        }
+    }
+
+    public void patientDetailsInPatientChoicePage() {
+        Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
+        patientChoicePageDetails = new ArrayList<String>();
+        try {
+            for (int i = 0; i < nameResults.size(); i++) {
+                patientChoicePageDetails.add(nameResults.get(i).getText());
+                patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
+                patientChoicePageDetails.add(genderResults.get(i).getText());
+                patientChoicePageDetails.add(ngisIdResults.get(i).getText());
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from patient page getting result");
+        }
+    }
+
+    public void printFormsInPatientChoicePage() {
+        Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
+        printFormsPageDetails = new ArrayList<String>();
+        try {
+            for (int i = 0; i < nameResults.size(); i++) {
+                printFormsPageDetails.add(nameResults.get(i).getText());
+                printFormsPageDetails.add(nhsNumberResults.get(i).getText());
+                printFormsPageDetails.add(genderResults.get(i).getText());
+                printFormsPageDetails.add(ngisIdResults.get(i).getText());
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from print forms page getting result");
+        }
+    }
+
+    public boolean verifyDataFromFamilyMemberAndPatientChoice() {
+        if (familyMemberLandingPageDetails.equals(patientChoicePageDetails)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verifyDataFromFamilyMemberAndPrintForms() {
+        if (familyMemberLandingPageDetails.equals(printFormsPageDetails)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void resultOfPatientChoiceStatus(String status) {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        try {
+            Assert.assertEquals(status, patientChoiceStatusResult.getText());
+        } catch (Exception exp) {
+            Debugger.println("[Expected status :" + status + "][Actual status :" + patientChoiceStatusResult.getText() + "]" + exp);
+        }
+    }
+
+    public void editThePatientChoiceStatus(String status) {
+        Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
+        try {
+            if (status.equalsIgnoreCase(patientChoiceNotEnteredStatus.getText())) {
+                seleniumLib.clickOnWebElement(notEnteredEditBox);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Not Entered Status editbox not found " + exp);
+        }
     }
 }//ends

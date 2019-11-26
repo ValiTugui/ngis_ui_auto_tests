@@ -219,8 +219,10 @@ Feature: Family Members Navigation Stage Validation
 
  ##Prasanjith
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_07 @E2EUI-2105 @v_1 @P0
+    @familyMemberStageNavigation_08 @LOGOUT @E2EUI-2105 @v_1 @P0
   Scenario Outline: Verify warning message if number of family members is less than number of participants
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -244,3 +246,41 @@ Feature: Family Members Navigation Stage Validation
       | stage          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | Test package | 3                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_09 @LOGOUT @E2EUI-1665 @v_1 @P0
+  Scenario Outline: Verify Global patient information bar component
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    When the user navigates to the "<Requesting organisation>" stage
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And  the Save and Continue button should be clickable
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<Family members>" stage
+    And the user clicks on Add family member button
+    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should be able to see test package for family member is selected by default
+    When clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Add a family member to this referral
+    Then the user should be able to see the patient details in family member landing page
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    And the user should be able to see the patient details in patient choice page
+    Then the user should verify the data from family member landing page and patient choice page
+    When the user navigates to the "<Print forms>" stage
+    And the user should be able to see the patient details in print forms page
+    Then the user should verify the data from family member landing page and print forms page
+
+    Examples:
+      | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     | Print forms |
+      | Requesting organisation | Maidstone            | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
