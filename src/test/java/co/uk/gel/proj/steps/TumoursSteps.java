@@ -367,6 +367,7 @@ public class TumoursSteps extends Pages {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
 
+        tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
         tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
         tumoursPage.fillInSpecimenID();
@@ -382,5 +383,25 @@ public class TumoursSteps extends Pages {
     public void theTumourPageHasTheLabelTextDisplayedAs(String expectedLabelName) {
         String actualSnomedCTText = tumoursPage.getDynamicQuestionsSnomedCTLabelText();
         Assert.assertEquals(expectedLabelName, actualSnomedCTText);
+    }
+
+
+    @And("the tumour details are displayed in the Add a sample page on selecting a tumour sample type")
+    public void theTumourDetailsAreDisplayedInTheAddASamplePageOnSelectingATumourSampleType() {
+
+        List<String> expectedTumourTestData;
+        expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
+        List<String> actualTumourTestDetailsOnAddSamplePage;
+        actualTumourTestDetailsOnAddSamplePage = samplesPage.getTheTumourDetailsValuesFromAddSamplePage();
+
+        Debugger.println("Expected TumourTest Details-list            : " + expectedTumourTestData);
+        Debugger.println("Actual TumourTest Details List on SamplePage: " + actualTumourTestDetailsOnAddSamplePage);
+
+        for (int i = 0; i < expectedTumourTestData.size(); i++) {
+            Debugger.println("Expected TumourTestData: " + i + " : " + expectedTumourTestData.get(i));
+            Debugger.println("Actual TumourTest Details on Sample Page: " + i + " : " + actualTumourTestDetailsOnAddSamplePage.get(i) + "\n");
+            Assert.assertEquals( expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
+        }
+
     }
 }

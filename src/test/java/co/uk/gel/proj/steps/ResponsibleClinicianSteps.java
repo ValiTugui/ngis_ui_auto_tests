@@ -2,11 +2,16 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 public class ResponsibleClinicianSteps extends Pages {
     public ResponsibleClinicianSteps(SeleniumDriver driver) {
@@ -81,5 +86,84 @@ public class ResponsibleClinicianSteps extends Pages {
     @And("the user sees First name, Last name, Phone number and email, Department name and address, Professional registration number")
     public void theUserSeesFirstNameLastNamePhoneNumberAndEmailDepartmentNameAndAddressProfessionalRegistrationNumber() {
         responsibleClinicianPage.confirmTheExpectedFieldsToBeSeemInClinicianForm();
+    }
+
+    @When("the user clicks the Additional Clinician link")
+    public void theUserClicksTheAdditionalClinicianLink() {
+        responsibleClinicianPage.clickAddAnotherLink();
+    }
+
+    @And("the user fills in all the fields for the additional clinician")
+    public void theUserFillsInAllTheFieldsForTheAdditionalClinician() {
+        responsibleClinicianPage.fillInAdditionalClinicianFormFields();
+    }
+
+    @And("both clinicians details are persisted when returning to the {string} stage")
+    public void bothCliniciansDetailsArePersistedWhenReturningToTheStage(String stage) {
+        referralPage.navigateToStage(stage);
+        referralPage.stageIsSelected(stage);
+        Assert.assertTrue(responsibleClinicianPage.clinicianDetailsArePersistedAtLoad());
+        Assert.assertTrue(responsibleClinicianPage.additionalClinicianDetailsArePersistedAtLoad());
+    }
+
+    @And("the page shows the following help messages")
+    public void thePageShowsTheFollowingHelpMessages(DataTable dataTable) {
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        String actualHelpText = responsibleClinicianPage.getClinicianHelpText();
+        Debugger.println("Expected Help Text:" + list.get(0).get("helpMessageHeader"));
+        Assert.assertEquals(list.get(0).get("helpMessageHeader"), actualHelpText);
+    }
+
+    @And("the user sees the section label as {string}")
+    public void theUserSeesTheSectionLabelAs(String expectedSectionTitle) {
+        Assert.assertEquals(expectedSectionTitle, responsibleClinicianPage.getSectionTitle());
+    }
+
+    @And("The user sees the text field First name")
+    public void theUserSeesTheTextFieldFirstName() {
+        Assert.assertTrue(responsibleClinicianPage.firstNameFieldDisplayed());
+    }
+
+    @And("The user sees the text field Last name")
+    public void theUserSeesTheTextFieldLastName() {
+        Assert.assertTrue(responsibleClinicianPage.lastNameFieldDisplayed());
+    }
+
+    @And("The user sees the text field Email address")
+    public void theUserSeesTheTextFieldEmailAddress() {
+        Assert.assertTrue(responsibleClinicianPage.emailFieldDisplayed());
+    }
+
+    @And("The user sees the text field Phone number")
+    public void theUserSeesTheTextFieldPhoneNumber() {
+        Assert.assertTrue(responsibleClinicianPage.phoneNumberFieldDisplayed());
+    }
+
+    @And("The user sees the text field Department name and address")
+    public void theUserSeesTheTextFieldDepartmentNameAndAddress() {
+        Assert.assertTrue(responsibleClinicianPage.departmentNameAndAddressFieldDisplayed());
+    }
+
+    @And("The user sees the text field Professional registration number")
+    public void theUserSeesTheTextFieldProfessionalRegistrationNumber() {
+        Assert.assertTrue(responsibleClinicianPage.professionalRegistrationNumberFieldDisplayed());
+    }
+
+    @And("the user sees the another section name as {string}")
+    public void theUserSeesTheAnotherSectionNameAs(String expectedSectionTitle) {
+        Assert.assertEquals(expectedSectionTitle, responsibleClinicianPage.getContactSectionTitle());
+    }
+
+    @And("the user sees the Save and Continue button")
+    public void theUserSeesTheSaveAndContinueButton() {
+        Assert.assertTrue(referralPage.saveAndContinueButtonIsDisplayed());
+    }
+
+    @And("the page shows the following help messages under Additional contacts")
+    public void thePageShowsTheFollowingHelpMessagesUnderAdditionalContacts(DataTable dataTable) {
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        String actualHelpText = responsibleClinicianPage.getContactSectionHelpText();
+        Debugger.println("Expected Help Text:" + list.get(0).get("helpMessageHeader"));
+        Assert.assertEquals(list.get(0).get("helpMessageHeader"), actualHelpText);
     }
 }

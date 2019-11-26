@@ -400,6 +400,7 @@ public class ReferralPage<check> {
         Debugger.println("Actual-Error Messages" + actualErrorMessages);
         return actualErrorMessages;
     }
+  
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
@@ -435,4 +436,5 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
 }

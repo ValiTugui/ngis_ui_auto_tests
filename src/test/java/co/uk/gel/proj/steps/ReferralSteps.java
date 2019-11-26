@@ -168,7 +168,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals("No patient found", patientSearchPage.noPatientFoundLabel.getText());
+        String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
+        Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
@@ -316,6 +317,15 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot("ToDoList.jpg");
             Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
         }
+    }
+
+    @And("the success notification is displayed {string}")
+    public void theSuccessNotificationIsDisplayed(String notificationText) {
+        String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        Assert.assertEquals(notificationText,actualNotificationText);
+        Debugger.println("Actual Notification text :" + actualNotificationText);
+        Debugger.println("Expected Notification text :" + notificationText);
+
     }
 
     @And("the success notification is displayed {string}")

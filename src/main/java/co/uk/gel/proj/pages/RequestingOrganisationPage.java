@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,6 +51,36 @@ public class RequestingOrganisationPage {
     @FindBy(css = "[class*='search-input__icon']")
     public WebElement orderingEntitySearchIcon;
 
+    @FindBy(css = "h1[class*='styles_stepHeader']")
+    public WebElement testDirectoryOrderingEntityPageTitle;
+
+    @FindBy(css = "p[class*='styles_subHeader']")
+    public WebElement testDirectoryOrderEntityPageSubtitle;
+
+    @FindBy(css = "svg[class*='styles_searchIcon']")
+    public WebElement testDirectoryOrderingEntitySearchIcon;
+
+    @FindBy(css = "button[class*='styles_button']")
+    public WebElement toolTipIcon;
+
+    @FindBy(css = "span[class*='styles_text']")
+    public WebElement toolTipText;
+
+    @FindBy(xpath = "//div[3]/div[2]/div[contains(@class, 'styles_container')]")
+    public WebElement testDirectoryOrderingEntityPanelContainer;
+
+    @FindBy(css = "div[class*='slide-panel_container']")
+    public WebElement slidePanelContainer;
+
+    @FindBy(css = "div[class*='slide-panel_closeButton']")
+    public WebElement slidePanelCloseButton;
+
+    @FindBy(css = "h1[class*='styles_header']")
+    public WebElement slidePanelHeader;
+
+    @FindBy(css = "p[class*='styles_bodyText']")
+    public WebElement slidePanelBodyText;
+
     public boolean verifyOrganisationDetails() {
         Wait.forElementToBeDisplayed(driver, organisationDetailsContainer);
         return organisationDetailsContainer.getText().contains(organisationDetailText.get(0).getText());
@@ -68,20 +99,52 @@ public class RequestingOrganisationPage {
     public boolean shouldSeeNoResultsOnThePage() {
         Wait.forElementToBeDisplayed(driver, zeroResulsFoundLabel);
         return zeroResulsFoundLabel.isDisplayed();
-
     }
 
-    public boolean checkPageTitleInfo(String pageTitle){
+    public boolean checkPageTitleInfo(String pageTitle) {
         Wait.forElementToBeDisplayed(driver, orderingEntityPageTitle);
         return orderingEntityPageTitle.getText().contains(pageTitle);
     }
 
-    public boolean checkOrderingEntityPageLabel(){
-        return  orderEntityPageSubtitle.isDisplayed();
+    public boolean checkOrderingEntityPageLabel() {
+        return orderEntityPageSubtitle.isDisplayed();
     }
 
-    public boolean checkSearchIcon(){
+    public boolean checkSearchIcon() {
         return orderingEntitySearchIcon.isDisplayed();
+    }
+
+    public boolean checkToolTipInfo(String toolTipTextValue) {
+        Wait.forElementToBeDisplayed(driver, toolTipIcon);
+        toolTipIcon.isDisplayed();
+        toolTipText.getText().matches(toolTipTextValue);
+        return true;
+    }
+
+    public void clickToolTipIcon() {
+        Click.element(driver, toolTipIcon);
+    }
+
+    public boolean checkSlidePanelInfo(String headerText, String bodyText) {
+        Wait.forElementToBeDisplayed(driver, slidePanelContainer);
+        slidePanelContainer.isDisplayed();
+        slidePanelCloseButton.isDisplayed();
+        slidePanelHeader.getText().matches(headerText);
+        slidePanelBodyText.getText().matches(bodyText);
+        return true;
+    }
+
+    public void clickSlidePanelCloseButton() {
+        Click.element(driver, slidePanelCloseButton);
+    }
+
+    public boolean checkRequestingOrganisationPageInfo(String pageTitle, String copyText) {
+        Wait.forElementToBeDisplayed(driver, testDirectoryOrderingEntityPanelContainer);
+        testDirectoryOrderingEntityPanelContainer.isDisplayed();
+        testDirectoryOrderingEntitySearchIcon.isDisplayed();
+        testDirectoryOrderingEntityPageTitle.getText().matches(pageTitle);
+        testDirectoryOrderEntityPageSubtitle.getText().matches(copyText);
+        return true;
     }
 
 }
