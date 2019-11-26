@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
@@ -167,7 +168,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals("No patient found", Actions.getText(patientSearchPage.noPatientFoundLabel));
+        String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
+        Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
@@ -231,7 +233,7 @@ public class ReferralSteps extends Pages {
     //Added by STAG to create referral with the given patient details than taking from Test Data Provider
     @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
+        boolean toDoListDisplayed;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -302,6 +304,7 @@ public class ReferralSteps extends Pages {
             Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+            Debugger.println("Update Patient Details button shown");
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
             Debugger.println("Save Patient Details button shown");
@@ -309,7 +312,20 @@ public class ReferralSteps extends Pages {
             patientDetailsPage.patientIsCreated();
             patientDetailsPage.clickStartNewReferralButton();
         }
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
+        if(!toDoListDisplayed){
+            SeleniumLib.takeAScreenShot("ToDoList.jpg");
+            Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
+        }
+    }
+
+    @And("the success notification is displayed {string}")
+    public void theSuccessNotificationIsDisplayed(String notificationText) {
+        String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        Assert.assertEquals(notificationText,actualNotificationText);
+        Debugger.println("Actual Notification text :" + actualNotificationText);
+        Debugger.println("Expected Notification text :" + notificationText);
+
     }
 
     @And("the success notification is displayed {string}")

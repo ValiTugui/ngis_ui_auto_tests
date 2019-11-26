@@ -117,7 +117,7 @@ public class SamplesPage {
 	public WebElement sampleTypeDropDown;
 
 	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
-	public List <WebElement> sampleTypesOptions;
+	public List <WebElement> sampleTypesDropDownValues;
 
 	@FindBy (xpath = "//div//div[text()='Select...']/../..")
 	public List <WebElement> genericSampleDropDown;
@@ -133,6 +133,9 @@ public class SamplesPage {
 
 	@FindBy(css = "*[class*='styles_field-label--error']")
 	public List<WebElement> fieldsLabelErrors;
+
+    @FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
+    public List<WebElement> tumourDetailsValuesFromAddSamplePage;
 
 
 	public void selectSampleType(String type) {
@@ -225,7 +228,7 @@ public class SamplesPage {
 		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
 		Actions.clickElement(driver,sampleTypeDropDown);
 		List<String> actualSampleTypes = new ArrayList<>();
-		for (WebElement sampleType : sampleTypesOptions) {
+		for (WebElement sampleType : sampleTypesDropDownValues) {
 			actualSampleTypes.add(sampleType.getText().trim());
 		}
 		Debugger.println("Print sampleTypes" + actualSampleTypes);
@@ -243,5 +246,15 @@ public class SamplesPage {
 		return actualFieldErrorLabels;
 	}
 
+    public List<String> getTheTumourDetailsValuesFromAddSamplePage() {
+        Wait.forElementToBeDisplayed(driver, tumourDetailsTable);
+        List<String> actualTumourDetailsFromAddSamplePage = new ArrayList<>();
+
+        for (WebElement actualTumourDetail : tumourDetailsValuesFromAddSamplePage){
+            actualTumourDetailsFromAddSamplePage.add(actualTumourDetail.getText().trim());
+        }
+        Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
+        return actualTumourDetailsFromAddSamplePage;
+    }
 
 }
