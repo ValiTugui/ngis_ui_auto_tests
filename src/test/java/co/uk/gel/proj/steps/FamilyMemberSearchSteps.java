@@ -95,10 +95,10 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
     }
 
-    @Then("the message will be displayed as {string} in {string} for the invalid field")
-    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+    @And("the user will be able to see an error message as {string} in {string} for the family member")
+    public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
@@ -148,6 +148,24 @@ public class FamilyMemberSearchSteps extends Pages {
     @When("the user clicks on the create new patient record")
     public void theUserClicksOnThe() {
         familyMemberSearchPage.clickOnNewPatientLink();
+    }
+
+    @And("the user should be able to see incomplete family member in {string}")
+    public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
+        Assert.assertTrue(testResult);
+    }
+    @When("the user edits to complete the highlighted family member")
+    public void theUserShouldEditToCompleteTheHighlightedFamilyMember() {
+        familyMemberSearchPage.completingQuestionnaireFamilyMember();
+    }
+
+    @Then("the family member landing page displayed without incomplete error message")
+    public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {
+        boolean testResult = true;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteFamilyMember();
+        Assert.assertFalse(testResult);
     }
 
 }//end

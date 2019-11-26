@@ -38,7 +38,7 @@ Feature: Family Members Navigation Stage Validation
 
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_05 @LOGOUT @NTS-3299 @E2EUI-1698 @v_1 @P0
+    @familyMemberStageNavigation_02 @LOGOUT @NTS-3299 @E2EUI-1698 @v_1 @P0
   Scenario Outline: E2EUI-1698: Verify the family members test package are selected by default
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -64,7 +64,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_06 @LOGOUT @NTS-3301 @E2EUI-1291 @v_1 @P0
+    @familyMemberStageNavigation_03 @LOGOUT @NTS-3301 @E2EUI-1291 @v_1 @P0
   Scenario Outline: E2EUI-1291: Verify the current additional family member information
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -88,7 +88,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_07 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @v_1 @P0
+    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @v_1 @P0
   Scenario Outline: E2EUI-1331-1485-1639: Remove a family member from a referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -129,7 +129,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | Clinical questions | 2                | NHSNumber=9449306680:DOB=14-06-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Full Sibling          | DiseaseStatus=Unknown | Family member removed from referral |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_08 @LOGOUT @NTS-3295 @E2EUI-1279 @v_1 @P0
+    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @v_1 @P0
   Scenario Outline: E2EUI-1279: Verify the family members page layout
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -155,3 +155,64 @@ Feature: Family Members Navigation Stage Validation
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+
+    ##November 26
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_06 @LOGOUT @NTS-3291 @E2EUI-1604 @v_1 @P0
+  Scenario Outline: Verify that Indicate family members with outstanding questions to answer
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    And the user clicks on the patient card
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
+    And the user should be able to see incomplete family member in "<MessageColor>"
+    When the user edits to complete the highlighted family member
+    Then the user is navigated to a page with title Confirm family member details
+    When clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And clicks the Save and Continue button in family member details page
+    Then the family member landing page displayed without incomplete error message
+
+    Examples:
+      | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | NHSNumber=9449310319:DOB=09-12-2010 | Full Sibling          | There is essential clinical information missing from this entry | #da291c      | DiseaseStatus=Unaffected |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_07 @LOGOUT @NTS-3322 @E2EUI-1509 @v_1 @P0
+  Scenario Outline: Verify family members has completed in to-do list
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMember>" stage
+    And the user clicks on Add family member button
+    And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+    And clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the "<FamilyMember>" stage is marked as Completed
+
+    Examples:
+      | FamilyMember          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |

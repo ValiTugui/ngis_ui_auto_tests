@@ -116,7 +116,7 @@ Feature: Family Members Details Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_07 @LOGOUT @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_07 @E2EUI-1539 @v_1 @P0
   Scenario Outline: E2EUI-1539:  Verify the message when number of participants in Test Package are less than family member
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -136,4 +136,25 @@ Feature: Family Members Details Validation
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  | ErrorMessage                                                                                                |
       | Family members | NHSNumber=9449305536:DOB=16-07-2011 | Full Sibling          | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
+
+##Nov 26
+  @COMP8_TO_PatientSearch
+    @familyMemberDetailsPage_08 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
+  Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    When the user clicks the NO button in family member search page
+    And the user search the family member with the specified details "<SearchDetails>"
+    Then the user can see a message "<SearchDetails>" "<PatientSearchMessage>" in "bold" font
+    When the user clicks on the create new patient record
+    Then the user is navigated to a page with title Add a new patient to the database
+    And the new patient page is correctly displayed with expected fields
+    When the user removes the data from all fields "<ClearFields>" in the family member new patient page
+    And the user clicks the Add new patient to referral button
+    Then the message will be displayed as "<MandatoryFieldErrorMessage>" in "<MessageColor>" in new patient page
+    Examples:
+      | stage          | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
+      | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 

@@ -64,6 +64,8 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
+
+
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
 
@@ -468,14 +470,21 @@ public class FamilyMemberSearchPage {
     }
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
+            Debugger.println("STATRED>>......");
             Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
-            String actualMessage = seleniumLib.getText(familyMemberIncompleteErrorMessage);
+            if(!Wait.isElementDisplayed(driver,familyMemberIncompleteErrorMessage,30)){
+                Debugger.println("Element familyMemberIncompleteErrorMessage: Not Displayed");
+            }
+            String actualMessage = familyMemberIncompleteErrorMessage.getText();
+            Debugger.println("Actual MEssage: "+actualMessage);
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                 return false;
             }
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            Debugger.println("EXP Color: "+expectedFontColor);
             String actColor = familyMemberIncompleteErrorMessage.getCssValue("color");
+            Debugger.println("ACtual Color: "+actColor);
             if (!expectedFontColor.equalsIgnoreCase(actColor)) {
                 Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                 return false;
