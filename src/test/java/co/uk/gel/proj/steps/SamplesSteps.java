@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -152,4 +153,34 @@ public class SamplesSteps extends Pages {
         }
     }
 
+    @Then("the error messages for the sample mandatory fields on Add a Sample page are displayed")
+    public void theErrorMessagesForTheSampleMandatoryFieldsOnAddASamplePageAreDisplayed(DataTable dataTable) {
+        List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
+        List<String> actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
+        List<String> actualFieldsErrorLabels =  samplesPage.getTheListOfFieldsErrorLabelsOnAddASamplePage();
+
+        for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldErrorMessages.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), actualFieldsErrorLabels.get(i-1));
+
+            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1));
+            Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
+        }
+    }
+
+    @And("the following drop-down values are displayed for Sample types on Add a sample page")
+    public void theFollowingDropDownValuesAreDisplayedForSampleTypesOnAddASamplePage(DataTable dataTable) {
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedSampleTypesList = new ArrayList<>();
+        List<String> actualSampleTypesList = samplesPage.getSampleTypesOptions();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedSampleTypesList.add(expectedList.get(i).get("sampleTypesHeader"));
+            Debugger.println("Expected Sample type: " + i + " : " + expectedSampleTypesList.get(i));
+            Debugger.println("Actual Sample type: " + i + " : " + actualSampleTypesList.get(i) + "\n");
+            Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
+        }
+    }
 }
