@@ -66,8 +66,11 @@ Feature: Samples Page
     And the "<stage>" stage is marked as Completed
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType   | notificationText |
-      | Samples | Manage samples | Add a sample | Add sample details | Omics sample | Sample added     |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType                | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Sample added     |
+      | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Sample added     |
+      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Sample added     |
+
 
 
   @COMP7_TOC_Samples @LOGOUT
@@ -95,8 +98,9 @@ Feature: Samples Page
     And the "<stage2>" stage is marked as Completed
 
     Examples:
-      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType          | sampleTopoMorphyGraphy | notificationText |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample | test                   | Sample added     |
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType           | sampleTopoMorphyGraphy | notificationText |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Solid tumour sample  | test                   | Sample added     |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Liquid tumour sample | test                   | Sample added     |
 
 
   @COMP7_TOC_Samples @LOGOUT
@@ -159,4 +163,5 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
+
 

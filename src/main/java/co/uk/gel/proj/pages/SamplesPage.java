@@ -118,7 +118,7 @@ public class SamplesPage {
 
 	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
 	public List <WebElement> sampleTypesDropDownValues;
-	
+
 	@FindBy (xpath = "//div//div[text()='Select...']/../..")
 	public List <WebElement> genericSampleDropDown;
 
