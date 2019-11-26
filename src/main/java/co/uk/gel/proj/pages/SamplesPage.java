@@ -117,8 +117,8 @@ public class SamplesPage {
 	public WebElement sampleTypeDropDown;
 
 	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
-	public List <WebElement> sampleTypesOptions;
-
+	public List <WebElement> sampleTypesDropDownValues;
+	
 	@FindBy (xpath = "//div//div[text()='Select...']/../..")
 	public List <WebElement> genericSampleDropDown;
 
@@ -228,7 +228,7 @@ public class SamplesPage {
 		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
 		Actions.clickElement(driver,sampleTypeDropDown);
 		List<String> actualSampleTypes = new ArrayList<>();
-		for (WebElement sampleType : sampleTypesOptions) {
+		for (WebElement sampleType : sampleTypesDropDownValues) {
 			actualSampleTypes.add(sampleType.getText().trim());
 		}
 		Debugger.println("Print sampleTypes" + actualSampleTypes);

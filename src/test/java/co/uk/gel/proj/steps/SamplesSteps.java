@@ -183,18 +183,4 @@ public class SamplesSteps extends Pages {
             Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
         }
     }
-
-    @And("the following drop-down values are displayed for Sample types on Add a sample page")
-    public void theFollowingDropDownValuesAreDisplayedForSampleTypesOnAddASamplePage(DataTable dataTable) {
-        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
-        List<String> expectedSampleTypesList = new ArrayList<>();
-        List<String> actualSampleTypesList = samplesPage.getSampleTypesOptions();
-
-        for (int i = 0; i < expectedList.size(); i++) {
-            expectedSampleTypesList.add(expectedList.get(i).get("sampleTypesHeader"));
-            Debugger.println("Expected Sample type: " + i + " : " + expectedSampleTypesList.get(i));
-            Debugger.println("Actual Sample type: " + i + " : " + actualSampleTypesList.get(i) + "\n");
-            Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
-        }
-    }
 }
