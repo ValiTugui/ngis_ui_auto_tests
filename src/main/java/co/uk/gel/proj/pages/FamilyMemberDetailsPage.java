@@ -764,4 +764,12 @@ public class FamilyMemberDetailsPage {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
     }
+    public boolean participantsNotMatchingMsg(String expectedMessage) {
+        Wait.forElementToBeDisplayed(driver, unmatchedParticipantMessage);
+        String actualMessage = unmatchedParticipantMessage.getText();
+        if (!actualMessage.equalsIgnoreCase(expectedMessage)) {
+            return false;
+        }
+        return true;
+    }
 }//ends

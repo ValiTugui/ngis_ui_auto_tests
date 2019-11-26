@@ -264,4 +264,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserClicksOnParticipantAmendmentLinkToAmendTestPackage() {
         familyMemberDetailsPage.clicksOnParticipantAmendmentLink();
     }
+    @And("the user should see a warning message displayed as {string}")
+    public void theUserShouldSeeAWarningMessageDisplayedAs(String expectedMessage) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.participantsNotMatchingMsg(expectedMessage);
+        Assert.assertTrue(testResult);
+    }
 }//end

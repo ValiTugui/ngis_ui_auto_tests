@@ -11,7 +11,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-#    Then the "<TestPackage>" stage is marked as Completed
+    Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And  clicks the Save and Continue button in family member details page
@@ -216,3 +216,31 @@ Feature: Family Members Navigation Stage Validation
     Examples:
       | FamilyMember          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+
+ ##Prasanjith
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_07 @E2EUI-2105 @v_1 @P0
+  Scenario Outline: Verify warning message if number of family members is less than number of participants
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<stage>" stage
+    Then the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
+    When the user clicks on Add family member button
+    And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user should be able to see test package for family member is selected by default
+    And clicks the Save and Continue button in family member details page
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
+
+    Examples:
+      | stage          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 3                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+
