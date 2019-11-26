@@ -141,8 +141,6 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_08 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
   Scenario Outline: E2EUI-1038: Verify the mandatory input fields validations for non-NHS family member creation
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user clicks the NO button in family member search page

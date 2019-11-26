@@ -167,5 +167,12 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteFamilyMember();
         Assert.assertFalse(testResult);
     }
+    @Then("the message will be displayed as {string} in {string} for the invalid field")
+    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+
+    }
 
 }//end
