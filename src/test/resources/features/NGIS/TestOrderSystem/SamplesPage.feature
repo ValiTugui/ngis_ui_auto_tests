@@ -71,7 +71,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02b @NTS-3287 @E2EUI-2330 @P0 @v_1
+    @samplesPage_03 @NTS-3287 @E2EUI-2330 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -100,7 +100,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_03  @NTS-3308 @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @P0 @v_1
+    @samplesPage_04  @NTS-3308 @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -119,8 +119,8 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID     |
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_04  @NTS-3308 @E2EUI-943 @E2EUI-2338 @P0 @v_1
-  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    @samplesPage_05  @NTS-3308 @E2EUI-943 @E2EUI-2338 @P0 @v_1
+  Scenario Outline: NTS-3308: Add a sample page - verify the sample type drop down list
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -141,7 +141,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_05 @NTS-3312 @ @E2EUI-868 @P0 @v_1
+    @samplesPage_06 @NTS-3312 @ @E2EUI-868 @P0 @v_1
   Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -151,10 +151,10 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the user clicks the Save and Continue button
     Then the error messages for the sample mandatory fields on Add a Sample page are displayed
-      | errorMessageHeader                           |
-      | Sample type is required.                     |
-      | Sample state is required.                    |
-      | Sample ID from local laboratory is required. |
+      | labelHeader                       | errorMessageHeader                           |
+      | Sample type ✱                     | Sample type is required.                     |
+      | Sample state ✱                    | Sample state is required.                    |
+      | Sample ID from local laboratory ✱ | Sample ID from local laboratory is required. |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |

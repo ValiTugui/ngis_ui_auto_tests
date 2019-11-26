@@ -119,8 +119,23 @@ public class SamplesPage {
 	@FindBy (xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
 	public List <WebElement> sampleTypesOptions;
 
-	@FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
-	public List<WebElement> tumourDetailsValuesFromAddSamplePage;
+	@FindBy (xpath = "//div//div[text()='Select...']/../..")
+	public List <WebElement> genericSampleDropDown;
+
+	@FindBy (xpath = "label[for*='sampleType']")
+	public WebElement sampleTypeLabel;
+
+	@FindBy (xpath = "label[for*='sampleState']")
+	public WebElement sampleStateLabel;
+
+	@FindBy (xpath = "label[for*='labId']")
+	public WebElement labIdLabel;
+
+	@FindBy(css = "*[class*='styles_field-label--error']")
+	public List<WebElement> fieldsLabelErrors;
+
+    @FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
+    public List<WebElement> tumourDetailsValuesFromAddSamplePage;
 
 
 	public void selectSampleType(String type) {
@@ -220,15 +235,26 @@ public class SamplesPage {
 		return actualSampleTypes;
 	}
 
+	public List<String> getTheListOfFieldsErrorLabelsOnAddASamplePage() {
 
-	public List<String> getTheTumourDetailsValuesFromAddSamplePage() {
-		Wait.forElementToBeDisplayed(driver, tumourDetailsTable);
-		List<String> actualTumourDetailsFromAddSamplePage = new ArrayList<>();
-
-		for (WebElement actualTumourDetail : tumourDetailsValuesFromAddSamplePage){
-			actualTumourDetailsFromAddSamplePage.add(actualTumourDetail.getText().trim());
+		Wait.forElementToBeClickable(driver, sampleTypeDropDown);
+		List<String> actualFieldErrorLabels = new ArrayList<>();
+		for (WebElement fieldLabel : fieldsLabelErrors) {
+			actualFieldErrorLabels.add(fieldLabel.getText().trim());
 		}
-		Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
-		return actualTumourDetailsFromAddSamplePage;
+		Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+		return actualFieldErrorLabels;
 	}
+
+    public List<String> getTheTumourDetailsValuesFromAddSamplePage() {
+        Wait.forElementToBeDisplayed(driver, tumourDetailsTable);
+        List<String> actualTumourDetailsFromAddSamplePage = new ArrayList<>();
+
+        for (WebElement actualTumourDetail : tumourDetailsValuesFromAddSamplePage){
+            actualTumourDetailsFromAddSamplePage.add(actualTumourDetail.getText().trim());
+        }
+        Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
+        return actualTumourDetailsFromAddSamplePage;
+    }
+
 }
