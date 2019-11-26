@@ -325,32 +325,32 @@ String key2 = "additionalClinician";
 
 	public boolean firstNameFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-		return clinicianFirstNameField.isDisplayed() && clinicianFirstNameLabel.isDisplayed();
+		return clinicianFirstNameField.isEnabled() && clinicianFirstNameLabel.isDisplayed();
 	}
 
 	public boolean lastNameFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianLastNameField);
-		return clinicianLastNameField.isDisplayed() && clinicianLastNameLabel.isDisplayed();
+		return clinicianLastNameField.isEnabled() && clinicianLastNameLabel.isDisplayed();
 	}
 
 	public boolean emailFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianEmailField);
-		return clinicianEmailField.isDisplayed() && clinicianEmailLabel.isDisplayed();
+		return clinicianEmailField.isEnabled() && clinicianEmailLabel.isDisplayed();
 	}
 
 	public boolean phoneNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
-		return clinicianPhoneNumberField.isDisplayed() && clinicianPhoneNumberLabel.isDisplayed();
+		return clinicianPhoneNumberField.isEnabled() && clinicianPhoneNumberLabel.isDisplayed();
 	}
 
 	public boolean departmentNameAndAddressFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
-		return clinicianDepartmentAddressField.isDisplayed() && clinicianDepartmentAddressLabel.isDisplayed();
+		return clinicianDepartmentAddressField.isEnabled() && clinicianDepartmentAddressLabel.isDisplayed();
 	}
 
 	public boolean professionalRegistrationNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianProfesionalRegistrationNumberField);
-		return clinicianProfesionalRegistrationNumberField.isDisplayed() && clinicianProfesionalRegistrationNumberLabel.isDisplayed();
+		return clinicianProfesionalRegistrationNumberField.isEnabled() && clinicianProfesionalRegistrationNumberLabel.isDisplayed();
 	}
 
 	public String getContactSectionTitle(){
