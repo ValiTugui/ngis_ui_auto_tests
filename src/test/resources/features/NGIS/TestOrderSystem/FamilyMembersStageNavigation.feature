@@ -11,7 +11,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    Then the "<TestPackage>" stage is marked as Completed
+#    Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And  clicks the Save and Continue button in family member details page
