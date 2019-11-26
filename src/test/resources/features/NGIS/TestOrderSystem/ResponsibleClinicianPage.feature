@@ -106,3 +106,29 @@ Feature: Responsible Clinician
       | stage1                | stage2  | pageTitle                 | hyperlinkText |
       | Responsible clinician | Tumours | Add clinician information | Add another   |
 
+  @E2EUI-1137 @NTS-3321 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  Scenario Outline: NTS-3321 - Responsible Clinician Page - Layout
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    And the page shows the following help messages
+      | helpMessageHeader                                                                                                                                                                                                                     |
+      | Each referral requires a responsible clinician. They are ultimately accountable for referral accuracy and sample collection. A referral can also include additional clinicians. All linked clinicians will receive the test results. |
+    And the user sees the section label as "<stage>"
+    And The user sees the text field First name
+    And The user sees the text field Last name
+    And The user sees the text field Email address
+    And The user sees the text field Phone number
+    And The user sees the text field Department name and address
+    And The user sees the text field Professional registration number
+    And the user sees the another section name as "<sectionName>"
+    And the page shows the following help messages under Additional contacts
+      | helpMessageHeader                                                                                               |
+      | A referral can include as many additional clinicians as needed. Each contact will receive a copy of the report. |
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    And the user sees the Save and Continue button
+    Examples:
+      | stage                 | pageTitle                 | sectionName         |hyperlinkText |
+      | Responsible clinician | Add clinician information | Additional contacts |Add another   |
+
