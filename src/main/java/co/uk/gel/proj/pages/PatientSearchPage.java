@@ -57,6 +57,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
 
+    String pageTitleText = "Find your patient";
+
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
@@ -193,6 +195,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
 
+    @FindBy(xpath = "//h1[text()='Find your patient']")
+    public WebElement findYourPatientTitle;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -232,7 +237,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButtonByXpath);
-        searchButtonByXpath.click();
+        Actions.retryClickAndIgnoreElementInterception(driver,searchButtonByXpath);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        // searchButtonByXpath.Click();
     }
 
 
@@ -278,6 +285,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, passwordField);
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
+            Wait.seconds(30);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
         }
@@ -383,7 +391,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickPatientCard() {
+
         Wait.forElementToBeDisplayed(driver, patientCard);
+        if(!Wait.isElementDisplayed(driver,patientCard,30)){
+            Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
+            SeleniumLib.takeAScreenShot("PatientCard.jpg");
+            Assert.assertFalse("PatientCard not found to be clicked.",true);
+        }
         patientCard.click();
     }
 
@@ -631,43 +645,56 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        nhsNumberLabel.isDisplayed();
-        nhsNumber.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        searchButton.isDisplayed();
-
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(nhsNumberLabel);
+        expectedElements.add(nhsNumber);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        firstName.isDisplayed();
-        lastName.isDisplayed();
-        postcode.isDisplayed();
-        searchButton.isDisplayed();
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
 
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(firstName);
+        expectedElements.add(dateDay);
+        expectedElements.add(lastName);
+        expectedElements.add(postcode);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
     public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage, String expectedFontFace) {
@@ -790,10 +817,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     //Method added as a temporary fix for trial. Will be removed/modified based on run result.
     public boolean waitForSearchPageTobeLoaded(){
         try {
-            Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
-            By searchTitle = By.xpath("//h1[text()='Find your patient']");
-            WebElement patientSearchTitle = driver.findElement(searchTitle);
-            Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+            Wait.forElementToBeDisplayed(driver,findYourPatientTitle,120);
+            if(!Wait.isElementDisplayed(driver,findYourPatientTitle,30)){
+                Debugger.println("Patient Search Page not loaded.");
+                return false;
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Patient Search Page did not loaded......."+exp);

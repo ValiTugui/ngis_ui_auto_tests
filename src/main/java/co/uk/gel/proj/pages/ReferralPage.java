@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -167,6 +168,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[contains(@class,'no-access__copy')]//child::a")
     public List<WebElement> cancelledReferralWarningPageLinks;
 
+    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    public WebElement genericSuccessNotification;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
     //Family Member Search
@@ -176,6 +180,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
+    @FindBy(css = "*[class*='error-message__text']")
+    public List<WebElement> errorMessages;
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
@@ -184,6 +191,10 @@ public class ReferralPage<check> {
     String mandatoryToDOIconLocator = "todo__required-icon";
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
+
+    @FindBy(css = "div[class*='error-message__text']")
+    public List<WebElement> validationErrors;
+
 
 
     public void checkThatReferalWasSuccessfullyCreated() {
@@ -200,7 +211,9 @@ public class ReferralPage<check> {
 
     public void clickSaveAndContinueButton() {
         Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // Click.element(driver, saveAndContinueButton)
         if (helix.size() > 0) {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
@@ -219,8 +232,9 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
-    public void checkThatToDoListSuccessfullyLoaded() {
+    public boolean checkThatToDoListSuccessfullyLoaded() {
         Wait.forElementToBeDisplayed(driver, toDoList, 300);
+        return Wait.isElementDisplayed(driver,toDoList,30);
     }
 
     public String getPartialUrl(String stage) {
@@ -246,14 +260,16 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-         Wait.forElementToBeDisplayed(driver, toDoList, 100);
+        Wait.forElementToBeDisplayed(driver, toDoList, 100);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
             Actions.clickElement(driver, referralStage);
         }catch(Exception exp){
-            //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
+            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
+            // Below code added to handel that.
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
@@ -278,14 +294,25 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsCompleted(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList);
-
-        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        Wait.forElementToBeDisplayed(driver, referralStage);
-        boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-        if (status == true) return true;
-        else return false;
+       try {
+           Wait.forElementToBeDisplayed(driver, toDoList);
+           String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+           Wait.seconds(2);
+           WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+           Wait.seconds(2);
+           Wait.forElementToBeDisplayed(driver, referralStage);
+           Wait.seconds(2);
+           boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
+           if(status == true){
+               return true;
+           }
+           Debugger.println("Status of Stage.."+stage+" is: "+referralStage.getAttribute("class")+", but expected to be complete.");
+           return false;
+       }catch(Exception exp){
+           Debugger.println("Exception in Checking Stage Completion Status: "+exp);
+           SeleniumLib.takeAScreenShot("StageComplete.jpg");
+           return false;
+       }
     }
 
     public boolean stageIsMandatoryToDo(String stage) {
@@ -328,6 +355,7 @@ public class ReferralPage<check> {
 
 
     public String getTheCurrentPageTitle() {
+        Wait.forElementToBeDisplayed(driver,pageTitle);
         return Actions.getText(pageTitle);
     }
 
@@ -355,4 +383,61 @@ public class ReferralPage<check> {
     public void clickOnTheBackLink() {
         Actions.retryClickAndIgnoreElementInterception(driver,backLink);
     }
+
+    public String successNotificationIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, genericSuccessNotification);
+        return Actions.getText(genericSuccessNotification);
+    }
+
+
+    public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
+
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualErrorMessages = new ArrayList<>();
+        for (WebElement errorMessage : errorMessages) {
+            actualErrorMessages.add(errorMessage.getText().trim());
+        }
+        Debugger.println("Actual-Error Messages" + actualErrorMessages);
+        return actualErrorMessages;
+    }
+  
+    public void clickOnSaveAndContinueButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
+                Debugger.println("Save and Continue Button not displayed even after wait period.");
+            }
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Wait.seconds(2);
+            Click.element(driver, saveAndContinueButton);
+            Wait.seconds(5);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
+            Debugger.println("Could not click on Save and Continue...." + exp);
+        }
+    }
+    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
+        try {
+            Wait.seconds(5);
+            String actualMessage = validationErrors.get(0).getText();
+            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                return false;
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = validationErrors.get(0).getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Error Message " + exp);
+            return false;
+        }
+    }
+
 }

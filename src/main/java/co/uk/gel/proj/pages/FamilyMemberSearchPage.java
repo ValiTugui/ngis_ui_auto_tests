@@ -64,6 +64,8 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
+
+
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
 
@@ -125,10 +127,6 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
     public WebElement genderClear;
-
-
-
-
 
     static String searchString = "";
 
@@ -317,9 +315,11 @@ public class FamilyMemberSearchPage {
     }
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
+        Debugger.println("Searching for Family Member: "+searchParams);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
+            Debugger.println("Key: "+key);
             switch (key) {
                 case "NHSNumber": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
@@ -470,14 +470,21 @@ public class FamilyMemberSearchPage {
     }
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
+            Debugger.println("STATRED>>......");
             Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
-            String actualMessage = seleniumLib.getText(familyMemberIncompleteErrorMessage);
+            if(!Wait.isElementDisplayed(driver,familyMemberIncompleteErrorMessage,30)){
+                Debugger.println("Element familyMemberIncompleteErrorMessage: Not Displayed");
+            }
+            String actualMessage = familyMemberIncompleteErrorMessage.getText();
+            Debugger.println("Actual MEssage: "+actualMessage);
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                 return false;
             }
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            Debugger.println("EXP Color: "+expectedFontColor);
             String actColor = familyMemberIncompleteErrorMessage.getCssValue("color");
+            Debugger.println("ACtual Color: "+actColor);
             if (!expectedFontColor.equalsIgnoreCase(actColor)) {
                 Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                 return false;
