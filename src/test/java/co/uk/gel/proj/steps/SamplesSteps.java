@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -178,8 +179,14 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < expectedList.size(); i++) {
             expectedSampleTypesList.add(expectedList.get(i).get("sampleTypesHeader"));
-            Debugger.println("Expected Sample type: " + i + " : " + expectedSampleTypesList.get(i));
-            Debugger.println("Actual Sample type: " + i + " : " + actualSampleTypesList.get(i) + "\n");
+            Debugger.println("Expected samples options: " + i + " : " + expectedSampleTypesList.get(i));
+        }
+        /* Collections.sort method to sorting the elements of ArrayList in ascending order. */
+        Collections.sort(expectedSampleTypesList);
+        Collections.sort(actualSampleTypesList);
+        for (int i = 0; i < expectedList.size(); i++) {
+            Debugger.println("Expected Sample type values after sorting in ascending order: " + i + " : " + expectedSampleTypesList.get(i));
+            Debugger.println("Actual Sample type values after sorting in ascending order" + i + " : " + actualSampleTypesList.get(i) + "\n");
             Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
         }
     }
