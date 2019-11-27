@@ -20,7 +20,6 @@ public class SamplesPage {
 	WebDriver driver;
 	Faker faker = new Faker();
 	NewPatient sampleDetails = new NewPatient();
-
 	SeleniumLib seleniumLib;
 
 
@@ -276,7 +275,6 @@ public class SamplesPage {
 			}
 		}
 		return true;
-
 	}
 
 
