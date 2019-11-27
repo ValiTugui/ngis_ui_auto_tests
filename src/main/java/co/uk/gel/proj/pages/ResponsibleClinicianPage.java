@@ -461,6 +461,6 @@ public class ResponsibleClinicianPage {
 	public boolean verifyDepartmentNameAndAddressLabelIsShownAsMandatory(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressLabel);
 		Wait.isElementDisplayed(driver, clinicianDepartmentAddressLabelWithAsterisk, 1);
-		return Actions.getClass(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
+		return Actions.getClassName(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
 	}
 }

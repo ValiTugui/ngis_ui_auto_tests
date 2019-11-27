@@ -41,7 +41,7 @@ public class Actions {
         return element.getAttribute("value");
     }
 
-    public static String getClass(WebElement element) { return element.getAttribute("class"); }
+    public static String getClassName(WebElement element) { return element.getAttribute("class"); }
 
     public static void fillInValue(WebElement element, String value) {
         element.sendKeys(value);
