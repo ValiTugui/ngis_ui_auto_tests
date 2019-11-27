@@ -285,6 +285,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, passwordField);
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
+            Wait.seconds(30);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
         }

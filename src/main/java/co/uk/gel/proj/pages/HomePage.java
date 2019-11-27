@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
@@ -211,7 +212,15 @@ public class HomePage {
 
     public void waitUntilHomePageResultsContainerIsLoaded() {
         Wait.forElementToBeDisplayed(driver, filtersPanel);
+        if(!Wait.isElementDisplayed(driver,filtersPanel,30)){
+            Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
+            SeleniumLib.takeAScreenShot("filtersPanel.jpg");
+        }
         Wait.forElementToBeDisplayed(driver, resultsPanel);
+        if(!Wait.isElementDisplayed(driver,resultsPanel,30)){
+            Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
+            SeleniumLib.takeAScreenShot("resultsPanel.jpg");
+        }
     }
 
     public void typeInSearchField(String searchTerm) {
