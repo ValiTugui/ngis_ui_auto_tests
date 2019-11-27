@@ -47,7 +47,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02 @NTS-3287 @E2EUI-1945 @P0 @v_1
+    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -72,9 +72,8 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Sample added     |
 
 
-
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_03 @NTS-3287 @E2EUI-2330 @P0 @v_1
+    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -118,9 +117,9 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
-      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType   |
-      | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState  |
-      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID     |
+      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType  |
+      | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState |
+      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID    |
 
   @COMP7_TOC_Samples @LOGOUT
     @samplesPage_05  @NTS-3308 @E2EUI-943 @E2EUI-2338 @P0 @v_1
@@ -133,11 +132,11 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the following drop-down values are displayed for Sample types on Add a sample page
       | sampleTypesHeader         |
-      | Liquid tumour sample      |
-      | Omics sample              |
       | Solid tumour sample       |
-      | Abnormal tissue sample    |
+      | Liquid tumour sample      |
       | Normal or germline sample |
+      | Abnormal tissue sample    |
+      | Omics sample              |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -166,7 +165,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_07  @P0 @v_1 @NTS-3332 @E2EUI-1446
+    @samplesPage_07  @P0 @v_1 @NTS-3332 @E2EUI-1446 @E2EUI-1272
   Scenario Outline: NTS-3332 - Add a Sample page - Verify sample type, sample state and sampleID are display
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -181,4 +180,21 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample |
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_08  @P0 @v_1 @NTS-3333 @E2EUI-1252
+  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Sample ID from local laboratory
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the labels and help hint texts are displayed on Add a Sample page
+      | labelHeader                       | HintTextHeader                                                                         |
+      | Sample type ✱                     | None                                                                                   |
+      | Sample state ✱                    | None                                                                                   |
+      | Sample ID from local laboratory ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
 
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |

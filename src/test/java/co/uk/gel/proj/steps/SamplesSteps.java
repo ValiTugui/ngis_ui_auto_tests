@@ -190,4 +190,26 @@ public class SamplesSteps extends Pages {
         eachElementIsLoaded = samplesPage.verifyTheElementsOnAddASamplePage();
         Assert.assertTrue(eachElementIsLoaded);
     }
+
+    @And("the labels and help hint texts are displayed on Add a Sample page")
+    public void theLabelsAndHelpHintTextsAreDisplayedOnAddASamplePage(DataTable dataTable) {
+
+        List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
+        List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+
+        /* Add "None" element to the first and second index of actualHelpHintTexts, as Sample type and sample state have no help hint text */
+        actualHelpHintTexts.add(0, "None");
+        actualHelpHintTexts.add(1, "None");
+
+        for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
+
+            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
+            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
+        }
+    }
 }
