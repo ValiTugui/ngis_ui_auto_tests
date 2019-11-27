@@ -1,9 +1,13 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
+import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
+import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
@@ -138,6 +142,12 @@ public class TumoursPage {
     @FindBy(xpath = "//p[contains(@class,'hint__text')]")
     public List<WebElement> hintText;
 
+    @FindBy(css = "button[class*='link-button']")
+    public WebElement backLinkButton;
+
+    @FindBy(xpath = "//th[contains(text(),'Working diagnosis/morphology')]" )
+    public WebElement snomedCTWorkingDiagnosisLabel;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -216,6 +226,67 @@ public class TumoursPage {
         Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
+    }
+
+    public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {
+
+        switch (tumourType) {
+            case "Solid tumour: metastatic": {
+                Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+            case "Solid tumour: primary": {
+                Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+            case "Solid tumour: unknown": {
+                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+            case "Brain tumour": {
+                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+
+            case "Haematological malignancy: liquid sample": {
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+
+            case "Haematological malignancy: solid sample": {
+                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectRandomValueFromDropdown(dropdownValues);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid tumour type");
+        }
     }
 
     public boolean newTumourIsDisplayedInLandingPage(int i) {
@@ -381,6 +452,15 @@ public class TumoursPage {
         return expectedTumourFieldsLabels;
     }
 
+    public void clickOnTheAddANewTumourTextLink() {
+        Wait.forElementToBeClickable(driver, addAnotherTumourLink);
+        Click.element(driver, addAnotherTumourLink);
+    }
+
+    public String getDynamicQuestionsSnomedCTLabelText(){
+        Wait.forElementToBeDisplayed(driver,snomedCTWorkingDiagnosisLabel);
+        return  snomedCTWorkingDiagnosisLabel.getText();
+    }
 
 
 }

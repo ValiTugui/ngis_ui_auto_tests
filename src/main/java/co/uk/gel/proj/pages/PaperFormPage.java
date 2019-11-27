@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,7 +27,7 @@ public class PaperFormPage {
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(css = "p[class*='subHeader']")
+    @FindBy(css = "p[class*='sub-title-copy']")
     public WebElement orderEntitySubHeader;
 
     @FindBy(css = "p[class*='explanatoryText']")
@@ -34,6 +35,8 @@ public class PaperFormPage {
 
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
+
+
 
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
@@ -222,7 +225,13 @@ public class PaperFormPage {
     }
 
     public void clickSignInToTheOnlineServiceButton() {
-        Click.element(driver, signInToOnlineServiceButton);
+        try {
+            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
+            Click.element(driver, signInToOnlineServiceButton);
+            Wait.seconds(5);
+        }catch(Exception exp){
+            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: "+exp);
+        }
     }
 
     public void selectRandomEntityFromSuggestionsList() {
@@ -251,5 +260,16 @@ public class PaperFormPage {
     public boolean checkTheReviewSelectionPageHeaderText(String headerText) {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
+
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
+        orderEntitySubHeader.isDisplayed();
+        return orderEntitySubHeader.getText().matches(expectedLabelText);
+    }
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
+    }
+
 }
 

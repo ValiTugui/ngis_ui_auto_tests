@@ -15,10 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FamilyMemberSearchPage {
 
@@ -27,6 +24,9 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//h1[contains(text(),'Find a family member')]")
     public WebElement pageTitle;
+
+    @FindBy(xpath = "//h1[(contains(text(),'Add family member details'))]")
+    public WebElement familyMemeberQuestionnairePageTitle;
 
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
@@ -150,10 +150,18 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath="//p[contains(text(),'Address')]")
     public WebElement resultCardAddress;
 
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
+    public WebElement editBoxTestPackage;
+
     @FindBy(css = "a[class*='inline-link']")
     public WebElement noResultsHelpLink;
 
     String noResultsLocator = "img[class*='no-results__img']";
+    @FindBy(xpath = "//span[@class='css-3v83d8']")
+    public WebElement familyMemberIncompleteErrorMessage;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
+    public WebElement errorPatientCard;
 
 
     public FamilyMemberSearchPage(WebDriver driver) {
@@ -369,8 +377,6 @@ public class FamilyMemberSearchPage {
             }else{
                 expMessages = errorMessage.split(",");
             }
-            Debugger.println("lenght of ExpMessages: "+expMessages.length);
-            Debugger.println("Length of erros: "+validationErrors.size());
             String actualMessage = "";
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
@@ -390,7 +396,7 @@ public class FamilyMemberSearchPage {
             return true;
 
         }catch(Exception exp){
-            Debugger.println("Exception from validating Error Message "+exp);
+            Debugger.println("FamilyMemberSearchPage:Exception from validating Error Message "+exp);
             return false;
         }
     }
@@ -460,7 +466,9 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
         Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
 
-}
+}   public void clickOnNewPatientLink() {
+        seleniumLib.clickOnWebElement(createNewPatientLink);
+    }
 
     public void createNewPatientLinkDisplayed(String hyperLinkText) {
 
@@ -473,5 +481,87 @@ public class FamilyMemberSearchPage {
         Click.element(driver,AddReferralButton);
 
     }
+    public void verifyTheTitleOfTheFamilyMemberQuestionnairePage() {
+        Wait.seconds(3);
+        Wait.forElementToBeDisplayed(driver, familyMemeberQuestionnairePageTitle);
+        Assert.assertEquals("Add family member details", familyMemeberQuestionnairePageTitle.getText());
 
+    }
+    public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
+        try {
+            Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
+            String actualMessage = seleniumLib.getText(familyMemberIncompleteErrorMessage);
+            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                return false;
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = familyMemberIncompleteErrorMessage.getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from validating Error Message "+exp);
+            return false;
+        }
+    }
+
+    public void verifyNoPatientFoundDetails(String expSearchString, String errorMessage, String expectedFontFace) {
+        Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
+        Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
+
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("FirstName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("LastName")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(expectedResultMap.get("Gender")));
+        Assert.assertEquals(true, youHaveSearchedForLabel.getText().contains(TestUtils.dateFormatReverserToYYYYMMDD(expectedResultMap.get("DOB"))));
+
+        expectedFontFace = StylesUtils.convertFontFaceStringToCSSProperty(expectedFontFace);
+        Assert.assertEquals(expectedFontFace, youHaveSearchedForLabel.getCssValue("font-weight"));
+
+        Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+        Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
+        Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
+
+    }
+    public boolean getTextFromErrorPatientCardFields(String color) {
+        try {
+            Wait.forElementToBeDisplayed(driver, errorPatientCard);
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(color);
+            String actColor = errorPatientCard.getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            Debugger.println(errorPatientCard.getText());
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Error " + exp);
+            return false;
+        }
+    }
+
+    public void completingQuestionnaireFamilyMember() {
+        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']"));
+        Iterator<WebElement> itr = patientCards.iterator();
+        while (itr.hasNext()) {
+            String resultName = itr.next().getText();
+            Debugger.println(resultName);
+            seleniumLib.clickOnWebElement(editBoxTestPackage);
+        }
+    }
+
+    public boolean checkTheErrorMessageForIncompleteFamilyMember() {
+        try {
+            if (editBoxTestPackage.isDisplayed()) {
+                return true;
+            }
+        }catch (Exception exp){
+            Debugger.println("Error message not found "+exp);
+            return false;
+        }
+        return false;
+    }
 }//end

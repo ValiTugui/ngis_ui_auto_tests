@@ -1,4 +1,7 @@
+@regression
 @testDirectory
+@globalBehaviour
+
 Feature: Global Behaviour Page
 
   Background:
@@ -21,10 +24,10 @@ Feature: Global Behaviour Page
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
-    And the Review test selection page is properly opened and by default a test is selected
+    And the "Review test selection" page is properly opened and by default a test is selected
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     And the user clicks the Continue button again
-    Then the Offline order page is properly displayed for chosen clinical indication
+    Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
 
@@ -46,9 +49,9 @@ Feature: Global Behaviour Page
     And the user selects a random entity from the suggestions list
     And the user clicks the Continue button
     Then the user can see the "Privacy Policy" link at bottom of the page
-    And the Review test selection page is properly opened and by default a test is selected
+    And the "Review test selection" page is properly opened and by default a test is selected
     Then the user can see the "Privacy Policy" link at bottom of the page
     And the user clicks the Continue button again
-    Then the Offline order page is properly displayed for chosen clinical indication
+    Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page

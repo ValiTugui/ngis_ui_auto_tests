@@ -1,3 +1,4 @@
+@regression
 @testDirectory
 Feature: Home Page
 
@@ -6,7 +7,7 @@ Feature: Home Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
   @E2EUI-1366 @NTS-3160 @v_1 @P0 @COMP1_TD_ClinicalIndications
-Scenario: NTS-3160 - Home Page - Show number of results in a tab
+  Scenario: NTS-3160 - Home Page - Show number of results in a tab
     And the user types in the CI term  in the search field
       | 270 |
     Then the search results have been displayed

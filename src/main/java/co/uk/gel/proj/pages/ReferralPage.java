@@ -219,7 +219,9 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
-
+    public void checkThatToDoListSuccessfullyLoaded() {
+        Wait.forElementToBeDisplayed(driver, toDoList, 300);
+    }
 
     public String getPartialUrl(String stage) {
         String partialUrl = null;
@@ -252,7 +254,6 @@ public class ReferralPage<check> {
             Actions.clickElement(driver, referralStage);
         }catch(Exception exp){
             //Sometimes click on stage link on second time gives ElementClickInterceptedException. Below code added to handel that.
-            Debugger.println("Exception in clicking stage: "+stage+"\n"+exp);
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
@@ -278,6 +279,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         Wait.forElementToBeDisplayed(driver, toDoList);
+
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
@@ -348,5 +350,9 @@ public class ReferralPage<check> {
         String currentPage = getTheCurrentPageTitle();
         Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
         return actualHelpHintTexts;
+    }
+
+    public void clickOnTheBackLink() {
+        Actions.retryClickAndIgnoreElementInterception(driver,backLink);
     }
 }

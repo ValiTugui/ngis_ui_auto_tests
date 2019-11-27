@@ -167,4 +167,29 @@ public class TestPackageSteps extends Pages {
         referralPage.navigateToStage(stage);
         Assert.assertTrue(testPackagePage.verifyTheNumberOfParticipants(participantsCount));
     }
+
+    @Then("the user sees the test has become deselected")
+    public void theUserSeesTheTestHasBecomeDeselected() {
+        Assert.assertTrue(testPackagePage.testIsDeselected());
+    }
+
+    @And("the Total number of participants field is disappeared for the deselected test")
+    public void theTotalNumberOfParticipantsFieldIsDisappearedForTheDeselectedTest() {
+        Assert.assertTrue(testPackagePage.numberOfParticipantsFieldIsNotDisplayed());
+    }
+
+    @And("the user sees the test has been selected by default")
+    public void theUserSeesTheTestHasBeenSelectedByDefault() {
+        Assert.assertTrue(testPackagePage.testIsSelected());
+    }
+
+    @Then("the user sees the test has been selected")
+    public void theUserSeesTheTestHasBeenSelected() {
+        theUserSeesTheTestHasBeenSelectedByDefault();
+    }
+
+    @And("the user navigates to {string} stage section without clicking on the {string} button from the {string}")
+    public void theUserNavigatesToStageSectionWithoutClickingOnTheButtonFromThe(String targetStage, String buttonName, String currentStage) {
+        referralPage.navigateToStage(targetStage);
+    }
 }

@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -14,6 +15,8 @@ import org.junit.Assert;
 
 import java.text.ParseException;
 import java.util.*;
+
+import static co.uk.gel.lib.Actions.getText;
 
 public class TumoursSteps extends Pages {
     SeleniumLib seleniumLib = new SeleniumLib(driver);
@@ -65,6 +68,12 @@ public class TumoursSteps extends Pages {
     @And("the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched {string} result drop list")
     public void theUserAnswersTheTumourDynamicQuestionsForTumourDiagnosisBySelectingASnomedCTFromTheSearchedResultDropList(String snomedTest) {
         tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
+    }
+
+
+    @And("the user answers the tumour dynamic questions {string} for Tumour Diagnosis by selecting a SnomedCT from the searched {string} result drop list")
+    public void theUserAnswersTheTumourDynamicQuestionsForTumourDiagnosisBySelectingASnomedCTFromTheSearchedResultDropList(String tumourType, String snomedTest) {
+        tumoursPage.answerTumourDiagnosisQuestionsBasedOnTumourType(tumourType, snomedTest);
     }
 
     @Then("the new tumour is displayed in the landing page")
@@ -140,7 +149,7 @@ public class TumoursSteps extends Pages {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (int i = 0; i < list.size(); i++) {
             Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
-            Assert.assertEquals(list.get(i).get("errorMessageHeader"), Actions.getText(tumoursPage.errorMessages.get(i)));
+            Assert.assertEquals(list.get(i).get("errorMessageHeader"), getText(tumoursPage.errorMessages.get(i)));
         }
     }
 
@@ -159,15 +168,15 @@ public class TumoursSteps extends Pages {
             Assert.assertFalse("Success notification Element is not displayed", flagStatus);
 
         } else {
-            Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + Actions.getText(tumoursPage.successNotification));
-            Assert.assertEquals(list.get(0).get("notificationTextHeader"), Actions.getText(tumoursPage.successNotification));
+            Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + getText(tumoursPage.successNotification));
+            Assert.assertEquals(list.get(0).get("notificationTextHeader"), getText(tumoursPage.successNotification));
         }
 
-        Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + Actions.getText(tumoursPage.tumourInformationText));
-        Assert.assertEquals(list.get(0).get("textInformationHeader"), Actions.getText(tumoursPage.tumourInformationText));
+        Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + getText(tumoursPage.tumourInformationText));
+        Assert.assertEquals(list.get(0).get("textInformationHeader"), getText(tumoursPage.tumourInformationText));
 
-        Debugger.println("Expected :" + list.get(0).get("linkToAddANewTumourHeader") + " Actual:" + Actions.getText(tumoursPage.addAnotherTumourLink));
-        Assert.assertEquals(list.get(0).get("linkToAddANewTumourHeader"), Actions.getText(tumoursPage.addAnotherTumourLink));
+        Debugger.println("Expected :" + list.get(0).get("linkToAddANewTumourHeader") + " Actual:" + getText(tumoursPage.addAnotherTumourLink));
+        Assert.assertEquals(list.get(0).get("linkToAddANewTumourHeader"), getText(tumoursPage.addAnotherTumourLink));
 
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
         int actualListOfTumours = tumoursPage.listOfTumoursInTheTable.size();
@@ -255,7 +264,6 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-
         String actualPageTitle = referralPage.getTheCurrentPageTitle();
         Debugger.println("Actual PageTitle : " + actualPageTitle);
         Debugger.println("Expected PageTitle : " + expectedPageTitle);
@@ -334,5 +342,55 @@ public class TumoursSteps extends Pages {
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
         tumoursPage.selectTumourType(tumourType);
+    }
+
+    @And("the new tumour details added in the tumour list are indicated as in-complete with {string} fonts colour")
+    public void theNewTumourDetailsAddedInTheTumourListAreIndicatedAsInCompleteWithFontsColour(String fontsColor) {
+
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontsColor);
+        for (int i = 0; i < tumoursPage.newlyAddedTumourDetailsList.size(); i++) {
+            Debugger.println("Expected fonts colour for: " + getText(tumoursPage.newlyAddedTumourDetailsList.get(i)) + " : " + expectedFontColor);
+            Debugger.println("Actual fonts colour: " + tumoursPage.newlyAddedTumourDetailsList.get(i).getCssValue("color"));
+            Assert.assertEquals(expectedFontColor, tumoursPage.newlyAddedTumourDetailsList.get(i).getCssValue("color"));
+        }
+    }
+
+    @And("the error message {string} is displayed in {string} fonts colour in the page")
+    public void theErrorMessageIsDisplayedInFontsColourInThePage(String errorMessage, String messageColor) {
+
+        Debugger.println("Expected error message: " + errorMessage);
+        Debugger.println("Actual Error message: " + getText(tumoursPage.errorMessages.get(0)));
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("user clicks add a new tumour link")
+    public void userClicksAddANewTumourLink() {
+        tumoursPage.clickOnTheAddANewTumourTextLink();
+    }
+
+
+    @And("the user adds a new tumour")
+    public void theUserAddsANewTumour(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
+
+        tumoursPage.fillInDateOfDiagnosis();
+        tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
+        tumoursPage.fillInSpecimenID();
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
+        tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
+        referralPage.clickSaveAndContinueButton();
+        tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
+
+    }
+
+    @And("the Tumour page has the label text displayed as {string}")
+    public void theTumourPageHasTheLabelTextDisplayedAs(String expectedLabelName) {
+        String actualSnomedCTText = tumoursPage.getDynamicQuestionsSnomedCTLabelText();
+        Assert.assertEquals(expectedLabelName, actualSnomedCTText);
     }
 }

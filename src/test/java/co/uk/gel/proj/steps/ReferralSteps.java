@@ -4,7 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
-import co.uk.gel.proj.TestDataProvider.NGISPatient;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -224,6 +224,11 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue("Save and Continue is meant to be displayed", referralPage.saveAndContinueButtonIsDisplayed());
     }
 
+    @When("the user clicks on the Back link")
+    public void theUserClicksOnTheBackLink() {
+       referralPage.clickOnTheBackLink();
+    }
+
     //Added by STAG to create referral with the given patient details than taking from Test Data Provider
     @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
@@ -245,21 +250,22 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+        Assert.assertTrue(searchPageLoaded);
+        //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
-            NGISPatient ngisPatient = new NGISPatient();
+            NGISPatientModel ngisPatient = new NGISPatientModel();
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
                 switch (key) {
                     case "NHSNumber": {
-                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key));
+                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key).trim());
                         break;
                     }
                     case "DOB": {
-                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key));
+                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key).trim());
                         break;
                     }
                     case "FirstName": {

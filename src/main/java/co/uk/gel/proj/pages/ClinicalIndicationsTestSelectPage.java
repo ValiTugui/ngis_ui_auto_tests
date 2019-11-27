@@ -3,13 +3,12 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.hu.De;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ClinicalIndicationsTestSelectPage {
@@ -33,6 +32,9 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(css = "div[class*='eligibilityCard']")
     public List<WebElement> eligibilityCriteriaSections;
 
+    @FindBy(xpath = "//*[contains(@class,'grid')]//descendant::div/h2/span")
+    public List<WebElement> testDetailsSubSections;
+
     @FindBy(css = "div[class*='markdownStyling']")
     public List<WebElement> whoToTestText;
 
@@ -46,7 +48,7 @@ public class ClinicalIndicationsTestSelectPage {
     public WebElement clinicalIndicationSubHeader;
 
     @FindBy(css = ".btn-secondary")
-    public List<WebElement> goToClinicalIndicationsButtonInPopup;
+    public WebElement goToClinicalIndicationsButtonInPopup;
 
     @FindBy(xpath = "//*[contains(@class,'package')]//child::h1")
     public WebElement testPackageContainerHeader;
@@ -72,10 +74,10 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(css = "*[class*='styles_mainHeader']")
     public WebElement testPackagePopupTitle;
 
-    @FindBy(xpath = "//div[contains(@class,'ctaBlock')]//child::a")
+    @FindBy(css = ".btn-secondary")
     public WebElement goToTestPageButtonFromPopup;
 
-    @FindBy(css = "div[class*='card_']")
+    @FindBy(xpath = "//*[contains (@class, 'card_')]")
     public List<WebElement> furtherInfoSections;
 
     @FindBy(css = ".btn.btn-md.btn-primary")
@@ -96,8 +98,40 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'styles_relatedContainer')]/ul")
     public WebElement clinicalIndicationsResultContainer;
 
+    @FindBy(xpath = "//*[contains (@class, 'styles_card')]")
+    public List<WebElement> clinicalIndicationsResults;
+
+    @FindBy(xpath = "//*[contains (@class, 'styles_processCardImg')]")
+    public List<WebElement> orderProcessResults;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::img")
+    public List<WebElement> orderProcessCardImage;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::h2")
+    public List<WebElement> orderProcesssTitles;
+
+    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::p")
+    public List<WebElement> orderProcesssDescriptions;
+
+    @FindBy(xpath = "//*/h4")
+    public List<WebElement> clinicalIndicationsHeadings;
+
     public void clickStartReferralButton() {
         Click.element(driver, startTestOrderButton);
+    }
+
+    public void clickBackToSearchButton() {
+        Click.element(driver, backToSearch);
+    }
+
+    public void clickGoToTestPageButton() {
+        Wait.forElementToBeClickable(driver, goToTestPageButtonFromPopup);
+        Click.element(driver, goToTestPageButtonFromPopup);
+    }
+
+    public void clickGoToClinicalIndicationButton() {
+        Wait.forElementToBeClickable(driver, goToClinicalIndicationsButtonInPopup);
+        Click.element(driver, goToClinicalIndicationsButtonInPopup);
     }
 
     public boolean validateIfLoadingWheelIsPresent() {
@@ -114,44 +148,51 @@ public class ClinicalIndicationsTestSelectPage {
         return !actual.equalsIgnoreCase(expected);
     }
 
-    public void waitUntilClinicalIndicationsResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
+    public boolean checkIfClinicalIndicationsAreLoaded() {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'styles_relatedContainer')]/ul"), 0);
+        return clinicalIndicationsResults.size() >= 0;
     }
 
     public boolean isTabSelected(String tabName) {
+        String attribute = "class";
+        String select = "activeTab";
         switch (tabName) {
             case "Eligibility Criteria":
             case "Clinical Indications": {
-                return clinicalIndicationTabs.get(0).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(0).getAttribute(attribute).contains(select);
             }
             case "Test Package":
             case "Test details": {
-                return clinicalIndicationTabs.get(1).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(1).getAttribute(attribute).contains(select);
             }
             case "Further Info":
             case "Labs": {
-                return clinicalIndicationTabs.get(2).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(2).getAttribute(attribute).contains(select);
             }
             case "Order process": {
-                return clinicalIndicationTabs.get(3).getAttribute("class").contains("activeTab");
+                return clinicalIndicationTabs.get(3).getAttribute(attribute).contains(select);
             }
+            default:
+                return false;
         }
-        return false;
     }
 
     public void selectTab(String tabName) {
         switch (tabName) {
-            case "Eligibility Criteria": {
+            case "Eligibility Criteria":
+            case "Clinical Indications": {
                 Click.element(driver, clinicalIndicationTabs.get(0));
                 Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
                 break;
             }
-            case "Test Package": {
+            case "Test Package":
+            case "Test details": {
                 Click.element(driver, clinicalIndicationTabs.get(1));
                 Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
                 break;
             }
-            case "Further Info": {
+            case "Further Info":
+            case "Labs": {
                 Click.element(driver, clinicalIndicationTabs.get(2));
                 Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
                 break;
@@ -162,7 +203,7 @@ public class ClinicalIndicationsTestSelectPage {
                 break;
             }
             default:
-                throw new IllegalStateException("Unexpected value: " + tabName);
+                throw new IllegalStateException("Section Number Mismatch " + tabName);
         }
     }
 
@@ -180,4 +221,117 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean checkTestPagePopUpTitleMatchesSearchedText() {
         return testsFromTestPackageList.get(0).getText().contains(testPackagePopupTitle.getText());
     }
+
+    public boolean checkTestPagePopUpContents() {
+        boolean contentField1 = testPackagePopupProps.findElements(By.tagName("h5")).get(0).getText().contains("Technology");
+        boolean contentField2 = testPackagePopupProps.findElements(By.tagName("h5")).get(1).getText().contains("Scope");
+        boolean contentField3 = testPackagePopupProps.findElements(By.tagName("h5")).get(2).getText().contains("Targeted genes");
+        boolean contentField4 = testPackagePopupProps.findElements(By.tagName("h5")).get(3).getText().contains("Sample type & state");
+        boolean contentField5;
+        boolean contentField6;
+        if (testPackagePopupProps.findElements(By.tagName("h5")).size() == 6) {
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Optimal family structure");
+            contentField6 = testPackagePopupProps.findElements(By.tagName("h5")).get(5).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5 && contentField6);
+        } else {
+            contentField5 = testPackagePopupProps.findElements(By.tagName("h5")).get(4).getText().contains("Eligibility criteria");
+            return (contentField1 && contentField2 && contentField3 && contentField4 && contentField5);
+        }
+    }
+
+    public boolean testDetailsTabValidation(String sectionName1, String sectionName2, String sectionName3) {
+        switch (testDetailsSubSections.size()) {
+            case 1: {
+                return testDetailsSubSections.get(0).getText().matches(sectionName1);
+            }
+            case 2: {
+                return ((testDetailsSubSections.get(0).getText().matches(sectionName1)) && (testDetailsSubSections.get(1).getText().matches(sectionName2)));
+            }
+            case 3: {
+                return ((testDetailsSubSections.get(0).getText().matches(sectionName1)) && (testDetailsSubSections.get(1).getText().matches(sectionName2)) && (testDetailsSubSections.get(2).getText().matches(sectionName3)));
+            }
+            default:
+                throw new IllegalStateException("Mismatch in No of section: " + testDetailsSubSections.size());
+        }
+    }
+
+    public boolean labsTabValidation(String sectionName) {
+        return (eligibilityCriteriaSections.size() == 1 && (eligibilityCriteriaSections.get(0).getText().contains(sectionName)));
+    }
+
+    public boolean orderProcessTabValidation(int numOfSection) {
+        return orderProcessResults.size() == numOfSection;
+    }
+
+    public boolean checkIfBackToSearchButtonPresent(String buttonName) {
+        Wait.forElementToBeDisplayed(driver, backToSearch);
+        return backToSearch.getText().matches(buttonName);
+    }
+
+    public void waitUntilEligibilityCardsFromEligibilityCriteriaTabAreLoaded() {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector("div[class*='eligibilityCard']"), 1);
+    }
+
+    public boolean eligibilityCriteriaTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {
+        waitUntilEligibilityCardsFromEligibilityCriteriaTabAreLoaded();
+        switch (eligibilityCriteriaSections.size()) {
+            case 2: {
+                Wait.forElementToBeDisplayed(driver, eligibilityCriteriaSections.get(1));
+                return ((eligibilityCriteriaSections.get(0).findElement(By.tagName("span")).getText().matches(sectionName1)) && (eligibilityCriteriaSections.get(1).findElement(By.tagName("span")).getText().matches(sectionName2)));
+            }
+            case 4: {
+                Wait.forElementToBeDisplayed(driver, eligibilityCriteriaSections.get(3));
+                return ((eligibilityCriteriaSections.get(0).findElement(By.tagName("span")).getText().matches(sectionName1)) && (eligibilityCriteriaSections.get(1).findElement(By.tagName("span")).getText().matches(sectionName2)) && (eligibilityCriteriaSections.get(2).findElement(By.tagName("span")).getText().matches(sectionName3)) && (eligibilityCriteriaSections.get(3).findElement(By.tagName("span")).getText().matches(sectionName4)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch " + eligibilityCriteriaSections.size());
+        }
+    }
+
+    public boolean whoCanOrderContentValidation(String whoCanOrderContent) {
+        switch (eligibilityCriteriaSections.size()) {
+            case 2: {
+                return (eligibilityCriteriaSections.get(1).findElement(By.tagName("p")).getText().matches(whoCanOrderContent));
+            }
+            case 4: {
+                return (eligibilityCriteriaSections.get(3).findElement(By.tagName("p")).getText().matches(whoCanOrderContent));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + eligibilityCriteriaSections.size());
+        }
+    }
+
+    public void clickFirstResultInClinicalIndications() {
+        Click.element(driver, clinicalIndicationsResults.get(0));
+    }
+
+    public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {
+        return (((goToClinicalIndicationsButtonInPopup.getText().matches(buttonName)) && (closePopupButton.isDisplayed()) && clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
+    }
+
+    public void waitUntilFurtherInfoCardsFromFurtherInfoTabAreLoaded() {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'card_')]"), 1);
+    }
+
+    public boolean furtherInfoTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {
+        Wait.forPageToBeLoaded(driver);
+        waitUntilFurtherInfoCardsFromFurtherInfoTabAreLoaded();
+        for (int i = 0; i < furtherInfoSections.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, furtherInfoSections.get(i));
+        }
+        switch (furtherInfoSections.size()) {
+            case 2: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            case 3: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName3)) && (furtherInfoSections.get(2).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            case 4: {
+                return ((furtherInfoSections.get(0).findElement(By.tagName("h2")).getText().contains(sectionName1)) && (furtherInfoSections.get(1).findElement(By.tagName("h2")).getText().contains(sectionName2)) && (furtherInfoSections.get(2).findElement(By.tagName("h2")).getText().contains(sectionName3)) && (furtherInfoSections.get(3).findElement(By.tagName("h2")).getText().contains(sectionName4)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + furtherInfoSections.size());
+        }
+    }
+
 }

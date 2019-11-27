@@ -6,13 +6,13 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.UnhandledAlertException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Pages implements Navigable {
 
@@ -40,6 +40,7 @@ public class Pages implements Navigable {
     protected FamilyMemberSearchPage familyMemberSearchPage;
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
+    protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -65,6 +66,7 @@ public class Pages implements Navigable {
         familyMemberSearchPage = PageFactory.initElements(driver, FamilyMemberSearchPage.class);
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
+        familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -92,47 +94,67 @@ public class Pages implements Navigable {
     }
 
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
-        driver.get(urlToNavigate);
-        //Navigate to Test Directory
-        if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
-            homePage.waitUntilHomePageResultsContainerIsLoaded();
-        }
-        // Navigate to specific pages in Test Order
-        else if (driver.getCurrentUrl().contains(pageToNavigate)) {
-            Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
-            Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
-
-        } else {
-            if (driver.getCurrentUrl().contains("login.microsoft")) {
-                Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-                Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-                if (userType != null)
-                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
-                else
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        try {
+            Debugger.println("Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
+            driver.get(urlToNavigate);
+            Debugger.println("Current URL After getting: "+driver.getCurrentUrl());
+            //Navigate to Test Directory
+            if (driver.getCurrentUrl().contains("test-selection/clinical-tests")) {
+                homePage.waitUntilHomePageResultsContainerIsLoaded();
+            }
+            // Navigate to specific pages in Test Order
+            else if (driver.getCurrentUrl().contains(pageToNavigate)) {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.pageTitle);
+                Assert.assertTrue(patientSearchPage.pageTitle.isDisplayed());
             } else {
-                if (patientSearchPage.logout.isDisplayed()) {
-                    patientSearchPage.logout.click();
+                if (driver.getCurrentUrl().contains("login.microsoft")) {
+                    Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                    Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
                     if (userType != null)
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     else
                         patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                } else
-                    Debugger.println(" User is at url " + driver.getCurrentUrl());
+                } else {
+                    if (patientSearchPage.logout.isDisplayed()) {
+                        patientSearchPage.logout.click();
+                        if (userType != null)
+                            patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                        else
+                            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    } else
+                        Debugger.println(" User is at url " + driver.getCurrentUrl());
+                }
             }
+            Debugger.println("Done with Navigation:");
+        }catch(Exception exp){
+            Debugger.println("Exception in Navigating to URL: "+urlToNavigate+"\nExp:"+exp);
         }
     }
 
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("CURRENT URL: " + currentURL);
-        if (driver.getCurrentUrl().contains(patientSearchURL)) {
-            Actions.cleanUpSession(driver);
-        } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-            Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
-            Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
-            patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+        Wait.seconds(6);
+        Debugger.println("ACTUAL  URL: " + driver.getCurrentUrl());
+        try {
+            if (driver.getCurrentUrl().contains(patientSearchURL)) {
+              //  Actions.cleanUpSession(driver);
+            } else if (driver.getCurrentUrl().contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+               // Wait.forElementToBeDisplayed(driver, patientSearchPage.emailAddressField);
+                //Assert.assertTrue(patientSearchPage.emailAddressField.isDisplayed());
+                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+            }
+            Debugger.println("NEW URL    : " + driver.getCurrentUrl());
+        } catch (Exception e) {
+            Debugger.println("I am into switchToURL exception");
+            File screenshot = ((TakesScreenshot) driver)
+                    .getScreenshotAs(OutputType.FILE);
+            try {
+                FileUtils.copyFile(screenshot, new File("switchURLException.jpg"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
-        Debugger.println("NEW URL    : " + driver.getCurrentUrl());
     }
 }//end class
