@@ -330,43 +330,41 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.deselectCheckBoxOnFamilyPage();
     }
 
-    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
+    @Then("the user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
     public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
         familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
 
     }
 
-    @And("The user should be able to see if the family member status {string} Marked in {string}.")
+    @And("the user should be able to see if the family member status {string} Marked in {string}.")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.testedFieldColor(testfield, color);
         Assert.assertTrue(testResult);
     }
 
-    @And("The user should be able to view patient choice status for all the family members added.")
+    @And("the user should be able to view patient choice status for all the family members added.")
     public void theUserShouldBeAbleToViewPatientChoiceStatusForAllTheFamilyMembersAdded() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.patientChoiceStatusDetail();
         Assert.assertTrue(testResult);
     }
 
-    @And("The user should also see the separate edit or delete icon under every family member details provided.")
+    @And("the user should also see the separate edit or delete icon under every family member details provided.")
     public void theUserShouldAlsoSeeTheSeparateEditOrDeleteIconUnderEveryFamilyMemberDetailsProvided() {
         familyMemberDetailsPage.editAndDeleteButtonDisplay();
     }
 
-    @And("There is a message displayed on top of landing page stating {string}")
+    @And("there is a message displayed on top of landing page stating {string}")
     public void thereIsAMessageDisplayedOnTopOfLandingPageStating(String subTitlemsg) {
         familyMemberDetailsPage.subTitleMessage(subTitlemsg);
 
     }
 
-    @And("The user also should see the Add Family Member button and continue button displayed")
-    public void theUserAlsoShouldSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
+    @And("the user should also see the Add Family Member button and continue button displayed")
+    public void theUserShouldAlsoSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.addFamilyMemberButtonIsDisplayed();
-        Assert.assertTrue(testResult);
-        testResult = familyMemberDetailsPage.continueButtonDisplayed();
+        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
         Assert.assertTrue(testResult);
     }
 
