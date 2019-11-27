@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
 import co.uk.gel.lib.Actions;
@@ -59,6 +60,9 @@ public class ResponsibleClinicianPage {
 
 	@FindBy(css = "label[for*='responsibleClinician.departmentalAddress']")
 	public WebElement clinicianDepartmentAddressLabel;
+
+	@FindBy(xpath = "//label[contains(text(),'Department name and address')]/span")
+	public WebElement clinicianDepartmentAddressLabelWithAsterisk;
 
 	@FindBy(css = "label[for*='responsibleClinician.professionalRegistrationNumber']")
 	public WebElement clinicianProfesionalRegistrationNumberLabel;
@@ -128,6 +132,8 @@ public class ResponsibleClinicianPage {
 
 	@FindBy(css = "label[for*='additionalClinicians[0].surname']")
 	public WebElement additionalClinician1LastNameLabel;
+
+	String mandatoryLabelAttribute = "label__required-icon";
 
 	public void fillInClinicianFormFields() {
 		String firstName = RandomDataCreator.getRandomFirstName();
@@ -450,5 +456,11 @@ public class ResponsibleClinicianPage {
 	public String getContactSectionHelpText(){
 		Wait.forElementToBeDisplayed(driver, clinicianFormInfo);
 		return Actions.getText(clinicianFormInfo);
+	}
+
+	public boolean verifyDepartmentNameAndAddressLabelIsShownAsMandatory(){
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressLabel);
+		Wait.isElementDisplayed(driver, clinicianDepartmentAddressLabelWithAsterisk, 1);
+		return Actions.getClass(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
 	}
 }

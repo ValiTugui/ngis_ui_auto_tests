@@ -201,4 +201,9 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theMandatoryFieldLastNameShouldBeHighlightedWithARedMarkInAdditionalClinicianSection(String hexColourString) {
         Assert.assertTrue(responsibleClinicianPage.verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(hexColourString));
     }
+
+    @And("the user sees the label Department name and address marked as mandatory")
+    public void theUserSeesTheLabelDepartmentNameAndAddressMarkedAsMandatory() {
+        Assert.assertTrue(responsibleClinicianPage.verifyDepartmentNameAndAddressLabelIsShownAsMandatory());
+    }
 }
