@@ -266,7 +266,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user removes the family member")
     public void theUserRemoveTheFamilyMember() {
         familyMemberDetailsPage.removeAFamilyMember();
-
     }
 
     @Then("the user should be able to see {string} removal message on the family member landing page")

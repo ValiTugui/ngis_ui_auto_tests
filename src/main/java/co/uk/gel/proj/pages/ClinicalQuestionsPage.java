@@ -121,25 +121,18 @@ public class ClinicalQuestionsPage {
         return actualNumberOfHPOTerms >= minimumNumberOfHPOTerms;
     }
 
-    public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
+    public void searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            new org.openqa.selenium.interactions.Actions(driver).moveToElement(hpoSearchField).perform();
-            Actions.fillInValue(hpoSearchField, hpoTerm);
-            Debugger.println("Filled....");
+            seleniumLib.sendValue(hpoSearchField,hpoTerm);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Debugger.println("Waiting for ....dropdownValue");
+            if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
+                Debugger.println("HPO term "+hpoTerm+" present in the dropdown.");
+                return;
+            }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            Debugger.println("Selected ....dropdownValues");
-            // determine the total number of HPO terms
-            Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, hpoTable);
-            int numberOfHPO = hpoTerms.size();
-            Debugger.println("SizeOfHPOTerms: "+numberOfHPO);
-            return numberOfHPO;
-        }catch(Exception exp){
+           }catch(Exception exp){
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception "+exp);
-            return 0;
         }
     }
 
