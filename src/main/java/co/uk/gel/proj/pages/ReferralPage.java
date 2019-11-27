@@ -199,10 +199,7 @@ public class ReferralPage<check> {
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
 
-
-
-
-
+    
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
