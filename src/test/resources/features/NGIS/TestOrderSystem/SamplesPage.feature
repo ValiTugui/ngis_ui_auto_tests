@@ -66,6 +66,9 @@ Feature: Samples Page
     And the "<stage>" stage is marked as Completed
 
     Examples:
+
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType   | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Omics sample | Sample added     |
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType                | notificationText |
       | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Sample added     |
       | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Sample added     |
