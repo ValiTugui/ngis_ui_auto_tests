@@ -109,7 +109,7 @@ Feature: Family Members Details Validation
     And clicks the Save and Continue button in family member details page
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<FamilyMembers>" stage is marked as Completed
+    Then the user is navigated to a page with title Add a family member to this referral
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  |
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown |
