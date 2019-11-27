@@ -167,6 +167,7 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.noPatientFoundLabel);
         String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
