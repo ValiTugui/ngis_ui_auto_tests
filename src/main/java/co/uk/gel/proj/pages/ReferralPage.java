@@ -404,6 +404,9 @@ public class ReferralPage<check> {
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
+                Debugger.println("Save and Continue Button not displayed even after wait period.");
+            }
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             Wait.seconds(2);
             Click.element(driver, saveAndContinueButton);

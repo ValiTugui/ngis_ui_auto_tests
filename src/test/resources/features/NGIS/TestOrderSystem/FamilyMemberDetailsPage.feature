@@ -82,7 +82,7 @@ Feature: Family Members Details Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
+    And  clicks the Save and Continue button in family member details page
     Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
