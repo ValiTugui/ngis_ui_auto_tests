@@ -11,7 +11,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And  clicks the Save and Continue button in family member details page
@@ -94,8 +94,8 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    Then the "<TestPackage>" stage is marked as Completed
     And  clicks the Save and Continue button in family member details page
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And  clicks the Save and Continue button in family member details page
@@ -137,7 +137,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -167,7 +167,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -199,7 +199,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
     And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -227,7 +227,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<stage>" stage
     Then the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
     When the user clicks on Add family member button
@@ -260,7 +260,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<Family members>" stage
     And the user clicks on Add family member button
     When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -294,7 +294,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user types in valid details of a patient in the NHS number "<NhsNumber1>" and Date of Birth "<DOB1>" fields
@@ -341,12 +341,12 @@ Feature: Family Members Navigation Stage Validation
     And clicks the Save and Continue button in family member details page
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  clicks the Save and Continue button in family member details page
-    Then the user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
-    And there is a message displayed on top of landing page stating "Tested family members you add here will be visible in the pedigree.You can add non-tested family members to the pedigree as well."
-    And the user should be able to see if the family member status "<TestStatus>" Marked in "<color>".
-    And the user should be able to view patient choice status for all the family members added.
-    And the user should also see the separate edit or delete icon under every family member details provided.
-    And the user should also see the Add Family Member button and continue button displayed
+    Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
+    And There is a message displayed on top of landing page stating "Tested family members you add here will be visible in the pedigree.You can add non-tested family members to the pedigree as well."
+    And The user should be able to see if the family member status "<TestStatus>" Marked in "<color>".
+    And The user should be able to view patient choice status for all the family members added.
+    And The user should also see the separate edit or delete icon under every family member details provided.
+    And The user also should see the Add Family Member button and continue button displayed
 
 
     Examples:

@@ -27,7 +27,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @When("the user adds a new HPO phenotype term {string}")
     public void theUserAddsANewHPOPhenotypeTerm(String newHPOTerm) {
-        clinicalQuestionsPage.searchAndSelectRandomHPOPhenotype(newHPOTerm);
+        int actualNumberOfHPOTerms = clinicalQuestionsPage.searchAndSelectRandomHPOPhenotype(newHPOTerm);
     }
 
     @Then("the new HPO term {string} appears at the top of the list of the HPO terms")
