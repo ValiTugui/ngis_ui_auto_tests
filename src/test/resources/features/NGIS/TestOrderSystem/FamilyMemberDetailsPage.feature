@@ -83,7 +83,6 @@ Feature: Family Members Details Validation
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And  clicks the Save and Continue button in family member details page
-    Then the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
     When the user clicks on participant amendment link to amend the number of participants
