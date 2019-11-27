@@ -1,6 +1,7 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -887,6 +890,21 @@ public class SeleniumLib {
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript(script);
         } catch (Exception e) {
+
+        }
+    }
+    public static void takeAScreenShot(String filename){
+        try{
+            if(filename == null || filename.isEmpty()){
+                filename = "screenshot";
+            }
+            if(filename.indexOf(".") == -1){
+                filename = filename+".jpg";
+            }
+            File screenshot = ((TakesScreenshot) driver)
+                    .getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(screenshot, new File(filename));
+        }catch(Exception exp){
 
         }
     }
