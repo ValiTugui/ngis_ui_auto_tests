@@ -368,27 +368,29 @@ public class FamilyMemberDetailsPage {
         patientCard.click();
     }
 
-
-
-
-
     public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
-        Click.element(driver, relationshipToProbandDropdown);
+        if(!Wait.isElementDisplayed(driver,relationshipToProbandDropdown,30)){
+            Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
+            Wait.seconds(20);
+        }
+        seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
         Wait.seconds(2);
-        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
+        By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
+        if(!seleniumLib.isElementPresent(ddElement)){
+            Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: "+relationToProband+" not present in drop down.");
+            return;
+        }
+        Click.element(driver, dropdownValue.findElement(ddElement));
         Wait.seconds(2);
         if (validationErrors.size() > 0) {
-            validationErrors.clear();
-            Click.element(driver, relationshipToProbandDropdown);
-            Wait.seconds(2);
-            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
-            Wait.seconds(2);
+            Debugger.println("FamilyMemberDetailsPage:Error in selecting Proband drop down pag:."+validationErrors.get(0).getText());
+//            validationErrors.clear();
+//            Click.element(driver, relationshipToProbandDropdown);
+//            Wait.seconds(2);
+//            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
+//            Wait.seconds(2);
         }
-        if (validationErrors.size() > 0) {
-            Debugger.println("Relation to Proband Not Selected.");
-        }
-
     }
 
     public void readFamilyMemberDetailsFor(String relationToProband) {
