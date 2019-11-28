@@ -180,6 +180,7 @@ public class TumoursPage {
         Actions.clearField(dateDay);
         Actions.clearField(dateMonth);
         Actions.clearField(dateYear);
+        Wait.seconds(2);
     }
 
     public void fillInDateOfDiagnosis() {
