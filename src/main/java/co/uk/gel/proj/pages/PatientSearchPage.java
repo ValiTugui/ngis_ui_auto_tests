@@ -20,6 +20,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -397,7 +398,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("PatientCard.jpg");
             Assert.assertFalse("PatientCard not found to be clicked.",true);
         }
-        patientCard.click();
+        Actions.retryClickAndIgnoreElementInterception(driver,patientCard);
     }
 
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
