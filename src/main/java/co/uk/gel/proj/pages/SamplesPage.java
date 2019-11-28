@@ -137,7 +137,7 @@ public class SamplesPage {
     public WebElement sampleStateSearchIcon;
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
-    public WebElement sampleStateDropDownValues;
+    public List <WebElement> sampleStateDropDownValues;
 
     @FindBy(css = "label[for*='sampleType']")
     public WebElement sampleTypeLabel;
