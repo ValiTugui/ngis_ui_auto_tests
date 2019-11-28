@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
@@ -231,7 +232,8 @@ public class PaperFormPage {
             Debugger.println("clickSignInToTheOnlineServiceButton: ");
             Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
             if(Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
-                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing.");
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
                 Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
             }
             Click.element(driver, signInToOnlineServiceButton);

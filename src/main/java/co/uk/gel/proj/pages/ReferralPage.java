@@ -233,7 +233,7 @@ public class ReferralPage<check> {
         Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
     }
     public boolean checkThatToDoListSuccessfullyLoaded() {
-        Wait.forElementToBeDisplayed(driver, toDoList, 60);
+        Wait.forElementToBeDisplayed(driver, toDoList, 100);
         return Wait.isElementDisplayed(driver,toDoList,30);
     }
 
