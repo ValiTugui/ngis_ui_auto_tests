@@ -272,7 +272,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     useAnotherAccount.click();
                     Wait.seconds(3);
                 } else {
-                    Debugger.println("Email field or UseAnotherAccount option are not available.");
+                    Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
                 }
             }else{

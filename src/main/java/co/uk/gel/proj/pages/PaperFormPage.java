@@ -240,6 +240,8 @@ public class PaperFormPage {
             Wait.seconds(5);
         } catch (Exception exp) {
             Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
+            SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+            Assert.assertFalse("PaperFormPage: Exception from login to signInToOnlineServiceButton:...failing.Check ClickSignInButton.jpg",true);
         }
     }
 

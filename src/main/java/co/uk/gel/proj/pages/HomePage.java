@@ -262,12 +262,13 @@ public class HomePage {
             Click.element(driver, resultsPanels.get(0));
         }else{
             Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
-            Wait.seconds(30);//Waiting additional 30 to load the list as it is observed IndexOut exception many times here.
+            Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
             if(resultsPanels != null && resultsPanels.size() > 0) {
                 Click.element(driver, resultsPanels.get(0));
             }else{
-                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing.");
-                Assert.assertFalse("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing.",true);
+                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
+                Assert.assertFalse("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. See Screen shot:NoResultPanel.jpg",true);
             }
         }
 

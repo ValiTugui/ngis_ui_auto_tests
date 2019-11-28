@@ -9,10 +9,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -210,27 +207,53 @@ public class ReferralPage<check> {
     }
 
     public void clickSaveAndContinueButton() {
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
-        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-        // Click.element(driver, saveAndContinueButton)
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+            // Click.element(driver, saveAndContinueButton)
+            if (helix.size() > 0) {
+                try {
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }catch(TimeoutException texp){
+                    //Still the helix in action, waiting for another 40 seconds
+                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:"+texp);
+                    Wait.seconds(30);
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: "+exp);
+            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:"+exp,true);
         }
     }
 
     public boolean saveAndContinueButtonIsDisplayed() {
-        Wait.forElementToBeClickable(driver, saveAndContinueButton);
-        return true;
+        try {
+            Wait.forElementToBeDisplayed(driver,saveAndContinueButton);
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:"+exp);
+            SeleniumLib.takeAScreenShot("RefSaveAndContinue.jpg");
+            return false;
+        }
     }
 
 
     public void checkThatReferralWasSuccessfullyCreated() {
-        Wait.forElementToBeDisplayed(driver, getReferralHeaderStatus, 200);
-        Wait.forElementToBeDisplayed(driver, referralHeader, 100);
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        Wait.forElementToBeDisplayed(driver, sectionBody);
-        Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+        try {
+            Wait.forElementToBeDisplayed(driver, getReferralHeaderStatus, 200);
+            Wait.forElementToBeDisplayed(driver, referralHeader, 100);
+            Wait.forElementToBeDisplayed(driver, toDoList, 100);
+            Wait.forElementToBeDisplayed(driver, sectionBody);
+            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+        }catch(Exception exp){
+            Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception."+exp);
+            SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
+            Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg",true);
+        }
     }
     public boolean checkThatToDoListSuccessfullyLoaded() {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
