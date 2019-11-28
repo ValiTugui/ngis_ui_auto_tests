@@ -422,15 +422,20 @@ public class ReferralPage<check> {
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
-            String actualMessage = validationErrors.get(0).getText();
-            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-                return false;
-            }
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = validationErrors.get(0).getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+            if(validationErrors.size() > 0) {
+                String actualMessage = validationErrors.get(0).getText();
+                if (!errorMessage.equalsIgnoreCase(actualMessage)) {
+                    Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                    return false;
+                }
+                String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+                String actColor = validationErrors.get(0).getCssValue("color");
+                if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                    Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                    return false;
+                }
+            }else{
+                Debugger.println("Expected Error Message: "+errorMessage+", but know error message displayed.");
                 return false;
             }
             return true;
