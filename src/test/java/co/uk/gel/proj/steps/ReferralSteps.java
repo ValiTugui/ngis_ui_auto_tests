@@ -333,5 +333,4 @@ public class ReferralSteps extends Pages {
         Debugger.println("Expected Notification text :" + notificationText);
 
     }
-
 }
