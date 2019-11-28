@@ -264,10 +264,13 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(expectedPageTitle);
+        Assert.assertTrue(testResult);
         String actualPageTitle = referralPage.getTheCurrentPageTitle();
         Debugger.println("Actual PageTitle : " + actualPageTitle);
         Debugger.println("Expected PageTitle : " + expectedPageTitle);
-        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")
