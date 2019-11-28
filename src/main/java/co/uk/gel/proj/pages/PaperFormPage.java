@@ -6,6 +6,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -227,7 +228,12 @@ public class PaperFormPage {
 
     public void clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: " + driver.getCurrentUrl());
+            Debugger.println("clickSignInToTheOnlineServiceButton: ");
+            Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
+            if(Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing.");
+                Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
+            }
             Click.element(driver, signInToOnlineServiceButton);
             Wait.seconds(5);
         } catch (Exception exp) {

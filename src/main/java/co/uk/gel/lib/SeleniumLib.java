@@ -904,6 +904,7 @@ public class SeleniumLib {
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(screenshot, new File(filename));
+
         }catch(Exception exp){
 
         }

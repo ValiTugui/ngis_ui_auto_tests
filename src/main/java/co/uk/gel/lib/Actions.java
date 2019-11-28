@@ -1,6 +1,7 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
 
 import java.awt.*;
@@ -162,6 +163,7 @@ public class Actions {
                 flag = false;
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
+                Debugger.println("Actions: Clicking on Element :"+element);
             }
         }
     }

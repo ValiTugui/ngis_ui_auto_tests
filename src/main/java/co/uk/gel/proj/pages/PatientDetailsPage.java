@@ -312,6 +312,7 @@ public class PatientDetailsPage {
         }catch(Exception exp){
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:"+exp);
             SeleniumLib.takeAScreenShot("StartReferralButton.jpg");
+            Assert.assertFalse("PatientDetailsPage: clickStartReferralButton. Exception:"+exp,true);
         }
     }
 
