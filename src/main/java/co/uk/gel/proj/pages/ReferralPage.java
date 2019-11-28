@@ -21,10 +21,12 @@ import java.util.List;
 public class ReferralPage<check> {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public ReferralPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     public WebElement SignOutStatusMessage;
@@ -466,6 +468,17 @@ public class ReferralPage<check> {
             Debugger.println("Exception from validating Error Message " + exp);
             return false;
         }
+    }
+    public boolean verifyThePageTitlePresence(String expTitle) {
+        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        if (!seleniumLib.isElementPresent(pageTitle)) {
+            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+            if (!seleniumLib.isElementPresent(pageTitle)) {
+                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                return false;
+            }
+        }
+        return true;
     }
 
 }
