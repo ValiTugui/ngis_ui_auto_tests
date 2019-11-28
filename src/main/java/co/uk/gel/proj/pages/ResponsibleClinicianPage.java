@@ -423,9 +423,17 @@ public class ResponsibleClinicianPage {
 		return clinicianFirstNameField.isEnabled() && clinicianFirstNameLabel.isDisplayed();
 	}
 
+	public boolean firstNameFieldIsEmpty(){
+		return Actions.getText(clinicianFirstNameField).isEmpty();
+	}
+
 	public boolean lastNameFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianLastNameField);
 		return clinicianLastNameField.isEnabled() && clinicianLastNameLabel.isDisplayed();
+	}
+
+	public boolean lastNameFieldIsEmpty(){
+		return Actions.getText(clinicianLastNameField).isEmpty();
 	}
 
 	public boolean emailFieldDisplayed(){
@@ -433,21 +441,33 @@ public class ResponsibleClinicianPage {
 		return clinicianEmailField.isEnabled() && clinicianEmailLabel.isDisplayed();
 	}
 
+	public boolean emailFieldIsEmpty(){
+		return Actions.getText(clinicianEmailField).isEmpty();
+	}
 	public boolean phoneNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
 		return clinicianPhoneNumberField.isEnabled() && clinicianPhoneNumberLabel.isDisplayed();
 	}
 
+	public boolean phoneNumberFieldIsEmpty(){
+		return Actions.getText(clinicianPhoneNumberField).isEmpty();
+	}
 	public boolean departmentNameAndAddressFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
 		return clinicianDepartmentAddressField.isEnabled() && clinicianDepartmentAddressLabel.isDisplayed();
 	}
 
+	public boolean departmentNameAndAddressFieldIsEmpty(){
+		return Actions.getText(clinicianDepartmentAddressField).isEmpty();
+	}
 	public boolean professionalRegistrationNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianProfesionalRegistrationNumberField);
 		return clinicianProfesionalRegistrationNumberField.isEnabled() && clinicianProfesionalRegistrationNumberLabel.isDisplayed();
 	}
 
+	public boolean professionalRegistrationNumberFieldIsEmpty(){
+		return Actions.getText(clinicianProfesionalRegistrationNumberField).isEmpty();
+	}
 	public String getContactSectionTitle(){
 		Wait.forElementToBeDisplayed(driver, clinicianContactSectionLabel);
 		return Actions.getText(clinicianContactSectionLabel);
@@ -462,5 +482,41 @@ public class ResponsibleClinicianPage {
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressLabel);
 		Wait.isElementDisplayed(driver, clinicianDepartmentAddressLabelWithAsterisk, 1);
 		return Actions.getClassName(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
+	}
+
+	public boolean professionalRegistrationNumberFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1ProfessionalRegistrationNumberField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1ProfessionalRegistrationNumberField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean departmentNameAndAddressFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1DepartmentAddressField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1DepartmentAddressField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean emailFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1EmailField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1EmailField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean phoneNumberFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1PhoneNumberField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1PhoneNumberField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean lastNameFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1LastNameField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1LastNameField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean firstNameFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1FirstNameField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1FirstNameField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
 	}
 }
