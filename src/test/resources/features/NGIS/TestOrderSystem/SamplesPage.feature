@@ -147,7 +147,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_06 @NTS-3312 @ @E2EUI-868 @P0 @v_1
+    @samplesPage_06 @NTS-3312  @E2EUI-868 @@E2EUI-1261 @P0 @v_1
   Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -197,6 +197,27 @@ Feature: Samples Page
       | Sample type ✱                     | None                                                                                   |
       | Sample state ✱                    | None                                                                                   |
       | Sample ID from local laboratory ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_09 @NTS-3335 @P0 @v_1 @E2EUI-1261
+  Scenario Outline: NTS-3335 - Add a Sample page - page layout
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And a search icon is displayed inside the Sample state drop down field
+    And fields and drops-downs are shown as mandatory with astericks star symbol
+    And place-holder text is displayed for Sample type, Sample State and SampleID on Add a Sample page
+      | labelHeader                       | PlaceHolder Text |
+      | Sample type ✱                     | Select...        |
+      | Sample state ✱                    | Select...        |
+      | Sample ID from local laboratory ✱ | e.g. A1 xxxxx    |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
