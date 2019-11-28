@@ -231,7 +231,7 @@ public class PaperFormPage {
         try {
             Debugger.println("clickSignInToTheOnlineServiceButton: ");
             Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
-            if(Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
                 Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
                 Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
