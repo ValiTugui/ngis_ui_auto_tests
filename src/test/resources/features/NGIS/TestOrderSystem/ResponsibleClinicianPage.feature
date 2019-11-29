@@ -57,11 +57,13 @@ Feature: Responsible Clinician
       | stage                 | hyperlinkText | error_info            |red_color_hex_code |
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
 
-@E2EUI-956 @NTS-3175 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+@E2EUI-956 @E2EUI-1355 @NTS-3175 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
+    And the user sees the label Department name and address marked as mandatory
+    And The user sees the text field Department name and address
     When the user fills in all clinician form fields except Department name and address
     And the user clicks the Save and Continue button
     Then the "<stage>" stage is marked as Mandatory To Do
@@ -186,3 +188,39 @@ Feature: Responsible Clinician
     Examples:
       | stage                 | pageTitle                 | hyperlinkText | error_info            | red_color_hex_code |
       | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |
+
+  @E2EUI-1354 @NTS-3327 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  Scenario Outline: NTS-3327 - Responsible Clinician Page - No pre-filled responsible clinician details
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user navigates to the "<stage1>" stage
+    And the "<pageTitle>" page is displayed
+    And The user sees the text field First name and it is blank
+    And The user sees the text field Last name and it is blank
+    And The user sees the text field Email address and it is blank
+    And The user sees the text field Phone number and it is blank
+    And The user sees the text field Department name and address and it is blank
+    And The user sees the text field Professional registration number and it is blank
+
+    # add  Main clinician
+    And the user fills in all the clinician form fields
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    # add Additional clinician 1
+    When the user clicks the Additional Clinician link
+    And The user sees the text field First name in Additional Clinician 1 and it is blank
+    And The user sees the text field Last name in Additional Clinician 1 and it is blank
+    And The user sees the text field Email address in Additional Clinician 1 and it is blank
+    And The user sees the text field Phone number in Additional Clinician 1 and it is blank
+    And The user sees the text field Department name and address in Additional Clinician 1 and it is blank
+    And The user sees the text field Professional registration number in Additional Clinician 1 and it is blank
+    And the user creates additional clinician 1 by filling up all form fields
+    Then the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    And the user see the "<removeHyperLink>" displayed to remove the Additional clinician details
+
+    And the user clicks the Save and Continue button
+    Then the "<stage2>" stage is selected
+    And the "<stage1>" stage is marked as Completed
+    And both clinicians details are persisted when returning to the "<stage1>" stage
+    Examples:
+      | stage1                | pageTitle                 | hyperlinkText | removeHyperLink | stage2  |
+      | Responsible clinician | Add clinician information | Add another   | Remove          | Tumours |
