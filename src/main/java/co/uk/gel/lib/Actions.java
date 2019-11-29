@@ -173,6 +173,21 @@ public class Actions {
         }
     }
 
+
+    public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues)  {
+        int index = random.nextInt(dropDownValues.size() - 1);
+        boolean flag = true;
+        while (flag) {
+            try {
+                dropDownValues.get(index).click();
+                flag = false;
+            } catch (ElementClickInterceptedException e) {
+                dropDownValues.get(index).click();
+            }
+        }
+    }
+
+
     public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List <WebElement> element) {
         Iterator<WebElement> itr = element.iterator();
         int actualTabCount = 0;
