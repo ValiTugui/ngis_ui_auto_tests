@@ -254,8 +254,9 @@ public class ReferralSteps extends Pages {
         boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
         if(!searchPageLoaded){
             Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
         }
-        Assert.assertTrue(searchPageLoaded);
+
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation

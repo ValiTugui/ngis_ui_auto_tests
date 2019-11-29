@@ -40,11 +40,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @And("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        referralPage.clickOnSaveAndContinueButton();
-    }
-
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;

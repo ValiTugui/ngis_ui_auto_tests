@@ -846,12 +846,14 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.forElementToBeDisplayed(driver,findYourPatientTitle,100);
             if(!Wait.isElementDisplayed(driver,findYourPatientTitle,30)){
-                Debugger.println("Patient Search Page not loaded.");
+                Debugger.println("Patient Search Page not loaded. Please check SearchPage.jpg");
+                SeleniumLib.takeAScreenShot("SearchPage.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Patient Search Page did not loaded......."+exp);
+            Debugger.println("Patient Search Page did not loaded. Check SearchPage.jpg"+exp);
+            SeleniumLib.takeAScreenShot("SearchPage.jpg");
             return false;
         }
     }
