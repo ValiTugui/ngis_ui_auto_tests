@@ -444,7 +444,8 @@ public class ReferralPage<check> {
                     return false;
                 }
             }else{
-                Debugger.println("Expected Error Message: "+errorMessage+", but know error message displayed.");
+                Debugger.println("Expected Error Message: "+errorMessage+", but no error message displayed. Check NoErrorMessage.jpg");
+                SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
                 return false;
             }
             return true;
