@@ -332,6 +332,7 @@ public class ReferralPage<check> {
                return true;
            }
            Debugger.println("Status of Stage.."+stage+" is: "+referralStage.getAttribute("class")+", but expected to be complete.");
+           SeleniumLib.takeAScreenShot("StageComplete.jpg");
            return false;
        }catch(Exception exp){
            Debugger.println("Exception in Checking Stage Completion Status: "+exp);
