@@ -14,6 +14,12 @@ Feature: Patient search page
     And the YES button is selected by default on patient search
     And the background colour of the YES button is strong blue "#005eb8"
 
+  @NTS-3336 @E2EUI-1663 @v_1 @P0 @COMP1_TO_PatientDetails
+  Scenario: NTS-3336: Auto-fill feature not enabled for NHS Number field
+    When the default patient search page is correctly displayed with the NHS number and Date of Birth fields
+    Then the NHS number field is not enabled with auto-fill feature
+
+
   @patientSearch_02 @NTS-2817 @E2EUI-831 @v_1
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
     When the user clicks the NO button
