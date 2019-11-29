@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -178,9 +179,44 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < expectedList.size(); i++) {
             expectedSampleTypesList.add(expectedList.get(i).get("sampleTypesHeader"));
-            Debugger.println("Expected Sample type: " + i + " : " + expectedSampleTypesList.get(i));
-            Debugger.println("Actual Sample type: " + i + " : " + actualSampleTypesList.get(i) + "\n");
+            Debugger.println("Expected samples options: " + i + " : " + expectedSampleTypesList.get(i));
+        }
+        /* Collections.sort method to sorting the elements of ArrayList in ascending order. */
+        Collections.sort(expectedSampleTypesList);
+        Collections.sort(actualSampleTypesList);
+        for (int i = 0; i < expectedList.size(); i++) {
+            Debugger.println("Expected Sample type values after sorting in ascending order: " + i + " : " + expectedSampleTypesList.get(i));
+            Debugger.println("Actual Sample type values after sorting in ascending order" + i + " : " + actualSampleTypesList.get(i) + "\n");
             Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
+        }
+    }
+
+    @And("the Add a Sample page displays the appropriate field elements - sample type, sample state and sampleID")
+    public void theAddASamplePageDisplaysTheAppropriateFieldElementsSampleTypeSampleStateAndSampleID() {
+        boolean eachElementIsLoaded = false;
+        eachElementIsLoaded = samplesPage.verifyTheElementsOnAddASamplePage();
+        Assert.assertTrue(eachElementIsLoaded);
+    }
+
+    @And("the labels and help hint texts are displayed on Add a Sample page")
+    public void theLabelsAndHelpHintTextsAreDisplayedOnAddASamplePage(DataTable dataTable) {
+
+        List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
+        List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
+
+        /* Add "None" element to the first and second index of actualHelpHintTexts, as Sample type and sample state have no help hint text */
+        actualHelpHintTexts.add(0, "None");
+        actualHelpHintTexts.add(1, "None");
+
+        for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
+
+            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
+            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
         }
     }
 }
