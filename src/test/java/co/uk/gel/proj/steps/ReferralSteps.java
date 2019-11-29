@@ -168,7 +168,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
+        patientSearchPage.getPatientSearchNoResult();
+        String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
@@ -252,7 +253,11 @@ public class ReferralSteps extends Pages {
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
         boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
-        Assert.assertTrue(searchPageLoaded);
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
@@ -291,7 +296,10 @@ public class ReferralSteps extends Pages {
                     }
                 }//switch
             }//for
-            patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            searchPageLoaded = patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            if(!searchPageLoaded){
+                Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
+            }
         }else if (patientType.equalsIgnoreCase("SPINE")) {
             patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }

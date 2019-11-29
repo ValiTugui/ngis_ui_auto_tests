@@ -124,11 +124,12 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            new org.openqa.selenium.interactions.Actions(driver).moveToElement(hpoSearchField).perform();
-            Actions.fillInValue(hpoSearchField, hpoTerm);
-            Debugger.println("Filled....");
+            seleniumLib.sendValue(hpoSearchField,hpoTerm);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Debugger.println("Waiting for ....dropdownValue");
+            if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
+                Debugger.println("HPO term "+hpoTerm+" present in the dropdown.");
+                return -1;
+            }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             Debugger.println("Selected ....dropdownValues");
             // determine the total number of HPO terms

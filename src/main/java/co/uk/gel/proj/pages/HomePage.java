@@ -1,8 +1,10 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -210,13 +212,35 @@ public class HomePage {
 
 
     public void waitUntilHomePageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, filtersPanel);
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
+       try {
+           Wait.forElementToBeDisplayed(driver, filtersPanel);
+           if (!Wait.isElementDisplayed(driver, filtersPanel, 30)) {
+               Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
+               Assert.assertFalse("HomePage:filtersPanel not displayed even after waiting period.",true);
+           }
+           Wait.forElementToBeDisplayed(driver, resultsPanel);
+           if (!Wait.isElementDisplayed(driver, resultsPanel, 30)) {
+               Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
+               Assert.assertFalse("HomePage:resultsPanel not displayed even after waiting period.",true);
+           }
+       }catch(Exception exp){
+           Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
+           Assert.assertFalse("Exception from Home Page Loading: "+exp,true);
+       }
     }
 
     public void typeInSearchField(String searchTerm) {
-        Wait.forElementToBeDisplayed(driver, searchField);
-        searchField.sendKeys(searchTerm);
+        try {
+            Wait.forElementToBeDisplayed(driver, searchField);
+            if(!Wait.isElementDisplayed(driver,searchField,10)){
+                Debugger.println("searchField for present even after waiting period: ");
+                Assert.assertFalse("searchField for present even after waiting period: ",true);
+            }
+            searchField.sendKeys(searchTerm);
+        }catch(Exception exp){
+            Debugger.println("Exception from entering the search Term: "+exp);
+            Assert.assertFalse("Exception from entering the search Term: "+exp,true);
+        }
     }
 
     public void clickSearchIconFromSearchField() {
@@ -227,18 +251,27 @@ public class HomePage {
         if (cookiesUnderstandButton.size() > 0) {
             Click.element(driver, cookiesUnderstandButton.get(0));
             Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
+            Debugger.println("Cookies Banner Closed.");
         }
     }
 
     public void selectFirstEntityFromResultList() {
-        try {
-            waitUntilHomePageResultsContainerIsLoaded();
+
+         waitUntilHomePageResultsContainerIsLoaded(); //Already invoked
+        if(resultsPanels != null && resultsPanels.size() > 0){
             Click.element(driver, resultsPanels.get(0));
-        }catch(IndexOutOfBoundsException exp){
-            Debugger.println("Results Panel Yet to load...waiting for another 30 seconds.");
-            Wait.seconds(30);//Waiting additional 30 to load the list as it is observed IndexOut exception many times here.
-            Click.element(driver, resultsPanels.get(0));
+        }else{
+            Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
+            Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
+            if(resultsPanels != null && resultsPanels.size() > 0) {
+                Click.element(driver, resultsPanels.get(0));
+            }else{
+                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
+                Assert.assertFalse("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. See Screen shot:NoResultPanel.jpg",true);
+            }
         }
+
     }
 
     public void TestDirectoryHomePageIsDisplayed() {

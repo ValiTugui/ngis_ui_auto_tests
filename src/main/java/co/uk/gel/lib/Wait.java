@@ -1,5 +1,6 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -49,8 +50,13 @@ public class Wait {
     }
 
     public static void forNumberOfElementsToBeEqualTo(WebDriver driver, By locator, int number) {
-        wait = new WebDriverWait(driver, 100);
-        wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
+        try {
+            Debugger.println("Closing Cookies Banner.");
+            wait = new WebDriverWait(driver, 100);
+            wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
+        }catch(Exception exp){
+            Debugger.println("Exception from closing cookies banner: "+exp);
+        }
     }
 
     public static void forURLToContainSpecificText(WebDriver driver, String text) {
