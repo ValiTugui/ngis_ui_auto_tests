@@ -169,6 +169,12 @@ public class TumoursPage {
         return description;
     }
 
+    public void fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+        dateYear.sendKeys(yearOfDiagnosis);
+        dateDay.sendKeys(dayOfDiagnosis);
+        dateMonth.sendKeys(monthOfDiagnosis);
+    }
+
     public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
 
         dateDay.sendKeys(dayOfDiagnosis);
