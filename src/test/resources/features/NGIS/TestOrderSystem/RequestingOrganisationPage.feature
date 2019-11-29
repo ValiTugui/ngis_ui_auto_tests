@@ -1,4 +1,5 @@
 @regression
+@regression_set2
 @requestingOrganisation
 Feature: Requesting Organisation page
 
