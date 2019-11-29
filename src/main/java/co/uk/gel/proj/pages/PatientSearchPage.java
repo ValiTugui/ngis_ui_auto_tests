@@ -415,7 +415,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("PatientCard.jpg");
             Assert.assertFalse("PatientCard not found to be clicked.",true);
         }
-        patientCard.click();
+        Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // patientCard.click();
     }
 
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
