@@ -252,7 +252,11 @@ public class ReferralSteps extends Pages {
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
         boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
-        Assert.assertTrue(searchPageLoaded);
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
@@ -291,7 +295,10 @@ public class ReferralSteps extends Pages {
                     }
                 }//switch
             }//for
-            patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            searchPageLoaded = patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            if(!searchPageLoaded){
+                Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
+            }
         }else if (patientType.equalsIgnoreCase("SPINE")) {
             patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }

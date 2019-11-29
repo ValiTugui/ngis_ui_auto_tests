@@ -4,6 +4,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -125,7 +126,18 @@ public class ClinicalIndicationsTestSelectPage {
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
     public void clickStartReferralButton() {
-        Click.element(driver, startTestOrderButton);
+        try{
+            Debugger.println("Starting Referral....");
+            Wait.forElementToBeDisplayed(driver,startTestOrderButton,30);
+            if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
+                Debugger.println("Start Referral button not displayed even after waiting period...Failing.");
+                Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.",true);
+            }
+            Click.element(driver, startTestOrderButton);
+        }catch(Exception exp){
+            Debugger.println("Exception from Starting Referral...."+exp);
+        }
+
     }
 
     public void clickBackToSearchButton() {

@@ -2,10 +2,12 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -227,11 +229,19 @@ public class PaperFormPage {
 
     public void clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: " + driver.getCurrentUrl());
+            Debugger.println("clickSignInToTheOnlineServiceButton: ");
+            Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+                Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
+            }
             Click.element(driver, signInToOnlineServiceButton);
             Wait.seconds(5);
         } catch (Exception exp) {
             Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
+            SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+            Assert.assertFalse("PaperFormPage: Exception from login to signInToOnlineServiceButton:...failing.Check ClickSignInButton.jpg",true);
         }
     }
 

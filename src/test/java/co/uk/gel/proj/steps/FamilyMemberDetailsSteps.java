@@ -40,11 +40,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @And("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        referralPage.clickOnSaveAndContinueButton();
-    }
-
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
@@ -266,7 +261,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user removes the family member")
     public void theUserRemoveTheFamilyMember() {
         familyMemberDetailsPage.removeAFamilyMember();
-
     }
 
     @Then("the user should be able to see {string} removal message on the family member landing page")
@@ -364,9 +358,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("The user also should see the Add Family Member button and continue button displayed")
     public void theUserAlsoShouldSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.addFamilyMemberButtonIsDisplayed();
-        Assert.assertTrue(testResult);
-        testResult = familyMemberDetailsPage.continueButtonDisplayed();
+        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
         Assert.assertTrue(testResult);
     }
 
