@@ -125,7 +125,7 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID    |
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_05  @NTS-3308 @E2EUI-943 @E2EUI-2338 @P0 @v_1
+    @samplesPage_05  @NTS-3308 @E2EUI-943 @E2EUI-2338 @E2EUI-1232 @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - verify the sample type drop down list
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -203,7 +203,7 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample |
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_09 @NTS-3335 @P0 @v_1 @E2EUI-1261
+    @samplesPage_09 @NTS-3335 @P0 @v_1 @E2EUI-1261 @E2EUI-1476
   Scenario Outline: NTS-3335 - Add a Sample page - page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -211,6 +211,7 @@ Feature: Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
+    And the sub-page title "<subPageTitle>" is displayed on Add a Sample Page
     And a search icon is displayed inside the Sample state drop down field
     And fields and drops-downs are shown as mandatory with astericks star symbol
     And place-holder text is displayed for Sample type, Sample State and SampleID on Add a Sample page
@@ -218,6 +219,29 @@ Feature: Samples Page
       | Sample type ✱                     | Select...        |
       | Sample state ✱                    | Select...        |
       | Sample ID from local laboratory ✱ | e.g. A1 xxxxx    |
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | subPageTitle                                                 |
+      | Samples | Manage samples | Add a sample | Enter sample information if your local processes require it. |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_10 @NTS-3335 @P0 @v_1 @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
+  Scenario Outline: NTS-3335 - Add a Sample page - page layout - verify sample-states drop-down values
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the expected sub-set of sample-state values are displayed in the Sample state drop-down
+      | sampleStateHeader   |
+      | Urine               |
+      | DNA                 |
+      | Buccal swab         |
+      | Fresh frozen tumour |
+      | Fresh frozen tissue |
+
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |

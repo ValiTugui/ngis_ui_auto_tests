@@ -257,4 +257,25 @@ public class SamplesSteps extends Pages {
             Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(1), actualPlaceHolderTexts.get(i - 1));
         }
     }
+
+    @And("the sub-page title {string} is displayed on Add a Sample Page")
+    public void theSubPageTitleIsDisplayedOnAddASamplePage(String subPageTitle) {
+        samplesPage.verifyTheSubPageTitle(subPageTitle);
+    }
+
+
+    @And("the expected sub-set of sample-state values are displayed in the Sample state drop-down")
+    public void theExpectedSubSetOfSampleStateValuesAreDisplayedInTheSampleStateDropDown(DataTable dataTable) {
+
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedSampleStateList = new ArrayList<>();
+        List<String> actualSampleStateDropDownValues = samplesPage.getTheSampleStateDropDownValues();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedSampleStateList.add(expectedList.get(i).get("sampleStateHeader"));
+            Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
+            Assert.assertTrue(actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i)));
+        }
+
+    }
 }

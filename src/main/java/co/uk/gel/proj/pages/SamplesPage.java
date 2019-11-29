@@ -7,6 +7,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -153,6 +154,9 @@ public class SamplesPage {
 
     @FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
     public List<WebElement> tumourDetailsValuesFromAddSamplePage;
+
+    @FindBy(css = "p[class*='styles_text--5']")
+    public WebElement subTitlePage;
 
 
     public void selectSampleType(String type) {
@@ -315,5 +319,31 @@ public class SamplesPage {
 
         Debugger.println("Actual PlaceHolder on Add a Sample page " + actualFieldPlaceHolderTexts);
         return actualFieldPlaceHolderTexts;
+    }
+
+    public boolean verifyTheSubPageTitle(String expectedSubPageTitle) {
+        By actualSubPageTitle = By.xpath("//p[contains(text(),'" + expectedSubPageTitle + "')]");
+        if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
+            Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
+            if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
+                Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
+                return false;
+            }
+        }
+        Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
+        Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
+        return true;
+    }
+
+    public List<String> getTheSampleStateDropDownValues() {
+        Wait.forElementToBeClickable(driver, sampleState);
+        Actions.clickElement(driver,sampleState);
+        List<String> actualSampleStateValues = new ArrayList<>();
+
+        for (WebElement actualSampleStateValue : sampleStateDropDownValues){
+            actualSampleStateValues.add(actualSampleStateValue.getText().trim());
+        }
+        Debugger.println("Actual sample-state values: " + actualSampleStateValues);
+        return actualSampleStateValues;
     }
 }
