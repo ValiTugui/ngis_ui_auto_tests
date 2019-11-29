@@ -161,7 +161,7 @@ public class FamilyMemberNewPatientPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                actualMessage = Actions.getText(validationErrors.get(i));
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;

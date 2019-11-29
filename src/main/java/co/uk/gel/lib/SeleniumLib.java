@@ -411,11 +411,6 @@ public class SeleniumLib {
     public static void refreshPage() {
         driver.navigate().refresh();
     }
-
-    public String getText(WebElement element) {
-        Wait.forElementToBeDisplayed(driver, element);
-        return element.getText();
-    }
     /**
      * @param element
      * @return
@@ -904,6 +899,7 @@ public class SeleniumLib {
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(screenshot, new File(filename));
+
         }catch(Exception exp){
 
         }
