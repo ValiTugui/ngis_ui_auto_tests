@@ -188,8 +188,4 @@ public class ResponsibleClinicianSteps extends Pages {
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianOneDetailsArePersistedAtLoad());
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianTwoDetailsArePersistedAtLoad());
     }
-    @And("the user fills in all the fields for the additional clinician")
-    public void theUserFillsInAllTheFieldsForTheAdditionalClinician() {
-        //responsibleClinicianPage.fillInAdditionalClinicianFormFields();
-    }
 }
