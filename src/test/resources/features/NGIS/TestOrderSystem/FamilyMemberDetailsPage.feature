@@ -14,7 +14,7 @@ Feature: Family Members Details Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
     Examples:
@@ -32,7 +32,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Confirm family member details
     And the default family member details page is correctly displayed with the proper number of fields
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
 
     Examples:
@@ -49,7 +49,7 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     Then the default family member details page is correctly displayed with the proper number of fields
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
     Examples:
@@ -67,7 +67,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user can select the test to add to the family member
 
@@ -82,7 +82,7 @@ Feature: Family Members Details Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
     When the user clicks on participant amendment link to amend the number of participants
@@ -103,12 +103,12 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  |
@@ -125,11 +125,11 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user should see mismatch message in selected and actual participant as "<ErrorMessage>"
 
     Examples:

@@ -367,25 +367,12 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
-    public void clickOnSaveAndContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
-            Wait.seconds(5);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
-        } catch (Exception exp) {
-            Debugger.println("Could not click on Save and Continue...." + exp);
-        }
-    }
+
 
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
-            String actualMessage = seleniumLib.getText(validationErrors.get(0));
+            String actualMessage = Actions.getText(validationErrors.get(0));
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                 return false;
@@ -421,11 +408,6 @@ public class FamilyMemberDetailsPage {
         Wait.seconds(2);
         if (validationErrors.size() > 0) {
             Debugger.println("FamilyMemberDetailsPage:Error in selecting Proband drop down pag:."+validationErrors.get(0).getText());
-//            validationErrors.clear();
-//            Click.element(driver, relationshipToProbandDropdown);
-//            Wait.seconds(2);
-//            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + relationToProband + "']")));
-//            Wait.seconds(2);
         }
     }
 
@@ -782,7 +764,7 @@ public class FamilyMemberDetailsPage {
                Debugger.println("Expected Unmatched Participant Error not displayed.");
                return false;
            }
-           String actMessage = seleniumLib.getText(unmatchedParticipantMessage);
+           String actMessage = Actions.getText(unmatchedParticipantMessage);
            if(!actMessage.contains(expMessage)){
                Debugger.println("Actual Message: "+actMessage+"\n DOES NOT CONTAINS Expected Message:"+expMessage);
                return false;
@@ -998,8 +980,8 @@ public class FamilyMemberDetailsPage {
     public boolean testedFieldColor(String testfield, String color) {
         try {
             Wait.seconds(5);
-            String actualMessage1 = seleniumLib.getText(familyPageBeingTestedField);
-            String actualMessage2 = seleniumLib.getText(familyPageNotBeingTestedField);
+            String actualMessage1 = Actions.getText(familyPageBeingTestedField);
+            String actualMessage2 = Actions.getText(familyPageNotBeingTestedField);
 
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(color);
             String actColor1 = familyPageBeingTestedField.getCssValue("background-color");

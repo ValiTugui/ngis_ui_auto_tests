@@ -35,7 +35,12 @@ public class Actions {
     }
 
     public static String getText(WebElement element) {
-        return element.getText();
+       try {
+           return element.getText();
+       }catch(Exception exp){
+           Debugger.println("Could not read text from Element: "+element);
+           return null;
+       }
     }
 
     public static String getValue(WebElement element) {

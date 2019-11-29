@@ -426,24 +426,7 @@ public class ReferralPage<check> {
         return actualErrorMessages;
     }
   
-    public void clickOnSaveAndContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
-                Debugger.println("Save and Continue Button not displayed even after wait period.");
-            }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
-            Wait.seconds(5);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
-            Debugger.println("Could not click on Save and Continue...." + exp);
-        }
-    }
+
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
@@ -480,5 +463,22 @@ public class ReferralPage<check> {
         }
         return true;
     }
-
+    public void clickOnSaveAndContinueButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
+                Debugger.println("Save and Continue Button not displayed even after wait period.");
+            }
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Wait.seconds(2);
+            Click.element(driver, saveAndContinueButton);
+            Wait.seconds(5);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
+            Debugger.println("Could not click on Save and Continue...." + exp);
+        }
+    }
 }
