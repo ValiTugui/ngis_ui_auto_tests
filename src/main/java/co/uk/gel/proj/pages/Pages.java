@@ -42,6 +42,7 @@ public class Pages implements Navigable {
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
     protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
+    protected PatientChoicePage patientChoicePage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -68,6 +69,8 @@ public class Pages implements Navigable {
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
         familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
+        patientChoicePage = PageFactory.initElements(driver,PatientChoicePage.class);
+
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

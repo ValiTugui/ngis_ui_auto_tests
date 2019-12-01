@@ -251,7 +251,8 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-        boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+       // boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
         if(!searchPageLoaded){
             Debugger.println("Search Page Could not load Properly:");
             Assert.assertFalse("Search Page not loaded successfully.",true);
@@ -330,8 +331,11 @@ public class ReferralSteps extends Pages {
     public void theSuccessNotificationIsDisplayed(String notificationText) {
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
         Assert.assertEquals(notificationText,actualNotificationText);
-        Debugger.println("Actual Notification text :" + actualNotificationText);
-        Debugger.println("Expected Notification text :" + notificationText);
-
+    }
+    @Then("the user is navigated to a page with title (.*)")
+    public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
+        boolean testResult = false;
+        testResult = referralPage.verifyThePageTitlePresence(title);
+        Assert.assertTrue(testResult);
     }
 }

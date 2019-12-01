@@ -120,14 +120,25 @@ public class SeleniumLib {
         }
     }
 
-    public void clickOnWebElement(WebElement webele) {
+    public void clickOnWebElement(WebElement webEle) {
        try {
-            webele.click();
+           WebDriverWait wait = new WebDriverWait(driver, 60);//Default waiting for a minute
+           wait.until(ExpectedConditions.visibilityOf(webEle));
+           if(!webEle.isDisplayed()){
+               //Waiting for another 30 seconds
+               sleepInSeconds(30);
+           }
+           elementHighlight(webEle);
+           webEle.click();
         } catch (Exception exp) {
             try {
+                Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
-                actions.moveToElement(webele).click();
+                actions.moveToElement(webEle).click();
             } catch (Exception exp1) {
+                Debugger.println("Clicking Via JavaScript....");
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].click();", webEle);
                 throw exp1;
             }
         }
@@ -136,6 +147,7 @@ public class SeleniumLib {
     public List<WebElement> getElements(By ele) {
         try {
             waitForElementVisible(driver.findElement(ele));
+            highLightElement(ele);
             return driver.findElements(ele);
         } catch (NoSuchElementException exp) {
             return null;
@@ -392,6 +404,17 @@ public class SeleniumLib {
             elementHighlight(webElement);
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", webElement);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception: SeleniumLib: Javascript Click.." + exp);
+            return false;
+        }
+    }
+    public boolean JavaScriptClick(WebElement element) {
+        try {
+            elementHighlight(element);
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception: SeleniumLib: Javascript Click.." + exp);
