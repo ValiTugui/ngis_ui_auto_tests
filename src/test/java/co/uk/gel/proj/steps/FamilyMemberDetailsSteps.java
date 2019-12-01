@@ -44,6 +44,11 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        if(!testResult){
+            //IT is observed that click on the button was not happening properly.. trying again.
+            referralPage.clickSaveAndContinueButton();
+            testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        }
         Assert.assertTrue(testResult);
     }
 

@@ -436,7 +436,6 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    Then the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color
 
     Examples:
       | TestPackage  | NoOfParticipants | stage          | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | NhsNumber2 | DOB2       | RelationshipToProband2 | color2  |
