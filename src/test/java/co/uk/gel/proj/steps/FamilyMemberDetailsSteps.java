@@ -412,11 +412,4 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     }
 
-    @And("The user also should see the Add Family Member button and continue button displayed")
-    public void theUserAlsoShouldSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
-        Assert.assertTrue(testResult);
-    }
-
 }//end
