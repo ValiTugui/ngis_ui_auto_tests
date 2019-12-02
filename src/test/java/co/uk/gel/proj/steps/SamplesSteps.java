@@ -158,12 +158,12 @@ public class SamplesSteps extends Pages {
     public void theErrorMessagesForTheSampleMandatoryFieldsOnAddASamplePageAreDisplayed(DataTable dataTable) {
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
         List<String> actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
-        List<String> actualFieldsErrorLabels =  samplesPage.getTheListOfFieldsErrorLabelsOnAddASamplePage();
+        List<String> actualFieldsErrorLabels = samplesPage.getTheListOfFieldsErrorLabelsOnAddASamplePage();
 
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldErrorMessages.get(i-1) + "\n");
-            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), actualFieldsErrorLabels.get(i-1));
+            Debugger.println("Actual labelHeader " + actualFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), actualFieldsErrorLabels.get(i - 1));
 
             Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1));
             Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
@@ -209,14 +209,73 @@ public class SamplesSteps extends Pages {
         actualHelpHintTexts.add(0, "None");
         actualHelpHintTexts.add(1, "None");
 
-        for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
+        for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
-            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i - 1));
 
             Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
-            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
-            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
+            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i - 1));
         }
+    }
+
+    @And("a search icon is displayed inside the Sample state drop down field")
+    public void aSearchIconIsDisplayedInsideTheSampleStateDropDownField() {
+
+        boolean searchIconShown = false;
+        searchIconShown = samplesPage.verifySearchIconInsideSampleStateField();
+        Debugger.println("Return boolean for element present: " + searchIconShown);
+        Assert.assertTrue(searchIconShown);
+    }
+
+    @And("fields and drops-downs are shown as mandatory with astericks star symbol")
+    public void fieldsAndDropsDownsAreShownAsMandatoryWithAstericksStarSymbol() {
+
+        List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+
+        for (int i = 0; i < actualFieldsLabels.size(); i++) { //i starts from 1 because i=0 represents the header;
+            Debugger.println("Actual fields labels on Add a Sample page :" + actualFieldsLabels.get(i) + "\n");
+            Assert.assertTrue(actualFieldsLabels.get(i).contains("✱"));
+        }
+    }
+
+    @And("place-holder text is displayed for Sample type, Sample State and SampleID on Add a Sample page")
+    public void placeHolderTextIsDisplayedForSampleTypeSampleStateAndSampleIDOnAddASamplePage(DataTable dataTable) {
+
+        List<List<String>> expectedLabelsAndPlaceHolderList = dataTable.asLists(String.class);
+        List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List<String> actualPlaceHolderTexts = samplesPage.getTheFieldPlaceHolderTextOnAddASamplePage();
+
+        for (int i = 1; i < expectedLabelsAndPlaceHolderList.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndPlaceHolderList.get(i).get(0));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(0), actualFieldsLabels.get(i - 1));
+
+            Debugger.println("Expected PlaceHolderText " + expectedLabelsAndPlaceHolderList.get(i).get(1));
+            Debugger.println("Actual PlaceHolderText " + actualPlaceHolderTexts.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(1), actualPlaceHolderTexts.get(i - 1));
+        }
+    }
+
+    @And("the sub-page title {string} is displayed on Add a Sample Page")
+    public void theSubPageTitleIsDisplayedOnAddASamplePage(String subPageTitle) {
+        samplesPage.verifyTheSubPageTitle(subPageTitle);
+    }
+
+
+    @And("the expected sub-set of sample-state values are displayed in the Sample state drop-down")
+    public void theExpectedSubSetOfSampleStateValuesAreDisplayedInTheSampleStateDropDown(DataTable dataTable) {
+
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> expectedSampleStateList = new ArrayList<>();
+        List<String> actualSampleStateDropDownValues = samplesPage.getTheSampleStateDropDownValues();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            expectedSampleStateList.add(expectedList.get(i).get("sampleStateHeader"));
+            Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
+            Assert.assertTrue(actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i)));
+        }
+
     }
 }
