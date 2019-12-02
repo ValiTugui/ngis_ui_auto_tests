@@ -2,7 +2,9 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,6 +82,8 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'card_')]")
     public List<WebElement> furtherInfoSections;
 
+    String furtherInfoSectionsLocator = "//*[contains (@class, 'card_')]";
+
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement startTestOrderButton;
 
@@ -116,8 +120,24 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*/h4")
     public List<WebElement> clinicalIndicationsHeadings;
 
+    @FindBy(css = "div[class*='mainSection']")
+    public WebElement clinicalIndicationsSearchValue;
+
+    String clinicalIndicationsHeadingsLocator = "//*/h4";
+
     public void clickStartReferralButton() {
-        Click.element(driver, startTestOrderButton);
+        try{
+            Debugger.println("Starting Referral....");
+            Wait.forElementToBeDisplayed(driver,startTestOrderButton,30);
+            if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
+                Debugger.println("Start Referral button not displayed even after waiting period...Failing.");
+                Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.",true);
+            }
+            Click.element(driver, startTestOrderButton);
+        }catch(Exception exp){
+            Debugger.println("Exception from Starting Referral...."+exp);
+        }
+
     }
 
     public void clickBackToSearchButton() {
@@ -149,7 +169,7 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'styles_relatedContainer')]/ul"), 0);
+        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
         return clinicalIndicationsResults.size() >= 0;
     }
 
@@ -306,11 +326,12 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean clinicalIndicationsTabValidation(String buttonName, String sectionName1, String sectionName2) {
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath(clinicalIndicationsHeadingsLocator), 0);
         return (((goToClinicalIndicationsButtonInPopup.getText().matches(buttonName)) && (closePopupButton.isDisplayed()) && clinicalIndicationsHeadings.get(1).getText().matches(sectionName1)) && (clinicalIndicationsHeadings.get(2).getText().matches(sectionName2)));
     }
 
     public void waitUntilFurtherInfoCardsFromFurtherInfoTabAreLoaded() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath("//*[contains (@class, 'card_')]"), 1);
+        Wait.forNumberOfElementsToBeGreaterThan(driver, By.xpath(furtherInfoSectionsLocator), 1);
     }
 
     public boolean furtherInfoTabValidation(String sectionName1, String sectionName2, String sectionName3, String sectionName4) {
@@ -332,6 +353,10 @@ public class ClinicalIndicationsTestSelectPage {
             default:
                 throw new IllegalStateException("Section Mismatch: " + furtherInfoSections.size());
         }
+    }
+
+    public boolean checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven() {
+        return clinicalIndicationsSearchValue.getText().contains(AppConfig.getSearchTerm());
     }
 
 }

@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
@@ -61,7 +62,6 @@ public class ReferralSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
         homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
@@ -168,7 +168,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals("No patient found", patientSearchPage.noPatientFoundLabel.getText());
+        String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
+        Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
@@ -232,7 +233,7 @@ public class ReferralSteps extends Pages {
     //Added by STAG to create referral with the given patient details than taking from Test Data Provider
     @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
+        boolean toDoListDisplayed;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -250,8 +251,13 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-        boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
-        Assert.assertTrue(searchPageLoaded);
+       // boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
@@ -290,7 +296,10 @@ public class ReferralSteps extends Pages {
                     }
                 }//switch
             }//for
-            patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            searchPageLoaded = patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            if(!searchPageLoaded){
+                Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
+            }
         }else if (patientType.equalsIgnoreCase("SPINE")) {
             patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }
@@ -303,6 +312,7 @@ public class ReferralSteps extends Pages {
             Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+            Debugger.println("Update Patient Details button shown");
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
             Debugger.println("Save Patient Details button shown");
@@ -310,6 +320,22 @@ public class ReferralSteps extends Pages {
             patientDetailsPage.patientIsCreated();
             patientDetailsPage.clickStartNewReferralButton();
         }
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
+        if(!toDoListDisplayed){
+            SeleniumLib.takeAScreenShot("ToDoList.jpg");
+            Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
+        }
+    }
+
+    @And("the success notification is displayed {string}")
+    public void theSuccessNotificationIsDisplayed(String notificationText) {
+        String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        Assert.assertEquals(notificationText,actualNotificationText);
+    }
+    @Then("the user is navigated to a page with title (.*)")
+    public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
+        boolean testResult = false;
+        testResult = referralPage.verifyThePageTitlePresence(title);
+        Assert.assertTrue(testResult);
     }
 }

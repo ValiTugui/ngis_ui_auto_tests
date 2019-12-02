@@ -15,6 +15,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public FamilyMemberDetailsSteps(SeleniumDriver driver) {
         super(driver);
     }
+
     @And("^the user types in valid details of a patient in the NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
         familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
@@ -39,14 +40,15 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @And("clicks the Save and Continue button in family member details page")
-    public void theUserClicksTheSaveAndContinueButtonInFamilyMemberDetailsPage() {
-        referralPage.clickOnSaveAndContinueButton();
-    }
     @Then("the message displays as {string} in color {string}")
     public void theMessageDisplaysAsGivenInSpecifiedColor(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        if(!testResult){
+            //IT is observed that click on the button was not happening properly.. trying again.
+            referralPage.clickSaveAndContinueButton();
+            testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
+        }
         Assert.assertTrue(testResult);
     }
 
@@ -54,6 +56,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
+
     @And("reads the details of selected family member {string}")
     public void readsTheDetailsOfSelectedMember(String relationToProband) {
         familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
@@ -65,6 +68,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
         Assert.assertTrue(testResult);
     }
+
     @And("the user can select the test to add to the family member")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
         boolean testResult = false;
@@ -83,6 +87,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
         Assert.assertTrue(testResult);
     }
+
     @And("the display title of the family member details page is {string}")
     public void theDisplayTitleOfTheFamilyMemberDetailsPageIs(String familyMemeberDeatailsPageTitle) {
         familyMemberDetailsPage.verifyTheTitleOfTheFamilyMemberDetailsPage(familyMemeberDeatailsPageTitle);
@@ -99,6 +104,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberDetailsPage(String clearDropdown) {
         familyMemberDetailsPage.removeFetchedDataInFamilyMemberDetailsPage(clearDropdown);
     }
+
     @Then("the default family member details page is correctly displayed")
     public void theDefaultFamilyMemberDetailsPageIsCorrectlyDisplayed() {
         boolean testResult = false;
@@ -113,12 +119,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user is navigated to a page with title (.*)")
-    public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(title);
-        Assert.assertTrue(testResult);
-    }
+
 
     @And("the user should be able to see test package for family member is selected by default")
     public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
@@ -133,6 +134,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberNewPatientPage.verifyTheElementsOnFamilyMemberNewPatientPage();
         Assert.assertTrue(testResult);
     }
+
     @When("the user removes the data from all fields {string} in the family member new patient page")
     public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberNewPatientPage(String clearDropdown) {
         familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
@@ -146,7 +148,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the message will be displayed as {string} in {string} in new patient page")
     public void theMessageWillBeDisplayedAsInInNewPatientPage(String errorMessage, String fontColor) {
         boolean testResult = false;
-        testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage,fontColor);
+        testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage, fontColor);
         Assert.assertTrue(testResult);
 
     }
@@ -179,12 +181,14 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user clicks on back button on family member details page")
     public void clicksOnBackButtonOnFamilyMemberDetailsPage() {
         familyMemberDetailsPage.clickOnBackButton();
-     }
+    }
+
     @Then("the user should be able to see family member's details card")
     public void theUserShouldBeAbleToSeeFamilyMemberSDetailsCard() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyThePatientCardField();
         Assert.assertTrue(testResult);
+
     }
 
     @And("the editing referral color in Red")
@@ -203,9 +207,9 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on remove button to remove family member")
     public void theUserClicksOnRemoveButtonToRemoveFamilyMember() {
-            boolean testResult = false;
+        boolean testResult = false;
         testResult = familyMemberDetailsPage.removeFamilyFromLandingPage();
-            Assert.assertTrue(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees {string} removal message on the family member landing page")
@@ -214,16 +218,11 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     }
 
-    @And("the user clicks on Continue Button")
-    public void theUserClicksOnContinueButton() {
-        familyMemberDetailsPage.clickOnContinueButton();
-    }
-
     @When("the user clicks on dustbin icon of the family member")
     public void theUserClicksOnDustbinIconOfTheFamilyMember() {
-          boolean testResult = false;
+        boolean testResult = false;
         testResult = familyMemberDetailsPage.removeAFamilyMember();
-          Assert.assertTrue(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should see mismatch message in selected and actual participant as {string}")
@@ -232,12 +231,14 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
         Assert.assertTrue(testResult);
     }
+
     @Then("the user should not see the removal message on the family member landing page")
     public void theUserDoesNotSeeTheRemovalMessageOnTheFamilyMemberLandingPage() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheDeleteMessageIsPresent();
         Assert.assertTrue(testResult);
     }
+
     @Then("the family member test package page is correctly displayed")
     public void theFamilyMemberTestPackPageIsCorrectlyDisplayed() {
         boolean testResult = false;
@@ -255,7 +256,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user removes the family member")
     public void theUserRemoveTheFamilyMember() {
         familyMemberDetailsPage.removeAFamilyMember();
-
     }
 
     @Then("the user should be able to see {string} removal message on the family member landing page")
@@ -275,86 +275,52 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should be able to see the patient details in family member landing page")
-    public void theUserShouldBeAbleToSeeThePatientDetailsInFamilyMemberLandingPage() {
-        familyMemberDetailsPage.patientDetailsInFamilyMemberLandingPage();
-    }
-
-    @And("the user should be able to see the patient details in patient choice page")
-    public void theUserShouldBeAbleToSeeThePatientDetailsInPatientChoicePage() {
-        familyMemberDetailsPage.patientDetailsInPatientChoicePage();
-    }
-
-    @Then("the user should verify the data from family member landing page and patient choice page")
-    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPatientChoicePage() {
+    @And("the deselected member status display as {string}")
+    public void theDeselectedMemberStatusDisplay(String status) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPatientChoice();
+        testResult = familyMemberDetailsPage.verifyDeselectedPatientTestStatus(status);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient details in print forms page")
-    public void theUserShouldBeAbleToSeeThePatientDetailsInPrintFormsPage() {
-        familyMemberDetailsPage.printFormsInPatientChoicePage();
+    @And("the user should be able to see the patient identifiers on family member landing page")
+    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user clicks on the link to amend the number of participants for test")
+    public void theUserClicksOnTheLinkToAmendTheNumberOfParticipantsForTest() {
+        familyMemberDetailsPage.clickOnParticipantAmendmentLink();
     }
 
-    @Then("the user should verify the data from family member landing page and print forms page")
-    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPrintFormsPage() {
+    @And("the user clicks on Continue Button")
+    public void theUserClicksOnContinueButton() {
+        familyMemberDetailsPage.clickOnContinueButton();
+    }
+
+    @Then("the user should see an error message displayed as {string} in {string} color")
+    public void theUserShouldSeeAMessageDisplayedAsInColor(String expectedMsg, String expectedColor) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPrintForms();
+        testResult = familyMemberDetailsPage.participantsErrorMessageCheck(expectedMsg, expectedColor);
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the patient choice {string} status")
+    @Then("the user should see a warning message displayed as {string} in {string} color")
+    public void theUserShouldSeeAWarningMessageDisplayedAsInColor(String expectedMsg, String expectedColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.participantsWarningMessageCheck(expectedMsg, expectedColor);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the patient choice status in family member page as {string}")
     public void theUserSeesThePatientChoiceStatus(String status) {
-        familyMemberDetailsPage.resultOfPatientChoiceStatus(status);
+        familyMemberDetailsPage.patientChoiceStatus(status);
     }
 
-    @And("the user wants to edit the patient choice {string} status")
-    public void theUserWantsToEditThePatientChoiceStatus(String status) {
-        familyMemberDetailsPage.editThePatientChoiceStatus(status);
-    }
-
-    @And("the user clicks on a test that is selected and the test is no longer selected")
-    public void theUserClicksOnATestThatIsSelectedAndTheTestIsNoLongerSelected() {
-        familyMemberDetailsPage.deselectCheckBoxOnFamilyPage();
-    }
-
-    @Then("the user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
-    public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
-        familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
-
-    }
-
-    @And("the user should be able to see if the family member status {string} Marked in {string}.")
-    public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
+    @Then("the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member")
+    public void theUserEditingAFamilyMemberSDetailsOrPatientChoiceTheyShouldKnowWhichFamilyMemberTheyAreFocusingOnSoThatTheyOnlyMakeTheChangesRelevantToThatFamilyMember() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.testedFieldColor(testfield, color);
+        testResult = familyMemberDetailsPage.familyMemberInFocus();
         Assert.assertTrue(testResult);
     }
-
-    @And("the user should be able to view patient choice status for all the family members added.")
-    public void theUserShouldBeAbleToViewPatientChoiceStatusForAllTheFamilyMembersAdded() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.patientChoiceStatusDetail();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should also see the separate edit or delete icon under every family member details provided.")
-    public void theUserShouldAlsoSeeTheSeparateEditOrDeleteIconUnderEveryFamilyMemberDetailsProvided() {
-        familyMemberDetailsPage.editAndDeleteButtonDisplay();
-    }
-
-    @And("there is a message displayed on top of landing page stating {string}")
-    public void thereIsAMessageDisplayedOnTopOfLandingPageStating(String subTitlemsg) {
-        familyMemberDetailsPage.subTitleMessage(subTitlemsg);
-
-    }
-
-    @And("the user should also see the Add Family Member button and continue button displayed")
-    public void theUserShouldAlsoSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
-        Assert.assertTrue(testResult);
-    }
-
 }//end

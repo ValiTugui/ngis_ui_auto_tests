@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
@@ -164,12 +165,24 @@ public class TestPackagePage {
     }
 
     public void selectNumberOfParticipants(int number) {
-        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-        Wait.forElementToBeDisplayed(driver, testCardBody);
-        Actions.clickElement(driver, numberOfParticipants);
-        //Wait.seconds(1);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        try {
+            Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+            Wait.forElementToBeDisplayed(driver, testCardBody);
+            Wait.forElementToBeDisplayed(driver,numberOfParticipants);
+            if(!Wait.isElementDisplayed(driver,numberOfParticipants,5)){
+                Debugger.println("Number of Participants element in TestPackage is not displayed:");
+                Assert.assertFalse("Number of Participants element in TestPackage is not displayed:",true);
+            }
+            numberOfParticipants.click();
+            Wait.seconds(1);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+            Wait.seconds(5);
+        }catch(Exception exp){
+            Debugger.println("Exception in Selecting number of Participants in Test Package."+exp);
+            SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
+            Assert.assertFalse("Exception in Selecting number of Participants in Test Package."+exp,true);
+        }
     }
     public boolean testIsSelected() {
     	Wait.forElementToBeDisplayed(driver, routinePriorityButton);

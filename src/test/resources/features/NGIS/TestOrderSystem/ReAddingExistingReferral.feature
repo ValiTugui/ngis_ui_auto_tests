@@ -1,7 +1,7 @@
 @regression
 @COMP08_P0
 @ReAddingExistingReferral
-Feature: FamilyMember search page
+Feature: Family Members Re-adding Validation
 
   @COMP8_TO_Familymembers
     @familyMembersSearchPage_01 @NTS-3227 @E2EUI-1947 @v_1 @P0

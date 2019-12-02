@@ -4,8 +4,6 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
@@ -113,7 +111,7 @@ public class TumoursPage {
     public WebElement editTumourArrow;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
-    public WebElement tumourSuccessNotification;
+    public WebElement genericSuccessNotification;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/../div[2]")
     public WebElement tumourInformationText_withNotificationSuccess;
@@ -210,10 +208,16 @@ public class TumoursPage {
     }
 
     public String selectTumourFirstPresentationOrOccurrenceValue(String value) {
-        Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
-        Actions.clickElement(driver, tumourCoreDataDropdown);
-        Actions.selectValueFromDropdown(dropdownValue, value);
-        return value;
+        Wait.seconds(2);
+        try {
+            Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
+            Actions.clickElement(driver, tumourCoreDataDropdown);
+            Actions.selectValueFromDropdown(dropdownValue, value);
+            return value;
+        } catch (Exception exp) {
+            Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
+            return null;
+        }
     }
 
     public void answerTumourDiagnosisQuestions(String diagnosis) {

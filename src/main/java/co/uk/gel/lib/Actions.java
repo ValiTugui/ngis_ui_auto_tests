@@ -1,6 +1,7 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
 
 import java.awt.*;
@@ -34,7 +35,12 @@ public class Actions {
     }
 
     public static String getText(WebElement element) {
-        return element.getText();
+       try {
+           return element.getText();
+       }catch(Exception exp){
+           Debugger.println("Could not read text from Element: "+element);
+           return null;
+       }
     }
 
     public static String getValue(WebElement element) {
@@ -162,6 +168,7 @@ public class Actions {
                 flag = false;
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
+                Debugger.println("Actions: Clicking on Element :"+element);
             }
         }
     }

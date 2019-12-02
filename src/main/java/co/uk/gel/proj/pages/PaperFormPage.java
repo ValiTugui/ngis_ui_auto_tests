@@ -1,8 +1,13 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,8 +40,6 @@ public class PaperFormPage {
 
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
-
-
 
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
@@ -226,11 +229,19 @@ public class PaperFormPage {
 
     public void clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
+            Debugger.println("clickSignInToTheOnlineServiceButton: ");
+            Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+                Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
+            }
             Click.element(driver, signInToOnlineServiceButton);
             Wait.seconds(5);
-        }catch(Exception exp){
-            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
+            SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+            Assert.assertFalse("PaperFormPage: Exception from login to signInToOnlineServiceButton:...failing.Check ClickSignInButton.jpg",true);
         }
     }
 
@@ -238,9 +249,17 @@ public class PaperFormPage {
         Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
     }
 
+    public void selectFirstEntityFromSuggestionsList() {
+        Click.element(driver, orderEntitySearchSuggestionsList.get(0));
+    }
+
     public void clickContinueButton() {
         Wait.forElementToBeDisplayed(driver, continueButton.get(0));
         Click.element(driver, continueButton.get(0));
+    }
+
+    public void clickCancelOrderLink() {
+        Click.element(driver, cancelOrderLink);
     }
 
     public void checkThatReviewTestSelectionIsOpened() {
@@ -261,14 +280,75 @@ public class PaperFormPage {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
 
-    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
         orderEntitySubHeader.isDisplayed();
         return orderEntitySubHeader.getText().matches(expectedLabelText);
     }
-    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
         return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
+    }
+
+    public boolean checkThatStepsTitlesForRoutedClinicalIndicationAreCorrect(String buttonName, String sectionName1, String sectionName2) {
+        Wait.forElementToBeDisplayed(driver, printPageButton);
+        return ((printPageButton.getText().matches(buttonName)) && (stepsTitles.get(0).getText().matches(sectionName1)) && (stepsTitles.get(1).getText().matches(sectionName2)));
+    }
+
+    public boolean checkThatNameOfDowmloadSectionIsDisplayed(String sectionName1, String sectionName2, String sectionName3) {
+        Wait.forElementToBeDisplayed(driver, routedNextStepsContent);
+        for (int i = 0; i < downloadSections.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, downloadSections.get(i));
+        }
+        Debugger.println("No of sections for " + AppConfig.getSearchTerm() + " are " + downloadSections.size());
+        switch (downloadSections.size()) {
+            case 2: {
+                return ((downloadSections.get(0).findElement(By.tagName("h3")).getText().matches(sectionName1)) && (downloadSections.get(1).findElement(By.tagName("h3")).getText().matches(sectionName2)));
+            }
+            case 3: {
+                return ((downloadSections.get(0).findElement(By.tagName("h3")).getText().matches(sectionName1)) && (downloadSections.get(1).findElement(By.tagName("h3")).getText().matches(sectionName2)) && (downloadSections.get(2).findElement(By.tagName("h3")).getText().matches(sectionName3)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + downloadSections.size());
+        }
+    }
+
+    public boolean checkThataddressOfLabIsDisplayed(String placeSearchTerm) {
+        Wait.forElementToBeDisplayed(driver, addressPanelTitle);
+        return (!Actions.getText(sendFormsAndSamplesHospitalName).isEmpty() && (Actions.getText(addressPanelTitle).matches("Send to")) && (Actions.getText(addressPanelBody).contains(placeSearchTerm)));
+    }
+
+    public boolean checkThatDownloadButtonsAreDisplayed() {
+        Wait.forElementToBeDisplayed(driver, routedNextStepsContent);
+        Debugger.println("No of download button are " + downloadButton.size());
+        for (int i = 0; i < downloadButton.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, downloadButton.get(i));
+        }
+        return (downloadSections.size() == downloadButton.size());
+    }
+
+    public boolean checkCancelOrderLinkIdDisplayed(String linkName) {
+        Wait.forElementToBeDisplayed(driver, cancelOrderLink);
+        cancelOrderLink.isDisplayed();
+        cancelOrderLink.getText().matches(linkName);
+        return true;
+    }
+
+    public boolean checkThatInformationEntityIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, selectedOrderEntityInformationBox);
+        return selectedOrderEntityInformationBox.isDisplayed();
+    }
+
+    public boolean checkThatSelectedEntityNameIsTheSameAsTheSearchValue() {
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        String entitySearchValue = orderEntitySearchField.getAttribute("value");
+        String selectedEntityName = selectedOrderEntityName.getText();
+        return entitySearchValue.matches(selectedEntityName);
+    }
+
+    public void checkContinueIsClickable() {
+        Wait.forElementToBeClickable(driver, continueButton.get(0));
     }
 
 }

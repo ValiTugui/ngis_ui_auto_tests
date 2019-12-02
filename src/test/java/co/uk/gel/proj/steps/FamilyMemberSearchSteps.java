@@ -1,8 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.java.en.And;
@@ -86,25 +84,23 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
         Assert.assertTrue(testResult);
     }
-
-    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
-    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
-        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
-    }
+//
+//    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
+//    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
+//        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
+//    }
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
     }
 
-    @Then("the message will be displayed as {string} in {string} for the invalid field")
-    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+    @And("the user will be able to see an error message as {string} in {string} for the family member")
+    public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
         Assert.assertTrue(testResult);
-
     }
-
 
     @Then("the message will be displayed as {string} result found")
     public void theMessageWillBeDisplayedAsResultFound(String resultMessage) {
@@ -154,27 +150,13 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickOnNewPatientLink();
     }
 
-    @And("the user will be able to see an error message as {string} in {string} for the family member")
-    public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
-        boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user navigates to the family member questionnaire Page")
-    public void theUserNavigatesToTheFamilyMemberQuestionnairePage() {
-        familyMemberSearchPage.verifyTheTitleOfTheFamilyMemberQuestionnairePage();
-        Wait.seconds(5);
-    }
-
-    @Then("the user should be able to see incomplete family member in {string}")
+    @And("the user should be able to see incomplete family member in {string}")
     public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
         Assert.assertTrue(testResult);
     }
-
-    @And("the user edits to complete the highlighted family member")
+    @When("the user edits to complete the highlighted family member")
     public void theUserShouldEditToCompleteTheHighlightedFamilyMember() {
         familyMemberSearchPage.completingQuestionnaireFamilyMember();
     }
@@ -185,4 +167,12 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteFamilyMember();
         Assert.assertFalse(testResult);
     }
+    @Then("the message will be displayed as {string} in {string} for the invalid field")
+    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+
+    }
+
 }//end

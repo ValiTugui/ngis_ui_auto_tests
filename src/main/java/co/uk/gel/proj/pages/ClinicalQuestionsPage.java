@@ -123,16 +123,25 @@ public class ClinicalQuestionsPage {
 
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
-
-        new org.openqa.selenium.interactions.Actions(driver).moveToElement(hpoSearchField).perform();
-        Actions.fillInValue(hpoSearchField, hpoTerm);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectByIndexFromDropDown(dropdownValues, 0);
-        // determine the total number of HPO terms
-        Wait.seconds(2);
-        Wait.forElementToBeDisplayed(driver, hpoTable);
-        int numberOfHPO = hpoTerms.size();
-        return numberOfHPO;
+        try {
+            seleniumLib.sendValue(hpoSearchField,hpoTerm);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
+                Debugger.println("HPO term "+hpoTerm+" present in the dropdown.");
+                return -1;
+            }
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Debugger.println("Selected ....dropdownValues");
+            // determine the total number of HPO terms
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, hpoTable);
+            int numberOfHPO = hpoTerms.size();
+            Debugger.println("SizeOfHPOTerms: "+numberOfHPO);
+            return numberOfHPO;
+        }catch(Exception exp){
+            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception "+exp);
+            return 0;
+        }
     }
 
     public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
@@ -165,7 +174,7 @@ public class ClinicalQuestionsPage {
 
     public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
         Wait.forElementToBeDisplayed(driver, diagnosisField);
-        return (!diagnosisField.getText().contains(diagnosisValue));
+        return (!diagnosisField.getText().equalsIgnoreCase(diagnosisValue));
 
     }
 

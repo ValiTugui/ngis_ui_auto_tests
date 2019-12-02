@@ -57,6 +57,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
 
+    String pageTitleText = "Find your patient";
+
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
@@ -193,6 +195,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
 
+    @FindBy(xpath = "//h1[text()='Find your patient']")
+    public WebElement findYourPatientTitle;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -232,7 +237,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         Wait.forElementToBeClickable(driver, searchButtonByXpath);
-        searchButtonByXpath.click();
+        Actions.retryClickAndIgnoreElementInterception(driver,searchButtonByXpath);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        // searchButtonByXpath.Click();
     }
 
 
@@ -265,7 +272,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     useAnotherAccount.click();
                     Wait.seconds(3);
                 } else {
-                    Debugger.println("Email field or UseAnotherAccount option are not available.");
+                    Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
                     Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
                 }
             }else{
@@ -278,27 +286,45 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, passwordField);
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
+            Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
         }
     }
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
-
-        Wait.forElementToBeClickable(driver, emailAddressField);
-        if (userType.equalsIgnoreCase("GEL-normal-user")) {
-            emailAddressField.sendKeys(AppConfig.getApp_username());
-        } else {
-            emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
+        try {
+            Wait.forElementToBeDisplayed(driver,emailAddressField,20);
+            if(!Wait.isElementDisplayed(driver,emailAddressField,10)){
+                Debugger.println("Email Address Field is not displayed even after the waiting period.");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
+                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
+                    useAnotherAccount.click();
+                    Wait.seconds(3);
+                } else {
+                    Debugger.println("Email field or UseAnotherAccount option are not available.");
+                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                }
+            }
+            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+                emailAddressField.sendKeys(AppConfig.getApp_username());
+            } else {
+                emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
+            }
+            Click.element(driver, nextButton);
+            Wait.seconds(3);
+            Wait.forElementToBeClickable(driver, passwordField);
+            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+                passwordField.sendKeys(AppConfig.getApp_password());
+            } else {
+                passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
+            }
+            Click.element(driver, nextButton);
+            Wait.seconds(3);
+        }catch(Exception exp){
+            Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
+            Assert.assertFalse("Exception in Logging to TO as user type: "+userType+".Exception: "+exp,true);
         }
-        Click.element(driver, nextButton);
-        Wait.forElementToBeClickable(driver, passwordField);
-        if (userType.equalsIgnoreCase("GEL-normal-user")) {
-            passwordField.sendKeys(AppConfig.getApp_password());
-        } else {
-            passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));
-        }
-        Click.element(driver, nextButton);
     }
 
     public void fillInValidPatientDetailsUsingNOFields(String searchParams) {
@@ -384,6 +410,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickPatientCard() {
         Wait.forElementToBeDisplayed(driver, patientCard);
+        if(!Wait.isElementDisplayed(driver,patientCard,30)){
+            Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
+            SeleniumLib.takeAScreenShot("PatientCard.jpg");
+            Assert.assertFalse("PatientCard not found to be clicked.",true);
+        }
         patientCard.click();
     }
 
@@ -631,43 +662,56 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        nhsNumberLabel.isDisplayed();
-        nhsNumber.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        searchButton.isDisplayed();
-
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(nhsNumberLabel);
+        expectedElements.add(nhsNumber);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
         Wait.forElementToBeDisplayed(driver, searchButton);
-        pageTitle.isDisplayed();
-        pageDescription.isDisplayed();
-        yesNoFieldLabel.isDisplayed();
-        yesButton.isDisplayed();
-        noButton.isDisplayed();
-        dateOfBirthLabel.isDisplayed();
-        dateDay.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-        firstName.isDisplayed();
-        lastName.isDisplayed();
-        postcode.isDisplayed();
-        searchButton.isDisplayed();
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
 
+        expectedElements.add(pageTitle);
+        expectedElements.add(pageDescription);
+        expectedElements.add(yesNoFieldLabel);
+        expectedElements.add(yesButton);
+        expectedElements.add(noButton);
+        expectedElements.add(dateOfBirthLabel);
+        expectedElements.add(dateDay);
+        expectedElements.add(dateMonth);
+        expectedElements.add(dateYear);
+        expectedElements.add(firstName);
+        expectedElements.add(dateDay);
+        expectedElements.add(lastName);
+        expectedElements.add(postcode);
+        expectedElements.add(searchButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
         return true;
+
     }
 
     public void checkTheNoPatientFoundLabel(String expSearchString, String errorMessage, String expectedFontFace) {
@@ -780,24 +824,60 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals("Male", Actions.getText(administrativeGenderButton));
         Assert.assertEquals(testData.getPostCode(), Actions.getValue(postcode));
     }
-    public void fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
-        dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
-        dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
-        dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
+    public boolean fillInNHSNumberAndDateOfBirth(NGISPatientModel ngisPatient) {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            if (!Wait.isElementDisplayed(driver, nhsNumber, 10)) {
+                Debugger.println("NHS number field not loaded for Searching the Patient.");
+                return false;
+            }
+            nhsNumber.sendKeys(ngisPatient.getNHS_NUMBER());
+            dateDay.sendKeys(ngisPatient.getDAY_OF_BIRTH());
+            dateMonth.sendKeys(ngisPatient.getMONTH_OF_BIRTH());
+            dateYear.sendKeys(ngisPatient.getYEAR_OF_BIRTH());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from entering patient with NHS and DOB."+exp);
+            return false;
+        }
     }
     //Method added as a temporary fix for trial. Will be removed/modified based on run result.
     public boolean waitForSearchPageTobeLoaded(){
         try {
-            Debugger.println("waitForSearchPageTobeLoaded: "+driver.getCurrentUrl());
-            By searchTitle = By.xpath("//h1[text()='Find your patient']");
-            WebElement patientSearchTitle = driver.findElement(searchTitle);
-            Wait.forElementToBeDisplayed(driver, patientSearchTitle, 200);
+            Wait.forElementToBeDisplayed(driver,findYourPatientTitle,100);
+            if(!Wait.isElementDisplayed(driver,findYourPatientTitle,30)){
+                Debugger.println("Patient Search Page not loaded. Please check SearchPage.jpg");
+                SeleniumLib.takeAScreenShot("SearchPage.jpg");
+                return false;
+            }
             return true;
         }catch(Exception exp){
-            Debugger.println("Patient Search Page did not loaded......."+exp);
+            Debugger.println("Patient Search Page did not loaded. Check SearchPage.jpg"+exp);
+            SeleniumLib.takeAScreenShot("SearchPage.jpg");
             return false;
+        }
+    }
+    public void waitForPageTitleDisplayed(){
+        try {
+            Wait.forElementToBeDisplayed(driver, pageTitle);
+            if(!Wait.isElementDisplayed(driver,pageTitle,10)){
+                Debugger.println("Patient Search Page is not Loaded Successfully.");
+                Assert.assertFalse("Patient Search Page is not Loaded Successfully.",true);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from loading Patient Search Page:"+exp);
+            Assert.assertFalse("Exception from loading Patient Search Page:",true);
+        }
+    }
+    public void logoutFromApplication(){
+        try{
+            if(Wait.isElementDisplayed(driver,logout,10) ) {
+                Debugger.println("Already Logged in, Logging out from Application.");
+                logout.click();
+                Wait.seconds(10);
+            }
+        }catch(Exception exp){
+
         }
     }
 }
