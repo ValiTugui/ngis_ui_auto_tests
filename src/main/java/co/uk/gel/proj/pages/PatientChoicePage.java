@@ -77,7 +77,6 @@ public class PatientChoicePage {
     String patientChoiceInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Patient choice status']";
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
 
-
     public PatientChoicePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
