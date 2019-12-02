@@ -236,6 +236,24 @@ public class FamilyMemberDetailsPage {
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
     String removeButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='remove button']";
 
+    @FindBy(xpath = "//div[@class='css-1qv4t1n']")
+    public WebElement familyMemberFocussed;
+    @FindBy(xpath = "//span[@class='css-1sg2lsz']")
+    public WebElement familyMemberNames;
+    @FindBy(xpath = "//span[@class='css-ugl1y7']/child::span")
+    public WebElement relationshipStatus;
+    @FindBy(xpath = "//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
+    public WebElement familyMemberDob;
+    @FindBy(xpath = "//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
+    public WebElement familyMemberGender;
+    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
+    public WebElement familyMemberNhsNumbers;
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    public WebElement familyMemberNgisId;
+
+    @FindBy(xpath = "//button[@aria-label='edit button']")
+    List<WebElement> editButton;
+
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -889,7 +907,7 @@ public class FamilyMemberDetailsPage {
             Debugger.println("[Expected status :" + status + "][Actual status :" + patientChoiceStatusResult.getText() + "]" + exp);
         }
     }
-    public boolean familyMemberInFocus() {
+    public boolean verifyFamilyMemberBanner() {
         Wait.forElementToBeDisplayed(driver, familyMemberFocussed);
         if (!seleniumLib.isElementPresent(familyMemberFocussed)) {
             return false;
@@ -908,5 +926,16 @@ public class FamilyMemberDetailsPage {
         }
         return true;
     }
+    public void editPatientChoiceOfFamilyMember() {
+        try {
+            for (int i = 1; i < editButton.size(); i++) {
+                editButton.get(i).click();
+                Wait.seconds(5);
+            }
+        } catch (Exception exp) {
+            Debugger.println("FamilyMemberDetailsPage editPatientChoiceOfFamilyMember(), EditBox not present" + exp);
+        }
+    }
+
 
 }//ends

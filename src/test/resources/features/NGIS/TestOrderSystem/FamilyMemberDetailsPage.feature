@@ -156,34 +156,34 @@ Feature: Family Members Details Validation
 ##December 02
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_23 @E2EUI-1790 @v_1 @P0
+    @familyMemberDetailsPage_09 @NTS-3342 @E2EUI-1790 @v_1 @P0
   Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
-    And the user is navigated to a page with title Add a family member to this referral
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    And the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
-    And the user is navigated to a page with title Select tests for
+    Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    Then the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member
-    And clicks the Save and Continue button in family member details page
-    And the user is navigated to a page with title Add family member details
-    And the user fills the DiseaseStatusDetails for family member with the "<DiseaseStatusDetails>"
-    Then the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member
-    And clicks the Save and Continue button in family member details page
-    Then the user should see the heading as "Add a family member to this referral".
+    And the family member banner should display with the editing members information
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    Then the family member banner should display with the editing members information
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
-    Then the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member
-    And the user moves back to previous page
+    And the family member banner should display with the editing members information
+    When the user moves back to previous page
     Then the user is navigated to a page with title Patient choice
 
     Examples:

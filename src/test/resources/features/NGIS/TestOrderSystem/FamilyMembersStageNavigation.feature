@@ -396,48 +396,49 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Patient choice       |
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_15 @E2EUI-1510 @v_1 @P0
+    @familyMemberDetailsPage_15 @NTS-3338 @E2EUI-1510 @v_1 @P0
   Scenario Outline: E2EUI-1510: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<TestPackage>" stage
-    And the user is navigated to a page with title Confirm the test package
+    Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the user navigates to the "<stage>" stage
+    When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
-    And the user clicks on the patient card
+    When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    Then the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
+    And the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on the link to amend the number of participants for test
+    When the user clicks on the link to amend the number of participants for test
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants2>"
     And the user clicks the Save and Continue button
-    And the user navigates to the "<stage>" stage
+    When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    And the user search a patient with valid NHS number "<NhsNumber2>" and Date of Birth "<DOB2>" fields
-    And the patient card displays with Born,Gender and NHS No details
-    And the user clicks on the patient card
+    And the user search the family member with the specified details "<FamilyMemberDetails2>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband2>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
+    And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color
 
     Examples:
-      | TestPackage  | NoOfParticipants | stage          | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | NhsNumber2 | DOB2       | RelationshipToProband2 | color2  |
-      | Test package | 1                | Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | 9449310157 | 15-01-2000 | Full Sibling           | #425563 |
+      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                | RelationshipToProband2 | color2  |
+      | Test package | 1                | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling           | #425563 |
 

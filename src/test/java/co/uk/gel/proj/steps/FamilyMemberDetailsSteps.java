@@ -288,7 +288,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage();
         Assert.assertTrue(testResult);
     }
-    @And("the user clicks on the link to amend the number of participants for test")
+    @When("the user clicks on the link to amend the number of participants for test")
     public void theUserClicksOnTheLinkToAmendTheNumberOfParticipantsForTest() {
         familyMemberDetailsPage.clickOnParticipantAmendmentLink();
     }
@@ -298,7 +298,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickOnContinueButton();
     }
 
-    @Then("the user should see an error message displayed as {string} in {string} color")
+    @And("the user should see an error message displayed as {string} in {string} color")
     public void theUserShouldSeeAMessageDisplayedAsInColor(String expectedMsg, String expectedColor) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.participantsErrorMessageCheck(expectedMsg, expectedColor);
@@ -317,10 +317,19 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.patientChoiceStatus(status);
     }
 
-    @Then("the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member")
-    public void theUserEditingAFamilyMemberSDetailsOrPatientChoiceTheyShouldKnowWhichFamilyMemberTheyAreFocusingOnSoThatTheyOnlyMakeTheChangesRelevantToThatFamilyMember() {
+    @And("the family member banner should display with the editing members information")
+    public void theFamilyMemebrBannerShouldDisplayWithTheEditingMembersInformation() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.familyMemberInFocus();
+        testResult = familyMemberDetailsPage.verifyFamilyMemberBanner();
         Assert.assertTrue(testResult);
+    }
+    @When("the user clicks on edit icon to update patient choice status for family member")
+    public void theUserClicksOnEditIconToUpdatePatientChoiceStatusForFamilyMember() {
+        familyMemberDetailsPage.editPatientChoiceOfFamilyMember();
+    }
+
+    @When("the user moves back to previous page")
+    public void theUserMovesBackToPreviousPage() {
+        familyMemberDetailsPage.clickOnBackButton();
     }
 }//end
