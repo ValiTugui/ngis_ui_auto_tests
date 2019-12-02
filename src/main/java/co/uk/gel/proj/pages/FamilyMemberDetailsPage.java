@@ -200,10 +200,10 @@ public class FamilyMemberDetailsPage {
     public WebElement familyMemberTestPackagePageSubTitle;
 
     @FindBy(xpath = "//button[@aria-label='edit button']")
-    WebElement editButton;
+    List<WebElement> editButton;
 
     @FindBy(xpath = "//button[@aria-label='remove button']")
-    WebElement deleteButton;
+    List<WebElement> deleteButton;
 
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement familyMemberTestPackagePageLink;
@@ -1062,17 +1062,8 @@ public class FamilyMemberDetailsPage {
         }
         return true;
     }
-    public void editPatientChoiceOfFamilyMember() {
-//        try {
-//            for (int i = 1; i < editButton.size(); i++) {
-//                editButton.get(i).click();
-//                Wait.seconds(5);
-//            }
-//        } catch (Exception exp) {
-//            Debugger.println("FamilyMemberDetailsPage editPatientChoiceOfFamilyMember(), EditBox not present" + exp);
-//        }
-    }
-    public boolean patientChoiceStatusDetail(){
+
+   public boolean patientChoiceStatusDetail(){
         Wait.forElementToBeDisplayed(driver,patientChoiceStatusField);
         if(!Wait.isElementDisplayed(driver,patientChoiceStatusField,10)){
             return false;
@@ -1080,19 +1071,7 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public boolean editAndDeleteButtonDisplay(){
-        Wait.forElementToBeDisplayed(driver,editButton);
-        if(!Wait.isElementDisplayed(driver,editButton,10)){
-            return false;
-        }
-        Wait.forElementToBeDisplayed(driver,deleteButton);
-        if(!Wait.isElementDisplayed(driver,deleteButton,10)){
-            return false;
-        }
-        return true;
-    }
-
-    public void subTitleMessage(String subTitlemsg){
+   public void subTitleMessage(String subTitlemsg){
         familyMemberTestPackagePageSubTitle.isDisplayed();
         String actualMessage1 = familyMemberTestPackagePageSubTitle.getText();
         String actualMessage2 = familyMemberTestPackagePageSubTitle2.getText();
@@ -1299,5 +1278,23 @@ public class FamilyMemberDetailsPage {
         }
 
     }
-
+    public boolean editAndDeleteButtonDisplay() {
+        for (int i = 0; i < editButton.size(); i++) {
+            if (!seleniumLib.isElementPresent(editButton.get(i)) && !seleniumLib.isElementPresent(deleteButton.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void editPatientChoiceOfFamilyMember() {
+        try {
+            for (int i = 1; i < editButton.size(); i++) {
+                editButton.get(i).click();
+                Wait.seconds(5);
+                break;//Click on any one should be enough.
+            }
+        } catch (Exception exp) {
+            Debugger.println("FamilyMemberDetailsPage editPatientChoiceOfFamilyMember(), EditBox not present" + exp);
+        }
+    }
 }//ends

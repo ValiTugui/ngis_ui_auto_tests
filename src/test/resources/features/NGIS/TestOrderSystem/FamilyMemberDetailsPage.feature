@@ -153,14 +153,13 @@ Feature: Family Members Details Validation
     Examples:
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
-##December 02
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_09 @NTS-3342 @E2EUI-1790 @v_1 @P0
+    @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @v_1 @P0
   Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
-    When the user navigates to the "<stage>" stage
+    When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -187,6 +186,6 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | stage          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family member          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
 

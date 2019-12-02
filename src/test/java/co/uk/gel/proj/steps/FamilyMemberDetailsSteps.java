@@ -26,14 +26,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         Assert.assertTrue(testResult);
-        Actions.scrollToTop(driver);
-    }
-
-
-    @And("^the user search a patient with valid NHS number \"([^\"]*)\" and Date of Birth \"([^\"]*)\" fields$")
-    public void theUserSearchAPatientInTheNHSNumberAndDateOfBirthFields(String nhsNo, String dob) throws Throwable {
-        familyMemberDetailsPage.searchPatientDetailsUsingNHSNumberAndDOB(nhsNo, dob);
-    }
+     }
 
     @When("the user clicks on the patient card")
     public void theUserSelectsThePatientSearchResultTab() {
@@ -45,7 +38,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         if(!testResult){
-            //IT is observed that click on the button was not happening properly.. trying again.
+            //It is observed that sometimes click on the button was not happening properly.. trying again.
             referralPage.clickSaveAndContinueButton();
             testResult = referralPage.verifyTheErrorMessageDisplay(errorMessage, messageColor);
         }
@@ -119,8 +112,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
-
     @And("the user should be able to see test package for family member is selected by default")
     public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
         boolean testResult = false;
@@ -150,7 +141,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage, fontColor);
         Assert.assertTrue(testResult);
-
     }
 
     @When("the user deselects the test")
@@ -188,7 +178,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyThePatientCardField();
         Assert.assertTrue(testResult);
-
     }
 
     @And("the editing referral color in Red")
@@ -215,7 +204,6 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the user sees {string} removal message on the family member landing page")
     public void theUserSeesASuccessRemovalMessageOnTheFamilyMemberLandingPage(String deleteMessage) {
         familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
-
     }
 
     @When("the user clicks on dustbin icon of the family member")
@@ -375,7 +363,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
     @And("the family member status {string} Marked in {string}")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
@@ -404,7 +391,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.patientChoiceStatusDetail();
         Assert.assertTrue(testResult);
     }
-
 
     @And("There is a message displayed on top of landing page stating {string}")
     public void thereIsAMessageDisplayedOnTopOfLanding(String subTitlemsg) {
