@@ -196,6 +196,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//a[@class='css-14wnp4n']")
     public WebElement patientChoiceStatus;
 
+    @FindBy(xpath = "//span[contains(@id,'patientChoiceStatus')]/following-sibling::span")
+    public WebElement patientChoiceStatusResult;
+
     @FindBy(xpath ="//h2[@class='css-1ujfcb9']")
     public WebElement nameField;
 
@@ -877,5 +880,13 @@ public class FamilyMemberDetailsPage {
     public void clickOnContinueButton() {
         Wait.forElementToBeDisplayed(driver, continueButton);
         continueButton.click();
+    }
+    public void patientChoiceStatus(String status) {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        try {
+            Assert.assertEquals(status, patientChoiceStatusResult.getText());
+        } catch (Exception exp) {
+            Debugger.println("[Expected status :" + status + "][Actual status :" + patientChoiceStatusResult.getText() + "]" + exp);
+        }
     }
 }//ends

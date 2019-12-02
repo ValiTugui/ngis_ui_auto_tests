@@ -312,4 +312,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user sees the patient choice status in family member page as {string}")
+    public void theUserSeesThePatientChoiceStatus(String status) {
+        familyMemberDetailsPage.patientChoiceStatus(status);
+    }
 }//end

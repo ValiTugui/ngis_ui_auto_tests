@@ -355,7 +355,7 @@ Feature: Family Members Navigation Stage Validation
       | Not being tested | #fdf3e5 | Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_13 @LOGOUT @E2EUI-1326 @v_1 @P0
+    @familyMemberStageNavigation_13 @LOGOUT @NTS-3337 @E2EUI-1326 @v_1 @P0
   Scenario Outline: Verify the family members test package are selected by default
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -380,7 +380,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          | DiseaseStatus=Unaffected | Not being tested |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_14 @E2EUI-1791 @v_1 @P0
+    @familyMemberStageNavigation_14 @NTS-3339 @E2EUI-1791 @v_1 @P0
   Scenario Outline: Verify family members has completed in to-do list
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -396,7 +396,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Patient choice       |
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_21 @E2EUI-1510 @v_1 @P0
+    @familyMemberDetailsPage_15 @E2EUI-1510 @v_1 @P0
   Scenario Outline: E2EUI-1510: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
