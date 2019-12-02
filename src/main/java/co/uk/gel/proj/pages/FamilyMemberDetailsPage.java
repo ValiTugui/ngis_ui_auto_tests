@@ -889,4 +889,24 @@ public class FamilyMemberDetailsPage {
             Debugger.println("[Expected status :" + status + "][Actual status :" + patientChoiceStatusResult.getText() + "]" + exp);
         }
     }
+    public boolean familyMemberInFocus() {
+        Wait.forElementToBeDisplayed(driver, familyMemberFocussed);
+        if (!seleniumLib.isElementPresent(familyMemberFocussed)) {
+            return false;
+        }
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberNames);
+        expElements.add(relationshipStatus);
+        expElements.add(familyMemberDob);
+        expElements.add(familyMemberGender);
+        expElements.add(familyMemberNhsNumbers);
+        expElements.add(familyMemberNgisId);
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }//ends
