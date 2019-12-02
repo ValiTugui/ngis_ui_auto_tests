@@ -202,7 +202,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
-    And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -216,8 +216,8 @@ Feature: Family Members Navigation Stage Validation
     And the "<FamilyMember>" stage is marked as Completed
 
     Examples:
-      | FamilyMember   | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+      | FamilyMember   | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_08 @LOGOUT @NTS-3309 @E2EUI-2105 @v_1 @P0
@@ -231,7 +231,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<stage>" stage
     Then the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
     When the user clicks on Add family member button
-    And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -244,8 +244,8 @@ Feature: Family Members Navigation Stage Validation
     And the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
 
     Examples:
-      | stage          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | Test package | 3                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+      | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 3                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_09 @LOGOUT @NTS-3329 @E2EUI-1665 @v_1 @P0
@@ -263,7 +263,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<Family members>" stage
     And the user clicks on Add family member button
-    When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -283,8 +283,8 @@ Feature: Family Members Navigation Stage Validation
     Then the user should verify the data from family member landing page and print forms page
 
     Examples:
-      | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     | Print forms |
-      | Requesting organisation | Maidstone            | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
+      | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Print forms |
+      | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_10 @LOGOUT @NTS-3309 @E2EUI-2104 @v_1 @P0
@@ -297,7 +297,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
-    When the user types in valid details of a patient in the NHS number "<NhsNumber1>" and Date of Birth "<DOB1>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails1>"
     And the user clicks on the patient card
     Then the default family member details page is correctly displayed
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -308,7 +308,7 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks the Save and Continue button
     Then the family member test package page is correctly displayed
     And the user clicks on Add family member button
-    When the user types in valid details of a patient in the NHS number "<NhsNumber2>" and Date of Birth "<DOB2>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails2>"
     And the user clicks on the patient card
     Then the default family member details page is correctly displayed
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
@@ -321,8 +321,8 @@ Feature: Family Members Navigation Stage Validation
     And the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
 
     Examples:
-      | stage          | TestPackage  | NoOfParticipants | NhsNumber1 | DOB1       | NhsNumber2 | DOB2       | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | Test package | 2                | 9449305307 | 14-02-2011 | 9449310343 | 02-03-2008 | Full Sibling          | DiseaseStatus=Unaffected |
+      | stage          | TestPackage  | NoOfParticipants | FamilyMemberDetails1                | FamilyMemberDetails2                | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | NHSNumber=9449310343:DOB=02-03-2008 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_11 @LOGOUT @NTS-3330 @E2EUI-1202 @v_1 @P0
@@ -332,8 +332,8 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    When the user types in valid details of a patient in the NHS number "<NhsNumber1>" and Date of Birth "<DOB1>" fields
-    And the user clicks on the patient card
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    When the user clicks on the patient card
     Then the default family member details page is correctly displayed
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
@@ -348,11 +348,10 @@ Feature: Family Members Navigation Stage Validation
     And The user should also see the separate edit or delete icon under every family member details provided.
     And The user also should see the Add Family Member button and continue button displayed
 
-
     Examples:
-      | TestStatus       | color   | stage          | NhsNumber1 | DOB1       | RelationshipToProband | DiseaseStatusDetails     |
-      | Being tested     | #e5f6f5 | Family members | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
-      | Not being tested | #fdf3e5 | Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
+      | TestStatus       | color   | stage          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Being tested     | #e5f6f5 | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+      | Not being tested | #fdf3e5 | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_13 @LOGOUT @NTS-3337 @E2EUI-1326 @v_1 @P0
