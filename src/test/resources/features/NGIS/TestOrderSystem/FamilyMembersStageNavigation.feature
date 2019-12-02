@@ -212,7 +212,6 @@ Feature: Family Members Navigation Stage Validation
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the "<FamilyMember>" stage is marked as Completed
 
     Examples:
       | FamilyMember   | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
