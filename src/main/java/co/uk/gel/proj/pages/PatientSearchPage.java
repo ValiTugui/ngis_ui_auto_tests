@@ -20,6 +20,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -191,6 +192,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
+    String autoCompleteAttributeOff = "autoComplete_off";
 
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
@@ -664,7 +666,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButton);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -677,7 +679,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateDay);
         expectedElements.add(dateMonth);
         expectedElements.add(dateYear);
-        expectedElements.add(searchButton);
+        expectedElements.add(searchButtonByXpath);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
                 return false;
@@ -895,5 +897,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
+    public boolean confirmAutoCompleteOffOnNHSNumberField(){
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        return Actions.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
+
+    }
+
 }
 

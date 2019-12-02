@@ -420,9 +420,6 @@ public class ReferralPage<check> {
         return Actions.getText(genericSuccessNotification);
     }
 
-
-
-
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
@@ -449,6 +446,7 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
     public boolean verifyThePageTitlePresence(String expTitle) {
         By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
         if (!seleniumLib.isElementPresent(pageTitle)) {

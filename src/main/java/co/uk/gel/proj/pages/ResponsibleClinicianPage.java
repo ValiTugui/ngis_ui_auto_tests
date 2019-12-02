@@ -21,7 +21,8 @@ public class ResponsibleClinicianPage {
 	WebDriver driver;
 	Faker fake = new Faker();
 
-String key1 = "mainClinician";
+
+    String key1 = "mainClinician";
     String key2 = "additionalClinician1";
     String key3 = "additionalClinician2";
 	public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
@@ -134,6 +135,7 @@ String key1 = "mainClinician";
 	public WebElement additionalClinician1LastNameLabel;
 
 	String mandatoryLabelAttribute = "label__required-icon";
+	String autoCompleteAttributeOff = "autoComplete_off";
 
 	public void fillInClinicianFormFields() {
 		String firstName = RandomDataCreator.getRandomFirstName();
@@ -518,5 +520,23 @@ String key1 = "mainClinician";
 		boolean fieldIsDisplayed = additionalClinician1FirstNameField.isDisplayed();
 		boolean fieldIsBlank = Actions.getText(additionalClinician1FirstNameField).isEmpty();
 		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature(){
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+
+		boolean autoCompleteOffClinicianFirstNameField =  Actions.getAutoCompleteAttribute(clinicianFirstNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianLastNameField = Actions.getAutoCompleteAttribute(clinicianLastNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianPhoneNumberField =  Actions.getAutoCompleteAttribute(clinicianPhoneNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianEmailField = Actions.getAutoCompleteAttribute(clinicianEmailField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianDepartmentAddressField = Actions.getAutoCompleteAttribute(clinicianDepartmentAddressField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianProfessionalRegistrationNumberField = Actions.getAutoCompleteAttribute(clinicianProfesionalRegistrationNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+
+		if(autoCompleteOffClinicianFirstNameField &&  autoCompleteOffClinicianLastNameField &&
+				autoCompleteOffClinicianPhoneNumberField && autoCompleteOffClinicianEmailField &&
+				autoCompleteOffClinicianDepartmentAddressField && autoCompleteOffClinicianProfessionalRegistrationNumberField )
+		{
+			return true;
+		} else return  false;
 	}
 }

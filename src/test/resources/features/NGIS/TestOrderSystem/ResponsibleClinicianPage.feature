@@ -41,6 +41,7 @@ Feature: Responsible Clinician
     Examples:
       | stage                 | invalid_email | invalid_number_of_digits | total_number_of_digits_acceptable | error_info                         |
       | Responsible clinician | ab@ad.com     | 19                       | 15                                | Please enter a valid email address |
+
   @E2EUI-956 @NTS-3175 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User selects 'Save and continue' button without providing inputs in mandatory fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -223,3 +224,21 @@ Feature: Responsible Clinician
     Examples:
       | stage1                | pageTitle                 | hyperlinkText | removeHyperLink | stage2  |
       | Responsible clinician | Add clinician information | Add another   | Remove          | Tumours |
+
+  @E2EUI-1663 @NTS-3336 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  Scenario Outline: NTS-3336 - Responsible Clinician Page - Verify No auto-fill suggestions
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user navigates to the "<stage1>" stage
+    And the "<pageTitle>" page is displayed
+    And The user sees the text field First name
+    And The user sees the text field Last name
+    And The user sees the text field Email address
+    And The user sees the text field Phone number
+    And The user sees the text field Department name and address
+    And The user sees the text field Professional registration number
+    And the text field First name, Last name, Email address, Professional registration number, Phone number and Department name and address should not enabled with auto-fill feature
+    Examples:
+      | stage1                | pageTitle                 |
+      | Responsible clinician | Add clinician information |
+

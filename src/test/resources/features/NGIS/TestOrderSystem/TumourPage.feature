@@ -82,7 +82,7 @@ Feature: Tumours Page
 
     Examples: Enter year starting from 1900
       | stage   | Date_of_Diagnosis | error_message            |
-      | Tumours | 14-11-0           | Enter a year beyond 1900 |
+      | Tumours | 14-0-1899           | Enter a year beyond 1900 |
 
     Examples: of entering day and month without a year
       | stage   | Date_of_Diagnosis | error_message |

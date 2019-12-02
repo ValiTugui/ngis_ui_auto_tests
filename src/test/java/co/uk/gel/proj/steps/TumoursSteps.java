@@ -30,9 +30,14 @@ public class TumoursSteps extends Pages {
     public void theUserEntersInTheDateOfDiagnosisField(String dateOfDiagnosis) {
 
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-        String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
-        tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-        tumoursPage.tumourTypeLabel.click(); //click on descriptiveName label to move cursor away from dateYear field
+        if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
+            String[] value = dateOfDiagnosis.split("-");
+            tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
+        }else {
+            String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+            tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+            tumoursPage.tumourTypeLabel.click(); //click on descriptiveName label to move cursor away from dateYear field
+        }
     }
 
     @Then("the message will be displayed as {string} in {string} color for the date of diagnosis field")
@@ -264,10 +269,13 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(expectedPageTitle);
+        Assert.assertTrue(testResult);
         String actualPageTitle = referralPage.getTheCurrentPageTitle();
         Debugger.println("Actual PageTitle : " + actualPageTitle);
         Debugger.println("Expected PageTitle : " + expectedPageTitle);
-        Assert.assertEquals(expectedPageTitle, actualPageTitle);
+
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")
