@@ -415,7 +415,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("PatientCard.jpg");
             Assert.assertFalse("PatientCard not found to be clicked.",true);
         }
-        patientCard.click();
+        Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // patientCard.click();
     }
 
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
@@ -878,6 +880,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
         }catch(Exception exp){
 
+        }
+    }
+
+    public String getPatientSearchNoResult() {
+        String noResultText;
+        try {
+            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+            noResultText = Actions.getText(noPatientFoundLabel);
+            Debugger.println("No result " + noResultText);
+            return noResultText;
+        } catch (Exception exp) {
+            Debugger.println("Oops no patient text found " + exp);
+            return null;
         }
     }
 }

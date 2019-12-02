@@ -229,7 +229,9 @@ public class TumoursPage {
         Actions.selectRandomValueFromDropdown(dropdownValues);
         Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        //Actions.selectRandomValueFromDropdown(dropdownValues);
     }
 
     public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {

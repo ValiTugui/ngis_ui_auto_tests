@@ -182,6 +182,13 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
+    @FindBy(css = "*[class*='styles_field-label__2Ymo6']")
+    public List<WebElement> genericFieldLabels;
+
+    @FindBy(css = "div[class*='error-message__text']")
+    public List<WebElement> validationErrors;
+
+
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
@@ -191,8 +198,6 @@ public class ReferralPage<check> {
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
 
-    @FindBy(css = "div[class*='error-message__text']")
-    public List<WebElement> validationErrors;
 
 
 
@@ -294,7 +299,7 @@ public class ReferralPage<check> {
         }catch(Exception exp){
             SeleniumLib.takeAScreenShot("navigateToStage.jpg");
             //Sometimes click on stage link on second time gives ElementClickInterceptedException.
-            // Below code added to handel that.
+            // Below code added to handle that.
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
@@ -416,17 +421,7 @@ public class ReferralPage<check> {
     }
 
 
-    public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
 
-        Wait.forElementToBeDisplayed(driver, pageTitle);
-        List<String> actualErrorMessages = new ArrayList<>();
-        for (WebElement errorMessage : errorMessages) {
-            actualErrorMessages.add(errorMessage.getText().trim());
-        }
-        Debugger.println("Actual-Error Messages" + actualErrorMessages);
-        return actualErrorMessages;
-    }
-  
 
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
@@ -483,4 +478,27 @@ public class ReferralPage<check> {
             Debugger.println("Could not click on Save and Continue...." + exp);
         }
     }
+
+    public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
+
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualErrorMessages = new ArrayList<>();
+        for (WebElement errorMessage : errorMessages) {
+            actualErrorMessages.add(errorMessage.getText().trim());
+        }
+        Debugger.println("Actual-Error Messages" + actualErrorMessages);
+        return actualErrorMessages;
+    }
+
+    public List<String> getTheFieldsLabelsOnCurrentPage() {
+        Wait.forElementToBeDisplayed(driver, pageTitle);
+        List<String> actualFieldLabels = new ArrayList<>();
+
+        for (WebElement fieldLabel : genericFieldLabels) {
+            actualFieldLabels.add(fieldLabel.getText().trim());
+        }
+        Debugger.println("`Actual field labels " + actualFieldLabels);
+        return actualFieldLabels;
+    }
+
 }

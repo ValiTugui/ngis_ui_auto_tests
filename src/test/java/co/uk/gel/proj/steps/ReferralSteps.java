@@ -168,7 +168,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
         patientSearchPage.clickSearchButtonByXpath(driver);
-        String actualNoPatientFoundLabel = Actions.getText(patientSearchPage.noPatientFoundLabel);
+        patientSearchPage.getPatientSearchNoResult();
+        String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
         patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
@@ -251,7 +252,6 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-       // boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
         boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
         if(!searchPageLoaded){
             Debugger.println("Search Page Could not load Properly:");

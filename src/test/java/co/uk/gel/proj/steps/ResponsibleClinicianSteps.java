@@ -188,4 +188,88 @@ public class ResponsibleClinicianSteps extends Pages {
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianOneDetailsArePersistedAtLoad());
         Assert.assertTrue(responsibleClinicianPage.additionalClinicianTwoDetailsArePersistedAtLoad());
     }
+
+    @When("the user creates additional clinician {int} by filling up all form fields except the mandatory fields Last name")
+    public void theUserCreatesAdditionalClinicianByFillingUpAllFormFieldsExceptTheMandatoryFieldsLastName(int clinicianCount) throws IOException {
+        if(clinicianCount == 1) {
+            responsibleClinicianPage.fillInAdditionalClinicianOneFormFieldsExceptLastNameField();
+        }  else throw new IOException(" Invalid additional clinician number ; please define the additional clinician locators in page objects class");
+
+    }
+
+    @And("The mandatory field Last name should be highlighted with a {string} red mark in additional clinician section")
+    public void theMandatoryFieldLastNameShouldBeHighlightedWithARedMarkInAdditionalClinicianSection(String hexColourString) {
+        Assert.assertTrue(responsibleClinicianPage.verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(hexColourString));
+    }
+
+    @And("the user sees the label Department name and address marked as mandatory")
+    public void theUserSeesTheLabelDepartmentNameAndAddressMarkedAsMandatory() {
+        Assert.assertTrue(responsibleClinicianPage.verifyDepartmentNameAndAddressLabelIsShownAsMandatory());
+    }
+
+    @And("The user sees the text field First name and it is blank")
+    public void theUserSeesTheTextFieldFirstNameAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.firstNameFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.firstNameFieldIsEmpty());
+    }
+
+    @And("The user sees the text field Last name and it is blank")
+    public void theUserSeesTheTextFieldLastNameAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.lastNameFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.lastNameFieldIsEmpty());
+    }
+
+    @And("The user sees the text field Email address and it is blank")
+    public void theUserSeesTheTextFieldEmailAddressAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.emailFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.emailFieldIsEmpty());
+    }
+
+    @And("The user sees the text field Phone number and it is blank")
+    public void theUserSeesTheTextFieldPhoneNumberAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.phoneNumberFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.phoneNumberFieldIsEmpty());
+    }
+
+    @And("The user sees the text field Department name and address and it is blank")
+    public void theUserSeesTheTextFieldDepartmentNameAndAddressAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.departmentNameAndAddressFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.departmentNameAndAddressFieldIsEmpty());
+    }
+
+    @And("The user sees the text field Professional registration number and it is blank")
+    public void theUserSeesTheTextFieldProfessionalRegistrationNumberAndItIsBlank() {
+        Assert.assertTrue(responsibleClinicianPage.professionalRegistrationNumberFieldDisplayed());
+        Assert.assertTrue(responsibleClinicianPage.professionalRegistrationNumberFieldIsEmpty());
+    }
+
+    @And("The user sees the text field First name in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldFirstNameInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.firstNameFieldIsEmptyForAdditionalClinicianOne());
+    }
+
+    @And("The user sees the text field Last name in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldLastNameInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.lastNameFieldIsEmptyForAdditionalClinicianOne());
+    }
+
+    @And("The user sees the text field Email address in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldEmailAddressInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.emailFieldIsEmptyForAdditionalClinicianOne());
+    }
+
+    @And("The user sees the text field Phone number in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldPhoneNumberInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.phoneNumberFieldIsEmptyForAdditionalClinicianOne());
+    }
+
+    @And("The user sees the text field Department name and address in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldDepartmentNameAndAddressInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.departmentNameAndAddressFieldIsEmptyForAdditionalClinicianOne());
+    }
+
+    @And("The user sees the text field Professional registration number in Additional Clinician {int} and it is blank")
+    public void theUserSeesTheTextFieldProfessionalRegistrationNumberInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
+        Assert.assertTrue(responsibleClinicianPage.professionalRegistrationNumberFieldIsEmptyForAdditionalClinicianOne());
+    }
 }

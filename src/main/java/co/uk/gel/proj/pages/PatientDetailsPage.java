@@ -282,8 +282,16 @@ public class PatientDetailsPage {
     }
 
     public void editDropdownField(WebElement element, String value) {
-        Click.element(driver, element);
+
+        try {
+            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
         Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+        }
+
     }
 
     public void fillInAllMandatoryPatientDetailsWithoutNhsNumber(String reason) {
