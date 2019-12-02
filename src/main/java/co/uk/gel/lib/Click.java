@@ -9,8 +9,10 @@ import java.awt.*;
 public class Click {
 	
 	public static void element(WebDriver driver, WebElement element) {
+
 		Wait.forElementToBeClickable(driver, element);
 		element.click();
+
 	}
 
 	public static void mouseMoveByLocation (WebDriver driver, int x, int y) throws AWTException {

@@ -10,11 +10,11 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -24,12 +24,12 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user can select the test to add to the family member
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user returns to family member landing page with the added family member details
 
     Examples:
@@ -50,11 +50,11 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
     When the user deselects the test
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user clicks on back button on family member details page
     Then the user sees test remains as deselected
@@ -75,10 +75,10 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should be able to see family member's details card
     And the editing referral color in Red
@@ -94,10 +94,11 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -107,12 +108,12 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user can select the test to add to the family member
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user returns to family member landing page with the added family member details
     ##The below one step is for E2EUI-1485 and following that for 1331
     And the family member details on family Member landing page is correctly displayed
@@ -129,13 +130,14 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | Clinical questions | 2                | NHSNumber=9449306680:DOB=14-06-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Full Sibling          | DiseaseStatus=Unknown | Family member removed from referral |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @v_1 @P0
-  Scenario Outline: E2EUI-1279: Verify the family members page layout
+    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @E2EUI-1362 @v_1 @P0
+  Scenario Outline: E2EUI-1279-1362: Verify the family members page layout
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -144,12 +146,12 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And reads the details of selected family member "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user can select the test to add to the family member
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the family member test package page is correctly displayed
 
     Examples:
@@ -164,25 +166,25 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the user clicks on the patient card
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage
     Then the user will be able to see an error message as "<ErrorMessage>" in "<MessageColor>" for the family member
     And the user should be able to see incomplete family member in "<MessageColor>"
     When the user edits to complete the highlighted family member
     Then the user is navigated to a page with title Confirm family member details
-    When clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the family member landing page displayed without incomplete error message
 
     Examples:
@@ -196,25 +198,25 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
     And the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     And the "<FamilyMember>" stage is marked as Completed
 
     Examples:
-      | FamilyMember          | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
+      | FamilyMember   | TestPackage  | NoOfParticipants | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | Test package | 2                | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
@@ -224,8 +226,8 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<stage>" stage
     Then the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
     When the user clicks on Add family member button
@@ -233,11 +235,11 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user should be able to see test package for family member is selected by default
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     And the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
 
@@ -257,19 +259,19 @@ Feature: Family Members Navigation Stage Validation
     And  the Save and Continue button should be clickable
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<Family members>" stage
     And the user clicks on Add family member button
     When the user types in valid details of a patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user should be able to see test package for family member is selected by default
-    When clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     Then the user should be able to see the patient details in family member landing page
     And the user clicks the Save and Continue button
@@ -291,31 +293,32 @@ Feature: Family Members Navigation Stage Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
-    And  clicks the Save and Continue button in family member details page
-#    Then the "<TestPackage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     When the user types in valid details of a patient in the NHS number "<NhsNumber1>" and Date of Birth "<DOB1>" fields
     And the user clicks on the patient card
     Then the default family member details page is correctly displayed
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user should be able to see test package for family member is selected by default
-    When clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the family member test package page is correctly displayed
     And the user clicks on Add family member button
     When the user types in valid details of a patient in the NHS number "<NhsNumber2>" and Date of Birth "<DOB2>" fields
     And the user clicks on the patient card
     Then the default family member details page is correctly displayed
     And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then the user should be able to see test package for family member is selected by default
-    When clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
-    Then the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user should see a warning message displayed as "The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test or amend the expected number of participants."
 
     Examples:
       | stage          | TestPackage  | NoOfParticipants | NhsNumber1 | DOB1       | NhsNumber2 | DOB2       | RelationshipToProband | DiseaseStatusDetails     |
@@ -323,7 +326,7 @@ Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_11 @LOGOUT @NTS-3330 @E2EUI-1202 @v_1 @P0
-  Scenario Outline: User is completing a referral and wants to add a family member record to the referral
+  Scenario Outline: E2EUI-1202: User is completing a referral and wants to add a family member record to the referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
@@ -333,11 +336,11 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks on the patient card
     Then the default family member details page is correctly displayed
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user clicks on a test that is selected and the test is no longer selected
-    And clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And  clicks the Save and Continue button in family member details page
+    And the user clicks the Save and Continue button
     Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
     And There is a message displayed on top of landing page stating "Tested family members you add here will be visible in the pedigree.You can add non-tested family members to the pedigree as well."
     And The user should be able to see if the family member status "<TestStatus>" Marked in "<color>".
@@ -347,6 +350,94 @@ Feature: Family Members Navigation Stage Validation
 
 
     Examples:
-      | TestStatus        | color   |stage          | NhsNumber1 | DOB1       | RelationshipToProband | DiseaseStatusDetails     |
-      | Being tested     | #e5f6f5 |Family members | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
-      | Not being tested | #fdf3e5 |Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
+      | TestStatus       | color   | stage          | NhsNumber1 | DOB1       | RelationshipToProband | DiseaseStatusDetails     |
+      | Being tested     | #e5f6f5 | Family members | 9449305307 | 14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+      | Not being tested | #fdf3e5 | Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_13 @LOGOUT @E2EUI-1326 @v_1 @P0
+  Scenario Outline: Verify the family members test package are selected by default
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user deselects the test
+    And  the user clicks the Save and Continue button
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the deselected member status display as "<Status>"
+
+    Examples:
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Status           |
+      | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          | DiseaseStatus=Unaffected | Not being tested |
+
+  @COMP8_TO_PatientSearch
+    @familyMemberStageNavigation_14 @E2EUI-1791 @v_1 @P0
+  Scenario Outline: Verify family members has completed in to-do list
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
+    When the user navigates to the "<Family Members>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user should be able to see the patient identifiers on family member landing page
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    And the user should be able to see the patient identifiers on patient choice page similar as in family member landing page
+
+    Examples:
+      | Family Members | Patient choice stage |
+      | Family members | Patient choice       |
+
+  @COMP8_TO_Familymembers
+    @familyMemberDetailsPage_21 @E2EUI-1510 @v_1 @P0
+  Scenario Outline: E2EUI-1510: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    When the user navigates to the "<TestPackage>" stage
+    And the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on Add family member button
+    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the patient card displays with Born,Gender and NHS No details
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+    Then the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on the link to amend the number of participants for test
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants2>"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on Add family member button
+    And the user search a patient with valid NHS number "<NhsNumber2>" and Date of Birth "<DOB2>" fields
+    And the patient card displays with Born,Gender and NHS No details
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband2>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+
+    Examples:
+      | TestPackage  | NoOfParticipants | stage          | NhsNumber  | DOB        | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | NhsNumber2 | DOB2       | RelationshipToProband2 | color2  |
+      | Test package | 1                | Family members | 9449310122 | 30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | 9449310157 | 15-01-2000 | Full Sibling           | #425563 |
+

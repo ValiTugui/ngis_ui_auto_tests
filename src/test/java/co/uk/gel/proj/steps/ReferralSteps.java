@@ -251,8 +251,13 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
-        boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
-        Assert.assertTrue(searchPageLoaded);
+       // boolean searchPageLoaded = patientSearchPage.waitForSearchPageTobeLoaded();
+        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
@@ -291,7 +296,10 @@ public class ReferralSteps extends Pages {
                     }
                 }//switch
             }//for
-            patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            searchPageLoaded = patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
+            if(!searchPageLoaded){
+                Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
+            }
         }else if (patientType.equalsIgnoreCase("SPINE")) {
             patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }
@@ -323,9 +331,11 @@ public class ReferralSteps extends Pages {
     public void theSuccessNotificationIsDisplayed(String notificationText) {
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
         Assert.assertEquals(notificationText,actualNotificationText);
-        Debugger.println("Actual Notification text :" + actualNotificationText);
-        Debugger.println("Expected Notification text :" + notificationText);
-
     }
-
+    @Then("the user is navigated to a page with title (.*)")
+    public void theUserIsNavigatedToAPageWithTitleConfirmFamilyMemberDetails(String title) {
+        boolean testResult = false;
+        testResult = referralPage.verifyThePageTitlePresence(title);
+        Assert.assertTrue(testResult);
+    }
 }

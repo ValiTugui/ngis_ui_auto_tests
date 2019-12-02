@@ -1,9 +1,11 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,6 +13,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Wait {
 
     protected static WebDriverWait wait;
+    protected static WebDriver webDriver;
+
+    public Wait(WebDriver driver) {
+        webDriver = driver;
+    }
 
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
         wait = new WebDriverWait(driver, 100);
@@ -49,8 +56,13 @@ public class Wait {
     }
 
     public static void forNumberOfElementsToBeEqualTo(WebDriver driver, By locator, int number) {
-        wait = new WebDriverWait(driver, 100);
-        wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
+        try {
+            Debugger.println("Closing Cookies Banner.");
+            wait = new WebDriverWait(driver, 100);
+            wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
+        }catch(Exception exp){
+            Debugger.println("Exception from closing cookies banner: "+exp);
+        }
     }
 
     public static void forURLToContainSpecificText(WebDriver driver, String text) {
@@ -75,5 +87,4 @@ public class Wait {
         new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
-
 }
