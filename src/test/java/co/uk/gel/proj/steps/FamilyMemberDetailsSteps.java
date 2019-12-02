@@ -332,4 +332,91 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserMovesBackToPreviousPage() {
         familyMemberDetailsPage.clickOnBackButton();
     }
+
+    @Then("the user clicks on a test that is selected and the test is no longer selected")
+    public void theUserClicksOnATestThatIsSelectedAndTheTestIsNoLongerSelected() {
+        familyMemberDetailsPage.deselectCheckBoxOnFamilyPage();
+    }
+    @And("there is a message displayed on top of landing page stating {string}")
+    public void thereIsAMessageDisplayedOnTopOfLandingPageStating(String subTitlemsg) {
+        familyMemberDetailsPage.subTitleMessage(subTitlemsg);
+    }
+    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
+    public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
+        familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
+
+    }
+    @Then("the user should be able to see the patient details in family member landing page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInFamilyMemberLandingPage() {
+        familyMemberDetailsPage.patientDetailsInFamilyMemberLandingPage();
+    }
+
+    @And("the user should be able to see the patient details in patient choice page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInPatientChoicePage() {
+        familyMemberDetailsPage.patientDetailsInPatientChoicePage();
+    }
+
+    @Then("the user should verify the data from family member landing page and patient choice page")
+    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPatientChoicePage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPatientChoice();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see the patient details in print forms page")
+    public void theUserShouldBeAbleToSeeThePatientDetailsInPrintFormsPage() {
+        familyMemberDetailsPage.printFormsInPatientChoicePage();
+    }
+
+    @Then("the user should verify the data from family member landing page and print forms page")
+    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPrintFormsPage() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPrintForms();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("the family member status {string} Marked in {string}")
+    public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.testedFieldColor(testfield, color);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user should be able to view patient choice status for all the family members added.")
+    public void theUserShouldBeAbleToViewPatientChoiceStatusForAll() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.patientChoiceStatusDetail();
+        Assert.assertTrue(testResult);
+    }
+    @And("The user also should see the Add Family Member button and continue button displayed")
+    public void theUserAlsoShouldSeeTheAddFamilyMemberButtonToAddOne() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+    }
+    @And("The user should also see the separate edit or delete icon under every family member details provided.")
+    public void theUserShouldAlsoSeeTheSeparateEditOrDeleteIconUnderEveryFamilyMemberDetailsProvided() {
+        familyMemberDetailsPage.editAndDeleteButtonDisplay();
+    }
+    @And("The user should be able to view patient choice status for all the family members added.")
+    public void theUserShouldBeAbleToViewPatientChoiceStatusForAllTheFamilyMembersAdded() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.patientChoiceStatusDetail();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("There is a message displayed on top of landing page stating {string}")
+    public void thereIsAMessageDisplayedOnTopOfLanding(String subTitlemsg) {
+        familyMemberDetailsPage.subTitleMessage(subTitlemsg);
+
+    }
+
+    @And("The user also should see the Add Family Member button and continue button displayed")
+    public void theUserAlsoShouldSeeTheAddFamilyMemberButtonToAddOneMoreFamilyMember() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.addFamilyMemberAndContinueButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
 }//end

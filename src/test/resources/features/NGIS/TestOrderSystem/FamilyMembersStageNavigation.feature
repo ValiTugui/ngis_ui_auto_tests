@@ -343,7 +343,7 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks the Save and Continue button
     Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
     And There is a message displayed on top of landing page stating "Tested family members you add here will be visible in the pedigree.You can add non-tested family members to the pedigree as well."
-    And The user should be able to see if the family member status "<TestStatus>" Marked in "<color>".
+    And the family member status "<TestStatus>" Marked in "<color>"
     And The user should be able to view patient choice status for all the family members added.
     And The user should also see the separate edit or delete icon under every family member details provided.
     And The user also should see the Add Family Member button and continue button displayed
