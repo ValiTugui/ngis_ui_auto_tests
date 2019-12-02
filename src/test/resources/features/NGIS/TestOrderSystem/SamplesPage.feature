@@ -61,8 +61,8 @@ Feature: Samples Page
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
     And the user clicks the Save and Continue button
-    Then the "<pageTitle>" page is displayed
     And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
     And the "<stage>" stage is marked as Completed
 
@@ -93,8 +93,8 @@ Feature: Samples Page
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
     And the user clicks the Save and Continue button
-    Then the "<pageTitle>" page is displayed
     And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
     And the "<stage2>" stage is marked as Completed
 
