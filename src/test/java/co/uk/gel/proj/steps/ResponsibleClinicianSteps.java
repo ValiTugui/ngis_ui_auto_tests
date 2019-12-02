@@ -272,4 +272,9 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserSeesTheTextFieldProfessionalRegistrationNumberInAdditionalClinicianAndItIsBlank(int cliniciansCount) {
         Assert.assertTrue(responsibleClinicianPage.professionalRegistrationNumberFieldIsEmptyForAdditionalClinicianOne());
     }
+
+    @And("the text field First name, Last name, Email address, Professional registration number, Phone number and Department name and address should not enabled with auto-fill feature")
+    public void theTextFieldFirstNameLastNameEmailAddressProfessionalRegistrationNumberPhoneNumberAndDepartmentNameAndAddressShouldNotEnabledWithAutoFillFeature() {
+        Assert.assertTrue(responsibleClinicianPage.verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature());
+    }
 }

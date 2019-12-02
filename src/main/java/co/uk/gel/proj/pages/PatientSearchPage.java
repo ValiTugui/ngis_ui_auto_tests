@@ -191,6 +191,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
+    String autoCompleteAttributeOff = "autoComplete_off";
 
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
@@ -894,6 +895,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Oops no patient text found " + exp);
             return null;
         }
+    }
+
+    public boolean confirmAutoCompleteOffOnNHSNumberField(){
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        return Actions.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
+
     }
 }
 

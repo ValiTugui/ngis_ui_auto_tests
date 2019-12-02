@@ -49,6 +49,9 @@ public class Actions {
 
     public static String getClassName(WebElement element) { return element.getAttribute("class"); }
 
+    public static String getAutoCompleteAttribute(WebElement element) {
+        return element.getAttribute("autoComplete"); }
+
     public static void fillInValue(WebElement element, String value) {
         element.sendKeys(value);
     }

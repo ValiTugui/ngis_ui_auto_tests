@@ -468,4 +468,8 @@ public class PatientSearchSteps extends Pages {
         aWebBrowserIsAtThePatientSearchPage(attributeOfUrl);
     }
 
+    @Then("the NHS number field is not enabled with auto-fill feature")
+    public void theNHSNumberFieldIsNotEnabledWithAutoFillFeature() {
+        Assert.assertTrue(patientSearchPage.confirmAutoCompleteOffOnNHSNumberField());
+    }
 }

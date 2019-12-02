@@ -134,6 +134,7 @@ public class ResponsibleClinicianPage {
 	public WebElement additionalClinician1LastNameLabel;
 
 	String mandatoryLabelAttribute = "label__required-icon";
+	String autoCompleteAttributeOff = "autoComplete_off";
 
 	public void fillInClinicianFormFields() {
 		String firstName = RandomDataCreator.getRandomFirstName();
@@ -519,4 +520,23 @@ public class ResponsibleClinicianPage {
 		boolean fieldIsBlank = Actions.getText(additionalClinician1FirstNameField).isEmpty();
 		return fieldIsDisplayed && fieldIsBlank;
 	}
+
+	public boolean verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature(){
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+
+		boolean autoCompleteOffClinicianFirstNameField =  Actions.getAutoCompleteAttribute(clinicianFirstNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianLastNameField = Actions.getAutoCompleteAttribute(clinicianLastNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianPhoneNumberField =  Actions.getAutoCompleteAttribute(clinicianPhoneNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianEmailField = Actions.getAutoCompleteAttribute(clinicianEmailField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianDepartmentAddressField = Actions.getAutoCompleteAttribute(clinicianDepartmentAddressField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianProfessionalRegistrationNumberField = Actions.getAutoCompleteAttribute(clinicianProfesionalRegistrationNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+
+		if(autoCompleteOffClinicianFirstNameField &&  autoCompleteOffClinicianLastNameField &&
+				autoCompleteOffClinicianPhoneNumberField && autoCompleteOffClinicianEmailField &&
+				autoCompleteOffClinicianDepartmentAddressField && autoCompleteOffClinicianProfessionalRegistrationNumberField )
+		{
+			return true;
+		} else return  false;
+	}
+
 }
