@@ -196,6 +196,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//a[@class='css-14wnp4n']")
     public WebElement patientChoiceStatus;
 
+    @FindBy(xpath = "//span[contains(@id,'patientChoiceStatus')]/following-sibling::span")
+    public WebElement patientChoiceStatusResult;
+
     @FindBy(xpath ="//h2[@class='css-1ujfcb9']")
     public WebElement nameField;
 
@@ -878,4 +881,32 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, continueButton);
         continueButton.click();
     }
+    public void patientChoiceStatus(String status) {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        try {
+            Assert.assertEquals(status, patientChoiceStatusResult.getText());
+        } catch (Exception exp) {
+            Debugger.println("[Expected status :" + status + "][Actual status :" + patientChoiceStatusResult.getText() + "]" + exp);
+        }
+    }
+    public boolean familyMemberInFocus() {
+        Wait.forElementToBeDisplayed(driver, familyMemberFocussed);
+        if (!seleniumLib.isElementPresent(familyMemberFocussed)) {
+            return false;
+        }
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(familyMemberNames);
+        expElements.add(relationshipStatus);
+        expElements.add(familyMemberDob);
+        expElements.add(familyMemberGender);
+        expElements.add(familyMemberNhsNumbers);
+        expElements.add(familyMemberNgisId);
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }//ends

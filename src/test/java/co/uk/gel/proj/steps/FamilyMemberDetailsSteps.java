@@ -312,4 +312,15 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user sees the patient choice status in family member page as {string}")
+    public void theUserSeesThePatientChoiceStatus(String status) {
+        familyMemberDetailsPage.patientChoiceStatus(status);
+    }
+
+    @Then("the user editing a family member's details or patient choice, they should know which family member they are focusing on so that they only make the changes relevant to that family member")
+    public void theUserEditingAFamilyMemberSDetailsOrPatientChoiceTheyShouldKnowWhichFamilyMemberTheyAreFocusingOnSoThatTheyOnlyMakeTheChangesRelevantToThatFamilyMember() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.familyMemberInFocus();
+        Assert.assertTrue(testResult);
+    }
 }//end
