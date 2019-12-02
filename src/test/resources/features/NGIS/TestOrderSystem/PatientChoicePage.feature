@@ -4,7 +4,7 @@
 Feature: Patient Choice Page
 
   @COMP8_TO_PatientSearch
-    @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @v_1 @P0
+    @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
   Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
 
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service

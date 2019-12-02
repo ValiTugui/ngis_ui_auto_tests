@@ -4,7 +4,7 @@
 Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_Familymembers
-    @familyMemberStageNavigation_01 @LOGOUT @NTS-3243 @E2EUI-1287 @v_1 @P0
+    @familyMemberStageNavigation_01 @LOGOUT @NTS-3243 @E2EUI-1287 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1287: Verify the Family Members stage Navigation Flow
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -87,7 +87,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @v_1 @P0
+    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1331-1485-1639: Remove a family member from a referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -129,7 +129,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | Clinical questions | 2                | NHSNumber=9449306680:DOB=14-06-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Full Sibling          | DiseaseStatus=Unknown | Family member removed from referral |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @E2EUI-1362 @v_1 @P0
+    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @E2EUI-1362 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1279-1362: Verify the family members page layout
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -218,7 +218,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_08 @LOGOUT @NTS-3309 @E2EUI-2105 @v_1 @P0
+    @familyMemberStageNavigation_08 @LOGOUT @NTS-3309 @E2EUI-2105 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-2105: Verify warning message if number of family members is less than number of participants
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
@@ -285,7 +285,7 @@ Feature: Family Members Navigation Stage Validation
       | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_10 @LOGOUT @NTS-3309 @E2EUI-2104 @v_1 @P0
+    @familyMemberStageNavigation_10 @LOGOUT @NTS-3309 @E2EUI-2104 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-2104: Validate the user is displayed with the warning message on Family members landing page by adding extra Family member more than the expected number of participants
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -323,7 +323,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | NHSNumber=9449310343:DOB=02-03-2008 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_11 @LOGOUT @NTS-3330 @E2EUI-1202 @v_1 @P0
+    @familyMemberStageNavigation_11 @LOGOUT @NTS-3330 @E2EUI-1202 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1202: User is completing a referral and wants to add a family member record to the referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -393,7 +393,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Patient choice       |
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_14 @NTS-3338 @E2EUI-1510 @v_1 @P0
+    @familyMemberDetailsPage_14 @NTS-3338 @E2EUI-1510 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1510: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |

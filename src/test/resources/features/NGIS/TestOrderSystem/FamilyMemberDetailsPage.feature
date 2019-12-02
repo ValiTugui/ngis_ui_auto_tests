@@ -22,7 +22,7 @@ Feature: Family Members Details Validation
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @v_1 @P0
+    @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1349: Verify family member details page - Confirm family member details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -57,7 +57,7 @@ Feature: Family Members Details Validation
       | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Relationship to proband is required. | #dd2509      | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @LOGOUT @NTS3297 @E2EUI-1012 @v_1 @P0
+    @familyMemberDetailsPage_04 @LOGOUT @NTS3297 @E2EUI-1012 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -93,7 +93,7 @@ Feature: Family Members Details Validation
 
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are same as family member
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -155,7 +155,7 @@ Feature: Family Members Details Validation
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 
   @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @v_1 @P0
+    @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
   Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
