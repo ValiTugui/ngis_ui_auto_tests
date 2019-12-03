@@ -166,3 +166,18 @@ Feature: Patient details page
     Examples:
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
+
+  @NTS-3346 @E2EUI-995 @P0 @v_1
+  Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues|
+      | NHS Spine           | 9449310602 | 23-03-2011 | 50                  |

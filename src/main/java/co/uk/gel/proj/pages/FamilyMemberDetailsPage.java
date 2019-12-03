@@ -1044,4 +1044,26 @@ public class FamilyMemberDetailsPage {
         }
         return true;
     }
+
+    public boolean verifyMaxAllowedValuesInRelationshipToProbandField(int maxAllowedValues){
+        try {
+            if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 30)) {
+                Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
+                Wait.seconds(20);
+            }
+            seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
+            Wait.seconds(2);
+            By ddElement = By.xpath("//span[text()='" + "12" + "']");
+            int i = 0;
+            int numberOfElements = dropdownValues.size();
+            for (WebElement element : dropdownValues) {
+                Debugger.println(" Relationship to proband value : " + ++i + " : " + element.getText());
+            }
+            Debugger.println(" Number of items displayed in Relationship to proband  Field  : " + numberOfElements);
+            return numberOfElements <= maxAllowedValues;
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value -> " + exp);
+            return false;
+        }
+    }
 }//ends

@@ -154,3 +154,17 @@ Feature: Family Members Details Validation
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 
+  @NTS-3346 @E2EUI-995 @P0 @v_1
+  Scenario Outline: NTS-3346 -  Family Members Details page - Verify enum values in Ethnicity dropdown
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the Relationship to Proband drop-down is allowed to have values up to "<maximumAllowedValues>"
+    Examples:
+      | stage          |FamilyMemberDetails                 | maximumAllowedValues |
+      | Family members |NHSNumber=9449305536:DOB=16-07-2011 |50                    |

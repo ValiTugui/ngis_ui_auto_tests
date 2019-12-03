@@ -147,4 +147,8 @@ public class PatientDetailsSteps extends Pages {
     }
 
 
+    @And("the Ethnicity drop-down is allowed to have values up to {string}")
+    public void theEthnicityDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
+       Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
+    }
 }
