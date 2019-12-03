@@ -312,4 +312,23 @@ public class SamplesSteps extends Pages {
     public void theUserAddsASampleAsChildSampleBySelectingASampleRowAsAParentSampleOnAddASamplePage() {
         samplesPage.selectASampleAsParentSample();
     }
+
+    @And("on the Manage samples page, the sample table list shows the column header names")
+    public void onTheManageSamplesPageTheSampleTableListShowsTheColumnHeaderNames(DataTable dataTable) {
+        List<List<String>> list = dataTable.asLists(String.class);
+        List<String> headerRow = list.get(1);  //i starts from 1 because i=0 represents the header
+        List<String> expectedHeaders = new ArrayList<>();
+        List actualHeaders = referralPage.getTableColumnHeaders();
+
+        for (int i = 0; i < headerRow.size(); i++) {
+            expectedHeaders.add(headerRow.get(i));
+            Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
+            Debugger.println("Actual Sample Table columns: " +  actualHeaders.get(i));
+            Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
+        }
+        Debugger.println("Expected Table columns: " + expectedHeaders);
+        Debugger.println("Actual Table columns: " + actualHeaders.toString());
+        Assert.assertEquals(expectedHeaders, actualHeaders);
+    }
+
 }

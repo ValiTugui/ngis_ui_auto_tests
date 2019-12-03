@@ -48,7 +48,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @P0 @v_1
+    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -64,6 +64,9 @@ Feature: Samples Page
     And the success notification is displayed "<notificationText>"
     Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
+    And on the Manage samples page, the sample table list shows the column header names
+      | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
+      | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And the "<stage>" stage is marked as Completed
 
     Examples:
@@ -75,7 +78,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @P0 @v_1
+    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -96,6 +99,9 @@ Feature: Samples Page
     And the success notification is displayed "<notificationText>"
     Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
+    And on the Manage samples page, the sample table list shows the column header names
+      | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
+      | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And the "<stage2>" stage is marked as Completed
 
     Examples:
