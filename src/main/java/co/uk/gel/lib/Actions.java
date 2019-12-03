@@ -7,10 +7,8 @@ import org.openqa.selenium.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.text.DateFormatSymbols;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 public class Actions {
 
@@ -25,8 +23,17 @@ public class Actions {
         dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
     }
 
-    public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index){
+    public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {
         dropDownValues.get(index).click();
+    }
+
+    public static void selectExactValueFromDropDown(List<WebElement> dropDownElementValues, String value) {
+        List<String> actualDropDownValues = new ArrayList<>();
+        for (WebElement dropDownElement : dropDownElementValues) {
+            actualDropDownValues.add(dropDownElement.getText().trim());
+        }
+        int index = actualDropDownValues.indexOf(value);
+        dropDownElementValues.get(index).click();
     }
 
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
@@ -35,22 +42,25 @@ public class Actions {
     }
 
     public static String getText(WebElement element) {
-       try {
-           return element.getText();
-       }catch(Exception exp){
-           Debugger.println("Could not read text from Element: "+element);
-           return null;
-       }
+        try {
+            return element.getText();
+        } catch (Exception exp) {
+            Debugger.println("Could not read text from Element: " + element);
+            return null;
+        }
     }
 
     public static String getValue(WebElement element) {
         return element.getAttribute("value");
     }
 
-    public static String getClassName(WebElement element) { return element.getAttribute("class"); }
+    public static String getClassName(WebElement element) {
+        return element.getAttribute("class");
+    }
 
     public static String getAutoCompleteAttribute(WebElement element) {
-        return element.getAttribute("autoComplete"); }
+        return element.getAttribute("autoComplete");
+    }
 
     public static void fillInValue(WebElement element, String value) {
         element.sendKeys(value);
@@ -71,7 +81,7 @@ public class Actions {
         }
     }
 
-    public static void clearField(WebDriver driver, WebElement element) throws AWTException{
+    public static void clearField(WebDriver driver, WebElement element) throws AWTException {
         while (!getText(element).isEmpty()) {
             new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
             Robot robot = new Robot();
@@ -154,7 +164,7 @@ public class Actions {
 
     public static void scrollToBottom(WebDriver driver) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript( "window.scrollTo(0,document.body.scrollHeight);");
+        js.executeScript("window.scrollTo(0,document.body.scrollHeight);");
     }
 
     /*
@@ -173,13 +183,13 @@ public class Actions {
                 flag = false;
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
-                Debugger.println("Actions: Clicking on Element :"+element);
+                Debugger.println("Actions: Clicking on Element :" + element);
             }
         }
     }
 
 
-    public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues)  {
+    public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues) {
         int index = random.nextInt(dropDownValues.size() - 1);
         boolean flag = true;
         while (flag) {
@@ -193,7 +203,7 @@ public class Actions {
     }
 
 
-    public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List <WebElement> element) {
+    public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List<WebElement> element) {
         Iterator<WebElement> itr = element.iterator();
         int actualTabCount = 0;
         while (itr.hasNext()) {

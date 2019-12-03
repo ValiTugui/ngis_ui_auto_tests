@@ -138,7 +138,7 @@ public class SamplesPage {
     public WebElement sampleStateSearchIcon;
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
-    public List <WebElement> sampleStateDropDownValues;
+    public List<WebElement> sampleStateDropDownValues;
 
     @FindBy(css = "label[for*='sampleType']")
     public WebElement sampleTypeLabel;
@@ -172,10 +172,21 @@ public class SamplesPage {
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
 
+    public void selectSampleState(String sampleStateValue) {
+        Actions.clickElement(driver, sampleState);
+        Actions.selectExactValueFromDropDown(dropdownValues, sampleStateValue);
+        sampleDetails.setSampleState(sampleStateValue);
+    }
+
     public void fillInSampleID() {
         Wait.forElementToBeDisplayed(driver, labId);
         String ID = faker.numerify("S#####");
-        Actions.fillInValue(labId, ID);
+        if (Actions.getValue(labId).isEmpty()) {
+            Actions.fillInValue(labId, ID);
+        } else {
+            Actions.clearTextField(labId);
+            Actions.fillInValue(labId, ID);
+        }
         sampleDetails.setSampleID(ID);
     }
 
@@ -337,13 +348,46 @@ public class SamplesPage {
 
     public List<String> getTheSampleStateDropDownValues() {
         Wait.forElementToBeClickable(driver, sampleState);
-        Actions.clickElement(driver,sampleState);
+        Actions.clickElement(driver, sampleState);
         List<String> actualSampleStateValues = new ArrayList<>();
 
-        for (WebElement actualSampleStateValue : sampleStateDropDownValues){
+        for (WebElement actualSampleStateValue : sampleStateDropDownValues) {
             actualSampleStateValues.add(actualSampleStateValue.getText().trim());
         }
         Debugger.println("Actual sample-state values: " + actualSampleStateValues);
         return actualSampleStateValues;
+    }
+
+    public void selectSampleFromLandingPage() {
+        Actions.retryClickAndIgnoreElementInterception(driver, editSampleButton);
+    }
+
+    public List<String> getTheSampleDetailsOnEditASamplePage() {
+
+        Wait.forElementToBeDisplayed(driver, sampleType);
+        List<String> actualSampleDetails = new ArrayList<>();
+
+        actualSampleDetails.add(Actions.getText(sampleType));
+        actualSampleDetails.add(Actions.getText(sampleState));
+        actualSampleDetails.add(Actions.getValue(labId));
+
+        Debugger.println("Actual Sample Details on Edit a Sample " + actualSampleDetails);
+        return actualSampleDetails;
+    }
+
+    public List<String> getTheExpectedSampleDetails() {
+
+        List<String> expectedSampleDetails = new ArrayList<>();
+
+        expectedSampleDetails.add(sampleDetails.getSampleType());
+        expectedSampleDetails.add(sampleDetails.getSampleState());
+        expectedSampleDetails.add(sampleDetails.getSampleID());
+
+        Debugger.println("Expected Sample Details on Edit a Sample " + expectedSampleDetails);
+        return expectedSampleDetails;
+    }
+
+    public void selectASampleAsParentSample() {
+        Actions.clickElement(driver, parentSampleCheckbox);
     }
 }
