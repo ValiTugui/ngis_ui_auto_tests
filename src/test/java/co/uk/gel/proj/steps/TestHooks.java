@@ -4,6 +4,9 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.ValidatableResponse;
+import com.jayway.restassured.specification.RequestSpecification;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
@@ -22,6 +25,9 @@ public class TestHooks extends Pages {
     public static String currentFeature = "";
     public static String temptagname = "";
     public static boolean new_scenario_feature = false;
+    private RequestSpecification request;
+    private ValidatableResponse response;
+
 
     public TestHooks(SeleniumDriver driver) {
         super(driver);
@@ -42,6 +48,7 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
+         request = RestAssured.with();
     }
 
     @Before ("@TD_VERSION_INFO")
@@ -87,6 +94,22 @@ public class TestHooks extends Pages {
     @After(order = 1)
     public void afterScenario() {
         //login_page.logoutFromMI();
+    }
+
+    public RequestSpecification getRequest() {
+        return request;
+    }
+
+    public void setRequest(RequestSpecification request) {
+        this.request = request;
+    }
+
+    public ValidatableResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ValidatableResponse response) {
+        this.response = response;
     }
 
     private void logoutAfterTest(int waitingTime) {

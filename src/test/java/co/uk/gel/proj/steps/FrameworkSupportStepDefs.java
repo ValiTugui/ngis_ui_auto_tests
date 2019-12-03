@@ -17,5 +17,7 @@ public class FrameworkSupportStepDefs extends Pages {
     public void navigationSupport(String urlToNavigate , String confirmPageAfterNavigate) {
         System.out.println("new universal getter" +  AppConfig.getPropertyValueFromPropertyFile("MYNewName"));
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(urlToNavigate), confirmPageAfterNavigate);
+
+        
     }
 }

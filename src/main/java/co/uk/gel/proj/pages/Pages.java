@@ -21,6 +21,7 @@ public class Pages implements Navigable {
     public final String testOrderLoginURL = "login.microsoft";
     public final String testOrderURL = "test-order";
 
+
     protected WebDriver driver;
 
     //We have to initialize all the Pages Created in this class. AppHomePage provided as an example.
