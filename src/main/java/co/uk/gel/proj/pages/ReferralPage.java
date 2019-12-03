@@ -188,6 +188,9 @@ public class ReferralPage<check> {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
+    @FindBy(xpath = "//table/thead/tr/th[text()!='']")
+    public List<WebElement> tableColumnHeaders;
+
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
@@ -197,8 +200,6 @@ public class ReferralPage<check> {
     String mandatoryToDOIconLocator = "todo__required-icon";
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
-
-
 
 
     public void checkThatReferalWasSuccessfullyCreated() {
@@ -222,27 +223,27 @@ public class ReferralPage<check> {
             if (helix.size() > 0) {
                 try {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }catch(TimeoutException texp){
+                } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:"+texp);
+                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
                     Wait.seconds(30);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
-        }catch(Exception exp){
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:"+exp,true);
+            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
         }
     }
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver,saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             return true;
-        }catch(Exception exp){
-            Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:" + exp);
             SeleniumLib.takeAScreenShot("RefSaveAndContinue.jpg");
             return false;
         }
@@ -256,15 +257,16 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, toDoList, 100);
             Wait.forElementToBeDisplayed(driver, sectionBody);
             Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
-        }catch(Exception exp){
-            Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception."+exp);
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
             SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
-            Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg",true);
+            Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg", true);
         }
     }
+
     public boolean checkThatToDoListSuccessfullyLoaded() {
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        return Wait.isElementDisplayed(driver,toDoList,30);
+        return Wait.isElementDisplayed(driver, toDoList, 30);
     }
 
     public String getPartialUrl(String stage) {
@@ -296,7 +298,7 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
             Actions.clickElement(driver, referralStage);
-        }catch(Exception exp){
+        } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("navigateToStage.jpg");
             //Sometimes click on stage link on second time gives ElementClickInterceptedException.
             // Below code added to handle that.
@@ -324,26 +326,26 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsCompleted(String stage) {
-       try {
-           Wait.forElementToBeDisplayed(driver, toDoList);
-           String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-           Wait.seconds(2);
-           WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-           Wait.seconds(2);
-           Wait.forElementToBeDisplayed(driver, referralStage);
-           Wait.seconds(2);
-           boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-           if(status == true){
-               return true;
-           }
-           Debugger.println("Status of Stage.."+stage+" is: "+referralStage.getAttribute("class")+", but expected to be complete.");
-           SeleniumLib.takeAScreenShot("StageComplete.jpg");
-           return false;
-       }catch(Exception exp){
-           Debugger.println("Exception in Checking Stage Completion Status: "+exp);
-           SeleniumLib.takeAScreenShot("StageComplete.jpg");
-           return false;
-       }
+        try {
+            Wait.forElementToBeDisplayed(driver, toDoList);
+            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+            Wait.seconds(2);
+            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, referralStage);
+            Wait.seconds(2);
+            boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
+            if (status == true) {
+                return true;
+            }
+            Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
+            SeleniumLib.takeAScreenShot("StageComplete.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+            SeleniumLib.takeAScreenShot("StageComplete.jpg");
+            return false;
+        }
     }
 
     public boolean stageIsMandatoryToDo(String stage) {
@@ -386,7 +388,7 @@ public class ReferralPage<check> {
 
 
     public String getTheCurrentPageTitle() {
-        Wait.forElementToBeDisplayed(driver,pageTitle);
+        Wait.forElementToBeDisplayed(driver, pageTitle);
         return Actions.getText(pageTitle);
     }
 
@@ -395,10 +397,11 @@ public class ReferralPage<check> {
         Assert.assertEquals(title, getText(pageTitle));
     }
 
-    public void navigateToFamilyMemberSearchPage(){
-        Wait.forElementToBeDisplayed(driver,addFamilyMember);
-        Actions.clickElement(driver,addFamilyMember);
+    public void navigateToFamilyMemberSearchPage() {
+        Wait.forElementToBeDisplayed(driver, addFamilyMember);
+        Actions.clickElement(driver, addFamilyMember);
     }
+
     public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
         Wait.forElementToBeDisplayed(driver, pageTitle);
         List<String> actualHelpHintTexts = new ArrayList<>();
@@ -407,12 +410,12 @@ public class ReferralPage<check> {
             actualHelpHintTexts.add(fieldHelpHintText.getText().trim());
         }
         String currentPage = getTheCurrentPageTitle();
-        Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :"  + actualHelpHintTexts);
+        Debugger.println("Actual Help-Hint Texts on" + ":" + currentPage + ": page :" + actualHelpHintTexts);
         return actualHelpHintTexts;
     }
 
     public void clickOnTheBackLink() {
-        Actions.retryClickAndIgnoreElementInterception(driver,backLink);
+        Actions.retryClickAndIgnoreElementInterception(driver, backLink);
     }
 
     public String successNotificationIsDisplayed() {
@@ -423,7 +426,7 @@ public class ReferralPage<check> {
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
             Wait.seconds(5);
-            if(validationErrors.size() > 0) {
+            if (validationErrors.size() > 0) {
                 String actualMessage = validationErrors.get(0).getText();
                 if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
@@ -435,11 +438,12 @@ public class ReferralPage<check> {
                     Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                     return false;
                 }
+
             }else{
                 Debugger.println("Expected Error Message: "+errorMessage+", but no error message displayed. Check NoErrorMessage.jpg");
                 SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
                 return false;
-            }
+            } 
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Error Message " + exp);
@@ -458,10 +462,11 @@ public class ReferralPage<check> {
         }
         return true;
     }
+
     public void clickOnSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
+            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Debugger.println("Save and Continue Button not displayed even after wait period.");
             }
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
@@ -497,6 +502,14 @@ public class ReferralPage<check> {
         }
         Debugger.println("`Actual field labels " + actualFieldLabels);
         return actualFieldLabels;
+    }
+
+    public List<String> getTableColumnHeaders() {
+        List<String> actualTableHeaders = new ArrayList<>();
+        for (WebElement header : tableColumnHeaders) {
+            actualTableHeaders.add(header.getText().trim());
+        }
+        return actualTableHeaders;
     }
 
 }
