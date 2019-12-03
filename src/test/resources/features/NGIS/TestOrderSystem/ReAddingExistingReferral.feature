@@ -19,7 +19,7 @@ Feature: Family Members Re-adding Validation
       | Family members | NHSNumber=9449310270:DOB=12-08-2007 | That person has already been added to the referral | Check that all details have been entered correctly. |
 
   @COMP8_TO_Familymembers
-    @familyMembersSearchPage_02 @NTS-3227 @E2EUI-1947 @v_1 @P0
+    @familyMembersSearchPage_02 @NTS-3227 @LOGOUT @E2EUI-1947 @v_1 @P0
   Scenario Outline: E2EUI-1947: Verify that re-adding a patient who is already included in referral via No option displays error message
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
