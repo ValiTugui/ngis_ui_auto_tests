@@ -150,6 +150,7 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List <WebElement> sampleStateDropDownValues;
 
+
     @FindBy(css = "*[class*='styles_field-label--error']")
     public List<WebElement> fieldsLabelErrors;
 
