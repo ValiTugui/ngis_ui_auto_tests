@@ -30,7 +30,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_02b @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @P0 @v_1
+    @tumoursPage_03 @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @P0 @v_1
   Scenario Outline: NTS-3241: Labels and help hint texts are displayed in Add a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -48,7 +48,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_03 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
+    @tumoursPage_04 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
   Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -94,7 +94,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_04 @NTS-3157 @E2EUI-1020 @P0 @v_1
+    @tumoursPage_05 @NTS-3157 @E2EUI-1020 @P0 @v_1
   Scenario Outline: NTS-3157:Validate the mandatory input field 'Date of diagnosis' for the Tumour Section
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -109,7 +109,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_05 @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @P0 @v_1
+    @tumoursPage_06 @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -131,7 +131,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_06 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
+    @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -152,7 +152,33 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_07a  @P0 @v_1 @NTS:3171 @E2EUI-2145
+    @tumoursPage_08 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1 @BVT_P0
+  Scenario Outline: NTS-3255: Add a new tumour for a new patient with various tumour type "<tumour_type>"
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+    And the user answers the tumour dynamic questions "<tumour_type>" for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page
+    And the new tumour is not highlighted
+    And the "<stage>" stage is marked as Completed
+    And the success notification is displayed "<notificationText>"
+
+    Examples:
+      | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic                 | First presentation | test       | Tumour added     |
+      | Tumours | Solid tumour: primary                    | Recurrence         | test       | Tumour added     |
+      | Tumours | Solid tumour: unknown                    | Unknown            | test       | Tumour added     |
+      | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
+      | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
+      | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
+
+
+  @COMP6_TOC_Tumour @LOGOUT
+    @tumoursPage_09  @P0 @v_1 @NTS:3171 @E2EUI-2145
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -171,7 +197,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour  @LOGOUT
-    @tumoursPage_07b  @P0 @v_1 @NTS:3171 @E2EUI-2145
+    @tumoursPage_10  @P0 @v_1 @NTS:3171 @E2EUI-2145
   Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -197,7 +223,7 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_08 @NTS-3172 @E2EUI-1465 @P0 @v_1
+    @tumoursPage_11 @NTS-3172 @E2EUI-1465 @P0 @v_1
   Scenario Outline: NTS-3172:Validate the mandatory input field 'The tumour is' for the Tumour Section
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -212,7 +238,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_09 @NTS-3174 @E2EUI-1159  @E2EUI-1577 @E2EUI-1377 @P0 @v_1
+    @tumoursPage_12 @NTS-3174 @E2EUI-1159  @E2EUI-1577 @E2EUI-1377 @P0 @v_1
   Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -231,7 +257,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_10 @NTS-3176 @E2EUI-1171 @P0 @v_1
+    @tumoursPage_13 @NTS-3176 @E2EUI-1171 @P0 @v_1
   Scenario Outline: NTS-3176: Select or edit a tumour page - Add a new tumour and Tumour added notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -265,7 +291,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_11 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
+    @tumoursPage_14 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -303,7 +329,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_12 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
+    @tumoursPage_15 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -331,7 +357,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_13 @NTS-3204 @E2EUI-890 @P0 @v_1
+    @tumoursPage_16 @NTS-3204 @E2EUI-890 @P0 @v_1
   Scenario Outline: NTS-3204:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -356,7 +382,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_14 @NTS-3225 @E2EUI-2279 @E2EUI-1434 @P0 @v_1
+    @tumoursPage_17 @NTS-3225 @E2EUI-2279 @E2EUI-1434 @P0 @v_1 @BVT_P0
   Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -387,7 +413,7 @@ Feature: Tumours Page
 
 
   @COMP6_TO_TumourCreate @LOGOUT
-    @tumoursPage_15 @NTS-3176 @E2EUI-1412 @P0 @v_1
+    @tumoursPage_18 @NTS-3176 @E2EUI-1412 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3176: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -425,7 +451,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_16 @NTS-3249 @E2EUI-1459 @P0 @v_1
+    @tumoursPage_19 @NTS-3249 @E2EUI-1459 @P0 @v_1
   Scenario Outline: NTS-3249: Fuzzy date on Date of Diagnosis field
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -456,7 +482,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_17 @NTS-3250 @E2EUI-1247 @P0 @v_1
+    @tumoursPage_20 @NTS-3250 @E2EUI-1247 @P0 @v_1
   Scenario Outline: NTS-3250: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -478,7 +504,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_18 @NTS-3252 @E2EUI-1107 @P0 @v_1
+    @tumoursPage_21 @NTS-3252 @E2EUI-1107 @P0 @v_1
   Scenario Outline: NTS-3252: Tumour-list - Indicate any tumour list with incomplete or outstanding mandatory questions
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -497,34 +523,9 @@ Feature: Tumours Page
       | stage   | pageTitle               | tumour_type              | notificationText | errorMessage                                           | messageColor |
       | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
 
-  @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_19 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1
-  Scenario Outline: NTS-3255: Add a new tumour for a new patient with various tumour type "<tumour_type>"
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions "<tumour_type>" for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
-
-    Examples:
-      | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic                 | First presentation | test       | Tumour added     |
-      | Tumours | Solid tumour: primary                    | Recurrence         | test       | Tumour added     |
-      | Tumours | Solid tumour: unknown                    | Unknown            | test       | Tumour added     |
-      | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
-      | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
-      | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
-
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_20 @NTS-3259 @E2EUI-1075 @P0 @v_1
+    @tumoursPage_22 @NTS-3259 @E2EUI-1075 @P0 @v_1
   Scenario Outline: NTS-3259:Back link button - Create referral navigation component - Tumours
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
