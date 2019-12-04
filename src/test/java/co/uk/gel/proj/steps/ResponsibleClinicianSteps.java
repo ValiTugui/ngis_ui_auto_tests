@@ -278,4 +278,8 @@ public class ResponsibleClinicianSteps extends Pages {
         Assert.assertTrue(responsibleClinicianPage.verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature());
     }
 
+    @When("the user fills the responsible clinician page with {string}")
+    public void theUserFillsTheResponsibleClinicianPageWith(String clinicalInfo) {
+        responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
+    }
 }

@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -43,6 +44,10 @@ public class Pages implements Navigable {
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
     protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
     protected PatientChoicePage patientChoicePage;
+    protected PanelsPage panelsPage;
+    protected NotesPage notesPage;
+    protected PedigreePage pedigreePage;
+    protected PrintFormsPage printFormsPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -70,6 +75,11 @@ public class Pages implements Navigable {
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
         familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
         patientChoicePage = PageFactory.initElements(driver,PatientChoicePage.class);
+        panelsPage = PageFactory.initElements(driver, PanelsPage.class);
+        notesPage = PageFactory.initElements(driver,NotesPage.class);
+        pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
+        printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
+
 
     }
 

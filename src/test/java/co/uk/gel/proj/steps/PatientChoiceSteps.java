@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -43,6 +44,33 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         patientChoicePage.submitPatientChoice();
     }
+    @When("the user edits patient choice for {string} family members with the below details")
+    public void theUserEditsPatientChoiceForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+        try {
+            int noOfParticipants = Integer.parseInt(noParticipant);
+            List<List<String>> memberDetails = inputDetails.asLists();
+            if(memberDetails.size() < noOfParticipants){
+                Debugger.println("No of Participants mentioned and details provided are not matching.");
+                return;
+            }
+            for (int i = 1; i < memberDetails.size(); i++) {
+                patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
+                patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
+                patientChoicePage.selectTestType(memberDetails.get(i).get(2));
+                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
+                patientChoicePage.clickOnContinue();
+                patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                patientChoicePage.clickOnContinue();
+                patientChoicePage.selectChildAssent(memberDetails.get(i).get(5));
+                patientChoicePage.clickOnContinue();
+                patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6));
+                patientChoicePage.submitPatientChoice();
+                referralPage.clickSaveAndContinueButton();
+            }//end
+        }catch(Exception exp){
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);
+        }
+    }
 
     @And("the user sees the patient choice status as {string}")
     public void theUserSeesThePatientChoiceStatus(String status) {
@@ -58,6 +86,9 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
-
+    //This step is for Notes, page. included here as there is only one method need for that page .So not created a separate stepdef
+    @And("the user fills the NotesPage with the {string}")
+    public void theUserFillsTheNotesPageWithThe(String notes) {
+        notesPage.fillNotes(notes);
+    }
 }//end

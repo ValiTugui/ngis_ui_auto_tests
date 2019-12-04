@@ -4,12 +4,11 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -77,6 +76,8 @@ public class PatientChoicePage {
     String patientChoiceInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Patient choice status']";
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
 
+    String specificPatientChoiceEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
+
     public PatientChoicePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -90,6 +91,33 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Could not click on Patient Choice Edit: " + exp);
             SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+            return false;
+        }
+    }
+    public boolean editSpecificPatientChoice(String familyDetails){
+        String nhsNumber = "";
+        try {
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                if(key.equalsIgnoreCase("NHSNumber")){
+                  nhsNumber = paramNameValue.get(key);
+                  break;
+                }
+            }
+            if(nhsNumber == null || nhsNumber.isEmpty()){
+                Debugger.println("NHS Number not provided to edit the patient choice.");
+                return false;
+            }
+            Debugger.println("NHS : "+nhsNumber);
+            String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
+            Debugger.println("NHSFOUR : "+nhsLastFour);
+            By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
+            WebElement element = driver.findElement(pChoiceEdit);
+            element.click();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:"+exp);
             return false;
         }
     }
@@ -170,11 +198,20 @@ public class PatientChoicePage {
             if(patient_choice == null || patient_choice.isEmpty()) {
                 return true;
             }
+
+            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Patient choices')]"));
+            Wait.forElementToBeDisplayed(driver,titleElement);
+            seleniumLib.scrollToElement(titleElement);
             patientChoice = patientChoice.replaceAll("dummyChoice",patient_choice);
-            Wait.seconds(10);
-            WebElement webElement = driver.findElement(By.xpath(patientChoice));
+            WebElement webElement;
+            try {
+                webElement = driver.findElement(By.xpath(patientChoice));
+            }catch(NoSuchElementException nsee){
+                //If the element not found, waiting for 5 seconds and the searchign again. Some times it is taking time.
+                Wait.seconds(5);
+                webElement = driver.findElement(By.xpath(patientChoice));
+            }
             seleniumLib.clickOnWebElement(webElement);
-            Wait.seconds(2);
             seleniumLib.clickOnWebElement(patientChoiceOption1);
             seleniumLib.clickOnWebElement(patientChoiceOption2);
             if(!Wait.isElementDisplayed(driver,continueButton,5)){

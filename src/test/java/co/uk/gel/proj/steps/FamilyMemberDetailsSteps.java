@@ -4,11 +4,16 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
+
+import java.util.List;
 
 public class FamilyMemberDetailsSteps extends Pages {
 
@@ -398,4 +403,31 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     }
 
+    @When("the user adds {string} family members with the below details")
+    public void theUserAddFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+        try {
+            int noOfParticipants = Integer.parseInt(noParticipant);
+            List<List<String>> memberDetails = inputDetails.asLists();
+            if(memberDetails.size() != noOfParticipants){
+                Debugger.println("No of Participants mentioned and details provided are not matching.");
+                return;
+            }
+            for (int i = 1; i < memberDetails.size(); i++) {
+                referralPage.navigateToFamilyMemberSearchPage();
+                familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
+                familyMemberDetailsPage.verifyPatientRecordDetailsDisplay();
+                familyMemberDetailsPage.clickPatientCard();
+                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
+                familyMemberDetailsPage.readFamilyMemberDetailsFor(memberDetails.get(i).get(1));
+                referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+                referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
+                referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+            }//end
+        }catch(Exception exp){
+            Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: "+exp);
+        }
+    }
 }//end

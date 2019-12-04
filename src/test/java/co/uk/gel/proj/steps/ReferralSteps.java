@@ -42,6 +42,7 @@ public class ReferralSteps extends Pages {
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
+        Debugger.println("Stage: "+stage+" Starting.");
         referralPage.navigateToStage(stage);
     }
 
@@ -140,7 +141,16 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
-        Assert.assertTrue(referralPage.stageIsCompleted(stage));
+        try {
+            boolean testResult = referralPage.stageIsCompleted(stage);
+            if (!testResult) {
+                Debugger.println("Stage: " + stage + " NOT Completed.");
+            }
+            Debugger.println("Stage: " + stage + " Completed.");
+            Assert.assertTrue(testResult);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying the stage completed status for :"+stage+":"+exp);
+        }
     }
 
     @Given("a referral is created with the below details for a newly created patient and associated tests in Test Order System online service")
@@ -259,7 +269,7 @@ public class ReferralSteps extends Pages {
         }
 
         //Wait.seconds();
-        if (patientType.equalsIgnoreCase("NGIS")) {
+        if (patientType.equalsIgnoreCase("NGIS") || patientType.equalsIgnoreCase("SPINE")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
             NGISPatientModel ngisPatient = new NGISPatientModel();
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
@@ -300,8 +310,6 @@ public class ReferralSteps extends Pages {
             if(!searchPageLoaded){
                 Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
             }
-        }else if (patientType.equalsIgnoreCase("SPINE")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.clickPatientCard();
