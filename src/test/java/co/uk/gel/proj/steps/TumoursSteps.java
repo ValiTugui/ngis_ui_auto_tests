@@ -36,7 +36,8 @@ public class TumoursSteps extends Pages {
         }else {
             String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
             tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-            tumoursPage.tumourTypeLabel.click(); //click on descriptiveName label to move cursor away from dateYear field
+            Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+            //click on tumourTypeLabel label to move cursor away from dateYear field
         }
     }
 
@@ -44,6 +45,7 @@ public class TumoursSteps extends Pages {
     public void theMessageWillBeDisplayedAsInColorForTheDateOfDiagnosisField(String errorMessage, String fontColor) {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
         tumoursPage.clearDateOfDiagnosisFields();
+        Wait.forElementToBeClickable(driver, referralPage.logoutButton);
     }
 
     @And("the user answers all tumour system questions fields, select tumour type {string} and leaves date of diagnosis field blank")

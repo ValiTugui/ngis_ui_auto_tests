@@ -69,6 +69,13 @@ public class SamplesSteps extends Pages {
         samplesPage.fillInSampleID();
     }
 
+    @When("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state {string} and filling SampleID")
+    public void theUserAnswersTheQuestionsOnAddASamplePageBySelectingTheSampleTypeSampleStateAndFillingSampleID(String sampleType, String sampleState) {
+        samplesPage.selectSampleType(sampleType);
+        samplesPage.selectSampleState(sampleState);
+        samplesPage.fillInSampleID();
+    }
+
     @And("the Add Samples details page displays the page title and sub-titles text body")
     public void theAddSamplesDetailsPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
@@ -277,7 +284,54 @@ public class SamplesSteps extends Pages {
             Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
             Assert.assertTrue(actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i)));
         }
-
     }
+
+    @When("the user selects the existing sample from the landing page by clicking on the chevron right arrow icon")
+    public void theUserSelectsTheExistingSampleFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
+        samplesPage.selectSampleFromLandingPage();
+    }
+
+
+    @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
+    public void theUserEditsTheFieldsOnEditASamplePageBySelectingTheSampleTypeSampleStateAndSampleID(String sampleType, String sampleState) {
+        samplesPage.selectSampleType(sampleType);
+        samplesPage.selectSampleState(sampleState);
+        samplesPage.fillInSampleID();
+    }
+
+    @Then("the new edited sample details are displayed in the edit sample page")
+    public void theNewEditedSampleDetailsAreDisplayedInTheEditSamplePage() {
+        List<String> expectectedSampleDetails = samplesPage.getTheExpectedSampleDetails();
+        List<String> actualSampleDetails = samplesPage.getTheSampleDetailsOnEditASamplePage();
+
+        for (int i = 0; i < expectectedSampleDetails.size(); i++) {
+            Debugger.println("Expected sampleDetail: " + expectectedSampleDetails.get(i) + ":" + i + ":" + "Actual sampleDetail " + actualSampleDetails.get(i));
+            Assert.assertEquals(expectectedSampleDetails.get(i), actualSampleDetails.get(i));
+        }
+    }
+
+    @And("the user adds a sample as Child sample by selecting a sample row as a Parent Sample on Add a Sample page")
+    public void theUserAddsASampleAsChildSampleBySelectingASampleRowAsAParentSampleOnAddASamplePage() {
+        samplesPage.selectASampleAsParentSample();
+    }
+
+    @And("on the Manage samples page, the sample table list shows the column header names")
+    public void onTheManageSamplesPageTheSampleTableListShowsTheColumnHeaderNames(DataTable dataTable) {
+        List<List<String>> list = dataTable.asLists(String.class);
+        List<String> headerRow = list.get(1);  //i starts from 1 because i=0 represents the header
+        List<String> expectedHeaders = new ArrayList<>();
+        List actualHeaders = referralPage.getTableColumnHeaders();
+
+        for (int i = 0; i < headerRow.size(); i++) {
+            expectedHeaders.add(headerRow.get(i));
+            Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
+            Debugger.println("Actual Sample Table columns: " +  actualHeaders.get(i));
+            Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
+        }
+        Debugger.println("Expected Table columns: " + expectedHeaders);
+        Debugger.println("Actual Table columns: " + actualHeaders.toString());
+        Assert.assertEquals(expectedHeaders, actualHeaders);
+    }
+
 
 }

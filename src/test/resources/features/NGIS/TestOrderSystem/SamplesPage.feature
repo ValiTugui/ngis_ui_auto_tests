@@ -48,7 +48,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @P0 @v_1
+    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -61,9 +61,12 @@ Feature: Samples Page
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
     And the user clicks the Save and Continue button
-    Then the "<pageTitle>" page is displayed
     And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
+    And on the Manage samples page, the sample table list shows the column header names
+      | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
+      | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And the "<stage>" stage is marked as Completed
 
     Examples:
@@ -75,7 +78,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @P0 @v_1
+    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -93,9 +96,12 @@ Feature: Samples Page
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
     And the user clicks the Save and Continue button
-    Then the "<pageTitle>" page is displayed
     And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
+    And on the Manage samples page, the sample table list shows the column header names
+      | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
+      | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And the "<stage2>" stage is marked as Completed
 
     Examples:
@@ -245,4 +251,75 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_11 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857
+  Scenario Outline: NTS-3345:Edit a non tumour sample type that has already been added to my referral
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "<notificationText>"
+    Then the new sample is displayed in the landing page
+#    Editing sample details
+    When the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
+    Then the "<pageTitle4>" page is displayed
+    And the user edits the fields on Edit a Sample page by selecting the sample type "<sampleType-edited>", sample state "<sampleState-edited>" and SampleID
+    And the user clicks the Save and Continue button
+    When the user clicks on the Back link
+    And the user navigates to the "<stage>" stage
+    And the success notification is displayed "<notificationText-updated>"
+    And the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
+    Then the new edited sample details are displayed in the edit sample page
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType   | sampleState | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample | Urine       | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_12 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857
+  Scenario Outline: NTS-3345: Edit a tumour sample type that has already been added to my referral
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
+    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "<notificationText>"
+    Then the new sample is displayed in the landing page
+#   Editing sample details
+    When the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
+    Then the "<pageTitle4>" page is displayed
+    And the user edits the fields on Edit a Sample page by selecting the sample type "<sampleType-edited>", sample state "<sampleState-edited>" and SampleID
+    And the user clicks the Save and Continue button
+    When the user clicks on the Back link
+    And the user navigates to the "<stage2>" stage
+    And the success notification is displayed "<notificationText-updated>"
+    And the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
+    Then the new edited sample details are displayed in the edit sample page
+
+    Examples:
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Urine       | test                   | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
 
