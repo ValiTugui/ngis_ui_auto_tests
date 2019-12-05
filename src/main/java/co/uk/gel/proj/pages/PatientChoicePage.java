@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +38,13 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//button[contains(text(),'Continue')]")
     public WebElement continueButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Upload document')]")
+    public WebElement uploadDocumentOption;
+
+    @FindBy(xpath = "//label[contains(@class,'upload-document-button')]")
+    public WebElement uploadDocumentButton;
+
 
     @FindBy(xpath = "//div[@class='m-signature-pad--body']//canvas")
     WebElement signaturePad;
@@ -77,6 +87,19 @@ public class PatientChoicePage {
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
 
     String specificPatientChoiceEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
+    String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
+
+    String uploadFilepath = System.getProperty("user.dir") + File.separator +"testdata"+File.separator;
+
+    @FindBy(xpath = "//div[@class='dropdown']")
+    WebElement fileTypeDropDown;
+    @FindBy(xpath = "//input[@placeholder='DD']")
+    WebElement uploadDay;
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    WebElement uploadMonth;
+    @FindBy(xpath = "//input[@placeholder='YYYY']")
+    WebElement uploadYear;
+
 
     public PatientChoicePage(WebDriver driver) {
         this.driver = driver;
@@ -109,9 +132,9 @@ public class PatientChoicePage {
                 Debugger.println("NHS Number not provided to edit the patient choice.");
                 return false;
             }
-            Debugger.println("NHS : "+nhsNumber);
+            //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
-            Debugger.println("NHSFOUR : "+nhsLastFour);
+            //Debugger.println("NHSFOUR : "+nhsLastFour);
             By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
             WebElement element = driver.findElement(pChoiceEdit);
             element.click();
@@ -161,6 +184,8 @@ public class PatientChoicePage {
             if(recorderBy == null || recorderBy.isEmpty()){
                 return true;
             }
+            boolean uploadDocument = false;
+            String fileType = "";
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recorderBy);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
@@ -180,8 +205,23 @@ public class PatientChoicePage {
                             adminNameInput.sendKeys(paramNameValue.get(key));
                         }
                         break;
+                    case "Action":
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            if(paramNameValue.get(key).equalsIgnoreCase("UploadDocument")){
+                                uploadDocument = true;
+                            }
+                        }
+                        break;
+                    case "FileType":
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            fileType = paramNameValue.get(key);
+                        }
+                        break;
                 }//switch
             }//for
+            if(uploadDocument){
+                return uploadRecordTypeDocument(fileType);
+            }
             Debugger.println("Record Type..Done");
             return true;
         }catch(Exception exp){
@@ -193,6 +233,55 @@ public class PatientChoicePage {
     public void clickOnContinue() {
         seleniumLib.clickOnWebElement(continueButton);
     }
+    public boolean uploadRecordTypeDocument(String fileType) {
+        try {
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            if (Wait.isElementDisplayed(driver, uploadDocumentButton, 10)) {
+                uploadDocumentButton.click();
+            }
+
+            if (!seleniumLib.upload(uploadFilepath + "testfile.pdf")) {
+                Debugger.println("Could not upload document to Record Type in Patient Choice.");
+                return false;
+            }
+            //Select the FormType
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            fileTypeDropDown.click();
+            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", fileType));
+            WebElement element = driver.findElement(formType);
+            element.click();
+            //Date need to pass as today's date.
+            Calendar today = Calendar.getInstance();
+            String year = "";
+            String month = "";
+            String day = "";
+            int iyear = today.get(Calendar.YEAR);
+            int imonth = today.get(Calendar.MONTH) + 1;
+            int iday = today.get(Calendar.DATE);
+
+            if (imonth < 10) {
+                month = "0" + imonth;
+            } else {
+                month = "" + imonth;
+            }
+            year = "" + iyear;
+            if (iday < 10) {
+                day = "0" + iday;
+            } else {
+                day = "" + iday;
+            }
+            uploadDay.sendKeys(day);
+            uploadMonth.sendKeys(month);
+            uploadYear.sendKeys(year);
+            Debugger.println("Record Type..Done with document uploaded.");
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in uploading record type in Patient choice: "+exp);
+            SeleniumLib.takeAScreenShot("recordTypeUpload.jpg");
+            return false;
+        }
+    }
     public boolean selectPatientChoice(String patient_choice){
         try{
             if(patient_choice == null || patient_choice.isEmpty()) {
@@ -201,7 +290,7 @@ public class PatientChoicePage {
 
             WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Patient choices')]"));
             Wait.forElementToBeDisplayed(driver,titleElement);
-            seleniumLib.scrollToElement(titleElement);
+            //Actions.scrollToTop();
             patientChoice = patientChoice.replaceAll("dummyChoice",patient_choice);
             WebElement webElement;
             try {
@@ -232,7 +321,9 @@ public class PatientChoicePage {
             if(child_assent == null || child_assent.isEmpty()) {
                 return true;
             }
-            Wait.seconds(5);
+            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Child assent')]"));
+            Wait.forElementToBeDisplayed(driver,titleElement);
+            Actions.scrollToTop(driver);
             childAssent = childAssent.replaceAll("dummyAssent",child_assent);
             Wait.seconds(1);
             WebElement webElement = driver.findElement(By.xpath(childAssent));
@@ -275,6 +366,8 @@ public class PatientChoicePage {
             if(parentDetails == null || parentDetails.isEmpty()){
                 return true;
             }
+            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Parent/Guardian signature')]"));
+            Wait.forElementToBeDisplayed(driver,titleElement);
             if(!Wait.isElementDisplayed(driver,sectionTitle_ParentGuardianSignature,180)){//Typically this takes time 1-2 minutes
                 Debugger.println("ParentGuardianSignature section not loaded even after waiting time. Failing.");
                 SeleniumLib.takeAScreenShot("parentGuardianSign.jpg");

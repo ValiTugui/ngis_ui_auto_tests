@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -547,47 +548,50 @@ public class SeleniumLib {
     //   .................. upload file method.............
 
     public static boolean upload(String path) {
-        WebElement element;
         // Switch to newly opened window
         for (String winHandle : driver.getWindowHandles()) {
+            Debugger.println("Switched to File Upload Window SeleniumLib....");
             driver.switchTo().window(winHandle);
         }
-        sleep(2);
-        element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("file")));
-        if (element != null) {
-            element.click();
-        }
-        sleep(2);
-        //Copy file path to cllipboard
-        StringSelection ss = new StringSelection(path);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-
-        //Java Robot commands to paste the clipboard copy on focused textbox
-        Robot robot = null;
+        sleepInSeconds(5);
         try {
+            //Copy file path to clipboard
+            Debugger.println("Copying File path to Clipboard: "+path);
+            StringSelection ss = new StringSelection(path);
+            Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+            sleepInSeconds(5);
+            sysClip.setContents(ss, null);
+            sleepInSeconds(5);
+            //Java Robot commands to paste the clipboard copy on focused textbox
+            Robot robot = null;
+
             robot = new Robot();
+            Thread.sleep(500);
+            Debugger.println("Robot Class Created....");
 
             robot.keyPress(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_V);
+            Debugger.println("Enter and Control Pressed and Released...");
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
+
+            Debugger.println("Enter Press and Releasing again");
+            Thread.sleep(1000);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("html/body/form/div/p/input[1]")));
-            element.click();
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value='Close Window']")));
-            element.click();
-            sleep(2);
+
+            Debugger.println("Checking Alert.");
+            if(isAlertPresent()){
+                return false;
+            }
+            Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
             Debugger.println("Upload Exception from SeleniumLib: " + exp);
             return false;
         }
     }
+
 
     public static boolean isTextPresent(String text) {
         try {
@@ -724,7 +728,7 @@ public class SeleniumLib {
         }
     }
 
-    private boolean isAlertPresent() {
+    static boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
