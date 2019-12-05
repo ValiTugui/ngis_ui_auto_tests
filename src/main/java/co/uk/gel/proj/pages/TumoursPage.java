@@ -7,6 +7,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import co.uk.gel.proj.util.TumourIdentifier;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
@@ -165,6 +166,7 @@ public class TumoursPage {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
         String description = faker.name().lastName();
         tumourDetails.setTumourDescription(description);
+        TumourIdentifier.setTumourDescriptionForStep(description);
         Actions.fillInValue(descriptiveName, description);
         return description;
     }
