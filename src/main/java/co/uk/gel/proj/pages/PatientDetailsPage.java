@@ -23,7 +23,7 @@ public class PatientDetailsPage {
 
     WebDriver driver;
     Faker faker = new Faker();
-    NewPatient newPatient = new NewPatient();
+    public static NewPatient newPatient = new NewPatient();
 
     public PatientDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -232,14 +232,20 @@ public class PatientDetailsPage {
         newPatient.setLastName(faker.name().lastName());
         Actions.fillInValue(familyName, newPatient.getLastName());
 
-        newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
-        newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
-        newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+        String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 31));
+        String monthOfBirth = String.valueOf(faker.number().numberBetween(1, 12));
+        String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
 
-        newPatient.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+        newPatient.setDay(dayOfBirth);
+        newPatient.setMonth(monthOfBirth);
+        newPatient.setYear(yearOfBirth);
 
+        String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
+        newPatient.setNhsNumber(nhsNumber);
 
-        editDropdownField(administrativeGenderButton, "Male");
+        String gender = "Male";
+        newPatient.setGender(gender);
+        editDropdownField(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
@@ -418,5 +424,79 @@ public class PatientDetailsPage {
         else {
             Debugger.println("No referral card found");
         }
+    }
+
+    public boolean patientReferralsAreDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralLink);
+            Wait.forElementToBeDisplayed(driver, referralCard);
+            return true;
+        }catch (Exception exp){
+            Debugger.println("No Referrals are found for the patient");
+            return false;
+        }
+    }
+
+    public boolean verifyReferralStatus(String expectedStatus) {
+        Wait.forElementToBeDisplayed(driver, referralStatus);
+        return expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus));
+    }
+
+    public boolean verifyReferralReason(String expectedReason) {
+        Wait.forElementToBeDisplayed(driver, referralCancelReason);
+        return expectedReason.equalsIgnoreCase(Actions.getText(referralCancelReason));
+    }
+
+    public void fillInAllFieldsNewPatientDetailsExceptNHSNumber(String reason) {
+        Wait.forElementToBeDisplayed(driver, title);
+        newPatient.setTitle("Mr");
+        title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
+        String firstNameValue = faker.name().firstName();
+        String lastNameValue = faker.name().lastName();
+        newPatient.setFirstName(firstNameValue);
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+
+        newPatient.setLastName(lastNameValue);
+        Actions.fillInValue(familyName, newPatient.getLastName());
+
+        String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 31));
+        String monthOfBirth = String.valueOf(faker.number().numberBetween(1, 12));
+        String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 1977));
+
+        newPatient.setDay(dayOfBirth);
+        newPatient.setMonth(monthOfBirth);
+        newPatient.setYear(yearOfBirth);
+
+        String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
+        newPatient.setNhsNumber(nhsNumber);
+
+        String gender = "Male";
+        newPatient.setGender(gender);
+        editDropdownField(administrativeGenderButton, gender);
+        editDropdownField(lifeStatusButton, "Alive");
+        Actions.fillInValue(dateOfDeath, "01/01/2015");
+        editDropdownField(ethnicityButton, "A - White - British");
+        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+        Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+        Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+        Actions.fillInValue(addressLine2, faker.address().streetName());
+        Actions.fillInValue(addressLine3, faker.address().cityName());
+        Actions.fillInValue(addressLine4, faker.address().state());
+        newPatient.setPostCode(faker.address().zipCode());
+        String postcodeValue = newPatient.getPostCode();
+        Actions.fillInValue(postcode, postcodeValue);
+        selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
+
+        Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth  + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
+        Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+    }
+
+    public NewPatient getNewlyCreatedPatientData(){
+        Debugger.println(" Newly created patient object2: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+        return newPatient;
     }
 }

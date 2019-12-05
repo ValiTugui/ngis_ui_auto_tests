@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.Constants;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
@@ -20,6 +21,8 @@ public class Pages implements Navigable {
     public final String patientSearchURL = "patient-search";
     public final String testOrderLoginURL = "login.microsoft";
     public final String testOrderURL = "test-order";
+    protected String normalUser = "GEL_NORMAL_USER";
+    protected String superUser = "GEL_SUPER_USER";
 
     protected WebDriver driver;
 
@@ -42,6 +45,8 @@ public class Pages implements Navigable {
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
     protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
+    protected NotesPage notesPage;
+    protected PatientChoicePage patientChoicePage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -68,6 +73,8 @@ public class Pages implements Navigable {
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
         familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
+        notesPage = PageFactory.initElements(driver, NotesPage.class);
+        patientChoicePage = PageFactory.initElements(driver, PatientChoicePage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -109,7 +116,7 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 } else {
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }
             }else {
                 //Log out, if not logged out from previous session
@@ -117,7 +124,7 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 }else{
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }
             }
             navigatedURL = driver.getCurrentUrl();
@@ -136,7 +143,29 @@ public class Pages implements Navigable {
             if (currentURL.contains(patientSearchURL)) {
               //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+            }
+            Debugger.println("Switched URL    : " + driver.getCurrentUrl());
+        } catch (Exception exp) {
+            Debugger.println("Exception from Switch URL: "+exp);
+            SeleniumLib.takeAScreenShot("SwitchURLException.jpg");
+            Assert.assertFalse("Exception from Switch URL:"+exp,true);
+        }
+    }
+
+    @Override
+    public void switchToURL(String currentURL, String userType) {
+        Debugger.println("Switching URL from: " + currentURL);
+        Wait.seconds(5);
+        try {
+            if (currentURL.contains(patientSearchURL)) {
+              //  Actions.cleanUpSession(driver);
+            } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+                if(userType.equalsIgnoreCase(normalUser)) {
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                }else if(userType.equalsIgnoreCase(superUser)){
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                }
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
         } catch (Exception exp) {

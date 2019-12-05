@@ -4,10 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -200,6 +198,7 @@ public class ReferralPage<check> {
     String mandatoryToDOIconLocator = "todo__required-icon";
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
+    String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
 
     public void checkThatReferalWasSuccessfullyCreated() {
@@ -508,6 +507,41 @@ public class ReferralPage<check> {
             actualTableHeaders.add(header.getText().trim());
         }
         return actualTableHeaders;
+    }
+
+    public void clickCancelReferralLink() {
+        Actions.clickElement(driver, cancelReferralLink);
+    }
+
+    public void selectCancellationReason(String reason) {
+        Actions.clickElement(driver, cancelReasonDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectValueFromDropdown(dropdownValue, reason);
+    }
+
+    public void submitCancellation() {
+        Actions.clickElement(driver, cancelReferralButtons.get(1));
+    }
+
+    public boolean cancelReferralConfirmationIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, cancelReferralNotification);
+            Wait.forElementToDisappear(driver, By.cssSelector(cancelReferralLocator));
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Cancel Referral notification is not displayed");
+            return false;
+        }
+
+    }
+
+    public boolean cancelReasonMatches(String reason) {
+        return reason.equalsIgnoreCase(Actions.getText(referralCancelReason));
+    }
+
+    public boolean verifyTheReferralStatus(String expectedStatus) {
+        Wait.forElementToBeDisplayed(driver, referralStatus);
+        return Actions.getText(referralStatus).contains(expectedStatus);
     }
 
 }
