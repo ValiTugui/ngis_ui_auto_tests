@@ -345,7 +345,7 @@ public class SamplesSteps extends Pages {
         for (int i = 0; i < expectedSampleTestData.size(); i++) {
             Assert.assertTrue(actualSampleTestData.contains(expectedSampleTestData.get(i)));
         }
-        String expectedTumourDescription = TumourIdentifier.getTumourDescriptionForStep();
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
         Debugger.println("Expected TumourDescription in Step-def :" + expectedTumourDescription);
         /*If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
         if (expectedTumourDescription == null) {
@@ -375,7 +375,8 @@ public class SamplesSteps extends Pages {
         }
 
         /* Assert if there's Tumour Description */
-        String expectedTumourDescription = TumourIdentifier.getTumourDescriptionForStep();
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
+
         /* If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
         if (expectedTumourDescription == null) {
             Debugger.println("Expected TumourDescription :" + expectedTumourDescription); // Get Tumour Description

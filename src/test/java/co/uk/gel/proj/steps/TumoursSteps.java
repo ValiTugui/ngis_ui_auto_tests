@@ -418,6 +418,6 @@ public class TumoursSteps extends Pages {
 
     @And("the Tumour description value is reset after test")
     public void theTumourDescriptionValueIsResetAfterTest() {
-           Assert.assertNull(TumourIdentifier.resetTumourDescriptionForStep());
+        Assert.assertNull(tumoursPage.resetTheCurrentTumourDescription());
     }
 }

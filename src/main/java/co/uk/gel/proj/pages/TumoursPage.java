@@ -26,7 +26,7 @@ import java.util.List;
 public class TumoursPage {
 
     WebDriver driver;
-    NewPatient tumourDetails = new NewPatient();
+    static NewPatient tumourDetails = new NewPatient();
     Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
@@ -166,7 +166,6 @@ public class TumoursPage {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
         String description = faker.name().lastName();
         tumourDetails.setTumourDescription(description);
-        TumourIdentifier.setTumourDescriptionForStep(description);
         Actions.fillInValue(descriptiveName, description);
         return description;
     }
@@ -475,6 +474,17 @@ public class TumoursPage {
     public String getDynamicQuestionsSnomedCTLabelText(){
         Wait.forElementToBeDisplayed(driver,snomedCTWorkingDiagnosisLabel);
         return  snomedCTWorkingDiagnosisLabel.getText();
+    }
+
+    public String getTheCurrentTumourDescription(){
+        return tumourDetails.getTumourDescription();
+    }
+
+    public String resetTheCurrentTumourDescription(){
+        String resetValue = null;
+        tumourDetails.setTumourDescription(resetValue);
+        Debugger.println("Current TumourDescription to be null: " + tumourDetails.getTumourDescription());
+        return resetValue;
     }
 
 
