@@ -7,14 +7,12 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TumourIdentifier;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.text.ParseException;
 import java.util.*;
 
 import static co.uk.gel.lib.Actions.getText;
