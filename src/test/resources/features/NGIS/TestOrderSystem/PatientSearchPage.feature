@@ -25,7 +25,7 @@ Feature: Patient search page
     When the user clicks the NO button
     Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
 
-  @patientSearch_03 @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1
+  @patientSearch_03 @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -37,7 +37,7 @@ Feature: Patient search page
       | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_PatientSearch
-  @patientSearch_04 @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1
+  @patientSearch_04 @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0
   Scenario Outline: NTS-2795:patient search - "<ui-ticket-no>" - "<patient-search-type>" Alternate Search without NHS Number
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -78,7 +78,7 @@ Feature: Patient search page
 #       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
 
 
-  @patientSearch_06 @NTS-2796 @E2EUI-1472 @v_1
+  @patientSearch_06 @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0
   Scenario Outline:NTS-2796:patient search - "<patient-search-type>" Patient Search Results Page validation
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number and Date of Birth fields
     And the user clicks the Search button

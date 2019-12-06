@@ -4,7 +4,7 @@
 Feature: New Patient page
 
 
-  @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1
+  @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -20,7 +20,7 @@ Feature: New Patient page
       | create a new patient record | Save patient details to NGIS |
 
 
-  @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1
+  @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
