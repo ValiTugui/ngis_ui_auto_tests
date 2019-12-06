@@ -428,5 +428,18 @@ public class SamplesPage {
         return actualSampleTestData;
     }
 
+    public boolean verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(List<String> actualSampleTestData, String expectedTumourDescription) {
+        // If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted
+        if (expectedTumourDescription == null) {
+            Debugger.println("Expected TumourDescription Step-def - empty :" + expectedTumourDescription);
+            Assert.assertTrue(actualSampleTestData.contains("-"));
+        }
+        // if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list
+        else if (!expectedTumourDescription.isEmpty()) {
+            Debugger.println("Expected TumourDescription Step-def - not empty :" + expectedTumourDescription);
+            Assert.assertTrue(actualSampleTestData.contains(expectedTumourDescription));
+        }
+        return true;
+    }
 
 }

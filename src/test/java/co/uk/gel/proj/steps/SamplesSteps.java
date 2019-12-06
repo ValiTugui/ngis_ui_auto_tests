@@ -321,14 +321,13 @@ public class SamplesSteps extends Pages {
         for (int i = 0; i < headerRow.size(); i++) {
             expectedHeaders.add(headerRow.get(i));
             Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
-            Debugger.println("Actual Sample Table columns: " +  actualHeaders.get(i));
+            Debugger.println("Actual Sample Table columns: " + actualHeaders.get(i));
             Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
         }
         Debugger.println("Expected Table columns: " + expectedHeaders);
         Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
-
 
     @And("on the Manage Samples page, the new sample details are displayed in the sample table list")
     public void onTheManageSamplesPageTheNewSampleDetailsAreDisplayedInTheSampleTableList() {
@@ -342,18 +341,13 @@ public class SamplesSteps extends Pages {
         for (int i = 0; i < expectedSampleTestData.size(); i++) {
             Assert.assertTrue(actualSampleTestData.contains(expectedSampleTestData.get(i)));
         }
-        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
-        Debugger.println("Expected TumourDescription in Step-def :" + expectedTumourDescription);
-        /*If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
-        if (expectedTumourDescription == null) {
-            Debugger.println("Expected TumourDescription Step-def - empty :" + expectedTumourDescription); // Get Tumour Description
-            Assert.assertTrue(actualSampleTestData.contains("-"));
-        }
+        /* Assert if there's Tumour Description */
+        /* If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
         /* if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list */
-        else if (!expectedTumourDescription.isEmpty()) {
-            Debugger.println("Expected TumourDescription Step-def - not empty :" + expectedTumourDescription); // Get Tumour Description
-            Assert.assertTrue(actualSampleTestData.contains(expectedTumourDescription));
-        }
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
+        boolean testResult = false;
+        testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualSampleTestData, expectedTumourDescription);
+        Assert.assertTrue(testResult);
     }
 
     @And("on the Manage Samples page, the child sample's details are properly displayed in the sample table list")
@@ -372,18 +366,12 @@ public class SamplesSteps extends Pages {
         }
 
         /* Assert if there's Tumour Description */
-        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
-
         /* If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
-        if (expectedTumourDescription == null) {
-            Debugger.println("Expected TumourDescription :" + expectedTumourDescription); // Get Tumour Description
-            Assert.assertTrue(actualChildSampleTestData.contains("-"));
-        }
         /* if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list */
-        else if (!expectedTumourDescription.isEmpty()) {
-            Debugger.println("Expected TumourDescription :" + expectedTumourDescription); // Get Tumour Description
-            Assert.assertTrue(actualChildSampleTestData.contains(expectedTumourDescription));
-        }
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
+        boolean testResult = false;
+        testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualChildSampleTestData, expectedTumourDescription);
+        Assert.assertTrue(testResult);
 
         /* Assert Local-Lab ID of Parent match Parent-ID of Child */
         Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
