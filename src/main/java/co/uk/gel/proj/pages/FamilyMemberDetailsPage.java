@@ -502,6 +502,7 @@ public class FamilyMemberDetailsPage {
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
             } catch (Exception exp) {
                 Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp);
+                SeleniumLib.takeAScreenShot("DiseaseDropDown.jpg");
             }
         }
         for (String key : paramsKey) {
@@ -550,16 +551,15 @@ public class FamilyMemberDetailsPage {
 
     public void searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
         try {
-            Wait.seconds(3);
-            if (!seleniumLib.isElementPresent(hpoSearchField)) {
-                seleniumLib.scrollToElement(hpoSearchField);
-            }
+            Wait.forElementToBeDisplayed(driver,hpoSearchField);
+            Wait.forElementToBeClickable(driver,hpoSearchField);
             seleniumLib.clickOnWebElement(hpoSearchField);
             Actions.fillInValue(hpoSearchField, hpoTerm);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
+            SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");
         }
     }
 

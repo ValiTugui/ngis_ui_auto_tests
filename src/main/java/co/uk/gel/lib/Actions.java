@@ -190,7 +190,6 @@ public class Actions {
         }
     }
 
-
     public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues) {
         int index = random.nextInt(dropDownValues.size() - 1);
         boolean flag = true;

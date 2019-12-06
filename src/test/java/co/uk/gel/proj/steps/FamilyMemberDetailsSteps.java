@@ -413,18 +413,29 @@ public class FamilyMemberDetailsSteps extends Pages {
                 return;
             }
             for (int i = 1; i < memberDetails.size(); i++) {
+                Debugger.println("Searching and Adding Family member: "+memberDetails.get(i).get(0));
                 referralPage.navigateToFamilyMemberSearchPage();
                 familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
+                Debugger.println("Verifying Patient details.");
                 familyMemberDetailsPage.verifyPatientRecordDetailsDisplay();
+                Debugger.println("Clicking on Patient Card.");
                 familyMemberDetailsPage.clickPatientCard();
+                Debugger.println("Filling RelationShip to Proband");
                 familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
+                Debugger.println("Reading Details...");
                 familyMemberDetailsPage.readFamilyMemberDetailsFor(memberDetails.get(i).get(1));
                 referralPage.clickSaveAndContinueButton();
+                Debugger.println("continuing...");
                 familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+                Debugger.println("Verified details..");
                 referralPage.clickSaveAndContinueButton();
+                Debugger.println("Continuing to Disease status filling..........");
                 familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
+                Debugger.println("Filled Disease Status Details........");
                 referralPage.clickSaveAndContinueButton();
+                Debugger.println("Continuing.to verify family details in landing page..........");
                 familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+                Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: "+exp);

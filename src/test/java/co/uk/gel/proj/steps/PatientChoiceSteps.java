@@ -54,18 +54,31 @@ public class PatientChoiceSteps extends Pages {
                 return;
             }
             for (int i = 1; i < memberDetails.size(); i++) {
+                Debugger.println("Doing Patient Choice for "+memberDetails.get(i).get(0));
                 patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
+                Debugger.println("PatientChoiceCategory..Start");
                 patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
+                Debugger.println("PatientChoiceCategory..Done");
                 patientChoicePage.selectTestType(memberDetails.get(i).get(2));
+                Debugger.println("TestType..Done");
                 patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
+                Debugger.println("Record Type..Done");
                 patientChoicePage.clickOnContinue();
+                Debugger.println("Continuing.........");
                 patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                Debugger.println("patientChoice..Done");
                 patientChoicePage.clickOnContinue();
+                Debugger.println("Continuing.........");
                 patientChoicePage.selectChildAssent(memberDetails.get(i).get(5));
+                Debugger.println("Child Assent Done.");
                 patientChoicePage.clickOnContinue();
+                Debugger.println("Continuing.........");
                 patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6));
+                Debugger.println("Parent Signature Done...Submitting form");
                 patientChoicePage.submitPatientChoice();
+                Debugger.println("Submitted.........");
                 referralPage.clickSaveAndContinueButton();
+                Debugger.println("Done............");
             }//end
         }catch(Exception exp){
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);

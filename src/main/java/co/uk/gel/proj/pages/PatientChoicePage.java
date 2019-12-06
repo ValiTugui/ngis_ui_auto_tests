@@ -155,7 +155,7 @@ public class PatientChoicePage {
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
             WebElement webElement = driver.findElement(By.xpath(patientChoiceCategory));
             seleniumLib.clickOnWebElement(webElement);
-            Debugger.println("PatientChoiceCategory..Done");
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting PatientChoiceCategory:"+exp);
@@ -171,7 +171,7 @@ public class PatientChoicePage {
             testType = testType.replaceAll("dummyTestType",test_type);
             WebElement webElement = driver.findElement(By.xpath(testType));
             webElement.click();
-            Debugger.println("TestType..Done");
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting PatientChoiceTestType:"+exp);
@@ -222,7 +222,7 @@ public class PatientChoicePage {
             if(uploadDocument){
                 return uploadRecordTypeDocument(fileType);
             }
-            Debugger.println("Record Type..Done");
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in Filling RecordedBy Information: "+exp);
@@ -307,8 +307,7 @@ public class PatientChoicePage {
                 Debugger.println("Patient Choice not done properly.");
                 return false;
             }
-            seleniumLib.scrollToElement(continueButton);
-            Debugger.println("patientChoice..Done");
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting PatientChoice:"+exp);
@@ -352,7 +351,7 @@ public class PatientChoicePage {
                 Debugger.println("Child element could not select.");
                 return false;
             }
-            Debugger.println("Child Assent Done.");
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting ChildAssent:"+exp);
@@ -411,11 +410,19 @@ public class PatientChoicePage {
     }
     public void submitPatientChoice() {
         try {
-           seleniumLib.clickOnWebElement(submitPatientChoice);
-           Wait.seconds(30);
+            Wait.forElementToBeDisplayed(driver,submitPatientChoice);
+            Wait.forElementToBeClickable(driver,submitPatientChoice);
+            seleniumLib.clickOnWebElement(submitPatientChoice);
         } catch (Exception exp) {
-            Debugger.println("Exception from submitting Patient Choice...." + exp);
-            SeleniumLib.takeAScreenShot("SubmitPateintChoice.jpg");
+            try{
+                //Waiting again, as some times it takes long time  - observed 2-3 times.
+                Wait.forElementToBeDisplayed(driver,submitPatientChoice);
+                Wait.forElementToBeClickable(driver,submitPatientChoice);
+                seleniumLib.clickOnWebElement(submitPatientChoice);
+            }catch(Exception exp1) {
+                Debugger.println("Exception from submitting Patient Choice...." + exp);
+                SeleniumLib.takeAScreenShot("SubmitPatientChoice.jpg");
+            }
         }
     }
 
