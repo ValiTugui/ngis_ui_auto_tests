@@ -1,4 +1,4 @@
-@userJourney29
+@userJourneys
 
 Feature: User Journey 29 - Cancer flow
 

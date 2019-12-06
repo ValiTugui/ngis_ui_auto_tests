@@ -3,7 +3,11 @@ package co.uk.gel.config;
 
 import co.uk.gel.proj.util.Debugger;
 import cucumber.api.java.Before;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import co.uk.gel.lib.SeleniumLib;
 import java.util.concurrent.TimeUnit;
@@ -27,7 +31,14 @@ public class SeleniumDriver extends EventFiringWebDriver {
         DRIVER = new BrowserFactory().getDriver();
         DRIVER.manage().deleteAllCookies();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
-        DRIVER.manage().window().maximize();
+        Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();
+        String browserName = cap.getBrowserName().toLowerCase();
+        Debugger.println("BROWSER NAME : " + browserName);
+        if(browserName.equalsIgnoreCase(BrowserConfig.getBrowser())){
+            DRIVER.manage().window().fullscreen();
+        } else {
+            DRIVER.manage().window().maximize();
+        }
         DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }

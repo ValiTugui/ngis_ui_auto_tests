@@ -141,9 +141,9 @@ public class PatientChoicePage {
         return status.equalsIgnoreCase(statuses.get(row).getText());
     }
 
-    public void messageThatPatientChoiceRecordExistsIsDisplayed() {
+    public boolean  messageThatPatientChoiceRecordExistsIsDisplayed(String expectedTextMessage) {
         Wait.forElementToBeDisplayed(driver, recordAlreadyExistsMessage);
-        Assert.assertTrue(recordAlreadyExistsMessage.getText().contains("A patient choice record currently exists for this test referral ID"));
+        return recordAlreadyExistsMessage.getText().contains(expectedTextMessage);
     }
 
     public void addPatientChoiceIsDisplayed() {
