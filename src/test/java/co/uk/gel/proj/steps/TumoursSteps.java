@@ -7,6 +7,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TumourIdentifier;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -413,5 +414,10 @@ public class TumoursSteps extends Pages {
             Assert.assertEquals( expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
         }
 
+    }
+
+    @And("the Tumour description value is reset after test")
+    public void theTumourDescriptionValueIsResetAfterTest() {
+           Assert.assertNull(TumourIdentifier.resetTumourDescriptionForStep());
     }
 }

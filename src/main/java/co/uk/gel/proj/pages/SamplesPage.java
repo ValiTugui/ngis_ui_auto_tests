@@ -167,6 +167,9 @@ public class SamplesPage {
     @FindBy(xpath = "//table//tbody/tr")
     public List<WebElement> listOfSamplesInTheTable;
 
+    @FindBy (css = "h6[class*='styles_text--6']")
+    public WebElement infTextForLinkingSamples;
+
 
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
