@@ -251,6 +251,10 @@ public class ReferralSteps extends Pages {
         String patientType = attributeOfURL.get(3);
         String diseaseType = attributeOfURL.get(4);
         String referralDetails = attributeOfURL.get(5);
+        String userType = null;
+        if(attributeOfURL.size() > 6){
+            userType = attributeOfURL.get(6);
+        }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
@@ -261,7 +265,12 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
-        switchToURL(driver.getCurrentUrl());
+        Debugger.println(" User Type : " + userType);
+        if(userType != null) {
+            switchToURL(driver.getCurrentUrl(), userType);
+        } else {
+            switchToURL(driver.getCurrentUrl());
+        }
         boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
         if(!searchPageLoaded){
             Debugger.println("Search Page Could not load Properly:");

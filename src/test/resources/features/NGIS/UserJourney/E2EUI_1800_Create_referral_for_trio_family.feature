@@ -6,7 +6,7 @@ Feature: Create Referral for Trio Family
   Scenario Outline: E2EUI-1800: USer Journey by creating Referral for Trio Family
 
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000007937:DOB=12-08-1947 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000007937:DOB=12-08-1947 |GEL_SUPER_USER|
     ##Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient
@@ -64,15 +64,14 @@ Feature: Create Referral for Trio Family
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
+    And the user can see the selected panels listed
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-
     ##Pedigress
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
@@ -81,7 +80,7 @@ Feature: Create Referral for Trio Family
       | NHSNumber=2000007937:DOB=12-08-1947 |
       | NHSNumber=9449310122:DOB=30-06-1974 |
 #      | NHSNumber=9449310327:DOB=16-12-1970 |
-#    Then the "<PrintForms>" stage is marked as Completed
+
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |

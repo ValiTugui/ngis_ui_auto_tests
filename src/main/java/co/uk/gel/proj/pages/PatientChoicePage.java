@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
@@ -525,5 +526,18 @@ public class PatientChoicePage {
             return false;
         }
 
+    }
+    public void drawSignature() {
+//        Wait.forElementToBeDisplayed(driver, signatureSection);
+//        Click.element(driver, signatureSection);
+//        Actions builder = new Actions(driver);
+//        Action drawAction = builder.moveToElement(signatureSection,135,15) //start points x axis and y axis.
+//                .clickAndHold()
+//                .moveByOffset(80, 80)
+//                .moveByOffset(50, 20)
+//                .release()
+//                .build();
+//        drawAction.perform();
+//        Wait.seconds(1);
     }
 }//end

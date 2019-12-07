@@ -2,12 +2,15 @@ package co.uk.gel.proj.util;
 
 import com.google.common.base.Splitter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TestUtils {
+
+    static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -26,15 +29,14 @@ public class TestUtils {
         }
 
         // To print key and value
-        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
-        for (Map.Entry eachEntry : allEntries) {
-            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
-        }
+//        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
+//        for (Map.Entry eachEntry : allEntries) {
+//            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
+//        }
 
         return paramNameValue;
 
     }
-
 
     public static String todayInDDMMYYYFormat() {
         SimpleDateFormat expectedFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -86,5 +88,18 @@ public class TestUtils {
         dobInfoAsList.add(2, yearOfBirth);
 
         return dobInfoAsList;
+    }
+    public static void deleteIfFilePresent(String fileName,String downloadLocation){
+        if(downloadLocation == null || downloadLocation.isEmpty()){
+            downloadLocation = defaultDownloadLocation;
+        }
+        File location = new File(downloadLocation);
+        File[] files = location.listFiles();
+        for(int i=0; i<files.length; i++){
+            if(files[i].getName().startsWith(fileName)){
+                files[i].delete();
+                break;
+            }
+        }
     }
 }

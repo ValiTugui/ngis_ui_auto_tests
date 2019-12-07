@@ -39,6 +39,8 @@ public class PrintFormsPage {
                 Debugger.println("NHS Number not provided to edit the patient choice.");
                 return false;
             }
+            //Delete if File already present
+            TestUtils.deleteIfFilePresent("SampleForm","");
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
             WebElement element = driver.findElement(downloadForm);

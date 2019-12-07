@@ -263,7 +263,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 nextButton.click();
         }
         */
-    public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+    //public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+        public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser....");
         try {
             Wait.seconds(5);
