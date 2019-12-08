@@ -51,12 +51,25 @@ public class PrintFormsPage {
                 return false;
             }
             //Delete if File already present
+            Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm","");
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
+            Debugger.println("Downloading for NHS ends with: "+nhsLastFour);
             By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
             WebElement element = driver.findElement(downloadForm);
-            element.click();
-            Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+            if(Wait.isElementDisplayed(driver,element,30)) {
+                element.click();
+                Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+            }else{
+                //Wait for another 30 seconds more
+                if(Wait.isElementDisplayed(driver,element,30)) {
+                    element.click();
+                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                }else{
+                    Debugger.println("Form download option could not locate.");
+                    return false;
+                }
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from  downloading Print form for specific NHSNumber:"+exp);
