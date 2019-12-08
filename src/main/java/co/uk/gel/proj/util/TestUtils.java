@@ -96,6 +96,9 @@ public class TestUtils {
         }
         File location = new File(downloadLocation);
         File[] files = location.listFiles();
+        if(files == null || files.length <1){
+            return;
+        }
         for(int i=0; i<files.length; i++){
             if(files[i].getName().startsWith(fileName)){
                 Debugger.println("File:"+files[i].getName()+" deleted.");
