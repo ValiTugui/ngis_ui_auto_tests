@@ -1,9 +1,9 @@
 @regression
 @UserJourney
-Feature: Create Referral for Trio Family
+Feature: Create Spine Referral and Revoke for Trio Family
 
   @E2EUI-1800 @LOGOUT @BVT-P0 @v_1
-  Scenario Outline: E2EUI-1800: User Journey by creating Referral for Trio Family - By Signature
+  Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
 
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000007945:DOB=07-06-1963 | GEL_SUPER_USER |
