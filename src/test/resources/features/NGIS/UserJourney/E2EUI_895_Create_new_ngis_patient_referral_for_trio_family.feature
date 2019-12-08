@@ -1,12 +1,12 @@
 @regression
 @UserJourney
-Feature: Create Spine Referral and Revoke for Trio Family
+Feature: Create New NGIS Patient Referral for Trio Family
 
-  @E2EUI-1800 @LOGOUT @BVT-P0 @v_1
-  Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
+  @E2EUI-895 @LOGOUT @BVT-P0 @v_1
+  Scenario Outline: E2EUI-895: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000007945:DOB=07-06-1963 | GEL_SUPER_USER |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient
@@ -50,18 +50,16 @@ Feature: Create Spine Referral and Revoke for Trio Family
     When the user adds "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=2000007872:DOB=19-08-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=2000008127:DOB=11-03-1942 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     #Patient Choice - Family Details Provided below should be same as the Proband and Family details provided
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
-      | NHSNumber=2000007945:DOB=07-06-1963 | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=2000008461:DOB=14-05-1931 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=2000007872:DOB=19-08-1939 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
+      | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
+      | NHSNumber=2000008461:DOB=14-05-1931 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
+      | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
 #      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-    Then the "<PatientChoice>" stage is marked as Completed
     #Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
@@ -78,16 +76,9 @@ Feature: Create Spine Referral and Revoke for Trio Family
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 |
-      | NHSNumber=2000007945:DOB=07-06-1963 |
       | NHSNumber=2000008461:DOB=14-05-1931 |
-      | NHSNumber=2000007872:DOB=19-08-1939 |
-    ##Sobmitting Referral and Cancel Referral
-    When the user submits the referral
-    And the user clicks the Cancel referral link
-    And the user selects the cancellation reason "The referral has been paused or stopped (“Revoke”)" from the modal
-    And the user submits the cancellation
-    Then the message should display as "<RevokeMessage>"
+      | NHSNumber=2000008127:DOB=11-03-1942 |
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |RevokeMessage|
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms |This referral has been cancelled so further changes might not take effect            |
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |

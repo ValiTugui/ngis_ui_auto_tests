@@ -51,7 +51,6 @@ public class PatientChoiceSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
-                return;
             }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Doing Patient Choice for "+memberDetails.get(i).get(0));

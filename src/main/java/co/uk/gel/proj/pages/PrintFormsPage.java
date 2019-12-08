@@ -53,7 +53,7 @@ public class PrintFormsPage {
             //Delete if File already present
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm","");
-            String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
+            String nhsLastFour = nhsNumber.substring(6,10);//Assuming NHSNumber is always 10 digit.
             Debugger.println("Downloading for NHS ends with: "+nhsLastFour);
             By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
             WebElement element = driver.findElement(downloadForm);

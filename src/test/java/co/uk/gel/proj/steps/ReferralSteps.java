@@ -104,7 +104,6 @@ public class ReferralSteps extends Pages {
         referralPage.clickSaveAndContinueButton();
     }
 
-
     @And("the {string} patient details searched for are the same in the referral header bar")
     public void thePatientDetailsSearchedForAreTheSameInTheReferralHeaderBar(String patientType) {
 
@@ -276,7 +275,6 @@ public class ReferralSteps extends Pages {
             Debugger.println("Search Page Could not load Properly:");
             Assert.assertFalse("Search Page not loaded successfully.",true);
         }
-
         //Wait.seconds();
         if (patientType.equalsIgnoreCase("NGIS") || patientType.equalsIgnoreCase("SPINE")) {
             //Create NGIS Patient with the given Details and the use for referral Creation
@@ -342,6 +340,54 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot("ToDoList.jpg");
             Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
         }
+    }
+    @Given("a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service")
+    public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
+        boolean toDoListDisplayed;
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String searchTerm = attributeOfURL.get(2);
+        String patientType = attributeOfURL.get(3);
+        String diseaseType = attributeOfURL.get(4);
+        String reasonForNoNHSNumber = attributeOfURL.get(5);
+        String userType = null;
+        if(attributeOfURL.size() > 6){
+            userType = attributeOfURL.get(6);
+        }
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        Debugger.println(" User Type : " + userType);
+        if(userType != null) {
+            switchToURL(driver.getCurrentUrl(), userType);
+        } else {
+            switchToURL(driver.getCurrentUrl());
+        }
+        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        patientSearchPage.clickSearchButtonByXpath(driver);
+        String actualSearchResult = patientSearchPage.getPatientSearchNoResult();
+        Assert.assertEquals("No patient found", actualSearchResult);
+        patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
+        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        patientDetailsPage.newPatientPageIsDisplayed();
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.patientIsCreated();
+        patientDetailsPage.clickStartNewReferralButton();
+        referralPage.checkThatReferralWasSuccessfullyCreated();
+        referralPage.saveAndContinueButtonIsDisplayed();
     }
 
     @And("the success notification is displayed {string}")

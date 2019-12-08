@@ -299,7 +299,7 @@ public class PatientChoicePage {
 
             WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Patient choices')]"));
             Wait.forElementToBeDisplayed(driver,titleElement);
-            //Actions.scrollToTop();
+
             patientChoice = patientChoice.replaceAll("dummyChoice",patient_choice);
             WebElement webElement;
             try {
@@ -330,7 +330,9 @@ public class PatientChoicePage {
                 return true;
             }
             WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Child assent')]"));
-            Wait.forElementToBeDisplayed(driver,titleElement);
+            if(!Wait.isElementDisplayed(driver,titleElement,100)){
+                return true;//Child assent not present and may not be required - for new patient's family members
+            }
             Actions.scrollToTop(driver);
             childAssent = childAssent.replaceAll("dummyAssent",child_assent);
             Wait.seconds(1);
@@ -340,8 +342,6 @@ public class PatientChoicePage {
             }else{
                 if(Wait.isElementDisplayed(driver,webElement,30)){
                     webElement.click();
-                }else{
-
                 }
             }
             if(child_assent.equalsIgnoreCase("Yes")){//Click on Signature board
@@ -366,18 +366,14 @@ public class PatientChoicePage {
     public boolean fillParentSignatureDetails(String parentDetails) {
         try {
             if(parentDetails == null || parentDetails.isEmpty()){
+                //Signature
+                if(!SeleniumLib.drawSignature(signatureSection)) {//Patient Signature only.
+                    Debugger.println("Signature could not draw.. continuing with Click.");
+                    signaturePad.click();
+                }
                 return true;
             }
-            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Parent/Guardian signature')]"));
-            Wait.forElementToBeDisplayed(driver,titleElement);
-            if(!Wait.isElementDisplayed(driver,sectionTitle_ParentGuardianSignature,180)){//Typically this takes time 1-2 minutes
-                Debugger.println("ParentGuardianSignature section not loaded even after waiting time. Failing.");
-                SeleniumLib.takeAScreenShot("parentGuardianSign.jpg");
-                return false;
-            }
-            Wait.seconds(5);
-
-            //seleniumLib.scrollToElement(sectionTitle_ParentGuardianSignature);
+            //Parent/Guardian details and signature.
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(parentDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
