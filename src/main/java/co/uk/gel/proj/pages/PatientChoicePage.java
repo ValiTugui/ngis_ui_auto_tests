@@ -7,15 +7,17 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
 
 public class PatientChoicePage {
 
@@ -49,12 +51,18 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='m-signature-pad--body']//canvas")
     WebElement signaturePad;
+    @FindBy(xpath = "//*[contains(@id,'signature-pad')]//child::canvas")
+    public WebElement signatureSection;
 
     @FindBy(xpath = "//label[contains(text(),'Parent/Guardian first name')]/following-sibling::input")
     WebElement parentFirstName;
 
     @FindBy(xpath = "//label[contains(text(),'Parent/Guardian last name')]/following-sibling::input")
     WebElement parentLastName;
+
+    @FindBy(xpath = "//h5[text()='Parent/Guardian signature']")
+    WebElement parentGuardianSignatureLabel;
+
 
     @FindBy(xpath = "//button[@class='btn submit-signature-button']")
     WebElement submitPatientChoice;
@@ -327,32 +335,26 @@ public class PatientChoicePage {
             childAssent = childAssent.replaceAll("dummyAssent",child_assent);
             Wait.seconds(1);
             WebElement webElement = driver.findElement(By.xpath(childAssent));
-            if(!Wait.isElementDisplayed(driver,webElement,10)){
-                Debugger.println("Waiting for Child assent options...");
-                Wait.seconds(2);
+            if(Wait.isElementDisplayed(driver,webElement,10)){
+                webElement.click();
+            }else{
+                if(Wait.isElementDisplayed(driver,webElement,30)){
+                    webElement.click();
+                }else{
+
+                }
             }
-            webElement.click();
             if(child_assent.equalsIgnoreCase("Yes")){//Click on Signature board
                 Debugger.println("Signing Child Assent Signature...");
-                try {
-                    Wait.forElementToBeDisplayed(driver, signaturePad, 30);
-                }catch (TimeoutException texp){
-                    Debugger.println("Signature Pad not preset, selecting child assent again...");
-                    seleniumLib.clickOnWebElement(webElement);
-                    Wait.seconds(5);
+                if(!SeleniumLib.drawSignature(signatureSection)){
+                    seleniumLib.clickOnWebElement(signaturePad);
                 }
-                if(!Wait.isElementDisplayed(driver,signaturePad,3)){
-                    Debugger.println("Signature Board Not loaded for ChildAssent.");
-                    return false;
-                }
-                seleniumLib.clickOnWebElement(signaturePad);
+                Debugger.println("Signed Child Assent Signature...");
             }
-
-            if(!Wait.isElementDisplayed(driver,continueButton,10)){
+            if(!Wait.isElementDisplayed(driver,continueButton,60)){
                 Debugger.println("Child element could not select.");
                 return false;
             }
-
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting ChildAssent:"+exp);
@@ -373,7 +375,9 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("parentGuardianSign.jpg");
                 return false;
             }
-            seleniumLib.scrollToElement(sectionTitle_ParentGuardianSignature);
+            Wait.seconds(5);
+
+            //seleniumLib.scrollToElement(sectionTitle_ParentGuardianSignature);
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(parentDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
@@ -390,17 +394,13 @@ public class PatientChoicePage {
                         break;
                 }//switch
             }//for
-
             //Signature
-            if(Wait.isElementDisplayed(driver,signaturePad,100)) {
-                seleniumLib.clickOnWebElement(signaturePad);
+            if(!SeleniumLib.drawSignature(signatureSection)) {
+                Debugger.println("Signature could not draw.. continuing with Click.");
+                signaturePad.click();
             }
-            if(Wait.isElementDisplayed(driver,submitPatientChoice,100)) {
-                seleniumLib.scrollToElement(submitPatientChoice);
-                seleniumLib.clickOnWebElement(submitPatientChoice);
-            }else{
-                Debugger.println("Submit patient choice option not displayed. Failing...");
-                SeleniumLib.takeAScreenShot("submitPatientChoice.jpg");
+            if(!Wait.isElementDisplayed(driver,parentGuardianSignatureLabel,30)){
+                Debugger.println("Label Patient/Guardian Signature not present....");
             }
             return true;
         }catch(Exception exp){
@@ -409,21 +409,13 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public void submitPatientChoice() {
+    public boolean submitPatientChoice() {
         try {
-            Wait.forElementToBeDisplayed(driver,submitPatientChoice);
-            Wait.forElementToBeClickable(driver,submitPatientChoice);
-            seleniumLib.clickOnWebElement(submitPatientChoice);
+            submitPatientChoice.click();
+            return true;
         } catch (Exception exp) {
-            try{
-                //Waiting again, as some times it takes long time  - observed 2-3 times.
-                Wait.forElementToBeDisplayed(driver,submitPatientChoice);
-                Wait.forElementToBeClickable(driver,submitPatientChoice);
-                seleniumLib.clickOnWebElement(submitPatientChoice);
-            }catch(Exception exp1) {
-                Debugger.println("Exception from submitting Patient Choice...." + exp);
-                SeleniumLib.takeAScreenShot("SubmitPatientChoice.jpg");
-            }
+           Debugger.println("Exception from submitting Patient Choice...." + exp);
+           return false;
         }
     }
 
@@ -527,17 +519,7 @@ public class PatientChoicePage {
         }
 
     }
-    public void drawSignature() {
-//        Wait.forElementToBeDisplayed(driver, signatureSection);
-//        Click.element(driver, signatureSection);
-//        Actions builder = new Actions(driver);
-//        Action drawAction = builder.moveToElement(signatureSection,135,15) //start points x axis and y axis.
-//                .clickAndHold()
-//                .moveByOffset(80, 80)
-//                .moveByOffset(50, 20)
-//                .release()
-//                .build();
-//        drawAction.perform();
-//        Wait.seconds(1);
-    }
+
+
+
 }//end

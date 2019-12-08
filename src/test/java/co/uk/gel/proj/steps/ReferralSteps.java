@@ -355,4 +355,29 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyThePageTitlePresence(title);
         Assert.assertTrue(testResult);
     }
+    //Added for user journey E2EUI-1800
+    @When("the user submits the referral")
+    public void theUserSubmitsTheReferral() {
+        referralPage.submitReferral();
+    }
+    @When("the user clicks the Cancel referral link")
+    public void theUserClicksTheCancelReferralLink() {
+        referralPage.clicksOnCancelReferralLink();
+    }
+
+    @And("the user selects the cancellation reason {string} from the modal")
+    public void theUserSelectsTheCancellationReasonFromTheModal(String cancelReason) {
+        referralPage.selectCancellationReason(cancelReason);
+    }
+
+    @Then("the message should display as {string}")
+    public void theMessageShouldDisplayAs(String revokeMessage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyCancellationMessage(revokeMessage);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user submits the cancellation")
+    public void theUserSubmitsTheCancellation() {
+        referralPage.submitCancellation();
+    }
 }

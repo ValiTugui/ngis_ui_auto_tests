@@ -20,7 +20,13 @@ public class Actions {
     }
 
     public static void selectValueFromDropdown(WebElement dropdownValue, String value) {
-        dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+        try {
+            dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+        }catch (Exception exp){
+            Debugger.println("Phenotype: "+value+", not present in the dropdown values. Check PhenoTypeDDValues.jpg ");
+            SeleniumLib.takeAScreenShot("PhenoTypeDDValues.jpg");
+        }
+
     }
 
     public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {

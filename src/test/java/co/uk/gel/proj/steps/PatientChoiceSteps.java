@@ -58,27 +58,39 @@ public class PatientChoiceSteps extends Pages {
                 patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
                 Debugger.println("PatientChoiceCategory..Start");
                 patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
-                Debugger.println("PatientChoiceCategory..Done");
+                Debugger.println("PatientChoiceCategory..Done. TestType start");
                 patientChoicePage.selectTestType(memberDetails.get(i).get(2));
-                Debugger.println("TestType..Done");
+                Debugger.println("TestType..Done.Record Type start");
                 patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
-                Debugger.println("Record Type..Done");
+                Debugger.println("Record Type..Done..Continuing...");
                 patientChoicePage.clickOnContinue();
-                Debugger.println("Continuing.........");
+                Debugger.println("patientChoice......start");
                 patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
-                Debugger.println("patientChoice..Done");
+                Debugger.println("patientChoice..Done..Continuing");
                 patientChoicePage.clickOnContinue();
-                Debugger.println("Continuing.........");
-                patientChoicePage.selectChildAssent(memberDetails.get(i).get(5));
-                Debugger.println("Child Assent Done.");
+                Debugger.println("Child Assent start");
+                if(!patientChoicePage.selectChildAssent(memberDetails.get(i).get(5))){
+                    Debugger.println("Could not complete Child Assent...");
+                    Assert.assertFalse("Could not complete Child Assent...",true);
+                    continue;
+                }
+                Debugger.println("Child Assent Done. Continuing....");
                 patientChoicePage.clickOnContinue();
-                Debugger.println("Continuing.........");
-                patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6));
+                Debugger.println("Parent Signature....start.");
+                if(!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))){
+                    Debugger.println("Could not complete ParentSignature...");
+                    Assert.assertFalse("Could not complete ParentSignature...",true);
+                    continue;
+                }
                 Debugger.println("Parent Signature Done...Submitting form");
-                patientChoicePage.submitPatientChoice();
-                Debugger.println("Submitted.........");
+                if(!patientChoicePage.submitPatientChoice()){
+                    Debugger.println("Could not Submit Form...");
+                    Assert.assertFalse("Could not Submit form...",true);
+                    continue;
+                }
+                Debugger.println("Submitted.....Continuing");
                 referralPage.clickSaveAndContinueButton();
-                Debugger.println("Done............");
+                Debugger.println("DONE.");
             }//end
         }catch(Exception exp){
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);

@@ -417,7 +417,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                 referralPage.navigateToFamilyMemberSearchPage();
                 familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
                 Debugger.println("Verifying Patient details.");
-                familyMemberDetailsPage.verifyPatientRecordDetailsDisplay();
+                if(!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay()){
+                    Debugger.println("Patient already added...");
+                    continue;
+                }
                 Debugger.println("Clicking on Patient Card.");
                 familyMemberDetailsPage.clickPatientCard();
                 Debugger.println("Filling RelationShip to Proband");

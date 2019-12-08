@@ -4,6 +4,7 @@ import co.uk.gel.proj.util.Debugger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -556,7 +558,7 @@ public class SeleniumLib {
         sleepInSeconds(5);
         try {
             //Copy file path to clipboard
-            Debugger.println("Copying File path to Clipboard: "+path);
+           // Debugger.println("Copying File path to Clipboard: "+path);
             StringSelection ss = new StringSelection(path);
             Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
             sleepInSeconds(5);
@@ -931,6 +933,48 @@ public class SeleniumLib {
 
         }
     }
-
+    public static boolean switchToNewTab(){
+        try {
+            ((JavascriptExecutor) driver).executeScript("window.open()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in switching to new Tab: "+exp);
+            return false;
+        }
+    }
+    public static boolean closeCurrentWindow(){
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.close()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(0));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Could not close current window: "+exp);
+            return false;
+        }
+    }
+    public static boolean drawSignature(WebElement drawArea) {
+        try {
+            Wait.forElementToBeDisplayed(driver, drawArea);
+            Click.element(driver, drawArea);
+            Actions builder = new Actions(driver);
+            Action drawAction = builder.moveToElement(drawArea, 135, 15) //start points x axis and y axis.
+                    .clickAndHold()
+                    .moveByOffset(80, 80)
+                    .moveByOffset(50, 20)
+                    .release()
+                    .build();
+            drawAction.perform();
+            Wait.seconds(1);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("SeleniumLib: Could not draw Signature: "+exp);
+            takeAScreenShot("drawSignature.jpg");
+            return false;
+        }
+    }
 }//end
 

@@ -8,10 +8,12 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +42,11 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header-details']")
     public WebElement referralHeaderRegion;
 
-    @FindBy(css = "button[class*='referral-header__submit']")
-    public WebElement referralSubmitButton;
+    @FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    public WebElement submitReferralButton;
+
+    @FindBy(xpath = "//*[@id='referral__header']//button[text()='Cancel referral']")
+    public WebElement cancelReferralButton;
 
     @FindBy(className = "todo-list")
     public WebElement toDoList;
@@ -201,6 +206,8 @@ public class ReferralPage<check> {
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
 
+    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
+    public WebElement notificationSuccessMessage;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -266,8 +273,13 @@ public class ReferralPage<check> {
     }
 
     public boolean checkThatToDoListSuccessfullyLoaded() {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        return Wait.isElementDisplayed(driver, toDoList, 30);
+        try {
+            Wait.forElementToBeDisplayed(driver, toDoList, 100);
+            return Wait.isElementDisplayed(driver, toDoList, 30);
+        }catch(Exception exp){
+            Debugger.println("ToDoList not listed even after waiting period...waiting for another 30 seconds...");
+            return Wait.isElementDisplayed(driver,toDoList,30);
+        }
     }
 
     public String getPartialUrl(String stage) {
@@ -512,5 +524,62 @@ public class ReferralPage<check> {
         }
         return actualTableHeaders;
     }
+    public void submitReferral(){
+        try{
+            if(Wait.isElementDisplayed(driver,submitReferralButton,100)){
+                submitReferralButton.click();
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from submitting Referral "+exp);
+            SeleniumLib.takeAScreenShot("submitReferral.jpg");
+        }
+    }
+    public void clicksOnCancelReferralLink(){
+        try{
+            if(Wait.isElementDisplayed(driver,cancelReferralLink,100)){
+                cancelReferralLink.click();
+                Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from Cancelling Referral "+exp);
+            SeleniumLib.takeAScreenShot("cancelReferral.jpg");
+        }
+    }
+    public void selectCancellationReason(String reason) {
+        try {
+            Actions.clickElement(driver, cancelReasonDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, reason);
+        }catch(Exception exp){
+            Debugger.println("Exception from cancel drop down: "+exp);
+            SeleniumLib.takeAScreenShot("cancelReferralDD.jpg");
+        }
+    }
 
+    public void submitCancellation() {
+        try {
+            Actions.clickElement(driver, cancelReferralButtons.get(1));
+            Wait.seconds(5);//Waiting for 5 seconds to load the cancellation message.
+        }catch(Exception exp){
+            Debugger.println("Exception from Clicking on cancel Referral: "+exp);
+            SeleniumLib.takeAScreenShot("cancelRefButton.jpg ");
+        }
+    }
+    public boolean verifyCancellationMessage(String expMessage){
+        try{
+             Wait.forElementToBeDisplayed(driver,notificationSuccessMessage);
+            if(!Wait.isElementDisplayed(driver,notificationSuccessMessage,30)){
+                String actMessage = notificationSuccessMessage.getText();
+                if(!expMessage.equalsIgnoreCase(actMessage)) {
+                    Debugger.println("Expected Message: " + expMessage + " not displayed after referral cancellation.ActualMessage:"+actMessage);
+                    return false;
+                }
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from Cancelling Referral."+exp);
+            SeleniumLib.takeAScreenShot("cancelRefMessage.jpg");
+            return false;
+        }
+    }
 }

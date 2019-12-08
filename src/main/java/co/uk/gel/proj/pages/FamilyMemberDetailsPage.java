@@ -537,8 +537,10 @@ public class FamilyMemberDetailsPage {
         boolean isExists = false;
         List<WebElement> rows = seleniumLib.getElements(hpoRows);
         if (rows != null && rows.size() > 0) {
+            Debugger.println("Verifying HPO already exists or not...."+hpoTerm);
             for (WebElement row : rows) {
                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                Debugger.println("hpo.....:"+hpoValue);
                 if (hpoValue.equalsIgnoreCase(hpoTerm)) {
                     isExists = true;
                     Debugger.println("Phenotype already exists:");
@@ -551,12 +553,27 @@ public class FamilyMemberDetailsPage {
 
     public void searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
         try {
-            Wait.forElementToBeDisplayed(driver,hpoSearchField);
+            Debugger.println("Selecting Specified HPOPhenotype: "+hpoTerm);
+            if(!Wait.isElementDisplayed(driver,hpoSearchField,30)){
+                seleniumLib.scrollToElement(hpoSearchField);
+            }
             Wait.forElementToBeClickable(driver,hpoSearchField);
             seleniumLib.clickOnWebElement(hpoSearchField);
+            Debugger.println("Entering phenotype for searching....");
             Actions.fillInValue(hpoSearchField, hpoTerm);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if(!Wait.isElementDisplayed(driver, dropdownValue,30)){
+                if(Wait.isElementDisplayed(driver, dropdownValue,30)){
+                    Debugger.println("Selecting from dropdown values.....");
+                    Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
+                    return;
+                }else{
+                    Debugger.println("Phenotype drop down value not displayed...");
+                    return;
+                }
+            }
+            Debugger.println("Selecting from dropdown values.....");
             Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
+
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
             SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");

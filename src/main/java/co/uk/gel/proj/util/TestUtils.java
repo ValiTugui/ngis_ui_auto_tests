@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
 import com.google.common.base.Splitter;
+import io.cucumber.java.hu.De;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -29,10 +30,10 @@ public class TestUtils {
         }
 
         // To print key and value
-//        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
-//        for (Map.Entry eachEntry : allEntries) {
-//            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
-//        }
+        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
+        for (Map.Entry eachEntry : allEntries) {
+            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
+        }
 
         return paramNameValue;
 
@@ -97,9 +98,28 @@ public class TestUtils {
         File[] files = location.listFiles();
         for(int i=0; i<files.length; i++){
             if(files[i].getName().startsWith(fileName)){
+                Debugger.println("File:"+files[i].getName()+" deleted.");
                 files[i].delete();
                 break;
             }
+        }
+    }
+    public static String getDOBInMonthFormat(String dob) {//as dd-mm-yyyy
+        try {
+            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            String[] dobs = dob.split("-");
+            return dobs[0] + "-" + months[(Integer.parseInt(dobs[1]) - 1)] + "-" + dobs[2];
+        }catch(Exception exp){
+            Debugger.println("Exception DOB IN MONTH format: "+dob);
+            return dob;
+        }
+    }
+    public static String getNHSInSplitFormat(String nhs) {//as dd-mm-yyyy
+        try {//Assume length of NHS is 10 digit
+             return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
+        }catch(Exception exp){
+            Debugger.println("Exception getNHSInSplitFormat: "+nhs);
+            return nhs;
         }
     }
 }
