@@ -95,6 +95,9 @@ public class TestUtils {
             downloadLocation = defaultDownloadLocation;
         }
         File location = new File(downloadLocation);
+        if(location == null){
+            return;
+        }
         File[] files = location.listFiles();
         if(files == null || files.length <1){
             return;
