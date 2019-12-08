@@ -101,6 +101,7 @@ public class PrintFormsPage {
                 return false;
             }
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
+            Debugger.println("PDF file location: "+pathToFile);
             // pdf file with full path name
             driver.get("file:///" + pathToFile);
             Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
