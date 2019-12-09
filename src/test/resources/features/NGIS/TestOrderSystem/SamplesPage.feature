@@ -439,3 +439,30 @@ Feature: Samples Page
 
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_15 @NTS-3364  @P0 @v_1 @E2EUI-2360
+  Scenario Outline: NTS-3364: Add a Sample - Verify the link 'Not the Right Tumour' in 'Add a Sample' page.
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user selects a tumour sample type "<sampleType>" from the system questions page on Add a Sample page
+    Then the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user sees a hyper-text link message below the linked tumour details "Not the right tumour?" on Add a Sample page
+    When the user clicks the Not the right tumour link below the linked tumour details on Add a Sample page
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<notTheRightTumourLink>" button and "<acknowledgeMessage>" it
+    And the "<pageTitle3>" page is displayed
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3              | sampleType          | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
+      | Tumours | Manage samples | Add a sample | Select or edit a tumour | Solid tumour sample | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
+
+
+
+

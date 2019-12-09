@@ -398,4 +398,19 @@ public class SamplesSteps extends Pages {
         samplesPage.clickAddTumourLinkFromErrorMessage();
     }
 
+
+    @And("the user sees a hyper-text link message below the linked tumour details {string} on Add a Sample page")
+    public void theUserSeesAHyperTextLinkMessageBelowTheLinkedTumourDetailsOnAddASamplePage(String expectedTumourTextLink) {
+
+        String actualTumourTextLink = samplesPage.getTheDisplayedTumourTextLinkOnAddASamplePage();
+        Debugger.println("Expected Tumour text link : " + expectedTumourTextLink);
+        Debugger.println("Actual Tumour text link : " + expectedTumourTextLink);
+        Assert.assertEquals(expectedTumourTextLink, actualTumourTextLink);
+    }
+
+    @When("the user clicks the Not the right tumour link below the linked tumour details on Add a Sample page")
+    public void theUserClicksTheNotTheRightTumourLinkBelowTheLinkedTumourDetailsOnAddASamplePage() {
+        samplesPage.clickTheNotTheRightTumourLink();
+    }
+
 }
