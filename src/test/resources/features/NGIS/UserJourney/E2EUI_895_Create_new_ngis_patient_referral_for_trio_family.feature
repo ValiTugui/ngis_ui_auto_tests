@@ -5,6 +5,7 @@ Feature: Create New NGIS Patient Referral for Trio Family
   @E2EUI-895 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: E2EUI-895: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
+    ##Create referral with new patient without providing NHS number
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details
@@ -20,7 +21,7 @@ Feature: Create New NGIS Patient Referral for Trio Family
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package
+    ##Test Package - Trio family - No of participants -3
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -44,7 +45,7 @@ Feature: Create New NGIS Patient Referral for Trio Family
     And the user fills the NotesPage with the "<NotesDetails>"
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members
+    ##Family Members - Family member details to be added - giving existing patient details
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
@@ -52,14 +53,13 @@ Feature: Create New NGIS Patient Referral for Trio Family
       | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=2000008127:DOB=11-03-1942 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
-    #Patient Choice - Family Details Provided below should be same as the Proband and Family details provided
+    #Patient Choice - Family Details Provided below should be same as above (Signature option)
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=2000008461:DOB=14-05-1931 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
       | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
-#      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
     #Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels

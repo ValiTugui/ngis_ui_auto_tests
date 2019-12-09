@@ -5,6 +5,7 @@ Feature: Create Spine Referral and Revoke for Trio Family
   @E2EUI-1800 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
 
+    ##Referral creation  - provide nhs and dob of an existing patient
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000007945:DOB=07-06-1963 | GEL_SUPER_USER |
     ##Patient Details
@@ -20,7 +21,7 @@ Feature: Create Spine Referral and Revoke for Trio Family
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ##Test Package
+    ##Test Package - Trio family - No of participants 3
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -44,7 +45,7 @@ Feature: Create Spine Referral and Revoke for Trio Family
     And the user fills the NotesPage with the "<NotesDetails>"
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members
+    ##Family Members - Adding two members - Father and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
@@ -52,7 +53,7 @@ Feature: Create Spine Referral and Revoke for Trio Family
       | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=2000007872:DOB=19-08-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
-    #Patient Choice - Family Details Provided below should be same as the Proband and Family details provided
+    #Patient Choice - Family Details Provided below same as the Proband and Family Members (Signature option)
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
@@ -68,12 +69,12 @@ Feature: Create Spine Referral and Revoke for Trio Family
     And the user can see the selected panels listed
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    ##Pedigress
+    ##Pedigree - Pedigree by default marked as completed
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ##Print forms
+    ##Print forms - FamilyDetails -same as provided above (proband and Family details)
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
@@ -89,5 +90,5 @@ Feature: Create Spine Referral and Revoke for Trio Family
     Then the message should display as "<RevokeMessage>"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |RevokeMessage|
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms |This referral has been cancelled so further changes might not take effect            |
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |

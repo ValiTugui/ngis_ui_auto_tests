@@ -4,7 +4,7 @@
 Feature: Patient details page
 
 
-  @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1
+  @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -20,7 +20,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1
+  @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -53,7 +53,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1
+  @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -96,7 +96,7 @@ Feature: Patient details page
       | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_NewPatient
-    @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1
+    @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -110,7 +110,7 @@ Feature: Patient details page
 
   @COMP2_TO_NewPatient
     @LOGOUT_BEFORE_TEST @v_1
-    @patientDetails_07 @NTS-3101 @E2EUI-2146 @P0
+    @patientDetails_07 @NTS-3101 @E2EUI-2146 @P0 @BVT_P0
   Scenario Outline: NTS-3101:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-super-user |
