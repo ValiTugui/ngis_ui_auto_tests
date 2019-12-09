@@ -417,4 +417,25 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Omics sample          | Urine       | test                   |
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_14 @NTS-3365 @P0 @v_1 @E2EUI-2359
+  Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user selects a tumour sample type "<sampleType>" from the system questions page on Add a Sample page
+    Then the Add tumour error message is displayed below Sample type field "To select this sample type, add a tumour"
+    When the user clicks the Add a tumour link from the error message
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<addATumourLink>" button and "<acknowledgeMessage>" it
+    Then the "<pageTitle3>" page is displayed
+#
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | pageTitle3   | sampleType          | partOfMessage                                  | addATumourLink | acknowledgeMessage |
+      | Samples | Manage samples | Add a sample | Add a tumour | Solid tumour sample | contains unsaved information. Discard changes? | add a Tumour   | Accept             |
+
+
 

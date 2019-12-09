@@ -187,7 +187,7 @@ public class ReferralSteps extends Pages {
     public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
 
         String actualAlertMessage;
-        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back"))) {
+        if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
             Debugger.println("Clicking " + browserInteraction + " Actual alert in step:" + actualAlertMessage + " Expected part of Message: " + partOfMessage);
             Assert.assertTrue(actualAlertMessage.contains(partOfMessage));
@@ -195,7 +195,6 @@ public class ReferralSteps extends Pages {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
             Debugger.println("Clicking " + browserInteraction + " generate Browser Alert and not JS Web Application Alert:" + actualAlertMessage);
         }
-
     }
 
     @When("the user clicks the Log out button")

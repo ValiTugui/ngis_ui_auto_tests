@@ -379,5 +379,23 @@ public class SamplesSteps extends Pages {
         Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
     }
 
+    @When("the user selects a tumour sample type {string} from the system questions page on Add a Sample page")
+    public void theUserSelectsATumourSampleTypeFromTheSystemQuestionsPageOnAddASamplePage(String sampleType) {
+        samplesPage.selectSampleType(sampleType);
+    }
+
+    @Then("the Add tumour error message is displayed below Sample type field {string}")
+    public void theAddTumourErrorMessageIsDisplayedBelowSampleTypeField(String expectedTumourErrorMessage) {
+
+        String actualErrorMessage = samplesPage.getTheDisplayedAddTumourErrorMessage();
+        Debugger.println("Expected error message :" + expectedTumourErrorMessage);
+        Debugger.println("Actual error message :" + actualErrorMessage);
+        Assert.assertEquals(expectedTumourErrorMessage, actualErrorMessage);
+    }
+
+    @When("the user clicks the Add a tumour link from the error message")
+    public void theUserClicksTheAddATumourLinkFromTheErrorMessage() {
+        samplesPage.clickAddTumourLinkFromErrorMessage();
+    }
 
 }

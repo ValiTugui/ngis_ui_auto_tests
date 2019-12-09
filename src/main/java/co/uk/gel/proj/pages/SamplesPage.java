@@ -442,4 +442,23 @@ public class SamplesPage {
         return true;
     }
 
+    public String getTheDisplayedAddTumourErrorMessage() {
+        Wait.forElementToBeDisplayed(driver, addTumourErrorMessage);
+        return Actions.getText(addTumourErrorMessage);
+    }
+
+    public void clickAddTumourLinkFromErrorMessage() {
+        Actions.retryClickAndIgnoreElementInterception(driver, addTumourLink);
+    }
+
+    public String getTheDisplayedTumourTextLinkOnAddASamplePage(){
+        Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
+        return Actions.getText(notTheRightTumourLink);
+    }
+
+    public void clickTheNotTheRightTumourLink() {
+        Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
+        Actions.retryClickAndIgnoreElementInterception(driver, notTheRightTumourLink);
+    }
+
 }
