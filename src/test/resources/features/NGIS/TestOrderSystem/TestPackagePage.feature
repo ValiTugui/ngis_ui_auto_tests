@@ -3,7 +3,7 @@
 @testPackage
 Feature: Test Package page
 
-  @E2EUI-911 @NTS-3073 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-911 @NTS-3073 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -18,7 +18,7 @@ Feature: Test Package page
       | stage        | title                    | priority        | helpText                                                                          | section        | text                                                                | testInfo           |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | All including burden / signature, This test is for one person only. | Routine, Singleton |
 
-  @E2EUI-911 @NTS-3080 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-911 @NTS-3080 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
   Scenario Outline: NTS-3080 - Test package - Page Layout - Rare Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -90,7 +90,7 @@ Feature: Test Package page
       | Test package | refresh             |
 
 
-  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
   Scenario Outline: NTS-3156 - Test package - selecting Routine for the question priority of the test - Cancer
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
@@ -121,7 +121,7 @@ Feature: Test Package page
       | stage        | priority | previous_priority | new_stage             | priority_label                         | help_text                                                                         | number_of |
       | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | 1         |
 
-  @E2EUI-828 @E2EUI-1585 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-828 @E2EUI-1585 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -176,7 +176,7 @@ Feature: Test Package page
       | stage        | title                    | errorMessage                                                     | count | new_stage             | number_of |
       | Test package | Confirm the test package | Select the total number of participants you expect for this test | 2     | Responsible clinician | 1         |
 
-  @E2EUI-1585 @NTS-3253 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @E2EUI-1585 @NTS-3253 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
   Scenario Outline: NTS-3253 - Test package - If the test is de-selected then Total number of participants field should disappear
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
