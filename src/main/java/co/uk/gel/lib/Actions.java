@@ -23,8 +23,8 @@ public class Actions {
         try {
             dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
         }catch (Exception exp){
-            Debugger.println("Phenotype: "+value+", not present in the dropdown values. Check PhenoTypeDDValues.jpg ");
-            SeleniumLib.takeAScreenShot("PhenoTypeDDValues.jpg");
+            Debugger.println("Dropdown value: "+value+", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:"+dropdownValue);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
         }
 
     }
