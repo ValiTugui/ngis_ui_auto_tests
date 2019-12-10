@@ -405,6 +405,7 @@ Feature: Samples Page
     Then the new sample is displayed in the landing page
 #  <--- User add child sample - non-sample tumour type---------->
     When the user clicks the Add sample button
+    Then the user sees a text below the the Sample-ID on Add a Sample page "Is this sample derived from another sample?"
     And the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user adds a sample as Child sample by selecting a sample row as a Parent Sample on Add a Sample page
     And the user clicks the Save and Continue button

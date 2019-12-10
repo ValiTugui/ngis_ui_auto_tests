@@ -413,4 +413,12 @@ public class SamplesSteps extends Pages {
         samplesPage.clickTheNotTheRightTumourLink();
     }
 
+    @Then("the user sees a text below the the Sample-ID on Add a Sample page {string}")
+    public void theUserSeesATextBelowTheTheSampleIDOnAddASamplePage(String expectedLinkedSampleText) {
+
+        String actualLinkedSampleText = samplesPage.getTheDisplayedSampleTextLinkOnAddASamplePage();
+        Debugger.println("Expected Sample text link : " + expectedLinkedSampleText);
+        Debugger.println("Actual Sample text link : " + actualLinkedSampleText);
+        Assert.assertEquals(expectedLinkedSampleText, actualLinkedSampleText);
+    }
 }
