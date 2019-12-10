@@ -20,7 +20,13 @@ public class Actions {
     }
 
     public static void selectValueFromDropdown(WebElement dropdownValue, String value) {
-        dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+        try {
+            dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+        }catch (Exception exp){
+            Debugger.println("Dropdown value: "+value+", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:"+dropdownValue);
+            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+        }
+
     }
 
     public static void selectByIndexFromDropDown(List<WebElement> dropDownValues, int index) {
@@ -58,9 +64,11 @@ public class Actions {
         return element.getAttribute("class");
     }
 
+
     public static String getAutoCompleteAttribute(WebElement element) {
         return element.getAttribute("autoComplete");
     }
+
 
     public static void fillInValue(WebElement element, String value) {
         element.sendKeys(value);
@@ -187,7 +195,6 @@ public class Actions {
             }
         }
     }
-
 
     public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues) {
         int index = random.nextInt(dropDownValues.size() - 1);

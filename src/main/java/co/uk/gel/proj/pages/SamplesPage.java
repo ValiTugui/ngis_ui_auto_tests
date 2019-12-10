@@ -137,17 +137,18 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
     public WebElement sampleStateSearchIcon;
 
+
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleStateDropDownValues;
 
-    @FindBy(css = "label[for*='sampleType']")
-    public WebElement sampleTypeLabel;
+	@FindBy (css = "label[for*='sampleType']")
+	public WebElement sampleTypeLabel;
 
-    @FindBy(css = "label[for*='sampleState']")
-    public WebElement sampleStateLabel;
+	@FindBy (css = "label[for*='sampleState']")
+	public WebElement sampleStateLabel;
 
-    @FindBy(css = "label[for*='labId']")
-    public WebElement labIdLabel;
+	@FindBy (css = "label[for*='labId']")
+	public WebElement labIdLabel;
 
     @FindBy(css = "*[class*='styles_field-label--error']")
     public List<WebElement> fieldsLabelErrors;
@@ -288,7 +289,6 @@ public class SamplesPage {
         Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
         return actualTumourDetailsFromAddSamplePage;
     }
-
 
     public boolean verifyTheElementsOnAddASamplePage() {
 

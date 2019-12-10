@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,6 +21,8 @@ public class Pages implements Navigable {
     public final String patientSearchURL = "patient-search";
     public final String testOrderLoginURL = "login.microsoft";
     public final String testOrderURL = "test-order";
+    protected String normalUser = "GEL_NORMAL_USER";
+    protected String superUser = "GEL_SUPER_USER";
 
     protected WebDriver driver;
 
@@ -42,6 +45,11 @@ public class Pages implements Navigable {
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
     protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
+    protected PatientChoicePage patientChoicePage;
+    protected PanelsPage panelsPage;
+    protected NotesPage notesPage;
+    protected PedigreePage pedigreePage;
+    protected PrintFormsPage printFormsPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -68,6 +76,13 @@ public class Pages implements Navigable {
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
         familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
+        patientChoicePage = PageFactory.initElements(driver,PatientChoicePage.class);
+        panelsPage = PageFactory.initElements(driver, PanelsPage.class);
+        notesPage = PageFactory.initElements(driver,NotesPage.class);
+        pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
+        printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
+
+
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -109,7 +124,8 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 } else {
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }
             }else {
                 //Log out, if not logged out from previous session
@@ -117,7 +133,9 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 }else{
-                    patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+
                 }
             }
             navigatedURL = driver.getCurrentUrl();
@@ -136,7 +154,8 @@ public class Pages implements Navigable {
             if (currentURL.contains(patientSearchURL)) {
               //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+                patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
         } catch (Exception exp) {
@@ -145,4 +164,22 @@ public class Pages implements Navigable {
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
     }
+    @Override
+    public void switchToURL(String currentURL, String userType) {
+        Debugger.println("Switching URL from: " + currentURL);
+        Wait.seconds(5);
+        try {
+            if (currentURL.contains(patientSearchURL)) {
+                //  Actions.cleanUpSession(driver);
+            } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
+                if(userType.equalsIgnoreCase(normalUser)) {
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                }else if(userType.equalsIgnoreCase(superUser)){
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                }
+            }
+            Debugger.println("Switched URL    : " + driver.getCurrentUrl());
+        } catch (Exception exp) {
+        }
+        }
 }//end class

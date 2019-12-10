@@ -216,6 +216,7 @@ public class SamplesSteps extends Pages {
         actualHelpHintTexts.add(0, "None");
         actualHelpHintTexts.add(1, "None");
 
+
         for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
             Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
@@ -290,6 +291,7 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleFromLandingPage();
     }
 
+
     @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
     public void theUserEditsTheFieldsOnEditASamplePageBySelectingTheSampleTypeSampleStateAndSampleID(String sampleType, String sampleState) {
         samplesPage.selectSampleType(sampleType);
@@ -330,5 +332,6 @@ public class SamplesSteps extends Pages {
         Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
+
 
 }
