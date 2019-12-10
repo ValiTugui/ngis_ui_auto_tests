@@ -102,4 +102,14 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         clinicalQuestionsPage.fillClinicalQuestionPageWithGivenParams(searchDetails);
     }
+
+    @And("the HPO phenotype drop-down is allowed to have values up to {string}")
+    public void theHPOPhenotypeDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
+        Assert.assertTrue(clinicalQuestionsPage.verifyMaxAllowedValuesHPOField(Integer.parseInt(allowedValuesCount)));
+    }
+
+    @And("the OMIM and Oprhanet drop-down is allowed to have values up to {string}")
+    public void theOMIMAndOprhanetDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
+        Assert.assertTrue(clinicalQuestionsPage.verifyMaxAllowedValuesOMIMField(Integer.parseInt(allowedValuesCount)));
+    }
 }

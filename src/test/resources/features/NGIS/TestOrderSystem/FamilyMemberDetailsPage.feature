@@ -154,6 +154,7 @@ Feature: Family Members Details Validation
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 
+
   @COMP8_TO_Familymembers
     @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
   Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
@@ -166,6 +167,7 @@ Feature: Family Members Details Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
+
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
@@ -188,4 +190,5 @@ Feature: Family Members Details Validation
     Examples:
       | Family member          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
+
 
