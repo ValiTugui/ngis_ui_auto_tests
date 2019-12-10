@@ -378,7 +378,7 @@ Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_13 @NTS-3339 @LOGOUT @E2EUI-1791 @v_1 @P0
-  Scenario Outline: Verify family members has completed in to-do list
+  Scenario Outline: Update PatientList component in family member section to use PatientIdentifiers
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310327:DOB=16-12-1970 |
     When the user navigates to the "<Family Members>" stage

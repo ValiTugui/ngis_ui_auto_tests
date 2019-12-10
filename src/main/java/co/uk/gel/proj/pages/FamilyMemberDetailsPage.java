@@ -925,7 +925,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             noOfPatientsForIdentification = noOfPatients;
-            Wait.seconds(2);
+
             Debugger.println("Validating Information of " + noOfPatients + " Patients in Family Member Landing Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != noOfPatients) {

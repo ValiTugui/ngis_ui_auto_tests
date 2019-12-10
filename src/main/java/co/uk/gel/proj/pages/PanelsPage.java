@@ -30,9 +30,6 @@ public class PanelsPage {
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
-//     E2EUI-1278
-
     @FindBy(xpath = "//h3[contains(text(),'Add another panel')]")
     public WebElement addAnotherPanel;
 

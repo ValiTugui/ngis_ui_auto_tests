@@ -40,7 +40,6 @@ public class PanelsSteps extends Pages{
         boolean testResult = false;
         testResult = panelsPage.addedPanelsList();
         Assert.assertTrue(testResult);
-        Wait.seconds(8);
     }
 
     @And("the user should be able to see an intro message {string} on requesting organisation page")
