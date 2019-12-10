@@ -84,11 +84,6 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
         Assert.assertTrue(testResult);
     }
-//
-//    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
-//    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
-//        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
-//    }
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {

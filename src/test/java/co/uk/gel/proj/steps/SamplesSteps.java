@@ -421,4 +421,5 @@ public class SamplesSteps extends Pages {
         Debugger.println("Actual Sample text link : " + actualLinkedSampleText);
         Assert.assertEquals(expectedLinkedSampleText, actualLinkedSampleText);
     }
+
 }

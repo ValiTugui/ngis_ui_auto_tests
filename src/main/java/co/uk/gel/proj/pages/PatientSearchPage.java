@@ -263,7 +263,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 nextButton.click();
         }
         */
-    public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+    //public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+        public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser....");
         try {
             Wait.seconds(5);
@@ -288,7 +289,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.forElementToBeClickable(driver, passwordField);
             passwordField.sendKeys(AppConfig.getApp_password());
             nextButton.click();
-            Wait.seconds(30);
+            Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
         }
@@ -897,11 +898,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
-
     public boolean confirmAutoCompleteOffOnNHSNumberField(){
         Wait.forElementToBeDisplayed(driver, nhsNumber);
         return Actions.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
 
     }
+
 }
 

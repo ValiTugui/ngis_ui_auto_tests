@@ -241,3 +241,4 @@ Feature: Responsible Clinician
     Examples:
       | stage1                | pageTitle                 |
       | Responsible clinician | Add clinician information |
+
