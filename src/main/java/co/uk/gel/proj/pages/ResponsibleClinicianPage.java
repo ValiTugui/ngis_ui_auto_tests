@@ -1,7 +1,10 @@
 package co.uk.gel.proj.pages;
 
 
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
@@ -14,13 +17,15 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ResponsibleClinicianPage {
 
 	WebDriver driver;
 	Faker fake = new Faker();
 
-String key1 = "mainClinician";
+
+    String key1 = "mainClinician";
     String key2 = "additionalClinician1";
     String key3 = "additionalClinician2";
 	public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
@@ -59,6 +64,9 @@ String key1 = "mainClinician";
 
 	@FindBy(css = "label[for*='responsibleClinician.departmentalAddress']")
 	public WebElement clinicianDepartmentAddressLabel;
+
+	@FindBy(xpath = "//label[contains(text(),'Department name and address')]/span")
+	public WebElement clinicianDepartmentAddressLabelWithAsterisk;
 
 	@FindBy(css = "label[for*='responsibleClinician.professionalRegistrationNumber']")
 	public WebElement clinicianProfesionalRegistrationNumberLabel;
@@ -125,6 +133,12 @@ String key1 = "mainClinician";
 
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
+
+	@FindBy(css = "label[for*='additionalClinicians[0].surname']")
+	public WebElement additionalClinician1LastNameLabel;
+
+	String mandatoryLabelAttribute = "label__required-icon";
+	String autoCompleteAttributeOff = "autoComplete_off";
 
 	public void fillInClinicianFormFields() {
 		String firstName = RandomDataCreator.getRandomFirstName();
@@ -242,6 +256,18 @@ String key1 = "mainClinician";
         else return false;
 	}
 
+	public boolean verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(String expectedColourUponError){
+		Wait.forElementToBeDisplayed(driver, additionalClinician1LastNameLabel);
+		Wait.forElementToBeDisplayed(driver, additionalClinician1LastNameField);
+		String lastNameLabelActualColorUponError = additionalClinician1LastNameLabel.getCssValue("color").toString();
+		String lastNameFieldErrorMessageActualColorUponError = clinicianErrorMessages.get(0).getCssValue("color").toString();
+		String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
+        if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
+        	return true;
+		}
+        else return false;
+	}
+
 	public boolean verifyDepartmentalAddressIsDisplayedAsMandatoryField(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentalAddressLabelRequired);
 		// verify the asterisk (*) symbol is shown next to the Departmental Address label on the Responsible Clinician page
@@ -332,6 +358,21 @@ String key1 = "mainClinician";
 	    storeClinicianDataForVerification(key3 , clinicianDetails);
 
 	}
+
+	public void fillInAdditionalClinicianOneFormFieldsExceptLastNameField() {
+		String firstName = RandomDataCreator.getRandomFirstName();
+		String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
+		String email = RandomDataCreator.getRandomEmailAddress();
+		String departmentAddress = RandomDataCreator.getRandomAddress();
+		String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
+
+		Wait.forElementToBeDisplayed(driver, additionalClinician1FirstNameField);
+		Actions.fillInValue(additionalClinician1FirstNameField, firstName);
+		Actions.fillInValue(additionalClinician1PhoneNumberField, phoneNumber);
+		Actions.fillInValue(additionalClinician1EmailField, email);
+		Actions.fillInValue(additionalClinician1DepartmentAddressField, departmentAddress);
+		Actions.fillInValue(additionalClinician1ProfessionalRegistrationNumberField, professionalRegistrationNumber);
+	}
 	public boolean clinicianDetailsArePersistedAtLoad() {
 		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
 		boolean doesFirstNameMatch = Actions.getValue(clinicianFirstNameField).matches(cliniciansMap.get(key1).get(0));
@@ -387,9 +428,17 @@ String key1 = "mainClinician";
 		return clinicianFirstNameField.isEnabled() && clinicianFirstNameLabel.isDisplayed();
 	}
 
+	public boolean firstNameFieldIsEmpty(){
+		return Actions.getText(clinicianFirstNameField).isEmpty();
+	}
+
 	public boolean lastNameFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianLastNameField);
 		return clinicianLastNameField.isEnabled() && clinicianLastNameLabel.isDisplayed();
+	}
+
+	public boolean lastNameFieldIsEmpty(){
+		return Actions.getText(clinicianLastNameField).isEmpty();
 	}
 
 	public boolean emailFieldDisplayed(){
@@ -397,21 +446,33 @@ String key1 = "mainClinician";
 		return clinicianEmailField.isEnabled() && clinicianEmailLabel.isDisplayed();
 	}
 
+	public boolean emailFieldIsEmpty(){
+		return Actions.getText(clinicianEmailField).isEmpty();
+	}
 	public boolean phoneNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
 		return clinicianPhoneNumberField.isEnabled() && clinicianPhoneNumberLabel.isDisplayed();
 	}
 
+	public boolean phoneNumberFieldIsEmpty(){
+		return Actions.getText(clinicianPhoneNumberField).isEmpty();
+	}
 	public boolean departmentNameAndAddressFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
 		return clinicianDepartmentAddressField.isEnabled() && clinicianDepartmentAddressLabel.isDisplayed();
 	}
 
+	public boolean departmentNameAndAddressFieldIsEmpty(){
+		return Actions.getText(clinicianDepartmentAddressField).isEmpty();
+	}
 	public boolean professionalRegistrationNumberFieldDisplayed(){
 		Wait.forElementToBeDisplayed(driver, clinicianProfesionalRegistrationNumberField);
 		return clinicianProfesionalRegistrationNumberField.isEnabled() && clinicianProfesionalRegistrationNumberLabel.isDisplayed();
 	}
 
+	public boolean professionalRegistrationNumberFieldIsEmpty(){
+		return Actions.getText(clinicianProfesionalRegistrationNumberField).isEmpty();
+	}
 	public String getContactSectionTitle(){
 		Wait.forElementToBeDisplayed(driver, clinicianContactSectionLabel);
 		return Actions.getText(clinicianContactSectionLabel);
@@ -420,5 +481,110 @@ String key1 = "mainClinician";
 	public String getContactSectionHelpText(){
 		Wait.forElementToBeDisplayed(driver, clinicianFormInfo);
 		return Actions.getText(clinicianFormInfo);
+	}
+
+	public boolean verifyDepartmentNameAndAddressLabelIsShownAsMandatory(){
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressLabel);
+		Wait.isElementDisplayed(driver, clinicianDepartmentAddressLabelWithAsterisk, 1);
+		return Actions.getClassName(clinicianDepartmentAddressLabelWithAsterisk).contains(mandatoryLabelAttribute);
+	}
+
+	public boolean professionalRegistrationNumberFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1ProfessionalRegistrationNumberField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1ProfessionalRegistrationNumberField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean departmentNameAndAddressFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1DepartmentAddressField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1DepartmentAddressField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean emailFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1EmailField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1EmailField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean phoneNumberFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1PhoneNumberField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1PhoneNumberField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean lastNameFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1LastNameField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1LastNameField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean firstNameFieldIsEmptyForAdditionalClinicianOne(){
+		boolean fieldIsDisplayed = additionalClinician1FirstNameField.isDisplayed();
+		boolean fieldIsBlank = Actions.getText(additionalClinician1FirstNameField).isEmpty();
+		return fieldIsDisplayed && fieldIsBlank;
+	}
+
+	public boolean verifyResponsibleClinicianFieldsAreDisabledWithAutoCompleteFeature(){
+		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+
+		boolean autoCompleteOffClinicianFirstNameField =  Actions.getAutoCompleteAttribute(clinicianFirstNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianLastNameField = Actions.getAutoCompleteAttribute(clinicianLastNameField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianPhoneNumberField =  Actions.getAutoCompleteAttribute(clinicianPhoneNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianEmailField = Actions.getAutoCompleteAttribute(clinicianEmailField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianDepartmentAddressField = Actions.getAutoCompleteAttribute(clinicianDepartmentAddressField).equalsIgnoreCase(autoCompleteAttributeOff);
+		boolean autoCompleteOffClinicianProfessionalRegistrationNumberField = Actions.getAutoCompleteAttribute(clinicianProfesionalRegistrationNumberField).equalsIgnoreCase(autoCompleteAttributeOff);
+
+		if(autoCompleteOffClinicianFirstNameField &&  autoCompleteOffClinicianLastNameField &&
+				autoCompleteOffClinicianPhoneNumberField && autoCompleteOffClinicianEmailField &&
+				autoCompleteOffClinicianDepartmentAddressField && autoCompleteOffClinicianProfessionalRegistrationNumberField )
+		{
+			return true;
+		} else return  false;
+	}
+	//Added for filling up the Responsible clinician page
+	public boolean fillResponsibleClinicianDetails(String clinicalInfo) {
+		try {
+			if(clinicalInfo == null || clinicalInfo.isEmpty()){
+				return true;
+			}
+			HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+			Set<String> paramsKey = paramNameValue.keySet();
+			for (String key : paramsKey) {
+				switch (key) {
+					case "FirstName":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianFirstNameField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "LastName":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianLastNameField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Email":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianEmailField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Department":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianDepartmentAddressField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Registration":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianProfesionalRegistrationNumberField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+				}//switch
+			}//for
+
+			return true;
+		}catch(Exception exp){
+			Debugger.println("Exception in Filling ResponsibleClinician Information: "+exp);
+			SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
+			return false;
+		}
 	}
 }

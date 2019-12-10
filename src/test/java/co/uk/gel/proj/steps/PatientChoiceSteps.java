@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -43,6 +44,57 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         patientChoicePage.submitPatientChoice();
     }
+    @When("the user edits patient choice for {string} family members with the below details")
+    public void theUserEditsPatientChoiceForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+        try {
+            int noOfParticipants = Integer.parseInt(noParticipant);
+            List<List<String>> memberDetails = inputDetails.asLists();
+            if(memberDetails.size() < noOfParticipants){
+                Debugger.println("No of Participants mentioned and details provided are not matching.");
+            }
+            for (int i = 1; i < memberDetails.size(); i++) {
+                Debugger.println("Doing Patient Choice for "+memberDetails.get(i).get(0));
+                patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
+                Debugger.println("PatientChoiceCategory..Start");
+                patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
+                Debugger.println("PatientChoiceCategory..Done. TestType start");
+                patientChoicePage.selectTestType(memberDetails.get(i).get(2));
+                Debugger.println("TestType..Done.Record Type start");
+                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
+                Debugger.println("Record Type..Done..Continuing...");
+                patientChoicePage.clickOnContinue();
+                Debugger.println("patientChoice......start");
+                patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                Debugger.println("patientChoice..Done..Continuing");
+                patientChoicePage.clickOnContinue();
+                Debugger.println("Child Assent start");
+                if(!patientChoicePage.selectChildAssent(memberDetails.get(i).get(5))){
+                    Debugger.println("Could not complete Child Assent...");
+                    Assert.assertFalse("Could not complete Child Assent...",true);
+                    continue;
+                }
+                Debugger.println("Child Assent Done. Continuing....");
+                patientChoicePage.clickOnContinue();
+                Debugger.println("Parent Signature....start.");
+                if(!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))){
+                    Debugger.println("Could not complete ParentSignature...");
+                    Assert.assertFalse("Could not complete ParentSignature...",true);
+                    continue;
+                }
+                Debugger.println("Parent Signature Done...Submitting form");
+                if(!patientChoicePage.submitPatientChoice()){
+                    Debugger.println("Could not Submit Form...");
+                    Assert.assertFalse("Could not Submit form...",true);
+                    continue;
+                }
+                Debugger.println("Submitted.....Continuing");
+                referralPage.clickSaveAndContinueButton();
+                Debugger.println("DONE.");
+            }//end
+        }catch(Exception exp){
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);
+        }
+    }
 
     @And("the user sees the patient choice status as {string}")
     public void theUserSeesThePatientChoiceStatus(String status) {
@@ -58,6 +110,9 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
-
+    //This step is for Notes, page. included here as there is only one method need for that page .So not created a separate stepdef
+    @And("the user fills the NotesPage with the {string}")
+    public void theUserFillsTheNotesPageWithThe(String notes) {
+        notesPage.fillNotes(notes);
+    }
 }//end
