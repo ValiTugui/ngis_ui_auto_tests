@@ -151,4 +151,18 @@ public class PatientDetailsSteps extends Pages {
     public void theEthnicityDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
        Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
     }
+    @Then("the patient's referrals are displayed at the bottom of the page")
+    public void thePatientSReferralsAreDisplayedAtTheBottomOfThePage() {
+        Assert.assertTrue(patientDetailsPage.patientReferralsAreDisplayed());
+    }
+
+    @And("the referral status from the card is {string}")
+    public void theReferralStatusFromTheCardIs(String expectedStatus) {
+        Assert.assertTrue(patientDetailsPage.verifyReferralStatus(expectedStatus));
+    }
+
+    @And("the referral cancel reason from the card is {string}")
+    public void theReferralCancelReasonFromTheCardIs(String expectedReason) {
+        Assert.assertTrue(patientDetailsPage.verifyReferralReason(expectedReason));
+    }
 }

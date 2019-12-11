@@ -128,4 +128,11 @@ public class TestUtils {
             return nhs;
         }
     }
+
+    public static String insertWhiteSpaceAfterEveryNthCharacter(String textToBeModified, String position){
+        String in = textToBeModified;
+        String val = position;
+        String result = in.replaceAll("(.{" + val + "})", "$1 ").trim();
+        return result;
+    }
 }

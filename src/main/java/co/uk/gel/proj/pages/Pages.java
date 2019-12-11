@@ -81,8 +81,6 @@ public class Pages implements Navigable {
         notesPage = PageFactory.initElements(driver,NotesPage.class);
         pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
-
-
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -124,7 +122,6 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 } else {
-                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }
             }else {
@@ -133,9 +130,7 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 }else{
-                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
-
                 }
             }
             navigatedURL = driver.getCurrentUrl();
@@ -152,9 +147,8 @@ public class Pages implements Navigable {
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
-              //  Actions.cleanUpSession(driver);
+                //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                 patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
@@ -180,6 +174,9 @@ public class Pages implements Navigable {
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
         } catch (Exception exp) {
+            Debugger.println("Exception from Switch URL: "+exp);
+            SeleniumLib.takeAScreenShot("SwitchURLException.jpg");
+            Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
-        }
+    }
 }//end class

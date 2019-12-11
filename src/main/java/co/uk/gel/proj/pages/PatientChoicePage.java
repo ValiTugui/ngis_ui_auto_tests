@@ -9,9 +9,10 @@ import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
+
 
 import java.io.File;
 import java.sql.Driver;
@@ -21,6 +22,37 @@ public class PatientChoicePage {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
+
+    public PatientChoicePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
+    }
+
+    String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
+
+    @FindBy(xpath = "//h2[contains(text(),'Form library')]")
+    WebElement formLibraryTitle;
+
+    @FindBy(xpath = "//h4[@class='form-section-header']")
+    List<WebElement> patientChoiceFormsAndInformationTitle;
+
+    @FindBy(xpath = "//a[@class='form-link']")
+    List<WebElement> formLibraryLinks;
+
+    //2039
+    @FindBy(xpath = "//button[@aria-label='edit button']")
+    public List<WebElement> editPatientChoice2;
+
+    @FindBy(xpath = "//div[text()='Patient choice category']/following::button[text()='Edit']")
+    public WebElement editButtonPatientChoiceCategory;
+
+    String selectedOption = "//div[@class='current-value'][contains(text(),'dummyOption')]";
+
+    String editButton = "//div[contains(text(),'dummyOption')]/following::button[@class='edit-button btn']";
+
+    @FindBy(xpath = "//div[contains(text(),'Patient choices')]")
+    WebElement patientChoicesTitle;
 
     @FindBy(xpath = "//button[@aria-label='edit button']")
     public WebElement editPatientChoice;
@@ -80,6 +112,72 @@ public class PatientChoicePage {
     @FindBy(xpath = "//*[@id='route-wrapper']//div[contains(text(),'Parent/Guardian signature')]")
     WebElement sectionTitle_ParentGuardianSignature;
 
+    @FindBy(xpath = "//div[@class='dropdown']")
+    WebElement fileTypeDropDown;
+    @FindBy(xpath = "//input[@placeholder='DD']")
+    WebElement uploadDay;
+    @FindBy(xpath = "//input[@placeholder='MM']")
+    WebElement uploadMonth;
+    @FindBy(xpath = "//input[@placeholder='YYYY']")
+    WebElement uploadYear;
+
+    @FindBy(css = "*[class*='participant-list__']")
+    public WebElement landingPageList;
+
+    @FindBy(css = "*[aria-labelledby*='patientChoiceStatus']")
+    public List<WebElement> statuses;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'edit')]")
+    public List<WebElement> memberEditButton;
+
+    @FindBy(id = "Patient-0")
+    public WebElement adultWithCapacityCategory;
+
+    @FindBy(xpath = "//*[contains(@class,'recordedByContainer')]//child::input")
+    public WebElement recordedByField;
+
+    @FindBy(css = ".btn.cli-nxt-btn")
+    public WebElement recordedByContinueButton;
+
+    @FindBy(css = ".finish-button.btn")
+    public WebElement patientChoicesContinueButton;
+
+    @FindBy(id = "Choices_Q1.0-0")
+    public WebElement agreeTestChoice;
+
+    @FindBy(xpath = "//label[@id='Choices_Q1.0-1']")
+    public WebElement discussionFormNotAvailable;
+
+    @FindBy(id = "Choices_Q1.0-2")
+    public WebElement declineTestChoice;
+
+    @FindBy(xpath = "//label[@id='Choices_Q2.0-1']")
+    public WebElement patientChoiceNotRequiredForTheTest;
+
+
+
+    @FindBy(id = "Choices_Q2.3-0")
+    public WebElement agreeResearchParticipation;
+
+    @FindBy(id = "Choices_Q2.3.1-0")
+    public WebElement agreeSampleUsage;
+
+    @FindBy(css = "button[class*='submit-signature-button']")
+    public WebElement submitSignatureButton;
+
+    @FindBy(css = "button[class*='submit-button']")
+    public WebElement submitButton;
+
+    @FindBy(css = "*[class*='confirmation-header']")
+    public WebElement patientChoiceConfirmation;
+
+    @FindBy(css = "*[class*='message-line']")
+    public WebElement recordAlreadyExistsMessage;
+
+
+
+
+
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
     String patientChoice = "//label[contains(@class,'radio-container')][contains(text(),'dummyChoice')]";
@@ -100,22 +198,6 @@ public class PatientChoicePage {
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator +"testdata"+File.separator;
-
-    @FindBy(xpath = "//div[@class='dropdown']")
-    WebElement fileTypeDropDown;
-    @FindBy(xpath = "//input[@placeholder='DD']")
-    WebElement uploadDay;
-    @FindBy(xpath = "//input[@placeholder='MM']")
-    WebElement uploadMonth;
-    @FindBy(xpath = "//input[@placeholder='YYYY']")
-    WebElement uploadYear;
-
-
-    public PatientChoicePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        seleniumLib = new SeleniumLib(driver);
-    }
 
     public boolean editPatientChoice() {
         try{
@@ -563,30 +645,7 @@ public class PatientChoicePage {
     }
 
     //2110
-    String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
 
-    @FindBy(xpath = "//h2[contains(text(),'Form library')]")
-    WebElement formLibraryTitle;
-
-    @FindBy(xpath = "//h4[@class='form-section-header']")
-    List<WebElement> patientChoiceFormsAndInformationTitle;
-
-    @FindBy(xpath = "//a[@class='form-link']")
-    List<WebElement> formLibraryLinks;
-
-    //2039
-    @FindBy(xpath = "//button[@aria-label='edit button']")
-    public List<WebElement> editPatientChoice2;
-
-    @FindBy(xpath = "//div[text()='Patient choice category']/following::button[text()='Edit']")
-    public WebElement editButtonPatientChoiceCategory;
-
-    String selectedOption = "//div[@class='current-value'][contains(text(),'dummyOption')]";
-
-    String editButton = "//div[contains(text(),'dummyOption')]/following::button[@class='edit-button btn']";
-
-    @FindBy(xpath = "//div[contains(text(),'Patient choices')]")
-    WebElement patientChoicesTitle;
 
     public boolean clickOnPatientChoiceInformationLink(String linkText) {
         try {
@@ -1009,6 +1068,77 @@ public class PatientChoicePage {
         }
         seleniumLib.clickOnWebElement(signaturePad);
         return true;
+    }
+
+    public void selectMember(int i) {
+        Wait.forElementToBeDisplayed(driver, landingPageList);
+        Click.element(driver, memberEditButton.get(i));
+    }
+
+    public void selectPatientChoiceCategory() {
+        Click.element(driver, adultWithCapacityCategory);
+    }
+
+    public void selectTestType() {
+        Click.element(driver, adultWithCapacityCategory);
+    }
+
+    public void enterRecordedByDetails() {
+        Wait.forElementToBeDisplayed(driver, recordedByField);
+        co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
+        Click.element(driver, recordedByContinueButton);
+    }
+
+    public void selectChoicesWithPatientChoiceNotRequired() {
+        Click.element(driver, discussionFormNotAvailable);
+        Click.element(driver, patientChoiceNotRequiredForTheTest);
+        Click.element(driver, patientChoicesContinueButton);
+    }
+
+    public void selectChoicesWithAgreeingTesting() {
+        Click.element(driver, agreeTestChoice);
+        Click.element(driver, agreeResearchParticipation);
+        Click.element(driver, agreeSampleUsage);
+        Click.element(driver, patientChoicesContinueButton);
+    }
+
+    public void drawSignature() {
+        Wait.forElementToBeDisplayed(driver, signatureSection);
+        Click.element(driver, signatureSection);
+        org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
+        Action drawAction = builder.moveToElement(signatureSection,135,15) //start points x axis and y axis.
+                .clickAndHold()
+                .moveByOffset(80, 80)
+                .moveByOffset(50, 20)
+                .release()
+                .build();
+        drawAction.perform();
+        Wait.seconds(1);
+    }
+
+    public void submitPatientChoiceWithSignature() {
+        Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
+        Click.element(driver, submitSignatureButton);
+        Wait.forElementToBeDisplayed(driver, patientChoiceConfirmation, 100);
+    }
+
+    public void submitPatientChoiceWithoutSignature() {
+        Click.element(driver, submitButton);
+        Wait.forElementToBeDisplayed(driver, patientChoiceConfirmation, 100);
+    }
+
+    public boolean statusUpdatedCorrectly(String status, int row) {
+        Wait.forElementToBeDisplayed(driver, landingPageList, 100);
+        return status.equalsIgnoreCase(statuses.get(row).getText());
+    }
+
+    public boolean  messageThatPatientChoiceRecordExistsIsDisplayed(String expectedTextMessage) {
+        Wait.forElementToBeDisplayed(driver, recordAlreadyExistsMessage);
+        return recordAlreadyExistsMessage.getText().contains(expectedTextMessage);
+    }
+
+    public void addPatientChoiceIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, adultWithCapacityCategory);
     }
 
 

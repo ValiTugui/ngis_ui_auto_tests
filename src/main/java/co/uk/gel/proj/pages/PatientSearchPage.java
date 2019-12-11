@@ -263,9 +263,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 nextButton.click();
         }
         */
-    //public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-        public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
-        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser....");
+    public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
+        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
             if (!Wait.isElementDisplayed(driver,emailAddressField,15)) {//If the element is not displayed, even after the waiting time
@@ -324,6 +323,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Click.element(driver, nextButton);
             Wait.seconds(3);
+            Debugger.println(" Logging to TO as user type: "+userType);
         }catch(Exception exp){
             Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
             Assert.assertFalse("Exception in Logging to TO as user type: "+userType+".Exception: "+exp,true);
@@ -904,5 +904,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
+    public void useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(String searchParams){
+        fillInValidSecondPatientDetailsUsingNOFields(searchParams);
+    }
 }
 

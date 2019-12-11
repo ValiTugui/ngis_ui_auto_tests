@@ -1,5 +1,5 @@
 @regression
-@UserJourney
+@userJourneys
 Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
   @E2EUI-1800 @LOGOUT @BVT-P0 @v_1

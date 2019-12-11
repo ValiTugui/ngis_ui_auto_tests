@@ -168,7 +168,9 @@ public class SamplesPage {
     }
 
     public void selectSampleState() {
+        Wait.isElementDisplayed(driver, sampleState, 30);
         Actions.clickElement(driver, sampleState);
+        Wait.seconds(1);
         Actions.selectRandomValueFromDropdown(dropdownValues);
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
