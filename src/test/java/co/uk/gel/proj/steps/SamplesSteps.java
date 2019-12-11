@@ -216,7 +216,6 @@ public class SamplesSteps extends Pages {
         actualHelpHintTexts.add(0, "None");
         actualHelpHintTexts.add(1, "None");
 
-
         for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
             Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
@@ -382,6 +381,48 @@ public class SamplesSteps extends Pages {
         Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
     }
 
+    @When("the user selects a tumour sample type {string} from the system questions page on Add a Sample page")
+    public void theUserSelectsATumourSampleTypeFromTheSystemQuestionsPageOnAddASamplePage(String sampleType) {
+        samplesPage.selectSampleType(sampleType);
+    }
+
+    @Then("the Add tumour error message is displayed below Sample type field {string}")
+    public void theAddTumourErrorMessageIsDisplayedBelowSampleTypeField(String expectedTumourErrorMessage) {
+
+        String actualErrorMessage = samplesPage.getTheDisplayedAddTumourErrorMessage();
+        Debugger.println("Expected error message :" + expectedTumourErrorMessage);
+        Debugger.println("Actual error message :" + actualErrorMessage);
+        Assert.assertEquals(expectedTumourErrorMessage, actualErrorMessage);
+    }
+
+    @When("the user clicks the Add a tumour link from the error message")
+    public void theUserClicksTheAddATumourLinkFromTheErrorMessage() {
+        samplesPage.clickAddTumourLinkFromErrorMessage();
+    }
+
+
+    @And("the user sees a hyper-text link message below the linked tumour details {string} on Add a Sample page")
+    public void theUserSeesAHyperTextLinkMessageBelowTheLinkedTumourDetailsOnAddASamplePage(String expectedTumourTextLink) {
+
+        String actualTumourTextLink = samplesPage.getTheDisplayedTumourTextLinkOnAddASamplePage();
+        Debugger.println("Expected Tumour text link : " + expectedTumourTextLink);
+        Debugger.println("Actual Tumour text link : " + expectedTumourTextLink);
+        Assert.assertEquals(expectedTumourTextLink, actualTumourTextLink);
+    }
+
+    @When("the user clicks the Not the right tumour link below the linked tumour details on Add a Sample page")
+    public void theUserClicksTheNotTheRightTumourLinkBelowTheLinkedTumourDetailsOnAddASamplePage() {
+        samplesPage.clickTheNotTheRightTumourLink();
+    }
+
+    @Then("the user sees a text below the the Sample-ID on Add a Sample page {string}")
+    public void theUserSeesATextBelowTheTheSampleIDOnAddASamplePage(String expectedLinkedSampleText) {
+
+        String actualLinkedSampleText = samplesPage.getTheDisplayedSampleTextLinkOnAddASamplePage();
+        Debugger.println("Expected Sample text link : " + expectedLinkedSampleText);
+        Debugger.println("Actual Sample text link : " + actualLinkedSampleText);
+        Assert.assertEquals(expectedLinkedSampleText, actualLinkedSampleText);
+    }
 
 
 }

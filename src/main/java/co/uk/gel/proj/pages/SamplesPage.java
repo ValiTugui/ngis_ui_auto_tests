@@ -169,7 +169,7 @@ public class SamplesPage {
     public List<WebElement> listOfSamplesInTheTable;
 
     @FindBy (css = "h6[class*='styles_text--6']")
-    public WebElement infTextForLinkingSamples;
+    public WebElement infoTextForLinkingSamples;
 
 
     public void selectSampleType(String type) {
@@ -444,4 +444,29 @@ public class SamplesPage {
         }
         return flag;
     }
+
+    public String getTheDisplayedAddTumourErrorMessage() {
+        Wait.forElementToBeDisplayed(driver, addTumourErrorMessage);
+        return Actions.getText(addTumourErrorMessage);
+    }
+
+    public void clickAddTumourLinkFromErrorMessage() {
+        Actions.retryClickAndIgnoreElementInterception(driver, addTumourLink);
+    }
+
+    public String getTheDisplayedTumourTextLinkOnAddASamplePage(){
+        Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
+        return Actions.getText(notTheRightTumourLink);
+    }
+
+    public void clickTheNotTheRightTumourLink() {
+        Wait.forElementToBeDisplayed(driver, notTheRightTumourLink);
+        Actions.retryClickAndIgnoreElementInterception(driver, notTheRightTumourLink);
+    }
+
+    public String getTheDisplayedSampleTextLinkOnAddASamplePage(){
+        Wait.forElementToBeDisplayed(driver, infoTextForLinkingSamples);
+        return Actions.getText(infoTextForLinkingSamples);
+    }
+
 }

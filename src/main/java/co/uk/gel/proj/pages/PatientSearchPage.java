@@ -667,7 +667,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
+        Wait.forElementToBeDisplayed(driver, searchButton);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -680,7 +680,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateDay);
         expectedElements.add(dateMonth);
         expectedElements.add(dateYear);
-        expectedElements.add(searchButtonByXpath);
+        expectedElements.add(searchButton);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
                 return false;
