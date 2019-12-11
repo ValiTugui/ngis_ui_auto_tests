@@ -54,6 +54,8 @@ public class AppConfig {
         to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");
         MYNewName = properties.getProperty("MYNewName");
         NGIS_Version_URL = properties.getProperty("NGIS_Version_URL");
+        app_superUsername = properties.getProperty("SUPER_USERNAME");
+        app_superPassword = properties.getProperty("SUPER_PASSWORD");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -117,6 +119,7 @@ public class AppConfig {
     public static String getApp_username() {
         return app_username;
     }
+
     public static String getApp_superUsername() {
         return app_superUsername;
     }

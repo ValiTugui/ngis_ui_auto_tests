@@ -293,4 +293,36 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.errorMessageInPatientChoicePage();
         Assert.assertTrue(testResult);
     }
+    @When("the user selects the proband")
+    public void theUserSelectsTheProband() {
+        patientChoicePage.selectMember(0);
+    }
+
+    @And("the user answers the patient choice questions with agreeing to testing")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
+        patientChoicePage.selectPatientChoiceCategory();
+        patientChoicePage.selectTestType();
+        patientChoicePage.enterRecordedByDetails();
+        patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
+        patientChoicePage.submitPatientChoiceWithoutSignature();
+    }
+
+    @And("the user submits the patient choice with signature")
+    public void theUserSubmitsThePatientChoiceWithSignature() {
+        patientChoicePage.submitPatientChoiceWithSignature();
+    }
+
+    @Then("the Patient Choice landing page is updated to {string} for the proband")
+    public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
+        Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
+    }
+
+    @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
+        patientChoicePage.selectPatientChoiceCategory();
+        patientChoicePage.selectTestType();
+        patientChoicePage.enterRecordedByDetails();
+        patientChoicePage.selectChoicesWithAgreeingTesting();
+        patientChoicePage.drawSignature();
+    }
 }//end

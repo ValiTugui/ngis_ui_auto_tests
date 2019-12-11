@@ -7,7 +7,7 @@ Feature: New Patient page
   @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     And the user clicks the "<hyperlinkText>" link from the No Search Results page
@@ -23,7 +23,7 @@ Feature: New Patient page
   @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     And the user clicks the Search button
@@ -39,7 +39,7 @@ Feature: New Patient page
   @newPatientPage_03 @NTS-3150 @E2EUI-2122 @P0 @v_1
   Scenario Outline:NTS-3150:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
