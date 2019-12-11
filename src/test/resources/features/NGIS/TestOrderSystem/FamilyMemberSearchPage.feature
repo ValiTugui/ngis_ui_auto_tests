@@ -107,7 +107,7 @@ Feature: Family Members Search Validation
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | 1 patient record found |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_11 @NTS-3328 @E2EUI-1493 @v_1 @P0
+    @familyMemberSearchPage_11 @NTS-3328 @E2EUI-1493 @BVT_P0 @v_1 @P0
   Scenario Outline:E2EUI-1493: Verify the family member search with valid DOB, First name, Last name and gender displays result message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -151,7 +151,7 @@ Feature: Family Members Search Validation
       | Family members | DOB=29-02-2001   | Check the day and month are valid   | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_14 @NTS-3328 @E2EUI-1205 @v_1 @P0
+    @familyMemberSearchPage_14 @NTS-3328 @E2EUI-1205 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1205: Verify the family member search results Page validation with valid NHS Number and DOB
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -178,7 +178,7 @@ Feature: Family Members Search Validation
       | Family members |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_16 @NTS-3328  @E2EUI-1254 @v_1 @P0
+    @familyMemberSearchPage_16 @NTS-3328  @E2EUI-1254 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1254: Verify the family member search without providing last name displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -204,7 +204,7 @@ Feature: Family Members Search Validation
       | Family members | NHSNumber=1234:DOB=0-0-0 | Please enter your full NHS Number (10 characters),Enter a day between 1 and 31,Enter a month between 1 and 12,Enter a year beyond 1900 | #dd2509              |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_18 @NTS-3328 @E2EUI-983 @v_1 @P0
+    @familyMemberSearchPage_18 @NTS-3328 @E2EUI-983 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-983: Verify the family member search with invalid nhs no and blank DOB displays correct error message
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
@@ -244,7 +244,7 @@ Feature: Family Members Search Validation
       | Family members | FirstName=MADHAV | Enter a day,Enter a month,Enter a year,Last name is required.,Gender is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberSearchPage_21 @LOGOUT @NTS-3328 @E2EUI-1260 @v_1 @P0
+    @familyMemberSearchPage_21 @LOGOUT @NTS-3328 @E2EUI-1260 @BVT_P0 @v_1 @P0
   Scenario Outline: Verify the family member search with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
     And the user navigates to the "<stage>" stage
     When the user clicks on Add family member button

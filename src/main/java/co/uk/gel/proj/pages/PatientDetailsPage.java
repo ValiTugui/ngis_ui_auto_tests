@@ -208,6 +208,7 @@ public class PatientDetailsPage {
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
+    String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
 
 
     public boolean patientDetailsPageIsDisplayed() {
@@ -423,6 +424,19 @@ public class PatientDetailsPage {
             referralListCards.get(0).click();
         else {
             Debugger.println("No referral card found");
+        }
+    }
+
+    public boolean verifyMaxAllowedValuesInEthnicityField(int maxAllowedValues){
+        try {
+            Wait.forElementToBeDisplayed(driver, title);
+            Actions.retryClickAndIgnoreElementInterception(driver, ethnicityButton);
+            int numberOfElements = dropdownValue.findElements(By.xpath(dropDownValuesFromLocator)).size();
+            Debugger.println(" Number of items displayed in Ethnicity Field  : " + numberOfElements);
+            return numberOfElements <= maxAllowedValues;
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value -> " + exp);
+            return false;
         }
     }
 

@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
@@ -20,7 +22,7 @@ public class PrintFormSteps extends Pages {
         super(driver);
     }
 
-    @And("the user is able to download print forms for {string} family members with the below details")
+     @And("the user is able to download print forms for {string} family members with the below details")
     public void theUserDownloadsPrintFormsForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
         try {
             boolean testResult = false;

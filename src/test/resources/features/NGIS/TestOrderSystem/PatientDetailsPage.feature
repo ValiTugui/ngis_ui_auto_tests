@@ -4,7 +4,7 @@
 Feature: Patient details page
 
 
-  @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1
+  @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -20,7 +20,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1
+  @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -53,7 +53,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
       | NGIS                | 9449306680 | 14-06-2011 |
 
-  @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1
+  @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -96,7 +96,7 @@ Feature: Patient details page
       | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_NewPatient
-    @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1
+    @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -110,7 +110,7 @@ Feature: Patient details page
 
   @COMP2_TO_NewPatient
     @LOGOUT_BEFORE_TEST @v_1
-    @patientDetails_07 @NTS-3101 @E2EUI-2146 @P0
+    @patientDetails_07 @NTS-3101 @E2EUI-2146 @P0 @BVT_P0
   Scenario Outline: NTS-3101:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -166,3 +166,18 @@ Feature: Patient details page
     Examples:
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
+
+  @NTS-3346 @E2EUI-995 @P0 @v_1
+  Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues|
+      | NHS Spine           | 9449310602 | 23-03-2011 | 50                  |

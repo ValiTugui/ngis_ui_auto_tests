@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
 import com.google.common.base.Splitter;
+import io.cucumber.java.hu.De;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,6 @@ import java.util.*;
 public class TestUtils {
 
     static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -38,7 +38,6 @@ public class TestUtils {
         return paramNameValue;
 
     }
-
 
     public static String todayInDDMMYYYFormat() {
         SimpleDateFormat expectedFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -91,7 +90,6 @@ public class TestUtils {
 
         return dobInfoAsList;
     }
-
     public static void deleteIfFilePresent(String fileName,String downloadLocation){
         if(downloadLocation == null || downloadLocation.isEmpty()){
             downloadLocation = defaultDownloadLocation;
@@ -122,10 +120,9 @@ public class TestUtils {
             return dob;
         }
     }
-
     public static String getNHSInSplitFormat(String nhs) {//as dd-mm-yyyy
         try {//Assume length of NHS is 10 digit
-            return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
+             return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
         }catch(Exception exp){
             Debugger.println("Exception getNHSInSplitFormat: "+nhs);
             return nhs;

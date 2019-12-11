@@ -103,7 +103,6 @@ public class BrowserFactory {
 
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
-        //return  new ChromeDriver();
         return new ChromeDriver(getChromeOptions(userAgent, javascriptEnabled));
     }
 

@@ -252,8 +252,9 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
 
+
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_11 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857
+    @samplesPage_11 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857 @BVT_P0
   Scenario Outline: NTS-3345:Edit a non tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -286,7 +287,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_12 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857
+    @samplesPage_12 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857 @BVT_P0
   Scenario Outline: NTS-3345: Edit a tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -321,3 +322,4 @@ Feature: Samples Page
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Urine       | test                   | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+

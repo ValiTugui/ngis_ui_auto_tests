@@ -1,3 +1,4 @@
+@regression
 @userJourneys
 
 Feature: User Journey 29 - Cancer flow

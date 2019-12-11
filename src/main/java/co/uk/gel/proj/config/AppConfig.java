@@ -47,6 +47,8 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        app_superUsername = properties.getProperty("SUPER_USERNAME");
+        app_superPassword = properties.getProperty("SUPER_PASSWORD");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");

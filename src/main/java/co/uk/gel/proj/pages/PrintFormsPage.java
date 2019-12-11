@@ -5,6 +5,12 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import io.github.jonathanlink.PDFLayoutTextStripper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -16,16 +22,24 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.List;
 import java.util.Set;
 
 public class PrintFormsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
+
+    public PrintFormsPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
+    }
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
 
     String specificPrintFormDownload = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
@@ -43,14 +57,6 @@ public class PrintFormsPage {
     WebElement sampleInfo;
 
 
-
-
-
-    public PrintFormsPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        seleniumLib = new SeleniumLib(driver);
-    }
 
     public boolean downloadSpecificPrintForm(String familyDetails){
         String nhsNumber = "";
@@ -325,4 +331,4 @@ public class PrintFormsPage {
         return  Actions.getText(sampleInfo);
     }
 
-}
+}//end

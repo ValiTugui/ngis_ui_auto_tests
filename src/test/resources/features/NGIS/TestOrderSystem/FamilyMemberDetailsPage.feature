@@ -10,23 +10,23 @@ Feature: Family Members Details Validation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
-    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the user clicks the Save and Continue button
-    Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
+    And the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
     Examples:
-      | stage          | NhsNumber  | DOB        | ErrorMessage                         | MessageColor |
-      | Family members | 9449310157 | 15-01-2000 | Relationship to proband is required. | #dd2509      |
+      | stage          | FamilyMemberDetails                 | ErrorMessage                         | MessageColor |
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @v_1 @P0
+    @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1349: Verify family member details page - Confirm family member details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
-    When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
@@ -36,15 +36,15 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Select tests for
 
     Examples:
-      | stage          | NhsNumber  | DOB        | RelationshipToProband |
-      | Family members | 9449310165 | 25-12-2000 | Maternal Aunt         |
+      | stage          | FamilyMemberDetails                 | RelationshipToProband |
+      | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Maternal Aunt         |
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_03 @NTS-3298 @E2EUI-1369 @v_1 @P0
   Scenario Outline: E2EUI-1369: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
-    When the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
@@ -53,15 +53,15 @@ Feature: Family Members Details Validation
     Then the message displays as "<ErrorMessage>" in color "<MessageColor>"
 
     Examples:
-      | stage          | NhsNumber  | DOB        | ErrorMessage                         | MessageColor | RelationshipToProband |
-      | Family members | 9449310602 | 23-03-2011 | Relationship to proband is required. | #dd2509      | Full Sibling          |
+      | stage          | FamilyMemberDetails                 | ErrorMessage                         | MessageColor | RelationshipToProband |
+      | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Relationship to proband is required. | #dd2509      | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @LOGOUT @NTS3297 @E2EUI-1012 @v_1 @P0
+    @familyMemberDetailsPage_04 @LOGOUT @NTS3297 @E2EUI-1012 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
-    And the user search a patient with valid NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
@@ -72,8 +72,8 @@ Feature: Family Members Details Validation
     And the user can select the test to add to the family member
 
     Examples:
-      | stage          | NhsNumber  | DOB        | RelationshipToProband |
-      | Family members | 9449310122 | 30-06-1974 | Full Sibling          |
+      | stage          | FamilyMemberDetails                 | RelationshipToProband |
+      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_05 @NTS3309 @E2EUI-1539 @v_1 @P0
@@ -93,7 +93,7 @@ Feature: Family Members Details Validation
 
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @v_1 @P0
+    @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are same as family member
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -153,4 +153,42 @@ Feature: Family Members Details Validation
     Examples:
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
+
+
+  @COMP8_TO_Familymembers
+    @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
+  Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
+    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    When the user navigates to the "<Family member>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+
+    When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+    And the family member banner should display with the editing members information
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
+    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    Then the family member banner should display with the editing members information
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    And the user clicks on edit icon to update patient choice status for family member
+    Then the user is navigated to a page with title Add family member patient choice information
+    And the family member banner should display with the editing members information
+    When the user moves back to previous page
+    Then the user is navigated to a page with title Patient choice
+
+    Examples:
+      | Family member          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
+
 

@@ -2,7 +2,6 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.Constants;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
@@ -13,6 +12,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -45,8 +45,10 @@ public class Pages implements Navigable {
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
     protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
-    protected NotesPage notesPage;
     protected PatientChoicePage patientChoicePage;
+    protected PanelsPage panelsPage;
+    protected NotesPage notesPage;
+    protected PedigreePage pedigreePage;
     protected PrintFormsPage printFormsPage;
 
     public Pages(SeleniumDriver driver) {
@@ -74,8 +76,10 @@ public class Pages implements Navigable {
         globalBehaviourPage = PageFactory.initElements(driver, GlobalBehaviourPage.class);
         familyMemberDetailsPage = PageFactory.initElements(driver, FamilyMemberDetailsPage.class);
         familyMemberNewPatientPage = PageFactory.initElements(driver,FamilyMemberNewPatientPage.class);
-        notesPage = PageFactory.initElements(driver, NotesPage.class);
-        patientChoicePage = PageFactory.initElements(driver, PatientChoicePage.class);
+        patientChoicePage = PageFactory.initElements(driver,PatientChoicePage.class);
+        panelsPage = PageFactory.initElements(driver, PanelsPage.class);
+        notesPage = PageFactory.initElements(driver,NotesPage.class);
+        pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
     }
 
@@ -143,7 +147,7 @@ public class Pages implements Navigable {
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
-              //  Actions.cleanUpSession(driver);
+                //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
             }
@@ -154,14 +158,13 @@ public class Pages implements Navigable {
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
     }
-
     @Override
     public void switchToURL(String currentURL, String userType) {
         Debugger.println("Switching URL from: " + currentURL);
         Wait.seconds(5);
         try {
             if (currentURL.contains(patientSearchURL)) {
-              //  Actions.cleanUpSession(driver);
+                //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 if(userType.equalsIgnoreCase(normalUser)) {
                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);

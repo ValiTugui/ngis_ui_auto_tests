@@ -124,20 +124,19 @@ public class SeleniumLib {
     }
 
     public void clickOnWebElement(WebElement webEle) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, 60);//Default waiting for a minute
-            wait.until(ExpectedConditions.visibilityOf(webEle));
-            if (!webEle.isDisplayed()) {
-                //Waiting for another 30 seconds
-                sleepInSeconds(30);
-            }
-            elementHighlight(webEle);
-            webEle.click();
+       try {
+           WebDriverWait wait = new WebDriverWait(driver, 60);//Default waiting for a minute
+           wait.until(ExpectedConditions.visibilityOf(webEle));
+           if(!webEle.isDisplayed()){
+               //Waiting for another 30 seconds
+               sleepInSeconds(30);
+           }
+           elementHighlight(webEle);
+           webEle.click();
         } catch (Exception exp) {
             try {
                 Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
-                actions.moveToElement(webEle).click();
                 actions.moveToElement(webEle).click();
             } catch (Exception exp1) {
                 Debugger.println("Clicking Via JavaScript....");
@@ -183,7 +182,6 @@ public class SeleniumLib {
             webElement.sendKeys(value);
         }
     }
-
     public void sendValue(WebElement element, String value) {
         if (value == null || value.isEmpty()) {
             return;
@@ -345,7 +343,6 @@ public class SeleniumLib {
             return false;
         }
     }
-
     public boolean isElementClickable(By element) {
         try {
             webElement = getWebElement(element);
@@ -416,7 +413,6 @@ public class SeleniumLib {
             return false;
         }
     }
-
     public boolean JavaScriptClick(WebElement element) {
         try {
             elementHighlight(element);
@@ -441,7 +437,6 @@ public class SeleniumLib {
     public static void refreshPage() {
         driver.navigate().refresh();
     }
-
     /**
      * @param element
      * @return
@@ -563,7 +558,7 @@ public class SeleniumLib {
         sleepInSeconds(5);
         try {
             //Copy file path to clipboard
-            // Debugger.println("Copying File path to Clipboard: "+path);
+           // Debugger.println("Copying File path to Clipboard: "+path);
             StringSelection ss = new StringSelection(path);
             Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
             sleepInSeconds(5);
@@ -586,6 +581,7 @@ public class SeleniumLib {
             Thread.sleep(1000);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
+
             Debugger.println("Checking Alert.");
             if(isAlertPresent()){
                 return false;
@@ -937,7 +933,6 @@ public class SeleniumLib {
 
         }
     }
-
     public static boolean switchToNewTab(){
         try {
             ((JavascriptExecutor) driver).executeScript("window.open()");
@@ -981,6 +976,5 @@ public class SeleniumLib {
             return false;
         }
     }
-
 }//end
 
