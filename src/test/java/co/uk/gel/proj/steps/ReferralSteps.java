@@ -9,6 +9,7 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
@@ -405,6 +406,13 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.clickStartNewReferralButton();
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
+        // Store the Clinical Indication info into the NewPatient test context
+        Debugger.println("PATIENT CI " + referralPage.getPatientClinicalIndication());
+        Debugger.println("PATIENT Referral Id " + referralPage.getPatientReferralId());
+        Debugger.println("PATIENT NGIS Id " + referralPage.getPatientNGISId());
 
+        PatientDetailsPage.newPatient.setClinicalIndication(referralPage.getPatientClinicalIndication());
+        PatientDetailsPage.newPatient.setReferralHumanReadableID(referralPage.getPatientReferralId());
+        patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
     }
 }

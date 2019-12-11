@@ -264,8 +264,13 @@ public class ReferralPage<check> {
     }
 
     public boolean checkThatToDoListSuccessfullyLoaded() {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        return Wait.isElementDisplayed(driver, toDoList, 30);
+        try {
+            Wait.forElementToBeDisplayed(driver, toDoList, 100);
+            return Wait.isElementDisplayed(driver, toDoList, 30);
+        }catch(Exception exp){
+            Debugger.println("ToDoList not listed even after waiting period...waiting for another 30 seconds...");
+            return Wait.isElementDisplayed(driver,toDoList,30);
+        }
     }
 
     public String getPartialUrl(String stage) {
@@ -543,5 +548,23 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, referralStatus);
         return Actions.getText(referralStatus).contains(expectedStatus);
     }
+
+    public String getPatientNGISId(){
+        Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 3);
+        return Actions.getText(referralHeaderPatientNgisId);
+    }
+
+    public String getPatientReferralId(){
+        Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
+        return Actions.getText(referralHeaderReferralId);
+    }
+
+    public String getPatientClinicalIndication(){
+        Wait.isElementDisplayed(driver, referralHeaderClinicalId, 3);
+        return Actions.getText(referralHeaderClinicalId);
+    }
+
+
+
 
 }

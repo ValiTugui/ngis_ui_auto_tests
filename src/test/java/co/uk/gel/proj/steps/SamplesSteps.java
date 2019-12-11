@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -67,6 +68,7 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleType(sampleType);
         samplesPage.selectSampleState();
         samplesPage.fillInSampleID();
+        PatientDetailsPage.newPatient.setSampleType(sampleType);
     }
 
     @When("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state {string} and filling SampleID")

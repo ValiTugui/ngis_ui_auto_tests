@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
@@ -62,7 +63,8 @@ public class TumoursSteps extends Pages {
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         tumoursPage.fillInTumourDescription();
         tumoursPage.fillInDateOfDiagnosis();
-        tumoursPage.selectTumourType(tumourType);
+        String tumour = tumoursPage.selectTumourType(tumourType);
+        PatientDetailsPage.newPatient.setTumourType(tumour);
         tumoursPage.fillInSpecimenID();
     }
 

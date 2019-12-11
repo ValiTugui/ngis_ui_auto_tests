@@ -459,9 +459,9 @@ public class PatientDetailsPage {
         newPatient.setLastName(lastNameValue);
         Actions.fillInValue(familyName, newPatient.getLastName());
 
-        String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 31));
-        String monthOfBirth = String.valueOf(faker.number().numberBetween(1, 12));
-        String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 1977));
+        String dayOfBirth = PatientSearchPage.testData.getDay();
+        String monthOfBirth = PatientSearchPage.testData.getMonth();
+        String yearOfBirth = PatientSearchPage.testData.getYear();
 
         newPatient.setDay(dayOfBirth);
         newPatient.setMonth(monthOfBirth);
@@ -476,13 +476,15 @@ public class PatientDetailsPage {
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
-        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+        String hospitalId = faker.numerify("A#R##BB##");
+        Actions.fillInValue(hospitalNumber, hospitalId);
         Actions.fillInValue(addressLine0, faker.address().buildingNumber());
         Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
         Actions.fillInValue(addressLine2, faker.address().streetName());
         Actions.fillInValue(addressLine3, faker.address().cityName());
         Actions.fillInValue(addressLine4, faker.address().state());
         newPatient.setPostCode(faker.address().zipCode());
+        newPatient.setHospitalNumber(hospitalId);
         String postcodeValue = newPatient.getPostCode();
         Actions.fillInValue(postcode, postcodeValue);
         selectMissingNhsNumberReason(reason);

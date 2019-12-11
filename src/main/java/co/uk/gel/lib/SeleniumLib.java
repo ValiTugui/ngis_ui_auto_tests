@@ -4,18 +4,21 @@ import co.uk.gel.proj.util.Debugger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -120,14 +123,26 @@ public class SeleniumLib {
         }
     }
 
-    public void clickOnWebElement(WebElement webele) {
-       try {
-            webele.click();
+    public void clickOnWebElement(WebElement webEle) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 60);//Default waiting for a minute
+            wait.until(ExpectedConditions.visibilityOf(webEle));
+            if (!webEle.isDisplayed()) {
+                //Waiting for another 30 seconds
+                sleepInSeconds(30);
+            }
+            elementHighlight(webEle);
+            webEle.click();
         } catch (Exception exp) {
             try {
+                Debugger.println("Clicking Via Action....");
                 Actions actions = new Actions(driver);
-                actions.moveToElement(webele).click();
+                actions.moveToElement(webEle).click();
+                actions.moveToElement(webEle).click();
             } catch (Exception exp1) {
+                Debugger.println("Clicking Via JavaScript....");
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].click();", webEle);
                 throw exp1;
             }
         }
@@ -136,6 +151,7 @@ public class SeleniumLib {
     public List<WebElement> getElements(By ele) {
         try {
             waitForElementVisible(driver.findElement(ele));
+            highLightElement(ele);
             return driver.findElements(ele);
         } catch (NoSuchElementException exp) {
             return null;
@@ -167,6 +183,7 @@ public class SeleniumLib {
             webElement.sendKeys(value);
         }
     }
+
     public void sendValue(WebElement element, String value) {
         if (value == null || value.isEmpty()) {
             return;
@@ -328,6 +345,7 @@ public class SeleniumLib {
             return false;
         }
     }
+
     public boolean isElementClickable(By element) {
         try {
             webElement = getWebElement(element);
@@ -399,6 +417,18 @@ public class SeleniumLib {
         }
     }
 
+    public boolean JavaScriptClick(WebElement element) {
+        try {
+            elementHighlight(element);
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception: SeleniumLib: Javascript Click.." + exp);
+            return false;
+        }
+    }
+
     public static WebElement getWebElement(By by) {
         try {
             WebElement element = new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(by));
@@ -411,6 +441,7 @@ public class SeleniumLib {
     public static void refreshPage() {
         driver.navigate().refresh();
     }
+
     /**
      * @param element
      * @return
@@ -524,47 +555,49 @@ public class SeleniumLib {
     //   .................. upload file method.............
 
     public static boolean upload(String path) {
-        WebElement element;
         // Switch to newly opened window
         for (String winHandle : driver.getWindowHandles()) {
+            Debugger.println("Switched to File Upload Window SeleniumLib....");
             driver.switchTo().window(winHandle);
         }
-        sleep(2);
-        element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("file")));
-        if (element != null) {
-            element.click();
-        }
-        sleep(2);
-        //Copy file path to cllipboard
-        StringSelection ss = new StringSelection(path);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-
-        //Java Robot commands to paste the clipboard copy on focused textbox
-        Robot robot = null;
+        sleepInSeconds(5);
         try {
+            //Copy file path to clipboard
+            // Debugger.println("Copying File path to Clipboard: "+path);
+            StringSelection ss = new StringSelection(path);
+            Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
+            sleepInSeconds(5);
+            sysClip.setContents(ss, null);
+            sleepInSeconds(5);
+            //Java Robot commands to paste the clipboard copy on focused textbox
+            Robot robot = null;
+
             robot = new Robot();
+            Thread.sleep(500);
+            Debugger.println("Robot Class Created....");
 
             robot.keyPress(KeyEvent.VK_CONTROL);
             robot.keyPress(KeyEvent.VK_V);
+            Debugger.println("Enter and Control Pressed and Released...");
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
+
+            Debugger.println("Enter Press and Releasing again");
+            Thread.sleep(1000);
             robot.keyPress(KeyEvent.VK_ENTER);
             robot.keyRelease(KeyEvent.VK_ENTER);
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("html/body/form/div/p/input[1]")));
-            element.click();
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value='Close Window']")));
-            element.click();
-            sleep(2);
+            Debugger.println("Checking Alert.");
+            if(isAlertPresent()){
+                return false;
+            }
+            Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
             Debugger.println("Upload Exception from SeleniumLib: " + exp);
             return false;
         }
     }
+
 
     public static boolean isTextPresent(String text) {
         try {
@@ -701,7 +734,7 @@ public class SeleniumLib {
         }
     }
 
-    private boolean isAlertPresent() {
+    static boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
@@ -902,6 +935,50 @@ public class SeleniumLib {
 
         }catch(Exception exp){
 
+        }
+    }
+
+    public static boolean switchToNewTab(){
+        try {
+            ((JavascriptExecutor) driver).executeScript("window.open()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in switching to new Tab: "+exp);
+            return false;
+        }
+    }
+    public static boolean closeCurrentWindow(){
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.close()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(0));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Could not close current window: "+exp);
+            return false;
+        }
+    }
+    public static boolean drawSignature(WebElement drawArea) {
+        try {
+            Wait.forElementToBeDisplayed(driver, drawArea);
+            Click.element(driver, drawArea);
+            Actions builder = new Actions(driver);
+            Action drawAction = builder.moveToElement(drawArea, 135, 15) //start points x axis and y axis.
+                    .clickAndHold()
+                    .moveByOffset(80, 80)
+                    .moveByOffset(50, 20)
+                    .release()
+                    .build();
+            drawAction.perform();
+            Wait.seconds(1);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("SeleniumLib: Could not draw Signature: "+exp);
+            takeAScreenShot("drawSignature.jpg");
+            return false;
         }
     }
 

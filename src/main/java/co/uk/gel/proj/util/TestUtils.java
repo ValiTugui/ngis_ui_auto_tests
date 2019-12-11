@@ -2,12 +2,16 @@ package co.uk.gel.proj.util;
 
 import com.google.common.base.Splitter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TestUtils {
+
+    static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -86,5 +90,52 @@ public class TestUtils {
         dobInfoAsList.add(2, yearOfBirth);
 
         return dobInfoAsList;
+    }
+
+    public static void deleteIfFilePresent(String fileName,String downloadLocation){
+        if(downloadLocation == null || downloadLocation.isEmpty()){
+            downloadLocation = defaultDownloadLocation;
+        }
+        File location = new File(downloadLocation);
+        if(location == null){
+            return;
+        }
+        File[] files = location.listFiles();
+        if(files == null || files.length <1){
+            return;
+        }
+        for(int i=0; i<files.length; i++){
+            if(files[i].getName().startsWith(fileName)){
+                Debugger.println("File:"+files[i].getName()+" deleted.");
+                files[i].delete();
+                break;
+            }
+        }
+    }
+    public static String getDOBInMonthFormat(String dob) {//as dd-mm-yyyy
+        try {
+            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            String[] dobs = dob.split("-");
+            return dobs[0] + "-" + months[(Integer.parseInt(dobs[1]) - 1)] + "-" + dobs[2];
+        }catch(Exception exp){
+            Debugger.println("Exception DOB IN MONTH format: "+dob);
+            return dob;
+        }
+    }
+
+    public static String getNHSInSplitFormat(String nhs) {//as dd-mm-yyyy
+        try {//Assume length of NHS is 10 digit
+            return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
+        }catch(Exception exp){
+            Debugger.println("Exception getNHSInSplitFormat: "+nhs);
+            return nhs;
+        }
+    }
+
+    public static String insertWhiteSpaceAfterEveryNthCharacter(String textToBeModified, String position){
+        String in = textToBeModified;
+        String val = position;
+        String result = in.replaceAll("(.{" + val + "})", "$1 ").trim();
+        return result;
     }
 }

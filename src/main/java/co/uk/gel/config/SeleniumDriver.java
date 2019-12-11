@@ -2,7 +2,6 @@ package co.uk.gel.config;
 
 
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.Before;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
