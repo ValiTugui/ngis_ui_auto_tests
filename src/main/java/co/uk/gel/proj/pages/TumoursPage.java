@@ -169,6 +169,12 @@ public class TumoursPage {
         return description;
     }
 
+    public void fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+        dateYear.sendKeys(yearOfDiagnosis);
+        dateDay.sendKeys(dayOfDiagnosis);
+        dateMonth.sendKeys(monthOfDiagnosis);
+    }
+
     public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
 
         dateDay.sendKeys(dayOfDiagnosis);
@@ -180,6 +186,7 @@ public class TumoursPage {
         Actions.clearField(dateDay);
         Actions.clearField(dateMonth);
         Actions.clearField(dateYear);
+        Wait.seconds(2);
     }
 
     public void fillInDateOfDiagnosis() {
@@ -229,7 +236,9 @@ public class TumoursPage {
         Actions.selectRandomValueFromDropdown(dropdownValues);
         Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+        //Actions.selectRandomValueFromDropdown(dropdownValues);
     }
 
     public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {

@@ -20,6 +20,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import sun.security.ssl.Debug;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -191,6 +192,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
+    String autoCompleteAttributeOff = "autoComplete_off";
 
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
@@ -261,7 +263,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 nextButton.click();
         }
         */
-    public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+    //public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
+        public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsServiceDeskUser....");
         try {
             Wait.seconds(5);
@@ -415,7 +418,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("PatientCard.jpg");
             Assert.assertFalse("PatientCard not found to be clicked.",true);
         }
-        patientCard.click();
+        Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
+        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+        // patientCard.click();
     }
 
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
@@ -662,7 +667,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButton);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -675,7 +680,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(dateDay);
         expectedElements.add(dateMonth);
         expectedElements.add(dateYear);
-        expectedElements.add(searchButton);
+        expectedElements.add(searchButtonByXpath);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
                 return false;
@@ -880,5 +885,24 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
         }
     }
+
+    public String getPatientSearchNoResult() {
+        String noResultText;
+        try {
+            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+            noResultText = Actions.getText(noPatientFoundLabel);
+            Debugger.println("No result " + noResultText);
+            return noResultText;
+        } catch (Exception exp) {
+            Debugger.println("Oops no patient text found " + exp);
+            return null;
+        }
+    }
+    public boolean confirmAutoCompleteOffOnNHSNumberField(){
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        return Actions.getAutoCompleteAttribute(nhsNumber).equalsIgnoreCase(autoCompleteAttributeOff);
+
+    }
+
 }
 
