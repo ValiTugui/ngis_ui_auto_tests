@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -10,7 +9,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -293,7 +291,6 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleFromLandingPage();
     }
 
-
     @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
     public void theUserEditsTheFieldsOnEditASamplePageBySelectingTheSampleTypeSampleStateAndSampleID(String sampleType, String sampleState) {
         samplesPage.selectSampleType(sampleType);
@@ -327,13 +324,64 @@ public class SamplesSteps extends Pages {
         for (int i = 0; i < headerRow.size(); i++) {
             expectedHeaders.add(headerRow.get(i));
             Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
-            Debugger.println("Actual Sample Table columns: " +  actualHeaders.get(i));
+            Debugger.println("Actual Sample Table columns: " + actualHeaders.get(i));
             Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
         }
         Debugger.println("Expected Table columns: " + expectedHeaders);
         Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
+
+    @And("on the Manage Samples page, the new sample details are displayed in the sample table list")
+    public void onTheManageSamplesPageTheNewSampleDetailsAreDisplayedInTheSampleTableList() {
+
+        List<String> expectedSampleTestData = samplesPage.getTheExpectedSampleDetails();
+        List<String> actualSampleTestData = samplesPage.getTheSampleDetailsOnTableList();
+
+        Debugger.println(("Actual Sample Test Data from list: " + actualSampleTestData));
+        Debugger.println(" Expected SampleTestData for list: " + expectedSampleTestData);
+
+        for (int i = 0; i < expectedSampleTestData.size(); i++) {
+            Assert.assertTrue(actualSampleTestData.contains(expectedSampleTestData.get(i)));
+        }
+        /* Assert if there's Tumour Description */
+        /* If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
+        /* if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list */
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
+        boolean testResult = false;
+        testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualSampleTestData, expectedTumourDescription);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("on the Manage Samples page, the child sample's details are properly displayed in the sample table list")
+    public void onTheManageSamplesPageTheChildSampleSDetailsAreProperlyDisplayedInTheSampleTableList() {
+
+        List<String> expectedChildSampleTestData = samplesPage.getTheExpectedSampleDetails();
+        /* index 0 is for parent and index 1 is for child */
+        List<String> actualParentSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(0);
+        List<String> actualChildSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(1);
+        Debugger.println("Actual Parent Sample Test Data: " + actualParentSampleTestData);
+        Debugger.println("Actual Child Sample Test Data: " + actualChildSampleTestData);
+        Debugger.println("Expected Child Sample Test Data: " + expectedChildSampleTestData);
+
+        for (int i = 0; i < expectedChildSampleTestData.size(); i++) {
+            Assert.assertTrue(actualChildSampleTestData.contains(expectedChildSampleTestData.get(i)));
+        }
+
+        /* Assert if there's Tumour Description */
+        /* If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted */
+        /* if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list */
+        String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
+        boolean testResult = false;
+        testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualChildSampleTestData, expectedTumourDescription);
+        Assert.assertTrue(testResult);
+
+        /* Assert Local-Lab ID of Parent match Parent-ID of Child */
+        Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
+        Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
+        Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
+    }
+
 
 
 }

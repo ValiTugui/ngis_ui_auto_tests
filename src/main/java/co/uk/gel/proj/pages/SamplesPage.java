@@ -159,6 +159,18 @@ public class SamplesPage {
     @FindBy(css = "p[class*='styles_text--5']")
     public WebElement subTitlePage;
 
+    @FindBy(xpath = "//table/thead/tr/th[text()!='']")
+    public List<WebElement> samplesTableHeaders;
+
+    @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
+    public List<WebElement> newlyAddedSampleDetailsList;
+
+    @FindBy(xpath = "//table//tbody/tr")
+    public List<WebElement> listOfSamplesInTheTable;
+
+    @FindBy (css = "h6[class*='styles_text--6']")
+    public WebElement infTextForLinkingSamples;
+
 
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
@@ -391,5 +403,45 @@ public class SamplesPage {
 
     public void selectASampleAsParentSample() {
         Actions.clickElement(driver, parentSampleCheckbox);
+    }
+
+    public List<String> getTheSampleDetailsOnTableList() {
+
+        Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+        List<String> actualSampleTestData = new ArrayList<>();
+        for (WebElement sampleDetails : newlyAddedSampleDetailsList) {
+            actualSampleTestData.add(sampleDetails.getText().trim());
+        }
+        Debugger.println("Method Actual-SampleDetails-In List " + actualSampleTestData);
+        return actualSampleTestData;
+    }
+
+    public List<String> getTheParentAndChildSampleDetailsOnTableList(int parentAndChildSampleDetails) {
+
+        /* parentAndChildSampleDetails - index 0 is for parent and index 1 is for child */
+        Wait.forElementToBeDisplayed(driver, samplesLandingPageTable);
+        List<WebElement>parentSampleDetails = listOfSamplesInTheTable.get(parentAndChildSampleDetails).findElements(By.tagName("td"));
+
+        List<String> actualSampleTestData = new ArrayList<>();
+        for (WebElement sampleDetails : parentSampleDetails) {
+            actualSampleTestData.add(sampleDetails.getText().trim());
+        }
+        Debugger.println("Actual-SampleDetails In List " + actualSampleTestData);
+        return actualSampleTestData;
+    }
+
+    public boolean verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(List<String> actualSampleTestData, String expectedTumourDescription) {
+        // If non-sample type is selected, Tumour Description value will be null in Sample table list, NULL value will be asserted
+        boolean flag = false;
+        if (expectedTumourDescription == null) {
+            Debugger.println("Expected TumourDescription Step-def - empty :" + expectedTumourDescription);
+            flag = actualSampleTestData.contains("-");
+        }
+        // if Sample type selected is of Sample-tumour type, Assert the value in the column "Tumour Description" in SampleTable list
+        else if (!expectedTumourDescription.isEmpty()) {
+            Debugger.println("Expected TumourDescription Step-def - not empty :" + expectedTumourDescription);
+            flag = actualSampleTestData.contains(expectedTumourDescription);
+        }
+        return flag;
     }
 }

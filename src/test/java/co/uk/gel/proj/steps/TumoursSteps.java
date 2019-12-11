@@ -14,7 +14,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.text.ParseException;
 import java.util.*;
 
 import static co.uk.gel.lib.Actions.getText;
@@ -415,5 +414,10 @@ public class TumoursSteps extends Pages {
             Assert.assertEquals( expectedTumourTestData.get(i), actualTumourTestDetailsOnAddSamplePage.get(i));
         }
 
+    }
+
+    @And("the Tumour description value is reset after test")
+    public void theTumourDescriptionValueIsResetAfterTest() {
+        Assert.assertNull(tumoursPage.resetTheCurrentTumourDescription());
     }
 }
