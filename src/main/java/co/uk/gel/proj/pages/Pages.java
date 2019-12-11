@@ -50,6 +50,7 @@ public class Pages implements Navigable {
     protected NotesPage notesPage;
     protected PedigreePage pedigreePage;
     protected PrintFormsPage printFormsPage;
+    protected PanelsPage panelPage;
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -81,8 +82,7 @@ public class Pages implements Navigable {
         notesPage = PageFactory.initElements(driver,NotesPage.class);
         pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
-
-
+        panelPage = PageFactory.initElements(driver,PanelsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

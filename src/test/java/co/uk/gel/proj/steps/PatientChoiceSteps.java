@@ -336,5 +336,70 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsDataAndSampleOptionInPatientChoices(String option) {
         patientChoicePage.clickingOnDataAndSampleForResearchYesNoOptions(option);
     }
+//Aftab
+    @Then("the user should be able to see patient hospital number")
+    public void theUserShouldBeAbleToSeePatientHospitalNumber() {
+        boolean testResult = false;
+        testResult = patientChoicePage.patientHospitalNumberInRecordedByOption();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees a back button on Add patient choice information page")
+    public void theUserSeesABackButtonOnAddPatientChoiceInformationPage() {
+        boolean testResult = false ;
+        testResult = patientChoicePage.backButtonOnPatientChoiceInformationPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on back button on Add patient choice information page")
+    public void theUserClicksOnBackButtonOnAddPatientChoiceInformationPage() {
+        boolean testResult = false ;
+        testResult = patientChoicePage.clickOnBackButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user will be able to see an error message as {string}")
+    public void theUserWillBeAbleToSeeAnErrorMessageAs(String errorMessage) {
+        boolean testResult = false ;
+        testResult = patientChoicePage.verifyErrorMessageOnPatientChoiceFormPage(errorMessage);
+        Assert.assertTrue(testResult);
+    }
+
+
+    @Then("the user should be able to see enabled continue button")
+    public void theUserShouldBeAbleToSeeEnabledContinueButton() {
+        boolean testResult = false ;
+        testResult = patientChoicePage.enabledContinueButtonOnPatientChoiceFormPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on submit patient choice Button")
+    public void theUserClicksOnSubmitPatientChoiceButton() {
+        boolean testResult = false ;
+        testResult = patientChoicePage.clickOnSubmitPatientChoiceButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see Patient Choice form")
+    public void theUserShouldBeAbleToSeePatientChoiceForm() {
+        boolean testResult = false ;
+        testResult = patientChoicePage.verifyPatientChoiceForm();
+        Assert.assertTrue(testResult);
+    }
+    //E2EUI-1415
+    @And("the user should be able to see an intro message {string} on requesting organisation page")
+    public void theUserShouldBeAbleToSeeAnIntroMessageOnRequestingOrganisationPage(String introMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheIntroMessage(introMessage);
+        Assert.assertTrue(testResult);
+    }
+
+
+    @Then("the user should be able to see hint text in search box on requesting organisation page")
+    public void theUserShouldBeAbleToSeeHintTextInSearchBoxOnRequestingOrganisationPage() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyHintText();
+        Assert.assertTrue(testResult);
+    }
 
 }//end

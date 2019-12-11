@@ -1195,4 +1195,163 @@ public class PatientChoicePage {
         }
     }
 
+//    Aftab
+@FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
+public WebElement patientHospitalNumberLabel;
+
+    @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
+    public WebElement patientHospitalNumberField;
+
+    public boolean patientHospitalNumberInRecordedByOption() {
+        Debugger.println("patientHospitalNumberInRecordedByOption");
+        try {
+            if (!seleniumLib.isElementPresent(patientHospitalNumberLabel)) {
+                Debugger.println("Add patient Choice Page:Recorded by:Hospital number label Not found");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(patientHospitalNumberField)) {
+                Debugger.println("Add patient Choice Page:Recorded by:Hospital number Field not found");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add patient Choice Page:Recorded by:Hospital number" + exp);
+            return false;
+        }
+
+    }
+
+    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    public WebElement backButtonOnAddPatientChoiceInformationPage;
+
+    public boolean backButtonOnPatientChoiceInformationPage() {
+        Debugger.println("Patient Choice information Page searching for Back Button");
+        try {
+            Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
+            if (!seleniumLib.isElementPresent(backButtonOnAddPatientChoiceInformationPage)) {
+                Debugger.println("Add patient Choice Page:Recorded by:Back Button Not found");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add patient Choice Page:backButtonOnPatientChoiceInformationPage:" + exp);
+            return false;
+        }
+    }
+
+    public boolean clickOnBackButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
+            backButtonOnAddPatientChoiceInformationPage.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add patient Choice Page:click on Back Button:" + exp);
+            return false;
+        }
+    }
+
+    @FindBy(xpath = "//li[@class='message-error-line']")
+    public List<WebElement> errorMessageOnPatientChoiceForm;
+
+    public boolean verifyErrorMessageOnPatientChoiceFormPage(String errorMessage) {
+        try {
+            String[] expMessages = null;
+            if(errorMessage.indexOf(",") == -1){
+                expMessages = new String[]{errorMessage};
+            }else{
+                expMessages = errorMessage.split(",");
+            }
+            String actualMessage = "";
+            for(int i=0; i<expMessages.length;i++) {
+                actualMessage = Actions.getText(errorMessageOnPatientChoiceForm.get(i));
+                if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
+                    Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+                    return false;
+                }
+            }
+            errorMessageOnPatientChoiceForm.clear();
+            return true;
+
+        }catch(Exception exp){
+            Debugger.println("PatientChoiceFormPage:Exception from validating Error Message "+exp);
+            return false;
+        }
+
+    }
+
+    public boolean enabledContinueButtonOnPatientChoiceFormPage() {
+        Debugger.println("continue Button on patient choice page");
+        try {
+            Wait.forElementToBeDisplayed(driver, continueButton);
+            if (!continueButton.isEnabled()) {
+                Debugger.println("Add patient Choice Page:Recorded by:continue Button Not found");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add patient Choice Page:continue Button:" + exp);
+            return false;
+        }
+    }
+
+    public boolean clickOnSubmitPatientChoiceButton() {
+        Debugger.println("Patient Choice: Clicking on submit patient choice button");
+        try {
+            Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
+            submitPatientChoiceButton.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice: Clicking on submit patient choice button:" + exp);
+            return false;
+        }
+    }
+
+    public boolean verifyPatientChoiceForm() {
+        Debugger.println("Patient Choice Form");
+        try {
+            Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle);
+            if (!seleniumLib.isElementPresent(newPatientChoiceFormTitle)) {
+                Debugger.println("Add patient Choice Page:verifyPatientChoiceForm : Title Not found");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add patient Choice Page:verifyPatientChoiceForm : Title:" + exp);
+            return false;
+        }
+    }
+
+    @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_ordering-entity__sub-title-copy__3QZ9_']")
+    public WebElement introMessageOnRequestingOrganisation;
+
+    public boolean verifyTheIntroMessage(String introMessage) {
+        Debugger.println("Intro Message on requesting organsation");
+        try {
+            Wait.forElementToBeDisplayed(driver, introMessageOnRequestingOrganisation);
+            Assert.assertEquals(introMessage, introMessageOnRequestingOrganisation.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Requesting Organisation page: Intro message: " + exp + "Message Not Matched");
+            return false;
+        }
+
+    }
+
+    @FindBy(xpath = "//input[@placeholder='e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust']")
+    public WebElement hintTextInSearchBoxOnRequestingOrganisation;
+
+    public boolean verifyHintText() {
+        Debugger.println("hint text in search box on requesting organsation");
+        try {
+            Wait.forElementToBeDisplayed(driver, hintTextInSearchBoxOnRequestingOrganisation);
+            seleniumLib.isElementPresent(hintTextInSearchBoxOnRequestingOrganisation);
+            return true;
+
+        } catch (Exception exp) {
+            Debugger.println("Requesting Organisation page: Help text in search box: " + exp);
+            return false;
+        }
+
+    }
+
 }//end
