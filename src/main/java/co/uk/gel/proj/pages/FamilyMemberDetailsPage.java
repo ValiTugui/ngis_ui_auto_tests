@@ -1314,6 +1314,8 @@ public class FamilyMemberDetailsPage {
             }
         } catch (Exception exp) {
             Debugger.println("FamilyMemberDetailsPage editPatientChoiceOfFamilyMember(), EditBox not present" + exp);
+        }
+    }
 
 
     public boolean verifyMaxAllowedValuesInRelationshipToProbandField(int maxAllowedValues){
