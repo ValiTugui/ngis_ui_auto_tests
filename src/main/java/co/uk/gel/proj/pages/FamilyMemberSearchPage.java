@@ -249,24 +249,24 @@ public class FamilyMemberSearchPage {
         seleniumLib.clickOnWebElement(searchButton);
     }
 
-   public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
+    public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("NHS Number is required.", seleniumLib.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(2)));
-        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(3)));
+        Assert.assertEquals("NHS Number is required.", validationErrors.get(0).getText());
+        Assert.assertEquals("Enter a day", validationErrors.get(1).getText());
+        Assert.assertEquals("Enter a month", validationErrors.get(2).getText());
+        Assert.assertEquals("Enter a year", validationErrors.get(3).getText());
         Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
     }
 
     public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(2)));
-        Assert.assertEquals("First name is required.", seleniumLib.getText(validationErrors.get(3)));
-        Assert.assertEquals("Last name is required.", seleniumLib.getText(validationErrors.get(4)));
-        Assert.assertEquals("Gender is required.", seleniumLib.getText(validationErrors.get(5)));
+        Assert.assertEquals("Enter a day", validationErrors.get(0).getText());
+        Assert.assertEquals("Enter a month", validationErrors.get(1).getText());
+        Assert.assertEquals("Enter a year", validationErrors.get(2).getText());
+        Assert.assertEquals("First name is required.", validationErrors.get(3).getText());
+        Assert.assertEquals("Last name is required.", validationErrors.get(4).getText());
+        Assert.assertEquals("Gender is required.", validationErrors.get(5).getText());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
@@ -381,7 +381,7 @@ public class FamilyMemberSearchPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                actualMessage = validationErrors.get(i).getText();
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;
@@ -411,7 +411,7 @@ public class FamilyMemberSearchPage {
         String actualMessage = "";
         String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
         for(int i=0; i<expMessages.length;i++) {
-            actualMessage = seleniumLib.getText(validationErrors.get(i));
+            actualMessage = validationErrors.get(i).getText();
             Debugger.println("EXPECTED RESULT: " + expMessages[i]);
             Debugger.println("ACTUAL RESULT  : " + actualMessage);
             Assert.assertEquals(expMessages[i], actualMessage);
@@ -466,7 +466,7 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
         Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
 
-}   public void clickOnNewPatientLink() {
+    }   public void clickOnNewPatientLink() {
         seleniumLib.clickOnWebElement(createNewPatientLink);
     }
 
@@ -490,7 +490,7 @@ public class FamilyMemberSearchPage {
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
             Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
-            String actualMessage = seleniumLib.getText(familyMemberIncompleteErrorMessage);
+            String actualMessage = familyMemberIncompleteErrorMessage.getText();
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                 return false;
