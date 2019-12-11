@@ -1,8 +1,10 @@
 package co.uk.gel.proj.pages;
 
 
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
@@ -15,11 +17,13 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ResponsibleClinicianPage {
 
 	WebDriver driver;
 	Faker fake = new Faker();
+
 
     String key1 = "mainClinician";
     String key2 = "additionalClinician1";
@@ -167,7 +171,9 @@ public class ResponsibleClinicianPage {
 		clinicianDetails.add(5,professionalRegistrationNumber);
 
 		storeClinicianDataForVerification(key1 , clinicianDetails);
-
+        PatientDetailsPage.newPatient.setResponsibleClinicianName(firstName + " " + lastName);
+        PatientDetailsPage.newPatient.setResponsibleClinicianEmail(email);
+        PatientDetailsPage.newPatient.setResponsibleClinicianContactNumber(phoneNumber);
 
 	}
 
@@ -538,5 +544,49 @@ public class ResponsibleClinicianPage {
 			return true;
 		} else return  false;
 	}
+	//Added for filling up the Responsible clinician page
+	public boolean fillResponsibleClinicianDetails(String clinicalInfo) {
+		try {
+			if(clinicalInfo == null || clinicalInfo.isEmpty()){
+				return true;
+			}
+			HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
+			Set<String> paramsKey = paramNameValue.keySet();
+			for (String key : paramsKey) {
+				switch (key) {
+					case "FirstName":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianFirstNameField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "LastName":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianLastNameField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Email":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianEmailField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Department":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianDepartmentAddressField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+					case "Registration":
+						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+							clinicianProfesionalRegistrationNumberField.sendKeys(paramNameValue.get(key));
+						}
+						break;
+				}//switch
+			}//for
 
+			return true;
+		}catch(Exception exp){
+			Debugger.println("Exception in Filling ResponsibleClinician Information: "+exp);
+			SeleniumLib.takeAScreenShot("ResponsibleClinician.jpg");
+			return false;
+		}
+	}
 }

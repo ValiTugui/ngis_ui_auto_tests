@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
@@ -65,6 +66,7 @@ public class SamplesSteps extends Pages {
         samplesPage.selectSampleType(sampleType);
         samplesPage.selectSampleState();
         samplesPage.fillInSampleID();
+        PatientDetailsPage.newPatient.setSampleType(sampleType);
     }
 
     @When("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state {string} and filling SampleID")
@@ -213,6 +215,7 @@ public class SamplesSteps extends Pages {
         /* Add "None" element to the first and second index of actualHelpHintTexts, as Sample type and sample state have no help hint text */
         actualHelpHintTexts.add(0, "None");
         actualHelpHintTexts.add(1, "None");
+
 
         for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
@@ -378,6 +381,7 @@ public class SamplesSteps extends Pages {
         Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
         Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
     }
+
 
 
 }

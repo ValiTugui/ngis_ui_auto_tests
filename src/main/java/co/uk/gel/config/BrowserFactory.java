@@ -13,6 +13,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import java.io.File;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class BrowserFactory {
@@ -102,17 +103,26 @@ public class BrowserFactory {
 
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
-        //return  new ChromeDriver();
         return new ChromeDriver(getChromeOptions(userAgent, javascriptEnabled));
     }
 
 
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
+        //Setting default download path for chrome browser
+        String downloadFilePath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+        File location = new File(downloadFilePath);
+        if(!location.exists()){
+            location.mkdirs();
+        }
+        HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+        chromePrefs.put("profile.default_content_settings.popups", 0);
+        chromePrefs.put("download.default_directory", downloadFilePath);
         ChromeOptions opts = new ChromeOptions();
         if (null != userAgent) {
             opts.addArguments("user-agent=" + userAgent);
         }
+        opts.setExperimentalOption("prefs", chromePrefs);
         if (!javascriptEnabled) {
             opts.addArguments("disable-javascript");
         }

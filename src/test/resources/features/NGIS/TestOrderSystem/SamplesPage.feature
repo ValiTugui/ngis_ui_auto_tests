@@ -311,6 +311,7 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
 
+
   @COMP7_TOC_Samples @LOGOUT
     @samplesPage_11 @NTS-3345 @P0 @v_1 @E2EUI-838 @E2EUI-857 @BVT_P0
   Scenario Outline: NTS-3345:Edit a non tumour sample type that has already been added to my referral
@@ -416,5 +417,6 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Omics sample          | Urine       | test                   |
+
 
 
