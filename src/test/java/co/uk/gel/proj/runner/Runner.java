@@ -18,5 +18,4 @@ import org.junit.runner.RunWith;
         public static void setup() {
             Debugger.println("\n******* RUN STARTS " + new java.util.Date() + " *******************************");
         }
-
     }//end
