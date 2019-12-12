@@ -66,10 +66,9 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And reads the details of selected family member "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user can select the test to add to the family member
+    And the user can select the test to add to the family member "<FamilyMemberDetails>"
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
@@ -102,7 +101,6 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And reads the details of selected family member "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
@@ -124,7 +122,6 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage with the "<RelationshipToProband>"
-    And reads the details of selected family member "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
