@@ -171,7 +171,9 @@ public class ResponsibleClinicianPage {
 		clinicianDetails.add(5,professionalRegistrationNumber);
 
 		storeClinicianDataForVerification(key1 , clinicianDetails);
-
+        PatientDetailsPage.newPatient.setResponsibleClinicianName(firstName + " " + lastName);
+        PatientDetailsPage.newPatient.setResponsibleClinicianEmail(email);
+        PatientDetailsPage.newPatient.setResponsibleClinicianContactNumber(phoneNumber);
 
 	}
 

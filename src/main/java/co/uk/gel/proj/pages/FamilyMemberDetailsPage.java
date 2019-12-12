@@ -1317,7 +1317,8 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-
+        }
+    }
     public boolean verifyMaxAllowedValuesInRelationshipToProbandField(int maxAllowedValues){
         try {
             if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 30)) {

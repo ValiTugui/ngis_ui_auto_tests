@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.PatientDetailsPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,6 +28,8 @@ public class RequestingOrganisationSteps extends Pages {
         for (WebElement details : requestingOrganisationPage.organisationDetailText) {
             Assert.assertTrue(!Actions.getText(details).isEmpty());
         }
+        // to store Ordering entity name and address
+        PatientDetailsPage.newPatient.setOrderingEntity(Actions.getText(requestingOrganisationPage.organisationDetailText.get(1)));
     }
 
     @Then("there isn't any search results returned")

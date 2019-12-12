@@ -4,11 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import cucumber.api.java.en.When;
-import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -205,6 +202,7 @@ public class ReferralPage<check> {
     String mandatoryToDOIconLocator = "todo__required-icon";
     String currentStageLocator = "todo--is-current";
     String stageCompleteLocator = "todo--is-complete";
+    String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
     @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     public WebElement notificationSuccessMessage;
@@ -456,7 +454,7 @@ public class ReferralPage<check> {
                 Debugger.println("Expected Error Message: "+errorMessage+", but no error message displayed. Check NoErrorMessage.jpg");
                 SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
                 return false;
-            } 
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Error Message " + exp);
@@ -556,6 +554,44 @@ public class ReferralPage<check> {
         }
     }
 
+    public void clickCancelReferralLink() {
+        Actions.clickElement(driver, cancelReferralLink);
+    }
+    public boolean cancelReferralConfirmationIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, cancelReferralNotification);
+            Wait.forElementToDisappear(driver, By.cssSelector(cancelReferralLocator));
+            return true;
+        } catch (Exception exp){
+            Debugger.println("Cancel Referral notification is not displayed");
+            return false;
+        }
+
+    }
+
+    public boolean cancelReasonMatches(String reason) {
+        return reason.equalsIgnoreCase(Actions.getText(referralCancelReason));
+    }
+
+    public boolean verifyTheReferralStatus(String expectedStatus) {
+        Wait.forElementToBeDisplayed(driver, referralStatus);
+        return Actions.getText(referralStatus).contains(expectedStatus);
+    }
+
+    public String getPatientNGISId(){
+        Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 3);
+        return Actions.getText(referralHeaderPatientNgisId);
+    }
+
+    public String getPatientReferralId(){
+        Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
+        return Actions.getText(referralHeaderReferralId);
+    }
+
+    public String getPatientClinicalIndication(){
+        Wait.isElementDisplayed(driver, referralHeaderClinicalId, 3);
+        return Actions.getText(referralHeaderClinicalId);
+    }
     public void submitCancellation() {
         try {
             Actions.clickElement(driver, cancelReferralButtons.get(1));

@@ -36,7 +36,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
         if(browserName.equalsIgnoreCase(BrowserConfig.getBrowser())){
             DRIVER.manage().window().fullscreen();
         } else {
-        DRIVER.manage().window().maximize();
+            DRIVER.manage().window().maximize();
         }
         DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
