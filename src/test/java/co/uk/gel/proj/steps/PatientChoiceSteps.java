@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -292,8 +293,8 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see that the patient choice form is displayed")
-    public void theUserShouldBeAbleToSeeThatThePatientChoiceFormIsDisplayed() {
+    @And("the user should be able to see the patient choice form")
+    public void theUserShouldBeAbleToSeeThePatientChoiceForm() {
         Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
     }
 
@@ -351,13 +352,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user clicks on back button on Add patient choice information page")
-    public void theUserClicksOnBackButtonOnAddPatientChoiceInformationPage() {
-        boolean testResult = false ;
-        testResult = patientChoicePage.clickOnBackButton();
-        Assert.assertTrue(testResult);
-    }
-
     @Then("the user will be able to see an error message as {string}")
     public void theUserWillBeAbleToSeeAnErrorMessageAs(String errorMessage) {
         boolean testResult = false ;
@@ -387,8 +381,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    //E2EUI-1415
-
     @Then("the user should be able to see hint text in search box on requesting organisation page")
     public void theUserShouldBeAbleToSeeHintTextInSearchBoxOnRequestingOrganisationPage() {
         Assert.assertTrue(patientChoicePage.verifyHintText());
@@ -397,6 +389,11 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should be able to see an intro message {string} on requesting organisation page")
     public void theUserShouldBeAbleToSeeAnIntroMessageOnRequestingOrganisationPage(String introMessage) {
         Assert.assertTrue(patientChoicePage.verifyTheIntroMessage(introMessage));
+    }
+
+    @And("the user fills Review and submit details in patient signature")
+    public void theUserFillsReviewAndSubmitDetailsInPatientSignature() {
+        Assert.assertTrue(patientChoicePage.selectPatientSignature());
     }
 
 }//end

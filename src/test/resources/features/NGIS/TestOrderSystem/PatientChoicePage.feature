@@ -22,8 +22,6 @@ Feature: Patient Choice Page
       | <PatientChoice>         |
       | <ChildAssent>           |
       | <ParentSignature>       |
-#    Adding new line to wait for form loading
-    And the user should be able to see that the patient choice form is displayed
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user sees the patient choice status as "<Status2>"
@@ -219,10 +217,8 @@ Feature: Patient Choice Page
       | PatientChoice                  | YesOption | Question1                                  | Question2                                                                                      |
       | Patient has agreed to the test | Yes       | Has research participation been discussed? | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
-#    Aftab
-
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_09 @E2EUI-1415 @v_1 @P0
+    @PatientChoice_page_09 @LOGOUT @E2EUI-1415 @v_1 @P0
   Scenario Outline: E2EUI-1415: Requesting Organisation landing page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -240,11 +236,10 @@ Feature: Patient Choice Page
       | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_10 @LOGOUT @E2EUI-1677  @v_1 @P0
+    @PatientChoice_page_10 @LOGOUT @E2EUI-1677 @v_1 @P0
   Scenario Outline: E2EUI-1677: Verify the hospital no field on patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
-
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -257,19 +252,17 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         |
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John |
 
-
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_11 @LOGOUT @E2EUI-1474 @v_1 @P0
-  Scenario Outline: E2EUI-1474: Patient choice form
+  Scenario Outline: E2EUI-1474: Verify patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
-
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user edits the patient choice status
     When the user is navigated to a page with title Add patient choice information
     And the user sees a back button on Add patient choice information page
-    When the user clicks on back button on Add patient choice information page
+    When the user clicks on back button
     Then the user is navigated to a page with title Patient choice
     Examples:
       | Patient choice stage |
@@ -285,11 +278,9 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-#    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category" and tick marked
     And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
-#    And the user will see the chosen "<TestType>" with edit button in "Test type" and tick marked
     And the user will see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
     When the user fills "<blankRecordedBy>" details in recorded by
@@ -302,7 +293,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_13 @LOGOUT @E2EUI-1464 @LOGOUT @v_1 @P0
+    @PatientChoice_page_13 @LOGOUT @E2EUI-1464 @v_1 @P0
   Scenario Outline: E2EUI-1464: patient signature is a mandatory field in Add patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -311,32 +302,30 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-#    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category" and tick marked
     And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
-#    And the user will see the chosen "<TestType>" with edit button in "Test type" and tick marked
     And the user will see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
     When the user fills "<RecordedBy>" details in recorded by
-#    And the user clicks on Continue Button
-#    And the user will see the chosen "Recorded by:" with edit button in "Recorded by" and tick marked
     And the user clicks on Continue Button
     And the user will see the chosen "Recorded by:" with edit button in "Recorded by"
     Then the Recorded by option is marked as completed
     And the user fills "<PatientChoice>" details in patient choices
+    And the user selects "<YesOption>" research participation option in patient choices
+    And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
-    And the user clicks on submit patient choice Button
     Then the user is navigated to a patient choice form option with title Patient signature
+    And the user clicks on submit patient choice Button
     Then the user will be able to see an error message as "<ErrorMessage>"
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | ErrorMessage                                            |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Please provide a signature in order to complete consent |
+      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | YesOption | ErrorMessage                                            |
+      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       | Please provide a signature in order to complete consent |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_14 @LOGOUT @E2EUI-1112  @v_1 @P0
-  Scenario Outline: E2EUI-1112: Add patient choice form is an embedded app
+  Scenario Outline: E2EUI-1112: Verify add patient choice form is an embedded app
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
     When the user navigates to the "<Patient choice stage>" stage
@@ -349,12 +338,9 @@ Feature: Patient Choice Page
       | Patient choice stage |
       | Patient choice       |
 
-#    Ritesh
-
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_15 @LOGOUT @E2EUI-2034 @v_1 @P0
-  Scenario Outline: E2EUI-2034: While making a referral as a user, I should be able to select and edit the appropriate patient category in Pt choice for my patient.
-
+  Scenario Outline: E2EUI-2034: Editing Patient Choice in Patient Choice category
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Patient choice stage>" stage
@@ -362,22 +348,20 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-#    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category" and tick marked
     And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user clicks on edit button in Patient choice category
-    When the user fills "<PatientChoiceCategory2>" details in patient choice category
-    And the user will see the chosen "<PatientChoiceCategory2>" with edit button in "Patient choice category"
+    When the user fills "<Option2>" details in patient choice category
+    And the user will see the chosen "<Option2>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | PatientChoiceCategory2 |
-      | Patient choice       | Adult (With Capacity) | Child                  |
+      | Patient choice stage | PatientChoiceCategory | Option2 |
+      | Patient choice       | Adult (With Capacity) | Child   |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
   Scenario Outline: E2EUI-1181: User is making a referral, as a user I want to be able to navigate around the patient choice pages and return to the patient choice landing page in family member section
-
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Patient choice stage>" stage
@@ -387,11 +371,16 @@ Feature: Patient Choice Page
     When the user fills "<PatientChoiceCategory>" details in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
     When the user fills "<PatientChoice>" details in patient choices
     And the user clicks on Continue Button
+##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
+    When the user is navigated to a patient choice form option with title Review and Submit
+##   Below line is only valid for e2e environment, not in e2e-latest environment
+    And the user fills Review and submit details in patient signature
     And the user clicks on submit patient choice Button
-    And the user should be able to see that the patient choice form is displayed
+    And the user should be able to see the patient choice form
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

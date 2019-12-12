@@ -55,7 +55,7 @@ Feature: Family Members Navigation Stage Validation
     When the user deselects the test
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
-    When the user clicks on back button on family member details page
+    When the user clicks on back button
     Then the user sees test remains as deselected
 
     Examples:

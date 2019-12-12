@@ -119,6 +119,7 @@ public class PatientChoicePage {
 
     public boolean editPatientChoice() {
         try {
+            Wait.forElementToBeDisplayed(driver, editPatientChoice);
             seleniumLib.clickOnWebElement(editPatientChoice);
             return true;
         } catch (Exception exp) {
@@ -162,11 +163,10 @@ public class PatientChoicePage {
                 return true;
             }
             Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle, 100);
-            patientChoiceCategory = patientChoiceCategory.replaceAll("dummyCategory", category);
+            String selectedPatientChoiceCategory = patientChoiceCategory.replaceAll("dummyCategory", category);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
-            WebElement webElement = driver.findElement(By.xpath(patientChoiceCategory));
+            WebElement webElement = driver.findElement(By.xpath(selectedPatientChoiceCategory));
             seleniumLib.clickOnWebElement(webElement);
-
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
@@ -180,8 +180,8 @@ public class PatientChoicePage {
             if (test_type == null || test_type.isEmpty()) {
                 return true;
             }
-            testType = testType.replaceAll("dummyTestType", test_type);
-            WebElement webElement = driver.findElement(By.xpath(testType));
+            String selectedTestType = testType.replaceAll("dummyTestType", test_type);
+            WebElement webElement = driver.findElement(By.xpath(selectedTestType));
             webElement.click();
 
             return true;
@@ -908,8 +908,8 @@ public class PatientChoicePage {
         try {
             String editButtonField = editButton.replaceAll("dummyOption", category);
             WebElement editButtonResult = driver.findElement(By.xpath(editButtonField));
-            Actions.scrollToTop(driver);
 //            seleniumLib.scrollToElement(editButtonResult);
+            Actions.scrollToTop(driver);
             seleniumLib.clickOnWebElement(editButtonResult);
         } catch (Exception exp) {
             Debugger.println("Exception from clicking edit button." + exp);
@@ -1195,15 +1195,14 @@ public class PatientChoicePage {
         }
     }
 
-//    Aftab
-@FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
-public WebElement patientHospitalNumberLabel;
+    //    Aftab
+    @FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
+    public WebElement patientHospitalNumberLabel;
 
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
     public WebElement patientHospitalNumberField;
 
     public boolean patientHospitalNumberInRecordedByOption() {
-        Debugger.println("patientHospitalNumberInRecordedByOption");
         try {
             if (!seleniumLib.isElementPresent(patientHospitalNumberLabel)) {
                 Debugger.println("Add patient Choice Page:Recorded by:Hospital number label Not found");
@@ -1225,7 +1224,6 @@ public WebElement patientHospitalNumberLabel;
     public WebElement backButtonOnAddPatientChoiceInformationPage;
 
     public boolean backButtonOnPatientChoiceInformationPage() {
-        Debugger.println("Patient Choice information Page searching for Back Button");
         try {
             Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
             if (!seleniumLib.isElementPresent(backButtonOnAddPatientChoiceInformationPage)) {
@@ -1239,41 +1237,28 @@ public WebElement patientHospitalNumberLabel;
         }
     }
 
-    public boolean clickOnBackButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
-            backButtonOnAddPatientChoiceInformationPage.click();
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Add patient Choice Page:click on Back Button:" + exp);
-            return false;
-        }
-    }
-
     @FindBy(xpath = "//li[@class='message-error-line']")
     public List<WebElement> errorMessageOnPatientChoiceForm;
 
     public boolean verifyErrorMessageOnPatientChoiceFormPage(String errorMessage) {
         try {
             String[] expMessages = null;
-            if(errorMessage.indexOf(",") == -1){
+            if (errorMessage.indexOf(",") == -1) {
                 expMessages = new String[]{errorMessage};
-            }else{
+            } else {
                 expMessages = errorMessage.split(",");
             }
             String actualMessage = "";
-            for(int i=0; i<expMessages.length;i++) {
+            for (int i = 0; i < expMessages.length; i++) {
                 actualMessage = Actions.getText(errorMessageOnPatientChoiceForm.get(i));
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;
                 }
             }
-            errorMessageOnPatientChoiceForm.clear();
             return true;
-
-        }catch(Exception exp){
-            Debugger.println("PatientChoiceFormPage:Exception from validating Error Message "+exp);
+        } catch (Exception exp) {
+            Debugger.println("PatientChoiceFormPage:Exception from validating Error Message " + exp);
             return false;
         }
 
@@ -1321,11 +1306,10 @@ public WebElement patientHospitalNumberLabel;
         }
     }
 
-    @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_ordering-entity__sub-title-copy__3QZ9_']")
+    @FindBy(xpath = "//p[contains(text(),'Enter the hospital trust')]")
     public WebElement introMessageOnRequestingOrganisation;
 
     public boolean verifyTheIntroMessage(String introMessage) {
-        Debugger.println("Intro Message on requesting organsation");
         try {
             Wait.forElementToBeDisplayed(driver, introMessageOnRequestingOrganisation);
             Assert.assertEquals(introMessage, introMessageOnRequestingOrganisation.getText());
@@ -1337,21 +1321,21 @@ public WebElement patientHospitalNumberLabel;
 
     }
 
-    @FindBy(xpath = "//input[@placeholder='e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust']")
+    @FindBy(xpath = "//div[contains(@class,'styles_search-input')]/child::input[@type='text']")
     public WebElement hintTextInSearchBoxOnRequestingOrganisation;
 
     public boolean verifyHintText() {
-        Debugger.println("hint text in search box on requesting organsation");
         try {
             Wait.forElementToBeDisplayed(driver, hintTextInSearchBoxOnRequestingOrganisation);
-            seleniumLib.isElementPresent(hintTextInSearchBoxOnRequestingOrganisation);
+            if (!seleniumLib.isElementPresent(hintTextInSearchBoxOnRequestingOrganisation)) {
+                Debugger.println("Hint text in search box not present.");
+                return false;
+            }
             return true;
-
         } catch (Exception exp) {
-            Debugger.println("Requesting Organisation page: Help text in search box: " + exp);
+            Debugger.println("Patient Choice page: verifyHintText, Element not found. " + exp);
             return false;
         }
-
     }
 
 }//end

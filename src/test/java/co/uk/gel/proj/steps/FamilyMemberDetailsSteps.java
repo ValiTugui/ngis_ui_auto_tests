@@ -173,8 +173,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user clicks on back button on family member details page")
-    public void clicksOnBackButtonOnFamilyMemberDetailsPage() {
+    @When("the user clicks on back button")
+    public void clicksOnBackButton() {
         familyMemberDetailsPage.clickOnBackButton();
     }
 
