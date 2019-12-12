@@ -62,7 +62,7 @@ public class PanelsPage {
     @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_ordering-entity__sub-title-copy__3QZ9_']")
     public WebElement introMessageOnRequestingOrganisation;
 
-    @FindBy(xpath = "//h3[contains(text(),'Sugg')]")
+    @FindBy(xpath = "//h3[contains(text(),'Suggestions')]")
     public WebElement suggestedPanels;
 
     @FindBy(xpath = "//p[contains(text(),'No sugg')]")
@@ -83,107 +83,77 @@ public class PanelsPage {
     @FindBy(xpath = "//h1[contains(text(),'panels')]")
     public WebElement panelAppTitle;
 
-    @FindBy(xpath = "//button[text()='Save and continue']")
-    public WebElement saveAndContinueButton;
 
     public boolean panelSearchFieldAndSearchIcon() {
-        Debugger.println("panelsSearchFieldAndSearchIcon");
         try {
+            Wait.forElementToBeDisplayed(driver, penetranceTitle);
             if (!seleniumLib.isElementPresent(addAnotherPanel)) {
-                Debugger.println("Panels Page:Add another panel:label Not found");
+                Debugger.println("Panels Page:Add another panel, Label not found");
                 return false;
             }
             if (!seleniumLib.isElementPresent(panelsSearchFieldPlaceHolder)) {
-                Debugger.println("Panels Page:Add another panel:field Not found");
+                Debugger.println("Panels Page:Add another panel, Field not found");
                 return false;
             }
             if (!seleniumLib.isElementPresent(panelsSearchIcon)) {
-                Debugger.println("Panels Page:Add another panel:Icon Not found");
+                Debugger.println("Panels Page:Add another panel, Icon not found");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels Page:Add another panel: Not found" + exp);
+            Debugger.println("Panels Page:Add another panel, Element not found " + exp);
             return false;
         }
     }
 
     public boolean searchPanelsInSearchBox(String panelResult) {
-        Debugger.println("panelsSearchFieldAndSearchIcon");
         try {
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
             panelsSearchFieldPlaceHolder.sendKeys(panelResult);
             Click.element(driver, panelsSuggestionList.get(new Random().nextInt(panelsSuggestionList.size())));
             return true;
         } catch (Exception exp) {
-            Debugger.println("Search and selection of panel" + exp);
+            Debugger.println("Search and selection of panel " + exp);
             return false;
         }
     }
 
     public boolean selectedPanels() {
-        Debugger.println("panelsSearchAndSelection");
         try {
+            Wait.forElementToBeDisplayed(driver, penetranceTitle);
             if (!seleniumLib.isElementPresent(selectedPanels)) {
                 Debugger.println("No Panel Selected");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels page: selectedPanels: " + exp + "panel not selected");
+            Debugger.println("Panels page: selectedPanels, Element not found. " + exp);
             return false;
         }
     }
 
     public boolean addedPanelsList() {
-
-        Debugger.println("panelsSearchAndSelection");
-        Wait.forElementToBeDisplayed(driver, penetranceTitle);
         try {
+            Wait.forElementToBeDisplayed(driver, penetranceTitle);
             List<WebElement> expElements = new ArrayList<WebElement>();
-            for (int i = 0; i < expElements.size(); i++) {
+            for (int i = 0; i < selectedPanelsList.size(); i++) {
                 expElements.add(selectedPanelsList.get(i));
+            }
+            for (int i = 0; i < expElements.size(); i++) {
                 if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                    Debugger.println("selected panels list not found");
+                    Debugger.println("selected panels list not found. " + expElements.get(i));
                     return false;
                 }
-
             }
             return true;
         } catch (Exception exc) {
-            Debugger.println("Not found List of panels" + exc);
+            Debugger.println("Panels page: addedPanelsList, Element not found." + exc);
             return false;
         }
     }
 
-    public boolean verifyTheIntroMessage(String introMessage) {
-        Debugger.println("Intro Message on requesting organsation");
-        try {
-            Wait.forElementToBeDisplayed(driver, introMessageOnRequestingOrganisation);
-            Assert.assertEquals(introMessage, introMessageOnRequestingOrganisation.getText());
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Requesting Organisation page: Intro message: " + exp + "Message Not Matched");
-            return false;
-        }
-    }
-
-    public boolean verifyHintText() {
-        Debugger.println("hint text in search box on requesting organsation");
-        try {
-            Wait.forElementToBeDisplayed(driver, hintTextInSearchBoxOnRequestingOrganisation);
-            seleniumLib.isElementPresent(hintTextInSearchBoxOnRequestingOrganisation);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Requesting Organisation page: Help text in search box: " + exp);
-            return false;
-        }
-    }
-
-    //    E2EUI-1045
     public boolean verifyPanelsPageFields() {
         try {
-            Debugger.println("Verify Fields on Panels page");
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
             List<WebElement> expElements = new ArrayList<WebElement>();
             expElements.add(penetranceTitle);
@@ -193,16 +163,15 @@ public class PanelsPage {
             expElements.add(completeButton);
             expElements.add(incompleteButton);
             expElements.add(visitPanelApp);
-
             for (int i = 0; i < expElements.size(); i++) {
                 if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                    Debugger.println("Panels Page:verifyPanelsPageFields: Not found " + expElements.get(i));
+                    Debugger.println("Panels Page:verifyPanelsPageFields: Element not present " + expElements.get(i));
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Panels Page:verifyPanelsPageFields: " + exp);
+            Debugger.println("Panels Page:verifyPanelsPageFields, Element not found. " + exp);
             return false;
         }
     }
@@ -243,7 +212,7 @@ public class PanelsPage {
 
     public boolean changeTheStatusOfPenetrance() {
         try {
-            Actions.scrollToTop(driver);
+            seleniumLib.scrollToElement(penetranceTitle);
             if ("true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
                 seleniumLib.clickOnWebElement(completeButton);
                 Debugger.println("Panels Page:penetrance status: changed from incomplete to complete ");
@@ -262,61 +231,42 @@ public class PanelsPage {
     public boolean completeIncompleteButtonsPresent() {
         try {
             seleniumLib.waitForElementVisible(completeButton);
-            seleniumLib.isElementPresent(completeButton);
-            seleniumLib.isElementPresent(incompleteButton);
+            if(!seleniumLib.isElementPresent(completeButton)){
+                Debugger.println("Complete button not found.");
+                return false;
+            }
+            if(!seleniumLib.isElementPresent(incompleteButton)){
+                Debugger.println("Incomplete button not found.");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
-            Debugger.println("PanelsPage: Complete Incomplete buttons not present" + exp);
+            Debugger.println("PanelsPage: Complete and Incomplete buttons not found" + exp);
             return false;
         }
     }
 
-    public boolean clickOnButtonsInPanelsPage(String expectedButton) {
+
+    public boolean verifyButtonAsCompletedByClickingInPanelsPage(String expectedButton) {
         try {
             if (expectedButton.equalsIgnoreCase("complete")) {
                 seleniumLib.clickOnWebElement(completeButton);
+                if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
+                    Debugger.println("Tick marked not found for "+ expectedButton + completeButton.getAttribute("aria-pressed"));
+                    return false;
+                }
             }
             if (expectedButton.equalsIgnoreCase("Incomplete")) {
                 seleniumLib.clickOnWebElement(incompleteButton);
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Panels page: click on Buttons: " + exp);
-            return false;
-        }
-    }
-
-    public boolean verifySelectedButton(String expectedButton) {
-        try {
-            if (expectedButton.equalsIgnoreCase("complete")) {
-                if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                    return false;
-                }
-            }
-            if (expectedButton.equalsIgnoreCase("Incomplete")) {
                 if (!"true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
+                    Debugger.println("Tick marked not found for "+ expectedButton + incompleteButton.getAttribute("aria-pressed"));
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("patient choice page: verify selected button " + exp);
+            Debugger.println("Panels page: verifyButtonAsCompletedByClickingInPanelsPage " + exp);
             return false;
-        }
-    }
-
-    public void clickOnSaveAndContinueButtonInPanelsPage() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            seleniumLib.clickOnWebElement(saveAndContinueButton);
-//            saveAndContinueButton.click();
-            while(seleniumLib.isElementPresent(saveAndContinueButton)){
-                seleniumLib.clickOnWebElement(saveAndContinueButton);
-            }
-        } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageSaveAndContinue.jpg");
         }
     }
 

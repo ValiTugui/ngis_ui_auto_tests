@@ -33,16 +33,6 @@ public class PanelsSteps extends Pages{
         Assert.assertTrue(panelPage.addedPanelsList());
     }
 
-    @And("the user should be able to see an intro message {string} on requesting organisation page")
-    public void theUserShouldBeAbleToSeeAnIntroMessageOnRequestingOrganisationPage(String introMessage) {
-        Assert.assertTrue(panelPage.verifyTheIntroMessage(introMessage));
-    }
-
-    @Then("the user should be able to see hint text in search box on requesting organisation page")
-    public void theUserShouldBeAbleToSeeHintTextInSearchBoxOnRequestingOrganisationPage() {
-        Assert.assertTrue(panelPage.verifyHintText());
-    }
-
     @And("the user should be able to see panels page is correctly displayed")
     public void theUserShouldBeAbleToSeePanelsPageIsCorrectlyDisplayed() {
         Assert.assertTrue(panelPage.verifyPanelsPageFields());
@@ -64,18 +54,9 @@ public class PanelsSteps extends Pages{
         Assert.assertTrue(panelPage.completeIncompleteButtonsPresent());
     }
 
-    @And("the user should click on {string} button and it will be selected")
-    public void theUserShouldClickOnButtonAndItWillBeSelected(String expectedButton) {
-        Assert.assertTrue(panelPage.clickOnButtonsInPanelsPage(expectedButton));
+    @Then("the user clicks on {string} button and button will show tick marked")
+    public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {
+        Assert.assertTrue(panelPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton));
     }
 
-    @Then("the user is able to see that the selected {string} button has tick marked")
-    public void theUserIsAbleToSeeThatTheSelectedButtonHasTickMarked(String expectedButton) {
-        Assert.assertTrue(panelPage.verifySelectedButton(expectedButton));
-    }
-
-    @And("the user clicks the Save and Continue button in panels page")
-    public void theUserClicksTheSaveAndContinueButtonInPanelsPage() {
-        panelPage.clickOnSaveAndContinueButtonInPanelsPage();
-    }
 }//end
