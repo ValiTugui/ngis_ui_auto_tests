@@ -68,6 +68,7 @@ public class PatientChoiceSteps extends Pages {
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
                 patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("Child Assent start");

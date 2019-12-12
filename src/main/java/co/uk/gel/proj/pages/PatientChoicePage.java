@@ -196,6 +196,8 @@ public class PatientChoicePage {
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
 
     String specificPatientChoiceEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
+    String specificPatientChoiceEdit_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1tfa7rn']//button";
+
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator +"testdata"+File.separator;
@@ -228,9 +230,15 @@ public class PatientChoicePage {
             //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             //Debugger.println("NHSFOUR : "+nhsLastFour);
-            By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
-            WebElement element = driver.findElement(pChoiceEdit);
-            element.click();
+            try {
+                By pChoiceEdit = By.xpath(specificPatientChoiceEdit_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
+                WebElement element = driver.findElement(pChoiceEdit);
+                element.click();
+            }catch(Exception exp){//For e2e and e2e latest, path is differrent
+                By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
+                WebElement element = driver.findElement(pChoiceEdit);
+                element.click();
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:"+exp);

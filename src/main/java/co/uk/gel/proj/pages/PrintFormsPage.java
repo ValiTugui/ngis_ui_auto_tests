@@ -44,6 +44,8 @@ public class PrintFormsPage {
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
 
     String specificPrintFormDownload = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
+    String specificPrintFormDownload_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-11efprl']//button";
+
     String probandPrintFormDownloadLocator = "//button[@class='css-u6wg3d']";
     @FindBy(css = "button[class*='link-button']")
     WebElement showAddressButton;
@@ -79,19 +81,37 @@ public class PrintFormsPage {
             TestUtils.deleteIfFilePresent("SampleForm","");
             String nhsLastFour = nhsNumber.substring(6,10);//Assuming NHSNumber is always 10 digit.
             Debugger.println("Downloading for NHS ends with: "+nhsLastFour);
-            By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
-            WebElement element = driver.findElement(downloadForm);
-            if(Wait.isElementDisplayed(driver,element,30)) {
-                element.click();
-                Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-            }else{
-                //Wait for another 30 seconds more
-                if(Wait.isElementDisplayed(driver,element,30)) {
+            try {
+                By downloadForm = By.xpath(specificPrintFormDownload_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
+                WebElement element = driver.findElement(downloadForm);
+                if (Wait.isElementDisplayed(driver, element, 30)) {
                     element.click();
                     Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                }else{
-                    Debugger.println("Form download option could not locate.");
-                    return false;
+                } else {
+                    //Wait for another 30 seconds more
+                    if (Wait.isElementDisplayed(driver, element, 30)) {
+                        element.click();
+                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    } else {
+                        Debugger.println("Form download option could not locate.");
+                        return false;
+                    }
+                }
+            }catch(Exception exp){
+                By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
+                WebElement element = driver.findElement(downloadForm);
+                if (Wait.isElementDisplayed(driver, element, 30)) {
+                    element.click();
+                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                } else {
+                    //Wait for another 30 seconds more
+                    if (Wait.isElementDisplayed(driver, element, 30)) {
+                        element.click();
+                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    } else {
+                        Debugger.println("Form download option could not locate.");
+                        return false;
+                    }
                 }
             }
             return true;
@@ -137,8 +157,7 @@ public class PrintFormsPage {
             }
         }catch(Exception exp){
             Debugger.println("Exception from loading PDF content: "+exp);
-            SeleniumLib.closeCurrentWindow();
-            return false;
+            return SeleniumLib.closeCurrentWindow();
         }finally {
             try {
                 if (document != null) {
@@ -150,6 +169,7 @@ public class PrintFormsPage {
 
             }
         }
+
     }
 
     public boolean downloadProbandPrintForm(){
