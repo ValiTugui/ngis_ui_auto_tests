@@ -12,6 +12,7 @@ public class NGISPatientModel {
     private String MONTH_OF_BIRTH;
     private String YEAR_OF_BIRTH;
     private String DATE_OF_BIRTH;
+    private String BORN_DATE;
     private String GENDER;
     private String LIFE_STATUS;
     private String NHS_NUMBER;
@@ -23,6 +24,8 @@ public class NGISPatientModel {
     private String POST_CODE;
     private String FULL_ADDRESS;
     private String RELATIONSHIP_TO_PROBAND;
+    private String RECORDING_CLINICIAN_NAME;
+    private String REFERAL_ID;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -183,5 +186,29 @@ public class NGISPatientModel {
 
     public void setRELATIONSHIP_TO_PROBAND(String RELATIONSHIP_TO_PROBAND) {
         this.RELATIONSHIP_TO_PROBAND = RELATIONSHIP_TO_PROBAND;
+    }
+
+    public String getBORN_DATE() {
+        return BORN_DATE;
+    }
+
+    public void setBORN_DATE(String BORN_DATE) {
+        this.BORN_DATE = BORN_DATE;
+    }
+
+    public String getRECORDING_CLINICIAN_NAME() {
+        return RECORDING_CLINICIAN_NAME;
+    }
+
+    public void setRECORDING_CLINICIAN_NAME(String RECORDING_CLINICIAN_NAME) {
+        this.RECORDING_CLINICIAN_NAME = RECORDING_CLINICIAN_NAME;
+    }
+
+    public String getREFERAL_ID() {
+        return REFERAL_ID;
+    }
+
+    public void setREFERAL_ID(String REFERAL_ID) {
+        this.REFERAL_ID = REFERAL_ID;
     }
 }//end

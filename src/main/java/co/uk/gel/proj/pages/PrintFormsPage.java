@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -99,21 +100,9 @@ public class PrintFormsPage {
             return false;
         }
     }
-    public boolean openAndVerifyPDFContent(String familyDetails){
-        String nhsNumber = "",dateOfBirth="";
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            if(key.equalsIgnoreCase("NHSNumber")){
-                nhsNumber = paramNameValue.get(key);
-            }
-            if(key.equalsIgnoreCase("DOB")){
-                dateOfBirth = paramNameValue.get(key);
-            }
-        }
-        nhsNumber = TestUtils.getNHSInSplitFormat(nhsNumber);
-        dateOfBirth = TestUtils.getDOBInMonthFormat(dateOfBirth);
-        Debugger.println("NHS and DOB to be validated in PDF: "+nhsNumber+","+dateOfBirth);
+    public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
+
+        Debugger.println("NHS to be validated in PDF: "+familyMember.getNHS_NUMBER());
         String output;
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
@@ -135,12 +124,14 @@ public class PrintFormsPage {
             document = PDDocument.load(fileToParse);
             Debugger.println("Reading PDF content....");
             output = new PDFTextStripper().getText(document);
-            if(output.contains(nhsNumber) && output.contains(dateOfBirth)){
+            if(output.contains(familyMember.getNHS_NUMBER()) &&
+                    output.contains(familyMember.getBORN_DATE()) &&
+                    output.contains(familyMember.getREFERAL_ID())){
                 //Close the tab and return.
                 SeleniumLib.closeCurrentWindow();
                 return true;
             }else{
-                Debugger.println("PDF content does not contain:"+nhsNumber+" and "+dateOfBirth+"\n Actual Content:"+output);
+                Debugger.println("PDF content does not contain:"+familyMember.getNHS_NUMBER()+","+familyMember.getBORN_DATE()+"\n Actual Content:"+output);
                 SeleniumLib.closeCurrentWindow();
                 return false;
             }

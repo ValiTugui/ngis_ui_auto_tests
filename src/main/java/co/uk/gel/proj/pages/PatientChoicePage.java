@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
@@ -271,10 +272,24 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean fillRecordedByDetails(String recorderBy) {
+    public boolean fillRecordedByDetails(String familyDetails,String recorderBy) {
         try {
             if(recorderBy == null || recorderBy.isEmpty()){
                 return true;
+            }
+            NGISPatientModel familyMember = null;//To fill the clinician details to the Member, to validate later
+            if(familyDetails != null && !familyDetails.isEmpty()){
+                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
+                Set<String> paramsKey = paramNameValue.keySet();
+                String nhsNumber = "";
+                for (String key : paramsKey) {
+                    if(key.equalsIgnoreCase("NHSNumber")){
+                        nhsNumber = paramNameValue.get(key);
+                        break;
+                    }
+                }
+                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
+                familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
             }
             boolean uploadDocument = false;
             String fileType = "";
@@ -285,6 +300,9 @@ public class PatientChoicePage {
                     case "ClinicianName":
                         if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
+                            if(familyMember != null){
+                                familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
+                            }
                         }
                         break;
                     case "HospitalNumber":
