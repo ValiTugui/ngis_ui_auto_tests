@@ -537,16 +537,15 @@ public class FamilyMemberDetailsPage {
                 if(Wait.isElementDisplayed(driver, dropdownValue,30)){
                     Debugger.println("Selecting from dropdown values.....");
                     if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
-                        Actions.selectByIndexFromDropDown(dropdownValues,0);
+                        Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     }
-                    return;
-                }else{
-                    Debugger.println("Phenotype drop down value not displayed...");
                     return;
                 }
             }
             Debugger.println("Selecting from dropdown values.....");
-            Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
+            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            }
 
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);

@@ -49,9 +49,9 @@ Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for 
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=2000007872:DOB=19-08-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                |
+      | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Trigonocephaly |
+      | NHSNumber=2000007872:DOB=19-08-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Trigonocephaly |
     Then the "<FamilyMembers>" stage is marked as Completed
     #Patient Choice - Family Details Provided below same as the Proband and Family Members (Signature option)
     When the user navigates to the "<PatientChoice>" stage

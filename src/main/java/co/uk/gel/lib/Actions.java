@@ -24,8 +24,13 @@ public class Actions {
             dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
             return true;
         }catch (Exception exp){
-            Debugger.println("Dropdown value: "+value+", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:"+dropdownValue);
-            SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            try{
+                dropdownValue.findElement(By.xpath("//span[contains(text(),'" + value + "')]")).click();
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Dropdown value: " + value + ", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:" + dropdownValue);
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            }
             return false;
         }
 
