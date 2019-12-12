@@ -19,12 +19,14 @@ public class Actions {
         element.click();
     }
 
-    public static void selectValueFromDropdown(WebElement dropdownValue, String value) {
+    public static boolean selectValueFromDropdown(WebElement dropdownValue, String value) {
         try {
             dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+            return true;
         }catch (Exception exp){
             Debugger.println("Dropdown value: "+value+", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:"+dropdownValue);
             SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            return false;
         }
 
     }

@@ -509,10 +509,10 @@ public class FamilyMemberDetailsPage {
         boolean isExists = false;
         List<WebElement> rows = seleniumLib.getElements(hpoRows);
         if (rows != null && rows.size() > 0) {
-            Debugger.println("Verifying HPO already exists or not...."+hpoTerm);
+            Debugger.println("Verifying HPO already exists or not...."+hpoTerm+" in "+rows.size()+" rows.");
             for (WebElement row : rows) {
                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                Debugger.println("hpo.....:"+hpoValue);
+                Debugger.println("ExistingHPO.....:"+hpoValue);
                 if (hpoValue.equalsIgnoreCase(hpoTerm)) {
                     isExists = true;
                     Debugger.println("Phenotype already exists:");
@@ -536,7 +536,9 @@ public class FamilyMemberDetailsPage {
             if(!Wait.isElementDisplayed(driver, dropdownValue,30)){
                 if(Wait.isElementDisplayed(driver, dropdownValue,30)){
                     Debugger.println("Selecting from dropdown values.....");
-                    Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
+                    if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
+                        Actions.selectByIndexFromDropDown(dropdownValues,0);
+                    }
                     return;
                 }else{
                     Debugger.println("Phenotype drop down value not displayed...");
