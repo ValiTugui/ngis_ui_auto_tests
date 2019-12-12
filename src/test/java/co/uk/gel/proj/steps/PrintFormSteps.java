@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -14,7 +15,9 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class PrintFormSteps extends Pages {
 
@@ -32,7 +35,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
-
+            String referralID = referralPage.getPatientReferralId();
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Downloading and Verifying content for :"+memberDetails.get(i).get(0));
                 if(!printFormsPage.downloadSpecificPrintForm(memberDetails.get(i).get(0))){
@@ -41,7 +44,21 @@ public class PrintFormSteps extends Pages {
                     continue;
                 }
                 Debugger.println("Downloaded...Verifying content....");
-                if(!printFormsPage.openAndVerifyPDFContent(memberDetails.get(i).get(0))){
+                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
+                Set<String> paramsKey = paramNameValue.keySet();
+                String nhsNumber = "";
+                for (String key : paramsKey) {
+                    if(key.equalsIgnoreCase("NHSNumber")){
+                        nhsNumber = paramNameValue.get(key);
+                        break;
+                    }
+                }
+                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
+                NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
+                if(familyMember != null){
+                    familyMember.setREFERAL_ID(referralID);
+                }
+                if(!printFormsPage.openAndVerifyPDFContent(familyMember)){
                     Debugger.println("Could not verify PDF content for "+memberDetails.get(i).get(0));
                     testResult = false;
                     continue;

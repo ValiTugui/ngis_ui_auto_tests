@@ -120,7 +120,7 @@ public class TestUtils {
             return dob;
         }
     }
-    public static String getNHSInSplitFormat(String nhs) {//as dd-mm-yyyy
+    public static String getNHSDisplayFormat(String nhs) {//as dd-mm-yyyy
         try {//Assume length of NHS is 10 digit
              return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
         }catch(Exception exp){

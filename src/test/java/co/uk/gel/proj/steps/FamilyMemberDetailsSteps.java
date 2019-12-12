@@ -1,16 +1,12 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.hu.De;
 import org.junit.Assert;
 
 import java.util.List;
@@ -55,22 +51,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
-    @And("reads the details of selected family member {string}")
-    public void readsTheDetailsOfSelectedMember(String relationToProband) {
-        familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
-    }
-
-    @Then("the family member details with the selected test are added to the referral")
-    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToReferral() {
+    @And("the user can select the test to add to the family member {string}")
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user can select the test to add to the family member")
-    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(nhsDetails);
         Assert.assertTrue(testResult);
     }
 
@@ -79,10 +63,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
     }
 
-    @Then("the user returns to family member landing page with the added family member details")
-    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails() {
+    @Then("the user returns to family member landing page with the added family member details {string}")
+    public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails(String nhsDetails) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(nhsDetails);
         Assert.assertTrue(testResult);
     }
 
@@ -113,7 +97,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the patient card displays with Born,Gender and NHS No details")
     public void thePatientCardDisplaysWithBornGenderAndNHSNoDetails() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay();
+        testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay("");
         Assert.assertTrue(testResult);
     }
 
@@ -417,7 +401,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 referralPage.navigateToFamilyMemberSearchPage();
                 familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
                 Debugger.println("Verifying Patient details.");
-                if(!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay()){
+                if(!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))){
                     Debugger.println("Patient already added...");
                     continue;
                 }
@@ -425,11 +409,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                 familyMemberDetailsPage.clickPatientCard();
                 Debugger.println("Filling RelationShip to Proband");
                 familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
-                Debugger.println("Reading Details...");
-                familyMemberDetailsPage.readFamilyMemberDetailsFor(memberDetails.get(i).get(1));
+                Debugger.println("Filling RelationShip to Proband, Done");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("continuing...");
-                familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember();
+                familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0));
                 Debugger.println("Verified details..");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("Continuing to Disease status filling..........");
@@ -437,7 +420,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Filled Disease Status Details........");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("Continuing.to verify family details in landing page..........");
-                familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage();
+                familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0));
                 Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){

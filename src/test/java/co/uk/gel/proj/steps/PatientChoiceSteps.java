@@ -32,7 +32,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         testResult = patientChoicePage.selectTestType(patientChoice.get(1).get(0));
         Assert.assertTrue(testResult);
-        testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(2).get(0));
+        testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(0).get(0),patientChoice.get(2).get(0));
         Assert.assertTrue(testResult);
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.selectPatientChoice(patientChoice.get(3).get(0));
@@ -63,11 +63,12 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
                 patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 Debugger.println("TestType..Done.Record Type start");
-                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
+                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0),memberDetails.get(i).get(3));
                 Debugger.println("Record Type..Done..Continuing...");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
                 patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("Child Assent start");
@@ -156,13 +157,13 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user fills {string} details in recorded by")
-    public void theUserFillsDetailsInRecordedBy(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.fillRecordedByDetails(inputData);
-        Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
-    }
+//    @When("the user fills {string} details in recorded by")
+//    public void theUserFillsDetailsInRecordedBy(String inputData) {
+//        boolean testResult = false;
+//        testResult = patientChoicePage.fillRecordedByDetails(inputData);
+//        Assert.assertTrue(testResult);
+////        patientChoicePage.clickOnContinue();
+//    }
 
     @When("the user fills {string} details in patient choices")
     public void theUserFillsDetailsInPatientChoices(String inputData) {
