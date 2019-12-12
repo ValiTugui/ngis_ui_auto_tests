@@ -34,7 +34,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
         String browserName = cap.getBrowserName().toLowerCase();
         Debugger.println("BROWSER NAME : " + browserName);
         if(browserName.equalsIgnoreCase(BrowserConfig.getBrowser())){
-            DRIVER.manage().window().fullscreen();
+            DRIVER.manage().window().maximize();
         } else {
             DRIVER.manage().window().maximize();
         }
