@@ -124,8 +124,7 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 } else {
-                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }
             }else {
                 //Log out, if not logged out from previous session
@@ -133,7 +132,6 @@ public class Pages implements Navigable {
                 if (userType != null) {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 }else{
-                    //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
 
                 }
@@ -154,8 +152,7 @@ public class Pages implements Navigable {
             if (currentURL.contains(patientSearchURL)) {
               //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
-                //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-                patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                 patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
         } catch (Exception exp) {
@@ -180,6 +177,9 @@ public class Pages implements Navigable {
             }
             Debugger.println("Switched URL    : " + driver.getCurrentUrl());
         } catch (Exception exp) {
+            Debugger.println("Exception from Switch URL: "+exp);
+            SeleniumLib.takeAScreenShot("SwitchURLException.jpg");
+            Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
         }
 }//end class
