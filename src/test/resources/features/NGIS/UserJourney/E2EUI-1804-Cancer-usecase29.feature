@@ -1,7 +1,7 @@
 @regression
 @userJourneys
 
-Feature: User Journey 29 - Cancer flow
+Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
   @E2EUI-1804 @NTS-3348 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
   Scenario Outline: NTS-3348 - UseCase 29: Create Referral for Proband Only - Patient Choice Not given
