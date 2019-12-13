@@ -124,7 +124,6 @@ public class PatientChoiceSteps extends Pages {
         notesPage.fillNotes(notes);
     }
 
-    // 2110
     @And("the user clicks on the {string} link in patient choice page")
     public void theUserClicksOnTheLinkInPatientChoicePage(String linkText) {
         boolean testResult = false;
@@ -147,7 +146,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }*/
 
-    // 2039
     @When("the user fills {string} details in patient choice category")
     public void theUserFillsDetailsInPatientChoiceCategory(String inputData) {
         boolean testResult = false;
@@ -167,7 +165,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.fillRecordedByDetails(inputData);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
     }
 
     @When("the user fills {string} details in patient choices")
@@ -175,8 +172,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoice(inputData);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickingOnYesNoOptions("Yes","Yes");
-//        patientChoicePage.clickOnContinue();
     }
 
     @When("the user fills {string} details in child assent")
@@ -184,7 +179,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectChildAssent(inputData);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
     }
 
     @When("the user fills {string} details in parent or guardian signature")
@@ -200,7 +194,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientSignature();
         Assert.assertTrue(testResult);
-//        patientChoicePage.submitPatientChoice();
     }
 
     @And("the user will see the chosen {string} with edit button in {string}")
@@ -242,8 +235,6 @@ public class PatientChoiceSteps extends Pages {
     public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
         patientChoicePage.patientChoiceInformationWarningMessage(warningMessage);
     }
-
-// scenario_3
 
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
@@ -340,7 +331,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsDataAndSampleOptionInPatientChoices(String option) {
         patientChoicePage.clickingOnDataAndSampleForResearchYesNoOptions(option);
     }
-//Aftab
+
     @Then("the user should be able to see patient hospital number")
     public void theUserShouldBeAbleToSeePatientHospitalNumber() {
         boolean testResult = false;
@@ -361,7 +352,6 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyErrorMessageOnPatientChoiceFormPage(errorMessage);
         Assert.assertTrue(testResult);
     }
-
 
     @Then("the user should be able to see enabled continue button")
     public void theUserShouldBeAbleToSeeEnabledContinueButton() {

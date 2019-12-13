@@ -816,7 +816,6 @@ public class PatientChoicePage {
                     return false;
                 }
             }
-            // Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message matched.");
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
@@ -911,7 +910,6 @@ public class PatientChoicePage {
         try {
             String editButtonField = editButton.replaceAll("dummyOption", category);
             WebElement editButtonResult = driver.findElement(By.xpath(editButtonField));
-//            seleniumLib.scrollToElement(editButtonResult);
             Actions.scrollToTop(driver);
             seleniumLib.clickOnWebElement(editButtonResult);
         } catch (Exception exp) {
