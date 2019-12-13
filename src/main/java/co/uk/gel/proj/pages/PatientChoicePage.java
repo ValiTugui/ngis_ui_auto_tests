@@ -174,10 +174,11 @@ public class PatientChoicePage {
 
     @FindBy(css = "*[class*='message-line']")
     public WebElement recordAlreadyExistsMessage;
+    @FindBy(xpath = "//div[@class='question-answer-line d-flex']")
+    public WebElement selectedPatientChoiceQuestion;
 
-
-
-
+    @FindBy(xpath = "//p[@class='question-value white-bg']")
+    public WebElement selectedPatientChoice;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
@@ -929,12 +930,17 @@ public class PatientChoicePage {
             return false;
         }
     }
+    public boolean clickOnSaveAndContinueButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            saveAndContinueButton.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Continue Button not found. " + exp);
+            return false;
+        }
+    }
 
-    @FindBy(xpath = "//div[@class='question-answer-line d-flex']")
-    public WebElement selectedPatientChoiceQuestion;
-
-    @FindBy(xpath = "//p[@class='question-value white-bg']")
-    public WebElement selectedPatientChoice;
 
     public boolean selectedPatientChoiceDetails() {
         try {
