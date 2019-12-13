@@ -466,7 +466,7 @@ public class ReferralSteps extends Pages {
         }
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
-        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+         patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral();
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.getPatientSearchNoResult();
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
