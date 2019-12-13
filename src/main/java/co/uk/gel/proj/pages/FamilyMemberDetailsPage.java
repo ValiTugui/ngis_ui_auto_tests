@@ -20,8 +20,8 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
-    @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
-    public WebElement familyMemberDetailsTitle;
+//    @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
+//    public WebElement familyMemberDetailsTitle;
 
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
     public List<WebElement> nameResults;
@@ -80,8 +80,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
 
-    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
-    public WebElement editBoxTestPackage;
+//    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
+//    public WebElement editBoxTestPackage;
 
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[2]")
     public WebElement removeFamilyMember;
@@ -147,23 +147,23 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
-    public WebElement patientCardField;
-
-    @FindBy(css = "table[class*='table--hpo']")
-    public WebElement hpoTable;
-
+//    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
+//    public WebElement patientCardField;
+//
+//    @FindBy(css = "table[class*='table--hpo']")
+//    public WebElement hpoTable;
+//
 //    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[2]")
 //    public WebElement removeFamilyMember;
-
-    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
-    public WebElement successMessageAfterRemovefamilyMember;
+//
+//    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
+//    public WebElement successMessageAfterRemovefamilyMember;
 
     @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
     public WebElement AddReferralButton;
 
-    @FindBy(css = "[class*='hpo-term__name']")
-    public List<WebElement> hpoTerms;
+//    @FindBy(css = "[class*='hpo-term__name']")
+//    public List<WebElement> hpoTerms;
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
@@ -221,10 +221,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
     public WebElement additionalFamilyMemberName;
 
-    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
-    public WebElement unsuccessAdditionalFamilyMemberName;
+//    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
+//
+//    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
+//    public WebElement unsuccessAdditionalFamilyMemberName;
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
     public WebElement relationField;
 
@@ -240,8 +240,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'patientChoiceStatus')]")
     public WebElement patientChoiceStatus;
 
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']")
-    public WebElement patientNGISId;
+//    @FindBy(xpath = "//span[text()='Patient NGIS ID']")
+//    public WebElement patientNGISId;
 
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
@@ -261,20 +261,21 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
     public WebElement printFormsPageTitle;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
-    public WebElement genderResult;
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'nhsNumber')]/following::span[1]")
-    public WebElement nhsNumberResult;
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
-    public WebElement ngisIdResult;
-    @FindBy(xpath = "//span[contains(text(),'Not entered')]")
-    public WebElement patientChoiceNotEnteredStatus;
-
-    @FindBy(xpath = "//span[contains(text(),'Not entered')]/following::button[@aria-label='edit button']")
-    public WebElement notEnteredEditBox;
+//    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
+//    public WebElement genderResult;
+//
+//    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'nhsNumber')]/following::span[1]")
+//    public WebElement nhsNumberResult;
+//
+//    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
+//    public WebElement ngisIdResult;
+//    @FindBy(xpath = "//span[contains(text(),'Not entered')]")
+//    public WebElement patientChoiceNotEnteredStatus;
+//
+//    @FindBy(xpath = "//span[contains(text(),'Not entered')]/following::button[@aria-label='edit button']")
+//    public WebElement notEnteredEditBox;
     static NGISPatientModel familyMember;
+    static ArrayList<NGISPatientModel> addedFamilyMembers = new ArrayList<NGISPatientModel>();
     static ArrayList<String> familyMemberLandingPageDetails;
     static ArrayList<String> patientChoicePageDetails;
     static ArrayList<String> printFormsPageDetails;
@@ -472,11 +473,11 @@ public class FamilyMemberDetailsPage {
                   nhsNumber = paramNameValue.get(key);
                   break;
             }
-            familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
-            Debugger.println("Read Family Member Details........." + familyMember.getFIRST_NAME());
-            Wait.seconds(5);
-        } catch (Exception exp) {
-            Debugger.println("Exception in Reading Family Details from Confirmation Page. " + exp);
+//            familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
+//            Debugger.println("Read Family Member Details........." + familyMember.getFIRST_NAME());
+//            Wait.seconds(5);
+//        } catch (Exception exp) {
+//            Debugger.println("Exception in Reading Family Details from Confirmation Page. " + exp);
         }
         nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
@@ -584,13 +585,16 @@ public class FamilyMemberDetailsPage {
                         Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     }
                     return;
+                }else{
+                    Debugger.println("Phenotype drop down value not displayed...");
+                    return;
                 }
             }
             Debugger.println("Selecting from dropdown values.....");
-            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            }
-
+//            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
+//                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+//            }
+            Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
             SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");

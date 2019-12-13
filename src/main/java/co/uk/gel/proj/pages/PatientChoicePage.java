@@ -205,21 +205,21 @@ public class PatientChoicePage {
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator +"testdata"+File.separator;
 
-    @FindBy(xpath = "//div[@class='dropdown']")
-    WebElement fileTypeDropDown;
-    @FindBy(xpath = "//input[@placeholder='DD']")
-    WebElement uploadDay;
-    @FindBy(xpath = "//input[@placeholder='MM']")
-    WebElement uploadMonth;
-    @FindBy(xpath = "//input[@placeholder='YYYY']")
-    WebElement uploadYear;
+//    @FindBy(xpath = "//div[@class='dropdown']")
+//    WebElement fileTypeDropDown;
+//    @FindBy(xpath = "//input[@placeholder='DD']")
+//    WebElement uploadDay;
+//    @FindBy(xpath = "//input[@placeholder='MM']")
+//    WebElement uploadMonth;
+//    @FindBy(xpath = "//input[@placeholder='YYYY']")
+//    WebElement uploadYear;
 
 
-    public PatientChoicePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-        seleniumLib = new SeleniumLib(driver);
-    }
+//    public PatientChoicePage(WebDriver driver) {
+//        this.driver = driver;
+//        PageFactory.initElements(driver, this);
+//        seleniumLib = new SeleniumLib(driver);
+//    }
 
     public boolean editPatientChoice() {
         try{
@@ -249,15 +249,15 @@ public class PatientChoicePage {
             //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             //Debugger.println("NHSFOUR : "+nhsLastFour);
-            try {
-                By pChoiceEdit = By.xpath(specificPatientChoiceEdit_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
-                WebElement element = driver.findElement(pChoiceEdit);
-                element.click();
-            }catch(Exception exp){//For e2e and e2e latest, path is differrent
+//            try {
+//                By pChoiceEdit = By.xpath(specificPatientChoiceEdit_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
+//                WebElement element = driver.findElement(pChoiceEdit);
+//                element.click();
+//            }catch(Exception exp){//For e2e and e2e latest, path is differrent
                 By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
                 WebElement element = driver.findElement(pChoiceEdit);
                 element.click();
-            }
+//            }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:"+exp);
