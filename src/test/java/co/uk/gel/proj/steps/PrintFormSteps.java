@@ -68,6 +68,7 @@ public class PrintFormSteps extends Pages {
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("PrintFormSteps: Exception in downloading PrintForms: "+exp);
+            Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: "+exp,true);
         }
     }
 
