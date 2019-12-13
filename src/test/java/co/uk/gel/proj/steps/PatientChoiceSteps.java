@@ -47,6 +47,9 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillParentSignatureDetails(patientChoice.get(5).get(0));
         Assert.assertTrue(testResult);
         patientChoicePage.submitPatientChoice();
+//  added 2 new lines below to wait and check for the loading of the completed form of patient choice after clicking the submit patient choice button
+        Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
+        Wait.forElementToBeClickable(driver,patientChoicePage.saveAndContinueButton);
     }
 
     @When("the user edits patient choice for {string} family members with the below details")
@@ -330,7 +333,7 @@ public class PatientChoiceSteps extends Pages {
 
     @And("the user should be able to see Yes and No answer options for the question")
     public void theUserShouldBeAbleToSeeYesAndNoAnswerOptionsForTheQuestion() {
-        Assert.assertTrue(patientChoicePage.verifyYesNoButtonForSeparateToNnsCare());
+        Assert.assertTrue(patientChoicePage.verifyYesNoButtonForSeparateToNhsCare());
     }
 
     @And("the user selects {string} data and sample option in patient choices")

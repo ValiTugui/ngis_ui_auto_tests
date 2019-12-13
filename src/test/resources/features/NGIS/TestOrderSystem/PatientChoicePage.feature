@@ -1,9 +1,9 @@
 @regression
-@COMP08_P0
+@COMP09_P0
 @PatientChoice
 Feature: Patient Choice Page
 
-  @COMP8_TO_PatientSearch
+   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
   Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
@@ -34,7 +34,7 @@ Feature: Patient Choice Page
       | Family members | Not entered | Patient choice       | Agreed to testing | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page02 @LOGOUT @E2EUI-2110 @v_1 @P0
+    @patientChoice_Page_02 @LOGOUT @NTS-3382 @E2EUI-2110 @v_1 @P0
   Scenario Outline: E2EUI-2110: Verify the upload revised patient choice documentation to form library
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -53,7 +53,7 @@ Feature: Patient Choice Page
       | Family members | Not entered | Patient choice       | Form library |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page03 @E2EUI-2039 @v_1 @P0
+    @patientChoice_Page_03 @NTS-3389 @E2EUI-2039 @v_1 @P0
   Scenario Outline: E2EUI-2039: Verify the relevant Patient choice for an Adult with capacity
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303843:DOB=18-08-2005 |
@@ -77,7 +77,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page04 @E2EUI-2039 @v_1 @P0 @scenario_01
+    @patientChoice_Page_04 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
   Scenario Outline: E2EUI-2039: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is navigated to a patient choice form option with title Patient choices
     And the user should be able to see the details of patient choices option
@@ -88,10 +88,10 @@ Feature: Patient Choice Page
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
 ##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
+    When the user is navigated to a patient choice form option with title Review and submit
 ##  Below two lines are only for e2e-latest
-#    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-#    Then the user should be able to see the highlighted Submit patient choice button
+    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
+    Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as disabled
 
     Examples:
@@ -99,7 +99,7 @@ Feature: Patient Choice Page
       | Patient changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page05 @E2EUI-2039 @v_1 @P0 @scenario_02
+    @patientChoice_Page_05 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
   Scenario Outline: E2EUI-2039: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -114,7 +114,7 @@ Feature: Patient Choice Page
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
 ##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
+    When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as disabled
@@ -124,7 +124,7 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page06 @E2EUI-2039 @v_1 @P0 @scenario_03
+    @patientChoice_Page_06 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
   Scenario Outline: E2EUI-2039: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -157,7 +157,7 @@ Feature: Patient Choice Page
       | Patient has agreed to the test | No       | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | Patient would like to revisit at a later date |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page07 @E2EUI-2039 @v_1 @P0 @scenario_04
+    @patientChoice_Page_07 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_04
   Scenario Outline: E2EUI-2039: scenario_04 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -188,7 +188,7 @@ Feature: Patient Choice Page
       | Patient has agreed to the test | Yes       | No       | Has research participation been discussed? | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page08 @LOGOUT @E2EUI-2039 @v_1 @P0 @scenario_05
+    @patientChoice_Page_08 @LOGOUT @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_05
   Scenario Outline: E2EUI-2039: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -218,7 +218,7 @@ Feature: Patient Choice Page
       | Patient has agreed to the test | Yes       | Has research participation been discussed? | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_09 @LOGOUT @E2EUI-1415 @v_1 @P0
+    @PatientChoice_page_09 @LOGOUT @NTS-3383 @E2EUI-1415 @v_1 @P0
   Scenario Outline: E2EUI-1415: Requesting Organisation landing page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -236,7 +236,7 @@ Feature: Patient Choice Page
       | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_10 @LOGOUT @E2EUI-1677 @v_1 @P0
+    @PatientChoice_page_10 @LOGOUT @NTS-3384 @E2EUI-1677 @v_1 @P0
   Scenario Outline: E2EUI-1677: Verify the hospital no field on patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -253,7 +253,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_11 @LOGOUT @E2EUI-1474 @v_1 @P0
+    @PatientChoice_page_11 @LOGOUT @NTS-3385 @E2EUI-1474 @v_1 @P0
   Scenario Outline: E2EUI-1474: Verify patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -269,7 +269,7 @@ Feature: Patient Choice Page
       | Patient choice       |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_12 @LOGOUT @E2EUI-1141 @v_1 @P0
+    @PatientChoice_page_12 @LOGOUT @NTS-3386 @E2EUI-1141 @v_1 @P0
   Scenario Outline: E2EUI-1141: Recorded By field is mandatory field in Add patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -293,7 +293,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_13 @LOGOUT @E2EUI-1464 @v_1 @P0
+    @PatientChoice_page_13 @LOGOUT @NTS-3387 @E2EUI-1464 @v_1 @P0
   Scenario Outline: E2EUI-1464: patient signature is a mandatory field in Add patient choice form
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -324,7 +324,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       | Please provide a signature in order to complete consent |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_14 @LOGOUT @E2EUI-1112  @v_1 @P0
+    @PatientChoice_page_14 @LOGOUT @NTS-3388 @E2EUI-1112  @v_1 @P0
   Scenario Outline: E2EUI-1112: Verify add patient choice form is an embedded app
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -339,7 +339,7 @@ Feature: Patient Choice Page
       | Patient choice       |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_15 @LOGOUT @E2EUI-2034 @v_1 @P0
+    @PatientChoice_page_15 @LOGOUT @NTS-3377 @E2EUI-2034 @v_1 @P0
   Scenario Outline: E2EUI-2034: Editing Patient Choice in Patient Choice category
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
@@ -360,8 +360,8 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Child   |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
-  Scenario Outline: E2EUI-1181: User is making a referral, as a user I want to be able to navigate around the patient choice pages and return to the patient choice landing page in family member section
+    @PatientChoice_page_16 @LOGOUT @NTS-3378 @E2EUI-1181 @v_1 @P0
+  Scenario Outline: E2EUI-1181: Navigate around the patient choice pages
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Patient choice stage>" stage
@@ -376,9 +376,9 @@ Feature: Patient Choice Page
     When the user fills "<PatientChoice>" details in patient choices
     And the user clicks on Continue Button
 ##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
+    When the user is navigated to a patient choice form option with title Review and submit
 ##   Below line is only valid for e2e environment, not in e2e-latest environment
-    And the user fills Review and submit details in patient signature
+#    And the user fills Review and submit details in patient signature
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form
     And the user clicks the Save and Continue button

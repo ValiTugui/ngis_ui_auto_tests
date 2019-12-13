@@ -110,6 +110,110 @@ public class PatientChoicePage {
     @FindBy(xpath = "//input[@placeholder='YYYY']")
     WebElement uploadYear;
 
+    private String patientChoiceOptionFirst = "//h5[contains(text(),'Has research participation been discussed')]/following::label[contains(text(),'" + "dummyValue" + "')]";
+    private String patientChoiceOptionSecond = "//h5[contains(text(),'used for research, separate to NHS care')]/following::label[contains(text(),'" + "dummyValue" + "')]";
+
+    String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
+    String selectedOption = "//div[@class='current-value'][contains(text(),'dummyOption')]";
+    String editButton = "//div[contains(text(),'dummyOption')]/following::button[@class='edit-button btn']";
+    String optionIsList = "//div[contains(text(),'" + "dummyOption" + "')]//ancestor::div[contains(@class,'accordion completed')]";
+    String patientChoiceQuestion = "//h5[contains(text(),'dummyQuestion')]";
+
+    @FindBy(xpath = "//input[@name='3']/following::label[contains(@id,'Choices')]")
+    List<WebElement> researchParticipationOptions;
+
+    @FindBy(xpath = "//h2[contains(text(),'Form library')]")
+    WebElement formLibraryTitle;
+
+    @FindBy(xpath = "//h4[@class='form-section-header']")
+    List<WebElement> patientChoiceFormsAndInformationTitle;
+
+    @FindBy(xpath = "//a[@class='form-link']")
+    List<WebElement> formLibraryLinks;
+
+    @FindBy(xpath = "//div[text()='Patient choice category']/following::button[text()='Edit']")
+    public WebElement editButtonPatientChoiceCategory;
+
+    @FindBy(xpath = "//div[contains(text(),'Patient choices')]")
+    WebElement patientChoicesTitle;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_search-input')]/child::input[@type='text']")
+    public WebElement hintTextInSearchBoxOnRequestingOrganisation;
+
+    @FindBy(xpath = "//h5[@class='d-inline']")
+    WebElement patientChoiceAboutResearch;
+
+    @FindBy(className = "steps-list")
+    public WebElement stepsList;
+
+    @FindBy(xpath = "//ul[@class='message-list']")
+    WebElement warningMessageBox;
+
+    @FindBy(xpath = "//li[@class='message-line']")
+    List<WebElement> warningMessage;
+
+    @FindBy(xpath = "//button[contains(text(),'Submit ')]")
+    public WebElement submitPatientChoiceButton;
+
+    @FindBy(xpath = "//div[@class='question-answer-line d-flex']")
+    public List<WebElement> selectedPatientChoiceQuestion;
+
+    @FindBy(xpath = "//p[@class='question-value white-bg']")
+    public List<WebElement> selectedPatientChoiceOption;
+
+    @FindBy(xpath = "//div[contains(text(),'Patient choice category')]")
+    WebElement patientCategoryReopen;
+
+    @FindBy(xpath = "//div[contains(text(),'Test type')]")
+    WebElement testTypeReopen;
+
+    @FindBy(xpath = "//div[@class='header col-sm-5 nowrap'][contains(text(),'Recorded by')]")
+    WebElement recordedByReopen;
+
+    @FindBy(xpath = "//div[@class='radio-question-error question-error']")
+    WebElement errorMessageBox;
+
+    @FindBy(xpath = "//label[@class='radio-container'][contains(@id,'Choices')]")
+    List<WebElement> patientChoiceAboutResearchOptions;
+
+    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    public WebElement backButtonOnAddPatientChoiceInformationPage;
+
+    @FindBy(xpath = "//li[@class='message-error-line']")
+    public List<WebElement> errorMessageOnPatientChoiceForm;
+
+    @FindBy(xpath = "//p[contains(text(),'Enter the hospital trust')]")
+    public WebElement introMessageOnRequestingOrganisation;
+
+    @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
+    public WebElement patientChoiceFormCompletedMessage;
+
+    @FindBy(xpath = "//a[text()='Print Patient Choice Form']")
+    public WebElement printPatientChoiceFormButton;
+
+    @FindBy(xpath = "//h5[contains(text(),'Reason for not capturing patient choice:')]")
+    WebElement patientChoiceReasonQuestion;
+
+    @FindBy(xpath = "//div[@class='accordion completed col-sm-12']")
+    public WebElement patientChoiceCompressed;
+
+    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'Yes')]")
+    WebElement yesButtonForResearchParticipation;
+
+    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'No')]")
+    WebElement noButtonForResearchParticipation;
+
+    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'Yes')]")
+    WebElement yesButtonOfDataAndSampleResearch;
+
+    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'No')]")
+    WebElement noButtonOfDataAndSampleResearch;
+
+    @FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
+    public WebElement patientHospitalNumberLabel;
+
+    @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
+    public WebElement patientHospitalNumberField;
 
     public PatientChoicePage(WebDriver driver) {
         this.driver = driver;
@@ -331,7 +435,6 @@ public class PatientChoicePage {
                 return true;
             }
             String patientChoices = patientChoice.replaceAll("dummyChoice", patient_choice);
-//            Wait.seconds(10);
             WebElement webElement = driver.findElement(By.xpath(patientChoices));
             seleniumLib.clickOnWebElement(webElement);
             return true;
@@ -341,10 +444,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    private String patientChoiceOptionFirst = "//h5[contains(text(),'Has research participation been discussed')]/following::label[contains(text(),'" + "dummyValue" + "')]";
-
-    private String patientChoiceOptionSecond = "//h5[contains(text(),'used for research, separate to NHS care')]/following::label[contains(text(),'" + "dummyValue" + "')]";
 
     public boolean selectChildAssent(String child_assent) {
         try {
@@ -423,7 +522,6 @@ public class PatientChoicePage {
             Debugger.println("Exception from clicking on 1st YesNoOptions. " + exp);
         }
     }
-
 
     public boolean fillParentSignatureDetails(String parentDetails) {
         try {
@@ -580,32 +678,6 @@ public class PatientChoicePage {
 
     }
 
-    //2110
-    String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
-
-    @FindBy(xpath = "//h2[contains(text(),'Form library')]")
-    WebElement formLibraryTitle;
-
-    @FindBy(xpath = "//h4[@class='form-section-header']")
-    List<WebElement> patientChoiceFormsAndInformationTitle;
-
-    @FindBy(xpath = "//a[@class='form-link']")
-    List<WebElement> formLibraryLinks;
-
-    //2039
-    @FindBy(xpath = "//button[@aria-label='edit button']")
-    public List<WebElement> editPatientChoice2;
-
-    @FindBy(xpath = "//div[text()='Patient choice category']/following::button[text()='Edit']")
-    public WebElement editButtonPatientChoiceCategory;
-
-    String selectedOption = "//div[@class='current-value'][contains(text(),'dummyOption')]";
-
-    String editButton = "//div[contains(text(),'dummyOption')]/following::button[@class='edit-button btn']";
-
-    @FindBy(xpath = "//div[contains(text(),'Patient choices')]")
-    WebElement patientChoicesTitle;
-
     public boolean clickOnPatientChoiceInformationLink(String linkText) {
         try {
             if (linkText == null || linkText.isEmpty()) {
@@ -645,26 +717,6 @@ public class PatientChoicePage {
         return true;
     }
 
-    // 2039
-    public boolean editPatientChoice2(int index) {
-        try {
-            List<WebElement> expElementTitles = new ArrayList<WebElement>();
-            System.out.println(editPatientChoice2.size());
-            for (int i = 0; i < editPatientChoice2.size(); i++) {
-                if (seleniumLib.isElementPresent(editPatientChoice2.get(index))) {
-                    seleniumLib.clickOnWebElement(editPatientChoice2.get(index));
-                    break;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Could not click on Patient Choice Edit: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
-            return false;
-        }
-    }
-
-
     public boolean verifySelectedOption(String expectedResult) {
         String selectedOptionField = selectedOption.replaceAll("dummyOption", expectedResult);
         WebElement selectedOptionResult = driver.findElement(By.xpath(selectedOptionField));
@@ -700,12 +752,6 @@ public class PatientChoicePage {
         return true;
     }
 
-    @FindBy(xpath = "//h5[@class='d-inline']")
-    WebElement patientChoiceAboutResearch;
-
-    @FindBy(xpath = "//label[@class='radio-container'][contains(@id,'Choices')]")
-    List<WebElement> patientChoiceAboutResearchOptions;
-
     public boolean verifyThePatientChoiceOptions() {
         try {
             Wait.forElementToBeDisplayed(driver, patientChoiceAboutResearch);
@@ -735,23 +781,12 @@ public class PatientChoicePage {
                         break;
                 }
             }
-            /*String continueButtonBgColor = continueButton.getCssValue("background-color");
-            System.out.println("Color : " + continueButtonBgColor);
-            if (!continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Expected color : " + continueButtonBgColor + " not displayed on editing family member.");
-                return false;
-            }*/
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyThePatientChoiceOptions " + exp);
             return false;
         }
     }
-
-    @FindBy(className = "steps-list")
-    public WebElement stepsList;
-
-    String optionIsList = "//div[contains(text(),'" + "dummyOption" + "')]//ancestor::div[contains(@class,'accordion completed')]";
 
     public boolean optionIsCompleted(String option) {
         try {
@@ -770,24 +805,19 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//ul[@class='message-list']")
-    WebElement warningMessageBox;
-
-    @FindBy(xpath = "//li[@class='message-line']")
-    List<WebElement> warningMessage;
-
     public boolean patientChoiceInformationWarningMessage(String message) {
         try {
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
             for (int i = 0; i < warningMessage.size(); i++) {
-                if (message.equalsIgnoreCase(warningMessage.get(i).getText())) {
+                if (!message.equalsIgnoreCase(warningMessage.get(i).getText())) {
                     Debugger.println("Actual : " + warningMessage.get(i).getText());
                     Debugger.println("Expected : " + message);
-                    return true;
+                    Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message not matched.");
+                    return false;
                 }
             }
-            Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message not matched.");
-            return false;
+            // Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message matched.");
+            return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
             return false;
@@ -799,7 +829,7 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
             if (!continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Expected color : " + continueButtonBgColor + " not displayed when continue button is not highlighted");
+                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed on continue button");
                 return false;
             }
             return true;
@@ -814,30 +844,12 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
             if (!continueButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
-                Debugger.println("Expected color : " + continueButtonBgColor + " not displayed on highlighted continue button");
+                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed on continue button");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
-            return false;
-        }
-    }
-
-    @FindBy(xpath = "//button[contains(text(),'Submit ')]")
-    public WebElement submitPatientChoiceButton;
-
-    public boolean notHighlightedSubmitPatientChoiceButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
-            String submitPatientChoiceButtonBgColor = submitPatientChoiceButton.getCssValue("background-color");
-            if (!submitPatientChoiceButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Expected color : " + submitPatientChoiceButtonBgColor + " not displayed when Submit patient choice button is not highlighted");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Submit patient choice Button not found. " + exp);
             return false;
         }
     }
@@ -848,7 +860,7 @@ public class PatientChoicePage {
             String submitPatientChoiceButtonBgColor = submitPatientChoiceButton.getCssValue("background-color");
             Debugger.println("submitPatientChoiceButtonBgColor :" + submitPatientChoiceButtonBgColor);
             if (!submitPatientChoiceButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
-                Debugger.println("Expected color : " + submitPatientChoiceButtonBgColor + " not displayed when Submit patient choice button is not highlighted");
+                Debugger.println("Actual color : " + submitPatientChoiceButtonBgColor + " is displayed on Submit patient choice button");
                 return false;
             }
             return true;
@@ -871,12 +883,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    @FindBy(xpath = "//div[@class='question-answer-line d-flex']")
-    public List<WebElement> selectedPatientChoiceQuestion;
-
-    @FindBy(xpath = "//p[@class='question-value white-bg']")
-    public List<WebElement> selectedPatientChoiceOption;
 
     public boolean selectedPatientChoiceDetails() {
         try {
@@ -901,9 +907,6 @@ public class PatientChoicePage {
         }
     }
 
-//    @FindBy(xpath = "//div[contains(@class,'accordion completed')]//button[contains(text(),'Edit')]")
-//    WebElement editButtonInPatientChoiceInformationPage;
-
     public void clickOnEditButton(String category) {
         try {
             String editButtonField = editButton.replaceAll("dummyOption", category);
@@ -916,15 +919,6 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//div[contains(text(),'Patient choice category')]")
-    WebElement patientCategoryReopen;
-
-    @FindBy(xpath = "//div[contains(text(),'Test type')]")
-    WebElement testTypeReopen;
-
-    @FindBy(xpath = "//div[@class='header col-sm-5 nowrap'][contains(text(),'Recorded by')]")
-    WebElement recordedByReopen;
-
     public boolean previousSectionsReopened() {
         try {
             seleniumLib.isElementPresent(patientCategoryReopen);
@@ -936,11 +930,6 @@ public class PatientChoicePage {
         }
         return true;
     }
-
-    String patientChoiceQuestion = "//h5[contains(text(),'dummyQuestion')]";
-
-//    @FindBy(xpath = "//h5[contains(text(),'Has research participation been discussed?')]")
-//    WebElement patientChoiceQuestion;
 
     public void verifyTheQuestionInPatientChoice(String question) {
         try {
@@ -957,9 +946,6 @@ public class PatientChoicePage {
             Debugger.println("verifyTheQuestionInPatientChoice, element not found.");
         }
     }
-
-    @FindBy(xpath = "//input[@name='3']/following::label[contains(@id,'Choices')]")
-    List<WebElement> researchParticipationOptions;
 
     public boolean verifyResearchParticipationOfPatientChoice() {
         try {
@@ -990,9 +976,6 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//div[@class='radio-question-error question-error']")
-    WebElement errorMessageBox;
-
     public boolean errorMessageInPatientChoicePage() {
         try {
             Wait.forElementToBeDisplayed(driver, errorMessageBox);
@@ -1021,7 +1004,7 @@ public class PatientChoicePage {
         }
     }
 
-    public void clickingOnNoOptions(String options) {
+ /*   public void clickingOnNoOptions(String options) {
         try {
             String secondElement = patientChoiceOptionSecond.replace("dummyValue", options);
             WebElement secondSelectedOptionResult = driver.findElement(By.xpath(secondElement));
@@ -1033,7 +1016,7 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on 2nd YesNoOptions. " + exp);
         }
-    }
+    }*/
 
     public boolean selectPatientSignature() {
         Wait.forElementToBeDisplayed(driver, signaturePad, 30);
@@ -1046,14 +1029,9 @@ public class PatientChoicePage {
         return true;
     }
 
-    @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
-    public WebElement patientChoiceFormCompletedMessage;
-
-    @FindBy(xpath = "//a[text()='Print Patient Choice Form']")
-    public WebElement printPatientChoiceFormButton;
-
     public boolean patientChoiceFormCompleted() {
         try {
+            Wait.seconds(120);
             if (!seleniumLib.isElementPresent(patientChoiceFormCompletedMessage)) {
                 Wait.forElementToBeDisplayed(driver, patientChoiceFormCompletedMessage);
                 Wait.forElementToBeDisplayed(driver, printPatientChoiceFormButton);
@@ -1068,9 +1046,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    @FindBy(xpath = "//h5[contains(text(),'Reason for not capturing patient choice:')]")
-    WebElement patientChoiceReasonQuestion;
 
     public boolean verifyReasonsOfPatientChoice() {
         try {
@@ -1115,9 +1090,6 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//div[@class='accordion completed col-sm-12']")
-    public WebElement patientChoiceCompressed;
-
     public boolean previousSectionReclosed() {
         try {
             Wait.forElementToBeDisplayed(driver, patientChoiceCompressed);
@@ -1131,12 +1103,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'Yes')]")
-    WebElement yesButtonForResearchParticipation;
-
-    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'Yes')]")
-    WebElement noButtonForResearchParticipation;
 
     public boolean verifyYesNoButtonForResearchParticipation() {
         try {
@@ -1171,13 +1137,7 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'Yes')]")
-    WebElement yesButtonOfDataAndSampleResearch;
-
-    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'No')]")
-    WebElement noButtonOfDataAndSampleResearch;
-
-    public boolean verifyYesNoButtonForSeparateToNnsCare() {
+    public boolean verifyYesNoButtonForSeparateToNhsCare() {
         try {
             Wait.forElementToBeDisplayed(driver, yesButtonOfDataAndSampleResearch);
             ArrayList<WebElement> expElement = new ArrayList<WebElement>();
@@ -1194,13 +1154,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    //    Aftab
-    @FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
-    public WebElement patientHospitalNumberLabel;
-
-    @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
-    public WebElement patientHospitalNumberField;
 
     public boolean patientHospitalNumberInRecordedByOption() {
         try {
@@ -1220,9 +1173,6 @@ public class PatientChoicePage {
 
     }
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
-    public WebElement backButtonOnAddPatientChoiceInformationPage;
-
     public boolean backButtonOnPatientChoiceInformationPage() {
         try {
             Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
@@ -1236,9 +1186,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    @FindBy(xpath = "//li[@class='message-error-line']")
-    public List<WebElement> errorMessageOnPatientChoiceForm;
 
     public boolean verifyErrorMessageOnPatientChoiceFormPage(String errorMessage) {
         try {
@@ -1306,9 +1253,6 @@ public class PatientChoicePage {
         }
     }
 
-    @FindBy(xpath = "//p[contains(text(),'Enter the hospital trust')]")
-    public WebElement introMessageOnRequestingOrganisation;
-
     public boolean verifyTheIntroMessage(String introMessage) {
         try {
             Wait.forElementToBeDisplayed(driver, introMessageOnRequestingOrganisation);
@@ -1320,9 +1264,6 @@ public class PatientChoicePage {
         }
 
     }
-
-    @FindBy(xpath = "//div[contains(@class,'styles_search-input')]/child::input[@type='text']")
-    public WebElement hintTextInSearchBoxOnRequestingOrganisation;
 
     public boolean verifyHintText() {
         try {

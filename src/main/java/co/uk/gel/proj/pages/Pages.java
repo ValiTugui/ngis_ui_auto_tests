@@ -44,13 +44,13 @@ public class Pages implements Navigable {
     protected FamilyMemberSearchPage familyMemberSearchPage;
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
-    protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
+    protected FamilyMemberNewPatientPage familyMemberNewPatientPage;
     protected PatientChoicePage patientChoicePage;
     protected PanelsPage panelsPage;
     protected NotesPage notesPage;
     protected PedigreePage pedigreePage;
     protected PrintFormsPage printFormsPage;
-    protected PanelsPage panelPage;
+
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -82,7 +82,6 @@ public class Pages implements Navigable {
         notesPage = PageFactory.initElements(driver,NotesPage.class);
         pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
-        panelPage = PageFactory.initElements(driver,PanelsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {

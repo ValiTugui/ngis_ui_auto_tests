@@ -32,8 +32,6 @@ public class PanelsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-//     E2EUI-1278
-
     @FindBy(xpath = "//h3[contains(text(),'Add an')]")
     public WebElement addAnotherPanel;
 
@@ -49,12 +47,14 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSuggestionList;
 
-
     @FindBy(xpath = "//span[contains(@class,'select-panel__name')]")
     public WebElement selectedPanels;
 
-    @FindBy(xpath = "//h3[text()='Added panels']/following::span[contains(@class,'select-panel__name')]")
+    @FindBy(xpath = "//input[@checked]/ancestor::div[contains(@class,'checked')]")
     public List<WebElement> selectedPanelsList;
+
+    @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
+    public List<WebElement> deselectedPanelsList;
 
     @FindBy(xpath = "//input[@placeholder='e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust']")
     public WebElement hintTextInSearchBoxOnRequestingOrganisation;
@@ -82,7 +82,6 @@ public class PanelsPage {
 
     @FindBy(xpath = "//h1[contains(text(),'panels')]")
     public WebElement panelAppTitle;
-
 
     public boolean panelSearchFieldAndSearchIcon() {
         try {
@@ -227,15 +226,14 @@ public class PanelsPage {
         }
     }
 
-    //for E2EUI-1231
     public boolean completeIncompleteButtonsPresent() {
         try {
             seleniumLib.waitForElementVisible(completeButton);
-            if(!seleniumLib.isElementPresent(completeButton)){
+            if (!seleniumLib.isElementPresent(completeButton)) {
                 Debugger.println("Complete button not found.");
                 return false;
             }
-            if(!seleniumLib.isElementPresent(incompleteButton)){
+            if (!seleniumLib.isElementPresent(incompleteButton)) {
                 Debugger.println("Incomplete button not found.");
                 return false;
             }
@@ -246,26 +244,52 @@ public class PanelsPage {
         }
     }
 
-
     public boolean verifyButtonAsCompletedByClickingInPanelsPage(String expectedButton) {
         try {
             if (expectedButton.equalsIgnoreCase("complete")) {
                 seleniumLib.clickOnWebElement(completeButton);
                 if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("Tick marked not found for "+ expectedButton + completeButton.getAttribute("aria-pressed"));
+                    Debugger.println("Tick marked not found for " + expectedButton + completeButton.getAttribute("aria-pressed"));
                     return false;
                 }
             }
             if (expectedButton.equalsIgnoreCase("Incomplete")) {
                 seleniumLib.clickOnWebElement(incompleteButton);
                 if (!"true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
-                    Debugger.println("Tick marked not found for "+ expectedButton + incompleteButton.getAttribute("aria-pressed"));
+                    Debugger.println("Tick marked not found for " + expectedButton + incompleteButton.getAttribute("aria-pressed"));
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels page: verifyButtonAsCompletedByClickingInPanelsPage " + exp);
+            return false;
+        }
+    }
+
+    public void deselectTheSelectedPanels() {
+        try {
+            ArrayList<WebElement> expElements = new ArrayList<WebElement>();
+            for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
+                seleniumLib.clickOnWebElement(selectedPanelsList.get(i));
+            }
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: deselectTheSelectedPanels, Selected panels not found." + exp);
+        }
+    }
+
+    public boolean verifyTheDeselectedPanels() {
+        try {
+            for (int i = 0; i < deselectedPanelsList.size(); i++) {
+                if (!seleniumLib.isElementPresent(deselectedPanelsList.get(i))) {
+                    Debugger.println("Deselected element not present for " + deselectedPanelsList.get(i));
+                    return false;
+                }
+            }
+            Debugger.println("Deselect and verify successfully.");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: deselectTheSelectedPanels, Deselected panels not found." + exp);
             return false;
         }
     }
