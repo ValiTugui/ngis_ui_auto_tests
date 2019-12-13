@@ -361,7 +361,7 @@ Feature: Patient Choice Page
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
-  Scenario Outline: E2EUI-1181: User is making a referral, as a user I want to be able to navigate around the patient choice pages and return to the patient choice landing page in family member section
+  Scenario Outline: E2EUI-1181: Navigate around the patient choice pages
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Patient choice stage>" stage
