@@ -414,7 +414,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("continuing...");
                 familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0));
                 Debugger.println("Verified details..");
-                referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.clickOnSaveAndContinueButton();
                 Debugger.println("Continuing to Disease status filling..........");
                 familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
                 Debugger.println("Filled Disease Status Details........");

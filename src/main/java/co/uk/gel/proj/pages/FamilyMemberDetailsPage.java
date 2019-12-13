@@ -889,6 +889,13 @@ public class FamilyMemberDetailsPage {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
     }
+    public void clickOnSaveAndContinueButton() {
+        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+        Click.element(driver, saveAndContinueButton);
+        if (helix.size() > 0) {
+            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        }
+    }
     public boolean participantsNotMatchingMsg(String expectedMessage) {
         Wait.forElementToBeDisplayed(driver, unmatchedParticipantMessage);
         String actualMessage = unmatchedParticipantMessage.getText();
