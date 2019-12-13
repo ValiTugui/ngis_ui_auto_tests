@@ -45,8 +45,14 @@ public class SamplesPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q323')]//child::input")
     public WebElement sampleTopographyField;
 
+    @FindBy(css = "label[for*='question-id-q323']")
+    public WebElement sampleTopographyFieldLabel;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q324')]//child::input")
     public WebElement sampleMorphologyField;
+
+    @FindBy(css = "label[for*='question-id-q324']")
+    public WebElement sampleMorphologyFieldLabel;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q321')]")
     public WebElement percentageOfMalignantNucleiField;
@@ -54,11 +60,20 @@ public class SamplesPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q326')]")
     public WebElement numberOfSlidesField;
 
+    @FindBy(css = "label[for*='question-id-q326']")
+    public WebElement numberOfSlidesFieldLabel;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q328')]")
     public WebElement sampleCollectionDateField;
 
+    @FindBy(css = "label[for*='question-id-q328']")
+    public WebElement sampleCollectionDateFieldLabel;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q327')]")
     public WebElement sampleCommentsField;
+
+    @FindBy(css = "label[for*='question-id-q327']")
+    public WebElement sampleCommentsFieldLabel;
 
     public WebElement labId;
 
@@ -469,4 +484,42 @@ public class SamplesPage {
         return Actions.getText(infoTextForLinkingSamples);
     }
 
+    public boolean verifyTheElementsOnAddSampleDetailsForSampleNonTumourType() {
+        Wait.forElementToBeDisplayed(driver, sampleCollectionDateField);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(sampleCollectionDateField);
+        expElements.add(sampleCollectionDateFieldLabel);
+        expElements.add(sampleCommentsField);
+        expElements.add(sampleCommentsFieldLabel);
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public boolean verifyTheElementsOnAddSampleDetailsForSampleTumourType() {
+        Wait.forElementToBeDisplayed(driver, sampleTopographyField);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(sampleTopographyField);
+        expElements.add(sampleTopographyFieldLabel);
+        expElements.add(sampleMorphologyField);
+        expElements.add(sampleMorphologyFieldLabel);
+        expElements.add(percentageOfMalignantNucleiField);
+        expElements.add(tumourSampleDynamicQuestionsLabel);
+        expElements.add(numberOfSlidesField);
+        expElements.add(numberOfSlidesFieldLabel);
+        expElements.add(sampleCollectionDateField);
+        expElements.add(sampleCollectionDateFieldLabel);
+        expElements.add(sampleCommentsField);
+        expElements.add(sampleCommentsFieldLabel);
+        for(int i=0; i<expElements.size(); i++){
+            if(!seleniumLib.isElementPresent(expElements.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
 }

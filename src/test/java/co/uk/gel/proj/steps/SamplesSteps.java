@@ -424,5 +424,21 @@ public class SamplesSteps extends Pages {
         Assert.assertEquals(expectedLinkedSampleText, actualLinkedSampleText);
     }
 
+    @And("the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments")
+    public void theAddASampleDetailsDisplaysTheAppropriateFieldElementsForSampleNonTumourTypeSampleCollectionDateAndSampleComments() {
+        boolean testResult = false;
+        testResult = samplesPage.verifyTheElementsOnAddSampleDetailsForSampleNonTumourType();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("the Add a Sample Details displays the appropriate field elements for Sample Tumour type - Sample topography, morphology, Tumour content, number of slides, collection date and sample comments")
+    public void theAddASampleDetailsDisplaysTheAppropriateFieldElementsForSampleTumourTypeSampleTopographyMorphologyTumourContentNumberOfSlidesCollectionDateAndSampleComments() {
+        boolean testResult = false;
+        testResult = samplesPage.verifyTheElementsOnAddSampleDetailsForSampleTumourType();
+        Assert.assertTrue(testResult);
+    }
+
+
 
 }
