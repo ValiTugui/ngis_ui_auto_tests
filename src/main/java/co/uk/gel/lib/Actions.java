@@ -19,12 +19,19 @@ public class Actions {
         element.click();
     }
 
-    public static void selectValueFromDropdown(WebElement dropdownValue, String value) {
+    public static boolean selectValueFromDropdown(WebElement dropdownValue, String value) {
         try {
             dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
+            return true;
         }catch (Exception exp){
-            Debugger.println("Phenotype: "+value+", not present in the dropdown values. Check PhenoTypeDDValues.jpg ");
-            SeleniumLib.takeAScreenShot("PhenoTypeDDValues.jpg");
+            try{
+                dropdownValue.findElement(By.xpath("//span[contains(text(),'" + value + "')]")).click();
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Dropdown value: " + value + ", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:" + dropdownValue);
+                SeleniumLib.takeAScreenShot("DropDownValues.jpg");
+            }
+            return false;
         }
 
     }

@@ -3,10 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
-import co.uk.gel.proj.TestDataProvider.SpinePatientTwo;
+import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -471,5 +468,20 @@ public class PatientSearchSteps extends Pages {
     @Then("the NHS number field is not enabled with auto-fill feature")
     public void theNHSNumberFieldIsNotEnabledWithAutoFillFeature() {
         Assert.assertTrue(patientSearchPage.confirmAutoCompleteOffOnNHSNumberField());
+    }
+
+    @When("the user types in the same {string} patient record in the patient search page")
+    public void theUserTypesInTheSamePatientRecordInThePatientSearchPage(String patientRecordType) {
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String dayOfBirth = newPatient.getDay();
+        String monthOfBirth = newPatient.getMonth();
+        String yearOfBirth = newPatient.getYear();
+        String firstName = newPatient.getFirstName();
+        String lastName = newPatient.getLastName();
+        String gender = newPatient.getGender();
+        String postCode = newPatient.getPostCode();
+        String searchParams = "DOB="+dayOfBirth +"-" +monthOfBirth +"-" + yearOfBirth+":FirstName="+firstName+":LastName="+lastName+":Gender="+gender+":Postcode="+postCode;
+        Debugger.println("Search Params "+ searchParams);
+        patientSearchPage.useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(searchParams);
     }
 }

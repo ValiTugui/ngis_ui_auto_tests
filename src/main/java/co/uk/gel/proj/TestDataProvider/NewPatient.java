@@ -1,5 +1,7 @@
 package co.uk.gel.proj.TestDataProvider;
 
+import co.uk.gel.proj.util.TestUtils;
+
 public class NewPatient {
 
 	private int index;
@@ -32,6 +34,24 @@ public class NewPatient {
 	private String referralHumanReadableID;
 	private String patientID;
 	private String patientHumanReadableID;
+
+	private String orderingEntity;
+	private String responsibleClinicianName;
+	private String responsibleClinicianEmail;
+	private String responsibleClinicianContactNumber;
+
+	private String clinicalIndicationTestTypeSampleType;
+
+
+	public String getClinicalIndication() {
+		return clinicalIndication;
+	}
+
+	public void setClinicalIndication(String clinicalIndication) {
+		this.clinicalIndication = clinicalIndication;
+	}
+
+	private String clinicalIndication;
 	
 	public int getIndex() {
 		return index;
@@ -228,4 +248,53 @@ public class NewPatient {
 	public void setPatientHumanReadableID(String patientHumanReadableID) {
 		this.patientHumanReadableID = patientHumanReadableID;
 	}
+
+	public String getPatientDOBInMonthFormat(){
+		return TestUtils.getDOBInMonthFormat(this.day +"-"+this.month+"-"+this.year);
+	}
+
+	public String getPatientFullName(){
+		return this.lastName.toUpperCase()+", "+this.firstName;
+	}
+
+	public String getOrderingEntity() {
+		return orderingEntity;
+	}
+
+	public void setOrderingEntity(String orderingEntity) {
+		this.orderingEntity = orderingEntity;
+	}
+
+	public String getResponsibleClinicianName() {
+		return responsibleClinicianName;
+	}
+
+	public void setResponsibleClinicianName(String responsibleClinicianName) {
+		this.responsibleClinicianName = responsibleClinicianName;
+	}
+
+	public String getResponsibleClinicianEmail() {
+		return responsibleClinicianEmail;
+	}
+
+	public void setResponsibleClinicianEmail(String responsibleClinicianEmail) {
+		this.responsibleClinicianEmail = responsibleClinicianEmail;
+	}
+
+	public String getResponsibleClinicianContactNumber() {
+		return responsibleClinicianContactNumber;
+	}
+
+	public void setResponsibleClinicianContactNumber(String responsibleClinicianContactNumber) {
+		this.responsibleClinicianContactNumber = responsibleClinicianContactNumber;
+	}
+
+	public String getClinicalIndicationTestTypeSampleType() {
+		return clinicalIndicationTestTypeSampleType;
+	}
+
+	public void setClinicalIndicationTestTypeSampleType(String clinicalIndicationTestTypeSampleType) {
+		this.clinicalIndicationTestTypeSampleType = clinicalIndicationTestTypeSampleType;
+	}
+
 }

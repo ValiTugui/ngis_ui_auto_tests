@@ -110,14 +110,14 @@ public class BrowserFactory {
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
         //Setting default download path for chrome browser
-        String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-        File location = new File(downloadFilepath);
+        String downloadFilePath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+        File location = new File(downloadFilePath);
         if(!location.exists()){
             location.mkdirs();
         }
         HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
         chromePrefs.put("profile.default_content_settings.popups", 0);
-        chromePrefs.put("download.default_directory", downloadFilepath);
+        chromePrefs.put("download.default_directory", downloadFilePath);
         ChromeOptions opts = new ChromeOptions();
         if (null != userAgent) {
             opts.addArguments("user-agent=" + userAgent);

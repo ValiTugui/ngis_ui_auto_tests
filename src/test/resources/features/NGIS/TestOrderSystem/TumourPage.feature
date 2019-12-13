@@ -523,6 +523,7 @@ Feature: Tumours Page
       | stage   | pageTitle               | tumour_type              | notificationText | errorMessage                                           | messageColor |
       | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
 
+
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_22 @NTS-3259 @E2EUI-1075 @P0 @v_1
   Scenario Outline: NTS-3259:Back link button - Create referral navigation component - Tumours

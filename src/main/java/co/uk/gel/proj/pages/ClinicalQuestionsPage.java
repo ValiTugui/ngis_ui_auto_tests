@@ -113,6 +113,8 @@ public class ClinicalQuestionsPage {
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+    String  hpoSearchTermExample1 = "Nephritis";
+
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -265,4 +267,47 @@ public class ClinicalQuestionsPage {
             }//switch
         }//for
     }//method
+
+    public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues ) {
+        try {
+            Wait.seconds(5);
+            seleniumLib.sendValue(hpoSearchField, "Nephritis");
+            Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
+            Wait.seconds(2);
+            int i =0;
+            int numberOfElements = dropdownValues.size();
+            for( WebElement element : dropdownValues) {
+                Debugger.println(" HPO Phenotype value" + ++i + " : " + element.getText());
+            }
+            Debugger.println(" Number of items displayed in HPO Phenotype Field  : " + numberOfElements);
+            return numberOfElements <= maxAllowedValues;
+
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value -> " + exp);
+            return false;
+        }
+    }
+
+    public boolean verifyMaxAllowedValuesOMIMField(int maxAllowedValues ) {
+        try {
+            if (Actions.getText(diagnosisField).isEmpty()) {
+                Actions.fillInValue(driver, diagnosisValue, "linear");
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Wait.seconds(10);
+            }
+            int i =0;
+            int numberOfElements = dropdownValues.size();
+            for( WebElement element : dropdownValues) {
+                Debugger.println(" OMIM and Orphanet value" + ++i + " : " + element.getText());
+            }
+            Debugger.println(" Number of items displayed in OMIM and Orphanet Field  : " + numberOfElements);
+            return numberOfElements <= maxAllowedValues;
+
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value -> " + exp);
+            return false;
+        }
+    }
+
+
 }

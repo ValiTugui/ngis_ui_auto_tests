@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -33,13 +32,13 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         testResult = patientChoicePage.selectTestType(patientChoice.get(1).get(0));
         Assert.assertTrue(testResult);
-        testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(2).get(0));
+        testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(0).get(0),patientChoice.get(2).get(0));
         Assert.assertTrue(testResult);
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.selectPatientChoice(patientChoice.get(3).get(0));
         Assert.assertTrue(testResult);
-//        Adding below two lines
         patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
+        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton());
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.selectChildAssent(patientChoice.get(4).get(0));
         Assert.assertTrue(testResult);
@@ -47,60 +46,57 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillParentSignatureDetails(patientChoice.get(5).get(0));
         Assert.assertTrue(testResult);
         patientChoicePage.submitPatientChoice();
-//  added 2 new lines below to wait and check for the loading of the completed form of patient choice after clicking the submit patient choice button
-        Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
-        Wait.forElementToBeClickable(driver,patientChoicePage.saveAndContinueButton);
     }
-
     @When("the user edits patient choice for {string} family members with the below details")
     public void theUserEditsPatientChoiceForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if (memberDetails.size() < noOfParticipants) {
+            if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
             }
             for (int i = 1; i < memberDetails.size(); i++) {
-                Debugger.println("Doing Patient Choice for " + memberDetails.get(i).get(0));
+                Debugger.println("Doing Patient Choice for "+memberDetails.get(i).get(0));
                 patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
                 Debugger.println("PatientChoiceCategory..Start");
                 patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
                 patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 Debugger.println("TestType..Done.Record Type start");
-                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(3));
+                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0),memberDetails.get(i).get(3));
                 Debugger.println("Record Type..Done..Continuing...");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
                 patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("Child Assent start");
-                if (!patientChoicePage.selectChildAssent(memberDetails.get(i).get(5))) {
+                if(!patientChoicePage.selectChildAssent(memberDetails.get(i).get(5))){
                     Debugger.println("Could not complete Child Assent...");
-                    Assert.assertFalse("Could not complete Child Assent...", true);
+                    Assert.assertFalse("Could not complete Child Assent...",true);
                     continue;
                 }
                 Debugger.println("Child Assent Done. Continuing....");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("Parent Signature....start.");
-                if (!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))) {
+                if(!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))){
                     Debugger.println("Could not complete ParentSignature...");
-                    Assert.assertFalse("Could not complete ParentSignature...", true);
+                    Assert.assertFalse("Could not complete ParentSignature...",true);
                     continue;
                 }
                 Debugger.println("Parent Signature Done...Submitting form");
-                if (!patientChoicePage.submitPatientChoice()) {
+                if(!patientChoicePage.submitPatientChoice()){
                     Debugger.println("Could not Submit Form...");
-                    Assert.assertFalse("Could not Submit form...", true);
+                    Assert.assertFalse("Could not Submit form...",true);
                     continue;
                 }
                 Debugger.println("Submitted.....Continuing");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("DONE.");
             }//end
-        } catch (Exception exp) {
-            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+        }catch(Exception exp){
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);
         }
     }
 
@@ -123,270 +119,4 @@ public class PatientChoiceSteps extends Pages {
     public void theUserFillsTheNotesPageWithThe(String notes) {
         notesPage.fillNotes(notes);
     }
-
-    @And("the user clicks on the {string} link in patient choice page")
-    public void theUserClicksOnTheLinkInPatientChoicePage(String linkText) {
-        boolean testResult = false;
-        testResult = patientChoicePage.clickOnPatientChoiceInformationLink(linkText);
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the patient choice form library page displays correctly")
-    public void thePatientChoiceFormLibraryPageDisplaysCorrectly() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyThePatientChoiceFormLibraryDetails();
-        Assert.assertTrue(testResult);
-    }
-
-    /*@When("the user wants to edit {string} in patient choice status")
-    public void theUserWantsToEditInPatientChoiceStatus(String index) {
-        int editIndex = Integer.parseInt(index);
-        boolean testResult = false;
-        testResult = patientChoicePage.editPatientChoice2(editIndex);
-        Assert.assertTrue(testResult);
-    }*/
-
-    @When("the user fills {string} details in patient choice category")
-    public void theUserFillsDetailsInPatientChoiceCategory(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user fills {string} details in test type")
-    public void theUserFillsDetailsInTestType(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectTestType(inputData);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user fills {string} details in recorded by")
-    public void theUserFillsDetailsInRecordedBy(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.fillRecordedByDetails(inputData);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user fills {string} details in patient choices")
-    public void theUserFillsDetailsInPatientChoices(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectPatientChoice(inputData);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user fills {string} details in child assent")
-    public void theUserFillsDetailsInChildAssent(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectChildAssent(inputData);
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user fills {string} details in parent or guardian signature")
-    public void theUserFillsDetailsInParentOrGuardianSignature(String inputData) {
-        boolean testResult = false;
-        testResult = patientChoicePage.fillParentSignatureDetails(inputData);
-        Assert.assertTrue(testResult);
-        patientChoicePage.submitPatientChoice();
-    }
-
-    @When("the user fills PatientSignature details in patient signature")
-    public void theUserFillsDetailsInPatientSignature() {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectPatientSignature();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user will see the chosen {string} with edit button in {string}")
-    public void theUserWillSeeTheChosenWithEditButton(String expectedResult, String category) {
-        Assert.assertTrue(patientChoicePage.verifySelectedOption(expectedResult));
-        Assert.assertTrue(patientChoicePage.verifyEditButton(category));
-    }
-
-    @Then("the (.*) option is marked as completed")
-    public void theOptionIsMarkedAsCompleted(String category) {
-        Assert.assertTrue(patientChoicePage.optionIsCompleted(category));
-    }
-
-    @When("the user is navigated to a patient choice form option with title (.*)")
-    public void theUserIsNavigatedToAPatientChoiceFormOptionWithTitle(String title) {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyTheOptionTitlePresence(title);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should be able to see the details of patient choices option")
-    public void theUserShouldBeAbleToSeeTheDetailsOfPatientChoicesOption() {
-        Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOptions());
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton());
-    }
-
-    @And("the user should be able to see selected patient choice details")
-    public void theUserShouldBeAbleToSeeSelectedPatientChoiceDetails() {
-        Assert.assertTrue(patientChoicePage.selectedPatientChoiceDetails());
-    }
-
-    @And("the user should see continue button is highlighted and clicks on Continue Button")
-    public void theUserShouldSeeContinueButtonIsHighlightedAndClicksOnContinueButton() {
-        Assert.assertTrue(patientChoicePage.highlightedContinueButton());
-        patientChoicePage.clickOnContinue();
-    }
-
-    @And("the user will see a {string} warning message on the patient choice information option")
-    public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
-        patientChoicePage.patientChoiceInformationWarningMessage(warningMessage);
-    }
-
-    @When("the user clicks on edit button in (.*)")
-    public void theUserClicksOnEditButton(String category) {
-        patientChoicePage.clickOnEditButton(category);
-    }
-
-    @Then("the user should be able to see previous section re-opened")
-    public void theUserShouldBeAbleToSeePreviousSectionReOpened() {
-        boolean testResult = false;
-        testResult = patientChoicePage.previousSectionsReopened();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should see continue button is not highlighted")
-    public void theUserShouldSeeContinueButtonIsNotHighlighted() {
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton());
-    }
-
-    @And("the user selects {string} options in patient choices option")
-    public void theUserSelectsOptionsInPatientChoicesOption(String options) {
-        patientChoicePage.clickingOnYesNoOptions(options);
-    }
-
-    @Then("the question will be displayed as {string}")
-    public void theQuestionWillBeDisplayedAs(String question) {
-        patientChoicePage.verifyTheQuestionInPatientChoice(question);
-
-    }
-
-    @And("the user selects {string} research participation in patient choices option")
-    public void theUserSelectsResearchParticipationInPatientChoicesOption(String option) {
-        patientChoicePage.clickingOnResearchParticipationYesNoOptions(option);
-
-    }
-
-    @And("the user selects {string} NHS care in patient choices option")
-    public void theUserSelectsNHSCareInPatientChoicesOption(String option) {
-        patientChoicePage.clickingOnNHSCareYesNoOptions(option);
-    }
-
-    @And("the user should be able to see all the details of patient choices research participation")
-    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesResearchParticipation() {
-        Assert.assertTrue(patientChoicePage.verifyResearchParticipationOfPatientChoice());
-    }
-
-    @Then("the user should see a error message box")
-    public void theUserShouldSeeAErrorMessageBox() {
-        boolean testResult = false;
-        testResult = patientChoicePage.errorMessageInPatientChoicePage();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should be able to see the patient choice form")
-    public void theUserShouldBeAbleToSeeThePatientChoiceForm() {
-        Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
-    }
-
-    @Then("the user should be able to see the highlighted Submit patient choice button")
-    public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton() {
-        Assert.assertTrue(patientChoicePage.highlightedSubmitPatientChoiceButton());
-    }
-
-    @Then("Save and continue button is displayed as disabled")
-    public void saveAndContinueButtonIsDisplayedAsDisabled() {
-        Assert.assertTrue(patientChoicePage.saveAndContinueButtonStatus());
-    }
-
-    @Then("the user should be able to see all the details of patient choices reasons")
-    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesReasons() {
-        Assert.assertTrue(patientChoicePage.verifyReasonsOfPatientChoice());
-    }
-
-    @And("the user should be able to see the previous sections disappeared")
-    public void theUserShouldBeAbleToSeeThePreviousSectionsDisappeared() {
-        Assert.assertTrue(patientChoicePage.previousSectionReclosed());
-    }
-
-    @And("the user should be able to see Yes and No answer options")
-    public void theUserShouldBeAbleToSeeYesAndNoAnswerOptions() {
-        Assert.assertTrue(patientChoicePage.verifyYesNoButtonForResearchParticipation());
-    }
-
-    @And("the user selects {string} research participation option in patient choices")
-    public void theUserSelectsResearchParticipationOptionInPatientChoices(String option) {
-        patientChoicePage.clickingOnResearchParticipationYesNoOptions(option);
-    }
-
-    @And("the user should be able to see Yes and No answer options for the question")
-    public void theUserShouldBeAbleToSeeYesAndNoAnswerOptionsForTheQuestion() {
-        Assert.assertTrue(patientChoicePage.verifyYesNoButtonForSeparateToNhsCare());
-    }
-
-    @And("the user selects {string} data and sample option in patient choices")
-    public void theUserSelectsDataAndSampleOptionInPatientChoices(String option) {
-        patientChoicePage.clickingOnDataAndSampleForResearchYesNoOptions(option);
-    }
-
-    @Then("the user should be able to see patient hospital number")
-    public void theUserShouldBeAbleToSeePatientHospitalNumber() {
-        boolean testResult = false;
-        testResult = patientChoicePage.patientHospitalNumberInRecordedByOption();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees a back button on Add patient choice information page")
-    public void theUserSeesABackButtonOnAddPatientChoiceInformationPage() {
-        boolean testResult = false ;
-        testResult = patientChoicePage.backButtonOnPatientChoiceInformationPage();
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user will be able to see an error message as {string}")
-    public void theUserWillBeAbleToSeeAnErrorMessageAs(String errorMessage) {
-        boolean testResult = false ;
-        testResult = patientChoicePage.verifyErrorMessageOnPatientChoiceFormPage(errorMessage);
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user should be able to see enabled continue button")
-    public void theUserShouldBeAbleToSeeEnabledContinueButton() {
-        boolean testResult = false ;
-        testResult = patientChoicePage.enabledContinueButtonOnPatientChoiceFormPage();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user clicks on submit patient choice Button")
-    public void theUserClicksOnSubmitPatientChoiceButton() {
-        boolean testResult = false ;
-        testResult = patientChoicePage.clickOnSubmitPatientChoiceButton();
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user should be able to see Patient Choice form")
-    public void theUserShouldBeAbleToSeePatientChoiceForm() {
-        boolean testResult = false ;
-        testResult = patientChoicePage.verifyPatientChoiceForm();
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user should be able to see hint text in search box on requesting organisation page")
-    public void theUserShouldBeAbleToSeeHintTextInSearchBoxOnRequestingOrganisationPage() {
-        Assert.assertTrue(patientChoicePage.verifyHintText());
-    }
-
-    @And("the user should be able to see an intro message {string} on requesting organisation page")
-    public void theUserShouldBeAbleToSeeAnIntroMessageOnRequestingOrganisationPage(String introMessage) {
-        Assert.assertTrue(patientChoicePage.verifyTheIntroMessage(introMessage));
-    }
-
-    @And("the user fills Review and submit details in patient signature")
-    public void theUserFillsReviewAndSubmitDetailsInPatientSignature() {
-        Assert.assertTrue(patientChoicePage.selectPatientSignature());
-    }
-
 }//end
