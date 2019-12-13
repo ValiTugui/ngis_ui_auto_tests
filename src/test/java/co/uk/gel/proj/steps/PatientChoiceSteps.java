@@ -93,7 +93,7 @@ public class PatientChoiceSteps extends Pages {
                 }
                 Debugger.println("Submitted.....Continuing");
                 referralPage.clickSaveAndContinueButton();
-                referralPage.clickSaveAndContinueButton();
+
                 Debugger.println("DONE.");
             }//end
         }catch(Exception exp){

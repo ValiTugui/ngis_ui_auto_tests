@@ -41,8 +41,14 @@ public class Wait {
     }
 
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
-        wait = new WebDriverWait(driver, 50);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            wait = new WebDriverWait(driver, 50);
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }catch(Exception exp){
+            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
+            wait = new WebDriverWait(driver, 30);
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        }
     }
 
     public static void forElementToDisappear(WebDriver driver, By locator) {
