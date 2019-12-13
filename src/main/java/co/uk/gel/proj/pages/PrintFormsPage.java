@@ -46,7 +46,8 @@ public class PrintFormsPage {
     String specificPrintFormDownload = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
     String specificPrintFormDownload_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-11efprl']//button";
 
-    String probandPrintFormDownloadLocator = "//button[@class='css-u6wg3d']";
+    String probandPrintFormDownloadLocator_e2elatest = "//button[@class='css-u6wg3d']";
+    String probandPrintFormDownloadLocator= "//button[@class='css-dixxn2']";
     @FindBy(css = "button[class*='link-button']")
     WebElement showAddressButton;
 
@@ -114,11 +115,11 @@ public class PrintFormsPage {
                     }
                 }
             }
-            return true;
         }catch(Exception exp){
             Debugger.println("Exception from  downloading Print form for specific NHSNumber:"+exp);
             return false;
         }
+        return true;
     }
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
 
@@ -172,20 +173,22 @@ public class PrintFormsPage {
 
     }
 
-    public boolean downloadProbandPrintForm(){
+    public boolean downloadProbandPrintForm() {
+        try {
             //Delete if File already present
             Debugger.println("Deleting Files if Present...");
-            TestUtils.deleteIfFilePresent("SampleForm","");
+            TestUtils.deleteIfFilePresent("SampleForm", "");
             Debugger.println("Attempting to download the Proband sample form");
-            By downloadForm = By.xpath(probandPrintFormDownloadLocator);
-            WebElement element = driver.findElement(downloadForm);
+
             try {
-                if (Wait.isElementDisplayed(driver, element, 30)) {
+                By downloadForm = By.xpath(probandPrintFormDownloadLocator);
+                WebElement element = driver.findElement(downloadForm);
+                if (Wait.isElementDisplayed(driver, element, 50)) {
                     element.click();
                     Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
                 } else {
                     //Wait for another 30 seconds more
-                    if (Wait.isElementDisplayed(driver, element, 30)) {
+                    if (Wait.isElementDisplayed(driver, element, 50)) {
                         element.click();
                         Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
                     } else {
@@ -193,14 +196,32 @@ public class PrintFormsPage {
                         return false;
                     }
                 }
-                return true;
-            }catch(Exception exp){
-                Debugger.println("Could not locate the print button ..... " + exp);
-                SeleniumLib.takeAScreenShot("PrintFormsDownload.jpg");
-                return false;
-            }
-    }
+            } catch (Exception exp) {
+                By downloadForm = By.xpath(probandPrintFormDownloadLocator_e2elatest);
+                WebElement element = driver.findElement(downloadForm);
+                if (Wait.isElementDisplayed(driver, element, 50)) {
+                    element.click();
+                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                } else {
+                    //Wait for another 30 seconds more
+                    if (Wait.isElementDisplayed(driver, element, 50)) {
+                        element.click();
+                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    } else {
+                        Debugger.println("Form download option could not locate.");
+                        return false;
+                    }
+                }
 
+
+            }
+            return true;
+        }catch (Exception exp) {
+            Debugger.println("Could not locate the print button ..... " + exp);
+            SeleniumLib.takeAScreenShot("PrintFormsDownload.jpg");
+            return false;
+        }
+    }
     public boolean openAndVerifyPDFContent(List<String> expValues){
         String expectedName = expValues.get(0);
         String expectedDOB = expValues.get(1);
