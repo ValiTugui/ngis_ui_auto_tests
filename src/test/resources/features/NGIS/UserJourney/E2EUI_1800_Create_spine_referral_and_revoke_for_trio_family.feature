@@ -49,7 +49,7 @@ Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for 
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                |
+      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=2000008127:DOB=11-03-1942 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=2000007953:DOB=12-02-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
@@ -57,10 +57,10 @@ Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for 
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                                                                                     | PatientChoice                                        | ChildAssent | ParentSignature                       |
+      | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
       | NHSNumber=2000007945:DOB=07-06-1963 | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=2000007953:DOB=12-02-1939 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
+      | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient agreed to the test                           |             | FirstName=firstname:LastName=lastname |
+      | NHSNumber=2000007953:DOB=12-02-1939 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient agreed to the test                           |             | FirstName=firstname:LastName=lastname |
 #      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
     Then the "<PatientChoice>" stage is marked as Completed
     #Panels

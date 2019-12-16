@@ -236,7 +236,10 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
-        } catch (Exception exp) {
+        } catch (UnhandledAlertException exp) {
+            Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
+            seleniumLib.dismissAllert();
+        }catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
             Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);

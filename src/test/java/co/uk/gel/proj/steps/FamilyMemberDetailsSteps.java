@@ -51,6 +51,20 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
+    @And("reads the details of selected family member {string}")
+    public void readsTheDetailsOfSelectedMember(String relationToProband) {
+        //familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
+        familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(relationToProband);
+    }
+
+    @Then("the family member details with the selected test are added to the referral")
+    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToReferral() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember("");
+        Assert.assertTrue(testResult);
+    }
+
+
     @And("the user can select the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
