@@ -41,6 +41,10 @@ public class PatientChoicePage {
     @FindBy(xpath = "//a[@class='form-link']")
     List<WebElement> formLibraryLinks;
 
+    @FindBy(xpath = "//p[contains(text(),'Before submitting a referral')]")
+    public WebElement helpTextLabel;
+
+
     //2039
     @FindBy(xpath = "//button[@aria-label='edit button']")
     public List<WebElement> editPatientChoice2;
@@ -1171,6 +1175,16 @@ public class PatientChoicePage {
 
     public void addPatientChoiceIsDisplayed() {
         Wait.forElementToBeDisplayed(driver, adultWithCapacityCategory);
+    }
+
+    public boolean verifyHelpTextLabelIsVisible(){
+        try {
+            Wait.forElementToBeDisplayed(driver, helpTextLabel, 200);
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception before seeing Patient Choice participants info ...." + exp);
+            return false;
+        }
     }
 
 
