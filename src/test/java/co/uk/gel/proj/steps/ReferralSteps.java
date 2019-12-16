@@ -40,7 +40,6 @@ public class ReferralSteps extends Pages {
         referralPage.clickSaveAndContinueButton();
     }
 
-
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
@@ -146,7 +145,6 @@ public class ReferralSteps extends Pages {
             if (!testResult) {
                 Debugger.println("Stage: " + stage + " NOT Completed.");
             }
-            Debugger.println("Stage: " + stage + " Completed.");
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("Exception in verifying the stage completed status for :"+stage+":"+exp);

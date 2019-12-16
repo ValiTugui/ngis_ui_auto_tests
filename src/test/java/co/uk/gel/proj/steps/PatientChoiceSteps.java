@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -87,12 +88,14 @@ public class PatientChoiceSteps extends Pages {
                 }
                 Debugger.println("Parent Signature Done...Submitting form");
                 if(!patientChoicePage.submitPatientChoice()){
-                    Debugger.println("Could not Submit Form...");
-                    Assert.assertFalse("Could not Submit form...",true);
+                    Debugger.println("Submitted form, but save and continue not displayed..Proceeding to next Patient..");
+                    referralPage.navigateToStage("Patient choice");
+                    Wait.seconds(5);
                     continue;
+                }else {
+                    Debugger.println("Submitted.....Continuing");
+                    patientChoicePage.clickOnSaveAndContinueButton();
                 }
-                Debugger.println("Submitted.....Continuing");
-                patientChoicePage.clickOnSaveAndContinueButton();
 
                 Debugger.println("DONE.");
             }//end

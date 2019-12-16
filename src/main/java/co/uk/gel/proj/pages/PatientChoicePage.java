@@ -558,6 +558,9 @@ public class PatientChoicePage {
     public boolean submitPatientChoice() {
         try {
             submitPatientChoice.click();
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton,30)){
+                return false;
+            }
             return true;
         } catch (Exception exp) {
            Debugger.println("Exception from submitting Patient Choice...." + exp);
@@ -927,13 +930,10 @@ public class PatientChoicePage {
     }
     public boolean clickOnSaveAndContinueButton() {
         try {
-            Debugger.println("Time1: "+System.currentTimeMillis());
+
             if(Wait.isElementDisplayed(driver, saveAndContinueButton,120)) {
                Wait.forElementToBeClickable(driver,saveAndContinueButton);
                seleniumLib.clickOnWebElement(saveAndContinueButton);
-            }else{
-                Debugger.println("Time2: "+System.currentTimeMillis());
-                Debugger.println("Not found Save and Continue in PatientChoice..even after two minutes wait..");
             }
             return true;
         } catch (Exception exp) {

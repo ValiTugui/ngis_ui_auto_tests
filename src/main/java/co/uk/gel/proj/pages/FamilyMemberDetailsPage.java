@@ -130,7 +130,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
+    @FindBy(xpath = "//div[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q97-years')]")
@@ -471,6 +471,7 @@ public class FamilyMemberDetailsPage {
         if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
             try {
                 Click.element(driver, diseaseStatusDropdown);
+                Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
             } catch (Exception exp) {
                 Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp);
