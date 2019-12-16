@@ -424,9 +424,12 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Filling RelationShip to Proband");
                 familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
                 Debugger.println("Filling RelationShip to Proband, Done");
-                referralPage.clickSaveAndContinueButton();
+                //referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.clickOnSaveAndContinueButton();
                 Debugger.println("continuing...");
-                familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0));
+                if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
+                    Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
+                }
                 Debugger.println("Verified details..");
                 familyMemberDetailsPage.clickOnSaveAndContinueButton();
                 Debugger.println("Continuing to Disease status filling..........");
