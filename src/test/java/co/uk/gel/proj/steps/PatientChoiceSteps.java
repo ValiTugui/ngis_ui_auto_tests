@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -302,10 +303,15 @@ public class PatientChoiceSteps extends Pages {
     @And("the user answers the patient choice questions with agreeing to testing")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
         patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
         patientChoicePage.selectTestType();
+        Wait.seconds(2);
         patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
         patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
+        Wait.seconds(2);
         patientChoicePage.submitPatientChoiceWithoutSignature();
+        Wait.seconds(2);
     }
 
     @And("the user submits the patient choice with signature")
@@ -321,9 +327,14 @@ public class PatientChoiceSteps extends Pages {
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
         patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
         patientChoicePage.selectTestType();
+        Wait.seconds(2);
         patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
         patientChoicePage.selectChoicesWithAgreeingTesting();
+        Wait.seconds(2);
         patientChoicePage.drawSignature();
+        Wait.seconds(2);
     }
 }//end
