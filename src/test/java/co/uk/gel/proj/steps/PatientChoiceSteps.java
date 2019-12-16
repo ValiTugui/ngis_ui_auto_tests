@@ -337,4 +337,9 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.drawSignature();
         Wait.seconds(2);
     }
+
+    @Then("the help text is displayed")
+    public void theHelpTextIsDisplayed() {
+     Assert.assertTrue(patientChoicePage.verifyHelpTextLabelIsVisible());
+    }
 }//end
