@@ -1,5 +1,6 @@
 @regression
 @userJourneys
+@userJourneysCancer
 
 Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
