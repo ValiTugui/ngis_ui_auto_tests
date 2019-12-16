@@ -1,5 +1,5 @@
 @regression
-@COMP09
+@COMP09_P0
 @PatientChoice
 Feature: Patient Choice Page
 

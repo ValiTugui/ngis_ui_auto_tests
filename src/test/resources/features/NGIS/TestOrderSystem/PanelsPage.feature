@@ -1,5 +1,5 @@
 @regression
-@TO_COMP9
+@COMP09_P0
 @Panels
 
 Feature: Panels
