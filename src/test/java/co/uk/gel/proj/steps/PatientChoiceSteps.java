@@ -96,8 +96,8 @@ public class PatientChoiceSteps extends Pages {
                     Debugger.println("Submitted.....Continuing");
                     patientChoicePage.clickOnSaveAndContinueButton();
                 }
-
                 Debugger.println("DONE.");
+
             }//end
         }catch(Exception exp){
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);

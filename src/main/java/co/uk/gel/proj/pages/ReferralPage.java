@@ -193,6 +193,15 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//table/thead/tr/th[text()!='']")
     public List<WebElement> tableColumnHeaders;
 
+    @FindBy(css = "*[class*=consent-page-full]")
+    public WebElement consentDocument;
+    @FindBy(css = "*[class*=shadow]")
+    public WebElement consentDocumentShadow;
+    @FindBy(id = "printable-form-id")
+    public WebElement consentDocumentPrintableForm;
+    @FindBy(css = "*[class*=summary-header-container]")
+    public WebElement consentDocumentHeaderInfo;
+
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
@@ -245,6 +254,41 @@ public class ReferralPage<check> {
             Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
         }
     }
+    public void clickSaveAndContinueButtonOnThePatientChoiceComponent() {
+        try {
+            try {
+                Wait.forElementToBeDisplayed(driver, consentDocument, 200);
+                Wait.forElementToBeDisplayed(driver, consentDocumentShadow, 100);
+                Wait.forElementToBeDisplayed(driver, consentDocumentPrintableForm, 100);
+                Wait.forElementToBeDisplayed(driver, consentDocumentHeaderInfo, 100);
+            }catch (Exception exp){
+                Debugger.println("Consent Form is not visible ...");
+                SeleniumLib.takeAScreenShot("PatientChoiceConsentDocument.jpg");
+                Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
+            }
+
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeClickable(driver,saveAndContinueButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+            // Click.element(driver, saveAndContinueButton)
+            if (helix.size() > 0) {
+                try {
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                } catch (TimeoutException texp) {
+                    //Still the helix in action, waiting for another 30 seconds.
+                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
+                    Wait.seconds(30);
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
+            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+        }
+    }
+
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {

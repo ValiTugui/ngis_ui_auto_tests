@@ -145,6 +145,7 @@ public class ReferralSteps extends Pages {
             if (!testResult) {
                 Debugger.println("Stage: " + stage + " NOT Completed.");
             }
+            Debugger.println("Stage: " + stage + " Completed.");
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("Exception in verifying the stage completed status for :"+stage+":"+exp);
@@ -487,5 +488,10 @@ public class ReferralSteps extends Pages {
         PatientDetailsPage.newPatient.setClinicalIndication(referralPage.getPatientClinicalIndication());
         PatientDetailsPage.newPatient.setReferralHumanReadableID(referralPage.getPatientReferralId());
         patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
+    }
+
+    @When("the user clicks the Save and Continue button on the {string}")
+    public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
+        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
     }
 }

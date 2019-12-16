@@ -1,7 +1,7 @@
 @regression
 @userJourneys
 
-Feature: User Journey 29 - Cancer flow
+Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
   @E2EUI-1804 @NTS-3348 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
   Scenario Outline: NTS-3348 - UseCase 29: Create Referral for Proband Only - Patient Choice Not given
@@ -62,7 +62,7 @@ Feature: User Journey 29 - Cancer flow
     And the "<stage7>" stage is marked as Completed
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing
-    And the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button on the "<stage8>"
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     When the user clicks the Save and Continue button
     Then the "<stage9>" stage is selected

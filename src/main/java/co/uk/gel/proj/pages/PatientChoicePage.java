@@ -328,6 +328,9 @@ public class PatientChoicePage {
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             //Debugger.println("NHSFOUR : "+nhsLastFour);
             By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
+            if(!seleniumLib.isElementPresent(pChoiceEdit)){
+                Wait.seconds(5);
+            }
             WebElement element = driver.findElement(pChoiceEdit);
             if(Wait.isElementDisplayed(driver,element,100)) {
                 seleniumLib.clickOnWebElement(element);
