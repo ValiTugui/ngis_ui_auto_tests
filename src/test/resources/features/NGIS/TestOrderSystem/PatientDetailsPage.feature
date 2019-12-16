@@ -124,7 +124,7 @@ Feature: Patient details page
 
   @COMP2_TO_NewPatient
     @LOGOUT_BEFORE_TEST
-    @patientDetails_07 @NTS-3151 @E2EUI-1047 @PO @v_1
+    @patientDetails_07 @LOGOUT @NTS-3151 @E2EUI-1047 @PO @v_1
   Scenario Outline: NTS-3151:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |

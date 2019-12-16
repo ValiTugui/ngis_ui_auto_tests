@@ -101,7 +101,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
 
-    @FindBy(xpath = "//label[contains(@for,'noNhsNumberReason')]//following::div")
+    @FindBy(xpath = "(//label[contains(@for,'noNhsNumberReason')]//following::div)[4]")
     public WebElement noNhsNumberReasonDropdown;
 
     @FindBy(xpath = "textarea[class*='textarea']")
@@ -254,12 +254,12 @@ public class PatientDetailsPage {
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
-        fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
+        fillInAllNewPatientDetails();
     }
 
     public void fillInAllNewPatientDetails() {
