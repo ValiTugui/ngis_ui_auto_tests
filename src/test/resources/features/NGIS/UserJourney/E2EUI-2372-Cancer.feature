@@ -1,6 +1,7 @@
 @regression
 @userJourneys
 @userJourneysCancer
+@userJourneys3
 
 Feature: E2EUI-2372 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
 
