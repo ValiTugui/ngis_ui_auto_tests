@@ -319,7 +319,7 @@ public class ReferralPage<check> {
 
     public boolean checkThatToDoListSuccessfullyLoaded() {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList, 100);
+            Wait.forElementToBeDisplayed(driver, toDoList, 200);
             return Wait.isElementDisplayed(driver, toDoList, 30);
         }catch(Exception exp){
             Debugger.println("ToDoList not listed even after waiting period...waiting for another 30 seconds...");
