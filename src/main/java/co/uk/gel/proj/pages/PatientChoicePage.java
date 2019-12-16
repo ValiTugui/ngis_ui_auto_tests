@@ -196,8 +196,7 @@ public class PatientChoicePage {
     String patientChoiceInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Patient choice status']";
     String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
 
-    String specificPatientChoiceEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
-    String specificPatientChoiceEdit_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1tfa7rn']//button";
+    String specificPatientChoiceEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]//button";
 
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
@@ -231,14 +230,10 @@ public class PatientChoicePage {
             //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             //Debugger.println("NHSFOUR : "+nhsLastFour);
-            try {
-                By pChoiceEdit = By.xpath(specificPatientChoiceEdit_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
-                WebElement element = driver.findElement(pChoiceEdit);
-                element.click();
-            }catch(Exception exp){//For e2e and e2e latest, path is differrent
-                By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
-                WebElement element = driver.findElement(pChoiceEdit);
-                element.click();
+            By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
+            WebElement element = driver.findElement(pChoiceEdit);
+            if(Wait.isElementDisplayed(driver,element,100)) {
+                seleniumLib.clickOnWebElement(element);
             }
             return true;
         }catch(Exception exp){
@@ -932,8 +927,14 @@ public class PatientChoicePage {
     }
     public boolean clickOnSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-            saveAndContinueButton.click();
+            Debugger.println("Time1: "+System.currentTimeMillis());
+            if(Wait.isElementDisplayed(driver, saveAndContinueButton,120)) {
+               Wait.forElementToBeClickable(driver,saveAndContinueButton);
+               seleniumLib.clickOnWebElement(saveAndContinueButton);
+            }else{
+                Debugger.println("Time2: "+System.currentTimeMillis());
+                Debugger.println("Not found Save and Continue in PatientChoice..even after two minutes wait..");
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
