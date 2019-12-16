@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
          features = {"src/test/resources/features"},
          tags = {"@E2EUI-1800"}
         )
-    public class Runner {
+    public class RunnerTest {
         @BeforeClass
         public static void setup() {
             Debugger.println("\n******* RUN STARTS " + new java.util.Date() + " *******************************");
