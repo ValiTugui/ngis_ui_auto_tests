@@ -290,6 +290,20 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.selectMember(0);
     }
 
+    @And("the user answers the patient choice questions with agreeing to testing")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType();
+        Wait.seconds(2);
+        patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
+        patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
+        Wait.seconds(2);
+        patientChoicePage.submitPatientChoiceWithoutSignature();
+        Wait.seconds(2);
+    }
+
     @And("the user submits the patient choice with signature")
     public void theUserSubmitsThePatientChoiceWithSignature() {
         patientChoicePage.submitPatientChoiceWithSignature();

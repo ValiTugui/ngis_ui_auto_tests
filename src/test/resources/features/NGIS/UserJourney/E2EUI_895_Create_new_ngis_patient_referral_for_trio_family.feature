@@ -1,5 +1,6 @@
 @regression
 @userJourneys
+@userJourneysRD
 Feature: Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
   @E2EUI-895 @LOGOUT @BVT-P0 @v_1
