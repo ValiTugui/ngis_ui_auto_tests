@@ -99,6 +99,7 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("DONE.");
 
             }//end
+            Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
         }catch(Exception exp){
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: "+exp);
         }

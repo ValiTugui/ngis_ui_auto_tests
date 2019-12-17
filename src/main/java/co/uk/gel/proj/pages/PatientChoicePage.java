@@ -351,8 +351,11 @@ public class PatientChoicePage {
             String selectedPatientChoiceCategory = patientChoiceCategory.replaceAll("dummyCategory", category);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
             WebElement webElement = driver.findElement(By.xpath(selectedPatientChoiceCategory));
-            seleniumLib.clickOnWebElement(webElement);
-
+            if(Wait.isElementDisplayed(driver,webElement,100)) {
+                seleniumLib.clickOnWebElement(webElement);
+            }else{
+                Debugger.println("Category: "+category+" not loaded.");
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting PatientChoiceCategory:"+exp);
@@ -367,7 +370,11 @@ public class PatientChoicePage {
             }
             String selectedTestType = testType.replaceAll("dummyTestType", test_type);
             WebElement webElement = driver.findElement(By.xpath(selectedTestType));
-            webElement.click();
+            if(Wait.isElementDisplayed(driver,webElement,100)) {
+                seleniumLib.clickOnWebElement(webElement);
+            }else{
+                Debugger.println("Test Type: "+test_type+" not displayed.");
+            }
 
             return true;
         }catch(Exception exp){
@@ -498,21 +505,20 @@ public class PatientChoicePage {
     }
     public boolean selectPatientChoice(String patient_choice){
         try{
+            Debugger.println("Patient Choice......"+patient_choice);
             if(patient_choice == null || patient_choice.isEmpty()) {
                 return true;
             }
-
             WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Patient choices')]"));
             Wait.forElementToBeDisplayed(driver,titleElement);
-
-            patientChoice = patientChoice.replaceAll("dummyChoice",patient_choice);
+            String pChoice = patientChoice.replaceAll("dummyChoice",patient_choice);
             WebElement webElement;
             try {
-                webElement = driver.findElement(By.xpath(patientChoice));
+                webElement = driver.findElement(By.xpath(pChoice));
             }catch(NoSuchElementException nsee){
                 //If the element not found, waiting for 5 seconds and the searchign again. Some times it is taking time.
                 Wait.seconds(5);
-                webElement = driver.findElement(By.xpath(patientChoice));
+                webElement = driver.findElement(By.xpath(pChoice));
             }
             seleniumLib.clickOnWebElement(webElement);
             return true;
@@ -535,9 +541,9 @@ public class PatientChoicePage {
                 return true;//Child assent not present and may not be required - for new patient's family members
             }
             Actions.scrollToTop(driver);
-            childAssent = childAssent.replaceAll("dummyAssent",child_assent);
+            String chdAssent = childAssent.replaceAll("dummyAssent",child_assent);
             Wait.seconds(1);
-            WebElement webElement = driver.findElement(By.xpath(childAssent));
+            WebElement webElement = driver.findElement(By.xpath(chdAssent));
             if(Wait.isElementDisplayed(driver,webElement,10)){
                 webElement.click();
             }else{
@@ -603,8 +609,6 @@ public class PatientChoicePage {
             Debugger.println("Exception from clicking on 1st YesNoOptions. " + exp);
         }
     }
-
-
 
     public boolean fillParentSignatureDetails(String parentDetails) {
         try {

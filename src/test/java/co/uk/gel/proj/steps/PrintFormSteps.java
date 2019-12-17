@@ -53,7 +53,6 @@ public class PrintFormSteps extends Pages {
                         break;
                     }
                 }
-                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
                 NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
                 if(familyMember != null){
                     familyMember.setREFERAL_ID(referralID);

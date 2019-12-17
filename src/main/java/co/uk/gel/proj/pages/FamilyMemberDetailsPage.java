@@ -383,7 +383,7 @@ public class FamilyMemberDetailsPage {
             bornText = bornText.replaceAll("Born", "");
             familyMember.setBORN_DATE(bornText.trim());
         }catch(Exception exp){
-
+            Debugger.println("Error in reading born details of added family member.");
         }
         if (!seleniumLib.isElementPresent(patientCardGender)) {
             Debugger.println("Patient Gender not displayed in Search Result.");
@@ -401,6 +401,7 @@ public class FamilyMemberDetailsPage {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }
         addedFamilyMembers.add(familyMember);//This to verify the details later.
+        Debugger.println("Family Member: "+familyMember.getNHS_NUMBER()+" added to the list.");
         return true;
     }
 
@@ -420,31 +421,24 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
-//
-//
-//    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
-//        try {
-//            Wait.seconds(5);
-//            String actualMessage = Actions.getText(validationErrors.get(0));
-//            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-//                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-//                return false;
-//            }
-//            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-//            String actColor = validationErrors.get(0).getCssValue("color");
-//            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-//                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-//                return false;
-//            }
-//            return true;
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from validating Error Message " + exp);
-//            return false;
-//        }
-//    }
 
-
-    public void fillTheRelationshipToProband(String relationToProband) {
+    public void fillTheRelationshipToProband(String relationToProband,String nhsDetails) {
+        if(!nhsDetails.isEmpty()) {
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            String nhsNumber = "";
+            for (String key : paramsKey) {
+                if (key.equalsIgnoreCase("NHSNumber")) {
+                    nhsNumber = paramNameValue.get(key);
+                    break;
+                }
+            }
+            NGISPatientModel familyMember = getFamilyMember(nhsNumber);
+            if (familyMember != null) {
+                familyMember.setFIRST_NAME(firstName.getText());
+                familyMember.setLAST_NAME(lastName.getText());
+            }
+        }
         validationErrors.clear();
         if(!Wait.isElementDisplayed(driver,relationshipToProbandDropdown,30)){
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
@@ -481,16 +475,16 @@ public class FamilyMemberDetailsPage {
                   break;
             }
         }
-        nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
+        //nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
         if(familyMember == null){
-            Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not added to the list!.");
+            Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not found in the added list!.");
             return false;
         }
         //1. Verify the display of Title for the added Test.
         By testTitle = By.xpath(selectedTestTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
         if (!seleniumLib.isElementPresent(testTitle)) {
-            Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
+            Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed."+testTitle);
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
@@ -612,7 +606,7 @@ public class FamilyMemberDetailsPage {
                 break;
             }
         }
-        nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
+
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
         if(familyMember == null){
             Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not added to the list!.");
@@ -756,6 +750,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyThePatientCardField() {
         //1. Verify the display of Title for the added Family Member
+
         NGISPatientModel familyMember = getFamilyMember("");
         By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
         if (!seleniumLib.isElementPresent(firstNameLastName)) {
@@ -938,10 +933,11 @@ public class FamilyMemberDetailsPage {
         }
     }
     public void clickOnSaveAndContinueButton() {
-        Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
-        Click.element(driver, saveAndContinueButton);
-        if (helix.size() > 0) {
-            Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+        if(Wait.isElementDisplayed(driver, saveAndContinueButton,10)) {
+            seleniumLib.clickOnWebElement(saveAndContinueButton);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
         }
     }
     public boolean participantsNotMatchingMsg(String expectedMessage) {

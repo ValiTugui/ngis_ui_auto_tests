@@ -48,22 +48,8 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user fills the FamilyMemberDetailsPage with the {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,"");
     }
-
-    @And("reads the details of selected family member {string}")
-    public void readsTheDetailsOfSelectedMember(String relationToProband) {
-        //familyMemberDetailsPage.readFamilyMemberDetailsFor(relationToProband);
-        familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(relationToProband);
-    }
-
-    @Then("the family member details with the selected test are added to the referral")
-    public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToReferral() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember("");
-        Assert.assertTrue(testResult);
-    }
-
 
     @And("the user can select the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
@@ -422,7 +408,8 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Clicking on Patient Card.");
                 familyMemberDetailsPage.clickPatientCard();
                 Debugger.println("Filling RelationShip to Proband");
-                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
+                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1),memberDetails.get(i).get(0));
+
                 Debugger.println("Filling RelationShip to Proband, Done");
                 //referralPage.clickSaveAndContinueButton();
                 familyMemberDetailsPage.clickOnSaveAndContinueButton();
