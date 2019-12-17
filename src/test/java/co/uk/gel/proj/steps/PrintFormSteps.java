@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -53,15 +54,14 @@ public class PrintFormSteps extends Pages {
                         break;
                     }
                 }
-                NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
-                if(familyMember != null){
-                    Debugger.println("Family Member: for "+nhsNumber+" is : "+familyMember);
-                    String referralID = referralPage.getPatientReferralId();
-                    Debugger.println("referralID "+referralID);
-                    if(referralID != null) {
-                        familyMember.setREFERAL_ID(referralID);
-                    }
+                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
+                if(familyMember == null){
+                    continue;//For Proband
                 }
+                String referralID = referralPage.getPatientReferralId();
+                if(referralID != null) {
+                    familyMember.setREFERAL_ID(referralID);
+                 }
                 if(!printFormsPage.openAndVerifyPDFContent(familyMember)){
                     Debugger.println("Could not verify PDF content for "+memberDetails.get(i).get(0));
                     testResult = false;
