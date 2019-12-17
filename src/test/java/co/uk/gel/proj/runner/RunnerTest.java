@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
          features = {"src/test/resources/features"},
          tags = {"@userJourneysCancer"}
         )
-
     public class RunnerTest {
         @BeforeClass
         public static void setup() {

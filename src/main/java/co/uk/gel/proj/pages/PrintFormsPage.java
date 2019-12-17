@@ -124,6 +124,10 @@ public class PrintFormsPage {
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
 
         Debugger.println("NHS to be validated in PDF: "+familyMember.getNHS_NUMBER());
+        String nhsNumber = TestUtils.getNHSDisplayFormat(familyMember.getNHS_NUMBER());
+        familyMember.setNHS_NUMBER(nhsNumber);
+        String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
+        familyMember.setREFERAL_ID(referralId);
         String output;
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
@@ -144,6 +148,10 @@ public class PrintFormsPage {
             fileToParse = new BufferedInputStream(is);
             document = PDDocument.load(fileToParse);
             Debugger.println("Reading PDF content....");
+            if(familyMember.getREFERAL_ID() == null){
+                Debugger.println("Referral ID Could not read: read as null....need to check it.");
+                familyMember.setREFERAL_ID("");
+            }
             output = new PDFTextStripper().getText(document);
             if(output.contains(familyMember.getNHS_NUMBER()) &&
                     output.contains(familyMember.getBORN_DATE()) &&
@@ -170,7 +178,6 @@ public class PrintFormsPage {
 
             }
         }
-
     }
 
     public boolean downloadProbandPrintForm() {

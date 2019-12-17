@@ -1,5 +1,5 @@
 @regression
-@regression_set2
+@regression_set3
 @samplesPage
 Feature: Samples Page
 
