@@ -20,8 +20,10 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
+
     @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
     public WebElement familyMemberDetailsTitle;
+
 
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
     public List<WebElement> nameResults;
@@ -80,10 +82,12 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
 
+
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
     public WebElement editBoxTestPackage;
 
     @FindBy(xpath = "//h2[contains(@class,'css')]/following::button[2]")
+
     public WebElement removeFamilyMember;
 
     @FindBy(id = "nhsNumber")
@@ -147,6 +151,7 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
+
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
     public WebElement patientCardField;
 
@@ -159,8 +164,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
     public WebElement AddReferralButton;
 
+
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
+
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
@@ -218,12 +225,14 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'css')]/following::h2[contains(@class,'css')]")
     public WebElement additionalFamilyMemberName;
 
+
     By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
     public WebElement unsuccessAdditionalFamilyMemberName;
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][1]")
+
     public WebElement relationField;
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][2]")
@@ -238,8 +247,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'patientChoiceStatus')]")
     public WebElement patientChoiceStatus;
 
+
     @FindBy(xpath = "//span[text()='Patient NGIS ID']")
     public WebElement patientNGISId;
+
 
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
@@ -258,6 +269,7 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
     public WebElement printFormsPageTitle;
+
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
     public WebElement genderResult;
@@ -474,6 +486,11 @@ public class FamilyMemberDetailsPage {
                   nhsNumber = paramNameValue.get(key);
                   break;
             }
+//            familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
+//            Debugger.println("Read Family Member Details........." + familyMember.getFIRST_NAME());
+//            Wait.seconds(5);
+//        } catch (Exception exp) {
+//            Debugger.println("Exception in Reading Family Details from Confirmation Page. " + exp);
         }
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
         //nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
@@ -582,13 +599,16 @@ public class FamilyMemberDetailsPage {
                         Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     }
                     return;
+                }else{
+                    Debugger.println("Phenotype drop down value not displayed...");
+                    return;
                 }
             }
             Debugger.println("Selecting from dropdown values.....");
-            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            }
-
+//            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
+//                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+//            }
+            Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
             SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");
@@ -968,7 +988,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             noOfPatientsForIdentification = noOfPatients;
-
+            Wait.seconds(2);
             Debugger.println("Validating Information of " + noOfPatients + " Patients in Family Member Landing Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != noOfPatients) {
@@ -1206,6 +1226,7 @@ public class FamilyMemberDetailsPage {
     }
     public boolean testedFieldColor(String testfield, String color) {
         try {
+            Wait.seconds(5);
             Wait.forElementToBeDisplayed(driver,familyPageBeingTestedField);
             String actualMessage1 = Actions.getText(familyPageBeingTestedField);
             String actualMessage2 = Actions.getText(familyPageNotBeingTestedField);
@@ -1339,6 +1360,7 @@ public class FamilyMemberDetailsPage {
         }
 
     }
+
     public boolean editAndDeleteButtonDisplay() {
         for (int i = 0; i < editButton.size(); i++) {
             if (!seleniumLib.isElementPresent(editButton.get(i)) && !seleniumLib.isElementPresent(deleteButton.get(i))) {

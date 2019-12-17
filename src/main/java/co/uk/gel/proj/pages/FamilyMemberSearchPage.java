@@ -64,8 +64,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
-
-
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
 
@@ -127,6 +125,10 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
     public WebElement genderClear;
+
+
+
+
 
     static String searchString = "";
 
@@ -247,24 +249,24 @@ public class FamilyMemberSearchPage {
         seleniumLib.clickOnWebElement(searchButton);
     }
 
-   public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
+    public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("NHS Number is required.", Actions.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a day", Actions.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a month", Actions.getText(validationErrors.get(2)));
-        Assert.assertEquals("Enter a year", Actions.getText(validationErrors.get(3)));
+        Assert.assertEquals("NHS Number is required.", validationErrors.get(0).getText());
+        Assert.assertEquals("Enter a day", validationErrors.get(1).getText());
+        Assert.assertEquals("Enter a month", validationErrors.get(2).getText());
+        Assert.assertEquals("Enter a year", validationErrors.get(3).getText());
         Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
     }
 
     public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("Enter a day", Actions.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a month", Actions.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a year", Actions.getText(validationErrors.get(2)));
-        Assert.assertEquals("First name is required.", Actions.getText(validationErrors.get(3)));
-        Assert.assertEquals("Last name is required.", Actions.getText(validationErrors.get(4)));
-        Assert.assertEquals("Gender is required.", Actions.getText(validationErrors.get(5)));
+        Assert.assertEquals("Enter a day", validationErrors.get(0).getText());
+        Assert.assertEquals("Enter a month", validationErrors.get(1).getText());
+        Assert.assertEquals("Enter a year", validationErrors.get(2).getText());
+        Assert.assertEquals("First name is required.", validationErrors.get(3).getText());
+        Assert.assertEquals("Last name is required.", validationErrors.get(4).getText());
+        Assert.assertEquals("Gender is required.", validationErrors.get(5).getText());
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
         Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
@@ -315,11 +317,10 @@ public class FamilyMemberSearchPage {
     }
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
-        Debugger.println("Searching for Family Member: "+searchParams);
+        Wait.forElementToBeDisplayed(driver,dateDay);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
-            Debugger.println("Key: "+key);
             switch (key) {
                 case "NHSNumber": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
@@ -364,6 +365,7 @@ public class FamilyMemberSearchPage {
                 }
             }//switch
         }//for
+        Debugger.println("Entered the values as search param.........");
         seleniumLib.clickOnWebElement(searchButton);
     }//method
 
@@ -379,7 +381,7 @@ public class FamilyMemberSearchPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = Actions.getText(validationErrors.get(i));
+                actualMessage = validationErrors.get(i).getText();
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;
@@ -397,7 +399,24 @@ public class FamilyMemberSearchPage {
             Debugger.println("FamilyMemberSearchPage:Exception from validating Error Message "+exp);
             return false;
         }
+    }
 
+    public void checkTheErrorMessagesInFamilyMember(String errorMessage, String fontColor) {
+        String[] expMessages = null;
+        if(errorMessage.indexOf(",") == -1){
+            expMessages = new String[]{errorMessage};
+        }else{
+            expMessages = errorMessage.split(",");
+        }
+        String actualMessage = "";
+        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+        for(int i=0; i<expMessages.length;i++) {
+            actualMessage = validationErrors.get(i).getText();
+            Debugger.println("EXPECTED RESULT: " + expMessages[i]);
+            Debugger.println("ACTUAL RESULT  : " + actualMessage);
+            Assert.assertEquals(expMessages[i], actualMessage);
+            Assert.assertEquals(expectedFontColor, validationErrors.get(i).getCssValue("color"));
+        }
     }
     public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
         try {
@@ -447,7 +466,7 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
         Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
 
-}   public void clickOnNewPatientLink() {
+    }   public void clickOnNewPatientLink() {
         seleniumLib.clickOnWebElement(createNewPatientLink);
     }
 
@@ -470,21 +489,14 @@ public class FamilyMemberSearchPage {
     }
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
-            Debugger.println("STATRED>>......");
             Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
-            if(!Wait.isElementDisplayed(driver,familyMemberIncompleteErrorMessage,30)){
-                Debugger.println("Element familyMemberIncompleteErrorMessage: Not Displayed");
-            }
             String actualMessage = familyMemberIncompleteErrorMessage.getText();
-            Debugger.println("Actual MEssage: "+actualMessage);
             if (!errorMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                 return false;
             }
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            Debugger.println("EXP Color: "+expectedFontColor);
             String actColor = familyMemberIncompleteErrorMessage.getCssValue("color");
-            Debugger.println("ACtual Color: "+actColor);
             if (!expectedFontColor.equalsIgnoreCase(actColor)) {
                 Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                 return false;

@@ -44,12 +44,13 @@ public class Pages implements Navigable {
     protected FamilyMemberSearchPage familyMemberSearchPage;
     protected GlobalBehaviourPage globalBehaviourPage;
     protected FamilyMemberDetailsPage familyMemberDetailsPage;
-    protected  FamilyMemberNewPatientPage familyMemberNewPatientPage;
+    protected FamilyMemberNewPatientPage familyMemberNewPatientPage;
     protected PatientChoicePage patientChoicePage;
     protected PanelsPage panelsPage;
     protected NotesPage notesPage;
     protected PedigreePage pedigreePage;
     protected PrintFormsPage printFormsPage;
+
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
