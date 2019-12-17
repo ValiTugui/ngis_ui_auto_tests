@@ -1409,10 +1409,12 @@ public class FamilyMemberDetailsPage {
                 return addedFamilyMembers.get(0);
             }
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                Debugger.println("Finding for  :"+addedFamilyMembers.get(i).getNHS_NUMBER());
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(nhsNumber)) {
                     return addedFamilyMembers.get(i);
                 }
             }
+            Debugger.println("COULD NOT find Family Member for :"+nhsNumber);
             return null;
         }catch(Exception exp){
             Debugger.println("Family Member with NHSNumber:"+nhsNumber+" Not found in the added list.");

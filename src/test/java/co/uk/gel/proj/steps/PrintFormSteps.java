@@ -55,7 +55,9 @@ public class PrintFormSteps extends Pages {
                 }
                 NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
                 if(familyMember != null){
+                    Debugger.println("Family Member: for "+nhsNumber+" is : "+familyMember);
                     String referralID = referralPage.getPatientReferralId();
+                    Debugger.println("referralID "+referralID);
                     if(referralID != null) {
                         familyMember.setREFERAL_ID(referralID);
                     }
