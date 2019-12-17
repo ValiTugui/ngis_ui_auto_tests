@@ -13,10 +13,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
-
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.sql.Driver;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 
 public class PatientChoicePage {
@@ -298,6 +301,22 @@ public class PatientChoicePage {
 
 
 
+//    @FindBy(xpath = "//div[@class='dropdown']")
+//    WebElement fileTypeDropDown;
+//    @FindBy(xpath = "//input[@placeholder='DD']")
+//    WebElement uploadDay;
+//    @FindBy(xpath = "//input[@placeholder='MM']")
+//    WebElement uploadMonth;
+//    @FindBy(xpath = "//input[@placeholder='YYYY']")
+//    WebElement uploadYear;
+
+
+//    public PatientChoicePage(WebDriver driver) {
+//        this.driver = driver;
+//        PageFactory.initElements(driver, this);
+//        seleniumLib = new SeleniumLib(driver);
+//    }
+
     public boolean editPatientChoice() {
         try{
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -327,6 +346,7 @@ public class PatientChoicePage {
             //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6,nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             //Debugger.println("NHSFOUR : "+nhsLastFour);
+
             By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
             if(!seleniumLib.isElementPresent(pChoiceEdit)){
                 Wait.seconds(5);
@@ -335,6 +355,7 @@ public class PatientChoicePage {
             if(Wait.isElementDisplayed(driver,element,100)) {
                 seleniumLib.clickOnWebElement(element);
             }
+
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:"+exp);

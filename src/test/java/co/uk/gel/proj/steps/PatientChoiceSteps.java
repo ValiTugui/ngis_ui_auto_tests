@@ -118,14 +118,15 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyPatientIdentifiersInPatientChoicePage();
         Assert.assertTrue(testResult);
     }
+
     //This step is for Notes, page. included here as there is only one method need for that page .So not created a separate stepdef
     @And("the user fills the NotesPage with the {string}")
     public void theUserFillsTheNotesPageWithThe(String notes) {
         notesPage.fillNotes(notes);
     }
 
-    // 2110
-    @And("the user clicks on the {string} link in patient choice page")
+
+     @And("the user clicks on the {string} link in patient choice page")
     public void theUserClicksOnTheLinkInPatientChoicePage(String linkText) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnPatientChoiceInformationLink(linkText);
@@ -139,15 +140,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    /*@When("the user wants to edit {string} in patient choice status")
-    public void theUserWantsToEditInPatientChoiceStatus(String index) {
-        int editIndex = Integer.parseInt(index);
-        boolean testResult = false;
-        testResult = patientChoicePage.editPatientChoice2(editIndex);
-        Assert.assertTrue(testResult);
-    }*/
-
-    // 2039
+ 
     @When("the user fills {string} details in patient choice category")
     public void theUserFillsDetailsInPatientChoiceCategory(String inputData) {
         boolean testResult = false;
@@ -182,7 +175,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectChildAssent(inputData);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
+
     }
 
     @When("the user fills {string} details in parent or guardian signature")
@@ -241,7 +234,6 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.patientChoiceInformationWarningMessage(warningMessage);
     }
 
-// scenario_3
 
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
@@ -338,7 +330,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserSelectsDataAndSampleOptionInPatientChoices(String option) {
         patientChoicePage.clickingOnDataAndSampleForResearchYesNoOptions(option);
     }
-//Aftab
+
     @Then("the user should be able to see patient hospital number")
     public void theUserShouldBeAbleToSeePatientHospitalNumber() {
         boolean testResult = false;
@@ -410,4 +402,5 @@ public class PatientChoiceSteps extends Pages {
 //        patientChoicePage.selectChoicesWithAgreeingTesting();
 //        patientChoicePage.drawSignature();
     }
+
 }//end

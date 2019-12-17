@@ -157,8 +157,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user clicks on back button on family member details page")
-    public void clicksOnBackButtonOnFamilyMemberDetailsPage() {
+    @When("the user clicks on back button")
+    public void clicksOnBackButton() {
         familyMemberDetailsPage.clickOnBackButton();
     }
 
@@ -289,8 +289,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the patient choice status in family member page as {string}")
-    public void theUserSeesThePatientChoiceStatus(String status) {
+    @And("the user will see the patient choice status in family member page as {string}")
+    public void theUserWillSeeThePatientChoiceStatus(String status) {
         familyMemberDetailsPage.patientChoiceStatus(status);
     }
 

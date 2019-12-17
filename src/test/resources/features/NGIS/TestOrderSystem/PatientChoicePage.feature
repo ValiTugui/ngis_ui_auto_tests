@@ -6,6 +6,7 @@ Feature: Patient Choice Page
   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
   Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
+
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Family members>" stage
@@ -57,10 +58,12 @@ Feature: Patient Choice Page
   Scenario Outline: E2EUI-2039: Verify the relevant Patient choice for an Adult with capacity
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303843:DOB=18-08-2005 |
+
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
+
     When the user fills "<PatientChoiceCategory>" details in patient choice category
     And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
