@@ -419,16 +419,18 @@ public class PatientChoiceSteps extends Pages {
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
-//        patientChoicePage.selectPatientChoiceCategory();
-//        Wait.seconds(2);
-//        patientChoicePage.selectTestType();
-//        Wait.seconds(2);
-//        patientChoicePage.enterRecordedByDetails();
-//        Wait.seconds(2);
-//        patientChoicePage.selectChoicesWithAgreeingTesting();
-//        Wait.seconds(2);
-//        patientChoicePage.drawSignature();
-//        Wait.seconds(2);
+
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType();
+        Wait.seconds(2);
+        patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
+        patientChoicePage.selectChoicesWithAgreeingTesting();
+        Wait.seconds(2);
+        patientChoicePage.drawSignature();
+        Wait.seconds(2);
+
     }
 
     @Then("the help text is displayed")

@@ -491,6 +491,11 @@ public class PatientDetailsPage {
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
         String hospitalId = faker.numerify("A#R##BB##");
+        selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
         Actions.fillInValue(hospitalNumber, hospitalId);
         Actions.fillInValue(addressLine0, faker.address().buildingNumber());
         Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
@@ -501,11 +506,6 @@ public class PatientDetailsPage {
         newPatient.setHospitalNumber(hospitalId);
         String postcodeValue = newPatient.getPostCode();
         Actions.fillInValue(postcode, postcodeValue);
-        selectMissingNhsNumberReason(reason);
-        if (reason.equalsIgnoreCase("Other - provide explanation")) {
-            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
-        }
 
         Debugger.println(" Newly created patient info   : " + firstNameValue + " " + lastNameValue + " " + dayOfBirth  + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
         Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());

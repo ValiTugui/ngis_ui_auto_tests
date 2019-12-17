@@ -1,7 +1,8 @@
 @regression
 @userJourneys
 @userJourneysRD
-Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
+
+Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
   @E2EUI-1800 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
@@ -9,6 +10,7 @@ Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for 
     ##Referral creation  - provide nhs and dob of an existing patient
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | SPINE | Rare-Disease | NHSNumber=2000008178:DOB=29-12-1967 | GEL_SUPER_USER |
+
     ##Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient
@@ -83,6 +85,7 @@ Feature: Create Spine Referral and Revoke for Trio Family - Create Referral for 
       | NHSNumber=2000008178:DOB=29-12-1967 |
       | NHSNumber=2000008127:DOB=11-03-1942 |
       | NHSNumber=2000007953:DOB=12-02-1939 |
+
     ##Sobmitting Referral and Cancel Referral
     When the user submits the referral
     And the user clicks the Cancel referral link

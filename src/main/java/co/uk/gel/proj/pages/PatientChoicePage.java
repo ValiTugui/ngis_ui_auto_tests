@@ -46,6 +46,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[contains(text(),'Before submitting a referral')]")
     public WebElement helpTextLabel;
 
+
     @FindBy(xpath = "//button[@aria-label='edit button']")
     public List<WebElement> editPatientChoice2;
 
@@ -1211,6 +1212,7 @@ public class PatientChoicePage {
     }
 
 
+
     public boolean verifyYesNoButtonForResearchParticipation() {
         try {
             Wait.forElementToBeDisplayed(driver, yesButtonForResearchParticipation);
@@ -1226,6 +1228,16 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("verifyYesNoButtonForResearchParticipation, Yes No Button not found.");
             return false;
+        }
+}
+
+    public void submitPatientChoiceWithSignature() {
+        try {
+        Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
+        Click.element(driver, submitSignatureButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
+
         }
     }
 
@@ -1282,6 +1294,7 @@ public class PatientChoicePage {
             return false;
         }
     }
+
 
 
     public boolean verifyYesNoButtonForSeparateToNnsCare() {
@@ -1403,6 +1416,7 @@ public class PatientChoicePage {
             return false;
         }
     }
+
 
 
 

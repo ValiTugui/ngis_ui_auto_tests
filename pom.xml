@@ -25,22 +25,72 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.13.0</version>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>5.0.0</version>
                 <executions>
                     <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
+                        <id>generateRunners</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <glue>
+                                <package>co.uk.gel.proj.steps</package>
+                            </glue>
+                            <featuresDirectory>src/test/resources/features</featuresDirectory>
+                            <tags>@userJourneys</tags>
+                            <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+                            <outputDirectory>target/generated-test-sources</outputDirectory>
+                            <namingPattern>Parallel{c}IT</namingPattern>
+                            <parallelScheme>FEATURE</parallelScheme>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <forkCount>5</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <includes>
+                        <include>**/Parallel*IT.class</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>report.donut</groupId>
+                <artifactId>donut-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>ProjectName</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
-                            <parallelTesting>false</parallelTesting>
-                            <checkBuildResult>true</checkBuildResult>
+                            <resultSources>
+                                <resultSource>
+                                    <!-- optional format, defaults to cucumber -->
+                                    <format>cucumber</format>
+                                    <directory>target/cucumber-parallel</directory>
+                                </resultSource>
+                            </resultSources>
+                            <outputPath>target/test-report</outputPath>
+                            <timestamp>${maven.build.timestamp}</timestamp>
+                            <template>default</template>
                         </configuration>
                     </execution>
                 </executions>
@@ -52,14 +102,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
 

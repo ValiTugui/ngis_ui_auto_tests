@@ -1,6 +1,8 @@
 @regression
 @userJourneys
 @userJourneysCancer
+@userJourneys3
+
 Feature: E2EUI-2372 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
 
   @E2EUI-2372 @NTS-3362 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
@@ -64,6 +66,10 @@ Feature: E2EUI-2372 - Cancer flow - Create Referral for Proband Only + Edit Data
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the "<patientChoice>"
+
+    Then the "<patientChoice>" page is displayed
+    Then the help text is displayed
+
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     When the user clicks the Save and Continue button
     Then the "<PrintForms>" stage is selected
