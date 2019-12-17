@@ -143,9 +143,12 @@ public class ReferralSteps extends Pages {
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
             if (!testResult) {
-                Debugger.println("Stage: " + stage + " NOT Completed.");
-            }else {
-                Debugger.println("Stage: " + stage + " Completed.");
+                testResult = referralPage.stageIsCompleted(stage);
+                if (!testResult) {
+                    Debugger.println("Stage: " + stage + " NOT Completed.");
+                } else {
+                    Debugger.println("Stage: " + stage + " Completed.");
+                }
             }
             Assert.assertTrue(testResult);
         }catch(Exception exp){
