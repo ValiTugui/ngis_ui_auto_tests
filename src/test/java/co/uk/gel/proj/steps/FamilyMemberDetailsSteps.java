@@ -46,8 +46,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user fills the FamilyMemberDetailsPage with the {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+    @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,"");
     }
 
