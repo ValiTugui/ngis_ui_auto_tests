@@ -285,7 +285,8 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            seleniumLib.clickOnWebElement(saveAndContinueButton);
+            //Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
         }
     }
 
