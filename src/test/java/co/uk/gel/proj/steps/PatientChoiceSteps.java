@@ -194,7 +194,7 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.submitPatientChoice();
     }
 
-    @And("the user will see the chosen {string} with edit button in {string}")
+    @And("the user should see the chosen {string} with edit button in {string}")
     public void theUserWillSeeTheChosenWithEditButton(String expectedResult, String category) {
         Assert.assertTrue(patientChoicePage.verifySelectedOption(expectedResult));
         Assert.assertTrue(patientChoicePage.verifyEditButton(category));
@@ -284,6 +284,15 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.errorMessageInPatientChoicePage();
         Assert.assertTrue(testResult);
+    }
+    @When("the user selects the proband")
+    public void theUserSelectsTheProband() {
+        patientChoicePage.selectMember(0);
+    }
+
+    @And("the user submits the patient choice with signature")
+    public void theUserSubmitsThePatientChoiceWithSignature() {
+        patientChoicePage.submitPatientChoiceWithSignature();
     }
 
     @And("the user should be able to see the patient choice form")
@@ -397,10 +406,19 @@ public class PatientChoiceSteps extends Pages {
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
 //        patientChoicePage.selectPatientChoiceCategory();
+//        Wait.seconds(2);
 //        patientChoicePage.selectTestType();
+//        Wait.seconds(2);
 //        patientChoicePage.enterRecordedByDetails();
+//        Wait.seconds(2);
 //        patientChoicePage.selectChoicesWithAgreeingTesting();
+//        Wait.seconds(2);
 //        patientChoicePage.drawSignature();
+//        Wait.seconds(2);
     }
 
+    @Then("the help text is displayed")
+    public void theHelpTextIsDisplayed() {
+     Assert.assertTrue(patientChoicePage.verifyHelpTextLabelIsVisible());
+    }
 }//end

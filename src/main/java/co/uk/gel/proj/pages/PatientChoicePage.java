@@ -13,9 +13,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
-import java.io.BufferedInputStream;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,7 +43,10 @@ public class PatientChoicePage {
     @FindBy(xpath = "//a[@class='form-link']")
     List<WebElement> formLibraryLinks;
 
-    //2039
+    @FindBy(xpath = "//p[contains(text(),'Before submitting a referral')]")
+    public WebElement helpTextLabel;
+
+
     @FindBy(xpath = "//button[@aria-label='edit button']")
     public List<WebElement> editPatientChoice2;
 
@@ -1287,7 +1289,50 @@ public class PatientChoicePage {
             return false;
         }
     }
+    public void selectMember(int i) {
+        Wait.forElementToBeDisplayed(driver, landingPageList);
+        Click.element(driver, memberEditButton.get(i));
+    }
 
+    public void selectPatientChoiceCategory() {
+        Click.element(driver, adultWithCapacityCategory);
+    }
+
+    public void selectTestType() {
+        Click.element(driver, adultWithCapacityCategory);
+    }
+
+    public void enterRecordedByDetails() {
+        Wait.forElementToBeDisplayed(driver, recordedByField);
+        co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
+        Click.element(driver, recordedByContinueButton);
+    }
+
+    public void selectChoicesWithPatientChoiceNotRequired() {
+        Click.element(driver, discussionFormNotAvailable);
+        Click.element(driver, patientChoiceNotRequiredForTheTest);
+        Click.element(driver, patientChoicesContinueButton);
+    }
+
+    public void selectChoicesWithAgreeingTesting() {
+        Click.element(driver, agreeTestChoice);
+        Click.element(driver, agreeResearchParticipation);
+        Click.element(driver, agreeSampleUsage);
+        Click.element(driver, patientChoicesContinueButton);
+    }
+    public void drawSignature() {
+        Wait.forElementToBeDisplayed(driver, signatureSection);
+        Click.element(driver, signatureSection);
+        org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
+        Action drawAction = builder.moveToElement(signatureSection,135,15) //start points x axis and y axis.
+                .clickAndHold()
+                .moveByOffset(80, 80)
+                .moveByOffset(50, 20)
+                .release()
+                .build();
+        drawAction.perform();
+        Wait.seconds(1);
+    }
 
 
     public boolean verifyYesNoButtonForResearchParticipation() {
@@ -1320,6 +1365,45 @@ public class PatientChoicePage {
             Debugger.println("YesNo Completed");
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on 2st YesNoOptions. " + exp);
+        }
+    }
+    public void submitPatientChoiceWithSignature() {
+        try {
+            Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
+            Click.element(driver, submitSignatureButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
+        }
+    }
+    public void submitPatientChoiceWithoutSignature() {
+        try {
+            Click.element(driver, submitButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from submitting Patient Choice...." + exp);
+        }
+    }
+
+    public boolean statusUpdatedCorrectly(String status, int row) {
+        Wait.forElementToBeDisplayed(driver, landingPageList, 100);
+        return status.equalsIgnoreCase(statuses.get(row).getText());
+    }
+
+    public boolean  messageThatPatientChoiceRecordExistsIsDisplayed(String expectedTextMessage) {
+        Wait.forElementToBeDisplayed(driver, recordAlreadyExistsMessage);
+        return recordAlreadyExistsMessage.getText().contains(expectedTextMessage);
+    }
+
+    public void addPatientChoiceIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, adultWithCapacityCategory);
+    }
+
+    public boolean verifyHelpTextLabelIsVisible(){
+        try {
+            Wait.forElementToBeDisplayed(driver, helpTextLabel, 200);
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception before seeing Patient Choice participants info ...." + exp);
+            return false;
         }
     }
 
