@@ -35,7 +35,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
-            String referralID = referralPage.getPatientReferralId();
+
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Downloading and Verifying content for :"+memberDetails.get(i).get(0));
                 if(!printFormsPage.downloadSpecificPrintForm(memberDetails.get(i).get(0))){
@@ -55,7 +55,10 @@ public class PrintFormSteps extends Pages {
                 }
                 NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
                 if(familyMember != null){
-                    familyMember.setREFERAL_ID(referralID);
+                    String referralID = referralPage.getPatientReferralId();
+                    if(referralID != null) {
+                        familyMember.setREFERAL_ID(referralID);
+                    }
                 }
                 if(!printFormsPage.openAndVerifyPDFContent(familyMember)){
                     Debugger.println("Could not verify PDF content for "+memberDetails.get(i).get(0));

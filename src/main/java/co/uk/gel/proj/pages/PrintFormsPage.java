@@ -145,6 +145,10 @@ public class PrintFormsPage {
             fileToParse = new BufferedInputStream(is);
             document = PDDocument.load(fileToParse);
             Debugger.println("Reading PDF content....");
+            if(familyMember.getREFERAL_ID() == null){
+                Debugger.println("Referal ID Could not read: read as null....need to check it.");
+                familyMember.setREFERAL_ID("");
+            }
             output = new PDFTextStripper().getText(document);
             if(output.contains(familyMember.getNHS_NUMBER()) &&
                     output.contains(familyMember.getBORN_DATE()) &&
