@@ -59,6 +59,7 @@ public class PrintFormSteps extends Pages {
                     continue;//For Proband
                 }
                 String referralID = referralPage.getPatientReferralId();
+                Debugger.println("ReferralID: "+referralID);
                 if(referralID != null) {
                     familyMember.setREFERAL_ID(referralID);
                  }
