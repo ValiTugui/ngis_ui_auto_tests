@@ -254,12 +254,13 @@ public class PatientDetailsPage {
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
+        fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
-        fillInAllNewPatientDetails();
+        //fillInAllNewPatientDetails();
     }
 
     public void fillInAllNewPatientDetails() {

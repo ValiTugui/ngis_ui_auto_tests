@@ -482,18 +482,12 @@ public class FamilyMemberDetailsPage {
         Set<String> paramsKey = paramNameValue.keySet();
         String nhsNumber = "";
         for (String key : paramsKey) {
-            if(key.equalsIgnoreCase("NHSNumber")){
-                  nhsNumber = paramNameValue.get(key);
-                  break;
+            if (key.equalsIgnoreCase("NHSNumber")) {
+                nhsNumber = paramNameValue.get(key);
+                break;
             }
-//            familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
-//            Debugger.println("Read Family Member Details........." + familyMember.getFIRST_NAME());
-//            Wait.seconds(5);
-//        } catch (Exception exp) {
-//            Debugger.println("Exception in Reading Family Details from Confirmation Page. " + exp);
         }
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
-        //nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
         if(familyMember == null){
             Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not found in the added list!.");
             return false;
