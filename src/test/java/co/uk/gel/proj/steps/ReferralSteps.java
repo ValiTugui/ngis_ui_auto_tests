@@ -144,8 +144,9 @@ public class ReferralSteps extends Pages {
             boolean testResult = referralPage.stageIsCompleted(stage);
             if (!testResult) {
                 Debugger.println("Stage: " + stage + " NOT Completed.");
+            }else {
+                Debugger.println("Stage: " + stage + " Completed.");
             }
-            Debugger.println("Stage: " + stage + " Completed.");
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("Exception in verifying the stage completed status for :"+stage+":"+exp);
@@ -492,6 +493,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks the Save and Continue button on the {string}")
     public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
-        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        //I also have observed the same issue some times, so used separate method in the PatientChoice Page and continued - Santhosh
+        if(!patientChoicePage.clickOnSaveAndContinueButton()){
+            referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        }
     }
 }

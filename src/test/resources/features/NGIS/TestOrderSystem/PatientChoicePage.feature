@@ -11,7 +11,7 @@ Feature: Patient Choice Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status in family member page as "<Status1>"
+#    And the user sees the patient choice status in family member page as "<Status1>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -41,7 +41,7 @@ Feature: Patient Choice Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status in family member page as "<Status1>"
+#    And the user sees the patient choice status in family member page as "<Status1>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -65,14 +65,14 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Add patient choice information
 
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
-    And the user will see the chosen "<TestType>" with edit button in "Test type"
+    And the user should see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    And the user will see the chosen "Recorded by:" with edit button in "Recorded by"
+    And the user should see the chosen "Recorded by:" with edit button in "Recorded by"
     Then the Recorded by option is marked as completed
 
     Examples:
@@ -281,10 +281,10 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
-    And the user will see the chosen "<TestType>" with edit button in "Test type"
+    And the user should see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
     When the user fills "<blankRecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -305,14 +305,14 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
-    And the user will see the chosen "<TestType>" with edit button in "Test type"
+    And the user should see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    And the user will see the chosen "Recorded by:" with edit button in "Recorded by"
+    And the user should see the chosen "Recorded by:" with edit button in "Recorded by"
     Then the Recorded by option is marked as completed
     And the user fills "<PatientChoice>" details in patient choices
     And the user selects "<YesOption>" research participation option in patient choices
@@ -351,11 +351,11 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-    And the user will see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user clicks on edit button in Patient choice category
     When the user fills "<Option2>" details in patient choice category
-    And the user will see the chosen "<Option2>" with edit button in "Patient choice category"
+    And the user should see the chosen "<Option2>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
 
     Examples:
