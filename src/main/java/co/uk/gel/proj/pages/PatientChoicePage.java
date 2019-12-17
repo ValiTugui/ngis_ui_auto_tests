@@ -1255,14 +1255,7 @@ public class PatientChoicePage {
             Debugger.println("Exception from clicking on 2st YesNoOptions. " + exp);
         }
     }
-    public void submitPatientChoiceWithSignature() {
-        try {
-            Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
-            Click.element(driver, submitSignatureButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
-        }
-    }
+
     public void submitPatientChoiceWithoutSignature() {
         try {
             Click.element(driver, submitButton);
