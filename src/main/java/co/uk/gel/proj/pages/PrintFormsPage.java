@@ -125,6 +125,8 @@ public class PrintFormsPage {
         Debugger.println("NHS to be validated in PDF: "+familyMember.getNHS_NUMBER());
         String nhsNumber = TestUtils.getNHSDisplayFormat(familyMember.getNHS_NUMBER());
         familyMember.setNHS_NUMBER(nhsNumber);
+        String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
+        familyMember.setREFERAL_ID(referralId);
         String output;
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
