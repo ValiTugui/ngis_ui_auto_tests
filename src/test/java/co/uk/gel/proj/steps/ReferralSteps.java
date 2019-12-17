@@ -493,9 +493,7 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks the Save and Continue button on the {string}")
     public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
-        //I also have observed the same issue some times, so used separate method in the PatientChoice Page and continued - Santhosh
-        if(!patientChoicePage.clickOnSaveAndContinueButton()){
-            referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
-        }
+        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+
     }
 }
