@@ -20,6 +20,11 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
+
+    @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
+    public WebElement familyMemberDetailsTitle;
+
+
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
     public List<WebElement> nameResults;
 
@@ -77,7 +82,12 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
 
-    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[2]")
+
+    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
+    public WebElement editBoxTestPackage;
+
+    @FindBy(xpath = "//h2[contains(@class,'css')]/following::button[2]")
+
     public WebElement removeFamilyMember;
 
     @FindBy(id = "nhsNumber")
@@ -130,7 +140,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
+    @FindBy(xpath = "//div[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q97-years')]")
@@ -142,8 +152,21 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
 
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
+    public WebElement patientCardField;
+
+    @FindBy(css = "table[class*='table--hpo']")
+    public WebElement hpoTable;
+
+    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
+    public WebElement successMessageAfterRemovefamilyMember;
+
     @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
     public WebElement AddReferralButton;
+
+
+    @FindBy(css = "[class*='hpo-term__name']")
+    public List<WebElement> hpoTerms;
 
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
@@ -199,23 +222,35 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement familyMemberLandingPageLink;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']")
+    @FindBy(xpath = "//div[contains(@class,'css')]/following::h2[contains(@class,'css')]")
     public WebElement additionalFamilyMemberName;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-ugl1y7']")
+
+    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
+    public WebElement unsuccessAdditionalFamilyMemberName;
+
+    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][1]")
+
     public WebElement relationField;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']/following::span[@class='css-1tu091a']")
+    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][2]")
     public WebElement beingTestedField;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'dateOfBirth')]")
+    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'dateOfBirth')]")
     public WebElement dobField;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]")
+    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'gender')]")
     public WebElement genderField;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'patientChoiceStatus')]")
+    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'patientChoiceStatus')]")
     public WebElement patientChoiceStatus;
+
+
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']")
+    public WebElement patientNGISId;
+
 
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
@@ -235,6 +270,21 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
     public WebElement printFormsPageTitle;
 
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
+    public WebElement genderResult;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'nhsNumber')]/following::span[1]")
+    public WebElement nhsNumberResult;
+
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
+    public WebElement ngisIdResult;
+    @FindBy(xpath = "//span[contains(text(),'Not entered')]")
+    public WebElement patientChoiceNotEnteredStatus;
+
+    @FindBy(xpath = "//span[contains(text(),'Not entered')]/following::button[@aria-label='edit button']")
+    public WebElement notEnteredEditBox;
+
     static ArrayList<NGISPatientModel> addedFamilyMembers = new ArrayList<NGISPatientModel>();
     static ArrayList<String> familyMemberLandingPageDetails;
     static ArrayList<String> patientChoicePageDetails;
@@ -252,15 +302,16 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//span[contains(@id,'patientChoiceStatus')]/following-sibling::span")
     public WebElement patientChoiceStatusResult;
 
-    @FindBy(xpath = "//span[@class='styles_text__1aikh styles_text--5__203Ot']")
+    @FindBy(xpath = "//div[contains(@class,'styles_site-panel')]/following::span[contains(@class,'203Ot')]")
     public WebElement familyMemberTestPackagePageSubTitle2;
-    @FindBy(xpath = "//span[@class='css-1tu091a']")
+
+    @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
     public WebElement familyPageBeingTestedField;
 
-    @FindBy(xpath = "//span[@class='css-weu35e']")
+    @FindBy(xpath = "//span[contains(text(),'Not being tested')]/ancestor::span[contains(@class,'css-')][1]")
     public WebElement familyPageNotBeingTestedField;
 
-    @FindBy(xpath ="//h2[@class='css-1ujfcb9']")
+    @FindBy(xpath = "//h2[contains(@class,'css-')]")
     public WebElement nameField;
 
     @FindBy(xpath = "//div[@class='styles_error-message__text__1v2Kl']")
@@ -272,22 +323,24 @@ public class FamilyMemberDetailsPage {
 
     //For PatientInformation Identifiers
     public static int noOfPatientsForIdentification = 0;
-    String patientList ="//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']";
-    String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//span[@class='css-xmy3u2']//h2";
-    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//span[@class='css-o788i1']//span[@class='css-xmy3u2']";
-    String bornInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Born']";
-    String genderInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Gender']";
-    String nhsNumberInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='NHS No.']";
-    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Patient NGIS ID']";
-    String patientChoiceInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//ul//li//span[text()='Patient choice status']";
-    String editButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='edit button']";
-    String removeButtonInformation = "//div[contains(@class,'styles_participant-list_')]/div[@class='css-1yllhwh']//button[@aria-label='remove button']";
+    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-1')]";
+    String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
+    String probandBeingTested = "//span[contains(@class,'child-element')]";
+    String bornInformation = "//span[contains(@id,'dateOfBirth')]";
+    String genderInformation = "//span[contains(@id,'gender')]";
+    String nhsNumberInformation = "//span[contains(@id,'nhsNumber')]";
+    String ngsIdInformation = "//span[contains(@id,'ngisId')]";
+    String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
+    String editButtonInformation = "//button[@aria-label='edit button']";
+    String removeButtonInformation = "//button[@aria-label='remove button']";
 
-    @FindBy(xpath = "//div[@class='css-1qv4t1n']")
+    @FindBy(xpath = "//div[@class='styles_participant-info__4Bpvb']")
     public WebElement familyMemberFocussed;
-    @FindBy(xpath = "//span[@class='css-1sg2lsz']")
+
+    @FindBy(xpath = "//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
-    @FindBy(xpath = "//span[@class='css-ugl1y7']/child::span")
+
+    @FindBy(xpath = "//span[@class='child-element']")
     public WebElement relationshipStatus;
     @FindBy(xpath = "//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
     public WebElement familyMemberDob;
@@ -342,7 +395,7 @@ public class FamilyMemberDetailsPage {
             bornText = bornText.replaceAll("Born", "");
             familyMember.setBORN_DATE(bornText.trim());
         }catch(Exception exp){
-
+            Debugger.println("Error in reading born details of added family member.");
         }
         if (!seleniumLib.isElementPresent(patientCardGender)) {
             Debugger.println("Patient Gender not displayed in Search Result.");
@@ -360,6 +413,7 @@ public class FamilyMemberDetailsPage {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }
         addedFamilyMembers.add(familyMember);//This to verify the details later.
+        Debugger.println("Family Member: "+familyMember.getNHS_NUMBER()+" added to the list.");
         return true;
     }
 
@@ -379,31 +433,24 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();
     }
-//
-//
-//    public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
-//        try {
-//            Wait.seconds(5);
-//            String actualMessage = Actions.getText(validationErrors.get(0));
-//            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-//                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-//                return false;
-//            }
-//            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-//            String actColor = validationErrors.get(0).getCssValue("color");
-//            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-//                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-//                return false;
-//            }
-//            return true;
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from validating Error Message " + exp);
-//            return false;
-//        }
-//    }
 
-
-    public void fillTheRelationshipToProband(String relationToProband) {
+    public void fillTheRelationshipToProband(String relationToProband,String nhsDetails) {
+        if(!nhsDetails.isEmpty()) {
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            String nhsNumber = "";
+            for (String key : paramsKey) {
+                if (key.equalsIgnoreCase("NHSNumber")) {
+                    nhsNumber = paramNameValue.get(key);
+                    break;
+                }
+            }
+            NGISPatientModel familyMember = getFamilyMember(nhsNumber);
+            if (familyMember != null) {
+                familyMember.setFIRST_NAME(firstName.getText());
+                familyMember.setLAST_NAME(lastName.getText());
+            }
+        }
         validationErrors.clear();
         if(!Wait.isElementDisplayed(driver,relationshipToProbandDropdown,30)){
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
@@ -412,14 +459,20 @@ public class FamilyMemberDetailsPage {
         seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
         Wait.seconds(2);
         By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
+        if (seleniumLib.isElementPresent(ddElement)) {
+            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
+        } else {
+            seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
+            Wait.seconds(2);
         if(!seleniumLib.isElementPresent(ddElement)){
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: "+relationToProband+" not present in drop down.");
             return;
         }
-        Click.element(driver, dropdownValue.findElement(ddElement));
+            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
+        }
         Wait.seconds(2);
         if (validationErrors.size() > 0) {
-            Debugger.println("FamilyMemberDetailsPage:Error in selecting Proband drop down pag:."+validationErrors.get(0).getText());
+            Debugger.println("FamilyMemberDetailsPage:Error in selecting second time Proband drop down pag:." + validationErrors.get(0).getText());
         }
     }
 
@@ -429,21 +482,20 @@ public class FamilyMemberDetailsPage {
         Set<String> paramsKey = paramNameValue.keySet();
         String nhsNumber = "";
         for (String key : paramsKey) {
-            if(key.equalsIgnoreCase("NHSNumber")){
-                  nhsNumber = paramNameValue.get(key);
-                  break;
+            if (key.equalsIgnoreCase("NHSNumber")) {
+                nhsNumber = paramNameValue.get(key);
+                break;
             }
         }
-        nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
         if(familyMember == null){
-            Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not added to the list!.");
+            Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not found in the added list!.");
             return false;
         }
         //1. Verify the display of Title for the added Test.
         By testTitle = By.xpath(selectedTestTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
         if (!seleniumLib.isElementPresent(testTitle)) {
-            Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
+            Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed."+testTitle);
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
@@ -471,6 +523,7 @@ public class FamilyMemberDetailsPage {
         if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
             try {
                 Click.element(driver, diseaseStatusDropdown);
+                Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
             } catch (Exception exp) {
                 Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp);
@@ -540,13 +593,16 @@ public class FamilyMemberDetailsPage {
                         Actions.selectByIndexFromDropDown(dropdownValues, 0);
                     }
                     return;
+                }else{
+                    Debugger.println("Phenotype drop down value not displayed...");
+                    return;
                 }
             }
             Debugger.println("Selecting from dropdown values.....");
-            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
-                Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            }
-
+//            if(!Actions.selectValueFromDropdown(dropdownValue, hpoTerm)){
+//                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+//            }
+            Actions.selectValueFromDropdown(dropdownValue, hpoTerm);
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
             SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");
@@ -564,7 +620,7 @@ public class FamilyMemberDetailsPage {
                 break;
             }
         }
-        nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
+
         NGISPatientModel familyMember = getFamilyMember(nhsNumber);
         if(familyMember == null){
             Debugger.println("Family Member with NHS Number:"+nhsNumber+" Not added to the list!.");
@@ -708,6 +764,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyThePatientCardField() {
         //1. Verify the display of Title for the added Family Member
+
         NGISPatientModel familyMember = getFamilyMember("");
         By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
         if (!seleniumLib.isElementPresent(firstNameLastName)) {
@@ -889,6 +946,14 @@ public class FamilyMemberDetailsPage {
             Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
         }
     }
+    public void clickOnSaveAndContinueButton() {
+        if(Wait.isElementDisplayed(driver, saveAndContinueButton,10)) {
+            seleniumLib.clickOnWebElement(saveAndContinueButton);
+            if (helix.size() > 0) {
+                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+            }
+        }
+    }
     public boolean participantsNotMatchingMsg(String expectedMessage) {
         Wait.forElementToBeDisplayed(driver, unmatchedParticipantMessage);
         String actualMessage = unmatchedParticipantMessage.getText();
@@ -917,7 +982,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             noOfPatientsForIdentification = noOfPatients;
-
+            Wait.seconds(2);
             Debugger.println("Validating Information of " + noOfPatients + " Patients in Family Member Landing Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != noOfPatients) {
@@ -1155,6 +1220,7 @@ public class FamilyMemberDetailsPage {
     }
     public boolean testedFieldColor(String testfield, String color) {
         try {
+            Wait.seconds(5);
             Wait.forElementToBeDisplayed(driver,familyPageBeingTestedField);
             String actualMessage1 = Actions.getText(familyPageBeingTestedField);
             String actualMessage2 = Actions.getText(familyPageNotBeingTestedField);
@@ -1288,6 +1354,7 @@ public class FamilyMemberDetailsPage {
         }
 
     }
+
     public boolean editAndDeleteButtonDisplay() {
         for (int i = 0; i < editButton.size(); i++) {
             if (!seleniumLib.isElementPresent(editButton.get(i)) && !seleniumLib.isElementPresent(deleteButton.get(i))) {
@@ -1336,10 +1403,12 @@ public class FamilyMemberDetailsPage {
                 return addedFamilyMembers.get(0);
             }
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                Debugger.println("Finding for  :"+addedFamilyMembers.get(i).getNHS_NUMBER());
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(nhsNumber)) {
                     return addedFamilyMembers.get(i);
                 }
             }
+            Debugger.println("COULD NOT find Family Member for :"+nhsNumber);
             return null;
         }catch(Exception exp){
             Debugger.println("Family Member with NHSNumber:"+nhsNumber+" Not found in the added list.");

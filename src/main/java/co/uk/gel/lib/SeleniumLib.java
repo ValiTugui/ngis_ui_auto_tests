@@ -427,7 +427,7 @@ public class SeleniumLib {
 
     public static WebElement getWebElement(By by) {
         try {
-            WebElement element = new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(by));
+            WebElement element = new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(by));
             return element;
         } catch (Exception exp) {
             return null;

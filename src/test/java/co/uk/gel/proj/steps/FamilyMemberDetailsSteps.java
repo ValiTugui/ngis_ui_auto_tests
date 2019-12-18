@@ -46,9 +46,9 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user fills the FamilyMemberDetailsPage with the {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+    @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,"");
     }
 
     @And("the user can select the test to add to the family member {string}")
@@ -157,8 +157,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user clicks on back button on family member details page")
-    public void clicksOnBackButtonOnFamilyMemberDetailsPage() {
+    @When("the user clicks on back button")
+    public void clicksOnBackButton() {
         familyMemberDetailsPage.clickOnBackButton();
     }
 
@@ -289,8 +289,8 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the patient choice status in family member page as {string}")
-    public void theUserSeesThePatientChoiceStatus(String status) {
+    @And("the user will see the patient choice status in family member page as {string}")
+    public void theUserWillSeeThePatientChoiceStatus(String status) {
         familyMemberDetailsPage.patientChoiceStatus(status);
     }
 
@@ -408,13 +408,17 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Clicking on Patient Card.");
                 familyMemberDetailsPage.clickPatientCard();
                 Debugger.println("Filling RelationShip to Proband");
-                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
+                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1),memberDetails.get(i).get(0));
+
                 Debugger.println("Filling RelationShip to Proband, Done");
-                referralPage.clickSaveAndContinueButton();
+                //referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.clickOnSaveAndContinueButton();
                 Debugger.println("continuing...");
-                familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0));
+                if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
+                    Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
+                }
                 Debugger.println("Verified details..");
-                referralPage.clickSaveAndContinueButton();
+                familyMemberDetailsPage.clickOnSaveAndContinueButton();
                 Debugger.println("Continuing to Disease status filling..........");
                 familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
                 Debugger.println("Filled Disease Status Details........");
