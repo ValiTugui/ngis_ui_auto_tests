@@ -1,11 +1,9 @@
-@regression
-@userJourneys
-@userJourneysRD
 @BVT_UI_SMOKE_TEST_PACK
-Feature: Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
+@userJourneysRD
+Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
-  @E2EUI-895 @LOGOUT @BVT-P0 @v_1
-  Scenario Outline: E2EUI-895: User Journey by creating new NGIS Referral for Trio Family - By Signature
+  @NTS-3407 @LOGOUT
+  Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
     ##Create referral with new patient without providing NHS number
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
