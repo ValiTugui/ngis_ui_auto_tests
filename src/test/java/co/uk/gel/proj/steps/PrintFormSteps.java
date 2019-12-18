@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -35,7 +36,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
-            String referralID = referralPage.getPatientReferralId();
+
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Downloading and Verifying content for :"+memberDetails.get(i).get(0));
                 if(!printFormsPage.downloadSpecificPrintForm(memberDetails.get(i).get(0))){
@@ -53,11 +54,15 @@ public class PrintFormSteps extends Pages {
                         break;
                     }
                 }
-                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
-                NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsNumber);
-                if(familyMember != null){
-                    familyMember.setREFERAL_ID(referralID);
+                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
+                if(familyMember == null){
+                    continue;//For Proband
                 }
+                String referralID = referralPage.getPatientReferralId();
+                Debugger.println("ReferralID: "+referralID);
+                if(referralID != null) {
+                    familyMember.setREFERAL_ID(referralID);
+                 }
                 if(!printFormsPage.openAndVerifyPDFContent(familyMember)){
                     Debugger.println("Could not verify PDF content for "+memberDetails.get(i).get(0));
                     testResult = false;
@@ -68,6 +73,7 @@ public class PrintFormSteps extends Pages {
             Assert.assertTrue(testResult);
         }catch(Exception exp){
             Debugger.println("PrintFormSteps: Exception in downloading PrintForms: "+exp);
+            Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: "+exp,true);
         }
     }
 

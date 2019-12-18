@@ -1,5 +1,5 @@
 @regression
-@regression_set1
+@regression_set2
 @patientSearch
 Feature: Patient search page
 

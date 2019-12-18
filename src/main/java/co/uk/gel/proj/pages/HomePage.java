@@ -22,7 +22,6 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-
     public String tabTitle = "NHS England | Public Genetic Test Directory";
 
     @FindBy(css = "div[class*='header']")
