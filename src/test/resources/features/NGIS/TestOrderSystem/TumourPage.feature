@@ -131,7 +131,7 @@ Feature: Tumours Page
 
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
+    @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
