@@ -510,6 +510,35 @@ Feature: Samples Page
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       |
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_18 @NTS-3408 @P0 @v_1 @E2EUI-2143
+  Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-tumour>", sample state "<sampleState>" and filling SampleID
+    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    And asterisk "<asterisk>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>" and leaves Tumour content percentage field blank
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "Sample added"
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+
+
 
 
 

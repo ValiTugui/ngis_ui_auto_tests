@@ -440,5 +440,25 @@ public class SamplesSteps extends Pages {
     }
 
 
+    @And("asterisk {string} star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample")
+    public void asteriskStarSymbolIsShownAsMandatoryNextToTheTumourContentPercentageOfMalignantFieldLabelForOnlySolidTumourSample(String expectedTumourContentFieldLabel) {
+
+        String actualTumourContentPercentage = samplesPage.getTheLabelForTumourContentPercentageField();
+        Debugger.println("Actual Tumour Content Field Label: " + actualTumourContentPercentage);
+        Debugger.println("Expected Tumour Content Field Label: " + expectedTumourContentFieldLabel);
+        Assert.assertEquals(expectedTumourContentFieldLabel, actualTumourContentPercentage);
+    }
+
+    @When("the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search{string} and leaves Tumour content percentage field blank")
+    public void theUserAnswersTheSamplesDynamicQuestionsOnAddASampleDetailsPageBySelectingSampleSearchAndLeavesTumourContentPercentageFieldBlank(String sampleTopoMorphyGraphy) {
+
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
+
 
 }
