@@ -254,14 +254,13 @@ public class PatientDetailsPage {
     }
 
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
-        //fillInAllNewPatientDetails();
+        fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
-        //This function moved from top to last as in e2e latest, works like this.
-        fillInAllNewPatientDetails();
+        //fillInAllNewPatientDetails();
     }
 
     public void fillInAllNewPatientDetails() {

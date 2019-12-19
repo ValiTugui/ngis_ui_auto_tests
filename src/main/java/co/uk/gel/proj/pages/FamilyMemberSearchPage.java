@@ -489,14 +489,15 @@ public class FamilyMemberSearchPage {
     }
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
-            Wait.forElementToBeDisplayed(driver, familyMemberIncompleteErrorMessage);
-            String actualMessage = familyMemberIncompleteErrorMessage.getText();
-            if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
+            //Verify the Message Content
+            By errorElement = By.xpath("//span[text()='"+errorMessage+"']");
+            if(!seleniumLib.isElementPresent(errorElement)){
+                Debugger.println("Expected Error Message:"+errorMessage+" not displayed in family member landing page.");
                 return false;
             }
+            //Verify the Message Color
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-            String actColor = familyMemberIncompleteErrorMessage.getCssValue("color");
+            String actColor = driver.findElement(errorElement).getCssValue("color");
             if (!expectedFontColor.equalsIgnoreCase(actColor)) {
                 Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
                 return false;
@@ -543,15 +544,7 @@ public class FamilyMemberSearchPage {
         }
     }
 
-    public void completingQuestionnaireFamilyMember() {
-        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']"));
-        Iterator<WebElement> itr = patientCards.iterator();
-        while (itr.hasNext()) {
-            String resultName = itr.next().getText();
-            Debugger.println(resultName);
-            seleniumLib.clickOnWebElement(editBoxTestPackage);
-        }
-    }
+
 
     public boolean checkTheErrorMessageForIncompleteFamilyMember() {
         try {

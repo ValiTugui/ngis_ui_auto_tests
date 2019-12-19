@@ -135,14 +135,14 @@ public class SeleniumLib {
            webEle.click();
         } catch (Exception exp) {
             try {
-                Debugger.println("Clicking Via Action....");
-                Actions actions = new Actions(driver);
-                actions.moveToElement(webEle).click();
-            } catch (Exception exp1) {
                 Debugger.println("Clicking Via JavaScript....");
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].click();", webEle);
-                throw exp1;
+
+            } catch (Exception exp1) {
+                Debugger.println("Clicking Via Action....");
+                Actions actions = new Actions(driver);
+                actions.moveToElement(webEle).click();
             }
         }
     }
@@ -646,6 +646,15 @@ public class SeleniumLib {
             }
             elementHighlight(webElement);
             return webElement.getAttribute(attribute);
+        } catch (NoSuchElementException e) {
+            Debugger.println("[Error] Selenium Lib....getAttributeValue..." + element.toString() + "Not found");
+            return null;
+        }
+    }
+    public String getAttributeValue(WebElement element, String attribute) {
+        try {
+            elementHighlight(element);
+            return element.getAttribute(attribute);
         } catch (NoSuchElementException e) {
             Debugger.println("[Error] Selenium Lib....getAttributeValue..." + element.toString() + "Not found");
             return null;
