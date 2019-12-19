@@ -212,13 +212,13 @@ public class HomePage {
 
     public void waitUntilHomePageResultsContainerIsLoaded() {
        try {
-           Wait.forElementToBeDisplayed(driver, filtersPanel);
-           if (!Wait.isElementDisplayed(driver, filtersPanel, 30)) {
+           //Wait.forElementToBeDisplayed(driver, filtersPanel);
+           if (!Wait.isElementDisplayed(driver, filtersPanel, 100)) {
                Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
                Assert.assertFalse("HomePage:filtersPanel not displayed even after waiting period.",true);
            }
-           Wait.forElementToBeDisplayed(driver, resultsPanel);
-           if (!Wait.isElementDisplayed(driver, resultsPanel, 30)) {
+           //Wait.forElementToBeDisplayed(driver, resultsPanel);
+           if (!Wait.isElementDisplayed(driver, resultsPanel, 100)) {
                Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
                Assert.assertFalse("HomePage:resultsPanel not displayed even after waiting period.",true);
            }
