@@ -257,6 +257,7 @@ public class ReferralSteps extends Pages {
         if(attributeOfURL.size() > 6){
             userType = attributeOfURL.get(6);
         }
+        Debugger.println("UserType: "+userType);
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
