@@ -1,10 +1,10 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class PanelsSteps extends Pages{
@@ -18,9 +18,9 @@ public class PanelsSteps extends Pages{
         Assert.assertTrue(panelsPage.panelSearchFieldAndSearchIcon());
     }
 
-    @And("the user should  be able to search and add the {string}panels")
-    public void theUserShouldBeAbleToSearchAndAddThePanels(String panelResult) {
-        Assert.assertTrue(panelsPage.searchPanelsInSearchBox(panelResult));
+    @And("the user should  be able to search and add the {string} panels")
+    public void theUserShouldBeAbleToSearchAndAddThePanels(String searchPanel) {
+        Assert.assertTrue(panelsPage.searchAndAddPanel(searchPanel));
     }
 
     @And("the user should be able to see selected panels")
@@ -43,23 +43,26 @@ public class PanelsSteps extends Pages{
         Assert.assertTrue(panelsPage.changeTheStatusOfPenetrance());
     }
 
-    @Then("the user clicks on VisitPanelApp link and navigates to panelApp page")
-    public void theUserClicksOnVisitPanelAppLinkAndNavigatesToPanelAppPage() {
+    @When("the user clicks on VisitPanelApp link")
+    public void theUserClicksOnVisitPanelAppLink() {
         Assert.assertTrue(panelsPage.clicksOnVisitPanelsAppLink());
     }
-
-    //E2EUI-1231
-    @And("the user should be able to see the button options present")
-    public void theUserShouldBeAbleToSeeTheButtonOptionsPresent() {
-        Assert.assertTrue(panelsPage.completeIncompleteButtonsPresent());
+    @Then("the user navigates to panelApp page")
+    public void theUserNavigatesToPanelAppPage() {
+        Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
     }
 
-    @Then("the user clicks on {string} button and button will show tick marked")
+    @Then("the user should be able to see the button options present")
+    public void theUserShouldBeAbleToSeeTheButtonOptionsPresent() {
+        Assert.assertTrue(panelsPage.verifyThePresenceOfPenetranceOptions());
+    }
+
+    @And("the user clicks on {string} button and button will show tick marked")
     public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {
         Assert.assertTrue(panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton));
     }
 
-    @And("the user should able to deselect the selected panels")
+    @Then("the user should able to deselect the selected panels")
     public void theUserShouldAbleToDeselectTheSelectedPanels() {
         panelsPage.deselectTheSelectedPanels();
         Assert.assertTrue(panelsPage.verifyTheDeselectedPanels());
@@ -70,6 +73,11 @@ public class PanelsSteps extends Pages{
         boolean testResult = false;
         testResult = panelsPage.addedPanelsList();
         Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on Save and Continue in Panels Page")
+    public void theUserClicksOnSaveAndContinue() {
+        Assert.assertTrue(panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage());
     }
 
 }//end

@@ -97,7 +97,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='btn submit-signature-button']")
     WebElement submitPatientChoice;
 
-    @FindBy(xpath = "//span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
+    @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")///span") //span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
     WebElement patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
@@ -178,6 +178,9 @@ public class PatientChoicePage {
     @FindBy(css = "*[class*='message-line']")
     public WebElement recordAlreadyExistsMessage;
 
+    @FindBy(css = "button.btn.disabled-submit-signature-button")
+    public WebElement disabledSubmitPatientChoice;
+
     @FindBy(xpath = "//h5[contains(text(),'opportunity to read and discuss')]")
     WebElement firstConsulteeAttestationQuestion;
 
@@ -252,7 +255,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[@class='question-value white-bg']")
     public List<WebElement> selectedPatientChoiceOption;
 
-    @FindBy(xpath = "//button[contains(text(),'Submit Patient Choice')]")
+    @FindBy(xpath = "//button[contains(text(),'Submit ')]")
     public WebElement submitPatientChoiceButton;
 
     @FindBy(xpath = "//ul[@class='message-list']")
@@ -1398,7 +1401,8 @@ public class PatientChoicePage {
         Debugger.println("Patient Choice: Clicking on submit patient choice button");
         try {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
-            submitPatientChoiceButton.click();
+//            submitPatientChoiceButton.click();
+            seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Clicking on submit patient choice button:" + exp);
@@ -1514,4 +1518,16 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean submitPatientChoiceButtonStatus() {
+        try {
+            seleniumLib.waitForElementVisible(disabledSubmitPatientChoice);
+            if (!seleniumLib.isElementPresent(disabledSubmitPatientChoice)) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: submitPatientChoiceButtonStatus: " + exp);
+            return false;
+        }
+    }
 }//end

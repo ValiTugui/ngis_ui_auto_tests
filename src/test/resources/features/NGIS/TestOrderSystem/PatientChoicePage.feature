@@ -1,17 +1,17 @@
 @regression
 @COMP09_P0
 @PatientChoice
-Feature: Patient Choice Page
+@regressionSet1
+Feature: Patient Choice Page Verification
 
   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
   Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
-
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-#    And the user sees the patient choice status in family member page as "<Status1>"
+    And the user sees the patient choice status as "<Status1>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -37,11 +37,11 @@ Feature: Patient Choice Page
   @COMP9_TO_PatientChoice
     @patientChoice_Page02 @LOGOUT @E2EUI-2110 @v_1 @P0
   Scenario Outline: E2EUI-2110: Verify the upload revised patient choice documentation to form library
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |    When the user navigates to the "<Family members>" stage
     When the user navigates to the "<Family members>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-#    And the user sees the patient choice status in family member page as "<Status1>"
+    And the user is navigated to a page with title Add a family member to this referral
+    And the user sees the patient choice status as "<Status1>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -56,8 +56,8 @@ Feature: Patient Choice Page
   @COMP9_TO_PatientChoice
     @patientChoice_Page03 @E2EUI-2039 @v_1 @P0
   Scenario Outline: E2EUI-2039: Verify the relevant Patient choice for an Adult with capacity
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303843:DOB=18-08-2005 |
+ Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
 
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -90,11 +90,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
-##  Below two lines are only for e2e-latest
-#    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-#    Then the user should be able to see the highlighted Submit patient choice button
+    When the user is navigated to a patient choice form option with title Review and submit
+    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
+    Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as disabled
 
     Examples:
@@ -116,8 +114,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
+    When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as disabled
@@ -131,21 +128,18 @@ Feature: Patient Choice Page
   Scenario Outline: E2EUI-2039: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
-    When the user is navigated to a patient choice form option with title Patient choices
-    And the user should be able to see the details of patient choices option
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user is navigated to a patient choice form option with title Patient choices
+    Then the user should be able to see the details of patient choices option
+    And the user should see continue button is not highlighted
     When the user fills "<PatientChoice1>" details in patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     And the user selects "<NoOption>" research participation option in patient choices
     Then the question will be displayed as "<Question2>"
     And the user should be able to see all the details of patient choices research participation
     Then the user will see a "<WarningMessage>" warning message on the patient choice information option
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     When the user fills "<PatientChoice2>" details in patient choices
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
@@ -166,16 +160,14 @@ Feature: Patient Choice Page
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices
     And the user should be able to see the details of patient choices option
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     When the user fills "<PatientChoice>" details in patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
     Then the question will be displayed as "<Question2>"
     And the user should be able to see Yes and No answer options for the question
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     And the user selects "<NoOption>" data and sample option in patient choices
     Then the user will see a "<WarningMessage>" warning message on the patient choice information option
     And the user clicks on Continue Button
@@ -197,16 +189,14 @@ Feature: Patient Choice Page
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices
     And the user should be able to see the details of patient choices option
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     When the user fills "<PatientChoice>" details in patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
     Then the question will be displayed as "<Question2>"
     And the user should be able to see Yes and No answer options for the question
-    And the user clicks on Continue Button
-    Then the user should see a error message box
+    And the user should see continue button is not highlighted
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
@@ -319,12 +309,11 @@ Feature: Patient Choice Page
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient signature
-    And the user clicks on submit patient choice Button
-    Then the user will be able to see an error message as "<ErrorMessage>"
+    And the user should be able to see submit patient choice button disabled
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | YesOption | ErrorMessage                                            |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       | Please provide a signature in order to complete consent |
+      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | YesOption |
+      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_14 @LOGOUT @E2EUI-1112  @v_1 @P0
@@ -365,8 +354,9 @@ Feature: Patient Choice Page
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
   Scenario Outline: E2EUI-1181: Navigate around the patient choice pages
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -378,10 +368,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a patient choice form option with title Patient choices
     When the user fills "<PatientChoice>" details in patient choices
     And the user clicks on Continue Button
-##  Review and submit button depends on environment(e2e=Review and Submit, e2e-latest=Review and submit)
-    When the user is navigated to a patient choice form option with title Review and Submit
-##   Below line is only valid for e2e environment, not in e2e-latest environment
-    And the user fills Review and submit details in patient signature
+    When the user is navigated to a patient choice form option with title Review and submit
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form
     And the user clicks the Save and Continue button

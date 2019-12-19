@@ -436,4 +436,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(familyMemberDetailsPage.verifyMaxAllowedValuesInRelationshipToProbandField(Integer.parseInt(allowedValuesCount)));
     }
 
+    @When("^the user navigates to \"([^\"]*)\" stage$")
+    public void navigateTOSpecificStage(String stage) {
+        Debugger.println("Stage: "+stage+" Starting.");
+        familyMemberDetailsPage.navigateToStage(stage);
+    }
+
 }//end

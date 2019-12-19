@@ -13,7 +13,6 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
 import java.util.*;
 
@@ -352,7 +351,12 @@ public class FamilyMemberDetailsPage {
     public WebElement familyMemberNgisId;
 
     String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]//button";
+    @FindBy(className = "todo-list")
+    public WebElement toDoList;
+    String stageIsToDo = "a[href*='" + "dummyStage" + "']";
 
+    @FindBy(xpath = "//button[contains(text(),'Try again')]")
+    public WebElement tryAgain;
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -1481,5 +1485,44 @@ public class FamilyMemberDetailsPage {
         }catch(Exception exp){
             Debugger.println("Exception in setting up First Last Name for FamilyMember "+exp);
         }
+    }
+    public String getPartialUrl(String stage) {
+        String partialUrl = null;
+        HashMap<String, String> partialUrls = new HashMap<String, String>();
+        partialUrls.put("Patient details", "patient-details");
+        partialUrls.put("Requesting organisation", "ordering-entity");
+        partialUrls.put("Test package", "test-package");
+        partialUrls.put("Responsible clinician", "clinical-details");
+        partialUrls.put("Clinical questions", "clinical-questions");
+        partialUrls.put("Notes", "notes");
+        partialUrls.put("Print forms", "downloads");
+        partialUrls.put("Family members", "family-members");
+        partialUrls.put("Tumours", "tumours");
+        partialUrls.put("Samples", "samples");
+        partialUrls.put("Panels", "panels");
+        partialUrls.put("Patient choice", "patient-choice");
+        partialUrls.put("Pedigree", "pedigree");
+        if (partialUrls.containsKey(stage)) {
+            partialUrl = partialUrls.get(stage);
+        }
+        return partialUrl;
+    }
+
+    public void navigateToStage(String stage) {
+        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+        Wait.forElementToBeDisplayed(driver, referralStage);
+        try {
+            Actions.clickElement(driver, referralStage);
+            seleniumLib.clickOnWebElement(referralStage);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
+            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
+            // Below code added to handle that.
+            Actions.scrollToTop(driver);
+            Actions.clickElement(driver, referralStage);
+        }
+
     }
 }//ends
