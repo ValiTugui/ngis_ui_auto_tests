@@ -223,7 +223,6 @@ public class TumoursPage {
     }
 
     public void answerTumourDiagnosisQuestions(String diagnosis) {
-        Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
         Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
