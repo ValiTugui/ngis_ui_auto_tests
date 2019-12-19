@@ -1,11 +1,8 @@
-@regression
-@userJourneys
+@BVT_UI_SMOKE_TEST_PACK
 @userJourneysCancer
-@userJourneys3
+Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
 
-Feature: E2EUI-2372 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
-
-  @E2EUI-2372 @NTS-3362 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
+  @NTS-3362 @LOGOUT
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
