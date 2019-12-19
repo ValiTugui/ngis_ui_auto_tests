@@ -78,13 +78,13 @@ public class TumoursPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q151')]")
     public WebElement tumourCoreDataDropdown;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q155')]//child::input")
+    @FindBy(xpath = "//div[contains(@id,'question-id-q155')]//input[@type!='hidden']")
     public WebElement topographyOfPrimaryTumourField;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q161')]//child::input")
+    @FindBy(xpath = "//div[contains(@id,'question-id-q161')]//input[@type!='hidden']")
     public WebElement topographyOfThisMetastaticDepositField;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q160')]//child::input")
+    @FindBy(xpath = "//div[contains(@id,'question-id-q160')]//input[@type!='hidden']")
     public WebElement workingDiagnosisMorphologyField;
 
     @FindBy(css = "*[class*='tumour-list__warning']")
@@ -223,6 +223,7 @@ public class TumoursPage {
     }
 
     public void answerTumourDiagnosisQuestions(String diagnosis) {
+        Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
         Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
