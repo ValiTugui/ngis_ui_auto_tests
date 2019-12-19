@@ -68,7 +68,7 @@ Feature: Family Members Details Validation
     When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user can select the test to add to the family member "<FamilyMemberDetails>"
+    And the user selects the test to add to the family member "<FamilyMemberDetails>"
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
@@ -89,7 +89,6 @@ Feature: Family Members Details Validation
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | ErrorMessage                                                                                                |
       | Family members | Test package | 2                | The number of participants you’ve selected for one or more tests does not match the number that was entered |
-
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_06 @NTS3309 @E2EUI-1539 @BVT_P0 @v_1 @P0
@@ -184,7 +183,5 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
-
-
