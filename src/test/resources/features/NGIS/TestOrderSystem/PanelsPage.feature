@@ -13,7 +13,7 @@ Feature: Panels Page Verification
     When the user navigates to the "<Panels>" stage
     And the user is navigated to a page with title Panel
     And the user should be able to see add another panel search field and search icon
-    And the user should  be able to search and add the "<searchPanels>"panels
+    And the user should  be able to search and add the "<searchPanels>" panels
     And the user should be able to see selected panels
     Then the user sees the selected panels under added panels
     And the user clicks on Save and Continue in Panels Page

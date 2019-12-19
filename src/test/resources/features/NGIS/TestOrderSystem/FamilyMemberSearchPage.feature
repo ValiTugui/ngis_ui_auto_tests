@@ -1,6 +1,7 @@
 @regression
 @COMP08_P0
 @FamilyMemberSearchPage
+@regressionSet1
 Feature: Family Members Search Validation
 
   @COMP8_TO_PatientSearch
