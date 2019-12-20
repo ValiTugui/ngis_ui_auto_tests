@@ -7,8 +7,8 @@ Feature: Patient Choice Page Verification
   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
   Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status as "<Status1>"
@@ -38,7 +38,7 @@ Feature: Patient Choice Page Verification
     @patientChoice_Page02 @LOGOUT @E2EUI-2110 @v_1 @P0
   Scenario Outline: E2EUI-2110: Verify the upload revised patient choice documentation to form library
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |    When the user navigates to the "<Family members>" stage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Family members>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status as "<Status1>"
@@ -211,8 +211,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_09 @LOGOUT @E2EUI-1415 @v_1 @P0
   Scenario Outline: E2EUI-1415: Requesting Organisation landing page
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the user is navigated to a page with title Check your patient
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -229,8 +229,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_10 @LOGOUT @E2EUI-1677 @v_1 @P0
   Scenario Outline: E2EUI-1677: Verify the hospital no field on patient choice form
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -246,8 +246,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_11 @LOGOUT @E2EUI-1474 @v_1 @P0
   Scenario Outline: E2EUI-1474: Verify patient choice form
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user edits the patient choice status
@@ -262,8 +262,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_12 @LOGOUT @E2EUI-1141 @v_1 @P0
   Scenario Outline: E2EUI-1141: Recorded By field is mandatory field in Add patient choice form
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -286,8 +286,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_13 @LOGOUT @E2EUI-1464 @v_1 @P0
   Scenario Outline: E2EUI-1464: patient signature is a mandatory field in Add patient choice form
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -316,8 +316,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_14 @LOGOUT @E2EUI-1112  @v_1 @P0
   Scenario Outline: E2EUI-1112: Verify add patient choice form is an embedded app
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -331,8 +331,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_15 @LOGOUT @E2EUI-2034 @v_1 @P0
   Scenario Outline: E2EUI-2034: Editing Patient Choice in Patient Choice category
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -352,9 +352,8 @@ Feature: Patient Choice Page Verification
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
   Scenario Outline: E2EUI-1181: Navigate around the patient choice pages
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
