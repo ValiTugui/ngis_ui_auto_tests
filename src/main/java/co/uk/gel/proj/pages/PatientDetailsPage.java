@@ -483,6 +483,11 @@ public class PatientDetailsPage {
         newPatient.setMonth(monthOfBirth);
         newPatient.setYear(yearOfBirth);
 
+        selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
         String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
         newPatient.setNhsNumber(nhsNumber);
 

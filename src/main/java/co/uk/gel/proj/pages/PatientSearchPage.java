@@ -308,7 +308,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
                 }
             }
-            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 emailAddressField.sendKeys(AppConfig.getApp_username());
             } else {
                 emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
@@ -316,7 +316,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Click.element(driver, nextButton);
             Wait.seconds(3);
             Wait.forElementToBeClickable(driver, passwordField);
-            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 passwordField.sendKeys(AppConfig.getApp_password());
             } else {
                 passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));

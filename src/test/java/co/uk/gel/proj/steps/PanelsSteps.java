@@ -77,7 +77,7 @@ public class PanelsSteps extends Pages{
 
     @And("the user clicks on Save and Continue in Panels Page")
     public void theUserClicksOnSaveAndContinue() {
-        Assert.assertTrue(panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage());
+        panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
     }
 
 }//end

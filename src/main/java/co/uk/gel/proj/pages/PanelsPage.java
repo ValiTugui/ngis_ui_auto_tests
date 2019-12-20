@@ -4,6 +4,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.java.eo.Se;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -150,7 +151,7 @@ public class PanelsPage {
             expElements.add(penetranceTitle);
             expElements.add(suggestedPanels);
             expElements.add(addAnotherPanel);
-            expElements.add(addedPanels);
+            //expElements.add(addedPanels);
             expElements.add(completeButton);
             expElements.add(incompleteButton);
             expElements.add(visitPanelApp);
@@ -168,40 +169,30 @@ public class PanelsPage {
     }
 
     public boolean clicksOnVisitPanelsAppLink() {
-
         if (!Wait.isElementDisplayed(driver, visitPanelApp, 100)) {
             Debugger.println("Visit Panel App Link not displayed...");
             return false;
         }
         seleniumLib.clickOnWebElement(visitPanelApp);
+        seleniumLib.ChangeWindow();
         return true;
     }
-
-    private void close_window() {
-        String winHandledBefore = driver.getWindowHandle();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-            js.executeScript("window.close()");
-
-        }
-        driver.switchTo().window(winHandledBefore);
-    }
-
     public boolean verifyPanelAppNavigation() {
         //Verify the navigated URL is correct
+        Wait.seconds(10);// Waiting to load the new external Link
         String url = driver.getCurrentUrl();
+        Debugger.println("Current URL: "+url);
         if (!url.contains("https://panelapp.genomicsengland.co.uk/panels/")) {
             Debugger.println("URL navigated is Wrong: " + url);
-            close_window();
+            SeleniumLib.closeCurrentWindow();
             return false;
         }
         if (!Wait.isElementDisplayed(driver, panelAppTitle, 20)) {
             Debugger.println("Panels not displayed on the Navigated Page.");
-            close_window();
+            SeleniumLib.closeCurrentWindow();
             return false;
         }
-        close_window();
+        SeleniumLib.closeCurrentWindow();
         return true;
     }
 
@@ -292,7 +283,7 @@ public class PanelsPage {
             return false;
         }
     }
-
+    //Created this method separately for PanelsPage as in PanelsPage,as using from Referral Page was giving errors continuously
     public boolean clicksOnSaveAndContinueButtonOnPanelsPage() {
         try {
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)) {
@@ -313,14 +304,24 @@ public class PanelsPage {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 30 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
+                    Debugger.println("PanelsPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+        } catch(StaleElementReferenceException staleExp){
+            Debugger.println("SaveAndContinue Stale Exception in PanelsPage...");
+            By continueBut = By.xpath("//button[contains(text(),'Save and continue')]");
+            if(seleniumLib.isElementPresent(continueBut)){
+                Debugger.println("Clicking with new Element....");
+                seleniumLib.clickOnElement(continueBut);
+                Wait.seconds(10);
+                return true;
+            }
+            return false;
+        }catch(Exception exp) {
+            Debugger.println("Exception from PanelsPage:clickSaveAndContinueButton: " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSaveAndContinue.jpg");
             return false;
         }
     }

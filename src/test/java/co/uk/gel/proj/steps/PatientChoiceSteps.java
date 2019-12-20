@@ -169,11 +169,10 @@ public class PatientChoiceSteps extends Pages {
     }
 
     @When("the user fills {string} details in recorded by")
-    public void theUserFillsDetailsInRecordedBy(String inputData) {
+    public void theUserFillsDetailsInRecordedBy(String recordedBy) {
         boolean testResult = false;
-        testResult = patientChoicePage.fillRecordedByDetails(inputData,"");
+        testResult = patientChoicePage.fillRecordedByDetails("",recordedBy);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
     }
 
     @When("the user fills {string} details in patient choices")
