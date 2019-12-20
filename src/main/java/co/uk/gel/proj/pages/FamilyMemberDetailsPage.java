@@ -584,8 +584,14 @@ public class FamilyMemberDetailsPage {
             }
             Wait.forElementToBeClickable(driver,hpoSearchField);
             seleniumLib.clickOnWebElement(hpoSearchField);
+            // Ravi's comment: interim fix to make the build to pass in uat and e2elatest
+            // reuse code from clinical questions
+            Wait.seconds(5);
             Debugger.println("Entering phenotype for searching....");
             Actions.fillInValue(hpoSearchField, hpoTerm);
+            // Ravi's comment: interim fix to make the build to pass in uat and e2elatest
+            // reuse code from clinical questions
+            Wait.seconds(5);
             if(!Wait.isElementDisplayed(driver, dropdownValue,30)){
                 if(Wait.isElementDisplayed(driver, dropdownValue,30)){
                     Debugger.println("Selecting from dropdown values.....");
