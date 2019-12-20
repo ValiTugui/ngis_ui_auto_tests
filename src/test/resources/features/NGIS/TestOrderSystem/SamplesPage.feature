@@ -544,6 +544,32 @@ Feature: Samples Page
       | Tumours | Manage samples | Add a sample | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_19  @NTS-3412 @P0 @v_1 @E2EUI-2103
+  Scenario Outline: NTS-3412:Add sample details - Sample non-tumour type "<sampleType-non-tumour>" - Sample stage is completed even if sample questionnaire is unattended
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    And the user clicks the Save and Continue button
+    And the "<stage2>" stage is marked as Completed
+
+    Examples:
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Buccal swab |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Urine       |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
+
+
 
 
 
