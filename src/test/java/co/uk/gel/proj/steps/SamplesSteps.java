@@ -6,6 +6,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -439,6 +440,44 @@ public class SamplesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+
+    @And("asterisk {string} star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample")
+    public void asteriskStarSymbolIsShownAsMandatoryNextToTheTumourContentPercentageOfMalignantFieldLabelForOnlySolidTumourSample(String expectedTumourContentFieldLabel) {
+
+        String actualTumourContentPercentage = samplesPage.getTheLabelForTumourContentPercentageField();
+        Debugger.println("Actual Tumour Content Field Label: " + actualTumourContentPercentage);
+        Debugger.println("Expected Tumour Content Field Label: " + expectedTumourContentFieldLabel);
+        Assert.assertEquals(expectedTumourContentFieldLabel, actualTumourContentPercentage);
+    }
+
+    @When("the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search{string} and leaves Tumour content percentage field blank")
+    public void theUserAnswersTheSamplesDynamicQuestionsOnAddASampleDetailsPageBySelectingSampleSearchAndLeavesTumourContentPercentageFieldBlank(String sampleTopoMorphyGraphy) {
+
+        samplesPage.answerSampleTopography(sampleTopoMorphyGraphy);
+        samplesPage.answerSampleMorphology(sampleTopoMorphyGraphy);
+        samplesPage.fillInNumberOfSlides();
+        samplesPage.selectSampleCollectionDate();
+        samplesPage.fillInSampleComments();
+    }
+
+    @But("the {string} stage is marked {string}")
+    public void theStageIsMarked(String stage, String stageStatus) {
+
+        switch (stageStatus) {
+            case "MandatoryToDo": {
+                Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
+                Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+                break;
+            }
+            case "Completed": {
+                Debugger.println(stage + " status stage for Liquid tumour Sample is : " + stageStatus);
+                Assert.assertTrue(referralPage.stageIsCompleted(stage));
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid Stage Status");
+        }
+    }
 
 
 }
