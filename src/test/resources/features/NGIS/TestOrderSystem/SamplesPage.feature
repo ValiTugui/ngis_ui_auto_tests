@@ -526,17 +526,22 @@ Feature: Samples Page
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-tumour>", sample state "<sampleState>" and filling SampleID
     And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
     And the user clicks the Save and Continue button
-    Then the "<pageTitle3>" page is displayed
+    Then the "Add sample details" page is displayed
     And asterisk "<asterisk>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>" and leaves Tumour content percentage field blank
     And the user clicks the Save and Continue button
     Then the "<pageTitle>" page is displayed
     And the success notification is displayed "Sample added"
+    When the user clicks the Save and Continue button
+    Then the "Add notes to this referral" page is displayed
+    And the "Notes" stage is selected
+    But the "Samples" stage is marked "<stageStatus>"
+
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
-      | Tumours | Manage samples | Add a sample | Add sample details | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+      | stage   | pageTitle      | pageTitle2   | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | MandatoryToDo | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
 
 
 

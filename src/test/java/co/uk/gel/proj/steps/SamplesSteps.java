@@ -6,6 +6,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.But;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -459,6 +460,24 @@ public class SamplesSteps extends Pages {
         samplesPage.fillInSampleComments();
     }
 
+    @But("the {string} stage is marked {string}")
+    public void theStageIsMarked(String stage, String stageStatus) {
+
+        switch (stageStatus) {
+            case "MandatoryToDo": {
+                Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
+                Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
+                break;
+            }
+            case "Completed": {
+                Debugger.println(stage + " status stage for Liquid tumour Sample is : " + stageStatus);
+                Assert.assertTrue(referralPage.stageIsCompleted(stage));
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid Stage Status");
+        }
+    }
 
 
 }
