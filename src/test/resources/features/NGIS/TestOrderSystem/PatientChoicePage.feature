@@ -1,7 +1,7 @@
 @regression
-@COMP09_P0
-@PatientChoice
-@regressionSet1
+@regression_set2
+@patientChoicePage
+
 Feature: Patient Choice Page Verification
 
   @COMP8_TO_PatientSearch

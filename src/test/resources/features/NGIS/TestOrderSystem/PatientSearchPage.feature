@@ -1,6 +1,7 @@
 @regression
-@PatientChoice
-@regressionSet1
+@regression_set3
+@patientSearchPage
+
 Feature: Patient search page
 
   Background:

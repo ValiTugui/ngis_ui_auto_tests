@@ -1,7 +1,6 @@
 @regression
-@COMP09_P0
-@Panels
-@regressionSet1
+@regression_set2
+@panelsPage
 
 Feature: Panels Page Verification
 

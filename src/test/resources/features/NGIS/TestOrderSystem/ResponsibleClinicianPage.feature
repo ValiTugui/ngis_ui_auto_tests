@@ -1,6 +1,7 @@
 @regression
-@regression_set3
-@responsibleClinicianOrg
+@regression_set4
+@responsibleClinicianPage
+
 Feature: Responsible Clinician
 
   @E2EUI-2133 @NTS-3166 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails

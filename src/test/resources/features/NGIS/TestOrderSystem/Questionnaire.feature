@@ -1,6 +1,7 @@
 @regression
-@regression_set2
-@questionnaire
+@regression_set3
+@questionnairePage
+
 Feature: Component name - Questionnaire
 
 

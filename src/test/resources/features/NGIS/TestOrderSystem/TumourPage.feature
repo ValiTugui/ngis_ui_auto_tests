@@ -1,6 +1,7 @@
 @regression
-@regression_set3
-@tumoursPage
+@regression_set4
+@tumourPage
+
 Feature: Tumours Page
 
   @COMP6_TO_TumourCreate @LOGOUT

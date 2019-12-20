@@ -1,6 +1,7 @@
 @regression
-@regression_set1
-@patientDetails
+@regression_set2
+@patientDetailsPage
+
 Feature: Patient details page
 
 

@@ -1,6 +1,7 @@
 @regression
-@regression_set3
+@regression_set4
 @samplesPage
+
 Feature: Samples Page
 
   @COMP7_TOC_Samples @LOGOUT

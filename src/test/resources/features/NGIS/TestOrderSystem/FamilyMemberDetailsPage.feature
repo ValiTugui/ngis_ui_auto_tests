@@ -1,14 +1,15 @@
 @regression
-@COMP08_P0
+@regression_set1
 @FamilyMembersDetailsPage
-@regressionSet1
+@COMP08_P0
+
 Feature: Family Members Details Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @v_1 @P0
   Scenario Outline: E2EUI-908: Verify addition of a family member to a referral without providing Relationship to Proband field.
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -20,7 +21,7 @@ Feature: Family Members Details Validation
 
     Examples:
       | stage          | FamilyMemberDetails                 | ErrorMessage                         | MessageColor |
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Relationship to proband is required. | #dd2509      |
+      | Family members | NHSNumber=9449305552:DOB=20-09-2008 | Relationship to proband is required. | #dd2509      |
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @BVT_P0 @v_1 @P0
@@ -69,7 +70,7 @@ Feature: Family Members Details Validation
     When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user can select the test to add to the family member "<FamilyMemberDetails>"
+    And the user selects the test to add to the family member "<FamilyMemberDetails>"
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
@@ -78,8 +79,8 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_05 @NTS3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: E2EUI-1539: Verify message when the number of participants in Test Package are less than family member selected
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -156,8 +157,8 @@ Feature: Family Members Details Validation
   @COMP8_TO_Familymembers
     @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
   Scenario Outline: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310270:DOB=12-08-2007 |
+    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -185,7 +186,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
 
 
