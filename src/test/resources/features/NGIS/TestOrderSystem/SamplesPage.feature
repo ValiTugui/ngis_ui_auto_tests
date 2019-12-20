@@ -560,6 +560,7 @@ Feature: Samples Page
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
+    And the user clicks the Save and Continue button
     And the "<stage2>" stage is marked as Completed
 
     Examples:
