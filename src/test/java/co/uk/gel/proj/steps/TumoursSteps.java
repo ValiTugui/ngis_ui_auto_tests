@@ -107,7 +107,6 @@ public class TumoursSteps extends Pages {
 
     @Then("the tumours stage displays Add a tumour page with appropriate fields - description, Date of diagnosis etc")
     public void theTumoursStageDisplaysAddATumourPageWithAppropriateFieldsDescriptionDateOfDiagnosisEtc() {
-
         boolean eachElementIsLoaded;
         eachElementIsLoaded = tumoursPage.verifyTheElementsOnAddTumoursPageAreDisplayed();
         Assert.assertTrue(eachElementIsLoaded);

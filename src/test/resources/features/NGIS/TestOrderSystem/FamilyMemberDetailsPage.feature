@@ -1,7 +1,6 @@
 @regression
 @regression_set1
 @FamilyMembersDetailsPage
-@COMP08_P0
 
 Feature: Family Members Details Validation
 

@@ -7,7 +7,6 @@ Feature: Dashboard Page
   Background:
     Given a web browser is at the dashboard page
 
-
 @E2EUI-1974 @NTS-3158 @v_1 @P0 @COMP1_TOC_Dashboard
 
 Scenario: NTS-3158 - Dashboard - To verify the Dashboard - Home Page Title displayed correctly

@@ -117,7 +117,6 @@ Feature: Patient details page
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the NHS number field is enabled
 
-
     Examples:
       | patient-search-type |
       | NGIS                |

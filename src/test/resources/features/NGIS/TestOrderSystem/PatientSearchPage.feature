@@ -19,7 +19,6 @@ Feature: Patient search page
     When the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     Then the NHS number field is not enabled with auto-fill feature
 
-
   @patientSearch_02 @NTS-2817 @E2EUI-831 @v_1
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
     When the user clicks the NO button

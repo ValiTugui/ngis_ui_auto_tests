@@ -4,7 +4,6 @@
 
 Feature: Component name - Questionnaire
 
-
   @E2EUI-1602  @NTS-3266  @P0 @v_1 @COMP6_TO_ClinicalQuestions @LOGOUT @BVT_P0
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

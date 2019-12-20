@@ -440,8 +440,6 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3   | sampleType          | partOfMessage                                  | addATumourLink | acknowledgeMessage |
       | Samples | Manage samples | Add a sample | Add a tumour | Solid tumour sample | contains unsaved information. Discard changes? | add a Tumour   | Accept             |
 
-
-
   @COMP7_TOC_Samples @LOGOUT
     @samplesPage_15 @NTS-3364  @P0 @v_1 @E2EUI-2360
   Scenario Outline: NTS-3364: Add a Sample - Verify the link 'Not the Right Tumour' in 'Add a Sample' page.

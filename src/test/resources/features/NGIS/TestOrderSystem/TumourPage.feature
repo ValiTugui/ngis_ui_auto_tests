@@ -16,7 +16,6 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
-
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_02 @NTS-3165 @E2EUI-823 @E2EUI-1120 @P0 @v_1
   Scenario Outline: NTS-3165: Text information for user on Tumour referral page
@@ -28,7 +27,6 @@ Feature: Tumours Page
     Examples:
       | stage   | information                                                                                              |
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_03 @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @P0 @v_1
@@ -46,7 +44,6 @@ Feature: Tumours Page
     Examples:
       | stage   |
       | Tumours |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_04 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
@@ -129,8 +126,6 @@ Feature: Tumours Page
       | stage   | tumour_type              | presentationType | searchTerm | notificationText|
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
 
-
-
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
@@ -150,7 +145,6 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
       | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added    |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1 @BVT_P0
@@ -176,7 +170,6 @@ Feature: Tumours Page
       | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_09  @P0 @v_1 @NTS:3171 @E2EUI-2145
@@ -289,7 +282,6 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       |
-
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_14 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
@@ -407,11 +399,9 @@ Feature: Tumours Page
     And the "<pageTitle>" page is displayed
     And the new tumour details are displayed in the Edit a Tumour page
 
-
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  | pageTitle |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary| Edit a tumour|
-
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_18 @NTS-3176 @E2EUI-1412 @P0 @v_1 @BVT_P0
@@ -549,7 +539,3 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText| pageTitle              |   pageTitle2  |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    | Select or edit a tumour| Add a tumour  |
-
-
-
-

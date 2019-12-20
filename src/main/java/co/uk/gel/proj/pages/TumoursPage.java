@@ -321,16 +321,20 @@ public class TumoursPage {
     }
 
     public boolean verifyTheElementsOnAddTumoursPageAreDisplayed() {
+        try {
+            AddATumourPageTitle.isDisplayed();
+            descriptiveName.isDisplayed();
+            dateOfDiagnosisLabel.isDisplayed();
+            tumourTypeLabel.isDisplayed();
+            PathologyIdOrSampleIdLabel.isDisplayed();
+            dateMonth.isDisplayed();
+            dateYear.isDisplayed();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifying tumour stage page layout."+exp);
+            return false;
+        }
 
-        AddATumourPageTitle.isDisplayed();
-        descriptiveName.isDisplayed();
-        dateOfDiagnosisLabel.isDisplayed();
-        tumourTypeLabel.isDisplayed();
-        PathologyIdOrSampleIdLabel.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-
-        return true;
     }
 
 
