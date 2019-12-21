@@ -28,7 +28,6 @@ public class TumoursSteps extends Pages {
 
     @And("the user enters {string} in the date of diagnosis field")
     public void theUserEntersInTheDateOfDiagnosisField(String dateOfDiagnosis) {
-
         tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
         if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
             String[] value = dateOfDiagnosis.split("-");
@@ -46,6 +45,34 @@ public class TumoursSteps extends Pages {
         patientSearchPage.checkTheErrorMessagesInDOB(errorMessage, fontColor);
         tumoursPage.clearDateOfDiagnosisFields();
         Wait.forElementToBeClickable(driver, referralPage.logoutButton);
+    }
+    @Then("the DateOfDiagnosis field displays given messages in specific color for the wrong values")
+    public void theDateOfDiagnosisFieldGivesProperErrorMessages(DataTable inputDetails) {
+        try {
+            boolean testResult = false;
+            tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+            List<List<String>> diagnosisDates = inputDetails.asLists();
+            String dateOfDiagnosis = "";
+            for(int i=1; i<diagnosisDates.size(); i++){
+                dateOfDiagnosis = diagnosisDates.get(i).get(0);
+                Debugger.println("DateOfDiagnosis: "+dateOfDiagnosis);
+                if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
+                    String[] value = dateOfDiagnosis.split("-");
+                    tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
+                }else {
+                    String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                    tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                    //Actions.retryClickAndIgnoreElementInterception(driver, tumoursPage.tumourTypeLabel);
+                }
+                patientSearchPage.checkTheErrorMessagesInDOB(diagnosisDates.get(i).get(1),diagnosisDates.get(i).get(2));
+                tumoursPage.clearDateOfDiagnosisFields();
+                Wait.seconds(2);
+                Debugger.println("PASS");
+                //click on tumourTypeLabel label to move cursor away from dateYear field
+            }
+        }catch(Exception exp){
+
+        }
     }
 
     @And("the user answers all tumour system questions fields, select tumour type {string} and leaves date of diagnosis field blank")

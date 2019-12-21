@@ -47,49 +47,29 @@ Feature: Tumours Page
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_04 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
-  Scenario Outline:NTS-3152 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
+  Scenario Outline:NTS-3170 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
-    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
-
+#    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
+#    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
+    Then the DateOfDiagnosis field displays given messages in specific color for the wrong values
+      | Date_of_Diagnosis | error_message                                     | color   |
+      | 12-03-2150        | Please enter a date before today                  | #dd2509 |
+      | 32-03-2011        | Enter a day between 1 and 31 or leave blank       | #dd2509 |
+      | 0-04-2011         | Enter a day between 1 and 31 or leave blank       | #dd2509 |
+      | 10-28-2011        | Enter a month between 1 and 12 or leave blank     | #dd2509 |
+      | 10-0-2011         | Enter a month between 1 and 12 or leave blank     | #dd2509 |
+      | 14-11-1           | Enter a year in 4 figures e.g. 1983               | #dd2509 |
+      | 14-11-19          | Enter a year in 4 figures e.g. 1983               | #dd2509 |
+      | 14-11-1899        | Cannot be more than 9 months before date of birth | #dd2509 |
+      | 14-11-190         | Cannot be more than 9 months before date of birth | #dd2509 |
+      | 14-11-null        | Enter a year                                      | #dd2509 |
+      | 30-02-2012        | Check the day and month are valid                 | #dd2509 |
+#      | 14-10-1899        | Enter a year beyond 1900                          | #dd2509 |
     Examples: of future date scenario
-      | stage   | Date_of_Diagnosis | error_message                    |
-      | Tumours | 12-03-2150        | Please enter a date before today |
-
-    Examples: of invalid day
-      | stage   | Date_of_Diagnosis | error_message                               |
-      | Tumours | 32-03-2011        | Enter a day between 1 and 31 or leave blank |
-      | Tumours | 0-04-2011         | Enter a day between 1 and 31 or leave blank |
-
-    Examples: of invalid month
-      | stage   | Date_of_Diagnosis | error_message                                 |
-      | Tumours | 10-28-2011        | Enter a month between 1 and 12 or leave blank |
-      | Tumours | 10-0-2011         | Enter a month between 1 and 12 or leave blank |
-
-    Examples: of invalid year
-      | stage   | Date_of_Diagnosis | error_message                       |
-      | Tumours | 14-11-1           | Enter a year in 4 figures e.g. 1983 |
-      | Tumours | 14-11-19          | Enter a year in 4 figures e.g. 1983 |
-
-    Examples: diagnosis year comes before patient year birth
-      | stage   | Date_of_Diagnosis | error_message                                     |
-      | Tumours | 14-11-1899        | Cannot be more than 9 months before date of birth |
-      | Tumours | 14-11-190         | Cannot be more than 9 months before date of birth |
-
-    Examples: Enter year starting from 1900
-      | stage   | Date_of_Diagnosis | error_message            |
-      | Tumours | 14-0-1899           | Enter a year beyond 1900 |
-
-    Examples: of entering day and month without a year
-      | stage   | Date_of_Diagnosis | error_message |
-      | Tumours | 14-11-null        | Enter a year  |
-
-    Examples: of entering invalid date for February month
-      | stage   | Date_of_Diagnosis | error_message |
-      | Tumours | 30-02-2012        | Check the day and month are valid  |
-
+      | stage   |
+      | Tumours |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_05 @NTS-3157 @E2EUI-1020 @P0 @v_1
@@ -123,8 +103,8 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText|
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
@@ -143,8 +123,8 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
-      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added    |
+      | stage   | tumour_type              | presentationType   | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1 @BVT_P0
@@ -317,7 +297,7 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |  updated_tumour_type  |
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
@@ -345,8 +325,8 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary|
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -371,7 +351,6 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
-
 
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -400,8 +379,8 @@ Feature: Tumours Page
     And the new tumour details are displayed in the Edit a Tumour page
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  | pageTitle |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary| Edit a tumour|
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   | pageTitle     |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary | Edit a tumour |
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_18 @NTS-3176 @E2EUI-1412 @P0 @v_1 @BVT_P0
@@ -457,7 +436,6 @@ Feature: Tumours Page
     And the new tumour is not highlighted
     And the "<stage>" stage is marked as Completed
     And the success notification is displayed "<notificationText>"
-
 
     Examples: of filling out the year and leaving the month and day blank
       | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
@@ -537,5 +515,5 @@ Feature: Tumours Page
     Then the "<pageTitle>" page is displayed
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText| pageTitle              |   pageTitle2  |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    | Select or edit a tumour| Add a tumour  |
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText | pageTitle               | pageTitle2   |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     | Select or edit a tumour | Add a tumour |
