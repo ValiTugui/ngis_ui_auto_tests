@@ -126,10 +126,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
     public WebElement genderClear;
 
-
-
-
-
     static String searchString = "";
 
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
@@ -152,13 +148,6 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
     public WebElement editBoxTestPackage;
-
-    @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink;
-
-    String noResultsLocator = "img[class*='no-results__img']";
-    @FindBy(xpath = "//span[@class='css-3v83d8']")
-    public WebElement familyMemberIncompleteErrorMessage;
 
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
     public WebElement errorPatientCard;
@@ -401,23 +390,6 @@ public class FamilyMemberSearchPage {
         }
     }
 
-    public void checkTheErrorMessagesInFamilyMember(String errorMessage, String fontColor) {
-        String[] expMessages = null;
-        if(errorMessage.indexOf(",") == -1){
-            expMessages = new String[]{errorMessage};
-        }else{
-            expMessages = errorMessage.split(",");
-        }
-        String actualMessage = "";
-        String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-        for(int i=0; i<expMessages.length;i++) {
-            actualMessage = validationErrors.get(i).getText();
-            Debugger.println("EXPECTED RESULT: " + expMessages[i]);
-            Debugger.println("ACTUAL RESULT  : " + actualMessage);
-            Assert.assertEquals(expMessages[i], actualMessage);
-            Assert.assertEquals(expectedFontColor, validationErrors.get(i).getCssValue("color"));
-        }
-    }
     public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
         try {
             String actualMessage = familyMemeberFound.getText();
@@ -481,12 +453,7 @@ public class FamilyMemberSearchPage {
         Click.element(driver,AddReferralButton);
 
     }
-    public void verifyTheTitleOfTheFamilyMemberQuestionnairePage() {
-        Wait.seconds(3);
-        Wait.forElementToBeDisplayed(driver, familyMemeberQuestionnairePageTitle);
-        Assert.assertEquals("Add family member details", familyMemeberQuestionnairePageTitle.getText());
 
-    }
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
         try {
             //Verify the Message Content
@@ -543,8 +510,6 @@ public class FamilyMemberSearchPage {
             return false;
         }
     }
-
-
 
     public boolean checkTheErrorMessageForIncompleteFamilyMember() {
         try {

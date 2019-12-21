@@ -334,9 +334,7 @@ public class TumoursPage {
             Debugger.println("Exception from verifying tumour stage page layout."+exp);
             return false;
         }
-
     }
-
 
     public List<String> getTumourTableHeaders() {
         List<String> actualTableHeaders = new ArrayList<>();
@@ -345,7 +343,6 @@ public class TumoursPage {
         }
         return actualTableHeaders;
     }
-
 
     public List<String> getInformationTextOnEditTumourPage() {
         List<String> actualInformationText = new ArrayList<>();
@@ -484,6 +481,4 @@ public class TumoursPage {
         Debugger.println("Current TumourDescription to be null: " + tumourDetails.getTumourDescription());
         return resetValue;
     }
-
-
 }

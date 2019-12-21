@@ -26,17 +26,11 @@ public class PaperFormPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//div[contains(@class, 'main')]//descendant::strong")
-    public WebElement yourOrderText;
-
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
     @FindBy(css = "p[class*='sub-title-copy']")
     public WebElement orderEntitySubHeader;
-
-    @FindBy(css = "p[class*='explanatoryText']")
-    public WebElement chooseClinicalSubHeader;
 
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
@@ -59,41 +53,14 @@ public class PaperFormPage {
     @FindBy(css = "h4[class*='selectedHeader']")
     public WebElement selectedOrderEntityName;
 
-    @FindBy(css = "p[class*='boldText']")
-    public List<WebElement> selectedOrderEntityDetailsTitles;
-
-    @FindBy(css = "p[class*='text']")
-    public List<WebElement> selectedOrderEntityDetailsTexts;
-
     @FindBy(css = "p[class*='styles_headerText']")
     public WebElement confirmTestsSubHeader;
-
-    @FindBy(css = "ul[class*='testPackage']")
-    public WebElement confirmTestsPackage;
 
     @FindBy(css = "h3[class*='subCaption']")
     public WebElement confirmTestsSubCaption;
 
     @FindBy(css = "div[class*='card']")
     public List<WebElement> testsPackage;
-
-    @FindBy(css = "h2[class*='name']")
-    public WebElement testsNameFromConfirmTestsPage;
-
-    @FindBy(css = "div[class*='times']")
-    public List<WebElement> testsTimesFromConfirmTestsPage;
-
-    @FindBy(xpath = "//div[contains(@class,'header')]//child::span")
-    public List<WebElement> testsHeadersFromConfirmTestsPage;
-
-    @FindBy(css = "div[class*='info']")
-    public WebElement testsInfoFromConfirmTestsPage;
-
-    @FindBy(css = "h2[class*='header']")
-    public WebElement sampleTypeAndState;
-
-    @FindBy(css = "p[class*='targetedGenes']")
-    public List<WebElement> targetedGenes;
 
     @FindBy(css = "a[class*='btn-secondary']")
     public List<WebElement> downloadButton;
@@ -107,20 +74,8 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='body']")
     public List<WebElement> downloadSections;
 
-    @FindBy(css = "div[class*='body']")
-    public List<WebElement> downloadContainers;
-
     @FindBy(css = "h3[class*='header']")
     public List<WebElement> stepsTitles;
-
-    @FindBy(css = "div[class*='main']")
-    public WebElement nonRoutedNextStepsContent;
-
-    @FindBy(xpath = "//div[contains(@class, 'sampleDescriptions')]//descendant::p")
-    public WebElement nonRoutedNextStepsSampleDescription;
-
-    @FindBy(css = "p[class*='headerText']")
-    public WebElement nextStepsSubHeader;
 
     @FindBy(css = "div[class*='container']")
     public WebElement routedNextStepsContent;
@@ -134,29 +89,8 @@ public class PaperFormPage {
     @FindBy(xpath = "//*[contains(@class,'addressTitle')]//following::div")
     public WebElement addressPanelBody;
 
-    @FindBy(css = "div[class*='boldText']")
-    public List<WebElement> nonRoutedNextStepsRequestingOrganisation;
-
-    @FindBy(css = "p[class*='boldText']")
-    public List<WebElement> nonRoutedNextStepsTests;
-
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement printPageButton;
-
-    @FindBy(css = "span[class*='text']")
-    public WebElement canNotFindMyEntityLink;
-
-    @FindBy(xpath = "//*[contains(@class,'subHeader')]//following-sibling::div[3]")
-    public WebElement noResultsMessage;
-
-    @FindBy(css = "div[class*='slide-panel_show']")
-    public WebElement filterHelpContentPaperForm;
-
-    @FindBy(css = "div[class*='container']")
-    public List<WebElement> elementFromFilterHelpContentPaperForm;
-
-    @FindBy(css = "div[class*='main']")
-    public WebElement clinicalIndicationName;
 
     @FindBy(linkText = "Cancel order")
     public WebElement cancelOrderLink;
@@ -167,47 +101,14 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='radioButton']")
     public WebElement clinicalCardCheckbox;
 
-    @FindBy(css = "div[class*='icon']")
-    public List<WebElement> iconFromClinicalCard;
-
-    @FindBy(xpath = "//*[contains(@class,'mediaBlock')]//descendant::h3")
-    public WebElement clinicalCardTitle;
-
-    @FindBy(css = "div[class*='whoToTest']")
-    public WebElement clinicalCardWhoToTest;
-
-    @FindBy(css = "h3[class*='cellTitle']")
-    public List<WebElement> routedSecondStepCellTitles;
-
-    @FindBy(css = "div[class*='cellContent']")
-    public List<WebElement> routedSecondStepCellContent;
-
-    @FindBy(css = "span[class*='cellBoldText']")
-    public List<WebElement> testDetailsOnNextPage;
-
-    @FindBy(css = "div[class*='cellBoldText']")
-    public List<WebElement> routedSecondStepCellBoldTexts;
-
-    @FindBy(css = "div[class*='cellText']")
-    public List<WebElement> routedSecondStepCellTexts;
-
-    @FindBy(css = "button[class*='resetTestsButton']")
-    public WebElement resetToDefaultSelectionButton;
-
     @FindBy(css = "*[class*='ctaOnlineBtn']")
     public WebElement signInToOnlineServiceButton;
 
     @FindBy(css = "*[class*='testCardContainer']")
     public WebElement testCardContainer;
 
-    @FindBy(css = "*[class*='ctaPdfOrOnlineTitle']")
-    public WebElement orderGenomicTestPageTitle;
-
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement usePDFOrderFormButton;
-
-    @FindBy(css = "*[class*='tumourWarning']")
-    public WebElement cancerOfflineOrderwarningBanner;
 
     @FindBy(xpath = "//*[contains(@class,'styles_list')]")
     public WebElement offlineOrderContainer;

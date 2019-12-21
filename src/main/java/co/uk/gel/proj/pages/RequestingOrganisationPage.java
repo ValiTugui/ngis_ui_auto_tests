@@ -19,17 +19,8 @@ public class RequestingOrganisationPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "input[class*='search-input']")
-    public WebElement searchField;
-
-    @FindBy(css = "h2[class*='ordering-entity__previous-header']")
-    public WebElement previousOrganisationHeader;
-
     @FindBy(css = "div[class*='location-result']")
     public WebElement organisationDetailsContainer;
-
-    @FindBy(css = "h4[class*='location-result__header']")
-    public WebElement organisationName;
 
     @FindBy(css = "p[class*='location-result__detail-heading']")
     public List<WebElement> organisationDetailHeader;

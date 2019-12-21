@@ -20,11 +20,6 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
-
-    @FindBy(xpath = "//h1[contains(text(),'Confirm family member details')]")
-    public WebElement familyMemberDetailsTitle;
-
-
     @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
     public List<WebElement> nameResults;
 
@@ -81,10 +76,6 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'NHS Number')]")
     public WebElement nhsNumberLabel;
-
-
-    @FindBy(xpath = "//h2[@class='css-1ujfcb9']/following::button[1]")
-    public WebElement editBoxTestPackage;
 
     @FindBy(xpath = "//h2[contains(@class,'css')]/following::button[2]")
 
@@ -152,20 +143,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::div[contains(@class,'css-1qv4t1n')]")
-    public WebElement patientCardField;
-
-    @FindBy(css = "table[class*='table--hpo']")
-    public WebElement hpoTable;
-
-    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
-    public WebElement successMessageAfterRemovefamilyMember;
-
     @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
     public WebElement AddReferralButton;
-
-    @FindBy(css = "[class*='hpo-term__name']")
-    public List<WebElement> hpoTerms;
 
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
@@ -176,9 +155,6 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
 
-    By firstLastNameTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//h2");
-
-    By genderTitle = By.xpath("//h1[contains(text(),'Confirm family member details')]/..//ul/li/span[contains(text(),'Gender')]/following-sibling::span");
     By selectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
     By unSelectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
     String selectedTestTitle = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
@@ -211,7 +187,6 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
     public WebElement familyMemberTestPackagePageLink;
 
-
     @FindBy(xpath = "//h1[contains(text(),'Add a family member to this referral')]")
     public WebElement familyMemberLandingPageTitle;
 
@@ -224,14 +199,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@class,'css')]/following::h2[contains(@class,'css')]")
     public WebElement additionalFamilyMemberName;
 
-
-    By additionalFamilyMemberList = By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']");
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
-    public WebElement unsuccessAdditionalFamilyMemberName;
-
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][1]")
-
     public WebElement relationField;
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][2]")
@@ -245,11 +213,6 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'patientChoiceStatus')]")
     public WebElement patientChoiceStatus;
-
-
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']")
-    public WebElement patientNGISId;
-
 
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
@@ -268,21 +231,6 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
     public WebElement printFormsPageTitle;
-
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'gender')]/following::span[1]")
-    public WebElement genderResult;
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'nhsNumber')]/following::span[1]")
-    public WebElement nhsNumberResult;
-
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::span[contains(@id,'ngisId')]/following::span[1]")
-    public WebElement ngisIdResult;
-    @FindBy(xpath = "//span[contains(text(),'Not entered')]")
-    public WebElement patientChoiceNotEnteredStatus;
-
-    @FindBy(xpath = "//span[contains(text(),'Not entered')]/following::button[@aria-label='edit button']")
-    public WebElement notEnteredEditBox;
 
     static ArrayList<NGISPatientModel> addedFamilyMembers = new ArrayList<NGISPatientModel>();
     static ArrayList<String> familyMemberLandingPageDetails;
@@ -354,9 +302,6 @@ public class FamilyMemberDetailsPage {
     @FindBy(className = "todo-list")
     public WebElement toDoList;
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
-
-    @FindBy(xpath = "//button[contains(text(),'Try again')]")
-    public WebElement tryAgain;
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -765,17 +710,6 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean verifyThePatientCardField() {
-        //1. Verify the display of Title for the added Family Member
-        NGISPatientModel familyMember = getFamilyMember("");
-        By firstNameLastName = By.xpath(addFamilyMemberTitle + "'" + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME() + "')]");
-        if (!seleniumLib.isElementPresent(firstNameLastName)) {
-            Debugger.println("Selected Family member not displayed in Landing Page: " + familyMember.getFIRST_NAME() + ", " + familyMember.getLAST_NAME());
-            return false;
-        }
-        return true;
-    }
-
     public boolean verifyTheEditingReferralColor(String nhsDetails,String eColor) {
         try {
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
@@ -864,14 +798,6 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public void getTextFromPatientCardFields() {
-        List<WebElement> patientCards = driver.findElements(By.xpath("//div[@class='css-1yllhwh']/following::h2[@class='css-1ujfcb9']"));
-        Iterator<WebElement> itr = patientCards.iterator();
-        while (itr.hasNext()) {
-            Debugger.println(itr.next().getText());
-        }
-    }
-
     public boolean removeFamilyFromLandingPage() {
         try {
             removeFamilyMember.click();
@@ -897,11 +823,6 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean patientChoicePageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
-        return true;
-    }
-
     public boolean verifyTheDeleteMessageIsPresent() {
         if (seleniumLib.isElementPresent(successDeletionMessageOfFamilyMember)) {
             return false;
@@ -910,10 +831,8 @@ public class FamilyMemberDetailsPage {
     }
 
     public void deselectCheckBoxOnFamilyPage(){
-
         Wait.forElementToBeDisplayed(driver,testPackageCheckBox);
         seleniumLib.clickOnWebElement(testPackageCheckBox);
-
     }
 
     public boolean unmatchedParticipantErrorMessage(String expMessage) {
@@ -1021,10 +940,7 @@ public class FamilyMemberDetailsPage {
         }
         return true;
     }
-    public boolean printFormsPageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
-             return true;
-        }
+
     public boolean verifyTheElementsOnFamilyMemberPage() {
         try{
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);

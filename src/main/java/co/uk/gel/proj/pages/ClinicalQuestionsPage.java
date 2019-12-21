@@ -21,7 +21,6 @@ import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
-    Random random = new Random();
     SeleniumLib seleniumLib;
 
     public ClinicalQuestionsPage(WebDriver driver) {
@@ -51,9 +50,6 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "#react-select-3-input")
     public WebElement hpoSearchField;
 
-    @FindBy(css = "div[class*='hpo-select']")
-    public WebElement hpoTermSection;
-
     @FindBy(css = "*[class*='hpo-term__name']")
     public List<WebElement> hpoTermNames;
 
@@ -62,24 +58,6 @@ public class ClinicalQuestionsPage {
 
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
-
-    @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]//child::div")
-    public WebElement hpoModifiersDropdown;
-
-    @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]")
-    public WebElement hpoModifiersRemoval;
-
-    @FindBy(css = "div[class*='hpo__notification-error']")
-    public WebElement hpoError;
-
-    @FindBy(xpath = "//label[contains(@class,'radio')]")
-    public List<WebElement> radioButtons;
-
-    @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]")
-    public List<WebElement> rareDiseaseDiagnosesRadioButtons;
-
-    @FindBy(xpath = "//span[contains(@class,'radio__text')]")
-    public List<WebElement> radioButtonsTexts;
 
     @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
@@ -90,31 +68,14 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//*[@class='css-19bqh2r']")
     public WebElement cancelDiagnosisValue;
 
-    @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
-    public WebElement rareDiseaseStatusDropdown;
-
-    @FindBy(xpath = "//*[contains(@id,'question-id-q90')]")
-    public WebElement phenotypicSexDropdown;
-
-    @FindBy(xpath = "//*[contains(@id,'question-id-q91')]")
-    public WebElement karyotypicSexDropdown;
-
     @FindBy(css = "div[class*='error-message__text']")
     public WebElement nonNullableFieldErrorMessage;
-
-    @FindBy(xpath = "//button[text()='+ Add another']")
-    public WebElement addAnotherLink;
-
-    @FindBy(xpath = "//button[text()='Delete']")
-    public WebElement deleteLink;
 
     @FindBy(css = "div[class*='hpo__search']")
     public WebElement hpoSectionLabel;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
-    String  hpoSearchTermExample1 = "Nephritis";
-
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -126,10 +87,10 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            seleniumLib.sendValue(hpoSearchField,hpoTerm);
+            seleniumLib.sendValue(hpoSearchField, hpoTerm);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
-            if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
-                Debugger.println("HPO term "+hpoTerm+" present in the dropdown.");
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
                 return -1;
             }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
@@ -138,10 +99,10 @@ public class ClinicalQuestionsPage {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
             int numberOfHPO = hpoTerms.size();
-            Debugger.println("SizeOfHPOTerms: "+numberOfHPO);
+            Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
-        }catch(Exception exp){
-            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception "+exp);
+        } catch (Exception exp) {
+            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
             return 0;
         }
     }
@@ -174,13 +135,13 @@ public class ClinicalQuestionsPage {
         }
     }
 
-    public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue){
+    public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue) {
         Wait.forElementToBeDisplayed(driver, diagnosisField);
         return (!diagnosisField.getText().equalsIgnoreCase(diagnosisValue));
 
     }
 
-    public boolean selectDiseaseStatus(String diseaseStatusValue){
+    public boolean selectDiseaseStatus(String diseaseStatusValue) {
         Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
         Actions.clickElement(driver, diseaseStatusDropdown);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
@@ -188,24 +149,24 @@ public class ClinicalQuestionsPage {
         return true;
     }
 
-    public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory(){
+    public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory() {
         Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
-        Debugger.println(" HPO section Label :  "+ hpoSectionLabel.getText());
+        Debugger.println(" HPO section Label :  " + hpoSectionLabel.getText());
         return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
 
     }
 
-    public void fillInYearsOfOnset(String years){
+    public void fillInYearsOfOnset(String years) {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
         Actions.fillInValue(ageOfOnsetYearsField, years);
-  }
+    }
 
     public void fillInMonthsOfOnset(String months) {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
         Actions.fillInValue(ageOfOnsetMonthsField, months);
     }
 
-    public String getErrorMessageText(){
+    public String getErrorMessageText() {
         Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
         String actualErrorMessage = nonNullableFieldErrorMessage.getText();
         return actualErrorMessage;
@@ -219,6 +180,7 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+
     //Method added by @Stag for filling the ClinicalQuestionsPage
     public void fillClinicalQuestionPageWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
@@ -226,38 +188,38 @@ public class ClinicalQuestionsPage {
         for (String key : paramsKey) {
             switch (key) {
                 case "DiseaseStatus": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        Wait.forElementToBeClickable(driver,diseaseStatusDropdown);
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        Wait.forElementToBeClickable(driver, diseaseStatusDropdown);
                         Click.element(driver, diseaseStatusDropdown);
-                        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='"+paramNameValue.get(key)+"']")));
+                        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
                     }
                     break;
                 }
                 case "AgeOfOnset": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         String[] age_of_onsets = paramNameValue.get(key).split(",");
-                        Wait.forElementToBeDisplayed(driver,ageOfOnsetYearsField);
+                        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
                         ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
                         ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
                     }
                     break;
                 }
                 case "HpoPhenoType": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        String hpoValue="";
+                        String hpoValue = "";
                         boolean isExists = false;
                         List<WebElement> rows = seleniumLib.getElements(hpoRows);
-                        if(rows != null && rows.size() > 0){
-                            for(WebElement row:rows){
+                        if (rows != null && rows.size() > 0) {
+                            for (WebElement row : rows) {
                                 hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                                if(hpoValue.equalsIgnoreCase(paramNameValue.get(key))){
+                                if (hpoValue.equalsIgnoreCase(paramNameValue.get(key))) {
                                     isExists = true;
                                     break;//for loop
                                 }
-                             }//for
+                            }//for
                         }
-                        if(!isExists) {
+                        if (!isExists) {
                             searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
                         }
                     }
@@ -268,15 +230,15 @@ public class ClinicalQuestionsPage {
         }//for
     }//method
 
-    public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues ) {
+    public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {
             Wait.seconds(5);
             seleniumLib.sendValue(hpoSearchField, "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
-            int i =0;
+            int i = 0;
             int numberOfElements = dropdownValues.size();
-            for( WebElement element : dropdownValues) {
+            for (WebElement element : dropdownValues) {
                 Debugger.println(" HPO Phenotype value" + ++i + " : " + element.getText());
             }
             Debugger.println(" Number of items displayed in HPO Phenotype Field  : " + numberOfElements);
@@ -288,16 +250,16 @@ public class ClinicalQuestionsPage {
         }
     }
 
-    public boolean verifyMaxAllowedValuesOMIMField(int maxAllowedValues ) {
+    public boolean verifyMaxAllowedValuesOMIMField(int maxAllowedValues) {
         try {
             if (Actions.getText(diagnosisField).isEmpty()) {
                 Actions.fillInValue(driver, diagnosisValue, "linear");
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Wait.seconds(10);
             }
-            int i =0;
+            int i = 0;
             int numberOfElements = dropdownValues.size();
-            for( WebElement element : dropdownValues) {
+            for (WebElement element : dropdownValues) {
                 Debugger.println(" OMIM and Orphanet value" + ++i + " : " + element.getText());
             }
             Debugger.println(" Number of items displayed in OMIM and Orphanet Field  : " + numberOfElements);
@@ -308,6 +270,4 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
-
-
 }

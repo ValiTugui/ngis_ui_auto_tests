@@ -28,22 +28,14 @@ public class ReferralPage<check> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public WebElement SignOutStatusMessage;
-
     @FindBy(css = "span.styles_badge__1KpTw.badge--default")
     public WebElement getReferralHeaderStatus;
 
     @FindBy(css = "*[class*='referral-header']")
     public WebElement referralHeader;
 
-    @FindBy(css = "*[class*='referral-header-details']")
-    public WebElement referralHeaderRegion;
-
     @FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
     public WebElement submitReferralButton;
-
-    @FindBy(xpath = "//*[@id='referral__header']//button[text()='Cancel referral']")
-    public WebElement cancelReferralButton;
 
     @FindBy(className = "todo-list")
     public WebElement toDoList;
@@ -57,17 +49,12 @@ public class ReferralPage<check> {
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
 
-    @FindBy(xpath = "//*[contains(@class,'header__content')]//child::a")
-    public WebElement genomicMedicineServicelogo;
-
     @FindBy(css = "button[class*='referral-navigation__continue']")
     public WebElement saveAndContinueButton;
 
     @FindBy(css = "button[class*='referral-navigation__button--back']")
     public WebElement backLink;
 
-    @FindBy(css = "strong[class*='header-item']")
-    public List<WebElement> referralHeaderDetails;
 
     @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
     public WebElement referralHeaderPatientName;
@@ -91,18 +78,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Referral ID']/..//strong")
     public WebElement referralHeaderReferralId;
 
-    @FindBy(css = "strong[class*='header-item__value']")
-    public List<WebElement> referralHeaderValues;
-
-    @FindBy(css = "*[class*='referral-success-notification']")
-    public WebElement referralSuccessNotification;
-
-    @FindBy(css = "*[class*='downloads__notice']")
-    public WebElement submissionConfirmationBanner;
-
-    @FindBy(css = "*[class*='notice__title']")
-    public WebElement submissionConfirmationBannerTitle;
-
     @FindBy(css = "*[class*='referral-header__badge']")
     public WebElement referralStatus;
 
@@ -118,20 +93,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='header__right-area']")
     public WebElement headerRightArea;
 
-    @FindBy(css = "*[class*='footer__nhs-logo']")
-    public WebElement nhsEnglandLogoFromFooter;
-
-    @FindBy(css = "*[class*='footer__genomics-logo']")
-    public WebElement genomicsEnglandLogoFromFooter;
-
-    @FindBy(css = "*[class*='footer__content-area']")
-    public WebElement footerContentArea;
-
     @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement cancelReferralLink;
-
-    @FindBy(css = "*[class*='referral-header__cancel']")
-    public List<WebElement> cancelReferraButton;
 
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
@@ -145,29 +108,8 @@ public class ReferralPage<check> {
     @FindBy(css = "button[class*='modal__action']")
     public List<WebElement> cancelReferralButtons;
 
-    @FindBy(css = "*[class*='modal__body']")
-    public WebElement postSubmissionModal;
-
-    @FindBy(xpath = "//*[contains(@class,'stage-list-item')]//child::a")
-    public List<WebElement> stagesLinks;
-
-    @FindBy(css = "*[class*='modal__close']")
-    public WebElement closeModalButton;
-
     @FindBy(css = "*[class*='error-message']")
     public WebElement errorMessage;
-
-    @FindBy(css = "*[class*='footer__link']")
-    public List<WebElement> footerLinks;
-
-    @FindBy(css = "*[id*='otherTile']")
-    public WebElement useAnotherAccountButton;
-
-    @FindBy(css = "*[class*='no-access__title']")
-    public WebElement cancelledReferralWarningPageTitle;
-
-    @FindBy(xpath = "//*[contains(@class,'no-access__copy')]//child::a")
-    public List<WebElement> cancelledReferralWarningPageLinks;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
     public WebElement genericSuccessNotification;
@@ -289,8 +231,6 @@ public class ReferralPage<check> {
             //Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
         }
     }
-
-
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
@@ -451,11 +391,6 @@ public class ReferralPage<check> {
     public String getTheCurrentPageTitle() {
         Wait.forElementToBeDisplayed(driver, pageTitle);
         return Actions.getText(pageTitle);
-    }
-
-    public void pageTitleIsDisplayed(String title) {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
-        Assert.assertEquals(title, getText(pageTitle));
     }
 
     public void navigateToFamilyMemberSearchPage() {

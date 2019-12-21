@@ -42,12 +42,6 @@ public class SeleniumDriver extends EventFiringWebDriver {
         DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
-
-
-
-
-
-
     public SeleniumDriver() {
         super(DRIVER);
     }
@@ -67,9 +61,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
      * shared state between tests
      */
     public void deleteAllCookies() {
-
         manage().deleteAllCookies();
-
     }
 
 }//end

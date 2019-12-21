@@ -42,27 +42,11 @@ public class NotesPage {
             return false;
         }
     }
-
     @FindBy(xpath = "//textarea[@id='notes']")
     public WebElement notesArea;
 
-    @FindBy(css = "div[class*='notification__text']")
-    public WebElement notificationBanner;
-
-    @FindBy(css = "p[class*='notes__helper']")
-    public WebElement helpText;
-
-    @FindBy(css = "div[class*='notes__example']")
-    public WebElement notesExamples;
-
-    @FindBy(css = "label[for*='notes']")
-    public WebElement addNoteLabel;
-
     @FindBy(name = "notes")
     public WebElement addNoteField;
-
-    @FindBy(css = "p[class*='notes__count']")
-    public WebElement notesCountText;
 
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);

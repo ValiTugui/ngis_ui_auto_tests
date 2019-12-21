@@ -26,9 +26,6 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[contains(text(),'Add an')]")
     public WebElement addAnotherPanel;
 
-    @FindBy(xpath = "//h3[contains(text(),'Added')]")
-    public WebElement addedPanels;
-
     @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
     public WebElement panelsSearchFieldPlaceHolder;
 
@@ -211,7 +208,6 @@ public class PanelsPage {
             Debugger.println("PanelsPage: Exception from changeTheStatusOfPenetrance " + exp);
             return false;
         }
-
     }
 
     public boolean verifyThePresenceOfPenetranceOptions() {
@@ -232,7 +228,6 @@ public class PanelsPage {
             return false;
         }
     }
-
 
     public boolean verifyButtonAsCompletedByClickingInPanelsPage(String expectedButton) {
         try {
@@ -259,8 +254,7 @@ public class PanelsPage {
 
     public void deselectTheSelectedPanels() {
         try {
-            ArrayList<WebElement> expElements = new ArrayList<WebElement>();
-            for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
+             for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
                 seleniumLib.clickOnWebElement(selectedPanelsList.get(i));
             }
         } catch (Exception exp) {
