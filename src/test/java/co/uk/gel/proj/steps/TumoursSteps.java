@@ -86,12 +86,17 @@ public class TumoursSteps extends Pages {
 
     @And("the user answers the tumour system questions fields and select a tumour type {string}")
     public void theUserAnswersTheTumourSystemQuestionsFieldsAndSelectATumourType(String tumourType) {
-        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-        tumoursPage.fillInTumourDescription();
-        tumoursPage.fillInDateOfDiagnosis();
-        String tumour = tumoursPage.selectTumourType(tumourType);
-        PatientDetailsPage.newPatient.setTumourType(tumour);
-        tumoursPage.fillInSpecimenID();
+        try {
+            tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+            tumoursPage.fillInTumourDescription();
+            tumoursPage.fillInDateOfDiagnosis();
+            String tumour = tumoursPage.selectTumourType(tumourType);
+            PatientDetailsPage.newPatient.setTumourType(tumour);
+            tumoursPage.fillInSpecimenID();
+            Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
+        }catch(Exception exp){
+            Debugger.println("Exception from Answering Tumour Question Field: "+exp);
+        }
     }
 
     @And("the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation {string}")

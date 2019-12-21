@@ -152,7 +152,7 @@ Feature: Tumours Page
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_09  @P0 @v_1 @NTS:3171 @E2EUI-2145
+    @tumoursPage_09  @P0 @v_1 @NTS-3171 @E2EUI-2145
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -163,7 +163,6 @@ Feature: Tumours Page
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save and Continue button
-
 
     Examples:
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
