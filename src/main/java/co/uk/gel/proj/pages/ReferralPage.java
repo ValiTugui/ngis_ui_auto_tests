@@ -177,6 +177,7 @@ public class ReferralPage<check> {
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
+            Wait.seconds(2);
             if (helix.size() > 0) {
                 try {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
@@ -184,14 +185,6 @@ public class ReferralPage<check> {
                     //Still the helix in action, waiting for another 30 seconds.
                     Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
                     Wait.seconds(30);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }
-            }else{
-                //Sometimes, click not happening, so trying again with different operation
-                Debugger.println("SaveClick not happend... Trying with Selenium Lib option.....");
-                seleniumLib.clickOnWebElement(saveAndContinueButton);
-                if (helix.size() > 0) {
-                    Debugger.println("Clicked via SeleniumLib........");
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
