@@ -68,12 +68,12 @@ public class HomePage {
 
     public void waitUntilHomePageResultsContainerIsLoaded() {
        try {
-           if (!Wait.isElementDisplayed(driver, filtersPanel, 120)) {
+           if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
                Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
                SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
                Assert.assertFalse("HomePage:filtersPanel not displayed even after waiting period(120s).",true);
            }
-           if (!Wait.isElementDisplayed(driver, resultsPanel, 120)) {
+           if (!Wait.isElementDisplayed(driver, resultsPanel, 200)) {
                Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
                SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
                Assert.assertFalse("HomePage:resultsPanel not displayed even after waiting period(120s).",true);

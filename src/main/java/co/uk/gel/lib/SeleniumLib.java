@@ -87,7 +87,8 @@ public class SeleniumLib {
             return webElement;
         } catch (NoSuchElementException e) {
             Debugger.println("[Error]" + element.toString() + " Not Found ");
-            throw e;
+            return null;
+            //throw e;
         }
     }
 
@@ -118,7 +119,7 @@ public class SeleniumLib {
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
-                throw exp1;
+                //throw exp1;
             }
         }
     }
