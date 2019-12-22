@@ -186,6 +186,14 @@ public class ReferralPage<check> {
                     Wait.seconds(30);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
+            }else{
+                //Sometimes, click not happening, so trying again with different operation
+                Debugger.println("SaveClick not happend... Trying with Selenium Lib option.....");
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+                if (helix.size() > 0) {
+                    Debugger.println("Clicked via SeleniumLib........");
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }
             }
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);

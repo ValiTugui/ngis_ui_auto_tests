@@ -647,7 +647,8 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestCheckboxIsSelected() {
         try {
             NGISPatientModel familyMember = getFamilyMember("");
-            Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 30);
+            Debugger.println("Verifying TheTestCheckboxIsSelected for: "+familyMember.getFIRST_NAME()+","+familyMember.getRELATIONSHIP_TO_PROBAND());
+            Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 60);
             if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
                 Debugger.println("Test for Family member " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not in SELECTED State.");
                 return false;
