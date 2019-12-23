@@ -139,8 +139,16 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
-        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
-        return clinicalIndicationsResults.size() >= 0;
+        try {
+            if(Wait.isElementDisplayed(driver, clinicalIndicationsResultContainer,180)) {
+                return clinicalIndicationsResults.size() >= 0;
+            }
+            Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded.");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp);
+            return false;
+        }
     }
 
     public boolean isTabSelected(String tabName) {
