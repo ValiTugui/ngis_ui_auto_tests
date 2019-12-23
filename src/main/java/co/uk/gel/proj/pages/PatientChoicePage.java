@@ -718,13 +718,6 @@ public class PatientChoicePage {
                 return false;
             }
             Wait.seconds(2);
-            List<WebElement> nhsList = seleniumLib.getElements(By.xpath(nhsNumberInformation));
-            if (nhsList == null || nhsList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of NHS Information for " + noOfPatients + " patients in  Patient Choice.");
-                SeleniumLib.takeAScreenShot("nhsInfo.jpg");
-                return false;
-            }
-            Wait.seconds(2);
             List<WebElement> ngisList = seleniumLib.getElements(By.xpath(ngsIdInformation));
             if (ngisList == null || ngisList.size() != noOfPatients) {
                 Debugger.println("Expected Presence of NGSID Information for " + noOfPatients + " patients in  Patient Choice Page.");
