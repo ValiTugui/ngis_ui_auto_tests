@@ -1,8 +1,6 @@
 @regression
-@regression_set1
-@FamilyMemberStageNavigation
 @COMP08_P0
-
+@FamilyMemberStageNavigation
 Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_Familymembers

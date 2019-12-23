@@ -125,6 +125,9 @@ public class SamplesPage {
     @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
     public WebElement tumourSampleDynamicQuestionsLabel;
 
+    @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
+    public WebElement tumourContentPercentageOfMalignantNucleiFieldLabel;
+
     @FindBy(xpath = "//label[@for='sampleType']/../div//div[text()='Select...']/../..")
     public WebElement sampleTypeDropDown;
 
@@ -502,5 +505,9 @@ public class SamplesPage {
             }
         }
         return true;
+    }
+
+    public String getTheLabelForTumourContentPercentageField(){
+        return Actions.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
     }
 }

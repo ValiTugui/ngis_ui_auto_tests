@@ -1,7 +1,6 @@
 @regression
-@regression_set3
-@requestingOrganizationPage
-
+@regression_set2
+@requestingOrganisation
 Feature: Requesting Organisation page
 
   Background:

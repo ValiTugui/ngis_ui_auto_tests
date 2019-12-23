@@ -1,7 +1,6 @@
 @regression
-@regression_set4
-@testPackagePage
-
+@regression_set3
+@testPackage
 Feature: Test Package page
 
   @E2EUI-911 @NTS-3073 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0

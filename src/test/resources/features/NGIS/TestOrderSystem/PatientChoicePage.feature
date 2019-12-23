@@ -1,8 +1,7 @@
 @regression
-@regression_set2
-@patientChoicePage
-
-Feature: Patient Choice Page Verification
+@COMP09_P0
+@PatientChoice
+Feature: Patient Choice Page
 
   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0

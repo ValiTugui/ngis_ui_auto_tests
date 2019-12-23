@@ -1394,7 +1394,6 @@ public class PatientChoicePage {
         Debugger.println("Patient Choice: Clicking on submit patient choice button");
         try {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
-//            submitPatientChoiceButton.click();
             seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             return true;
         } catch (Exception exp) {

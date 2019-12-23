@@ -1,7 +1,6 @@
-@regression_dataDependency
-@regression_set3
-@addExistingReferral
-
+@regression
+@COMP08_P0
+@ReAddingExistingReferral
 Feature: Family Members Re-adding Validation
 
   @COMP8_TO_Familymembers

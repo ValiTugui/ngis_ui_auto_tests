@@ -1,7 +1,6 @@
 @regression
-@regression_set3
-@questionnairePage
-
+@regression_set2
+@questionnaire
 Feature: Component name - Questionnaire
 
   @E2EUI-1602  @NTS-3266  @P0 @v_1 @COMP6_TO_ClinicalQuestions @LOGOUT @BVT_P0

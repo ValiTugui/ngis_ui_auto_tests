@@ -1,7 +1,6 @@
 @regression
-@regression_set4
-@tumourPage
-
+@regression_set3
+@tumoursPage
 Feature: Tumours Page
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -45,9 +44,12 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
+
+
+
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_04 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
-  Scenario Outline:NTS-3170 Future date can't be entered in the Date of diagnosis field from the Add a tumour page
+  Scenario Outline:NTS-3152 Future date "<Date_of_Diagnosis>" : "<error_message>" can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -107,7 +109,7 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @P0 @v_1
+    @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -128,7 +130,7 @@ Feature: Tumours Page
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1 @BVT_P0
-  Scenario Outline: NTS-3255: Add a new tumour for a new patient with various tumour type "<tumour_type>"
+  Scenario Outline: NTS-3255: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -421,7 +423,7 @@ Feature: Tumours Page
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_19 @NTS-3249 @E2EUI-1459 @P0 @v_1
-  Scenario Outline: NTS-3249: Fuzzy date on Date of Diagnosis field
+  Scenario Outline: NTS-3249: Fuzzy date "<Date_of_Diagnosis>" on Date of Diagnosis field
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage

@@ -29,7 +29,7 @@ public class AppConfig {
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
         String EnvironmentName = System.getProperty("TestEnvironment");
-        System.out.println("RUN Environment: " + EnvironmentName);
+        System.out.println("TestEnvironment: " + EnvironmentName);
 
         configFileName = String.format(configFileName, EnvironmentName);
         properties = new Properties();

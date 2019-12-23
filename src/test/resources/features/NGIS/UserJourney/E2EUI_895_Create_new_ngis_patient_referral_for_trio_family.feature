@@ -53,6 +53,16 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=2000008127:DOB=11-03-1942 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
+    #patient choice for the proband
+    And the user clicks the Save and Continue button
+    Then the "<PatientChoice>" stage is selected
+    When the user selects the proband
+    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
+    And the user submits the patient choice with signature
+    And the user clicks the Save and Continue button on the "<PatientChoice>"
+    Then the "<PatientChoice>" page is displayed
+    Then the help text is displayed
+    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below should be same as above (Signature option)
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
@@ -78,7 +88,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       | FamilyMemberDetails                 |
       | NHSNumber=2000008461:DOB=14-05-1931 |
       | NHSNumber=2000008127:DOB=11-03-1942 |
-
+    And the user submits the referral
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
       | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |

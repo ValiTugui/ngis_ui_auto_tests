@@ -1,5 +1,5 @@
 @regression
-@regression_set4
+@regression_set3
 @samplesPage
 
 Feature: Samples Page
@@ -50,7 +50,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @P0 @v_1
+    @samplesPage_02 @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -106,7 +106,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850 @E2EUI-1229 @E2EUI-1039 @P0 @v_1
+    @samplesPage_03 @NTS-3287 @E2EUI-2330 @E2EUI-870 @E2EUI-1209 @E2EUI-850 @E2EUI-1229 @E2EUI-1039 @E2EUI-941 @P0 @v_1
   Scenario Outline: NTS-3287: Add a Sample of tumour type - tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -507,6 +507,66 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_18 @NTS-3408 @P0 @v_1 @E2EUI-2143 @E2EUI-2108 @E2EUI-2106
+  Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-tumour>", sample state "<sampleState>" and filling SampleID
+    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    And asterisk "<asterisk>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>" and leaves Tumour content percentage field blank
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "Sample added"
+    When the user clicks the Save and Continue button
+    Then the "Add notes to this referral" page is displayed
+    And the "Notes" stage is selected
+    But the "Samples" stage is marked "<stageStatus>"
+
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | MandatoryToDo | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_19  @NTS-3412 @P0 @v_1 @E2EUI-2103
+  Scenario Outline: NTS-3412:Add sample details - Sample non-tumour type "<sampleType-non-tumour>" - Sample stage is completed even if sample questionnaire is unattended
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    And the user clicks the Save and Continue button
+    And the "<stage2>" stage is marked as Completed
+
+    Examples:
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Buccal swab |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Urine       |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
 
 
 

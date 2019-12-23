@@ -1,7 +1,6 @@
 @regression
-@regression_set2
-@patientDetailsPage
-
+@regression_set1
+@patientDetails
 Feature: Patient details page
 
   @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0

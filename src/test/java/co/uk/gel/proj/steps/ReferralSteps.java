@@ -358,7 +358,7 @@ public class ReferralSteps extends Pages {
             userType = attributeOfURL.get(6);
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        //homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
         homePage.clickSearchIconFromSearchField();
         homePage.waitUntilHomePageResultsContainerIsLoaded();

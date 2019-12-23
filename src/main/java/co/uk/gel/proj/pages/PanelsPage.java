@@ -148,7 +148,6 @@ public class PanelsPage {
             expElements.add(penetranceTitle);
             expElements.add(suggestedPanels);
             expElements.add(addAnotherPanel);
-            //expElements.add(addedPanels);
             expElements.add(completeButton);
             expElements.add(incompleteButton);
             expElements.add(visitPanelApp);
