@@ -7,7 +7,7 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_05 @LOGOUT @NTS-3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -24,7 +24,7 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_06 @LOGOUT @NTS-3309 @E2EUI-1539 @BVT_P0 @v_1 @P0
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are same as family member
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -47,7 +47,7 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_07 @LOGOUT @NTS-3309 @E2EUI-1539 @v_1 @P0
   Scenario Outline: NTS-3309:  Verify the message when number of participants in Test Package are less than family member
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -70,7 +70,7 @@ Feature: Family Members Details Validation
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_08 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<FamilyMember>" stage
     And the user clicks on Add family member button
@@ -91,7 +91,7 @@ Feature: Family Members Details Validation
   @COMP8_TO_Familymembers
     @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
   Scenario Outline: NTS-3342: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral

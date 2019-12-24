@@ -344,7 +344,7 @@ public class ReferralSteps extends Pages {
             Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
         }
     }
-    @Given("a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service")
+    @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
         boolean toDoListDisplayed;
         String baseURL = attributeOfURL.get(0);

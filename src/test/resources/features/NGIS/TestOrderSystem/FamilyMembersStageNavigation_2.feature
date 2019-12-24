@@ -8,7 +8,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_08 @LOGOUT @NTS-3309 @E2EUI-2105 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-2105: Verify warning message if number of family members is less than number of participants
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -37,7 +37,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_09 @LOGOUT @NTS-3329 @E2EUI-1665 @v_1 @P0
   Scenario Outline: E2EUI-1665: Verify Global patient information bar component
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Requesting organisation>" stage
     And the user enters the keyword "<ordering_entity_name>" in the search field
@@ -77,7 +77,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_10 @LOGOUT @NTS-3309 @E2EUI-2104 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-2104: Validate the user is displayed with the warning message on Family members landing page by adding extra Family member more than the expected number of participants
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -117,7 +117,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_11 @LOGOUT @NTS-3330 @E2EUI-1202 @BVT_P0 @v_1 @P0
   Scenario Outline: E2EUI-1202: User is completing a referral and wants to add a family member record to the referral
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -147,7 +147,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_12 @LOGOUT @NTS-3337 @E2EUI-1326 @v_1 @P0
   Scenario Outline: Verify the family members test package are selected by default
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
@@ -172,7 +172,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_13 @NTS-3339 @LOGOUT @E2EUI-1791 @v_1 @P0
   Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family Members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -188,7 +188,7 @@ Feature: Family Members Navigation Stage Validation
   @COMP8_TO_Familymembers
     @familyMemberStageNavigation_14 @NTS-3338 @LOGOUT @E2EUI-1510 @BVT_P0 @v_1 @P0
   Scenario Outline: NTS-3338: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package

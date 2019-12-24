@@ -7,7 +7,7 @@ Feature: Family Members Search Validation
   @COMP8_TO_PatientSearch
     @familyMemberSearchPage_13 @NTS-3304 @E2EUI-1301 @v_1 @P0
   Scenario Outline: NTS-3304: Verify the family member search with invalid DOB displays correct error message
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

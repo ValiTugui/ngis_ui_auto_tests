@@ -71,7 +71,7 @@ public class TumoursSteps extends Pages {
                 //click on tumourTypeLabel label to move cursor away from dateYear field
             }
         }catch(Exception exp){
-
+            Debugger.println("Exception in validating theDateOfDiagnosisFieldGivesProperErrorMessages: "+exp);
         }
     }
 
