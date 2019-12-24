@@ -229,7 +229,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
     public WebElement patientChoiceFormCompletedMessage;
 
-    @FindBy(xpath = "//a[text()='Print Patient Choice Form']")
+    @FindBy(xpath = "//a[@class='edit-button email-button']")
     public WebElement printPatientChoiceFormButton;
 
     @FindBy(xpath = "//div[@class='radio-question-error question-error']")
