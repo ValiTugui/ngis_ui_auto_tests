@@ -6,7 +6,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
     ##Create referral with new patient without providing NHS number
-    Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details
     When the user navigates to the "<PatientDetails>" stage
@@ -50,8 +50,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=2000008127:DOB=11-03-1942 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=2000008461:DOB=14-05-1931 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Trigonocephaly |
+      | NHSNumber=2000008127:DOB=11-03-1942 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Trigonocephaly |
     Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
     And the user clicks the Save and Continue button
@@ -93,4 +93,4 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Trigonocephaly | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
