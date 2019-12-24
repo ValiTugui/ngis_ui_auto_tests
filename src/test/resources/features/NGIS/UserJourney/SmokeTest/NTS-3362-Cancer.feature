@@ -74,6 +74,8 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
     And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
     Examples:
       | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |

@@ -46,7 +46,7 @@ public class PrintFormsPage {
     String specificPrintFormDownload = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
     String specificPrintFormDownload_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-11efprl']//button";
 
-    String probandPrintFormDownloadLocator_e2elatest = "//button[@class='css-u6wg3d']";
+    String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
     String probandPrintFormDownloadLocator= "//button[@class='css-dixxn2']";
     @FindBy(css = "button[class*='link-button']")
     WebElement showAddressButton;
