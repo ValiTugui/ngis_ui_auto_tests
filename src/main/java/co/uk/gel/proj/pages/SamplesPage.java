@@ -123,7 +123,7 @@ public class SamplesPage {
     public WebElement addSampleDetailsSubTitle;
 
     @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
-    public WebElement tumourSampleDynamicQuestionsLabel;
+    public WebElement tumourContentPercentageOfMalignantNucleiFieldLabel;
 
     @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
     public WebElement tumourContentPercentageOfMalignantNucleiFieldLabel;
@@ -260,8 +260,8 @@ public class SamplesPage {
     }
 
     public String getDynamicQuestionsLabelText() {
-        Wait.forElementToBeDisplayed(driver, tumourSampleDynamicQuestionsLabel);
-        return tumourSampleDynamicQuestionsLabel.getText();
+        Wait.forElementToBeDisplayed(driver, tumourContentPercentageOfMalignantNucleiFieldLabel);
+        return tumourContentPercentageOfMalignantNucleiFieldLabel.getText();
     }
 
     public boolean newSampleIsDisplayedInLandingPage() {
@@ -492,7 +492,7 @@ public class SamplesPage {
         expElements.add(sampleMorphologyField);
         expElements.add(sampleMorphologyFieldLabel);
         expElements.add(percentageOfMalignantNucleiField);
-        expElements.add(tumourSampleDynamicQuestionsLabel);
+        expElements.add(tumourContentPercentageOfMalignantNucleiFieldLabel);
         expElements.add(numberOfSlidesField);
         expElements.add(numberOfSlidesFieldLabel);
         expElements.add(sampleCollectionDateField);

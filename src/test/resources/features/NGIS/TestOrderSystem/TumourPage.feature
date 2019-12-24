@@ -45,8 +45,6 @@ Feature: Tumours Page
       | Tumours |
 
 
-
-
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_04 @NTS-3170 @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @P0 @v_1
   Scenario Outline:NTS-3152 Future date "<Date_of_Diagnosis>" : "<error_message>" can't be entered in the Date of diagnosis field from the Add a tumour page
