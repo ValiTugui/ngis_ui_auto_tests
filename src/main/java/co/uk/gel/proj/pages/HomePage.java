@@ -67,7 +67,7 @@ public class HomePage {
     @FindBy(xpath = "//*[contains(@class, 'styles_link')]")
     public List<WebElement> tabResults;
 
-    @FindBy(xpath = "//a[text()='Log out']")
+    @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logOutLink;
 
 
