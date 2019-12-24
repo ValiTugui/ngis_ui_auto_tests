@@ -192,7 +192,10 @@ public class HomePage {
     @FindBy(css = "svg[class*='tabIcon']")
     public List<WebElement> tabsIcons;
 
-    @FindBy(css = "div[class*='aside']")
+//    @FindBy(css = "div[class*='aside']")
+//    public WebElement filtersPanel;
+
+    @FindBy(xpath = "//ul[contains(@class,'RadioButtons')]/li/input")
     public WebElement filtersPanel;
 
     @FindBy(css = "div[class*='main']")
