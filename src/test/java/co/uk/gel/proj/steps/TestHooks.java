@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -116,15 +115,7 @@ public class TestHooks extends Pages {
     private void logoutAfterTest(int waitingTime) {
         Debugger.println("TestHooks:logoutAfterTest...And Deleting Cookies.");
        try {
-            Wait.seconds(2);
-            By logOut = By.xpath("//a[text()='Log out']");
-            if(SeleniumLib.waitForElementVisible(logOut) == null){
-                logOut = By.xpath("//a/span[text()='Log out']");
-            }
-            if(!Wait.isElementDisplayed(driver,driver.findElement(logOut),60)){
-                return;
-            }
-            driver.findElement(logOut).click(); // Logging out to restart new session
+            driver.findElement(By.xpath("//*[text()='Log out']")).click(); // Logging out to restart new session
             if (isAlertPresent(driver)) {
                 acceptAlert(driver);
             }
