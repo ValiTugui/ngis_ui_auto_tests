@@ -93,11 +93,13 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("Child Assent Done. Continuing....");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("Parent Signature....start.");
-                if(!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))){
-                    Debugger.println("Could not complete ParentSignature...");
-                    Assert.assertFalse("Could not complete ParentSignature...",true);
-                    continue;
-                }
+                patientChoicePage.drawSignature();
+
+//                if(!patientChoicePage.fillParentSignatureDetails(memberDetails.get(i).get(6))){
+//                    Debugger.println("Could not complete ParentSignature...");
+//                    Assert.assertFalse("Could not complete ParentSignature...",true);
+//                    continue;
+//                }
                 Debugger.println("Parent Signature Done...Submitting form");
                 if(!patientChoicePage.submitPatientChoice()){
                     Debugger.println("Submitted form, but save and continue not displayed..Proceeding to next Patient..");

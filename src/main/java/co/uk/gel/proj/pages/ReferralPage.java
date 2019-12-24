@@ -605,4 +605,14 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    public String  getSubmissionConfirmationMessageIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
+        return Actions.getText(submissionConfirmationBannerTitle);
+    }
+
+    public String getReferralStatus(){
+        Wait.forElementToBeDisplayed(driver, referralStatus);
+        return Actions.getText(referralStatus);
+    }
 }
