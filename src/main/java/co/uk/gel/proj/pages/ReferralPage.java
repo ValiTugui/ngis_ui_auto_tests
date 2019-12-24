@@ -78,6 +78,18 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Referral ID']/..//strong")
     public WebElement referralHeaderReferralId;
 
+    @FindBy(css = "strong[class*='header-item__value']")
+    public List<WebElement> referralHeaderValues;
+
+    @FindBy(css = "*[class*='referral-success-notification']")
+    public WebElement referralSuccessNotification;
+
+    @FindBy(css = "*[class*='downloads__notice']")
+    public WebElement submissionConfirmationBanner;
+
+    @FindBy(css = "*[class*='notice__title']")
+    public WebElement submissionConfirmationBannerTitle;
+
     @FindBy(css = "*[class*='referral-header__badge']")
     public WebElement referralStatus;
 
