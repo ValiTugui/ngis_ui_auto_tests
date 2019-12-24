@@ -3,7 +3,6 @@
 @patientDetails
 Feature: Patient details page
 
-
   @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
@@ -117,7 +116,6 @@ Feature: Patient details page
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the NHS number field is enabled
 
-
     Examples:
       | patient-search-type |
       | NGIS                |
@@ -179,5 +177,5 @@ Feature: Patient details page
     And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
 
     Examples:
-      | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues|
-      | NHS Spine           | 9449310602 | 23-03-2011 | 50                  |
+      | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues |
+      | NHS Spine           | 9449310602 | 23-03-2011 | 50                   |

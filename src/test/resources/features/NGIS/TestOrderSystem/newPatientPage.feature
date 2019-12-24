@@ -1,8 +1,8 @@
 @regression
 @regression_set1
 @newPatientPage
-Feature: New Patient page
 
+Feature: New Patient page
 
   @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
@@ -14,11 +14,9 @@ Feature: New Patient page
     Then the new patient page is opened
     And the new patient page displays expected input-fields and a "<label_on_submit_button>" submit button
 
-
     Examples:
       | hyperlinkText               | label_on_submit_button       |
       | create a new patient record | Save patient details to NGIS |
-
 
   @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields

@@ -31,22 +31,34 @@ public class PatientChoiceSteps extends Pages {
         List<List<String>> patientChoice = inputData.asLists();
         testResult = patientChoicePage.selectPatientChoiceCategory(patientChoice.get(0).get(0));
         Assert.assertTrue(testResult);
+        // Wait has been added in each step to give time for form loading
+        Wait.seconds(3);
         testResult = patientChoicePage.selectTestType(patientChoice.get(1).get(0));
         Assert.assertTrue(testResult);
-        testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(0).get(0),patientChoice.get(2).get(0));
+        Wait.seconds(3);
+        testResult = patientChoicePage.fillRecordedByDetails("",patientChoice.get(2).get(0));
+        //testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(0).get(0),patientChoice.get(2).get(0));
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.selectPatientChoice(patientChoice.get(3).get(0));
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
         patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton());
+        Wait.seconds(3);
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.selectChildAssent(patientChoice.get(4).get(0));
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
         patientChoicePage.clickOnContinue();
         testResult = patientChoicePage.fillParentSignatureDetails(patientChoice.get(5).get(0));
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
         patientChoicePage.submitPatientChoice();
+        Wait.seconds(3);
+        //  added 2 new lines below to wait and check for the loading of the completed form of patient choice after clicking the submit patient choice button
+        Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
+        Wait.forElementToBeClickable(driver, patientChoicePage.saveAndContinueButton);
     }
     @When("the user edits patient choice for {string} family members with the below details")
     public void theUserEditsPatientChoiceForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
@@ -148,6 +160,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
     }
 
     @When("the user fills {string} details in test type")
@@ -158,11 +171,10 @@ public class PatientChoiceSteps extends Pages {
     }
 
     @When("the user fills {string} details in recorded by")
-    public void theUserFillsDetailsInRecordedBy(String inputData) {
+    public void theUserFillsDetailsInRecordedBy(String recordedBy) {
         boolean testResult = false;
-        testResult = patientChoicePage.fillRecordedByDetails(inputData,"");
+        testResult = patientChoicePage.fillRecordedByDetails("",recordedBy);
         Assert.assertTrue(testResult);
-//        patientChoicePage.clickOnContinue();
     }
 
     @When("the user fills {string} details in patient choices")
@@ -170,6 +182,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoice(inputData);
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
     }
 
     @When("the user fills {string} details in child assent")
@@ -193,7 +206,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientSignature();
         Assert.assertTrue(testResult);
-        patientChoicePage.submitPatientChoice();
+        Wait.seconds(3);
     }
 
     @And("the user should see the chosen {string} with edit button in {string}")
@@ -390,6 +403,7 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false ;
         testResult = patientChoicePage.clickOnSubmitPatientChoiceButton();
         Assert.assertTrue(testResult);
+       Wait.seconds(10); // used here to wait for the form loading delay
     }
 
     @Then("the user should be able to see Patient Choice form")
@@ -438,5 +452,10 @@ public class PatientChoiceSteps extends Pages {
     @Then("the help text is displayed")
     public void theHelpTextIsDisplayed() {
      Assert.assertTrue(patientChoicePage.verifyHelpTextLabelIsVisible());
+    }
+
+    @And("the user should be able to see submit patient choice button disabled")
+    public void theUserShouldBeAbleToSeeSubmitPatientChoiceButtonDisabled() {
+        Assert.assertTrue(patientChoicePage.submitPatientChoiceButtonStatus());
     }
 }//end

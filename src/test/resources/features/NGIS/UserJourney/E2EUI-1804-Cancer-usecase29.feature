@@ -1,4 +1,3 @@
-@regression
 @userJourneys
 @userJourneysCancer
 @userJourneys3

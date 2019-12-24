@@ -1,6 +1,7 @@
 @regression
 @regression_set1
 @clinicalQuestions
+
 Feature: Clinical Questions stage
 
   @E2EUI-2089 @NTS-3209 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalQuestions @BVT_P0

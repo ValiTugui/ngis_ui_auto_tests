@@ -32,7 +32,6 @@ public class Pages implements Navigable {
     protected ClinicalQuestionsPage clinicalQuestionsPage;
     protected PaperFormPage paperFormPage;
     protected ReferralPage referralPage;
-    protected AppHomePage appHomePage;
     protected PatientSearchPage patientSearchPage;
     protected PatientDetailsPage patientDetailsPage;
     protected RequestingOrganisationPage requestingOrganisationPage;
@@ -64,7 +63,6 @@ public class Pages implements Navigable {
         clinicalQuestionsPage = PageFactory.initElements(driver, ClinicalQuestionsPage.class);
         paperFormPage = PageFactory.initElements(driver, PaperFormPage.class);
         referralPage = PageFactory.initElements(driver, ReferralPage.class);
-        appHomePage = PageFactory.initElements(driver, AppHomePage.class);
         patientSearchPage = PageFactory.initElements(driver, PatientSearchPage.class);
         patientDetailsPage = PageFactory.initElements(driver, PatientDetailsPage.class);
         requestingOrganisationPage = PageFactory.initElements(driver, RequestingOrganisationPage.class);
@@ -136,6 +134,9 @@ public class Pages implements Navigable {
             }
             navigatedURL = driver.getCurrentUrl();
             Debugger.println("Current URL is :"+navigatedURL);
+        }catch(UnhandledAlertException exp){
+            Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate);
+            SeleniumLib.takeAScreenShot("UnhandledAlertExp.jpg");
         }catch(Exception exp){
             Debugger.println("Exception in Navigating to URL: "+urlToNavigate+"\nExp:"+exp);
             Assert.assertFalse("Exception in Navigating to URL: "+urlToNavigate+"Exp:"+exp,true);

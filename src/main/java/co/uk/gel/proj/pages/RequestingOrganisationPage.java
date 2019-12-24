@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,17 +19,8 @@ public class RequestingOrganisationPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "input[class*='search-input']")
-    public WebElement searchField;
-
-    @FindBy(css = "h2[class*='ordering-entity__previous-header']")
-    public WebElement previousOrganisationHeader;
-
     @FindBy(css = "div[class*='location-result']")
     public WebElement organisationDetailsContainer;
-
-    @FindBy(css = "h4[class*='location-result__header']")
-    public WebElement organisationName;
 
     @FindBy(css = "p[class*='location-result__detail-heading']")
     public List<WebElement> organisationDetailHeader;
@@ -66,7 +58,7 @@ public class RequestingOrganisationPage {
     @FindBy(css = "span[class*='styles_text']")
     public WebElement toolTipText;
 
-    @FindBy(xpath = "//div[3]/div[2]/div[contains(@class, 'styles_container')]")
+    @FindBy(xpath = "//div[contains(@class, 'styles_container')]")
     public WebElement testDirectoryOrderingEntityPanelContainer;
 
     @FindBy(css = "div[class*='slide-panel_container']")
@@ -139,12 +131,17 @@ public class RequestingOrganisationPage {
     }
 
     public boolean checkRequestingOrganisationPageInfo(String pageTitle, String copyText) {
-        Wait.forElementToBeDisplayed(driver, testDirectoryOrderingEntityPanelContainer);
-        testDirectoryOrderingEntityPanelContainer.isDisplayed();
-        testDirectoryOrderingEntitySearchIcon.isDisplayed();
-        testDirectoryOrderingEntityPageTitle.getText().matches(pageTitle);
-        testDirectoryOrderEntityPageSubtitle.getText().matches(copyText);
-        return true;
+        try {
+            Wait.forElementToBeDisplayed(driver, testDirectoryOrderingEntityPanelContainer);
+            testDirectoryOrderingEntityPanelContainer.isDisplayed();
+            testDirectoryOrderingEntitySearchIcon.isDisplayed();
+            testDirectoryOrderingEntityPageTitle.getText().matches(pageTitle);
+            testDirectoryOrderEntityPageSubtitle.getText().matches(copyText);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifying checkRequestingOrganisationPageInfo: "+exp);
+            return false;
+        }
     }
 
 }

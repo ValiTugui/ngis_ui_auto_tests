@@ -34,16 +34,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
-    /*public PatientSearchPage(SeleniumDriver driver) {
-        super(driver);
-    }*/
-
     public PatientSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
 
     public WebElement title;
     public WebElement dateDay;
@@ -57,8 +52,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
-
-    String pageTitleText = "Find your patient";
 
     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
@@ -142,9 +135,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "p[class*='patient-name']")
     public WebElement patientFullName;
 
-    @FindBy(css = "p[class*='card-line']")  // To get all details of patient at once
-    public List<WebElement> patientDetails;
-
     @FindBy(xpath = "//p[contains(string(),'Born')]")
     public WebElement patientDateOfBirth;
 
@@ -172,23 +162,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
 
-    @FindBy(css = "*[class*='no-results__help']")
-    public WebElement noResultsHelp;
-
-    @FindBy(xpath = "//*[contains(@class,'no-results__help-link')]//child::a")
-    public WebElement noResultsHelpLink1;
-
-    @FindBy(xpath = "//a[text()='create a new patient record']")
-    public WebElement noResultsHelpLink2;
-
     @FindBy(css = "a[class*='inline-link']")
     public WebElement noResultsHelpLink; // create a new patient link
-
-    @FindBy(css = "p[class*='no-results__duplicate']")
-    public WebElement noResultsDuplicate;
-
-    @FindBy(css = "*[class*='helix']")
-    public List<WebElement> helix;
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
@@ -252,17 +227,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
         return patientCardBadge.getText().trim();
     }
-    /*
-        public void loginToTestOrderingSystemAsServiceDeskUser(WebDriver driver) {
-                Wait.forElementToBeClickable(driver, emailAddressField);
-                emailAddressField.sendKeys(AppConfig.getApp_username());
-                nextButton.click();
-                //Wait.seconds(2);
-                Wait.forElementToBeClickable(driver, passwordField);
-                passwordField.sendKeys(AppConfig.getApp_password());
-                nextButton.click();
-        }
-        */
+
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
@@ -308,7 +273,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
                 }
             }
-            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 emailAddressField.sendKeys(AppConfig.getApp_username());
             } else {
                 emailAddressField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME"));
@@ -316,7 +281,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Click.element(driver, nextButton);
             Wait.seconds(3);
             Wait.forElementToBeClickable(driver, passwordField);
-            if (userType.equalsIgnoreCase("GEL-normal-user")) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 passwordField.sendKeys(AppConfig.getApp_password());
             } else {
                 passwordField.sendKeys(AppConfig.getPropertyValueFromPropertyFile("SUPER_PASSWORD"));

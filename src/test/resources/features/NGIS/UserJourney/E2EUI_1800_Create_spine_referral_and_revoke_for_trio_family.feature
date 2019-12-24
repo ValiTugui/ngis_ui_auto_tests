@@ -1,4 +1,3 @@
-@regression
 @userJourneys
 @userJourneysRD
 

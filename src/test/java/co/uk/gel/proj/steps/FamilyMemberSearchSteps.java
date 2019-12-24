@@ -90,7 +90,7 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
     }
 
-    @And("the user will be able to see an error message as {string} in {string} for the family member")
+    @Then("the user should see an error message {string} in {string} for the family member")
     public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
         boolean testResult = false;
         testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
@@ -145,16 +145,13 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickOnNewPatientLink();
     }
 
-    @And("the user should be able to see incomplete family member in {string}")
-    public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
-        boolean testResult = false;
-        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
-        Assert.assertTrue(testResult);
-    }
-    @When("the user edits to complete the highlighted family member")
-    public void theUserShouldEditToCompleteTheHighlightedFamilyMember() {
-        familyMemberSearchPage.completingQuestionnaireFamilyMember();
-    }
+//    @And("the user should be able to see incomplete family member in {string}")
+//    public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
+//        boolean testResult = false;
+//        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
+//        Assert.assertTrue(testResult);
+//    }
+
 
     @Then("the family member landing page displayed without incomplete error message")
     public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {

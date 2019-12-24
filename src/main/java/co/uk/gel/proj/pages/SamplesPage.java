@@ -113,9 +113,6 @@ public class SamplesPage {
     @FindBy(css = "*[class*='checkmark']")
     public WebElement parentSampleCheckbox;
 
-    @FindBy(css = "*[class*='samples-banner']")
-    public WebElement emptyLandingPageBanner;
-
     @FindBy(xpath = "//p[contains(@class,'sample-detail__sub-title')]")
     public List<WebElement> manageSamplesSubTitles;
 
@@ -134,24 +131,14 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleType']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleTypesDropDownValues;
 
-    @FindBy(xpath = "//div//div[text()='Select...']/../..")
-    public List<WebElement> genericSampleDropDown;
-
     @FindBy(xpath = "//label[@for='sampleType']/../div//div[text()='Select...']")
     public WebElement sampleTypeDropDownPlaceHolder;
 
     @FindBy(xpath = "//label[@for='sampleState']/../div//div[text()='Select...']")
     public WebElement sampleStateDropDownPlaceHolder;
 
-    @FindBy(xpath = "//label[@for='labId']/../input")
-    public WebElement labIdPlaceHolder;
-
-    @FindBy(xpath = "//label[@for='sampleType']/..//span[contains(@class,'required-icon')]")
-    public WebElement SampleTypeAsterick;
-
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
     public WebElement sampleStateSearchIcon;
-
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleStateDropDownValues;
@@ -171,11 +158,6 @@ public class SamplesPage {
     @FindBy(xpath = "//*[contains(@class,'add-sample__confirm-table')]//child::td")
     public List<WebElement> tumourDetailsValuesFromAddSamplePage;
 
-    @FindBy(css = "p[class*='styles_text--5']")
-    public WebElement subTitlePage;
-
-    @FindBy(xpath = "//table/thead/tr/th[text()!='']")
-    public List<WebElement> samplesTableHeaders;
 
     @FindBy(xpath = "//table//tbody/tr[last()]/th/div/div |//table//tbody/tr[last()]/td[text()!='']")
     public List<WebElement> newlyAddedSampleDetailsList;
@@ -185,7 +167,6 @@ public class SamplesPage {
 
     @FindBy (css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
-
 
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);

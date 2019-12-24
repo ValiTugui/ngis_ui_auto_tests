@@ -65,10 +65,3 @@ Feature: Requesting Organisation page
     Examples:
       | stage                   | title                         | expectedText                                                   | placeholderText                                                                         |
       | Requesting organisation | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
-
-
-
-
-
-
-

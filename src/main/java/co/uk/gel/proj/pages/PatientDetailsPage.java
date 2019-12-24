@@ -59,9 +59,6 @@ public class PatientDetailsPage {
     @FindBy(css = "label[for*='familyName']")
     public WebElement familyNameLabel;
 
-    @FindBy(css = "label[for*='gender']")
-    public WebElement genderLabel;
-
     @FindBy(css = "label[for*='administrativeGender']")
     public WebElement administrativeGenderLabel;
 
@@ -149,18 +146,6 @@ public class PatientDetailsPage {
     @FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
-    @FindBy(css = "div[class*='referral-card__title']")
-    public WebElement referralCardClinicalIndication;
-
-    @FindBy(css = "*[class*='referral-card__clinician-info']")
-    public WebElement referralCardClinicianInfo;
-
-    @FindBy(css = "*[class*='referral-card__label']")
-    public WebElement referralCardLabel;
-
-    @FindBy(xpath = "//*[contains(@class,'referral-card__label')]//following::p")
-    public WebElement referralID;
-
     @FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
 
@@ -196,15 +181,6 @@ public class PatientDetailsPage {
 
     @FindBy(id = "address[4]")
     public WebElement addressLine4;
-
-    @FindBy(css = "*[class*='required-icon']")
-    public List<WebElement> requiredRedAsterix;
-
-    @FindBy(xpath = "//button[text()='No']")
-    public WebElement noButton;
-
-    @FindBy(xpath = "//button[text()='Yes']")
-    public WebElement yesButton;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
@@ -300,7 +276,6 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
         }
-
     }
 
     public void fillInAllMandatoryPatientDetailsWithoutNhsNumber(String reason) {
@@ -483,6 +458,11 @@ public class PatientDetailsPage {
         newPatient.setMonth(monthOfBirth);
         newPatient.setYear(yearOfBirth);
 
+        selectMissingNhsNumberReason(reason);
+        if (reason.equalsIgnoreCase("Other - provide explanation")) {
+            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+        }
         String nhsNumber = RandomDataCreator.generateRandomNHSNumber();
         newPatient.setNhsNumber(nhsNumber);
 

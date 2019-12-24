@@ -128,9 +128,6 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "textarea[id*='additionalClinicians[1].professionalRegistrationNumber']")
 	public WebElement additionalClinician2ProfessionalRegistrationNumberField;
 
-	@FindBy(css = "p[class*='hint__text']")
-	public List<WebElement> clinicianFieldsHintTexts;
-
 	@FindBy(css = "div[class*='error-message__text']")
 	public List<WebElement> clinicianErrorMessages;
 

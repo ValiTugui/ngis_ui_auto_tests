@@ -65,16 +65,20 @@ public class SeleniumLib {
     }
 
     public static WebElement waitForElementVisible(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        final WebElement el = driver.findElement(element);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 20);
+            final WebElement el = driver.findElement(element);
 
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
 
-                return el.isDisplayed();
-            }
-        });
-        return el;
+                    return el.isDisplayed();
+                }
+            });
+            return el;
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     /**
@@ -87,7 +91,8 @@ public class SeleniumLib {
             return webElement;
         } catch (NoSuchElementException e) {
             Debugger.println("[Error]" + element.toString() + " Not Found ");
-            throw e;
+            return null;
+            //throw e;
         }
     }
 
@@ -118,7 +123,7 @@ public class SeleniumLib {
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
-                throw exp1;
+                //throw exp1;
             }
         }
     }
@@ -135,14 +140,14 @@ public class SeleniumLib {
            webEle.click();
         } catch (Exception exp) {
             try {
-                Debugger.println("Clicking Via Action....");
-                Actions actions = new Actions(driver);
-                actions.moveToElement(webEle).click();
-            } catch (Exception exp1) {
                 Debugger.println("Clicking Via JavaScript....");
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].click();", webEle);
-                throw exp1;
+
+            } catch (Exception exp1) {
+                Debugger.println("Clicking Via Action....");
+                Actions actions = new Actions(driver);
+                actions.moveToElement(webEle).click();
             }
         }
     }
@@ -651,6 +656,15 @@ public class SeleniumLib {
             return null;
         }
     }
+    public String getAttributeValue(WebElement element, String attribute) {
+        try {
+            elementHighlight(element);
+            return element.getAttribute(attribute);
+        } catch (NoSuchElementException e) {
+            Debugger.println("[Error] Selenium Lib....getAttributeValue..." + element.toString() + "Not found");
+            return null;
+        }
+    }
 
     // Add by manjunath K M 12-9-16
     public List<WebElement> getHeadingElements(By element) {
@@ -724,7 +738,7 @@ public class SeleniumLib {
         }
     }
 
-    public void dismissAllert() {
+    public static void dismissAllert() {
         if (isAlertPresent()) {
             driver.switchTo().alert().dismiss();
         }
@@ -976,5 +990,6 @@ public class SeleniumLib {
             return false;
         }
     }
+
 }//end
 
