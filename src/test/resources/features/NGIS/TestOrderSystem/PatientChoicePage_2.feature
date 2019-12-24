@@ -5,8 +5,8 @@
 Feature: Patient Choice Page Verification
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_09 @LOGOUT @E2EUI-1415 @v_1 @P0
-  Scenario Outline: E2EUI-1415: Requesting Organisation landing page
+    @PatientChoice_page_09 @LOGOUT @NTS-3383 @E2EUI-1415 @v_1 @P0
+  Scenario Outline: NTS-3383: Requesting Organisation landing page
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the user is navigated to a page with title Check your patient
@@ -23,8 +23,8 @@ Feature: Patient Choice Page Verification
       | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_10 @LOGOUT @E2EUI-1677 @v_1 @P0
-  Scenario Outline: E2EUI-1677: Verify the hospital no field on patient choice form
+    @PatientChoice_page_10 @LOGOUT @NTS-3384 @E2EUI-1677 @v_1 @P0
+  Scenario Outline: NTS-3384: Verify the hospital no field on patient choice form
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -40,8 +40,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_11 @LOGOUT @E2EUI-1474 @v_1 @P0
-  Scenario Outline: E2EUI-1474: Verify patient choice form
+    @PatientChoice_page_11 @LOGOUT @NTS-3385 @E2EUI-1474 @v_1 @P0
+  Scenario Outline: NTS-3385: Verify patient choice form
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -56,8 +56,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_12 @LOGOUT @E2EUI-1141 @v_1 @P0
-  Scenario Outline: E2EUI-1141: Recorded By field is mandatory field in Add patient choice form
+    @PatientChoice_page_12 @LOGOUT @NTS-3386 @E2EUI-1141 @v_1 @P0
+  Scenario Outline: NTS-3386: Recorded By field is mandatory field in Add patient choice form
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -80,8 +80,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_13 @LOGOUT @E2EUI-1464 @v_1 @P0
-  Scenario Outline: E2EUI-1464: patient signature is a mandatory field in Add patient choice form
+    @PatientChoice_page_13 @LOGOUT @NTS-3387 @E2EUI-1464 @v_1 @P0
+  Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -110,8 +110,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_14 @LOGOUT @E2EUI-1112  @v_1 @P0
-  Scenario Outline: E2EUI-1112: Verify add patient choice form is an embedded app
+    @PatientChoice_page_14 @LOGOUT @NTS-3388 @E2EUI-1112  @v_1 @P0
+  Scenario Outline: NTS-3388: Verify add patient choice form is an embedded app
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -125,8 +125,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_15 @LOGOUT @E2EUI-2034 @v_1 @P0
-  Scenario Outline: E2EUI-2034: Editing Patient Choice in Patient Choice category
+    @PatientChoice_page_15 @LOGOUT @NTS-3377 @E2EUI-2034 @v_1 @P0
+  Scenario Outline: NTS-3377: Editing Patient Choice in Patient Choice category
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -146,8 +146,8 @@ Feature: Patient Choice Page Verification
       | Patient choice       | Adult (With Capacity) | Child   |
 
   @COMP9_TO_PatientChoiceAdd
-    @PatientChoice_page_16 @LOGOUT @E2EUI-1181 @v_1 @P0
-  Scenario Outline: E2EUI-1181: Navigate around the patient choice pages
+    @PatientChoice_page_16 @LOGOUT @NTS-3378 @E2EUI-1181 @v_1 @P0
+  Scenario Outline: NTS-3378: Navigate around the patient choice pages
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage

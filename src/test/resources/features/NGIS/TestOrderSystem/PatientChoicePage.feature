@@ -5,7 +5,7 @@ Feature: Patient Choice Page
 
   @COMP8_TO_PatientSearch
     @patientChoice_Page01 @LOGOUT @NTS-3341 @E2EUI-1659 @BVT-P0 @v_1 @P0
-  Scenario Outline: E2EUI-1659: Verify the patient choice status in family member page
+  Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family members>" stage
@@ -34,8 +34,8 @@ Feature: Patient Choice Page
       | Family members | Not entered | Patient choice       | Agreed to testing | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page02 @LOGOUT @E2EUI-2110 @v_1 @P0
-  Scenario Outline: E2EUI-2110: Verify the upload revised patient choice documentation to form library
+    @patientChoice_Page02 @LOGOUT @NTS-3382 @E2EUI-2110 @v_1 @P0
+  Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Family members>" stage
@@ -53,8 +53,8 @@ Feature: Patient Choice Page
       | Family members | Not entered | Patient choice       | Form library |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page03 @E2EUI-2039 @v_1 @P0
-  Scenario Outline: E2EUI-2039: Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page03 @NTS-3389 @E2EUI-2039 @v_1 @P0
+  Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
  Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Patient choice stage>" stage
@@ -77,8 +77,8 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page04 @E2EUI-2039 @v_1 @P0 @scenario_01
-  Scenario Outline: E2EUI-2039: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page04 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
+  Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is navigated to a patient choice form option with title Patient choices
     And the user should be able to see the details of patient choices option
     When the user fills "<PatientChoice>" details in patient choices
@@ -97,8 +97,8 @@ Feature: Patient Choice Page
       | Patient changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page05 @E2EUI-2039 @v_1 @P0 @scenario_02
-  Scenario Outline: E2EUI-2039: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page05 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
+  Scenario Outline: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     And the user is navigated to a patient choice form option with title Patient choices
@@ -121,8 +121,8 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page06 @E2EUI-2039 @v_1 @P0 @scenario_03
-  Scenario Outline: E2EUI-2039: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page06 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
+  Scenario Outline: NTS-3389: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     And the user is navigated to a patient choice form option with title Patient choices
@@ -151,8 +151,8 @@ Feature: Patient Choice Page
       | Patient has agreed to the test | No       | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | Patient would like to revisit at a later date |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page07 @E2EUI-2039 @v_1 @P0 @scenario_04
-  Scenario Outline: E2EUI-2039: scenario_04 - Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page07 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_04
+  Scenario Outline: NTS-3389: scenario_04 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices
@@ -180,8 +180,8 @@ Feature: Patient Choice Page
       | Patient has agreed to the test | Yes       | No       | Has research participation been discussed? | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page08 @LOGOUT @E2EUI-2039 @v_1 @P0 @scenario_05
-  Scenario Outline: E2EUI-2039: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
+    @patientChoice_Page08 @LOGOUT @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_05
+  Scenario Outline: NTS-3389: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices

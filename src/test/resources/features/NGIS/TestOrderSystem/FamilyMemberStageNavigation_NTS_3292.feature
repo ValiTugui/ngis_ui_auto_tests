@@ -4,8 +4,8 @@
 Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @BVT_P0 @v_1 @P0
-  Scenario Outline: E2EUI-1331-1485-1639: Remove a family member from a referral
+    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @BVT_P0 @v_1 @P0
+  Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage

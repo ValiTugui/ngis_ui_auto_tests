@@ -171,7 +171,7 @@ Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberStageNavigation_13 @NTS-3339 @LOGOUT @E2EUI-1791 @v_1 @P0
-  Scenario Outline: Update PatientList component in family member section to use PatientIdentifiers
+  Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Family Members>" stage
@@ -187,7 +187,7 @@ Feature: Family Members Navigation Stage Validation
 
   @COMP8_TO_Familymembers
     @familyMemberStageNavigation_14 @NTS-3338 @LOGOUT @E2EUI-1510 @BVT_P0 @v_1 @P0
-  Scenario Outline: E2EUI-1510: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
+  Scenario Outline: NTS-3338: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage

@@ -5,8 +5,8 @@
 Feature: Panels Page Verification
 
   @COMP09_Panels
-    @COMP9_TO_Panels_01 @E2EUI-1278  @v_1 @P0
-  Scenario Outline: E2EUI-1278: Search and add panels to referral
+    @COMP9_TO_Panels_01 @NTS-3380 @E2EUI-1278  @v_1 @P0
+  Scenario Outline: NTS-3380: Search and add panels to referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
     When the user navigates to the "<Panels>" stage
@@ -41,8 +41,8 @@ Feature: Panels Page Verification
       | Panels | Incomplete | Complete |
 
   @COMP9_Panels
-    @COMP9_TO_Panels_03 @E2EUI-1045  @v_1 @P0
-  Scenario Outline: E2EUI-1045: Suggest and select panels on panels page
+    @COMP9_TO_Panels_03 @NTS-3381 @E2EUI-1045  @v_1 @P0
+  Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303894:DOB=26-11-1986 |
     When the user navigates to the "<ClinicalQuestions>" stage

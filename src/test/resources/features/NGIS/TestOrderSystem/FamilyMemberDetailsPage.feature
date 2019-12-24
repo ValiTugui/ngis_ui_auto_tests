@@ -6,7 +6,7 @@ Feature: Family Members Details Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_01 @NTS-3235 @E2EUI-908 @v_1 @P0
-  Scenario Outline: E2EUI-908: Verify addition of a family member to a referral without providing Relationship to Proband field.
+  Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a referral is created for a nwe patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
@@ -24,7 +24,7 @@ Feature: Family Members Details Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_02 @NTS-3300 @E2EUI-1349 @BVT_P0 @v_1 @P0
-  Scenario Outline: E2EUI-1349: Verify family member details page - Confirm family member details
+  Scenario Outline: NTS-3300: Verify family member details page - Confirm family member details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -42,7 +42,7 @@ Feature: Family Members Details Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_03 @NTS-3298 @E2EUI-1369 @v_1 @P0
-  Scenario Outline: E2EUI-1369: Verify "relationship to proband" field mandatory when adding a family member to referral
+  Scenario Outline: NTS-3298: Verify "relationship to proband" field mandatory when adding a family member to referral
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -58,8 +58,8 @@ Feature: Family Members Details Validation
       | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Relationship to proband is required. | #dd2509      | Full Sibling          |
 
   @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_04 @LOGOUT @NTS3297 @E2EUI-1012 @BVT_P0 @v_1 @P0
-  Scenario Outline: E2EUI-1012: To validate the flow when the user chooses to add a test for family members
+    @familyMemberDetailsPage_04 @LOGOUT @NTS-3297 @E2EUI-1012 @BVT_P0 @v_1 @P0
+  Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
