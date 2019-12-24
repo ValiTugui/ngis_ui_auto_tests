@@ -84,7 +84,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header__cancel-reason']")
     public WebElement referralCancelReason;
 
-    @FindBy(css = "*[class*='logout-button']")
+   // @FindBy(css = "*[class*='logout-button']")
+    @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
     @FindBy(css = "*[class*='header__user']")
