@@ -37,7 +37,7 @@ Feature: Patient Choice Page Verification
 
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_11 @LOGOUT @NTS-3385 @E2EUI-1474 @v_1 @P0
@@ -77,7 +77,7 @@ Feature: Patient Choice Page Verification
     Then the user should be able to see enabled continue button
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | blankRecordedBy | ErrorMessage                                                                           | RecordedBy         |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_13 @LOGOUT @NTS-3387 @E2EUI-1464 @v_1 @P0
@@ -107,7 +107,7 @@ Feature: Patient Choice Page Verification
 
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_14 @LOGOUT @NTS-3388 @E2EUI-1112  @v_1 @P0
@@ -173,4 +173,4 @@ Feature: Patient Choice Page Verification
 
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |

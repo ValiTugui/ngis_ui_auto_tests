@@ -31,7 +31,7 @@ Feature: Patient Choice Page
 
     Examples:
       | Family members | Status1     | Patient choice stage | Status2           | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
-      | Family members | Not entered | Patient choice       | Agreed to testing | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
+      | Family members | Not entered | Patient choice       | Agreed to testing | Child                 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
 
   @COMP9_TO_PatientChoice
     @patientChoice_Page02 @LOGOUT @NTS-3382 @E2EUI-2110 @v_1 @P0
@@ -74,7 +74,7 @@ Feature: Patient Choice Page
 
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            |
-      | Patient choice       | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
   @COMP9_TO_PatientChoice
     @patientChoice_Page04 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
