@@ -125,9 +125,6 @@ public class SamplesPage {
     @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
     public WebElement tumourContentPercentageOfMalignantNucleiFieldLabel;
 
-    @FindBy(xpath = "//label[contains(text(),'Tumour content (percentage of malignant nuclei / b')]")
-    public WebElement tumourContentPercentageOfMalignantNucleiFieldLabel;
-
     @FindBy(xpath = "//label[@for='sampleType']/../div//div[text()='Select...']/../..")
     public WebElement sampleTypeDropDown;
 
