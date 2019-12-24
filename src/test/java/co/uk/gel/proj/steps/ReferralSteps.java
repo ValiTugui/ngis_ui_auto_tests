@@ -499,4 +499,16 @@ public class ReferralSteps extends Pages {
         referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
 
     }
+
+    @And("the referral status is set to {string}")
+    public void theReferralStatusIsSetTo(String expectedReferralStatus) {
+        String actualReferralStatus = referralPage.getReferralStatus();
+        Assert.assertTrue(actualReferralStatus.contains(expectedReferralStatus));
+    }
+
+    @Then("the submission confirmation message {string} is displayed")
+    public void theSubmissionConfirmationMessageIsDisplayed(String expectedMessage) {
+        String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
+        Assert.assertTrue(actualMessage.contains(expectedMessage));
+    }
 }
