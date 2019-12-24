@@ -65,16 +65,20 @@ public class SeleniumLib {
     }
 
     public static WebElement waitForElementVisible(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        final WebElement el = driver.findElement(element);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 20);
+            final WebElement el = driver.findElement(element);
 
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
 
-                return el.isDisplayed();
-            }
-        });
-        return el;
+                    return el.isDisplayed();
+                }
+            });
+            return el;
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     /**
