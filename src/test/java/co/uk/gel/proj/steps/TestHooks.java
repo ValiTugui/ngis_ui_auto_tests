@@ -116,8 +116,8 @@ public class TestHooks extends Pages {
     private void logoutAfterTest(int waitingTime) {
         Debugger.println("TestHooks:logoutAfterTest...And Deleting Cookies.");
        try {
+            Wait.seconds(5);
             By logOut = By.xpath("//a[text()='Log out']");
-
             if(!Wait.isElementDisplayed(driver,driver.findElement(logOut),60)){
                 return;
             }
@@ -137,7 +137,7 @@ public class TestHooks extends Pages {
             Wait.seconds(waitingTime);
 
         }catch(Exception exp){
-           Debugger.println("Exception from Logging out....");
+           Debugger.println("Exception from Logging out...."+exp);
        }
     }
 }//end class

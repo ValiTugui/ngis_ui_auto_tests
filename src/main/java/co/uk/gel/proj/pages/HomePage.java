@@ -1,17 +1,19 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static co.uk.gel.lib.Actions.acceptAlert;
+import static co.uk.gel.lib.Actions.isAlertPresent;
 
 public class HomePage {
 
@@ -64,6 +66,9 @@ public class HomePage {
 
     @FindBy(xpath = "//*[contains(@class, 'styles_link')]")
     public List<WebElement> tabResults;
+
+    @FindBy(xpath = "//a[text()='Log out']")
+    public WebElement logOutLink;
 
 
     public void waitUntilHomePageResultsContainerIsLoaded() {
@@ -174,5 +179,31 @@ public class HomePage {
 
     public boolean testResultsAreLoaded() {
         return tabResults.size()>0;
+    }
+
+    public void logOutFromApplication(){
+        try {
+            Debugger.println("Logging Out from Application..");
+            if(!Wait.isElementDisplayed(driver,logOutLink,60)){
+                Debugger.println("Could not locate Log out Link...");
+                SeleniumLib.takeAScreenShot("NoLogOutLink.jpg");
+                return;
+            }
+            Actions.clickElement(driver,logOutLink);
+            Wait.seconds(2);
+            driver.manage().deleteAllCookies();
+        } catch (UnhandledAlertException f) {
+            try {
+                driver.switchTo().defaultContent();
+                driver.manage().deleteAllCookies();
+
+            } catch (NoAlertPresentException e) {
+                e.printStackTrace();
+            }
+            Wait.seconds(5);
+            Debugger.println("Logged Out Successfully.");
+        }catch(Exception exp){
+            Debugger.println("Exception from Logging out...."+exp);
+        }
     }
 }
