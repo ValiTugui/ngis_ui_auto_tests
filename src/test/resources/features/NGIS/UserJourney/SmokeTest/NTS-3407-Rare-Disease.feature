@@ -68,8 +68,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=2000008461:DOB=14-05-1931 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
-      | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
+      | NHSNumber=2000008461:DOB=14-05-1931 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
+      | NHSNumber=2000008127:DOB=11-03-1942 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
     #Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
