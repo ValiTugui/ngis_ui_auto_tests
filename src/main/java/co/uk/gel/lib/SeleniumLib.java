@@ -734,7 +734,7 @@ public class SeleniumLib {
         }
     }
 
-    public void dismissAllert() {
+    public static void dismissAllert() {
         if (isAlertPresent()) {
             driver.switchTo().alert().dismiss();
         }

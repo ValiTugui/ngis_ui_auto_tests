@@ -134,6 +134,10 @@ public class Pages implements Navigable {
             }
             navigatedURL = driver.getCurrentUrl();
             Debugger.println("Current URL is :"+navigatedURL);
+        }catch(UnhandledAlertException exp){
+            Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate+"\nDismissing Alert and Trying again...");
+            SeleniumLib.dismissAllert();
+            login(urlToNavigate, pageToNavigate,userType);
         }catch(Exception exp){
             Debugger.println("Exception in Navigating to URL: "+urlToNavigate+"\nExp:"+exp);
             Assert.assertFalse("Exception in Navigating to URL: "+urlToNavigate+"Exp:"+exp,true);
