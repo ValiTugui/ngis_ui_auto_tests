@@ -1,6 +1,6 @@
 @regression
 @regression_set10
-@PatientChoice_3
+@patientChoice
 Feature: Patient Choice Page
 
   @COMP9_TO_PatientChoiceAdd

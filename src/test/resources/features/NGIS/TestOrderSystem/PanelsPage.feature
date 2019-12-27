@@ -4,7 +4,7 @@
 
 Feature: Panels Page Verification
 
-  @COMP09_Panels
+  @COMP9_TO_Panels
     @COMP9_TO_Panels_01 @LOGOUT @NTS-3380 @E2EUI-1278  @v_1 @P0
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
@@ -39,7 +39,7 @@ Feature: Panels Page Verification
       | Panels | Option1    | Option2  |
       | Panels | Incomplete | Complete |
 
-  @COMP9_Panels
+  @COMP9_TO_Panels
     @COMP9_TO_Panels_03 @LOGOUT @NTS-3381 @E2EUI-1045  @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
@@ -76,7 +76,7 @@ Feature: Panels Page Verification
       | Panels | penetrance | textLine                                                                                                      |
       | Panels | Penetrance | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
-  @COMP9_Panels
+  @COMP9_TO_Panels
     @COMP9_TO_Panels_05 @LOGOUT @E2EUI-1484 @NTS-3424 @v_1 @P0
   Scenario Outline: NTS-3424 : Suggest and select panels on panels page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service

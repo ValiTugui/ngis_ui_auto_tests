@@ -101,7 +101,7 @@ public class PatientChoicePage {
     WebElement submitPatientChoice;
 
     @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")///span") //span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
-    WebElement patientChoiceStatus;
+            WebElement patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
@@ -1096,14 +1096,14 @@ public class PatientChoicePage {
 
     public boolean selectPatientSignature() {
         try {
-        Wait.forElementToBeDisplayed(driver, signaturePad, 30);
-        if (!seleniumLib.isElementPresent(signaturePad)) {
-            Debugger.println("Signature Pad Not loaded for Patient Signature.");
-            return false;
-        }
-        seleniumLib.scrollToElement(signaturePad);
-        SeleniumLib.drawSignature(signaturePad);
-        return true;
+            Wait.forElementToBeDisplayed(driver, signaturePad, 30);
+            if (!seleniumLib.isElementPresent(signaturePad)) {
+                Debugger.println("Signature Pad Not loaded for Patient Signature.");
+                return false;
+            }
+            seleniumLib.scrollToElement(signaturePad);
+            SeleniumLib.drawSignature(signaturePad);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: selectPatientSignature: " + exp);
             return false;
@@ -1543,6 +1543,7 @@ public class PatientChoicePage {
             return false;
         }
     }
+
     public boolean verifyAdditionalformsSection(String formsSection) {
         try {
             seleniumLib.waitForElementVisible(additionalForms);
