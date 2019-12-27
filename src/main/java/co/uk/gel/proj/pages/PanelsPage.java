@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.eo.Se;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -72,6 +73,8 @@ public class PanelsPage {
     @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
     public List<WebElement> deselectedPanelsList;
 
+    @FindBy(xpath = "//p[contains(text(),'If penetrance is marked')]")
+    public WebElement textLineUnderPenetranceTitle;
     public boolean panelSearchFieldAndSearchIcon() {
         try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
@@ -319,4 +322,72 @@ public class PanelsPage {
         }
     }
 
+    public boolean verifyPenetranceTitle(String subtitle) {
+        try {
+            seleniumLib.waitForElementVisible(penetranceTitle);
+            String actualSubTitle = penetranceTitle.getText();
+            if (!seleniumLib.isElementPresent(penetranceTitle)) {
+                Debugger.println("Expected Subtitle: " + subtitle + ", But Actual Title Is: " + actualSubTitle);
+                return false;
+            }
+            Assert.assertEquals(subtitle,actualSubTitle);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: penetrance title not found" + exp);
+            return false;
+        }
+
+    }
+
+
+    public boolean verifyTextLineUnderPenetranceTitle(String textLine) {
+        try {
+            String actualText = textLineUnderPenetranceTitle.getText();
+            if (!seleniumLib.isElementPresent(textLineUnderPenetranceTitle)) {
+                Debugger.println("Text Line is not present under penetrance title");
+                return false;
+            }
+            Assert.assertEquals(textLine,actualText);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: Penetrance title:text line not found" + exp);
+            return false;
+        }
+    }
+
+    public boolean verifPanelSuggestionField() {
+        try {
+            seleniumLib.waitForElementVisible(penetranceTitle);
+            if (!seleniumLib.isElementPresent(suggestedPanels)) {
+                Debugger.println("PanelsPage: suggested panels field not found");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage:suggested panels field not found" +exp);
+            return false;
+        }
+
+    }
+
+    public boolean verifyListOfSuggestedPanels(String panelsSuggestion) {
+        try {
+            seleniumLib.waitForElementVisible(penetranceTitle);
+            if (!seleniumLib.isElementPresent(suggestedPanels)) {
+                Debugger.println("Expected Subtitle: " + panelsSuggestion + ", But Actual Title Is: " + suggestedPanels.getText());
+                return false;
+            }
+            Assert.assertEquals(panelsSuggestion, suggestedPanels.getText());
+            List<WebElement> expElements = new ArrayList<WebElement>();
+            for (int i = 0; i < selectedPanelsList.size(); i++) {
+                expElements.add(selectedPanelsList.get(i));
+                Debugger.println(expElements.get(i).getText());
+            }
+            return  true;
+        }catch (Exception exp) {
+            Debugger.println("Panels Page:suggested panels :panels not found " + exp);
+            return false;
+        }
+
+    }
 }//end

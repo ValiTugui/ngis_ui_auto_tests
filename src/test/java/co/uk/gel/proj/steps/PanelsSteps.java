@@ -80,4 +80,24 @@ public class PanelsSteps extends Pages{
         panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
     }
 
+    @And("the user should be able to see a sub title {string} on panels page")
+    public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
+        Assert.assertTrue(panelsPage.verifyPenetranceTitle(subtitle));
+    }
+
+    @Then("the user should be able to see an additional line {string} underneath the penetrance title")
+    public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
+        Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
+    }
+
+    @And("the user should be able to see panels suggestion field")
+    public void theUserShouldBeAbleToSeePanelsSuggestionField() {
+        Assert.assertTrue(panelsPage.verifPanelSuggestionField());
+    }
+
+    @Then("the User should be able to see the list of the panels under the {string} Section")
+    public void theUserShouldBeAbleToSeeTheListOfThePanelsUnderTheSection(String panelsSuggestion) {
+        Assert.assertTrue(panelsPage.verifyListOfSuggestedPanels(panelsSuggestion));
+    }
+
 }//end
