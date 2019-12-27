@@ -7,7 +7,6 @@ Feature: Patient search page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL  |  patient-search | GEL_NORMAL_USER|
 
-
   @patientSearch_01 @NTS-2818 @E2EUI-914 @v_1
   Scenario: NTS-2818: The default patient search page is properly displayed
     Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
@@ -18,7 +17,6 @@ Feature: Patient search page
   Scenario: NTS-3336: Auto-fill feature not enabled for NHS Number field
     When the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     Then the NHS number field is not enabled with auto-fill feature
-
 
   @patientSearch_02 @NTS-2817 @E2EUI-831 @v_1
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
@@ -70,11 +68,11 @@ Feature: Patient search page
       | ui-ticket-no | patient-search-type | SearchDetails                                                                    |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'hern:Gender=Female                   |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'HERN:Gender=Female:Postcode=KT10 0JF |
-      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Bén:LastName=O'Müller:Gender=Male:Postcode=EC2A 2EX     |
-      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Bén:LastName=O'Muller:Gender=Male                       |
-      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=O'Müller:Gender=Male                       |
-      | E2EUI-2131   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMüller:Gender=Male                        |
-      | E2EUI-2132   | NGIS2               | DOB=12-12-2012:FirstName=Ben:LastName=OMuller:Gender=Male                        |
+      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male:Postcode=KT10 9EZ     |
+      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                       |
+      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                     |
+      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                         |
+      | E2EUI-2132   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                        |
 #       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
 
 

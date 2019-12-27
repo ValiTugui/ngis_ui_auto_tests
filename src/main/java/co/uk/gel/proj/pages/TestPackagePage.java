@@ -43,12 +43,6 @@ public class TestPackagePage {
     @FindBy(css = "*[class*='test-package__select-tests-heading']")
     public WebElement selectTestsHeader;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__select-tests')]//following::p")
-    public WebElement selectTestsDescription;
-
-    @FindBy(css = "div[class*='test-list-item']")
-    public WebElement testCard;
-
     @FindBy(css = "div[class*='checkbox-card']")
     public WebElement testCheckBoxCard;
 
@@ -58,20 +52,8 @@ public class TestPackagePage {
     @FindBy(css = "div[class*='test-card']")
     public WebElement testCardBody;
 
-    @FindBy(css = "p[class*='test-card__title']")
-    public WebElement testCardTitle;
-
-    @FindBy(css = "p[class*='test-card__name']")
-    public WebElement testCardName;
-
     @FindBy(css = "*[class*='test-card__test-type']")
     public List<WebElement> testCardCategory;
-
-    @FindBy(css = "*[class*='test-list-item__target']")
-    public WebElement targetedGenesHeader;
-
-    @FindBy(css = "[class*='test-list-item__section']")
-    public WebElement targetedGenesTestInfoLabel;
 
     @FindBy(css = "p[class*='test-list-item__description']")
     public WebElement testTargetDescription;
@@ -82,11 +64,7 @@ public class TestPackagePage {
     @FindBy(id = "numberOfParticipants")
     public List<WebElement> numberOfParticipantsDropDown;
 
-
     public WebElement numberOfParticipants;
-
-    @FindBy(xpath = "//*[contains(@id,'numberOfParticipants')]//following::path")
-    public WebElement clearNumberOfParticipantsButton;
 
     @FindBy(css = "div[class*='error-message']")
     public WebElement errorMessage;
@@ -94,21 +72,10 @@ public class TestPackagePage {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(xpath = "//*[contains(@class,'selected-family-members')]//child::h4")
-    public WebElement selectedFamilyMembersHeader;
-
     @FindBy(css = "*[class*='relationship-tag']")
     public List<WebElement> selectedFamilyMembers;
 
-    @FindBy(css = "[class*='error-message__text'])")
-    public WebElement errorMessageNumberOfParticipants;
-
-    @FindBy(css = "[class*='css-ljit9a-placeholder']")
-    public WebElement participantsFieldPlaceHolder;
-
     private String checkboxValue = "checked";
-    private String routine = "Routine";
-    private String urgent = "Urgent";
     private String dropDownBoxValues = "";
 
     public boolean verifyTestPackagePageTitle(String title) {

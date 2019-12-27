@@ -15,7 +15,6 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
-
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_02 @NTS-3165 @E2EUI-823 @E2EUI-1120 @P0 @v_1
   Scenario Outline: NTS-3165: Text information for user on Tumour referral page
@@ -27,7 +26,6 @@ Feature: Tumours Page
     Examples:
       | stage   | information                                                                                              |
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
-
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_03 @NTS-3241 @E2EUI-1576 @E2EUI-1410 @E2EUI-1356 @E2EUI-1699 @P0 @v_1
@@ -53,45 +51,25 @@ Feature: Tumours Page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
-    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
-
+#    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
+#    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
+    Then the DateOfDiagnosis field displays given messages in specific color for the wrong values
+      | Date_of_Diagnosis | error_message                                     | color   |
+      | 12-03-2150        | Please enter a date before today                  | #dd2509 |
+      | 32-03-2011        | Enter a day between 1 and 31 or leave blank       | #dd2509 |
+      | 0-04-2011         | Enter a day between 1 and 31 or leave blank       | #dd2509 |
+      | 10-28-2011        | Enter a month between 1 and 12 or leave blank     | #dd2509 |
+      | 10-0-2011         | Enter a month between 1 and 12 or leave blank     | #dd2509 |
+      | 14-11-1           | Enter a year in 4 figures e.g. 1983               | #dd2509 |
+      | 14-11-19          | Enter a year in 4 figures e.g. 1983               | #dd2509 |
+      | 14-11-1899        | Cannot be more than 9 months before date of birth | #dd2509 |
+      | 14-11-190         | Cannot be more than 9 months before date of birth | #dd2509 |
+      | 14-11-null        | Enter a year                                      | #dd2509 |
+      | 30-02-2012        | Check the day and month are valid                 | #dd2509 |
+#      | 14-10-1899        | Enter a year beyond 1900                          | #dd2509 |
     Examples: of future date scenario
-      | stage   | Date_of_Diagnosis | error_message                    |
-      | Tumours | 12-03-2150        | Please enter a date before today |
-
-    Examples: of invalid day
-      | stage   | Date_of_Diagnosis | error_message                               |
-      | Tumours | 32-03-2011        | Enter a day between 1 and 31 or leave blank |
-      | Tumours | 0-04-2011         | Enter a day between 1 and 31 or leave blank |
-
-    Examples: of invalid month
-      | stage   | Date_of_Diagnosis | error_message                                 |
-      | Tumours | 10-28-2011        | Enter a month between 1 and 12 or leave blank |
-      | Tumours | 10-0-2011         | Enter a month between 1 and 12 or leave blank |
-
-    Examples: of invalid year
-      | stage   | Date_of_Diagnosis | error_message                       |
-      | Tumours | 14-11-1           | Enter a year in 4 figures e.g. 1983 |
-      | Tumours | 14-11-19          | Enter a year in 4 figures e.g. 1983 |
-
-    Examples: diagnosis year comes before patient year birth
-      | stage   | Date_of_Diagnosis | error_message                                     |
-      | Tumours | 14-11-1899        | Cannot be more than 9 months before date of birth |
-      | Tumours | 14-11-190         | Cannot be more than 9 months before date of birth |
-
-    Examples: Enter year starting from 1900
-      | stage   | Date_of_Diagnosis | error_message            |
-      | Tumours | 14-0-1899           | Enter a year beyond 1900 |
-
-    Examples: of entering day and month without a year
-      | stage   | Date_of_Diagnosis | error_message |
-      | Tumours | 14-11-null        | Enter a year  |
-
-    Examples: of entering invalid date for February month
-      | stage   | Date_of_Diagnosis | error_message |
-      | Tumours | 30-02-2012        | Check the day and month are valid  |
-
+      | stage   |
+      | Tumours |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_05 @NTS-3157 @E2EUI-1020 @P0 @v_1
@@ -125,10 +103,8 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText|
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    |
-
-
+      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_07 @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @P0 @v_1
@@ -147,9 +123,8 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type              | presentationType   | searchTerm | notificationText|
-      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added    |
-
+      | stage   | tumour_type              | presentationType   | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
   @COMP6_TOC_Tumour @LOGOUT
     @tumoursPage_08 @NTS-3255 @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098 @P0 @v_1 @BVT_P0
@@ -176,9 +151,8 @@ Feature: Tumours Page
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
-
   @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_09  @P0 @v_1 @NTS:3171 @E2EUI-2145
+    @tumoursPage_09  @P0 @v_1 @NTS-3171 @E2EUI-2145
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -189,7 +163,6 @@ Feature: Tumours Page
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save and Continue button
-
 
     Examples:
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
@@ -289,7 +262,6 @@ Feature: Tumours Page
       | stage   | tumour_type              | presentationType | searchTerm |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       |
 
-
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_14 @NTS-3190 @E2EUI-1513 @E2EUI-903 @P0 @v_1
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
@@ -324,7 +296,7 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm |  updated_tumour_type  |
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
@@ -352,8 +324,8 @@ Feature: Tumours Page
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary|
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -378,7 +350,6 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
-
 
 
   @COMP6_TO_TumourCreate @LOGOUT
@@ -406,11 +377,9 @@ Feature: Tumours Page
     And the "<pageTitle>" page is displayed
     And the new tumour details are displayed in the Edit a Tumour page
 
-
     Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type  | pageTitle |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary| Edit a tumour|
-
+      | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   | pageTitle     |
+      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary | Edit a tumour |
 
   @COMP6_TO_TumourCreate @LOGOUT
     @tumoursPage_18 @NTS-3176 @E2EUI-1412 @P0 @v_1 @BVT_P0
@@ -448,107 +417,3 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-
-  @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_19 @NTS-3249 @E2EUI-1459 @P0 @v_1
-  Scenario Outline: NTS-3249: Fuzzy date "<Date_of_Diagnosis>" on Date of Diagnosis field
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
-    And the user answers the tumour system specific question fields - Description, Select a tumour type "<tumour_type>" and Pathology Sample ID
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
-
-
-    Examples: of filling out the year and leaving the month and day blank
-      | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | null-null-2018    | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-    Examples: of filling out the month and year and leaving the day blank
-      | stage   | Date_of_Diagnosis | tumour_type              | presentationType   | searchTerm | notificationText |
-      | Tumours | null-11-2018      | Solid tumour: metastatic | First presentation | test       | Tumour added     |
-
-    Examples: of filling out day, month and year field
-      | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | 10-11-2018        | Solid tumour: metastatic | Unknown          | test       | Tumour added     |
-
-
-  @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_20 @NTS-3250 @E2EUI-1247 @P0 @v_1
-  Scenario Outline: NTS-3250: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user enters "<pathologySampleId>" in the Pathology Sample ID field
-    And the user answers the tumour system specific question fields - Description, Date of Diagnosis, amd Select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
-
-    Examples: of filling out the year and leaving the month and day blank
-      | stage   | pathologySampleId                 | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-
-  @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_21 @NTS-3252 @E2EUI-1107 @P0 @v_1
-  Scenario Outline: NTS-3252: Tumour-list - Indicate any tumour list with incomplete or outstanding mandatory questions
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user navigates to the "<stage>" stage
-    Then the "<pageTitle>" page is displayed
-    And the success notification is displayed "<notificationText>"
-    And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
-    And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
-    And the new tumour details added in the tumour list are indicated as in-complete with "<messageColor>" fonts colour
-    And the error message "<errorMessage>" is displayed in "<messageColor>" fonts colour in the page
-
-    Examples:
-      | stage   | pageTitle               | tumour_type              | notificationText | errorMessage                                           | messageColor |
-      | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
-
-
-  @COMP6_TOC_Tumour @LOGOUT
-    @tumoursPage_22 @NTS-3259 @E2EUI-1075 @P0 @v_1
-  Scenario Outline: NTS-3259:Back link button - Create referral navigation component - Tumours
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the "<pageTitle>" page is displayed
-    And the success notification is displayed "<notificationText>"
-    When user clicks add a new tumour link
-    And the "<pageTitle2>" page is displayed
-    When the user clicks on the Back link
-    Then the "<pageTitle>" page is displayed
-
-    Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText| pageTitle              |   pageTitle2  |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added    | Select or edit a tumour| Add a tumour  |
-
-
-
-

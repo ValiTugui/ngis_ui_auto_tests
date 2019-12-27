@@ -1,5 +1,6 @@
 @regression
 @testDirectory
+@homePage
 Feature: Home Page
 
   Background:

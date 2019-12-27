@@ -16,11 +16,9 @@ import java.util.List;
 
 public class HomePageSteps extends Pages {
 
-
     public HomePageSteps(SeleniumDriver driver) {
         super(driver);
     }
-
 
     @Given("a web browser is at the Private Test Selection homepage")
     public void aWebBrowserIsAtThePrivateTestSelectionHomepage(List<String> attributeOfURL) {
@@ -91,5 +89,9 @@ public class HomePageSteps extends Pages {
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         Assert.assertTrue(homePage.searchField.getAttribute("value").matches(AppConfig.getSearchTerm()));
 
+    }
+    @And("the user logged out from the application")
+    public void theUserLoggedOutFromTheApplication() {
+        homePage.logOutFromApplication();
     }
 }

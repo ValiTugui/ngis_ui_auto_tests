@@ -97,7 +97,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='btn submit-signature-button']")
     WebElement submitPatientChoice;
 
-    @FindBy(xpath = "//span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
+    @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")///span") //span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
     WebElement patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
@@ -178,6 +178,9 @@ public class PatientChoicePage {
     @FindBy(css = "*[class*='message-line']")
     public WebElement recordAlreadyExistsMessage;
 
+    @FindBy(css = "button.btn.disabled-submit-signature-button")
+    public WebElement disabledSubmitPatientChoice;
+
     @FindBy(xpath = "//h5[contains(text(),'opportunity to read and discuss')]")
     WebElement firstConsulteeAttestationQuestion;
 
@@ -226,7 +229,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
     public WebElement patientChoiceFormCompletedMessage;
 
-    @FindBy(xpath = "//a[text()='Print Patient Choice Form']")
+    @FindBy(xpath = "//a[@class='edit-button email-button']")
     public WebElement printPatientChoiceFormButton;
 
     @FindBy(xpath = "//div[@class='radio-question-error question-error']")
@@ -252,7 +255,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[@class='question-value white-bg']")
     public List<WebElement> selectedPatientChoiceOption;
 
-    @FindBy(xpath = "//button[contains(text(),'Submit Patient Choice')]")
+    @FindBy(xpath = "//button[contains(text(),'Submit ')]")
     public WebElement submitPatientChoiceButton;
 
     @FindBy(xpath = "//ul[@class='message-list']")
@@ -712,13 +715,6 @@ public class PatientChoicePage {
             if (genderList == null || genderList.size() != noOfPatients) {
                 Debugger.println("Expected Presence of Gender Information for " + noOfPatients + " patients in  Patient Choice Page.");
                 SeleniumLib.takeAScreenShot("genderInfo.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> nhsList = seleniumLib.getElements(By.xpath(nhsNumberInformation));
-            if (nhsList == null || nhsList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of NHS Information for " + noOfPatients + " patients in  Patient Choice.");
-                SeleniumLib.takeAScreenShot("nhsInfo.jpg");
                 return false;
             }
             Wait.seconds(2);
@@ -1398,7 +1394,7 @@ public class PatientChoicePage {
         Debugger.println("Patient Choice: Clicking on submit patient choice button");
         try {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
-            submitPatientChoiceButton.click();
+            seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Clicking on submit patient choice button:" + exp);
@@ -1514,4 +1510,16 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean submitPatientChoiceButtonStatus() {
+        try {
+            seleniumLib.waitForElementVisible(disabledSubmitPatientChoice);
+            if (!seleniumLib.isElementPresent(disabledSubmitPatientChoice)) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: submitPatientChoiceButtonStatus: " + exp);
+            return false;
+        }
+    }
 }//end

@@ -1,6 +1,7 @@
 @regression
 @regression_set1
 @clinicalQuestions
+
 Feature: Clinical Questions stage
 
   @E2EUI-2089 @NTS-3209 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalQuestions @BVT_P0
@@ -52,7 +53,7 @@ Feature: Clinical Questions stage
       | Clinical questions | Answer clinical questions |  Uncertain                          |   false  |
       | Clinical questions | Answer clinical questions |  Unknown                            |   false  |
 
-@E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
+@E2EUI-1531 @E2EUI-992 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease |
@@ -62,13 +63,15 @@ Feature: Clinical Questions stage
   When the user provided the values "<year>" "<month>" for Age of onset fields
   And the user sees an error "<errorMessage>" message on the page
   Examples:
-    | stage              | title                     | diseaseStatueValue | year | month | errorMessage                                      |
-    | Clinical questions | Answer clinical questions | Affected           | 10   | 1.4   | Please enter whole years and months               |
-    | Clinical questions | Answer clinical questions | Affected           | -1   | 11    | Please enter prenatal age in negative months      |
-    | Clinical questions | Answer clinical questions | Affected           | 1    | 12    | Number of months can only exceed 11 if years is 0 |
-    | Clinical questions | Answer clinical questions | Affected           | 1000 | 0     | Patient age cannot exceed 125 years               |
-    | Clinical questions | Answer clinical questions | Affected           | 24   | -1    | Only prenatal cases can have a negative number    |
-    | Clinical questions | Answer clinical questions | Affected           | 0    | -10   | Patient cannot be younger than -9 months          |
+    | stage              | title                     | diseaseStatueValue | year  | month | errorMessage                                      |
+    | Clinical questions | Answer clinical questions | Affected           | -2.4  | 0     | Please enter whole years and months               |
+    | Clinical questions | Answer clinical questions | Affected           | 128   | 0     | Patient age cannot exceed 125 years               |
+    | Clinical questions | Answer clinical questions | Affected           | 10    | 1.4   | Please enter whole years and months               |
+    | Clinical questions | Answer clinical questions | Affected           | -1    | 11    | Please enter prenatal age in negative months      |
+    | Clinical questions | Answer clinical questions | Affected           | 1     | 12    | Number of months can only exceed 11 if years is 0 |
+    | Clinical questions | Answer clinical questions | Affected           | 1000  | 0     | Patient age cannot exceed 125 years               |
+    | Clinical questions | Answer clinical questions | Affected           | 24    | -1    | Only prenatal cases can have a negative number    |
+    | Clinical questions | Answer clinical questions | Affected           | 0     | -10   | Patient cannot be younger than -9 months          |
 
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions

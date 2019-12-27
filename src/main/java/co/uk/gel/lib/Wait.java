@@ -29,6 +29,7 @@ public class Wait {
     public static boolean isElementDisplayed(WebDriver driver, WebElement element,int seconds) {
         try{
             wait = new WebDriverWait(driver, seconds);
+            wait.until(ExpectedConditions.visibilityOf(element));
             return element.isDisplayed();
         }catch (Exception exp){
             return false;

@@ -22,12 +22,6 @@ public class ClinicalIndicationsTestSelectPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "div[class*='icon']")
-    public WebElement clinicalIndicationIcon;
-
-    @FindBy(css = "div[class*='mainSection']")
-    public WebElement clinicalIndicationsHeader;
-
     @FindBy(css = "a[class*='tab']")
     public List<WebElement> clinicalIndicationTabs;
 
@@ -37,26 +31,8 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains(@class,'grid')]//descendant::div/h2/span")
     public List<WebElement> testDetailsSubSections;
 
-    @FindBy(css = "div[class*='markdownStyling']")
-    public List<WebElement> whoToTestText;
-
-    @FindBy(id = "Shape")
-    public List<WebElement> whoToTestIcon;
-
-    @FindBy(id = "WhenToTest_Icon")
-    public List<WebElement> whenToTestIcon;
-
-    @FindBy(css = "h3[class*='meta']")
-    public WebElement clinicalIndicationSubHeader;
-
     @FindBy(css = ".btn-secondary")
     public WebElement goToClinicalIndicationsButtonInPopup;
-
-    @FindBy(xpath = "//*[contains(@class,'package')]//child::h1")
-    public WebElement testPackageContainerHeader;
-
-    @FindBy(css = "*[class*='subHeader']")
-    public WebElement testPackageContainerDescription;
 
     @FindBy(css = "*[class*='testCard']")
     public List<WebElement> testsFromTestPackageList;
@@ -108,14 +84,8 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//*[contains (@class, 'styles_processCardImg')]")
     public List<WebElement> orderProcessResults;
 
-    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::img")
-    public List<WebElement> orderProcessCardImage;
-
     @FindBy(xpath = "//*[contains(@class,'processCard')]//child::h2")
     public List<WebElement> orderProcesssTitles;
-
-    @FindBy(xpath = "//*[contains(@class,'processCard')]//child::p")
-    public List<WebElement> orderProcesssDescriptions;
 
     @FindBy(xpath = "//*/h4")
     public List<WebElement> clinicalIndicationsHeadings;
@@ -126,16 +96,16 @@ public class ClinicalIndicationsTestSelectPage {
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
     public void clickStartReferralButton() {
-        try{
+        try {
             Debugger.println("Starting Referral....");
-            Wait.forElementToBeDisplayed(driver,startTestOrderButton,30);
-            if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
+            Wait.forElementToBeDisplayed(driver, startTestOrderButton, 30);
+            if (!Wait.isElementDisplayed(driver, startTestOrderButton, 10)) {
                 Debugger.println("Start Referral button not displayed even after waiting period...Failing.");
-                Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.",true);
+                Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.", true);
             }
             Click.element(driver, startTestOrderButton);
-        }catch(Exception exp){
-            Debugger.println("Exception from Starting Referral...."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Starting Referral...." + exp);
         }
 
     }
@@ -169,8 +139,16 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean checkIfClinicalIndicationsAreLoaded() {
-        Wait.forElementToBeDisplayed(driver, clinicalIndicationsResultContainer);
-        return clinicalIndicationsResults.size() >= 0;
+        try {
+            if(Wait.isElementDisplayed(driver, clinicalIndicationsResultContainer,180)) {
+                return clinicalIndicationsResults.size() >= 0;
+            }
+            Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded.");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp);
+            return false;
+        }
     }
 
     public boolean isTabSelected(String tabName) {

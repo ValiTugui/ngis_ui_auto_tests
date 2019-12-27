@@ -322,18 +322,20 @@ public class TumoursPage {
     }
 
     public boolean verifyTheElementsOnAddTumoursPageAreDisplayed() {
-
-        AddATumourPageTitle.isDisplayed();
-        descriptiveName.isDisplayed();
-        dateOfDiagnosisLabel.isDisplayed();
-        tumourTypeLabel.isDisplayed();
-        PathologyIdOrSampleIdLabel.isDisplayed();
-        dateMonth.isDisplayed();
-        dateYear.isDisplayed();
-
-        return true;
+        try {
+            AddATumourPageTitle.isDisplayed();
+            descriptiveName.isDisplayed();
+            dateOfDiagnosisLabel.isDisplayed();
+            tumourTypeLabel.isDisplayed();
+            PathologyIdOrSampleIdLabel.isDisplayed();
+            dateMonth.isDisplayed();
+            dateYear.isDisplayed();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifying tumour stage page layout."+exp);
+            return false;
+        }
     }
-
 
     public List<String> getTumourTableHeaders() {
         List<String> actualTableHeaders = new ArrayList<>();
@@ -342,7 +344,6 @@ public class TumoursPage {
         }
         return actualTableHeaders;
     }
-
 
     public List<String> getInformationTextOnEditTumourPage() {
         List<String> actualInformationText = new ArrayList<>();
@@ -481,6 +482,4 @@ public class TumoursPage {
         Debugger.println("Current TumourDescription to be null: " + tumourDetails.getTumourDescription());
         return resetValue;
     }
-
-
 }

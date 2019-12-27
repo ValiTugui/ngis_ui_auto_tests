@@ -1,6 +1,5 @@
 package co.uk.gel.lib;
 
-import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
 
@@ -23,11 +22,11 @@ public class Actions {
         try {
             dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")).click();
             return true;
-        }catch (Exception exp){
-            try{
+        } catch (Exception exp) {
+            try {
                 dropdownValue.findElement(By.xpath("//span[contains(text(),'" + value + "')]")).click();
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Dropdown value: " + value + ", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:" + dropdownValue);
                 SeleniumLib.takeAScreenShot("DropDownValues.jpg");
             }

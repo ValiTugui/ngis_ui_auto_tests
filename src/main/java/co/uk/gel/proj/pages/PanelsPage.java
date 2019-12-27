@@ -1,22 +1,14 @@
 package co.uk.gel.proj.pages;
 
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.java.hu.De;
-import org.junit.Assert;
+import io.cucumber.java.eo.Se;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
-
 import java.util.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +26,6 @@ public class PanelsPage {
     @FindBy(xpath = "//h3[contains(text(),'Add an')]")
     public WebElement addAnotherPanel;
 
-    @FindBy(xpath = "//h3[contains(text(),'Added')]")
-    public WebElement addedPanels;
-
     @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
     public WebElement panelsSearchFieldPlaceHolder;
 
@@ -49,17 +38,18 @@ public class PanelsPage {
     @FindBy(xpath = "//span[contains(@class,'select-panel__name')]")
     public WebElement selectedPanels;
 
-    @FindBy(xpath = "//input[@placeholder='e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust']")
-    public WebElement hintTextInSearchBoxOnRequestingOrganisation;
+    @FindBy(css = "button[class*='referral-navigation__continue']")
+    public WebElement saveAndContinueButton;
 
-    @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_ordering-entity__sub-title-copy__3QZ9_']")
-    public WebElement introMessageOnRequestingOrganisation;
+    @FindBy(xpath = "//button[contains(text(),'Try again')]")
+    public WebElement tryAgain;
+
+    @FindBy(css = "*[class*='helix']")
+    public List<WebElement> helix;
+    String helixIcon = "*[class*='helix']";
 
     @FindBy(xpath = "//h3[contains(text(),'Suggestions')]")
     public WebElement suggestedPanels;
-
-    @FindBy(xpath = "//p[contains(text(),'No sugg')]")
-    public WebElement NosuggestedPanels;
 
     @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
     public WebElement penetranceTitle;
@@ -104,7 +94,7 @@ public class PanelsPage {
         }
     }
 
-    public boolean searchPanelsInSearchBox(String panelResult) {
+    public boolean searchAndAddPanel(String panelResult) {
         try {
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
             panelsSearchFieldPlaceHolder.sendKeys(panelResult);
@@ -131,24 +121,24 @@ public class PanelsPage {
     }
 
     public boolean addedPanelsList() {
-      try {
+        try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
-          List<WebElement> expElements = new ArrayList<WebElement>();
+            List<WebElement> expElements = new ArrayList<WebElement>();
             for (int i = 0; i < selectedPanelsList.size(); i++) {
-              expElements.add(selectedPanelsList.get(i));
+                expElements.add(selectedPanelsList.get(i));
             }
             for (int i = 0; i < expElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                if (!seleniumLib.isElementPresent(expElements.get(i))) {
                     Debugger.println("selected panels list not found. " + expElements.get(i));
-                  return false;
-              }
+                    return false;
+                }
 
-          }
-          return true;
-      }catch (Exception exc){
-            Debugger.println("Panels page: addedPanelsList, Element not found." + exc);
-                return false;
             }
+            return true;
+        } catch (Exception exc) {
+            Debugger.println("Panels page: addedPanelsList, Element not found." + exc);
+            return false;
+        }
     }
 
     public boolean verifyPanelsPageFields() {
@@ -158,7 +148,6 @@ public class PanelsPage {
             expElements.add(penetranceTitle);
             expElements.add(suggestedPanels);
             expElements.add(addAnotherPanel);
-            expElements.add(addedPanels);
             expElements.add(completeButton);
             expElements.add(incompleteButton);
             expElements.add(visitPanelApp);
@@ -168,7 +157,7 @@ public class PanelsPage {
                     return false;
                 }
             }
-        return true;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Panels Page:verifyPanelsPageFields, Element not found. " + exp);
             return false;
@@ -176,36 +165,30 @@ public class PanelsPage {
     }
 
     public boolean clicksOnVisitPanelsAppLink() {
-        Debugger.println("clicks On Panel App Link");
-        Wait.forElementToBeDisplayed(driver, visitPanelApp);
-        seleniumLib.clickOnWebElement(visitPanelApp);
-
-        String mainWindow = driver.getWindowHandle();
-        // To handle all new opened window.
-        Set<String> s1 = driver.getWindowHandles();
-        Iterator<String> i1 = s1.iterator();
-        while (i1.hasNext()) {
-            String childWindow = i1.next();
-
-            if (!mainWindow.equalsIgnoreCase(childWindow)) {
-                // Switching to Child window
-                driver.switchTo().window(childWindow);
-                String url = driver.getCurrentUrl();
-                Debugger.println("url of panelApp" + url);
-                if (seleniumLib.isElementPresent(panelAppTitle)) {
-                    if (panelAppTitle.getText().contains("panels")) {
-                        Debugger.println("Panels Page: Title found.");
-                    } else {
-                        Debugger.println("Panels Page: penetrance Title: Not found");
-                        return false;
-                    }
-                }
-            }
+        if (!Wait.isElementDisplayed(driver, visitPanelApp, 100)) {
+            Debugger.println("Visit Panel App Link not displayed...");
+            return false;
         }
-//  Closing the Child Window.
-//        driver.close();
-//         Switching to Parent window i.e Main Window.
-        driver.switchTo().window(mainWindow);
+        seleniumLib.clickOnWebElement(visitPanelApp);
+        seleniumLib.ChangeWindow();
+        return true;
+    }
+    public boolean verifyPanelAppNavigation() {
+        //Verify the navigated URL is correct
+        Wait.seconds(10);// Waiting to load the new external Link
+        String url = driver.getCurrentUrl();
+        Debugger.println("Current URL: "+url);
+        if (!url.contains("https://panelapp.genomicsengland.co.uk/panels/")) {
+            Debugger.println("URL navigated is Wrong: " + url);
+            SeleniumLib.closeCurrentWindow();
+            return false;
+        }
+        if (!Wait.isElementDisplayed(driver, panelAppTitle, 20)) {
+            Debugger.println("Panels not displayed on the Navigated Page.");
+            SeleniumLib.closeCurrentWindow();
+            return false;
+        }
+        SeleniumLib.closeCurrentWindow();
         return true;
     }
 
@@ -224,11 +207,9 @@ public class PanelsPage {
             Debugger.println("PanelsPage: Exception from changeTheStatusOfPenetrance " + exp);
             return false;
         }
-
     }
 
-    //for E2EUI-1231
-    public boolean completeIncompleteButtonsPresent() {
+    public boolean verifyThePresenceOfPenetranceOptions() {
         try {
             seleniumLib.waitForElementVisible(completeButton);
             if (!seleniumLib.isElementPresent(completeButton)) {
@@ -247,9 +228,8 @@ public class PanelsPage {
         }
     }
 
-
     public boolean verifyButtonAsCompletedByClickingInPanelsPage(String expectedButton) {
-        try{
+        try {
             if (expectedButton.equalsIgnoreCase("complete")) {
                 seleniumLib.clickOnWebElement(completeButton);
                 if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
@@ -267,14 +247,13 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels page: verifyButtonAsCompletedByClickingInPanelsPage " + exp);
-                return false;
-            }
+            return false;
+        }
     }
 
     public void deselectTheSelectedPanels() {
         try {
-            ArrayList<WebElement> expElements = new ArrayList<WebElement>();
-            for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
+             for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
                 seleniumLib.clickOnWebElement(selectedPanelsList.get(i));
             }
         } catch (Exception exp) {
@@ -287,14 +266,57 @@ public class PanelsPage {
             for (int i = 0; i < deselectedPanelsList.size(); i++) {
                 if (!seleniumLib.isElementPresent(deselectedPanelsList.get(i))) {
                     Debugger.println("Deselected element not present for " + deselectedPanelsList.get(i));
-                return false;
-            }
+                    return false;
+                }
             }
             Debugger.println("Deselect and verify successfully.");
             return true;
-        }catch(Exception exp){
+        } catch (Exception exp) {
             Debugger.println("PanelsPage: deselectTheSelectedPanels, Deselected panels not found." + exp);
             return false;
         }
     }
+    //Created this method separately for PanelsPage as in PanelsPage,as using from Referral Page was giving errors continuously
+    public boolean clicksOnSaveAndContinueButtonOnPanelsPage() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)) {
+                Debugger.println("Save and Continue Button not visible in Panels Page after 120 seconds. Failing.");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(saveAndContinueButton);
+            Wait.seconds(2);
+            //Again checking for the presence of button as some times , click not happening at first time.
+            if (seleniumLib.isElementPresent(saveAndContinueButton)) {//If still present
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            }
+            if (seleniumLib.isElementPresent(tryAgain)) {
+                seleniumLib.clickOnWebElement(tryAgain);
+            }
+            if (helix.size() > 0) {
+                try {
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                } catch (TimeoutException texp) {
+                    //Still the helix in action, waiting for another 30 seconds.
+                    Debugger.println("PanelsPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }
+            }
+            return true;
+        } catch(StaleElementReferenceException staleExp){
+            Debugger.println("SaveAndContinue Stale Exception in PanelsPage...");
+            By continueBut = By.xpath("//button[contains(text(),'Save and continue')]");
+            if(seleniumLib.isElementPresent(continueBut)){
+                Debugger.println("Clicking with new Element....");
+                seleniumLib.clickOnElement(continueBut);
+                Wait.seconds(10);
+                return true;
+            }
+            return false;
+        }catch(Exception exp) {
+            Debugger.println("Exception from PanelsPage:clickSaveAndContinueButton: " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSaveAndContinue.jpg");
+            return false;
+        }
+    }
+
 }//end

@@ -48,10 +48,10 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,"");
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,nhsDetails);
     }
 
-    @And("the user can select the test to add to the family member {string}")
+    @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(nhsDetails);
@@ -59,8 +59,8 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @When("the user fills the DiseaseStatusDetails for family member with the with the {string}")
-    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String searchDetails) {
-        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(searchDetails);
+    public void theUserFillsTheDiseaseStatusDetailsForFamilyMember(String diseaseStatus) {
+        familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(diseaseStatus);
     }
 
     @Then("the user returns to family member landing page with the added family member details {string}")
@@ -162,18 +162,15 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickOnBackButton();
     }
 
-    @Then("the user should be able to see family member's details card")
-    public void theUserShouldBeAbleToSeeFamilyMemberSDetailsCard() {
+    @And("the color of referral name for {string} displays as {string}")
+    public void theEditingReferralColorInRed(String nhsDetails,String color) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyThePatientCardField();
+        testResult = familyMemberDetailsPage.verifyTheEditingReferralColor(nhsDetails,color);
         Assert.assertTrue(testResult);
     }
-
-    @And("the editing referral color in Red")
-    public void theEditingReferralColorInRed() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheEditingReferralColor();
-        Assert.assertTrue(testResult);
+    @When("the user edits to complete the highlighted family member {string}")
+    public void theUserShouldEditToCompleteTheHighlightedFamilyMember(String familyMember) {
+        familyMemberDetailsPage.editSpecificFamilyMember(familyMember);
     }
 
     @Then("the family member landing page is correctly displayed")
@@ -237,7 +234,9 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @Then("the user should be able to see {string} removal message on the family member landing page")
     public void theUserShouldBeAbleToSeeRemovalMessageOnTheFamilyMemberLandingPage(String deleteMessage) {
-        familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheDeleteMessage(deleteMessage);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user clicks on participant amendment link to amend the number of participants")
@@ -435,6 +434,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the Relationship to Proband drop-down is allowed to have values up to {string}")
     public void theRelationshipToProbandDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
         Assert.assertTrue(familyMemberDetailsPage.verifyMaxAllowedValuesInRelationshipToProbandField(Integer.parseInt(allowedValuesCount)));
+    }
+
+    @When("^the user navigates to \"([^\"]*)\" stage$")
+    public void navigateTOSpecificStage(String stage) {
+        Debugger.println("Stage: "+stage+" Starting.");
+        familyMemberDetailsPage.navigateToStage(stage);
     }
 
 }//end
