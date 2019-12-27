@@ -571,7 +571,7 @@ Feature: Samples Page
 
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_20 @NTS-3416 @P0 @v_1 @E2EUI-2141
+    @samplesPage_20 @NTS-3416 @P0 @v_1 @E2EUI-2141 @E2EUI-2440
   Scenario Outline: NTS-3416: Moving to other stage: user is stopped if changes are not saved and try to navigate away from Sample stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -584,6 +584,21 @@ Feature: Samples Page
     When the user navigates to the "<new_stage>" stage
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    #   User is stopped from navigating away from Sample Details Page
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+     # moving to another Stage e.g Samples page
+    When the user navigates to the "<new_stage>" stage
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "samples" page
     And the user clicks the Save and Continue button
 
     Examples:

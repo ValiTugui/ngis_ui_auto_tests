@@ -109,7 +109,7 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header__cancel-reason']")
     public WebElement referralCancelReason;
 
-    @FindBy(css = "*[class*='logout-button']")
+    @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
     @FindBy(css = "*[class*='header__user']")
@@ -442,7 +442,7 @@ public class ReferralPage<check> {
     }
 
     public void clickLogoutButton() {
-        Wait.forElementToBeDisplayed(driver, headerRightArea);
+       // Wait.forElementToBeDisplayed(driver, headerRightArea); // Element not in E2E-Latest
         Actions.clickElement(driver, logoutButton);
     }
 
