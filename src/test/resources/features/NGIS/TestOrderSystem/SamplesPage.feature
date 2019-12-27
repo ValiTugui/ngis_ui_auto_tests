@@ -623,7 +623,7 @@ Feature: Samples Page
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
 
-  #     User click on back button
+  #     User click on back button - https://jira.extge.co.uk/browse/NTOS-4539
 #    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
 #    When the user attempts to navigate away by clicking "back"
 #    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
@@ -640,6 +640,43 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
       | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
 
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_22 @NTS-3416 @P0 @v_1 @E2EUI-2440
+  Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Add sample details
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+
+     #  User click on refresh button
+    When the user attempts to navigate away by clicking "refresh"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+
+  #     User click on back button - Defect - https://jira.extge.co.uk/browse/NTOS-4539
+#    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
+#    When the user attempts to navigate away by clicking "back"
+#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
+#    And the web browser is still at the same "<partialCurrentUrl2>" page
+
+   #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "logout" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
 
