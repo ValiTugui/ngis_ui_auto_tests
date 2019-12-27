@@ -4,7 +4,7 @@
 Feature: Samples Page
 
   @COMP7_TOC_Samples @LOGOUT
-    @samplesPage_01 @NTS-3272 @E2EUI-1946 @P0 @v_1
+    @samplesPage_01 @NTS-3272 @E2EUI-1946 @E2EUI-1239 @P0 @v_1
   Scenario Outline: NTS-3272: Verifying the page titles and sub-title of Manage Samples, Add a Sample, Edit details and Add sample details pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -385,6 +385,174 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       |
 
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_18 @NTS-3408 @P0 @v_1 @E2EUI-2143 @E2EUI-2108 @E2EUI-2106 @E2EUI-2098
+  Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-tumour>", sample state "<sampleState>" and filling SampleID
+    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    And asterisk "<asterisk>" star symbol is shown as mandatory next to the Tumour content - percentage of malignant field label for only Solid tumour sample
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>" and leaves Tumour content percentage field blank
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "Sample added"
+    When the user clicks the Save and Continue button
+    Then the "Add notes to this referral" page is displayed
+    And the "Notes" stage is selected
+    But the "Samples" stage is marked "<stageStatus>"
+
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | MandatoryToDo | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_19  @NTS-3412 @P0 @v_1 @E2EUI-2103
+  Scenario Outline: NTS-3412:Add sample details - Sample non-tumour type "<sampleType-non-tumour>" - Sample stage is completed even if sample questionnaire is unattended
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    And the user clicks the Save and Continue button
+    And the "<stage2>" stage is marked as Completed
+
+    Examples:
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Buccal swab |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Urine       |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_20 @NTS-3416 @P0 @v_1 @E2EUI-2141 @E2EUI-2440
+  Scenario Outline: NTS-3416: Moving to other stage: user is stopped if changes are not saved and try to navigate away from Sample stage
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    # moving to another Stage e.g Samples page
+    When the user navigates to the "<new_stage>" stage
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    #   User is stopped from navigating away from Sample Details Page
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+     # moving to another Stage e.g Samples page
+    When the user navigates to the "<new_stage>" stage
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "samples" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
+      | Samples | Manage samples | Add a sample | Notes     | Omics sample          | Buccal swab | Dismiss            | unsaved information | samples/add        |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_21 @NTS-3416 @P0 @v_1 @E2EUI-2141
+  Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Sample stage
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+
+     #  User click on refresh button
+    When the user attempts to navigate away by clicking "refresh"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+
+  #     User click on back button - https://jira.extge.co.uk/browse/NTOS-4539
+#    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
+#    When the user attempts to navigate away by clicking "back"
+#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
+#    And the web browser is still at the same "<partialCurrentUrl2>" page
+
+   #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "logout" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
+
+
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_22 @NTS-3416 @P0 @v_1 @E2EUI-2440
+  Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Add sample details
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "Add sample details" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+
+     #  User click on refresh button
+    When the user attempts to navigate away by clicking "refresh"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "refresh" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+
+  #     User click on back button - Defect - https://jira.extge.co.uk/browse/NTOS-4539
+#    No prompt alert is currently being shown when the back button is clicked - 23/12/2019
+#    When the user attempts to navigate away by clicking "back"
+#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "back" button and "<acknowledgeMessage>" it
+#    And the web browser is still at the same "<partialCurrentUrl2>" page
+
+   #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "logout" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save and Continue button
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
 
