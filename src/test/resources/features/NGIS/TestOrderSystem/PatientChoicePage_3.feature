@@ -96,7 +96,7 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user clicks on the "<forms>" link in patient choice page
-    And the user should be able to see a sub title "<forms>" add patient choice information
+    And the user should be able to see a sub title "<forms>" on add patient choice information page
     Then the should be able to see an additional section "<additionalForms>" under the Form Library
 
     Examples:

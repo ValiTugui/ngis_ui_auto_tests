@@ -476,18 +476,18 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertFalse(testResult);
     }
 
-    @And("the user should be able to see a sub title {string} add patient choice information")
-    public void theUserShouldBeAbleToSeeASubTitleAddPatientChoiceInformation(String formsTitle) {
+    @And("the user should be able to see a sub title {string} on add patient choice information page")
+    public void theUserShouldBeAbleToSeeASubTitleOnAddPatientChoiceInformationPage(String formsTitle) {
         boolean testResult = false;
         testResult=patientChoicePage.verifyFormsTitleUnderFormsLibrary(formsTitle);
-        Assert.assertFalse(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the should be able to see an additional section {string} under the Form Library")
     public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
         boolean testResult = false;
         testResult=patientChoicePage.verifyAdditionalformsSection(formsSection);
-        Assert.assertFalse(testResult);
+        Assert.assertTrue(testResult);
     }
 
 }//end

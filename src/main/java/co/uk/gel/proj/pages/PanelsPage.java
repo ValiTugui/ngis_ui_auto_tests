@@ -336,9 +336,7 @@ public class PanelsPage {
             Debugger.println("PanelsPage: penetrance title not found" + exp);
             return false;
         }
-
     }
-
 
     public boolean verifyTextLineUnderPenetranceTitle(String textLine) {
         try {
@@ -353,21 +351,6 @@ public class PanelsPage {
             Debugger.println("PanelsPage: Penetrance title:text line not found" + exp);
             return false;
         }
-    }
-
-    public boolean verifPanelSuggestionField() {
-        try {
-            seleniumLib.waitForElementVisible(penetranceTitle);
-            if (!seleniumLib.isElementPresent(suggestedPanels)) {
-                Debugger.println("PanelsPage: suggested panels field not found");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PanelsPage:suggested panels field not found" +exp);
-            return false;
-        }
-
     }
 
     public boolean verifyListOfSuggestedPanels(String panelsSuggestion) {

@@ -91,11 +91,6 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
     }
 
-    @And("the user should be able to see panels suggestion field")
-    public void theUserShouldBeAbleToSeePanelsSuggestionField() {
-        Assert.assertTrue(panelsPage.verifPanelSuggestionField());
-    }
-
     @Then("the User should be able to see the list of the panels under the {string} Section")
     public void theUserShouldBeAbleToSeeTheListOfThePanelsUnderTheSection(String panelsSuggestion) {
         Assert.assertTrue(panelsPage.verifyListOfSuggestedPanels(panelsSuggestion));
