@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class PanelsSteps extends Pages{
+public class PanelsSteps extends Pages {
 
     public PanelsSteps(SeleniumDriver driver) {
         super(driver);
@@ -47,6 +47,7 @@ public class PanelsSteps extends Pages{
     public void theUserClicksOnVisitPanelAppLink() {
         Assert.assertTrue(panelsPage.clicksOnVisitPanelsAppLink());
     }
+
     @Then("the user navigates to panelApp page")
     public void theUserNavigatesToPanelAppPage() {
         Assert.assertTrue(panelsPage.verifyPanelAppNavigation());

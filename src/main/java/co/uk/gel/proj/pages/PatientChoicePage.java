@@ -35,7 +35,10 @@ public class PatientChoicePage {
     String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
 
     @FindBy(xpath = "//h2[contains(text(),'Form library')]")
-    WebElement formLibraryTitle;
+    public WebElement formLibraryTitle;
+
+    @FindBy(xpath = "//h4[contains(text(),'Supporting information')]")
+    public WebElement additionalForms;
 
     @FindBy(xpath = "//h4[@class='form-section-header']")
     List<WebElement> patientChoiceFormsAndInformationTitle;
@@ -223,7 +226,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='accordion completed col-sm-12']")
     public WebElement patientChoiceCompressed;
 
-    @FindBy(xpath = "//h5[contains(text(),'Reason for not capturing patient choice:')]")
+    @FindBy(xpath = "//h5[contains(text(),'Reason for not capturing')]")
     WebElement patientChoiceReasonQuestion;
 
     @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
@@ -365,9 +368,9 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean fillRecordedByDetails(String familyDetails, String recorderBy) {
+    public boolean fillRecordedByDetails(String familyDetails, String recordedBy) {
         try {
-            if (recorderBy == null || recorderBy.isEmpty()) {
+            if (recordedBy == null || recordedBy.isEmpty()) {
                 return true;
             }
             NGISPatientModel familyMember = null;//To fill the clinician details to the Member, to validate later
@@ -386,7 +389,7 @@ public class PatientChoicePage {
             }
             boolean uploadDocument = false;
             String fileType = "";
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recorderBy);
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recordedBy);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
                 switch (key) {
@@ -429,7 +432,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in Filling RecordedBy Information: " + exp);
-            SeleniumLib.takeAScreenShot("RecorderBy.jpg");
+            SeleniumLib.takeAScreenShot("RecordedBy.jpg");
             return false;
         }
     }
@@ -756,9 +759,9 @@ public class PatientChoicePage {
                 return true;
             }
             Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle, 100);
-            patientChoiceLink = patientChoiceLink.replaceAll("New patient choice", linkText);
+            String patientChoiceLinkTab = patientChoiceLink.replaceAll("New patient choice", linkText);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
-            WebElement webElement = driver.findElement(By.xpath(patientChoiceLink));
+            WebElement webElement = driver.findElement(By.xpath(patientChoiceLinkTab));
             seleniumLib.clickOnWebElement(webElement);
             return true;
         } catch (Exception exp) {
@@ -901,7 +904,7 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
             if (!continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Expected color : " + continueButtonBgColor + " not displayed when continue button is not highlighted");
+                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should not be highlighted");
                 return false;
             }
             return true;
@@ -916,7 +919,7 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
             if (!continueButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
-                Debugger.println("Expected color : " + continueButtonBgColor + " not displayed on highlighted continue button");
+                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should be highlighted");
                 return false;
             }
             return true;
@@ -931,7 +934,7 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
             String submitPatientChoiceButtonBgColor = submitPatientChoiceButton.getCssValue("background-color");
             if (!submitPatientChoiceButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
-                Debugger.println("Expected color : " + submitPatientChoiceButtonBgColor + " not displayed when Submit patient choice button is not highlighted");
+                Debugger.println("Actual color : " + submitPatientChoiceButtonBgColor + " is displayed when Submit patient choice button is not highlighted");
                 return false;
             }
             return true;
@@ -1092,6 +1095,7 @@ public class PatientChoicePage {
     }
 
     public boolean selectPatientSignature() {
+        try {
         Wait.forElementToBeDisplayed(driver, signaturePad, 30);
         if (!seleniumLib.isElementPresent(signaturePad)) {
             Debugger.println("Signature Pad Not loaded for Patient Signature.");
@@ -1100,6 +1104,10 @@ public class PatientChoicePage {
         seleniumLib.scrollToElement(signaturePad);
         SeleniumLib.drawSignature(signaturePad);
         return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice Page: selectPatientSignature: " + exp);
+            return false;
+        }
     }
 
     public boolean patientChoiceFormCompleted() {
@@ -1447,8 +1455,6 @@ public class PatientChoicePage {
         }
     }
 
-//    2040
-
     public boolean verifyThePatientChoiceOptionsForConsultee() {
         try {
             Wait.forElementToBeDisplayed(driver, patientChoiceAboutResearch);
@@ -1519,6 +1525,35 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: submitPatientChoiceButtonStatus: " + exp);
+            return false;
+        }
+    }
+
+    public boolean verifyFormsTitleUnderFormsLibrary(String formsTitle) {
+        try {
+            seleniumLib.waitForElementVisible(formLibraryTitle);
+            if (!seleniumLib.isElementPresent(formLibraryTitle)) {
+                Debugger.println("Expected Subtitle: " + formsTitle + ", But Actual Title Is: " + formLibraryTitle.getText());
+                return false;
+            }
+            Assert.assertEquals(formsTitle, formLibraryTitle.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice: Form Library title not found" + exp);
+            return false;
+        }
+    }
+    public boolean verifyAdditionalformsSection(String formsSection) {
+        try {
+            seleniumLib.waitForElementVisible(additionalForms);
+            if (!seleniumLib.isElementPresent(additionalForms)) {
+                Debugger.println("Expected Subtitle: " + formsSection + ", But Actual Title Is: " + additionalForms.getText());
+                return false;
+            }
+            Assert.assertEquals(formsSection, additionalForms.getText());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice: Form Library title: Additional Forms not found" + exp);
             return false;
         }
     }

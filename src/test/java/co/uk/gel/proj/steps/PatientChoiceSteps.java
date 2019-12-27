@@ -458,4 +458,36 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldBeAbleToSeeSubmitPatientChoiceButtonDisabled() {
         Assert.assertTrue(patientChoicePage.submitPatientChoiceButtonStatus());
     }
+
+    @And("the user should be able to see all the details of patient choices for consultee option")
+    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesForConsulteeOption() {
+        Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOptionsForConsultee());
+    }
+
+    @And("the user should verify the questions and options in consultee attestation")
+    public void theUserShouldVerifyTheQuestionsAndOptionsInConsulteeAttestation() {
+        Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
+    }
+
+    @Then("Save and continue button is displayed as enabled")
+    public void saveAndContinueButtonIsDisplayedAsEnabled() {
+        boolean testResult = false;
+        testResult=patientChoicePage.saveAndContinueButtonStatus();
+        Assert.assertFalse(testResult);
+    }
+
+    @And("the user should be able to see a sub title {string} add patient choice information")
+    public void theUserShouldBeAbleToSeeASubTitleAddPatientChoiceInformation(String formsTitle) {
+        boolean testResult = false;
+        testResult=patientChoicePage.verifyFormsTitleUnderFormsLibrary(formsTitle);
+        Assert.assertFalse(testResult);
+    }
+
+    @Then("the should be able to see an additional section {string} under the Form Library")
+    public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
+        boolean testResult = false;
+        testResult=patientChoicePage.verifyAdditionalformsSection(formsSection);
+        Assert.assertFalse(testResult);
+    }
+
 }//end
