@@ -100,8 +100,8 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[@class='btn submit-signature-button']")
     WebElement submitPatientChoice;
 
-    @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")///span") //span[@class='css-1ksowpi'][text()='Patient choice status']/../span[@class='css-1a6lz9d']/span")
-            WebElement patientChoiceStatus;
+    @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")
+    WebElement patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
@@ -1021,19 +1021,22 @@ public class PatientChoicePage {
         return true;
     }
 
-    public void verifyTheQuestionInPatientChoice(String question) {
+    public boolean verifyTheQuestionInPatientChoice(String question) {
         try {
             Wait.seconds(10);
             String questionField = patientChoiceQuestion.replaceAll("dummyQuestion", question);
             WebElement questionElement = driver.findElement(By.xpath(questionField));
             if (!question.equalsIgnoreCase(questionElement.getText())) {
                 Debugger.println("#Expected :" + question + " #Actual :" + questionElement.getText());
+                return false;
             }
             Debugger.println("Actual : " + questionElement.getText());
             Debugger.println("Expected : " + question);
             Assert.assertEquals(question, questionElement.getText());
+            return true;
         } catch (Exception exp) {
             Debugger.println("verifyTheQuestionInPatientChoice, element not found.");
+            return false;
         }
     }
 
@@ -1106,6 +1109,8 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: selectPatientSignature: " + exp);
+            //update
+            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
             return false;
         }
     }
@@ -1134,7 +1139,6 @@ public class PatientChoicePage {
                 return false;
             }
             Assert.assertEquals("Reason for not capturing patient choice:", patientChoiceReasonQuestion.getText());
-
             for (int i = 3; i < patientChoiceAboutResearchOptions.size(); i++) {
                 if (!seleniumLib.isElementPresent(patientChoiceAboutResearchOptions.get(i))) {
                     Debugger.println("Patient choices reasons not found.");
@@ -1532,29 +1536,44 @@ public class PatientChoicePage {
     public boolean verifyFormsTitleUnderFormsLibrary(String formsTitle) {
         try {
             seleniumLib.waitForElementVisible(formLibraryTitle);
+          //no need of below
             if (!seleniumLib.isElementPresent(formLibraryTitle)) {
-                Debugger.println("Expected Subtitle: " + formsTitle + ", But Actual Title Is: " + formLibraryTitle.getText());
+                Debugger.println("Form library title is not present");
                 return false;
             }
-            Assert.assertEquals(formsTitle, formLibraryTitle.getText());
+            //update
+            if (!formsTitle.equalsIgnoreCase(formLibraryTitle.getText())) {
+                Debugger.println("Expected Subtitle: " + formsTitle + ", but Actual Title Is: " + formLibraryTitle.getText());
+                return false;
+            }
+//            Assert.assertEquals(formsTitle, formLibraryTitle.getText());
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Form Library title not found" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormTitle.jpg");
             return false;
         }
     }
 
-    public boolean verifyAdditionalformsSection(String formsSection) {
+    public boolean verifyAdditionalFormsSection(String formsSection) {
         try {
             seleniumLib.waitForElementVisible(additionalForms);
+            //no need
             if (!seleniumLib.isElementPresent(additionalForms)) {
+                Debugger.println("Additional forms not present");
                 Debugger.println("Expected Subtitle: " + formsSection + ", But Actual Title Is: " + additionalForms.getText());
                 return false;
             }
-            Assert.assertEquals(formsSection, additionalForms.getText());
+           //update
+           // Assert.assertEquals(formsSection, additionalForms.getText());
+            if (!formsSection.equalsIgnoreCase(additionalForms.getText())) {
+                Debugger.println("Expected Subtitle: " + formsSection + ", but Actual Subtitle is: " + additionalForms.getText());
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Form Library title: Additional Forms not found" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormSection.jpg");
             return false;
         }
     }

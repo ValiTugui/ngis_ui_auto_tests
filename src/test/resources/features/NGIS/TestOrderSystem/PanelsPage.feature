@@ -86,8 +86,7 @@ Feature: Panels Page Verification
     And the user clicks on Save and Continue in Panels Page
     When the user navigates to "<Panels>" stage
     Then the user is navigated to a page with title Panels
-    Then the User should be able to see the list of the panels under the "<section>" Section
-
+    Then the user should be able to see the list of the panels under the "<Section>" section
     Examples:
-      | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | section                                       |
+      | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | Section                                       |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | Suggestions based on the clinical information |

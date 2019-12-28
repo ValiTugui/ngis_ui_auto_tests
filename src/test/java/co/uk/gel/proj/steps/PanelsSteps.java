@@ -78,9 +78,11 @@ public class PanelsSteps extends Pages {
 
     @And("the user clicks on Save and Continue in Panels Page")
     public void theUserClicksOnSaveAndContinue() {
-        panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
+        boolean testResult = false;
+        testResult = panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
+        Assert.assertTrue(testResult);
     }
-
+    // update
     @And("the user should be able to see a sub title {string} on panels page")
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
         Assert.assertTrue(panelsPage.verifyPenetranceTitle(subtitle));
@@ -91,7 +93,8 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
     }
 
-    @Then("the User should be able to see the list of the panels under the {string} Section")
+    //update What are the expected list of panels for the test ?
+    @Then("the user should be able to see the list of the panels under the {string} section")
     public void theUserShouldBeAbleToSeeTheListOfThePanelsUnderTheSection(String panelsSuggestion) {
         Assert.assertTrue(panelsPage.verifyListOfSuggestedPanels(panelsSuggestion));
     }

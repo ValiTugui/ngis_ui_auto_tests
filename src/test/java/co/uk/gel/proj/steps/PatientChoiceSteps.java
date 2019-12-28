@@ -37,7 +37,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         testResult = patientChoicePage.fillRecordedByDetails("", patientChoice.get(2).get(0));
-        //testResult = patientChoicePage.fillRecordedByDetails(patientChoice.get(0).get(0),patientChoice.get(2).get(0));
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         patientChoicePage.clickOnContinue();
@@ -275,14 +274,14 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the question will be displayed as {string}")
     public void theQuestionWillBeDisplayedAs(String question) {
-        patientChoicePage.verifyTheQuestionInPatientChoice(question);
-
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheQuestionInPatientChoice(question);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects {string} research participation in patient choices option")
     public void theUserSelectsResearchParticipationInPatientChoicesOption(String option) {
         patientChoicePage.clickingOnResearchParticipationYesNoOptions(option);
-
     }
 
     @And("the user selects {string} NHS care in patient choices option")
@@ -470,10 +469,10 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldVerifyTheQuestionsAndOptionsInConsulteeAttestation() {
         Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
     }
-
+    // need to update assert false ?
     @Then("Save and continue button is displayed as enabled")
     public void saveAndContinueButtonIsDisplayedAsEnabled() {
-        boolean testResult = false;
+        boolean testResult = true;
         testResult = patientChoicePage.saveAndContinueButtonStatus();
         Assert.assertFalse(testResult);
     }
@@ -488,7 +487,7 @@ public class PatientChoiceSteps extends Pages {
     @Then("the should be able to see an additional section {string} under the Form Library")
     public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifyAdditionalformsSection(formsSection);
+        testResult = patientChoicePage.verifyAdditionalFormsSection(formsSection);
         Assert.assertTrue(testResult);
     }
 
