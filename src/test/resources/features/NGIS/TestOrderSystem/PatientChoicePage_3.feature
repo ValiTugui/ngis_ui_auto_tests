@@ -51,9 +51,10 @@ Feature: Patient Choice Page
     Then the user will see a "<InfoMessage>" warning message on the patient choice information option
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      | InfoMessage                                                                                                                                                   |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
-
+      | Patient choice stage | PatientChoiceCategory    | TestType                            | RecordedBy                            | PatientChoice                                                           | InfoMessage                                                                                                                                                   |
+      | Patient choice       | Adult (With Capacity)    | Rare & inherited diseases – WGS     | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test                      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
+      | Patient choice       | Adult (Without Capacity) | Rare & inherited diseases – WGS     | ClinicianName=John:HospitalNumber=123 | Consultee changed their mind about the clinical test                    | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
+      | Patient choice       | Child                    | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
   @COMP9_TO_PatientChoiceAdd
     @PatientChoice_page_19 @LOGOUT @E2EUI-1127 @E2EUI-1934 @NTS-3410 @v_1 @P0
