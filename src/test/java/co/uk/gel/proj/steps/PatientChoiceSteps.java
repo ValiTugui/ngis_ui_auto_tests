@@ -497,6 +497,12 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.clickOnLink(link);
         Assert.assertTrue(testResult);
     }
+    @Then("the user should be able to see highlighted continue button")
+    public void theUserShouldBeAbleToSeeHighlightedContinueButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.highlightedContinueButton();
+        Assert.assertTrue(testResult);
+    }
 
     @And("the user clicks on the amend patient choice button")
     public void theUserClicksOnTheAmendPatientChoiceButton() {

@@ -926,7 +926,7 @@ public class PatientChoicePage {
         try {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
-            if (!continueButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
+            if (continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
                 Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should be highlighted");
                 return false;
             }
