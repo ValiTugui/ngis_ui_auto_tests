@@ -962,6 +962,7 @@ public class PatientChoicePage {
             return false;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageContinueBtnStatus.jpg");
             return false;
         }
     }
