@@ -41,6 +41,7 @@ public class NewPatient {
 	private String responsibleClinicianContactNumber;
 
 	private String clinicalIndicationTestTypeSampleType;
+	private int totalNumberOfUncheckedTumourList;
 
 
 	public String getClinicalIndication() {
@@ -297,4 +298,11 @@ public class NewPatient {
 		this.clinicalIndicationTestTypeSampleType = clinicalIndicationTestTypeSampleType;
 	}
 
+	public int getTotalNumberOfUncheckedTumourList() {
+		return totalNumberOfUncheckedTumourList;
+	}
+
+	public void setTotalNumberOfUncheckedTumourList (int totalNumberOfUncheckedTumourList) {
+		this.totalNumberOfUncheckedTumourList = totalNumberOfUncheckedTumourList;
+	}
 }

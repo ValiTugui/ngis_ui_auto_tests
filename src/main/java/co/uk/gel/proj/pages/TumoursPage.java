@@ -141,6 +141,12 @@ public class TumoursPage {
     @FindBy(xpath = "//th[contains(text(),'Working diagnosis/morphology')]" )
     public WebElement snomedCTWorkingDiagnosisLabel;
 
+    @FindBy(xpath = "//table//tbody/tr[not(contains(@class,'checked'))]" )
+    public List <WebElement> listOfUnselectedTumourList;
+
+    @FindBy(xpath = "//tr[contains(@class,'checked')]//th/div/div|//tr[contains(@class,'checked')]//td[@class='checkbox-row__cell']")
+    public List <WebElement> newlyCheckedTumourDetailsList;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -481,5 +487,16 @@ public class TumoursPage {
         tumourDetails.setTumourDescription(resetValue);
         Debugger.println("Current TumourDescription to be null: " + tumourDetails.getTumourDescription());
         return resetValue;
+    }
+
+    public void setTheTotalNumberOfUncheckedTumourList() {
+        int totalListOfUnselectedTumour = listOfUnselectedTumourList.size();
+        tumourDetails.setTotalNumberOfUncheckedTumourList(totalListOfUnselectedTumour);
+    }
+
+    public int getTheTotalNumberOfUncheckedTumourList() {
+        int totalListOfUnselectedTumour = listOfUnselectedTumourList.size();
+        tumourDetails.setTotalNumberOfUncheckedTumourList(totalListOfUnselectedTumour);
+        return tumourDetails.getTotalNumberOfUncheckedTumourList();
     }
 }
