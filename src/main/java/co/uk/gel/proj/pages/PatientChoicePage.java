@@ -278,6 +278,14 @@ public class PatientChoicePage {
     @FindBy(xpath = "//label[@class='radio-container'][contains(@id,'Choices')]")
     List<WebElement> patientChoiceAboutResearchOptions;
 
+    String linkText = "//div[contains(@class,'row quicklinks-subnav')]//child::a[contains(text(),'dummyLinkText')]";
+
+    @FindBy(xpath = "//button[@class='btn gel-btn-blue']")
+    WebElement amendPatientChoice;
+
+    @FindBy(xpath = "//div[contains(@class,'quicklinks-subnav')]")
+    WebElement rowOfLinks;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1109,7 +1117,6 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: selectPatientSignature: " + exp);
-            //update
             SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
             return false;
         }
@@ -1429,7 +1436,6 @@ public class PatientChoicePage {
         }
     }
 
-
     public boolean verifyTheIntroMessage(String introMessage) {
         try {
             Wait.forElementToBeDisplayed(driver, introMessageOnRequestingOrganisation);
@@ -1495,7 +1501,6 @@ public class PatientChoicePage {
         }
     }
 
-
     public boolean verifyTheConsulteeAttestationFirstOptions() {
         try {
             Wait.forElementToBeDisplayed(driver, firstConsulteeAttestationQuestion);
@@ -1536,17 +1541,10 @@ public class PatientChoicePage {
     public boolean verifyFormsTitleUnderFormsLibrary(String formsTitle) {
         try {
             seleniumLib.waitForElementVisible(formLibraryTitle);
-          //no need of below
-            if (!seleniumLib.isElementPresent(formLibraryTitle)) {
-                Debugger.println("Form library title is not present");
-                return false;
-            }
-            //update
             if (!formsTitle.equalsIgnoreCase(formLibraryTitle.getText())) {
-                Debugger.println("Expected Subtitle: " + formsTitle + ", but Actual Title Is: " + formLibraryTitle.getText());
+                Debugger.println("Expected Subtitle: " + formsTitle + ", but Actual Title is: " + formLibraryTitle.getText());
                 return false;
             }
-//            Assert.assertEquals(formsTitle, formLibraryTitle.getText());
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Form Library title not found" + exp);
@@ -1558,14 +1556,6 @@ public class PatientChoicePage {
     public boolean verifyAdditionalFormsSection(String formsSection) {
         try {
             seleniumLib.waitForElementVisible(additionalForms);
-            //no need
-            if (!seleniumLib.isElementPresent(additionalForms)) {
-                Debugger.println("Additional forms not present");
-                Debugger.println("Expected Subtitle: " + formsSection + ", But Actual Title Is: " + additionalForms.getText());
-                return false;
-            }
-           //update
-           // Assert.assertEquals(formsSection, additionalForms.getText());
             if (!formsSection.equalsIgnoreCase(additionalForms.getText())) {
                 Debugger.println("Expected Subtitle: " + formsSection + ", but Actual Subtitle is: " + additionalForms.getText());
                 return false;
@@ -1577,4 +1567,35 @@ public class PatientChoicePage {
             return false;
         }
     }
+
+    public boolean clickOnLink(String link) {
+        Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
+        try {
+            String dummyLink = linkText.replaceAll("dummyLinkText", link);
+            WebElement webElement = driver.findElement(By.xpath(dummyLink));
+            if (Wait.isElementDisplayed(driver, webElement, 3)) {
+                seleniumLib.clickOnWebElement(webElement);
+            } else {
+                Debugger.println("Links on page after form loading " + link + " not loaded.");
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice Page: Click on Link: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormPageLinks.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnAmendPatientChoice() {
+        Wait.forElementToBeDisplayed(driver, amendPatientChoice);
+        try {
+            seleniumLib.clickOnWebElement(amendPatientChoice);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice Page: click on amend patient choice: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceAmendOption.jpg");
+            return false;
+        }
+    }
+
 }//end

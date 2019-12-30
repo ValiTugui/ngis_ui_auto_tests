@@ -82,10 +82,10 @@ public class PanelsSteps extends Pages {
         testResult = panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
         Assert.assertTrue(testResult);
     }
-    // update
+
     @And("the user should be able to see a sub title {string} on panels page")
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
-        Assert.assertTrue(panelsPage.verifyPenetranceTitle(subtitle));
+        Assert.assertEquals(subtitle, panelsPage.verifyPenetranceTitle());
     }
 
     @Then("the user should be able to see an additional line {string} underneath the penetrance title")
@@ -93,10 +93,9 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
     }
 
-    //update What are the expected list of panels for the test ?
-    @Then("the user should be able to see the list of the panels under the {string} section")
-    public void theUserShouldBeAbleToSeeTheListOfThePanelsUnderTheSection(String panelsSuggestion) {
-        Assert.assertTrue(panelsPage.verifyListOfSuggestedPanels(panelsSuggestion));
+    @Then("the user should be able to see suggested panels under the {string} section")
+    public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
+        Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
     }
 
 }//end

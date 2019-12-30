@@ -325,8 +325,8 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.submitPatientChoiceWithSignature();
     }
 
-    @And("the user should be able to see the patient choice form")
-    public void theUserShouldBeAbleToSeeThePatientChoiceForm() {
+    @And("the user should be able to see the patient choice form with success message")
+    public void theUserShouldBeAbleToSeeThePatientChoiceFormWithSuccessMessage() {
         Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
     }
 
@@ -469,7 +469,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldVerifyTheQuestionsAndOptionsInConsulteeAttestation() {
         Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
     }
-    // need to update assert false ?
+
     @Then("Save and continue button is displayed as enabled")
     public void saveAndContinueButtonIsDisplayedAsEnabled() {
         boolean testResult = true;
@@ -488,6 +488,20 @@ public class PatientChoiceSteps extends Pages {
     public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyAdditionalFormsSection(formsSection);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on {string} link")
+    public void theUserClicksOnLink(String link) {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnLink(link);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the amend patient choice button")
+    public void theUserClicksOnTheAmendPatientChoiceButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnAmendPatientChoice();
         Assert.assertTrue(testResult);
     }
 

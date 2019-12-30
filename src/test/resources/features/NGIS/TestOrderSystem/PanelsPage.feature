@@ -61,7 +61,6 @@ Feature: Panels Page Verification
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | cardiac arr  |
 
 
-
   @COMP9_TO_Panels
     @COMP9_TO_Panels_04 @LOGOUT @NTS-3413 @E2EUI-1906  @v_1 @P0
   Scenario Outline: NTS-3413 : verify the text under penetrance title
@@ -86,7 +85,8 @@ Feature: Panels Page Verification
     And the user clicks on Save and Continue in Panels Page
     When the user navigates to "<Panels>" stage
     Then the user is navigated to a page with title Panels
-    Then the user should be able to see the list of the panels under the "<Section>" section
+    Then the user should be able to see suggested panels under the "<Section>" section
+
     Examples:
       | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | Section                                       |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | Suggestions based on the clinical information |

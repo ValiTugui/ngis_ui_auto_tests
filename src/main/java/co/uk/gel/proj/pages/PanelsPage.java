@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.eo.Se;
+import org.apache.commons.lang.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -334,20 +335,15 @@ public class PanelsPage {
         }
     }
 
-    //incorporated comments and updated
-    public boolean verifyPenetranceTitle(String subtitle) {
+    public String verifyPenetranceTitle() {
         try {
             seleniumLib.waitForElementVisible(penetranceTitle);
             String actualSubTitle = penetranceTitle.getText();
-            if (!subtitle.equalsIgnoreCase(actualSubTitle)) {
-                Debugger.println("Expected Subtitle: " + subtitle + ", but Actual Subtitle is: " + actualSubTitle);
-                return false;
-            }
-            return true;
+            return actualSubTitle;
         } catch (Exception exp) {
             Debugger.println("PanelsPage: penetrance title not found" + exp);
             SeleniumLib.takeAScreenShot("PanelsPagePenetranceTitle.jpg");
-            return false;
+            return null;
         }
     }
 
@@ -358,7 +354,6 @@ public class PanelsPage {
                 Debugger.println("Text Line is not present under penetrance title");
                 return false;
             }
-// //incorporated comments and updated
             if (!textLine.equalsIgnoreCase(actualText)) {
                 Debugger.println("Expected Text: " + textLine + ", but Actual text is: " + actualText);
                 return false;
@@ -371,21 +366,12 @@ public class PanelsPage {
         }
     }
 
-    //incorporated comments and updated
-    public boolean verifyListOfSuggestedPanels(String panelsSuggestion) {
+    public boolean verifySuggestedPanels(String panelsSuggestion) {
         try {
             seleniumLib.waitForElementVisible(penetranceTitle);
-            if (!seleniumLib.isElementPresent(suggestedPanels)) {
-                Debugger.println("Suggested panels title not found in Panels page");
-                return false;
-            }
             if (!panelsSuggestion.equalsIgnoreCase(suggestedPanels.getText())) {
                 Debugger.println("Expected Subtitle: " + panelsSuggestion + ", but Actual Subtitle is: " + suggestedPanels.getText());
                 return false;
-            }
-            //// loop changed ///// what is loop doing
-            for (int i = 0; i < selectedPanelsList.size(); i++) {
-                Debugger.println("Selected field is: " + selectedPanelsList.get(i).getText());
             }
             return true;
         } catch (Exception exp) {

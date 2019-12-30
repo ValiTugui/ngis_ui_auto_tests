@@ -7,7 +7,7 @@ Feature: Patient Choice Page
     @PatientChoice_page_17 @LOGOUT @NTS-3409 @E2EUI-1822 @v_1 @P0
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
 
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -25,11 +25,11 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form
+    And the user should be able to see the patient choice form with success message
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | PatientChoiceCategory | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Adult (With Capacity) | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
 
   @COMP9_TO_PatientChoiceAdd
@@ -77,10 +77,11 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     And the user clicks on submit patient choice Button
-    Then the user should be able to see the patient choice form
+    Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     When the user is navigated to a page with title Patient choice
     Then the "<Patient choice stage>" stage is marked as Completed
+
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
@@ -127,8 +128,31 @@ Feature: Patient Choice Page
     And the user fills PatientSignature details in patient signature
     Then Save and continue button is displayed as disabled
     And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form
+    And the user should be able to see the patient choice form with success message
     Then Save and continue button is displayed as enabled
+    When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
+    Then the user is navigated to a page with title Add patient choice information
+    And the user clicks on "New patient choice" link
+    And the user clicks on the amend patient choice button
+    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user fills "<TestType>" details in test type
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the user is navigated to a patient choice form option with title Patient choices
+    When the user fills "<PatientChoice>" details in patient choices
+    And the user selects "<YesOption>" research participation option in patient choices
+    And the user selects "<YesOption>" data and sample option in patient choices
+    And the user clicks on Continue Button
+    When the user is navigated to a patient choice form option with title Patient signature
+    And the user fills PatientSignature details in patient signature
+    Then Save and continue button is displayed as disabled
+    And the user clicks on submit patient choice Button
+    And the user should be able to see the patient choice form with success message
+    Then Save and continue button is displayed as enabled
+    When the user clicks the Save and Continue button
+    Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
