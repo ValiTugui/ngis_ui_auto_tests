@@ -335,11 +335,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(patientChoicePage.highlightedSubmitPatientChoiceButton());
     }
 
-    @Then("Save and continue button is displayed as disabled")
-    public void saveAndContinueButtonIsDisplayedAsDisabled() {
-        Assert.assertTrue(patientChoicePage.saveAndContinueButtonStatus());
-    }
-
     @Then("the user should be able to see all the details of patient choices reasons")
     public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesReasons() {
         Assert.assertTrue(patientChoicePage.verifyReasonsOfPatientChoice());
@@ -470,11 +465,17 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
     }
 
-    @Then("Save and continue button is displayed as enabled")
-    public void saveAndContinueButtonIsDisplayedAsEnabled() {
-        boolean testResult = true;
-        testResult = patientChoicePage.saveAndContinueButtonStatus();
-        Assert.assertFalse(testResult);
+    @Then("Save and continue button is displayed as {string}")
+    public void saveAndContinueButtonIsDisplayedAs(String expectedStatus) {
+        boolean testResult = false;
+        if (expectedStatus.equals("enabled")) {
+            testResult = patientChoicePage.saveAndContinueButtonStatus();
+            Assert.assertTrue(testResult);
+        } else {
+            testResult = true;
+            testResult = patientChoicePage.saveAndContinueButtonStatus();
+            Assert.assertFalse(testResult);
+        }
     }
 
     @And("the user should be able to see a sub title {string} on add patient choice information page")
@@ -495,6 +496,12 @@ public class PatientChoiceSteps extends Pages {
     public void theUserClicksOnLink(String link) {
         boolean testResult = false;
         testResult = patientChoicePage.clickOnLink(link);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see highlighted continue button")
+    public void theUserShouldBeAbleToSeeHighlightedContinueButton() {
+        boolean testResult = false;
+        testResult = patientChoicePage.highlightedContinueButton();
         Assert.assertTrue(testResult);
     }
 

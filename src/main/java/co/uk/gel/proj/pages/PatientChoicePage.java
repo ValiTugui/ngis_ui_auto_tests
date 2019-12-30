@@ -926,7 +926,7 @@ public class PatientChoicePage {
         try {
             Wait.forElementToBeDisplayed(driver, continueButton);
             String continueButtonBgColor = continueButton.getCssValue("background-color");
-            if (!continueButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
+            if (continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
                 Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should be highlighted");
                 return false;
             }
@@ -957,9 +957,9 @@ public class PatientChoicePage {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
             if (saveAndContinueButton.isEnabled()) {
                 Debugger.println("Save and continue button is in enabled state.");
-                return false;
+                return true;
             }
-            return true;
+            return false;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
             return false;
@@ -1577,6 +1577,7 @@ public class PatientChoicePage {
                 seleniumLib.clickOnWebElement(webElement);
             } else {
                 Debugger.println("Links on page after form loading " + link + " not loaded.");
+                return false;
             }
             return true;
         } catch (Exception exp) {

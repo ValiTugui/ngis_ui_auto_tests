@@ -373,6 +373,10 @@ public class PanelsPage {
                 Debugger.println("Expected Subtitle: " + panelsSuggestion + ", but Actual Subtitle is: " + suggestedPanels.getText());
                 return false;
             }
+            if (!(selectedPanelsList.size() >= 1)) {
+                Debugger.println("Suggestion for panels not found ");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels Page:suggested panels :panels not found " + exp);

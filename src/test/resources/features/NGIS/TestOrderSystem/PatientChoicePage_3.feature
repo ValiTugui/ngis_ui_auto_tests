@@ -114,6 +114,7 @@ Feature: Patient Choice Page
 
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
+    And the user should be able to see highlighted continue button
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
@@ -127,12 +128,13 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
-    Then Save and continue button is displayed as enabled
+    Then Save and continue button is displayed as "enabled"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
+    And the user should be able to see highlighted continue button
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on "New patient choice" link
@@ -148,11 +150,12 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
-    Then Save and continue button is displayed as enabled
+    Then Save and continue button is displayed as "enabled"
     When the user clicks the Save and Continue button
+    And the user should be able to see highlighted continue button
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
