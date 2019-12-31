@@ -32,6 +32,12 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
+    @FindBy(xpath = "//div[contains(text(),'Select...')]")
+    public WebElement diseaseStatusPlaceholderText;
+
+    @FindBy(xpath = "//*[contains(@id,'question-id-q96')]//div[contains(@class,'indicatorContainer')][1]")
+    public WebElement diseaseStatusCloseIcon;
+
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
@@ -58,6 +64,9 @@ public class ClinicalQuestionsPage {
 
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
+
+    @FindBy(css = "[class*='hpo-term__delete']")
+    public List<WebElement> hpoTermsDeleteIcons;
 
     @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
@@ -270,4 +279,34 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+
+    public void clickCloseIcon() {
+        Wait.forElementToBeDisplayed(driver, diseaseStatusCloseIcon);
+        Actions.clickElement(driver, diseaseStatusCloseIcon);
+        Wait.seconds(2);
+    }
+
+    public String getDefaultValueOfDiseaseStatus() {
+        Wait.forElementToBeDisplayed(driver, diseaseStatusPlaceholderText);
+        return Actions.getText(diseaseStatusPlaceholderText);
+    }
+
+    public boolean deleteHPOTerm(String hpoTerm) {
+        Wait.seconds(2);
+        Wait.forElementToBeDisplayed(driver, hpoTable);
+        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+        String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
+        if(actualHPOTermDisplayedInTheFirstRow.contains(hpoTerm)){
+            Wait.forElementToBeDisplayed(driver, hpoTermsDeleteIcons.get(0));
+            Actions.clickElement(driver, hpoTermsDeleteIcons.get(0));
+            return true;
+        }
+        else {
+            Debugger.println("unable to locate delete icon for the HPO terms : " + hpoTerm);
+            SeleniumLib.takeAScreenShot("HPOTermsTable.jpg");
+            return false;
+
+        }
+    }
+
 }

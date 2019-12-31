@@ -2,12 +2,16 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Set;
 
 public class ClinicalQuestionsSteps extends Pages {
     public ClinicalQuestionsSteps(SeleniumDriver driver) {
@@ -111,5 +115,32 @@ public class ClinicalQuestionsSteps extends Pages {
     @And("the OMIM and Oprhanet drop-down is allowed to have values up to {string}")
     public void theOMIMAndOprhanetDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
         Assert.assertTrue(clinicalQuestionsPage.verifyMaxAllowedValuesOMIMField(Integer.parseInt(allowedValuesCount)));
+    }
+
+
+    @And("the user fills the ClinicalQuestionsPage with the {string} except to the Rare disease diagnosis field")
+    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(String searchDetails) {
+        theUserSearchTheFamilyMemberWithTheSpecifiedDetails(searchDetails);
+    }
+
+    @When("the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon")
+    public void theUserClearsTheValueThatIsSetOnOnTheCloseIconPlacedInTheDiseaseStatusFieldByClickingTheCloseIcon() {
+        clinicalQuestionsPage.clickCloseIcon();
+    }
+
+    @Then("the Disease status field is not set with the disease status value {string}")
+    public void theDiseaseStatusFieldIsNotSetWithTheDiseaseStatusValue(String searchTerms) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
+        String previouslyAssignedValueOfDiseaseStatus = paramNameValue.get("DiseaseStatus");
+        String expectedDefaultValueOfDiseaseStatus = "Select...";
+        String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
+        Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
+        Assert.assertFalse(actualValueOfDiseaseStatus.equals(previouslyAssignedValueOfDiseaseStatus));
+        Assert.assertTrue(actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus));
+    }
+
+    @When("the user clicks the delete icon which is displayed across the {string}")
+    public void theUserClicksTheDeleteIconWhichIsDisplayedAcrossThe(String hPOTermToBeRemoved) {
+     Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
     }
 }
