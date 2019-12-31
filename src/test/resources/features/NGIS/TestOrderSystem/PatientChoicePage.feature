@@ -90,7 +90,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage2>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice                                      | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                          |
@@ -114,7 +114,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice                                     | Reasons | WarningMessage                                                                                                                                                                           |
@@ -144,7 +144,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice1                 | NoOption | Question1                                  | Question2                                          | WarningMessage                                                                                                         | PatientChoice2                                |
@@ -173,7 +173,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice                  | YesOption | NoOption | Question1                                  | WarningMessage                                                                                                                                                      | Question2                                                                                      |
@@ -201,7 +201,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice                  | YesOption | Question1                                  | Question2                                                                                      |
