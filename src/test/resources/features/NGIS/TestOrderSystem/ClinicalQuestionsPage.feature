@@ -192,3 +192,35 @@ Feature: Clinical Questions stage
     Examples:
       | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTerm3          | partOfMessage                     | removeIcon | acknowledgeMessage |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | Juvenile cataract | Confirm removal of this HPO term. | remove     | Accept             |
+
+
+  @E2EUI-1546 @NTS-3433 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
+  Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<TestPackage>" stage
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    When the user navigates to the "<ClinicalQuestions>" stage
+    When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
+    Then the user clicks the Save and Continue button
+    And the "<ClinicalQuestions>" stage is marked as Completed
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user selects the test to add to the family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    When the user fills the clinical questions with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field for the family member
+    And the user clicks the Save and Continue button
+    Then the user returns to family member landing page with the added family member details "<FamilyMemberDetails>"
+
+    Examples:
+      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband |
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          |
