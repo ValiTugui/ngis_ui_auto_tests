@@ -111,8 +111,19 @@ Feature: Patient Choice Page
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-
-    When the user navigates to the "<Patient choice stage>" stage
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user clicks the Save and Continue button
+    When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
     And the user should be able to see highlighted continue button
     When the user edits the patient choice status
@@ -156,9 +167,30 @@ Feature: Patient Choice Page
     Then Save and continue button is displayed as "enabled"
     When the user clicks the Save and Continue button
     And the user should be able to see highlighted continue button
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Add patient choice information
+    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user fills "<TestType>" details in test type
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the user is navigated to a patient choice form option with title Patient choices
+    When the user fills "<PatientChoice>" details in patient choices
+    And the user selects "<YesOption>" research participation option in patient choices
+    And the user selects "<YesOption>" data and sample option in patient choices
+    And the user clicks on Continue Button
+    When the user is navigated to a patient choice form option with title Patient signature
+    And the user fills PatientSignature details in patient signature
+    Then Save and continue button is displayed as "disabled"
+    And the user clicks on submit patient choice Button
+    And the user should be able to see the patient choice form with success message
+    Then Save and continue button is displayed as "enabled"
+    When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    And the user should be able to see highlighted continue button
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband |  Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          |  Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 

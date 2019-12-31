@@ -512,4 +512,11 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user edits the patient choice status for family member with {string}")
+    public void theUserEditsThePatientChoiceStatusForFamilyMemberWith(String familyDetails) {
+        boolean testResult = false;
+        testResult=patientChoicePage.editSpecificPatientChoice(familyDetails);
+        Assert.assertTrue(testResult);
+    }
+
 }//end

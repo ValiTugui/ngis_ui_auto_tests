@@ -329,6 +329,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageEdit.jpg");
             return false;
         }
     }
