@@ -169,7 +169,7 @@ Feature: Patient Choice Page
     And the user should be able to see highlighted continue button
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Add patient choice information
+    Then the user is navigated to a page with title Add family member patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
