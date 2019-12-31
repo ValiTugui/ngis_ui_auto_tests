@@ -144,7 +144,7 @@ Feature: Patient Choice Page
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
-    Then Save and continue button is displayed as disabled
+    Then Save and continue button is displayed as "disabled"
 
     Examples:
       | PatientChoice1                 | NoOption | Question1                                  | Question2                                          | WarningMessage                                                                                                         | PatientChoice2                                |
