@@ -555,6 +555,49 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
+  @COMP7_TOC_Samples @LOGOUT
+    @samplesPage_23 @NTS-3432 @P0 @v_1 @E2EUI-1352
+  Scenario Outline: NTS-3432: Add a Sample - 'Not the Right Tumour' in 'Add a Sample' page and Selecting a different tumour in 'Select or edit a tumour' page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user adds new tumours
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 |    3                 |
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user selects a tumour sample type "Solid tumour sample" from the system questions page on Add a Sample page
+    Then the tumour details are displayed in the Add a sample page on selecting a tumour sample type
+    And the user sees a hyper-text link message below the linked tumour details "Not the right tumour?" on Add a Sample page
+    When the user clicks the Not the right tumour link below the linked tumour details on Add a Sample page
+    Then the user sees a prompt alert "<partOfMessage>" after clicking "<notTheRightTumourLink>" button and "<acknowledgeMessage>" it
+    And the "<pageTitle3>" page is displayed
+#     selecting a different tumour in Select or edit a tumour page
+    And the user select a different tumour list
+    Then the user sees a prompt alert "Selecting a different tumour will remove any samples linked to the previously selected tumour." after clicking "<notTheRightTumourLink>" button and "<acknowledgeMessage>" it
+    And the different tumour selected is shown with a checked radio button
+    And the user clicks the Save and Continue button
+#     user is back to Manage Samples Page
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Urine" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle4>" page is displayed
+    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle>" page is displayed
+    And the success notification is displayed "Sample added"
+    Then the new sample is displayed in the landing page
+
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
+      | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
+
+
+
 
 
 

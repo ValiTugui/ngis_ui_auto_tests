@@ -13,6 +13,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
@@ -450,5 +451,45 @@ public class TumoursSteps extends Pages {
     @And("the Tumour description value is reset after test")
     public void theTumourDescriptionValueIsResetAfterTest() {
         Assert.assertNull(tumoursPage.resetTheCurrentTumourDescription());
+    }
+
+
+    @And("the user adds new tumours")
+    public void theUserAddsNewTumours(DataTable dataTable) {
+
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
+
+        for (int i = 0; i <  expectedListOfTumours; i ++ ) {
+            tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+            tumoursPage.fillInTumourDescription();
+            tumoursPage.fillInDateOfDiagnosis();
+            tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
+            tumoursPage.fillInSpecimenID();
+            referralPage.clickSaveAndContinueButton();
+            tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
+            tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
+            referralPage.clickSaveAndContinueButton();
+        }
+        tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
+        tumoursPage.setTheTotalNumberOfUncheckedTumourList();
+        Debugger.println("Total Number of unchecked1 " + tumoursPage.getTheTotalNumberOfUncheckedTumourList());
+    }
+
+    @And("the user select a different tumour list")
+    public void theUserSelectADifferentTumourList() {
+        Wait.seconds(3);
+        Random randomGenerator = new Random();
+        Debugger.println("Total Number of unchecked2: " + tumoursPage.getTheTotalNumberOfUncheckedTumourList());
+        int numberOfUnCheckedTumourList = tumoursPage.getTheTotalNumberOfUncheckedTumourList();
+        Debugger.println("Total number " + numberOfUnCheckedTumourList);
+        int randomInt = randomGenerator.nextInt(numberOfUnCheckedTumourList) ;
+        Debugger.println("random-Int " + randomInt);
+        tumoursPage.listOfUnselectedTumourList.get(randomInt).click();
+    }
+
+    @And("the different tumour selected is shown with a checked radio button")
+    public void theDifferentTumourSelectedIsShownWithACheckedRadioButton() {
+        Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 }
