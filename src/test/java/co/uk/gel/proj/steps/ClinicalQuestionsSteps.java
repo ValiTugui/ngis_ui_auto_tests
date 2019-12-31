@@ -143,4 +143,9 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserClicksTheDeleteIconWhichIsDisplayedAcrossThe(String hPOTermToBeRemoved) {
      Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
     }
+
+    @When("the user fills the clinical questions with the {string} except to the Rare disease diagnosis field for the family member")
+    public void theUserFillsTheClinicalQuestionsWithTheExceptToTheRareDiseaseDiagnosisFieldForTheFamilyMember(String searchTerms) {
+        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
+    }
 }
