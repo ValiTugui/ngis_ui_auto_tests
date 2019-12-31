@@ -90,8 +90,5 @@ public class HomePageSteps extends Pages {
         Assert.assertTrue(homePage.searchField.getAttribute("value").matches(AppConfig.getSearchTerm()));
 
     }
-    @And("the user logged out from the application")
-    public void theUserLoggedOutFromTheApplication() {
-        homePage.logOutFromApplication();
-    }
+
 }

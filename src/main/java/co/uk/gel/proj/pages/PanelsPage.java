@@ -5,9 +5,11 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.eo.Se;
+import org.apache.commons.lang.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +74,9 @@ public class PanelsPage {
     @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
     public List<WebElement> deselectedPanelsList;
 
+    @FindBy(xpath = "//p[contains(text(),'If penetrance is marked')]")
+    public WebElement textLineUnderPenetranceTitle;
+
     public boolean panelSearchFieldAndSearchIcon() {
         try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
@@ -90,6 +95,7 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels Page:Add another panel, Element not found " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSearch.jpg");
             return false;
         }
     }
@@ -102,6 +108,7 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Search and selection of panel" + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSearchResult.jpg");
             return false;
         }
     }
@@ -116,6 +123,7 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels page: selectedPanels, Element not found. " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSelectedPanels.jpg");
             return false;
         }
     }
@@ -132,11 +140,11 @@ public class PanelsPage {
                     Debugger.println("selected panels list not found. " + expElements.get(i));
                     return false;
                 }
-
             }
             return true;
         } catch (Exception exc) {
             Debugger.println("Panels page: addedPanelsList, Element not found." + exc);
+            SeleniumLib.takeAScreenShot("PanelsPageAddedPanels.jpg");
             return false;
         }
     }
@@ -160,6 +168,7 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels Page:verifyPanelsPageFields, Element not found. " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageFieldsVerification.jpg");
             return false;
         }
     }
@@ -173,11 +182,12 @@ public class PanelsPage {
         seleniumLib.ChangeWindow();
         return true;
     }
+
     public boolean verifyPanelAppNavigation() {
         //Verify the navigated URL is correct
         Wait.seconds(10);// Waiting to load the new external Link
         String url = driver.getCurrentUrl();
-        Debugger.println("Current URL: "+url);
+        Debugger.println("Current URL: " + url);
         if (!url.contains("https://panelapp.genomicsengland.co.uk/panels/")) {
             Debugger.println("URL navigated is Wrong: " + url);
             SeleniumLib.closeCurrentWindow();
@@ -205,6 +215,7 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PanelsPage: Exception from changeTheStatusOfPenetrance " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPagePenetranceStatus.jpg");
             return false;
         }
     }
@@ -224,6 +235,7 @@ public class PanelsPage {
 
         } catch (Exception exp) {
             Debugger.println("PanelsPage: Complete and Incomplete buttons not found" + exp);
+            SeleniumLib.takeAScreenShot("PanelsPagePenetranceOption.jpg");
             return false;
         }
     }
@@ -247,17 +259,19 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels page: verifyButtonAsCompletedByClickingInPanelsPage " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPagePenetranceButtons.jpg");
             return false;
         }
     }
 
     public void deselectTheSelectedPanels() {
         try {
-             for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
+            for (int i = selectedPanelsList.size() - 1; i >= 0; i--) {
                 seleniumLib.clickOnWebElement(selectedPanelsList.get(i));
             }
         } catch (Exception exp) {
             Debugger.println("PanelsPage: deselectTheSelectedPanels, Selected panels not found." + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSelectedPanelsDeselection.jpg");
         }
     }
 
@@ -273,9 +287,11 @@ public class PanelsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("PanelsPage: deselectTheSelectedPanels, Deselected panels not found." + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageDeselectedPanels.jpg");
             return false;
         }
     }
+
     //Created this method separately for PanelsPage as in PanelsPage,as using from Referral Page was giving errors continuously
     public boolean clicksOnSaveAndContinueButtonOnPanelsPage() {
         try {
@@ -302,21 +318,70 @@ public class PanelsPage {
                 }
             }
             return true;
-        } catch(StaleElementReferenceException staleExp){
+        } catch (StaleElementReferenceException staleExp) {
             Debugger.println("SaveAndContinue Stale Exception in PanelsPage...");
             By continueBut = By.xpath("//button[contains(text(),'Save and continue')]");
-            if(seleniumLib.isElementPresent(continueBut)){
+            if (seleniumLib.isElementPresent(continueBut)) {
                 Debugger.println("Clicking with new Element....");
                 seleniumLib.clickOnElement(continueBut);
                 Wait.seconds(10);
                 return true;
             }
             return false;
-        }catch(Exception exp) {
+        } catch (Exception exp) {
             Debugger.println("Exception from PanelsPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("PanelsPageSaveAndContinue.jpg");
             return false;
         }
     }
 
+    public String verifyPenetranceTitle() {
+        try {
+            seleniumLib.waitForElementVisible(penetranceTitle);
+            String actualSubTitle = penetranceTitle.getText();
+            return actualSubTitle;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: penetrance title not found" + exp);
+            SeleniumLib.takeAScreenShot("PanelsPagePenetranceTitle.jpg");
+            return null;
+        }
+    }
+
+    public boolean verifyTextLineUnderPenetranceTitle(String textLine) {
+        try {
+            String actualText = textLineUnderPenetranceTitle.getText();
+            if (!seleniumLib.isElementPresent(textLineUnderPenetranceTitle)) {
+                Debugger.println("Text Line is not present under penetrance title");
+                return false;
+            }
+            if (!textLine.equalsIgnoreCase(actualText)) {
+                Debugger.println("Expected Text: " + textLine + ", but Actual text is: " + actualText);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PanelsPage: Penetrance title:text line not found" + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageTextUnderPenetrance.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifySuggestedPanels(String panelsSuggestion) {
+        try {
+            seleniumLib.waitForElementVisible(penetranceTitle);
+            if (!panelsSuggestion.equalsIgnoreCase(suggestedPanels.getText())) {
+                Debugger.println("Expected Subtitle: " + panelsSuggestion + ", but Actual Subtitle is: " + suggestedPanels.getText());
+                return false;
+            }
+            if (!(selectedPanelsList.size() >= 1)) {
+                Debugger.println("Suggestion for panels not found ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Panels Page:suggested panels :panels not found " + exp);
+            SeleniumLib.takeAScreenShot("PanelsPageSuggestions.jpg");
+            return false;
+        }
+    }
 }//end
