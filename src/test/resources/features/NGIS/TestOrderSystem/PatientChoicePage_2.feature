@@ -163,7 +163,7 @@ Feature: Patient Choice Page Verification
     And the user clicks on Continue Button
     When the user is navigated to a patient choice form option with title Review and submit
     And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form
+    And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class PanelsSteps extends Pages{
+public class PanelsSteps extends Pages {
 
     public PanelsSteps(SeleniumDriver driver) {
         super(driver);
@@ -47,6 +47,7 @@ public class PanelsSteps extends Pages{
     public void theUserClicksOnVisitPanelAppLink() {
         Assert.assertTrue(panelsPage.clicksOnVisitPanelsAppLink());
     }
+
     @Then("the user navigates to panelApp page")
     public void theUserNavigatesToPanelAppPage() {
         Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
@@ -77,7 +78,24 @@ public class PanelsSteps extends Pages{
 
     @And("the user clicks on Save and Continue in Panels Page")
     public void theUserClicksOnSaveAndContinue() {
-        panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
+        boolean testResult = false;
+        testResult = panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see a sub title {string} on panels page")
+    public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
+        Assert.assertEquals(subtitle, panelsPage.verifyPenetranceTitle());
+    }
+
+    @Then("the user should be able to see an additional line {string} underneath the penetrance title")
+    public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
+        Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
+    }
+
+    @Then("the user should be able to see suggested panels under the {string} section")
+    public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
+        Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
     }
 
 }//end
