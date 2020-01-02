@@ -151,7 +151,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and modifier")
     public void theUserSelectsTheHPOPhenotypeQuestionsSuchAsNameTermPresenceAndModifier(String termPresence) {
-        Assert.assertTrue(clinicalQuestionsPage.selectTermPresence("Present"));
+        Assert.assertTrue(clinicalQuestionsPage.selectTermPresence(termPresence));
         Assert.assertTrue(clinicalQuestionsPage.selectRandomModifier() != null);
     }
 
