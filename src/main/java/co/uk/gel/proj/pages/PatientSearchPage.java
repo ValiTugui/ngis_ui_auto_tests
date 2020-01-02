@@ -13,6 +13,7 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.java.en.And;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -24,6 +25,9 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+
+import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
+import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
 
 //public class PatientSearchPage {
@@ -795,7 +799,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         lastName.sendKeys(testData.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-        testData.setPostCode(faker.address().zipCode());
+        testData.setPostCode(getRandomUKPostCode());
         postcode.sendKeys(testData.getPostCode());
     }
 
@@ -884,6 +888,31 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(String searchParams){
         fillInValidSecondPatientDetailsUsingNOFields(searchParams);
+    }
+
+    public void fillInNewPatientDetailsInTheNoFields() {
+        Wait.forElementToBeDisplayed(driver, dateDay);
+        dateDay.sendKeys(newPatient.getDay());
+        dateMonth.sendKeys(newPatient.getMonth());
+        dateYear.sendKeys(newPatient.getYear());
+        firstName.sendKeys(newPatient.getFirstName());
+        lastName.sendKeys(newPatient.getLastName());
+        Click.element(driver, genderButton);
+        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
+        Debugger.println(" Nee patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    }
+
+
+    public void fillInNewPatientDetailsInTheNoFieldsWithEditedGender(String editedGender) {
+        Wait.forElementToBeDisplayed(driver, dateDay);
+        dateDay.sendKeys(newPatient.getDay());
+        dateMonth.sendKeys(newPatient.getMonth());
+        dateYear.sendKeys(newPatient.getYear());
+        firstName.sendKeys(newPatient.getFirstName());
+        lastName.sendKeys(newPatient.getLastName());
+        Click.element(driver, genderButton);
+        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='" + editedGender + "']")));
+        Debugger.println(" Nee patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
     }
 }
 

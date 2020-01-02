@@ -19,6 +19,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
+
 public class PatientDetailsPage {
 
     WebDriver driver;
@@ -247,7 +249,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine2, faker.address().streetName());
         Actions.fillInValue(addressLine3, faker.address().cityName());
         Actions.fillInValue(addressLine4, faker.address().state());
-        newPatient.setPostCode(faker.address().zipCode());
+        newPatient.setPostCode(getRandomUKPostCode());
         Actions.fillInValue(postcode, newPatient.getPostCode());
     }
 
@@ -325,8 +327,9 @@ public class PatientDetailsPage {
     }
 
     public void clickGoBackToPatientSearchLink() {
-        Click.element(driver, goBackToPatientSearchLink);
-    }
+        Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
+//        Click.element(driver, goBackToPatientSearchLink);
+        }
 
     public void clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
@@ -484,7 +487,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine2, faker.address().streetName());
         Actions.fillInValue(addressLine3, faker.address().cityName());
         Actions.fillInValue(addressLine4, faker.address().state());
-        newPatient.setPostCode(faker.address().zipCode());
+        newPatient.setPostCode(getRandomUKPostCode());
         newPatient.setHospitalNumber(hospitalId);
         String postcodeValue = newPatient.getPostCode();
         Actions.fillInValue(postcode, postcodeValue);
@@ -497,4 +500,38 @@ public class PatientDetailsPage {
         Debugger.println(" Newly created patient object2: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
         return newPatient;
     }
+
+    public void fillInNewPatientDetailsInTheYesFields() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        nhsNumber.sendKeys(newPatient.getNhsNumber());
+        dateDay.sendKeys(newPatient.getDay());
+        dateMonth.sendKeys(newPatient.getMonth());
+        dateYear.sendKeys(newPatient.getYear());
+        Debugger.println(" Nee patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    }
+
+    public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
+        editDropdownField(administrativeGenderButton, gender);
+        editDropdownField(lifeStatusButton, lifeStatus);
+        editDropdownField(ethnicityButton, ethnicity);
+    }
+
+    public void clickAddDetailsToNGISButton() {
+        Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
+        Click.element(driver, addDetailsToNGISButton);
+        Wait.forElementToBeDisplayed(driver, successNotification);
+    }
+
+    public void clickUpdateNGISRecordButton() {
+        Wait.forElementToBeClickable(driver,updateNGISRecordButton);
+        Click.element(driver, updateNGISRecordButton);
+        Wait.forElementToBeDisplayed(driver, successNotification);
+    }
+
+      public String getNotificationMessageForPatientCreatedOrUpdated() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        return Actions.getText(successNotification);
+    }
+
+
 }

@@ -179,3 +179,35 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues |
       | NHS Spine           | 9449310602 | 23-03-2011 | 50                   |
+
+
+  @COMP2_TO_PatientDetails @NTS-3438 @E2EUI-1511
+  Scenario Outline: NTS-3438 - Patient Details page - Update and patient Gender, Life Status, Gender and Ethnicity and verify in patient records
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user navigates to the "<stage>" stage
+    And the "<stage>" stage is marked as Completed
+    When the user navigates back to patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a "<notification>"
+#   Navigate back to patient search, to search for the patient details and verify edited details
+    When the user clicks the Back link
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    When the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
+
+    Examples:
+      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
+      | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved |
