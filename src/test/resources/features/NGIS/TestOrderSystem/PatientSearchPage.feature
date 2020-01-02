@@ -32,7 +32,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-#      | NGIS                | 9449306680 | 14-06-2011 |
+      | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_PatientSearch
   @patientSearch_04 @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0
@@ -48,8 +48,8 @@ Feature: Patient search page
       | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
-#      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
-#      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
+      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
 
 
   @patientSearch_05 @NTS-2822 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131 @v_1
@@ -87,7 +87,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type | result_message         |
       | NHS Spine           | 1 patient record found |
-#      | NGIS                | 1 patient record found |
+      | NGIS                | 1 patient record found |
 
 
   @patientSearch_07 @NTS-2781 @E2EUI-1481 @v_1
@@ -147,7 +147,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type |
       | NHS Spine           |
-#      | NGIS                |
+      | NGIS                |
 
 
   @patientSearch_14 @NTS-2798 @E2EUI-2162 @v_1
@@ -259,8 +259,8 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-#      | NGIS                | 9449306680 | 14-06-2011 |
-#      | NGIS                | 9449310033 | 1-1-1970   |
+      | NGIS                | 9449306680 | 14-06-2011 |
+      | NGIS                | 9449310033 | 1-1-1970   |
 
   @patientSearch_21 @NTS-2798 @E2EUI-2162 @v_1
   Scenario Outline: NTS-2798:"<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth

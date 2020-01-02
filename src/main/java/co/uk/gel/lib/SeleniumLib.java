@@ -563,7 +563,6 @@ public class SeleniumLib {
         sleepInSeconds(5);
         try {
             //Copy file path to clipboard
-           // Debugger.println("Copying File path to Clipboard: "+path);
             StringSelection ss = new StringSelection(path);
             Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
             sleepInSeconds(5);
