@@ -321,7 +321,7 @@ Feature: Patient search page
         | hyperlinkText               |
         | create a new patient record |
 
-  @patientSearch_27 @NTS-3050 @E2EUI-968 @E2EUI-1308 @v_1
+  @patientSearch_27 @NTS-3050 @E2EUI-968 @E2EUI-1308 @E2EUI-1847 @v_1
   Scenario Outline: NTS-3050: The new patient page is opened when clicking the 'create a new patient record' link from the No Search Results page when searching without NHS number
     When the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields

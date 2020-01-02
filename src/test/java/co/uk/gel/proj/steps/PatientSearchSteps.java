@@ -382,7 +382,6 @@ public class PatientSearchSteps extends Pages {
         switch (patientType) {
             case "NHS Spine": {
                 String actualPrefix = patientDetailsPage.title.getAttribute("value");
-                ;
                 String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
                 String actualLastName = patientDetailsPage.familyName.getAttribute("value");
                 String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
@@ -484,4 +483,23 @@ public class PatientSearchSteps extends Pages {
         Debugger.println("Search Params "+ searchParams);
         patientSearchPage.useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(searchParams);
     }
+
+    @And("the user search for the new patient using the nhs number and date of birth")
+    public void theUserSearchForTheNewPatientUsingTheNhsNumberAndDateOfBirth() {
+        patientDetailsPage.fillInNewPatientDetailsInTheYesFields();
+    }
+
+    @And("the user search for the new patient using date of birth, first name, last name and gender")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndGender() {
+        //patientDetailsPage.fillInNewPatientDetailsInTheNoFields();
+        patientSearchPage.fillInNewPatientDetailsInTheNoFields();
+    }
+
+
+    @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
+       // patientDetailsPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
+        patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
+    }
+
 }

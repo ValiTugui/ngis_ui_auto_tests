@@ -511,4 +511,12 @@ public class ReferralSteps extends Pages {
         String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
         Assert.assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @And("the new patient gender {string} is displayed on the referral banner")
+    public void theNewPatientGenderIsDisplayedOnTheReferralBanner(String expectedGender) {
+        String actualGender = referralPage.referralHeaderGender.getText();
+        Debugger.println("actual gender " + actualGender);
+        Debugger.println("expected gender " + expectedGender);
+        Assert.assertEquals(expectedGender,actualGender);
+    }
 }

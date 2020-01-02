@@ -1,7 +1,9 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
@@ -17,9 +19,6 @@ import java.util.List;
 
 
 public class PatientDetailsSteps extends Pages {
-
-    PatientDetailsPage patientDetails;
-    PatientSearchSteps patientSearchSteps;
 
     public PatientDetailsSteps(SeleniumDriver driver) {
         super(driver);
@@ -164,5 +163,62 @@ public class PatientDetailsSteps extends Pages {
     @And("the referral cancel reason from the card is {string}")
     public void theReferralCancelReasonFromTheCardIs(String expectedReason) {
         Assert.assertTrue(patientDetailsPage.verifyReferralReason(expectedReason));
+    }
+
+    @And("the user edit the patients Gender {string}, Life Status {string} and Ethnicity {string} fields")
+    public void theUserEditThePatientsGenderLifeStatusAndEthnicityFields(String gender, String lifeStatus, String ethnicity) {
+        patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender,lifeStatus,ethnicity);
+    }
+
+    @And("the user clicks the Update NGIS record button")
+    public void theUserClicksTheUpdateNGISRecordButton() {
+        patientDetailsPage.clickUpdateNGISRecordButton();
+    }
+
+    @Then("the patient is successfully updated with a {string}")
+    public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
+        String actualNotification =  patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
+        Debugger.println("Expected notification : " + expectedNotification);
+        Debugger.println(("Actual notification " + actualNotification));
+        Assert.assertEquals(expectedNotification, actualNotification);
+    }
+
+    @When("the user click the Test Directory link from the notification banner and re-select test {string} and navigate back to patient search")
+    public void theUserClickTheTestDirectoryLinkFromTheNotificationBannerAndReSelectTestAndNavigateBackToPatientSearch(String searchTerm) {
+
+        boolean eachElementIsLoaded;
+        //NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
+        patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        homePage.TestDirectoryHomePageIsDisplayed();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        //switchToURL(driver.getCurrentUrl());
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+        patientSearchPage.clickNoButton();
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+    }
+
+    @And("the newly edited patient's Gender {string}, Life Status {string} and Ethnicity {string} are displayed in Patient Details page")
+    public void theNewlyEditedPatientSGenderLifeStatusAndEthnicityAreDisplayedInPatientDetailsPage(String expectedGender, String expectedLifeStatus, String expectedEthnicity) {
+
+        String actualGender = Actions.getText(patientDetailsPage.administrativeGenderButton);
+        String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusButton);
+        String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityButton);
+
+        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: "  + expectedEthnicity);
+        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: "  + actualEthnicity);
+
+        Assert.assertEquals(expectedGender,actualGender);
+        Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
+        Assert.assertEquals(expectedEthnicity,actualEthnicity);
     }
 }
