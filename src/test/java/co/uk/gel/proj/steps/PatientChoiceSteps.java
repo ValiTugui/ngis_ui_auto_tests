@@ -585,7 +585,7 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status for family member with {string}")
     public void theUserEditsThePatientChoiceStatusForFamilyMemberWith(String familyDetails) {
-        Debugger.println("Doing Patient Choice for " + familyDetails); //only for debugging purposes not sent in stag
+        Debugger.println("Doing Patient Choice for " + familyDetails);
         patientChoicePage.editSpecificPatientChoice(familyDetails);
     }
 

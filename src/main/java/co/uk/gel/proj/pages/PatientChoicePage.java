@@ -392,17 +392,18 @@ public class PatientChoicePage {
             }
             //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
-            //Debugger.println("NHSFOUR : "+nhsLastFour);
+            Debugger.println("NHSFOUR : "+nhsLastFour);
 
             By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
             if (!seleniumLib.isElementPresent(pChoiceEdit)) {
-                Wait.seconds(5);
+                Wait.seconds(10);
             }
+            Debugger.println("Edit option found for : "+nhsLastFour);
             WebElement element = driver.findElement(pChoiceEdit);
             if (Wait.isElementDisplayed(driver, element, 100)) {
                 seleniumLib.clickOnWebElement(element);
             }
-
+            Debugger.println("Clicked on Edit Option for : "+nhsLastFour);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:" + exp);
