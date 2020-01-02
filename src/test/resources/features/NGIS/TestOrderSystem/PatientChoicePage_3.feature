@@ -1,5 +1,5 @@
 @regression
-@regression_set10
+@PatientChoicePage_3
 @patientChoice
 Feature: Patient Choice Page
 
