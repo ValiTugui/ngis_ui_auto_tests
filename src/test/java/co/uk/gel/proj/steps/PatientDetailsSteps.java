@@ -165,7 +165,6 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(patientDetailsPage.verifyReferralReason(expectedReason));
     }
 
-
     @And("the user edit the patients Gender {string}, Life Status {string} and Ethnicity {string} fields")
     public void theUserEditThePatientsGenderLifeStatusAndEthnicityFields(String gender, String lifeStatus, String ethnicity) {
         patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender,lifeStatus,ethnicity);
@@ -184,6 +183,30 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedNotification, actualNotification);
     }
 
+    @When("the user click the Test Directory link from the notification banner and re-select test {string} and navigate back to patient search")
+    public void theUserClickTheTestDirectoryLinkFromTheNotificationBannerAndReSelectTestAndNavigateBackToPatientSearch(String searchTerm) {
+
+        boolean eachElementIsLoaded;
+        //NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
+        patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        homePage.TestDirectoryHomePageIsDisplayed();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        //switchToURL(driver.getCurrentUrl());
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+        patientSearchPage.clickNoButton();
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
+    }
+
     @And("the newly edited patient's Gender {string}, Life Status {string} and Ethnicity {string} are displayed in Patient Details page")
     public void theNewlyEditedPatientSGenderLifeStatusAndEthnicityAreDisplayedInPatientDetailsPage(String expectedGender, String expectedLifeStatus, String expectedEthnicity) {
 
@@ -198,5 +221,4 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
         Assert.assertEquals(expectedEthnicity,actualEthnicity);
     }
-
 }

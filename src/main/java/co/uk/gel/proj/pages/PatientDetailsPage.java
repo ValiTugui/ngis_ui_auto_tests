@@ -328,12 +328,11 @@ public class PatientDetailsPage {
 
     public void clickGoBackToPatientSearchLink() {
         Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
-//        Click.element(driver, goBackToPatientSearchLink);
         }
 
     public void clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
-        Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
     }
 
     public boolean nhsNumberFieldIsDisabled() {
