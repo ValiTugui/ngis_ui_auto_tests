@@ -366,6 +366,7 @@ public class PatientChoicePage {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
             seleniumLib.clickOnWebElement(editPatientChoice);
+            Wait.seconds(20);
             return true;
         } catch (Exception exp) {
             Debugger.println("Could not click on Patient Choice Edit: " + exp);
