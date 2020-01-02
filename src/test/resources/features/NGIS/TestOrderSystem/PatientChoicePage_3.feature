@@ -169,8 +169,8 @@ Feature: Patient Choice Page
     When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Add patient choice information
     When the user fills "<PatientChoiceCategory>" details in patient choice category
-    When the user fills "<TestType>" details in test type
-    When the user fills "<RecordedBy>" details in recorded by
+    And the user fills "<TestType>" details in test type
+    And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
     When the user fills "<PatientChoice>" details in patient choices

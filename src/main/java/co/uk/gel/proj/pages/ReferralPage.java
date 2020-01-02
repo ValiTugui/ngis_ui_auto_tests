@@ -461,6 +461,7 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
+        SeleniumLib.takeAScreenShot("ForDebugPurpose.jpg");
         By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
         if (!seleniumLib.isElementPresent(pageTitle)) {
             Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
