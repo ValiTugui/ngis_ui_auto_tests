@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.List;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
@@ -501,17 +502,30 @@ public class PatientDetailsPage {
         Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
     }
 
-    public void fillInAllFieldsNewPatientDetailsWithNHSNumber() {
+    public void fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
+
         Wait.forElementToBeDisplayed(driver, title);
         String patientTitle = "Mr";
         newPatient.setTitle(patientTitle);
         title.sendKeys(patientTitle);
-        String firstNameValue = faker.name().firstName();
-        String lastNameValue = faker.name().lastName();
-        newPatient.setFirstName(firstNameValue);
-        Actions.fillInValue(firstName, newPatient.getFirstName());
-        newPatient.setLastName(lastNameValue);
-        Actions.fillInValue(familyName, newPatient.getLastName());
+
+        String firstNameValue;
+        String lastNameValue;
+        if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
+            firstNameValue = faker.name().firstName().replaceFirst("[a-z]", "é");
+            lastNameValue = faker.name().lastName().concat("müller");
+            newPatient.setFirstName(firstNameValue);
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            newPatient.setLastName(lastNameValue);
+            Actions.fillInValue(familyName, newPatient.getLastName());
+        } else {
+            firstNameValue = faker.name().firstName();
+            lastNameValue = faker.name().lastName();
+            newPatient.setFirstName(firstNameValue);
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            newPatient.setLastName(lastNameValue);
+            Actions.fillInValue(familyName, newPatient.getLastName());
+        }
 
         String dayOfBirth = PatientSearchPage.testData.getDay();
         String monthOfBirth = PatientSearchPage.testData.getMonth();
@@ -577,6 +591,5 @@ public class PatientDetailsPage {
         Wait.forElementToBeDisplayed(driver, successNotification);
         return Actions.getText(successNotification);
     }
-
 
 }

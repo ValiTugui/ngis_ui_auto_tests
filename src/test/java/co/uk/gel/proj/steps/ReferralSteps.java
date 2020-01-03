@@ -443,7 +443,7 @@ public class ReferralSteps extends Pages {
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
-        String diseaseType = attributeOfURL.get(3);
+        String patientNameWithSpecialCharacters = attributeOfURL.get(3);
         String createPatientHyperTextLink = attributeOfURL.get(4);
         String reasonForNoNHSNumber = attributeOfURL.get(5);
         String userType = null;
@@ -478,16 +478,17 @@ public class ReferralSteps extends Pages {
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
-
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
             } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
-                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber();
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
+            }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
             }
         } else {
-            patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber();
+            patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
         }
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();

@@ -181,7 +181,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 | 50                   |
 
 
-  @COMP2_TO_PatientDetails @NTS-3438 @E2EUI-1511
+  @COMP2_TO_PatientDetails @NTS-3438 @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438 - Patient Details page - Update and patient Gender, Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |

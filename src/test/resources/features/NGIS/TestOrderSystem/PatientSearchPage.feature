@@ -67,12 +67,7 @@ Feature: Patient search page
       | ui-ticket-no | patient-search-type | SearchDetails                                                                    |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'hern:Gender=Female                   |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'HERN:Gender=Female:Postcode=KT10 0JF |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male:Postcode=KT10 9EZ     |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                       |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                     |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                         |
-      | E2EUI-2132   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                        |
-#       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
+
 
 
   @patientSearch_06 @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0
