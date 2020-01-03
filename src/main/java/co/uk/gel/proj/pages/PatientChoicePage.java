@@ -1367,6 +1367,20 @@ public class PatientChoicePage {
         }
     }
 
+    public boolean statusUpdatedCorrectly(String status, int row) {
+        Wait.forElementToBeDisplayed(driver, landingPageList, 100);
+        return status.equalsIgnoreCase(statuses.get(row).getText());
+    }
+
+    public boolean messageThatPatientChoiceRecordExistsIsDisplayed(String expectedTextMessage) {
+        Wait.forElementToBeDisplayed(driver, recordAlreadyExistsMessage);
+        return recordAlreadyExistsMessage.getText().contains(expectedTextMessage);
+    }
+
+    public void addPatientChoiceIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, adultWithCapacityCategory);
+    }
+
     public boolean verifyHelpTextLabelIsVisible() {
         try {
             Wait.forElementToBeDisplayed(driver, helpTextLabel, 200);

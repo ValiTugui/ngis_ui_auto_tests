@@ -128,6 +128,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    //This step is for Notes, page. included here as there is only one method need for that page .So not created a separate stepdef
     @And("the user fills the NotesPage with the {string}")
     public void theUserFillsTheNotesPageWithThe(String notes) {
         notesPage.fillNotes(notes);
@@ -424,6 +425,11 @@ public class PatientChoiceSteps extends Pages {
     @And("the user fills Review and submit details in patient signature")
     public void theUserFillsReviewAndSubmitDetailsInPatientSignature() {
         Assert.assertTrue(patientChoicePage.selectPatientSignature());
+    }
+
+    @Then("the Patient Choice landing page is updated to {string} for the proband")
+    public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
+         //Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
