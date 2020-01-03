@@ -527,4 +527,10 @@ public class PatientSearchSteps extends Pages {
     public void theUserTypesInTheDetailsOfTheNGISPatientInTheNHSNumberAndDOBFields() {
         patientSearchPage.fillInNewPatientDetailsInTheYesFields();
     }
+
+    @And("the user search for the new patient using date of birth, first name, last name, gender and post-code")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameGenderAndPostCode() {
+        patientSearchPage.fillInNewPatientDetailsWithPostCodeInTheNoFields();
+    }
+
 }

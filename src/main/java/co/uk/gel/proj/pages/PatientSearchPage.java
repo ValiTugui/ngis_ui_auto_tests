@@ -924,5 +924,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateYear.sendKeys(newPatient.getYear());
         Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
     }
+
+    public void fillInNewPatientDetailsWithPostCodeInTheNoFields() {
+        fillInNewPatientDetailsInTheNoFields();
+        postcode.sendKeys(newPatient.getPostCode());
+        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
+    }
+
+
 }
 
