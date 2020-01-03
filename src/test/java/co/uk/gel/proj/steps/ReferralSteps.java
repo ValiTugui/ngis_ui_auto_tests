@@ -534,11 +534,10 @@ public class ReferralSteps extends Pages {
     public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
 
         String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
-        https://test-ordering.e2e-latest.ngis.io/test-orderreferral/r20944276688/Patient-details
         Debugger.println("existingReferralID " + existingReferralID);
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
-        String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "/referral/" + existingReferralID + "/" + confirmationPage;
+        String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
         Debugger.println("referralFullUrl :" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
         referralPage.saveAndContinueButtonIsDisplayed();

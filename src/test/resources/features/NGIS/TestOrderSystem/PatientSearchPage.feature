@@ -48,8 +48,7 @@ Feature: Patient search page
       | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
-      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
-      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+
 
 
   @patientSearch_05 @NTS-2822 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131 @v_1
@@ -87,7 +86,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type | result_message         |
       | NHS Spine           | 1 patient record found |
-#      | NGIS                | 1 patient record found |
+
 
 
   @patientSearch_07 @NTS-2781 @E2EUI-1481 @v_1
