@@ -1,6 +1,6 @@
 @regression
 @regression_set2
-@patientSearch
+@patientSearchNGIS
 Feature: Patient search page_NGIS
 
   @patientSearch_03b @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0
