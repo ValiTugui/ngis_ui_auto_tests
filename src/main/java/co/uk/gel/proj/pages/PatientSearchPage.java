@@ -899,7 +899,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         lastName.sendKeys(newPatient.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-        Debugger.println(" Nee patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
     }
 
 
@@ -912,7 +912,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         lastName.sendKeys(newPatient.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='" + editedGender + "']")));
-        Debugger.println(" Nee patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
+        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
     }
 
 
@@ -922,7 +922,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateDay.sendKeys(newPatient.getDay());
         dateMonth.sendKeys(newPatient.getMonth());
         dateYear.sendKeys(newPatient.getYear());
-        Debugger.println(" Nee patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+        Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
     }
 }
 
