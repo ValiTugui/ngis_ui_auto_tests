@@ -207,8 +207,8 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "New-NGIS": {
+                Wait.seconds(2);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
-                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientTwo.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
                 String actualGender = patientSearchPage.patientGender.getText().trim();
                 String actualNHSNumber = patientSearchPage.patientNSNo.getText().trim();
