@@ -16,9 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.*;
 
 public class PatientChoicePage {
@@ -291,6 +288,7 @@ public class PatientChoicePage {
     private String consulteeAttestationThirdOption = "//label[contains(@id,'Consultee_Q3.0')][text()='" + "dummyValue" + "']";
     private String patientChoiceOptionFirst = "//h5[contains(text(),'Has research participation been discussed')]/following::label[contains(text(),'" + "dummyValue" + "')]";
     private String patientChoiceOptionSecond = "//h5[contains(text(),'used for research, separate to NHS care')]/following::label[contains(text(),'" + "dummyValue" + "')]";
+    private String consentIDPath = "//span[text()='dummyID']/preceding::span[@class='consent-out-dated'][1]";
 
     @FindBy(xpath = "//h5[contains(text(),'willing to accept the role of consultee')]")
     WebElement newQuestionForConsulteeAttestation;
@@ -304,7 +302,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[contains(text(),' Confirmation ID')]//span[@class='cct-value']")
     WebElement confirmationID;
 
-    static String c_id;
+    static String consentID;
 
     @FindBy(xpath = "//div[@class='tile-highlight']")
     WebElement patientChoiceResultTab;
@@ -594,7 +592,7 @@ public class PatientChoicePage {
             try {
                 webElement = driver.findElement(By.xpath(pChoice));
             } catch (NoSuchElementException nsee) {
-                //If the element not found, waiting for 5 seconds and the searchign again. Some times it is taking time.
+                //If the element not found, waiting for 5 seconds and the searching again. Some times it is taking time.
                 Wait.seconds(5);
                 webElement = driver.findElement(By.xpath(pChoice));
             }
@@ -1124,27 +1122,37 @@ public class PatientChoicePage {
 
     public boolean verifyResearchParticipationOfPatientChoice() {
         try {
+            boolean isPresent = false;
             for (int i = 0; i < researchParticipationOptions.size(); i++) {
                 if (!seleniumLib.isElementPresent(researchParticipationOptions.get(i))) {
                     Debugger.println("Patient choices research participation not found.");
                     return false;
                 }
+                isPresent = false;
                 switch (i) {
                     case 0:
-                        Assert.assertEquals("Inappropriate to have discussion", researchParticipationOptions.get(i).getText());
+                        if("Inappropriate to have discussion".equalsIgnoreCase(researchParticipationOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 1:
-                        Assert.assertEquals("Patient would like to revisit at a later date", researchParticipationOptions.get(i).getText());
+                        if("Patient would like to revisit at a later date".equalsIgnoreCase(researchParticipationOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 2:
-                        Assert.assertEquals("Patient lacks capacity and no consultee available", researchParticipationOptions.get(i).getText());
+                        if("Patient lacks capacity and no consultee available".equalsIgnoreCase(researchParticipationOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 3:
-                        Assert.assertEquals("Other", researchParticipationOptions.get(i).getText());
+                        if("Other".equalsIgnoreCase(researchParticipationOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                 }
             }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage,verifyResearchParticipationOfPatientChoice:" + exp);
             return false;
@@ -1219,36 +1227,42 @@ public class PatientChoicePage {
                 Debugger.println("Patient choices: Reason for not capturing patient choice: question not found.");
                 return false;
             }
-
+            boolean isPresent = false;
             for (int i = 3; i < patientChoiceAboutResearchOptions.size(); i++) {
                 if (!seleniumLib.isElementPresent(patientChoiceAboutResearchOptions.get(i))) {
                     Debugger.println("Patient choices reasons not found.");
                     return false;
                 }
+                isPresent = false;
                 switch (i) {
                     case 3:
-                        Debugger.println("Reason 1 :" + patientChoiceAboutResearchOptions.get(i).getText());
-                        Assert.assertEquals("Patient conversation happened; form to follow", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Patient conversation happened; form to follow".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 4:
-                        Debugger.println("Reason 2 :" + patientChoiceAboutResearchOptions.get(i).getText());
-                        Assert.assertTrue(patientChoiceAboutResearchOptions.get(i).getText().equalsIgnoreCase("Test does not require recording of patient choices"));
+                        if(patientChoiceAboutResearchOptions.get(i).getText().equalsIgnoreCase("Test does not require recording of patient choices")){
+                        isPresent = true;
+                        }
                         break;
                     case 5:
-                        Debugger.println("Reason 3 :" + patientChoiceAboutResearchOptions.get(i).getText());
-                        Assert.assertEquals("Patient currently lacks capacity and no consultee available", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Patient currently lacks capacity and no consultee available".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 6:
-                        Debugger.println("Reason 4 :" + patientChoiceAboutResearchOptions.get(i).getText());
-                        Assert.assertEquals("Associated with another referral", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Associated with another referral".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 7:
-                        Debugger.println("Reason 5 :" + patientChoiceAboutResearchOptions.get(i).getText());
-                        Assert.assertEquals("Other", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Other".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                 }
             }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyThePatientChoiceReasons " + exp);
             return false;
@@ -1699,11 +1713,22 @@ public class PatientChoicePage {
     public boolean verifyTheConsulteeAttestationNewQuestion() {
         try {
             Wait.forElementToBeDisplayed(driver, newQuestionForConsulteeAttestation);
-            if (seleniumLib.isElementPresent(newQuestionForConsulteeAttestation)) {
-                Assert.assertEquals("I am willing to accept the role of consultee for this person.", newQuestionForConsulteeAttestation.getText());
+            if(!seleniumLib.isElementPresent(newQuestionForConsulteeAttestation)) {
+                Debugger.println("newQuestionForConsulteeAttestation is Not Present as expected.");
+                return false;
             }
-            seleniumLib.isElementPresent(yesForConsulteeAttestationNewQuestion);
-            seleniumLib.isElementPresent(noForConsulteeAttestationNewQuestion);
+            if(!newQuestionForConsulteeAttestation.getText().equalsIgnoreCase("I am willing to accept the role of consultee for this person.")){
+                Debugger.println("newQuestionForConsulteeAttestation expected as:I am willing to accept the role of consultee for this person., but actual is: "+newQuestionForConsulteeAttestation.getText());
+                return false;
+            }
+            if(!seleniumLib.isElementPresent(yesForConsulteeAttestationNewQuestion)){
+                Debugger.println("yesForConsulteeAttestationNewQuestion is Not Present as expected.");
+                return false;
+            }
+            if(!seleniumLib.isElementPresent(noForConsulteeAttestationNewQuestion)){
+                Debugger.println("noForConsulteeAttestationNewQuestion is Not Present as expected.");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheConsulteeAttestationNewQuestion...");
@@ -1763,9 +1788,7 @@ public class PatientChoicePage {
                 Debugger.println("Confirmation ID is not found...");
                 return false;
             }
-            c_id = confirmationID.getText();
-            //This id used to create some path in the method replacedPatientChoiceUnderHistoryTab
-            //Debugger.println("Confirmation Id : " + c_id);
+            consentID = confirmationID.getText();
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice result tab not found...");
@@ -1776,8 +1799,8 @@ public class PatientChoicePage {
     public boolean replacedPatientChoiceUnderHistoryTab() {
         try {
             Wait.forElementToBeDisplayed(driver, patientChoiceResultTab);
-            //Debugger.println("Now c_id is : " + c_id);
-            WebElement replacedPatientChoice = driver.findElement(By.xpath("//span[text()='" + c_id + "']/preceding::span[@class='consent-out-dated'][1]"));
+            String replacedPath = consentIDPath.replaceAll("dummyID",consentID);
+            WebElement replacedPatientChoice = driver.findElement(By.xpath(replacedPath));
             if (!seleniumLib.isElementPresent(replacedPatientChoice)) {
                 Debugger.println("Replaced element not found in patient choice page..");
                 return false;
@@ -1785,20 +1808,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice result tab not found...");
-            return false;
-        }
-    }
-
-    public boolean verifyFormUploadSuccessMessage() {
-        try {
-            Wait.forElementToBeDisplayed(driver, formSuccessfullyUploadedMsg);
-            if (!"Successfully Uploaded".equalsIgnoreCase(formSuccessfullyUploadedMsg.getText())) {
-                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceTabNotFound.jpg");
             return false;
         }
     }
@@ -1810,24 +1820,34 @@ public class PatientChoicePage {
                 Debugger.println("Patient choices: About genomic testing and agreed to the genomic test question not found.");
                 return false;
             }
-            Assert.assertEquals("Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?", patientChoiceAboutResearch.getText());
+            if(!"Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?".equalsIgnoreCase(patientChoiceAboutResearch.getText())){
+                return false;
+            }
+            boolean isPresent = false;
             for (int i = 0; i < patientChoiceAboutResearchOptions.size(); i++) {
                 if (!seleniumLib.isElementPresent(patientChoiceAboutResearchOptions.get(i))) {
                     return false;
                 }
+                isPresent = false;
                 switch (i) {
                     case 0:
-                        Assert.assertEquals("Parent(s) / carer / guardian have agreed to the test", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Parent(s) / carer / guardian have agreed to the test".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                            isPresent = true;
+                        }
                         break;
                     case 1:
-                        Assert.assertEquals("Record of Discussion form not currently available", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Record of Discussion form not currently available".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                          isPresent = true;
+                        }
                         break;
                     case 2:
-                        Assert.assertEquals("Parent(s) / carer / guardian changed their mind about the clinical test", patientChoiceAboutResearchOptions.get(i).getText());
+                        if("Parent(s) / carer / guardian changed their mind about the clinical test".equalsIgnoreCase(patientChoiceAboutResearchOptions.get(i).getText())){
+                           isPresent = true;
+                        }
                         break;
                 }
             }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyThePatientChoiceOptionsForChild " + exp);
             return false;
@@ -1836,6 +1856,7 @@ public class PatientChoicePage {
 
     public boolean verifyTheChildAssentOptions() {
         try {
+            //This needs to be re-worked by passing expected options from feature file and re-submitted as another PR
             Wait.forElementToBeDisplayed(driver, childAssentQuestion);
             ArrayList<WebElement> expElements = new ArrayList<WebElement>();
             expElements.add(childAssentQuestion);
@@ -1863,7 +1884,6 @@ public class PatientChoicePage {
                 Debugger.println("To select Yes/No/Not applicable option not found");
             }
             seleniumLib.clickOnWebElement(selectedResult);
-            Debugger.println(option + " option is selected...");
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on child agree to participate YesNoOptions. " + exp);
         }
@@ -1887,7 +1907,9 @@ public class PatientChoicePage {
     public boolean verifyUploadMessage(String message) {
         try {
             Wait.forElementToBeDisplayed(driver, uploadMessage);
-            Assert.assertTrue(message.equalsIgnoreCase(uploadMessage.getText()));
+            if(!message.equalsIgnoreCase(uploadMessage.getText())){
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, verifyUploadMessage - message not found in upload section." + exp);
@@ -1925,21 +1947,5 @@ public class PatientChoicePage {
         return true;
     }
 
-    public boolean verifyRelationshipsOfPatients() {
-
-        try {
-            relationSipsOfPatients = new ArrayList<>();
-            for (WebElement relationship : relationSipsOfPatients) {
-                if(!"Proband".equalsIgnoreCase(relationship.getText())){
-                    Debugger.println("The relationships status of a family member with proband is  " + relationship.getText());
-                    return true;
-                }
-            }
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: verifyTheChildAssentOptions: Elements not found.");
-            return false;
-        }
-        return true;
-    }
 
 }//end

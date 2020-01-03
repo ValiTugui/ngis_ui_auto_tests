@@ -471,12 +471,11 @@ public class PatientChoiceSteps extends Pages {
     @And("Save and continue button is displayed as {string}")
     public void saveAndContinueButtonIsDisplayedAs(String expectedStatus) {
         boolean testResult = false;
+        testResult = patientChoicePage.saveAndContinueButtonStatus();
         if (expectedStatus.equals("enabled")) {
-            testResult = patientChoicePage.saveAndContinueButtonStatus();
             Assert.assertTrue(testResult);
         } else {
-            testResult = patientChoicePage.saveAndContinueButtonStatus();
-            Assert.assertFalse(testResult);
+             Assert.assertFalse(testResult);
         }
     }
 
@@ -540,13 +539,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(patientChoicePage.replacedPatientChoiceUnderHistoryTab());
     }
 
-    @Then("the user sees a success message after form upload in recorded by")
-    public void theUserSeesASuccessMessageAfterFormUploadInRecordedBy() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyFormUploadSuccessMessage();
-        Assert.assertTrue(testResult);
-    }
-
     @When("the user fills {string} details for signature")
     public void theUserFillsDetailsForSignature(String signatureDetails) {
         boolean testResult = false;
@@ -575,11 +567,11 @@ public class PatientChoiceSteps extends Pages {
 
     @And("the user should be able to see enabled continue button and upload document button")
     public void theUserShouldBeAbleToSeeEnabledContinueButtonAndUploadDocumentButton() {
-        boolean testResult1, testResult2 = false ;
-        testResult1 = patientChoicePage.enabledContinueButtonOnPatientChoiceFormPage();
-        Assert.assertTrue(testResult1);
-        testResult2 = patientChoicePage.enabledUploadDocumentButtonOnPatientChoiceFormPage();
-        Assert.assertTrue(testResult2);
+        boolean testResult = false ;
+        testResult = patientChoicePage.enabledContinueButtonOnPatientChoiceFormPage();
+        Assert.assertTrue(testResult);
+        testResult = patientChoicePage.enabledUploadDocumentButtonOnPatientChoiceFormPage();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user will see a {string} message on upload section")
@@ -609,11 +601,5 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the family member section in patient choice page to know the relationships")
-    public void theUserSeesTheFamilyMemberSectionInPatientChoicePageToKnowTheRelationships() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyRelationshipsOfPatients();
-        Assert.assertTrue(testResult);
-    }
 
 }//end
