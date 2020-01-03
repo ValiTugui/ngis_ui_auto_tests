@@ -87,7 +87,7 @@ public class NewPatient {
 	}
 
 	public void setTitle(String title) {
-		this.firstName = title;
+		this.title = title;
 	}
 	
 	public String getFirstName() {

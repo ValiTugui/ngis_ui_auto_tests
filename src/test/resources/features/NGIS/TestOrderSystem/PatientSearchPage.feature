@@ -87,7 +87,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type | result_message         |
       | NHS Spine           | 1 patient record found |
-      | NGIS                | 1 patient record found |
+#      | NGIS                | 1 patient record found |
 
 
   @patientSearch_07 @NTS-2781 @E2EUI-1481 @v_1
@@ -147,7 +147,6 @@ Feature: Patient search page
     Examples:
       | patient-search-type |
       | NHS Spine           |
-      | NGIS                |
 
 
   @patientSearch_14 @NTS-2798 @E2EUI-2162 @v_1

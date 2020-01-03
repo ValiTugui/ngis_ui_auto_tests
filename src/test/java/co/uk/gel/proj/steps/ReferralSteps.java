@@ -478,7 +478,17 @@ public class ReferralSteps extends Pages {
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+
+        // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
+        if (userType != null) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+            } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber();
+            }
+        } else {
+            patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber();
+        }
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
@@ -518,5 +528,20 @@ public class ReferralSteps extends Pages {
         Debugger.println("actual gender " + actualGender);
         Debugger.println("expected gender " + expectedGender);
         Assert.assertEquals(expectedGender,actualGender);
+    }
+
+    @And("the user navigates back to patient existing referral page")
+    public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
+
+        String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
+        https://test-ordering.e2e-latest.ngis.io/test-orderreferral/r20944276688/Patient-details
+        Debugger.println("existingReferralID " + existingReferralID);
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "/referral/" + existingReferralID + "/" + confirmationPage;
+        Debugger.println("referralFullUrl :" + referralFullUrl);
+        NavigateTo(referralFullUrl, confirmationPage);
+        referralPage.saveAndContinueButtonIsDisplayed();
+
     }
 }
