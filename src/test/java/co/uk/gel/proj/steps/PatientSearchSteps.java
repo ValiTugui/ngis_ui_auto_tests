@@ -207,7 +207,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "New-NGIS": {
-                Wait.seconds(2);
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
                 String actualGender = patientSearchPage.patientGender.getText().trim();
