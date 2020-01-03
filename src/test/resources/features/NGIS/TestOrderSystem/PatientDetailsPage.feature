@@ -199,14 +199,16 @@ Feature: Patient details page
     And the user clicks the Update NGIS record button
     Then the patient is successfully updated with a "<notification>"
 #   Navigate back to patient search, to search for the patient details and verify edited details
-    When the user click the Test Directory link from the notification banner and re-select test "<test-search>" and navigate back to patient search
+    When the user clicks the Back link
+    And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     When the user clicks the patient result card
     Then the Patient Details page is displayed
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
-    And the user clicks the Start Referral button
+    And the user navigates back to patient existing referral page
+      | APP_URL | patient-details|
     And the referral page is displayed
     And the new patient gender "<gender>" is displayed on the referral banner
 

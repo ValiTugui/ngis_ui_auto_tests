@@ -147,7 +147,6 @@ Feature: Patient search page
     Examples:
       | patient-search-type |
       | NHS Spine           |
-      | NGIS                |
 
 
   @patientSearch_14 @NTS-2798 @E2EUI-2162 @v_1

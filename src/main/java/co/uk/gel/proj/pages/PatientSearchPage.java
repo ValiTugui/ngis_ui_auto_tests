@@ -914,5 +914,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='" + editedGender + "']")));
         Debugger.println(" Nee patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
     }
+
+
+    public void fillInNewPatientDetailsInTheYesFields() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        nhsNumber.sendKeys(newPatient.getNhsNumber());
+        dateDay.sendKeys(newPatient.getDay());
+        dateMonth.sendKeys(newPatient.getMonth());
+        dateYear.sendKeys(newPatient.getYear());
+        Debugger.println(" Nee patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    }
 }
 

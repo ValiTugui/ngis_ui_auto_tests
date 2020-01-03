@@ -94,6 +94,9 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
 
+    @FindBy(xpath = "//a[text()='Test Directory']")
+    public WebElement testDirectoryLinkOnBanner;
+
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
 
@@ -183,6 +186,9 @@ public class PatientDetailsPage {
 
     @FindBy(id = "address[4]")
     public WebElement addressLine4;
+
+    @FindBy(xpath = "//button[text()='Yes']")
+    public WebElement yesButton;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
@@ -332,7 +338,7 @@ public class PatientDetailsPage {
 
     public void clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
+        Actions.clickElement(driver, testDirectoryLinkOnBanner);
     }
 
     public boolean nhsNumberFieldIsDisabled() {
@@ -495,18 +501,58 @@ public class PatientDetailsPage {
         Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
     }
 
+    public void fillInAllFieldsNewPatientDetailsWithNHSNumber() {
+        Wait.forElementToBeDisplayed(driver, title);
+        String patientTitle = "Mr";
+        newPatient.setTitle(patientTitle);
+        title.sendKeys(patientTitle);
+        String firstNameValue = faker.name().firstName();
+        String lastNameValue = faker.name().lastName();
+        newPatient.setFirstName(firstNameValue);
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+        newPatient.setLastName(lastNameValue);
+        Actions.fillInValue(familyName, newPatient.getLastName());
+
+        String dayOfBirth = PatientSearchPage.testData.getDay();
+        String monthOfBirth = PatientSearchPage.testData.getMonth();
+        String yearOfBirth = PatientSearchPage.testData.getYear();
+        newPatient.setDay(dayOfBirth);
+        newPatient.setMonth(monthOfBirth);
+        newPatient.setYear(yearOfBirth);
+
+        String gender = "Male";
+        newPatient.setGender(gender);
+        editDropdownField(administrativeGenderButton, gender);
+        editDropdownField(lifeStatusButton, "Alive");
+        Actions.fillInValue(dateOfDeath, "01/01/2015");
+        editDropdownField(ethnicityButton, "A - White - British");
+
+        String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
+        newPatient.setNhsNumber(patientNhsNumber);
+        Actions.clickElement(driver, yesButton);
+        Actions.clickElement(driver, nhsNumber);
+        Actions.fillInValue(nhsNumber, patientNhsNumber);
+        Actions.clickElement(driver, nhsNumberLabel);
+
+        String hospitalId = faker.numerify("A#R##BB##");
+        Actions.fillInValue(hospitalNumber, hospitalId);
+        Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+        Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+        Actions.fillInValue(addressLine2, faker.address().streetName());
+        Actions.fillInValue(addressLine3, faker.address().cityName());
+        Actions.fillInValue(addressLine4, faker.address().state());
+        newPatient.setPostCode(getRandomUKPostCode());
+        newPatient.setHospitalNumber(hospitalId);
+        String postcodeValue = newPatient.getPostCode();
+        Actions.fillInValue(postcode, postcodeValue);
+
+        Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
+        Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+    }
+
     public NewPatient getNewlyCreatedPatientData(){
         Debugger.println(" Newly created patient object2: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
         return newPatient;
-    }
-
-    public void fillInNewPatientDetailsInTheYesFields() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(newPatient.getNhsNumber());
-        dateDay.sendKeys(newPatient.getDay());
-        dateMonth.sendKeys(newPatient.getMonth());
-        dateYear.sendKeys(newPatient.getYear());
-        Debugger.println(" Nee patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
     }
 
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {

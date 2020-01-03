@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -51,10 +52,8 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the YES button is selected by default on patient search$")
     public void theYESButtonIsSelectedByDefaultOnPatientSearch() {
-
         String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
         Assert.assertEquals(selectedStatus, "true");
-
     }
 
     @And("^the background colour of the YES button is strong blue \"([^\"]*)\"$")
@@ -204,6 +203,33 @@ public class PatientSearchSteps extends Pages {
 
                 Debugger.println("Expected address = " + NgisPatientTwo.FULL_ADDRESS + ", Actual address " + actualAddress);
                 Assert.assertEquals(NgisPatientTwo.FULL_ADDRESS, actualAddress);
+                break;
+            }
+            case "New-NGIS": {
+                String actualFullName = patientSearchPage.patientFullName.getText().trim();
+                Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientTwo.DATE_OF_BIRTH);
+                String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
+                String actualGender = patientSearchPage.patientGender.getText().trim();
+                String actualNHSNumber = patientSearchPage.patientNSNo.getText().trim();
+                String actualAddress = patientSearchPage.patientAddress.getText().trim();
+
+                NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+                String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
+                Debugger.println("Expected full name = " + expectedFullName+ ", Actual full name " + actualFullName);
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+                Debugger.println("Expected DOB = " + expectedDateOfBirth  + ", Actual DOB: " + actualFullDOB);
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+                Assert.assertEquals("Gender " + newPatient.getGender(), actualGender);
+
+                Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " + actualNHSNumber);
+                Assert.assertEquals("NHS No. " + newPatient.getNhsNumber(), actualNHSNumber);
+
+                Debugger.println("Expected post-code " + newPatient.getPostCode() + " Actual address " + actualAddress);
+                Assert.assertTrue(actualAddress.contains(newPatient.getPostCode()));
                 break;
             }
             default:
@@ -484,11 +510,6 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(searchParams);
     }
 
-    @And("the user search for the new patient using the nhs number and date of birth")
-    public void theUserSearchForTheNewPatientUsingTheNhsNumberAndDateOfBirth() {
-        patientDetailsPage.fillInNewPatientDetailsInTheYesFields();
-    }
-
     @And("the user search for the new patient using date of birth, first name, last name and gender")
     public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndGender() {
         //patientDetailsPage.fillInNewPatientDetailsInTheNoFields();
@@ -498,8 +519,12 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
     public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
-       // patientDetailsPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
+        Wait.seconds(4); // Wait for the patient to be updated in the database and for it to be retrieved back
         patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
     }
 
+    @And("the user types in the details of the NGIS patient in the NHS number and DOB fields")
+    public void theUserTypesInTheDetailsOfTheNGISPatientInTheNHSNumberAndDOBFields() {
+        patientSearchPage.fillInNewPatientDetailsInTheYesFields();
+    }
 }
