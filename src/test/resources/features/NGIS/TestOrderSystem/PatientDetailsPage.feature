@@ -17,7 +17,7 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+
 
   @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
@@ -34,7 +34,7 @@ Feature: Patient details page
     Examples:
       | patient-search-type | SearchDetails                                                            |
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male              |
+
 
   @patientDetails_03 @v_1
   Scenario Outline: The user can return to the patient search page by clicking the Back link
@@ -50,7 +50,7 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+
 
   @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
@@ -78,7 +78,7 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+
 
   @patientDetails_06 @v_1
   Scenario Outline: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
@@ -92,7 +92,7 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
+
 
   @COMP2_TO_NewPatient
     @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0

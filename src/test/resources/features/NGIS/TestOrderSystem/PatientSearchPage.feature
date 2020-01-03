@@ -32,7 +32,6 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_PatientSearch
   @patientSearch_04 @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0
