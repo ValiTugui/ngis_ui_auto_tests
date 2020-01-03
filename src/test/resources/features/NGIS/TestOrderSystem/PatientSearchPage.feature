@@ -241,7 +241,7 @@ Feature: Patient search page
       | patient-search-type | SearchDetails                                                            | error_message                    |
       | NHS Spine           | DOB=12-03-2150:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | Please enter a date before today |
 
-  @patientSearch_20 @NTS-2819 @E2EUI-1182 @E2EUI-926 @E2EUI-1991 @v_1
+  @patientSearch_20 @NTS-2819 @E2EUI-1182 @E2EUI-926 @v_1
   Scenario Outline: NTS-2819:Verifying the Patient Details page after successful search for "<patient-search-type>" patient
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -252,9 +252,16 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
-      | NGIS                | 9449310033 | 1-1-1970   |
 
+
+  @patientSearch_20b @NTS-2819 @E2EUI-1991 @v_1
+  Scenario Outline: NTS-2819: A validation Error should not be triggered while entering DOB as 01-01-1970
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then no validation error red mark highlighted on the DOB field
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 01-01-1970 |
 
   @patientSearch_21 @NTS-2798 @E2EUI-2162 @v_1
   Scenario Outline: NTS-2798:"<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth

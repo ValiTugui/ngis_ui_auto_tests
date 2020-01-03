@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.*;
@@ -533,4 +534,11 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.fillInNewPatientDetailsWithPostCodeInTheNoFields();
     }
 
+    @Then("no validation error red mark highlighted on the DOB field")
+    public void noValidationErrorRedMarkHighlightedOnTheDOBField() {
+        //click on NHSLabel label to move cursor away from DOB field
+        Actions.retryClickAndIgnoreElementInterception(driver,patientSearchPage.nhsNumberLabel);
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.dateOfBirthLabel);
+        Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), patientSearchPage.dateOfBirthLabel.getCssValue("color"));
+    }
 }
