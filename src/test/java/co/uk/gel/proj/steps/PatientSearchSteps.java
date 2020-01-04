@@ -106,6 +106,7 @@ public class PatientSearchSteps extends Pages {
 
         switch (patientSearchType) {
             case "NHS Spine": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientOne.DATE_OF_BIRTH);
@@ -132,6 +133,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NHS Spine2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientTwo.DATE_OF_BIRTH);
@@ -158,6 +160,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NGIS": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientOne.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -183,6 +186,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NGIS2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientTwo.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
