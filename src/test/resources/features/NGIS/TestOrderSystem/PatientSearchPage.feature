@@ -1,6 +1,6 @@
 @regression
 @regression_set2
-@patientSearch
+@patientSearchSPINE
 Feature: Patient search page
 
   Background:

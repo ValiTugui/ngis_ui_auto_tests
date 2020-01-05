@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -119,17 +120,30 @@ public class ReferralSteps extends Pages {
             String actualCid = referralPage.referralHeaderClinicalId.getText();
             String actualReferralId = referralPage.referralHeaderReferralId.getText();
 
-            Debugger.println("Expected full name = " + NgisPatientOne.FULL_NAME + ", Actual full name " + actualFullName);
-            Assert.assertEquals(NgisPatientOne.FULL_NAME, actualFullName);
+            NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+            String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
 
-            Debugger.println("Expected DOB = " + NgisPatientOne.DATE_OF_BIRTH + ", Actual DOB: " + actualFullDOB);
-            Assert.assertTrue(actualFullDOB.contains(NgisPatientOne.DATE_OF_BIRTH));
+            Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
+            Assert.assertEquals(expectedFullName, actualFullName);
 
-            Debugger.println("Expected Gender= " + NgisPatientOne.GENDER + ", Actual Gender: " + actualGender);
-            Assert.assertEquals(NgisPatientOne.GENDER, actualGender);
+            String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+            Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+            Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
 
-            Debugger.println("Expected nhs no = " + NgisPatientOne.NHS_NUMBER + ", Actual nhs no: " + actualNHSNumber);
-            Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
+            Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+            Assert.assertEquals(newPatient.getGender(), actualGender);
+
+            Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " +  actualNHSNumber);
+            Assert.assertEquals(newPatient.getNhsNumber(), actualNHSNumber);
+
+            Debugger.println("Expected patient ID = " + newPatient.getPatientID() + ", Actual Patient-Id: " + actualPatientId);
+            Assert.assertNotNull(actualPatientId);
+
+            Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
+            Assert.assertNotNull(actualCid);
+
+            Debugger.println("Expected nhs no = " + newPatient.getReferralID() + ", Actual nhs no: " + actualReferralId);
+            Assert.assertNotNull(actualReferralId);
         }
     }
 

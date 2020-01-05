@@ -339,7 +339,16 @@ public class PatientDetailsPage {
 
     public void clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
-        Actions.clickElement(driver, testDirectoryLinkOnBanner);
+        try {
+            Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
+            if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
+                Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
+                Assert.assertFalse("Test Directory Link is not displayed even after waiting period...Failing.", true);
+            }
+            Click.element(driver, testDirectoryLinkOnBanner);
+        } catch (Exception exp) {
+            Debugger.println("Test Directory Link is not shown on banner..." + exp);
+        }
     }
 
     public boolean nhsNumberFieldIsDisabled() {
