@@ -241,6 +241,7 @@ Feature: Patient details page
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
+    Then the Patient Details page is displayed
     And the patient detail page displays expected input-fields and drop-down fields
     And some input-fields and drops-downs are shown with mandatory asterisk star symbol
       | labelHeader     |
