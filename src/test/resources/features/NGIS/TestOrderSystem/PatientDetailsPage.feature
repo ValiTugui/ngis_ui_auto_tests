@@ -3,6 +3,7 @@
 @patientDetails
 Feature: Patient details page
 
+  @COMP2_TO_PatientDetails
   @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
@@ -17,8 +18,8 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
+  @COMP2_TO_PatientDetails
   @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at the patient search page
@@ -34,8 +35,8 @@ Feature: Patient details page
     Examples:
       | patient-search-type | SearchDetails                                                            |
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
-      | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male              |
 
+  @COMP2_TO_PatientDetails
   @patientDetails_03 @v_1
   Scenario Outline: The user can return to the patient search page by clicking the Back link
     Given a web browser is at the patient search page
@@ -50,8 +51,8 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
+  @COMP2_TO_PatientDetails
   @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
@@ -66,7 +67,7 @@ Feature: Patient details page
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
 
-
+  @COMP2_TO_PatientDetails
   @patientDetails_05 @NTS-3067 @E2EUI-1128 @P0 @v_1
   Scenario Outline:NTS-3067:The user can not create a referral for an existing patient without a clinical indication test selected
     Given a web browser is at the patient search page
@@ -78,8 +79,8 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
+  @COMP2_TO_PatientDetails
   @patientDetails_06 @v_1
   Scenario Outline: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
     Given a web browser is at the patient search page
@@ -92,9 +93,9 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
-  @COMP2_TO_NewPatient
+
+  @COMP2_TO_PatientDetails
     @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
@@ -107,9 +108,8 @@ Feature: Patient details page
       | NGIS                |
       | NHS Spine           |
 
-  @COMP2_TO_NewPatient
-    @LOGOUT_BEFORE_TEST @v_1
-    @patientDetails_07 @NTS-3101 @E2EUI-2146 @P0 @BVT_P0
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_08 @NTS-3101 @E2EUI-2146 @P0 @BVT_P0
   Scenario Outline: NTS-3101:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -120,30 +120,42 @@ Feature: Patient details page
       | patient-search-type |
       | NGIS                |
 
-  @COMP2_TO_NewPatient
-    @LOGOUT_BEFORE_TEST
-    @patientDetails_07 @LOGOUT @NTS-3151 @E2EUI-1047 @PO @v_1
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_09 @NTS-3151 @E2EUI-1047 @PO @v_1
   Scenario Outline: NTS-3151:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | NGIS | Cancer |
-    And the user navigates back to patient search page
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    And the user navigates to the "<stage1>" stage
+    And the "<stage1>" stage is marked as Completed
+    When the user navigates back to patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    Given a web browser is logged in as a "GEL_NORMAL_USER" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
     Then the Patient Details page is displayed
     And the user click on the referral card on patient details page to navigate to referral page
     And the "<patient-search-type>" patient details searched for are the same in the referral header bar
 
     Examples:
-      | patient-search-type |
-      | NGIS                |
+      | patient-search-type | stage1          |
+      | NGIS                | Patient details |
 
-  @E2EUI-1364 @NTS-3173 @PO @v_1 @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
+  @patientDetails_10 @E2EUI-1364 @NTS-3173 @PO @v_1 @COMP2_TO_PatientDetails
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Renal Tumours - Paediatric | NGIS | Cancer |
-    And the user navigates back to patient search page
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    And the user navigates to the "<stage1>" stage
+    And the "<stage1>" stage is marked as Completed
+    When the user navigates back to patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    And a web browser is logged in as a "GEL_NORMAL_USER" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
     Then the Patient Details page is displayed
     And the user click on the referral card on patient details page to navigate to referral page
     And the "<patient-search-type>" patient details searched for are the same in the referral header bar
@@ -161,11 +173,13 @@ Feature: Patient details page
     And the "<stage3>" stage is marked as Completed
     And the "<stage4>" stage is selected
     And the correct "<number_of>" tests are saved to the referral in  "<stage3>"
+
     Examples:
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
 
-  @NTS-3346 @E2EUI-995 @P0 @v_1
+  @COMP2_TO_PatientDetails @LOGOUT
+  @patientDetails_11 @NTS-3346 @E2EUI-995 @P0 @v_1
   Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -180,8 +194,8 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues |
       | NHS Spine           | 9449310602 | 23-03-2011 | 50                   |
 
-
-  @COMP2_TO_PatientDetails @NTS-3438 @E2EUI-1511
+  @COMP2_TO_PatientDetails @LOGOUT
+  @patientDetails_12 @NTS-3438 @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438 - Patient Details page - Update and patient Gender, Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |

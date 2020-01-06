@@ -89,7 +89,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the Test Directory link from the notification banner")
     public void theUserClicksTheTestDirectoryLinkFromTheNotificationBanner() {
-        patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        boolean testDirectoryLinkClickAble;
+        testDirectoryLinkClickAble = patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        Assert.assertTrue(testDirectoryLinkClickAble);
     }
 
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")

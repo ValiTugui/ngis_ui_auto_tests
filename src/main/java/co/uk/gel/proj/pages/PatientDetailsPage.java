@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.List;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
@@ -336,9 +337,22 @@ public class PatientDetailsPage {
         Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
         }
 
-    public void clickTestDirectoryLinkFromNotificationBanner() {
+    public boolean clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
-        Actions.clickElement(driver, testDirectoryLinkOnBanner);
+        try {
+            Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
+            if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
+                Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
+                SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+                return false;
+            }
+            Click.element(driver, testDirectoryLinkOnBanner);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Test Directory Link is not shown on banner..." + exp);
+            SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+            return false;
+        }
     }
 
     public boolean nhsNumberFieldIsDisabled() {
@@ -501,13 +515,24 @@ public class PatientDetailsPage {
         Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
     }
 
-    public void fillInAllFieldsNewPatientDetailsWithNHSNumber() {
+    public void fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
+
         Wait.forElementToBeDisplayed(driver, title);
         String patientTitle = "Mr";
         newPatient.setTitle(patientTitle);
         title.sendKeys(patientTitle);
-        String firstNameValue = faker.name().firstName();
-        String lastNameValue = faker.name().lastName();
+
+        String firstNameValue;
+        String lastNameValue;
+
+        if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
+            firstNameValue = faker.name().firstName().replaceFirst("[a-z]", "é");
+            lastNameValue = faker.name().lastName().concat("müller");
+        } else {
+            firstNameValue = faker.name().firstName();
+            lastNameValue = faker.name().lastName();
+        }
+
         newPatient.setFirstName(firstNameValue);
         Actions.fillInValue(firstName, newPatient.getFirstName());
         newPatient.setLastName(lastNameValue);
@@ -577,6 +602,5 @@ public class PatientDetailsPage {
         Wait.forElementToBeDisplayed(driver, successNotification);
         return Actions.getText(successNotification);
     }
-
 
 }
