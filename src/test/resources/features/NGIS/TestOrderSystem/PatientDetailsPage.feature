@@ -95,7 +95,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
     @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
