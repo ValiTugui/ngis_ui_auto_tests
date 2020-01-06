@@ -366,4 +366,20 @@ public class ClinicalQuestionsPage {
         return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
     }
 
+    public boolean verifySpecificAgeOnSetYearsValue(String years){
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+        Debugger.println("ageOfOnsetYearsField : " + Actions.getValue(ageOfOnsetYearsField));
+        return Actions.getValue(ageOfOnsetYearsField).equalsIgnoreCase(years);
+    }
+    public boolean verifySpecificAgeOnSetMonthValue(String month){
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        Debugger.println("ageOfOnsetMonthsField : " + Actions.getValue(ageOfOnsetMonthsField));
+        return Actions.getValue(ageOfOnsetMonthsField).equalsIgnoreCase(month);
+    }
+
+    public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus){
+        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
+    }
+
 }

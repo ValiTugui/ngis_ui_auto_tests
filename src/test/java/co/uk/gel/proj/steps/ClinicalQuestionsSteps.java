@@ -160,4 +160,25 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertTrue(clinicalQuestionsPage.selectRandomPhenotypicSex() != null);
         Assert.assertTrue(clinicalQuestionsPage.selectRandomKaryotypicSex() != null);
     }
+
+    @And("the user fills the ClinicalQuestionsPage with the {string} except to the disease status field")
+    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheDiseaseStatusField(String searchTerms) {
+        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
+    }
+
+    @And("the user sees the data such as {string} {string} are saved")
+    public void theUserSeesTheDataSuchAsAreSaved(String expectedHPOTerm, String searchTerms) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
+        String[] expectedAgeOnSets = paramNameValue.get("AgeOfOnset").split(",");
+        String expectedDiseaseStatus = paramNameValue.get("DiseaseStatus");
+        Debugger.println("expected age on sets years : " + expectedAgeOnSets[0]);
+        Debugger.println("expected age on sets months: " + expectedAgeOnSets[1]);
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetYearsValue(expectedAgeOnSets[0]));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetMonthValue(expectedAgeOnSets[1]));
+
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
+
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+
+    }
 }
