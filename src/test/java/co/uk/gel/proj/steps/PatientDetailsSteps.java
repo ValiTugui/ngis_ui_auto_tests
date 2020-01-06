@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -16,6 +17,7 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class PatientDetailsSteps extends Pages {
@@ -198,5 +200,22 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedGender,actualGender);
         Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
         Assert.assertEquals(expectedEthnicity,actualEthnicity);
+    }
+
+    @And("the patient detail page displays expected input-fields and drop-down fields")
+    public void thePatientDetailPageDisplaysExpectedInputFieldsAndDropDownFields() {
+        Assert.assertTrue("All expected fields are not displayed on patient detail page", patientDetailsPage.verifyTheElementsOfPatientDetailsPageWithNhsNumber());
+    }
+
+    @And("some input-fields and drops-downs are shown with mandatory asterisk star symbol")
+    public void someInputFieldsAndDropsDownsAreShownWithMandatoryAsteriskStarSymbol(DataTable dataTable) {
+        List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
+
+        List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        Debugger.println("Actual fields labels on patient detail page :" + actualFieldsLabels);
+        for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
+            Debugger.println("Expected mandatory fields labels on patient detail page :" + expectedLabelList.get(i).get("labelHeader") + "\n" );
+            Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
+        }
     }
 }
