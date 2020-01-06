@@ -451,7 +451,7 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page4_18 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3
+    @patientChoice_Page4_18 @LOGOUT @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3428: scenario 3 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -486,7 +486,31 @@ Feature: Patient Choice Page
       | Parent(s) / carer / guardian have agreed to the test | Parent(s) / carer / guardian would like to revisit at a later date | No       | Not applicable | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | FirstName=WILTON:LastName=BRITTAIN |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page4_18 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_4
+    @patientChoice_Page4_15 @NTS-3428 @E2EUI-2041 @v_1 @P0
+  Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
+    Then the user is navigated to a page with title Add patient choice information
+    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    Then the Patient choice category option is marked as completed
+    When the user fills "<TestType>" details in test type
+    And the user should see the chosen "<TestType>" with edit button in "Test type"
+    Then the Test type option is marked as completed
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    And the user should see the chosen "Recorded by:" with edit button in "Recorded by"
+    Then the Recorded by option is marked as completed
+
+    Examples:
+      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            |
+      | Patient choice       | Child                 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
+
+  @COMP9_TO_PatientChoice
+    @patientChoice_Page4_19 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_4
   Scenario Outline: NTS-3428: scenario 4 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -519,7 +543,7 @@ Feature: Patient Choice Page
       | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
 
   @COMP9_TO_PatientChoice
-    @patientChoice_Page4_19 @LOGOUT @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_5
+    @patientChoice_Page4_20 @LOGOUT @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

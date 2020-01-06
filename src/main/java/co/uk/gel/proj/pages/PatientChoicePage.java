@@ -1815,10 +1815,9 @@ public class PatientChoicePage {
 
     public boolean verifyThePatientChoiceOptionsForChild() {
         try {
-            Wait.forElementToBeDisplayed(driver, patientChoiceAboutResearch);
-            if (!seleniumLib.isElementPresent(patientChoiceAboutResearch)) {
-                Debugger.println("Patient choices: About genomic testing and agreed to the genomic test question not found.");
-                return false;
+            if(!Wait.isElementDisplayed(driver, patientChoiceAboutResearch,100)){
+               Debugger.println("patientChoiceAboutResearch: Not Present.");
+               return false;
             }
             if(!"Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?".equalsIgnoreCase(patientChoiceAboutResearch.getText())){
                 return false;
