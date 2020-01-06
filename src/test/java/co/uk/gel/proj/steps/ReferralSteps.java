@@ -142,7 +142,7 @@ public class ReferralSteps extends Pages {
             Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
             Assert.assertNotNull(actualCid);
 
-            Debugger.println("Expected nhs no = " + newPatient.getReferralID() + ", Actual nhs no: " + actualReferralId);
+            Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
             Assert.assertNotNull(actualReferralId);
         }
     }
@@ -496,9 +496,7 @@ public class ReferralSteps extends Pages {
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-            } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
-                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
-            }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
+            }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters != null) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
             }
         } else {

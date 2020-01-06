@@ -337,17 +337,21 @@ public class PatientDetailsPage {
         Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
         }
 
-    public void clickTestDirectoryLinkFromNotificationBanner() {
+    public boolean clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
         try {
             Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
             if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
                 Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
-                Assert.assertFalse("Test Directory Link is not displayed even after waiting period...Failing.", true);
+                SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+                return false;
             }
             Click.element(driver, testDirectoryLinkOnBanner);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Test Directory Link is not shown on banner..." + exp);
+            SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+            return false;
         }
     }
 
@@ -520,21 +524,19 @@ public class PatientDetailsPage {
 
         String firstNameValue;
         String lastNameValue;
+
         if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
             firstNameValue = faker.name().firstName().replaceFirst("[a-z]", "é");
             lastNameValue = faker.name().lastName().concat("müller");
-            newPatient.setFirstName(firstNameValue);
-            Actions.fillInValue(firstName, newPatient.getFirstName());
-            newPatient.setLastName(lastNameValue);
-            Actions.fillInValue(familyName, newPatient.getLastName());
         } else {
             firstNameValue = faker.name().firstName();
             lastNameValue = faker.name().lastName();
-            newPatient.setFirstName(firstNameValue);
-            Actions.fillInValue(firstName, newPatient.getFirstName());
-            newPatient.setLastName(lastNameValue);
-            Actions.fillInValue(familyName, newPatient.getLastName());
         }
+
+        newPatient.setFirstName(firstNameValue);
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+        newPatient.setLastName(lastNameValue);
+        Actions.fillInValue(familyName, newPatient.getLastName());
 
         String dayOfBirth = PatientSearchPage.testData.getDay();
         String monthOfBirth = PatientSearchPage.testData.getMonth();
