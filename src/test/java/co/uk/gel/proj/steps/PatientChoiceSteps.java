@@ -289,12 +289,7 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.clickingOnNHSCareYesNoOptions(option);
     }
 
-//    @And("the user should be able to see all the details of patient choices research participation")
-//    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesResearchParticipation() {
-//        Assert.assertTrue(patientChoicePage.verifyResearchParticipationOfPatientChoice());
-//    }
-
-    @Then("the user should see a error message box with border color (.*) and message as (.*)")
+   @Then("the user should see a error message box with border color (.*) and message as (.*)")
     public void theUserShouldSeeAErrorMessageBox(String boxColor,String message) {
         boolean testResult = false;
         testResult = patientChoicePage.errorMessageInPatientChoicePage(boxColor,message);

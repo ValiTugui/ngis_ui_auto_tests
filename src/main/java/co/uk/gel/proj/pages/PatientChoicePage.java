@@ -1083,7 +1083,7 @@ public class PatientChoicePage {
                 Debugger.println("Expected Border Color is:"+expColor+", but present: "+borderDetails);
                 return false;
             }
-            //Note: Not able to capture the message and validate the content.
+            //Note: Not able to capture the message and validate the content. Will try and implement.
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage,errorMessageInPatientChoicePage: element not found." + exp);
@@ -1427,6 +1427,7 @@ public class PatientChoicePage {
             String actualTitle = "";
             for (int i = 0; i < noOfOptions; i++) {
                 actualTitle = patientChoiceSubTitles.get(i).getText();
+                Debugger.println("ACTUAL: "+actualTitle);
                 if(actualTitle.equalsIgnoreCase(sectionTitle)){
                     return true;
                 }
