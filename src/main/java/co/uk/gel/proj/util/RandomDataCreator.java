@@ -40,7 +40,7 @@ public class RandomDataCreator {
     }
 
 
-    public static String getRandomPostCode() {
+    public static String getRandomUKPostCode() {
         String[] allPostcode = {"AB1 0AB", "AL10 0QQ", "B1 1TA", "B99 1DY", "CA1 1AA", "CA28 6AQ", "DA1 1AQ", "DA1 1AQ",
                 "E1 0SF", "E20 3PS"};
         int generator = RandomDataCreator.getRandomNumberRange(0, allPostcode.length - 1);

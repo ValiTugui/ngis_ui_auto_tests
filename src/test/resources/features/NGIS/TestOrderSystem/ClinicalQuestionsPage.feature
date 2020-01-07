@@ -4,7 +4,7 @@
 
 Feature: Clinical Questions stage
 
-  @E2EUI-2089 @NTS-3209 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalQuestions @BVT_P0
+  @E2EUI-2089 @NTS-3209 @E2EUI-1404 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalQuestions @BVT_P0
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -12,14 +12,15 @@ Feature: Clinical Questions stage
     And the Clinical Questions page header is shown as "<title>"
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
     And the Clinical Questions page header is shown as "<title>"
     When the user adds a new HPO phenotype term "<hpoTerm2>"
     Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
     And the Clinical Questions page is displayed with at least "<hpoTermsCount>" HPO terms in the HPO Phenotype section
 
     Examples:
-      | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             |
+      | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount |termPresence |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             |Present      |
 
   @E2EUI-1972 @NTS-3240 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
@@ -224,3 +225,24 @@ Feature: Clinical Questions stage
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          |
+
+  @E2EUI-1443 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
+  Scenario Outline: NTS-3439 - Clinical Questions - verify the 'Save and Continue' button on the Clinical Questions stage
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |
+    And the user navigates to the "<stage>" stage
+    And the Clinical Questions page header is shown as "<title>"
+    When the user adds a new HPO phenotype term "<hpoTerm1>"
+    Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
+    And the Clinical Questions page header is shown as "<title>"
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    When the user provided the values "<year>" "<month>" for Age of onset fields
+    And the user selects a value "BASAL CELL NEVUS" from the Rare disease diagnosis
+    And the user answers the phenotypic and karyotypic sex questions
+    And the user clicks the Save and Continue button
+    Then the "Notes" stage is selected
+    And the "<stage>" stage is marked as Completed
+    Examples:
+      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | DiseaseStatus=Affected:AgeOfOnset=10,03 |

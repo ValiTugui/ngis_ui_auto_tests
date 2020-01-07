@@ -65,6 +65,24 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
 
+    @FindBy(xpath = "//label[contains(@class,'radio')]")
+    public List<WebElement> radioButtons;
+
+    @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]//child::div")
+    public WebElement hpoModifiersDropdown;
+
+    @FindBy(xpath = "//*[contains(@class,'multiValue')]")
+    public WebElement hpoModifierValue;
+
+    @FindBy(xpath = "//span[contains(@class,'radio__text')]")
+    public List<WebElement> radioButtonsTexts;
+
+    @FindBy(xpath = "//*[contains(@id,'question-id-q90')]")
+    public WebElement phenotypicSexDropdown;
+
+    @FindBy(xpath = "//*[contains(@id,'question-id-q91')]")
+    public WebElement karyotypicSexDropdown;
+
     @FindBy(css = "[class*='hpo-term__delete']")
     public List<WebElement> hpoTermsDeleteIcons;
 
@@ -85,6 +103,7 @@ public class ClinicalQuestionsPage {
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+    String selectSingleValue = "div[class*='singleValue']";
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -307,6 +326,44 @@ public class ClinicalQuestionsPage {
             return false;
 
         }
+    }
+
+    public boolean selectTermPresence(String presence) {
+        boolean testResult = false;
+        Wait.forElementToBeDisplayed(driver, hpoTable);
+        for (int i = 0; i < radioButtons.size(); i++) {
+            if (radioButtonsTexts.get(i).getText().contains(presence)) {
+                Actions.clickElement(driver, radioButtons.get(i));
+                testResult = true;
+                break;
+            }
+        }
+        return testResult;
+    }
+
+    public String selectRandomModifier() {
+        Wait.forElementToBeDisplayed(driver, hpoModifiersDropdown);
+        Actions.clickElement(driver, hpoModifiersDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Wait.seconds(1);
+        Actions.selectRandomValueFromDropdown(dropdownValues);
+        return Actions.getText(hpoModifierValue);
+    }
+
+    public String selectRandomPhenotypicSex() {
+        Actions.clickElement(driver, phenotypicSexDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Wait.seconds(1);
+        return Actions.getText(phenotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
+    }
+
+    public String selectRandomKaryotypicSex() {
+        Actions.clickElement(driver, karyotypicSexDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Wait.seconds(1);
+        return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
     }
 
 }

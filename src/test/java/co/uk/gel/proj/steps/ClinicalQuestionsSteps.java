@@ -148,4 +148,16 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserFillsTheClinicalQuestionsWithTheExceptToTheRareDiseaseDiagnosisFieldForTheFamilyMember(String searchTerms) {
         theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
+
+    @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and modifier")
+    public void theUserSelectsTheHPOPhenotypeQuestionsSuchAsNameTermPresenceAndModifier(String termPresence) {
+        Assert.assertTrue(clinicalQuestionsPage.selectTermPresence(termPresence));
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomModifier() != null);
+    }
+
+    @And("the user answers the phenotypic and karyotypic sex questions")
+    public void theUserAnswersThePhenotypicAndKaryotypicSexQuestions() {
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomPhenotypicSex() != null);
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomKaryotypicSex() != null);
+    }
 }

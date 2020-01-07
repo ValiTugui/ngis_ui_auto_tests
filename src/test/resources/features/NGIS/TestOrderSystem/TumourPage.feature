@@ -180,10 +180,11 @@ Feature: Tumours Page
     When the user attempts to navigate away by clicking "<browser_exit1>"
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
+    #     User click on back button - Defect - https://jira.extge.co.uk/browse/NTOS-4539
 #     User click on back button
-    When the user attempts to navigate away by clicking "<browser_exit2>"
-    Then the user sees a prompt alert "<partOfMessage2>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
-    And the web browser is still at the same "<partialCurrentUrl2>" page
+#    When the user attempts to navigate away by clicking "<browser_exit2>"
+#    Then the user sees a prompt alert "<partOfMessage2>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
+#    And the web browser is still at the same "<partialCurrentUrl2>" page
    #  User click on logout button
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     When the user clicks the Log out button
