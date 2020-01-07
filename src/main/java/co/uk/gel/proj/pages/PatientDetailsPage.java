@@ -603,4 +603,40 @@ public class PatientDetailsPage {
         return Actions.getText(successNotification);
     }
 
+
+    public boolean verifyTheElementsOfPatientDetailsPageWithNhsNumber() {
+
+        Wait.forElementToBeDisplayed(driver, ethnicityButton);
+        pageTitle.isDisplayed();
+        title.isDisplayed();
+        titleLabel.isDisplayed();
+        firstName.isDisplayed();
+        firstnameLabel.isDisplayed();
+        familyName.isDisplayed();
+        familyNameLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        administrativeGenderButton.isDisplayed();
+        administrativeGenderLabel.isDisplayed();
+        lifeStatusButton.isDisplayed();
+        lifeStatusLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        ethnicityButton.isDisplayed();
+        ethnicityLabel.isDisplayed();
+        nhsNumber.isDisplayed();
+        nhsNumberLabel.isDisplayed();
+        hospitalNumber.isDisplayed();
+        hospitalNumberLabel.isDisplayed();
+        addressLabel.isDisplayed();
+        addressLine0.isDisplayed();
+        addressLine1.isDisplayed();
+        addressLine2.isDisplayed();
+        addressLine3.isDisplayed();
+        addressLine4.isDisplayed();
+        postcodeLabel.isDisplayed();
+        postcode.isDisplayed();
+
+        return true;
+    }
 }
