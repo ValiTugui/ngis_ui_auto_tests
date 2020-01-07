@@ -195,9 +195,9 @@ public class ReferralPage<check> {
                 try {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 30 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
-                    Wait.seconds(30);
+                    //Still the helix in action, waiting for another 40 seconds.
+                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
+                    Wait.seconds(40);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }

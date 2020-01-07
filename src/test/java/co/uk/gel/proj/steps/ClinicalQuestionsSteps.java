@@ -2,23 +2,22 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Set;
 
 public class ClinicalQuestionsSteps extends Pages {
     public ClinicalQuestionsSteps(SeleniumDriver driver) {
         super(driver);
     }
 
-    @And("the Clinical Questions page header is shown as {string}")
-    public void theClinicalQuestionsPageHeaderIsShownAs(String expectedPageTitle) {
-        String currentPageTitle = referralPage.getTheCurrentPageTitle();
-        Assert.assertEquals(expectedPageTitle, currentPageTitle);
-    }
 
     @And("there is {string} existing HPO term")
     public void thereIsExistingHPOTerm(String numberOfHPOTerms) {
@@ -111,5 +110,76 @@ public class ClinicalQuestionsSteps extends Pages {
     @And("the OMIM and Oprhanet drop-down is allowed to have values up to {string}")
     public void theOMIMAndOprhanetDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
         Assert.assertTrue(clinicalQuestionsPage.verifyMaxAllowedValuesOMIMField(Integer.parseInt(allowedValuesCount)));
+    }
+
+
+    @And("the user fills the ClinicalQuestionsPage with the {string} except to the Rare disease diagnosis field")
+    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(String searchDetails) {
+        theUserSearchTheFamilyMemberWithTheSpecifiedDetails(searchDetails);
+    }
+
+    @When("the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon")
+    public void theUserClearsTheValueThatIsSetOnOnTheCloseIconPlacedInTheDiseaseStatusFieldByClickingTheCloseIcon() {
+        clinicalQuestionsPage.clickCloseIcon();
+    }
+
+    @Then("the Disease status field is not set with the disease status value {string}")
+    public void theDiseaseStatusFieldIsNotSetWithTheDiseaseStatusValue(String searchTerms) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
+        String previouslyAssignedValueOfDiseaseStatus = paramNameValue.get("DiseaseStatus");
+        String expectedDefaultValueOfDiseaseStatus = "Select...";
+        String actualValueOfDiseaseStatus = clinicalQuestionsPage.getDefaultValueOfDiseaseStatus();
+        Debugger.println("ACTUAL value : " + actualValueOfDiseaseStatus);
+        Assert.assertFalse(actualValueOfDiseaseStatus.equals(previouslyAssignedValueOfDiseaseStatus));
+        Assert.assertTrue(actualValueOfDiseaseStatus.equals(expectedDefaultValueOfDiseaseStatus));
+    }
+
+    @When("the user clicks the delete icon which is displayed across the {string}")
+    public void theUserClicksTheDeleteIconWhichIsDisplayedAcrossThe(String hPOTermToBeRemoved) {
+     Assert.assertTrue(clinicalQuestionsPage.deleteHPOTerm(hPOTermToBeRemoved));
+    }
+
+    @When("the user fills the clinical questions with the {string} except to the Rare disease diagnosis field for the family member")
+    public void theUserFillsTheClinicalQuestionsWithTheExceptToTheRareDiseaseDiagnosisFieldForTheFamilyMember(String searchTerms) {
+        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
+    }
+
+    @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and modifier")
+    public void theUserSelectsTheHPOPhenotypeQuestionsSuchAsNameTermPresenceAndModifier(String termPresence) {
+        Assert.assertTrue(clinicalQuestionsPage.selectTermPresence(termPresence));
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomModifier() != null);
+    }
+
+    @And("the user answers the phenotypic and karyotypic sex questions")
+    public void theUserAnswersThePhenotypicAndKaryotypicSexQuestions() {
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomPhenotypicSex() != null);
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomKaryotypicSex() != null);
+    }
+
+    @And("the user fills the ClinicalQuestionsPage with the {string} except to the disease status field")
+    public void theUserFillsTheClinicalQuestionsPageWithTheExceptToTheDiseaseStatusField(String searchTerms) {
+        theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
+    }
+
+    @And("the user sees the data such as {string} {string} {string} phenotypic and karyotypic sex are saved")
+    public void theUserSeesTheDataSuchAsPhenotypicAndKaryotypicSexAreSaved(String expectedHPOTerm, String searchTerms, String expectedRareDiseaseValue) {
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
+        String[] expectedAgeOnSets = paramNameValue.get("AgeOfOnset").split(",");
+        String expectedDiseaseStatus = paramNameValue.get("DiseaseStatus");
+        Debugger.println("expected age on sets years : " + expectedAgeOnSets[0]);
+        Debugger.println("expected age on sets months: " + expectedAgeOnSets[1]);
+        // verify Age On Set
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetYearsValue(expectedAgeOnSets[0]));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetMonthValue(expectedAgeOnSets[1]));
+        // verify Disease Status
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
+        // verify HPO term
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+        //verify Rare Disease Diagnoses
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseValue(expectedRareDiseaseValue));
+        //verify Phenotypic and karyotypic sex
+        Assert.assertNotNull(clinicalQuestionsPage.getPhenotypicSexDropdownValue());
+        Assert.assertNotNull(clinicalQuestionsPage.getKaryotypicSexDropdownValue());
+
     }
 }
