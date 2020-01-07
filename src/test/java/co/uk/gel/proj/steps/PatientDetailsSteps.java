@@ -210,24 +210,20 @@ public class PatientDetailsSteps extends Pages {
     @And("the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol")
     public void theMandatoryInputFieldsAndDropsDownsLabelsAreShownWithMandatoryAsteriskStarSymbol(DataTable dataTable) {
         List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
-         verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        boolean fieldLabelsFlag;
+        fieldLabelsFlag = referralPage.verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        Assert.assertTrue(fieldLabelsFlag);
     }
 
     @And("the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol")
     public void theNonMandatoryInputFieldsAndDropsDownsLabelsAreShownWithoutAsteriskStarSymbol(DataTable dataTable) {
         List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
-        verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        boolean fieldLabelsFlag;
+        fieldLabelsFlag = referralPage.verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        Assert.assertTrue(fieldLabelsFlag);
     }
 
-    private void verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
-        List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
-        Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
-        for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
-            Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
-            Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
-        }
-    }
-
+    
     @And("the No button is selected by default for the question - Do you have the NHS Number?'")
     public void theNoButtonIsSelectedByDefaultForTheQuestionDoYouHaveTheNHSNumber() {
         String selectedStatus = patientSearchPage.getNoBtnSelectedAttribute();
