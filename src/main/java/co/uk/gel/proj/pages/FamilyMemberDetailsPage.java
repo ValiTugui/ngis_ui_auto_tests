@@ -368,18 +368,6 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
-        if (!seleniumLib.isElementPresent(pageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
-            if (!seleniumLib.isElementPresent(pageTitle)) {
-                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void clickPatientCard() {
         Wait.forElementToBeDisplayed(driver, patientCard);
         patientCard.click();

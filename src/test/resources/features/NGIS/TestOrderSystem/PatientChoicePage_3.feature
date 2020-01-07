@@ -17,7 +17,7 @@ Feature: Patient Choice Page
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    And the user fills "<PatientChoice>" details in patient choices
+    And the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -46,7 +46,7 @@ Feature: Patient Choice Page
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     Then the user will see a "<InfoMessage>" warning message on the patient choice information option
 
     Examples:
@@ -131,7 +131,7 @@ Feature: Patient Choice Page
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    And the user fills "<PatientChoice>" details in patient choices
+    And the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -153,7 +153,7 @@ Feature: Patient Choice Page
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -173,7 +173,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -207,7 +207,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<NoOption>" data and sample option in patient choices
     Then the user will see a "<WarningMessage1>" warning message on the patient choice information option
@@ -228,7 +228,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     Then the user will see a "<WarningMessage3>" warning message on the patient choice information option
@@ -262,7 +262,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -289,7 +289,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Review and submit
     And the user clicks on submit patient choice Button

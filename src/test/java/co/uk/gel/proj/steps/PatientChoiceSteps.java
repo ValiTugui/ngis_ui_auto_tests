@@ -171,7 +171,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user fills {string} details in patient choices")
+    @When("the user selects the option {string} as patient choices")
     public void theUserFillsDetailsInPatientChoices(String inputData) {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoice(inputData);
@@ -230,15 +230,12 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the details of patient choices option")
-    public void theUserShouldBeAbleToSeeTheDetailsOfPatientChoicesOption() {
-        Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOptions());
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton());
-    }
-
     @And("the user should be able to see selected patient choice details")
-    public void theUserShouldBeAbleToSeeSelectedPatientChoiceDetails() {
-        Assert.assertTrue(patientChoicePage.selectedPatientChoiceDetails());
+    public void theUserShouldBeAbleToSeeSelectedPatientChoiceDetails(DataTable inputDetails) {
+        List<List<String>> choiceOptions = inputDetails.asLists();
+        for (int i = 0; i < choiceOptions.size(); i++) {
+            Assert.assertTrue(patientChoicePage.selectedPatientChoiceDetails(choiceOptions.get(i).get(0)));
+        }
     }
 
     @And("the user sees continue button is highlighted and clicks on Continue Button")
@@ -275,7 +272,7 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.clickingOnYesNoOptions(options);
     }
 
-    @Then("the question will be displayed as {string}")
+    @And("the question will be displayed as {string}")
     public void theQuestionWillBeDisplayedAs(String question) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyTheQuestionInPatientChoice(question);
@@ -292,15 +289,15 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.clickingOnNHSCareYesNoOptions(option);
     }
 
-    @And("the user should be able to see all the details of patient choices research participation")
-    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesResearchParticipation() {
-        Assert.assertTrue(patientChoicePage.verifyResearchParticipationOfPatientChoice());
-    }
+//    @And("the user should be able to see all the details of patient choices research participation")
+//    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesResearchParticipation() {
+//        Assert.assertTrue(patientChoicePage.verifyResearchParticipationOfPatientChoice());
+//    }
 
-    @Then("the user should see a error message box")
-    public void theUserShouldSeeAErrorMessageBox() {
+    @Then("the user should see a error message box with border color (.*) and message as (.*)")
+    public void theUserShouldSeeAErrorMessageBox(String boxColor,String message) {
         boolean testResult = false;
-        testResult = patientChoicePage.errorMessageInPatientChoicePage();
+        testResult = patientChoicePage.errorMessageInPatientChoicePage(boxColor,message);
         Assert.assertTrue(testResult);
     }
 
@@ -338,9 +335,12 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(patientChoicePage.highlightedSubmitPatientChoiceButton());
     }
 
-    @Then("the user should be able to see all the details of patient choices reasons")
-    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesReasons() {
-        Assert.assertTrue(patientChoicePage.verifyReasonsOfPatientChoice());
+    @And("the patient choice reason options as below")
+    public void thePatientChoiceReasonOptionsAsBelow(DataTable inputDetails) {
+        List<List<String>> choiceOptions = inputDetails.asLists();
+        for (int i = 1; i < choiceOptions.size(); i++) {
+            Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOption(choiceOptions.get(i).get(0)));
+        }
     }
 
     @And("the user should be able to see the previous sections disappeared")
@@ -355,7 +355,7 @@ public class PatientChoiceSteps extends Pages {
 
     @And("the user selects {string} research participation option in patient choices")
     public void theUserSelectsResearchParticipationOptionInPatientChoices(String option) {
-        patientChoicePage.clickingOnResearchParticipationYesNoOptions(option);
+        Assert.assertTrue(patientChoicePage.clickingOnResearchParticipationYesNoOptions(option));
     }
 
     @And("the user should be able to see Yes and No answer options for the question")
@@ -458,11 +458,24 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(patientChoicePage.submitPatientChoiceButtonStatus());
     }
 
-    @And("the user should be able to see all the details of patient choices for consultee option")
-    public void theUserShouldBeAbleToSeeAllTheDetailsOfPatientChoicesForConsulteeOption() {
-        Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOptionsForConsultee());
+    @Then("the user should see the section title as (.*)")
+    public void theUserShouldShouldSeeTheSectionTitleAs(String sectionTitle) {
+        Assert.assertTrue(patientChoicePage.verifyThePatientChoiceSectionTitle(sectionTitle));
     }
-
+    @And("the patient choice options as below")
+    public void thePatientChoiceOptionsAsBelow(DataTable inputDetails) {
+        List<List<String>> choiceOptions = inputDetails.asLists();
+        for (int i = 1; i < choiceOptions.size(); i++) {
+            Assert.assertTrue(patientChoicePage.verifyThePatientChoiceOption(choiceOptions.get(i).get(0)));
+        }
+    }
+    @And("the child assent options as below")
+    public void theChildAssentAsBelow(DataTable inputDetails) {
+        List<List<String>> choiceOptions = inputDetails.asLists();
+        for (int i = 1; i < choiceOptions.size(); i++) {
+            Assert.assertTrue(patientChoicePage.verifyTheChildAssentOption(choiceOptions.get(i).get(0)));
+        }
+    }
     @And("the user should verify the questions and options in consultee attestation")
     public void theUserShouldVerifyTheQuestionsAndOptionsInConsulteeAttestation() {
         Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
@@ -543,20 +556,6 @@ public class PatientChoiceSteps extends Pages {
     public void theUserFillsDetailsForSignature(String signatureDetails) {
         boolean testResult = false;
         testResult = patientChoicePage.fillTheSignatureDetails(signatureDetails);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should be able to see the details of patient choices option for child")
-    public void theUserShouldBeAbleToSeeTheDetailsOfPatientChoicesOptionForChild() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyThePatientChoiceOptionsForChild();
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should verify the questions and options in child assent")
-    public void theUserShouldVerifyTheQuestionsAndOptionsInChildAssent() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyTheChildAssentOptions();
         Assert.assertTrue(testResult);
     }
 

@@ -80,13 +80,18 @@ Feature: Patient Choice Page
     @patientChoice_Page04 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is navigated to a patient choice form option with title Patient choices
-    And the user should be able to see the details of patient choices option
-    When the user fills "<PatientChoice>" details in patient choices
+    Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the patient choice options as below
+      |Patient has agreed to the test|
+      |Record of Discussion form not currently available|
+      |Patient changed their mind about the clinical test|
+    When the user selects the option "<PatientChoice>" as patient choices
     Then the user will see a "<WarningMessage1>" warning message on the patient choice information option
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
+      |Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage2>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -102,22 +107,34 @@ Feature: Patient Choice Page
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     And the user is navigated to a patient choice form option with title Patient choices
-    Then the user should be able to see the details of patient choices option
+    Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the patient choice options as below
+      |Patient has agreed to the test|
+      |Record of Discussion form not currently available|
+      |Patient changed their mind about the clinical test|
     And the user should see continue button is not highlighted
-    When the user fills "<PatientChoice>" details in patient choices
-    Then the user should be able to see all the details of patient choices reasons
-    When the user fills "<Reasons>" details in patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
+    Then the user should see the section title as Reason for not capturing patient choice:
+    And the patient choice reason options as below
+      |Patient conversation happened; form to follow|
+      |Test does not require recording of patient choices|
+      |Patient currently lacks capacity and no consultee available|
+      |Associated with another referral|
+      |Other|
+    When the user selects the option "<Reason5>" as patient choices
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
+      |Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
+      |Reason for not capturing patient choice:|
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice                                     | Reasons | WarningMessage                                                                                                                                                                           |
+      | PatientChoice1                                     | Reason5 | WarningMessage                                                                                                                                                                           |
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
@@ -126,21 +143,25 @@ Feature: Patient Choice Page
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     And the user is navigated to a patient choice form option with title Patient choices
-    Then the user should be able to see the details of patient choices option
+    Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the patient choice options as below
+      |Patient has agreed to the test|
+      |Record of Discussion form not currently available|
+      |Patient changed their mind about the clinical test|
     And the user should see continue button is not highlighted
-    When the user fills "<PatientChoice1>" details in patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user should see continue button is not highlighted
     And the user selects "<NoOption>" research participation option in patient choices
     Then the question will be displayed as "<Question2>"
-    And the user should be able to see all the details of patient choices research participation
-    Then the user will see a "<WarningMessage>" warning message on the patient choice information option
+     Then the user will see a "<WarningMessage>" warning message on the patient choice information option
     And the user should see continue button is not highlighted
-    When the user fills "<PatientChoice2>" details in patient choices
+    When the user selects the option "<PatientChoice2>" as patient choices
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
+      |Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
@@ -156,9 +177,13 @@ Feature: Patient Choice Page
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices
-    And the user should be able to see the details of patient choices option
+    Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the patient choice options as below
+      |Patient has agreed to the test|
+      |Record of Discussion form not currently available|
+      |Patient changed their mind about the clinical test|
     And the user should see continue button is not highlighted
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
@@ -170,6 +195,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
+      |Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
@@ -185,9 +211,13 @@ Feature: Patient Choice Page
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     When the user is navigated to a patient choice form option with title Patient choices
-    And the user should be able to see the details of patient choices option
+    Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the patient choice options as below
+      |Patient has agreed to the test|
+      |Record of Discussion form not currently available|
+      |Patient changed their mind about the clinical test|
     And the user should see continue button is not highlighted
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
@@ -198,6 +228,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
+      |Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
