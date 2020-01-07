@@ -366,4 +366,36 @@ public class ClinicalQuestionsPage {
         return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
     }
 
+    public boolean verifySpecificAgeOnSetYearsValue(String years){
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+        Debugger.println("ageOfOnsetYearsField : " + Actions.getValue(ageOfOnsetYearsField));
+        return Actions.getValue(ageOfOnsetYearsField).equalsIgnoreCase(years);
+    }
+    public boolean verifySpecificAgeOnSetMonthValue(String month){
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        Debugger.println("ageOfOnsetMonthsField : " + Actions.getValue(ageOfOnsetMonthsField));
+        return Actions.getValue(ageOfOnsetMonthsField).equalsIgnoreCase(month);
+    }
+
+    public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus){
+        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
+    }
+
+    public boolean verifySpecificRareDiseaseValue(String expectedRareDisease){
+        Wait.forElementToBeDisplayed(driver, diagnosisField);
+        Debugger.println("Rare disease diagnosisField: " + Actions.getText(diagnosisField));
+        return Actions.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
+    }
+
+    public String getPhenotypicSexDropdownValue(){
+        Wait.forElementToBeDisplayed(driver, phenotypicSexDropdown);
+        return Actions.getText(phenotypicSexDropdown);
+    }
+
+    public String getKaryotypicSexDropdownValue(){
+        Wait.forElementToBeDisplayed(driver, karyotypicSexDropdown);
+        return Actions.getText(karyotypicSexDropdown);
+    }
+
 }
