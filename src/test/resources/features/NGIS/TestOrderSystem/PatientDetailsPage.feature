@@ -231,7 +231,6 @@ Feature: Patient details page
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved | Angiomatoid Fibrous Histiocytoma |
 
 
-
   @COMP2_TO_PatientDetails @LOGOUT
     @patientDetails_13 @E2EUI-893 @NTS-3454
   Scenario Outline: NTS-3454: Verify the elements and mandatory fields on patient detail page

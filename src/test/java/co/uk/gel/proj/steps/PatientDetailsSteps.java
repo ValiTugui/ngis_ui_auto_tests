@@ -223,8 +223,8 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(fieldLabelsFlag);
     }
 
-    
-    @And("the No button is selected by default for the question - Do you have the NHS Number?'")
+
+    @And("the No button is selected by default for the question - Do you have the NHS Number?")
     public void theNoButtonIsSelectedByDefaultForTheQuestionDoYouHaveTheNHSNumber() {
         String selectedStatus = patientSearchPage.getNoBtnSelectedAttribute();
         Assert.assertEquals(selectedStatus, "true");

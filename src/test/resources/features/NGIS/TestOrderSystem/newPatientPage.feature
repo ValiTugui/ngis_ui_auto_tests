@@ -103,7 +103,7 @@ Feature: New Patient page
       | Life status ✱                  |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
-    And the No button is selected by default for the question - Do you have the NHS Number?'
+    And the No button is selected by default for the question - Do you have the NHS Number?
     And the user select a reason for "<reason_for_no_nhsNumber>"
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
       | labelHeader                          |
