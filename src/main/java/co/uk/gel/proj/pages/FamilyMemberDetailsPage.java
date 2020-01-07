@@ -369,7 +369,7 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        By pageTitle = By.xpath("//h1[contains(text(),\"" + expTitle + "\")]");
         if (!seleniumLib.isElementPresent(pageTitle)) {
             Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
             if (!seleniumLib.isElementPresent(pageTitle)) {
