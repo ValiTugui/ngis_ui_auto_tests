@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.*;
@@ -8,6 +9,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -51,10 +53,8 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the YES button is selected by default on patient search$")
     public void theYESButtonIsSelectedByDefaultOnPatientSearch() {
-
         String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
         Assert.assertEquals(selectedStatus, "true");
-
     }
 
     @And("^the background colour of the YES button is strong blue \"([^\"]*)\"$")
@@ -106,6 +106,7 @@ public class PatientSearchSteps extends Pages {
 
         switch (patientSearchType) {
             case "NHS Spine": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientOne.DATE_OF_BIRTH);
@@ -132,6 +133,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NHS Spine2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientTwo.DATE_OF_BIRTH);
@@ -158,6 +160,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NGIS": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientOne.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -183,6 +186,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NGIS2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientTwo.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -204,6 +208,33 @@ public class PatientSearchSteps extends Pages {
 
                 Debugger.println("Expected address = " + NgisPatientTwo.FULL_ADDRESS + ", Actual address " + actualAddress);
                 Assert.assertEquals(NgisPatientTwo.FULL_ADDRESS, actualAddress);
+                break;
+            }
+            case "New-NGIS": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
+                String actualFullName = patientSearchPage.patientFullName.getText().trim();
+                String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
+                String actualGender = patientSearchPage.patientGender.getText().trim();
+                String actualNHSNumber = patientSearchPage.patientNSNo.getText().trim();
+                String actualAddress = patientSearchPage.patientAddress.getText().trim();
+
+                NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+                String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
+                Debugger.println("Expected full name = " + expectedFullName+ ", Actual full name " + actualFullName);
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+                Debugger.println("Expected DOB = " + expectedDateOfBirth  + ", Actual DOB: " + actualFullDOB);
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+                Assert.assertEquals("Gender " + newPatient.getGender(), actualGender);
+
+                Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " + actualNHSNumber);
+                Assert.assertEquals("NHS No. " + newPatient.getNhsNumber(), actualNHSNumber);
+
+                Debugger.println("Expected post-code " + newPatient.getPostCode() + " Actual address " + actualAddress);
+                Assert.assertTrue(actualAddress.contains(newPatient.getPostCode()));
                 break;
             }
             default:
@@ -382,7 +413,6 @@ public class PatientSearchSteps extends Pages {
         switch (patientType) {
             case "NHS Spine": {
                 String actualPrefix = patientDetailsPage.title.getAttribute("value");
-                ;
                 String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
                 String actualLastName = patientDetailsPage.familyName.getAttribute("value");
                 String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
@@ -483,5 +513,36 @@ public class PatientSearchSteps extends Pages {
         String searchParams = "DOB="+dayOfBirth +"-" +monthOfBirth +"-" + yearOfBirth+":FirstName="+firstName+":LastName="+lastName+":Gender="+gender+":Postcode="+postCode;
         Debugger.println("Search Params "+ searchParams);
         patientSearchPage.useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(searchParams);
+    }
+
+    @And("the user search for the new patient using date of birth, first name, last name and gender")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndGender() {
+        //patientDetailsPage.fillInNewPatientDetailsInTheNoFields();
+        patientSearchPage.fillInNewPatientDetailsInTheNoFields();
+    }
+
+
+    @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
+        Wait.seconds(5); // Wait for the patient to be updated in the database and for it to be retrieved back
+        patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
+    }
+
+    @And("the user types in the details of the NGIS patient in the NHS number and DOB fields")
+    public void theUserTypesInTheDetailsOfTheNGISPatientInTheNHSNumberAndDOBFields() {
+        patientSearchPage.fillInNewPatientDetailsInTheYesFields();
+    }
+
+    @And("the user search for the new patient using date of birth, first name, last name, gender and post-code")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameGenderAndPostCode() {
+        patientSearchPage.fillInNewPatientDetailsWithPostCodeInTheNoFields();
+    }
+
+    @Then("no validation error red mark highlighted on the DOB field")
+    public void noValidationErrorRedMarkHighlightedOnTheDOBField() {
+        //click on NHSLabel label to move cursor away from DOB field
+        Actions.retryClickAndIgnoreElementInterception(driver,patientSearchPage.nhsNumberLabel);
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.dateOfBirthLabel);
+        Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), patientSearchPage.dateOfBirthLabel.getCssValue("color"));
     }
 }

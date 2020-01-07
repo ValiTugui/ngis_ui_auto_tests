@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -119,17 +120,30 @@ public class ReferralSteps extends Pages {
             String actualCid = referralPage.referralHeaderClinicalId.getText();
             String actualReferralId = referralPage.referralHeaderReferralId.getText();
 
-            Debugger.println("Expected full name = " + NgisPatientOne.FULL_NAME + ", Actual full name " + actualFullName);
-            Assert.assertEquals(NgisPatientOne.FULL_NAME, actualFullName);
+            NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+            String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
 
-            Debugger.println("Expected DOB = " + NgisPatientOne.DATE_OF_BIRTH + ", Actual DOB: " + actualFullDOB);
-            Assert.assertTrue(actualFullDOB.contains(NgisPatientOne.DATE_OF_BIRTH));
+            Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
+            Assert.assertEquals(expectedFullName, actualFullName);
 
-            Debugger.println("Expected Gender= " + NgisPatientOne.GENDER + ", Actual Gender: " + actualGender);
-            Assert.assertEquals(NgisPatientOne.GENDER, actualGender);
+            String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+            Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+            Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
 
-            Debugger.println("Expected nhs no = " + NgisPatientOne.NHS_NUMBER + ", Actual nhs no: " + actualNHSNumber);
-            Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
+            Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+            Assert.assertEquals(newPatient.getGender(), actualGender);
+
+            Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " +  actualNHSNumber);
+            Assert.assertEquals(newPatient.getNhsNumber(), actualNHSNumber);
+
+            Debugger.println("Expected patient ID = " + newPatient.getPatientID() + ", Actual Patient-Id: " + actualPatientId);
+            Assert.assertNotNull(actualPatientId);
+
+            Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
+            Assert.assertNotNull(actualCid);
+
+            Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
+            Assert.assertNotNull(actualReferralId);
         }
     }
 
@@ -443,7 +457,7 @@ public class ReferralSteps extends Pages {
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
-        String diseaseType = attributeOfURL.get(3);
+        String patientNameWithSpecialCharacters = attributeOfURL.get(3);
         String createPatientHyperTextLink = attributeOfURL.get(4);
         String reasonForNoNHSNumber = attributeOfURL.get(5);
         String userType = null;
@@ -478,7 +492,16 @@ public class ReferralSteps extends Pages {
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+        // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
+        if (userType != null) {
+            if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+            }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters != null) {
+                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
+            }
+        } else {
+            patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
+        }
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
@@ -510,5 +533,27 @@ public class ReferralSteps extends Pages {
     public void theSubmissionConfirmationMessageIsDisplayed(String expectedMessage) {
         String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
         Assert.assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @And("the new patient gender {string} is displayed on the referral banner")
+    public void theNewPatientGenderIsDisplayedOnTheReferralBanner(String expectedGender) {
+        String actualGender = referralPage.referralHeaderGender.getText();
+        Debugger.println("actual gender " + actualGender);
+        Debugger.println("expected gender " + expectedGender);
+        Assert.assertEquals(expectedGender,actualGender);
+    }
+
+    @And("the user navigates back to patient existing referral page")
+    public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
+
+        String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
+        Debugger.println("existingReferralID " + existingReferralID);
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
+        Debugger.println("referralFullUrl :" + referralFullUrl);
+        NavigateTo(referralFullUrl, confirmationPage);
+        referralPage.saveAndContinueButtonIsDisplayed();
+
     }
 }

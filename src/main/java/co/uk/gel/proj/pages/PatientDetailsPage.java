@@ -17,7 +17,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.List;
+
+import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
 public class PatientDetailsPage {
 
@@ -91,6 +94,9 @@ public class PatientDetailsPage {
 
     @FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
+
+    @FindBy(xpath = "//a[text()='Test Directory']")
+    public WebElement testDirectoryLinkOnBanner;
 
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
@@ -182,6 +188,9 @@ public class PatientDetailsPage {
     @FindBy(id = "address[4]")
     public WebElement addressLine4;
 
+    @FindBy(xpath = "//button[text()='Yes']")
+    public WebElement yesButton;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -247,7 +256,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine2, faker.address().streetName());
         Actions.fillInValue(addressLine3, faker.address().cityName());
         Actions.fillInValue(addressLine4, faker.address().state());
-        newPatient.setPostCode(faker.address().zipCode());
+        newPatient.setPostCode(getRandomUKPostCode());
         Actions.fillInValue(postcode, newPatient.getPostCode());
     }
 
@@ -325,12 +334,25 @@ public class PatientDetailsPage {
     }
 
     public void clickGoBackToPatientSearchLink() {
-        Click.element(driver, goBackToPatientSearchLink);
-    }
+        Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
+        }
 
-    public void clickTestDirectoryLinkFromNotificationBanner() {
+    public boolean clickTestDirectoryLinkFromNotificationBanner() {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
-        Actions.clickElement(driver, patientDetailsnotificationBanner.findElement(By.tagName("a")));
+        try {
+            Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
+            if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
+                Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
+                SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+                return false;
+            }
+            Click.element(driver, testDirectoryLinkOnBanner);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Test Directory Link is not shown on banner..." + exp);
+            SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
+            return false;
+        }
     }
 
     public boolean nhsNumberFieldIsDisabled() {
@@ -484,7 +506,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine2, faker.address().streetName());
         Actions.fillInValue(addressLine3, faker.address().cityName());
         Actions.fillInValue(addressLine4, faker.address().state());
-        newPatient.setPostCode(faker.address().zipCode());
+        newPatient.setPostCode(getRandomUKPostCode());
         newPatient.setHospitalNumber(hospitalId);
         String postcodeValue = newPatient.getPostCode();
         Actions.fillInValue(postcode, postcodeValue);
@@ -493,8 +515,92 @@ public class PatientDetailsPage {
         Debugger.println(" Newly created patient object1: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
     }
 
+    public void fillInAllFieldsNewPatientDetailsWithNHSNumber(String patientNameWithSpecialCharacters) {
+
+        Wait.forElementToBeDisplayed(driver, title);
+        String patientTitle = "Mr";
+        newPatient.setTitle(patientTitle);
+        title.sendKeys(patientTitle);
+
+        String firstNameValue;
+        String lastNameValue;
+
+        if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
+            firstNameValue = faker.name().firstName().replaceFirst("[a-z]", "é");
+            lastNameValue = faker.name().lastName().concat("müller");
+        } else {
+            firstNameValue = faker.name().firstName();
+            lastNameValue = faker.name().lastName();
+        }
+
+        newPatient.setFirstName(firstNameValue);
+        Actions.fillInValue(firstName, newPatient.getFirstName());
+        newPatient.setLastName(lastNameValue);
+        Actions.fillInValue(familyName, newPatient.getLastName());
+
+        String dayOfBirth = PatientSearchPage.testData.getDay();
+        String monthOfBirth = PatientSearchPage.testData.getMonth();
+        String yearOfBirth = PatientSearchPage.testData.getYear();
+        newPatient.setDay(dayOfBirth);
+        newPatient.setMonth(monthOfBirth);
+        newPatient.setYear(yearOfBirth);
+
+        String gender = "Male";
+        newPatient.setGender(gender);
+        editDropdownField(administrativeGenderButton, gender);
+        editDropdownField(lifeStatusButton, "Alive");
+        Actions.fillInValue(dateOfDeath, "01/01/2015");
+        editDropdownField(ethnicityButton, "A - White - British");
+
+        String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
+        newPatient.setNhsNumber(patientNhsNumber);
+        Actions.clickElement(driver, yesButton);
+        Actions.clickElement(driver, nhsNumber);
+        Actions.fillInValue(nhsNumber, patientNhsNumber);
+        Actions.clickElement(driver, nhsNumberLabel);
+
+        String hospitalId = faker.numerify("A#R##BB##");
+        Actions.fillInValue(hospitalNumber, hospitalId);
+        Actions.fillInValue(addressLine0, faker.address().buildingNumber());
+        Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
+        Actions.fillInValue(addressLine2, faker.address().streetName());
+        Actions.fillInValue(addressLine3, faker.address().cityName());
+        Actions.fillInValue(addressLine4, faker.address().state());
+        newPatient.setPostCode(getRandomUKPostCode());
+        newPatient.setHospitalNumber(hospitalId);
+        String postcodeValue = newPatient.getPostCode();
+        Actions.fillInValue(postcode, postcodeValue);
+
+        Debugger.println(" Newly created patient info   : " + patientTitle + " " + firstNameValue + " " + lastNameValue + " " + dayOfBirth + " " + monthOfBirth + " " + yearOfBirth + " " + gender + " " + postcodeValue);
+        Debugger.println(" Newly created patient object1: " + newPatient.getTitle() + " " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
+    }
+
     public NewPatient getNewlyCreatedPatientData(){
         Debugger.println(" Newly created patient object2: " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear() + " " + newPatient.getGender() + " " + newPatient.getPostCode());
         return newPatient;
     }
+
+    public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
+        editDropdownField(administrativeGenderButton, gender);
+        editDropdownField(lifeStatusButton, lifeStatus);
+        editDropdownField(ethnicityButton, ethnicity);
+    }
+
+    public void clickAddDetailsToNGISButton() {
+        Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
+        Click.element(driver, addDetailsToNGISButton);
+        Wait.forElementToBeDisplayed(driver, successNotification);
+    }
+
+    public void clickUpdateNGISRecordButton() {
+        Wait.forElementToBeClickable(driver,updateNGISRecordButton);
+        Click.element(driver, updateNGISRecordButton);
+        Wait.forElementToBeDisplayed(driver, successNotification);
+    }
+
+      public String getNotificationMessageForPatientCreatedOrUpdated() {
+        Wait.forElementToBeDisplayed(driver, successNotification);
+        return Actions.getText(successNotification);
+    }
+
 }

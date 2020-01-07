@@ -1,5 +1,6 @@
 package co.uk.gel.proj.util;
 
+import co.uk.gel.proj.config.AppConfig;
 import com.google.common.base.Splitter;
 import io.cucumber.java.hu.De;
 
@@ -135,4 +136,12 @@ public class TestUtils {
         String result = in.replaceAll("(.{" + val + "})", "$1 ").trim();
         return result;
     }
+
+      public static String getReferralURL(String baseURL, String referralID, String confirmationPage){
+          Debugger.println("existingReferralID " + referralID);
+          String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "/referral/" + referralID + "/" + confirmationPage;
+          Debugger.println("referralFullUrl :" + referralFullUrl);
+         return referralFullUrl;
+        }
+
 }

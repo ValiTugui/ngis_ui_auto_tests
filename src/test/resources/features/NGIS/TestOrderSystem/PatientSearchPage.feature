@@ -1,6 +1,6 @@
 @regression
 @regression_set2
-@patientSearch
+@patientSearchSPINE
 Feature: Patient search page
 
   Background:
@@ -32,7 +32,6 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
 
   @COMP2_TO_PatientSearch
   @patientSearch_04 @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0
@@ -48,8 +47,7 @@ Feature: Patient search page
       | E2EUI-1788   | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female                  |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=STAMBUKDELIFSCHITZ:Gender=Female:Postcode=Kt7 0BE |
       | E2EUI-2129   | NHS Spine           | DOB=23-03-2011:FirstName=nElLy:LastName=StAmBuKdElIfScHiTz:Gender=Female:Postcode=Kt7 0BE |
-      | E2EUI-1762   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male                               |
-      | E2EUI-2136   | NGIS                | DOB=14-06-2011:FirstName=GORE:LastName=PHONANAN:Gender=Male:Postcode=KT21 2BE             |
+
 
 
   @patientSearch_05 @NTS-2822 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131 @v_1
@@ -68,12 +66,7 @@ Feature: Patient search page
       | ui-ticket-no | patient-search-type | SearchDetails                                                                    |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'hern:Gender=Female                   |
       | E2EUI-2132   | NHS Spine2          | DOB=07-03-1997:FirstName=Gillian:LastName=O'HERN:Gender=Female:Postcode=KT10 0JF |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male:Postcode=KT10 9EZ     |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                       |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                     |
-      | E2EUI-2131   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                         |
-      | E2EUI-2132   | NGIS2               | DOB=14-05-2004:FirstName=CONNER:LastName=DAROLD:Gender=Male                        |
-#       | E2EUI-2132   | NHS Spine2           | DOB=07-03-1977:FirstName=Gillian:LastName=Ohern:Gender=Female  | Defects NTOS-4169
+
 
 
   @patientSearch_06 @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0
@@ -87,7 +80,7 @@ Feature: Patient search page
     Examples:
       | patient-search-type | result_message         |
       | NHS Spine           | 1 patient record found |
-      | NGIS                | 1 patient record found |
+
 
 
   @patientSearch_07 @NTS-2781 @E2EUI-1481 @v_1
@@ -147,7 +140,6 @@ Feature: Patient search page
     Examples:
       | patient-search-type |
       | NHS Spine           |
-      | NGIS                |
 
 
   @patientSearch_14 @NTS-2798 @E2EUI-2162 @v_1
@@ -248,7 +240,7 @@ Feature: Patient search page
       | patient-search-type | SearchDetails                                                            | error_message                    |
       | NHS Spine           | DOB=12-03-2150:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | Please enter a date before today |
 
-  @patientSearch_20 @NTS-2819 @E2EUI-1182 @E2EUI-926 @E2EUI-1991 @v_1
+  @patientSearch_20 @NTS-2819 @E2EUI-1182 @E2EUI-926 @v_1
   Scenario Outline: NTS-2819:Verifying the Patient Details page after successful search for "<patient-search-type>" patient
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -259,8 +251,17 @@ Feature: Patient search page
     Examples:
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
-      | NGIS                | 9449306680 | 14-06-2011 |
-      | NGIS                | 9449310033 | 1-1-1970   |
+
+
+  @patientSearch_20b @NTS-2819 @E2EUI-1991 @v_1
+  Scenario Outline: NTS-2819: A validation Error should not be triggered while entering DOB as 01-01-1970
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then no validation error red mark highlighted on the DOB field
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 01-01-1970 |
+
 
   @patientSearch_21 @NTS-2798 @E2EUI-2162 @v_1
   Scenario Outline: NTS-2798:"<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
@@ -320,7 +321,7 @@ Feature: Patient search page
         | hyperlinkText               |
         | create a new patient record |
 
-  @patientSearch_27 @NTS-3050 @E2EUI-968 @E2EUI-1308 @v_1
+  @patientSearch_27 @NTS-3050 @E2EUI-968 @E2EUI-1308 @E2EUI-1847 @v_1
   Scenario Outline: NTS-3050: The new patient page is opened when clicking the 'create a new patient record' link from the No Search Results page when searching without NHS number
     When the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
