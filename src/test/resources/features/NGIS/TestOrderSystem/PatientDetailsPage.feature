@@ -244,7 +244,7 @@ Feature: Patient details page
     Then the Patient Details page is displayed
     Then the "<pageTitle>" page is displayed
     And the patient detail page displays expected input-fields and drop-down fields
-    And some input-fields and drops-downs are shown with mandatory asterisk star symbol
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
       | labelHeader     |
       | First name ✱    |
       | Last name ✱     |
