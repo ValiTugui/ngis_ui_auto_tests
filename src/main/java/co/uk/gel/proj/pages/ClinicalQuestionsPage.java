@@ -382,4 +382,20 @@ public class ClinicalQuestionsPage {
         return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
     }
 
+    public boolean verifySpecificRareDiseaseValue(String expectedRareDisease){
+        Wait.forElementToBeDisplayed(driver, diagnosisField);
+        Debugger.println("Rare disease diagnosisField: " + Actions.getText(diagnosisField));
+        return Actions.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
+    }
+
+    public String getPhenotypicSexDropdownValue(){
+        Wait.forElementToBeDisplayed(driver, phenotypicSexDropdown);
+        return Actions.getText(phenotypicSexDropdown);
+    }
+
+    public String getKaryotypicSexDropdownValue(){
+        Wait.forElementToBeDisplayed(driver, karyotypicSexDropdown);
+        return Actions.getText(karyotypicSexDropdown);
+    }
+
 }

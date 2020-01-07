@@ -18,11 +18,6 @@ public class ClinicalQuestionsSteps extends Pages {
         super(driver);
     }
 
-    @And("the Clinical Questions page header is shown as {string}")
-    public void theClinicalQuestionsPageHeaderIsShownAs(String expectedPageTitle) {
-        String currentPageTitle = referralPage.getTheCurrentPageTitle();
-        Assert.assertEquals(expectedPageTitle, currentPageTitle);
-    }
 
     @And("there is {string} existing HPO term")
     public void thereIsExistingHPOTerm(String numberOfHPOTerms) {
@@ -166,19 +161,25 @@ public class ClinicalQuestionsSteps extends Pages {
         theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
 
-    @And("the user sees the data such as {string} {string} are saved")
-    public void theUserSeesTheDataSuchAsAreSaved(String expectedHPOTerm, String searchTerms) {
+    @And("the user sees the data such as {string} {string} {string} phenotypic and karyotypic sex are saved")
+    public void theUserSeesTheDataSuchAsPhenotypicAndKaryotypicSexAreSaved(String expectedHPOTerm, String searchTerms, String expectedRareDiseaseValue) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
         String[] expectedAgeOnSets = paramNameValue.get("AgeOfOnset").split(",");
         String expectedDiseaseStatus = paramNameValue.get("DiseaseStatus");
         Debugger.println("expected age on sets years : " + expectedAgeOnSets[0]);
         Debugger.println("expected age on sets months: " + expectedAgeOnSets[1]);
+        // verify Age On Set
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetYearsValue(expectedAgeOnSets[0]));
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetMonthValue(expectedAgeOnSets[1]));
-
+        // verify Disease Status
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
-
+        // verify HPO term
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+        //verify Rare Disease Diagnoses
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseValue(expectedRareDiseaseValue));
+        //verify Phenotypic and karyotypic sex
+        Assert.assertNotNull(clinicalQuestionsPage.getPhenotypicSexDropdownValue());
+        Assert.assertNotNull(clinicalQuestionsPage.getKaryotypicSexDropdownValue());
 
     }
 }
