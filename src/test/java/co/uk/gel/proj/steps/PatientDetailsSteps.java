@@ -34,6 +34,7 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink);
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
@@ -239,5 +240,12 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
         patientDetailsPage.yesButton.click();
+    }
+
+    @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.patientIsCreated();
     }
 }

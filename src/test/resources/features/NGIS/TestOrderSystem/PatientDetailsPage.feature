@@ -3,7 +3,7 @@
 @patientDetails
 Feature: Patient details page
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_01 @NTS-3068 @E2EUI-1182 @E2EUI-1463 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
@@ -19,7 +19,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at the patient search page
@@ -36,7 +36,7 @@ Feature: Patient details page
       | patient-search-type | SearchDetails                                                            |
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_03 @v_1
   Scenario Outline: The user can return to the patient search page by clicking the Back link
     Given a web browser is at the patient search page
@@ -52,7 +52,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
@@ -67,7 +67,7 @@ Feature: Patient details page
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_05 @NTS-3067 @E2EUI-1128 @P0 @v_1
   Scenario Outline:NTS-3067:The user can not create a referral for an existing patient without a clinical indication test selected
     Given a web browser is at the patient search page
@@ -80,7 +80,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails
+  @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_06 @v_1
   Scenario Outline: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
     Given a web browser is at the patient search page
@@ -227,8 +227,8 @@ Feature: Patient details page
     And the new patient gender "<gender>" is displayed on the referral banner
 
     Examples:
-      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  | test-search                      |
-      | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved | Angiomatoid Fibrous Histiocytoma |
+      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
+      | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved |
 
 
   @COMP2_TO_PatientDetails @LOGOUT

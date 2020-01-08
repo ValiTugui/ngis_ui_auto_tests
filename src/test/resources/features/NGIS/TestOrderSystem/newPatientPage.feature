@@ -35,7 +35,7 @@ Feature: New Patient page
 
   @COMP2_TO_NewPatient
   @newPatientPage_03 @NTS-3150 @E2EUI-2122 @P0 @v_1
-  Scenario Outline:NTS-3150:The user can not create a referral for a newly created patient without a clinical indication test selected
+  Scenario Outline: NTS-3150:Add Enums for no nhsnumber reasons - Patient record creation
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -123,3 +123,45 @@ Feature: New Patient page
     Examples:
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation |
+
+
+  @COMP2_TO_NewPatient @LOGOUT
+    @newPatientPage_06 @E2EUI-892 @v_1
+  Scenario Outline: Normal User - Create a new patient record with no NHS Number
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    Then the patient is successfully updated with a "<notification>"
+    And the Start Referral button is disabled
+
+
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
+      | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
+
+
+  @COMP2_TO_NewPatient @LOGOUT
+    @newPatientPage_07 @E2EUI-892 @v_1
+  Scenario Outline: Super User - Create a new patient record with no NHS Number
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    Then the patient is successfully updated with a "<notification>"
+    And the Start Referral button is disabled
+    
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
+      | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
