@@ -364,6 +364,7 @@ public class FamilyMemberDetailsPage {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }
         addedFamilyMembers.add(familyMember);//This to verify the details later.
+
         Debugger.println("Family Member: " + familyMember.getNHS_NUMBER() + " added to the list.");
         return true;
     }

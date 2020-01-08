@@ -196,6 +196,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         return backGroundColour;
     }
 
+    public String getNoBtnSelectedAttribute() {
+        String value = noButton.getAttribute("aria-pressed");
+        Debugger.println("colour is: " + value);
+        return value;
+    }
+
     public void fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
 

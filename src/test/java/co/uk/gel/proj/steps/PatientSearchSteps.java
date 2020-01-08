@@ -545,4 +545,11 @@ public class PatientSearchSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, patientSearchPage.dateOfBirthLabel);
         Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), patientSearchPage.dateOfBirthLabel.getCssValue("color"));
     }
+
+    @Then("the message  {string} is displayed below the search button")
+    public void theMessageIsDisplayedBelowTheSearchButton(String expectedMessage) {
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.noPatientFoundLabel);
+        String actualMessage = patientSearchPage.noPatientFoundLabel.getText();
+        Assert.assertEquals(expectedMessage, actualMessage);
+    }
 }

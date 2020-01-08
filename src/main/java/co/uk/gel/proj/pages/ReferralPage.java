@@ -15,6 +15,7 @@ import sun.security.ssl.Debug;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ReferralPage<check> {
@@ -626,5 +627,21 @@ public class ReferralPage<check> {
     public String getReferralStatus(){
         Wait.forElementToBeDisplayed(driver, referralStatus);
         return Actions.getText(referralStatus);
+    }
+
+    public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
+        try {
+            List actualFieldsLabels = getTheFieldsLabelsOnCurrentPage();
+            Debugger.println("Actual fields labels on page :" + actualFieldsLabels);
+            for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
+                Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
+                Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting field labels." + exp);
+            SeleniumLib.takeAScreenShot("fields-labels.jpg");
+            return false;
+        }
     }
 }

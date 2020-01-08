@@ -4,7 +4,7 @@
 Feature: Patient details page
 
   @COMP2_TO_PatientDetails
-  @patientDetails_01 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
+  @patientDetails_01 @NTS-3068 @E2EUI-1182 @E2EUI-1463 @P0 @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -229,3 +229,28 @@ Feature: Patient details page
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  | test-search                      |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved | Angiomatoid Fibrous Histiocytoma |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_13 @E2EUI-893 @NTS-3454
+  Scenario Outline: NTS-3454: Verify the elements and mandatory fields on patient detail page
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    Then the "<pageTitle>" page is displayed
+    And the patient detail page displays expected input-fields and drop-down fields
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader     |
+      | First name ✱    |
+      | Last name ✱     |
+      | Date of birth ✱ |
+      | Gender ✱        |
+      | Life status ✱   |
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | pageTitle                    |
+      | NHS Spine           | 9449310602 | 23-03-2011 | Check your patient's details |

@@ -9,11 +9,11 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
     And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm2>"
     Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
     And the Clinical Questions page is displayed with at least "<hpoTermsCount>" HPO terms in the HPO Phenotype section
@@ -27,7 +27,7 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the user selects a value "<rareDiseaseDiagnosisValue>" from the Rare disease diagnosis
     When the user presses the backspace key on the Rare disease diagnosis field
     Then the value "<rareDiseaseDiagnosisValue>" should be cleared from the Rare disease diagnosis field
@@ -43,7 +43,7 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     When the user selects "<diseaseStatueValue>"
     Then the HPO phenotype details mandatory state is "<mandatory>"
     Examples:
@@ -59,7 +59,7 @@ Feature: Clinical Questions stage
   Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
   And the user navigates to the "<stage>" stage
-  And the Clinical Questions page header is shown as "<title>"
+  Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
   When the user provided the values "<year>" "<month>" for Age of onset fields
   And the user sees an error "<errorMessage>" message on the page
@@ -80,7 +80,7 @@ Feature: Clinical Questions stage
   Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
   And the user navigates to the "<stage>" stage
-  And the Clinical Questions page header is shown as "<title>"
+  Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
   When the user provided the values "<year>" "<month>" for Age of onset fields
   And the user does not see an error message on the page
@@ -96,7 +96,7 @@ Feature: Clinical Questions stage
   Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
   And the user navigates to the "<stage>" stage
-  And the Clinical Questions page header is shown as "<title>"
+  Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
   When the user provided the values "<month>" for Age of onset fields
   And the user does not see an error message on the page
@@ -112,7 +112,7 @@ Feature: Clinical Questions stage
   Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
   And the user navigates to the "<stage>" stage
-  And the Clinical Questions page header is shown as "<title>"
+  Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
   When the user provided the year values "<year>" for Age of onset fields
   And the user does not see an error message on the page
@@ -127,7 +127,7 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
-    Then the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the HPO phenotype drop-down is allowed to have values up to "<maximumAllowedValues>"
     And the OMIM and Oprhanet drop-down is allowed to have values up to "<maximumAllowedValues>"
 
@@ -140,7 +140,7 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<ClinicalQuestions>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
     Then the user clicks the Save and Continue button
     And the "<ClinicalQuestions>" stage is marked as Completed
@@ -157,7 +157,7 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<ClinicalQuestions>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
     When the user clears the value that is set on on the close icon  placed in the Disease status field by clicking the close icon
     Then the Disease status field is not set with the disease status value "<ClinicalQuestionDetails>"
@@ -173,14 +173,14 @@ Feature: Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     # user adds 2 HPO terms
     And the user adds a new HPO phenotype term "<hpoTerm1>"
     And the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the user adds a new HPO phenotype term "<hpoTerm2>"
     And the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the user adds a new HPO phenotype term "<hpoTerm3>"
     And the new HPO term "<hpoTerm3>" appears at the top of the list of the HPO terms
     And the Clinical Questions page is displayed with at least "2" HPO terms in the HPO Phenotype section
@@ -226,23 +226,112 @@ Feature: Clinical Questions stage
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          |
 
-  @E2EUI-1443 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
-  Scenario Outline: NTS-3439 - Clinical Questions - verify the 'Save and Continue' button on the Clinical Questions stage
+  @E2EUI-1443 @E2EUI-918 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
+  Scenario Outline: NTS-3439 - Clinical Questions -  scenario 1 - verify the 'Save and Continue' button on the Clinical Questions stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
     And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
-    And the Clinical Questions page header is shown as "<title>"
+    Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    When the user provided the values "<year>" "<month>" for Age of onset fields
-    And the user selects a value "BASAL CELL NEVUS" from the Rare disease diagnosis
+    And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
     And the user answers the phenotypic and karyotypic sex questions
     And the user clicks the Save and Continue button
-    Then the "Notes" stage is selected
-    And the "<stage>" stage is marked as Completed
+    And the "Notes" stage is selected
+    Then the user navigates to the "<stage>" stage
+    And the user sees the data such as "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
     Examples:
-      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | DiseaseStatus=Affected:AgeOfOnset=10,03 |
+      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                | rareDiseaseValue          |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | DiseaseStatus=Affected:AgeOfOnset=10,3 | BASAL CELL NEVUS SYNDROME |
+
+  @E2EUI-881 @NTS-3453 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
+  Scenario Outline: NTS-3453 - Clinical Questions -  landing page is marked as mandatory
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient
+    And the user clicks the Save and Continue button
+    And the "<PatientDetails>" stage is marked as Completed
+    When the user navigates to the "<RequestingOrganisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<ResponsibleClinician>" stage
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user is navigated to a page with title Answer clinical questions
+    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    Examples:
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions   |
+      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions  |
+
+  @E2EUI-1124 @NTS-3453 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
+  Scenario Outline: NTS-3453 - Clinical Questions -  mandatory field validations for Disease status field
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    And the user navigates to the "<ClinicalQuestions>" stage
+    Then the "<title>" page is displayed
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the disease status field
+    And the user selects a value "BASAL CELL NEVUS" from the Rare disease diagnosis
+    And the user clicks the Save and Continue button
+    Then the "<notes>" stage is selected
+    And the user navigates to the "<ClinicalQuestions>" stage
+    Then the Disease status field is not set with the disease status value "<ClinicalQuestionDetails>"
+    And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
+    Examples:
+      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                  | notes |
+      | Clinical questions | Answer clinical questions | AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+
+  @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
+  Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "Test package" stage
+    And the user selects the number of participants as "2"
+    And the user clicks the Save and Continue button
+    And the user navigates to the "<stage>" stage
+    Then the "<title>" page is displayed
+    When the user adds a new HPO phenotype term "<hpoTerm1>"
+    Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
+    Then the "<title>" page is displayed
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
+    And the user answers the phenotypic and karyotypic sex questions
+    And the user clicks the Save and Continue button
+    And the "Notes" stage is selected
+    When the user navigates to the "Family members" stage
+    And the user should be able to see the patient identifiers on family member landing page
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    And the patient card displays with Born,Gender and NHS No details
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user should be able to see test package for family member is selected by default
+    And the user clicks the Save and Continue button
+    And the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    Then the user navigates to the "<stage>" stage
+    And the user sees the data such as "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
+    Examples:
+      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                | FamilyMemberDetails                 | RelationshipToProband | rareDiseaseValue          |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | DiseaseStatus=Affected:AgeOfOnset=10,3 | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | BASAL CELL NEVUS SYNDROME |
+

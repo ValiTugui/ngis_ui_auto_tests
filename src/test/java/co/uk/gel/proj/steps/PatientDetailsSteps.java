@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -16,6 +17,7 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class PatientDetailsSteps extends Pages {
@@ -198,5 +200,44 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedGender,actualGender);
         Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
         Assert.assertEquals(expectedEthnicity,actualEthnicity);
+    }
+
+    @And("the patient detail page displays expected input-fields and drop-down fields")
+    public void thePatientDetailPageDisplaysExpectedInputFieldsAndDropDownFields() {
+        Assert.assertTrue("All expected fields are not displayed on patient detail page", patientDetailsPage.verifyTheElementsOfPatientDetailsPageWithNhsNumber());
+    }
+
+    @And("the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol")
+    public void theMandatoryInputFieldsAndDropsDownsLabelsAreShownWithMandatoryAsteriskStarSymbol(DataTable dataTable) {
+        List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
+        boolean fieldLabelsFlag;
+        fieldLabelsFlag = referralPage.verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        Assert.assertTrue(fieldLabelsFlag);
+    }
+
+    @And("the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol")
+    public void theNonMandatoryInputFieldsAndDropsDownsLabelsAreShownWithoutAsteriskStarSymbol(DataTable dataTable) {
+        List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
+        boolean fieldLabelsFlag;
+        fieldLabelsFlag = referralPage.verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        Assert.assertTrue(fieldLabelsFlag);
+    }
+
+
+    @And("the No button is selected by default for the question - Do you have the NHS Number?")
+    public void theNoButtonIsSelectedByDefaultForTheQuestionDoYouHaveTheNHSNumber() {
+        String selectedStatus = patientSearchPage.getNoBtnSelectedAttribute();
+        Assert.assertEquals(selectedStatus, "true");
+    }
+
+    @And("the user select a reason for {string}")
+    public void theUserSelectAReasonFor(String reasonForNoNHSNumber) {
+        patientDetailsPage.selectMissingNhsNumberReason(reasonForNoNHSNumber);
+    }
+
+    @And("the user click YES button for the question - Do you have the NHS no?")
+    public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
+        Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
+        patientDetailsPage.yesButton.click();
     }
 }
