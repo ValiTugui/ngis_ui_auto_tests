@@ -7,7 +7,7 @@ Feature: Patient Choice Page
     @patientChoice_NTS3428_01 @NTS-3428 @E2EUI-2041 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |child|
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -44,7 +44,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
+      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Parent(s) / carer / guardian changed their mind about the clinical test|
     When the user is navigated to a patient choice form option with title Child assent
     Then the user should see the section title as Does the child agree to participate in research?
     And the child assent options as below
@@ -89,7 +89,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
+      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Record of Discussion form not currently available|
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -123,9 +123,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
-      |Has research participation been discussed?|
-      |Why has research participation not been discussed?|
+      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Parent(s) / carer / guardian have agreed to the test|
+      |Has research participation been discussed?,No|
+      |Why has research participation not been discussed?,Parent(s) / carer / guardian would like to revisit at a later date|
     When the user is navigated to a patient choice form option with title Child assent
     Then the user should see the section title as Does the child agree to participate in research?
     And the child assent options as below
@@ -149,7 +149,7 @@ Feature: Patient Choice Page
     @patientChoice_NTS3428_05 @NTS-3428 @E2EUI-2041 @v_1 @P0
   Scenario Outline: NTS-3428:scenario 3a -  Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |child|
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -191,9 +191,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
-      |Has research participation been discussed?|
-      |The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.|
+      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes|
+      |Has research participation been discussed?,Yes|
+      |The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.,No|
     When the user is navigated to a patient choice form option with title Child assent
     Then the user should see the section title as Does the child agree to participate in research?
     And the child assent options as below
@@ -234,9 +234,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?|
-      |Has research participation been discussed?|
-      |The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.|
+      |Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes|
+      |Has research participation been discussed?,Yes|
+      |The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.,Yes|
     When the user is navigated to a patient choice form option with title Child assent
     Then the user should see the section title as Does the child agree to participate in research?
     And the child assent options as below

@@ -155,9 +155,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//label[@id='Choices_Q1.0-1']")
     public WebElement discussionFormNotAvailable;
 
-    @FindBy(id = "Choices_Q1.0-2")
-    public WebElement declineTestChoice;
-
     @FindBy(xpath = "//label[@id='Choices_Q2.0-1']")
     public WebElement patientChoiceNotRequiredForTheTest;
 
@@ -178,18 +175,6 @@ public class PatientChoicePage {
 
     @FindBy(css = "button.btn.disabled-submit-signature-button")
     public WebElement disabledSubmitPatientChoice;
-
-    @FindBy(xpath = "//h5[contains(text(),'opportunity to read and discuss')]")
-    WebElement firstConsulteeAttestationQuestion;
-
-    @FindBy(xpath = "//h5[contains(text(),'opportunity to read and discuss')]/following::label[contains(@id,'Consultee_Q1')]")
-    List<WebElement> firstConsulteeAttestationOption;
-
-    @FindBy(xpath = "//h5[contains(text(),'consulted about this person')]")
-    WebElement secondConsulteeAttestationQuestion;
-
-    @FindBy(xpath = "//h5[contains(text(),'consulted about this person')]/following::label[contains(@id,'Consultee_Q2')]")
-    List<WebElement> secondConsulteeAttestationOption;
 
     @FindBy(xpath = "//p[contains(text(),'Enter the hospital trust')]")
     public WebElement introMessageOnRequestingOrganisation;
@@ -230,9 +215,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='radio-question-error question-error']")
     WebElement errorMessageBox;
 
-    @FindBy(xpath = "//input[@name='3']/following::label[contains(@id,'Choices')]")
-    List<WebElement> researchParticipationOptions;
-
     String patientChoiceQuestion = "//h5[contains(text(),\"dummyQuestion\")]";
 
     @FindBy(xpath = "//div[contains(text(),'Patient choice category')]")
@@ -246,9 +228,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='question-answer-line d-flex']")
     public List<WebElement> selectedPatientChoiceQuestion;
-
-    @FindBy(xpath = "//p[@class='question-value white-bg']")
-    public List<WebElement> selectedPatientChoiceOption;
 
     @FindBy(xpath = "//button[contains(text(),'Submit ')]")
     public WebElement submitPatientChoiceButton;
@@ -265,12 +244,9 @@ public class PatientChoicePage {
     String optionIsList = "//div[contains(text(),'" + "dummyOption" + "')]//ancestor::div[contains(@class,'accordion completed')]";
 
     @FindBy(xpath = "//h5[@class='d-inline']")
-    WebElement patientChoiceAboutResearch;
-
-    @FindBy(xpath = "//h5[@class='d-inline']")
     List<WebElement> patientChoiceSubTitles;
 
-    @FindBy(xpath = "//label[@class='radio-container'][contains(@id,'Choices')]")
+    @FindBy(xpath = "//label[@class='radio-container']")
     List<WebElement> patientChoiceAboutResearchOptions;
 
     String linkText = "//div[contains(@class,'row quicklinks-subnav')]//child::a[contains(text(),'dummyLinkText')]";
@@ -288,15 +264,6 @@ public class PatientChoicePage {
     private String patientChoiceOptionSecond = "//h5[contains(text(),'used for research, separate to NHS care')]/following::label[contains(text(),'" + "dummyValue" + "')]";
     private String consentIDPath = "//span[text()='dummyID']/preceding::span[@class='consent-out-dated'][1]";
 
-    @FindBy(xpath = "//h5[contains(text(),'willing to accept the role of consultee')]")
-    WebElement newQuestionForConsulteeAttestation;
-
-    @FindBy(xpath = "//label[contains(@id,'Consultee_Q3.0')][text()='Yes']")
-    WebElement yesForConsulteeAttestationNewQuestion;
-
-    @FindBy(xpath = "//label[contains(@id,'Consultee_Q3.0')][text()='No']")
-    WebElement noForConsulteeAttestationNewQuestion;
-
     @FindBy(xpath = "//p[contains(text(),' Confirmation ID')]//span[@class='cct-value']")
     WebElement confirmationID;
 
@@ -310,9 +277,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'last name')]/../input[@type='text']")
     WebElement lastNameInput;
-
-    @FindBy(xpath = "//h5[text()='Does the child agree to participate in research?']")
-    WebElement childAssentQuestion;
 
     @FindBy(xpath = "//label[contains(@id,'Child')]")
     List<WebElement> childAssentOption;
@@ -927,7 +891,7 @@ public class PatientChoicePage {
                     return true;
                 }
             }
-            Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message not matched."+message);
+            Debugger.println("Expected message:"+message+", Not displayed in Patient Choice.");
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
@@ -1013,16 +977,24 @@ public class PatientChoicePage {
 
     public boolean selectedPatientChoiceDetails(String selectedChoice) {
         try {
+            String[] choices = selectedChoice.split(",");
             String actualText = "";
             for (int i = 0; i < selectedPatientChoiceQuestion.size(); i++) {
                 actualText = selectedPatientChoiceQuestion.get(i).getText();
                 Debugger.println("ACTUAL: "+actualText);
-                if(actualText.contains(selectedChoice)){
-                   return true;
+                if(actualText.startsWith(choices[0])){
+                    Debugger.println("First ... Yes..");
+                    if(actualText.endsWith(choices[1])){
+                        Debugger.println("Second ... Yes..");
+                    }
                 }
+//                if(actualText.contains(selectedChoice)){
+//                   return true;
+//                }
             }
-            Debugger.println("Expected Selected Choice: "+selectedChoice+" Not present.");
-            return false;
+            return true;
+           // Debugger.println("Expected Selected Choice: "+selectedChoice+" Not present.");
+            //return false;
         } catch (Exception exp) {
             Debugger.println("Patient choice selected details are not found. " + exp);
             return false;
@@ -1463,30 +1435,6 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyTheConsulteeAttestationFirstOptions() {
-        try {
-            Wait.forElementToBeDisplayed(driver, firstConsulteeAttestationQuestion);
-            ArrayList<WebElement> expElements = new ArrayList<WebElement>();
-            expElements.add(firstConsulteeAttestationQuestion);
-            for (int i = 0; i < firstConsulteeAttestationOption.size(); i++) {
-                expElements.add(firstConsulteeAttestationOption.get(i));
-            }
-            expElements.add(secondConsulteeAttestationQuestion);
-            for (int i = 0; i < secondConsulteeAttestationOption.size(); i++) {
-                expElements.add(secondConsulteeAttestationOption.get(i));
-            }
-            for (int i = 0; i < expElements.size(); i++) {
-                if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("verifyTheConsulteeAttestationFirstOptions: Elements not found.");
-            return false;
-        }
-    }
-
     public boolean submitPatientChoiceButtonStatus() {
         try {
             seleniumLib.waitForElementVisible(disabledSubmitPatientChoice);
@@ -1590,31 +1538,7 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyTheConsulteeAttestationNewQuestion() {
-        try {
-            Wait.forElementToBeDisplayed(driver, newQuestionForConsulteeAttestation);
-            if(!seleniumLib.isElementPresent(newQuestionForConsulteeAttestation)) {
-                Debugger.println("newQuestionForConsulteeAttestation is Not Present as expected.");
-                return false;
-            }
-            if(!newQuestionForConsulteeAttestation.getText().equalsIgnoreCase("I am willing to accept the role of consultee for this person.")){
-                Debugger.println("newQuestionForConsulteeAttestation expected as:I am willing to accept the role of consultee for this person., but actual is: "+newQuestionForConsulteeAttestation.getText());
-                return false;
-            }
-            if(!seleniumLib.isElementPresent(yesForConsulteeAttestationNewQuestion)){
-                Debugger.println("yesForConsulteeAttestationNewQuestion is Not Present as expected.");
-                return false;
-            }
-            if(!seleniumLib.isElementPresent(noForConsulteeAttestationNewQuestion)){
-                Debugger.println("noForConsulteeAttestationNewQuestion is Not Present as expected.");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheConsulteeAttestationNewQuestion...");
-            return false;
-        }
-    }
+
 
     public void clickingOnWillingToAcceptTheRoleOfConsulteeForThePerson(String option) {
         try {

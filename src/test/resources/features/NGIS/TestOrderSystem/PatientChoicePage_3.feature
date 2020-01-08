@@ -228,7 +228,7 @@ Feature: Patient Choice Page
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     Then the user will see a "<WarningMessage3>" warning message on the patient choice information option
@@ -243,7 +243,7 @@ Feature: Patient Choice Page
     Then the user will see a "<WarningMessage2>" warning message on the patient choice information option
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
+      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                  | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
 

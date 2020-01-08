@@ -471,10 +471,6 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertTrue(patientChoicePage.verifyTheChildAssentOption(choiceOptions.get(i).get(0)));
         }
     }
-    @And("the user should verify the questions and options in consultee attestation")
-    public void theUserShouldVerifyTheQuestionsAndOptionsInConsulteeAttestation() {
-        Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationFirstOptions());
-    }
 
     @And("Save and continue button is displayed as {string}")
     public void saveAndContinueButtonIsDisplayedAs(String expectedStatus) {
@@ -525,11 +521,6 @@ public class PatientChoiceSteps extends Pages {
     @And("the user selects {string} National Genomic Research Library for the person in Consultee Attestation")
     public void theUserSelectsNationalGenomicResearchLibraryForThePerson(String option) {
         patientChoicePage.clickingOnNationalGenomicResearchLibraryForThePerson(option);
-    }
-
-    @Then("the user should see a new question and having Yes and No answer options in Consultee Attestation")
-    public void theUserShouldSeeANewQuestionAndHavingYesAndNoAnswerOptionsInConsulteeAttestation() {
-        Assert.assertTrue(patientChoicePage.verifyTheConsulteeAttestationNewQuestion());
     }
 
     @And("the user selects {string} willing to accept the role of consultee for the person in Consultee Attestation")
