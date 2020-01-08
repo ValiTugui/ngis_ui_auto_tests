@@ -165,3 +165,39 @@ Feature: New Patient page
     Examples:
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
+
+
+  @COMP2_TO_NewPatient @LOGOUT
+    @newPatientPage_08 @NTS-3466 @E2EUI-1052 @v_1
+  Scenario Outline: NTS-3466: Validate the Ethnicity drop down values to check for the order of the drop down is in logical - Alphabetical order
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+    Then the new patient page is opened
+    And the "<pageTitle>" page is displayed
+    And the Ethnicity drop-down values are in Alphabetical order
+      | EthnicityListHeader                                     |
+      | A - White - British                                     |
+      | B - White - Irish                                       |
+      | C - White - Any other White background                  |
+      | D - Mixed - White and Black Caribbean                   |
+      | E - Mixed - White and Black African                     |
+      | F - Mixed - White and Asian                             |
+      | G - Mixed - Any other mixed background                  |
+      | H - Asian or British Asian - Indian                     |
+      | J - Asian or British Asian - Pakistani                  |
+      | K - Asian or British Asian - Bangladeshi                |
+      | L - Asian or British Asian - Any other Asian background |
+      | M - Black or Black British - Caribbean                  |
+      | N - Black or Black British - African                    |
+      | P - Black or Black British - Any other Black background |
+      | R - Chinese                                             |
+      | S - Any other ethnic group                              |
+      | Z - Not stated                                          |
+      | Not known                                               |
+
+    Examples:
+      | hyperlinkText               | pageTitle                         |
+      | create a new patient record | Add a new patient to the database |

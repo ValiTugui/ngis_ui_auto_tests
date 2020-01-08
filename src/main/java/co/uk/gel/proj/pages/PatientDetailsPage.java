@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+import java.util.ArrayList;
 import java.util.List;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
@@ -190,6 +191,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//button[text()='Yes']")
     public WebElement yesButton;
+
+    @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'option')]/span/span")
+    public List<WebElement> ethnicityValues;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
@@ -639,4 +643,16 @@ public class PatientDetailsPage {
 
         return true;
     }
+
+    public List<String> getTheEthnicityDropDownValues() {
+        Wait.forElementToBeClickable(driver, ethnicityButton);
+        Actions.clickElement(driver, ethnicityButton);
+        List<String> actualEthnicityValues = new ArrayList<>();
+        for (WebElement ethnicityValue : ethnicityValues) {
+            actualEthnicityValues.add(ethnicityValue.getText().trim());
+        }
+        Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
+        return actualEthnicityValues;
+    }
+
 }
