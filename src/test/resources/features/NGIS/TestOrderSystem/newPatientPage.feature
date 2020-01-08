@@ -126,7 +126,7 @@ Feature: New Patient page
 
 
   @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_06 @NTS-3465 @E2EUI-892 @v_1
+    @newPatientPage_06 @NTS-3465 @E2EUI-892 @E2EUI-1475 @v_1
   Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -147,7 +147,7 @@ Feature: New Patient page
 
 
   @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_07 @NTS-3465 @E2EUI-892 @v_1
+    @newPatientPage_07 @NTS-3465 @E2EUI-892 @E2EUI-1475 @v_1
   Scenario Outline: NTS-3465: Super User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
