@@ -126,8 +126,8 @@ Feature: New Patient page
 
 
   @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_06 @E2EUI-892 @v_1
-  Scenario Outline: Normal User - Create a new patient record with no NHS Number
+    @newPatientPage_06 @NTS-3465 @E2EUI-892 @v_1
+  Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user clicks the NO button
@@ -147,8 +147,8 @@ Feature: New Patient page
 
 
   @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_07 @E2EUI-892 @v_1
-  Scenario Outline: Super User - Create a new patient record with no NHS Number
+    @newPatientPage_07 @NTS-3465 @E2EUI-892 @v_1
+  Scenario Outline: NTS-3465: Super User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     When the user clicks the NO button
@@ -161,7 +161,7 @@ Feature: New Patient page
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully updated with a "<notification>"
     And the Start Referral button is disabled
-    
+
     Examples:
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
