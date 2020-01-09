@@ -462,7 +462,13 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        By pageTitle;
+        if(expTitle.contains("\'")){
+            // if the string contains apostrophe character, apply double quotes in the xpath string
+            pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+        }else {
+            pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        }
 
         if (!seleniumLib.isElementPresent(pageTitle)) {
             Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
