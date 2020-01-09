@@ -199,12 +199,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should see mismatch message in selected and actual participant as {string}")
-    public void theUserShouldSeeMismatchParticipantMessage(String errorMessage) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
-        Assert.assertTrue(testResult);
-    }
+
 
     @Then("the user should not see the removal message on the family member landing page")
     public void theUserDoesNotSeeTheRemovalMessageOnTheFamilyMemberLandingPage() {
@@ -441,5 +436,14 @@ public class FamilyMemberDetailsSteps extends Pages {
         Debugger.println("Stage: "+stage+" Starting.");
         familyMemberDetailsPage.navigateToStage(stage);
     }
-
+    @Then("the user should {string} participant error message as {string}")
+    public void theUserShouldParticipantErrorMessageAs(String expStatus, String errorMessage) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
+        if (expStatus.equalsIgnoreCase("get")) {
+            Assert.assertTrue(testResult);
+        }else {
+            Assert.assertFalse(testResult);
+        }
+    }
 }//end

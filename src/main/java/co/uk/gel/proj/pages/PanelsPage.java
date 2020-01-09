@@ -77,6 +77,9 @@ public class PanelsPage {
     @FindBy(xpath = "//p[contains(text(),'If penetrance is marked')]")
     public WebElement textLineUnderPenetranceTitle;
 
+    @FindBy(xpath = "//a[contains(@class,'styles_select-panel__link')]")
+    List<WebElement> suggestionsList;
+
     public boolean panelSearchFieldAndSearchIcon() {
         try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
@@ -384,4 +387,5 @@ public class PanelsPage {
             return false;
         }
     }
+
 }//end

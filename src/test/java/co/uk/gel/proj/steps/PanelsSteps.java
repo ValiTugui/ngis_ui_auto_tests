@@ -63,8 +63,8 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton));
     }
 
-    @Then("the user should able to deselect the selected panels")
-    public void theUserShouldAbleToDeselectTheSelectedPanels() {
+    @Then("the user should be able to deselect the selected panels")
+    public void theUserShouldBeAbleToDeselectTheSelectedPanels() {
         panelsPage.deselectTheSelectedPanels();
         Assert.assertTrue(panelsPage.verifyTheDeselectedPanels());
     }
@@ -92,7 +92,6 @@ public class PanelsSteps extends Pages {
     public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
         Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
     }
-
     @Then("the user should be able to see suggested panels under the {string} section")
     public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
         Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
