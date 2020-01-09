@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
@@ -156,8 +157,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Ethnicity drop-down is allowed to have values up to {string}")
     public void theEthnicityDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
-       Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
+        Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
     }
+
     @Then("the patient's referrals are displayed at the bottom of the page")
     public void thePatientSReferralsAreDisplayedAtTheBottomOfThePage() {
         Assert.assertTrue(patientDetailsPage.patientReferralsAreDisplayed());
@@ -175,7 +177,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user edit the patients Gender {string}, Life Status {string} and Ethnicity {string} fields")
     public void theUserEditThePatientsGenderLifeStatusAndEthnicityFields(String gender, String lifeStatus, String ethnicity) {
-        patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender,lifeStatus,ethnicity);
+        patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender, lifeStatus, ethnicity);
     }
 
     @And("the user clicks the Update NGIS record button")
@@ -185,7 +187,7 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the patient is successfully updated with a {string}")
     public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
-        String actualNotification =  patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
+        String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
         Assert.assertEquals(expectedNotification, actualNotification);
@@ -198,12 +200,12 @@ public class PatientDetailsSteps extends Pages {
         String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusButton);
         String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityButton);
 
-        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: "  + expectedEthnicity);
-        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: "  + actualEthnicity);
+        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: " + expectedEthnicity);
+        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: " + actualEthnicity);
 
-        Assert.assertEquals(expectedGender,actualGender);
-        Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
-        Assert.assertEquals(expectedEthnicity,actualEthnicity);
+        Assert.assertEquals(expectedGender, actualGender);
+        Assert.assertEquals(expectedLifeStatus, actualLifeStatus);
+        Assert.assertEquals(expectedEthnicity, actualEthnicity);
     }
 
     @And("the patient detail page displays expected input-fields and drop-down fields")
@@ -262,4 +264,45 @@ public class PatientDetailsSteps extends Pages {
             Assert.assertEquals(expectedEthnicityList.get(i).get("EthnicityListHeader"), actualEthnicityList.get(i));
         }
     }
+
+    @And("the user clicks the Save patient details to NGIS button")
+    public void theUserClicksTheSavePatientDetailsToNGISButton() {
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+    }
+
+    @When("the user clears the date of birth field")
+    public void theUserClearsTheDateOfBirthField() {
+        patientDetailsPage.dateOfBirth.click();
+        Actions.clearField(patientDetailsPage.dateOfBirth);
+    }
+
+    @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
+    public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
+
+        Assert.assertEquals(titlePage,referralPage.getTheCurrentPageTitle());
+        List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
+
+        List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
+        List actualColourFieldErrorMessages = referralPage.getColourOfTheFieldsErrorMessagesOnCurrentPage();
+        String expectedFontColorInRGB = "";
+
+        for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0) + " count: " + i);
+            Debugger.println("Actual labelHeader " + actualFieldsErrorLabels.get(i - 1) + "\n");
+            Assert.assertTrue(actualFieldsErrorLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
+
+            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
+            Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
+
+            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2)+ " count: " + i);
+            expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLabelsAndErrorMessagesList.get(i).get(2));
+            Debugger.println("Expected ErrorMessage Colour RGB " + expectedFontColorInRGB);
+            Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i-1));
+        }
+
+    }
+
 }

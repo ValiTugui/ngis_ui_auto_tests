@@ -642,7 +642,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButton);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -668,7 +668,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
-        Wait.forElementToBeDisplayed(driver, searchButton);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
 
         expectedElements.add(pageTitle);

@@ -201,3 +201,31 @@ Feature: New Patient page
     Examples:
       | hyperlinkText               | pageTitle                         |
       | create a new patient record | Add a new patient to the database |
+
+
+  @COMP2_TO_NewPatient @LOGOUT
+    @newPatientPage_09 @E2EUI-822
+  Scenario Outline: Verify the input field validations on create new patient page
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    When the user clears the date of birth field
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
+      | First name ✱                   | First name is required.             | #dd2509             |
+      | Last name ✱                    | Last name is required.              | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Gender ✱                       | Gender is required.                 | #dd2509             |
+      | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         |
+      | No patient found | create a new patient record | Add a new patient to the database |
+
