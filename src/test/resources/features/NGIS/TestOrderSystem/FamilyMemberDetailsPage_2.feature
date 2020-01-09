@@ -40,6 +40,7 @@ Feature: Family Members Details Validation
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
+    ## we should check the error message here
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  |
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown |
@@ -86,7 +87,6 @@ Feature: Family Members Details Validation
     Examples:
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
-
 
   @COMP8_TO_Familymembers
     @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0

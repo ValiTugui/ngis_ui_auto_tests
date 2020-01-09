@@ -1556,9 +1556,7 @@ public class PatientChoicePage {
 
     public boolean fillTheSignatureDetails(String signatureDetails) {
         try {
-            if (signatureDetails == null || signatureDetails.isEmpty()) {
-                return true;
-            }
+
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(signatureDetails);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
