@@ -14,8 +14,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +37,7 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink);
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
@@ -239,5 +243,23 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
         patientDetailsPage.yesButton.click();
+    }
+
+    @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.patientIsCreated();
+    }
+
+    @And("the Ethnicity drop-down values are in Alphabetical order")
+    public void theEthnicityDropDownValuesAreInAlphabeticalOrder(DataTable dataTable) {
+        List<Map<String, String>> expectedEthnicityList = dataTable.asMaps(String.class, String.class);
+        List<String> actualEthnicityList = patientDetailsPage.getTheEthnicityDropDownValues();
+
+        for (int i = 0; i < expectedEthnicityList.size(); i++) {
+            Debugger.println("Expected ethnicity: " + expectedEthnicityList.get(i).get("EthnicityListHeader") + ":" + i + ":" + "Actual ethnicity " + actualEthnicityList.get(i) + "\n");
+            Assert.assertEquals(expectedEthnicityList.get(i).get("EthnicityListHeader"), actualEthnicityList.get(i));
+        }
     }
 }
