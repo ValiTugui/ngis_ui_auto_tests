@@ -293,10 +293,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.patientChoiceStatus(status);
     }
 
-    @And("the family member banner should display with the editing members information")
-    public void theFamilyMemebrBannerShouldDisplayWithTheEditingMembersInformation() {
+    @And("the global patient information bar display with the editing members information {string}")
+    public void theFamilyMemebrBannerShouldDisplayWithTheEditingMembersInformation(String familyMember) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyFamilyMemberBanner();
+        testResult = familyMemberDetailsPage.verifyGlobalPatientInformationBar(familyMember);
         Assert.assertTrue(testResult);
     }
     @When("the user clicks on edit icon to update patient choice status for family member")
@@ -322,32 +322,32 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
 
     }
-    @Then("the user should be able to see the patient details in family member landing page")
+    @And("the user reads the patient details in family member landing page")
     public void theUserShouldBeAbleToSeeThePatientDetailsInFamilyMemberLandingPage() {
-        familyMemberDetailsPage.patientDetailsInFamilyMemberLandingPage();
+        familyMemberDetailsPage.readPatientDetailsInFamilyMemberLandingPage();
     }
 
-    @And("the user should be able to see the patient details in patient choice page")
+    @And("the user reads the patient details in patient choice page")
     public void theUserShouldBeAbleToSeeThePatientDetailsInPatientChoicePage() {
-        familyMemberDetailsPage.patientDetailsInPatientChoicePage();
+        familyMemberDetailsPage.readPatientDetailsInPatientChoicePage();
     }
 
-    @Then("the user should verify the data from family member landing page and patient choice page")
-    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPatientChoicePage() {
+    @And("the user should see same set of family member identifiers in family member landing page and patient choice page")
+    public void compareTheFamilyIdentifiersInFamilyMemberLandingPageAndPatientChoicePage() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPatientChoice();
+        testResult = familyMemberDetailsPage.compareFamilyIdentifiersOnFamilyMemberAndPatientChoice();
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient details in print forms page")
+    @And("the user reads the patient details in print forms page")
     public void theUserShouldBeAbleToSeeThePatientDetailsInPrintFormsPage() {
-        familyMemberDetailsPage.printFormsInPatientChoicePage();
+        familyMemberDetailsPage.readPrintFormsInPatientChoicePage();
     }
 
-    @Then("the user should verify the data from family member landing page and print forms page")
-    public void theUserShouldVerifyTheDataFromFamilyMemberLandingPageAndPrintFormsPage() {
+    @Then("the user should see same data in family member landing page and print forms page")
+    public void theUserShouldSeeSameDataFromFamilyMemberLandingPageAndPrintFormsPage() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDataFromFamilyMemberAndPrintForms();
+        testResult = familyMemberDetailsPage.compareDataFromFamilyMemberAndPrintForms();
         Assert.assertTrue(testResult);
     }
 

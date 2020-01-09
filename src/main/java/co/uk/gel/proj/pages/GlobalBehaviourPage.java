@@ -29,7 +29,7 @@ public class GlobalBehaviourPage {
     @FindBy(xpath = "//*[contains(@class,'styles_footerLinks')]")
     public List<WebElement> footerLinks;
 
-    @FindBy(xpath = "//*[contains(@class,'styles_static-content__header')]")
+    @FindBy(xpath = "//h1[contains(@class,'css-')]")
     public WebElement privacyPolicyPageTitle;
 
     @FindBy(name = "loginfmt")
