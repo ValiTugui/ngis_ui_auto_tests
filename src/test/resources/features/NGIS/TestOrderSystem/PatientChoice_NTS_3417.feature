@@ -43,7 +43,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?,Consultee changed their mind about the clinical test |
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee changed their mind about the clinical test |
     When the user is navigated to a patient choice form option with title Consultee attestation
     Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
     And the patient choice options as below
@@ -61,8 +61,8 @@ Feature: Patient Choice Page
     And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
     Then the user should see the section title as I am willing to accept the role of consultee for this person.
     And the patient choice options as below
-      | Yes            |
-      | No             |
+      | Yes |
+      | No  |
     And the user selects "<YesOption>" willing to accept the role of consultee for the person in Consultee Attestation
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
@@ -161,8 +161,8 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?,Record of Discussion form not currently available |
-      | Reason for not capturing patient choice:,Patient currently lacks capacity and no consultee available |
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Record of Discussion form not currently available |
+      | Reason for not capturing patient choice: ::Patient currently lacks capacity and no consultee available                                                                                                   |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage2>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -185,7 +185,7 @@ Feature: Patient Choice Page
       | Consultee changed their mind about the clinical test |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<NoOption>" research participation option in patient choices
@@ -198,7 +198,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? |
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
+      | Has research participation been discussed?::No                                                                                                                                         |
+      | Why has research participation not been discussed?::Consultee would like to revisit at a later date                                                                                    |
     When the user is navigated to a patient choice form option with title Consultee attestation
     Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
     And the patient choice options as below
@@ -216,8 +218,8 @@ Feature: Patient Choice Page
     And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
     Then the user should see the section title as I am willing to accept the role of consultee for this person.
     And the patient choice options as below
-      | Yes            |
-      | No             |
+      | Yes |
+      | No  |
     And the user selects "<NoOption>" willing to accept the role of consultee for the person in Consultee Attestation
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
@@ -227,7 +229,7 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice                    | PatientChoice2                                  | Consultee signature                | WarningMessage                                                                                                         | NoOption | YesOption | Question1                                  | Question2                                          |
+      | PatientChoice1                   | PatientChoice2                                  | Consultee signature                | WarningMessage                                                                                                         | NoOption | YesOption | Question1                                  | Question2                                          |
       | Consultee has agreed to the test | Consultee would like to revisit at a later date | FirstName=WILTON:LastName=BRITTAIN | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | No       | Yes       | Has research participation been discussed? | Why has research participation not been discussed? |
 
   @COMP9_TO_PatientChoice
@@ -315,7 +317,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? |
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
+      | Has research participation been discussed?::Yes                                                                                                                                                                                      |
+      | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.::No                                                                           |
     When the user is navigated to a patient choice form option with title Consultee attestation
     Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
     And the patient choice options as below
@@ -333,8 +337,8 @@ Feature: Patient Choice Page
     And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
     Then the user should see the section title as I am willing to accept the role of consultee for this person.
     And the patient choice options as below
-      | Yes            |
-      | No             |
+      | Yes |
+      | No  |
     And the user selects "<NoOption>" willing to accept the role of consultee for the person in Consultee Attestation
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
@@ -432,7 +436,9 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test? |
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
+      | Has research participation been discussed?::Yes                                                                                                                                        |
+      | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.::Yes                                                                          |
     When the user is navigated to a patient choice form option with title Consultee attestation
     Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
     And the patient choice options as below
@@ -450,8 +456,8 @@ Feature: Patient Choice Page
     And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
     Then the user should see the section title as I am willing to accept the role of consultee for this person.
     And the patient choice options as below
-      | Yes            |
-      | No             |
+      | Yes |
+      | No  |
     And the user selects "<YesOption>" willing to accept the role of consultee for the person in Consultee Attestation
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed

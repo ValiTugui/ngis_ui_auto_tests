@@ -189,8 +189,8 @@ Feature: Patient Choice Page
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband |  Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          |  Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @COMP9_TO_PatientChoiceAdd
     @patientChoice_Page3_06 @LOGOUT @NTS-3418 @E2EUI-1702 @v_1 @P0
@@ -243,7 +243,7 @@ Feature: Patient Choice Page
     Then the user will see a "<WarningMessage2>" warning message on the patient choice information option
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                  | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
+      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
 

@@ -42,7 +42,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage2>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -77,8 +77,8 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes |
-      | Reason for not capturing patient choice:,Other                                                                                |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Reason for not capturing patient choice: ::Other                                                                               |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -112,8 +112,8 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes |
-      | Has research participation been discussed?,No                                                                                 |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has research participation been discussed?::No                                                                                 |
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
@@ -147,8 +147,8 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes |
-      |Has research participation been discussed?,Yes                                                                                 |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has research participation been discussed?::Yes                                                                                |
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button
@@ -181,9 +181,9 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?,Yes |
-      |Has research participation been discussed?,Yes                                                                                 |
-      |The patient agrees that their data and samples may be used for research, separate to NHS care.,Yes                             |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has research participation been discussed?::Yes                                                                                |
+      | The patient agrees that their data and samples may be used for research, separate to NHS care.::Yes                            |
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
     Then the user should be able to see the highlighted Submit patient choice button

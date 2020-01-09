@@ -977,24 +977,24 @@ public class PatientChoicePage {
 
     public boolean selectedPatientChoiceDetails(String selectedChoice) {
         try {
-            String[] choices = selectedChoice.split(",");
+            boolean isPresent = false;
+            String[] choices = selectedChoice.split("::");
             String actualText = "";
+            //Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
             for (int i = 0; i < selectedPatientChoiceQuestion.size(); i++) {
                 actualText = selectedPatientChoiceQuestion.get(i).getText();
-                Debugger.println("ACTUAL: "+actualText);
-                if(actualText.startsWith(choices[0])){
-                    Debugger.println("First ... Yes..");
-                    if(actualText.endsWith(choices[1])){
-                        Debugger.println("Second ... Yes..");
+                //Debugger.println("ACTUAL: "+actualText);
+                if(actualText.startsWith(choices[0].trim())) {
+                    if (actualText.endsWith(choices[1].trim())) {
+                        isPresent = true;
+                        //Debugger.println("PASS:::");
+                        break;
+                    }else{
+                        Debugger.println("Expected to ends with: "+choices[0]+", But Actual:"+actualText);
                     }
                 }
-//                if(actualText.contains(selectedChoice)){
-//                   return true;
-//                }
             }
-            return true;
-           // Debugger.println("Expected Selected Choice: "+selectedChoice+" Not present.");
-            //return false;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("Patient choice selected details are not found. " + exp);
             return false;
