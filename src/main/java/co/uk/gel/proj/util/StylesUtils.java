@@ -28,5 +28,13 @@ public class StylesUtils {
                 throw new IllegalStateException("Unexpected value: " + fontColor);
         }
     }
+    public static String convertFontColourBorderColor(String fontColor) {
+        switch (fontColor) {
+            case "#dd2509":
+                return "1px solid rgb(221, 37, 9)";
+            default:
+                throw new IllegalStateException("Unexpected value: " + fontColor);
+        }
+    }
 
 }

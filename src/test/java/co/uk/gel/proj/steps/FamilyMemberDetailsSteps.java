@@ -271,7 +271,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
-        familyMemberDetailsPage.clickOnContinueButton();
+        patientChoicePage.clickOnContinue();
     }
 
     @And("the user should see an error message displayed as {string} in {string} color")

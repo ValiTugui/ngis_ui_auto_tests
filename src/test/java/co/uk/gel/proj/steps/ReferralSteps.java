@@ -179,6 +179,10 @@ public class ReferralSteps extends Pages {
         String diseaseType = attributeOfURL.get(3);
         String createPatientHyperTextLink = attributeOfURL.get(4);
         String reasonForNoNHSNumber = attributeOfURL.get(5);
+        String patientType = "";
+        if(attributeOfURL.size() > 6) {
+            patientType = attributeOfURL.get(6);//Child or adult
+        }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
@@ -193,7 +197,13 @@ public class ReferralSteps extends Pages {
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
-        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        if(patientType == null || patientType.isEmpty()) {
+            patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        }else{
+            if(patientType.equalsIgnoreCase("Child")) {
+                patientSearchPage.fillInNonExistingPatientDetailsForChildReferral();
+            }
+        }
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.getPatientSearchNoResult();
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();

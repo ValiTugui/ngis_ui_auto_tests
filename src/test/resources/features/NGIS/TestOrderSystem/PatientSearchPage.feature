@@ -262,6 +262,7 @@ Feature: Patient search page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 01-01-1970 |
 
+
   @patientSearch_21 @NTS-2798 @E2EUI-2162 @v_1
   Scenario Outline: NTS-2798:"<patient-search-type>" - User can search for a different patient after successful using NHS No with Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
