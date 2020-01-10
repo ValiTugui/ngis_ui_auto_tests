@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,6 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("^the Patient Details page is displayed$")
     public void thePatientDetailsPageIsDisplayed() {
-
         patientDetailsPage.patientDetailsPageIsDisplayed();
     }
 
@@ -78,8 +78,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
-    @When("the user clicks the Back link")
-    public void theUserClicksTheBackLink() {
+    @When("the user clicks the - Go back to patient search - link")
+    public void theUserClicksTheGoBackToPatientSearchLink() {
         patientDetailsPage.clickGoBackToPatientSearchLink();
     }
 
@@ -302,7 +302,10 @@ public class PatientDetailsSteps extends Pages {
             Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
             Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i-1));
         }
-
     }
 
+    @And("the user fill in the last name field")
+    public void theUserFillInTheLastNameField() {
+        patientDetailsPage.fillInLastName();
+    }
 }

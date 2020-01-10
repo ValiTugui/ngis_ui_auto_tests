@@ -204,8 +204,8 @@ Feature: New Patient page
 
 
   @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_09 @E2EUI-822
-  Scenario Outline: Verify the input field validations on create new patient page
+    @newPatientPage_09 @E2EUI-1189
+  Scenario Outline: NTS-3468:Verify the input field validations on create new patient page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -229,3 +229,45 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         |
       | No patient found | create a new patient record | Add a new patient to the database |
 
+
+  @COMP2_TO_NewPatient @LOGOUT
+    @newPatientPage_09 @NTS-3468 @E2EUI-1196
+  Scenario Outline: NTS-3468: new patient page with no NHsNumber- when last name is filled and all mandatory fields are left blank
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader                    |
+      | First name ✱                   |
+      | Last name ✱                    |
+      | Date of birth ✱                |
+      | Gender ✱                       |
+      | Life status ✱                  |
+      | Reason NHS Number is missing ✱ |
+      | Hospital number ✱              |
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader   |
+      | Title         |
+      | Date of death |
+      | Ethnicity     |
+      | Address       |
+      | Postcode      |
+    When the user clears the date of birth field
+    And the user fill in the last name field
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
+      | First name ✱                   | First name is required.             | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Gender ✱                       | Gender is required.                 | #dd2509             |
+      | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         |
+      | No patient found | create a new patient record | Add a new patient to the database |

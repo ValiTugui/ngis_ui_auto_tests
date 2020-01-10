@@ -45,7 +45,7 @@ Feature: Patient details page
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
-    When the user clicks the Back link
+    When the user clicks the - Go back to patient search - link
     Then the Patient Search page is displayed
 
     Examples:
@@ -196,7 +196,7 @@ Feature: Patient details page
 
   @COMP2_TO_PatientDetails @LOGOUT
   @patientDetails_12 @NTS-3438 @E2EUI-1511 @E2EUI-1128
-  Scenario Outline: NTS-3438 - Patient Details page - Update and patient Gender, Life Status, Gender and Ethnicity and verify in patient records
+  Scenario Outline: NTS-3438 - Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
@@ -213,7 +213,7 @@ Feature: Patient details page
     And the user clicks the Update NGIS record button
     Then the patient is successfully updated with a "<notification>"
 #   Navigate back to patient search, to search for the patient details and verify edited details
-    When the user clicks the Back link
+    When the user clicks the - Go back to patient search - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
     And the user clicks the Search button

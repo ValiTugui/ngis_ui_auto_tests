@@ -144,9 +144,9 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='success-notification']")
     public WebElement successNotification;
 
-    @FindBy(xpath = "//*[contains(@class,'patient-details-form__back')]//child::a")
+    @FindBy(xpath = "//*[text()='Go back to patient search']")
     public WebElement goBackToPatientSearchLink;
-
+    
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
 
@@ -222,9 +222,9 @@ public class PatientDetailsPage {
         newPatient.setLastName(faker.name().lastName());
         Actions.fillInValue(familyName, newPatient.getLastName());
 
-        String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 31));
-        String monthOfBirth = String.valueOf(faker.number().numberBetween(1, 12));
-        String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
+        String dayOfBirth = PatientSearchPage.testData.getDay();
+        String monthOfBirth = PatientSearchPage.testData.getMonth();
+        String yearOfBirth = PatientSearchPage.testData.getYear();
 
         newPatient.setDay(dayOfBirth);
         newPatient.setMonth(monthOfBirth);
@@ -653,6 +653,10 @@ public class PatientDetailsPage {
         }
         Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
         return actualEthnicityValues;
+    }
+
+    public void fillInLastName() {
+        Actions.fillInValue(familyName, faker.name().lastName());
     }
 
 }
