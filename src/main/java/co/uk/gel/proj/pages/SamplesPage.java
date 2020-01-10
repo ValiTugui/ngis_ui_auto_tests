@@ -185,7 +185,8 @@ public class SamplesPage {
 
     public void selectSampleState(String sampleStateValue) {
         Actions.clickElement(driver, sampleState);
-        Actions.selectExactValueFromDropDown(dropdownValues, sampleStateValue);
+//        Actions.selectExactValueFromDropDown(dropdownValues, sampleStateValue);
+        Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
         sampleDetails.setSampleState(sampleStateValue);
     }
 
