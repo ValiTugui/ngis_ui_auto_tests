@@ -305,11 +305,11 @@ public class TumoursSteps extends Pages {
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(expectedPageTitle);
+        testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
         Assert.assertTrue(testResult);
-        String actualPageTitle = referralPage.getTheCurrentPageTitle();
-        Debugger.println("Actual PageTitle : " + actualPageTitle);
-        Debugger.println("Expected PageTitle : " + expectedPageTitle);
+        //String actualPageTitle = referralPage.getTheCurrentPageTitle();
+        //Debugger.println("Actual PageTitle : " + actualPageTitle);
+        //Debugger.println("Expected PageTitle : " + expectedPageTitle);
 
     }
 

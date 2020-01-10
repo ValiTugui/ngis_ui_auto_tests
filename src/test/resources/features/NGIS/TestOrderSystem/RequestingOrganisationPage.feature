@@ -4,22 +4,9 @@
 Feature: Requesting Organisation page
 
   Background:
-    #Test Directory
-    Given a web browser is at the Private Test Selection homepage
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-    And the user types in the CI term  in the search field and selects the first result from the results list
-      | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
-    And the user clicks the Sign in hyperlink
-      | Sign in to the online service |
-     #Test Ordering
-    And the user logs in to the Test Order system successfully
-      | Find your patient |
-    And the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page
-      | NGIS |
-    And the user clicks the patient result card
-    And the user clicks the Start Referral button
-    And the referral page is displayed
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_SUPER_USER |
+    And the "Patient details" stage is marked as Completed
 
   @E2EUI-1413 @E2EUI-1360 @NTS-3047 @LOGOUT @v_1 @P0 @COMP3_TO_OrderingEntity @BVT_P0
   Scenario Outline: NTS-3047 - Find my ordering entity via name to order a test from the correct Lab/GLH

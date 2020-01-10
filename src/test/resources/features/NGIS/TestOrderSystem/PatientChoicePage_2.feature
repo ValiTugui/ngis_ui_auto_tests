@@ -1,6 +1,6 @@
 @regression
 @regression_set2
-@patientChoicePage
+@PatientChoice_2
 
 Feature: Patient Choice Page Verification
 
@@ -98,7 +98,7 @@ Feature: Patient Choice Page Verification
     And the user clicks on Continue Button
     And the user should see the chosen "Recorded by:" with edit button in "Recorded by"
     Then the Recorded by option is marked as completed
-    And the user fills "<PatientChoice>" details in patient choices
+    And the user selects the option "<PatientChoice>" as patient choices
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -159,7 +159,7 @@ Feature: Patient Choice Page Verification
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    When the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
     And the user clicks on Continue Button
     When the user is navigated to a patient choice form option with title Review and submit
     And the user clicks on submit patient choice Button

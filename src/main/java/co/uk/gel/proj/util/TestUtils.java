@@ -31,10 +31,10 @@ public class TestUtils {
         }
 
         // To print key and value
-        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
-        for (Map.Entry eachEntry : allEntries) {
-            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
-        }
+//        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
+//        for (Map.Entry eachEntry : allEntries) {
+//            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
+//        }
 
         return paramNameValue;
 

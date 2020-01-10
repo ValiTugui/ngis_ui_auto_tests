@@ -770,6 +770,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 //        String DOB1 = testData.getDay()  + "/" + testData.getMonth() + "/" + testData.getYear();
 //        Debugger.println("Expected DOB tobe :" + DOB1);
     }
+    public void fillInNonExistingPatientDetailsForChildReferral() {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        testData.setNhsNumber(RandomDataCreator.generateRandomNHSNumber());
+        nhsNumber.sendKeys(testData.getNhsNumber());
+        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+        testData.setYear(String.valueOf(faker.number().numberBetween(2005, 2018)));//Child
+        dateDay.sendKeys(testData.getDay());
+        dateMonth.sendKeys(testData.getMonth());
+        dateYear.sendKeys(testData.getYear());
+    }
 
     public void fillInNonExistingPatientDetailsForAdultReferral() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);

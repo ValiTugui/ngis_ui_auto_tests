@@ -6,7 +6,7 @@ Feature: Family Members Details Validation
 
   @COMP8_TO_PatientSearch
     @familyMemberDetailsPage_05 @LOGOUT @NTS-3309 @E2EUI-1539 @v_1 @P0
-  Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
+  Scenario Outline: NTS-3309-E2EUI-1539: Verify message when the number of participants in Test Package are less than family member selected
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
