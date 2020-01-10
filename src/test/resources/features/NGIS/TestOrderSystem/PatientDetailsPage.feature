@@ -272,7 +272,6 @@ Feature: Patient details page
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
     Then the patient is successfully updated with a "Details saved"
@@ -296,3 +295,28 @@ Feature: Patient details page
     Examples:
       | stage           | gender  | lifeStatus | ethnicity   |
       | Patient details | Unknown | Deceased   | R - Chinese |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_14 @NTS-3470 @E2EUI-1538
+  Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - Go back to patient search - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+
+
+
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
