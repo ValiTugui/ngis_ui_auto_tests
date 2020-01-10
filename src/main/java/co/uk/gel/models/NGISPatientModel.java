@@ -26,6 +26,7 @@ public class NGISPatientModel {
     private String RELATIONSHIP_TO_PROBAND;
     private String RECORDING_CLINICIAN_NAME;
     private String REFERAL_ID;
+    private String NGIS_ID;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -210,5 +211,13 @@ public class NGISPatientModel {
 
     public void setREFERAL_ID(String REFERAL_ID) {
         this.REFERAL_ID = REFERAL_ID;
+    }
+
+    public String getNGIS_ID() {
+        return NGIS_ID;
+    }
+
+    public void setNGIS_ID(String NGIS_ID) {
+        this.NGIS_ID = NGIS_ID;
     }
 }//end
