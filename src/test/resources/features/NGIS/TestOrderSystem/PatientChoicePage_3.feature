@@ -12,7 +12,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -41,7 +41,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option <PatientChoiceCategory> in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -65,12 +65,13 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient choices
-    And the user fills "<PatientChoice>" details in patient choices
+    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user selects "<YesOption>" research participation option in patient choices
     And the user selects "<YesOption>" data and sample option in patient choices
     And the user clicks on Continue Button
@@ -126,7 +127,7 @@ Feature: Patient Choice Page
     And the user should be able to see highlighted continue button
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -148,7 +149,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on "New patient choice" link
     And the user clicks on the amend patient choice button
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -168,7 +169,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Add family member patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -202,7 +203,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    And the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -223,7 +224,7 @@ Feature: Patient Choice Page
     When the user clicks on "New patient choice" link
     Then the user is navigated to a page with title Add patient choice information
     When the user clicks on the amend patient choice button
-    And the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -257,7 +258,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
@@ -284,7 +285,7 @@ Feature: Patient Choice Page
     And the user clicks on "New patient choice" link
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on the amend patient choice button
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button

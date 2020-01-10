@@ -12,7 +12,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type

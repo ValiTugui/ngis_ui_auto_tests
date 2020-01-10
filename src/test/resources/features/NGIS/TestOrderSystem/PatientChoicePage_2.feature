@@ -30,7 +30,7 @@ Feature: Patient Choice Page Verification
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user fills "<TestType>" details in test type
     And the user fills "<RecordedBy>" details in recorded by
     Then the user should be able to see patient hospital number
@@ -64,7 +64,7 @@ Feature: Patient Choice Page Verification
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
@@ -88,7 +88,7 @@ Feature: Patient Choice Page Verification
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
@@ -133,11 +133,11 @@ Feature: Patient Choice Page Verification
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user clicks on edit button in Patient choice category
-    When the user fills "<Option2>" details in patient choice category
+    When the user selects the option Child in patient choice category
     And the user should see the chosen "<Option2>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
 
@@ -154,7 +154,7 @@ Feature: Patient Choice Page Verification
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
     When the user fills "<TestType>" details in test type
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button

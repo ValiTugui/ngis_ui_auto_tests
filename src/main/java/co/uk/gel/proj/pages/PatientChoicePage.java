@@ -980,14 +980,14 @@ public class PatientChoicePage {
             boolean isPresent = false;
             String[] choices = selectedChoice.split("::");
             String actualText = "";
-            //Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
+            Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
             for (int i = 0; i < selectedPatientChoiceQuestion.size(); i++) {
                 actualText = selectedPatientChoiceQuestion.get(i).getText();
-                //Debugger.println("ACTUAL: "+actualText);
+                Debugger.println("ACTUAL: "+actualText);
                 if(actualText.startsWith(choices[0].trim())) {
                     if (actualText.endsWith(choices[1].trim())) {
                         isPresent = true;
-                        //Debugger.println("PASS:::");
+                        Debugger.println("PASS:::");
                         break;
                     }else{
                         Debugger.println("Expected to ends with: "+choices[0]+", But Actual:"+actualText);

@@ -11,7 +11,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    When the user fills "<PatientChoiceCategory>" details in patient choice category
+    When the user selects the option Adult (Without Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
@@ -156,7 +156,8 @@ Feature: Patient Choice Page
       | Patient currently lacks capacity and no consultee available |
       | Associated with another referral                            |
       | Other                                                       |
-    When the user selects the option "<Reasons>" as patient choices
+    ##Click on continue without selecting any option and validate warning message
+    When the user selects the option "<Reason3>" as patient choices
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
@@ -169,7 +170,7 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice2                                    | Reasons                                                     | WarningMessage2                                                                                                                                                                            |
+      | PatientChoice2                                    | Reason3                                                     | WarningMessage2                                                                                                                                                                            |
       | Record of Discussion form not currently available | Patient currently lacks capacity and no consultee available | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @COMP9_TO_PatientChoice
@@ -190,6 +191,8 @@ Feature: Patient Choice Page
     And the user should be able to see Yes and No answer options
     And the user selects "<NoOption>" research participation option in patient choices
     Then the question will be displayed as "<Question2>"
+    ##Question Why has research participation not been discussed? with options presence need to check
+    ##And include the rrro option for not seleting and goign ahead
     And the user should see continue button is not highlighted
     Then the user will see a "<WarningMessage>" warning message on the patient choice information option
     And the user should see continue button is not highlighted
@@ -224,8 +227,10 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     And the user is navigated to a patient choice form option with title Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
     Then the user should be able to see the highlighted Submit patient choice button
+    ##For all disabled buttons, pleae click and verify for the warning message button
     And Save and continue button is displayed as "disabled"
 
     Examples:

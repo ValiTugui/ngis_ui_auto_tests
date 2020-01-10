@@ -149,7 +149,7 @@ public class PatientChoiceSteps extends Pages {
     }
 
 
-    @And("the user fills {string} details in patient choice category")
+    @And("the user selects the option (.*) in patient choice category")
     public void theUserFillsDetailsInPatientChoiceCategory(String inputData) {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
