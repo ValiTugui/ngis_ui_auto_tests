@@ -27,6 +27,7 @@ Feature: Home Page
     And the user sees the button "Yes, start Referral" on Bottom right
     And the user selects the "Test Package" tab
     And the user clicks on view more icon
+    Then the user should be able to see a new modal window
     And the user click on Go to test page button
     Then the list of clinical indications are loaded
     And the user sees the "Clinical Indications" tab is selected by default
