@@ -51,7 +51,7 @@ Feature: Panels Page Verification
     Then the user is navigated to a page with title Panels
     And the user should be able to see panels page is correctly displayed
     When the user should  be able to search and add the "<searchPanels>" panels
-    Then the user should able to deselect the selected panels
+    Then the user should be able to deselect the selected panels
     And the user should be able to change the penetrance status
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
@@ -59,7 +59,6 @@ Feature: Panels Page Verification
     Examples:
       | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | searchPanels |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | cardiac arr  |
-
 
   @COMP9_TO_Panels
     @COMP9_TO_Panels_04 @LOGOUT @NTS-3413 @E2EUI-1906  @v_1 @P0

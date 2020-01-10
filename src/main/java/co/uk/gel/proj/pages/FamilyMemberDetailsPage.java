@@ -281,23 +281,6 @@ public class FamilyMemberDetailsPage {
     String editButtonInformation = "//button[@aria-label='edit button']";
     String removeButtonInformation = "//button[@aria-label='remove button']";
 
-    @FindBy(xpath = "//div[@class='styles_participant-info__4Bpvb']")
-    public WebElement familyMemberFocussed;
-
-    @FindBy(xpath = "//h2[contains(@class,'css-')]")
-    public WebElement familyMemberNames;
-
-    @FindBy(xpath = "//span[@class='child-element']")
-    public WebElement relationshipStatus;
-    @FindBy(xpath = "//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
-    public WebElement familyMemberDob;
-    @FindBy(xpath = "//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
-    public WebElement familyMemberGender;
-    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
-    public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
-    public WebElement familyMemberNgisId;
-
     String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]//button";
     @FindBy(className = "todo-list")
     public WebElement toDoList;
@@ -1092,26 +1075,6 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean verifyFamilyMemberBanner() {
-        Wait.forElementToBeDisplayed(driver, familyMemberFocussed);
-        if (!seleniumLib.isElementPresent(familyMemberFocussed)) {
-            return false;
-        }
-        List<WebElement> expElements = new ArrayList<WebElement>();
-        expElements.add(familyMemberNames);
-        expElements.add(relationshipStatus);
-        expElements.add(familyMemberDob);
-        expElements.add(familyMemberGender);
-        expElements.add(familyMemberNhsNumbers);
-        expElements.add(familyMemberNgisId);
-        for (int i = 0; i < expElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean patientChoiceStatusDetail() {
         Wait.forElementToBeDisplayed(driver, patientChoiceStatusField);
         if (!Wait.isElementDisplayed(driver, patientChoiceStatusField, 10)) {
@@ -1136,7 +1099,8 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public void patientDetailsInFamilyMemberLandingPage() {
+    public void readPatientDetailsInFamilyMemberLandingPage() {
+        //Reading the Details of Family Members to Compare with PatientChoice and PrintForms later.
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         familyMemberLandingPageDetails = new ArrayList<String>();
         try {
@@ -1146,20 +1110,22 @@ public class FamilyMemberDetailsPage {
                 familyMemberLandingPageDetails.add(genderResults.get(i).getText());
                 familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
             }
+            Debugger.println("No of Patient Details Read from FamilyMember LAnding Page: "+familyMemberLandingPageDetails.size());
         } catch (Exception exp) {
-            Debugger.println("Exception from getting result");
+            Debugger.println("Exception from reading the Family Member Details from FamilyMember Landing Page:"+exp);
         }
     }
 
 
-    public boolean verifyDataFromFamilyMemberAndPatientChoice() {
+    public boolean compareFamilyIdentifiersOnFamilyMemberAndPatientChoice() {
         if (familyMemberLandingPageDetails.equals(patientChoicePageDetails)) {
             return true;
         }
         return false;
     }
 
-    public void printFormsInPatientChoicePage() {
+    public void readPrintFormsInPatientChoicePage() {
+        //Reading the Details of PrintForms to Compare with Family Members.
         Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
         printFormsPageDetails = new ArrayList<String>();
         try {
@@ -1169,12 +1135,14 @@ public class FamilyMemberDetailsPage {
                 printFormsPageDetails.add(genderResults.get(i).getText());
                 printFormsPageDetails.add(ngisIdResults.get(i).getText());
             }
+            Debugger.println("No of Patient Details Read from Print Form Page: "+familyMemberLandingPageDetails.size());
         } catch (Exception exp) {
-            Debugger.println("Exception from print forms page getting result");
+            Debugger.println("Exception from reading the Family Member Details from Print Form Page:"+exp);
         }
     }
 
-    public void patientDetailsInPatientChoicePage() {
+    public void readPatientDetailsInPatientChoicePage() {
+        //Reading the Details of Patient Choice to Compare with FamilyMemberLandingPage and PrintForms later.
         Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
         patientChoicePageDetails = new ArrayList<String>();
         try {
@@ -1184,12 +1152,13 @@ public class FamilyMemberDetailsPage {
                 patientChoicePageDetails.add(genderResults.get(i).getText());
                 patientChoicePageDetails.add(ngisIdResults.get(i).getText());
             }
+            Debugger.println("No of Patient Details Read from PatientChoice Page: "+patientChoicePageDetails.size());
         } catch (Exception exp) {
-            Debugger.println("Exception from patient page getting result");
+            Debugger.println("Exception from reading the Family Member Details from Patient Choice Page:"+exp);
         }
     }
 
-    public boolean verifyDataFromFamilyMemberAndPrintForms() {
+    public boolean compareDataFromFamilyMemberAndPrintForms() {
         if (familyMemberLandingPageDetails.equals(printFormsPageDetails)) {
             return true;
         }
@@ -1371,8 +1340,21 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public static NGISPatientModel getFamilyMember(String nhsNumber) {
+    public static NGISPatientModel getFamilyMember(String nhsDetails) {
         try {
+            String nhsNumber = "";
+            if(nhsDetails.indexOf(":") == -1){//If we provide direct NHS number
+                nhsNumber = nhsDetails;
+            }else {//In the format of NHSNumber=xxxxxxx:Dob=dd-mm-yyyy
+                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
+                Set<String> paramsKey = paramNameValue.keySet();
+                for (String key : paramsKey) {
+                    if (key.equalsIgnoreCase("NHSNumber")) {
+                        nhsNumber = paramNameValue.get(key);
+                        break;
+                    }
+                }
+            }
             if (nhsNumber == null || nhsNumber.isEmpty()) {
                 return addedFamilyMembers.get(0);
             }
@@ -1384,24 +1366,35 @@ public class FamilyMemberDetailsPage {
             Debugger.println("COULD NOT find Family Member for :" + nhsNumber);
             return null;
         } catch (Exception exp) {
-            Debugger.println("Family Member with NHSNumber:" + nhsNumber + " Not found in the added list.");
+            Debugger.println("Family Member with NHSNumber:" + nhsDetails + " Not found in the added list.");
             return null;
         }
     }
 
-    public void updateFirstLastName(NGISPatientModel familyMember) {
+    public static void updateFirstLastName(NGISPatientModel familyMember) {
         try {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     addedFamilyMembers.get(i).setFIRST_NAME(familyMember.getFIRST_NAME());
                     addedFamilyMembers.get(i).setLAST_NAME(familyMember.getLAST_NAME());
-                    Debugger.println("Set First and Last name of Familymember: " + familyMember.getNHS_NUMBER() + "as " + familyMember.getFIRST_NAME() + " and " + familyMember.getLAST_NAME());
                 }
             }
         } catch (Exception exp) {
             Debugger.println("Exception in setting up First Last Name for FamilyMember " + exp);
         }
     }
+    public static void updateNGISID(NGISPatientModel familyMember) {
+        try {
+            for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
+                    addedFamilyMembers.get(i).setNGIS_ID(familyMember.getNGIS_ID());
+                }
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception in setting up NGIS ID " + exp);
+        }
+    }
+
 
     public String getPartialUrl(String stage) {
         String partialUrl = null;
