@@ -49,8 +49,13 @@ public class Actions {
     }
 
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
-        int index = random.nextInt(dropdownValues.size() - 1);
-        dropdownValues.get(index).click();
+        try {
+            int index = random.nextInt(dropdownValues.size() - 1);
+            dropdownValues.get(index).click();
+        } catch (IllegalArgumentException exp) {
+            Debugger.println("Select the first dropDownValues" + exp);
+            dropdownValues.get(0).click(); // Select the first dropDownValues
+        }
     }
 
     public static String getText(WebElement element) {

@@ -254,3 +254,45 @@ Feature: Patient details page
     Examples:
       | patient-search-type | NhsNumber  | DOB        | pageTitle                    |
       | NHS Spine           | 9449310602 | 23-03-2011 | Check your patient's details |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_14 @NTS-3470 @E2EUI-1538
+  Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - Go back to patient search - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    Then the Patient Details page is displayed
+    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a "Details saved"
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_15 @NTS-3470 @E2EUI-1538
+  Scenario Outline: NTS-3470: Referral Component - Patient details Page - Patient details update message
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user navigates to the "<stage>" stage
+    And the "<stage>" stage is marked as Completed
+    And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
+    And the user clicks the Save and Continue button
+    Then the patient is successfully updated with a "Patient details updated"
+
+    Examples:
+      | stage           | gender  | lifeStatus | ethnicity   |
+      | Patient details | Unknown | Deceased   | R - Chinese |
