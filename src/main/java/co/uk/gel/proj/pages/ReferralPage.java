@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import org.junit.Assert;
@@ -60,7 +61,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
     public WebElement referralHeaderPatientName;
 
-    //span[text()='Born']/..//strong
     @FindBy(xpath = "//span[text()='Born']/..//strong")
     public WebElement referralHeaderBorn;
 
@@ -170,6 +170,22 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     public WebElement notificationSuccessMessage;
+
+    //For Global Patient Banner Verification
+    @FindBy(xpath = "//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
+    public WebElement familyMemberDob;
+    @FindBy(xpath = "//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
+    public WebElement familyMemberGender;
+    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
+    public WebElement familyMemberNhsNumbers;
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    public WebElement familyMemberNgisId;
+    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
+    public List<WebElement> nhsChunkSeparators;
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
+    public List<WebElement> ngisIDChunkSeparators;
+    @FindBy(xpath = "//h2[contains(@class,'css-')]")
+    public WebElement familyMemberNames;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -641,6 +657,91 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Exception from getting field labels." + exp);
             SeleniumLib.takeAScreenShot("fields-labels.jpg");
+            return false;
+        }
+    }
+    public boolean verifyNHSDisplayFormat(){
+        //Verify the NHS format.
+        int noOfNhsSections = nhsChunkSeparators.size();
+        if(noOfNhsSections != 3){
+            Debugger.println("Expected NHS format as 3 sets, but separated in "+noOfNhsSections+" ways");
+            return false;
+        }
+        //Expected each section in 3,3,4 size
+        int nhsExpSection[] = {3,3,4};
+        for(int i=0; i<noOfNhsSections; i++){
+            if(nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[i]){
+                Debugger.println("NHS Display is not in 3-3-4 separation.");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean verifyNGISIDDisplayFormat(){
+        //Verify for the NGIS format
+        int noOfNgisSections = ngisIDChunkSeparators.size();
+        if(noOfNgisSections != 3){
+            Debugger.println("Expected NGISID format as 3 sets, but separated in "+noOfNgisSections+" ways");
+            return false;
+        }
+        //Expected each section in 4,4,4 size
+        int bgisExpSection[] = {4,4,4};
+        for(int i=0; i<noOfNgisSections; i++){
+            if(ngisIDChunkSeparators.get(i).getText().trim().length() != bgisExpSection[i]){
+                Debugger.println("NGISID Display is not in 4-4-4 separation.");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember){
+        try{
+            //Verify  First name and last name
+            String firstNameLastName = familyMemberNames.getText();
+            if(!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME())){
+                Debugger.println("First Name Last Name: "+familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME()+" not displayed on the banner.");
+                return false;
+            }
+            String bannerGender = familyMemberGender.getText();
+            if(!bannerGender.equalsIgnoreCase(familyMember.getGENDER())){
+                Debugger.println("Gender: "+familyMember.getGENDER()+" not displayed on the banner.");
+                return false;
+            }
+            String bannerDob  = familyMemberDob.getText();
+            if(!bannerDob.startsWith(familyMember.getBORN_DATE())){
+                Debugger.println("Born Date: "+familyMember.getBORN_DATE()+" not displayed on the banner.");
+                return false;
+            }
+            String bannerNhs  = familyMemberNhsNumbers.getText();
+            if(bannerNhs != null && !bannerNhs.isEmpty()) {
+                if (!bannerNhs.equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
+                    Debugger.println("NHS Number: " + familyMember.getNHS_NUMBER() + " not displayed on the banner.");
+                    return false;
+                }
+            }
+            if(!verifyNHSDisplayFormat()){
+                Debugger.println("NHS Number display format is not as expected.");
+                return false;
+            }
+
+            String bannerNGIS  = familyMemberNgisId.getText();
+            if(familyMember.getNGIS_ID() == null || familyMember.getNGIS_ID().isEmpty()){
+                //NGIS ID is auto generated and will get only after selecting the family member while adding.
+                //So initializing here to validate on remaining pages.
+                familyMember.setNGIS_ID(bannerNGIS);
+                FamilyMemberDetailsPage.updateNGISID(familyMember);
+            }else{
+                if (!bannerNGIS.equalsIgnoreCase(familyMember.getNGIS_ID())) {
+                    Debugger.println("NGSID: " + familyMember.getNGIS_ID() + " not displayed on the banner.");
+                    return false;
+                }
+            }
+            if(!verifyNGISIDDisplayFormat()){
+                Debugger.println("NGSID display format is not as expected.");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
             return false;
         }
     }

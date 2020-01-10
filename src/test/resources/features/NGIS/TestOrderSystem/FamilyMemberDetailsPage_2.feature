@@ -81,11 +81,11 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
-    Then the family member banner should display with the editing members information "<FamilyMemberDetails>"
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
-    Then the family member banner should display with the editing members information "<FamilyMemberDetails>"
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
@@ -96,7 +96,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
-    Then the family member banner should display with the editing members information "<FamilyMemberDetails>"
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user moves back to previous page
     Then the user is navigated to a page with title Patient choice
 

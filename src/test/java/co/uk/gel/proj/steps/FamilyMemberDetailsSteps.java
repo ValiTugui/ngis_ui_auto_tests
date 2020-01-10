@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -289,9 +290,14 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @And("the global patient information bar display with the editing members information {string}")
-    public void theFamilyMemebrBannerShouldDisplayWithTheEditingMembersInformation(String familyMember) {
+    public void theFamilyMemebrBannerShouldDisplayWithTheEditingMembersInformation(String nhsDetails) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyGlobalPatientInformationBar(familyMember);
+        NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsDetails);
+        if(familyMember == null){
+            Debugger.println("FamilyMemer with NHS "+nhsDetails+" Could not found.");
+            Assert.assertTrue(testResult);
+        }
+        testResult = referralPage.verifyGlobalPatientInformationBar(familyMember);
         Assert.assertTrue(testResult);
     }
     @When("the user clicks on edit icon to update patient choice status for family member")
