@@ -150,12 +150,18 @@ public class ReferralPage<check> {
 
     @FindBy(css = "*[class*=consent-page-full]")
     public WebElement consentDocument;
+
     @FindBy(css = "*[class*=shadow]")
     public WebElement consentDocumentShadow;
+
     @FindBy(id = "printable-form-id")
     public WebElement consentDocumentPrintableForm;
+
     @FindBy(css = "*[class*=summary-header-container]")
     public WebElement consentDocumentHeaderInfo;
+
+    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[1]")
+    public WebElement clearDropDownValue;
 
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
@@ -666,6 +672,24 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+
+     public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, pageTitle);
+            List<String> actualErrorMessagesColour = new ArrayList<>();
+            for (WebElement errorMessage : errorMessages) {
+                actualErrorMessagesColour.add(errorMessage.getCssValue("color"));
+            }
+            Debugger.println("Actual-Error Messages colours" + actualErrorMessagesColour);
+            return actualErrorMessagesColour;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting field labels." + exp);
+            SeleniumLib.takeAScreenShot("fields-labels.jpg");
+            return null;
+        }
+    }
+          
     public boolean verifyNHSDisplayFormat(){
         //Verify the NHS format.
         int noOfNhsSections = nhsChunkSeparators.size();
