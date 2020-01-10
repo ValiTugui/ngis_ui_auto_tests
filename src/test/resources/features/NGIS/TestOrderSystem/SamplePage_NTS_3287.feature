@@ -1,6 +1,7 @@
 @regression
 @regression_set3
 @samplesPage
+@samplesPage2
 
 Feature: Samples Page
 
