@@ -6,8 +6,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-2089 @NTS-3209 @E2EUI-1404 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalQuestions @BVT_P0
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
@@ -24,8 +25,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1972 @NTS-3240 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     And the user selects a value "<rareDiseaseDiagnosisValue>" from the Rare disease diagnosis
@@ -40,8 +42,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1610 @NTS-3245 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
   Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user selects "<diseaseStatueValue>"
@@ -56,8 +59,9 @@ Feature: Clinical Questions stage
 
 @E2EUI-1531 @E2EUI-992 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
-  Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+  Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+  And the "Patient details" stage is marked as Completed
   And the user navigates to the "<stage>" stage
   Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
@@ -77,8 +81,9 @@ Feature: Clinical Questions stage
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
-  Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+  Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+  And the "Patient details" stage is marked as Completed
   And the user navigates to the "<stage>" stage
   Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
@@ -93,8 +98,9 @@ Feature: Clinical Questions stage
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
-  Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+  Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+  And the "Patient details" stage is marked as Completed
   And the user navigates to the "<stage>" stage
   Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
@@ -109,8 +115,9 @@ Feature: Clinical Questions stage
 
 @E2EUI-1531 @NTS-3246 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
-  Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+  Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+    | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+  And the "Patient details" stage is marked as Completed
   And the user navigates to the "<stage>" stage
   Then the "<title>" page is displayed
   And  the user selects "<diseaseStatueValue>"
@@ -124,8 +131,9 @@ Feature: Clinical Questions stage
 
   @NTS-3346 @E2EUI-995 @P0 @v_1
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     And the HPO phenotype drop-down is allowed to have values up to "<maximumAllowedValues>"
@@ -137,8 +145,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1546 @NTS-3433 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
@@ -154,8 +163,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1894 @NTS-3433 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field
@@ -170,8 +180,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1625 @NTS-3433 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     # user adds 2 HPO terms
@@ -197,8 +208,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1546 @NTS-3433 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -228,8 +240,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1443 @E2EUI-918 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 1 - verify the 'Save and Continue' button on the Clinical Questions stage
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
@@ -281,8 +294,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1124 @NTS-3453 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions
   Scenario Outline: NTS-3453 - Clinical Questions -  mandatory field validations for Disease status field
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the disease status field
@@ -298,8 +312,9 @@ Feature: Clinical Questions stage
 
   @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @NTS-3439 @LOGOUT @v_1 @P0 @COMP6_TO_ClinicalQuestions @BVT_P0
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Test package" stage
     And the user selects the number of participants as "2"
     And the user clicks the Save and Continue button
