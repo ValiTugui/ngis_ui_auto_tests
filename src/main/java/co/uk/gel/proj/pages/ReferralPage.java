@@ -674,7 +674,7 @@ public class ReferralPage<check> {
     }
 
 
-    public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
+     public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
         try {
             Wait.forElementToBeDisplayed(driver, pageTitle);
             List<String> actualErrorMessagesColour = new ArrayList<>();
@@ -687,6 +687,8 @@ public class ReferralPage<check> {
             Debugger.println("Exception from getting field labels." + exp);
             SeleniumLib.takeAScreenShot("fields-labels.jpg");
             return null;
+        }
+    }
           
     public boolean verifyNHSDisplayFormat(){
         //Verify the NHS format.
