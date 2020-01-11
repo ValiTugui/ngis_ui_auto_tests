@@ -484,22 +484,33 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle;
-        if(expTitle.contains("\'")){
-            // if the string contains apostrophe character, apply double quotes in the xpath string
-            pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
-        }else {
-            pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
-        }
+        try {
+            By pageTitle;
 
-        if (!seleniumLib.isElementPresent(pageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
-            if (!seleniumLib.isElementPresent(pageTitle)) {
-                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                return false;
+            if (expTitle.contains("\'")) {
+                // if the string contains apostrophe character, apply double quotes in the xpath string
+                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+            } else {
+                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
             }
+
+            if (!seleniumLib.isElementPresent(pageTitle)) {
+                Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+                if (!seleniumLib.isElementPresent(pageTitle)) {
+                    Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                    return false;
+                }
+            }
+            return true;
+        } catch (NoSuchElementException exp) {
+            boolean testResult = false;
+            String actualPageTitle = getTheCurrentPageTitle();
+            testResult = expTitle.equals(actualPageTitle);
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Title page " + exp);
+            return false;
         }
-        return true;
     }
 
     public void clickOnSaveAndContinueButton() {
