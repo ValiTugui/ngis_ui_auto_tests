@@ -487,8 +487,9 @@ public class ReferralPage<check> {
         try {
             By pageTitle;
 
-            if (expTitle.contains("\'")) {
+            if (expTitle.contains("\'") || expTitle.contains("sample")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
+                Debugger.println("Using the page element locator regex");
                 pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
             } else {
                 pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
