@@ -13,6 +13,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
@@ -304,6 +305,8 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        By pageTitle = By.xpath("//h1[contains(text(), \"" + expectedPageTitle + "\")]");
+        Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
         Debugger.println("test-result flag for verifying page title is: " + testResult);
