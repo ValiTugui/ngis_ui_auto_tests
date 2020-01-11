@@ -306,6 +306,7 @@ public class TumoursSteps extends Pages {
     public void thePageIsDisplayed(String expectedPageTitle) {
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
+        Debugger.println("test-result flag for verifying page title is: " + testResult);
         Assert.assertTrue(testResult);
         //String actualPageTitle = referralPage.getTheCurrentPageTitle();
         //Debugger.println("Actual PageTitle : " + actualPageTitle);

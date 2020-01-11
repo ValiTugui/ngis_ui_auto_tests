@@ -508,6 +508,7 @@ public class ReferralPage<check> {
             String actualPageTitle = getTheCurrentPageTitle();
             testResult = expTitle.equals(actualPageTitle);
             Debugger.println("Use the getTheCurrentPageTitle " + exp);
+            Debugger.println("expected pagetitle: " + expTitle + ":" + "actual pagetitle " + actualPageTitle + ": " + testResult);
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Title page " + exp);
