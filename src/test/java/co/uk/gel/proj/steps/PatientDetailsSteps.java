@@ -8,14 +8,19 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +33,12 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("^the Patient Details page is displayed$")
     public void thePatientDetailsPageIsDisplayed() {
-
         patientDetailsPage.patientDetailsPageIsDisplayed();
     }
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
+        patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink);
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
@@ -73,8 +78,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
-    @When("the user clicks the Back link")
-    public void theUserClicksTheBackLink() {
+    @When("the user clicks the - Go back to patient search - link")
+    public void theUserClicksTheGoBackToPatientSearchLink() {
         patientDetailsPage.clickGoBackToPatientSearchLink();
     }
 
@@ -152,8 +157,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the Ethnicity drop-down is allowed to have values up to {string}")
     public void theEthnicityDropDownIsAllowedToHaveValuesUpTo(String allowedValuesCount) {
-       Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
+        Assert.assertTrue(patientDetailsPage.verifyMaxAllowedValuesInEthnicityField(Integer.parseInt(allowedValuesCount)));
     }
+
     @Then("the patient's referrals are displayed at the bottom of the page")
     public void thePatientSReferralsAreDisplayedAtTheBottomOfThePage() {
         Assert.assertTrue(patientDetailsPage.patientReferralsAreDisplayed());
@@ -171,7 +177,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user edit the patients Gender {string}, Life Status {string} and Ethnicity {string} fields")
     public void theUserEditThePatientsGenderLifeStatusAndEthnicityFields(String gender, String lifeStatus, String ethnicity) {
-        patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender,lifeStatus,ethnicity);
+        patientDetailsPage.editPatientGenderLifeStatusAndEthnicity(gender, lifeStatus, ethnicity);
     }
 
     @And("the user clicks the Update NGIS record button")
@@ -181,7 +187,7 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the patient is successfully updated with a {string}")
     public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
-        String actualNotification =  patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
+        String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
         Assert.assertEquals(expectedNotification, actualNotification);
@@ -194,12 +200,12 @@ public class PatientDetailsSteps extends Pages {
         String actualLifeStatus = Actions.getText(patientDetailsPage.lifeStatusButton);
         String actualEthnicity = Actions.getText(patientDetailsPage.ethnicityButton);
 
-        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: "  + expectedEthnicity);
-        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: "  + actualEthnicity);
+        Debugger.println("Expected: gender: " + expectedGender + ":" + "lifestatus: " + expectedLifeStatus + ":" + "ethnicity: " + expectedEthnicity);
+        Debugger.println("Actual: gender: " + actualGender + ":" + "lifestatus: " + actualLifeStatus + ":" + "ethnicity: " + actualEthnicity);
 
-        Assert.assertEquals(expectedGender,actualGender);
-        Assert.assertEquals(expectedLifeStatus,actualLifeStatus);
-        Assert.assertEquals(expectedEthnicity,actualEthnicity);
+        Assert.assertEquals(expectedGender, actualGender);
+        Assert.assertEquals(expectedLifeStatus, actualLifeStatus);
+        Assert.assertEquals(expectedEthnicity, actualEthnicity);
     }
 
     @And("the patient detail page displays expected input-fields and drop-down fields")
@@ -239,5 +245,67 @@ public class PatientDetailsSteps extends Pages {
     public void theUserClickYESButtonForTheQuestionDoYouHaveTheNHSNo() {
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.yesButton);
         patientDetailsPage.yesButton.click();
+    }
+
+    @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.patientIsCreated();
+    }
+
+    @And("the Ethnicity drop-down values are in Alphabetical order")
+    public void theEthnicityDropDownValuesAreInAlphabeticalOrder(DataTable dataTable) {
+        List<Map<String, String>> expectedEthnicityList = dataTable.asMaps(String.class, String.class);
+        List<String> actualEthnicityList = patientDetailsPage.getTheEthnicityDropDownValues();
+
+        for (int i = 0; i < expectedEthnicityList.size(); i++) {
+            Debugger.println("Expected ethnicity: " + expectedEthnicityList.get(i).get("EthnicityListHeader") + ":" + i + ":" + "Actual ethnicity " + actualEthnicityList.get(i) + "\n");
+            Assert.assertEquals(expectedEthnicityList.get(i).get("EthnicityListHeader"), actualEthnicityList.get(i));
+        }
+    }
+
+    @And("the user clicks the Save patient details to NGIS button")
+    public void theUserClicksTheSavePatientDetailsToNGISButton() {
+        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+    }
+
+    @When("the user clears the date of birth field")
+    public void theUserClearsTheDateOfBirthField() {
+        patientDetailsPage.dateOfBirth.click();
+        Actions.clearField(patientDetailsPage.dateOfBirth);
+    }
+
+    @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
+    public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
+
+        Assert.assertEquals(titlePage,referralPage.getTheCurrentPageTitle());
+        List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
+
+        List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
+        List actualColourFieldErrorMessages = referralPage.getColourOfTheFieldsErrorMessagesOnCurrentPage();
+        String expectedFontColorInRGB = "";
+
+        for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
+            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0) + " count: " + i);
+            Debugger.println("Actual labelHeader " + actualFieldsErrorLabels.get(i - 1) + "\n");
+            Assert.assertTrue(actualFieldsErrorLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
+
+            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
+            Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
+
+            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2)+ " count: " + i);
+            expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLabelsAndErrorMessagesList.get(i).get(2));
+            Debugger.println("Expected ErrorMessage Colour RGB " + expectedFontColorInRGB);
+            Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
+            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i-1));
+        }
+    }
+
+    @And("the user fill in the last name field")
+    public void theUserFillInTheLastNameField() {
+        patientDetailsPage.fillInLastName();
     }
 }

@@ -150,12 +150,18 @@ public class ReferralPage<check> {
 
     @FindBy(css = "*[class*=consent-page-full]")
     public WebElement consentDocument;
+
     @FindBy(css = "*[class*=shadow]")
     public WebElement consentDocumentShadow;
+
     @FindBy(id = "printable-form-id")
     public WebElement consentDocumentPrintableForm;
+
     @FindBy(css = "*[class*=summary-header-container]")
     public WebElement consentDocumentHeaderInfo;
+
+    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[1]")
+    public WebElement clearDropDownValue;
 
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
@@ -478,7 +484,13 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        By pageTitle;
+        if(expTitle.contains("\'")){
+            // if the string contains apostrophe character, apply double quotes in the xpath string
+            pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+        }else {
+            pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+        }
 
         if (!seleniumLib.isElementPresent(pageTitle)) {
             Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
@@ -660,6 +672,24 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+
+     public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, pageTitle);
+            List<String> actualErrorMessagesColour = new ArrayList<>();
+            for (WebElement errorMessage : errorMessages) {
+                actualErrorMessagesColour.add(errorMessage.getCssValue("color"));
+            }
+            Debugger.println("Actual-Error Messages colours" + actualErrorMessagesColour);
+            return actualErrorMessagesColour;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting field labels." + exp);
+            SeleniumLib.takeAScreenShot("fields-labels.jpg");
+            return null;
+        }
+    }
+          
     public boolean verifyNHSDisplayFormat(){
         //Verify the NHS format.
         int noOfNhsSections = nhsChunkSeparators.size();

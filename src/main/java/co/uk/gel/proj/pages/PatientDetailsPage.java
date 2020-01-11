@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+import java.util.ArrayList;
 import java.util.List;
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
@@ -143,9 +144,9 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='success-notification']")
     public WebElement successNotification;
 
-    @FindBy(xpath = "//*[contains(@class,'patient-details-form__back')]//child::a")
+    @FindBy(xpath = "//*[text()='Go back to patient search']")
     public WebElement goBackToPatientSearchLink;
-
+    
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
 
@@ -191,6 +192,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Yes']")
     public WebElement yesButton;
 
+    @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'option')]/span/span")
+    public List<WebElement> ethnicityValues;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -218,9 +222,9 @@ public class PatientDetailsPage {
         newPatient.setLastName(faker.name().lastName());
         Actions.fillInValue(familyName, newPatient.getLastName());
 
-        String dayOfBirth = String.valueOf(faker.number().numberBetween(1, 31));
-        String monthOfBirth = String.valueOf(faker.number().numberBetween(1, 12));
-        String yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
+        String dayOfBirth = PatientSearchPage.testData.getDay();
+        String monthOfBirth = PatientSearchPage.testData.getMonth();
+        String yearOfBirth = PatientSearchPage.testData.getYear();
 
         newPatient.setDay(dayOfBirth);
         newPatient.setMonth(monthOfBirth);
@@ -639,4 +643,20 @@ public class PatientDetailsPage {
 
         return true;
     }
+
+    public List<String> getTheEthnicityDropDownValues() {
+        Wait.forElementToBeClickable(driver, ethnicityButton);
+        Actions.clickElement(driver, ethnicityButton);
+        List<String> actualEthnicityValues = new ArrayList<>();
+        for (WebElement ethnicityValue : ethnicityValues) {
+            actualEthnicityValues.add(ethnicityValue.getText().trim());
+        }
+        Debugger.println("Actual ethnicity values: " + actualEthnicityValues);
+        return actualEthnicityValues;
+    }
+
+    public void fillInLastName() {
+        Actions.fillInValue(familyName, faker.name().lastName());
+    }
+
 }
