@@ -504,8 +504,10 @@ public class ReferralPage<check> {
             return true;
         } catch (NoSuchElementException exp) {
             boolean testResult = false;
+            expTitle = expTitle.trim();
             String actualPageTitle = getTheCurrentPageTitle();
             testResult = expTitle.equals(actualPageTitle);
+            Debugger.println("Use the getTheCurrentPageTitle " + exp);
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Title page " + exp);
