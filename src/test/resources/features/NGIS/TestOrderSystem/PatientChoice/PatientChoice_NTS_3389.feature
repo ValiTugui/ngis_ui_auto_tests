@@ -1,10 +1,8 @@
 @regression
-@COMP09_P0
 @PatientChoice
 Feature: Patient Choice Page
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_01 @NTS-3389 @E2EUI-2039 @v_1 @P0
+  @NTS-3389 @E2EUI-2039 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -27,8 +25,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_02 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
+  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is navigated to a patient choice form option with title Patient choices
     Then the user should see the section title as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -52,8 +49,7 @@ Feature: Patient Choice Page
       | PatientChoice                                      | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                          |
       | Patient changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_03 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
+  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -88,8 +84,7 @@ Feature: Patient Choice Page
       | PatientChoice1                                    | Reason5 | WarningMessage                                                                                                                                                                           |
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_04 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
+  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
   Scenario Outline: NTS-3389: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -123,8 +118,7 @@ Feature: Patient Choice Page
       | PatientChoice1                 | NoOption | Question1                                  | Question2                                          | WarningMessage                                                                                                         | PatientChoice2                                |
       | Patient has agreed to the test | No       | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | Patient would like to revisit at a later date |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_05 @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_04
+  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_04
   Scenario Outline: NTS-3389: scenario_04 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -158,8 +152,7 @@ Feature: Patient Choice Page
       | PatientChoice                  | YesOption | NoOption | Question1                                  | WarningMessage                                                                                                                                                      | Question2                                                                                      |
       | Patient has agreed to the test | Yes       | No       | Has research participation been discussed? | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3389_06 @LOGOUT @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_05
+  @NTS-3389 @E2EUI-2039 @LOGOUT @v_1 @P0 @scenario_05
   Scenario Outline: NTS-3389: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

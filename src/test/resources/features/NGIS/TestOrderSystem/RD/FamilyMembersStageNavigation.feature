@@ -1,10 +1,9 @@
 @regression
-@COMP08_P0
+@TO_RD
 @FamilyMemberStageNavigation
 Feature: Family Members Navigation Stage Validation
 
-  @COMP8_TO_Familymembers
-    @familyMemberStageNavigation_01 @LOGOUT @NTS-3243 @E2EUI-1287 @BVT_P0 @v_1 @P0
+  @NTS-3243 @E2EUI-1287 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -35,8 +34,7 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_02 @LOGOUT @NTS-3299 @E2EUI-1698 @v_1 @P0
+  @NTS-3299 @E2EUI-1698 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3299: Verify the family members test package are selected by default
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -60,8 +58,7 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          |
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_03 @LOGOUT @NTS-3301 @E2EUI-1291 @v_1 @P0
+  @NTS-3301 @E2EUI-1291 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3301: Verify the current additional family member information
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -83,8 +80,7 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | ReferralColor |
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | #da291c       |
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_05 @LOGOUT @NTS-3295 @E2EUI-1279 @E2EUI-1362 @BVT_P0 @v_1 @P0
+  @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT@BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -112,8 +108,7 @@ Feature: Family Members Navigation Stage Validation
       | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
 
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_06 @LOGOUT @NTS-3291 @E2EUI-1604 @v_1 @P0
+  @NTS-3291 @E2EUI-1604 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -144,8 +139,7 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | ErrorMessage                                                    | MessageColor | DiseaseStatusDetails     |
       | Family members | Test package | 2                | NHSNumber=9449310319:DOB=09-12-2010 | Full Sibling          | There is essential clinical information missing from this entry | #da291c      | DiseaseStatus=Unaffected |
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_07 @LOGOUT @NTS-3322 @E2EUI-1509 @v_1 @P0
+  @NTS-3322 @E2EUI-1509 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3322: Verify family members has completed in to-do list
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |

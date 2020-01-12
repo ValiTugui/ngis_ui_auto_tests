@@ -1,10 +1,8 @@
 @regression
-@PatientChoicePage_4
 @PatientChoice
 Feature: Patient Choice Page
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_01 @NTS-3428 @E2EUI-2041 @v_1 @P0
+  @NTS-3428 @E2EUI-2041 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national | child |
@@ -27,8 +25,7 @@ Feature: Patient Choice Page
       | Patient choice stage | TestType                        | RecordedBy                            |
       | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_02 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_1
+ @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3428: scenario 1 - Editing Patient choice for a Child in person
     When the user is navigated to a patient choice form option with title Patient choices
     Then the user should see the section title as Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -64,8 +61,7 @@ Feature: Patient Choice Page
       | PatientChoice3                                                          | OptionNo | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
       | Parent(s) / carer / guardian changed their mind about the clinical test | No       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_03 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_2
+  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_2
   Scenario Outline: NTS-3428: scenario 2 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -102,8 +98,7 @@ Feature: Patient Choice Page
       | PatientChoice2                                    | Reason5 | WarningMessage                                                                                                                                                                           |
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_04 @LOGOUT @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3
+  @NTS-3428 @E2EUI-2041 @LOGOUT @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3428: scenario 3 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -149,8 +144,7 @@ Feature: Patient Choice Page
       | PatientChoice1                                       | PatientChoice2                                                     | NoOption | Option3        | Question1                                  | Question2                                          | WarningMessage                                                                                                         | Parent/Guardian signature          |
       | Parent(s) / carer / guardian have agreed to the test | Parent(s) / carer / guardian would like to revisit at a later date | No       | Not applicable | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_05 @NTS-3428 @E2EUI-2041 @v_1 @P0
+  @NTS-3428 @E2EUI-2041 @v_1 @P0
   Scenario Outline: NTS-3428:scenario 3a -  Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national | child |
@@ -173,8 +167,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            |
       | Patient choice       | Child                 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_06 @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_4
+  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_4
   Scenario Outline: NTS-3428: scenario 4 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -220,8 +213,7 @@ Feature: Patient Choice Page
       | PatientChoice1                                       | NoOption | YesOption | NAOption       | Question1                                  | Question2                                                                                                                             | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
       | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3428_07 @LOGOUT @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_5
+  @NTS-3428 @E2EUI-2041 @LOGOUT @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

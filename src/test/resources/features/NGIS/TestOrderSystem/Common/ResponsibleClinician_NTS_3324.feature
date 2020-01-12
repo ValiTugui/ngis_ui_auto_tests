@@ -1,9 +1,9 @@
 @regression
-@regression_set3
+@TO_Common
 @responsibleClinicianOrg
 Feature: Responsible Clinician
 
-  @E2EUI-1014 @NTS-3324 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3324 @E2EUI-1014 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the mandatory fields validations under 'Add Another Clinician' section
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |

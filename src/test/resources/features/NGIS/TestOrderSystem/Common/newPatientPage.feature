@@ -1,10 +1,10 @@
 @regression
-@regression_set1
+@TO_Common
 @newPatientPage
 
 Feature: New Patient page
 
-  @newPatientPage_01 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
+  @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -18,7 +18,7 @@ Feature: New Patient page
       | hyperlinkText               | label_on_submit_button       |
       | create a new patient record | Save patient details to NGIS |
 
-  @newPatientPage_02 @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
+  @NTS-3072 @E2EUI-981 @P1 @v_1 @BVT_P0
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid Details in N) fields
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -33,8 +33,7 @@ Feature: New Patient page
       | hyperlinkText               | label_on_submit_button       |
       | create a new patient record | Save patient details to NGIS |
 
-  @COMP2_TO_NewPatient
-  @newPatientPage_03 @NTS-3150 @E2EUI-2122 @P0 @v_1
+  @NTS-3150 @E2EUI-2122 @P0 @v_1
   Scenario Outline: NTS-3150:Add Enums for no nhsnumber reasons - Patient record creation
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -47,9 +46,7 @@ Feature: New Patient page
       | create a new patient record | Other - provide explanation   |
       | create a new patient record | Patient is a foreign national |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_04 @E2EUI-1134 @v_1
+   @E2EUI-1134 @LOGOUT @v_1
   Scenario Outline: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -82,8 +79,7 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_05 @E2EUI-1134 @v_1
+  @E2EUI-1134 @LOGOUT @v_1
   Scenario Outline: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -124,9 +120,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_06 @NTS-3465 @E2EUI-892 @E2EUI-1475 @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @LOGOUT @v_1
   Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -145,9 +139,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_07 @NTS-3465 @E2EUI-892 @E2EUI-1475 @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @LOGOUT @v_1
   Scenario Outline: NTS-3465: Super User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -166,9 +158,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_08 @NTS-3466 @E2EUI-1052 @v_1
+  @NTS-3466 @E2EUI-1052 @LOGOUT @v_1
   Scenario Outline: NTS-3466: Validate the Ethnicity drop down values to check for the order of the drop down is in logical - Alphabetical order
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -202,9 +192,7 @@ Feature: New Patient page
       | hyperlinkText               | pageTitle                         |
       | create a new patient record | Add a new patient to the database |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_09 @E2EUI-1189
+  @E2EUI-1189 @LOGOUT
   Scenario Outline: NTS-3468:Verify the input field validations on create new patient page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -229,9 +217,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         |
       | No patient found | create a new patient record | Add a new patient to the database |
 
-
-  @COMP2_TO_NewPatient @LOGOUT
-    @newPatientPage_09 @NTS-3468 @E2EUI-1196
+  @NTS-3468 @E2EUI-1196 @LOGOUT
   Scenario Outline: NTS-3468: new patient page with no NHsNumber- when last name is filled and all mandatory fields are left blank
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |

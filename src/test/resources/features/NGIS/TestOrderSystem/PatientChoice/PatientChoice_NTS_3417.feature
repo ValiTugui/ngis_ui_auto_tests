@@ -2,8 +2,7 @@
 @PatientChoice
 Feature: Patient Choice Page
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_01 @NTS-3417 @E2EUI-2040 @v_1 @P0
+  @NTS-3417 @E2EUI-2040 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -26,8 +25,7 @@ Feature: Patient Choice Page
       | PatientChoiceStage | PatientChoiceCategory    | TestType                        | RecordedBy                            |
       | Patient choice     | Adult (Without Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_02 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3417: scenario 1 - Editing Patient choice for an Adult (without capacity)
     When the user is navigated to a patient choice form option with title Patient choices
     Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
@@ -75,8 +73,7 @@ Feature: Patient Choice Page
       | PatientChoiceOption3                                 | YesOption | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                            |
       | Consultee changed their mind about the clinical test | Yes       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_03 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(a)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(a)
   Scenario Outline: NTS-3417: scenario 1(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -105,8 +102,7 @@ Feature: Patient Choice Page
       | NoOption | WarningMessage2                                                                                                                                                                            |
       | No       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_04 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(b)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(b)
   Scenario Outline: NTS-3417: scenario 1(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -135,8 +131,7 @@ Feature: Patient Choice Page
       | FirstOption    | SecondOption   | WarningMessage2                                                                                                                                                                            |
       | Not applicable | Not applicable | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_05 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_2
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_2
   Scenario Outline: NTS-3417: scenario 2 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -173,8 +168,7 @@ Feature: Patient Choice Page
       | PatientChoice2                                    | Reason3                                                     | WarningMessage2                                                                                                                                                                            |
       | Record of Discussion form not currently available | Patient currently lacks capacity and no consultee available | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_06 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3417: scenario 3 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -237,8 +231,7 @@ Feature: Patient Choice Page
       | PatientChoice1                   | PatientChoice2                                  | Consultee signature                | WarningMessage                                                                                                         | NoOption | YesOption | Question1                                  | Question2                                          |
       | Consultee has agreed to the test | Consultee would like to revisit at a later date | FirstName=WILTON:LastName=BRITTAIN | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | No       | Yes       | Has research participation been discussed? | Why has research participation not been discussed? |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_07 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(a)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(a)
   Scenario Outline: NTS-3417: scenario 3(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -267,8 +260,7 @@ Feature: Patient Choice Page
       | FirstOption | SecondOption   | Consultee signature                |
       | Yes         | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_08 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(b)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(b)
   Scenario Outline: NTS-3417: scenario 3(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -297,8 +289,7 @@ Feature: Patient Choice Page
       | FirstOption    | SecondOption | Consultee signature                |
       | Not applicable | No           | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_09 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4
   Scenario Outline: NTS-3417: scenario 4 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -356,8 +347,7 @@ Feature: Patient Choice Page
       | PatientChoice                    | Consultee signature                | WarningMessage                                                                                                                                                      | NoOption | YesOption | Question1                                  | Question2                                                                                                |
       | Consultee has agreed to the test | FirstName=WILTON:LastName=BRITTAIN | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | No       | Yes       | Has research participation been discussed? | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_10 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(a)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(a)
   Scenario Outline: NTS-3417: scenario 4(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -386,8 +376,7 @@ Feature: Patient Choice Page
       | FirstOption | SecondOption | Consultee signature                |
       | Yes         | No           | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_11 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(b)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(b)
   Scenario Outline: NTS-3417: scenario 4(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -417,8 +406,7 @@ Feature: Patient Choice Page
       | No          | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
 
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_12 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3417: scenario 5 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -475,8 +463,7 @@ Feature: Patient Choice Page
       | PatientChoice                    | Consultee signature                | YesOption | Question1                                  | Question2                                                                                                |
       | Consultee has agreed to the test | FirstName=WILTON:LastName=BRITTAIN | Yes       | Has research participation been discussed? | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care. |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_13 @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5(a)
+  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5(a)
   Scenario Outline: NTS-3417: scenario 5(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation
@@ -505,8 +492,7 @@ Feature: Patient Choice Page
       | FirstOption | SecondOption   | Consultee signature                |
       | Yes         | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_NTS3417_14 @LOGOUT @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5(b)
+  @NTS-3417 @E2EUI-2040 @LOGOUT @v_1 @P0 @scenario_5(b)
   Scenario Outline: NTS-3417: scenario 5(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user is navigated to a patient choice form option with title Consultee attestation

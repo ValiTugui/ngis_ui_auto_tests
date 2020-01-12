@@ -1,6 +1,7 @@
 @regression
-@regression_set3
+@TO_RD
 @testPackageRD
+
 Feature: Test Package page
 
   Background:
@@ -8,7 +9,7 @@ Feature: Test Package page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
-  @E2EUI-911 @NTS-3080 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
+  @NTS-3080 @E2EUI-911 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3080 - Test package - Page Layout - Rare Disease
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -24,7 +25,7 @@ Feature: Test Package page
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine, Singleton | Proband     |
 
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3109 @E2EUI-2139 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Rare-Disease
     And the user navigates to the "<stage>" stage
     And the user selects the number of participants as "<number>"
@@ -36,7 +37,7 @@ Feature: Test Package page
       | Test package | 2      | Responsible clinician |
 
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3109 @E2EUI-2139 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Rare-Disease
     And the user navigates to the "<stage>" stage
     And the user selects the number of participants as "<number>"
@@ -48,7 +49,7 @@ Feature: Test Package page
       | Test package | 2      | refresh             |
 
 
-  @E2EUI-828 @E2EUI-1585 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
+  @NTS-3156 @E2EUI-828 @E2EUI-1585 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
@@ -61,7 +62,7 @@ Feature: Test Package page
       | stage        | priority | count | new_stage             | number_of |
       | Test package | Urgent   | 2     | Responsible clinician | 1         |
 
-  @E2EUI-1547 @E2EUI-1585 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3177 @E2EUI-1547 @E2EUI-1585 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do - verify permissible Number of Participants
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
@@ -78,7 +79,7 @@ Feature: Test Package page
       | Test package | Confirm the test package | 1               | 8               | Responsible clinician | 1         |
 
 
-  @E2EUI-1547 @E2EUI-1585 @NTS-3177 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3177 @E2EUI-1547 @E2EUI-1585 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
@@ -97,7 +98,7 @@ Feature: Test Package page
       | stage        | title                    | errorMessage                                                     | count | new_stage             | number_of |
       | Test package | Confirm the test package | Select the total number of participants you expect for this test | 2     | Responsible clinician | 1         |
 
-  @E2EUI-1585 @NTS-3253 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
+  @NTS-3253 @E2EUI-1585 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3253 - Test package - If the test is de-selected then Total number of participants field should disappear
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
@@ -109,7 +110,7 @@ Feature: Test Package page
       | stage        | title                    |
       | Test package | Confirm the test package |
 
-  @E2EUI-1900 @NTS-3258 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3258 @E2EUI-1900 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3258 - Test package - Selection/deselection of test should be saved based on the submission
     And the user navigates to the "<stage1>" stage
     And the Test Package page header is shown as "<title>"

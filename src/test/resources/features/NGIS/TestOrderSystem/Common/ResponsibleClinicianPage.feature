@@ -1,9 +1,9 @@
 @regression
-@regression_set3
+@TO_Common
 @responsibleClinicianOrg
 Feature: Responsible Clinician
 
-  @E2EUI-2133 @NTS-3166 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3166 @E2EUI-2133 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3166 - Responsible Clinician Page - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>"
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -17,7 +17,7 @@ Feature: Responsible Clinician
       | stage                 | browser_exit_option | warning_text                           |
       | Responsible clinician | refresh             | Changes that you made may not be saved |
 
-  @E2EUI-2133 @NTS-3149 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3149 @E2EUI-2133 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3149 - Responsible Clinician Page - verify Warning Messages of unsaved changes - Moving to another To do list
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -31,7 +31,7 @@ Feature: Responsible Clinician
       | stage                 | new_stage      | warning_text                                                |
       | Responsible clinician | Patient choice | This section contains unsaved information. Discard changes? |
 
-  @E2EUI-1216 @NTS-3167 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3167 @E2EUI-1216 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3167 - Responsible Clinician Page - Email and Phone Number field validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -45,7 +45,7 @@ Feature: Responsible Clinician
       | stage                 | invalid_email | invalid_number_of_digits | total_number_of_digits_acceptable | error_info                         |
       | Responsible clinician | ab@ad.com     | 19                       | 15                                | Please enter a valid email address |
 
-  @E2EUI-956 @NTS-3175 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3175 @E2EUI-956 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User selects 'Save and continue' button without providing inputs in mandatory fields
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -61,7 +61,7 @@ Feature: Responsible Clinician
       | stage                 | hyperlinkText | error_info            |red_color_hex_code |
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
 
-@E2EUI-956 @E2EUI-1355 @NTS-3175 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails @BVT_P0
+  @NTS-3175 @E2EUI-956 @E2EUI-1355 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
   Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
     | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -77,7 +77,7 @@ Feature: Responsible Clinician
       | stage                 |  new_stage   |
       | Responsible clinician |   Tumours    |
 
-  @E2EUI-939 @NTS-3286 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3286 @E2EUI-939 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3286 - Responsible Clinician Page - Save and continue the responsible section by leaving the Last name field empty
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -96,7 +96,7 @@ Feature: Responsible Clinician
       | Responsible clinician | Add clinician information | Add another   | Last name is required | #dd2509            |
 
 
-  @E2EUI-972 @NTS-3311 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3311 @E2EUI-972 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3311 - Responsible Clinician Page - Assign a responsible practitioner to a referral - Cancer flow
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -116,7 +116,7 @@ Feature: Responsible Clinician
       | stage1                | stage2  | pageTitle                 | hyperlinkText |
       | Responsible clinician | Tumours | Add clinician information | Add another   |
 
-  @E2EUI-1137 @E2EUI-1295 @NTS-3321 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3321 @E2EUI-1137 @E2EUI-1295 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3321 - Responsible Clinician Page - Layout
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -143,7 +143,7 @@ Feature: Responsible Clinician
       | stage                 | pageTitle                 | sectionName         |hyperlinkText |
       | Responsible clinician | Add clinician information | Additional contacts |Add another   |
 
-  @E2EUI-1354 @NTS-3327 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails @BVT_P0
+  @NTS-3327 @E2EUI-1354 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3327 - Responsible Clinician Page - No pre-filled responsible clinician details
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
@@ -180,7 +180,7 @@ Feature: Responsible Clinician
       | stage1                | pageTitle                 | hyperlinkText | removeHyperLink | stage2  |
       | Responsible clinician | Add clinician information | Add another   | Remove          | Tumours |
 
-  @E2EUI-1663 @NTS-3336 @LOGOUT @v_1 @P0 @COMP5_TO_ClinicalDetails
+  @NTS-3336 @E2EUI-1663 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3336 - Responsible Clinician Page - Verify No auto-fill suggestions
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |

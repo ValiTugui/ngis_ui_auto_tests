@@ -1,9 +1,10 @@
 @regression
-@regression_set2
+@TO_RD
 @questionnaire
+
 Feature: Component name - Questionnaire
 
-  @E2EUI-1602  @NTS-3266  @P0 @v_1 @COMP6_TO_ClinicalQuestions @LOGOUT @BVT_P0
+  @NTS-3266 @E2EUI-1602 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |

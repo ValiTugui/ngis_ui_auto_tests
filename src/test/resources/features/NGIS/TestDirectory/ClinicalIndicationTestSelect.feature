@@ -1,6 +1,6 @@
 @regression
-@clinicalIndicationTestSelect
 @testDirectory
+@clinicalIndicationTestSelect
 
 Feature: Home Page
 

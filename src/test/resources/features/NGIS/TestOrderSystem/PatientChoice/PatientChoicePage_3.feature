@@ -1,10 +1,8 @@
 @regression
-@PatientChoicePage_3
 @patientChoice
 Feature: Patient Choice Page
 
-  @COMP9_TO_PatientChoiceAdd
-    @patientChoice_Page3_01 @LOGOUT @NTS-3409 @E2EUI-1822 @v_1 @P0
+  @NTS-3409 @E2EUI-1822 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -30,9 +28,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
       | Patient choice       | Adult (With Capacity) | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
-
-  @COMP9_TO_PatientChoiceAdd
-    @patientChoice_Page3_02 @LOGOUT @E2EUI-1960 @NTS-3411 @v_1 @P0
+  @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Verify the info message when user declined for a test
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -55,8 +51,7 @@ Feature: Patient Choice Page
       | Patient choice       | Adult (Without Capacity) | Rare & inherited diseases – WGS     | ClinicianName=John:HospitalNumber=123 | Consultee changed their mind about the clinical test                    | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
       | Patient choice       | Child                    | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
-  @COMP9_TO_PatientChoiceAdd
-    @patientChoice_Page3_03 @LOGOUT @E2EUI-1127 @E2EUI-1934 @NTS-3410 @v_1 @P0
+  @NTS-3410 @E2EUI-1127 @E2EUI-1934 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3410: Verify the patient Choice stage marked as completed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -87,9 +82,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
-
-  @COMP9_TO_PatientChoice
-    @patientChoice_Page3_04 @LOGOUT @NTS-3414 @E2EUI-1889 @v_1 @P0
+  @NTS-3414 @E2EUI-1889 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3414: Verify the Supporting information form section in form library
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -105,8 +98,7 @@ Feature: Patient Choice Page
       | Patient choice stage | forms        | additionalForms        |
       | Patient choice       | Form library | Supporting information |
 
-  @COMP9_TO_PatientChoiceAdd
-    @patientChoice_Page3_05 @LOGOUT @E2EUI-1627 @NTS-3415 @v_1 @P0
+  @NTS-3415 @E2EUI-1627 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -193,8 +185,7 @@ Feature: Patient Choice Page
       | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
       | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
-  @COMP9_TO_PatientChoiceAdd
-    @patientChoice_Page3_06 @LOGOUT @NTS-3418 @E2EUI-1702 @v_1 @P0
+  @NTS-3418 @E2EUI-1702 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER | When the user navigates to the "<Patient choice stage>" stage
@@ -247,9 +238,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
-
-  @COMP9_TO_PatientChoice
-    @patientChoice_Page3_07 @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
+  @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -278,8 +267,7 @@ Feature: Patient Choice Page
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
-  @COMP9_TO_PatientChoice
-    @patientChoice_Page3_08 @LOGOUT @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_02
+  @NTS-3437 @E2EUI-1878 @LOGOUT @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
     When the user clicks on "History" link
     And the user clicks on "New patient choice" link

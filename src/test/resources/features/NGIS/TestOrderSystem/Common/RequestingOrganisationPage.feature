@@ -1,5 +1,5 @@
 @regression
-@regression_set2
+@TO_Common
 @requestingOrganisation
 Feature: Requesting Organisation page
 
@@ -8,7 +8,7 @@ Feature: Requesting Organisation page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_SUPER_USER |
     And the "Patient details" stage is marked as Completed
 
-  @E2EUI-1413 @E2EUI-1360 @NTS-3047 @LOGOUT @v_1 @P0 @COMP3_TO_OrderingEntity @BVT_P0
+  @NTS-3047 @E2EUI-1413 @E2EUI-1360 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3047 - Find my ordering entity via name to order a test from the correct Lab/GLH
     #And the "Requesting organisation" stage is marked as Mandatory To Do
     When the user navigates to the "<stage>" stage
@@ -20,7 +20,7 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @E2EUI-916 @E2EUI-936 @E2EUI-1421 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
+  @NTS-3069 @E2EUI-916 @E2EUI-936 @E2EUI-1421 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
@@ -31,7 +31,7 @@ Feature: Requesting Organisation page
       | Requesting organisation | lllLondon            |
 
 
-  @E2EUI-924 @NTS-3069 @LOGOUT @v_1 @P1 @COMP3_TO_OrderingEntity
+  @NTS-3069 @E2EUI-924 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3069 - Feature: page validation with a single character
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
@@ -40,7 +40,7 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | k                    |
 
-  @E2EUI-1361 @E2EUI-1542 @NTS-3155 @LOGOUT @v_1 @P0 @COMP3_TO_OrderingEntity @BVT_P0
+  @NTS-3155 @E2EUI-1361 @E2EUI-1542 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
     Then the requesting organisation page has the "<title>"

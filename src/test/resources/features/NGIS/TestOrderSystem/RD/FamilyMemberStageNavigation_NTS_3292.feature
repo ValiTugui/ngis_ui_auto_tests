@@ -1,10 +1,10 @@
 @regression
-@COMP08_P0
+@TO_RD
 @FamilyMemberStageNavigation
+
 Feature: Family Members Navigation Stage Validation
 
-  @COMP8_TO_PatientSearch
-    @familyMemberStageNavigation_04 @LOGOUT @NTS-3292 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @BVT_P0 @v_1 @P0
+  @NTS-3292 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |

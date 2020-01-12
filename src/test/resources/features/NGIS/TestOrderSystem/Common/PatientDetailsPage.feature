@@ -1,10 +1,10 @@
 @regression
-@regression_set1
+@TO_Common
 @patientDetails
+
 Feature: Patient details page
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_01 @NTS-3068 @E2EUI-1182 @E2EUI-1463 @P0 @v_1 @BVT_P0
+  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -19,8 +19,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_02 @NTS-3068 @E2EUI-1182 @P0 @v_1 @BVT_P0
+  @NTS-3068 @E2EUI-1182 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -36,8 +35,7 @@ Feature: Patient details page
       | patient-search-type | SearchDetails                                                            |
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_03 @v_1
+  @NTS-3068 @E2EUI-1182 @LOGOUT @v_1
   Scenario Outline: The user can return to the patient search page by clicking the Back link
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -52,8 +50,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_04 @NTS-3067 @E2EUI-1128 @P0 @v_1 @BVT_P0
+  @NTS-3067 @E2EUI-1128 @LOGOUT @v_1 @BVT_P0
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -67,8 +64,7 @@ Feature: Patient details page
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_05 @NTS-3067 @E2EUI-1128 @P0 @v_1
+  @NTS-3067 @E2EUI-1128 @LOGOUT @P0 @v_1
   Scenario Outline:NTS-3067:The user can not create a referral for an existing patient without a clinical indication test selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -80,8 +76,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        |
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_06 @v_1
+  @NTS-3067 @E2EUI-1128 @LOGOUT @P0 @v_1
   Scenario Outline: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -95,8 +90,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
 
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_07 @NTS-3101 @E2EUI-2147 @P0 @v_1 @BVT_P0
+  @NTS-3101 @E2EUI-2147 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -108,8 +102,7 @@ Feature: Patient details page
       | NGIS                |
       | NHS Spine           |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_08 @NTS-3101 @E2EUI-2146 @P0 @BVT_P0
+  @NTS-3101 @E2EUI-2146 @LOGOUT @BVT_P0
   Scenario Outline: NTS-3101:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -120,8 +113,7 @@ Feature: Patient details page
       | patient-search-type |
       | NGIS                |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_09 @NTS-3151 @E2EUI-1047 @PO @v_1
+  @NTS-3151 @E2EUI-1047 @LOGOUT @PO @v_1
   Scenario Outline: NTS-3151:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -142,8 +134,7 @@ Feature: Patient details page
       | patient-search-type | stage1          |
       | NGIS                | Patient details |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_10 @E2EUI-1364 @NTS-3173 @PO @v_1 @COMP2_TO_PatientDetails
+  @NTS-3173 @E2EUI-1364 @LOGOUT @PO @v_1
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -178,8 +169,7 @@ Feature: Patient details page
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_11 @NTS-3346 @E2EUI-995 @P0 @v_1
+  @NTS-3346 @E2EUI-995 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
@@ -194,8 +184,7 @@ Feature: Patient details page
       | patient-search-type | NhsNumber  | DOB        | maximumAllowedValues |
       | NHS Spine           | 9449310602 | 23-03-2011 | 50                   |
 
-  @COMP2_TO_PatientDetails @LOGOUT
-  @patientDetails_12 @NTS-3438 @E2EUI-1511 @E2EUI-1128
+  @NTS-3438 @E2EUI-1511 @E2EUI-1128 @LOGOUT
   Scenario Outline: NTS-3438 - Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
@@ -230,9 +219,7 @@ Feature: Patient details page
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved |
 
-
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_13 @E2EUI-893 @NTS-3454
+  @NTS-3454 @E2EUI-893 @LOGOUT
   Scenario Outline: NTS-3454: Verify the elements and mandatory fields on patient detail page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -256,8 +243,7 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 | Check your patient's details |
 
 
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_14 @NTS-3470 @E2EUI-1538
+  @NTS-3470 @E2EUI-1538 @LOGOUT
   Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -281,9 +267,7 @@ Feature: Patient details page
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
 
-
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_15 @NTS-3470 @E2EUI-1538
+  @NTS-3470 @E2EUI-1538 @LOGOUT
   Scenario Outline: NTS-3470: Referral Component - Patient details Page - Patient details update message
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |

@@ -1,11 +1,10 @@
 @regression
-@regression_set1
+@TO_RD
 @FamilyMembersDetailsPage
 
 Feature: Family Members Details Validation
 
-  @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_05 @LOGOUT @NTS-3309 @E2EUI-1539 @v_1 @P0
+  @NTS-3309 @E2EUI-1539 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -48,8 +47,7 @@ Feature: Family Members Details Validation
       | FamilyMembers  | TestPackage  | NoOfParticipants | NoOfParticipants1 | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  | ErrorMessage                                                                                                |
       | Family members | Test package | 2                | 1                 | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
 
-  @COMP8_TO_PatientSearch
-    @familyMemberDetailsPage_08 @LOGOUT @NTS-3296 @E2EUI-1038 @v_1 @P0
+  @NTS-3296 @LOGOUT @E2EUI-1038 @v_1 @P0
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -68,8 +66,7 @@ Feature: Family Members Details Validation
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields | MessageColor | MandatoryFieldErrorMessage                                                                                                                                                                                                   |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      | #dd2509      | First name is required.,Last name is required.,Date of birth is required.,Gender is required.,Life status is required.,Select the reason for no NHS Number,Hospital number is required.,Relationship to proband is required. |
 
-  @COMP8_TO_Familymembers
-    @familyMemberDetailsPage_09 @NTS-3342 @LOGOUT @E2EUI-1790 @BVT_P0 @v_1 @P0
+  @NTS-3342 @E2EUI-1790 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3342: As a user editing a family member's details or patient choice, I should know which family member I am focusing on so that I only make the changes relevant to that family member
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |

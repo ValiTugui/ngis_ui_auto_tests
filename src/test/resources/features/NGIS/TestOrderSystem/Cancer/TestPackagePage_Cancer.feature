@@ -1,5 +1,5 @@
 @regression
-@regression_set3
+@TO_Cancer
 @testPackageTumour
 Feature: Test Package page
 
@@ -9,7 +9,7 @@ Feature: Test Package page
     And the "Patient details" stage is marked as Completed
 
 
-  @E2EUI-911 @NTS-3073 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
+  @NTS-3073 @E2EUI-911 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -22,7 +22,7 @@ Feature: Test Package page
       | stage        | title                    | priority        | helpText                                                                          | section        | text                                                                | testInfo           |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | All including burden / signature, This test is for one person only. | Routine, Singleton |
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3109 @E2EUI-2139 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Cancer
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
@@ -34,7 +34,7 @@ Feature: Test Package page
       | Test package | Responsible clinician |
 
 
-  @E2EUI-2139 @NTS-3109 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3109 @E2EUI-2139 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
     And the user navigates to the "<stage>" stage
     And the user clicks a test to de-select it
@@ -46,7 +46,7 @@ Feature: Test Package page
       | Test package | refresh             |
 
 
-  @E2EUI-828 @NTS-3156 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage @BVT_P0
+  @NTS-3156 @E2EUI-828 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3156 - Test package - selecting Routine for the question priority of the test - Cancer
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
@@ -58,7 +58,7 @@ Feature: Test Package page
       | stage        | priority | new_stage             | number_of |
       | Test package | Routine  | Responsible clinician | 1         |
 
-  @E2EUI-1123 @NTS-3070 @LOGOUT @v_1 @P0 @COMP4_TO_TestPackage
+  @NTS-3070 @E2EUI-1123 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     And the user navigates to the "<stage>" stage
     And the Test Package page priority header has "<priority_label>"

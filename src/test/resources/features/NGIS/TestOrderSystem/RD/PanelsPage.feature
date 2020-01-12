@@ -1,11 +1,10 @@
 @regression
-@regression_set2
+@TO_RD
 @panelsPage
 
 Feature: Panels Page Verification
 
-  @COMP9_TO_Panels
-    @COMP9_TO_Panels_01 @LOGOUT @NTS-3380 @E2EUI-1278  @v_1 @P0
+  @NTS-3380 @E2EUI-1278 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
@@ -24,8 +23,7 @@ Feature: Panels Page Verification
       | Panels | searchPanels |
       | Panels | cardiac arr  |
 
-  @COMP9_TO_Panels
-    @COMP9_TO_Panels_02 @LOGOUT @NTS-3379 @E2EUI-1231 @v_1 @P0
+  @NTS-3379 @E2EUI-1231 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3379: User is making a referral, as a user I will see a clear tick on the icon when I select yes or no
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303827:DOB=27-03-2011 |
@@ -39,8 +37,7 @@ Feature: Panels Page Verification
       | Panels | Option1    | Option2  |
       | Panels | Incomplete | Complete |
 
-  @COMP9_TO_Panels
-    @COMP9_TO_Panels_03 @LOGOUT @NTS-3381 @E2EUI-1045  @v_1 @P0
+  @NTS-3381 @E2EUI-1045 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303894:DOB=26-11-1986 |
@@ -60,8 +57,7 @@ Feature: Panels Page Verification
       | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | searchPanels |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | cardiac arr  |
 
-  @COMP9_TO_Panels
-    @COMP9_TO_Panels_04 @LOGOUT @NTS-3413 @E2EUI-1906  @v_1 @P0
+  @NTS-3413 @E2EUI-1906 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3413 : verify the text under penetrance title
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303827:DOB=27-03-2011 |
@@ -74,8 +70,7 @@ Feature: Panels Page Verification
       | Panels | penetrance | textLine                                                                                                      |
       | Panels | Penetrance | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
-  @COMP9_TO_Panels
-    @COMP9_TO_Panels_05 @LOGOUT @E2EUI-1484 @NTS-3424 @v_1 @P0
+  @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3424 : Suggest and select panels on panels page
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | NGIS | Rare-Disease | NHSNumber=9449303894:DOB=26-11-1986 |
