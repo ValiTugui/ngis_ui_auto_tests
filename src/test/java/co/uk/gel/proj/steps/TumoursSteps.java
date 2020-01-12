@@ -305,6 +305,7 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        Wait.seconds(2);
         By pageTitle = By.xpath("//h1[contains(text(), \"" + expectedPageTitle + "\")]");
         Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
         boolean testResult = false;
