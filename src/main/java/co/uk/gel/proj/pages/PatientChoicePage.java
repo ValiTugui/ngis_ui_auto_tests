@@ -346,7 +346,6 @@ public class PatientChoicePage {
                 Debugger.println("NHS Number not provided to edit the patient choice.");
                 return false;
             }
-            //Debugger.println("NHS : "+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             Debugger.println("NHSFOUR : "+nhsLastFour);
 
@@ -354,12 +353,10 @@ public class PatientChoicePage {
             if (!seleniumLib.isElementPresent(pChoiceEdit)) {
                 Wait.seconds(10);
             }
-            Debugger.println("Edit option found for : "+nhsLastFour);
             WebElement element = driver.findElement(pChoiceEdit);
             if (Wait.isElementDisplayed(driver, element, 100)) {
                 seleniumLib.clickOnWebElement(element);
             }
-            Debugger.println("Clicked on Edit Option for : "+nhsLastFour);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:" + exp);
@@ -413,23 +410,7 @@ public class PatientChoicePage {
 
     public boolean fillRecordedByDetails(String familyDetails, String recordedBy) {
         try {
-            if (recordedBy == null || recordedBy.isEmpty()) {
-                return true;
-            }
-            NGISPatientModel familyMember = null;//To fill the clinician details to the Member, to validate later
-            if (familyDetails != null && !familyDetails.isEmpty()) {
-                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-                Set<String> paramsKey = paramNameValue.keySet();
-                String nhsNumber = "";
-                for (String key : paramsKey) {
-                    if (key.equalsIgnoreCase("NHSNumber")) {
-                        nhsNumber = paramNameValue.get(key);
-                        break;
-                    }
-                }
-                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
-                familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
-            }
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
             boolean uploadDocument = false;
             String fileType = "";
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recordedBy);
@@ -441,6 +422,7 @@ public class PatientChoicePage {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
                             if (familyMember != null) {
                                 familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
+                                FamilyMemberDetailsPage.updateRECORDING_CLINICIAN_NAME(familyMember);
                             }
                         }
                         break;
@@ -559,13 +541,8 @@ public class PatientChoicePage {
         }
     }
 
-
-
-    public boolean selectChildAssent(String child_assent) {
+   public boolean selectChildAssent(String child_assent) {
         try {
-            if (child_assent == null || child_assent.isEmpty()) {
-                return true;
-            }
             WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Child assent')]"));
             if (!Wait.isElementDisplayed(driver, titleElement, 100)) {
                 return true;//Child assent not present and may not be required - for new patient's family members
@@ -1159,17 +1136,21 @@ public class PatientChoicePage {
     }
 
     public void drawSignature() {
-        Wait.forElementToBeDisplayed(driver, signatureSection);
-        Click.element(driver, signatureSection);
-        org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-        Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
-                .clickAndHold()
-                .moveByOffset(80, 80)
-                .moveByOffset(50, 20)
-                .release()
-                .build();
-        drawAction.perform();
-        Wait.seconds(1);
+        try {
+            Wait.forElementToBeDisplayed(driver, signatureSection);
+            Click.element(driver, signatureSection);
+            org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
+            Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
+                    .clickAndHold()
+                    .moveByOffset(80, 80)
+                    .moveByOffset(50, 20)
+                    .release()
+                    .build();
+            drawAction.perform();
+            Wait.seconds(1);
+        }catch(Exception exp){
+            Debugger.println("Exception from drawing Signature in Patient Choice Page."+exp);
+        }
     }
 
 

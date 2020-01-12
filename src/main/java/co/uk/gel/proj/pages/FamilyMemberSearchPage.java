@@ -354,7 +354,6 @@ public class FamilyMemberSearchPage {
                 }
             }//switch
         }//for
-        Debugger.println("Entered the values as search param.........");
         seleniumLib.clickOnWebElement(searchButton);
     }//method
 

@@ -122,7 +122,6 @@ public class PrintFormsPage {
         return true;
     }
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
-
         Debugger.println("NHS to be validated in PDF: "+familyMember.getNHS_NUMBER());
         String nhsNumber = TestUtils.getNHSDisplayFormat(familyMember.getNHS_NUMBER());
         familyMember.setNHS_NUMBER(nhsNumber);

@@ -49,7 +49,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband,nhsDetails);
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
     @And("the user selects the test to add to the family member {string}")
@@ -396,35 +396,37 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
+            Debugger.println("Adding "+(noOfParticipants-1)+" family members.");
             for (int i = 1; i < memberDetails.size(); i++) {
-                Debugger.println("Searching and Adding Family member: "+memberDetails.get(i).get(0));
                 referralPage.navigateToFamilyMemberSearchPage();
+                Debugger.println("Adding Family member: "+memberDetails.get(i).get(0));
                 familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
-                Debugger.println("Verifying Patient details.");
+                Debugger.println("Verifying and Reading Details from Patient Card.");
                 if(!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))){
-                    Debugger.println("Patient already added...");
+                    Debugger.println("Patient already added...continuing with next.");
                     continue;
                 }
                 Debugger.println("Clicking on Patient Card.");
                 familyMemberDetailsPage.clickPatientCard();
                 Debugger.println("Filling RelationShip to Proband");
-                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1),memberDetails.get(i).get(0));
-
-                Debugger.println("Filling RelationShip to Proband, Done");
+                familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
+                Debugger.println("Clicking on SaveAndContinue.");
                 referralPage.clickSaveAndContinueButton();
-                //familyMemberDetailsPage.clickOnSaveAndContinueButton();
-                Debugger.println("continuing...");
+                Debugger.println("Verifying Selected Test Details.");
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
                     Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
                 }
-                Debugger.println("Verified details..");
-                familyMemberDetailsPage.clickOnSaveAndContinueButton();
-                Debugger.println("Continuing to Disease status filling..........");
-                familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
-                Debugger.println("Filled Disease Status Details........");
+                Debugger.println("Clicking on SaveAndContinue.");
                 referralPage.clickSaveAndContinueButton();
-                Debugger.println("Continuing.to verify family details in landing page..........");
-                familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0));
+                Debugger.println("Disease status filling..........");
+                clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
+               Debugger.println("Clicking on SaveAndContinue.");
+                referralPage.clickSaveAndContinueButton();
+                Debugger.println("Verifying added family details in landing page..........");
+                if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
+                    Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
+                    Assert.assertTrue(false);
+                }
                 Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){
