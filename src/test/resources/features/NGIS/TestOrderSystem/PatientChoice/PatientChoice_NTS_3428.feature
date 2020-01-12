@@ -11,7 +11,7 @@ Feature: Patient Choice Page
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Child in patient choice category
-    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    And the user should see the chosen "Child" with edit button in "Patient choice category"
     Then the Patient choice category option is marked as completed
     When the user fills "<TestType>" details in test type
     And the user should see the chosen "<TestType>" with edit button in "Test type"
@@ -25,7 +25,7 @@ Feature: Patient Choice Page
       | Patient choice stage | TestType                        | RecordedBy                            |
       | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
 
- @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_1
+  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3428: scenario 1 - Editing Patient choice for a Child in person
     When the user is navigated to a patient choice form option with title Patient choices
     Then the user should see the section title as Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -88,7 +88,7 @@ Feature: Patient Choice Page
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
       | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Record of Discussion form not currently available |
-      | Reason for not capturing parent(s) / carer / guardian choice: ::Other                                                                                                                             |
+      | Reason for not capturing parent(s) / carer / guardian choice: ::Other                                                                                                                              |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
@@ -135,7 +135,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Child assent option is marked as completed
     And the user is navigated to a patient choice form option with title Parent/Guardian signature
-    ##Ensuer this feild is marked as mandatory and clear button is working or not.
+    ###Ensure this field is marked as mandatory and clear button is working or not.
     When the user fills "<Parent/Guardian signature>" details for signature
     Then the user should be able to see the highlighted Submit patient choice button
     And Save and continue button is displayed as "disabled"
@@ -144,7 +144,7 @@ Feature: Patient Choice Page
       | PatientChoice1                                       | PatientChoice2                                                     | NoOption | Option3        | Question1                                  | Question2                                          | WarningMessage                                                                                                         | Parent/Guardian signature          |
       | Parent(s) / carer / guardian have agreed to the test | Parent(s) / carer / guardian would like to revisit at a later date | No       | Not applicable | Has research participation been discussed? | Why has research participation not been discussed? | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3428 @E2EUI-2041 @v_1 @P0
+  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3a
   Scenario Outline: NTS-3428:scenario 3a -  Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national | child |
@@ -184,8 +184,8 @@ Feature: Patient Choice Page
     And the user should see continue button is not highlighted
     And the user selects "<NoOption>" data and sample option in patient choices
     Then the user will see a "<WarningMessage>" warning message on the patient choice information option
-    ##Click on show additional warnings link and ensure the additional warning message displayed
-    ##And verify for the link Add Partner Details (trio analysis only)
+    ###Click on show additional warnings link and ensure the additional warning message displayed
+    ###Verify for the link Add Partner Details (trio analysis only)
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
@@ -204,14 +204,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Child assent option is marked as completed
     And the user is navigated to a patient choice form option with title Parent/Guardian signature
-    ##Check for mandatoriness and the clear functinality to be included.
+    ##Check for mandatory fields presence and the clear functionality to be included.
     When the user fills "<Parent/Guardian signature>" details for signature
     Then the user should be able to see the highlighted Submit patient choice button
     And Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice1                                       | NoOption | YesOption | NAOption       | Question1                                  | Question2                                                                                                                             | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
-      | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
+      | Patient choice stage | PatientChoice1                                       | NoOption | YesOption | NAOption       | Question1                                  | Question2                                                                                                                             | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
+      | Patient choice       | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3428 @E2EUI-2041 @LOGOUT @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person

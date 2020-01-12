@@ -191,6 +191,9 @@ public class HomePage {
             }
             Actions.clickElement(driver,logOutLink);
             Wait.seconds(2);
+            if(Actions.isAlertPresent(driver)){
+                Actions.acceptAlert(driver);
+            }
             driver.manage().deleteAllCookies();
         } catch (UnhandledAlertException f) {
             try {

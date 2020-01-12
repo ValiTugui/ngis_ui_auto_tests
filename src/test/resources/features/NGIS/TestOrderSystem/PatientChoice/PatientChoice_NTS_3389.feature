@@ -33,20 +33,20 @@ Feature: Patient Choice Page
       | Patient has agreed to the test                     |
       | Record of Discussion form not currently available  |
       | Patient changed their mind about the clinical test |
-    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option "<PatientChoice3>" as patient choices
     Then the user will see a "<WarningMessage1>" warning message on the patient choice information option
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient changed their mind about the clinical test |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage2>" warning message on the patient choice information option
     Then the user should be able to see the highlighted Submit patient choice button
     Then Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice                                      | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                          |
+      | PatientChoice3                                      | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                          |
       | Patient changed their mind about the clinical test | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
@@ -60,7 +60,7 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available  |
       | Patient changed their mind about the clinical test |
     And the user should see continue button is not highlighted
-    When the user selects the option "<PatientChoice1>" as patient choices
+    When the user selects the option "<PatientChoice2>" as patient choices
     Then the user should see the section title as Reason for not capturing patient choice:
     And the patient choice reason options as below
       | Patient conversation happened; form to follow               |
@@ -73,7 +73,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Record of Discussion form not currently available |
       | Reason for not capturing patient choice: ::Other                                                                               |
     When the user is navigated to a patient choice form option with title Review and submit
     And the user will see a "<WarningMessage>" warning message on the patient choice information option
@@ -81,7 +81,7 @@ Feature: Patient Choice Page
     Then Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice1                                    | Reason5 | WarningMessage                                                                                                                                                                           |
+      | PatientChoice2                                    | Reason5 | WarningMessage                                                                                                                                                                           |
       | Record of Discussion form not currently available | Other   | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
@@ -107,7 +107,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient has agreed to the test |
       | Has research participation been discussed?::No                                                                                 |
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
@@ -129,7 +129,7 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available  |
       | Patient changed their mind about the clinical test |
     And the user should see continue button is not highlighted
-    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
@@ -141,7 +141,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient has agreed to the test |
       | Has research participation been discussed?::Yes                                                                                |
     When the user is navigated to a patient choice form option with title Patient signature
     And the user fills PatientSignature details in patient signature
@@ -149,7 +149,7 @@ Feature: Patient Choice Page
     Then Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice                  | YesOption | NoOption | Question1                                  | WarningMessage                                                                                                                                                      | Question2                                                                                      |
+      | PatientChoice1                  | YesOption | NoOption | Question1                                  | WarningMessage                                                                                                                                                      | Question2                                                                                      |
       | Patient has agreed to the test | Yes       | No       | Has research participation been discussed? | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
   @NTS-3389 @E2EUI-2039 @LOGOUT @v_1 @P0 @scenario_05
@@ -163,7 +163,7 @@ Feature: Patient Choice Page
       | Record of Discussion form not currently available  |
       | Patient changed their mind about the clinical test |
     And the user should see continue button is not highlighted
-    When the user selects the option "<PatientChoice>" as patient choices
+    When the user selects the option "<PatientChoice1>" as patient choices
     Then the question will be displayed as "<Question1>"
     And the user should be able to see Yes and No answer options
     And the user selects "<YesOption>" research participation option in patient choices
@@ -174,7 +174,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
     And the user should be able to see selected patient choice details
-      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient has agreed to the test |
       | Has research participation been discussed?::Yes                                                                                |
       | The patient agrees that their data and samples may be used for research, separate to NHS care.::Yes                            |
     When the user is navigated to a patient choice form option with title Patient signature
@@ -183,5 +183,5 @@ Feature: Patient Choice Page
     Then Save and continue button is displayed as "disabled"
 
     Examples:
-      | PatientChoice                  | YesOption | Question1                                  | Question2                                                                                      |
+      | PatientChoice1                  | YesOption | Question1                                  | Question2                                                                                      |
       | Patient has agreed to the test | Yes       | Has research participation been discussed? | The patient agrees that their data and samples may be used for research, separate to NHS care. |
