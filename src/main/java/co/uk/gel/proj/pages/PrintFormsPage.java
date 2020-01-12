@@ -63,25 +63,19 @@ public class PrintFormsPage {
 
 
     public boolean downloadSpecificPrintForm(String familyDetails){
-        String nhsNumber = "";
+        String ngsId = "";
         try {
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                if(key.equalsIgnoreCase("NHSNumber")){
-                    nhsNumber = paramNameValue.get(key);
-                    break;
-                }
-            }
-            if(nhsNumber == null || nhsNumber.isEmpty()){
-                Debugger.println("NHS Number not provided to edit the patient choice.");
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
+            ngsId = familyMember.getNGIS_ID();
+            if(ngsId == null || ngsId.isEmpty()){
+                Debugger.println("Details not displayed in Printform for the patient with DOB:"+familyMember.getDATE_OF_BIRTH());
                 return false;
             }
             //Delete if File already present
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm","");
-            String nhsLastFour = nhsNumber.substring(6,10);//Assuming NHSNumber is always 10 digit.
-            Debugger.println("Downloading for NHS ends with: "+nhsLastFour);
+            String nhsLastFour = ngsId.substring(8,12);//Assuming NGSID is always 12 digit.
+            Debugger.println("Downloading for NGSID ends with: "+nhsLastFour);
             try {
                 By downloadForm = By.xpath(specificPrintFormDownload_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
                 WebElement element = driver.findElement(downloadForm);
@@ -122,7 +116,7 @@ public class PrintFormsPage {
         return true;
     }
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
-        Debugger.println("NHS to be validated in PDF: "+familyMember.getNHS_NUMBER());
+        Debugger.println("Family Member NGSID to be validated in PDF: "+familyMember.getNGIS_ID());
         String nhsNumber = TestUtils.getNHSDisplayFormat(familyMember.getNHS_NUMBER());
         familyMember.setNHS_NUMBER(nhsNumber);
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");

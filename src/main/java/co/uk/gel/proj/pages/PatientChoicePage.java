@@ -334,18 +334,16 @@ public class PatientChoicePage {
     public boolean editSpecificPatientChoice(String familyDetails) {
         String nhsNumber = "";
         try {
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                if (key.equalsIgnoreCase("NHSNumber")) {
-                    nhsNumber = paramNameValue.get(key);
-                    break;
-                }
-            }
-            if (nhsNumber == null || nhsNumber.isEmpty()) {
-                Debugger.println("NHS Number not provided to edit the patient choice.");
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
+            if(familyMember == null){
+                Debugger.println("No Family Member Exists !!!!!");
                 return false;
             }
+            nhsNumber = familyMember.getNHS_NUMBER();
+            if(nhsNumber == null){
+                nhsNumber = familyMember.getNGIS_ID();
+            }
+            Debugger.println("NULLLLLLLLLLLLLLLLLLLLLL"+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             Debugger.println("NHSFOUR : "+nhsLastFour);
 

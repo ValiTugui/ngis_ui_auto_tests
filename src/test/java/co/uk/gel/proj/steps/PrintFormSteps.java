@@ -45,16 +45,7 @@ public class PrintFormSteps extends Pages {
                     continue;
                 }
                 Debugger.println("Downloaded...Verifying content....");
-                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
-                Set<String> paramsKey = paramNameValue.keySet();
-                String nhsNumber = "";
-                for (String key : paramsKey) {
-                    if(key.equalsIgnoreCase("NHSNumber")){
-                        nhsNumber = paramNameValue.get(key);
-                        break;
-                    }
-                }
-                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
+                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                 if(familyMember == null){
                     continue;//For Proband
                 }

@@ -845,22 +845,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    //Method added as a temporary fix for trial. Will be removed/modified based on run result.
-    public boolean waitForSearchPageTobeLoaded(){
-        try {
-            Wait.forElementToBeDisplayed(driver,findYourPatientTitle,100);
-            if(!Wait.isElementDisplayed(driver,findYourPatientTitle,30)){
-                Debugger.println("Patient Search Page not loaded. Please check SearchPage.jpg");
-                SeleniumLib.takeAScreenShot("SearchPage.jpg");
-                return false;
-            }
-            return true;
-        }catch(Exception exp){
-            Debugger.println("Patient Search Page did not loaded. Check SearchPage.jpg"+exp);
-            SeleniumLib.takeAScreenShot("SearchPage.jpg");
-            return false;
-        }
-    }
+
     public void waitForPageTitleDisplayed(){
         try {
             Wait.forElementToBeDisplayed(driver, pageTitle);
@@ -919,7 +904,6 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
     }
 
-
     public void fillInNewPatientDetailsInTheNoFieldsWithEditedGender(String editedGender) {
         Wait.forElementToBeDisplayed(driver, dateDay);
         dateDay.sendKeys(newPatient.getDay());
@@ -947,7 +931,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         postcode.sendKeys(newPatient.getPostCode());
         Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
     }
+    public void fillInNonExistingFamilyMemberReferral(String dob) {
+        Wait.forElementToBeDisplayed(driver, nhsNumber);
+        nhsNumber.sendKeys(RandomDataCreator.generateRandomNHSNumber());
 
-
+        dateDay.sendKeys(testData.getDay());
+        dateMonth.sendKeys(testData.getMonth());
+        dateYear.sendKeys(testData.getYear());
+    }
 }
 

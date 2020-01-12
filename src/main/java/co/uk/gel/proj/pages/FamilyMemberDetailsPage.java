@@ -30,9 +30,6 @@ public class FamilyMemberDetailsPage {
     @FindBy(id = "title")
     public WebElement pageTitle;
 
-    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_no-results__header__1RMRD']")
-    public WebElement errorMessage;
-
     @FindBy(xpath = "//label[contains(text(),'First name')]")
     public WebElement firstNameLabel;
 
@@ -165,6 +162,12 @@ public class FamilyMemberDetailsPage {
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
     //Patient Card Search Details
+    @FindBy(xpath = "//h3[contains(string(), 'No patient found')]")
+    public WebElement noPatientFoundLabel;
+
+    @FindBy(xpath = "//a[contains(string(), 'create a new patient record')]")
+    public WebElement createNewPatientRecord;
+
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]")
     WebElement patientRecordFoundTitle;
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//div[contains(@class,'styles_patient-card__top_')]/p[contains(@class,'patient-name')]")
@@ -328,14 +331,22 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB " + exp + " DOB expected in DD-MM-YYYY Format: " + dob);
         }
     }
+    public boolean createNewFamilyMember(String relationToProband){
+        try{
+
+            return true;
+        }catch(Exception exp){
+            return false;
+        }
+    }
 
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Verify the Title
         if (!Wait.isElementDisplayed(driver,patientRecordFoundTitle,60)) {
-            if (seleniumLib.isElementPresent(errorMessage)) {
-                Debugger.println("Error: " + errorMessage.getText());
+            if (seleniumLib.isElementPresent(noPatientFoundLabel)) {
+                //Patient Not Found, should proceed with new Patient Record.
+                return createNewFamilyMember(relationToProband);
             }
-            return false;
         }
         //Verify other details - Name,Born, Gender and NHS Number, Address, Patient Type
         //Creating and storing the patient details for later validations
@@ -432,7 +443,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheTestAndDetailsOfAddedFamilyMember(String nhsDetails) {
-
         NGISPatientModel familyMember = getFamilyMember(nhsDetails);
         if (familyMember == null) {
             Debugger.println("Family Member with NHS Details:" + nhsDetails + " Not found in the added list!.");
@@ -1413,7 +1423,7 @@ public class FamilyMemberDetailsPage {
 
     public static NGISPatientModel getFamilyMember(String nhsDetails) {
         try {
-            String nhsNumber = "";
+            String nhsNumber = "",dob="";
             if(nhsDetails.indexOf(":") == -1){//If we provide direct NHS number
                 nhsNumber = nhsDetails;
             }else {//In the format of NHSNumber=xxxxxxx:Dob=dd-mm-yyyy
@@ -1422,19 +1432,33 @@ public class FamilyMemberDetailsPage {
                 for (String key : paramsKey) {
                     if (key.equalsIgnoreCase("NHSNumber")) {
                         nhsNumber = paramNameValue.get(key);
-                        break;
+                    }
+                    if(key.equalsIgnoreCase("DOB")){
+                        dob = paramNameValue.get(key);
                     }
                 }
             }
             if (nhsNumber == null || nhsNumber.isEmpty()) {
-                return addedFamilyMembers.get(0);
-            }
-            for (int i = 0; i < addedFamilyMembers.size(); i++) {
-                if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(nhsNumber)) {
-                    return addedFamilyMembers.get(i);
+                if(dob == null || dob.isEmpty()) {
+                    return addedFamilyMembers.get(0);
                 }
             }
-            Debugger.println("COULD NOT find Family Member for :" + nhsNumber);
+            String actualNhs = "",actualDob="";
+            for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                actualNhs = addedFamilyMembers.get(i).getNHS_NUMBER();
+                actualDob = addedFamilyMembers.get(i).getDATE_OF_BIRTH();
+                if (actualNhs != null){
+                    if(actualNhs.equalsIgnoreCase(nhsNumber)) {
+                        return addedFamilyMembers.get(i);
+                    }
+                }
+                if (actualDob != null){
+                    if(actualDob.equalsIgnoreCase(dob)) {
+                        return addedFamilyMembers.get(i);
+                    }
+                }
+            }
+            Debugger.println("COULD NOT find Family Member for NHS :" + nhsNumber+" OR DOB: "+dob);
             return null;
         } catch (Exception exp) {
             Debugger.println("Family Member with NHSNumber:" + nhsDetails + " Not found in the added list.");

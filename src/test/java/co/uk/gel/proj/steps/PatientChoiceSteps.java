@@ -70,7 +70,7 @@ public class PatientChoiceSteps extends Pages {
             }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Doing Patient Choice for " + memberDetails.get(i).get(0));
-                Assert.assertTrue(patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0)));
+                patientChoicePage.selectMember(i);
                 Debugger.println("PatientChoiceCategory..Start");
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
@@ -101,7 +101,7 @@ public class PatientChoiceSteps extends Pages {
                     continue;
                 } else {
                     Debugger.println("Submitted.....Continuing");
-                    patientChoicePage.clickOnSaveAndContinueButton();
+                    referralPage.clickOnSaveAndContinueButton();
                 }
                 Debugger.println("DONE.");
 

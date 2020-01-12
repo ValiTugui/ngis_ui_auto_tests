@@ -17,6 +17,7 @@ public class NGISPatientModel {
     private String GENDER;
     private String LIFE_STATUS;
     private String NHS_NUMBER;
+    private String ADDRESS_LINE0;
     private String ADDRESS_LINE1;
     private String ADDRESS_LINE2;
     private String ADDRESS_LINE3;
@@ -29,6 +30,8 @@ public class NGISPatientModel {
     private String REFERAL_ID;
     private String NGIS_ID;
     private String PATIENT_TYPE;
+    private String NO_NHS_REASON;
+    private String HOSPITAL_NO;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -237,5 +240,29 @@ public class NGISPatientModel {
 
     public void setPATIENT_TYPE(String PATIENT_TYPE) {
         this.PATIENT_TYPE = PATIENT_TYPE;
+    }
+
+    public String getNO_NHS_REASON() {
+        return NO_NHS_REASON;
+    }
+
+    public void setNO_NHS_REASON(String NO_NHS_REASON) {
+        this.NO_NHS_REASON = NO_NHS_REASON;
+    }
+
+    public String getHOSPITAL_NO() {
+        return HOSPITAL_NO;
+    }
+
+    public void setHOSPITAL_NO(String HOSPITAL_NO) {
+        this.HOSPITAL_NO = HOSPITAL_NO;
+    }
+
+    public String getADDRESS_LINE0() {
+        return ADDRESS_LINE0;
+    }
+
+    public void setADDRESS_LINE0(String ADDRESS_LINE0) {
+        this.ADDRESS_LINE0 = ADDRESS_LINE0;
     }
 }//end
