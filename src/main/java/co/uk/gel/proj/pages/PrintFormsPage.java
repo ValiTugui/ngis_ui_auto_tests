@@ -117,10 +117,9 @@ public class PrintFormsPage {
     }
     public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
         Debugger.println("Family Member NGSID to be validated in PDF: "+familyMember.getNGIS_ID());
-        String nhsNumber = TestUtils.getNHSDisplayFormat(familyMember.getNHS_NUMBER());
-        familyMember.setNHS_NUMBER(nhsNumber);
+        String ngsId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getNGIS_ID(),"4");
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
-        familyMember.setREFERAL_ID(referralId);
+        String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
         String output;
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
@@ -146,9 +145,9 @@ public class PrintFormsPage {
                 familyMember.setREFERAL_ID("");
             }
             output = new PDFTextStripper().getText(document);
-            if(output.contains(familyMember.getNHS_NUMBER()) &&
-                    output.contains(familyMember.getBORN_DATE()) &&
-                    output.contains(familyMember.getREFERAL_ID())){
+            if(output.contains(ngsId) &&
+                    output.contains(dob) &&
+                    output.contains(referralId)){
                 //Close the tab and return.
                 SeleniumLib.closeCurrentWindow();
                 return true;
