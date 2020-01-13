@@ -780,7 +780,7 @@ public class ReferralPage<check> {
             String bannerNGIS  = familyMemberNgisId.getText();
             familyMember.setNGIS_ID(bannerNGIS);
             FamilyMemberDetailsPage.updateNGISID(familyMember);
-            Debugger.println("Updated PatientID for familyMemeb with DOB:"+familyMember.getDATE_OF_BIRTH());
+
         }catch(Exception exp){
            Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH());
         }

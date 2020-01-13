@@ -669,7 +669,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(postcode, familyMember.getPOST_CODE());
         //Adding Family member to a list for later stage verification
         FamilyMemberDetailsPage.addedFamilyMembers.add(familyMember);
-        Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH());
+        Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
         Actions.clickElement(driver, addNewPatientToReferral);
     }
 }

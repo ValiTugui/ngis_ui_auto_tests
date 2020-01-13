@@ -582,6 +582,7 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Added Family member name: " + familyMember.getFIRST_NAME() + ", " + familyMember.getFIRST_NAME()+" Not displayed on Family Member Landing Page.");
             return false;
         }
+        Debugger.println("Name Verified...");
         //2. Verify Relation to Proband.
         String landingPageRelation = landingPageRelationPath.replaceAll("dummyRelation",familyMember.getRELATIONSHIP_TO_PROBAND());
         By relationToProband = By.xpath(landingPageRelation);
@@ -589,10 +590,13 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Added Family member relationship: " + familyMember.getRELATIONSHIP_TO_PROBAND() +" Not displayed on Family Member Landing Page.");
             return false;
         }
+        Debugger.println("Relationship Verified...");
         boolean isPresent = false;
         //3.Verify DOB
+        String dob = "";
         for(int i=0; i<landingPageBorns.size();i++){
-            if(landingPageBorns.get(i).getText().startsWith(familyMember.getBORN_DATE())){
+            dob = landingPageBorns.get(i).getText();
+            if(dob.startsWith(TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH()))){
                 isPresent = true;
                 break;
             }
@@ -601,8 +605,8 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Added Family member BornDate: " + familyMember.getBORN_DATE() +" Not displayed on Family Member Landing Page.");
             return isPresent;
         }
+        Debugger.println("DOB Verified...");
         //4.Verify Gender
-        Debugger.println("Gender: "+familyMember.getGENDER());
         for(int i=0; i<landingPageGenders.size();i++){
             if(familyMember.getGENDER().equalsIgnoreCase(landingPageGenders.get(i).getText())){
                 isPresent = true;
@@ -613,33 +617,52 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Added Family member Gender: " + familyMember.getGENDER()+" Not displayed on Family Member Landing Page.");
             return false;
         }
+        Debugger.println("Gender Verified...");
         //5.Verify NHS
-        Debugger.println("NHS: "+familyMember.getNHS_NUMBER());
-        isPresent = false;
+        if(landingPageNhsNumbers.size() > 0){
+            isPresent = false;
+        }
+        String actNhs = "";
         for(int i=0; i<landingPageNhsNumbers.size();i++){
-            if(familyMember.getNHS_NUMBER().equalsIgnoreCase(landingPageNhsNumbers.get(i).getText())){
-                isPresent = true;
-                break;
+            actNhs = landingPageNhsNumbers.get(i).getText();
+            Debugger.println("Act and ExpNHS: "+actNhs+","+familyMember.getNHS_NUMBER());
+            if(actNhs != null) {
+                if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actNhs)) {
+                    isPresent = true;
+                    break;
+                }
+            }else{
+                Debugger.println("NHS Not Present...");
+                isPresent = true;//NHS is not mandatory
             }
         }
         if(!isPresent){
             Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER()+" Not displayed on Family Member Landing Page.");
             return false;
         }
+        Debugger.println("NHS Verified...");
         //6.Verify NGISID
-        Debugger.println("NGSID: "+familyMember.getNGIS_ID());
+        String ngsId = "";
         if(familyMember.getNGIS_ID() != null) {
             isPresent = false;
             for (int i = 0; i < landingPageNgsIds.size(); i++) {
-                if (familyMember.getNGIS_ID().equalsIgnoreCase(landingPageNgsIds.get(i).getText())) {
+                ngsId = landingPageNgsIds.get(i).getText();
+                Debugger.println("Act and ExpNGSID: "+ngsId+","+familyMember.getNGIS_ID());
+                if(ngsId != null) {
+                    if (familyMember.getNGIS_ID().equalsIgnoreCase(ngsId)) {
+                        isPresent = true;
+                        break;
+                    }
+                }else{
+                    Debugger.println("NGS not present...");
                     isPresent = true;
-                    break;
                 }
             }
             if (!isPresent) {
                 Debugger.println("Added Family member NGSID: " + familyMember.getNGIS_ID() + " Not displayed on Family Member Landing Page.");
                 return false;
             }
+            Debugger.println("NGSID Verified...");
         }
         return true;
     }
@@ -1447,9 +1470,11 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 actualNhs = addedFamilyMembers.get(i).getNHS_NUMBER();
                 actualDob = addedFamilyMembers.get(i).getDATE_OF_BIRTH();
-                if (actualNhs != null){
-                    if(actualNhs.equalsIgnoreCase(nhsNumber)) {
-                        return addedFamilyMembers.get(i);
+                if(!nhsNumber.equalsIgnoreCase("NA")) {
+                    if (actualNhs != null) {
+                        if (actualNhs.equalsIgnoreCase(nhsNumber)) {
+                            return addedFamilyMembers.get(i);
+                        }
                     }
                 }
                 if (actualDob != null){
@@ -1482,6 +1507,7 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     addedFamilyMembers.get(i).setNGIS_ID(familyMember.getNGIS_ID());
+                    Debugger.println("Updated PatientID for familyMemeb with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
                 }
             }
         } catch (Exception exp) {
