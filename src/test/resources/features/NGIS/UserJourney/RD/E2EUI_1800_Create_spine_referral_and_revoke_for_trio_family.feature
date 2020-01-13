@@ -50,7 +50,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
+      | FamilyMemberDetails         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=11-03-1942 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=12-02-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
@@ -60,8 +60,8 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
       | NHSNumber=2000008178:DOB=29-12-1967 | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=NA:DOB=11-03-1942 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
-      | NHSNumber=NA:DOB=12-02-1939 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
+      | NHSNumber=NA:DOB=11-03-1942         | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
+      | NHSNumber=NA:DOB=12-02-1939         | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
 #      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
     Then the "<PatientChoice>" stage is marked as Completed
     #Panels
@@ -81,8 +81,8 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 |
       | NHSNumber=2000008178:DOB=29-12-1967 |
-      | NHSNumber=NA:DOB=11-03-1942 |
-      | NHSNumber=NA:DOB=12-02-1939 |
+      | NHSNumber=NA:DOB=11-03-1942         |
+      | NHSNumber=NA:DOB=12-02-1939         |
 
     ##Sobmitting Referral and Cancel Referral
     When the user submits the referral
