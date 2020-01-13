@@ -4,6 +4,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
@@ -43,9 +44,6 @@ public class PatientDetailsPage {
     public WebElement nhsNumber;
     public WebElement hospitalNumber;
     public WebElement postcode;
-    public WebElement dateDay;
-    public WebElement dateMonth;
-    public WebElement dateYear;
     public WebElement otherReasonExplanation;
 
     @FindBy(css = "h1[class*='page-title']")
@@ -90,9 +88,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
 
-    @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
-    public WebElement genderButton;
-
     @FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
 
@@ -105,11 +100,11 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
 
+    @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
+    public WebElement relationshipButton;
+
     @FindBy(xpath = "(//label[contains(@for,'noNhsNumberReason')]//following::div)[4]")
     public WebElement noNhsNumberReasonDropdown;
-
-    @FindBy(xpath = "textarea[class*='textarea']")
-    public WebElement explanationForNoNhsNumber;
 
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
@@ -128,12 +123,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
-
-    @FindBy(xpath = "(//p[text()='Referral ID'])[2]/..//p[2]")
-    public WebElement firstReferralIDInReferralCard;
-
-    @FindBy(xpath = "//button[text()='Start referral']")
-    public WebElement startReferralButton2;
 
     @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
     public WebElement startReferralButton;
@@ -162,18 +151,6 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='referral-list__link']")
     public WebElement referralLink;
 
-    @FindBy(css = "div[class*='referral-list__heading']")
-    public WebElement referralsListHeader;
-
-    @FindBy(css = "div[class*='referral-list__cancelled-heading']")
-    public WebElement cancelledReferralsListHeader;
-
-    @FindBy(css = "div[class*='referral-list__info']")
-    public WebElement referralsListInfo;
-
-    @FindBy(css = "div[class*='error-message']")
-    public List<WebElement> validationErrors;
-
     @FindBy(id = "address[0]")
     public WebElement addressLine0;
 
@@ -198,6 +175,9 @@ public class PatientDetailsPage {
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
+
+    @FindBy(xpath = "//button[text()='Add new patient to referral']")
+    public WebElement addNewPatientToReferral;
 
 
     public boolean patientDetailsPageIsDisplayed() {
@@ -640,7 +620,6 @@ public class PatientDetailsPage {
         addressLine4.isDisplayed();
         postcodeLabel.isDisplayed();
         postcode.isDisplayed();
-
         return true;
     }
 
@@ -659,4 +638,38 @@ public class PatientDetailsPage {
         Actions.fillInValue(familyName, faker.name().lastName());
     }
 
+    public void createNewFamilyMember(NGISPatientModel familyMember) {
+        selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
+        familyMember.setTITLE("Mr");
+        familyMember.setFIRST_NAME(faker.name().firstName());
+        familyMember.setLAST_NAME(faker.name().lastName());
+        familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
+        familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
+        familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
+        familyMember.setADDRESS_LINE2(faker.address().streetName());
+        familyMember.setADDRESS_LINE3(faker.address().cityName());
+        familyMember.setADDRESS_LINE4(faker.address().state());
+        familyMember.setPOST_CODE(RandomDataCreator.getRandomUKPostCode());
+
+        Wait.forElementToBeDisplayed(driver, title);
+        title.sendKeys(familyMember.getTITLE());
+        Actions.fillInValue(firstName, familyMember.getFIRST_NAME());
+        Actions.fillInValue(familyName, familyMember.getLAST_NAME());
+        editDropdownField(administrativeGenderButton, familyMember.getGENDER());
+        editDropdownField(lifeStatusButton, "Alive");
+        editDropdownField(ethnicityButton, "A - White - British");
+        editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
+        Actions.fillInValue(hospitalNumber,familyMember.getHOSPITAL_NO() );
+        //Address
+        Actions.fillInValue(addressLine0,familyMember.getADDRESS_LINE0() );
+        Actions.fillInValue(addressLine1, familyMember.getADDRESS_LINE1());
+        Actions.fillInValue(addressLine2, familyMember.getADDRESS_LINE2());
+        Actions.fillInValue(addressLine3, familyMember.getADDRESS_LINE3());
+        Actions.fillInValue(addressLine4, familyMember.getADDRESS_LINE4());
+        Actions.fillInValue(postcode, familyMember.getPOST_CODE());
+        //Adding Family member to a list for later stage verification
+        FamilyMemberDetailsPage.addedFamilyMembers.add(familyMember);
+        Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
+        Actions.clickElement(driver, addNewPatientToReferral);
+    }
 }

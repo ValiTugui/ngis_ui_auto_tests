@@ -1,6 +1,6 @@
 @regression
-@dashBoard
 @testDirectory
+@dashBoard
 
 Feature: Dashboard Page
 

@@ -319,6 +319,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//span[@class='tooltiptext']")
     WebElement waitForDocUpload;
 
+    @FindBy(xpath = "//div[contains(text(),'Child assent')]")
+    WebElement childAssentTitle;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -334,19 +337,15 @@ public class PatientChoicePage {
     public boolean editSpecificPatientChoice(String familyDetails) {
         String nhsNumber = "";
         try {
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                if (key.equalsIgnoreCase("NHSNumber")) {
-                    nhsNumber = paramNameValue.get(key);
-                    break;
-                }
-            }
-            if (nhsNumber == null || nhsNumber.isEmpty()) {
-                Debugger.println("NHS Number not provided to edit the patient choice.");
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
+            if(familyMember == null){
+                Debugger.println("No Family Member Exists !!!!!");
                 return false;
             }
-            //Debugger.println("NHS : "+nhsNumber);
+            nhsNumber = familyMember.getNHS_NUMBER();
+            if(nhsNumber == null){
+                nhsNumber = familyMember.getNGIS_ID();
+            }
             String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             Debugger.println("NHSFOUR : "+nhsLastFour);
 
@@ -354,12 +353,10 @@ public class PatientChoicePage {
             if (!seleniumLib.isElementPresent(pChoiceEdit)) {
                 Wait.seconds(10);
             }
-            Debugger.println("Edit option found for : "+nhsLastFour);
             WebElement element = driver.findElement(pChoiceEdit);
             if (Wait.isElementDisplayed(driver, element, 100)) {
                 seleniumLib.clickOnWebElement(element);
             }
-            Debugger.println("Clicked on Edit Option for : "+nhsLastFour);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:" + exp);
@@ -413,23 +410,7 @@ public class PatientChoicePage {
 
     public boolean fillRecordedByDetails(String familyDetails, String recordedBy) {
         try {
-            if (recordedBy == null || recordedBy.isEmpty()) {
-                return true;
-            }
-            NGISPatientModel familyMember = null;//To fill the clinician details to the Member, to validate later
-            if (familyDetails != null && !familyDetails.isEmpty()) {
-                HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-                Set<String> paramsKey = paramNameValue.keySet();
-                String nhsNumber = "";
-                for (String key : paramsKey) {
-                    if (key.equalsIgnoreCase("NHSNumber")) {
-                        nhsNumber = paramNameValue.get(key);
-                        break;
-                    }
-                }
-                nhsNumber = TestUtils.getNHSDisplayFormat(nhsNumber);
-                familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsNumber);
-            }
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
             boolean uploadDocument = false;
             String fileType = "";
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recordedBy);
@@ -441,6 +422,7 @@ public class PatientChoicePage {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
                             if (familyMember != null) {
                                 familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
+                                FamilyMemberDetailsPage.updateRecordingClinicianName(familyMember);
                             }
                         }
                         break;
@@ -559,15 +541,9 @@ public class PatientChoicePage {
         }
     }
 
-
-
-    public boolean selectChildAssent(String child_assent) {
+   public boolean selectChildAssent(String child_assent) {
         try {
-            if (child_assent == null || child_assent.isEmpty()) {
-                return true;
-            }
-            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Child assent')]"));
-            if (!Wait.isElementDisplayed(driver, titleElement, 100)) {
+            if (!Wait.isElementDisplayed(driver, childAssentTitle, 100)) {
                 return true;//Child assent not present and may not be required - for new patient's family members
             }
             Actions.scrollToTop(driver);
@@ -980,14 +956,14 @@ public class PatientChoicePage {
             boolean isPresent = false;
             String[] choices = selectedChoice.split("::");
             String actualText = "";
-            //Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
+            Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
             for (int i = 0; i < selectedPatientChoiceQuestion.size(); i++) {
                 actualText = selectedPatientChoiceQuestion.get(i).getText();
-                //Debugger.println("ACTUAL: "+actualText);
+                Debugger.println("ACTUAL: "+actualText);
                 if(actualText.startsWith(choices[0].trim())) {
                     if (actualText.endsWith(choices[1].trim())) {
                         isPresent = true;
-                        //Debugger.println("PASS:::");
+                        Debugger.println("PASS:::");
                         break;
                     }else{
                         Debugger.println("Expected to ends with: "+choices[0]+", But Actual:"+actualText);
@@ -1159,17 +1135,21 @@ public class PatientChoicePage {
     }
 
     public void drawSignature() {
-        Wait.forElementToBeDisplayed(driver, signatureSection);
-        Click.element(driver, signatureSection);
-        org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
-        Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
-                .clickAndHold()
-                .moveByOffset(80, 80)
-                .moveByOffset(50, 20)
-                .release()
-                .build();
-        drawAction.perform();
-        Wait.seconds(1);
+        try {
+            Wait.forElementToBeDisplayed(driver, signatureSection);
+            Click.element(driver, signatureSection);
+            org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
+            Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
+                    .clickAndHold()
+                    .moveByOffset(80, 80)
+                    .moveByOffset(50, 20)
+                    .release()
+                    .build();
+            drawAction.perform();
+            Wait.seconds(1);
+        }catch(Exception exp){
+            Debugger.println("Exception from drawing Signature in Patient Choice Page."+exp);
+        }
     }
 
 

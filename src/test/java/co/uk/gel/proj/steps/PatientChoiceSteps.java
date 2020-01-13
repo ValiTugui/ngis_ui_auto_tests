@@ -70,32 +70,30 @@ public class PatientChoiceSteps extends Pages {
             }
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Doing Patient Choice for " + memberDetails.get(i).get(0));
-                patientChoicePage.editSpecificPatientChoice(memberDetails.get(i).get(0));
+                patientChoicePage.selectMember(i);
                 Debugger.println("PatientChoiceCategory..Start");
-                patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
+                Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
-                patientChoicePage.selectTestType(memberDetails.get(i).get(2));
+                Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Debugger.println("TestType..Done.Record Type start");
-                patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3));
+                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Debugger.println("Record Type..Done..Continuing...");
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
-                patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4));
+                Assert.assertTrue(patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4)));
                 patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
                 patientChoicePage.clickOnContinue();
-                Debugger.println("Child Assent start");
-                if (!patientChoicePage.selectChildAssent(memberDetails.get(i).get(5))) {
-                    Debugger.println("Could not complete Child Assent...");
-                    Assert.assertFalse("Could not complete Child Assent...", true);
-                    continue;
-                }
-                Debugger.println("Child Assent Done. Continuing....");
-                patientChoicePage.clickOnContinue();
-                Debugger.println("Parent Signature....start.");
-                patientChoicePage.drawSignature();
 
-                Debugger.println("Parent Signature Done...Submitting form");
+                if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
+                    Debugger.println("Child Assent start");
+                    Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
+                    Debugger.println("Child Assent Done. Continuing....");
+                    patientChoicePage.clickOnContinue();
+                }
+                Debugger.println("Parent/Patient Signature....start.");
+                patientChoicePage.drawSignature();
+                Debugger.println("Parent/Patient Signature Done...Submitting form");
                 if (!patientChoicePage.submitPatientChoice()) {
                     Debugger.println("Submitted form, but save and continue not displayed..Proceeding to next Patient..");
                     referralPage.navigateToStage("Patient choice");
@@ -103,7 +101,7 @@ public class PatientChoiceSteps extends Pages {
                     continue;
                 } else {
                     Debugger.println("Submitted.....Continuing");
-                    patientChoicePage.clickOnSaveAndContinueButton();
+                    referralPage.clickOnSaveAndContinueButton();
                 }
                 Debugger.println("DONE.");
 
@@ -111,6 +109,7 @@ public class PatientChoiceSteps extends Pages {
             Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
     }
 
@@ -149,7 +148,7 @@ public class PatientChoiceSteps extends Pages {
     }
 
 
-    @And("the user fills {string} details in patient choice category")
+    @And("the user selects the option (.*) in patient choice category")
     public void theUserFillsDetailsInPatientChoiceCategory(String inputData) {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);

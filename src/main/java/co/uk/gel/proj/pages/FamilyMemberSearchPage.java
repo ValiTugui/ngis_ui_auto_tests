@@ -25,10 +25,7 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h1[contains(text(),'Find a family member')]")
     public WebElement pageTitle;
 
-    @FindBy(xpath = "//h1[(contains(text(),'Add family member details'))]")
-    public WebElement familyMemeberQuestionnairePageTitle;
-
-    @FindBy(css = "p[class*='patient-search__intro']")
+     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
     @FindBy(css = "h3[class*='field-label']")
@@ -309,12 +306,11 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver,dateDay);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
+
         for (String key : paramsKey) {
             switch (key) {
                 case "NHSNumber": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        nhsNumber.sendKeys(paramNameValue.get(key));
-                    }
+                    nhsNumber.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "DOB": {
@@ -354,7 +350,6 @@ public class FamilyMemberSearchPage {
                 }
             }//switch
         }//for
-        Debugger.println("Entered the values as search param.........");
         seleniumLib.clickOnWebElement(searchButton);
     }//method
 

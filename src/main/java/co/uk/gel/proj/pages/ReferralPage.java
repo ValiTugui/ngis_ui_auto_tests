@@ -775,4 +775,14 @@ public class ReferralPage<check> {
             return false;
         }
     }
+    public void updatePatientNGSID(NGISPatientModel familyMember){
+        try{
+            String bannerNGIS  = familyMemberNgisId.getText();
+            familyMember.setNGIS_ID(bannerNGIS);
+            FamilyMemberDetailsPage.updateNGISID(familyMember);
+
+        }catch(Exception exp){
+           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH());
+        }
+    }
 }
