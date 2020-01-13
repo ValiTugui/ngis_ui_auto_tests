@@ -931,13 +931,5 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         postcode.sendKeys(newPatient.getPostCode());
         Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
     }
-    public void fillInNonExistingFamilyMemberReferral(String dob) {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(RandomDataCreator.generateRandomNHSNumber());
-
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
-    }
 }
 

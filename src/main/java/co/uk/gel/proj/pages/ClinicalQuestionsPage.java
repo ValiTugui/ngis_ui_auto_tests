@@ -101,6 +101,7 @@ public class ClinicalQuestionsPage {
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+
     String selectSingleValue = "div[class*='singleValue']";
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {

@@ -49,7 +49,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     ##Family Members - Adding two members - Father and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members with the below details
+    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=11-03-1942 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=12-02-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |

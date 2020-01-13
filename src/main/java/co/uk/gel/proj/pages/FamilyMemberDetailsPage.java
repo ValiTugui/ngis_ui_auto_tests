@@ -158,18 +158,8 @@ public class FamilyMemberDetailsPage {
     String selectedTestTitle = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
     String selectedMemberTitle = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
     String addFamilyMemberTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),";
-    String addFamilyMemberReferralTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//span[contains(text(),";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
-    //Patient Card Search Details
-    @FindBy(xpath = "//h3[contains(string(), 'No patient found')]")
-    public WebElement noPatientFoundLabel;
-
-    @FindBy(xpath = "//a[contains(string(), 'create a new patient record')]")
-    public WebElement createNewPatientRecord;
-
-    @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]")
-    WebElement patientRecordFoundTitle;
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//div[contains(@class,'styles_patient-card__top_')]/p[contains(@class,'patient-name')]")
     WebElement patientCardName;
     @FindBy(xpath = "//h3[contains(text(),'1 patient record found')]/../a//p[text()='Born']")
@@ -209,11 +199,6 @@ public class FamilyMemberDetailsPage {
     List<WebElement> landingPageNhsNumbers;
     @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'ngisId')]")
     List<WebElement> landingPageNgsIds;
-    @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'patientChoiceStatus')]")
-    List<WebElement> landingPagePatinetChoiceStatus;
-
-
-
 
     @FindBy(xpath = "//p[contains(text(),'Tested family members you add')]")
     public WebElement familyMemberLandingPageSubTitle;
@@ -309,7 +294,10 @@ public class FamilyMemberDetailsPage {
     String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]//button";
     @FindBy(className = "todo-list")
     public WebElement toDoList;
+
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
+
+    By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -331,23 +319,9 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB " + exp + " DOB expected in DD-MM-YYYY Format: " + dob);
         }
     }
-    public boolean createNewFamilyMember(String relationToProband){
-        try{
-
-            return true;
-        }catch(Exception exp){
-            return false;
-        }
-    }
 
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
-        //Verify the Title
-        if (!Wait.isElementDisplayed(driver,patientRecordFoundTitle,60)) {
-            if (seleniumLib.isElementPresent(noPatientFoundLabel)) {
-                //Patient Not Found, should proceed with new Patient Record.
-                return createNewFamilyMember(relationToProband);
-            }
-        }
+
         //Verify other details - Name,Born, Gender and NHS Number, Address, Patient Type
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
@@ -549,7 +523,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
             boolean isSelected = false;
-            By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
+
             if(seleniumLib.isElementPresent(dynamicDiv)){
                 Wait.seconds(5);
                 List<WebElement> hpoItems = seleniumLib.getElements(dynamicDiv);
@@ -622,12 +596,12 @@ public class FamilyMemberDetailsPage {
         if(landingPageNhsNumbers.size() > 0){
             isPresent = false;
         }
-        String actNhs = "";
+        String actualNhs = "";
         for(int i=0; i<landingPageNhsNumbers.size();i++){
-            actNhs = landingPageNhsNumbers.get(i).getText();
-            Debugger.println("Act and ExpNHS: "+actNhs+","+familyMember.getNHS_NUMBER());
-            if(actNhs != null) {
-                if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actNhs)) {
+            actualNhs = landingPageNhsNumbers.get(i).getText();
+            Debugger.println("Actual and ExpectedNHS: "+actualNhs+","+familyMember.getNHS_NUMBER());
+            if(actualNhs != null) {
+                if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
                     isPresent = true;
                     break;
                 }
@@ -647,14 +621,14 @@ public class FamilyMemberDetailsPage {
             isPresent = false;
             for (int i = 0; i < landingPageNgsIds.size(); i++) {
                 ngsId = landingPageNgsIds.get(i).getText();
-                Debugger.println("Act and ExpNGSID: "+ngsId+","+familyMember.getNGIS_ID());
+                Debugger.println("Actual and Expected NGSID: "+ngsId+","+familyMember.getNGIS_ID());
                 if(ngsId != null) {
                     if (familyMember.getNGIS_ID().equalsIgnoreCase(ngsId)) {
                         isPresent = true;
                         break;
                     }
                 }else{
-                    Debugger.println("NGS not present...");
+                    Debugger.println("NGS Id not present...");
                     isPresent = true;
                 }
             }
@@ -664,7 +638,7 @@ public class FamilyMemberDetailsPage {
             }
             Debugger.println("NGSID Verified...");
         }
-        return true;
+        return isPresent;
     }
 
     public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
@@ -1497,7 +1471,7 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public static void updateRECORDING_CLINICIAN_NAME(NGISPatientModel familyMember) {
+    public static void updateRecordingClinicianName(NGISPatientModel familyMember) {
         try {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {

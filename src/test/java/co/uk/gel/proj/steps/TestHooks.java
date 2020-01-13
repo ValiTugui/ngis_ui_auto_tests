@@ -58,7 +58,7 @@ public class TestHooks extends Pages {
 
     @Before("@LOGOUT_BEFORE_TEST")
     public void logoutCurrentSession() {
-        logoutAfterTest(5);
+        homePage.logOutFromApplication();
     }
 
 
@@ -83,8 +83,6 @@ public class TestHooks extends Pages {
     @After("@LOGOUT")
     public void logOutAndTearDown() {
         homePage.logOutFromApplication();
-       // logoutAfterTest(10);
-       // cleanUp();
     }
 
     @After("@CLEANUP")
@@ -113,26 +111,4 @@ public class TestHooks extends Pages {
         this.response = response;
     }
 
-    private void logoutAfterTest(int waitingTime) {
-        Debugger.println("TestHooks:logoutAfterTest...And Deleting Cookies.");
-       try {
-           driver.findElement(By.xpath("//*[text()='Log out']")).click(); // Logging out to restart new session
-            if (isAlertPresent(driver)) {
-                acceptAlert(driver);
-            }
-            driver.manage().deleteAllCookies();
-        } catch (UnhandledAlertException f) {
-            try {
-                driver.switchTo().defaultContent();
-                driver.manage().deleteAllCookies();
-
-            } catch (NoAlertPresentException e) {
-                e.printStackTrace();
-            }
-            Wait.seconds(waitingTime);
-
-        }catch(Exception exp){
-           Debugger.println("Exception from Logging out...."+exp);
-       }
-    }
 }//end class

@@ -78,7 +78,6 @@ Feature: Clinical Questions stage
     | Clinical questions | Answer clinical questions | Affected           | 24    | -1    | Only prenatal cases can have a negative number    |
     | Clinical questions | Answer clinical questions | Affected           | 0     | -10   | Patient cannot be younger than -9 months          |
 
-
   @NTS-3246 @E2EUI-1531 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
   Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

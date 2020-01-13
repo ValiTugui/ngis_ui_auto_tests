@@ -319,6 +319,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//span[@class='tooltiptext']")
     WebElement waitForDocUpload;
 
+    @FindBy(xpath = "//div[contains(text(),'Child assent')]")
+    WebElement childAssentTitle;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -343,7 +346,6 @@ public class PatientChoicePage {
             if(nhsNumber == null){
                 nhsNumber = familyMember.getNGIS_ID();
             }
-            Debugger.println("NULLLLLLLLLLLLLLLLLLLLLL"+nhsNumber);
             String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
             Debugger.println("NHSFOUR : "+nhsLastFour);
 
@@ -420,7 +422,7 @@ public class PatientChoicePage {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
                             if (familyMember != null) {
                                 familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
-                                FamilyMemberDetailsPage.updateRECORDING_CLINICIAN_NAME(familyMember);
+                                FamilyMemberDetailsPage.updateRecordingClinicianName(familyMember);
                             }
                         }
                         break;
@@ -541,8 +543,7 @@ public class PatientChoicePage {
 
    public boolean selectChildAssent(String child_assent) {
         try {
-            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Child assent')]"));
-            if (!Wait.isElementDisplayed(driver, titleElement, 100)) {
+            if (!Wait.isElementDisplayed(driver, childAssentTitle, 100)) {
                 return true;//Child assent not present and may not be required - for new patient's family members
             }
             Actions.scrollToTop(driver);

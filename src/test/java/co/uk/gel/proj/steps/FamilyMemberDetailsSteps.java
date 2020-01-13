@@ -395,7 +395,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     }
 
-    @When("the user adds {string} family members with the below details")
+    @When("the user adds {string} family members to the proband patient as new family member patient record with below details")
     public void theUserAddFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
