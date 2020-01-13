@@ -168,6 +168,9 @@ public class SamplesPage {
     @FindBy (css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
 
+    @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
+    public WebElement addSampleDetailsSubHeading;
+
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
         Actions.selectValueFromDropdown(dropdownValue, type);
@@ -180,13 +183,14 @@ public class SamplesPage {
         Actions.clickElement(driver, sampleState);
         Wait.seconds(1);
         Actions.selectRandomValueFromDropdown(dropdownValues);
+        //Actions.retrySelectRandomValueFromDropDown(dropdownValues);
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
 
     public void selectSampleState(String sampleStateValue) {
         Actions.clickElement(driver, sampleState);
-//        Actions.selectExactValueFromDropDown(dropdownValues, sampleStateValue);
-        Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
+        Actions.retrySelectExactValueFromDropDown(driver, dropdownValues, sampleStateValue);
+       // Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
         sampleDetails.setSampleState(sampleStateValue);
     }
 

@@ -487,7 +487,7 @@ public class ReferralPage<check> {
         try {
             By pageTitle;
 
-            if (expTitle.contains("\'") || expTitle.contains("sample")) {
+            if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
                 Debugger.println("Using the page element locator regex");
                 pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
@@ -499,20 +499,14 @@ public class ReferralPage<check> {
                 Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
                 if (!seleniumLib.isElementPresent(pageTitle)) {
                     Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                    Debugger.println("The Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
                     return false;
                 }
             }
             return true;
-        } catch (NoSuchElementException exp) {
-            boolean testResult = false;
-            expTitle = expTitle.trim();
-            String actualPageTitle = getTheCurrentPageTitle();
-            testResult = expTitle.equals(actualPageTitle);
-            Debugger.println("Use the getTheCurrentPageTitle " + exp);
-            Debugger.println("expected pagetitle: " + expTitle + ":" + "actual pagetitle " + actualPageTitle + ": " + testResult);
-            return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Title page " + exp);
+            Debugger.println("Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
             return false;
         }
     }

@@ -305,17 +305,15 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-        Wait.seconds(2);
-        By pageTitle = By.xpath("//h1[contains(text(), \"" + expectedPageTitle + "\")]");
-        Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+        if (expectedPageTitle.equals("Add sample details")){
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
+            Debugger.println("Sub heading - Sample Details found");
+        }
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
         Debugger.println("test-result flag for verifying page title is: " + testResult);
         Assert.assertTrue(testResult);
-        //String actualPageTitle = referralPage.getTheCurrentPageTitle();
-        //Debugger.println("Actual PageTitle : " + actualPageTitle);
-        //Debugger.println("Expected PageTitle : " + expectedPageTitle);
-
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")

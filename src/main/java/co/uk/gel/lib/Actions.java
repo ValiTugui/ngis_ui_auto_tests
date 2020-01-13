@@ -2,6 +2,8 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -39,13 +41,21 @@ public class Actions {
         dropDownValues.get(index).click();
     }
 
-    public static void selectExactValueFromDropDown(List<WebElement> dropDownElementValues, String value) {
-        List<String> actualDropDownValues = new ArrayList<>();
-        for (WebElement dropDownElement : dropDownElementValues) {
-            actualDropDownValues.add(dropDownElement.getText().trim());
+    public static void retrySelectExactValueFromDropDown(WebDriver driver, List<WebElement> dropDownElementValues, String value) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 30);
+            wait.until(ExpectedConditions.visibilityOfAllElements(dropDownElementValues));
+            List<String> actualDropDownValues = new ArrayList<>();
+            for (WebElement dropDownElement : dropDownElementValues) {
+                actualDropDownValues.add(dropDownElement.getText().trim());
+            }
+            int index = actualDropDownValues.indexOf(value);
+            dropDownElementValues.get(index).click();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            Debugger.println("Unable to select value from drop down.");
         }
-        int index = actualDropDownValues.indexOf(value);
-        dropDownElementValues.get(index).click();
     }
 
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
@@ -196,8 +206,11 @@ public class Actions {
      */
 
     public static void retryClickAndIgnoreElementInterception(WebDriver driver, WebElement element) {
+        int counter = 0;
         boolean flag = true;
         while (flag) {
+            counter++;
+            Debugger.println("Counter is:" + counter);
             try {
                 Wait.forElementToBeClickable(driver, element);
                 Click.element(driver, element);
@@ -205,25 +218,38 @@ public class Actions {
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
                 Debugger.println("Actions: Clicking on Element :" + element);
+                counter++;
             }
+            if (counter == 10)
+                break;
         }
     }
 
     public static void retrySelectRandomValueFromDropDown(List<WebElement> dropDownValues) {
-        int index = random.nextInt(dropDownValues.size() - 1);
-        boolean flag = true;
-        while (flag) {
-            try {
-                dropDownValues.get(index).click();
-                flag = false;
-            } catch (ElementClickInterceptedException | StaleElementReferenceException | IndexOutOfBoundsException Exp ) {
-                Debugger.println("Select the first dropDownValues" + Exp);
-                dropDownValues.get(0).click();
+        try {
+            boolean flag = false;
+            int counter = 5;  // Counter for number of tries
+            for (int i = 1; i <= counter; i++) {
+                if (dropDownValues.size() > 0) {
+                    flag = true;
+                    break;
+                }
+                Wait.seconds(1);
             }
-
+            if (flag) {
+                int index = random.nextInt(dropDownValues.size() - 1);
+                try {
+                    dropDownValues.get(index).click();
+                } catch (ElementClickInterceptedException e) {
+                    dropDownValues.get(0).click();
+                }
+            } else {
+                Debugger.println("There is no values found in dropdown");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 
     public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List<WebElement> element) {
         Iterator<WebElement> itr = element.iterator();
