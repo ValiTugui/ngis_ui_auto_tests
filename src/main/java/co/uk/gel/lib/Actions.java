@@ -250,6 +250,18 @@ public class Actions {
         }
     }
 
+    public static void reClickDropDownFieldIfLabelErrorIsShown(WebDriver driver, List<WebElement> fieldErrors, WebElement element, WebElement elementLabel, int counter)
+    {
+        for (int i = 1; i <= counter; i++) {
+            if (fieldErrors.size() > 0) {
+                Actions.clickElement(driver, element);
+                Debugger.println("Error message triggered on clicking the element " + getText(elementLabel) + ":" + i);
+                break;
+            }
+            Wait.seconds(1);
+        }
+    }
+
     public static boolean isTabClickable(WebDriver driver, Integer expectedTabCount, List<WebElement> element) {
         Iterator<WebElement> itr = element.iterator();
         int actualTabCount = 0;

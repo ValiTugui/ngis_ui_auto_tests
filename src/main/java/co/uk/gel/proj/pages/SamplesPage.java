@@ -181,16 +181,19 @@ public class SamplesPage {
     public void selectSampleState() {
         Wait.isElementDisplayed(driver, sampleState, 30);
         Actions.clickElement(driver, sampleState);
-        Wait.seconds(1);
+        // Counter for number of tries -loop for when error message is triggered upon selecting sample state
+        int numberOfAttempts = 5;
+        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
         Actions.selectRandomValueFromDropdown(dropdownValues);
-        //Actions.retrySelectRandomValueFromDropDown(dropdownValues);
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
 
     public void selectSampleState(String sampleStateValue) {
         Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
-        Actions.retrySelectExactValueFromDropDown(driver, dropdownValues, sampleStateValue);
-       // Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
+        // Counter for number of tries - loop for when intermittent error message is triggered upon selecting sample state
+        int numberOfAttempts = 5;
+        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
+        Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
         sampleDetails.setSampleState(sampleStateValue);
     }
 
