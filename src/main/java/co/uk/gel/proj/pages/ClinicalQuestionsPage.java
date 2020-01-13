@@ -169,11 +169,18 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean selectDiseaseStatus(String diseaseStatusValue) {
-        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
-        Actions.clickElement(driver, diseaseStatusDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
-        return true;
+        try {
+            if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,15)){
+                Actions.scrollToTop(driver);
+            }
+            Actions.clickElement(driver, diseaseStatusDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from selecting Disease Status in Clinical Page: "+exp);
+            return false;
+        }
     }
 
     public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory() {
