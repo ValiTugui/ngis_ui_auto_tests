@@ -112,6 +112,7 @@ public class Pages implements Navigable {
             driver.get(urlToNavigate);
             Wait.seconds(15);//Wait for 15 Seconds
             String navigatedURL = driver.getCurrentUrl();
+            Debugger.println("Current URL before LOGIN is :"+navigatedURL);
             //Navigate to Test Directory
             if (navigatedURL.contains("test-selection/clinical-tests")) {
                 homePage.waitUntilHomePageResultsContainerIsLoaded();
@@ -133,7 +134,17 @@ public class Pages implements Navigable {
                 }
             }
             navigatedURL = driver.getCurrentUrl();
-            Debugger.println("Current URL is :"+navigatedURL);
+            Debugger.println("Current URL after LOGIN to TOMS :"+navigatedURL);
+
+            // we have noticed after login to TOMS, sometimes dashboard page is shown in the TOMS - following code will handle this and redirects to test directory
+            if(driver.getCurrentUrl().contains("dashboard")){
+                dashBoardPage.clickFindAGenomicTest();
+                Wait.seconds(2);
+                navigatedURL = driver.getCurrentUrl();
+                Debugger.println("Current URL AFTER dashboard page re-direction:"+navigatedURL);
+            }
+
+
         }catch(UnhandledAlertException exp){
             Debugger.println("UnhandledAlertException in Navigating to URL: "+urlToNavigate);
             SeleniumLib.takeAScreenShot("UnhandledAlertExp.jpg");

@@ -1,6 +1,6 @@
 @regression
-@paperForm
 @testDirectory
+@paperForm
 
 Feature: Paper Form page functionalities
 

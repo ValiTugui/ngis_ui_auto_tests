@@ -53,6 +53,24 @@ public class TestUtils {
         }
         return str;
     }
+    public static String[] getPatientSplitNames(String fullname) {//LastName,FirstName (TITLE)
+        String[] names = new String[3];
+        try{
+            String lastName = fullname.substring(0,fullname.indexOf(","));
+            String firstName = fullname.substring(fullname.indexOf(",")+1,fullname.indexOf("("));
+            String title = fullname.substring(fullname.indexOf("(")+1,fullname.indexOf(")"));
+            Debugger.println("First Name: "+firstName+",LastName: "+lastName+", Title: "+title);
+            names[0] = firstName.trim();
+            names[1] = lastName.trim();
+            names[2] = title.trim();
+        }catch(Exception exp){
+            Debugger.println("Ëxception in Splitting Patient Full name: "+exp);
+            names[0] = "";
+            names[1] = "";
+            names[2] = "";
+        }
+        return names;
+    }
 
     public static Map<String, String> splitStringIntoKeyValuePairs(String input) {
         Map<String, String> resultantStr = Splitter.on(':')

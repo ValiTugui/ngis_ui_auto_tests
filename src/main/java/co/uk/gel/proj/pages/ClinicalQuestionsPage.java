@@ -50,10 +50,8 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q97-months')]")
     public WebElement ageOfOnsetMonthsField;
 
-    @FindBy(xpath = "//label[contains(@for,'hpo-search')]//child::span")
-    public List<WebElement> hpoPhenotypeRedAsterix;
-
-    @FindBy(css = "#react-select-3-input")
+    //Adding family members in a loop, the orginal xpath is getting changed
+    @FindBy(xpath = "//input[contains(@id,'react-select-')]")
     public WebElement hpoSearchField;
 
     @FindBy(css = "*[class*='hpo-term__name']")
@@ -103,6 +101,7 @@ public class ClinicalQuestionsPage {
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
+
     String selectSingleValue = "div[class*='singleValue']";
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
@@ -115,19 +114,20 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            seleniumLib.sendValue(hpoSearchField, hpoTerm);
+            if(seleniumLib.isElementPresent(hpoSearchField)) {
+                seleniumLib.sendValue(hpoSearchField, hpoTerm);
+            }
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
                 return -1;
             }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            Debugger.println("Selected ....dropdownValues");
             // determine the total number of HPO terms
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
             int numberOfHPO = hpoTerms.size();
-            Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
+            //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
         } catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
@@ -170,11 +170,18 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean selectDiseaseStatus(String diseaseStatusValue) {
-        Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
-        Actions.clickElement(driver, diseaseStatusDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
-        return true;
+        try {
+            if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,15)){
+                Actions.scrollToTop(driver);
+            }
+            Actions.clickElement(driver, diseaseStatusDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from selecting Disease Status in Clinical Page: "+exp);
+            return false;
+        }
     }
 
     public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory() {
@@ -210,23 +217,22 @@ public class ClinicalQuestionsPage {
     }
 
     //Method added by @Stag for filling the ClinicalQuestionsPage
-    public void fillClinicalQuestionPageWithGivenParams(String searchParams) {
+    public boolean fillDiseaseStatusAgeOfOnsetAndHPOTerm(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
+        //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
+        if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
+            selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
+        }
+        boolean isFilled = false;
         for (String key : paramsKey) {
+            if (key.equalsIgnoreCase("DiseaseStatus")) {
+                continue;
+            }
             switch (key) {
-                case "DiseaseStatus": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        Wait.forElementToBeClickable(driver, diseaseStatusDropdown);
-                        Click.element(driver, diseaseStatusDropdown);
-                        Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
-                    }
-                    break;
-                }
                 case "AgeOfOnset": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         String[] age_of_onsets = paramNameValue.get(key).split(",");
-                        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
                         ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
                         ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
                     }
@@ -235,28 +241,39 @@ public class ClinicalQuestionsPage {
                 case "HpoPhenoType": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        String hpoValue = "";
-                        boolean isExists = false;
-                        List<WebElement> rows = seleniumLib.getElements(hpoRows);
-                        if (rows != null && rows.size() > 0) {
-                            for (WebElement row : rows) {
-                                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                                if (hpoValue.equalsIgnoreCase(paramNameValue.get(key))) {
-                                    isExists = true;
-                                    break;//for loop
-                                }
-                            }//for
-                        }
-                        if (!isExists) {
-                            searchAndSelectRandomHPOPhenotype(paramNameValue.get(key));//Re-using existing method
+                        isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
+                        if (!isFilled) {
+                            if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
+                                isFilled = true;
+                            }
                         }
                     }
                     break;
                 }
-
             }//switch
         }//for
+        return isFilled;
     }//method
+    public boolean isHPOAlreadyConsidered(String hpoTerm) {
+        String hpoValue = "";
+        boolean isExists = false;
+        if(!seleniumLib.isElementPresent(hpoRows)){
+            return false;
+        }
+        Actions.scrollToTop(driver);
+        List<WebElement> rows = seleniumLib.getElements(hpoRows);
+        if (rows != null && rows.size() > 0) {
+            for (WebElement row : rows) {
+                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                if (hpoValue.equalsIgnoreCase(hpoTerm)) {
+                    isExists = true;
+                    Debugger.println("Phenotype already exists:");
+                    break;//for loop
+                }
+            }//for
+        }
+        return isExists;
+    }
 
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {

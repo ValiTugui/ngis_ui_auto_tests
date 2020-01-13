@@ -13,9 +13,11 @@ public class NGISPatientModel {
     private String YEAR_OF_BIRTH;
     private String DATE_OF_BIRTH;
     private String BORN_DATE;
+    private String BORN_WITH_AGE;
     private String GENDER;
     private String LIFE_STATUS;
     private String NHS_NUMBER;
+    private String ADDRESS_LINE0;
     private String ADDRESS_LINE1;
     private String ADDRESS_LINE2;
     private String ADDRESS_LINE3;
@@ -27,6 +29,9 @@ public class NGISPatientModel {
     private String RECORDING_CLINICIAN_NAME;
     private String REFERAL_ID;
     private String NGIS_ID;
+    private String PATIENT_TYPE;
+    private String NO_NHS_REASON;
+    private String HOSPITAL_NO;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -219,5 +224,45 @@ public class NGISPatientModel {
 
     public void setNGIS_ID(String NGIS_ID) {
         this.NGIS_ID = NGIS_ID;
+    }
+
+    public String getBORN_WITH_AGE() {
+        return BORN_WITH_AGE;
+    }
+
+    public void setBORN_WITH_AGE(String BORN_WITH_AGE) {
+        this.BORN_WITH_AGE = BORN_WITH_AGE;
+    }
+
+    public String getPATIENT_TYPE() {
+        return PATIENT_TYPE;
+    }
+
+    public void setPATIENT_TYPE(String PATIENT_TYPE) {
+        this.PATIENT_TYPE = PATIENT_TYPE;
+    }
+
+    public String getNO_NHS_REASON() {
+        return NO_NHS_REASON;
+    }
+
+    public void setNO_NHS_REASON(String NO_NHS_REASON) {
+        this.NO_NHS_REASON = NO_NHS_REASON;
+    }
+
+    public String getHOSPITAL_NO() {
+        return HOSPITAL_NO;
+    }
+
+    public void setHOSPITAL_NO(String HOSPITAL_NO) {
+        this.HOSPITAL_NO = HOSPITAL_NO;
+    }
+
+    public String getADDRESS_LINE0() {
+        return ADDRESS_LINE0;
+    }
+
+    public void setADDRESS_LINE0(String ADDRESS_LINE0) {
+        this.ADDRESS_LINE0 = ADDRESS_LINE0;
     }
 }//end

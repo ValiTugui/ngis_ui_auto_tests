@@ -1,6 +1,6 @@
 @regression
-@requestingOrganisationTestDirectory
 @testDirectory
+@requestingOrganisationTestDirectory
 
 Feature: Requesting Organisation page
 
