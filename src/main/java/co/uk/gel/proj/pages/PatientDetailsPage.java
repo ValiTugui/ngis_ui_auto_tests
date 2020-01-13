@@ -308,22 +308,17 @@ public class PatientDetailsPage {
     public void clickSavePatientDetailsToNGISButton() {
         Actions.clickElement(driver, savePatientDetailsToNGISButton);
         // After save button is clicked, wait for it to be disabled or non-clickable
-        int counter = 0;
-        boolean flag = true;
-        while (flag) {
-            counter++;
-            Debugger.println("Counter is:" + counter);
-            try {
-                Wait.seconds(1);
+        try {
+            int counter = 5;  // Counter for number of tries
+            for (int i = 1; i <= counter; i++) {
                 if (!savePatientDetailsToNGISButton.isEnabled()) {
                     Debugger.println("savePatient details button is now disabled or non-clickable after count " + counter);
-                    flag = false;
+                    break;
                 }
-            } catch (Exception e) {
-                Debugger.println("savePatient details button is still clickable");
+                Wait.seconds(1);
             }
-            if (counter == 5)
-                break;
+        } catch (Exception e) {
+            Debugger.println("savePatient details button is still clickable");
         }
     }
 

@@ -188,7 +188,7 @@ public class SamplesPage {
     }
 
     public void selectSampleState(String sampleStateValue) {
-        Actions.clickElement(driver, sampleState);
+        Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
         Actions.retrySelectExactValueFromDropDown(driver, dropdownValues, sampleStateValue);
        // Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
         sampleDetails.setSampleState(sampleStateValue);
