@@ -1446,6 +1446,12 @@ public class FamilyMemberDetailsPage {
 
     public static NGISPatientModel getFamilyMember(String nhsDetails) {
         try {
+            if(nhsDetails == null || nhsDetails.isEmpty()){
+                if(addedFamilyMembers.size() > 0){
+                    return addedFamilyMembers.get(0);
+                }
+                return null;
+            }
             String nhsNumber = "",dob="";
             if(nhsDetails.indexOf(":") == -1){//If we provide direct NHS number
                 nhsNumber = nhsDetails;

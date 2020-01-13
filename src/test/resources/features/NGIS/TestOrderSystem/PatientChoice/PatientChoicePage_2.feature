@@ -65,14 +65,13 @@ Feature: Patient Choice Page Verification
     When the user fills "<TestType>" details in test type
     And the user should see the chosen "<TestType>" with edit button in "Test type"
     Then the Test type option is marked as completed
-    When the user fills "<blankRecordedBy>" details in recorded by
     And the user clicks on Continue Button
     Then the user will be able to see an error message as "<ErrorMessage>"
     When the user fills "<RecordedBy>" details in recorded by
     Then the user should be able to see enabled continue button
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | blankRecordedBy | ErrorMessage                                                                           | RecordedBy         |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS |                 | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
+      | Patient choice stage | PatientChoiceCategory | TestType                        | ErrorMessage                                                                           | RecordedBy         |
+      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | Please complete the required field Clinician Name (Admin support user ID is optional): | ClinicianName=John |
 
   @NTS-3387 @E2EUI-1464 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
