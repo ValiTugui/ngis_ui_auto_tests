@@ -44,6 +44,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on the "<LinkText>" link in patient choice page
     Then the patient choice form library page displays correctly
+    ##To be updaetd with all links to forms and its existence as per the updated UI
 
     Examples:
       | Family members | Status1     | Patient choice stage | LinkText     |

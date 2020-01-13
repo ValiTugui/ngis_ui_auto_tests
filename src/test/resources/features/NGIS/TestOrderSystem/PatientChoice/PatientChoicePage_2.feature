@@ -15,7 +15,7 @@ Feature: Patient Choice Page Verification
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
-
+    ###This ticket has to be moved to RequestingOrganisation
     Examples:
       | Requesting organisation | introMessage                                                   | ordering_entity_name |
       | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |
@@ -37,7 +37,7 @@ Feature: Patient Choice Page Verification
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John |
 
   @NTS-3385 @E2EUI-1474 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3385: Verify patient choice form
+  Scenario Outline: NTS-3385: Create referral navigation component - Patient choice
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<Patient choice stage>" stage
@@ -97,10 +97,12 @@ Feature: Patient Choice Page Verification
     And the user clicks on Continue Button
     Then the user is navigated to a patient choice form option with title Patient signature
     And the user should be able to see submit patient choice button disabled
-
+    ##Include the step for clicking on Continue without providing signature and validate the warning message.
     Examples:
       | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         | PatientChoice                  | YesOption |
       | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John | Patient has agreed to the test | Yes       |
+      ##Include other combination of PatientChoiceCategory and other patient choice section combinations.
+      ##OR include this validation of clicking without providing signature ijnbig scenario where we cover all the combinations.
 
   @NTS-3388 @E2EUI-1112 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3388: Verify add patient choice form is an embedded app

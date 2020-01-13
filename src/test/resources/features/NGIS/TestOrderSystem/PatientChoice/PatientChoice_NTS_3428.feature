@@ -190,7 +190,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Parent(s) / carer / guardian have agreed to the test |
       | Has research participation been discussed?::Yes                                                                                                      |
       | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.::No            |
     When the user is navigated to a patient choice form option with title Child assent
@@ -210,8 +210,8 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as "disabled"
 
     Examples:
-      | Patient choice stage | PatientChoice1                                       | NoOption | YesOption | NAOption       | Question1                                  | Question2                                                                                                                             | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
-      | Patient choice       | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
+      | PatientChoice1                                       | NoOption | YesOption | NAOption       | Question1                                  | Question2                                                                                                                             | WarningMessage                                                                                                                                                      | Parent/Guardian signature          |
+      | Parent(s) / carer / guardian have agreed to the test | No       | Yes       | Not applicable | Has research participation been discussed? | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3428 @E2EUI-2041 @LOGOUT @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
@@ -233,7 +233,7 @@ Feature: Patient Choice Page
     Then the Patient choices option is marked as completed
     And the user should be able to see the previous sections disappeared
     And the user should be able to see selected patient choice details
-      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Yes |
+      | Have the parent(s) / carer / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Parent(s) / carer / guardian have agreed to the test |
       | Has research participation been discussed?::Yes                                                                                                      |
       | The patient's parent(s) / carer / guardian agrees that their child's data and samples may be used for research, separate to NHS care.::Yes           |
     When the user is navigated to a patient choice form option with title Child assent
