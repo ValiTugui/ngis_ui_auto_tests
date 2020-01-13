@@ -45,13 +45,13 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user fills the NotesPage with the "<NotesDetails>"
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - Family member details to be added - giving existing patient details
+    ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-#      | NHSNumber=2000007996:DOB=10-11-1949 | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=10-11-1949:Gender=Male:Relationship=Maternal Uncle  | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
     And the user clicks the Save and Continue button
@@ -63,13 +63,13 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-    #Patient Choice - Family Details Provided below should be same as above (Signature option)
+    #Patient Choice - Family Details Provided below should be same as above
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=14-05-1931 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
-#      | NHSNumber=2000007996:DOB=10-11-1949 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
+      | NHSNumber=NA:DOB=10-11-1949 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             |                 |
     #Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
@@ -87,7 +87,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-05-1931 |
-#      | NHSNumber=2000007996:DOB=10-11-1949 |
+      | NHSNumber=NA:DOB=10-11-1949 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
