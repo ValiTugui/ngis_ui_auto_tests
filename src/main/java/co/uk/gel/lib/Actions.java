@@ -218,7 +218,6 @@ public class Actions {
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
                 Debugger.println("Actions: Clicking on Element :" + element);
-                counter++;
             }
             if (counter == 10)
                 break;

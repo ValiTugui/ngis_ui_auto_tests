@@ -10,8 +10,10 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -305,6 +307,24 @@ public class PatientDetailsPage {
 
     public void clickSavePatientDetailsToNGISButton() {
         Actions.clickElement(driver, savePatientDetailsToNGISButton);
+        // After save button is clicked, wait for it to be disabled or non-clickable
+        int counter = 0;
+        boolean flag = true;
+        while (flag) {
+            counter++;
+            Debugger.println("Counter is:" + counter);
+            try {
+                Wait.seconds(1);
+                if (!savePatientDetailsToNGISButton.isEnabled()) {
+                    Debugger.println("savePatient details button is now disabled or non-clickable after count " + counter);
+                    flag = false;
+                }
+            } catch (Exception e) {
+                Debugger.println("savePatient details button is still clickable");
+            }
+            if (counter == 5)
+                break;
+        }
     }
 
     public void patientIsCreated() {

@@ -14,6 +14,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
@@ -305,10 +306,15 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-        if (expectedPageTitle.equals("Add sample details")){
-            Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
-            Debugger.println("Sub heading - Sample Details found");
+        if (expectedPageTitle.equals("Add sample details")) {
+            try {
+                Wait.seconds(2);
+                Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
+                Debugger.println("Sub heading - Sample Details found :");
+            } catch (TimeoutException exp) {
+                SeleniumLib.takeAScreenShot("AddSampleDetailsPage.jpg");
+                Debugger.println("Timeout loading sub-heading sample details " + exp);
+            }
         }
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
