@@ -498,6 +498,7 @@ public class ReferralPage<check> {
             if (!seleniumLib.isElementPresent(pageTitle)) {
                 Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
                 if (!seleniumLib.isElementPresent(pageTitle)) {
+                    SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
                     Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
                     Debugger.println("The Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
                     return false;
@@ -505,6 +506,7 @@ public class ReferralPage<check> {
             }
             return true;
         } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("ExceptionForPageTitle.jpg");
             Debugger.println("Exception from validating Title page " + exp);
             Debugger.println("Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
             return false;
