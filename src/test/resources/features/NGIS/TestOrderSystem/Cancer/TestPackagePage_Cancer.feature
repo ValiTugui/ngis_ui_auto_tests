@@ -8,7 +8,6 @@ Feature: Test Package page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
-
   @NTS-3073 @E2EUI-911 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3073 - Test package - Page Layout - Cancer
     When the user navigates to the "<stage>" stage

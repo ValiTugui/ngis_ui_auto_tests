@@ -103,6 +103,8 @@ public class TestPackageSteps extends Pages {
         } else {
             testPackagePage.clickRoutinePriority();
         }
+        //Observed failures in Jenkins run, looks like it is too fast, so provided a wait.
+        Wait.seconds(5);
     }
 
     @And("the user selects the number of participants: {string}")
