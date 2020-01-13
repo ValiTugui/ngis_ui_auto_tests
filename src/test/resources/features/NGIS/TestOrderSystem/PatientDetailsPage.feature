@@ -298,8 +298,8 @@ Feature: Patient details page
 
 
   @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_14 @NTS-3470 @E2EUI-1538
-  Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
+    @patientDetails_16 @NTS-3848 @E2EUI-1609
+  Scenario Outline: NTS-3848: Verifying the sub-heading on patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -313,8 +313,7 @@ Feature: Patient details page
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-
-
+    And the sub-heading title is displayed "Patient details entered here will be added to NGIS only. Contact the patient's GP to have their details updated to NHS Spine."
 
 
     Examples:

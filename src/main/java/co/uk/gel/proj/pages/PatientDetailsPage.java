@@ -51,7 +51,7 @@ public class PatientDetailsPage {
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
 
-    @FindBy(css = "p[class*='subtitle']")
+    @FindBy(css = "p[class*='sub-title']")
     public WebElement subPageTitle;
 
     @FindBy(css = "label[for*='dateOfBirth']")
