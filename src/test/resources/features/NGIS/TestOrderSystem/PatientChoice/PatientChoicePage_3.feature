@@ -294,21 +294,17 @@ Feature: Patient Choice Page
   Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+
+     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    And the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
+    When the user edits patient choice for the newly added family member
     Then the user is navigated to a page with title Add family member patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
@@ -324,8 +320,8 @@ Feature: Patient Choice Page
     And the user is navigated to a patient choice form option with title Recorded by
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | PatientChoiceCategory | TestType                        | TestType1                           |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Adult (With Capacity) | Rare & inherited diseases – WGS | Cancer (paired tumour normal) – WGS |
+      | FamilyMembers  | FamilyMemberDetails                 | NoOfParticipants | PatientChoiceCategory | TestType                        | TestType1                           |
+      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | 2                | Adult (With Capacity) | Rare & inherited diseases – WGS | Cancer (paired tumour normal) – WGS |
 
   @NTS-3445 @E2EUI-1931 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
@@ -336,6 +332,7 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+
     And the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -349,6 +346,7 @@ Feature: Patient Choice Page
     When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
+
     And the "<FamilyMembers>" stage is marked as Mandatory To Do
     And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice

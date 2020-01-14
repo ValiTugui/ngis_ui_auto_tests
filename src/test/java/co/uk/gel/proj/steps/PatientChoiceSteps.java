@@ -112,6 +112,10 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
     }
+    @When("the user edits patient choice for the newly added family member")
+    public void theUserEditsPatientChoiceForTheNewlyAddedFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+        patientChoicePage.selectMember(1);
+    }
 
     @And("the user sees the patient choice status as {string}")
     public void theUserSeesThePatientChoiceStatus(String status) {
