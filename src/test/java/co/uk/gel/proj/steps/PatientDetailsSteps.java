@@ -318,7 +318,39 @@ public class PatientDetailsSteps extends Pages {
         Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
         Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
         Assert.assertEquals(expectedSubHeading,actualSubHeading);
-
     }
 
+    @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
+    public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+    @And("the NHS number field is displayed")
+    public void theNHSNumberFieldIsDisplayed() {
+        boolean nhsFieldDisplayed;
+        nhsFieldDisplayed = Wait.isElementDisplayed(driver,patientDetailsPage.nhsNumber,5);
+        Assert.assertTrue(nhsFieldDisplayed);
+        Debugger.println("NHS Number field is displayed");
+    }
+
+
+    @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
+    public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+
+    @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
+    public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearField(patientDetailsPage.nhsNumber);
+    }
+
+    @When("the user fills in the NHS Number field")
+    public void theUserFillsInTheNHSNumberField() {
+        patientDetailsPage.fillInNHSNumber();
+    }
 }

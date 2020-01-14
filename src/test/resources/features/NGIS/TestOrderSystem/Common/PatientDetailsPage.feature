@@ -172,7 +172,7 @@ Feature: Patient details page
   @NTS-3346 @E2EUI-995 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
@@ -301,5 +301,5 @@ Feature: Patient details page
 
 
     Examples:
-      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
-      | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
