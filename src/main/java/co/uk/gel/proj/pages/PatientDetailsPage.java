@@ -111,6 +111,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "(//label[contains(@for,'noNhsNumberReason')]//following::div)[4]")
     public WebElement noNhsNumberReasonDropdown;
 
+    @FindBy(css = "label[for*='noNhsNumberReason']")
+    public WebElement noNhsNumberReasonLabel;
+
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
 
@@ -177,6 +180,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> ethnicityValues;
 
+    @FindBy(css = "*[class*='error-message__text']")
+    public List<WebElement> errorMessages;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -232,7 +238,6 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            Actions.clickElement(driver,otherReasonExplanation);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
         //This function moved from top to last as in e2e latest, works like this.
@@ -266,7 +271,6 @@ public class PatientDetailsPage {
     }
 
     public void editDropdownField(WebElement element, String value) {
-
         try {
             Actions.retryClickAndIgnoreElementInterception(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -283,7 +287,8 @@ public class PatientDetailsPage {
     }
 
     public void selectMissingNhsNumberReason(String reason) {
-        editDropdownField(noNhsNumberReasonDropdown, reason);
+        Actions.retryClickAndIgnoreElementInterception(driver,noNhsNumberReasonDropdown);
+        Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
     }
 
     public void clickSavePatientDetailsToNGISButton() {
