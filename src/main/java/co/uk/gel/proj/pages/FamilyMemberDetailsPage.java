@@ -593,22 +593,23 @@ public class FamilyMemberDetailsPage {
         }
         Debugger.println("Gender Verified...");
         //5.Verify NHS
-        if(landingPageNhsNumbers.size() > 0){
+        if(landingPageNhsNumbers.size() > 1){//Checking for added family members, excluded Proband
             isPresent = false;
-        }
-        String actualNhs = "";
-        for(int i=0; i<landingPageNhsNumbers.size();i++){
-            actualNhs = landingPageNhsNumbers.get(i).getText();
-            Debugger.println("Actual and ExpectedNHS: "+actualNhs+","+familyMember.getNHS_NUMBER());
-            if(actualNhs != null) {
-                if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
-                    isPresent = true;
-                    break;
+            String actualNhs = "";
+            for(int i=0; i<landingPageNhsNumbers.size();i++) {
+                actualNhs = landingPageNhsNumbers.get(i).getText();
+                Debugger.println("Actual and ExpectedNHS: " + actualNhs + "," + familyMember.getNHS_NUMBER());
+                if (actualNhs != null) {
+                    if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
+                        isPresent = true;
+                        break;
+                    }
+                } else {
+                    Debugger.println("NHS Not Present...");
+                    //Family Member added without NHS number need not validate for NHS number.
+                    isPresent = true;//NHS is not mandatory
                 }
-            }else{
-                Debugger.println("NHS Not Present...");
-                isPresent = true;//NHS is not mandatory
-            }
+            }//for
         }
         if(!isPresent){
             Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER()+" Not displayed on Family Member Landing Page.");
@@ -1450,14 +1451,14 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 actualNhs = addedFamilyMembers.get(i).getNHS_NUMBER();
                 actualDob = addedFamilyMembers.get(i).getDATE_OF_BIRTH();
+                //Debugger.println("ActNHS:"+actualNhs+","+actualDob+",EXP:"+nhsNumber+","+dob);
                 if(!nhsNumber.equalsIgnoreCase("NA")) {
                     if (actualNhs != null) {
                         if (actualNhs.equalsIgnoreCase(nhsNumber)) {
                             return addedFamilyMembers.get(i);
                         }
                     }
-                }
-                if (actualDob != null){
+                }else {
                     if(actualDob.equalsIgnoreCase(dob)) {
                         return addedFamilyMembers.get(i);
                     }

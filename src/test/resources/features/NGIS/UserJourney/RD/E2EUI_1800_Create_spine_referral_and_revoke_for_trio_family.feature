@@ -50,18 +50,27 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=11-03-1942 | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=NA:DOB=12-02-1939 | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=11-03-1942:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=12-02-1939:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
+    #patient choice for the proband
+    And the user clicks the Save and Continue button
+    Then the "<PatientChoice>" stage is selected
+    When the user selects the proband
+    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
+    And the user submits the patient choice with signature
+    And the user clicks the Save and Continue button on the "<PatientChoice>"
+    Then the "<PatientChoice>" page is displayed
+    Then the help text is displayed
+    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below same as the Proband and Family Members (Signature option)
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
-      | NHSNumber=2000008178:DOB=29-12-1967 | Child                 | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
-      | NHSNumber=NA:DOB=11-03-1942         | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
-      | NHSNumber=NA:DOB=12-02-1939         | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
+      | NHSNumber=NA:DOB=11-03-1942         | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
+      | NHSNumber=NA:DOB=12-02-1939         | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
 #      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
     Then the "<PatientChoice>" stage is marked as Completed
     #Panels
@@ -80,7 +89,6 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 |
-      | NHSNumber=2000008178:DOB=29-12-1967 |
       | NHSNumber=NA:DOB=11-03-1942         |
       | NHSNumber=NA:DOB=12-02-1939         |
 

@@ -287,6 +287,10 @@ public class ReferralSteps extends Pages {
         if(attributeOfURL.size() > 6){
             userType = attributeOfURL.get(6);
         }
+        String patientAge = "";
+        if(attributeOfURL.size() > 7) {
+            patientAge = attributeOfURL.get(7);//Child or adult
+        }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
@@ -322,26 +326,6 @@ public class ReferralSteps extends Pages {
                     }
                     case "DOB": {
                         ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key).trim());
-                        break;
-                    }
-                    case "FirstName": {
-                        ngisPatient.setFIRST_NAME(paramNameValue.get(key));
-                        break;
-                    }
-                    case "LastName": {
-                        ngisPatient.setLAST_NAME(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Gender": {
-                        ngisPatient.setGENDER(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Postcode": {
-                        ngisPatient.setPOST_CODE(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Title": {
-                        ngisPatient.setTITLE(paramNameValue.get(key));
                         break;
                     }
                 }//switch
