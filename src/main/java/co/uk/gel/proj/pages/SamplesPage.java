@@ -184,7 +184,7 @@ public class SamplesPage {
         // Counter for number of tries -loop for when error message is triggered upon selecting sample state
         int numberOfAttempts = 5;
         Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
 
