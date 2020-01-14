@@ -117,7 +117,11 @@ public class PatientChoicePage {
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
+    @FindBy(xpath = "//li[@class='message-error-line']")
+    WebElement filUploadErrorMsg;
 
+    @FindBy(id = "upload_doc")
+    WebElement docUpload;
     @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle ')]")
     WebElement fileTypeDropDown;
 
@@ -257,6 +261,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(@class,'quicklinks-subnav')]")
     WebElement rowOfLinks;
 
+    @FindBy(xpath = "//span[@class='tooltiptext']")
+    WebElement waitForDocUpload;
+
     private String consulteeAttestationFirstOption = "//label[contains(@id,'Consultee_Q1.0')][text()='" + "dummyValue" + "']";
     private String consulteeAttestationSecondOption = "//label[contains(@id,'Consultee_Q2.0')][text()='" + "dummyValue" + "']";
     private String consulteeAttestationThirdOption = "//label[contains(@id,'Consultee_Q3.0')][text()='" + "dummyValue" + "']";
@@ -315,9 +322,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//li[@class='message-blue-line']")
     WebElement uploadMessage;
-
-    @FindBy(xpath = "//span[@class='tooltiptext']")
-    WebElement waitForDocUpload;
 
     @FindBy(xpath = "//div[contains(text(),'Child assent')]")
     WebElement childAssentTitle;
@@ -470,14 +474,8 @@ public class PatientChoicePage {
         try {
             seleniumLib.clickOnWebElement(uploadDocumentOption);
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
-            if (Wait.isElementDisplayed(driver, uploadDocumentButton, 10)) {
-                uploadDocumentButton.click();
-            }
 
-            if (!seleniumLib.upload(uploadFilepath + "testfile.pdf")) {
-                Debugger.println("Could not upload document to Record Type in Patient Choice.");
-                return false;
-            }
+            seleniumLib.upload(docUpload, uploadFilepath + "testfile.pdf");
             seleniumLib.scrollToElement(fileTypeDropDown);
             seleniumLib.clickOnWebElement(fileTypeDropDown);
 

@@ -68,9 +68,9 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
-      | NHSNumber=NA:DOB=11-03-1942         | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
-      | NHSNumber=NA:DOB=12-02-1939         | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test                       |             |                                       |
+      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                     | PatientChoice                  | ChildAssent | ParentSignature |
+      | NHSNumber=NA:DOB=11-03-1942 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Patient has agreed to the test |             |                 |
+      | NHSNumber=NA:DOB=12-02-1939 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Patient has agreed to the test |             |                 |
 #      | NHSNumber=9449310327:DOB=16-12-1970 | Adult (With Capacity) | Rare & heritable diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
     Then the "<PatientChoice>" stage is marked as Completed
     #Panels
@@ -88,9 +88,9 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails                 |
-      | NHSNumber=NA:DOB=11-03-1942         |
-      | NHSNumber=NA:DOB=12-02-1939         |
+      | FamilyMemberDetails         |
+      | NHSNumber=NA:DOB=11-03-1942 |
+      | NHSNumber=NA:DOB=12-02-1939 |
 
     ##Sobmitting Referral and Cancel Referral
     When the user submits the referral
