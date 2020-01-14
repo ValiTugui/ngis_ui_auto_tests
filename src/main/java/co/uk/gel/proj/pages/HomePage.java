@@ -57,6 +57,9 @@ public class HomePage {
     public List<WebElement> cookiesUnderstandButton;
 
     @FindBy(css = "div[class*='aside']")
+    public WebElement filtersPanel2;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_filter__')]")    // //div[contains(@class,'styles_filter__')]
     public WebElement filtersPanel;
 
     @FindBy(css = "div[class*='main']")

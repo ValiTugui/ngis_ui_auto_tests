@@ -11,8 +11,10 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,6 +50,9 @@ public class PatientDetailsPage {
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
+
+    @FindBy(css = "p[class*='sub-title']")
+    public WebElement subPageTitle;
 
     @FindBy(css = "label[for*='dateOfBirth']")
     public WebElement dateOfBirthLabel;
@@ -282,6 +287,19 @@ public class PatientDetailsPage {
 
     public void clickSavePatientDetailsToNGISButton() {
         Actions.clickElement(driver, savePatientDetailsToNGISButton);
+        // After save button is clicked, wait for it to be disabled or non-clickable
+        try {
+            int counter = 5;  // Counter for number of tries
+            for (int i = 1; i <= counter; i++) {
+                if (!savePatientDetailsToNGISButton.isEnabled()) {
+                    Debugger.println("savePatient details button is now disabled or non-clickable after count " + counter);
+                    break;
+                }
+                Wait.seconds(1);
+            }
+        } catch (Exception e) {
+            Debugger.println("savePatient details button is still clickable");
+        }
     }
 
     public void patientIsCreated() {

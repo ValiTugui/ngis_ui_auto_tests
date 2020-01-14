@@ -1,6 +1,7 @@
 @regression
 @TO_Cancer
 @samplesPage
+@samplesPage2
 
 Feature: Samples Page
 

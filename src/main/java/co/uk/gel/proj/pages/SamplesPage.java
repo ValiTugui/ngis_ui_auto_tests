@@ -168,6 +168,9 @@ public class SamplesPage {
     @FindBy (css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
 
+    @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
+    public WebElement addSampleDetailsSubHeading;
+
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
         Actions.selectValueFromDropdown(dropdownValue, type);
@@ -178,14 +181,19 @@ public class SamplesPage {
     public void selectSampleState() {
         Wait.isElementDisplayed(driver, sampleState, 30);
         Actions.clickElement(driver, sampleState);
-        Wait.seconds(1);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        // Counter for number of tries -loop for when error message is triggered upon selecting sample state
+        int numberOfAttempts = 5;
+        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
+        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
         sampleDetails.setSampleState(Actions.getText(sampleState));
     }
 
     public void selectSampleState(String sampleStateValue) {
-        Actions.clickElement(driver, sampleState);
-        Actions.selectExactValueFromDropDown(dropdownValues, sampleStateValue);
+        Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
+        // Counter for number of tries - loop for when intermittent error message is triggered upon selecting sample state
+        int numberOfAttempts = 5;
+        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
+        Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
         sampleDetails.setSampleState(sampleStateValue);
     }
 

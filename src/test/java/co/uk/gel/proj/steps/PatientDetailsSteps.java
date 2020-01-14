@@ -14,6 +14,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class PatientDetailsSteps extends Pages {
@@ -308,4 +310,15 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillInTheLastNameField() {
         patientDetailsPage.fillInLastName();
     }
+
+    @And("the sub-heading title is displayed {string}")
+    public void theSubHeadingTitleIsDisplayed(String expectedSubHeading) {
+        String actualSubHeading = Objects.requireNonNull(Actions.getText(patientDetailsPage.subPageTitle)).trim();
+        expectedSubHeading = expectedSubHeading.trim();
+        Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
+        Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
+        Assert.assertEquals(expectedSubHeading,actualSubHeading);
+
+    }
+
 }

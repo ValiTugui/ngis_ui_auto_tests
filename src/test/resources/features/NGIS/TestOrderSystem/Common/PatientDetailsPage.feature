@@ -258,7 +258,6 @@ Feature: Patient details page
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
     Then the patient is successfully updated with a "Details saved"
@@ -280,3 +279,27 @@ Feature: Patient details page
     Examples:
       | stage           | gender  | lifeStatus | ethnicity   |
       | Patient details | Unknown | Deceased   | R - Chinese |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_16 @NTS-3848 @E2EUI-1609
+  Scenario Outline: NTS-3848: Verifying the sub-heading on patient details page
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - Go back to patient search - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the sub-heading title is displayed "Patient details entered here will be added to NGIS only. Contact the patient's GP to have their details updated to NHS Spine."
+
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |

@@ -484,22 +484,33 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle;
-        if(expTitle.contains("\'")){
-            // if the string contains apostrophe character, apply double quotes in the xpath string
-            pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
-        }else {
-            pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
-        }
+        try {
+            By pageTitle;
 
-        if (!seleniumLib.isElementPresent(pageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
-            if (!seleniumLib.isElementPresent(pageTitle)) {
-                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                return false;
+            if (expTitle.contains("\'")) {
+                // if the string contains apostrophe character, apply double quotes in the xpath string
+                Debugger.println("Using the page element locator regex");
+                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+            } else {
+                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
             }
+
+            if (!seleniumLib.isElementPresent(pageTitle)) {
+                Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+                if (!seleniumLib.isElementPresent(pageTitle)) {
+                    SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
+                    Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                    Debugger.println("The Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("ExceptionForPageTitle.jpg");
+            Debugger.println("Exception from validating Title page " + exp);
+            Debugger.println("Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
+            return false;
         }
-        return true;
     }
 
     public void clickOnSaveAndContinueButton() {

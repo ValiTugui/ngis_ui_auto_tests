@@ -13,6 +13,8 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
@@ -304,13 +306,20 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        if (expectedPageTitle.equals("Add sample details")) {
+            try {
+                Wait.seconds(2);
+                Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
+                Debugger.println("Sub heading - Sample Details found :");
+            } catch (TimeoutException exp) {
+                SeleniumLib.takeAScreenShot("AddSampleDetailsPage.jpg");
+                Debugger.println("Timeout loading sub-heading sample details " + exp);
+            }
+        }
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
+        Debugger.println("test-result flag for verifying page title is: " + testResult);
         Assert.assertTrue(testResult);
-        //String actualPageTitle = referralPage.getTheCurrentPageTitle();
-        //Debugger.println("Actual PageTitle : " + actualPageTitle);
-        //Debugger.println("Expected PageTitle : " + expectedPageTitle);
-
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")
