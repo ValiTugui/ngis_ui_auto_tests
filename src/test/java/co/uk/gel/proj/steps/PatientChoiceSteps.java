@@ -317,6 +317,7 @@ public class PatientChoiceSteps extends Pages {
     @And("the user submits the patient choice with signature")
     public void theUserSubmitsThePatientChoiceWithSignature() {
         patientChoicePage.submitPatientChoiceWithSignature();
+
     }
 
     @Then("the user should be able to see the patient choice form with success message")

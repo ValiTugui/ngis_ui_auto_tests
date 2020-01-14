@@ -1173,6 +1173,7 @@ public class PatientChoicePage {
         try {
             Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
             Click.element(driver, submitSignatureButton);
+            submitPatientChoice();
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
 
