@@ -187,8 +187,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickUpdateNGISRecordButton();
     }
 
-    @Then("the patient is successfully updated with a {string}")
-    public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
+    @Then("the patient is successfully updated with a message {string}")
+    public void thePatientIsSuccessfullyUpdatedWithAMessage(String expectedNotification) {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
@@ -272,6 +272,11 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
     }
 
+    @Then("the patient is successfully created with a message {string}")
+    public void thePatientIsSuccessfullyCreatedWithAMessage(String expectedNotification) {
+        thePatientIsSuccessfullyUpdatedWithAMessage(expectedNotification);
+    }
+
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
@@ -353,4 +358,11 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheNHSNumberField() {
         patientDetailsPage.fillInNHSNumber();
     }
+
+    @When("the user fills in all the fields with NHS number from the New Patient page")
+    public void theUserFillsInAllTheFieldsWithNHSNumberFromTheNewPatientPage() {
+        patientDetailsPage.fillInAllNewPatientDetails();
+        patientDetailsPage.fillInNHSNumber();
+    }
+
 }

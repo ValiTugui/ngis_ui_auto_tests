@@ -131,7 +131,7 @@ Feature: New Patient page
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
     And the Start Referral button is disabled
 
 
@@ -151,7 +151,7 @@ Feature: New Patient page
     And the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
     And the Start Referral button is disabled
 
     Examples:
@@ -259,7 +259,7 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @E2EUI-1649-1  @LOGOUT
+  @NTS-3507 @E2EUI-1649 @LOGOUT
   Scenario Outline: Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -279,7 +279,7 @@ Feature: New Patient page
       | create a new patient record | Add a new patient to the database | Other - provide explanation |
 
 
-  @E2EUI-1649-2  @LOGOUT
+  @NTS-3507 @E2EUI-1649  @LOGOUT
   Scenario Outline: Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -304,8 +304,34 @@ Feature: New Patient page
       | labelHeader     |
       | Hospital number |
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully updated with a "Details saved"
+    Then the patient is successfully created with a message "Details saved"
 
     Examples:
       | hyperlinkText               | pageTitle                         |
       | create a new patient record | Add a new patient to the database |
+
+
+   @NTS-3508 @E2EUI-1660 @LOGOUT @v_1
+  Scenario Outline:Super User - Create a new patient record with an NHS Number
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    Then the NHS number field is displayed
+    When the user fills in all the fields with NHS number from the New Patient page
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         |
+      | No patient found | create a new patient record | Add a new patient to the database |
+
+
+
+

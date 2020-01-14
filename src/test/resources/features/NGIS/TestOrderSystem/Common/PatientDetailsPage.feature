@@ -200,7 +200,7 @@ Feature: Patient details page
     Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
 #   Navigate back to patient search, to search for the patient details and verify edited details
     When the user clicks the - Go back to patient search - link
     And the user clicks the NO button
@@ -260,7 +260,7 @@ Feature: Patient details page
     Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a "Details saved"
+    Then the patient is successfully updated with a message "Details saved"
 
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
@@ -274,7 +274,7 @@ Feature: Patient details page
     And the "<stage>" stage is marked as Completed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Save and Continue button
-    Then the patient is successfully updated with a "Patient details updated"
+    Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
       | stage           | gender  | lifeStatus | ethnicity   |
