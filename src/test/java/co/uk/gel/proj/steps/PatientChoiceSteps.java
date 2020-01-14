@@ -586,5 +586,69 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user sees a success message after form upload in recorded by as {string}")
+    public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
+        Assert.assertTrue(testResult);
+    }
 
+    @Then("the user sees the specified error messages for unsupported file uploads")
+    public void theUserSelectsFileToBeUploadedFrom(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> uploadFiles = inputDetails.asLists();
+        String fileName = "";
+        String errorMessage = "";
+        for (int i = 1; i < uploadFiles.size(); i++) {
+            fileName = uploadFiles.get(i).get(0);
+            errorMessage = uploadFiles.get(i).get(1);
+            testResult = patientChoicePage.verifyInvalidFileUploadMessages(fileName, errorMessage);
+            Assert.assertTrue(testResult);
+        }
+    }
+    @When("the user clicks the Upload document button")
+    public void theUserClicksTheUploadDocumentButton() {
+        patientChoicePage.clickTheUploadDocumentButton();
+    }
+
+    @Then("the user should verify the dropdown and dob field after the document successfully uploaded")
+    public void theUserShouldVerifyTheDropdownAndDobFieldAfterTheDocumentSuccessfullyUploaded() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheDropDownAndDOBFieldOfPatientChoice();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the Date of Signature fields are displayed as {string}")
+    public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
+        boolean testResult = false;
+        if (expStatus.equals("enabled")) {
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBY();
+            Assert.assertTrue(testResult);
+        } else {
+            testResult = true;
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBY();
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @And("the user selects {string} from dropdown option in recorded by")
+    public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectUploadFormType(dropdownValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks the upload button to upload the file {string}")
+    public void theUserClicksTheUploadButtonToUploadTheFile(String fileName) {
+        boolean testResult = false;
+        testResult = patientChoicePage.uploadDocumentInRecordedBy(fileName);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the valid Date in {string}")
+    public void theUserFillsTheValidDateIn(String expDate) {
+        boolean testResult = false;
+        testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy(expDate);
+        Assert.assertTrue(testResult);
+    }
 }//end

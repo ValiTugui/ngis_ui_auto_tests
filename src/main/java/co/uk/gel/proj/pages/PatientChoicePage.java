@@ -326,6 +326,12 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(text(),'Child assent')]")
     WebElement childAssentTitle;
 
+    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
+    public WebElement formSuccessfullyUploadedMsg;
+
+    @FindBy(xpath = "//label[text()='Date of Signature']")
+    WebElement dateOfSignature;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1685,4 +1691,159 @@ public class PatientChoicePage {
         }
         return true;
     }
+
+    public boolean verifyFormUploadSuccessMessage(String expMessage) {
+        try {
+            Wait.forElementToBeDisplayed(driver, formSuccessfullyUploadedMsg);
+            String actualMessage = formSuccessfullyUploadedMsg.getText();
+            if (!expMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormUploadSuccessMsg.jpg");
+            return false;
+        }
+    }
+    public boolean verifyInvalidFileUploadMessages(String fileName, String expMessage) {
+        try {
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            seleniumLib.upload(docUpload, uploadFilepath + fileName);
+            //Wait for 5 seconds to get the error message
+            if (!Wait.isElementDisplayed(driver, filUploadErrorMsg, 30)) {
+                //Error message not yet displayed...
+                Debugger.println("Error Message for Unsupported file type not displayed");
+                return false;
+            }
+            String actMessage = filUploadErrorMsg.getText();
+            //Read the message.. and compare with what we pass
+            if (!actMessage.contains(expMessage)) {
+                Debugger.println("Expected Error Message: " + expMessage + ", But Actual is:" + actMessage);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: verifyInvalidFileUploadMessages: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDocUpload.jpg");
+            return false;
+        }
+    }
+
+    public void clickTheUploadDocumentButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDocumentOption);
+            Wait.forElementToBeClickable(driver, uploadDocumentOption);
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+        } catch (Exception exp) {
+            Debugger.println("Exception from PatientChoicePage:clickTheUploadDocumentButton: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageUploadDocumentButton.jpg");
+            Assert.assertFalse("PatientChoicePage:clickTheUploadDocumentButton:Exception:" + exp, true);
+        }
+    }
+
+    public boolean uploadDocumentInRecordedBy(String fileName) {
+        try {
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            // Uploading file by sending webelement and file name with path as value
+            seleniumLib.upload(docUpload, uploadFilepath + fileName);
+            if (!Wait.isElementDisplayed(driver, formSuccessfullyUploadedMsg, 20)) {
+                //success message not yet displayed...
+                Debugger.println("Success Message for file upload not displayed");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from uploading file..." + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceUploadDocumentInRecordedBy.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheDropDownAndDOBFieldOfPatientChoice() {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            if (!seleniumLib.isElementPresent(fileTypeDropDown)) {
+                Debugger.println("Dropdown is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadDay)) {
+                Debugger.println("Day is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadMonth)) {
+                Debugger.println("Month is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadYear)) {
+                Debugger.println("Year is not present after uploading the file...");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyTheDropDownAndDOBFieldOfPatientChoice, Exception found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageDropDownAndDOBField.jpg");
+            return false;
+        }
+    }
+    public boolean dateOfSignatureStatusInRecordedBY() {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateOfSignature);
+            if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
+                Debugger.println("Date of Signature fields are in enabled state.");
+                return true;
+            }
+            Debugger.println("Date of Signature fields are in disabled state.");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Date of Signature fields not found. " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureStatus.jpg");
+            return false;
+        }
+    }
+
+    public boolean selectUploadFormType(String dropdownValue) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            seleniumLib.scrollToElement(fileTypeDropDown);
+            seleniumLib.clickOnWebElement(fileTypeDropDown);
+//            Debugger.println("After clicking dropdown.....");
+            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", dropdownValue));
+            WebElement dropdownElement = driver.findElement(formType);
+            if (!seleniumLib.isElementPresent(dropdownElement)) {
+                Debugger.println("Form type dropdown value not found");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(dropdownElement);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selecting dropdown in recorded by" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceRecordedByPleaseSelectDropDown.jpg");
+            return false;
+        }
+    }
+
+    // new method created to fill any date being passed which replaces the fillingTheDOBInRecordedBy method which was only filling today's date
+    public boolean fillTheDateOfSignatureInRecordedBy(String signatureDate) {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateOfSignature);
+            if (signatureDate != null && !signatureDate.isEmpty()) {
+                String[] dobSplit = signatureDate.split("/");
+                uploadDay.sendKeys(dobSplit[0]);
+                uploadMonth.sendKeys(dobSplit[1]);
+                uploadYear.sendKeys(dobSplit[2]);
+                return true;
+            }
+            Debugger.println("Date of Signature value is not present ");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureFilling.jpg");
+            return false;
+        }
+    }
+
 }//end
