@@ -187,8 +187,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickUpdateNGISRecordButton();
     }
 
-    @Then("the patient is successfully updated with a {string}")
-    public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
+    @Then("the patient is successfully updated with a message {string}")
+    public void thePatientIsSuccessfullyUpdatedWithAMessage(String expectedNotification) {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
@@ -272,6 +272,11 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
     }
 
+    @Then("the patient is successfully created with a message {string}")
+    public void thePatientIsSuccessfullyCreatedWithAMessage(String expectedNotification) {
+        thePatientIsSuccessfullyUpdatedWithAMessage(expectedNotification);
+    }
+
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
@@ -318,7 +323,46 @@ public class PatientDetailsSteps extends Pages {
         Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
         Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
         Assert.assertEquals(expectedSubHeading,actualSubHeading);
+    }
 
+    @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
+    public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+    @And("the NHS number field is displayed")
+    public void theNHSNumberFieldIsDisplayed() {
+        boolean nhsFieldDisplayed;
+        nhsFieldDisplayed = Wait.isElementDisplayed(driver,patientDetailsPage.nhsNumber,5);
+        Assert.assertTrue(nhsFieldDisplayed);
+        Debugger.println("NHS Number field is displayed");
+    }
+
+
+    @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
+    public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+
+    @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
+    public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearField(patientDetailsPage.nhsNumber);
+    }
+
+    @When("the user fills in the NHS Number field")
+    public void theUserFillsInTheNHSNumberField() {
+        patientDetailsPage.fillInNHSNumber();
+    }
+
+    @When("the user fills in all the fields with NHS number from the New Patient page")
+    public void theUserFillsInAllTheFieldsWithNHSNumberFromTheNewPatientPage() {
+        patientDetailsPage.fillInAllNewPatientDetails();
+        patientDetailsPage.fillInNHSNumber();
     }
 
 }

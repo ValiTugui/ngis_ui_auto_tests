@@ -232,6 +232,7 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
         if (reason.equalsIgnoreCase("Other - provide explanation")) {
             Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+            Actions.clickElement(driver,otherReasonExplanation);
             otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
         }
         //This function moved from top to last as in e2e latest, works like this.
@@ -689,5 +690,9 @@ public class PatientDetailsPage {
         FamilyMemberDetailsPage.addedFamilyMembers.add(familyMember);
         Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
         Actions.clickElement(driver, addNewPatientToReferral);
+    }
+
+    public void fillInNHSNumber(){
+        Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
     }
 }
