@@ -122,7 +122,7 @@ public class PatientChoicePage {
 
     @FindBy(id = "upload_doc")
     WebElement docUpload;
-    @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle ')]")
+    @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle')]")
     WebElement fileTypeDropDown;
 
     @FindBy(xpath = "//input[@placeholder='DD']")
@@ -481,8 +481,12 @@ public class PatientChoicePage {
             seleniumLib.clickOnWebElement(uploadDocumentOption);
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
 
-            seleniumLib.upload(docUpload, uploadFilepath + "testfile.pdf");
-            seleniumLib.scrollToElement(fileTypeDropDown);
+            if(!seleniumLib.upload(docUpload, uploadFilepath + "testfile.pdf")){
+                Debugger.println("Could not upload the file....");
+                return false;
+            }
+            Wait.seconds(2);
+            seleniumLib.scrollToElement(uploadDocumentOption);
             seleniumLib.clickOnWebElement(fileTypeDropDown);
 
             By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", fileType));
@@ -667,7 +671,12 @@ public class PatientChoicePage {
 
     public boolean submitPatientChoice() {
         try {
-            submitPatientChoice.click();
+            if(!Wait.isElementDisplayed(driver,submitPatientChoice,20)){
+                patientChoicesContinueButton.click();
+                submitPatientChoiceButton.click();
+            }else {
+                submitPatientChoice.click();
+            }
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 return false;
             }

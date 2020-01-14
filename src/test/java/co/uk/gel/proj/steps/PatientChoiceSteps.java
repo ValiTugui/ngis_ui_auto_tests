@@ -91,18 +91,20 @@ public class PatientChoiceSteps extends Pages {
                     Debugger.println("Child Assent Done. Continuing....");
                     patientChoicePage.clickOnContinue();
                 }
-                Debugger.println("Parent/Patient Signature....start.");
-                patientChoicePage.drawSignature();
-                Debugger.println("Parent/Patient Signature Done...Submitting form");
+                if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
+                    Debugger.println("Parent/Patient Signature....start.");
+                    patientChoicePage.drawSignature();
+                    Debugger.println("Parent/Patient Signature Done...Submitting form");
+                }
                 if (!patientChoicePage.submitPatientChoice()) {
                     Debugger.println("Submitted form, but save and continue not displayed..Proceeding to next Patient..");
                     referralPage.navigateToStage("Patient choice");
                     Wait.seconds(5);
                     continue;
-                } else {
-                    Debugger.println("Submitted.....Continuing");
-                    referralPage.clickOnSaveAndContinueButton();
                 }
+                Debugger.println("Submitted.....Continuing");
+                referralPage.clickOnSaveAndContinueButton();
+
                 Debugger.println("DONE.");
 
             }//end

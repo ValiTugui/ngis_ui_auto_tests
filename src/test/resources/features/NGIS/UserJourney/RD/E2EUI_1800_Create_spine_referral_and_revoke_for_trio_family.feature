@@ -54,7 +54,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
       | NHSNumber=NA:DOB=11-03-1942:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 #      | NHSNumber=NA:DOB=12-02-1939:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
-    #patient choice for the proband
+    ##patient choice for the proband
     And the user clicks the Save and Continue button
     Then the "<PatientChoice>" stage is selected
     When the user selects the proband

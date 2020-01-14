@@ -25,8 +25,8 @@ Feature: Patient Choice Page
     And the user should be able to see the patient choice form with success message
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Verify the info message when user declined for a test
@@ -79,8 +79,8 @@ Feature: Patient Choice Page
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3414 @E2EUI-1889 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3414: Verify the Supporting information form section in form library
@@ -182,8 +182,8 @@ Feature: Patient Choice Page
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3418 @E2EUI-1702 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
@@ -235,8 +235,8 @@ Feature: Patient Choice Page
     Then the user will see a "<WarningMessage2>" warning message on the patient choice information option
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
   @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
@@ -264,8 +264,8 @@ Feature: Patient Choice Page
     And the user should be able to see patient choice in history tab
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3437 @E2EUI-1878 @LOGOUT @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
@@ -287,88 +287,5 @@ Feature: Patient Choice Page
     Then the user should be able to see replaced patient choice in history tab
 
     Examples:
-      | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      |
-      | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |
-
-  @NTS-3446 @E2EUI-2035 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-
-     ##Family Members - Family member details to be added - creating new referrals
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
-    And the user clicks on Continue Button
-    Then the user is navigated to a page with title Patient choice
-    When the user edits patient choice for the newly added family member
-    Then the user is navigated to a page with title Add family member patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
-    Then the Patient choice category option is marked as completed
-    When the user fills "<TestType>" details in test type
-    And the user should see the chosen "<TestType>" with edit button in "Test type"
-    Then the Test type option is marked as completed
-    When the user is navigated to a patient choice form option with title Recorded by
-    And the user clicks on edit button in Test type
-    And the user fills "<TestType1>" details in test type
-    And the user should see the chosen "<TestType1>" with edit button in "Test type"
-    Then the Test type option is marked as completed
-    And the user is navigated to a patient choice form option with title Recorded by
-
-    Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | NoOfParticipants | PatientChoiceCategory | TestType                        | TestType1                           |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | 2                | Adult (With Capacity) | Rare & inherited diseases – WGS | Cancer (paired tumour normal) – WGS |
-
-  @NTS-3445 @E2EUI-1931 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-
-    And the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-
-    And the "<FamilyMembers>" stage is marked as Mandatory To Do
-    And the user clicks on Continue Button
-    Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status for family member with "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Add family member patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    And the user fills "<TestType>" details in test type
-    And the user fills "<RecordedBy>" details in recorded by
-    And the user clicks on Continue Button
-    Then the user is navigated to a patient choice form option with title Patient choices
-    When the user selects the option "<PatientChoice>" as patient choices
-    And the user selects "<YesOption>" research participation option in patient choices
-    And the user selects "<YesOption>" data and sample option in patient choices
-    And the user clicks on Continue Button
-    When the user is navigated to a patient choice form option with title Patient signature
-    And the user fills PatientSignature details in patient signature
-    And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form with success message
-    And the user clicks the Save and Continue button
-    Then the "<FamilyMembers>" stage is marked as Mandatory To Do
-    Then the "<PatientChoiceStage>" stage is marked as Mandatory To Do
-
-    Examples:
-      | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoiceStage | FamilyMemberDetails                 | RelationshipToProband | ClinicalQuestionDetails  | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Test package | 1                | Family members | Patient choice     | NHSNumber=9449307563:DOB=26-03-2009 | Full Sibling          | DiseaseStatus=Unaffected | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+     | TestType                        | RecordedBy                            | PatientChoice                                      |
+     | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |
