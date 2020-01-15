@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import org.openqa.selenium.WebDriver;
@@ -33,6 +34,14 @@ public class DashBoardPage {
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
 
+    @FindBy(css = "a[href*='test-order']")
+    public WebElement testOrderLocator;
+
+    @FindBy(css = "a[href*='test-selection']")
+    public WebElement testSelectionLocator;
+
+
+
     public void navigateToDashboardPage() {
         driver.get(AppConfig.getTo_dashboard_url());
         if (!(driver.getCurrentUrl().contains("patient-search"))) {
@@ -57,4 +66,13 @@ public class DashBoardPage {
         }
     }
 
+    public void clickOrderAGenomicTest(){
+        Wait.forElementToBeDisplayed(driver, testOrderLocator);
+        Actions.clickElement(driver, testOrderLocator);
+    }
+
+    public void clickFindAGenomicTest(){
+        Wait.forElementToBeDisplayed(driver, testSelectionLocator);
+        Actions.clickElement(driver, testSelectionLocator);
+    }
 }

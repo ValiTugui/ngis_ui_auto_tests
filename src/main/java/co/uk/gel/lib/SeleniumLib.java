@@ -523,7 +523,7 @@ public class SeleniumLib {
             driver.switchTo().window(window);
         }
     }
-
+    //File upload logic changed from using Robot script to Selenium option
     public static boolean upload(WebElement element, String path) {
         try {
             File file = new File(path);
@@ -650,6 +650,7 @@ public class SeleniumLib {
             return false;
         }
     }
+    //Created new method, where tooltip on mouseMove need to be validated
     public boolean moveAndClickOn(WebElement element) {
         try {
             Actions action = new Actions(driver);

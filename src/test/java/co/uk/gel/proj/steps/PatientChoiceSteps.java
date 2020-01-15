@@ -18,6 +18,13 @@ public class PatientChoiceSteps extends Pages {
         super(driver);
     }
 
+    @When("the user edits the patient choice status")
+    public void theUserEditsThePatientChoiceStatus() {
+        boolean testResult = false;
+        testResult = patientChoicePage.editPatientChoice();
+        Assert.assertTrue(testResult);
+    }
+
     @When("the user fills new patient choice form with below details")
     public void theUserFillsNewPatientChoiceForm(DataTable inputData) {
         boolean testResult = false;

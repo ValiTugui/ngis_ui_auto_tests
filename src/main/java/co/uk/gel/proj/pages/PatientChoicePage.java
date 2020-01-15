@@ -258,9 +258,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(@class,'quicklinks-subnav')]")
     WebElement rowOfLinks;
 
-    @FindBy(xpath = "//span[@class='tooltiptext']")
-    WebElement waitForDocUpload;
-
     private String consulteeAttestationFirstOption = "//label[contains(@id,'Consultee_Q1.0')][text()='" + "dummyValue" + "']";
     private String consulteeAttestationSecondOption = "//label[contains(@id,'Consultee_Q2.0')][text()='" + "dummyValue" + "']";
     private String consulteeAttestationThirdOption = "//label[contains(@id,'Consultee_Q3.0')][text()='" + "dummyValue" + "']";
@@ -320,6 +317,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//li[@class='message-blue-line']")
     WebElement uploadMessage;
 
+    @FindBy(xpath = "//span[@class='tooltiptext']")
+    WebElement waitForDocUpload;
+
     @FindBy(xpath = "//div[contains(text(),'Child assent')]")
     WebElement childAssentTitle;
 
@@ -340,7 +340,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
     public boolean editSpecificPatientChoice(String familyDetails) {
         String nhsNumber = "";
         try {
@@ -498,7 +497,7 @@ public class PatientChoicePage {
             By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", fileType));
             WebElement element = driver.findElement(formType);
             element.click();
-            //Date need to pass as today's date.
+            //Date need to pass as today's date. Getting current day moved to TestUtils
             String today[] = TestUtils.getCurrentDay();
 
             uploadDay.sendKeys(today[0]);
@@ -668,6 +667,7 @@ public class PatientChoicePage {
 
     public boolean submitPatientChoice() {
         try {
+            //Logic and component changed as different option while using drwaSignature and Fileupload
             if(Wait.isElementDisplayed(driver,submitPatientChoiceButton,60)){//Waiting for 60 seconds
                 if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {//Waiting for another 30 seconds
                     return false;
@@ -944,7 +944,7 @@ public class PatientChoicePage {
 
     public boolean clickOnSaveAndContinueButton() {
         try {
-            if (Wait.isElementDisplayed(driver, saveAndContinueButton, 120)) {
+            if (Wait.isElementDisplayed(driver, saveAndContinueButton, 200)) {
                 Wait.forElementToBeClickable(driver, saveAndContinueButton);
                 seleniumLib.clickOnWebElement(saveAndContinueButton);
             }
@@ -1666,6 +1666,7 @@ public class PatientChoicePage {
 
     public boolean waitForFormUpload(String expTitle) {
         Debugger.println("Waiting for form Upload...");
+        //Logic has changed as tooltip coming for big files while uplaoding.Waiting to dissappear the tooltip.
         seleniumLib.moveAndClickOn(continueButton);
         if(seleniumLib.isElementPresent(waitForDocUpload)){
             Wait.forElementToDisappear(driver,By.xpath("//span[@class='tooltiptext']"));
