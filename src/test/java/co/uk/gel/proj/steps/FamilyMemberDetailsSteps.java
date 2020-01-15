@@ -444,20 +444,26 @@ public class FamilyMemberDetailsSteps extends Pages {
                     referralPage.clickSaveAndContinueButton();
                 }
                 Debugger.println("Verifying Selected Test Details.");
+                Wait.seconds(2);
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
                     Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
                 }
                 Debugger.println("Clicking on SaveAndContinue.");
+                Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
+                Wait.seconds(2);
                 Debugger.println("Disease status filling..........");
                 clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
-               Debugger.println("Clicking on SaveAndContinue.");
+                Wait.seconds(2);
+                Debugger.println("Clicking on SaveAndContinue.");
                 referralPage.clickSaveAndContinueButton();
+                Wait.seconds(2);
                 Debugger.println("Verifying added family details in landing page..........");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
+                Wait.seconds(2);
                 Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){

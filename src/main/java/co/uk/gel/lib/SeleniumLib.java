@@ -523,21 +523,20 @@ public class SeleniumLib {
             driver.switchTo().window(window);
         }
     }
-    //   .................. upload file method.............
 
     public static boolean upload(WebElement element, String path) {
         try {
             File file = new File(path);
             if (!file.exists()) {
-                Debugger.println("File does not exist:"+path);
+                Debugger.println("Specified File does not exist for upload:"+path);
                 return false;
             }
-            Debugger.println("Uploading the file:- "+path);
+            Debugger.println("Uploading the file: "+path);
             element.sendKeys(path);
             Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
-            Debugger.println("File Upload Exception from SeleniumLib: " + exp);
+            Debugger.println("Exception from uploading the file: " + exp);
             return false;
         }
     }
@@ -651,6 +650,15 @@ public class SeleniumLib {
             return false;
         }
     }
-
+    public boolean moveAndClickOn(WebElement element) {
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(element).build().perform();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            return false;
+        }
+    }
 }//end
 

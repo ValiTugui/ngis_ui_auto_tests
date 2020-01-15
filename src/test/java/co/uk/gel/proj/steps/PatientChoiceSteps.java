@@ -18,13 +18,6 @@ public class PatientChoiceSteps extends Pages {
         super(driver);
     }
 
-    @When("the user edits the patient choice status")
-    public void theUserEditsThePatientChoiceStatus() {
-        boolean testResult = false;
-        testResult = patientChoicePage.editPatientChoice();
-        Assert.assertTrue(testResult);
-    }
-
     @When("the user fills new patient choice form with below details")
     public void theUserFillsNewPatientChoiceForm(DataTable inputData) {
         boolean testResult = false;
@@ -40,7 +33,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         patientChoicePage.clickOnContinue();
-        testResult = patientChoicePage.selectPatientChoice(patientChoice.get(3).get(0));
+        testResult = patientChoicePage.selectPatientChoiceOption(patientChoice.get(3).get(0));
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
@@ -72,19 +65,25 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("Doing Patient Choice for " + memberDetails.get(i).get(0));
                 patientChoicePage.selectMember(i);
                 Debugger.println("PatientChoiceCategory..Start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Debugger.println("TestType..Done.Record Type start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Debugger.println("Record Type..Done..Continuing...");
+                Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
-                Assert.assertTrue(patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4)));
+                Wait.seconds(2);
+                Assert.assertTrue(patientChoicePage.selectPatientChoiceOption(memberDetails.get(i).get(4)));
+                Wait.seconds(2);
                 patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
+                Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
-
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
                     Debugger.println("Child Assent start");
                     Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
@@ -103,7 +102,7 @@ public class PatientChoiceSteps extends Pages {
                     continue;
                 }
                 Debugger.println("Submitted.....Continuing");
-                referralPage.clickOnSaveAndContinueButton();
+                patientChoicePage.clickOnSaveAndContinueButton();
 
                 Debugger.println("DONE.");
 
@@ -179,7 +178,7 @@ public class PatientChoiceSteps extends Pages {
     @When("the user selects the option {string} as patient choices")
     public void theUserFillsDetailsInPatientChoices(String inputData) {
         boolean testResult = false;
-        testResult = patientChoicePage.selectPatientChoice(inputData);
+        testResult = patientChoicePage.selectPatientChoiceOption(inputData);
         Assert.assertTrue(testResult);
         Wait.seconds(3);
     }
@@ -323,7 +322,6 @@ public class PatientChoiceSteps extends Pages {
     @And("the user submits the patient choice with signature")
     public void theUserSubmitsThePatientChoiceWithSignature() {
         patientChoicePage.submitPatientChoiceWithSignature();
-
     }
 
     @Then("the user should be able to see the patient choice form with success message")
@@ -430,7 +428,7 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the Patient Choice landing page is updated to {string} for the proband")
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
-         //Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
+         Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
@@ -657,4 +655,33 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy(expDate);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes and uploading recording form")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesAndUploadingForm() {
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType();
+        Wait.seconds(2);
+        patientChoicePage.fillRecordedByDetails("","ClinicianName=John:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf");
+        Wait.seconds(5);
+        patientChoicePage.selectPatientChoiceOption("Patient has agreed to the test");
+        Wait.seconds(5);
+        patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
+        Wait.seconds(2);
+        patientChoicePage.clickOnContinue();
+        Wait.seconds(2);
+        if(!patientChoicePage.submitPatientChoice()){//Trying again as sometimes the click not happened.
+            Debugger.println("Continuing from Patient Choice again as looks like the first click not happened.");
+            patientChoicePage.clickOnContinue();
+            Wait.seconds(2);
+            patientChoicePage.submitPatientChoice();
+            Wait.seconds(2);
+        }
+        Debugger.println("Proband Patient Choice Submitted..");
+    }
+    @And("the user save patient choice form and continue")
+    public void theUserSavePatientChoiceFormAndContinue() {
+       patientChoicePage.clickOnSaveAndContinueButton();
+    }
+
 }//end
