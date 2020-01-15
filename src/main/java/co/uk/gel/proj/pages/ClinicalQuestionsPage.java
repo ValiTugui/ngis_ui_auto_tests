@@ -169,7 +169,7 @@ public class ClinicalQuestionsPage {
 
     }
 
-    public boolean selectDiseaseStatus(String diseaseStatusValue) {
+    public String selectDiseaseStatus(String diseaseStatusValue) {
         try {
             if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,15)){
                 Actions.scrollToTop(driver);
@@ -177,10 +177,10 @@ public class ClinicalQuestionsPage {
             Actions.clickElement(driver, diseaseStatusDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
-            return true;
+            return Actions.getText(diseaseStatusDropdown);
         }catch(Exception exp){
             Debugger.println("Exception from selecting Disease Status in Clinical Page: "+exp);
-            return false;
+            return null;
         }
     }
 
@@ -396,6 +396,8 @@ public class ClinicalQuestionsPage {
 
     public boolean verifySpecificDiseaseStatusValue(String expectedDiseaseStatus){
         Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+        Debugger.println("Expected diseaseStatus       : " + expectedDiseaseStatus);
+        Debugger.println("Actual diseaseStatusDropdown : " + Actions.getText(diseaseStatusDropdown));
         return Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(expectedDiseaseStatus);
     }
 
@@ -415,4 +417,32 @@ public class ClinicalQuestionsPage {
         return Actions.getText(karyotypicSexDropdown);
     }
 
+    public String selectSpecificKaryotypicSexDropdownValue(String value){
+     try {
+            if(!Wait.isElementDisplayed(driver, karyotypicSexDropdown,15)){
+                Actions.scrollToTop(driver);
+            }
+            Actions.clickElement(driver, karyotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, value);
+            return Actions.getText(karyotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
+        }catch(Exception exp){
+            Debugger.println("Clinical Questions Page : Exception from selecting Karyotypic Sex : "+exp);
+            SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
+            return null;
+        }
+    }
+
+    public boolean verifySpecificHPOTermDisplayed(String expectedHPOTermToBeDisplayed) {
+        boolean elementFound = false;
+        Wait.seconds(2);
+        Wait.forElementToBeDisplayed(driver, hpoTable);
+        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+        for(WebElement hpoTerm : hpoTermNames){
+            if(hpoTerm.getText().contains(expectedHPOTermToBeDisplayed)){
+                elementFound = true;
+            }
+        }
+        return elementFound;
+    }
 }

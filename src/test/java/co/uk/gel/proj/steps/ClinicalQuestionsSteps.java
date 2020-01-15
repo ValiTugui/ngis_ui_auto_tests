@@ -59,7 +59,11 @@ public class ClinicalQuestionsSteps extends Pages {
         if(diseaseStatus.contentEquals("USER_DOES_NOT_SELECT_ANY_VALUE")){
             // No need to set a disease value in UI if User doesn't select a value
         } else {
-            clinicalQuestionsPage.selectDiseaseStatus(diseaseStatus);
+            String actualDiseaseStatus = clinicalQuestionsPage.selectDiseaseStatus(diseaseStatus);
+            Assert.assertNotNull(actualDiseaseStatus);
+            Debugger.println("Expected Disease Status value : " + diseaseStatus);
+            Debugger.println("Actual   Disease Status value : " + actualDiseaseStatus);
+            Assert.assertTrue(actualDiseaseStatus.contains(diseaseStatus));
         }
     }
 
@@ -161,11 +165,11 @@ public class ClinicalQuestionsSteps extends Pages {
         theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
 
-    @And("the user sees the data such as {string} {string} {string} phenotypic and karyotypic sex are saved")
-    public void theUserSeesTheDataSuchAsPhenotypicAndKaryotypicSexAreSaved(String expectedHPOTerm, String searchTerms, String expectedRareDiseaseValue) {
+    @And("the user sees the data such as {string} {string} {string} {string} phenotypic and karyotypic sex are saved")
+    public void theUserSeesTheDataSuchAsPhenotypicAndKaryotypicSexAreSaved(String expectedDiseaseStatus, String expectedHPOTerm, String searchTerms, String expectedRareDiseaseValue) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchTerms);
         String[] expectedAgeOnSets = paramNameValue.get("AgeOfOnset").split(",");
-        String expectedDiseaseStatus = paramNameValue.get("DiseaseStatus");
+        String expectedHPOTermInFirstRow = paramNameValue.get("HpoPhenoType");
         Debugger.println("expected age on sets years : " + expectedAgeOnSets[0]);
         Debugger.println("expected age on sets months: " + expectedAgeOnSets[1]);
         // verify Age On Set
@@ -174,7 +178,8 @@ public class ClinicalQuestionsSteps extends Pages {
         // verify Disease Status
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
         // verify HPO term
-        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTermInFirstRow));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTerm));
         //verify Rare Disease Diagnoses
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseValue(expectedRareDiseaseValue));
         //verify Phenotypic and karyotypic sex
@@ -182,4 +187,22 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertNotNull(clinicalQuestionsPage.getKaryotypicSexDropdownValue());
 
     }
+    @When("the user search for a HPO phenotype term {string} by selecting from the list of answers")
+    public void theUserSearchForAHPOPhenotypeTermBySelectingFromTheListOfAnswers(String hpoTerm) {
+        theUserAddsANewHPOPhenotypeTerm(hpoTerm);
+    }
+
+    @And("the user searches for the Rare disease diagnosis {string} by selecting from the list of answers")
+    public void theUserSearchesForTheRareDiseaseDiagnosisBySelectingFromTheListOfAnswers(String diagnosis) {
+        theUserSelectsAValueFromTheRareDiseaseDiagnosis(diagnosis);
+    }
+
+    @And("the user searches for the karyotypic sex {string} by selecting from the result list")
+    public void theUserSearchesForTheKaryotypicSexBySelectingFromTheResultList(String expectedValue) {
+        String actualKaryotypicSexValue = clinicalQuestionsPage.selectSpecificKaryotypicSexDropdownValue(expectedValue);
+        Assert.assertNotNull(actualKaryotypicSexValue);
+        Assert.assertTrue(actualKaryotypicSexValue.equalsIgnoreCase(expectedValue));
+    }
+
+
 }
