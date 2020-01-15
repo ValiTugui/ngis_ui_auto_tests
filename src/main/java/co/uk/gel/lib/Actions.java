@@ -41,29 +41,13 @@ public class Actions {
         dropDownValues.get(index).click();
     }
 
-    public static void retrySelectExactValueFromDropDown(WebDriver driver, List<WebElement> dropDownElementValues, String value) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-            wait.until(ExpectedConditions.visibilityOfAllElements(dropDownElementValues));
-            List<String> actualDropDownValues = new ArrayList<>();
-            for (WebElement dropDownElement : dropDownElementValues) {
-                actualDropDownValues.add(dropDownElement.getText().trim());
-            }
-            int index = actualDropDownValues.indexOf(value);
-            dropDownElementValues.get(index).click();
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-            Debugger.println("Unable to select value from drop down.");
-        }
-    }
 
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
         try {
             int index = random.nextInt(dropdownValues.size() - 1);
             Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
             dropdownValues.get(index).click();
-        } catch (IllegalArgumentException exp) {
+        } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
             Debugger.println("Select the first dropDownValues" + exp);
              dropdownValues.get(0).click(); // Select the first dropDownValues
             //selectByIndexFromDropDown(dropdownValues, 0);
@@ -78,6 +62,14 @@ public class Actions {
             return null;
         }
     }
+
+
+    public void editTextField(WebDriver driver, WebElement element, String value) {
+        Wait.forElementToBeDisplayed(driver, element);
+        element.clear();
+        element.sendKeys(value);
+    }
+
 
     public static String getValue(WebElement element) {
         return element.getAttribute("value");
@@ -249,6 +241,24 @@ public class Actions {
             e.printStackTrace();
         }
     }
+
+    public static void retrySelectExactValueFromDropDown(WebDriver driver, List<WebElement> dropDownElementValues, String value) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 30);
+            wait.until(ExpectedConditions.visibilityOfAllElements(dropDownElementValues));
+            List<String> actualDropDownValues = new ArrayList<>();
+            for (WebElement dropDownElement : dropDownElementValues) {
+                actualDropDownValues.add(dropDownElement.getText().trim());
+            }
+            int index = actualDropDownValues.indexOf(value);
+            dropDownElementValues.get(index).click();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+            Debugger.println("Unable to select value from drop down.");
+        }
+    }
+
 
     public static void reClickDropDownFieldIfLabelErrorIsShown(WebDriver driver, List<WebElement> fieldErrors, WebElement element, WebElement elementLabel, int counter)
     {
