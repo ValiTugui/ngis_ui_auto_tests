@@ -11,7 +11,6 @@ Feature: Clinical Questions stage
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
-    Then the "<title>" page is displayed
     And  the user selects "<diseaseStatueValue>"
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
