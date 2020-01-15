@@ -303,3 +303,45 @@ Feature: Patient details page
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+
+
+  @NTS-3513 @E2EUI-849 @LOGOUT @P0 @v_1
+  Scenario Outline:NTS-3513: Patient-detail page - User journey when Clinical Indication has not been selected
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - Go back to patient search - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the clinical indication ID missing banner is displayed
+    And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
+    And the Start Referral button is disabled
+    When the user clicks the Test Directory link from the notification banner
+    Then the Test Directory homepage is displayed
+#    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
+    Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    When the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+    And the user clicks the Start Referral button
+    And the referral page is displayed
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+
+

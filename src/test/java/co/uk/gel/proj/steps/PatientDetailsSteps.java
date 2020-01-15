@@ -286,7 +286,7 @@ public class PatientDetailsSteps extends Pages {
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
 
-        Assert.assertEquals(titlePage,referralPage.getTheCurrentPageTitle());
+        Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
 
         List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
@@ -303,11 +303,11 @@ public class PatientDetailsSteps extends Pages {
             Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
 
-            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2)+ " count: " + i);
+            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2) + " count: " + i);
             expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLabelsAndErrorMessagesList.get(i).get(2));
             Debugger.println("Expected ErrorMessage Colour RGB " + expectedFontColorInRGB);
             Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
-            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i-1));
+            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i - 1));
         }
     }
 
@@ -322,7 +322,7 @@ public class PatientDetailsSteps extends Pages {
         expectedSubHeading = expectedSubHeading.trim();
         Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
         Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
-        Assert.assertEquals(expectedSubHeading,actualSubHeading);
+        Assert.assertEquals(expectedSubHeading, actualSubHeading);
     }
 
     @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
@@ -334,7 +334,7 @@ public class PatientDetailsSteps extends Pages {
     @And("the NHS number field is displayed")
     public void theNHSNumberFieldIsDisplayed() {
         boolean nhsFieldDisplayed;
-        nhsFieldDisplayed = Wait.isElementDisplayed(driver,patientDetailsPage.nhsNumber,5);
+        nhsFieldDisplayed = Wait.isElementDisplayed(driver, patientDetailsPage.nhsNumber, 5);
         Assert.assertTrue(nhsFieldDisplayed);
         Debugger.println("NHS Number field is displayed");
     }
@@ -363,6 +363,14 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInAllTheFieldsWithNHSNumberFromTheNewPatientPage() {
         patientDetailsPage.fillInAllNewPatientDetails();
         patientDetailsPage.fillInNHSNumber();
+    }
+
+    @And("the message displayed on the notification banner is {string}")
+    public void theMessageDisplayedOnTheNotificationBannerIs(String expectedTextOnBanner) {
+        String actualTextOnBanner = Actions.getText(patientDetailsPage.textOnPatientDetailsNotificationBanner);
+        Debugger.println("Expected Text on Banner : " + expectedTextOnBanner);
+        Debugger.println("Actual Text on Banner : " + actualTextOnBanner);
+        Assert.assertEquals(expectedTextOnBanner, actualTextOnBanner);
     }
 
 }

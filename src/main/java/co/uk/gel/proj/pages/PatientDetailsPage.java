@@ -99,6 +99,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[text()='Test Directory']")
     public WebElement testDirectoryLinkOnBanner;
 
+    @FindBy(xpath = "//div[contains(@class,'notification__text')]")
+    public WebElement textOnPatientDetailsNotificationBanner;
+
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
 
