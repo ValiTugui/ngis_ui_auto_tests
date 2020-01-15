@@ -120,7 +120,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation |
 
-  @NTS-3465 @E2EUI-892 @E2EUI-1475 @LOGOUT @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @LOGOUT @v_1
   Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
