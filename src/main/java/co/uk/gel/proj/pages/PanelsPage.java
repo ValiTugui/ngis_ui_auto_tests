@@ -9,7 +9,6 @@ import org.apache.commons.lang.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,13 @@ public class PanelsPage {
 
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSuggestionList;
+
+    @FindBy(xpath = "//ul[contains(@class,'styles_panel-list')]/li[1]//input")
+    public WebElement firstSuggestedPanel;
+
+    @FindBy(xpath = "//ul[contains(@class,'styles_panel-list')]/li//span")
+    public List<WebElement> selectedPanelsList;
+
 
     @FindBy(xpath = "//span[contains(@class,'select-panel__name')]")
     public WebElement selectedPanels;
@@ -68,8 +74,8 @@ public class PanelsPage {
     @FindBy(xpath = "//h1[contains(text(),'panels')]")
     public WebElement panelAppTitle;
 
-    @FindBy(xpath = "//input[@checked]/ancestor::div[contains(@class,'checked')]")
-    public List<WebElement> selectedPanelsList;
+//    @FindBy(xpath = "//input[@checked]/ancestor::div[contains(@class,'checked')]")
+//    public List<WebElement> selectedPanelsList;
 
     @FindBy(xpath = "//div[@class='styles_select-panel__3qIYD']")
     public List<WebElement> deselectedPanelsList;
@@ -80,19 +86,27 @@ public class PanelsPage {
     @FindBy(xpath = "//a[contains(@class,'styles_select-panel__link')]")
     List<WebElement> suggestionsList;
 
-    public boolean panelSearchFieldAndSearchIcon() {
+    String titleStringPath = "//h3[contains(text(),'dummyTitle')]";
+
+    public boolean panelSearchFieldAndSearchIcon(String expTitle) {
         try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
-            if (!seleniumLib.isElementPresent(addAnotherPanel)) {
-                Debugger.println("Panels Page:Add another panel, Label not found");
-                return false;
+            if(!expTitle.isEmpty()) {
+                By titleElement = By.xpath(titleStringPath.replaceAll("dummyTitle",expTitle));
+                if (!seleniumLib.isElementPresent(titleElement)) {
+                    Debugger.println("Panels Page: Title "+expTitle+" not present as expected.");
+                    SeleniumLib.takeAScreenShot("PanelsPage.jpg");
+                    return false;
+                }
             }
             if (!seleniumLib.isElementPresent(panelsSearchFieldPlaceHolder)) {
-                Debugger.println("Panels Page:Add another panel, Field not found");
+                Debugger.println("Panels Page: Search field not present.");
+                SeleniumLib.takeAScreenShot("PanelsPage.jpg");
                 return false;
             }
             if (!seleniumLib.isElementPresent(panelsSearchIcon)) {
-                Debugger.println("Panels Page:Add another panel, Icon not found");
+                Debugger.println("Panels Page: Search icon not present.");
+                SeleniumLib.takeAScreenShot("PanelsPage.jpg");
                 return false;
             }
             return true;
@@ -103,11 +117,23 @@ public class PanelsPage {
         }
     }
 
-    public boolean searchAndAddPanel(String panelResult) {
+    public boolean searchAndAddPanel(String panels) {
         try {
             Wait.forElementToBeDisplayed(driver, addAnotherPanel);
-            panelsSearchFieldPlaceHolder.sendKeys(panelResult);
-            Click.element(driver, panelsSuggestionList.get(new Random().nextInt(panelsSuggestionList.size())));
+            String [] panelList = null;
+            if(panels.indexOf(",") == -1){
+                panelList = new String[]{panels};
+            }else{
+                panelList = panels.split(",");
+            }
+            for(int i=0; i<panelList.length; i++) {
+                panelsSearchFieldPlaceHolder.clear();
+                panelsSearchFieldPlaceHolder.sendKeys(panelList[i]);
+                Wait.seconds(2);
+                Click.element(driver, firstSuggestedPanel);
+                Wait.seconds(2);
+
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Search and selection of panel" + exp);
@@ -119,10 +145,15 @@ public class PanelsPage {
     public boolean selectedPanels() {
         try {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
-            if (!seleniumLib.isElementPresent(selectedPanels)) {
-                Debugger.println("No Panel Selected");
+            int noOfPanelsSelected = selectedPanelsList.size();
+            if(noOfPanelsSelected == 0){
+                Debugger.println("No Panels selected.");
                 return false;
             }
+            for(int i=0; i<noOfPanelsSelected; i++){
+                Debugger.println("Selected Panel: "+selectedPanelsList.get(i).getText());
+            }
+
             return true;
         } catch (Exception exp) {
             Debugger.println("Panels page: selectedPanels, Element not found. " + exp);

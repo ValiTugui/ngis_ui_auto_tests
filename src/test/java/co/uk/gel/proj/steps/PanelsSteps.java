@@ -13,9 +13,9 @@ public class PanelsSteps extends Pages {
         super(driver);
     }
 
-    @And("the user should be able to see add another panel search field and search icon")
-    public void theUserShouldBeSeeAddAnotherPanelSearchFieldAndSearchIcon() {
-        Assert.assertTrue(panelsPage.panelSearchFieldAndSearchIcon());
+    @And("the user should be able to see (.*) section with search field and search icon")
+    public void theUserShouldBeSeeAddAnotherPanelSearchFieldAndSearchIcon(String expectedTitle) {
+        Assert.assertTrue(panelsPage.panelSearchFieldAndSearchIcon(expectedTitle));
     }
 
     @And("the user should  be able to search and add the {string} panels")

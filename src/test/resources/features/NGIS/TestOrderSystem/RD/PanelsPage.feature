@@ -10,18 +10,18 @@ Feature: Panels Page Verification
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
     When the user navigates to the "<Panels>" stage
     And the user is navigated to a page with title Panel
-    And the user should be able to see add another panel search field and search icon
+    And the user should be able to see Add another panel section with search field and search icon
     And the user should  be able to search and add the "<searchPanels>" panels
     And the user should be able to see selected panels
-    Then the user sees the selected panels under added panels
-    And the user clicks on Save and Continue in Panels Page
-    And the user is navigated to a page with title Build a pedigree
-    When the user navigates to "<Panels>" stage
-    Then the user sees the selected panels under added panels
+#    Then the user sees the selected panels under added panels
+#    And the user clicks on Save and Continue in Panels Page
+#    And the user is navigated to a page with title Build a pedigree
+#    When the user navigates to "<Panels>" stage
+#    Then the user sees the selected panels under added panels
 
     Examples:
       | Panels | searchPanels |
-      | Panels | cardiac arr  |
+      | Panels | cardiac arrhythmias,Multiple monogenic benign skin tumours  |
 
   @NTS-3379 @E2EUI-1231 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3379: User is making a referral, as a user I will see a clear tick on the icon when I select yes or no
