@@ -3,7 +3,6 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -26,10 +25,10 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 //        clinicalIndicationsTestSelect.clickStartTestOrderButton();
 //    }
 
-    @When("the user clicks the Start referral button")
-    public void theUserClicksTheStartReferralButton() {
+    @And("the user clicks the Start Test Order Referral button")
+    public void theUserClicksTheStartTestOrderReferralButton() {
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
     }
 
 

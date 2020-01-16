@@ -10,7 +10,7 @@ Feature: Requesting Organisation page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     Then the requesting organisation page in Test Directory is displayed with Title, title copy text, search icon and search placeholder text
       | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |

@@ -31,7 +31,7 @@ Feature: Home Page
     And the user click on Go to test page button
     Then the list of clinical indications are loaded
     And the user sees the "Clinical Indications" tab is selected by default
-    Then the user clicks the Start referral button
+    Then the user clicks the Start Test Order Referral button
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
 
