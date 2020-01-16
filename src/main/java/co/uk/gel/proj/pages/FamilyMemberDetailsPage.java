@@ -54,6 +54,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[text()='Gender']//following::div")
     public WebElement gender;
 
+    String selectedGender = "//span/span[contains(text(),'dummyGender')]";
+
     @FindBy(xpath = "//label[contains(text(),'Life status')]")
     public WebElement lifeStatusLabel;
 
@@ -299,6 +301,8 @@ public class FamilyMemberDetailsPage {
 
     By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
 
+    String fieldLabelString = "//label[contains(text(),'dummyLabel')]";
+
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -321,8 +325,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
-
-        //Verify other details - Name,Born, Gender and NHS Number, Address, Patient Type
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!seleniumLib.isElementPresent(patientCardName)) {
@@ -393,6 +395,7 @@ public class FamilyMemberDetailsPage {
 
     public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
+        seleniumLib.scrollToElement(relationshipToProbandLabel);
         if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
         }
@@ -669,6 +672,32 @@ public class FamilyMemberDetailsPage {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
                 return false;
             }
+        }
+        return true;
+    }
+    public boolean verifyPopulatedDetailsForFamilyMember(String memberDetails) {
+        NGISPatientModel familyMember = getFamilyMember(memberDetails);
+        if(familyMember == null){
+            Debugger.println("Family Member "+memberDetails+" not found in the list.");
+            return false;
+        }
+        Wait.seconds(2);
+        if(!Actions.getValue(firstName).equalsIgnoreCase(familyMember.getFIRST_NAME())){
+            Debugger.println("Expected first name: "+familyMember.getFIRST_NAME()+",actual:"+Actions.getValue(firstName));
+            return false;
+        }
+        if(!Actions.getValue(lastName).equalsIgnoreCase(familyMember.getLAST_NAME())){
+            Debugger.println("Expected last name: "+familyMember.getLAST_NAME()+",actual:"+Actions.getValue(lastName));
+            return false;
+        }
+        By selectedGenderElement = By.xpath(selectedGender.replaceAll("dummyGender",familyMember.getGENDER()));
+        if(!seleniumLib.isElementPresent(selectedGenderElement)){
+            Debugger.println("Expected gender: "+familyMember.getGENDER()+" not loaded.");
+            return false;
+        }
+        if(!Actions.getValue(nhsNumber).equalsIgnoreCase(familyMember.getNHS_NUMBER())){
+            Debugger.println("Expected NHSNumber: "+familyMember.getNHS_NUMBER()+",actual:"+Actions.getValue(nhsNumber));
+            return false;
         }
         return true;
     }
@@ -1534,6 +1563,34 @@ public class FamilyMemberDetailsPage {
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
-
     }
+    public boolean verifyMandatoryFieldHighlightColor(String fieldNames, String highlightColor) {
+        try {
+            Wait.seconds(2);
+            String[] mandatoryFields = null;
+            if(fieldNames.indexOf(",") == -1) {
+                mandatoryFields = new String[]{fieldNames};
+            }else {
+                mandatoryFields = fieldNames.split(",");
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
+            String actualColor = "";
+            WebElement fieldElement = null;
+            String fieldLabelPath = "";
+            for(int i=0; i<mandatoryFields.length; i++){
+                fieldLabelPath = fieldLabelString.replaceAll("dummyLabel",mandatoryFields[i]);
+                fieldElement = driver.findElement(By.xpath(fieldLabelPath));
+                actualColor = fieldElement.getCssValue("color");
+                if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
+                    Debugger.println("Field: " + mandatoryFields[i] + "not highlighted in :" +expectedFontColor+" as expected.");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
+            return false;
+        }
+    }
+
 }//ends

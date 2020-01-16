@@ -54,9 +54,15 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+    @Then("the blank mandatory fields {string} highlighted in {string}")
+    public void theBlankMandatoryFieldsHighlightedInColor(String mandatoryFields, String highlightColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyMandatoryFieldHighlightColor(mandatoryFields, highlightColor);
+        Assert.assertTrue(testResult);
+    }
 
-    @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
+    @When("the user selects the Relationship to proband as {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
@@ -88,6 +94,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theDefaultFamilyMemberDetailsPageIsCorrectlyDisplayedWithTheProperNumberOfFields() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberDetailsPage();
+        Assert.assertTrue(testResult);
+    }
+    @Then("confirm family member details page populate with same details found in patient card for {string}")
+    public void theFamilyDetailsPagePopulateWithSameDetailsAsInPatientCard(String memberDetails) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyPopulatedDetailsForFamilyMember(memberDetails);
         Assert.assertTrue(testResult);
     }
 
