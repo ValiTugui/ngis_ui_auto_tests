@@ -80,9 +80,9 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
-    @When("the user clicks the - Go back to patient search - link")
-    public void theUserClicksTheGoBackToPatientSearchLink() {
-        patientDetailsPage.clickGoBackToPatientSearchLink();
+    @When("the user clicks the - {string} - link")
+    public void theUserClicksTheLink(String goBackToPatientSearch) {
+        patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
     }
 
     @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
@@ -96,10 +96,10 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
     }
 
-    @When("the user clicks the Test Directory link from the notification banner")
-    public void theUserClicksTheTestDirectoryLinkFromTheNotificationBanner() {
+    @When("the user clicks the {string} link on the notification banner")
+    public void theUserClicksTheLinkOnTheNotificationBanner(String linkOnNotification) {
         boolean testDirectoryLinkClickAble;
-        testDirectoryLinkClickAble = patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        testDirectoryLinkClickAble = patientDetailsPage.clickTheLinkOnNotificationBanner(linkOnNotification);
         Assert.assertTrue(testDirectoryLinkClickAble);
     }
 

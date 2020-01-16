@@ -350,7 +350,7 @@ Feature: New Patient page
       | Postcode       |
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully created with a message "Details saved"
-    When the user clicks the - Go back to patient search - link
+    When the user clicks the - "Go back to patient search" - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name, gender and post-code
     And the user clicks the Search button

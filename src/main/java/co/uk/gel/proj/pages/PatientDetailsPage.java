@@ -344,20 +344,24 @@ public class PatientDetailsPage {
         Assert.assertTrue(!startReferralButton.isEnabled());
     }
 
-    public void clickGoBackToPatientSearchLink() {
-        Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
-        }
+    public void clickTheGoBackLink(String expectedGoBackToPatientSearch) {
+        By goBackLink = By.xpath("//*[text()= \"" + expectedGoBackToPatientSearch + "\"]");
+        Actions.retryClickAndIgnoreElementInterception(driver,driver.findElement(goBackLink));
+    }
 
-    public boolean clickTestDirectoryLinkFromNotificationBanner() {
+
+    public boolean clickTheLinkOnNotificationBanner(String expectedLinkonBanner) {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
         try {
-            Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
-            if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
+            By linkOnBanner;
+            linkOnBanner =  By.xpath("//*[text()= \"" + expectedLinkonBanner + "\"]");
+            Wait.forElementToBeDisplayed(driver, driver.findElement(linkOnBanner), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(linkOnBanner), 10)) {
                 Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
                 return false;
             }
-            Click.element(driver, testDirectoryLinkOnBanner);
+            Click.element(driver, driver.findElement(linkOnBanner));
             return true;
         } catch (Exception exp) {
             Debugger.println("Test Directory Link is not shown on banner..." + exp);
