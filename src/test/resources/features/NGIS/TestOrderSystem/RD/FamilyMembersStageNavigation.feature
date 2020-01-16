@@ -1,6 +1,6 @@
 @regression
 @TO_RD
-@FamilyMemberStageNavigation
+@FamilyMemberStageNavigation_1
 Feature: Family Members Navigation Stage Validation
 
   @NTS-3243 @E2EUI-1287 @LOGOUT @BVT_P0 @v_1
@@ -21,7 +21,7 @@ Feature: Family Members Navigation Stage Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
@@ -44,7 +44,7 @@ Feature: Family Members Navigation Stage Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
@@ -68,7 +68,7 @@ Feature: Family Members Navigation Stage Validation
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
@@ -94,7 +94,7 @@ Feature: Family Members Navigation Stage Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
@@ -121,7 +121,7 @@ Feature: Family Members Navigation Stage Validation
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage
@@ -153,7 +153,7 @@ Feature: Family Members Navigation Stage Validation
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
