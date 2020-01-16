@@ -11,8 +11,10 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import com.github.javafaker.Faker;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,6 +50,9 @@ public class PatientDetailsPage {
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement pageTitle;
+
+    @FindBy(css = "p[class*='sub-title']")
+    public WebElement subPageTitle;
 
     @FindBy(css = "label[for*='dateOfBirth']")
     public WebElement dateOfBirthLabel;
@@ -94,6 +99,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[text()='Test Directory']")
     public WebElement testDirectoryLinkOnBanner;
 
+    @FindBy(xpath = "//div[contains(@class,'notification__text')]")
+    public WebElement textOnPatientDetailsNotificationBanner;
+
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
 
@@ -105,6 +113,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "(//label[contains(@for,'noNhsNumberReason')]//following::div)[4]")
     public WebElement noNhsNumberReasonDropdown;
+
+    @FindBy(css = "label[for*='noNhsNumberReason']")
+    public WebElement noNhsNumberReasonLabel;
 
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
@@ -171,6 +182,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> ethnicityValues;
+
+    @FindBy(css = "*[class*='error-message__text']")
+    public List<WebElement> errorMessages;
 
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
@@ -260,7 +274,6 @@ public class PatientDetailsPage {
     }
 
     public void editDropdownField(WebElement element, String value) {
-
         try {
             Actions.retryClickAndIgnoreElementInterception(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -277,11 +290,25 @@ public class PatientDetailsPage {
     }
 
     public void selectMissingNhsNumberReason(String reason) {
-        editDropdownField(noNhsNumberReasonDropdown, reason);
+        Actions.retryClickAndIgnoreElementInterception(driver,noNhsNumberReasonDropdown);
+        Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
     }
 
     public void clickSavePatientDetailsToNGISButton() {
         Actions.clickElement(driver, savePatientDetailsToNGISButton);
+        // After save button is clicked, wait for it to be disabled or non-clickable
+        try {
+            int counter = 5;  // Counter for number of tries
+            for (int i = 1; i <= counter; i++) {
+                if (!savePatientDetailsToNGISButton.isEnabled()) {
+                    Debugger.println("savePatient details button is now disabled or non-clickable after count " + counter);
+                    break;
+                }
+                Wait.seconds(1);
+            }
+        } catch (Exception e) {
+            Debugger.println("savePatient details button is still clickable");
+        }
     }
 
     public void patientIsCreated() {
@@ -317,20 +344,24 @@ public class PatientDetailsPage {
         Assert.assertTrue(!startReferralButton.isEnabled());
     }
 
-    public void clickGoBackToPatientSearchLink() {
-        Actions.retryClickAndIgnoreElementInterception(driver,goBackToPatientSearchLink);
-        }
+    public void clickTheGoBackLink(String expectedGoBackToPatientSearch) {
+        By goBackLink = By.xpath("//*[text()= \"" + expectedGoBackToPatientSearch + "\"]");
+        Actions.retryClickAndIgnoreElementInterception(driver,driver.findElement(goBackLink));
+    }
 
-    public boolean clickTestDirectoryLinkFromNotificationBanner() {
+
+    public boolean clickTheLinkOnNotificationBanner(String expectedLinkonBanner) {
         Wait.forElementToBeDisplayed(driver, patientDetailsnotificationBanner);
         try {
-            Wait.forElementToBeDisplayed(driver, testDirectoryLinkOnBanner, 30);
-            if (!Wait.isElementDisplayed(driver, testDirectoryLinkOnBanner, 10)) {
+            By linkOnBanner;
+            linkOnBanner =  By.xpath("//*[text()= \"" + expectedLinkonBanner + "\"]");
+            Wait.forElementToBeDisplayed(driver, driver.findElement(linkOnBanner), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(linkOnBanner), 10)) {
                 Debugger.println("Test Directory Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
                 return false;
             }
-            Click.element(driver, testDirectoryLinkOnBanner);
+            Click.element(driver, driver.findElement(linkOnBanner));
             return true;
         } catch (Exception exp) {
             Debugger.println("Test Directory Link is not shown on banner..." + exp);
@@ -671,5 +702,9 @@ public class PatientDetailsPage {
         FamilyMemberDetailsPage.addedFamilyMembers.add(familyMember);
         Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
         Actions.clickElement(driver, addNewPatientToReferral);
+    }
+
+    public void fillInNHSNumber(){
+        Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
     }
 }

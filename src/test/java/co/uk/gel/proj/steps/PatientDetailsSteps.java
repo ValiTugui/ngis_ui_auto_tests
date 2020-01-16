@@ -14,6 +14,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class PatientDetailsSteps extends Pages {
@@ -78,9 +80,9 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
-    @When("the user clicks the - Go back to patient search - link")
-    public void theUserClicksTheGoBackToPatientSearchLink() {
-        patientDetailsPage.clickGoBackToPatientSearchLink();
+    @When("the user clicks the - {string} - link")
+    public void theUserClicksTheLink(String goBackToPatientSearch) {
+        patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
     }
 
     @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
@@ -94,10 +96,10 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
     }
 
-    @When("the user clicks the Test Directory link from the notification banner")
-    public void theUserClicksTheTestDirectoryLinkFromTheNotificationBanner() {
+    @When("the user clicks the {string} link on the notification banner")
+    public void theUserClicksTheLinkOnTheNotificationBanner(String linkOnNotification) {
         boolean testDirectoryLinkClickAble;
-        testDirectoryLinkClickAble = patientDetailsPage.clickTestDirectoryLinkFromNotificationBanner();
+        testDirectoryLinkClickAble = patientDetailsPage.clickTheLinkOnNotificationBanner(linkOnNotification);
         Assert.assertTrue(testDirectoryLinkClickAble);
     }
 
@@ -185,8 +187,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickUpdateNGISRecordButton();
     }
 
-    @Then("the patient is successfully updated with a {string}")
-    public void thePatientIsSuccessfullyUpdatedWithA(String expectedNotification) {
+    @Then("the patient is successfully updated with a message {string}")
+    public void thePatientIsSuccessfullyUpdatedWithAMessage(String expectedNotification) {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
@@ -270,6 +272,11 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
     }
 
+    @Then("the patient is successfully created with a message {string}")
+    public void thePatientIsSuccessfullyCreatedWithAMessage(String expectedNotification) {
+        thePatientIsSuccessfullyUpdatedWithAMessage(expectedNotification);
+    }
+
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
@@ -279,7 +286,7 @@ public class PatientDetailsSteps extends Pages {
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
 
-        Assert.assertEquals(titlePage,referralPage.getTheCurrentPageTitle());
+        Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
 
         List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
@@ -296,11 +303,11 @@ public class PatientDetailsSteps extends Pages {
             Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
 
-            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2)+ " count: " + i);
+            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2) + " count: " + i);
             expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLabelsAndErrorMessagesList.get(i).get(2));
             Debugger.println("Expected ErrorMessage Colour RGB " + expectedFontColorInRGB);
             Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
-            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i-1));
+            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i - 1));
         }
     }
 
@@ -308,4 +315,62 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillInTheLastNameField() {
         patientDetailsPage.fillInLastName();
     }
+
+    @And("the sub-heading title is displayed {string}")
+    public void theSubHeadingTitleIsDisplayed(String expectedSubHeading) {
+        String actualSubHeading = Objects.requireNonNull(Actions.getText(patientDetailsPage.subPageTitle)).trim();
+        expectedSubHeading = expectedSubHeading.trim();
+        Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
+        Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
+        Assert.assertEquals(expectedSubHeading, actualSubHeading);
+    }
+
+    @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
+    public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+    @And("the NHS number field is displayed")
+    public void theNHSNumberFieldIsDisplayed() {
+        boolean nhsFieldDisplayed;
+        nhsFieldDisplayed = Wait.isElementDisplayed(driver, patientDetailsPage.nhsNumber, 5);
+        Assert.assertTrue(nhsFieldDisplayed);
+        Debugger.println("NHS Number field is displayed");
+    }
+
+
+    @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
+    public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+
+    @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
+    public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearField(patientDetailsPage.nhsNumber);
+    }
+
+    @When("the user fills in the NHS Number field")
+    public void theUserFillsInTheNHSNumberField() {
+        patientDetailsPage.fillInNHSNumber();
+    }
+
+    @When("the user fills in all the fields with NHS number from the New Patient page")
+    public void theUserFillsInAllTheFieldsWithNHSNumberFromTheNewPatientPage() {
+        patientDetailsPage.fillInAllNewPatientDetails();
+        patientDetailsPage.fillInNHSNumber();
+    }
+
+    @And("the message displayed on the notification banner is {string}")
+    public void theMessageDisplayedOnTheNotificationBannerIs(String expectedTextOnBanner) {
+        String actualTextOnBanner = Actions.getText(patientDetailsPage.textOnPatientDetailsNotificationBanner);
+        Debugger.println("Expected Text on Banner : " + expectedTextOnBanner);
+        Debugger.println("Actual Text on Banner : " + actualTextOnBanner);
+        Assert.assertEquals(expectedTextOnBanner, actualTextOnBanner);
+    }
+
 }

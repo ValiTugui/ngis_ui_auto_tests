@@ -498,7 +498,7 @@ public class ReferralSteps extends Pages {
         }
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
-         patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral();
+        patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral();
         patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.getPatientSearchNoResult();
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
@@ -570,5 +570,37 @@ public class ReferralSteps extends Pages {
         NavigateTo(referralFullUrl, confirmationPage);
         referralPage.saveAndContinueButtonIsDisplayed();
 
+    }
+
+    @Given("the user search and select clinical indication test for the patient through to Test Order System online service patient search")
+    public void theUserSearchAndSelectClinicalIndicationTestForThePatientThroughToTestOrderSystemOnlineServicePatientSearch(List<String> attributeOfURL) {
+
+        boolean eachElementIsLoaded;
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String searchTerm = attributeOfURL.get(2);
+        String diseaseType = attributeOfURL.get(3);
+        String userType = null;
+        if(attributeOfURL.size() == 5){
+            userType = attributeOfURL.get(4);
+        }
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.typeInSearchField(searchTerm);
+        homePage.clickSearchIconFromSearchField();
+        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        homePage.closeCookiesBannerFromFooter();
+        homePage.selectFirstEntityFromResultList();
+        homePage.closeCookiesBannerFromFooter();
+        clinicalIndicationsTestSelect.clickStartReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        Debugger.println(" User Type : " + userType);
+        if(userType != null) {
+            switchToURL(driver.getCurrentUrl(), userType);
+        } else {
+            switchToURL(driver.getCurrentUrl());
+        }
+        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        Assert.assertTrue(eachElementIsLoaded);
     }
 }

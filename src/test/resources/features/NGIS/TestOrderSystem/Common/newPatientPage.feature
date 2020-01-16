@@ -46,8 +46,8 @@ Feature: New Patient page
       | create a new patient record | Other - provide explanation   |
       | create a new patient record | Patient is a foreign national |
 
-   @E2EUI-1134 @LOGOUT @v_1
-  Scenario Outline: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
+  @NTS-3456 @E2EUI-1134 @LOGOUT @v_1
+  Scenario Outline: NTS-3456: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the user clicks the NO button
@@ -79,8 +79,8 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @E2EUI-1134 @LOGOUT @v_1
-  Scenario Outline: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
+  @NTS-3456 @E2EUI-1134 @LOGOUT @v_1
+  Scenario Outline: NTS-3456: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     And the user clicks the NO button
@@ -120,7 +120,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation |
 
-  @NTS-3465 @E2EUI-892 @E2EUI-1475 @LOGOUT @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @LOGOUT @v_1
   Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -131,7 +131,7 @@ Feature: New Patient page
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
     And the Start Referral button is disabled
 
 
@@ -151,7 +151,7 @@ Feature: New Patient page
     And the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
     And the Start Referral button is disabled
 
     Examples:
@@ -257,3 +257,106 @@ Feature: New Patient page
     Examples:
       | message          | hyperlinkText               | pageTitle                         |
       | No patient found | create a new patient record | Add a new patient to the database |
+
+
+  @NTS-3507 @E2EUI-1649 @LOGOUT
+  Scenario Outline:NTS-3507:Super-user - Hospital number is conditionally non-nullable if NHS number is null
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+    Then the new patient page is opened
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    Then the user fills in all fields without NHS number, enters a reason for noNhsNumber "<reason_for_no_nhsNumber>" and leaves HospitalNo field blank
+    When the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+
+    Examples:
+      | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
+      | create a new patient record | Add a new patient to the database | Other - provide explanation |
+
+
+  @NTS-3507 @E2EUI-1649  @LOGOUT
+  Scenario Outline:NTS-3507: Super-user - Hospital number is conditionally non-nullable if NHS number is null
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+    Then the new patient page is opened
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    And the NHS number field is displayed
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader                    |
+      | Hospital number ✱              |
+    Then the user fills in all fields and leaves NHS Number and HospitalNo fields blank
+    When the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader       | errorMessageHeader           | messageColourHeader |
+      | NHS Number ✱      | NHS Number is required.      | #dd2509             |
+      | Hospital number ✱ | Hospital number is required. | #dd2509             |
+    When the user fills in the NHS Number field
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader     |
+      | Hospital number |
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | hyperlinkText               | pageTitle                         |
+      | create a new patient record | Add a new patient to the database |
+
+
+   @NTS-3508 @E2EUI-1660 @LOGOUT @v_1
+  Scenario Outline: NTS-3508: Super User - Create a new patient record with an NHS Number
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    Then the NHS number field is displayed
+    When the user fills in all the fields with NHS number from the New Patient page
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | message          | hyperlinkText               | pageTitle                         |
+      | No patient found | create a new patient record | Add a new patient to the database |
+
+
+  @NTS-3512 @E2EUI-1508 @LOGOUT
+  Scenario Outline: NTS-3512: Patient record-New Page | Verify address and patient record fields
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader    |
+      | Address        |
+      | Address line 2 |
+      | Address line 3 |
+      | Address line 5 |
+      | Postcode       |
+    Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    Then the patient is successfully created with a message "Details saved"
+    When the user clicks the - "Go back to patient search" - link
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name, gender and post-code
+    And the user clicks the Search button
+    Then a "<patient-type>" result is successfully returned
+
+    Examples:
+      | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | patient-type|
+      | create a new patient record | Add a new patient to the database | Other - provide explanation | NGIS        |
+

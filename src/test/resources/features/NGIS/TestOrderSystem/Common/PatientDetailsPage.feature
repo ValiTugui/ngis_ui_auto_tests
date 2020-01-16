@@ -36,14 +36,14 @@ Feature: Patient details page
       | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
 
   @NTS-3068 @E2EUI-1182 @LOGOUT @v_1
-  Scenario Outline: The user can return to the patient search page by clicking the Back link
+  Scenario Outline: NTS-3068: The user can return to the patient search page by clicking the Back link
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
-    When the user clicks the - Go back to patient search - link
+    When the user clicks the - "Go back to patient search" - link
     Then the Patient Search page is displayed
 
     Examples:
@@ -77,12 +77,12 @@ Feature: Patient details page
       | NHS Spine           | 9449310602 | 23-03-2011 |
 
   @NTS-3067 @E2EUI-1128 @LOGOUT @P0 @v_1
-  Scenario Outline: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
+  Scenario Outline: NTS-3067: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And a web browser is at the Patient Details page of a "<patient-search-type>" patient with NHS number "<NhsNumber>" and Date of Birth "<DOB>" without clinical indication test selected
     And the clinical indication ID missing banner is displayed
-    When the user clicks the Test Directory link from the notification banner
+    When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
 
     Examples:
@@ -172,7 +172,7 @@ Feature: Patient details page
   @NTS-3346 @E2EUI-995 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
     Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL-normal-user |
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
@@ -200,9 +200,9 @@ Feature: Patient details page
     Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a "<notification>"
+    Then the patient is successfully updated with a message "<notification>"
 #   Navigate back to patient search, to search for the patient details and verify edited details
-    When the user clicks the - Go back to patient search - link
+    When the user clicks the - "Go back to patient search" - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
     And the user clicks the Search button
@@ -250,7 +250,7 @@ Feature: Patient details page
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
-    When the user clicks the - Go back to patient search - link
+    When the user clicks the - "Go back to patient search" - link
     Then the "<pageTitle>" page is displayed
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and gender
@@ -258,10 +258,9 @@ Feature: Patient details page
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    Then the Patient Details page is displayed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a "Details saved"
+    Then the patient is successfully updated with a message "Details saved"
 
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
@@ -275,8 +274,74 @@ Feature: Patient details page
     And the "<stage>" stage is marked as Completed
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Save and Continue button
-    Then the patient is successfully updated with a "Patient details updated"
+    Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
       | stage           | gender  | lifeStatus | ethnicity   |
       | Patient details | Unknown | Deceased   | R - Chinese |
+
+
+  @COMP2_TO_PatientDetails @LOGOUT
+    @patientDetails_16 @NTS-3848 @E2EUI-1609
+  Scenario Outline: NTS-3848: Verifying the sub-heading on patient details page
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the sub-heading title is displayed "Patient details entered here will be added to NGIS only. Contact the patient's GP to have their details updated to NHS Spine."
+
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+
+
+  @NTS-3513 @E2EUI-849 @LOGOUT @P0 @v_1
+  Scenario Outline:NTS-3513: Patient-detail page - User journey when Clinical Indication has not been selected
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
+    When the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the clinical indication ID missing banner is displayed
+    And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
+    And the Start Referral button is disabled
+    When the user clicks the "Test Directory" link on the notification banner
+    Then the Test Directory homepage is displayed
+#    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
+    Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    When the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+    And the user clicks the Start Referral button
+    And the referral page is displayed
+
+    Examples:
+      | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
+      | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+
+
