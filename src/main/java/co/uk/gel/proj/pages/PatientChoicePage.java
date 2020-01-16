@@ -532,7 +532,7 @@ public class PatientChoicePage {
                 webElement = driver.findElement(By.xpath(pChoice));
             } catch (NoSuchElementException nsee) {
                 //If the element not found, waiting for 5 seconds and the search again. Some times it is taking time.
-                Wait.seconds(5);
+               // Wait.seconds(5);
                 webElement = driver.findElement(By.xpath(pChoice));
             }
             seleniumLib.clickOnWebElement(webElement);
