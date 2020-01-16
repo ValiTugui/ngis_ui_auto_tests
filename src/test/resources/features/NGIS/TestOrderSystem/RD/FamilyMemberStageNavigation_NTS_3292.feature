@@ -16,30 +16,23 @@ Feature: Family Members Navigation Stage Validation
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestions>" stage is marked as Completed
+    ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user selects the test to add to the family member "<FamilyMemberDetails>"
-    And the user clicks the Save and Continue button
-    When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    And the user clicks the Save and Continue button
-    Then the user returns to family member landing page with the added family member details "<FamilyMemberDetails>"
-    ##The below one step is for E2EUI-1485 and following that for 1331
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    ##Step for E2EUI-1485
     And the family member details on family Member landing page is correctly displayed
+    ##Step for 1331 and 1639
     When the user removes the family member
+    Then the user accept the alert with message Removing a family member can't be undone. Do you still want to remove them?
     Then the user should be able to see "<SuccessDeleteMessage>" removal message on the family member landing page
-    ##Below Steps for 1639
     And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should not see the removal message on the family member landing page
 
     Examples:
-      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | FamilyMemberDetails                 | ClinicalQuestionDetails                                         | RelationshipToProband | DiseaseStatusDetails  | SuccessDeleteMessage                |
-      | Family members | Test package | Clinical questions | 2                | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Full Sibling          | DiseaseStatus=Unknown | Family member removed from referral |
+      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | SuccessDeleteMessage                |
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Family member removed from referral |

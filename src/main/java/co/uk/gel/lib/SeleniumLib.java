@@ -523,53 +523,23 @@ public class SeleniumLib {
             driver.switchTo().window(window);
         }
     }
-    //   .................. upload file method.............
-
-    public static boolean upload(String path) {
-        // Switch to newly opened window
-        for (String winHandle : driver.getWindowHandles()) {
-            Debugger.println("Switched to File Upload Window SeleniumLib....");
-            driver.switchTo().window(winHandle);
-        }
-        sleepInSeconds(5);
+    //File upload logic changed from using Robot script to Selenium option
+    public static boolean upload(WebElement element, String path) {
         try {
-            //Copy file path to clipboard
-           // Debugger.println("Copying File path to Clipboard: "+path);
-            StringSelection ss = new StringSelection(path);
-            Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
-            sleepInSeconds(5);
-            sysClip.setContents(ss, null);
-            sleepInSeconds(5);
-            //Java Robot commands to paste the clipboard copy on focused textbox
-            Robot robot = null;
-
-            robot = new Robot();
-            Thread.sleep(500);
-            Debugger.println("Robot Class Created....");
-
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_V);
-            Debugger.println("Enter and Control Pressed and Released...");
-            robot.keyRelease(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-
-            Debugger.println("Enter Press and Releasing again");
-            Thread.sleep(1000);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-
-            Debugger.println("Checking Alert.");
-            if(isAlertPresent()){
+            File file = new File(path);
+            if (!file.exists()) {
+                Debugger.println("Specified File does not exist for upload:"+path);
                 return false;
             }
+            Debugger.println("Uploading the file: "+path);
+            element.sendKeys(path);
             Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
-            Debugger.println("Upload Exception from SeleniumLib: " + exp);
+            Debugger.println("Exception from uploading the file: " + exp);
             return false;
         }
     }
-
 
     public static boolean isTextPresent(String text) {
         try {
@@ -680,6 +650,16 @@ public class SeleniumLib {
             return false;
         }
     }
-
+    //Created new method, where tooltip on mouseMove need to be validated
+    public boolean moveAndClickOn(WebElement element) {
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(element).build().perform();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            return false;
+        }
+    }
 }//end
 

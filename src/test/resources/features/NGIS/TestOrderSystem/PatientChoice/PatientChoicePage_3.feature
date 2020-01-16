@@ -25,8 +25,8 @@ Feature: Patient Choice Page
     And the user should be able to see the patient choice form with success message
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Verify the info message when user declined for a test
@@ -79,8 +79,8 @@ Feature: Patient Choice Page
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3414 @E2EUI-1889 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3414: Verify the Supporting information form section in form library
@@ -182,8 +182,8 @@ Feature: Patient Choice Page
     Then the "<Patient choice stage>" stage is marked as Completed
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | RelationshipToProband | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | Full Sibling          | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3418 @E2EUI-1702 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
@@ -235,8 +235,8 @@ Feature: Patient Choice Page
     Then the user will see a "<WarningMessage2>" warning message on the patient choice information option
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice1                 | YesOption | NoOption | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | No       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
   @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
@@ -264,8 +264,8 @@ Feature: Patient Choice Page
     And the user should be able to see patient choice in history tab
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                  | YesOption |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
 
   @NTS-3437 @E2EUI-1878 @LOGOUT @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
@@ -287,5 +287,5 @@ Feature: Patient Choice Page
     Then the user should be able to see replaced patient choice in history tab
 
     Examples:
-      | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      |
-      | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |
+     | TestType                        | RecordedBy                            | PatientChoice                                      |
+     | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |

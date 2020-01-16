@@ -40,7 +40,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         patientChoicePage.clickOnContinue();
-        testResult = patientChoicePage.selectPatientChoice(patientChoice.get(3).get(0));
+        testResult = patientChoicePage.selectPatientChoiceOption(patientChoice.get(3).get(0));
         Assert.assertTrue(testResult);
         Wait.seconds(3);
         patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
@@ -72,37 +72,45 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("Doing Patient Choice for " + memberDetails.get(i).get(0));
                 patientChoicePage.selectMember(i);
                 Debugger.println("PatientChoiceCategory..Start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Debugger.println("PatientChoiceCategory..Done. TestType start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Debugger.println("TestType..Done.Record Type start");
+                Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Debugger.println("Record Type..Done..Continuing...");
+                Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Debugger.println("patientChoice......start");
-                Assert.assertTrue(patientChoicePage.selectPatientChoice(memberDetails.get(i).get(4)));
+                Wait.seconds(2);
+                Assert.assertTrue(patientChoicePage.selectPatientChoiceOption(memberDetails.get(i).get(4)));
+                Wait.seconds(2);
                 patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
                 Debugger.println("patientChoice..Done..Continuing");
+                Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
-
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
                     Debugger.println("Child Assent start");
                     Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
                     Debugger.println("Child Assent Done. Continuing....");
                     patientChoicePage.clickOnContinue();
                 }
-                Debugger.println("Parent/Patient Signature....start.");
-                patientChoicePage.drawSignature();
-                Debugger.println("Parent/Patient Signature Done...Submitting form");
+                if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
+                    Debugger.println("Parent/Patient Signature....start.");
+                    patientChoicePage.drawSignature();
+                    Debugger.println("Parent/Patient Signature Done...Submitting form");
+                }
                 if (!patientChoicePage.submitPatientChoice()) {
                     Debugger.println("Submitted form, but save and continue not displayed..Proceeding to next Patient..");
                     referralPage.navigateToStage("Patient choice");
                     Wait.seconds(5);
                     continue;
-                } else {
-                    Debugger.println("Submitted.....Continuing");
-                    referralPage.clickOnSaveAndContinueButton();
                 }
+                Debugger.println("Submitted.....Continuing");
+                patientChoicePage.clickOnSaveAndContinueButton();
+
                 Debugger.println("DONE.");
 
             }//end
@@ -111,6 +119,10 @@ public class PatientChoiceSteps extends Pages {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
+    }
+    @When("the user edits patient choice for the newly added family member")
+    public void theUserEditsPatientChoiceForTheNewlyAddedFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+        patientChoicePage.selectMember(1);
     }
 
     @And("the user sees the patient choice status as {string}")
@@ -173,7 +185,7 @@ public class PatientChoiceSteps extends Pages {
     @When("the user selects the option {string} as patient choices")
     public void theUserFillsDetailsInPatientChoices(String inputData) {
         boolean testResult = false;
-        testResult = patientChoicePage.selectPatientChoice(inputData);
+        testResult = patientChoicePage.selectPatientChoiceOption(inputData);
         Assert.assertTrue(testResult);
         Wait.seconds(3);
     }
@@ -423,7 +435,7 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the Patient Choice landing page is updated to {string} for the proband")
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
-         //Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
+         Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
@@ -585,5 +597,98 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user sees a success message after form upload in recorded by as {string}")
+    public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the specified error messages for unsupported file uploads")
+    public void theUserSelectsFileToBeUploadedFrom(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> uploadFiles = inputDetails.asLists();
+        String fileName = "";
+        String errorMessage = "";
+        for (int i = 1; i < uploadFiles.size(); i++) {
+            fileName = uploadFiles.get(i).get(0);
+            errorMessage = uploadFiles.get(i).get(1);
+            testResult = patientChoicePage.verifyInvalidFileUploadMessages(fileName, errorMessage);
+            Assert.assertTrue(testResult);
+        }
+    }
+    @When("the user clicks the Upload document button")
+    public void theUserClicksTheUploadDocumentButton() {
+        patientChoicePage.clickTheUploadDocumentButton();
+    }
+
+    @Then("the user should verify the dropdown and dob field after the document successfully uploaded")
+    public void theUserShouldVerifyTheDropdownAndDobFieldAfterTheDocumentSuccessfullyUploaded() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyTheDropDownAndDOBFieldOfPatientChoice();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the Date of Signature fields are displayed as {string}")
+    public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
+        boolean testResult = false;
+        if (expStatus.equals("enabled")) {
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBY();
+            Assert.assertTrue(testResult);
+        } else {
+            testResult = true;
+            testResult = patientChoicePage.dateOfSignatureStatusInRecordedBY();
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @And("the user selects {string} from dropdown option in recorded by")
+    public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectUploadFormType(dropdownValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks the upload button to upload the file {string}")
+    public void theUserClicksTheUploadButtonToUploadTheFile(String fileName) {
+        boolean testResult = false;
+        testResult = patientChoicePage.uploadDocumentInRecordedBy(fileName);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the valid Date in {string}")
+    public void theUserFillsTheValidDateIn(String expDate) {
+        boolean testResult = false;
+        testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy(expDate);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes and uploading recording form")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesAndUploadingForm() {
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType();
+        Wait.seconds(2);
+        patientChoicePage.fillRecordedByDetails("","ClinicianName=John:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf");
+        Wait.seconds(5);
+        patientChoicePage.selectPatientChoiceOption("Patient has agreed to the test");
+        Wait.seconds(5);
+        patientChoicePage.clickingOnYesNoOptions("Yes,Yes");
+        Wait.seconds(2);
+        patientChoicePage.clickOnContinue();
+        Wait.seconds(2);
+        if(!patientChoicePage.submitPatientChoice()){//Trying again as sometimes the click not happened.
+            Debugger.println("Continuing from Patient Choice again as looks like the first click not happened.");
+            patientChoicePage.clickOnContinue();
+            Wait.seconds(2);
+            patientChoicePage.submitPatientChoice();
+            Wait.seconds(2);
+        }
+        Debugger.println("Proband Patient Choice Submitted..");
+    }
+    @And("the user save patient choice form and continue")
+    public void theUserSavePatientChoiceFormAndContinue() {
+       patientChoicePage.clickOnSaveAndContinueButton();
+    }
 
 }//end

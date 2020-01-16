@@ -54,6 +54,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//label[text()='Gender']//following::div")
     public WebElement gender;
 
+    String selectedGender = "//span/span[contains(text(),'dummyGender')]";
+
     @FindBy(xpath = "//label[contains(text(),'Life status')]")
     public WebElement lifeStatusLabel;
 
@@ -299,6 +301,8 @@ public class FamilyMemberDetailsPage {
 
     By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
 
+    String fieldLabelString = "//label[contains(text(),'dummyLabel')]";
+
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -321,8 +325,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
-
-        //Verify other details - Name,Born, Gender and NHS Number, Address, Patient Type
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
         if (!seleniumLib.isElementPresent(patientCardName)) {
@@ -393,6 +395,7 @@ public class FamilyMemberDetailsPage {
 
     public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
+        Actions.scrollToTop(driver);
         if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
         }
@@ -406,6 +409,7 @@ public class FamilyMemberDetailsPage {
             Wait.seconds(2);
             if (!seleniumLib.isElementPresent(ddElement)) {
                 Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: " + relationToProband + " not present in drop down.");
+                SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return;
             }
             seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
@@ -593,22 +597,23 @@ public class FamilyMemberDetailsPage {
         }
         Debugger.println("Gender Verified...");
         //5.Verify NHS
-        if(landingPageNhsNumbers.size() > 0){
+        if(landingPageNhsNumbers.size() > 1){//Checking for added family members, excluded Proband
             isPresent = false;
-        }
-        String actualNhs = "";
-        for(int i=0; i<landingPageNhsNumbers.size();i++){
-            actualNhs = landingPageNhsNumbers.get(i).getText();
-            Debugger.println("Actual and ExpectedNHS: "+actualNhs+","+familyMember.getNHS_NUMBER());
-            if(actualNhs != null) {
-                if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
-                    isPresent = true;
-                    break;
+            String actualNhs = "";
+            for(int i=0; i<landingPageNhsNumbers.size();i++) {
+                actualNhs = landingPageNhsNumbers.get(i).getText();
+                Debugger.println("Actual and ExpectedNHS: " + actualNhs + "," + familyMember.getNHS_NUMBER());
+                if (actualNhs != null) {
+                    if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
+                        isPresent = true;
+                        break;
+                    }
+                } else {
+                    Debugger.println("NHS Not Present...");
+                    //Family Member added without NHS number need not validate for NHS number.
+                    isPresent = true;//NHS is not mandatory
                 }
-            }else{
-                Debugger.println("NHS Not Present...");
-                isPresent = true;//NHS is not mandatory
-            }
+            }//for
         }
         if(!isPresent){
             Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER()+" Not displayed on Family Member Landing Page.");
@@ -668,6 +673,32 @@ public class FamilyMemberDetailsPage {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
                 return false;
             }
+        }
+        return true;
+    }
+    public boolean verifyPopulatedDetailsForFamilyMember(String memberDetails) {
+        NGISPatientModel familyMember = getFamilyMember(memberDetails);
+        if(familyMember == null){
+            Debugger.println("Family Member "+memberDetails+" not found in the list.");
+            return false;
+        }
+        Wait.seconds(2);
+        if(!Actions.getValue(firstName).equalsIgnoreCase(familyMember.getFIRST_NAME())){
+            Debugger.println("Expected first name: "+familyMember.getFIRST_NAME()+",actual:"+Actions.getValue(firstName));
+            return false;
+        }
+        if(!Actions.getValue(lastName).equalsIgnoreCase(familyMember.getLAST_NAME())){
+            Debugger.println("Expected last name: "+familyMember.getLAST_NAME()+",actual:"+Actions.getValue(lastName));
+            return false;
+        }
+        By selectedGenderElement = By.xpath(selectedGender.replaceAll("dummyGender",familyMember.getGENDER()));
+        if(!seleniumLib.isElementPresent(selectedGenderElement)){
+            Debugger.println("Expected gender: "+familyMember.getGENDER()+" not loaded.");
+            return false;
+        }
+        if(!Actions.getValue(nhsNumber).equalsIgnoreCase(familyMember.getNHS_NUMBER())){
+            Debugger.println("Expected NHSNumber: "+familyMember.getNHS_NUMBER()+",actual:"+Actions.getValue(nhsNumber));
+            return false;
         }
         return true;
     }
@@ -760,6 +791,14 @@ public class FamilyMemberDetailsPage {
             SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
             Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp);
         }
+    }
+
+    public boolean verifyThePresenceOfBackButton(boolean presence){
+        boolean isPresent = seleniumLib.isElementPresent(backButton);
+        if(isPresent == presence){
+            return true;
+        }
+        return false;
     }
 
     public boolean verifyTheEditingReferralColor(String nhsDetails, String eColor) {
@@ -918,9 +957,21 @@ public class FamilyMemberDetailsPage {
     public boolean removeAFamilyMember() {
         try {
             removeFamilyMember.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from removing family member " + exp);
+            return false;
+        }
+    }
+    public boolean verifyAlertMessageOnRemoval(String alertMessage) {
+        try {
             Alert alert = driver.switchTo().alert();
-            String alertMessage = driver.switchTo().alert().getText();
-            Debugger.println("Alert message for removing family member" + alertMessage);
+            String actualMessage = driver.switchTo().alert().getText();
+            if(!actualMessage.equalsIgnoreCase(alertMessage)){
+                Debugger.println("Actual alert message: "+actualMessage+", Expected:"+alertMessage);
+                alert.accept();
+                return false;
+            }
             alert.accept();
             return true;
         } catch (Exception exp) {
@@ -1450,14 +1501,14 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 actualNhs = addedFamilyMembers.get(i).getNHS_NUMBER();
                 actualDob = addedFamilyMembers.get(i).getDATE_OF_BIRTH();
+                //Debugger.println("ActNHS:"+actualNhs+","+actualDob+",EXP:"+nhsNumber+","+dob);
                 if(!nhsNumber.equalsIgnoreCase("NA")) {
                     if (actualNhs != null) {
                         if (actualNhs.equalsIgnoreCase(nhsNumber)) {
                             return addedFamilyMembers.get(i);
                         }
                     }
-                }
-                if (actualDob != null){
+                }else {
                     if(actualDob.equalsIgnoreCase(dob)) {
                         return addedFamilyMembers.get(i);
                     }
@@ -1533,6 +1584,34 @@ public class FamilyMemberDetailsPage {
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
-
     }
+    public boolean verifyMandatoryFieldHighlightColor(String fieldNames, String highlightColor) {
+        try {
+            Wait.seconds(2);
+            String[] mandatoryFields = null;
+            if(fieldNames.indexOf(",") == -1) {
+                mandatoryFields = new String[]{fieldNames};
+            }else {
+                mandatoryFields = fieldNames.split(",");
+            }
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
+            String actualColor = "";
+            WebElement fieldElement = null;
+            String fieldLabelPath = "";
+            for(int i=0; i<mandatoryFields.length; i++){
+                fieldLabelPath = fieldLabelString.replaceAll("dummyLabel",mandatoryFields[i]);
+                fieldElement = driver.findElement(By.xpath(fieldLabelPath));
+                actualColor = fieldElement.getCssValue("color");
+                if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
+                    Debugger.println("Field: " + mandatoryFields[i] + "not highlighted in :" +expectedFontColor+" as expected.");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
+            return false;
+        }
+    }
+
 }//ends

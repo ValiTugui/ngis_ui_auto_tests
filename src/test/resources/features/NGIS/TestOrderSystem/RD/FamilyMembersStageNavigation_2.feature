@@ -23,7 +23,7 @@ Feature: Family Members Navigation Stage Validation
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user should be able to see test package for family member is selected by default
@@ -57,7 +57,7 @@ Feature: Family Members Navigation Stage Validation
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the default family member details page is correctly displayed
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     And the user clicks on a test that is selected and the test is no longer selected
     And the user clicks the Save and Continue button
@@ -85,7 +85,7 @@ Feature: Family Members Navigation Stage Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
@@ -129,7 +129,7 @@ Feature: Family Members Navigation Stage Validation
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
@@ -150,7 +150,7 @@ Feature: Family Members Navigation Stage Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband2>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default

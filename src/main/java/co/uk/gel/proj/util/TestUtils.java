@@ -161,5 +161,27 @@ public class TestUtils {
           Debugger.println("referralFullUrl :" + referralFullUrl);
          return referralFullUrl;
         }
+        //Added new method to get Current day in String array (used in file upload section for patient choice)
+        public static String[] getCurrentDay(){
+            Calendar today = Calendar.getInstance();
+            String year = "";
+            String month = "";
+            String day = "";
+            int iyear = today.get(Calendar.YEAR);
+            int imonth = today.get(Calendar.MONTH) + 1;
+            int iday = today.get(Calendar.DATE);
 
+            if (imonth < 10) {
+                month = "0" + imonth;
+            } else {
+                month = "" + imonth;
+            }
+            year = "" + iyear;
+            if (iday < 10) {
+                day = "0" + iday;
+            } else {
+                day = "" + iday;
+            }
+            return new String[]{day,month,year};
+        }
 }

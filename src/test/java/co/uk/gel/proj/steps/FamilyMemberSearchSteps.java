@@ -116,7 +116,7 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
-        familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
+        Assert.assertTrue(familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage));
     }
 
     @Then("the search results have been displayed with Patient Name, dob, gender, NHS number and address")

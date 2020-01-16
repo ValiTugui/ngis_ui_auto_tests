@@ -91,9 +91,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//h5[text()='Parent/Guardian signature']")
     WebElement parentGuardianSignatureLabel;
 
-    @FindBy(xpath = "//button[@class='btn submit-signature-button']")
-    WebElement submitPatientChoice;
-
     @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")
     WebElement patientChoiceStatus;
 
@@ -117,8 +114,12 @@ public class PatientChoicePage {
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
+    @FindBy(xpath = "//li[@class='message-error-line']")
+    WebElement filUploadErrorMsg;
 
-    @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle ')]")
+    @FindBy(id = "upload_doc")
+    WebElement docUpload;
+    @FindBy(xpath = "//div[contains(@class,'btn-secondary dropdown-toggle')]")
     WebElement fileTypeDropDown;
 
     @FindBy(xpath = "//input[@placeholder='DD']")
@@ -322,6 +323,12 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(text(),'Child assent')]")
     WebElement childAssentTitle;
 
+    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
+    public WebElement formSuccessfullyUploadedMsg;
+
+    @FindBy(xpath = "//label[text()='Date of Signature']")
+    WebElement dateOfSignature;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -333,7 +340,6 @@ public class PatientChoicePage {
             return false;
         }
     }
-
     public boolean editSpecificPatientChoice(String familyDetails) {
         String nhsNumber = "";
         try {
@@ -410,9 +416,9 @@ public class PatientChoicePage {
 
     public boolean fillRecordedByDetails(String familyDetails, String recordedBy) {
         try {
-            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
             boolean uploadDocument = false;
             String fileType = "";
+            String fileName = "";
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(recordedBy);
             Set<String> paramsKey = paramNameValue.keySet();
             for (String key : paramsKey) {
@@ -420,9 +426,13 @@ public class PatientChoicePage {
                     case "ClinicianName":
                         if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
-                            if (familyMember != null) {
-                                familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
-                                FamilyMemberDetailsPage.updateRecordingClinicianName(familyMember);
+                            if(familyDetails != null && !familyDetails.isEmpty()) {
+                                //Updating current family member with Recoding clinician name for later validations
+                                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
+                                if (familyMember != null) {
+                                    familyMember.setRECORDING_CLINICIAN_NAME(paramNameValue.get(key));
+                                    FamilyMemberDetailsPage.updateRecordingClinicianName(familyMember);
+                                }
                             }
                         }
                         break;
@@ -448,12 +458,18 @@ public class PatientChoicePage {
                             fileType = paramNameValue.get(key);
                         }
                         break;
+                    case "FileName":
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            fileName = paramNameValue.get(key);
+                        }
+                        break;
                 }//switch
             }//for
             if (uploadDocument) {
-                return uploadRecordTypeDocument(fileType);
+               if(uploadRecordTypeDocument(fileType,fileName)) {
+                   return waitForFormUpload("Patient Choices");
+               }
             }
-
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in Filling RecordedBy Information: " + exp);
@@ -466,48 +482,33 @@ public class PatientChoicePage {
         seleniumLib.clickOnWebElement(continueButton);
     }
 
-    public boolean uploadRecordTypeDocument(String fileType) {
+    public boolean uploadRecordTypeDocument(String fileType,String fileName) {
         try {
             seleniumLib.clickOnWebElement(uploadDocumentOption);
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
-            if (Wait.isElementDisplayed(driver, uploadDocumentButton, 10)) {
-                uploadDocumentButton.click();
-            }
-
-            if (!seleniumLib.upload(uploadFilepath + "testfile.pdf")) {
-                Debugger.println("Could not upload document to Record Type in Patient Choice.");
+            if(!seleniumLib.upload(docUpload, uploadFilepath + fileName)){
+                Debugger.println("Could not upload the file:"+fileName);
                 return false;
             }
-            seleniumLib.scrollToElement(fileTypeDropDown);
+            Wait.seconds(10);//To ensure medium files are uploaded
+            seleniumLib.scrollToElement(uploadDocumentOption);
             seleniumLib.clickOnWebElement(fileTypeDropDown);
 
             By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", fileType));
             WebElement element = driver.findElement(formType);
             element.click();
-            //Date need to pass as today's date.
-            Calendar today = Calendar.getInstance();
-            String year = "";
-            String month = "";
-            String day = "";
-            int iyear = today.get(Calendar.YEAR);
-            int imonth = today.get(Calendar.MONTH) + 1;
-            int iday = today.get(Calendar.DATE);
+            //Date need to pass as today's date. Getting current day moved to TestUtils
+            String today[] = TestUtils.getCurrentDay();
 
-            if (imonth < 10) {
-                month = "0" + imonth;
-            } else {
-                month = "" + imonth;
-            }
-            year = "" + iyear;
-            if (iday < 10) {
-                day = "0" + iday;
-            } else {
-                day = "" + iday;
-            }
-            uploadDay.sendKeys(day);
-            uploadMonth.sendKeys(month);
-            uploadYear.sendKeys(year);
-            Debugger.println("Record Type..Done with document uploaded.");
+            uploadDay.sendKeys(today[0]);
+            uploadMonth.sendKeys(today[1]);
+            uploadYear.sendKeys(today[2]);
+            uploadDay.sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
+            Wait.seconds(5);
+            Debugger.println("Continuing from Record Type...");
+            clickOnContinue();
+            Wait.seconds(2);
+            Debugger.println("Record Type..Done with document upload.");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in uploading record type in Patient choice: " + exp);
@@ -516,27 +517,30 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean selectPatientChoice(String patient_choice) {
+    public boolean selectPatientChoiceOption(String patient_choice) {
         try {
             if (patient_choice == null || patient_choice.isEmpty()) {
                 return true;
             }
-            WebElement titleElement = driver.findElement(By.xpath("//div[contains(text(),'Patient choices')]"));
-            Wait.forElementToBeDisplayed(driver, titleElement);
+            if(!verifyTheOptionTitlePresence("Patient choices")){
+                Debugger.println("Patient Choice section not loaded.");
+                return false;
+            }
             String pChoice = patientChoice.replaceAll("dummyChoice", patient_choice);
             WebElement webElement;
             try {
                 webElement = driver.findElement(By.xpath(pChoice));
             } catch (NoSuchElementException nsee) {
-                //If the element not found, waiting for 5 seconds and the searching again. Some times it is taking time.
-                Wait.seconds(5);
+                //If the element not found, waiting for 5 seconds and the search again. Some times it is taking time.
+               // Wait.seconds(5);
                 webElement = driver.findElement(By.xpath(pChoice));
             }
             seleniumLib.clickOnWebElement(webElement);
+            Debugger.println("Patient Choice Option: "+patient_choice+" Selected.");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoice:" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoice.jpg");
+            SeleniumLib.takeAScreenShot("PatientChoiceCategory.jpg");
             return false;
         }
     }
@@ -663,10 +667,13 @@ public class PatientChoicePage {
 
     public boolean submitPatientChoice() {
         try {
-            submitPatientChoice.click();
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
-                return false;
+            //Logic and component changed as different option while using drwaSignature and Fileupload
+            if(Wait.isElementDisplayed(driver,submitPatientChoiceButton,60)){//Waiting for 60 seconds
+                if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {//Waiting for another 30 seconds
+                    return false;
+                }
             }
+            submitPatientChoiceButton.click();
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Patient Choice...." + exp);
@@ -1658,10 +1665,18 @@ public class PatientChoicePage {
     }
 
     public boolean waitForFormUpload(String expTitle) {
-        seleniumLib.clickOnWebElement(continueButton);
-        verifyTheOptionTitlePresence(expTitle);
-        if (!Wait.isElementDisplayed(driver,waitForDocUpload,60)) {
-           return false;
+        Debugger.println("Waiting for form Upload...");
+        //Logic has changed as tooltip coming for big files while uplaoding.Waiting to dissappear the tooltip.
+        seleniumLib.moveAndClickOn(continueButton);
+        if(seleniumLib.isElementPresent(waitForDocUpload)){
+            Wait.forElementToDisappear(driver,By.xpath("//span[@class='tooltiptext']"));
+            if(seleniumLib.isElementPresent(waitForDocUpload)){
+                Wait.forElementToDisappear(driver,By.xpath("//span[@class='tooltiptext']"));
+                if(seleniumLib.isElementPresent(waitForDocUpload)){
+                   return false;
+                }
+                return true;
+            }
         }
         return true;
     }
@@ -1686,4 +1701,159 @@ public class PatientChoicePage {
         }
         return true;
     }
+
+    public boolean verifyFormUploadSuccessMessage(String expMessage) {
+        try {
+            Wait.forElementToBeDisplayed(driver, formSuccessfullyUploadedMsg);
+            String actualMessage = formSuccessfullyUploadedMsg.getText();
+            if (!expMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormUploadSuccessMsg.jpg");
+            return false;
+        }
+    }
+    public boolean verifyInvalidFileUploadMessages(String fileName, String expMessage) {
+        try {
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            seleniumLib.upload(docUpload, uploadFilepath + fileName);
+            //Wait for 5 seconds to get the error message
+            if (!Wait.isElementDisplayed(driver, filUploadErrorMsg, 30)) {
+                //Error message not yet displayed...
+                Debugger.println("Error Message for Unsupported file type not displayed");
+                return false;
+            }
+            String actMessage = filUploadErrorMsg.getText();
+            //Read the message.. and compare with what we pass
+            if (!actMessage.contains(expMessage)) {
+                Debugger.println("Expected Error Message: " + expMessage + ", But Actual is:" + actMessage);
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: verifyInvalidFileUploadMessages: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDocUpload.jpg");
+            return false;
+        }
+    }
+
+    public void clickTheUploadDocumentButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDocumentOption);
+            Wait.forElementToBeClickable(driver, uploadDocumentOption);
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+        } catch (Exception exp) {
+            Debugger.println("Exception from PatientChoicePage:clickTheUploadDocumentButton: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageUploadDocumentButton.jpg");
+            Assert.assertFalse("PatientChoicePage:clickTheUploadDocumentButton:Exception:" + exp, true);
+        }
+    }
+
+    public boolean uploadDocumentInRecordedBy(String fileName) {
+        try {
+            seleniumLib.clickOnWebElement(uploadDocumentOption);
+            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
+            // Uploading file by sending webelement and file name with path as value
+            seleniumLib.upload(docUpload, uploadFilepath + fileName);
+            if (!Wait.isElementDisplayed(driver, formSuccessfullyUploadedMsg, 20)) {
+                //success message not yet displayed...
+                Debugger.println("Success Message for file upload not displayed");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from uploading file..." + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceUploadDocumentInRecordedBy.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheDropDownAndDOBFieldOfPatientChoice() {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            if (!seleniumLib.isElementPresent(fileTypeDropDown)) {
+                Debugger.println("Dropdown is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadDay)) {
+                Debugger.println("Day is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadMonth)) {
+                Debugger.println("Month is not present after uploading the file...");
+                return false;
+            }
+            if (!seleniumLib.isElementPresent(uploadYear)) {
+                Debugger.println("Year is not present after uploading the file...");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyTheDropDownAndDOBFieldOfPatientChoice, Exception found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageDropDownAndDOBField.jpg");
+            return false;
+        }
+    }
+    public boolean dateOfSignatureStatusInRecordedBY() {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateOfSignature);
+            if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
+                Debugger.println("Date of Signature fields are in enabled state.");
+                return true;
+            }
+            Debugger.println("Date of Signature fields are in disabled state.");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Date of Signature fields not found. " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureStatus.jpg");
+            return false;
+        }
+    }
+
+    public boolean selectUploadFormType(String dropdownValue) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            seleniumLib.scrollToElement(fileTypeDropDown);
+            seleniumLib.clickOnWebElement(fileTypeDropDown);
+//            Debugger.println("After clicking dropdown.....");
+            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", dropdownValue));
+            WebElement dropdownElement = driver.findElement(formType);
+            if (!seleniumLib.isElementPresent(dropdownElement)) {
+                Debugger.println("Form type dropdown value not found");
+                return false;
+            }
+            seleniumLib.clickOnWebElement(dropdownElement);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selecting dropdown in recorded by" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceRecordedByPleaseSelectDropDown.jpg");
+            return false;
+        }
+    }
+
+    // new method created to fill any date being passed which replaces the fillingTheDOBInRecordedBy method which was only filling today's date
+    public boolean fillTheDateOfSignatureInRecordedBy(String signatureDate) {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateOfSignature);
+            if (signatureDate != null && !signatureDate.isEmpty()) {
+                String[] dobSplit = signatureDate.split("/");
+                uploadDay.sendKeys(dobSplit[0]);
+                uploadMonth.sendKeys(dobSplit[1]);
+                uploadYear.sendKeys(dobSplit[2]);
+                return true;
+            }
+            Debugger.println("Date of Signature value is not present ");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureFilling.jpg");
+            return false;
+        }
+    }
+
 }//end

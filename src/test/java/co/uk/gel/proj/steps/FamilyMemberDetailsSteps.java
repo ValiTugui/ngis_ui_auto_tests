@@ -54,9 +54,15 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+    @Then("the blank mandatory fields {string} highlighted in {string}")
+    public void theBlankMandatoryFieldsHighlightedInColor(String mandatoryFields, String highlightColor) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyMandatoryFieldHighlightColor(mandatoryFields, highlightColor);
+        Assert.assertTrue(testResult);
+    }
 
-    @When("the user fills the FamilyMemberDetailsPage for {string} with the {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String nhsDetails,String relationToProband) {
+    @When("the user selects the Relationship to proband as {string}")
+    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
     }
 
@@ -90,6 +96,12 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberDetailsPage();
         Assert.assertTrue(testResult);
     }
+    @Then("confirm family member details page populate with same details found in patient card for {string}")
+    public void theFamilyDetailsPagePopulateWithSameDetailsAsInPatientCard(String memberDetails) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyPopulatedDetailsForFamilyMember(memberDetails);
+        Assert.assertTrue(testResult);
+    }
 
     @And("the user removes the data from all fields {string} in the family member details page")
     public void theUserRemovesTheDataFromAllFieldsInTheFamilyMemberDetailsPage(String clearDropdown) {
@@ -107,6 +119,13 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void thePatientCardDisplaysWithBornGenderAndNHSNoDetails() {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay("");
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the back button should not be present")
+    public void theBackButtonShouldNotBePresent() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePresenceOfBackButton(false);
         Assert.assertTrue(testResult);
     }
 
@@ -234,6 +253,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user removes the family member")
     public void theUserRemoveTheFamilyMember() {
         familyMemberDetailsPage.removeAFamilyMember();
+    }
+    @Then("the user accept the alert with message (.*)")
+    public void verifyFamlyMemberRemovalAlert(String alertMessage) {
+        familyMemberDetailsPage.verifyAlertMessageOnRemoval(alertMessage);
     }
 
     @Then("the user should be able to see {string} removal message on the family member landing page")
@@ -400,7 +423,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if(memberDetails.size() != noOfParticipants){
+            if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
@@ -444,20 +467,26 @@ public class FamilyMemberDetailsSteps extends Pages {
                     referralPage.clickSaveAndContinueButton();
                 }
                 Debugger.println("Verifying Selected Test Details.");
+                Wait.seconds(2);
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
                     Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
                 }
                 Debugger.println("Clicking on SaveAndContinue.");
+                Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
+                Wait.seconds(2);
                 Debugger.println("Disease status filling..........");
                 clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
-               Debugger.println("Clicking on SaveAndContinue.");
+                Wait.seconds(2);
+                Debugger.println("Clicking on SaveAndContinue.");
                 referralPage.clickSaveAndContinueButton();
+                Wait.seconds(2);
                 Debugger.println("Verifying added family details in landing page..........");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
+                Wait.seconds(2);
                 Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){

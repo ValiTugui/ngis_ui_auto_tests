@@ -306,7 +306,6 @@ public class FamilyMemberSearchPage {
         Wait.forElementToBeDisplayed(driver,dateDay);
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
-
         for (String key : paramsKey) {
             switch (key) {
                 case "NHSNumber": {
@@ -424,10 +423,13 @@ public class FamilyMemberSearchPage {
         Debugger.println("The actual Description title  is :" + pageDescription.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
-    public void verifyTheQuestionOfThePage(String DescriptionOfPage) {
-        String actualPageDescription = nhsQuestion.getText();
-        Debugger.println("The actual Description title  is :" + nhsQuestion.getText());
-        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    public boolean verifyTheQuestionOfThePage(String searchQuestion) {
+        String actualQuestion = nhsQuestion.getText();
+       if(!actualQuestion.contains(searchQuestion)){
+           Debugger.println("Actual Question:"+actualQuestion+",Expected Question: "+searchQuestion);
+           return false;
+       }
+       return true;
     }
     public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
         Wait.forElementToBeDisplayed(driver, createNewPatientLink);
