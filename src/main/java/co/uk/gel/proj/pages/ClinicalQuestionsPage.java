@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -66,6 +67,9 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//label[contains(@class,'radio')]")
     public List<WebElement> radioButtons;
 
+    @FindBy(xpath = "//input[contains(@class,'radio')]")
+    public List<WebElement> selectedRadioButtons;
+
     @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]//child::div")
     public WebElement hpoModifiersDropdown;
 
@@ -99,10 +103,34 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "div[class*='hpo__search']")
     public WebElement hpoSectionLabel;
 
+    @FindBy(xpath = "//span[contains(text(),'Omim')]")
+    public WebElement omimRadioButton;
+
+    @FindBy(css = "[class*='switchable-enum']")
+    public WebElement rareDiseaseDiagnosisTable;
+
+    public List<WebElement> rareDiseaseDiagnosisTexts;
+
+    @FindBy(xpath = "//span[contains(text(),'Orphanet')]")
+    public WebElement orphanetRadioButton;
+
+    @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]")
+    public List<WebElement> rareDiseaseDiagnosesRadioButtons;
+
+    @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]//input")
+    public List<WebElement> selectedRareDiseaseDiagnosesRadioButtons;
+
+    @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
+    public WebElement rareDiseaseDiagnosisStatusDropdown;
+
+    @FindBy(css = "[class*='notification-error']")
+    public WebElement hpoErrorNotification;
+
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
     String selectSingleValue = "div[class*='singleValue']";
+    String tagName = "span";
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -445,4 +473,70 @@ public class ClinicalQuestionsPage {
         }
         return elementFound;
     }
+
+    public String selectRareDiseaseDiagnosisType(String expectedDiseaseDiagnosisType) {
+        String diagnosisType = null;
+        Wait.forElementToBeDisplayed(driver, omimRadioButton);
+        Wait.forElementToBeDisplayed(driver, orphanetRadioButton);
+        if (expectedDiseaseDiagnosisType.equalsIgnoreCase("Omim")) {
+            Actions.clickElement(driver, omimRadioButton);
+        } else {
+            Actions.clickElement(driver, orphanetRadioButton);
+        }
+        for (WebElement element : rareDiseaseDiagnosesRadioButtons) {
+            if (element.findElement(By.tagName(tagName)).getCssValue("border-color").equals("rgb(74, 139, 202)")) {
+                diagnosisType = Actions.getText(element);
+            }
+        }
+        return diagnosisType;
+    }
+
+    public String selectRareDiseaseStatus(String value) {
+        try {
+            Actions.clickElement(driver, rareDiseaseDiagnosisStatusDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, value);
+            return Actions.getText(rareDiseaseDiagnosisStatusDropdown.findElement(By.cssSelector(selectSingleValue)));
+        } catch (Exception exp) {
+        Debugger.println("Clinical Questions Page : Exception from selecting RareDiseaseStatus value  : " + exp);
+        SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
+        return null;
+    }
+    }
+
+    public boolean verifySpecificTermPresence(String presence) {
+        boolean testResult = false;
+        Wait.forElementToBeDisplayed(driver, hpoTable);
+        for (int i = 0; i < radioButtons.size(); i++) {
+            if (radioButtonsTexts.get(i).getText().contains(presence)) {
+                testResult =  Actions.isRadioButtonIsSelected(selectedRadioButtons.get(i));
+                break;
+            }
+        }
+        return testResult;
+    }
+    public boolean verifySpecificDiagnosisType(String diagnosis) {
+        boolean testResult = false;
+        Wait.forElementToBeDisplayed(driver, rareDiseaseDiagnosisTable);
+        for (int i = 0; i < rareDiseaseDiagnosesRadioButtons.size(); i++) {
+            Debugger.println("DiagnosisType " + i+ " " + Actions.getValue(selectedRareDiseaseDiagnosesRadioButtons.get(i)));
+            if (Actions.getValue(selectedRareDiseaseDiagnosesRadioButtons.get(i)).contains(diagnosis)) {
+                testResult =  Actions.isRadioButtonIsSelected(selectedRareDiseaseDiagnosesRadioButtons.get(i));
+                break;
+            }
+        }
+        return testResult;
+    }
+
+    public boolean verifySpecificRareDiseaseDiagnosisStatusValue(String expectedStatus) {
+        Wait.forElementToBeDisplayed(driver, rareDiseaseDiagnosisStatusDropdown);
+        Debugger.println("Expected diseaseStatus       : " + expectedStatus);
+        Debugger.println("Actual diseaseStatusDropdown : " + Actions.getText(rareDiseaseDiagnosisStatusDropdown));
+        return Actions.getText(rareDiseaseDiagnosisStatusDropdown).equalsIgnoreCase(expectedStatus);
+    }
+
+    public String getErrorMessageFromHPOPhenotypeSection(){
+            Wait.forElementToBeDisplayed(driver, hpoErrorNotification);
+            return Actions.getText(hpoErrorNotification);
+        }
 }
