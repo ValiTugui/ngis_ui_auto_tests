@@ -47,7 +47,7 @@ Feature: New Patient page
       | create a new patient record | Patient is a foreign national |
 
   @NTS-3456 @E2EUI-1134 @LOGOUT @v_1
-  Scenario Outline: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
+  Scenario Outline: NTS-3456: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the user clicks the NO button
@@ -80,7 +80,7 @@ Feature: New Patient page
 
 
   @NTS-3456 @E2EUI-1134 @LOGOUT @v_1
-  Scenario Outline: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
+  Scenario Outline: NTS-3456: Super User - To validate input fields for the Non-NHS patient creation - with a Super User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     And the user clicks the NO button
@@ -260,7 +260,7 @@ Feature: New Patient page
 
 
   @NTS-3507 @E2EUI-1649 @LOGOUT
-  Scenario Outline: Super-user - Hospital number is conditionally non-nullable if NHS number is null
+  Scenario Outline:NTS-3507:Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -280,7 +280,7 @@ Feature: New Patient page
 
 
   @NTS-3507 @E2EUI-1649  @LOGOUT
-  Scenario Outline: Super-user - Hospital number is conditionally non-nullable if NHS number is null
+  Scenario Outline:NTS-3507: Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -312,7 +312,7 @@ Feature: New Patient page
 
 
    @NTS-3508 @E2EUI-1660 @LOGOUT @v_1
-  Scenario Outline:Super User - Create a new patient record with an NHS Number
+  Scenario Outline: NTS-3508: Super User - Create a new patient record with an NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     When the user clicks the NO button
@@ -333,5 +333,30 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
+  @NTS-3512 @E2EUI-1508 @LOGOUT
+  Scenario Outline: NTS-3512: Patient record-New Page | Verify address and patient record fields
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle>" page is displayed
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader    |
+      | Address        |
+      | Address line 2 |
+      | Address line 3 |
+      | Address line 5 |
+      | Postcode       |
+    Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    Then the patient is successfully created with a message "Details saved"
+    When the user clicks the - "Go back to patient search" - link
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name, gender and post-code
+    And the user clicks the Search button
+    Then a "<patient-type>" result is successfully returned
 
+    Examples:
+      | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | patient-type|
+      | create a new patient record | Add a new patient to the database | Other - provide explanation | NGIS        |
 
