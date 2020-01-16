@@ -484,22 +484,30 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-        By pageTitle;
-        if(expTitle.contains("\'")){
-            // if the string contains apostrophe character, apply double quotes in the xpath string
-            pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
-        }else {
-            pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
-        }
+       try {
+           By pageTitle;
+           if (expTitle.contains("\'")) {
+               // if the string contains apostrophe character, apply double quotes in the xpath string
+               pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+           } else {
+               pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+           }
 
-        if (!seleniumLib.isElementPresent(pageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
-            if (!seleniumLib.isElementPresent(pageTitle)) {
-                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                return false;
-            }
-        }
-        return true;
+           if (!seleniumLib.isElementPresent(pageTitle)) {
+               Wait.isElementDisplayed(driver,driver.findElement(pageTitle),120);
+               if (!seleniumLib.isElementPresent(pageTitle)) {
+                   Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                   return false;
+               }
+           }
+           return true;
+       }catch(Exception exp){
+           Debugger.println("Page with Title: "+expTitle+" not loaded.");
+           Actions.scrollToTop(driver);
+           SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+           return false;
+       }
+
     }
 
     public void clickOnSaveAndContinueButton() {

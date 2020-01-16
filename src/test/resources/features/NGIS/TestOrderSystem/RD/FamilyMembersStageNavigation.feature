@@ -19,17 +19,27 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
+    And the back button should not be present
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user selects the test to add to the family member "<FamilyMemberDetails>"
+    And the user moves back to previous page
+    Then the user is navigated to a page with title Confirm family member details
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
+    And the user moves back to previous page
+    Then the user is navigated to a page with title Select tests for
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
-    Then the user returns to family member landing page with the added family member details "<FamilyMemberDetails>"
-
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on Continue Button
+    Then the user is navigated to a page with title Patient choice
     Examples:
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |

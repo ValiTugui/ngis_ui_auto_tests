@@ -122,6 +122,13 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the back button should not be present")
+    public void theBackButtonShouldNotBePresent() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyThePresenceOfBackButton(false);
+        Assert.assertTrue(testResult);
+    }
+
     @And("the user should be able to see test package for family member is selected by default")
     public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
         boolean testResult = false;
@@ -246,6 +253,10 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user removes the family member")
     public void theUserRemoveTheFamilyMember() {
         familyMemberDetailsPage.removeAFamilyMember();
+    }
+    @Then("the user accept the alert with message (.*)")
+    public void verifyFamlyMemberRemovalAlert(String alertMessage) {
+        familyMemberDetailsPage.verifyAlertMessageOnRemoval(alertMessage);
     }
 
     @Then("the user should be able to see {string} removal message on the family member landing page")
@@ -412,7 +423,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if(memberDetails.size() != noOfParticipants){
+            if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }

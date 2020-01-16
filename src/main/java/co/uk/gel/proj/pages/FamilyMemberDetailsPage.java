@@ -793,6 +793,14 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+    public boolean verifyThePresenceOfBackButton(boolean presence){
+        boolean isPresent = seleniumLib.isElementPresent(backButton);
+        if(isPresent == presence){
+            return true;
+        }
+        return false;
+    }
+
     public boolean verifyTheEditingReferralColor(String nhsDetails, String eColor) {
         try {
             HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
@@ -949,9 +957,21 @@ public class FamilyMemberDetailsPage {
     public boolean removeAFamilyMember() {
         try {
             removeFamilyMember.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from removing family member " + exp);
+            return false;
+        }
+    }
+    public boolean verifyAlertMessageOnRemoval(String alertMessage) {
+        try {
             Alert alert = driver.switchTo().alert();
-            String alertMessage = driver.switchTo().alert().getText();
-            Debugger.println("Alert message for removing family member" + alertMessage);
+            String actualMessage = driver.switchTo().alert().getText();
+            if(!actualMessage.equalsIgnoreCase(alertMessage)){
+                Debugger.println("Actual alert message: "+actualMessage+", Expected:"+alertMessage);
+                alert.accept();
+                return false;
+            }
             alert.accept();
             return true;
         } catch (Exception exp) {
