@@ -197,7 +197,12 @@ public class ReferralSteps extends Pages {
         clinicalIndicationsTestSelect.clickStartReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
-        switchToURL(driver.getCurrentUrl());
+        if(userType != null) {
+            switchToURL(driver.getCurrentUrl(), userType);
+        } else {
+            switchToURL(driver.getCurrentUrl());
+        }
+        //switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
         if(patientType == null || patientType.isEmpty()) {

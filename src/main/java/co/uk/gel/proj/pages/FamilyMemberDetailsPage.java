@@ -383,7 +383,7 @@ public class FamilyMemberDetailsPage {
         if (relationToProband != null) {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }
-        addedFamilyMembers.add(familyMember);//This to verify the details later.
+        addFamilyMemberToList(familyMember);//This to verify the details later.
         Debugger.println("Family Member: " + familyMember.getNHS_NUMBER() + " added to the list.");
         return true;
     }
@@ -1612,6 +1612,11 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
             return false;
         }
+    }
+    public static void addFamilyMemberToList(NGISPatientModel familyMember){
+        addedFamilyMembers.add(familyMember);
+        Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());
+        Debugger.println("Size is: "+addedFamilyMembers.size());
     }
 
 }//ends

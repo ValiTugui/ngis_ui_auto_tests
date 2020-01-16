@@ -6,7 +6,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -699,7 +698,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine4, familyMember.getADDRESS_LINE4());
         Actions.fillInValue(postcode, familyMember.getPOST_CODE());
         //Adding Family member to a list for later stage verification
-        FamilyMemberDetailsPage.addedFamilyMembers.add(familyMember);
+        FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
         Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
         Actions.clickElement(driver, addNewPatientToReferral);
     }
