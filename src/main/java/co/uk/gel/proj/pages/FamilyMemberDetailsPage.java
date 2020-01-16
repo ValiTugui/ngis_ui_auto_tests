@@ -395,7 +395,7 @@ public class FamilyMemberDetailsPage {
 
     public void fillTheRelationshipToProband(String relationToProband) {
         validationErrors.clear();
-        seleniumLib.scrollToElement(relationshipToProbandLabel);
+        Actions.scrollToTop(driver);
         if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
             Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
         }
@@ -409,6 +409,7 @@ public class FamilyMemberDetailsPage {
             Wait.seconds(2);
             if (!seleniumLib.isElementPresent(ddElement)) {
                 Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: " + relationToProband + " not present in drop down.");
+                SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return;
             }
             seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
