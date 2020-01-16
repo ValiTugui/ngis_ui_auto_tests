@@ -52,14 +52,13 @@ Feature: Family Members Details Validation
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    Then the default family member details page is correctly displayed with the proper number of fields
+    And the default family member details page is correctly displayed with the proper number of fields
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt          |
+      | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt         |
 
   @NTS-3297 @E2EUI-1012 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
