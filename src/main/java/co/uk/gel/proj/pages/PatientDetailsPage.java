@@ -19,6 +19,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerUtilities;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[text()='Test Directory']")
     public WebElement testDirectoryLinkOnBanner;
 
-    @FindBy(xpath = "//div[contains(@class,'notification__text')]")
+    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
     public WebElement textOnPatientDetailsNotificationBanner;
 
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
@@ -220,6 +221,17 @@ public class PatientDetailsPage {
         String monthOfBirth = PatientSearchPage.testData.getMonth();
         String yearOfBirth = PatientSearchPage.testData.getYear();
 
+        // Date of Birth field will always be empty when accessing the New Patient "test-order/new-patient" directly
+        if (Actions.getValue(dateOfBirth).isEmpty())
+        {
+            Debugger.println("Before: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
+            dayOfBirth = String.valueOf(faker.number().numberBetween(10, 31));
+            monthOfBirth = String.valueOf(faker.number().numberBetween(10, 12));
+            yearOfBirth = String.valueOf(faker.number().numberBetween(1900, 2019));
+            Actions.fillInValue(dateOfBirth, dayOfBirth + "/" + monthOfBirth + "/" + yearOfBirth);
+            Debugger.println("After: Date of Birth field empty: " + Actions.getValue(dateOfBirth));
+        }
+
         newPatient.setDay(dayOfBirth);
         newPatient.setMonth(monthOfBirth);
         newPatient.setYear(yearOfBirth);
@@ -295,21 +307,9 @@ public class PatientDetailsPage {
     }
 
     public void clickSavePatientDetailsToNGISButton() {
-        Actions.clickElement(driver, savePatientDetailsToNGISButton);
-        // After save button is clicked, wait for it to be disabled or non-clickable
-        try {
-            int counter = 5;  // Counter for number of tries
-            for (int i = 1; i <= counter; i++) {
-                if (!savePatientDetailsToNGISButton.isEnabled()) {
-                    Debugger.println("savePatient details button is now disabled or non-clickable after count " + counter);
-                    break;
-                }
-                Wait.seconds(1);
-            }
-        } catch (Exception e) {
-            Debugger.println("savePatient details button is still clickable");
-        }
-    }
+        Wait.forElementToBeClickable(driver,savePatientDetailsToNGISButton);
+        Click.element(driver, savePatientDetailsToNGISButton);
+   }
 
     public void patientIsCreated() {
         Wait.forElementToBeDisplayed(driver, successNotification);
@@ -361,7 +361,8 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("testDirectoryLinkOnBanner.jpg");
                 return false;
             }
-            Click.element(driver, driver.findElement(linkOnBanner));
+//            Click.element(driver, driver.findElement(linkOnBanner));
+            Actions.retryClickAndIgnoreElementInterception(driver,driver.findElement(linkOnBanner));
             return true;
         } catch (Exception exp) {
             Debugger.println("Test Directory Link is not shown on banner..." + exp);
@@ -707,4 +708,5 @@ public class PatientDetailsPage {
     public void fillInNHSNumber(){
         Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
     }
+
 }
