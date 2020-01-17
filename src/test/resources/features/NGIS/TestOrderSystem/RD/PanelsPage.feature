@@ -13,11 +13,11 @@ Feature: Panels Page Verification
     And the user should be able to see Add another panel section with search field and search icon
     And the user should  be able to search and add the "<searchPanels>" panels
     And the user should be able to see selected panels
-#    Then the user sees the selected panels under added panels
-#    And the user clicks on Save and Continue in Panels Page
-#    And the user is navigated to a page with title Build a pedigree
-#    When the user navigates to "<Panels>" stage
-#    Then the user sees the selected panels under added panels
+    Then the user sees the selected panels under added panels
+    And the user clicks on Save and Continue in Panels Page
+    And the user is navigated to a page with title Build a pedigree
+    When the user navigates to "<Panels>" stage
+    Then the user sees the selected panels under added panels
 
     Examples:
       | Panels | searchPanels |

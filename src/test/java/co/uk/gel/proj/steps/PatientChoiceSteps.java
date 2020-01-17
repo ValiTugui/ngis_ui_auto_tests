@@ -145,10 +145,10 @@ public class PatientChoiceSteps extends Pages {
         notesPage.fillNotes(notes);
     }
 
-    @And("the user clicks on the {string} link in patient choice page")
-    public void theUserClicksOnTheLinkInPatientChoicePage(String linkText) {
+    @When("the user selects the (.*) tab in patient choice page")
+    public void theUserSelectsTheTabInPatientChoicePage(String tabName) {
         boolean testResult = false;
-        testResult = patientChoicePage.clickOnPatientChoiceInformationLink(linkText);
+        testResult = patientChoicePage.clickOnPatientChoiceInformationLink(tabName);
         Assert.assertTrue(testResult);
     }
 
@@ -500,13 +500,13 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyFormsTitleUnderFormsLibrary(formsTitle);
         Assert.assertTrue(testResult);
     }
-
-    @Then("the should be able to see an additional section {string} under the Form Library")
-    public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyAdditionalFormsSection(formsSection);
-        Assert.assertTrue(testResult);
-    }
+//
+//    @Then("the should be able to see an additional section {string} under the Form Library")
+//    public void theShouldBeAbleToSeeAnAdditionalSectionUnderTheFormLibrary(String formsSection) {
+//        boolean testResult = false;
+//        testResult = patientChoicePage.verifyAdditionalFormsSection(formsSection);
+//        Assert.assertTrue(testResult);
+//    }
 
     @When("the user clicks on {string} link")
     public void theUserClicksOnLink(String link) {
@@ -689,6 +689,31 @@ public class PatientChoiceSteps extends Pages {
     @And("the user save patient choice form and continue")
     public void theUserSavePatientChoiceFormAndContinue() {
        patientChoicePage.clickOnSaveAndContinueButton();
+    }
+
+    @Then("the user should see the supporting information links under the section (.*)")
+    public void theUserShouldSeeTheSupportingInformationLinksUnderTheSection(String formSection, DataTable inputLinks) {
+        try {
+            boolean testResult = false;
+            List<List<String>> linkDetails = inputLinks.asLists();
+            testResult = patientChoicePage.verifyTheFormLibrarySection(formSection);
+            if(!testResult){
+                Debugger.println("Section "+formSection+" not present in the FormLibrary Tab.");
+                Assert.assertTrue(testResult);
+            }
+            Debugger.println("Verifying forms under section :"+formSection);
+            for (int i = 1; i < linkDetails.size(); i++) {
+               testResult = patientChoicePage.verifyTheSupportingInformationLink(formSection,linkDetails.get(i).get(0));
+               if(!testResult){
+                   Assert.assertTrue(testResult);
+               }
+            }
+            Debugger.println((linkDetails.size()-1)+" forms verified.");
+            Assert.assertTrue(testResult);
+        } catch (Exception exp) {
+            Debugger.println("Exception from supporting information links " + exp);
+            Assert.assertFalse("PatientChoiceSteps: Exception from supporting information links: " + exp, true);
+        }
     }
 
 }//end

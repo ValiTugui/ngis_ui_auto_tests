@@ -52,3 +52,20 @@ Feature: Requesting Organisation page
     Examples:
       | stage                   | title                         | expectedText                                                   | placeholderText                                                                         |
       | Requesting organisation | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
+
+  @NTS-3383 @E2EUI-1415 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3383: Requesting Organisation landing page
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient
+    When the user navigates to the "<Requesting organisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user should be able to see an intro message "<introMessage>" on requesting organisation page
+    Then the user should be able to see hint text in search box on requesting organisation page
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+
+    Examples:
+      | Requesting organisation | introMessage                                                   | ordering_entity_name |
+      | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |

@@ -42,10 +42,28 @@ Feature: Patient Choice Page
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    And the user clicks on the "<LinkText>" link in patient choice page
-    Then the patient choice form library page displays correctly
-    ##To be updated with all links to forms and its existence as per the updated UI (Manual Review comment)
-
+    When the user selects the Form library tab in patient choice page
+    Then the user should see the supporting information links under the section Patient choice forms
+      | FormName                                                     |
+      | Record of Discussion Regarding WGS                           |
+      | Agreement to Participate in Research                         |
+      | National Genomic Research Library Young Person's Assent Form |
+      | Consultee Declaration Regarding Whole Genome Sequencing      |
+      | Withdrawal from the National Genomic Research Library        |
+    And the user should see the supporting information links under the section Annotated patient choice forms
+      | FormName                                                               |
+      | Annotated Record of Discussion Regarding WGS                           |
+      | Annotated Agreement to Participate in Research                         |
+      | Annotated National Genomic Research Library Young Person's Assent Form |
+      | Annotated Consultee Declaration Regarding Whole Genome Sequencing      |
+      | Annotated Withdrawal from the National Genomic Research Library        |
+    And the user should see the supporting information links under the section Supporting information
+      | FormName                                             |
+      | Clinician's Guide Cancer                             |
+      | Clinician's Guide RD                                 |
+      | Clinician's Guide Supplementary Information Clinical |
+      | Clinician's Guide Supplementary Information NGRL     |
+      | Patient's Information Research                       |
     Examples:
-      | Family members | Status1     | Patient choice stage | LinkText     |
-      | Family members | Not entered | Patient choice       | Form library |
+      | Family members | Status1     | Patient choice stage |
+      | Family members | Not entered | Patient choice       |
