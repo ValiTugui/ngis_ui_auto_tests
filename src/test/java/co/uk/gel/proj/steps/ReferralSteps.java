@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.lib.Actions;
@@ -18,7 +17,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -66,7 +64,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
@@ -194,7 +192,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         switchToURL(driver.getCurrentUrl());
@@ -294,7 +292,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
@@ -394,7 +392,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
@@ -487,7 +485,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         Debugger.println(" User Type : " + userType);
@@ -592,7 +590,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         homePage.selectFirstEntityFromResultList();
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartReferralButton();
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println(" User Type : " + userType);
         if(userType != null) {

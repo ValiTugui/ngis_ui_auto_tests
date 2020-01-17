@@ -373,4 +373,23 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedTextOnBanner, actualTextOnBanner);
     }
 
+    @Given("a web browser is at create new patient page")
+    public void aWebBrowserIsAtCreateNewPatientPage(List<String> attributeOfUrl) {
+        String baseURL = attributeOfUrl.get(0);
+        String confirmationPage = attributeOfUrl.get(1);
+        String userType = attributeOfUrl.get(2);
+        if (userType != null) {
+            NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
+        }
+    }
+
+    @When("the user select the life status {string}")
+    public void theUserSelectTheLifeStatus(String lifeStatus) {
+        patientDetailsPage.editDropdownField(patientDetailsPage.lifeStatusButton, lifeStatus);
+    }
+
+    @And("the user fills in the date of birth {string}")
+    public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
+        Actions.fillInValue(patientDetailsPage.dateOfBirth, dateOfBirth);
+    }
 }

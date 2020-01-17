@@ -189,12 +189,26 @@ public class SamplesPage {
     }
 
     public void selectSampleState(String sampleStateValue) {
+      /*
         Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
         // Counter for number of tries - loop for when intermittent error message is triggered upon selecting sample state
         int numberOfAttempts = 5;
-        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
+        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
         Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
-        sampleDetails.setSampleState(sampleStateValue);
+        sampleDetails.setSampleState(sampleStateValue); */
+
+        try {
+            if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
+                Actions.scrollToTop(driver);
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
+            sampleDetails.setSampleState(sampleStateValue);
+        } catch (Exception exp) {
+            Debugger.println("Add Sample Page : Exception from selecting Sample State value : " + exp);
+            SeleniumLib.takeAScreenShot("SelectSampleStateValue.jpg");
+        }
     }
 
     public void fillInSampleID() {
