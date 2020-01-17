@@ -73,7 +73,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     #Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
-    And the user can see the selected panels listed
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigress
