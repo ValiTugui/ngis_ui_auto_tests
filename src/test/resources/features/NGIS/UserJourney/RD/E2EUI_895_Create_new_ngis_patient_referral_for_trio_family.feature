@@ -1,5 +1,5 @@
 @BVT_UI_SMOKE_TEST_PACK
-@userJourneysRD
+@userJourneysRD_BVT
 Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
 
   @NTS-3407 @E2EUI-895 @LOGOUT
