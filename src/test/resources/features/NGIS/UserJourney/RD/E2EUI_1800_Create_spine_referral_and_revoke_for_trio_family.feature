@@ -1,9 +1,17 @@
+
+#Some History
+#This test used Spine patient data as proband , and creates referrals for the same proband patient when we run this test multiple times (1 proband ->  many cancelled referrals)
+#This causes a issue on DDF when referrals are submitted/cancelled as the payload for this patient becomes very bigger in size
+#Hence removing it from the automation nightly runs by commenting out the tags - asked by Rex Thankaswamy
+#Arthur release has been postponed because of this proband has bulk referrals
+#Please run this Test cautiously especially if you are planning to run MORE THAN ONCE as DDF is not designed to handle this kind of situation
 #@userJourneys
 #@userJourneysRD
+#@BVT-P0
 
 Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
-  @E2EUI-1800 @LOGOUT @BVT-P0 @v_1
+  @E2EUI-1800 @LOGOUT @v_1
   Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
 
     ###Referral creation  - provide nhs and dob of an existing patient

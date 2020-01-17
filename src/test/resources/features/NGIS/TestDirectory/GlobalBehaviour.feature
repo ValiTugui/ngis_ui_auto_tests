@@ -16,7 +16,7 @@ Feature: Global Behaviour Page
       | Angiomatoid Fibrous Histiocytoma |
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
     When the user clicks the PDF order form button
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
@@ -41,7 +41,7 @@ Feature: Global Behaviour Page
       | Angiomatoid Fibrous Histiocytoma |
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     Then the user can see the "Privacy Policy" link at bottom of the page
     When the user clicks the PDF order form button
     Then the user can see the "Privacy Policy" link at bottom of the page

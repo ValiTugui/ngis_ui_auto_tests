@@ -281,4 +281,17 @@ public class Actions {
         }
         return actualTabCount == expectedTabCount;
     }
+
+    public static boolean isRadioButtonIsSelected(WebElement element) {
+        try {
+            String str = element.getAttribute("checked");
+            if (str.equalsIgnoreCase("true")) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

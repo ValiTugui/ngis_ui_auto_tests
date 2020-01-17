@@ -12,7 +12,7 @@ Feature: Paper Form page functionalities
   Scenario: NTS-3194 - Review Test Selection Page - Verify in Review Test Selection Page, by default a test is selected
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
@@ -23,7 +23,7 @@ Feature: Paper Form page functionalities
   Scenario: NTS-3195 - Offline Order Page - Verify Offline Order Page is Displayed
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
@@ -36,7 +36,7 @@ Feature: Paper Form page functionalities
   Scenario: NTS-3193 - Offline Order Page - Verify 'Consent' is replaced with 'Patient choice' on the Offline Order screen
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
@@ -50,7 +50,7 @@ Feature: Paper Form page functionalities
   Scenario: NTS-3200 - Offline Order Page - Verify warning message for 2+ tumours on the Offline Order screen
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
@@ -65,7 +65,7 @@ Feature: Paper Form page functionalities
   Scenario: NTS-3237 - Review Test Selection Page - Verify in Review Test Selection Page, by default a test is selected
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Angiomatoid Fibrous Histiocytoma |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "manchester" in the search field
     And the user selects a random entity from the suggestions list
@@ -77,7 +77,7 @@ Feature: Paper Form page functionalities
   Scenario Outline: NTS-3288 - Offline Order Page - Verify Offline Order Page is Displayed
     And the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
-    And the user clicks the Start referral button
+    And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     When the user enters the keyword "<placeSearchTerm>" in the search field
     And the user selects the first entity from the suggestions list

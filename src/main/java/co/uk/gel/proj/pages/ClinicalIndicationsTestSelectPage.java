@@ -95,7 +95,7 @@ public class ClinicalIndicationsTestSelectPage {
 
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
-    public void clickStartReferralButton() {
+    public void clickStartTestOrderReferralButton() {
         try {
             Debugger.println("Starting Referral....");
             Wait.forElementToBeDisplayed(driver, startTestOrderButton, 30);

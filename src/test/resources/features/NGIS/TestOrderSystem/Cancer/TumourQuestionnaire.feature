@@ -1,5 +1,5 @@
 @regression
-@TO_RD
+@TO_Cancer
 @questionnaire
 
 Feature: Component name - Questionnaire
