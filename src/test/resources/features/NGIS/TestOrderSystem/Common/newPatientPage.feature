@@ -391,4 +391,40 @@ Feature: New Patient page
       | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
       | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
+  @NTS-3516 @E2EUI-1056 @LOGOUT @v_1
+  Scenario Outline: NTS-3516:Normal-User - Create a new non-NHS patient record to Verify the mandatory input field validations with a Life status and all mandatory fields left blank
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader                    |
+      | First name ✱                   |
+      | Last name ✱                    |
+      | Date of birth ✱                |
+      | Gender ✱                       |
+      | Life status ✱                  |
+      | Reason NHS Number is missing ✱ |
+      | Hospital number ✱              |
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader   |
+      | Title         |
+      | Date of death |
+      | Ethnicity     |
+      | Address       |
+      | Postcode      |
+    When the user select the life status "<lifeStatus>"
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
+      | First name ✱                   | First name is required.             | #dd2509             |
+      | Last name ✱                    | Last name is required.              | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Gender ✱                       | Gender is required.                 | #dd2509             |
+      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+
+    Examples:
+      | pageTitle                         | lifeStatus |
+      | Add a new patient to the database | Deceased   |
+
 

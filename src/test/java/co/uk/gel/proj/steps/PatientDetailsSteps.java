@@ -382,4 +382,9 @@ public class PatientDetailsSteps extends Pages {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
     }
+
+    @When("the user select the life status {string}")
+    public void theUserSelectTheLifeStatus(String lifeStatus) {
+        patientDetailsPage.editDropdownField(patientDetailsPage.lifeStatusButton, lifeStatus);
+    }
 }
