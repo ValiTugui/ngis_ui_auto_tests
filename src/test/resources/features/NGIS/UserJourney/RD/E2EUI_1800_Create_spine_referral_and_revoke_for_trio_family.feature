@@ -74,7 +74,6 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
-    And the user can see the selected panels listed
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
