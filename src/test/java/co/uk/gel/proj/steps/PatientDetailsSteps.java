@@ -387,4 +387,9 @@ public class PatientDetailsSteps extends Pages {
     public void theUserSelectTheLifeStatus(String lifeStatus) {
         patientDetailsPage.editDropdownField(patientDetailsPage.lifeStatusButton, lifeStatus);
     }
+
+    @And("the user fills in the date of birth {string}")
+    public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
+        Actions.fillInValue(patientDetailsPage.dateOfBirth, dateOfBirth);
+    }
 }
