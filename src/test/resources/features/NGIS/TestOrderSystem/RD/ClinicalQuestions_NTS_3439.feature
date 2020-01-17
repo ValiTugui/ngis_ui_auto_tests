@@ -14,7 +14,7 @@ Feature: Clinical Questions stage
     And  the user selects "<diseaseStatueValue>"
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
-    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
@@ -40,7 +40,7 @@ Feature: Clinical Questions stage
     And  the user selects "<diseaseStatueValue>"
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
-    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
     Then the "<title>" page is displayed
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis

@@ -13,7 +13,7 @@ Feature: Clinical Questions stage
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
-    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and modifier
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm2>"
     Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms

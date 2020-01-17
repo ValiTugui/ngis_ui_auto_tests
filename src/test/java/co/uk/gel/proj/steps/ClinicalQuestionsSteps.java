@@ -148,8 +148,8 @@ public class ClinicalQuestionsSteps extends Pages {
         theUserFillsTheClinicalQuestionsPageWithTheExceptToTheRareDiseaseDiagnosisField(searchTerms);
     }
 
-    @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and modifier")
-    public void theUserSelectsTheHPOPhenotypeQuestionsSuchAsNameTermPresenceAndModifier(String termPresence) {
+    @And("the user selects the HPO phenotype questions such as Name, Term presence {string} and corresponding modifier")
+    public void theUserSelectsTheHPOPhenotypeQuestionsSuchAsNameTermPresenceAndCorrespondingModifier(String termPresence) {
         Assert.assertTrue(clinicalQuestionsPage.selectTermPresence(termPresence));
         Assert.assertTrue(clinicalQuestionsPage.selectRandomModifier() != null);
     }
@@ -205,4 +205,57 @@ public class ClinicalQuestionsSteps extends Pages {
     }
 
 
+    @And("the user adds a new HPO phenotype term {string} using the autosuggest terms")
+    public void theUserAddsANewHPOPhenotypeTermUsingTheAutosuggestTerms(String hpoTerm) {
+        theUserAddsANewHPOPhenotypeTerm(hpoTerm);
+    }
+
+    @And("the count of HPO terms table is {int}")
+    public void theCountOfHPOTermsTableIs(int expectedNumberOfHPOTerms) {
+        Assert.assertTrue(clinicalQuestionsPage.verifyTheCountOfHPOTerms(expectedNumberOfHPOTerms));
+    }
+
+    @And("the user selects the Rare disease diagnosis questions such as {string} and corresponding status {string}")
+    public void theUserSelectsTheRareDiseaseDiagnosisQuestionsSuchAsAndCorrespondingStatus(String diagnosisTypeValue, String statusValue) {
+        String actualValue = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue);
+        Assert.assertTrue(diagnosisTypeValue.equalsIgnoreCase(actualValue));
+
+        String actualStatusValue = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue);
+        Assert.assertTrue(statusValue.equalsIgnoreCase(actualStatusValue));
+    }
+
+    @And("the user sees the data in Disease status details such as {string} AgeOnset values {string} {string}")
+    public void theUserSeesTheDataInDiseaseStatusDetailsSuchAsAgeOnsetValues(String expectedDiseaseStatus, String expectedAgeOnSetYear, String expectedAgeOnSetMonth) {
+        // verify Disease Status
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiseaseStatusValue(expectedDiseaseStatus));
+        // verify Age On Set
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetYearsValue(expectedAgeOnSetYear));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificAgeOnSetMonthValue(expectedAgeOnSetMonth));
+    }
+
+    @And("the user sees the data in HPO phenotype details such as {string} Term presence {string}")
+    public void theUserSeesTheDataInHPOPhenotypeDetailsSuchAsTermPresence(String expectedHPOTerm, String expectedTermPresence) {
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayed(expectedHPOTerm));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificTermPresence(expectedTermPresence));
+    }
+
+    @And("the user sees the data in Phenotypic and karyotypic Sex")
+    public void theUserSeesTheDataInPhenotypicAndKaryotypicSex() {
+        Assert.assertNotNull(clinicalQuestionsPage.getPhenotypicSexDropdownValue());
+        Assert.assertNotNull(clinicalQuestionsPage.getKaryotypicSexDropdownValue());
+    }
+
+    @And("the user sees the data in Rare disease diagnoses such as {string} {string} and corresponding status {string}")
+    public void theUserSeesTheDataInRareDiseaseDiagnosesSuchAsAndCorrespondingStatus(String rareDiseaseValue, String diagnosisTypeValue, String statusValue) {
+        //verify Rare Disease Diagnoses
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseValue(rareDiseaseValue));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificDiagnosisType(diagnosisTypeValue));
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificRareDiseaseDiagnosisStatusValue(statusValue));
+    }
+
+    @And("the user sees the error message {string} in the HPO phenotype section")
+    public void theUserSeesTheErrorMessageInTheHPOPhenotypeSection(String expectedErrorMessage) {
+        String actualErrorMessage = clinicalQuestionsPage.getErrorMessageFromHPOPhenotypeSection();
+        Assert.assertTrue(actualErrorMessage.equalsIgnoreCase(expectedErrorMessage));
+    }
 }
