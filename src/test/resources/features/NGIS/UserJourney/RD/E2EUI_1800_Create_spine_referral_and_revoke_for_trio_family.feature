@@ -1,5 +1,5 @@
-@userJourneys
-@userJourneysRD
+#@userJourneys
+#@userJourneysRD
 
 Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
