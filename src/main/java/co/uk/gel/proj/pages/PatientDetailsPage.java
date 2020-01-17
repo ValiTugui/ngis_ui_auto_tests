@@ -317,17 +317,23 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, startReferralButton);
             Actions.clickElement(driver, startReferralButton);
             Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
-        }catch(Exception exp){
-            Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
             SeleniumLib.takeAScreenShot("StartReferralButton.jpg");
-            Assert.assertFalse("PatientDetailsPage: clickStartReferralButton. Exception:"+exp,true);
+            Assert.assertFalse("PatientDetailsPage: clickStartReferralButton. Exception:" + exp, true);
         }
     }
 
     public void clickStartNewReferralButton() {
+        try {
         Wait.forElementToBeDisplayed(driver, startNewReferralButton);
         Actions.clickElement(driver, startNewReferralButton);
         Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
+            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+            Assert.assertFalse("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp, true);
+        }
     }
 
     public void clinicalIndicationIDMissingBannerIsDisplayed() {
