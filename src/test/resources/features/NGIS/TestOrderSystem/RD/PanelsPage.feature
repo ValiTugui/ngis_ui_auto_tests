@@ -9,19 +9,18 @@ Feature: Panels Page Verification
     Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
     When the user navigates to the "<Panels>" stage
-    And the user is navigated to a page with title Panel
+    Then the user is navigated to a page with title Panel
     And the user should be able to see Add another panel section with search field and search icon
-    And the user should  be able to search and add the "<searchPanels>" panels
-    And the user should be able to see selected panels
-    Then the user sees the selected panels under added panels
+    When the user search and add the "<searchPanels>" panels
+    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks on Save and Continue in Panels Page
-    And the user is navigated to a page with title Build a pedigree
+    Then the user is navigated to a page with title Build a pedigree
     When the user navigates to "<Panels>" stage
-    Then the user sees the selected panels under added panels
+    Then the user sees the selected "<searchPanels>" panels under added panels
 
     Examples:
-      | Panels | searchPanels |
-      | Panels | cardiac arrhythmias,Multiple monogenic benign skin tumours  |
+      | Panels | searchPanels              |
+      | Panels | Cardiac arrhythmias,CAKUT |
 
   @NTS-3379 @E2EUI-1231 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3379: User is making a referral, as a user I will see a clear tick on the icon when I select yes or no
@@ -47,15 +46,15 @@ Feature: Panels Page Verification
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should be able to see panels page is correctly displayed
-    When the user should  be able to search and add the "<searchPanels>" panels
+    When the user search and add the "<searchPanels>" panels
     Then the user should be able to deselect the selected panels
     And the user should be able to change the penetrance status
     When the user clicks on VisitPanelApp link
-    Then the user navigates to panelApp page
+    Then the user navigates to panelApp page "<PanelAppURL>"
 
     Examples:
-      | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | searchPanels |
-      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | cardiac arr  |
+      | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | searchPanels | PanelAppURL                                                |
+      | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Agenesis of maxillary lateral incisor | Panels | cardiac arr  | https://stage-panelapp-cloud.genomicsengland.co.uk/panels/ |
 
   @NTS-3413 @E2EUI-1906 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3413 : verify the text under penetrance title

@@ -5,7 +5,7 @@ Feature: Patient Choice Page
   @NTS-3428 @E2EUI-2041 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national | child |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER| child |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -147,7 +147,7 @@ Feature: Patient Choice Page
   @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3a
   Scenario Outline: NTS-3428:scenario 3a -  Editing Patient choice for a Child in person
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national | child |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER| child |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
