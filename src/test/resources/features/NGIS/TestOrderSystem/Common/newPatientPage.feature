@@ -46,7 +46,7 @@ Feature: New Patient page
       | create a new patient record | Other - provide explanation   |
       | create a new patient record | Patient is a foreign national |
 
-  @NTS-3456 @E2EUI-1134 @LOGOUT @v_1
+  @NTS-3456 @E2EUI-1134 @E2EUI-1067 @LOGOUT @v_1
   Scenario Outline: NTS-3456: Normal User - To validate input fields for the Non-NHS patient creation - with a Normal-User
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
