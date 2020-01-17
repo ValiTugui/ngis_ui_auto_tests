@@ -79,6 +79,9 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//span[contains(@class,'radio__text')]")
     public List<WebElement> radioButtonsTexts;
 
+    @FindBy(css = "[checked]")
+    public List<WebElement> getSelectedRadioButtonsOnClinicalQuestions;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q90')]")
     public WebElement phenotypicSexDropdown;
 
@@ -507,9 +510,10 @@ public class ClinicalQuestionsPage {
     public boolean verifySpecificTermPresence(String presence) {
         boolean testResult = false;
         Wait.forElementToBeDisplayed(driver, hpoTable);
-        for (int i = 0; i < radioButtons.size(); i++) {
-            if (radioButtonsTexts.get(i).getText().contains(presence)) {
-                testResult =  Actions.isRadioButtonIsSelected(selectedRadioButtons.get(i));
+        for (int i = 0; i < getSelectedRadioButtonsOnClinicalQuestions.size(); i++) {
+            Debugger.println("TermPresence " + i+ " " + Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)));
+            if (Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(presence)) {
+                testResult =  Actions.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
                 break;
             }
         }
@@ -518,10 +522,10 @@ public class ClinicalQuestionsPage {
     public boolean verifySpecificDiagnosisType(String diagnosis) {
         boolean testResult = false;
         Wait.forElementToBeDisplayed(driver, rareDiseaseDiagnosisTable);
-        for (int i = 0; i < rareDiseaseDiagnosesRadioButtons.size(); i++) {
-            Debugger.println("DiagnosisType " + i+ " " + Actions.getValue(selectedRareDiseaseDiagnosesRadioButtons.get(i)));
-            if (Actions.getValue(selectedRareDiseaseDiagnosesRadioButtons.get(i)).contains(diagnosis)) {
-                testResult =  Actions.isRadioButtonIsSelected(selectedRareDiseaseDiagnosesRadioButtons.get(i));
+        for (int i = 0; i < getSelectedRadioButtonsOnClinicalQuestions.size(); i++) {
+            Debugger.println("DiagnosisType " + i+ " " + Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)));
+            if (Actions.getValue(getSelectedRadioButtonsOnClinicalQuestions.get(i)).contains(diagnosis)) {
+                testResult =  Actions.isRadioButtonIsSelected(getSelectedRadioButtonsOnClinicalQuestions.get(i));
                 break;
             }
         }

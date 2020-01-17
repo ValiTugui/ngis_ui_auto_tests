@@ -4,7 +4,7 @@
 
 Feature: Clinical Questions stage
 
-   @NTS-3433 @E2EUI-1546 @LOGOUT @v_1 @P0
+  @NTS-3433 @E2EUI-1546 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -16,11 +16,11 @@ Feature: Clinical Questions stage
     And the "<ClinicalQuestions>" stage is marked as Completed
     And the "<notes>" stage is selected
     Examples:
-      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                           |  notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   |  Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |  Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  |  Notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    |  Notes |
+      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                           | notes |
+      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   | Notes |
+      | Clinical questions | Answer clinical questions | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
+      | Clinical questions | Answer clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  | Notes |
+      | Clinical questions | Answer clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    | Notes |
 
   @NTS-3433 @E2EUI-1894 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
@@ -36,8 +36,8 @@ Feature: Clinical Questions stage
     And the "<ClinicalQuestions>" stage is marked as Mandatory To Do
     And the "<notes>" stage is selected
     Examples:
-      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                           |  notes |
-      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   |  Notes |
+      | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                         | notes |
+      | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
   @NTS-3433 @E2EUI-1625 @E2EUI-1068 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
@@ -168,10 +168,15 @@ Feature: Clinical Questions stage
     Then the HPO phenotype details mandatory state is "<mandatory>"
     When the user provided the values "<year>" "<month>" for Age of onset fields
     Then the "<title>" page is displayed
-    When the user adds a new HPO phenotype term "<hpoTerm>"
-    Then the new HPO term "<hpoTerm>" appears at the top of the list of the HPO terms
-    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
+    When the user adds a new HPO phenotype term "<hpoTerm1>"
+    Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence1>" and corresponding modifier
+    Then the "<title>" page is displayed
+    When the user adds a new HPO phenotype term "<hpoTerm2>"
+    Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
+    And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence2>" and corresponding modifier
     And the user sees the error message "At least 1 phenotype must be marked Present" in the HPO phenotype section
+    And the count of HPO terms table is 2
     Then the "<title>" page is displayed
     And the user selects the Rare disease diagnosis questions such as "<diagnosisTypeValue>" and corresponding status "<statusValue>"
     And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
@@ -181,9 +186,11 @@ Feature: Clinical Questions stage
     Then the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     And the user sees the data in Disease status details such as "<diseaseStatueValue>" AgeOnset values "<year>" "<month>"
-    And the user sees the data in HPO phenotype details such as "<hpoTerm>" Term presence "<termPresence>"
+    And the user sees the data in HPO phenotype details such as "<hpoTerm1>" Term presence "<termPresence1>"
+    And the user sees the data in HPO phenotype details such as "<hpoTerm2>" Term presence "<termPresence2>"
+    And the count of HPO terms table is 2
     And the user sees the data in Rare disease diagnoses such as "<rareDiseaseValue>" "<diagnosisTypeValue>" and corresponding status "<statusValue>"
     And the user sees the data in Phenotypic and karyotypic Sex
     Examples:
-      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm                 | termPresence | rareDiseaseValue          | diagnosisTypeValue | statusValue |
-      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia               | Absent       | Intraneural perineurioma  | Orphanet           | Suspected   |
+      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm1  | termPresence1 | hpoTerm2                | termPresence2 | rareDiseaseValue         | diagnosisTypeValue | statusValue |
+      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | Intraneural perineurioma | Orphanet           | Suspected   |
