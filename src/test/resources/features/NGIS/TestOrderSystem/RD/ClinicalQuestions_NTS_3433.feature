@@ -86,7 +86,7 @@ Feature: Clinical Questions stage
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
