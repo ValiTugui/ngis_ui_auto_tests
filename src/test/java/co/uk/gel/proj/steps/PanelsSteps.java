@@ -38,9 +38,9 @@ public class PanelsSteps extends Pages {
         panelsPage.clicksOnVisitPanelsAppLink();
     }
 
-    @Then("the user navigates to panelApp page {string}")
-    public void theUserNavigatesToPanelAppPage(String panelAppURL) {
-        Assert.assertTrue(panelsPage.verifyPanelAppNavigation(panelAppURL));
+    @Then("the user navigates to panelApp page")
+    public void theUserNavigatesToPanelAppPage() {
+        Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
     }
 
     @Then("the user should be able to see the button options present")

@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -166,12 +167,12 @@ public class PanelsPage {
         return true;
     }
 
-    public boolean verifyPanelAppNavigation(String panelAppURL) {
+    public boolean verifyPanelAppNavigation() {
         //Verify the navigated URL is correct
         Wait.seconds(10);// Waiting to load the new external Link
         String url = driver.getCurrentUrl();
         Debugger.println("Current URL: " + url);
-        if (!url.contains(panelAppURL)) {
+        if (!url.contains(AppConfig.getPanel_app_url())) {
             Debugger.println("URL navigated is Wrong: " + url);
             SeleniumLib.closeCurrentWindow();
             return false;

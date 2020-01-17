@@ -50,7 +50,7 @@ Feature: Panels Page Verification
     Then the user should be able to deselect the selected panels
     And the user should be able to change the penetrance status
     When the user clicks on VisitPanelApp link
-    Then the user navigates to panelApp page "<PanelAppURL>"
+    Then the user navigates to panelApp page
 
     Examples:
       | ClinicalQuestions  | ClinicalQuestionDetails                                                                    | Panels | searchPanels | PanelAppURL                                                |
