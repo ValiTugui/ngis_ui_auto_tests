@@ -705,9 +705,90 @@ public class PatientDetailsPage {
         Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
         Actions.clickElement(driver, addNewPatientToReferral);
     }
-
     public void fillInNHSNumber(){
         Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
     }
 
+    public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
+        try {
+            newPatientPageIsDisplayed();
+            selectMissingNhsNumberReason(referralDetails.getNO_NHS_REASON());
+            if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("Other - provide explanation")) {
+                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+            }
+            if (referralDetails.getTITLE() == null || referralDetails.getTITLE().isEmpty()) {
+                referralDetails.setTITLE("Mr");
+            }
+            if (referralDetails.getFIRST_NAME() == null || referralDetails.getFIRST_NAME().isEmpty()) {
+                referralDetails.setFIRST_NAME(faker.name().firstName());
+            }
+            if (referralDetails.getLAST_NAME() == null || referralDetails.getLAST_NAME().isEmpty()) {
+                referralDetails.setLAST_NAME(faker.name().lastName());
+            }
+            if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
+                referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
+            }
+            if (referralDetails.getADDRESS_LINE0() == null || referralDetails.getADDRESS_LINE0().isEmpty()) {
+                referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
+                referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
+                referralDetails.setADDRESS_LINE1(faker.address().streetAddressNumber());
+                referralDetails.setADDRESS_LINE2(faker.address().streetName());
+                referralDetails.setADDRESS_LINE3(faker.address().cityName());
+                referralDetails.setADDRESS_LINE4(faker.address().state());
+                referralDetails.setPOST_CODE(RandomDataCreator.getRandomUKPostCode());
+            }
+            Wait.forElementToBeDisplayed(driver, title);
+            title.sendKeys(referralDetails.getTITLE());
+            Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
+            Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
+            editDropdownField(administrativeGenderButton, referralDetails.getGENDER());
+            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(ethnicityButton, "A - White - British");
+            Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
+            //Address
+            Actions.fillInValue(addressLine0, referralDetails.getADDRESS_LINE0());
+            Actions.fillInValue(addressLine1, referralDetails.getADDRESS_LINE1());
+            Actions.fillInValue(addressLine2, referralDetails.getADDRESS_LINE2());
+            Actions.fillInValue(addressLine3, referralDetails.getADDRESS_LINE3());
+            Actions.fillInValue(addressLine4, referralDetails.getADDRESS_LINE4());
+            Actions.fillInValue(postcode, referralDetails.getPOST_CODE());
+            //Adding referral to to a list for later stage verification, if needed
+            FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
+            Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
+            //Adding Patient to NGIS
+            clickSavePatientDetailsToNGISButton();
+            patientIsCreated();
+            clickStartNewReferralButton();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in creating new Referral:"+exp);
+            SeleniumLib.takeAScreenShot("NewReferralCreationError.jpg");
+            return false;
+        }
+    }
+    public boolean startReferral(){
+        try{
+            // Check condition for different scenarios when referral submit button is displayed
+            if (addDetailsToNGISButtonList.size() > 0) {
+                Debugger.println("Add Patient Details button shown");
+                addDetailsToNGISButton.click();
+                Wait.forElementToBeDisplayed(driver, successNotification);
+                clickStartReferralButton();
+            } else if (updateNGISRecordButtonList.size() > 0) {
+                Debugger.println("Update Patient Details button shown");
+                clickStartReferralButton();
+            } else if (savePatientDetailsToNGISButtonList.size() > 0) {
+                Debugger.println("Save Patient Details button shown");
+                clickSavePatientDetailsToNGISButton();
+                patientIsCreated();
+                clickStartNewReferralButton();
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in starting the Referral: "+exp);
+            SeleniumLib.takeAScreenShot("startReferralError.jpg");
+            return false;
+        }
+    }
 }

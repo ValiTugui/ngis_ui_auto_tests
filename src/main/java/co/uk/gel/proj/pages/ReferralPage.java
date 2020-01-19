@@ -193,6 +193,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
 
+    String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
+    String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
@@ -457,26 +460,35 @@ public class ReferralPage<check> {
 
     public boolean verifyTheErrorMessageDisplay(String errorMessage, String fontColor) {
         try {
-            Wait.seconds(5);
-            if (validationErrors.size() > 0) {
-                String actualMessage = validationErrors.get(0).getText();
-                if (!errorMessage.equalsIgnoreCase(actualMessage)) {
-                    Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
-                    return false;
-                }
-                String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
-                String actColor = validationErrors.get(0).getCssValue("color");
-                if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                    Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-                    return false;
-                }
-
-            }else{
-                Debugger.println("Expected Error Message: "+errorMessage+", but no error message displayed. Check NoErrorMessage.jpg");
-                SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
-                return false;
+            Wait.seconds(2);
+            int noOfErrors = validationErrors.size();
+            if(noOfErrors == 0){
+                clickSaveAndContinueButton();//Click on Save and Continue Again. Some times click not happens on this button
+                Wait.seconds(2);
             }
-            return true;
+            noOfErrors = validationErrors.size();
+            if(noOfErrors == 0){
+
+            }
+            String actualMessage = "";
+            String actColor = "";
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            boolean isPresent = false;
+            for(int i=0; i<noOfErrors; i++) {
+                actualMessage = validationErrors.get(i).getText();
+                if (errorMessage.equalsIgnoreCase(actualMessage)) {
+                    actColor = validationErrors.get(0).getCssValue("color");
+                    if (expectedFontColor.equalsIgnoreCase(actColor)) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+            }
+            if(!isPresent){
+                Debugger.println("ErrorMessage:"+errorMessage+", not displayed in :"+expectedFontColor);
+                SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
+            }
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from validating Error Message " + exp);
             return false;
@@ -489,7 +501,6 @@ public class ReferralPage<check> {
 
            if (expTitle.contains("\'")) {
                // if the string contains apostrophe character, apply double quotes in the xpath string
-                Debugger.println("Using the page element locator regex");
                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
            } else {
                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
@@ -498,9 +509,7 @@ public class ReferralPage<check> {
            if (!seleniumLib.isElementPresent(pageTitle)) {
                Wait.isElementDisplayed(driver,driver.findElement(pageTitle),120);
                if (!seleniumLib.isElementPresent(pageTitle)) {
-                    SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
-                   Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                    Debugger.println("The Current URL is :" + driver.getCurrentUrl() + " and title is :" + getTheCurrentPageTitle());
+                   SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
                    return false;
                }
            }
@@ -795,6 +804,47 @@ public class ReferralPage<check> {
 
         }catch(Exception exp){
            Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH());
+        }
+    }
+    public boolean verifyMandatoryFieldDisplaySymbol(String fieldName,String fieldType,String symbol,String symbolColor){
+        try{
+            String fieldPath = mandatoryFieldSymbol.replaceAll("dummyFieldType",fieldType);
+            fieldPath = fieldPath.replaceAll("dummyLabel",fieldName);
+            WebElement mandatoryField = driver.findElement(By.xpath(fieldPath));
+            String actSymbol = mandatoryField.getText();
+            String actColor = mandatoryField.getCssValue("color");
+            String expColor = StylesUtils.convertFontColourStringToCSSProperty(symbolColor);
+            if(symbol.equalsIgnoreCase(actSymbol)){
+                if(expColor.equalsIgnoreCase(actColor)){
+                   return true;
+                }
+            }
+            Debugger.println("Filed: "+fieldName+" not displayed as mandatory field.Actual Symbol:"+actSymbol+",EXP:"+symbol+",Actual Color:"+actColor+",EXP:"+expColor);
+            SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception in validating Mandatory fields: "+exp);
+            SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
+            return false;
+        }
+    }
+    public boolean verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
+        try {
+            Wait.seconds(2);
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
+            String fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel",fieldLabel);
+            WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
+            String actualColor = fieldElement.getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
+                Debugger.println("Field: " + fieldLabel + "not highlighted in :" +expectedFontColor+" as expected.");
+                SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
+            SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
+            return false;
         }
     }
 }

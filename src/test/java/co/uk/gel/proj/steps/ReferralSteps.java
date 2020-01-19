@@ -10,7 +10,9 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -274,108 +276,6 @@ public class ReferralSteps extends Pages {
     public void theUserClicksOnTheBackLink() {
        referralPage.clickOnTheBackLink();
     }
-
-    //Added by STAG to create referral with the given patient details than taking from Test Data Provider
-    @Given("a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service")
-    public void aReferralIsCreatedWithTheBelowDetailsForTheGivenExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean toDoListDisplayed;
-        String baseURL = attributeOfURL.get(0);
-        String confirmationPage = attributeOfURL.get(1);
-        String searchTerm = attributeOfURL.get(2);
-        String patientType = attributeOfURL.get(3);
-        String diseaseType = attributeOfURL.get(4);
-        String referralDetails = attributeOfURL.get(5);
-        String userType = null;
-        if(attributeOfURL.size() > 6){
-            userType = attributeOfURL.get(6);
-        }
-        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
-        homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
-        Debugger.println(" User Type : " + userType);
-        if(userType != null) {
-            switchToURL(driver.getCurrentUrl(), userType);
-        } else {
-            switchToURL(driver.getCurrentUrl());
-        }
-        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
-        if(!searchPageLoaded){
-            Debugger.println("Search Page Could not load Properly:");
-            Assert.assertFalse("Search Page not loaded successfully.",true);
-        }
-        //Wait.seconds();
-        if (patientType.equalsIgnoreCase("NGIS") || patientType.equalsIgnoreCase("SPINE")) {
-            //Create NGIS Patient with the given Details and the use for referral Creation
-            NGISPatientModel ngisPatient = new NGISPatientModel();
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                switch (key) {
-                    case "NHSNumber": {
-                        ngisPatient.setNHS_NUMBER(paramNameValue.get(key).trim());
-                        break;
-                    }
-                    case "DOB": {
-                        ngisPatient.setDATE_OF_BIRTH(paramNameValue.get(key).trim());
-                        break;
-                    }
-                    case "FirstName": {
-                        ngisPatient.setFIRST_NAME(paramNameValue.get(key));
-                        break;
-                    }
-                    case "LastName": {
-                        ngisPatient.setLAST_NAME(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Gender": {
-                        ngisPatient.setGENDER(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Postcode": {
-                        ngisPatient.setPOST_CODE(paramNameValue.get(key));
-                        break;
-                    }
-                    case "Title": {
-                        ngisPatient.setTITLE(paramNameValue.get(key));
-                        break;
-                    }
-                }//switch
-            }//for
-            searchPageLoaded = patientSearchPage.fillInNHSNumberAndDateOfBirth(ngisPatient);
-            if(!searchPageLoaded){
-                Assert.assertFalse("Could not Search Patient with NHS and DOB.",true);
-            }
-        }
-        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.clickPatientCard();
-        // Check condition for different scenarios when referral submit button is displayed
-        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {
-            Debugger.println("Add Patient Details button shown");
-            patientDetailsPage.addDetailsToNGISButton.click();
-            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
-            Debugger.println("Update Patient Details button shown");
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
-            Debugger.println("Save Patient Details button shown");
-            patientDetailsPage.clickSavePatientDetailsToNGISButton();
-            patientDetailsPage.patientIsCreated();
-            patientDetailsPage.clickStartNewReferralButton();
-        }
-        toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
-        if(!toDoListDisplayed){
-            SeleniumLib.takeAScreenShot("ToDoList.jpg");
-            Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
-        }
-    }
     @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
         boolean toDoListDisplayed;
@@ -424,7 +324,6 @@ public class ReferralSteps extends Pages {
         referralPage.checkThatReferralWasSuccessfullyCreated();
         referralPage.saveAndContinueButtonIsDisplayed();
     }
-
     @And("the success notification is displayed {string}")
     public void theSuccessNotificationIsDisplayed(String notificationText) {
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
@@ -605,5 +504,134 @@ public class ReferralSteps extends Pages {
         }
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
+    }
+
+    //Added on January 14-2020 - All the referral creation steps in RD package changed to this step.
+    //This method will create referral with existing patient, if exists OR create new patient referral, if not exists
+    //New referral creation with specific details - as various test cases needs the referral to created with specific condition
+    @Given("a new patient referral is created with associated tests in Test Order System online service")
+    public void aNewPatientReferralIsCreatedWithAssociatedTestsInTOSyatem(List<String> attributeOfURL) throws IOException {
+
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String searchTerm = attributeOfURL.get(2);
+        String userType = attributeOfURL.get(3);
+        String referralDetails = attributeOfURL.get(4);
+
+        NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
+        Assert.assertTrue(homePage.searchForTheTest(searchTerm));
+
+        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        paperFormPage.clickSignInToTheOnlineServiceButton();
+        Debugger.println("User Type : " + userType);
+        if(userType == null || userType.isEmpty()) {
+            userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
+        }
+        switchToURL(driver.getCurrentUrl(), userType);
+        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
+        if(!searchPageLoaded){
+            Debugger.println("Search Page Could not load Properly:");
+            Assert.assertFalse("Search Page not loaded successfully.",true);
+        }
+        //Create NGIS Patient with the given Details and the use for referral Creation
+        NGISPatientModel searchPatient = new NGISPatientModel();
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
+        Set<String> paramsKey = paramNameValue.keySet();
+        String paramValue = "";
+        for (String key : paramsKey) {
+            paramValue = paramNameValue.get(key).trim();
+            switch (key) {
+                case "NHSNumber": {
+                    if(paramValue.startsWith("NA")) {
+                        searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                        searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
+                    }else{
+                        searchPatient.setNHS_NUMBER(paramValue);
+                    }
+                    break;
+                }
+                case "DOB": {
+                    searchPatient.setDATE_OF_BIRTH(paramValue);
+                    break;
+                }
+                case "FirstName": {
+                    searchPatient.setFIRST_NAME(paramValue);
+                    break;
+                }
+                case "LastName": {
+                    searchPatient.setLAST_NAME(paramValue);
+                    break;
+                }
+                case "Gender": {
+                    searchPatient.setGENDER(paramValue);
+                    break;
+                }
+                case "Postcode": {
+                    searchPatient.setPOST_CODE(paramValue);
+                    break;
+                }
+                case "Title": {
+                    searchPatient.setTITLE(paramValue);
+                    break;
+                }
+            }//switch
+        }//for
+        String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
+        if(searchResult.equalsIgnoreCase("No patient found")){
+            //Create New Patient and Add as Referral
+            patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
+            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+            Assert.assertTrue(patientDetailsPage.createNewPatientReferral(searchPatient));
+            referralPage.checkThatReferralWasSuccessfullyCreated();
+            referralPage.saveAndContinueButtonIsDisplayed();
+        }else if(searchResult.equalsIgnoreCase("1 patient record found")){
+            //Existing Patient
+            patientSearchPage.clickPatientCard();
+            Assert.assertTrue(patientDetailsPage.startReferral());
+            boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
+            if(!toDoListDisplayed){
+                SeleniumLib.takeAScreenShot("ToDoList.jpg");
+                Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
+            }
+        }else{
+            Debugger.println("Search Result: "+searchResult);
+            Assert.assertTrue(false);
+        }
+    }
+    @And("^the mandatory fields shown with the symbol in red color$")
+    public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            testResult = referralPage.verifyMandatoryFieldDisplaySymbol(messageDetails.get(i).get(0),messageDetails.get(i).get(1),messageDetails.get(i).get(2),messageDetails.get(i).get(3));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+    @And("the blank mandatory field labels highlighted in red color")
+    public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
+        boolean testResult = false;
+        List<List<String>> fieldDetails = fields.asLists();
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            testResult = referralPage.verifyBlankMandatoryFieldLabelColor(fieldDetails.get(i).get(0), fieldDetails.get(i).get(1));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+    @Then("^the user will see error messages highlighted in red colour$")
+    public void theUserWillSeeErrorMessagesInRedColor(DataTable messages) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            testResult = referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(0),messageDetails.get(i).get(1));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
     }
 }

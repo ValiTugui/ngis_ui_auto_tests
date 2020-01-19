@@ -54,12 +54,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-    @Then("the blank mandatory fields {string} highlighted in {string}")
-    public void theBlankMandatoryFieldsHighlightedInColor(String mandatoryFields, String highlightColor) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyMandatoryFieldHighlightColor(mandatoryFields, highlightColor);
-        Assert.assertTrue(testResult);
-    }
 
     @When("the user selects the Relationship to proband as {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
@@ -152,13 +146,13 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theUserClicksTheAddNewPatientToReferralButton() {
         familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
     }
-
-    @Then("the message will be displayed as {string} in {string} in new patient page")
-    public void theMessageWillBeDisplayedAsInInNewPatientPage(String errorMessage, String fontColor) {
-        boolean testResult = false;
-        testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage, fontColor);
-        Assert.assertTrue(testResult);
-    }
+//
+//    @Then("the message will be displayed as {string} in {string} in new patient page")
+//    public void theMessageWillBeDisplayedAsInInNewPatientPage(String errorMessage, String fontColor) {
+//        boolean testResult = false;
+//        testResult = familyMemberNewPatientPage.checkTheErrorMessageForMandatoryFields(errorMessage, fontColor);
+//        Assert.assertTrue(testResult);
+//    }
 
     @When("the user deselects the test")
     public void theUserDeselectTheSelectedTest() {

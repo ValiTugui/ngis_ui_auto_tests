@@ -265,4 +265,6 @@ public class NGISPatientModel {
     public void setADDRESS_LINE0(String ADDRESS_LINE0) {
         this.ADDRESS_LINE0 = ADDRESS_LINE0;
     }
+
+
 }//end

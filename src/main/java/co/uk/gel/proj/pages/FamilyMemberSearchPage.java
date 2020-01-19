@@ -8,12 +8,14 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import cucumber.api.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import java.util.*;
 
@@ -149,7 +151,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
     public WebElement errorPatientCard;
 
-
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -245,6 +246,8 @@ public class FamilyMemberSearchPage {
         Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
     }
 
+
+
     public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
         Assert.assertEquals("Enter a day", validationErrors.get(0).getText());
@@ -304,6 +307,10 @@ public class FamilyMemberSearchPage {
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
         Wait.forElementToBeDisplayed(driver,dateDay);
+        if(searchParams == null || searchParams.isEmpty()){//Search without entering any values
+            seleniumLib.clickOnWebElement(searchButton);
+            return;
+        }
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         for (String key : paramsKey) {
@@ -398,7 +405,7 @@ public class FamilyMemberSearchPage {
         }
     }
 
-    public boolean verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed() {
+    public boolean verifyTheFamilyMemberSearchResultDisplay() {
         Wait.forElementToBeDisplayed(driver, familyMemeberFound);
         List<WebElement> expResultElements = new ArrayList<WebElement>();
         expResultElements.add(resultCardPatientName);
@@ -518,5 +525,58 @@ public class FamilyMemberSearchPage {
             return false;
         }
         return false;
+    }
+    public boolean verifyNHSFieldPlaceHolder() {
+        try {
+            String actStatus = nhsNumber.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("e.g. 1231237890")){
+                Debugger.println("NHSField does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying NHS place holder:"+exp);
+            SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
+            return false;
+        }
+    }
+    public boolean verifyDOBFieldPlaceHolder() {
+        try {
+            String actStatus = dateDay.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("DD")){
+                Debugger.println("Day DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            actStatus = dateMonth.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("MM")){
+                Debugger.println("Month DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            actStatus = dateYear.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("YYYY")){
+                Debugger.println("Year DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying DOB place holder:"+exp);
+            SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+            return false;
+        }
+    }
+    public boolean verifySearchButtonClickable() {
+        try {
+            //Should throw exception, if not clickable
+            Wait.forElementToBeClickable(driver,searchButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying search button clickable:"+exp);
+            SeleniumLib.takeAScreenShot("SearchButtonClickableError.jpg");
+            return false;
+        }
     }
 }//end

@@ -2,11 +2,15 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.List;
 
 public class FamilyMemberSearchSteps extends Pages {
 
@@ -68,6 +72,16 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.validateErrorsAreDisplayedForSkippedMandatoryValuesForYes();
     }
 
+    @Then("^the user will see error messages highlighted in red colour when search with the given details$")
+    public void theUserWillSeeErrorMessagesInRedColorWhenSearchWithGivenDetails(DataTable messages) {
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
+            referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
+        }
+    }
+
+
     @Then("^the mandatory fields should be highlighted with a red mark in family member search page with No option$")
     public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForNo() {
         familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
@@ -122,7 +136,7 @@ public class FamilyMemberSearchSteps extends Pages {
     @Then("the search results have been displayed with Patient Name, dob, gender, NHS number and address")
     public void theSearchResultsHaveBeenDisplayedWithPatientNameDobGenderNHSNumberAndAddress() {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
+        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchResultDisplay();
         Assert.assertTrue(testResult);
     }
 
@@ -166,5 +180,24 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
 
     }
+    @And("^the NHS number entry fields should be of length 10$")
+    public void theNHSNumberEntryFiledDisplayLengthAs10() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyNHSFieldPlaceHolder();
+        Assert.assertTrue(testResult);
+    }
+    @And("^the DOB entry fields should have the format dd-mm-yyyy displayed$")
+    public void theDOBEntryFiledDisplayFormat() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyDOBFieldPlaceHolder();
+        Assert.assertTrue(testResult);
+    }
+    @And("^the Search button should be displayed with search symbol and click-able$")
+    public void theSearchButtonShouldBeClickable() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifySearchButtonClickable();
+        Assert.assertTrue(testResult);
+    }
+
 
 }//end

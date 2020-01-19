@@ -57,9 +57,16 @@ public class Wait {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
-    public static void forNumberOfElementsToBeGreaterThan(WebDriver driver, By locator, int number) {
-        wait = new WebDriverWait(driver, 100);
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, number));
+    public static boolean forNumberOfElementsToBeGreaterThan(WebDriver driver, By locator, int number) {
+        try {
+            wait = new WebDriverWait(driver, 100);
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, number));
+            return true;
+        }catch (Exception exp){
+            Debugger.println("No of elements of locator expected to more than "+number+", but not, even after waiting period. Clicking again on Save and Continue.");
+            return false;
+
+        }
     }
 
     public static void forNumberOfElementsToBeEqualTo(WebDriver driver, By locator, int number) {
