@@ -1,7 +1,7 @@
 @regression
 @TO_RD
 @FamilyMemberSearchPage
-@ReadyForReveiw
+
 Feature: Family Members Search Validation
 
   @NTS-3328 @E2EUI-841 @v_1 @P0
@@ -34,11 +34,11 @@ Feature: Family Members Search Validation
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day            | #dd2509 |
-      | Enter a month          | #dd2509 |
-      | Enter a year           | #dd2509 |
-      | Last name is required. | #dd2509 |
-      | Gender is required.    | #dd2509 |
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+      | First name is required. | #dd2509 |
+      | Gender is required.     | #dd2509 |
 
     Examples:
       | stage          | SearchDetails               |
@@ -84,8 +84,8 @@ Feature: Family Members Search Validation
     Then the message will be displayed as "<ResultMessage>" result found
 
     Examples:
-      | stage          | SearchDetails                                                                 | ResultMessage          |
-      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=PC1234 | 1 patient record found |
+      | stage          | SearchDetails                                                                   | ResultMessage          |
+      | Family members | DOB=14-02-2011:FirstName=NICKY:LastName=MCCLEMENS:Gender=Male:Postcode=KT18 7BW | 1 patient record found |
 
   @NTS-3328 @E2EUI-1011 @v_1 @P0
   Scenario Outline: NTS-3328: Find a family member page validation with NHS selected as YES: Special characters entered in NHS number
@@ -102,6 +102,7 @@ Feature: Family Members Search Validation
     Examples:
       | stage          |
       | Family members |
+
   @NTS-3328 @E2EUI-1205 @BVT_P0 @v_1
   Scenario Outline: NTS-3328: Find a family member Search Results Page validation
     When the user navigates to the "<stage>" stage
@@ -124,8 +125,6 @@ Feature: Family Members Search Validation
     Then the user is navigated to a page with title Find a family member
     And the family member search page display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
     And the family member search page display description title contains the phrase "Full name, gender and postcode are required if NHS Number is not available."
-    And the display question for NHS Number of the family member search page is "Do you have the family member’s NHS Number?"
-    ##Presence of TWO buttons Yes/No
     Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
 
     Examples:
@@ -187,10 +186,9 @@ Feature: Family Members Search Validation
       | Last name is required. | #dd2509 |
       | Gender is required.    | #dd2509 |
     And the blank mandatory field labels highlighted in red color
-      | field_name    | color   |
-      | Last name     | #dd2509 |
-      | Gender        | #dd2509 |
-      | Date of birth | #dd2509 |
+      | field_name | color   |
+      | Last name  | #dd2509 |
+      | Gender     | #dd2509 |
 
     Examples:
       | stage          | SearchDetails     |
@@ -210,11 +208,10 @@ Feature: Family Members Search Validation
       | Last name is required.  | #dd2509 |
       | Gender is required.     | #dd2509 |
     And the blank mandatory field labels highlighted in red color
-      | field_name    | color   |
-      | First name     | #dd2509 |
-      | Last name     | #dd2509 |
-      | Gender        | #dd2509 |
-      | Date of birth | #dd2509 |
+      | field_name | color   |
+      | First name | #dd2509 |
+      | Last name  | #dd2509 |
+      | Gender     | #dd2509 |
 
     Examples:
       | stage          | SearchDetails    |
