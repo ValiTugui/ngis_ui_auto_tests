@@ -3,23 +3,6 @@
 
 Feature: Patient Choice Page Verification
 
-  @NTS-3383 @E2EUI-1415 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3383: Requesting Organisation landing page
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient
-    When the user navigates to the "<Requesting organisation>" stage
-    Then the user is navigated to a page with title Add a requesting organisation
-    And the user should be able to see an intro message "<introMessage>" on requesting organisation page
-    Then the user should be able to see hint text in search box on requesting organisation page
-    And the user enters the keyword "<ordering_entity_name>" in the search field
-    And the user selects a random entity from the suggestions list
-    Then the details of the new organisation are displayed
-    ###This ticket has to be moved to RequestingOrganisation
-    Examples:
-      | Requesting organisation | introMessage                                                   | ordering_entity_name |
-      | Requesting organisation | Enter the hospital trust for the clinic you are ordering from. | Maidstone            |
-
   @NTS-3384 @E2EUI-1677 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3384: Verify the hospital no field on patient choice form
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -33,8 +16,8 @@ Feature: Patient Choice Page Verification
     Then the user should be able to see patient hospital number
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy         |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John |
+      | Patient choice stage | TestType                        | RecordedBy         |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John |
 
   @NTS-3385 @E2EUI-1474 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3385: Create referral navigation component - Patient choice
@@ -47,6 +30,7 @@ Feature: Patient Choice Page Verification
     And the user sees a back button on Add patient choice information page
     When the user clicks on the Back link
     Then the user is navigated to a page with title Patient choice
+
     Examples:
       | Patient choice stage |
       | Patient choice       |
@@ -164,5 +148,5 @@ Feature: Patient Choice Page Verification
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Patient choice stage | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      |
-      | Patient choice       | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |
+      | Patient choice stage | TestType                        | RecordedBy                            | PatientChoice                                      |
+      | Patient choice       | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |

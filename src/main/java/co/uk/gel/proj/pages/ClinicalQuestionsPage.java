@@ -348,6 +348,7 @@ public class ClinicalQuestionsPage {
     }
 
     public void clickCloseIcon() {
+        Actions.scrollToTop(driver);//Added this line as click intercepted exception observed for closeIcon
         Wait.forElementToBeDisplayed(driver, diseaseStatusCloseIcon);
         Actions.clickElement(driver, diseaseStatusCloseIcon);
         Wait.seconds(2);

@@ -13,16 +13,11 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import io.cucumber.java.en.And;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.security.ssl.Debug;
 
-import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -175,6 +170,10 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
+
+    @FindBy(xpath = "//h3[contains(@class,'results__header')]")
+    public WebElement patientSearchResult;
+
 
     @FindBy(xpath = "//h1[text()='Find your patient']")
     public WebElement findYourPatientTitle;
@@ -930,6 +929,27 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         fillInNewPatientDetailsInTheNoFields();
         postcode.sendKeys(newPatient.getPostCode());
         Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() + " " +  newPatient.getPostCode());
+    }
+    public String searchPatientReferral(NGISPatientModel referralDetails) {
+       try {
+           Wait.forElementToBeDisplayed(driver, nhsNumber);
+           nhsNumber.sendKeys(referralDetails.getNHS_NUMBER());
+           if (referralDetails.getDATE_OF_BIRTH() == null || referralDetails.getDATE_OF_BIRTH().isEmpty()) {
+               referralDetails.setDATE_OF_BIRTH(faker.number().numberBetween(10, 31) + "-" + faker.number().numberBetween(10, 12) + "-" + faker.number().numberBetween(1900, 2019));
+           }
+           dateDay.sendKeys(referralDetails.getDAY_OF_BIRTH());
+           dateMonth.sendKeys(referralDetails.getMONTH_OF_BIRTH());
+           dateYear.sendKeys(referralDetails.getYEAR_OF_BIRTH());
+           //Search for the referral
+           clickSearchButtonByXpath(driver);
+           Wait.forElementToBeDisplayed(driver,patientSearchResult,120);
+           return patientSearchResult.getText();
+       }catch(Exception exp){
+           Debugger.println("Exception from Search Patient Referral: "+exp);
+           SeleniumLib.takeAScreenShot("SearchPatientReferralError.jpg");
+           return "Search Failed.";
+       }
+
     }
 }
 

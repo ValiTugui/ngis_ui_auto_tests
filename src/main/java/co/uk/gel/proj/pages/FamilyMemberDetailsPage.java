@@ -301,7 +301,7 @@ public class FamilyMemberDetailsPage {
 
     By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
 
-    String fieldLabelString = "//label[contains(text(),'dummyLabel')]";
+
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -383,7 +383,7 @@ public class FamilyMemberDetailsPage {
         if (relationToProband != null) {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
         }
-        addedFamilyMembers.add(familyMember);//This to verify the details later.
+        addFamilyMemberToList(familyMember);//This to verify the details later.
         Debugger.println("Family Member: " + familyMember.getNHS_NUMBER() + " added to the list.");
         return true;
     }
@@ -1585,33 +1585,11 @@ public class FamilyMemberDetailsPage {
             Actions.clickElement(driver, referralStage);
         }
     }
-    public boolean verifyMandatoryFieldHighlightColor(String fieldNames, String highlightColor) {
-        try {
-            Wait.seconds(2);
-            String[] mandatoryFields = null;
-            if(fieldNames.indexOf(",") == -1) {
-                mandatoryFields = new String[]{fieldNames};
-            }else {
-                mandatoryFields = fieldNames.split(",");
-            }
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
-            String actualColor = "";
-            WebElement fieldElement = null;
-            String fieldLabelPath = "";
-            for(int i=0; i<mandatoryFields.length; i++){
-                fieldLabelPath = fieldLabelString.replaceAll("dummyLabel",mandatoryFields[i]);
-                fieldElement = driver.findElement(By.xpath(fieldLabelPath));
-                actualColor = fieldElement.getCssValue("color");
-                if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
-                    Debugger.println("Field: " + mandatoryFields[i] + "not highlighted in :" +expectedFontColor+" as expected.");
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from validating verifyMandatoryFieldHighlightColor:" + exp);
-            return false;
-        }
+
+    public static void addFamilyMemberToList(NGISPatientModel familyMember){
+        addedFamilyMembers.add(familyMember);
+        Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());
+        Debugger.println("Size is: "+addedFamilyMembers.size());
     }
 
 }//ends

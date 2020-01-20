@@ -24,6 +24,7 @@ public class AppConfig {
     public static String NGIS_Version_Number;
     private static String NGIS_Version_URL;
     public static String searchTerm;
+    public static String panel_app_url;
     public static Properties properties = null;
 
     public static void loadAppConfig() {
@@ -56,6 +57,7 @@ public class AppConfig {
         NGIS_Version_URL = properties.getProperty("NGIS_Version_URL");
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
+        panel_app_url = properties.getProperty("PANEL_APP_URL");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -151,5 +153,12 @@ public class AppConfig {
     public static String getSearchTerm() {
         searchTerm = properties.getProperty("Search_Term");
         return searchTerm;
+    }
+
+    public static String getPanel_app_url() {
+        if (panel_app_url == null || panel_app_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return panel_app_url;
     }
 }//end

@@ -329,6 +329,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//label[text()='Date of Signature']")
     WebElement dateOfSignature;
 
+    String formSection ="//div[@class='form-section-container']/child::h4[text()='dummySection']";
+    String formLinks ="//div[@class='form-section-container']/child::h4[text()='dummySection']/..//a";
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1450,21 +1453,6 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyAdditionalFormsSection(String formsSection) {
-        try {
-            seleniumLib.waitForElementVisible(additionalForms);
-            if (!formsSection.equalsIgnoreCase(additionalForms.getText())) {
-                Debugger.println("Expected Subtitle: " + formsSection + ", but Actual Subtitle is: " + additionalForms.getText());
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient Choice: Form Library title: Additional Forms not found" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormSection.jpg");
-            return false;
-        }
-    }
-
     public boolean clickOnLink(String link) {
         Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
         try {
@@ -1855,5 +1843,42 @@ public class PatientChoicePage {
             return false;
         }
     }
-
+    public boolean verifyTheFormLibrarySection(String sectionName){
+        try {
+            String formLinkPath = formSection.replaceAll("dummySection", sectionName);
+            WebElement formLinkElement = driver.findElement(By.xpath(formLinkPath));
+            if(!formLinkElement.isDisplayed()){
+                Debugger.println("Section:"+ sectionName+" Not present under Form Library in Patient Choice");
+                SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheFormLibrarySection:" + exp);
+            SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+            return false;
+        }
+    }
+    public boolean verifyTheSupportingInformationLink(String formSection,String linkForm) {
+        try {
+            boolean isPresent = false;
+            String linkForms = formLinks.replaceAll("dummySection",formSection);
+            List<WebElement> supportingInformationLinks = driver.findElements(By.xpath(linkForms));
+            for (int i = 0; i < supportingInformationLinks.size(); i++) {
+                if(supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Form Link: "+linkForm+" not present under the section: "+formSection);
+                SeleniumLib.takeAScreenShot("formLinkNotPresent.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheSupportingInformationLink:" + exp);
+            SeleniumLib.takeAScreenShot("formLinkNotPresent.jpg");
+            return false;
+        }
+    }
 }//end

@@ -212,4 +212,20 @@ public class HomePage {
             Debugger.println("Exception from Logging out...."+exp);
         }
     }
+    public boolean searchForTheTest(String testName){
+        try{
+            waitUntilHomePageResultsContainerIsLoaded();
+            typeInSearchField(testName);
+            clickSearchIconFromSearchField();
+            waitUntilHomePageResultsContainerIsLoaded();
+            closeCookiesBannerFromFooter();
+            selectFirstEntityFromResultList();
+            closeCookiesBannerFromFooter();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from searching the Test:"+exp);
+            SeleniumLib.takeAScreenShot("TestSearchError.jpg");
+            return false;
+        }
+    }
 }

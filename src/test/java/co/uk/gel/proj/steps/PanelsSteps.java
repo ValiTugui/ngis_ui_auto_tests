@@ -18,19 +18,9 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.panelSearchFieldAndSearchIcon(expectedTitle));
     }
 
-    @And("the user should  be able to search and add the {string} panels")
+    @And("the user search and add the {string} panels")
     public void theUserShouldBeAbleToSearchAndAddThePanels(String searchPanel) {
         Assert.assertTrue(panelsPage.searchAndAddPanel(searchPanel));
-    }
-
-    @And("the user should be able to see selected panels")
-    public void theUserShouldBeAbleToSeeSelectedPanels() {
-        Assert.assertTrue(panelsPage.selectedPanels());
-    }
-
-    @Then("the user sees the selected panels under added panels")
-    public void theUserSeesTheSelectedPanelsUnderAddedPanels() {
-        Assert.assertTrue(panelsPage.addedPanelsList());
     }
 
     @And("the user should be able to see panels page is correctly displayed")
@@ -69,13 +59,6 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTheDeselectedPanels());
     }
 
-    @Then("the user can see the selected panels listed")
-    public void theSeesTheSelectedPanelsUnderAddedPanels() {
-        boolean testResult = false;
-        testResult = panelsPage.addedPanelsList();
-        Assert.assertTrue(testResult);
-    }
-
     @And("the user clicks on Save and Continue in Panels Page")
     public void theUserClicksOnSaveAndContinue() {
         boolean testResult = false;
@@ -95,6 +78,18 @@ public class PanelsSteps extends Pages {
     @Then("the user should be able to see suggested panels under the {string} section")
     public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
         Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
+    }
+    @Then("the user sees the selected {string} panels under added panels")
+    public void theUserSeesTheSelectedPanelsUnderAddedPanels(String selectedAddedPanels) {
+        String[] addedPanels = null;
+        if (selectedAddedPanels.indexOf(",") == -1) {
+            addedPanels = new String[]{selectedAddedPanels};
+        } else {
+            addedPanels = selectedAddedPanels.split(",");
+        }
+        for(int i=0; i<addedPanels.length; i++) {
+            Assert.assertTrue(panelsPage.verifyInAddedPanelsList(addedPanels[i]));
+        }
     }
 
 }//end

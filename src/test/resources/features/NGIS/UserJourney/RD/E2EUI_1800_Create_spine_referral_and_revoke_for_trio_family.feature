@@ -1,3 +1,4 @@
+
 #Some History
 #This test used Spine patient data as proband , and creates referrals for the same proband patient when we run this test multiple times (1 proband ->  many cancelled referrals)
 #This causes a issue on DDF when referrals are submitted/cancelled as the payload for this patient becomes very bigger in size
@@ -7,6 +8,7 @@
 #@userJourneys
 #@userJourneysRD
 #@BVT-P0
+
 Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
   @E2EUI-1800 @LOGOUT @v_1
@@ -80,7 +82,6 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
     ###Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
-    And the user can see the selected panels listed
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
