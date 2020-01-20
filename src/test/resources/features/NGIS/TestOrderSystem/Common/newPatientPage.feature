@@ -465,3 +465,16 @@ Feature: New Patient page
       | pageTitle                         | InvalidDateOfBirth |
       | Add a new patient to the database | Jan012020          |
 
+
+  @LOGOUT @v_1 @tag
+  Scenario Outline:
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    And the date of death input field is displayed
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+
+
+    Examples:
+      | pageTitle                         | reason_for_no_nhsNumber     |
+      | Add a new patient to the database | Other - provide explanation |
