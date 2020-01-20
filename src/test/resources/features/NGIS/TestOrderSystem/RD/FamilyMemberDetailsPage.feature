@@ -1,7 +1,7 @@
 @regression
 @TO_RD
 @FamilyMembersDetailsPage
-@ReadyForReveiw
+
 Feature: Family Members Details Validation
 
   @NTS-3235 @E2EUI-908 @LOGOUT @v_1 @P0
