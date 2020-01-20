@@ -121,11 +121,11 @@ Feature: Family Members Search Validation
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day              | #dd2509 |
-      | Enter a month            | #dd2509 |
-      | Enter a year             | #dd2509 |
-      | Last name is required.   | #dd2509 |
-      | Gender name is required. | #dd2509 |
+      | Enter a day            | #dd2509 |
+      | Enter a month          | #dd2509 |
+      | Enter a year           | #dd2509 |
+      | Last name is required. | #dd2509 |
+      | Gender is required.    | #dd2509 |
 
     Examples:
       | stage          | SearchDetails     |
@@ -138,12 +138,12 @@ Feature: Family Members Search Validation
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user will see error messages highlighted in red colour
-      | Enter a day              | #dd2509 |
-      | Enter a month            | #dd2509 |
-      | Enter a year             | #dd2509 |
-      | First name is required.  | #dd2509 |
-      | Last name is required.   | #dd2509 |
-      | Gender name is required. | #dd2509 |
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+      | First name is required. | #dd2509 |
+      | Last name is required.  | #dd2509 |
+      | Gender is required.     | #dd2509 |
 
     Examples:
       | stage          | SearchDetails    |

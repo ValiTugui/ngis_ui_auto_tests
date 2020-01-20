@@ -37,7 +37,7 @@ Feature: Family Members Search Validation
       | Enter a year             | #dd2509 |
       | First name is required.  | #dd2509 |
       | Last name is required.   | #dd2509 |
-      | Gender name is required. | #dd2509 |
+      | Gender is required. | #dd2509 |
 
   @NTS-3234 @E2EUI-1249 @v_1 @P0
   Scenario Outline:NTS-3234: Search a family member record with NHS selected - No, First name field validation with incorrect data
@@ -96,7 +96,7 @@ Feature: Family Members Search Validation
       | Enter a month            | #dd2509 |
       | Enter a year             | #dd2509 |
       | Last name is required.   | #dd2509 |
-      | Gender name is required. | #dd2509 |
+      | Gender is required. | #dd2509 |
 
     Examples:
       | stage          | SearchDetails               |

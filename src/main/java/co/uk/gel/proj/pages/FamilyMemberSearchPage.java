@@ -316,6 +316,7 @@ public class FamilyMemberSearchPage {
         for (String key : paramsKey) {
             switch (key) {
                 case "NHSNumber": {
+                    nhsNumber.clear();
                     nhsNumber.sendKeys(paramNameValue.get(key));
                     break;
                 }
@@ -323,6 +324,9 @@ public class FamilyMemberSearchPage {
                     String dobValue = paramNameValue.get(key);
                     if(dobValue != null && !dobValue.isEmpty()) {
                         String[] dobSplit = dobValue.split("-");
+                        dateDay.clear();
+                        dateMonth.clear();
+                        dateYear.clear();
                         dateDay.sendKeys(dobSplit[0]);
                         dateMonth.sendKeys(dobSplit[1]);
                         dateYear.sendKeys(dobSplit[2]);
@@ -331,12 +335,14 @@ public class FamilyMemberSearchPage {
                 }
                 case "FirstName": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        firstName.clear();
                         firstName.sendKeys(paramNameValue.get(key));
                     }
                     break;
                 }
                 case "LastName": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        lastName.clear();
                         lastName.sendKeys(paramNameValue.get(key));
                     }
                     break;
@@ -350,6 +356,7 @@ public class FamilyMemberSearchPage {
                 }
                 case "Postcode": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        postcode.clear();
                         postcode.sendKeys(paramNameValue.get(key));
                     }
                     break;

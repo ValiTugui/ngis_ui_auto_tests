@@ -74,15 +74,15 @@ Feature: Family Members Details Validation
     When the user removes the data from all fields "<ClearFields>" in the family member new patient page
     And the user clicks the Add new patient to referral button
     Then the blank mandatory field labels highlighted in red color
-      | field_name                           | color   |
-      | First name is required.              | #dd2509 |
-      | Last name is required.               | #dd2509 |
-      | Date of birth is required.           | #dd2509 |
-      | Gender is required.                  | #dd2509 |
-      | Life status is required.             | #dd2509 |
-      | Select the reason for no NHS Number  | #dd2509 |
-      | Hospital number is required.         | #dd2509 |
-      | Relationship to proband is required. | #dd2509 |
+      | field_name                   | color   |
+      | First name                   | #dd2509 |
+      | Last name                    | #dd2509 |
+      | Date of birth                | #dd2509 |
+      | Gender                       | #dd2509 |
+      | Life status                  | #dd2509 |
+      | Reason NHS Number is missing | #dd2509 |
+      | Hospital number              | #dd2509 |
+      | Relationship to proband      | #dd2509 |
     Examples:
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      |

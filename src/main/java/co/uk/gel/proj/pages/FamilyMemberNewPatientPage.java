@@ -144,10 +144,17 @@ public class FamilyMemberNewPatientPage {
                 //seleniumLib.moveMouseAndClickOnElement(xpathElement);
             }
         }
+
     }
     public void clickOnAddNewPatientToReferral(){
-        Wait.forElementToBeDisplayed(driver, addReferralButton);
-        Click.element(driver, addReferralButton);
+       try {
+           Wait.forElementToBeDisplayed(driver, addReferralButton);
+           Click.element(driver, addReferralButton);
+           Wait.seconds(2);//To ensure the error messages if any, is loaded.
+       }catch(Exception exp){
+           Debugger.println("Exception in clicking AddNewReferral:"+exp);
+           SeleniumLib.takeAScreenShot("AddNewReferralError.jpg");
+       }
     }
     public boolean checkTheErrorMessageForMandatoryFields(String errorMessage, String fontColor) {
         try {
