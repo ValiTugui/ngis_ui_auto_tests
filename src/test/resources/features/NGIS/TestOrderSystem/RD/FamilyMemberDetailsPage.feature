@@ -45,6 +45,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
+    And verify the patient card displays the same NHS and DOB in "<FamilyMemberDetails>"
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And confirm family member details page populate with same details found in patient card for "<FamilyMemberDetails>"
@@ -66,11 +67,20 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
+    And verify the patient card displays the same NHS and DOB in "<FamilyMemberDetails>"
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the default family member details page is correctly displayed with the proper number of fields
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field         | field_type | symbol | symbol color |
+      | First name              | label      | ✱      | #dd2509      |
+      | Last name               | label      | ✱      | #dd2509      |
+      | Date of birth           | label      | ✱      | #dd2509      |
+      | Gender                  | label      | ✱      | #dd2509      |
+      | Life status             | label      | ✱      | #dd2509      |
+      | Relationship to proband | label      | ✱      | #dd2509      |
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
@@ -84,7 +94,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
-    And the display question for NHS Number of the family member search page is "<NHSQuestion>"
+    And the display question for NHS Number of the family member search page is Do you have the family member’s NHS Number?
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
@@ -95,5 +105,5 @@ Feature: Family Members Details Validation
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Examples:
-      | stage          | NHSQuestion                                 | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | Do you have the family member’s NHS Number? | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
+      | stage          | FamilyMemberDetails                 | RelationshipToProband |
+      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |

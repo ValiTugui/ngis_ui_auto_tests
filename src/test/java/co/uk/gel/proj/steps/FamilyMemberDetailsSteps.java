@@ -115,6 +115,12 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay("");
         Assert.assertTrue(testResult);
     }
+    @And("verify the patient card displays the same NHS and DOB in {string}")
+    public void thePatientCardDisplaysTheSameNHSAndDOBSUedForSearching(String familyDetails) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyNHSAndDOBInPatientCard(familyDetails);
+        Assert.assertTrue(testResult);
+    }
 
     @And("the back button should not be present")
     public void theBackButtonShouldNotBePresent() {
