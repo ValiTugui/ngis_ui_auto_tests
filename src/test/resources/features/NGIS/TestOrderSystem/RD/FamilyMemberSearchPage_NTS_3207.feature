@@ -1,7 +1,7 @@
 @regression
 @TO_RD
 @FamilyMemberSearchPage
-@ReadyForReveiw
+
 Feature: Family Members Search Validation
 
   @NTS-3207 @E2EUI-950 @E2EUI-1116 @v_1 @P0

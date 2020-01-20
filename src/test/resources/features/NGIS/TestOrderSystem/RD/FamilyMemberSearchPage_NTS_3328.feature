@@ -108,11 +108,10 @@ Feature: Family Members Search Validation
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the YES button is selected by default on family member search
-    ##NHS question verification
+    And the display question for NHS Number of the family member search page is Do you have the family member’s NHS Number?
     And the user search the family member with the specified details "<SearchDetails>"
     Then the message will be displayed as "<ResultMessage>" result found
     And the search results have been displayed with Patient Name, dob, gender, NHS number and address
-    ##And Verify the NHS and DOB (Yrs) are same as we entered
 
     Examples:
       | stage          | SearchDetails                       | ResultMessage          |

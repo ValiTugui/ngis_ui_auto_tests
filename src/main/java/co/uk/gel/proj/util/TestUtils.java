@@ -195,7 +195,11 @@ public class TestUtils {
             LocalDate today = LocalDate.of(Integer.parseInt(getCurrentDay()[2]),Integer.parseInt(getCurrentDay()[1]),Integer.parseInt(getCurrentDay()[0]));
             Period diff = Period.between(dob_date,today);
             Debugger.println("Age in Years and months: "+diff.getYears()+",months:"+diff.getMonths());
-            return "("+diff.getYears()+"y "+diff.getMonths()+"m)";
+            if(diff.getMonths() > 0) {
+                return "(" + diff.getYears() + "y " + diff.getMonths() + "m)";
+            }else{
+                return "(" + diff.getYears() + "y)";
+            }
         }catch(Exception exp){
             Debugger.println("Exception from finding Age in Years: "+exp);
             return null;
