@@ -61,6 +61,7 @@ Feature: Family Members Details Validation
     Then the user can see a message "<SearchDetails>" "<PatientSearchMessage>" in "bold" font
     When the user clicks on the create new patient record
     Then the user is navigated to a page with title Add a new patient to the database
+    ###Ethinicity also may also be mandatory in new release - keep an eye
     And the mandatory fields shown with the symbol in red color
       | mandatory_field              | field_type | symbol | symbol color |
       | First name                   | label      | ✱      | #dd2509      |

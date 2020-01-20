@@ -3,10 +3,12 @@ package co.uk.gel.proj.util;
 import co.uk.gel.proj.config.AppConfig;
 import com.google.common.base.Splitter;
 import io.cucumber.java.hu.De;
+import sun.security.ssl.Debug;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -184,4 +186,19 @@ public class TestUtils {
             }
             return new String[]{day,month,year};
         }
+
+    public static String getAgeInYearsAndMonth(String dob){
+        try {
+            Debugger.println("Date of Birth: "+dob);
+            String[] dobs= dob.split("-");
+            LocalDate dob_date = LocalDate.of(Integer.parseInt(dobs[2]),Integer.parseInt(dobs[1]),Integer.parseInt(dobs[0]));
+            LocalDate today = LocalDate.of(Integer.parseInt(getCurrentDay()[2]),Integer.parseInt(getCurrentDay()[1]),Integer.parseInt(getCurrentDay()[0]));
+            Period diff = Period.between(dob_date,today);
+            Debugger.println("Age in Years and months: "+diff.getYears()+",months:"+diff.getMonths());
+            return "("+diff.getYears()+"y "+diff.getMonths()+"m)";
+        }catch(Exception exp){
+            Debugger.println("Exception from finding Age in Years: "+exp);
+            return null;
+        }
+    }
 }
