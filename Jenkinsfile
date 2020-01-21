@@ -25,7 +25,7 @@ pipeline {
         stage('Zip and Archive') {
             steps {
                   echo "Archiving build ran at ${BUILD_TIMESTAMP}"
-                  fileOperations([fileZipOperation('target/cucumber'), fileRenameOperation(destination: 'NGIS_UI_NightlyRun_${BUILD_TIMESTAMP}.zip', source: 'cucumber.zip')])
+                  fileOperations([fileZipOperation('target'), fileRenameOperation(destination: 'NGIS_UI_NightlyRun_${BUILD_TIMESTAMP}.zip', source: 'target.zip')])
                   archiveArtifacts "NGIS_UI_NightlyRun_${BUILD_TIMESTAMP}.zip"
 
             }
