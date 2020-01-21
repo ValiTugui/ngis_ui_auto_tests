@@ -321,37 +321,6 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Exception in searchPatientDetailsUsingNHSNumberAndDOB " + exp + " DOB expected in DD-MM-YYYY Format: " + dob);
         }
     }
-    public boolean verifyNHSAndDOBInPatientCard(String familyDetails) {
-        try{
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            String nhsNumber = "",dob="";
-            for (String key : paramsKey) {
-                if (key.equalsIgnoreCase("NHSNumber")) {
-                    nhsNumber = paramNameValue.get(key);
-                }else if (key.equalsIgnoreCase("DOB")) {
-                    dob = paramNameValue.get(key);
-                }
-            }
-            //Read the search result details
-            NGISPatientModel familyMember = getFamilyMember(familyDetails);
-            if(familyMember == null){
-                Debugger.println("Family Member :"+familyDetails+" Not found in the list!.");
-                return false;
-            }
-            String bornExpected = TestUtils.getDOBInMonthFormat(dob)+" "+TestUtils.getAgeInYearsAndMonth(dob);
-            Debugger.println("NHS Actual: "+familyMember.getNHS_NUMBER()+", Expected:"+nhsNumber);
-            Debugger.println("BORN Actual: "+familyMember.getBORN_WITH_AGE()+", Expected:"+bornExpected);
-            if(familyMember.getNHS_NUMBER().equalsIgnoreCase(nhsNumber)
-                && familyMember.getBORN_WITH_AGE().contains(bornExpected)){
-                return true;
-            }
-            Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
-            return false;
-        }catch(Exception exp){
-            return false;
-        }
-    }
 
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
