@@ -301,8 +301,6 @@ public class FamilyMemberDetailsPage {
 
     By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
 
-
-
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

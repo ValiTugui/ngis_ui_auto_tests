@@ -128,7 +128,7 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
 
-    @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
+    @And("^the display question for NHS Number of the family member search page is (.*)$")
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
         Assert.assertTrue(familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage));
     }
