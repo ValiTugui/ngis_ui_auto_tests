@@ -292,7 +292,7 @@ public class SamplesPage {
     public List<String> getSampleTypesOptions() {
         Wait.forElementToBeClickable(driver, sampleTypeDropDown);
         Actions.clickElement(driver, sampleTypeDropDown);
-        List<String> actualSampleTypes = new ArrayList<>();
+        List<String> actualSampleTypes = new ArrayList<String>();
         for (WebElement sampleType : sampleTypesDropDownValues) {
             actualSampleTypes.add(sampleType.getText().trim());
         }

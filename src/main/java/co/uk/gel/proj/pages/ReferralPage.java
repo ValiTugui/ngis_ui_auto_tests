@@ -160,8 +160,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*=summary-header-container]")
     public WebElement consentDocumentHeaderInfo;
 
-    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[1]")
-    public WebElement clearDropDownValue;
+    @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
+    public List<WebElement> clearDropDownValue;
 
 
     String valuesInReferralHeaderBar = "strong[class*='header-item']";
@@ -439,7 +439,7 @@ public class ReferralPage<check> {
 
     public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
         Wait.forElementToBeDisplayed(driver, pageTitle);
-        List<String> actualHelpHintTexts = new ArrayList<>();
+        List<String> actualHelpHintTexts = new ArrayList<String>();
 
         for (WebElement fieldHelpHintText : hintText) {
             actualHelpHintTexts.add(fieldHelpHintText.getText().trim());

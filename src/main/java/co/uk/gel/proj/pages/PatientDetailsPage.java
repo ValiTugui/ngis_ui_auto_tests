@@ -182,6 +182,9 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
+    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[5]")
+    public WebElement clearEthnicityDropDownValue;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -297,9 +300,17 @@ public class PatientDetailsPage {
     }
 
     public void selectMissingNhsNumberReason(String reason) {
-        Actions.retryClickAndIgnoreElementInterception(driver,noNhsNumberReasonDropdown);
-        Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
-    }
+       try {
+           if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
+               Actions.scrollToTop(driver);
+           }
+           Actions.retryClickAndIgnoreElementInterception(driver, noNhsNumberReasonDropdown);
+           Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
+       }catch(Exception exp) {
+           Debugger.println("Patient new page  : Exception from selecting noNhsNumberReasonDropDown: " + exp);
+           SeleniumLib.takeAScreenShot("noNhsNumberReasonDropDown.jpg");
+          }
+       }
 
     public void clickSavePatientDetailsToNGISButton() {
         Wait.forElementToBeClickable(driver,savePatientDetailsToNGISButton);
@@ -659,7 +670,7 @@ public class PatientDetailsPage {
     public List<String> getTheEthnicityDropDownValues() {
         Wait.forElementToBeClickable(driver, ethnicityButton);
         Actions.clickElement(driver, ethnicityButton);
-        List<String> actualEthnicityValues = new ArrayList<>();
+        List<String> actualEthnicityValues = new ArrayList<String>();
         for (WebElement ethnicityValue : ethnicityValues) {
             actualEthnicityValues.add(ethnicityValue.getText().trim());
         }

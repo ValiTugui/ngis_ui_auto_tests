@@ -120,7 +120,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation |
 
-  @NTS-3465 @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @LOGOUT @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @E2EUI-1308 @E2EUI-1416  @LOGOUT @v_1
   Scenario Outline: NTS-3465: Normal User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -139,7 +139,7 @@ Feature: New Patient page
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
       | No patient found | create a new patient record | Add a new patient to the database | Other - provide explanation | Details saved |
 
-  @NTS-3465 @E2EUI-892 @E2EUI-1475 @LOGOUT @v_1
+  @NTS-3465 @E2EUI-892 @E2EUI-1475 @E2EUI-1416 @LOGOUT @v_1
   Scenario Outline: NTS-3465: Super User - Create a new patient record with no NHS Number
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -324,7 +324,7 @@ Feature: New Patient page
     And the No button is selected by default for the question - Do you have the NHS Number?
     When the user click YES button for the question - Do you have the NHS no?
     Then the NHS number field is displayed
-    When the user fills in all the fields with NHS number from the New Patient page
+    When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
     Then the patient is successfully created with a message "Details saved"
 
@@ -466,15 +466,71 @@ Feature: New Patient page
       | Add a new patient to the database | Jan012020          |
 
 
-  @LOGOUT @v_1 @tag
-  Scenario Outline:
+  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = Yes
     Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
-    And the date of death input field is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    When the user deletes the content of the Ethnicity field
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type |
+      | Add a new patient to the database | Find your patient | NGIS                |
+
+
+  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = No
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER|
+    Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    When the user deletes the content of the Ethnicity field
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
+      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
+
+
+  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+  Scenario Outline: Ethnicity - Create a new Non-NHS patient leaving the Ethnicity field blank
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    And the user fills in all the fields with NHS number on the New Patient page
+    When the user deletes the content of the Ethnicity field
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
 
 
     Examples:
-      | pageTitle                         | reason_for_no_nhsNumber     |
-      | Add a new patient to the database | Other - provide explanation |
+      | pageTitle                         |
+      | Add a new patient to the database |
+
