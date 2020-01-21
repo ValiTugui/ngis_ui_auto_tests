@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class ReferralPage<check> {
 
     WebDriver driver;
@@ -846,5 +845,11 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
             return false;
         }
+    }
+    //To log the ReferralId in the Log file.
+    public void logTheReferralId(){
+        String referralID = getPatientReferralId();
+        Debugger.println("ReferralID: "+referralID);
+        System.out.println("ReferralID: "+referralID);
     }
 }

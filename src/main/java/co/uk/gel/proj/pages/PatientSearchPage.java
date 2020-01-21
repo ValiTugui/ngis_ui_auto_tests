@@ -951,5 +951,36 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
        }
 
     }
+    public boolean verifyNHSAndDOBInPatientCard(String familyDetails) {
+        try{
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            String nhsNumber = "",dob="";
+            for (String key : paramsKey) {
+                if (key.equalsIgnoreCase("NHSNumber")) {
+                    nhsNumber = paramNameValue.get(key);
+                }else if (key.equalsIgnoreCase("DOB")) {
+                    dob = paramNameValue.get(key);
+                }
+            }
+            //Read the search result details
+            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
+            if(familyMember == null){
+                Debugger.println("Family Member :"+familyDetails+" Not found in the list!.");
+                return false;
+            }
+            String bornExpected = TestUtils.getDOBInMonthFormat(dob)+" "+TestUtils.getAgeInYearsAndMonth(dob);
+            Debugger.println("NHS Actual: "+familyMember.getNHS_NUMBER()+", Expected:"+nhsNumber);
+            Debugger.println("BORN Actual: "+familyMember.getBORN_WITH_AGE()+", Expected:"+bornExpected);
+            if(familyMember.getNHS_NUMBER().equalsIgnoreCase(nhsNumber)
+                    && familyMember.getBORN_WITH_AGE().contains(bornExpected)){
+                return true;
+            }
+            Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
+            return false;
+        }catch(Exception exp){
+            return false;
+        }
+    }
 }
 

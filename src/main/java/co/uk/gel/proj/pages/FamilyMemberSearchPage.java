@@ -127,7 +127,7 @@ public class FamilyMemberSearchPage {
 
     static String searchString = "";
 
-    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
+    @FindBy(xpath = "//h3[contains(@class,'styles_results__header')]")
     public WebElement familyMemeberFound;
 
     @FindBy(xpath="//p[@class='styles_text__1aikh styles_text--6__3mCVT styles_patient-name__2PfmN']")
