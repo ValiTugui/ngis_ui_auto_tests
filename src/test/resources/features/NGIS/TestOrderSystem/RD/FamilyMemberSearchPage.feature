@@ -12,7 +12,6 @@ Feature: Family Members Search Validation
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the YES button is selected by default on family member search
-    ##NHS question
     And the mandatory fields shown with the symbol in red color
       | mandatory_field | field_type | symbol | symbol color |
       | NHS Number      | label      | ✱      | #dd2509      |
