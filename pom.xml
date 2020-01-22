@@ -28,12 +28,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
                 <configuration>
-                    <excludes>
+                    <!--<excludes>
                         <exclude>**/RunnerTest.java</exclude>
-                    </excludes>
+                    </excludes>-->
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>com.github.temyers</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
                 <version>5.0.0</version>
@@ -57,7 +57,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -119,6 +119,29 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>net.continuumsecurity</groupId>
+            <artifactId>zap-java-api</artifactId>
+            <version>2.4.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/proxy-2.4.2-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>edu.umass.cs.benchlab</groupId>
+            <artifactId>harlib</artifactId>
+            <version>1.1.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/harlib-1.1.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.owasp</groupId>
+            <artifactId>zaproxy-client-api</artifactId>
+            <version>2.4-6</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/zap-api-2.4-v6.jar</systemPath>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.jayway.restassured/rest-assured -->
         <!--<dependency>
             <groupId>com.jayway.restassured</groupId>

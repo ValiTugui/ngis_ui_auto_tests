@@ -61,6 +61,7 @@ public class ClinicalIndicationsTestSelectPage {
     String furtherInfoSectionsLocator = "//*[contains (@class, 'card_')]";
 
     @FindBy(css = ".btn.btn-md.btn-primary")
+   // @FindBy(css = "button[class*='startOrderButton']")
     public WebElement startTestOrderButton;
 
     @FindBy(css = "div[class*='closeButton']")

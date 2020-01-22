@@ -8,15 +8,17 @@ Feature: Home Page
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
-  @E2EUI-2093 @NTS-3161 @v_1 @P0 @COMP1_TD_ClinicalIndications
+  @E2EUI-2093 @NTS-3161 @v_1 @P0 @COMP1_TD_ClinicalIndications @secuirtyscans
   Scenario: NTS-3161 - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | 270 |
-    Then the text "Please wait a moment - clinical indications are loading" is displayed
-    And the text "This test cannot be ordered yet" is not displayed
-    And the loading wheel is displayed
-    And the list of clinical indications are loaded
+    When user run security scan
+#    Then the text "Please wait a moment - clinical indications are loading" is displayed
+#    And the text "This test cannot be ordered yet" is not displayed
+#    And the loading wheel is displayed
+#    And the list of clinical indications are loaded
+
 
   @E2EUI-1530 @E2EUI-1500 @NTS-3238 @NTS-3205 @v_1 @P0 @COMP1_TD_EligibilityCriteria @COMP1_TD_ClinicalTests
   Scenario: NTS-3205 - NTS-3238 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.

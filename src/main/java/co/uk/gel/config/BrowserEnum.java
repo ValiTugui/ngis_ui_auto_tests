@@ -6,5 +6,6 @@ public enum BrowserEnum {
 	CHROME,
 	IE,
 	SAFARI,
-    OPERA
+    OPERA,
+	SECUREBROWSER
 }
