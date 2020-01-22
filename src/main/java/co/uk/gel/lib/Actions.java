@@ -94,23 +94,31 @@ public class Actions {
         element.sendKeys(value);
     }
 
+    public static void fillInValueOneCharacterAtATimeOnTheDynamicInputField(WebElement element, String strValue){
+        //https://jira.extge.co.uk/browse/NTS-3539 - it's absolutely fine to pass partial values to the dropdown whose values are populated at runtime
+        //  if we pass exact full value to this web element at one go, like - Intraneural perineurioma - then there is a chance that dynamic dropdown is not displayed in the UI
+        //  As we are waiting for dynamic populated list to appear in selenium , this kind of tests becomes intermittenly fail/pass depends on the application behaviour
+        // so the approach is to pass partial values into the web element and wait for the auto-suggest dropdown to appear, and choose the specific/random values from the auto suggest dropdown list
+        List<String> charList = Arrays.asList(strValue.split(""));
+        for(String character : charList) {
+            Actions.fillInValue(element, character);
+            Wait.seconds(1);
+        }
+    }
+
     public static void clearTextField(WebElement element) {
         element.clear();
     }
 
     public static void clearField(WebElement element) {
-        while (!getValue(element).isEmpty()) {
             element.sendKeys(Keys.BACK_SPACE);
-        }
     }
 
     public static void clearField(WebDriver driver, WebElement element) throws AWTException {
-        while (!getText(element).isEmpty()) {
             new org.openqa.selenium.interactions.Actions(driver).moveToElement(element).click().perform();
             Robot robot = new Robot();
             robot.keyPress(KeyEvent.VK_BACK_SPACE);
             robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-        }
     }
 
     public static String getMonth(int month) {

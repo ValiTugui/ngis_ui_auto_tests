@@ -15,10 +15,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
@@ -97,7 +95,7 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::div")
     public WebElement diagnosisField;
 
-    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//*[@class='css-19bqh2r']")
+    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//div[@class='css-1hwfws3']")
     public WebElement cancelDiagnosisValue;
 
     @FindBy(css = "div[class*='error-message__text']")
@@ -174,21 +172,28 @@ public class ClinicalQuestionsPage {
         return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
     }
 
-    public String searchAndSelectARandomDiagnosis(String diagnosis) {
-        if (Actions.getText(diagnosisField).isEmpty()) {
-            Actions.fillInValue(driver, diagnosisValue, diagnosis);
+    public String searchAndSelectSpecificDiagnosis(String diagnosis) {
+        try {
+            Wait.forElementToBeDisplayed(driver, diagnosisValue);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
+                return null;
+            }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            Wait.seconds(10);
+            return Actions.getText(diagnosisField);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis.jpg");
+            return null;
         }
-        return Actions.getText(diagnosisField);
     }
 
     public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
         if (!Actions.getText(diagnosisField).isEmpty()) {
             Debugger.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
             diagnosisValue.click();
-            Actions.clearField(driver, diagnosisValue);
+            Actions.clearField(diagnosisValue);
             Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
             Wait.seconds(10);
         }

@@ -36,9 +36,7 @@ Feature: Clinical Questions stage
 
     Examples:
       | stage              | title                     | rareDiseaseDiagnosisValue |
-      | Clinical questions | Answer clinical questions | rudimentary               |
-      | Clinical questions | Answer clinical questions | TIETZ ALBINISM-DEAFNESS   |
-      | Clinical questions | Answer clinical questions | BASAL CELL NEVUS          |
+      | Clinical questions | Answer clinical questions | ACHONDROPLASIA            |
 
   @NTS-3245 @E2EUI-1610 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
