@@ -138,6 +138,9 @@ public class PatientDetailsPage {
     public WebElement startNewReferralButton;
 
     @FindBy(css = "*[class*='success-notification']")
+    public WebElement successNotificationDescoped;
+
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//*[text()='Go back to patient search']")
@@ -151,6 +154,13 @@ public class PatientDetailsPage {
 
     @FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
+
+    @FindBy(xpath = "//*[text()='Relationship to proband']")
+    public WebElement referralProbandRelationShip;
+
+    @FindBy(xpath = "//*[text()='Full Siblings']")
+    public WebElement referralProbandRelationShipStatus;
+
 
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
@@ -195,7 +205,7 @@ public class PatientDetailsPage {
 
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
-        Wait.forElementToBeDisplayed(driver, startReferralButton);
+        //Wait.forElementToBeDisplayed(driver, startReferralButton);
         return true;
     }
 
@@ -623,7 +633,6 @@ public class PatientDetailsPage {
     public void clickUpdateNGISRecordButton() {
         Wait.forElementToBeClickable(driver,updateNGISRecordButton);
         Click.element(driver, updateNGISRecordButton);
-        Wait.forElementToBeDisplayed(driver, successNotification);
     }
 
       public String getNotificationMessageForPatientCreatedOrUpdated() {
