@@ -373,7 +373,7 @@ Feature: New Patient page
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
     And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
-    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
     #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
