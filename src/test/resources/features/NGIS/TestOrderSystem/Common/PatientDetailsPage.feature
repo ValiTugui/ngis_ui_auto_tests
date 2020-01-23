@@ -281,8 +281,8 @@ Feature: Patient details page
       | Patient details | Unknown | Deceased   | R - Chinese |
 
 
-  @COMP2_TO_PatientDetails @LOGOUT
-    @patientDetails_16 @NTS-3848 @E2EUI-1609
+
+  @NTS-3848 @E2EUI-1609 @LOGOUT
   Scenario Outline: NTS-3848: Verifying the sub-heading on patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |

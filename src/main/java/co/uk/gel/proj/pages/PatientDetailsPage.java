@@ -95,8 +95,11 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[text()='Test Directory']")
     public WebElement testDirectoryLinkOnBanner;
 
-    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
+    @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]")
     public WebElement textOnPatientDetailsNotificationBanner;
+
+    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
+    public WebElement textOnPatientDetailsNotificationBanner1;
 
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
@@ -131,7 +134,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[contains(@class,'button') and @type='button']")
+    @FindBy(xpath = "//button[text()='Start referral']")  //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
@@ -364,6 +367,11 @@ public class PatientDetailsPage {
     public void startReferralButtonIsDisabled() {
         Wait.forElementToBeDisplayed(driver, startReferralButton);
         Assert.assertTrue(!startReferralButton.isEnabled());
+    }
+
+    public void startNewReferralButtonIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
+        Assert.assertTrue(!startNewReferralButton.isEnabled());
     }
 
     public void clickTheGoBackLink(String expectedGoBackToPatientSearch) {

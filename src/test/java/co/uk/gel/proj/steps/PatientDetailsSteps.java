@@ -81,6 +81,12 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
+    @And("the Start New Referral button is disabled")
+    public void theStartNewReferralButtonIsDisabled() {
+        patientDetailsPage.startNewReferralButtonIsDisabled();
+    }
+
+
     @When("the user clicks the - {string} - link")
     public void theUserClicksTheLink(String goBackToPatientSearch) {
         patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
@@ -407,4 +413,5 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
         Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
     }
+
 }
