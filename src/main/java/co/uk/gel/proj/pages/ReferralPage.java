@@ -166,10 +166,9 @@ public class ReferralPage<check> {
     String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
-    String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
     String helixIcon = "*[class*='helix']";
     String mandatoryToDOIconLocator = "todo__required-icon";
-    String currentStageLocator = "todo--is-current";
+    String currentStageLocator = "true";
     String stageCompleteLocator1 = "todo--is-complete";
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
@@ -353,12 +352,8 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        webElementLocator = "";
-        webElementLocator = stageName.replace("dummyStage", getPartialUrl(stage));
-        WebElement stageName = toDoList.findElement(By.xpath(webElementLocator));
-
-        boolean check1 = referralStage.getAttribute("class").contains(currentStageLocator);
-        boolean check2 = getText(stageName).contains(stage);
+        boolean check1 = referralStage.getAttribute("data-selected").contains(currentStageLocator);
+        boolean check2 = Actions.getText(referralStage).contains(stage);
 
         if (check1 == true && check2 == true) return true;
         else return false;
