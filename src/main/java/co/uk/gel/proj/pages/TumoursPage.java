@@ -72,7 +72,7 @@ public class TumoursPage {
     @FindBy(xpath = "//table[contains(@class,'table')]//child::tr")
     public List<WebElement> tumoursLandingPageList;
 
-    @FindBy(css = "*[class*='tumour-list__notification']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q151')]")
