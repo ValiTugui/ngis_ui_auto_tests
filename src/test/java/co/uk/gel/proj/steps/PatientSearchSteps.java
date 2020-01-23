@@ -524,7 +524,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
     public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
-        Wait.seconds(5); // Wait for the patient to be updated in the database and for it to be retrieved back
+        Wait.seconds(6); // Wait for the patient to be updated in the database and for it to be retrieved back
         patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
     }
 
