@@ -58,7 +58,7 @@ Feature: Patient details page
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
-    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
 
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       |

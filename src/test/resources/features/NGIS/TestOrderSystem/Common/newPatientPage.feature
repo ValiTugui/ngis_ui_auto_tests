@@ -522,17 +522,17 @@ Feature: New Patient page
 #      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
 
-  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
-  Scenario Outline: Ethnicity - Create a new Non-NHS patient leaving the Ethnicity field blank
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-    Then the "<pageTitle>" page is displayed
-    And the No button is selected by default for the question - Do you have the NHS Number?
-    When the user click YES button for the question - Do you have the NHS no?
-    And the user fills in all the fields with NHS number on the New Patient page
-    When the user deletes the content of the Ethnicity field
-    And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+#  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+#  Scenario Outline: Ethnicity - Create a new Non-NHS patient leaving the Ethnicity field blank
+#    Given a web browser is at create new patient page
+#      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+#    Then the "<pageTitle>" page is displayed
+#    And the No button is selected by default for the question - Do you have the NHS Number?
+#    When the user click YES button for the question - Do you have the NHS no?
+#    And the user fills in all the fields with NHS number on the New Patient page
+#    When the user deletes the content of the Ethnicity field
+#    And the user clicks the Save patient details to NGIS button
+#    Then the patient is successfully created with a message "Details saved"
 
 
     Examples:
