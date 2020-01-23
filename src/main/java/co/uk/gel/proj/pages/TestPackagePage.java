@@ -29,10 +29,10 @@ public class TestPackagePage {
     public WebElement priorityLabel;
 
     @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
-    public WebElement routinePriorityButton;
+    public WebElement urgentPriorityButton;
 
     @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
-    public WebElement urgentPriorityButton;
+    public WebElement routinePriorityButton;
 
     @FindBy(css = "[class*='button--selected']")
     public WebElement chosenPriorityButton;
