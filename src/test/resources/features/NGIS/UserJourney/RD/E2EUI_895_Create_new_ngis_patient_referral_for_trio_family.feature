@@ -6,10 +6,9 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
     ##Create referral with new patient without providing NHS number
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ##Patient Details
-    When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
@@ -54,8 +53,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       | NHSNumber=NA:DOB=10-11-1949:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
-    And the user clicks the Save and Continue button
-    Then the "<PatientChoice>" stage is selected
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
@@ -78,7 +77,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     ##Pedigress
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
+    ##Since Pedigree is always ticked, navigating to printforms
+   ##And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
