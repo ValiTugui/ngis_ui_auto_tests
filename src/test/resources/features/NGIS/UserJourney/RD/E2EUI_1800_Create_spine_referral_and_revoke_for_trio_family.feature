@@ -16,7 +16,7 @@ Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create 
 
     ###Referral creation  - provide nhs and dob of an existing patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_SUPER_USER | NHSNumber=2000008178:DOB=29-12-1967:Gender=Male |
     ###Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient
