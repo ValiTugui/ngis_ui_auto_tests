@@ -89,14 +89,17 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
 
-    @FindBy(css = "*[class*='notification--warning']")
+    @FindBy(css = "*[data-testid*='notification-warning']")     //@FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
 
     @FindBy(xpath = "//a[text()='Test Directory']")
     public WebElement testDirectoryLinkOnBanner;
 
-    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
+    @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]")
     public WebElement textOnPatientDetailsNotificationBanner;
+
+    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
+    public WebElement textOnPatientDetailsNotificationBanner1;
 
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
@@ -131,7 +134,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
+    @FindBy(xpath = "//button[text()='Start referral']")  //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
@@ -149,10 +152,13 @@ public class PatientDetailsPage {
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
 
-    @FindBy(css = "div[class*='referral-card']")
+    @FindBy(css = "*[class*='referral-list__link']")
+    public WebElement referralLink;
+
+    @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
-    @FindBy(css = "*[class*='badge']")
+    @FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
 
     @FindBy(xpath = "//*[text()='Relationship to proband']")
@@ -161,12 +167,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[text()='Full Siblings']")
     public WebElement referralProbandRelationShipStatus;
 
-
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
 
-    @FindBy(css = "*[class*='referral-list__link']")
-    public WebElement referralLink;
 
     @FindBy(id = "address[0]")
     public WebElement addressLine0;
@@ -364,6 +367,11 @@ public class PatientDetailsPage {
     public void startReferralButtonIsDisabled() {
         Wait.forElementToBeDisplayed(driver, startReferralButton);
         Assert.assertTrue(!startReferralButton.isEnabled());
+    }
+
+    public void startNewReferralButtonIsDisabled() {
+        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
+        Assert.assertTrue(!startNewReferralButton.isEnabled());
     }
 
     public void clickTheGoBackLink(String expectedGoBackToPatientSearch) {
@@ -585,6 +593,10 @@ public class PatientDetailsPage {
 
         String gender = "Male";
         newPatient.setGender(gender);
+
+        if(!Wait.isElementDisplayed(driver, administrativeGenderButton,15)){
+            Actions.scrollToTop(driver);
+        }
         editDropdownField(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
