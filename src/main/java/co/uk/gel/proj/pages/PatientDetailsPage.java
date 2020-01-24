@@ -790,6 +790,7 @@ public class PatientDetailsPage {
     }
     public boolean startReferral(){
         try{
+
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
@@ -803,6 +804,14 @@ public class PatientDetailsPage {
                 clickStartReferralButton();
             } else if (updateNGISRecordButtonList.size() > 0) {
                 Debugger.println("Update Patient Details button shown");
+                try {
+                    WebElement existingReferral = driver.findElement(By.xpath("//a[contains(@class,'styles_referral-list')][1]"));
+                    Actions.clickElement(driver,existingReferral);
+                    return true;
+                }catch(Exception exp){
+
+                }
+
                 clickStartReferralButton();
             } else if (savePatientDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Save Patient Details button shown");
