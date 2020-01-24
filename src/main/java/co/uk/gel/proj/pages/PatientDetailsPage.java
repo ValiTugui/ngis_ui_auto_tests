@@ -131,7 +131,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
+    //@FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
+    @FindBy(xpath = "//button[@type='button' and text()='Start referral']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
@@ -793,7 +794,12 @@ public class PatientDetailsPage {
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
                 addDetailsToNGISButton.click();
-                Wait.forElementToBeDisplayed(driver, successNotification);
+                if(!Wait.isElementDisplayed(driver, successNotification,30)){
+                    editDropdownField(ethnicityButton, "A - White - British");
+                    addDetailsToNGISButton.click();
+                    Wait.forElementToBeDisplayed(driver,successNotification);
+                    startReferral();
+                }
                 clickStartReferralButton();
             } else if (updateNGISRecordButtonList.size() > 0) {
                 Debugger.println("Update Patient Details button shown");
