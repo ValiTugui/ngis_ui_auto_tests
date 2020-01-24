@@ -75,7 +75,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       And the user submits the referral
       And the submission confirmation message "Your referral has been submitted" is displayed
       And the referral status is set to "Submitted"
-#      And user run security scan
+      And user run security scan
       Examples:
         | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
         | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |

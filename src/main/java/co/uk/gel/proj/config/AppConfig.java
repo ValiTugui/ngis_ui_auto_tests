@@ -26,6 +26,11 @@ public class AppConfig {
     public static String searchTerm;
     public static String panel_app_url;
     public static Properties properties = null;
+    public static String BASE_URL_TS;
+    public static String BASE_URL_TO;
+    public static String BASE_URL_PA;
+    public static String BASE_URL_PP;
+    public static String BASE_URL_DS;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -58,6 +63,14 @@ public class AppConfig {
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         panel_app_url = properties.getProperty("PANEL_APP_URL");
+
+        BASE_URL_TS =   properties.getProperty("BASE_URL_TS");
+        BASE_URL_TO =  properties.getProperty("BASE_URL_TO");
+        BASE_URL_PA =  properties.getProperty("BASE_URL_PA");
+        BASE_URL_PP =  properties.getProperty("BASE_URL_PP");
+        BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
+
+
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {

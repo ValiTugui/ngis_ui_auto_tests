@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import com.jayway.restassured.RestAssured;
@@ -68,17 +69,16 @@ public class TestHooks extends Pages {
     private final static String CHROME = "chrome";
     private final static String FIREFOX = "firefox";
 
-    private final static String BASE_URL_TS =  "https://test-selection-private.e2e-latest.ngis.io";
-    private final static String BASE_URL_TO = "https://test-ordering.e2e-latest.ngis.io";
-    private final static String BASE_URL_PA = "https://pc-assets-optum-patientchoice.e2e-latest.ngis.io";
-    private final static String BASE_URL_PP = "https://pc-proxy-optum-patientchoice.e2e-latest.ngis.io";
-    private final static String BASE_URL_DS = "https://dashboard.e2e-latest.ngis.io";
-    Scenario scenario =null;
+    private static String BASE_URL_TS;
+    private static String BASE_URL_TO;
+    private static String BASE_URL_PA;
+    private static String BASE_URL_PP;
+    private static String BASE_URL_DS;
+    Scenario scenario = null;
     //private MyAppNavigation myApp;
     private final static String[] policyNames = {"directory-browsing", "cross-site-scripting", "sql-injection", "path-traversal", "remote-file-inclusion", "server-side-include",
             "script-active-scan-rules", "server-side-code-injection", "external-redirect", "crlf-injection"};
     int currentScanID;
-
 
 
     public TestHooks(SeleniumDriver driver) {
@@ -102,7 +102,7 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
-         request = RestAssured.with();
+        request = RestAssured.with();
 
         Debugger.println("\n******* Security RUN STARTS " + new java.util.Date() + " *******************************");
 
@@ -110,15 +110,23 @@ public class TestHooks extends Pages {
         zapScanner.clear(); //Start a new session
         zapSpider = (Spider) zapScanner;
         Debugger.println("Created client to ZAP API");
-     //   driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+
+        BASE_URL_TS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_TS");
+        BASE_URL_TO = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_TO");
+        BASE_URL_PA = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PA");
+        BASE_URL_PP = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PP");
+        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_DS");
+
+
+        //   driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
         //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
     }
 
     @When("user run security scan")
-    public void userRunSecurityScan(){
+    public void userRunSecurityScan() {
 
         List<String> urlsToSpider = new LinkedList<>();
-       // String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis\\.io|https:\\/\\/test-ordering.e2e-latest.ngis\\.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis\\io|https:\\/\\/dashboard.e2e-latest.ngis.\\.io))).*$";
+        // String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis\\.io|https:\\/\\/test-ordering.e2e-latest.ngis\\.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis\\io|https:\\/\\/dashboard.e2e-latest.ngis.\\.io))).*$";
 
         urlsToSpider.add(BASE_URL_TS);
         urlsToSpider.add(BASE_URL_TO);
@@ -126,7 +134,7 @@ public class TestHooks extends Pages {
         urlsToSpider.add(BASE_URL_PP);
         urlsToSpider.add(BASE_URL_DS);
 
-        urlsToSpider.stream().forEach(inciWinciSpider ->  spiderWithZap(inciWinciSpider));
+        urlsToSpider.stream().forEach(inciWinciSpider -> spiderWithZap(inciWinciSpider));
         setAlertAndAttackStrength();
         zapScanner.setEnablePassiveScan(true);
 
@@ -141,7 +149,7 @@ public class TestHooks extends Pages {
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //  assertThat(alerts.size(), equalTo(0));
+        //  assertThat(alerts.size(), equalTo(0));
         LOGGER.info("Spider done.");
 
     }
@@ -183,6 +191,7 @@ public class TestHooks extends Pages {
             }
         }
     }
+
     private String enableZapPolicy(String policyName) {
         String scannerIds = null;
         switch (policyName.toLowerCase()) {
@@ -244,7 +253,7 @@ public class TestHooks extends Pages {
                 scannerIds = "90025";
                 break;
             case "insecure-http-methods":
-                    scannerIds = "90028";
+                scannerIds = "90028";
                 break;
             case "parameter-pollution":
                 scannerIds = "20014";
@@ -256,13 +265,14 @@ public class TestHooks extends Pages {
         zapScanner.setEnableScanners(scannerIds, true);
         return scannerIds;
     }
+
     private void scanWithZap(String scanBaseURL) {
         LOGGER.info("ZAP Scanning...");
         zapScanner.scan(scanBaseURL);
 
-        String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
+        //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
 
-       // zapScanner.excludeFromScanner(patternOfScan);
+        // zapScanner.excludeFromScanner(patternOfScan);
         currentScanID = zapScanner.getLastScannerScanId();
         int complete = 0;
         while (complete < 100) {
@@ -357,7 +367,7 @@ public class TestHooks extends Pages {
         return proxy;
     }*/
 
-    @Before ("@TD_VERSION_INFO")
+    @Before("@TD_VERSION_INFO")
     public void getNGISVersion() {
         globalBehaviourPage.getNGISVersion();
     }
@@ -402,10 +412,9 @@ public class TestHooks extends Pages {
     }
 
 
-
     @After("@CLEANUP")
     public void cleanUp() {
-     //   driver = null;
+        //   driver = null;
     }
 
     @After(order = 1)
