@@ -1,7 +1,7 @@
 @regression
 @TO_Common
 @patientSearchSPINE
-Feature: Patient search page
+Feature: Patient search page_SPINE
 
   Background:
     Given a web browser is at the patient search page

@@ -161,15 +161,14 @@ public class PatientDetailsPage {
     @FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
 
-    @FindBy(xpath = "//*[text()='Relationship to proband']")
-    public WebElement referralProbandRelationShip;
+    @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
+    public List<WebElement> referralProbandRelationShip;
 
-    @FindBy(xpath = "//*[text()='Full Siblings']")
+    @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Full Sibling']")
     public WebElement referralProbandRelationShipStatus;
 
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
-
 
     @FindBy(id = "address[0]")
     public WebElement addressLine0;
