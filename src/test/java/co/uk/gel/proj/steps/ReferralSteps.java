@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.fail;
+
 public class ReferralSteps extends Pages {
 
 
@@ -387,6 +389,7 @@ public class ReferralSteps extends Pages {
         if(attributeOfURL.size() == 7){
             userType = attributeOfURL.get(6);
         }
+
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         homePage.waitUntilHomePageResultsContainerIsLoaded();
         homePage.typeInSearchField(searchTerm);
@@ -397,6 +400,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
+      //  fail();
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         Debugger.println(" User Type : " + userType);
         if(userType != null) {

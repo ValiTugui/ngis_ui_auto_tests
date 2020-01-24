@@ -255,9 +255,9 @@ public class TestHooks extends Pages {
             case "insecure-http-methods":
                 scannerIds = "90028";
                 break;
-            case "parameter-pollution":
+            /*case "parameter-pollution":
                 scannerIds = "20014";
-                break;
+                break;*/
             default:
                 throw new RuntimeException("No policy found for: " + policyName);
         }

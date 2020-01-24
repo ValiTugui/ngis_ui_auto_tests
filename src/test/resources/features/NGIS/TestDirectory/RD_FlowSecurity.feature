@@ -70,8 +70,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       When the user clicks the Save and Continue button
       Then the "<PrintForms>" stage is selected
       When the user navigates to the "<PrintForms>" stage
-      Then the user is navigated to a page with title Print sample forms
-      And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
+#      Then the user is navigated to a page with title Print sample forms
+#      And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
       And the user submits the referral
       And the submission confirmation message "Your referral has been submitted" is displayed
       And the referral status is set to "Submitted"
