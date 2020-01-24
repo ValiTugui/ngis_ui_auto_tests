@@ -131,13 +131,17 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
+    //@FindBy(xpath = "//button[contains(@class,'submit-button') and @type='button']")
+    @FindBy(xpath = "//button[@type='button' and text()='Start referral']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
     public WebElement startNewReferralButton;
 
     @FindBy(css = "*[class*='success-notification']")
+    public WebElement successNotificationDescoped;
+
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//*[text()='Go back to patient search']")
@@ -151,6 +155,13 @@ public class PatientDetailsPage {
 
     @FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
+
+    @FindBy(xpath = "//*[text()='Relationship to proband']")
+    public WebElement referralProbandRelationShip;
+
+    @FindBy(xpath = "//*[text()='Full Siblings']")
+    public WebElement referralProbandRelationShipStatus;
+
 
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
@@ -182,6 +193,9 @@ public class PatientDetailsPage {
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
+    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[5]")
+    public WebElement clearEthnicityDropDownValue;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -192,7 +206,7 @@ public class PatientDetailsPage {
 
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
-        Wait.forElementToBeDisplayed(driver, startReferralButton);
+        //Wait.forElementToBeDisplayed(driver, startReferralButton);
         return true;
     }
 
@@ -297,9 +311,17 @@ public class PatientDetailsPage {
     }
 
     public void selectMissingNhsNumberReason(String reason) {
-        Actions.retryClickAndIgnoreElementInterception(driver,noNhsNumberReasonDropdown);
-        Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
-    }
+       try {
+           if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
+               Actions.scrollToTop(driver);
+           }
+           Actions.retryClickAndIgnoreElementInterception(driver, noNhsNumberReasonDropdown);
+           Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
+       }catch(Exception exp) {
+           Debugger.println("Patient new page  : Exception from selecting noNhsNumberReasonDropDown: " + exp);
+           SeleniumLib.takeAScreenShot("noNhsNumberReasonDropDown.jpg");
+          }
+       }
 
     public void clickSavePatientDetailsToNGISButton() {
         Wait.forElementToBeClickable(driver,savePatientDetailsToNGISButton);
@@ -612,7 +634,6 @@ public class PatientDetailsPage {
     public void clickUpdateNGISRecordButton() {
         Wait.forElementToBeClickable(driver,updateNGISRecordButton);
         Click.element(driver, updateNGISRecordButton);
-        Wait.forElementToBeDisplayed(driver, successNotification);
     }
 
       public String getNotificationMessageForPatientCreatedOrUpdated() {
@@ -659,7 +680,7 @@ public class PatientDetailsPage {
     public List<String> getTheEthnicityDropDownValues() {
         Wait.forElementToBeClickable(driver, ethnicityButton);
         Actions.clickElement(driver, ethnicityButton);
-        List<String> actualEthnicityValues = new ArrayList<>();
+        List<String> actualEthnicityValues = new ArrayList<String>();
         for (WebElement ethnicityValue : ethnicityValues) {
             actualEthnicityValues.add(ethnicityValue.getText().trim());
         }
@@ -773,7 +794,12 @@ public class PatientDetailsPage {
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
                 addDetailsToNGISButton.click();
-                Wait.forElementToBeDisplayed(driver, successNotification);
+                if(!Wait.isElementDisplayed(driver, successNotification,30)){
+                    editDropdownField(ethnicityButton, "A - White - British");
+                    addDetailsToNGISButton.click();
+                    Wait.forElementToBeDisplayed(driver,successNotification);
+                    startReferral();
+                }
                 clickStartReferralButton();
             } else if (updateNGISRecordButtonList.size() > 0) {
                 Debugger.println("Update Patient Details button shown");

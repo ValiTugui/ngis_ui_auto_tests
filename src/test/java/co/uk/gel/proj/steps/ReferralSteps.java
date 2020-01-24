@@ -100,6 +100,8 @@ public class ReferralSteps extends Pages {
             patientDetailsPage.clickStartNewReferralButton();
         }
         referralPage.checkThatReferralWasSuccessfullyCreated();
+        //To log the ReferralI in the Log.
+        referralPage.logTheReferralId();
         referralPage.saveAndContinueButtonIsDisplayed();
         referralPage.clickSaveAndContinueButton();
     }
@@ -227,6 +229,8 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
         referralPage.checkThatReferralWasSuccessfullyCreated();
+        //To log the ReferralI in the Log.
+        referralPage.logTheReferralId();
         referralPage.saveAndContinueButtonIsDisplayed();
     }
 
@@ -322,6 +326,8 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
         referralPage.checkThatReferralWasSuccessfullyCreated();
+        //To log the ReferralI in the Log.
+        referralPage.logTheReferralId();
         referralPage.saveAndContinueButtonIsDisplayed();
     }
     @And("the success notification is displayed {string}")
@@ -423,6 +429,8 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
         referralPage.checkThatReferralWasSuccessfullyCreated();
+        //To log the ReferralI in the Log.
+        referralPage.logTheReferralId();
         referralPage.saveAndContinueButtonIsDisplayed();
         // Store the Clinical Indication info into the NewPatient test context
         Debugger.println("PATIENT CI " + referralPage.getPatientClinicalIndication());
@@ -544,6 +552,7 @@ public class ReferralSteps extends Pages {
                 case "NHSNumber": {
                     if(paramValue.startsWith("NA")) {
                         searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                        Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
                         searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
                     }else{
                         searchPatient.setNHS_NUMBER(paramValue);
@@ -597,6 +606,8 @@ public class ReferralSteps extends Pages {
             Debugger.println("Search Result: "+searchResult);
             Assert.assertTrue(false);
         }
+        //To log the ReferralI in the Log.
+        referralPage.logTheReferralId();
     }
     @And("^the mandatory fields shown with the symbol in red color$")
     public void theMandatoryFieldsShownWithSymbolInRedColor(DataTable messages) {

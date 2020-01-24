@@ -72,7 +72,7 @@ public class TumoursPage {
     @FindBy(xpath = "//table[contains(@class,'table')]//child::tr")
     public List<WebElement> tumoursLandingPageList;
 
-    @FindBy(css = "*[class*='tumour-list__notification']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q151')]")
@@ -267,15 +267,7 @@ public class TumoursPage {
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
-            case "Solid tumour: unknown": {
-                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                break;
-            }
+            case "Solid tumour: unknown":
             case "Brain tumour": {
                 Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
@@ -286,12 +278,7 @@ public class TumoursPage {
                 break;
             }
 
-            case "Haematological malignancy: liquid sample": {
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
-                Wait.forElementToBeDisplayed(driver, dropdownValue);
-                Actions.selectRandomValueFromDropdown(dropdownValues);
-                break;
-            }
+            case "Haematological malignancy: liquid sample":
 
             case "Haematological malignancy: solid sample": {
                 Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
