@@ -344,7 +344,6 @@ Feature: Patient details page
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
 
-# Not yet completed
   @NTS-3541 @E2EUI-1289 @LOGOUT @PO @v_1
   Scenario Outline: NTS-3541:Show patient's referrals on patient detail page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

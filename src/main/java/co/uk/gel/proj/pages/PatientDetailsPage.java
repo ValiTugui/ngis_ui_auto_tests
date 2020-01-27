@@ -140,9 +140,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Start a new referral']")
     public WebElement startNewReferralButton;
 
-    @FindBy(css = "*[class*='success-notification']")
-    public WebElement successNotificationDescoped;
-
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 

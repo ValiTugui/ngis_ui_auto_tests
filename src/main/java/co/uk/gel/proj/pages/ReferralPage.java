@@ -123,7 +123,7 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='error-message']")
     public WebElement errorMessage;
 
-    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement genericSuccessNotification;
 
     @FindBy(css = "*[class*='helix']")

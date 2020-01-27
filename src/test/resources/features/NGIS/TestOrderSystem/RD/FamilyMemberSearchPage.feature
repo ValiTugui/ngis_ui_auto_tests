@@ -73,3 +73,21 @@ Feature: Family Members Search Validation
       | stage          |
       | Family members |
 
+
+  @NTS-2801 @E2EUI-915 @LOGOUT @v_1
+  Scenario Outline: NTS-2801-DOB field Validations - invalid day , month , year values
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user navigates to the "<stage>" stage
+    And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
+    And the YES button is selected by default on family member search
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+
+    Examples: of alphaNumeric
+      | stage         | patient-search-type | NhsNumber  | DOB        | error_message |
+      | Family members | NHS Spine           | 9449305099 | ab-02-2011 | Enter a day   |
+      | Family members | NHS Spine           | 9449305099 | 22-!!-2011 | Enter a month |
+      | Family members | NHS Spine           | 9449305099 | 01-02-abcd | Enter a year  |
