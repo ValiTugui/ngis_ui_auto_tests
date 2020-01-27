@@ -81,9 +81,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
         | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
 
 
-
-Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family - Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/NGIS Patient
-
   @NTS-3407 @LOGOUT @securityscan_rd
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
