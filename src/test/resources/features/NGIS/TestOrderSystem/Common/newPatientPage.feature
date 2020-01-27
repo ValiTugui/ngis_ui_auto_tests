@@ -64,13 +64,13 @@ Feature: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
+      |Ethnicity ✱                     |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |
       | Date of death |
-      | Ethnicity     |
       | Address       |
       | Postcode      |
 
@@ -97,6 +97,7 @@ Feature: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
+      |Ethnicity ✱                     |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the No button is selected by default for the question - Do you have the NHS Number?
@@ -112,7 +113,6 @@ Feature: New Patient page
       | labelHeader   |
       | Title         |
       | Date of death |
-      | Ethnicity     |
       | Address       |
       | Postcode      |
 
@@ -132,7 +132,8 @@ Feature: New Patient page
     And the "<pageTitle>" page is displayed
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully updated with a message "<notification>"
-    And the Start Referral button is disabled
+#    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
 
 
     Examples:
@@ -152,7 +153,8 @@ Feature: New Patient page
     And the No button is selected by default for the question - Do you have the NHS Number?
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Then the patient is successfully updated with a message "<notification>"
-    And the Start Referral button is disabled
+#    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
 
     Examples:
       | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | notification  |
@@ -210,6 +212,7 @@ Feature: New Patient page
       | Date of birth ✱                | Date of birth is required.          | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
       | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
       | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
@@ -233,13 +236,13 @@ Feature: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
+      | Ethnicity ✱                    |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |
       | Date of death |
-      | Ethnicity     |
       | Address       |
       | Postcode      |
     When the user clears the date of birth field
@@ -251,6 +254,7 @@ Feature: New Patient page
       | Date of birth ✱                | Date of birth is required.          | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
       | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
       | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
@@ -369,7 +373,7 @@ Feature: New Patient page
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
     And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
-    And the Start Referral button is disabled
+    And the Start New Referral button is disabled
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
     #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
@@ -403,13 +407,12 @@ Feature: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
-      | Reason NHS Number is missing ✱ |
+      | Ethnicity ✱       |
       | Hospital number ✱              |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |
       | Date of death |
-      | Ethnicity     |
       | Address       |
       | Postcode      |
     When the user select the life status "<lifeStatus>"
@@ -420,6 +423,7 @@ Feature: New Patient page
       | Last name ✱                    | Last name is required.              | #dd2509             |
       | Date of birth ✱                | Date of birth is required.          | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
       | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
@@ -440,13 +444,13 @@ Feature: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
+      | Ethnicity ✱                    |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |
       | Date of death |
-      | Ethnicity     |
       | Address       |
       | Postcode      |
     And the user fills in the date of birth "<InvalidDateOfBirth>"
@@ -458,6 +462,7 @@ Feature: New Patient page
       | Date of birth ✱                | Date of birth is required.          | #dd2509             |
       | Gender ✱                       | Gender is required.                 | #dd2509             |
       | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
       | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
@@ -465,69 +470,69 @@ Feature: New Patient page
       | pageTitle                         | InvalidDateOfBirth |
       | Add a new patient to the database | Jan012020          |
 
+# Ethnicity is now Mandatory
+#  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+#  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = Yes
+#    Given a web browser is at create new patient page
+#      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+#    Then the "<pageTitle>" page is displayed
+#    And the No button is selected by default for the question - Do you have the NHS Number?
+#    When the user click YES button for the question - Do you have the NHS no?
+#    When the user fills in all the fields with NHS number on the New Patient page
+#    And the user clicks the Save patient details to NGIS button
+#    Then the patient is successfully created with a message "Details saved"
+#    And the user clicks the - "Go back to patient search" - link
+#    Then the "<pageTitle2>" page is displayed
+#    And the YES button is selected by default on patient search
+#    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+#    And the user clicks the Search button
+#    Then a "<patient-search-type>" result is successfully returned
+#    And the user clicks the patient result card
+#    Then the Patient Details page is displayed
+#    When the user deletes the content of the Ethnicity field
+#    And the user clicks the Update NGIS record button
+#    Then the patient is successfully updated with a message "Details saved"
+#
+#    Examples:
+#      | pageTitle                         | pageTitle2        | patient-search-type |
+#      | Add a new patient to the database | Find your patient | NGIS                |
+#
+#
+#  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+#  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = No
+#    Given a web browser is at create new patient page
+#      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER|
+#    Then the "<pageTitle>" page is displayed
+#    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+#    And the user clicks the - "Go back to patient search" - link
+#    Then the "<pageTitle2>" page is displayed
+#    And the YES button is selected by default on patient search
+#    And the user clicks the NO button
+#    And the user search for the new patient using date of birth, first name, last name and gender
+#    And the user clicks the Search button
+#    Then a "<patient-search-type>" result is successfully returned
+#    And the user clicks the patient result card
+#    Then the Patient Details page is displayed
+#    When the user deletes the content of the Ethnicity field
+#    And the user clicks the Update NGIS record button
+#    Then the patient is successfully updated with a message "Details saved"
+#
+#    Examples:
+#      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
+#      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
-  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
-  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = Yes
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-    Then the "<pageTitle>" page is displayed
-    And the No button is selected by default for the question - Do you have the NHS Number?
-    When the user click YES button for the question - Do you have the NHS no?
-    When the user fills in all the fields with NHS number on the New Patient page
-    And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
-    And the user clicks the - "Go back to patient search" - link
-    Then the "<pageTitle2>" page is displayed
-    And the YES button is selected by default on patient search
-    And the user types in the details of the NGIS patient in the NHS number and DOB fields
-    And the user clicks the Search button
-    Then a "<patient-search-type>" result is successfully returned
-    And the user clicks the patient result card
-    Then the Patient Details page is displayed
-    When the user deletes the content of the Ethnicity field
-    And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
 
-    Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type |
-      | Add a new patient to the database | Find your patient | NGIS                |
-
-
-  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
-  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = No
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER|
-    Then the "<pageTitle>" page is displayed
-    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    And the user clicks the - "Go back to patient search" - link
-    Then the "<pageTitle2>" page is displayed
-    And the YES button is selected by default on patient search
-    And the user clicks the NO button
-    And the user search for the new patient using date of birth, first name, last name and gender
-    And the user clicks the Search button
-    Then a "<patient-search-type>" result is successfully returned
-    And the user clicks the patient result card
-    Then the Patient Details page is displayed
-    When the user deletes the content of the Ethnicity field
-    And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
-
-    Examples:
-      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
-
-
-  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
-  Scenario Outline: Ethnicity - Create a new Non-NHS patient leaving the Ethnicity field blank
-    Given a web browser is at create new patient page
-      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-    Then the "<pageTitle>" page is displayed
-    And the No button is selected by default for the question - Do you have the NHS Number?
-    When the user click YES button for the question - Do you have the NHS no?
-    And the user fills in all the fields with NHS number on the New Patient page
-    When the user deletes the content of the Ethnicity field
-    And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+#  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
+#  Scenario Outline: Ethnicity - Create a new Non-NHS patient leaving the Ethnicity field blank
+#    Given a web browser is at create new patient page
+#      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+#    Then the "<pageTitle>" page is displayed
+#    And the No button is selected by default for the question - Do you have the NHS Number?
+#    When the user click YES button for the question - Do you have the NHS no?
+#    And the user fills in all the fields with NHS number on the New Patient page
+#    When the user deletes the content of the Ethnicity field
+#    And the user clicks the Save patient details to NGIS button
+#    Then the patient is successfully created with a message "Details saved"
 
 
     Examples:

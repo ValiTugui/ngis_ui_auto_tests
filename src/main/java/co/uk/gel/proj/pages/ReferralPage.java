@@ -114,7 +114,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//label[contains(@for,'cancel-options')]//following::div")
     public WebElement cancelReasonDropdown;
 
-    @FindBy(css = "*[class*='notification-bar--success']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement cancelReferralNotification;
 
     @FindBy(css = "button[class*='modal__action']")
