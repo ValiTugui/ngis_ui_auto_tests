@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
@@ -299,6 +300,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
         patientChoicePage.clickOnContinue();
+        SeleniumLib.sleepInSeconds(5);
     }
 
     @And("the user should see an error message displayed as {string} in {string} color")

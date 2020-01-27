@@ -4,519 +4,553 @@ Feature: Patient Choice Page
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
+    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
     When the user selects the option Adult (Without Capacity) in patient choice category
-    And the user should see the chosen "<PatientChoiceCategory>" with edit button in "Patient choice category"
+    Then the option Adult (Without Capacity) displayed with edit option in Patient choice category
     Then the Patient choice category option is marked as completed
-    When the user fills "<TestType>" details in test type
-    And the user should see the chosen "<TestType>" with edit button in "Test type"
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
     Then the Test type option is marked as completed
     When the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    And the user should see the chosen "Recorded by:" with edit button in "Recorded by"
-    Then the Recorded by option is marked as completed
+    Then the option Recorded by: displayed with edit option in Recorded by
+    And the Recorded by option is marked as completed
 
     Examples:
-      | PatientChoiceStage | PatientChoiceCategory    | TestType                        | RecordedBy                            |
-      | Patient choice     | Adult (Without Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 |
+      | PatientChoiceStage | RecordedBy                            |
+      | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3417: scenario 1 - Editing Patient choice for an Adult (without capacity)
-    When the user is navigated to a patient choice form option with title Patient choices
-    Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
-    And the patient choice options as below
-      | Consultee has agreed to the test                     |
-      | Record of Discussion form not currently available    |
-      | Consultee changed their mind about the clinical test |
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+      | Consultee has agreed to the test                                   |
+      | Consultee conversation happened; form to follow                    |
+      | Consultee changed their mind about the clinical test               |
+      | Clinician has agreed to the test (in the Patient's best interests) |
     When the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoiceOption3>" as patient choices
-    Then the user will see a "<WarningMessage>" warning message on the patient choice information option
+    When the user selects the option Consultee changed their mind about the clinical test for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    Then the user will see a warning message "<WarningMessage>"
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
-    And the user should be able to see the previous sections disappeared
-    And the user should be able to see selected patient choice details
+    And the user should see selected details displayed under the section Patient choices
       | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee changed their mind about the clinical test |
-    When the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<YesOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
-    Then the user should see the section title as I am willing to accept the role of consultee for this person.
-    And the patient choice options as below
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Yes for the question I have been consulted about this person's participation in the National Genomic Research Library.
+    Then the user should see the question displayed as I am willing to accept the role of consultee for this person.
+    And the options displayed as below for the question I am willing to accept the role of consultee for this person.
       | Yes |
       | No  |
-    And the user selects "<YesOption>" willing to accept the role of consultee for the person in Consultee Attestation
+    When the user selects the option Yes for the question I am willing to accept the role of consultee for this person.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    When the user is navigated to a patient choice form option with title Review and submit
-    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    When the user is in the section Review and submit
+    Then the user will see a warning message "<WarningMessage2>"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | PatientChoiceOption3                                 | YesOption | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                            |
-      | Consultee changed their mind about the clinical test | Yes       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(a)
   Scenario Outline: NTS-3417: scenario 1(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     When the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<NoOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<NoOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option No for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option No for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    When the user is navigated to a patient choice form option with title Review and submit
-    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    When the user is in the section Review and submit
+    Then the user will see a warning message "<WarningMessage>"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | NoOption | WarningMessage2                                                                                                                                                                            |
-      | No       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                             |
+      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(b)
   Scenario Outline: NTS-3417: scenario 1(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     When the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Not applicable for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Not applicable for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    When the user is navigated to a patient choice form option with title Review and submit
-    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    When the user is in the section Review and submit
+    Then the user will see a warning message "<WarningMessage>"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption    | SecondOption   | WarningMessage2                                                                                                                                                                            |
-      | Not applicable | Not applicable | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                             |
+      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_2
   Scenario Outline: NTS-3417: scenario 2 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
-    And the user should be able to see previous section re-opened
-    When the user is navigated to a patient choice form option with title Patient choices
-    Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
-    And the patient choice options as below
-      | Consultee has agreed to the test                     |
-      | Record of Discussion form not currently available    |
-      | Consultee changed their mind about the clinical test |
+    Then the user should be able to see previous section re-opened
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+      | Consultee has agreed to the test                                   |
+      | Consultee conversation happened; form to follow                    |
+      | Consultee changed their mind about the clinical test               |
+      | Clinician has agreed to the test (in the Patient's best interests) |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoice2>" as patient choices
-    Then the user should see the section title as Reason for not capturing patient choice:
-    And the patient choice reason options as below
-      | Patient conversation happened; form to follow               |
-      | Test does not require recording of patient choices          |
-      | Patient currently lacks capacity and no consultee available |
-      | Associated with another referral                            |
-      | Other                                                       |
-    ##Click on continue without selecting any option and validate warning message
-    When the user selects the option "<Reason3>" as patient choices
+    When the user selects the option Consultee conversation happened; form to follow for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
-    And the user should be able to see the previous sections disappeared
-    And the user should be able to see selected patient choice details
-      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Record of Discussion form not currently available |
-      | Reason for not capturing patient choice: ::Patient currently lacks capacity and no consultee available                                                                                                   |
-    When the user is navigated to a patient choice form option with title Review and submit
-    And the user will see a "<WarningMessage2>" warning message on the patient choice information option
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see selected details displayed under the section Patient choices
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee conversation happened; form to follow |
+    When the user is in the section Review and submit
+    Then the user will see a warning message "<WarningMessage>"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | PatientChoice2                                    | Reason3                                                     | WarningMessage2                                                                                                                                                                            |
-      | Record of Discussion form not currently available | Patient currently lacks capacity and no consultee available | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3417: scenario 3 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
-    When the user is navigated to a patient choice form option with title Patient choices
-    Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
-    And the patient choice options as below
-      | Consultee has agreed to the test                     |
-      | Record of Discussion form not currently available    |
-      | Consultee changed their mind about the clinical test |
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+      | Consultee has agreed to the test                                   |
+      | Consultee conversation happened; form to follow                    |
+      | Consultee changed their mind about the clinical test               |
+      | Clinician has agreed to the test (in the Patient's best interests) |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoice1>" as patient choices
-    Then the question will be displayed as "<Question1>"
-    And the user should be able to see Yes and No answer options
-    And the user selects "<NoOption>" research participation option in patient choices
-    Then the question will be displayed as "<Question2>"
-    ##Question Why has research participation not been discussed? with options presence need to check
-    ##And include the rrro option for not seleting and goign ahead
-    And the user should see continue button is not highlighted
-    Then the user will see a "<WarningMessage>" warning message on the patient choice information option
-    And the user should see continue button is not highlighted
-    When the user selects the option "<PatientChoice2>" as patient choices
+    When the user selects the option Consultee has agreed to the test for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    Then the user should see the question displayed as Has research participation been discussed?
+    And the options displayed as below for the question Has research participation been discussed?
+      | Yes |
+      | No  |
+    When the user selects the option No for the question Has research participation been discussed?
+    Then the user should see the question displayed as Why has research participation not been discussed?
+    And the options displayed as below for the question Why has research participation not been discussed?
+      | Inappropriate to have discussion                  |
+      | Consultee would like to revisit at a later date   |
+      | Patient lacks capacity and no consultee available |
+      | Other                                             |
+    And the user clicks on Continue Button
+    Then the user should see a error message box with border color #dd2509 and message as Please select an answer
+    When the user selects the option Consultee would like to revisit at a later date for the question Why has research participation not been discussed?
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
-    And the user should be able to see the previous sections disappeared
-    And the user should be able to see selected patient choice details
+    Then the user should see selected details displayed under the section Patient choices
       | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
       | Has research participation been discussed?::No                                                                                                                                         |
       | Why has research participation not been discussed?::Consultee would like to revisit at a later date                                                                                    |
-    When the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<YesOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
-    Then the user should see the section title as I am willing to accept the role of consultee for this person.
-    And the patient choice options as below
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Yes for the question I have been consulted about this person's participation in the National Genomic Research Library.
+    Then the user should see the question displayed as I am willing to accept the role of consultee for this person.
+    And the options displayed as below for the question I am willing to accept the role of consultee for this person.
       | Yes |
       | No  |
-    And the user selects "<NoOption>" willing to accept the role of consultee for the person in Consultee Attestation
+    When the user selects the option No for the question I am willing to accept the role of consultee for this person.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
     ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    ##For all disabled buttons, pleae click and verify for the warning message button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | PatientChoice1                   | PatientChoice2                                  | Consultee signature                | WarningMessage                                                                                                         | NoOption | YesOption | Question1                                  | Question2                                          |
-      | Consultee has agreed to the test | Consultee would like to revisit at a later date | FirstName=WILTON:LastName=BRITTAIN | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | No       | Yes       | Has research participation been discussed? | Why has research participation not been discussed? |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(a)
   Scenario Outline: NTS-3417: scenario 3(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
-    When the user clicks on Continue Button
+    And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Not applicable for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    When the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption | SecondOption   | Consultee signature                |
-      | Yes         | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(b)
   Scenario Outline: NTS-3417: scenario 3(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
-    When the user clicks on Continue Button
+    And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Not applicable for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option No for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption    | SecondOption | Consultee signature                |
-      | Not applicable | No           | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4
   Scenario Outline: NTS-3417: scenario 4 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
-    Then the user is navigated to a patient choice form option with title Patient choices
-    Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
-    And the patient choice options as below
-      | Consultee has agreed to the test                     |
-      | Record of Discussion form not currently available    |
-      | Consultee changed their mind about the clinical test |
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+      | Consultee has agreed to the test                                   |
+      | Consultee conversation happened; form to follow                    |
+      | Consultee changed their mind about the clinical test               |
+      | Clinician has agreed to the test (in the Patient's best interests) |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoice>" as patient choices
-    Then the question will be displayed as "<Question1>"
-    And the user should be able to see Yes and No answer options
-    And the user selects "<YesOption>" research participation option in patient choices
-    Then the question will be displayed as "<Question2>"
-    And the user should see continue button is not highlighted
-    And the user selects "<NoOption>" data and sample option in patient choices
-    Then the user will see a "<WarningMessage>" warning message on the patient choice information option
-    And the user clicks on Continue Button
-    Then the Patient choices option is marked as completed
-    And the user should be able to see the previous sections disappeared
-    And the user should be able to see selected patient choice details
-      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
-      | Has research participation been discussed?::Yes                                                                                                                                                                                      |
-      | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.::No                                                                           |
-    When the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
-      | Yes            |
-      | No             |
-      | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
-      | Yes            |
-      | No             |
-      | Not applicable |
-    And the user clicks on Continue Button
-    Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<YesOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
-    Then the user should see the section title as I am willing to accept the role of consultee for this person.
-    And the patient choice options as below
+    When the user selects the option Consultee has agreed to the test for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    Then the user should see the question displayed as Has research participation been discussed?
+    And the options displayed as below for the question Has research participation been discussed?
       | Yes |
       | No  |
-    And the user selects "<NoOption>" willing to accept the role of consultee for the person in Consultee Attestation
+    When the user selects the option Yes for the question Has research participation been discussed?
+    Then the user should see the question displayed as The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
+    And the options displayed as below for the question The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
+      | Yes |
+      | No  |
+    When the user selects the option No for the question The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
+    Then the user will see a warning message "<WarningMessage>"
+    And the user clicks on Continue Button
+    Then the Patient choices option is marked as completed
+    And the user should see selected details displayed under the section Patient choices
+      | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
+      | Has research participation been discussed?::Yes                                                                                                                                        |
+      | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.::No                                                                           |
+
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+      | Yes            |
+      | No             |
+      | Not applicable |
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
+      | Yes            |
+      | No             |
+      | Not applicable |
+    And the user clicks on Continue Button
+    Then the user should see a error message box with border color #dd2509 and message as Please select an answer
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Yes for the question I have been consulted about this person's participation in the National Genomic Research Library.
+    Then the user should see the question displayed as I am willing to accept the role of consultee for this person.
+    And the options displayed as below for the question I am willing to accept the role of consultee for this person.
+      | Yes |
+      | No  |
+    When the user selects the option No for the question I am willing to accept the role of consultee for this person.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    Then the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | PatientChoice                    | Consultee signature                | WarningMessage                                                                                                                                                      | NoOption | YesOption | Question1                                  | Question2                                                                                                |
-      | Consultee has agreed to the test | FirstName=WILTON:LastName=BRITTAIN | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | No       | Yes       | Has research participation been discussed? | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care. |
+      | Consultee signature                | WarningMessage                                                                                                                                                      |
+      | FirstName=WILTON:LastName=BRITTAIN | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(a)
   Scenario Outline: NTS-3417: scenario 4(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
-    When the user clicks on Continue Button
+    And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option No for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption | SecondOption | Consultee signature                |
-      | Yes         | No           | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(b)
+  @NTS-3417 @E2EUI-2040 @LOGOUT @v_1 @P0 @scenario_4(b)
   Scenario Outline: NTS-3417: scenario 4(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
-    When the user clicks on Continue Button
+    And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option No for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Not applicable for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    When the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption | SecondOption   | Consultee signature                |
-      | No          | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
+
+  @NTS-3417 @E2EUI-2040 @v_1 @P0
+  Scenario Outline: NTS-3417: Pre-Req:Editing Patient choice for an Adult (without capacity)
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    When the user navigates to the "<PatientChoiceStage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
+    Then the user is navigated to a page with title Add patient choice information
+    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
+    When the user selects the option Adult (Without Capacity) in patient choice category
+    Then the option Adult (Without Capacity) displayed with edit option in Patient choice category
+    Then the Patient choice category option is marked as completed
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    Then the Test type option is marked as completed
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the option Recorded by: displayed with edit option in Recorded by
+    Then the Recorded by option is marked as completed
+
+    Examples:
+      | PatientChoiceStage | RecordedBy                            |
+      | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3417: scenario 5 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
-    Then the user is navigated to a patient choice form option with title Patient choices
-    Then the user should see the section title as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
-    And the patient choice options as below
-      | Consultee has agreed to the test                     |
-      | Record of Discussion form not currently available    |
-      | Consultee changed their mind about the clinical test |
-    When the user clicks on Continue Button
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    And the options displayed as below for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+      | Consultee has agreed to the test                                   |
+      | Consultee conversation happened; form to follow                    |
+      | Consultee changed their mind about the clinical test               |
+      | Clinician has agreed to the test (in the Patient's best interests) |
+    And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    When the user selects the option "<PatientChoice>" as patient choices
-    Then the question will be displayed as "<Question1>"
-    And the user should be able to see Yes and No answer options
-    And the user selects "<YesOption>" research participation option in patient choices
-    Then the question will be displayed as "<Question2>"
-    And the user should see continue button is not highlighted
-    And the user selects "<YesOption>" data and sample option in patient choices
+    When the user selects the option Consultee has agreed to the test for the question Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
+    Then the user should see the question displayed as Has research participation been discussed?
+    And the options displayed as below for the question Has research participation been discussed?
+      | Yes |
+      | No  |
+    When the user selects the option Yes for the question Has research participation been discussed?
+    Then the user should see the question displayed as The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
+    And the options displayed as below for the question The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
+      | Yes |
+      | No  |
+    When the user selects the option Yes for the question The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.
     And the user clicks on Continue Button
     Then the Patient choices option is marked as completed
-    And the user should be able to see the previous sections disappeared
-    And the user should be able to see selected patient choice details
+
+    And the user should see selected details displayed under the section Patient choices
       | Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?::Consultee has agreed to the test |
       | Has research participation been discussed?::Yes                                                                                                                                        |
       | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.::Yes                                                                          |
-    When the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<YesOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<YesOption>" National Genomic Research Library for the person in Consultee Attestation
-    Then the user should see the section title as I am willing to accept the role of consultee for this person.
-    And the patient choice options as below
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Yes for the question I have been consulted about this person's participation in the National Genomic Research Library.
+    Then the user should see the question displayed as I am willing to accept the role of consultee for this person.
+    And the options displayed as below for the question I am willing to accept the role of consultee for this person.
       | Yes |
       | No  |
-    And the user selects "<YesOption>" willing to accept the role of consultee for the person in Consultee Attestation
+    When the user selects the option Yes for the question I am willing to accept the role of consultee for this person.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | PatientChoice                    | Consultee signature                | YesOption | Question1                                  | Question2                                                                                                |
-      | Consultee has agreed to the test | FirstName=WILTON:LastName=BRITTAIN | Yes       | Has research participation been discussed? | The consultee agrees that the patient's data and samples may be used for research, separate to NHS care. |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5(a)
   Scenario Outline: NTS-3417: scenario 5(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Yes for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option Not applicable for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption | SecondOption   | Consultee signature                |
-      | Yes         | Not applicable | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-3417 @E2EUI-2040 @LOGOUT @v_1 @P0 @scenario_5(b)
   Scenario Outline: NTS-3417: scenario 5(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
-    Then the user is navigated to a patient choice form option with title Consultee attestation
-    Then the user should see the section title as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
-    And the patient choice options as below
+    When the user is in the section Consultee attestation
+    Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    And the options displayed as below for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
       | Yes            |
       | No             |
       | Not applicable |
-    Then the user should see the section title as I have been consulted about this person's participation in the National Genomic Research Library.
-    And the patient choice options as below
+    Then the user should see the question displayed as I have been consulted about this person's participation in the National Genomic Research Library.
+    And the options displayed as below for the question I have been consulted about this person's participation in the National Genomic Research Library.
       | Yes            |
       | No             |
       | Not applicable |
     And the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
-    And the user selects "<FirstOption>" lacks capacity of consultee for the person in Consultee Attestation
-    And the user selects "<SecondOption>" National Genomic Research Library for the person in Consultee Attestation
+    When the user selects the option Not applicable for the question I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
+    When the user selects the option No for the question I have been consulted about this person's participation in the National Genomic Research Library.
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
-    And the user is navigated to a patient choice form option with title Consultee signature
+    When the user is in the section Consultee signature
+    ##Check for the mandatory field and clear.......
     When the user fills "<Consultee signature>" details for signature
-    Then the user should be able to see the highlighted Submit patient choice button
-    And Save and continue button is displayed as "disabled"
+    And the user should see patient choice submit button as enabled
+    And Save and continue button is displayed as disabled
 
     Examples:
-      | FirstOption    | SecondOption | Consultee signature                |
-      | Not applicable | No           | FirstName=WILTON:LastName=BRITTAIN |
+      | Consultee signature                |
+      | FirstName=WILTON:LastName=BRITTAIN |
