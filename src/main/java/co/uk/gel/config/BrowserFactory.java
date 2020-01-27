@@ -29,6 +29,7 @@ public class BrowserFactory {
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
+    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private ScanningProxy zapScanner;
@@ -66,9 +67,11 @@ public class BrowserFactory {
                 zapScanner.clear(); //Start a new session
                 zapSpider = (Spider) zapScanner;
                 Debugger.println("Created client to ZAP API");
-
-
-                   driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                  String OS = System.getProperty("os.name").toLowerCase();
+                  if(OS.indexOf("win") >= 0)
+                      driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
+                  else
+                driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
                 //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
                 break;
             default:
@@ -90,7 +93,8 @@ public class BrowserFactory {
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
 
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--ignore-certificate-errors");
+        //  chromeOptions.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", path);
         if (capabilities != null) {
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
