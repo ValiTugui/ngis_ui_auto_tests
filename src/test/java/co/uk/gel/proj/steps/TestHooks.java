@@ -13,6 +13,9 @@ import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import static co.uk.gel.lib.Actions.acceptAlert;
 import static co.uk.gel.lib.Actions.isAlertPresent;
 
@@ -81,7 +84,8 @@ public class TestHooks extends Pages {
     }
 
     @After("@LOGOUT")
-    public void logOutAndTearDown() {
+    public void logOutAndTearDown(Scenario scenario) {
+        fillInNotesFieldForUITesting(scenario);
         homePage.logOutFromApplication();
     }
 
@@ -109,6 +113,16 @@ public class TestHooks extends Pages {
 
     public void setResponse(ValidatableResponse response) {
         this.response = response;
+    }
+
+    public void fillInNotesFieldForUITesting(Scenario scenario){
+        referralPage.navigateToStage("Notes");
+        WebElement notesField = notesPage.getNotesFieldLocator();
+        String currentDateTime = new Timestamp(new Date().getTime()).toString();
+        String notes = "\n This scenario " + scenario.getName() + " is executed by UI automation pack on " + currentDateTime;
+        notesPage.fillInValue(notesField, notes);
+        referralPage.clickSaveAndContinueButton();
+        Debugger.println(notes);
     }
 
 }//end class
