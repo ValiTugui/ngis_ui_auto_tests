@@ -413,4 +413,5 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
         Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
     }
+
 }
