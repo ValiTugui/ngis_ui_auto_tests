@@ -632,6 +632,10 @@ public class PatientDetailsPage {
         editDropdownField(ethnicityButton, ethnicity);
     }
 
+    public void addPatientEthnicity(String ethnicity) {
+        editDropdownField(ethnicityButton, ethnicity);
+    }
+
     public void clickAddDetailsToNGISButton() {
         Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
         Click.element(driver, addDetailsToNGISButton);

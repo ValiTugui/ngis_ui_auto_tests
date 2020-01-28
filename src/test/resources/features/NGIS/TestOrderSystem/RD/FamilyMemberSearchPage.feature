@@ -74,7 +74,7 @@ Feature: Family Members Search Validation
       | Family members |
 
 
-  @NTS-2801 @E2EUI-915 @LOGOUT @v_1
+  @NTS-2801 @E2EUI-915 @E2EUI-1399 @LOGOUT @v_1
   Scenario Outline: NTS-2801-DOB field Validations - invalid day , month , year values
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
@@ -88,6 +88,13 @@ Feature: Family Members Search Validation
 
     Examples: of alphaNumeric
       | stage         | patient-search-type | NhsNumber  | DOB        | error_message |
-      | Family members | NHS Spine           | 9449305099 | ab-02-2011 | Enter a day   |
-      | Family members | NHS Spine           | 9449305099 | 22-!!-2011 | Enter a month |
-      | Family members | NHS Spine           | 9449305099 | 01-02-abcd | Enter a year  |
+      | Family members | NGIS                | 9449305099 | ab-02-2011 | Enter a day   |
+      | Family members | NGIS                | 9449305099 | 22-!!-2011 | Enter a month |
+      | Family members | NGIS                | 9449305099 | 01-02-abcd | Enter a year  |
+
+    Examples: of invalid, day, month and year
+      | stage          | patient-search-type | NhsNumber  | DOB        | error_message                  |
+      | Family members | NGIS                | 9449305099 | 32-03-2011 | Enter a day between 1 and 31   |
+      | Family members | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12 |
+      | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900       |
+
