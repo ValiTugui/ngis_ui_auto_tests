@@ -30,8 +30,8 @@ Feature: Patient Choice Page
     And the user should be able to see the patient choice form with success message
 
     Examples:
-      | Patient choice stage | TestType                            | RecordedBy                            | PatientChoice                  | YesOption |
-      | Patient choice       | Cancer (paired tumour normal) – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       |
+      | Patient choice stage | RecordedBy                            |
+      | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Adult (With Capacity): Verify the info message when user declined for a test

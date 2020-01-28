@@ -237,6 +237,14 @@ public class PatientChoicePage {
     String questionTitle = "//div[@class='question-title']/h5[ contains(text(),\"dummyQuestion\")]";
     String questionOptions = "//div[@class='question-title']/h5[ contains(text(),\"dummyQuestion\")]/../..//label";
 
+    @FindBy(xpath = "//p[@class='form-subheader']")
+    WebElement formSubHeader;
+
+    @FindBy(xpath = "//a[@class='back-button d-block']")
+    WebElement formLiraryBackButton;
+
+
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1207,7 +1215,15 @@ public class PatientChoicePage {
             List<WebElement> supportingInformationLinks = driver.findElements(By.xpath(linkForms));
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
                 if(supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)){
-                    isPresent = true;
+                    //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
+                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
+                    Wait.seconds(3);//Wait for three second to Load the form.
+                    if(formSubHeader.getText().equalsIgnoreCase(linkForm)){
+                        isPresent = true;
+                    }
+                    Actions.scrollToTop(driver);
+                    formLiraryBackButton.click();
+                    Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }
             }

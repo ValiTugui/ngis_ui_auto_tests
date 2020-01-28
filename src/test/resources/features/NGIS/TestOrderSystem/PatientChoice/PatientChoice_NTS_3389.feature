@@ -2,7 +2,7 @@
 @PatientChoice
 Feature: Patient Choice Page
 
-  @NTS-3389 @E2EUI-2039 @v_1 @P0
+  @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |

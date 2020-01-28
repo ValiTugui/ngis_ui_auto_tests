@@ -405,14 +405,14 @@ public class PatientChoiceSteps extends Pages {
                 Debugger.println("Section "+formSection+" not present in the FormLibrary Tab.");
                 Assert.assertTrue(testResult);
             }
-            Debugger.println("Verifying forms under section :"+formSection);
+
             for (int i = 1; i < linkDetails.size(); i++) {
                testResult = patientChoicePage.verifyTheSupportingInformationLink(formSection,linkDetails.get(i).get(0));
                if(!testResult){
+                   Debugger.println("Form "+linkDetails.get(i).get(0)+" could not verify in section:"+formSection);
                    Assert.assertTrue(testResult);
                }
             }
-            Debugger.println((linkDetails.size()-1)+" forms verified.");
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
             Debugger.println("Exception from supporting information links " + exp);

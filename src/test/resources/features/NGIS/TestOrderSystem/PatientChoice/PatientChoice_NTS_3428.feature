@@ -2,7 +2,7 @@
 @PatientChoice
 Feature: Patient Choice Page
 
-  @NTS-3428 @E2EUI-2041 @v_1 @P0
+  @NTS-3428 @E2EUI-2041 @E2EUI-1392 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
