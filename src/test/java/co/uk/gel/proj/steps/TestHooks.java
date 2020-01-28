@@ -74,6 +74,11 @@ public class TestHooks extends Pages {
     private static String BASE_URL_PA;
     private static String BASE_URL_PP;
     private static String BASE_URL_DS;
+    private static String BASE_URL_PEDG;
+    private static String BASE_URL_API;
+    private static String BASE_URL_PEDT;
+    private static String EXCLUDE_URL_FROM_SECURITYSCAN;
+
     Scenario scenario = null;
     //private MyAppNavigation myApp;
     private final static String[] policyNames = {"directory-browsing", "cross-site-scripting", "sql-injection", "path-traversal", "remote-file-inclusion", "server-side-include",
@@ -116,6 +121,10 @@ public class TestHooks extends Pages {
         BASE_URL_PA = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PA");
         BASE_URL_PP = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PP");
         BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_DS");
+        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDG");
+        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_API");
+        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDT");
+        EXCLUDE_URL_FROM_SECURITYSCAN = AppConfig.getPropertyValueFromPropertyFile("EXCLUDE_URL_FROM_SECURITYSCAN");
 
 
         //   driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
@@ -133,6 +142,10 @@ public class TestHooks extends Pages {
         urlsToSpider.add(BASE_URL_PA);
         urlsToSpider.add(BASE_URL_PP);
         urlsToSpider.add(BASE_URL_DS);
+        urlsToSpider.add(BASE_URL_PEDG);
+        urlsToSpider.add(BASE_URL_API);
+        urlsToSpider.add(BASE_URL_PEDT);
+
 
         urlsToSpider.stream().forEach(inciWinciSpider -> spiderWithZap(inciWinciSpider));
         setAlertAndAttackStrength();
@@ -272,7 +285,7 @@ public class TestHooks extends Pages {
 
         //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
 
-        // zapScanner.excludeFromScanner(patternOfScan);
+        zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
         currentScanID = zapScanner.getLastScannerScanId();
         int complete = 0;
         while (complete < 100) {
