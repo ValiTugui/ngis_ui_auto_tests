@@ -175,22 +175,29 @@ public class TestHooks extends Pages {
     }
 
     private void spiderWithZap(String baseURLToSprider) {
-        zapSpider.setThreadCount(5);
-        zapSpider.setMaxDepth(5);
-        zapSpider.setPostForms(false);
-        zapSpider.spider(baseURLToSprider);
-        int spiderID = zapSpider.getLastSpiderScanId();
-        int complete = 0;
-        while (complete < 100) {
-            complete = zapSpider.getSpiderProgress(spiderID);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+        if(baseURLToSprider !=null) {
+            zapSpider.setThreadCount(5);
+            zapSpider.setMaxDepth(5);
+            zapSpider.setPostForms(false);
+            System.out.println("Krishan baseURLToSprider" + baseURLToSprider);
+            LOGGER.info("Krishan baseURLToSprider" + baseURLToSprider);
+
+
+            zapSpider.spider(baseURLToSprider);
+            int spiderID = zapSpider.getLastSpiderScanId();
+            int complete = 0;
+            while (complete < 100) {
+                complete = zapSpider.getSpiderProgress(spiderID);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        for (String url : zapSpider.getSpiderResults(spiderID)) {
-            LOGGER.info("Found URL: " + url);
+            for (String url : zapSpider.getSpiderResults(spiderID)) {
+                LOGGER.info("Found URL: " + url);
+            }
         }
     }
 
@@ -281,23 +288,25 @@ public class TestHooks extends Pages {
 
     private void scanWithZap(String scanBaseURL) {
         LOGGER.info("ZAP Scanning...");
-        zapScanner.scan(scanBaseURL);
+        if (scanBaseURL != null) {
+            zapScanner.scan(scanBaseURL);
 
-        //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
+            //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
 
-        zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
-        currentScanID = zapScanner.getLastScannerScanId();
-        int complete = 0;
-        while (complete < 100) {
-            complete = zapScanner.getScanProgress(currentScanID);
-            LOGGER.info("Scan is " + complete + "% complete.");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
+            currentScanID = zapScanner.getLastScannerScanId();
+            int complete = 0;
+            while (complete < 100) {
+                complete = zapScanner.getScanProgress(currentScanID);
+                LOGGER.info("Scan is " + complete + "% complete.");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+            LOGGER.info("Scanning done.");
         }
-        LOGGER.info("Scanning done.");
     }
 
     private void logAlerts(List<Alert> alerts) {

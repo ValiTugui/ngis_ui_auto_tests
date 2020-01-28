@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
          glue = {"co.uk.gel.proj.steps"},
          features = {"src/test/resources/features"},
        //  tags = {"@E2EUI-895"}
-         tags = {"@securityscan_rd"}
+         tags = {"@securityscan_cancer"}
         // tags = {"@homePage"}
         )
     public class RunnerTest {
