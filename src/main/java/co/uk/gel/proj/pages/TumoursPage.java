@@ -201,7 +201,7 @@ public class TumoursPage {
 
     public String selectTumourType(String type) {
         Wait.forElementToBeClickable(driver, tumourType);
-        Actions.clickElement(driver, tumourType);
+        Actions.retryClickAndIgnoreElementInterception(driver, tumourType);
         Wait.forElementToBeClickable(driver, dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, type);
         tumourDetails.setTumourType(type);

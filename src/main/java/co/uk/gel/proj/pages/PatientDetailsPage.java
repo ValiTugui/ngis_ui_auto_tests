@@ -140,9 +140,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Start a new referral']")
     public WebElement startNewReferralButton;
 
-    @FindBy(css = "*[class*='success-notification']")
-    public WebElement successNotificationDescoped;
-
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
@@ -161,15 +158,14 @@ public class PatientDetailsPage {
     @FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
     public WebElement referralStatus;
 
-    @FindBy(xpath = "//*[text()='Relationship to proband']")
-    public WebElement referralProbandRelationShip;
+    @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
+    public List<WebElement> referralProbandRelationShip;
 
-    @FindBy(xpath = "//*[text()='Full Siblings']")
+    @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Full Sibling']")
     public WebElement referralProbandRelationShipStatus;
 
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
-
 
     @FindBy(id = "address[0]")
     public WebElement addressLine0;
@@ -633,6 +629,10 @@ public class PatientDetailsPage {
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
         editDropdownField(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, lifeStatus);
+        editDropdownField(ethnicityButton, ethnicity);
+    }
+
+    public void addPatientEthnicity(String ethnicity) {
         editDropdownField(ethnicityButton, ethnicity);
     }
 

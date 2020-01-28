@@ -23,6 +23,7 @@ import org.openqa.selenium.Alert;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class ReferralSteps extends Pages {
@@ -83,9 +84,20 @@ public class ReferralSteps extends Pages {
         patientSearchPage.clickPatientCard();
 
         // Check condition for different scenarios when referral submit button is displayed
-        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {
+        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {  // AddDetailsToNGISButton is shown when adding SPINE data
             Debugger.println("Add Patient Details button shown");
-            patientDetailsPage.addDetailsToNGISButton.click();
+            Wait.seconds(1);
+
+            //https://jira.extge.co.uk/browse/E2EUI-2499 - Ethnicity is now a mandatory field, hence Ethnicity field - for SPINE data need to be updated with a value in Patient Details
+            if (Wait.isElementDisplayed(driver, patientDetailsPage.ethnicityButton, 15)) {
+                String ethnicityFieldCurrentValue = Actions.getText(patientDetailsPage.ethnicityButton);
+                if (ethnicityFieldCurrentValue.equalsIgnoreCase("Select..."))
+                {
+                    patientDetailsPage.addPatientEthnicity("A - White - British");
+                }
+            }
+            Debugger.println("New Ethnicity " + Actions.getText(patientDetailsPage.ethnicityButton));
+            patientDetailsPage.clickAddDetailsToNGISButton();
             Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
             patientDetailsPage.clickStartReferralButton();
         } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
