@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -116,7 +117,12 @@ public class TestHooks extends Pages {
     }
 
     public void fillInNotesFieldForUITesting(Scenario scenario){
+        // Try navigate to Notes stage and accept any alert message is populated
         referralPage.navigateToStage("Notes");
+        Wait.seconds(2); // this deliberate wait time is needed to be handle the latency of loading pop up Alert box on Jenkins
+        if(Actions.isAlertPresent(driver)){
+            Actions.acceptAlert(driver);
+        }
         WebElement notesField = notesPage.getNotesFieldLocator();
         String currentDateTime = new Timestamp(new Date().getTime()).toString();
         String notes = "\n This scenario " + scenario.getName() + " is executed by UI automation pack on " + currentDateTime;
