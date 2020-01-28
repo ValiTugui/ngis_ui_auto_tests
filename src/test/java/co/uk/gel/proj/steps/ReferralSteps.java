@@ -564,6 +564,7 @@ public class ReferralSteps extends Pages {
                 case "NHSNumber": {
                     if(paramValue.startsWith("NA")) {
                         searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                        Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
                         searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
                     }else{
                         searchPatient.setNHS_NUMBER(paramValue);

@@ -316,7 +316,7 @@ public class PatientChoiceSteps extends Pages {
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
         patientChoicePage.selectPatientChoiceCategory();
         Wait.seconds(2);
-        patientChoicePage.selectTestType();
+        patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
         Wait.seconds(2);
         patientChoicePage.enterRecordedByDetails();
         Wait.seconds(2);
@@ -443,7 +443,7 @@ public class PatientChoiceSteps extends Pages {
 
         patientChoicePage.selectPatientChoiceCategory();
         Wait.seconds(2);
-        patientChoicePage.selectTestType();
+        patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
         Wait.seconds(2);
         patientChoicePage.enterRecordedByDetails();
         Wait.seconds(2);

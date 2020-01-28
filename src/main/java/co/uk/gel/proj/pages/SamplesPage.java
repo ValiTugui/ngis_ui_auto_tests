@@ -77,7 +77,7 @@ public class SamplesPage {
 
     public WebElement labId;
 
-    @FindBy(css = "*[class*='sample-detail__notification']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//table[contains(@class,'table')]//child::tbody")

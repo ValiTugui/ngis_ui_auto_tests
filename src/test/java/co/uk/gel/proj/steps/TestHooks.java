@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -12,6 +13,9 @@ import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import static co.uk.gel.lib.Actions.acceptAlert;
 import static co.uk.gel.lib.Actions.isAlertPresent;
@@ -81,7 +85,8 @@ public class TestHooks extends Pages {
     }
 
     @After("@LOGOUT")
-    public void logOutAndTearDown() {
+    public void logOutAndTearDown(Scenario scenario) {
+        fillInNotesFieldForUITesting(scenario);
         homePage.logOutFromApplication();
     }
 
@@ -109,6 +114,21 @@ public class TestHooks extends Pages {
 
     public void setResponse(ValidatableResponse response) {
         this.response = response;
+    }
+
+    public void fillInNotesFieldForUITesting(Scenario scenario){
+        // Try navigate to Notes stage and accept any alert message is populated
+        referralPage.navigateToStage("Notes");
+        Wait.seconds(2); // this deliberate wait time is needed to be handle the latency of loading pop up Alert box on Jenkins
+        if(Actions.isAlertPresent(driver)){
+            Actions.acceptAlert(driver);
+        }
+        WebElement notesField = notesPage.getNotesFieldLocator();
+        String currentDateTime = new Timestamp(new Date().getTime()).toString();
+        String notes = "\n This scenario " + scenario.getName() + " is executed by UI automation pack on " + currentDateTime;
+        notesPage.fillInValue(notesField, notes);
+        referralPage.clickSaveAndContinueButton();
+        Debugger.println(notes);
     }
 
 }//end class
