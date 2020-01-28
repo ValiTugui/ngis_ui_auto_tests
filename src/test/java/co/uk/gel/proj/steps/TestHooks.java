@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -85,6 +86,9 @@ public class TestHooks extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown(Scenario scenario) {
+        if(Actions.isAlertPresent(driver)){
+            Actions.acceptAlert(driver);
+        }
         fillInNotesFieldForUITesting(scenario);
         homePage.logOutFromApplication();
     }

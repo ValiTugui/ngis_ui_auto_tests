@@ -268,8 +268,7 @@ public class TumoursPage {
                 break;
             }
             case "Solid tumour: unknown":
-            case "Brain tumour":
-            {
+            case "Brain tumour": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
@@ -280,8 +279,7 @@ public class TumoursPage {
             }
 
             case "Haematological malignancy: liquid sample":
-            case "Haematological malignancy: solid sample":
-            {
+            case "Haematological malignancy: solid sample": {
                 Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
