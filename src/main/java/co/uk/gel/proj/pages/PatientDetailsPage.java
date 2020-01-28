@@ -167,7 +167,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//*[text()='Full Siblings']")
     public WebElement referralProbandRelationShipStatus;
 
-
     @FindBy(css = "*[class*='referral-card__cancel-reason']")
     public WebElement referralCancelReason;
 

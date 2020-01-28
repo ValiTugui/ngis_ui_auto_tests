@@ -49,4 +49,8 @@ public class NotesPage {
     public void fillInAddNotesField() {
         fillInValue(addNoteField, faker.chuckNorris().fact());
     }
+
+    public WebElement getNotesFieldLocator() {
+        return addNoteField;
+    }
 }

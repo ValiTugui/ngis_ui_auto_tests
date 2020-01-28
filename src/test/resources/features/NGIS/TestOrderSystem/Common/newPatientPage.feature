@@ -401,14 +401,15 @@ Feature: New Patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader                    |
-      | First name ✱                   |
-      | Last name ✱                    |
-      | Date of birth ✱                |
-      | Gender ✱                       |
-      | Life status ✱                  |
+      | labelHeader       |
+      | First name ✱      |
+      | Last name ✱       |
+      | Date of birth ✱   |
+      | Gender ✱          |
+      | Life status ✱     |
       | Ethnicity ✱       |
-      | Hospital number ✱              |
+      | Hospital number ✱ |
+
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |

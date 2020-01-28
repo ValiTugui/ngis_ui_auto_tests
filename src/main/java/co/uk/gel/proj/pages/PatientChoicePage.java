@@ -128,7 +128,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//label[@id='Choices_Q1.0-1']")
     public WebElement discussionFormNotAvailable;
 
-    @FindBy(xpath = "//label[@id='Choices_Q2.0-1']")
+    @FindBy(xpath = "//label[@id='Choices_Q1.0-3']")
     public WebElement patientChoiceNotRequiredForTheTest;
 
     @FindBy(id = "Choices_Q2.3-0")
@@ -878,7 +878,6 @@ public class PatientChoicePage {
     }
 
     public void selectChoicesWithPatientChoiceNotRequired() {
-        Click.element(driver, discussionFormNotAvailable);
         Click.element(driver, patientChoiceNotRequiredForTheTest);
         Click.element(driver, patientChoicesContinueButton);
     }
