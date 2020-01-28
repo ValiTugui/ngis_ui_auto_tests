@@ -427,16 +427,13 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
                 return;
             }
-            Debugger.println("Adding "+(noOfParticipants-1)+" family members.");
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {
                 referralPage.navigateToFamilyMemberSearchPage();
-                Debugger.println("Adding Family member: "+memberDetails.get(i).get(0));
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");
                 if(nhsNumber.equalsIgnoreCase("NA")){
-                    Debugger.println("Creating new FamilyMember and Proceeding.");
                     NGISPatientModel familyMember = new NGISPatientModel();
                     familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
@@ -454,43 +451,34 @@ public class FamilyMemberDetailsSteps extends Pages {
                     referralPage.updatePatientNGSID(familyMember);
                 }else {
                     familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
-                    Debugger.println("Verifying and Reading Details from Patient Card.");
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
-                    Debugger.println("Clicking on Patient Card.");
                     familyMemberDetailsPage.clickPatientCard();
-                    Debugger.println("Filling RelationShip to Proband");
                     familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
-                    Debugger.println("Clicking on SaveAndContinue.");
                     referralPage.clickSaveAndContinueButton();
                 }
-                Debugger.println("Verifying Selected Test Details.");
                 Wait.seconds(2);
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
                     Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
                 }
-                Debugger.println("Clicking on SaveAndContinue.");
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
-                Debugger.println("Disease status filling..........");
                 clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
                 Wait.seconds(2);
-                Debugger.println("Clicking on SaveAndContinue.");
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
-                Debugger.println("Verifying added family details in landing page..........");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(2);
-                Debugger.println("DONE...........");
             }//end
         }catch(Exception exp){
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: "+exp);
+            Assert.assertTrue("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ",false);
         }
     }
 

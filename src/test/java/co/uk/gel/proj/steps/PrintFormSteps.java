@@ -26,7 +26,7 @@ public class PrintFormSteps extends Pages {
         super(driver);
     }
 
-     @And("the user is able to download print forms for {string} family members with the below details")
+    @And("the user is able to download print forms for {string} family members with the below details")
     public void theUserDownloadsPrintFormsForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
         try {
             boolean testResult = false;
@@ -39,7 +39,7 @@ public class PrintFormSteps extends Pages {
 
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Downloading and Verifying content for :"+memberDetails.get(i).get(0));
-                if(!printFormsPage.downloadSpecificPrintForm(memberDetails.get(i).get(0))){
+                if(!printFormsPage.downloadSpecificPrintForm(i)){
                     Debugger.println("Could not download form for "+memberDetails.get(i).get(0));
                     testResult = false;
                     continue;

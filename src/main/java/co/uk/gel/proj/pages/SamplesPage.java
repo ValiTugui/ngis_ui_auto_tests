@@ -79,7 +79,7 @@ public class SamplesPage {
 
     public WebElement labId;
 
-    @FindBy(css = "*[class*='sample-detail__notification']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
     @FindBy(xpath = "//table[contains(@class,'table')]//child::tbody")
@@ -307,7 +307,7 @@ public class SamplesPage {
     public List<String> getSampleTypesOptions() {
         Wait.forElementToBeClickable(driver, sampleTypeDropDown);
         Actions.clickElement(driver, sampleTypeDropDown);
-        List<String> actualSampleTypes = new ArrayList<>();
+        List<String> actualSampleTypes = new ArrayList<String>();
         for (WebElement sampleType : sampleTypesDropDownValues) {
             actualSampleTypes.add(sampleType.getText().trim());
         }

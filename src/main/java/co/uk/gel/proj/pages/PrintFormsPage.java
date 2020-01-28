@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
@@ -60,57 +61,24 @@ public class PrintFormsPage {
     @FindBy(xpath = "//li[contains(text(),'germline')]")
     WebElement sampleInfo;
 
+    @FindBy(css = "*[class*='participant-list__']")
+    public WebElement landingPageList;
+
+    @FindBy(xpath = "//button[contains(@aria-label,'print')]")
+    public List<WebElement> formDownloadButtons;
 
 
-    public boolean downloadSpecificPrintForm(String familyDetails){
+
+    public boolean downloadSpecificPrintForm(int position){
         String ngsId = "";
         try {
-            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
-            ngsId = familyMember.getNGIS_ID();
-            if(ngsId == null || ngsId.isEmpty()){
-                Debugger.println("Details not displayed in Printform for the patient with DOB:"+familyMember.getDATE_OF_BIRTH());
-                return false;
-            }
             //Delete if File already present
             Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm","");
-            String nhsLastFour = ngsId.substring(8,12);//Assuming NGSID is always 12 digit.
-            Debugger.println("Downloading for NGSID ends with: "+nhsLastFour);
-            try {
-                By downloadForm = By.xpath(specificPrintFormDownload_e2elatest.replaceAll("NHSLastFour", nhsLastFour));
-                WebElement element = driver.findElement(downloadForm);
-                if (Wait.isElementDisplayed(driver, element, 30)) {
-                    element.click();
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                } else {
-                    //Wait for another 30 seconds more
-                    if (Wait.isElementDisplayed(driver, element, 30)) {
-                        element.click();
-                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                    } else {
-                        Debugger.println("Form download option could not locate.");
-                        return false;
-                    }
-                }
-            }catch(Exception exp){
-                By downloadForm = By.xpath(specificPrintFormDownload.replaceAll("NHSLastFour", nhsLastFour));
-                WebElement element = driver.findElement(downloadForm);
-                if (Wait.isElementDisplayed(driver, element, 30)) {
-                    element.click();
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                } else {
-                    //Wait for another 30 seconds more
-                    if (Wait.isElementDisplayed(driver, element, 30)) {
-                        element.click();
-                        Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
-                    } else {
-                        Debugger.println("Form download option could not locate.");
-                        return false;
-                    }
-                }
-            }
+            Wait.forElementToBeDisplayed(driver, landingPageList);
+            Click.element(driver, formDownloadButtons.get(position));
         }catch(Exception exp){
-            Debugger.println("Exception from  downloading Print form for specific NHSNumber:"+exp);
+            Debugger.println("Exception from  downloading Print form :"+exp);
             return false;
         }
         return true;
@@ -152,7 +120,7 @@ public class PrintFormsPage {
                 SeleniumLib.closeCurrentWindow();
                 return true;
             }else{
-                Debugger.println("PDF content does not contain:"+familyMember.getNHS_NUMBER()+","+familyMember.getBORN_DATE()+"\n Actual Content:"+output);
+                Debugger.println("PDF content does not contain ngsid:"+ngsId+",dob:"+dob+" and referralID:"+referralId+"\n Actual Content:"+output);
                 SeleniumLib.closeCurrentWindow();
                 return false;
             }

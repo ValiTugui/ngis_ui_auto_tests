@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,9 +81,16 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.startReferralButtonIsDisabled();
     }
 
+    @And("the Start New Referral button is disabled")
+    public void theStartNewReferralButtonIsDisabled() {
+        patientDetailsPage.startNewReferralButtonIsDisabled();
+    }
+
+
     @When("the user clicks the - {string} - link")
     public void theUserClicksTheLink(String goBackToPatientSearch) {
         patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
+        Wait.seconds(1);
     }
 
     @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
@@ -359,8 +367,8 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.fillInNHSNumber();
     }
 
-    @When("the user fills in all the fields with NHS number from the New Patient page")
-    public void theUserFillsInAllTheFieldsWithNHSNumberFromTheNewPatientPage() {
+    @When("the user fills in all the fields with NHS number on the New Patient page")
+    public void theUserFillsInAllTheFieldsWithNHSNumberOnTheNewPatientPage() {
         patientDetailsPage.fillInAllNewPatientDetails();
         patientDetailsPage.fillInNHSNumber();
     }
@@ -392,4 +400,18 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheDateOfBirth(String dateOfBirth) {
         Actions.fillInValue(patientDetailsPage.dateOfBirth, dateOfBirth);
     }
+
+    @And("the date of death input field is displayed")
+    public void theDateOfDeathInputFieldIsDisplayed() {
+        boolean inputFieldStatus;
+        inputFieldStatus = Wait.isElementDisplayed(driver, patientDetailsPage.dateOfDeath, 10);
+        Assert.assertTrue(inputFieldStatus);
+    }
+
+    @When("the user deletes the content of the Ethnicity field")
+    public void theUserDeletesTheContentOfTheEthnicityField() {
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
+        Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+    }
+
 }

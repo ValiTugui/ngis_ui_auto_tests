@@ -159,7 +159,7 @@ public class TestUtils {
 
       public static String getReferralURL(String baseURL, String referralID, String confirmationPage){
           Debugger.println("existingReferralID " + referralID);
-          String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "/referral/" + referralID + "/" + confirmationPage;
+          String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "referral/" + referralID + "/" + confirmationPage;
           Debugger.println("referralFullUrl :" + referralFullUrl);
          return referralFullUrl;
         }

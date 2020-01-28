@@ -29,7 +29,7 @@ public class ReferralPage<check> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(css = "span.styles_badge__1KpTw.badge--default")
+    @FindBy(css = "*[class*='child-element']")
     public WebElement getReferralHeaderStatus;
 
     @FindBy(css = "*[class*='referral-header']")
@@ -38,7 +38,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
     public WebElement submitReferralButton;
 
-    @FindBy(className = "todo-list")
+    @FindBy(css = "*[data-testid*='referral-sidebar']")
     public WebElement toDoList;
 
     @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
@@ -114,7 +114,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//label[contains(@for,'cancel-options')]//following::div")
     public WebElement cancelReasonDropdown;
 
-    @FindBy(css = "*[class*='notification-bar--success']")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement cancelReferralNotification;
 
     @FindBy(css = "button[class*='modal__action']")
@@ -123,7 +123,7 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='error-message']")
     public WebElement errorMessage;
 
-    @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
+    @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement genericSuccessNotification;
 
     @FindBy(css = "*[class*='helix']")
@@ -159,18 +159,18 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*=summary-header-container]")
     public WebElement consentDocumentHeaderInfo;
 
-    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[1]")
-    public WebElement clearDropDownValue;
+    @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
+    public List<WebElement> clearDropDownValue;
 
 
-    String valuesInReferralHeaderBar = "strong[class*='header-item']";
+    String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
     String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
-    String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
     String helixIcon = "*[class*='helix']";
     String mandatoryToDOIconLocator = "todo__required-icon";
-    String currentStageLocator = "todo--is-current";
-    String stageCompleteLocator = "todo--is-complete";
+    String currentStageLocator = "true";
+    String stageCompleteLocator1 = "todo--is-complete";
+    String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
     @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
@@ -199,7 +199,7 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
         Wait.forElementToBeDisplayed(driver, toDoList, 100);
         Wait.forElementToBeDisplayed(driver, sectionBody);
-        Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+        Wait.forNumberOfElementsToBeEqualTo(driver, By.xpath(valuesInReferralHeaderBar), 7);
     }
 
     public String getText(WebElement element) {
@@ -289,7 +289,7 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralHeader, 100);
             Wait.forElementToBeDisplayed(driver, toDoList, 100);
             Wait.forElementToBeDisplayed(driver, sectionBody);
-            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+//            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
             SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
@@ -352,12 +352,8 @@ public class ReferralPage<check> {
         Wait.forElementToBeDisplayed(driver, toDoList);
         String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        webElementLocator = "";
-        webElementLocator = stageName.replace("dummyStage", getPartialUrl(stage));
-        WebElement stageName = toDoList.findElement(By.xpath(webElementLocator));
-
-        boolean check1 = referralStage.getAttribute("class").contains(currentStageLocator);
-        boolean check2 = getText(stageName).contains(stage);
+        boolean check1 = referralStage.getAttribute("data-selected").contains(currentStageLocator);
+        boolean check2 = Actions.getText(referralStage).contains(stage);
 
         if (check1 == true && check2 == true) return true;
         else return false;
@@ -373,8 +369,9 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, referralStage);
             Wait.seconds(2);
-            boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-            if (status == true) {
+            List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
+            //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
+            if (completedIcon.size() == 1) {
                 return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
@@ -438,7 +435,7 @@ public class ReferralPage<check> {
 
     public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
         Wait.forElementToBeDisplayed(driver, pageTitle);
-        List<String> actualHelpHintTexts = new ArrayList<>();
+        List<String> actualHelpHintTexts = new ArrayList<String>();
 
         for (WebElement fieldHelpHintText : hintText) {
             actualHelpHintTexts.add(fieldHelpHintText.getText().trim());
