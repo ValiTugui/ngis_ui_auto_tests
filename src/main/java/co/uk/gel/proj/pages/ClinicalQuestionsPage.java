@@ -62,7 +62,7 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
 
-    @FindBy(xpath = "//label[contains(@class,'radio')]")
+    @FindBy(xpath = "//label[contains(@class,'radio')]/span")
     public List<WebElement> radioButtons;
 
     @FindBy(xpath = "//input[contains(@class,'radio')]")
