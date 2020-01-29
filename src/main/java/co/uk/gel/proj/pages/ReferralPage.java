@@ -164,14 +164,15 @@ public class ReferralPage<check> {
 
 
     String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
-    String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]/*[name()='svg']"; //descendant::span[3]";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
     String helixIcon = "*[class*='helix']";
-    String mandatoryToDOIconLocator = "todo__required-icon";
+    String mandatoryToDOIconLocator = "mandatory-icon"; //"todo__required-icon";
     String currentStageLocator = "true";
     String stageCompleteLocator1 = "todo--is-complete";
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
+    String stageName = "//a[contains(@href,'" + "dummyStage" + "')]//child::span[2]";
 
     @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     public WebElement notificationSuccessMessage;
@@ -383,14 +384,19 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsMandatoryToDo(String stage) {
+        try {
         Wait.forElementToBeDisplayed(driver, toDoList);
         String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
-        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
-        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
-        boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
+            WebElement mandatoryAsteriskSymbol = toDoList.findElement(By.xpath(webElementLocator));
+            boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.getAttribute("data-testid").contains(mandatoryToDOIconLocator);
+            boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.isDisplayed();
         if (isStageStatusIsToDO && isStageHasAsteriskPresent) {
             return true;
-        } else {
+            }
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp);
+            SeleniumLib.takeAScreenShot("ReferralPageMandatoryStage.jpg");
             return false;
         }
     }

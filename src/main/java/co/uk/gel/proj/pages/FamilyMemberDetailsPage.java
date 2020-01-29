@@ -122,8 +122,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
     public WebElement relationshipToProbandDropdown;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_notification__1W')]/div//p")
-    public WebElement unmatchedParticipantMessage;
+    @FindBy(xpath = "//div[@data-testid='notification-error']//span[contains(@class,'child-element')]")
+    public List<WebElement> notificationErrors;
 
     @FindBy(xpath = "//a[contains(text(),'amend the expected number of participants')]")
     public WebElement participantAmendmentLink;
@@ -235,7 +235,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[contains(text(),'Continue')]")
     public WebElement continueButton;
 
-    @FindBy(xpath = "//div[contains(text(),'Family member removed from referral')]")
+    @FindBy(xpath = "//span[contains(text(),'Family member removed from referral')]")
     public WebElement successDeletionMessageOfFamilyMember;
 
     @FindBy(xpath = "//h1[text()='Patient choice']")
@@ -903,6 +903,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         try {
+            Actions.scrollToTop(driver);
             Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
             Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
             return true;
@@ -912,9 +913,9 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean verifyTheDeleteMessageIsPresent() {
-        if (seleniumLib.isElementPresent(successDeletionMessageOfFamilyMember)) {
-            return false;
+    public boolean verifyTheDeleteMessageIsNotPresent() {
+        if(Wait.isElementDisplayed(driver,successDeletionMessageOfFamilyMember,5)){
+           return false; //Not supposed to present
         }
         return true;
     }
@@ -926,17 +927,17 @@ public class FamilyMemberDetailsPage {
 
     public boolean unmatchedParticipantErrorMessage(String expMessage) {
         try {
-            Wait.forElementToBeDisplayed(driver, unmatchedParticipantMessage, 20);
-            if (!seleniumLib.isElementPresent(unmatchedParticipantMessage)) {
-                Debugger.println("Expected Unmatched Participant Error not displayed.");
-                return false;
+            String actMessage = "";
+            boolean isPresent = false;
+            int noOfNotifications = notificationErrors.size();
+            for(int i=0; i<noOfNotifications; i++) {
+                actMessage = notificationErrors.get(i).getText();
+                if (actMessage.contains(expMessage)) {
+                    isPresent = true;
+                    break;
+                }
             }
-            String actMessage = Actions.getText(unmatchedParticipantMessage);
-            if (!actMessage.contains(expMessage)) {
-                Debugger.println("Actual Message: " + actMessage + "\n DOES NOT CONTAINS Expected Message:" + expMessage);
-                return false;
-            }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying unmatchedParticipantErrorMessage:" + exp);
             return false;
@@ -1033,15 +1034,6 @@ public class FamilyMemberDetailsPage {
                 Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
             }
         }
-    }
-
-    public boolean participantsNotMatchingMsg(String expectedMessage) {
-        Wait.forElementToBeDisplayed(driver, unmatchedParticipantMessage);
-        String actualMessage = unmatchedParticipantMessage.getText();
-        if (!actualMessage.equalsIgnoreCase(expectedMessage)) {
-            return false;
-        }
-        return true;
     }
 
     public boolean verifyTheElementsOnFamilyMemberPage() {

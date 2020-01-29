@@ -234,7 +234,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the user should not see the removal message on the family member landing page")
     public void theUserDoesNotSeeTheRemovalMessageOnTheFamilyMemberLandingPage() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheDeleteMessageIsPresent();
+        testResult = familyMemberDetailsPage.verifyTheDeleteMessageIsNotPresent();
         Assert.assertTrue(testResult);
     }
 
@@ -276,7 +276,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the user should see a warning message displayed as {string}")
     public void theUserShouldSeeAWarningMessageDisplayedAs(String expectedMessage) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.participantsNotMatchingMsg(expectedMessage);
+        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(expectedMessage);
         Assert.assertTrue(testResult);
     }
 
