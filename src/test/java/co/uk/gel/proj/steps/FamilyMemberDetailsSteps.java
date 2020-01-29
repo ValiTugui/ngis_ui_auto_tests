@@ -427,7 +427,6 @@ public class FamilyMemberDetailsSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
-                return;
             }
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {

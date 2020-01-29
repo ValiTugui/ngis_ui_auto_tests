@@ -88,7 +88,7 @@ Feature: Family Members Details Validation
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt         |
 
-  @NTS-3298 @E2EUI-1012 @LOGOUT @BVT_P0 @v_1
+  @NTS-3297 @E2EUI-1012 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
