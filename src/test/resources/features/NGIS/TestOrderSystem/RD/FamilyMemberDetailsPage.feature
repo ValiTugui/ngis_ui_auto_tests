@@ -71,8 +71,6 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the default family member details page is correctly displayed with the proper number of fields
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
@@ -81,12 +79,16 @@ Feature: Family Members Details Validation
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
+      | Ethnicity               | label      | ✱      | #dd2509      |
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt         |
 
-  @NTS-3297 @E2EUI-1012 @LOGOUT @BVT_P0 @v_1
+  @NTS-3298 @E2EUI-1012 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
