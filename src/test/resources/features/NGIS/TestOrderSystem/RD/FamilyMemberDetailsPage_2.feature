@@ -7,7 +7,7 @@ Feature: Family Members Details Validation
   @NTS-3309 @E2EUI-1539 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1969:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -51,7 +51,7 @@ Feature: Family Members Details Validation
   @NTS-3296 @LOGOUT @E2EUI-1038 @v_1 @P0
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1970:Gender=Male |
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button

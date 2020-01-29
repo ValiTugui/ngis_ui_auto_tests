@@ -7,7 +7,7 @@ Feature: Panels Page Verification
   @NTS-3380 @E2EUI-1278 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     And the user should be able to see Add another panel section with search field and search icon
@@ -25,7 +25,7 @@ Feature: Panels Page Verification
   @NTS-3379 @E2EUI-1231 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3379: User is making a referral, as a user I will see a clear tick on the icon when I select yes or no
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1968:Gender=Male |
     When the user navigates to "<Panels>" stage
     And the user is navigated to a page with title Panels
     Then the user should be able to see the button options present

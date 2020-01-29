@@ -325,7 +325,7 @@ public class FamilyMemberDetailsPage {
     public boolean verifyPatientRecordDetailsDisplay(String relationToProband) {
         //Creating and storing the patient details for later validations
         NGISPatientModel familyMember = new NGISPatientModel();
-        if (!seleniumLib.isElementPresent(patientCardName)) {
+       if(!Wait.isElementDisplayed(driver,patientCardName,100)){
             Debugger.println("Patient Name Details not displayed in Search Result.");
             return false;
         }
@@ -392,29 +392,31 @@ public class FamilyMemberDetailsPage {
     }
 
     public void fillTheRelationshipToProband(String relationToProband) {
-        validationErrors.clear();
-        Actions.scrollToTop(driver);
-        if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
-            Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
-        }
-        seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
-        Wait.seconds(2);
-        By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
-        if (seleniumLib.isElementPresent(ddElement)) {
-            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
-        } else {
-            seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
-            Wait.seconds(2);
-            if (!seleniumLib.isElementPresent(ddElement)) {
-                Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: " + relationToProband + " not present in drop down.");
-                SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
+        try {
+            validationErrors.clear();
+            Actions.scrollToTop(driver);
+            if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
+                Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
                 return;
             }
-            seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
-        }
-        Wait.seconds(2);
-        if (validationErrors.size() > 0) {
-            Debugger.println("FamilyMemberDetailsPage:Error in selecting second time Proband drop down pag:." + validationErrors.get(0).getText());
+            seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
+            Wait.seconds(2);
+            By ddElement = By.xpath("//span[text()='" + relationToProband + "']");
+            if (seleniumLib.isElementPresent(ddElement)) {
+                seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
+            } else {
+                seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
+                Wait.seconds(2);
+                if (!seleniumLib.isElementPresent(ddElement)) {
+                    Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: " + relationToProband + " not present in drop down.");
+                    SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
+                    return ;
+                }
+                seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
+            }
+
+        }catch(Exception exp){
+            Debugger.println("Exception in selecting Relationship to Proband:"+exp);
         }
     }
 

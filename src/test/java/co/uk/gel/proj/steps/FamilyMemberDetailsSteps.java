@@ -57,8 +57,10 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user selects the Relationship to proband as {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+        //To fill ethnicity also, as this field made mandatory.
+        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-    }
+     }
 
     @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {

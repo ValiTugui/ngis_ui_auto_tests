@@ -7,7 +7,7 @@ Feature: Family Members Details Validation
   @NTS-3235 @E2EUI-908 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1971:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -38,7 +38,7 @@ Feature: Family Members Details Validation
   @NTS-3300 @E2EUI-1349 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3300: Check family member Details validation:The family member details have to be verified on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1972:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
