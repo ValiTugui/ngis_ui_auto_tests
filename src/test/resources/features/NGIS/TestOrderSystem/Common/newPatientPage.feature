@@ -472,31 +472,26 @@ Feature: New Patient page
       | Add a new patient to the database | Jan012020          |
 
 # Ethnicity is now Mandatory
-#  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
-#  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = Yes
-#    Given a web browser is at create new patient page
-#      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-#    Then the "<pageTitle>" page is displayed
-#    And the No button is selected by default for the question - Do you have the NHS Number?
-#    When the user click YES button for the question - Do you have the NHS no?
-#    When the user fills in all the fields with NHS number on the New Patient page
-#    And the user clicks the Save patient details to NGIS button
-#    Then the patient is successfully created with a message "Details saved"
-#    And the user clicks the - "Go back to patient search" - link
-#    Then the "<pageTitle2>" page is displayed
-#    And the YES button is selected by default on patient search
-#    And the user types in the details of the NGIS patient in the NHS number and DOB fields
-#    And the user clicks the Search button
-#    Then a "<patient-search-type>" result is successfully returned
-#    And the user clicks the patient result card
-#    Then the Patient Details page is displayed
-#    When the user deletes the content of the Ethnicity field
-#    And the user clicks the Update NGIS record button
-#    Then the patient is successfully updated with a message "Details saved"
-#
-#    Examples:
-#      | pageTitle                         | pageTitle2        | patient-search-type |
-#      | Add a new patient to the database | Find your patient | NGIS                |
+  @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
+  Scenario Outline: Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    When the user deletes the content of the Ethnicity field
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader | errorMessageHeader     | messageColourHeader |
+      | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
+    When the user fills in the Ethnicity field "B - White - Irish"
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | pageTitle                         |
+      | Add a new patient to the database |
 #
 #
 #  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550

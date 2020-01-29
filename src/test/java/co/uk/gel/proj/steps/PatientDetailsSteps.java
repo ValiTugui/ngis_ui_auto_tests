@@ -427,4 +427,9 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertEquals(expectedRelationShipToProband,actualRelationShipToProband);
 
     }
+
+    @When("the user fills in the Ethnicity field {string}")
+    public void theUserFillsInTheEthnicityField(String ethnicity) {
+        patientDetailsPage.addPatientEthnicity(ethnicity);
+    }
 }
