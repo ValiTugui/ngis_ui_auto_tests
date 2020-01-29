@@ -153,8 +153,8 @@ Feature: Clinical Questions stage
     And the user sees the data in Phenotypic and karyotypic Sex
 
     Examples:
-      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm                 | termPresence | rareDiseaseValue          | diagnosisTypeValue | statusValue |
-      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Sparse and thin eyebrow | Present      | BASAL CELL NEVUS SYNDROME | Omim               | Confirmed   |
+      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm                 | termPresence | rareDiseaseValue | diagnosisTypeValue | statusValue |
+      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Sparse and thin eyebrow | Present      | CEREBRAL SARCOMA | Omim               | Confirmed   |
 
   @NTS-3511 @E2EUI-876 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3511 - Clinical Questions - Term presence value is 'Present' for atleast one HPO phenotype
@@ -191,5 +191,5 @@ Feature: Clinical Questions stage
     And the user sees the data in Rare disease diagnoses such as "<rareDiseaseValue>" "<diagnosisTypeValue>" and corresponding status "<statusValue>"
     And the user sees the data in Phenotypic and karyotypic Sex
     Examples:
-      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm1  | termPresence1 | hpoTerm2                | termPresence2 | rareDiseaseValue         | diagnosisTypeValue | statusValue |
-      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | Intraneural perineurioma | Orphanet           | Suspected   |
+      | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm1  | termPresence1 | hpoTerm2                | termPresence2 | rareDiseaseValue | diagnosisTypeValue | statusValue |
+      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | CEREBRAL SARCOMA | Orphanet           | Suspected   |

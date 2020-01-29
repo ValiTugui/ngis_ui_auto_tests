@@ -23,6 +23,6 @@ Feature: Clinical Questions stage
     And the "Notes" stage is selected
 
     Examples:
-      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | karyotypicSexValue | rareDiseaseValue          | diseaseStatueValue |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | XXXY               | BASAL CELL NEVUS SYNDROME | Affected           |
+      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | karyotypicSexValue | rareDiseaseValue | diseaseStatueValue |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | XXXY               | CEREBRAL SARCOMA | Affected           |
 
