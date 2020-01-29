@@ -658,6 +658,9 @@ public class PatientChoicePage {
 
     public boolean verifyTheSectionTitle(String sectionName) {
         try {
+            if(Actions.isAlertPresent(driver)){
+                Actions.dismissAlert(driver);
+            }
             String section = sectionTitle.replaceAll("dummySection", sectionName);
             return seleniumLib.isElementPresent(By.xpath(section));
          }catch(Exception exp) {
