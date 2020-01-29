@@ -809,9 +809,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         dateDay.sendKeys(testData.getDay());
         dateMonth.sendKeys(testData.getMonth());
         dateYear.sendKeys(testData.getYear());
-        testData.setFirstName(faker.name().firstName());
+        testData.setFirstName(TestUtils.getRandomFirstName());
         firstName.sendKeys(testData.getFirstName());
-        testData.setLastName(faker.name().lastName());
+        testData.setLastName(TestUtils.getRandomLastName());
         lastName.sendKeys(testData.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
