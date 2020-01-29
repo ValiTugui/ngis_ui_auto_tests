@@ -4,10 +4,10 @@
 
 Feature: Clinical Questions stage
 
-@NTS-3453 @E2EUI-881 @LOGOUT @v_1 @P0
+@NTS-3453 @E2EUI-881 @v_1 @P0
 Scenario Outline: NTS-3453 - Clinical Questions -  landing page is marked as mandatory
 Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-| TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+  | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
 When the user navigates to the "<PatientDetails>" stage
 Then the user is navigated to a page with title Check your patient
 And the user clicks the Save and Continue button
@@ -36,11 +36,8 @@ Examples:
 | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions   |
 | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions  |
 
-@NTS-3453 @E2EUI-1124 @LOGOUT @v_1 @P0
+@NTS-3453 @E2EUI-1124 @v_1 @P0
 Scenario Outline: NTS-3453 - Clinical Questions -  mandatory field validations for Disease status field
-Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-| TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-And the "Patient details" stage is marked as Completed
 And the user navigates to the "<ClinicalQuestions>" stage
 Then the "<title>" page is displayed
 And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>" except to the disease status field

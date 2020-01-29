@@ -346,6 +346,11 @@ public class ReferralPage<check> {
             Actions.clickElement(driver, referralStage);
         }
 
+        //handle if any alert box pops up on this step
+        Wait.seconds(2);
+        if(Actions.isAlertPresent(driver)){
+            Actions.acceptAlert(driver);
+        }
     }
 
     public boolean stageIsSelected(String stage) {

@@ -79,17 +79,23 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @When("the user provided the values {string} {string} for Age of onset fields")
     public void theUserProvidedTheValuesForAgeOfOnsetFields(String year, String month) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInYearsOfOnset(year);
         clinicalQuestionsPage.fillInMonthsOfOnset(month);
    }
 
     @When("the user provided the values {string} for Age of onset fields")
     public void theUserProvidedTheValuesForAgeOfOnsetFields(String months) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInMonthsOfOnset(months);
     }
 
     @When("the user provided the year values {string} for Age of onset fields")
     public void theUserProvidedTheYearValuesForAgeOfOnsetFields(String year) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInYearsOfOnset(year);
     }
 

@@ -210,9 +210,11 @@ public class ClinicalQuestionsPage {
             if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,15)){
                 Actions.scrollToTop(driver);
             }
-            Actions.clickElement(driver, diseaseStatusDropdown);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            if(!Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(diseaseStatusValue)) {
+                Actions.clickElement(driver, diseaseStatusDropdown);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            }
             return Actions.getText(diseaseStatusDropdown);
         }catch(Exception exp){
             Debugger.println("Exception from selecting Disease Status in Clinical Page: "+exp);
@@ -230,6 +232,14 @@ public class ClinicalQuestionsPage {
     public void fillInYearsOfOnset(String years) {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
         Actions.fillInValue(ageOfOnsetYearsField, years);
+    }
+    public void clearValueFromYearsOfOnset() {
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+        Actions.clearTextField(ageOfOnsetYearsField);
+    }
+    public void clearValueFromMonthsOfOnset() {
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        Actions.clearTextField(ageOfOnsetMonthsField);
     }
 
     public void fillInMonthsOfOnset(String months) {
@@ -314,7 +324,7 @@ public class ClinicalQuestionsPage {
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {
             Wait.seconds(5);
-            seleniumLib.sendValue(hpoSearchField, "Nephritis");
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField, "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
             int i = 0;

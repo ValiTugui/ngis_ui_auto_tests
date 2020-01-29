@@ -4,7 +4,7 @@
 
 Feature: Clinical Questions stage
 
-  @NTS-3439 @E2EUI-1443 @E2EUI-918 @LOGOUT @v_1 @BVT_P0
+  @NTS-3439 @E2EUI-1443 @E2EUI-918 @v_1 @BVT_P0
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 1 - verify the 'Save and Continue' button on the Clinical Questions stage
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
@@ -27,11 +27,8 @@ Feature: Clinical Questions stage
       | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           |
 
-  @NTS-3439 @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @LOGOUT @v_1 @BVT_P0
+  @NTS-3439 @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @v_1 @BVT_P0
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
-    And the "Patient details" stage is marked as Completed
     When the user navigates to the "Test package" stage
     And the user selects the number of participants as "2"
     And the user clicks the Save and Continue button
