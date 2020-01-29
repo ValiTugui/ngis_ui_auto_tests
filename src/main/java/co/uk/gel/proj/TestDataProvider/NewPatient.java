@@ -2,6 +2,8 @@ package co.uk.gel.proj.TestDataProvider;
 
 import co.uk.gel.proj.util.TestUtils;
 
+import java.util.List;
+
 public class NewPatient {
 
 	private int index;
@@ -42,6 +44,7 @@ public class NewPatient {
 
 	private String clinicalIndicationTestTypeSampleType;
 	private int totalNumberOfUncheckedTumourList;
+	private List<String> addressList;
 
 
 	public String getClinicalIndication() {
