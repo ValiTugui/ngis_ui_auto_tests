@@ -32,18 +32,6 @@ public class PatientChoicePage {
 
     String patientChoiceLink = "//a[contains(text(),'New patient choice')]";
 
-    @FindBy(xpath = "//h2[contains(text(),'Form library')]")
-    public WebElement formLibraryTitle;
-
-    @FindBy(xpath = "//h4[contains(text(),'Supporting information')]")
-    public WebElement additionalForms;
-
-    @FindBy(xpath = "//h4[@class='form-section-header']")
-    List<WebElement> patientChoiceFormsAndInformationTitle;
-
-    @FindBy(xpath = "//a[@class='form-link']")
-    List<WebElement> formLibraryLinks;
-
     @FindBy(xpath = "//p[contains(text(),'Before submitting a referral')]")
     public WebElement helpTextLabel;
 
@@ -52,9 +40,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//button[@aria-label='edit button']")
     public WebElement editPatientChoice;
-
-    @FindBy(xpath = "//h2[contains(text(),'New patient choice form')]")
-    public WebElement newPatientChoiceFormTitle;
 
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Recording clinician name')]/../input[@type='text']")
     WebElement recordingClinicianNameInput;
@@ -82,21 +67,11 @@ public class PatientChoicePage {
     @FindBy(xpath = "//*[contains(@id,'signature-pad')]//child::canvas")
     public WebElement signatureSection;
 
-    @FindBy(xpath = "//label[contains(text(),'Parent/Guardian first name')]/following-sibling::input")
-    WebElement parentFirstName;
-
-    @FindBy(xpath = "//label[contains(text(),'Parent/Guardian last name')]/following-sibling::input")
-    WebElement parentLastName;
-
-    @FindBy(xpath = "//h5[text()='Parent/Guardian signature']")
-    WebElement parentGuardianSignatureLabel;
-
     @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")
     WebElement patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
-    String patientChoice = "//label[contains(@class,'radio-container')][contains(text(),'dummyChoice')]";
     String childAssent = "//label[contains(@class,'radio-container')][contains(text(),'dummyAssent')]";
 
     //For PatientInformation Identifiers
@@ -105,7 +80,6 @@ public class PatientChoicePage {
     String probandBeingTested = "//span[contains(@class,'child-element')]";
     String bornInformation = "//span[contains(@id,'dateOfBirth')]";
     String genderInformation = "//span[contains(@id,'gender')]";
-    String nhsNumberInformation = "//span[contains(@id,'nhsNumber')]";
     String ngsIdInformation = "//span[contains(@id,'ngisId')]";
     String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
     String editButtonInformation = "//button[@aria-label='edit button']";
@@ -114,8 +88,6 @@ public class PatientChoicePage {
     String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
 
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
-    @FindBy(xpath = "//li[@class='message-error-line']")
-    WebElement filUploadErrorMsg;
 
     @FindBy(id = "upload_doc")
     WebElement docUpload;
@@ -171,12 +143,6 @@ public class PatientChoicePage {
     @FindBy(css = "button[class*='submit-button']")
     public WebElement submitButton;
 
-    @FindBy(css = "*[class*='message-line']")
-    public WebElement recordAlreadyExistsMessage;
-
-    @FindBy(css = "button.btn.disabled-submit-signature-button")
-    public WebElement disabledSubmitPatientChoice;
-
     @FindBy(xpath = "//p[contains(text(),'Enter the hospital trust')]")
     public WebElement introMessageOnRequestingOrganisation;
 
@@ -192,21 +158,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
     public WebElement patientHospitalNumberField;
 
-    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'Yes')]")
-    WebElement yesButtonOfDataAndSampleResearch;
-
-    @FindBy(xpath = "//h5[contains(text(),'data and samples may be used for research')]/following::label[contains(text(),'No')]")
-    WebElement noButtonOfDataAndSampleResearch;
-
-    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'Yes')]")
-    WebElement yesButtonForResearchParticipation;
-
-    @FindBy(xpath = "//h5[contains(text(),'research participation')]/following::label[contains(text(),'No')]")
-    WebElement noButtonForResearchParticipation;
-
-    @FindBy(xpath = "//div[@class='accordion completed col-sm-12']")
-    public WebElement patientChoiceCompressed;
-
     @FindBy(xpath = "//p[@class='submition-info margin-smaller']")
     public WebElement patientChoiceFormCompletedMessage;
 
@@ -215,8 +166,6 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//div[@class='radio-question-error question-error']")
     WebElement errorMessageBox;
-
-    String patientChoiceQuestion = "//h5[contains(text(),\"dummyQuestion\")]";
 
     @FindBy(xpath = "//div[contains(text(),'Patient choice category')]")
     WebElement patientCategoryReopen;
@@ -244,12 +193,6 @@ public class PatientChoicePage {
 
     String optionIsList = "//div[contains(text(),'" + "dummyOption" + "')]//ancestor::div[contains(@class,'accordion completed')]";
 
-    @FindBy(xpath = "//h5[@class='d-inline']")
-    List<WebElement> patientChoiceSubTitles;
-
-    @FindBy(xpath = "//label[@class='radio-container']")
-    List<WebElement> patientChoiceAboutResearchOptions;
-
     String linkText = "//div[contains(@class,'row quicklinks-subnav')]//child::a[contains(text(),'dummyLinkText')]";
 
     @FindBy(xpath = "//button[@class='btn gel-btn-blue']")
@@ -258,12 +201,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(@class,'quicklinks-subnav')]")
     WebElement rowOfLinks;
 
-    private String consulteeAttestationFirstOption = "//label[contains(@id,'Consultee_Q1.0')][text()='" + "dummyValue" + "']";
-    private String consulteeAttestationSecondOption = "//label[contains(@id,'Consultee_Q2.0')][text()='" + "dummyValue" + "']";
-    private String consulteeAttestationThirdOption = "//label[contains(@id,'Consultee_Q3.0')][text()='" + "dummyValue" + "']";
-    private String patientChoiceOptionFirst = "//h5[contains(text(),'Has research participation been discussed')]/following::label[contains(text(),'" + "dummyValue" + "')]";
-    private String patientChoiceOptionSecond = "//h5[contains(text(),'used for research, separate to NHS care')]/following::label[contains(text(),'" + "dummyValue" + "')]";
-    private String consentIDPath = "//span[text()='dummyID']/preceding::span[@class='consent-out-dated'][1]";
+   private String consentIDPath = "//span[text()='dummyID']/preceding::span[@class='consent-out-dated'][1]";
 
     @FindBy(xpath = "//p[contains(text(),' Confirmation ID')]//span[@class='cct-value']")
     WebElement confirmationID;
@@ -279,43 +217,8 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'last name')]/../input[@type='text']")
     WebElement lastNameInput;
 
-    @FindBy(xpath = "//label[contains(@id,'Child')]")
-    List<WebElement> childAssentOption;
-
-    private String selectTheChildAssentOption = "//label[contains(@id,'Child')][text()='" + "dummyValue" + "']";
-
-    @FindBy(xpath = "//h1[contains(text(),'Patient choice')]")
-    public WebElement patientChoiceLandingPageTitle;
-
-    @FindBy(xpath="//p[contains(text(),'the patient and family members need to choose how their samples can be used.')]")
-    public WebElement patientChoiceTestPackagePageSubText;
-
-    @FindBy(xpath="//div[contains(@class,'css')]/following::h2[contains(@class,'css')]")
-    public WebElement additionalPatientParticipantsName;
-
-    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][1]")
-    public WebElement relationField;
-
-    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][2]")
-    public WebElement beingTestedField;
-
-    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'dateOfBirth')]")
-    public WebElement dobField;
-
-    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'gender')]")
-    public WebElement genderField;
-
-    @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'patientChoiceStatus')]")
-    public WebElement patientChoiceStatusText;
-
     @FindBy(xpath = "//div[contains(@class,'styles_search-input')]/child::input[@type='text']")
     public WebElement hintTextInSearchBoxOnRequestingOrganisation;
-
-    @FindBy(xpath = "//button[contains(@class,'upload-doc-btn')]")
-    WebElement choiceForUploadDocumentButton;
-
-    @FindBy(xpath = "//li[@class='message-blue-line']")
-    WebElement uploadMessage;
 
     @FindBy(xpath = "//span[@class='tooltiptext']")
     WebElement waitForDocUpload;
@@ -323,14 +226,24 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(text(),'Child assent')]")
     WebElement childAssentTitle;
 
-    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
-    public WebElement formSuccessfullyUploadedMsg;
-
-    @FindBy(xpath = "//label[text()='Date of Signature']")
-    WebElement dateOfSignature;
-
     String formSection ="//div[@class='form-section-container']/child::h4[text()='dummySection']";
     String formLinks ="//div[@class='form-section-container']/child::h4[text()='dummySection']/..//a";
+    String selectedChoices = "//div[text()='dummySection']/../..//div[@class='question-answer-line d-flex']";
+    String selectedTabTitle = "//h2[contains(text(),'dummySubtitle')]";
+    String sectionOptions = "//div[@class='steps-list']//div[text()='dummySection']/../..//label[contains(@class,'radio-container')]";
+    String sectionTitle = "//div[contains(text(),'dummySection')]";
+    String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/div";
+
+    String questionTitle = "//div[@class='question-title']/h5[ contains(text(),\"dummyQuestion\")]";
+    String questionOptions = "//div[@class='question-title']/h5[ contains(text(),\"dummyQuestion\")]/../..//label";
+
+    @FindBy(xpath = "//p[@class='form-subheader']")
+    WebElement formSubHeader;
+
+    @FindBy(xpath = "//a[@class='back-button d-block']")
+    WebElement formLiraryBackButton;
+
+
 
     public boolean editPatientChoice() {
         try {
@@ -343,46 +256,23 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean editSpecificPatientChoice(String familyDetails) {
-        String nhsNumber = "";
-        try {
-            NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(familyDetails);
-            if(familyMember == null){
-                Debugger.println("No Family Member Exists !!!!!");
-                return false;
-            }
-            nhsNumber = familyMember.getNHS_NUMBER();
-            if(nhsNumber == null){
-                nhsNumber = familyMember.getNGIS_ID();
-            }
-            String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
-            Debugger.println("NHSFOUR : "+nhsLastFour);
 
-            By pChoiceEdit = By.xpath(specificPatientChoiceEdit.replaceAll("NHSLastFour", nhsLastFour));
-            if (!seleniumLib.isElementPresent(pChoiceEdit)) {
-                Wait.seconds(10);
-            }
-            WebElement element = driver.findElement(pChoiceEdit);
-            if (Wait.isElementDisplayed(driver, element, 100)) {
-                seleniumLib.clickOnWebElement(element);
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on edit patient choice of specific NHSNumber:" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageEdit.jpg");
+    public boolean verifySelectedTabInPatientChoice(String tabSectionTitle){
+        try {
+            String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle",tabSectionTitle);
+            Wait.seconds(15);
+            return seleniumLib.isElementPresent(By.xpath(selectedSubtitle));
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying the selected tab section in PatientChoice."+exp);
             return false;
         }
     }
 
     public boolean selectPatientChoiceCategory(String category) {
         try {
-            if (category == null || category.isEmpty()) {
-                return true;
-            }
-            Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle, 100);
-            String selectedPatientChoiceCategory = patientChoiceCategory.replaceAll("dummyCategory", category);
+            String categoryToBeSelected = patientChoiceCategory.replaceAll("dummyCategory", category);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
-            WebElement webElement = driver.findElement(By.xpath(selectedPatientChoiceCategory));
+            WebElement webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
                 seleniumLib.clickOnWebElement(webElement);
             } else {
@@ -392,6 +282,35 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
             SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
+            return false;
+        }
+    }
+    public boolean selectOptionInSection(String optionName,String sectionName) {
+        try {
+            if (optionName == null || optionName.isEmpty()) {//Not selecting any option
+                return true;
+            }
+            String options = sectionOptions.replaceAll("dummySection",sectionName);
+            List<WebElement> optionsList = driver.findElements(By.xpath(options));
+            if(optionsList == null || optionsList.size() == 0){
+                Debugger.println("Could not find any options under the section :"+sectionName);
+                return false;
+            }
+            boolean isFound = false;
+            for(int i=0; i<optionsList.size(); i++){
+               if(optionsList.get(i).getText().equalsIgnoreCase(optionName)){
+                   isFound = true;
+                   Actions.clickElement(driver,optionsList.get(i));
+                   break;
+               }
+            }
+            if(!isFound){
+                Debugger.println("Option :"+optionName+" could not found under the section :"+sectionName);
+            }
+            return isFound;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
+            SeleniumLib.takeAScreenShot("patientChoice.jpg");
             return false;
         }
     }
@@ -508,10 +427,8 @@ public class PatientChoicePage {
             uploadYear.sendKeys(today[2]);
             uploadDay.sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
             Wait.seconds(5);
-            Debugger.println("Continuing from Record Type...");
             clickOnContinue();
             Wait.seconds(2);
-            Debugger.println("Record Type..Done with document upload.");
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in uploading record type in Patient choice: " + exp);
@@ -519,31 +436,37 @@ public class PatientChoicePage {
             return false;
         }
     }
-
-    public boolean selectPatientChoiceOption(String patient_choice) {
+    //This is used for End to end RD user journey
+    public boolean selectDefaultPatientChoices(){
         try {
-            if (patient_choice == null || patient_choice.isEmpty()) {
-                return true;
-            }
-            if(!verifyTheOptionTitlePresence("Patient choices")){
-                Debugger.println("Patient Choice section not loaded.");
-                return false;
-            }
-            String pChoice = patientChoice.replaceAll("dummyChoice", patient_choice);
-            WebElement webElement;
-            try {
-                webElement = driver.findElement(By.xpath(pChoice));
-            } catch (NoSuchElementException nsee) {
-                //If the element not found, waiting for 5 seconds and the search again. Some times it is taking time.
-               // Wait.seconds(5);
-                webElement = driver.findElement(By.xpath(pChoice));
-            }
-            seleniumLib.clickOnWebElement(webElement);
-            Debugger.println("Patient Choice Option: "+patient_choice+" Selected.");
+            selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+            selectOptionForQuestion("Has research participation been discussed?", "Yes");
+            selectOptionForQuestion("The patient agrees that their data and samples may be used for research, separate to NHS care.", "Yes");
             return true;
+        }catch(Exception exp){
+            return false;
+        }
+    }
+
+    public boolean selectOptionForQuestion(String option,String question) {
+        try {
+            Actions.scrollToTop(driver);
+            String optionsString = questionOptions.replaceAll("dummyQuestion",question);
+            List<WebElement> options = driver.findElements(By.xpath(optionsString));
+            boolean isFound = false;
+            for (int i = 0; i < options.size(); i++) {
+                if(options.get(i).getText().equalsIgnoreCase(option)){
+                    options.get(i).click();
+                    isFound = true;
+                    break;
+                }
+            }
+            if(!isFound) {
+                Debugger.println("Option: " + option + " not present for the question:"+question);
+            }
+            return isFound;
         } catch (Exception exp) {
-            Debugger.println("Exception from Selecting PatientChoice:" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceCategory.jpg");
+            Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp);
             return false;
         }
     }
@@ -565,11 +488,9 @@ public class PatientChoicePage {
                 }
             }
             if (child_assent.equalsIgnoreCase("Yes")) {//Click on Signature board
-                Debugger.println("Signing Child Assent Signature...");
                 if (!SeleniumLib.drawSignature(signatureSection)) {
                     seleniumLib.clickOnWebElement(signaturePad);
                 }
-                Debugger.println("Signed Child Assent Signature...");
             }
             if (!Wait.isElementDisplayed(driver, continueButton, 60)) {
                 Debugger.println("Child element could not select.");
@@ -579,91 +500,6 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting ChildAssent:" + exp);
             SeleniumLib.takeAScreenShot("ChildAssent.jpg");
-            return false;
-        }
-    }
-
-    public void clickingOnYesNoOptions(String options) {
-        try {
-            String[] option = null;
-            if (options.indexOf(",") == -1) {
-                option = new String[]{options};
-            } else {
-                option = options.split(",");
-            }
-            String firstElement = patientChoiceOptionFirst.replace("dummyValue", option[0]);
-            WebElement firstSelectedOptionResult = driver.findElement(By.xpath(firstElement));
-            if (!seleniumLib.isElementPresent(firstSelectedOptionResult)) {
-                Debugger.println("1st Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(firstSelectedOptionResult);
-            String secondElement = patientChoiceOptionSecond.replace("dummyValue", option[1]);
-            WebElement secondSelectedOptionResult = driver.findElement(By.xpath(secondElement));
-            if (!seleniumLib.isElementPresent(secondSelectedOptionResult)) {
-                Debugger.println("2nd Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(secondSelectedOptionResult);
-            Debugger.println("YesNo Completed");
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on 1st YesNoOptions. " + exp);
-        }
-    }
-
-    public boolean clickingOnResearchParticipationYesNoOptions(String option) {
-        try {
-            String firstElement = patientChoiceOptionFirst.replace("dummyValue", option);
-            WebElement firstSelectedOptionResult = driver.findElement(By.xpath(firstElement));
-            if (!seleniumLib.isElementPresent(firstSelectedOptionResult)) {
-                Debugger.println("Yes/No option not found.");
-                return false;
-            }
-            seleniumLib.clickOnWebElement(firstSelectedOptionResult);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on 1st YesNoOptions. " + exp);
-            return false;
-        }
-    }
-
-    public boolean fillParentSignatureDetails(String parentDetails) {
-        try {
-            if (parentDetails == null || parentDetails.isEmpty()) {
-                //Signature
-                if (!SeleniumLib.drawSignature(signatureSection)) {//Patient Signature only.
-                    Debugger.println("Signature could not draw.. continuing with Click.");
-                    signaturePad.click();
-                }
-                return true;
-            }
-            //Parent/Guardian details and signature.
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(parentDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                switch (key) {
-                    case "FirstName":
-                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                            parentFirstName.sendKeys(paramNameValue.get(key));
-                        }
-                        break;
-                    case "LastName":
-                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                            parentLastName.sendKeys(paramNameValue.get(key));
-                        }
-                        break;
-                }//switch
-            }//for
-            //Signature
-            if (!SeleniumLib.drawSignature(signatureSection)) {
-                Debugger.println("Signature could not draw.. continuing with Click.");
-                signaturePad.click();
-            }
-            if (!Wait.isElementDisplayed(driver, parentGuardianSignatureLabel, 30)) {
-                Debugger.println("Label Patient/Guardian Signature not present....");
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in Filling fillParentSignatureDetails Information: " + exp);
-            SeleniumLib.takeAScreenShot("ParentSignature.jpg");
             return false;
         }
     }
@@ -718,7 +554,7 @@ public class PatientChoicePage {
                 return false;
             }
             Wait.seconds(2);
-            Debugger.println("Validating Information of " + noOfPatients + " Patients in Patient Choice Page.");
+            //Debugger.println("Validating Information of " + noOfPatients + " Patients in Patient Choice Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != noOfPatients) {
                 Debugger.println("Expected Presence of First/Last Name field for " + noOfPatients + " patients in  Patient Choice Page.");
@@ -784,7 +620,7 @@ public class PatientChoicePage {
             if (linkText == null || linkText.isEmpty()) {
                 return true;
             }
-            Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle, 100);
+           // Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle, 100);
             String patientChoiceLinkTab = patientChoiceLink.replaceAll("New patient choice", linkText);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
             WebElement webElement = driver.findElement(By.xpath(patientChoiceLinkTab));
@@ -795,27 +631,6 @@ public class PatientChoicePage {
             SeleniumLib.takeAScreenShot("patientChoiceInformationLink.jpg");
             return false;
         }
-    }
-
-    public boolean verifyThePatientChoiceFormLibraryDetails() {
-        Wait.forElementToBeDisplayed(driver, formLibraryTitle);
-        List<WebElement> expElements = new ArrayList<WebElement>();
-        //Expected Titles
-        for (int i = 0; i < patientChoiceFormsAndInformationTitle.size(); i++) {
-            expElements.add(patientChoiceFormsAndInformationTitle.get(i));
-        }
-        //Expected Links
-        for (int i = 0; i < formLibraryLinks.size(); i++) {
-            expElements.add(formLibraryLinks.get(i));
-        }
-        //Verifying the presence.
-        for (int i = 0; i < expElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                Debugger.println("Expected Element :" + expElements.get(i) + " Not present.");
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean verifySelectedOption(String expectedResult) {
@@ -841,16 +656,17 @@ public class PatientChoicePage {
         return true;
     }
 
-    public boolean verifyTheOptionTitlePresence(String expTitle) {
-        By optionTitle = By.xpath("//div[contains(text(),'" + expTitle + "')]");
-        if (!seleniumLib.isElementPresent(optionTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(optionTitle));
-            if (!seleniumLib.isElementPresent(optionTitle)) {
-                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
-                return false;
+    public boolean verifyTheSectionTitle(String sectionName) {
+        try {
+            if(Actions.isAlertPresent(driver)){
+                Actions.dismissAlert(driver);
             }
+            String section = sectionTitle.replaceAll("dummySection", sectionName);
+            return seleniumLib.isElementPresent(By.xpath(section));
+         }catch(Exception exp) {
+            Debugger.println("Section :"+sectionName+" not present.");
+            return false;
         }
-        return true;
     }
     public boolean optionIsCompleted(String option) {
         try {
@@ -858,18 +674,17 @@ public class PatientChoicePage {
             String elementLocator = optionIsList.replace("dummyOption", option);
             WebElement webElementLocator = driver.findElement(By.xpath(elementLocator));
             if (!seleniumLib.isElementPresent(webElementLocator)) {
-                Debugger.println("Tick mark not present.");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in Checking patient_choice_form's option completion status: " + exp);
-            SeleniumLib.takeAScreenShot("OptionComplete.jpg");
+            SeleniumLib.takeAScreenShot("PCOptionComplete.jpg");
             return false;
         }
     }
 
-    public boolean patientChoiceInformationWarningMessage(String message) {
+    public boolean verifyWarningMessage(String message) {
         try {
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
             for (int i = 0; i < warningMessage.size(); i++) {
@@ -885,12 +700,13 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean notHighlightedContinueButton() {
+    public boolean notHighlightedContinueButton(String expectedColor) {
         try {
             Wait.forElementToBeDisplayed(driver, continueButton);
-            String continueButtonBgColor = continueButton.getCssValue("background-color");
-            if (!continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should not be highlighted");
+            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
+            String actualColor = continueButton.getCssValue("background-color");
+            if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                Debugger.println("Actual background color : " + actualColor + ", Expected :"+expectedBackground);
                 return false;
             }
             return true;
@@ -900,41 +716,20 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean highlightedContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, continueButton);
-            String continueButtonBgColor = continueButton.getCssValue("background-color");
-            if (continueButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Actual color : " + continueButtonBgColor + " is displayed when continue button should be highlighted");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Continue Button not found. " + exp);
-            return false;
-        }
-    }
-
-    public boolean highlightedSubmitPatientChoiceButton() {
+    public boolean verifySubmitPatientChoiceButtonStatus() {
         try {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
-            String submitPatientChoiceButtonBgColor = submitPatientChoiceButton.getCssValue("background-color");
-            if (!submitPatientChoiceButtonBgColor.equalsIgnoreCase("rgba(9, 97, 183, 1)")) {
-                Debugger.println("Actual color : " + submitPatientChoiceButtonBgColor + " is displayed when Submit patient choice button is not highlighted");
-                return false;
-            }
-            return true;
+            return submitPatientChoiceButton.isEnabled();
         } catch (Exception exp) {
-            Debugger.println("Submit patient choice Button not found. " + exp);
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
             return false;
         }
     }
 
-    public boolean saveAndContinueButtonStatus() {
+    public boolean verifySaveAndContinueButtonStatus() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
             if (saveAndContinueButton.isEnabled()) {
-                Debugger.println("Save and continue button is in enabled state.");
                 return true;
             }
             return false;
@@ -961,28 +756,27 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean selectedPatientChoiceDetails(String selectedChoice) {
+    public boolean verifySelectedChoicesInSection(String sectionName,String selectedChoice) {
         try {
             boolean isPresent = false;
             String[] choices = selectedChoice.split("::");
             String actualText = "";
-            Debugger.println("Expected QN: "+choices[0]+" \nANS:"+choices[1]);
-            for (int i = 0; i < selectedPatientChoiceQuestion.size(); i++) {
-                actualText = selectedPatientChoiceQuestion.get(i).getText();
-                Debugger.println("ACTUAL: "+actualText);
+            String selectedAnswers = selectedChoices.replaceAll("dummySection",sectionName);
+            List<WebElement> answersList = driver.findElements(By.xpath(selectedAnswers));
+            for (int i = 0; i < answersList.size(); i++) {
+                actualText = answersList.get(i).getText();
                 if(actualText.startsWith(choices[0].trim())) {
                     if (actualText.endsWith(choices[1].trim())) {
                         isPresent = true;
-                        Debugger.println("PASS:::");
                         break;
                     }else{
-                        Debugger.println("Expected to ends with: "+choices[0]+", But Actual:"+actualText);
+                        Debugger.println("Expected Answer: "+choices[1]+", But Actual:"+actualText);
                     }
                 }
             }
             return isPresent;
         } catch (Exception exp) {
-            Debugger.println("Patient choice selected details are not found. " + exp);
+            Debugger.println("Exception from verifying selected choices in section:"+sectionName+"\n" + exp);
             return false;
         }
     }
@@ -1010,25 +804,9 @@ public class PatientChoicePage {
         return true;
     }
 
-    public boolean verifyTheQuestionInPatientChoice(String question) {
-        try {
-            Wait.seconds(5);//Waiting to load the Patient Choice Question
-            String questionField = patientChoiceQuestion.replaceAll("dummyQuestion", question);
-            By questionElement = By.xpath(questionField);
-            if(!seleniumLib.isElementPresent(questionElement)){
-                Debugger.println("Expected Question: "+question+" Not present under Patient Choice.Check PatientChoiceQuestion.jpg");
-                SeleniumLib.takeAScreenShot("PatientChoiceQuestion.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheQuestionInPatientChoice,Question:"+question+exp);
-            return false;
-        }
-    }
-
     public boolean errorMessageInPatientChoicePage(String boxColor,String message) {
         try {
+            Actions.scrollToTop(driver);
             Wait.forElementToBeDisplayed(driver, errorMessageBox);
             if (!seleniumLib.isElementPresent(errorMessageBox)) {
                 Debugger.println("Error box not found.");
@@ -1049,21 +827,6 @@ public class PatientChoicePage {
         }
     }
 
-    public void clickingOnNHSCareYesNoOptions(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String secondElement = patientChoiceOptionSecond.replace("dummyValue", option);
-            WebElement secondSelectedOptionResult = driver.findElement(By.xpath(secondElement));
-            if (!seleniumLib.isElementPresent(secondSelectedOptionResult)) {
-                Debugger.println("2nd Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(secondSelectedOptionResult);
-            Debugger.println("YesNo Completed");
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on 2st YesNoOptions. " + exp);
-        }
-    }
-
     public boolean selectPatientSignature() {
         try {
             Wait.forElementToBeDisplayed(driver, signaturePad, 30);
@@ -1071,7 +834,7 @@ public class PatientChoicePage {
                 Debugger.println("Signature Pad Not loaded for Patient Signature.");
                 return false;
             }
-            seleniumLib.scrollToElement(signaturePad);
+            Actions.scrollToBottom(driver);
             SeleniumLib.drawSignature(signaturePad);
             return true;
         } catch (Exception exp) {
@@ -1098,21 +861,7 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean previousSectionReclosed() {
-        try {
-            Wait.forElementToBeDisplayed(driver, patientChoiceCompressed);
-            if (!seleniumLib.isElementPresent(patientChoiceCompressed)) {
-                Debugger.println("previousSectionsClosed, Patient choice selected section not found. ");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("patientChoicePage: previousSectionsReclosed:  " + exp);
-            return false;
-        }
-    }
-
-    public void selectMember(int i) {
+   public void selectMember(int i) {
         Wait.forElementToBeDisplayed(driver, landingPageList);
         Click.element(driver, memberEditButton.get(i));
     }
@@ -1161,25 +910,6 @@ public class PatientChoicePage {
         }
     }
 
-
-    public boolean verifyYesNoButtonForResearchParticipation() {
-        try {
-            Wait.forElementToBeDisplayed(driver, yesButtonForResearchParticipation);
-            ArrayList<WebElement> expElement = new ArrayList<WebElement>();
-            expElement.add(yesButtonForResearchParticipation);
-            expElement.add(noButtonForResearchParticipation);
-            for (int i = 0; i < expElement.size(); i++) {
-                if (!seleniumLib.isElementPresent(expElement.get(i))) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("verifyYesNoButtonForResearchParticipation, Yes No Button not found.");
-            return false;
-        }
-    }
-
     public void submitPatientChoiceWithSignature() {
         try {
             Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
@@ -1187,21 +917,6 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
 
-        }
-    }
-
-    public void clickingOnDataAndSampleForResearchYesNoOptions(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String secondElement = patientChoiceOptionSecond.replace("dummyValue", option);
-            WebElement secondSelectedOptionResult = driver.findElement(By.xpath(secondElement));
-            if (!seleniumLib.isElementPresent(secondSelectedOptionResult)) {
-                Debugger.println("2nd Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(secondSelectedOptionResult);
-            Debugger.println("YesNo Completed");
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on 2st YesNoOptions. " + exp);
         }
     }
 
@@ -1218,39 +933,12 @@ public class PatientChoicePage {
         return status.equalsIgnoreCase(statuses.get(row).getText());
     }
 
-    public boolean messageThatPatientChoiceRecordExistsIsDisplayed(String expectedTextMessage) {
-        Wait.forElementToBeDisplayed(driver, recordAlreadyExistsMessage);
-        return recordAlreadyExistsMessage.getText().contains(expectedTextMessage);
-    }
-
-    public void addPatientChoiceIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, adultWithCapacityCategory);
-    }
-
     public boolean verifyHelpTextLabelIsVisible() {
         try {
             Wait.forElementToBeDisplayed(driver, helpTextLabel, 200);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception before seeing Patient Choice participants info ...." + exp);
-            return false;
-        }
-    }
-
-    public boolean verifyYesNoButtonForSeparateToNnsCare() {
-        try {
-            Wait.forElementToBeDisplayed(driver, yesButtonOfDataAndSampleResearch);
-            ArrayList<WebElement> expElement = new ArrayList<WebElement>();
-            expElement.add(yesButtonOfDataAndSampleResearch);
-            expElement.add(noButtonOfDataAndSampleResearch);
-            for (int i = 0; i < expElement.size(); i++) {
-                if (!seleniumLib.isElementPresent(expElement.get(i))) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("verifyYesNoButtonForSeparateToNnsCare, Yes No Button not found.");
             return false;
         }
     }
@@ -1312,7 +1000,6 @@ public class PatientChoicePage {
     }
 
     public boolean enabledContinueButtonOnPatientChoiceFormPage() {
-        Debugger.println("continue Button on patient choice page");
         try {
             Wait.forElementToBeDisplayed(driver, continueButton);
             if (!continueButton.isEnabled()) {
@@ -1327,28 +1014,12 @@ public class PatientChoicePage {
     }
 
     public boolean clickOnSubmitPatientChoiceButton() {
-        Debugger.println("Patient Choice: Clicking on submit patient choice button");
         try {
             Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
             seleniumLib.clickOnWebElement(submitPatientChoiceButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice: Clicking on submit patient choice button:" + exp);
-            return false;
-        }
-    }
-
-    public boolean verifyPatientChoiceForm() {
-        Debugger.println("Patient Choice Form");
-        try {
-            Wait.forElementToBeDisplayed(driver, newPatientChoiceFormTitle);
-            if (!seleniumLib.isElementPresent(newPatientChoiceFormTitle)) {
-                Debugger.println("Add patient Choice Page:verifyPatientChoiceForm : Title Not found");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Add patient Choice Page:verifyPatientChoiceForm : Title:" + exp);
             return false;
         }
     }
@@ -1378,76 +1049,39 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean verifyThePatientChoiceSectionTitle(String sectionTitle) {
+    public boolean verifyQuestionTitle(String title) {
         try {
-            int noOfOptions = patientChoiceSubTitles.size();
-            if(noOfOptions < 1){
-                Debugger.println("Patient Choice Titles are not displayed.");
+            String question = questionTitle.replaceAll("dummyQuestion",title);
+            WebElement questionTitleElement = driver.findElement(By.xpath(question));
+            if(!Wait.isElementDisplayed(driver,questionTitleElement,60)){
+                Debugger.println("Could found Question:" + question+" in Patient Choice");
                 return false;
             }
-            String actualTitle = "";
-            for (int i = 0; i < noOfOptions; i++) {
-                actualTitle = patientChoiceSubTitles.get(i).getText();
-                Debugger.println("ACTUAL: "+actualTitle);
-                if(actualTitle.equalsIgnoreCase(sectionTitle)){
-                    return true;
-                }
-            }
-            Debugger.println("Expected Patient Choice Title: "+sectionTitle+" not present under PatientChoice section.");
-            return false;
+            return true;
         } catch (Exception exp) {
-            Debugger.println("PatientChoicePage:Exception:verifyThePatientChoiceSectionTitle " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceSectionTitle.jpg");
+            Debugger.println("Exception:verifyQuestionTitle " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoices.jpg");
             return false;
         }
     }
 
-    public boolean verifyThePatientChoiceOption(String choiceOption) {
+    public boolean verifyTheChoiceOptionsForTheQuestion(String question,String choiceOption) {
         try {
-            int noOfOptions = patientChoiceAboutResearchOptions.size();
-            if(noOfOptions < 1){
-                Debugger.println("Patient Choice Options are not displayed.");
-                return false;
-            }
-            String actualOption = "";
-            for (int i = 0; i < noOfOptions; i++) {
-                actualOption = patientChoiceAboutResearchOptions.get(i).getText();
-                if(actualOption.equalsIgnoreCase(choiceOption)){
-                    return true;
+            String optionsString = questionOptions.replaceAll("dummyQuestion",question);
+            List<WebElement> options = driver.findElements(By.xpath(optionsString));
+            boolean isFound = false;
+            for (int i = 0; i < options.size(); i++) {
+                if(options.get(i).getText().equalsIgnoreCase(choiceOption)){
+                    isFound = true;
+                    break;
                 }
             }
-            Debugger.println("Expected Patient Choice Option: "+choiceOption+" not present under PatientChoice section.");
-            return false;
+            if(!isFound) {
+                Debugger.println("Option: " + choiceOption + " not present for the question:"+question);
+            }
+            return isFound;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyThePatientChoiceOptionsForConsultee " + exp);
-            return false;
-        }
-    }
-
-    public boolean submitPatientChoiceButtonStatus() {
-        try {
-            seleniumLib.waitForElementVisible(disabledSubmitPatientChoice);
-            if (!seleniumLib.isElementPresent(disabledSubmitPatientChoice)) {
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: submitPatientChoiceButtonStatus: " + exp);
-            return false;
-        }
-    }
-
-    public boolean verifyFormsTitleUnderFormsLibrary(String formsTitle) {
-        try {
-            seleniumLib.waitForElementVisible(formLibraryTitle);
-            if (!formsTitle.equalsIgnoreCase(formLibraryTitle.getText())) {
-                Debugger.println("Expected Subtitle: " + formsTitle + ", but Actual Title is: " + formLibraryTitle.getText());
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient Choice: Form Library title not found" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormTitle.jpg");
             return false;
         }
     }
@@ -1474,57 +1108,13 @@ public class PatientChoicePage {
     public boolean clickOnAmendPatientChoice() {
         Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
-            seleniumLib.clickOnWebElement(amendPatientChoice);
+            Actions.clickElement(driver,amendPatientChoice);
+            Wait.seconds(5);//Observed some delay here while running from jenkins
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient Choice Page: click on amend patient choice: " + exp);
             SeleniumLib.takeAScreenShot("PatientChoiceAmendOption.jpg");
             return false;
-        }
-    }
-
-    public void clickingOnLacksCapacityOfConsulteeForThePerson(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String firstOption = consulteeAttestationFirstOption.replace("dummyValue", option);
-            WebElement firstOptionResult = driver.findElement(By.xpath(firstOption));
-            if (!seleniumLib.isElementPresent(firstOptionResult)) {
-                Debugger.println("1st Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(firstOptionResult);
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on Lacks Capacity Of Consultee For The Person YesNoOptions. " + exp);
-        }
-    }
-
-    public void clickingOnNationalGenomicResearchLibraryForThePerson(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String secondOption = consulteeAttestationSecondOption.replace("dummyValue", option);
-            WebElement secondOptionResult = driver.findElement(By.xpath(secondOption));
-            if (!seleniumLib.isElementPresent(secondOptionResult)) {
-                Debugger.println("1st Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(secondOptionResult);
-            Debugger.println(option + " option is selected...");
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on National Genomic Research Library YesNoOptions. " + exp);
-        }
-    }
-
-
-
-    public void clickingOnWillingToAcceptTheRoleOfConsulteeForThePerson(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String thirdOption = consulteeAttestationThirdOption.replace("dummyValue", option);
-            WebElement thirdOptionResult = driver.findElement(By.xpath(thirdOption));
-            if (!seleniumLib.isElementPresent(thirdOptionResult)) {
-                Debugger.println("1st Yes/No option not found");
-            }
-            seleniumLib.clickOnWebElement(thirdOptionResult);
-       } catch (Exception exp) {
-            Debugger.println("Exception from clicking on Willing To Accept The Role Of Consultee YesNoOptions. " + exp);
         }
     }
 
@@ -1588,72 +1178,9 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean verifyTheChildAssentOption(String choiceOption) {
-        try {
-            int noOfOptions = childAssentOption.size();
-            if(noOfOptions < 1){
-                Debugger.println("Child Assent Options are not displayed.");
-                return false;
-            }
-            String actualOption = "";
-            for (int i = 0; i < noOfOptions; i++) {
-                actualOption = childAssentOption.get(i).getText();
-                if(actualOption.equalsIgnoreCase(choiceOption)){
-                    return true;
-                }
-            }
-            Debugger.println("Expected Child Assent Option: "+choiceOption+" not present under Child Assent section.");
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: verifyTheChildAssentOptions " + exp);
-            return false;
-        }
-    }
-
-    public void clickingOnChildAgreeToParticipate(String option) {
-        try {
-            Actions.scrollToTop(driver);
-            String selectOption = selectTheChildAssentOption.replace("dummyValue", option);
-            WebElement selectedResult = driver.findElement(By.xpath(selectOption));
-            if (!seleniumLib.isElementPresent(selectedResult)) {
-                Debugger.println("To select Yes/No/Not applicable option not found");
-            }
-            seleniumLib.clickOnWebElement(selectedResult);
-        } catch (Exception exp) {
-            Debugger.println("Exception from clicking on child agree to participate YesNoOptions. " + exp);
-        }
-    }
-
-    public boolean enabledUploadDocumentButtonOnPatientChoiceFormPage() {
-        try {
-            Wait.forElementToBeDisplayed(driver, choiceForUploadDocumentButton);
-            if (!choiceForUploadDocumentButton.isEnabled()) {
-                Debugger.println("Add patient Choice Page:Recorded by:UploadDocumentButton beside continue Button Not found");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from PatientChoicePage: enabledUploadDocumentButtonOnPatientChoiceFormPage " + exp);
-            return false;
-        }
-    }
-
-    public boolean verifyUploadMessage(String message) {
-        try {
-            Wait.forElementToBeDisplayed(driver, uploadMessage);
-            if(!message.equalsIgnoreCase(uploadMessage.getText())){
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage, verifyUploadMessage - message not found in upload section." + exp);
-            return false;
-        }
-    }
 
     public boolean waitForFormUpload(String expTitle) {
-        Debugger.println("Waiting for form Upload...");
-        //Logic has changed as tooltip coming for big files while uplaoding.Waiting to dissappear the tooltip.
+       //Logic has changed as tooltip coming for big files while uplaoding.Waiting to dissappear the tooltip.
         seleniumLib.moveAndClickOn(continueButton);
         if(seleniumLib.isElementPresent(waitForDocUpload)){
             Wait.forElementToDisappear(driver,By.xpath("//span[@class='tooltiptext']"));
@@ -1667,182 +1194,7 @@ public class PatientChoicePage {
         }
         return true;
     }
-
-    public boolean verifyTheElementsOnPatientChoiceTestPackagePage(){
-        Wait.forElementToBeDisplayed(driver, patientChoiceLandingPageTitle);
-        List<WebElement> expElements = new ArrayList<WebElement>();
-        expElements.add(patientChoiceLandingPageTitle);
-        expElements.add(patientChoiceTestPackagePageSubText);
-        expElements.add(additionalPatientParticipantsName);
-        expElements.add(relationField);
-        expElements.add(beingTestedField);
-        expElements.add(dobField);
-        expElements.add(genderField);
-        expElements.add(patientChoiceStatusText);
-        expElements.add(continueButton);
-
-        for (int i = 0; i < expElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expElements.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean verifyFormUploadSuccessMessage(String expMessage) {
-        try {
-            Wait.forElementToBeDisplayed(driver, formSuccessfullyUploadedMsg);
-            String actualMessage = formSuccessfullyUploadedMsg.getText();
-            if (!expMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormUploadSuccessMsg.jpg");
-            return false;
-        }
-    }
-    public boolean verifyInvalidFileUploadMessages(String fileName, String expMessage) {
-        try {
-            seleniumLib.clickOnWebElement(uploadDocumentOption);
-            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
-            seleniumLib.upload(docUpload, uploadFilepath + fileName);
-            //Wait for 5 seconds to get the error message
-            if (!Wait.isElementDisplayed(driver, filUploadErrorMsg, 30)) {
-                //Error message not yet displayed...
-                Debugger.println("Error Message for Unsupported file type not displayed");
-                return false;
-            }
-            String actMessage = filUploadErrorMsg.getText();
-            //Read the message.. and compare with what we pass
-            if (!actMessage.contains(expMessage)) {
-                Debugger.println("Expected Error Message: " + expMessage + ", But Actual is:" + actMessage);
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: verifyInvalidFileUploadMessages: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceDocUpload.jpg");
-            return false;
-        }
-    }
-
-    public void clickTheUploadDocumentButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, uploadDocumentOption);
-            Wait.forElementToBeClickable(driver, uploadDocumentOption);
-            seleniumLib.clickOnWebElement(uploadDocumentOption);
-        } catch (Exception exp) {
-            Debugger.println("Exception from PatientChoicePage:clickTheUploadDocumentButton: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageUploadDocumentButton.jpg");
-            Assert.assertFalse("PatientChoicePage:clickTheUploadDocumentButton:Exception:" + exp, true);
-        }
-    }
-
-    public boolean uploadDocumentInRecordedBy(String fileName) {
-        try {
-            seleniumLib.clickOnWebElement(uploadDocumentOption);
-            Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
-            // Uploading file by sending webelement and file name with path as value
-            seleniumLib.upload(docUpload, uploadFilepath + fileName);
-            if (!Wait.isElementDisplayed(driver, formSuccessfullyUploadedMsg, 20)) {
-                //success message not yet displayed...
-                Debugger.println("Success Message for file upload not displayed");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from uploading file..." + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceUploadDocumentInRecordedBy.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTheDropDownAndDOBFieldOfPatientChoice() {
-        try {
-            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
-            if (!seleniumLib.isElementPresent(fileTypeDropDown)) {
-                Debugger.println("Dropdown is not present after uploading the file...");
-                return false;
-            }
-            if (!seleniumLib.isElementPresent(uploadDay)) {
-                Debugger.println("Day is not present after uploading the file...");
-                return false;
-            }
-            if (!seleniumLib.isElementPresent(uploadMonth)) {
-                Debugger.println("Month is not present after uploading the file...");
-                return false;
-            }
-            if (!seleniumLib.isElementPresent(uploadYear)) {
-                Debugger.println("Year is not present after uploading the file...");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient choice page:verifyTheDropDownAndDOBFieldOfPatientChoice, Exception found " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageDropDownAndDOBField.jpg");
-            return false;
-        }
-    }
-    public boolean dateOfSignatureStatusInRecordedBY() {
-        try {
-            Wait.forElementToBeDisplayed(driver, dateOfSignature);
-            if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
-                Debugger.println("Date of Signature fields are in enabled state.");
-                return true;
-            }
-            Debugger.println("Date of Signature fields are in disabled state.");
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("Date of Signature fields not found. " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureStatus.jpg");
-            return false;
-        }
-    }
-
-    public boolean selectUploadFormType(String dropdownValue) {
-        try {
-            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
-            seleniumLib.scrollToElement(fileTypeDropDown);
-            seleniumLib.clickOnWebElement(fileTypeDropDown);
-//            Debugger.println("After clicking dropdown.....");
-            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", dropdownValue));
-            WebElement dropdownElement = driver.findElement(formType);
-            if (!seleniumLib.isElementPresent(dropdownElement)) {
-                Debugger.println("Form type dropdown value not found");
-                return false;
-            }
-            seleniumLib.clickOnWebElement(dropdownElement);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from selecting dropdown in recorded by" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceRecordedByPleaseSelectDropDown.jpg");
-            return false;
-        }
-    }
-
-    // new method created to fill any date being passed which replaces the fillingTheDOBInRecordedBy method which was only filling today's date
-    public boolean fillTheDateOfSignatureInRecordedBy(String signatureDate) {
-        try {
-            Wait.forElementToBeDisplayed(driver, dateOfSignature);
-            if (signatureDate != null && !signatureDate.isEmpty()) {
-                String[] dobSplit = signatureDate.split("/");
-                uploadDay.sendKeys(dobSplit[0]);
-                uploadMonth.sendKeys(dobSplit[1]);
-                uploadYear.sendKeys(dobSplit[2]);
-                return true;
-            }
-            Debugger.println("Date of Signature value is not present ");
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceDateofSignatureFilling.jpg");
-            return false;
-        }
-    }
-    public boolean verifyTheFormLibrarySection(String sectionName){
+   public boolean verifyTheFormLibrarySection(String sectionName){
         try {
             String formLinkPath = formSection.replaceAll("dummySection", sectionName);
             WebElement formLinkElement = driver.findElement(By.xpath(formLinkPath));
@@ -1865,7 +1217,15 @@ public class PatientChoicePage {
             List<WebElement> supportingInformationLinks = driver.findElements(By.xpath(linkForms));
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
                 if(supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)){
-                    isPresent = true;
+                    //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
+                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
+                    Wait.seconds(3);//Wait for three second to Load the form.
+                    if(formSubHeader.getText().equalsIgnoreCase(linkForm)){
+                        isPresent = true;
+                    }
+                    Actions.scrollToTop(driver);
+                    formLiraryBackButton.click();
+                    Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }
             }
@@ -1877,6 +1237,28 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheSupportingInformationLink:" + exp);
             SeleniumLib.takeAScreenShot("formLinkNotPresent.jpg");
+            return false;
+        }
+    }
+    public boolean verifyMandatoryFieldDisplaySymbolInPatientChoice(String fieldName,String fieldType,String symbol,String symbolColor){
+        try{
+            String fieldPath = mandatoryFieldSymbol.replaceAll("dummyFieldType",fieldType);
+            fieldPath = fieldPath.replaceAll("dummyLabel",fieldName);
+            WebElement mandatoryField = driver.findElement(By.xpath(fieldPath));
+            String actSymbol = mandatoryField.getText();
+            String actColor = mandatoryField.getCssValue("color");
+            String expColor = StylesUtils.convertFontColourStringToCSSProperty(symbolColor);
+            if(symbol.equalsIgnoreCase(actSymbol)){
+                if(expColor.equalsIgnoreCase(actColor)){
+                    return true;
+                }
+            }
+            Debugger.println("Filed: "+fieldName+" not displayed as mandatory field.Actual Symbol:"+actSymbol+",EXP:"+symbol+",Actual Color:"+actColor+",EXP:"+expColor);
+            SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception in validating Mandatory fields: "+exp);
+            SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
             return false;
         }
     }

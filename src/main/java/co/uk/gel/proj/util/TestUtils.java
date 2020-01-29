@@ -192,13 +192,13 @@ public class TestUtils {
 
     public static String getAgeInYearsAndMonth(String dob){
         try {
-            Debugger.println("Date of Birth: "+dob);
+            //Debugger.println("Date of Birth: "+dob);
             String[] dobs= dob.split("-");
             LocalDate dob_date = LocalDate.of(Integer.parseInt(dobs[2]),Integer.parseInt(dobs[1]),Integer.parseInt(dobs[0]));
             LocalDate today = LocalDate.of(Integer.parseInt(getCurrentDay()[2]),Integer.parseInt(getCurrentDay()[1]),Integer.parseInt(getCurrentDay()[0]));
             Period diff = Period.between(dob_date,today);
-            Debugger.println("Age in Years and months: "+diff.getYears()+",months:"+diff.getMonths());
-            if(diff.getMonths() > 0) {
+            //Debugger.println("Age in Years and months: "+diff.getYears()+",months:"+diff.getMonths());
+            if(diff.getMonths() > 1) {
                 return "(" + diff.getYears() + "y " + diff.getMonths() + "m)";
             }else{
                 return "(" + diff.getYears() + "y)";
