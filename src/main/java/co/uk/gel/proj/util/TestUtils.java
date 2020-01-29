@@ -1,6 +1,7 @@
 package co.uk.gel.proj.util;
 
 import co.uk.gel.proj.config.AppConfig;
+import com.github.javafaker.Faker;
 import com.google.common.base.Splitter;
 import io.cucumber.java.hu.De;
 import sun.security.ssl.Debug;
@@ -13,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class TestUtils {
+
+    public static final String PREFIX = "UItest";
 
     static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
 
@@ -204,5 +207,16 @@ public class TestUtils {
             Debugger.println("Exception from finding Age in Years: "+exp);
             return null;
         }
+    }
+
+    // NTS-4483 - prefix firstname and lastname with Uitest
+    public static String getRandomFirstName(){
+        String someName = new Faker().name().firstName();
+        return PREFIX + someName;
+    }
+
+    public static String getRandomLastName(){
+        String someName = new Faker().name().lastName();
+        return PREFIX + someName;
     }
 }
