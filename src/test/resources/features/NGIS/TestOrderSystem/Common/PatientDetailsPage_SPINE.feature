@@ -43,3 +43,50 @@ And the Relationship to Proband from the patient referral card is "<Relationship
 Examples:
 | patient-search-type | stage1          |   stage          | FamilyMemberDetails                 | RelationshipToProband |
 | NGIS                | Patient details |   Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
+
+#  SPINE DATA replaced with NGIS DATA
+
+#  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0
+#  Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
+#    Given a web browser is at the patient search page
+#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+#    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+#    And the user clicks the Search button
+#    Then a "<patient-search-type>" result is successfully returned
+#    And the user clicks the patient result card
+#    Then the Patient Details page is displayed
+#    And the correct details of the "<patient-search-type>" are displayed in patient details
+#
+#    Examples:
+#      | patient-search-type | NhsNumber  | DOB        |
+#      | NHS Spine           | 9449310602 | 23-03-2011 |
+
+
+#  @NTS-3068 @E2EUI-1182 @LOGOUT @v_1 @BVT_P0
+#  Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
+#    Given a web browser is at the patient search page
+#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+#    And the user clicks the NO button
+#    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+#    And the user clicks the Search button
+#    Then a "<patient-search-type>" result is successfully returned
+#    And the user clicks the patient result card
+#    Then the Patient Details page is displayed
+#    And the correct details of the "<patient-search-type>" are displayed in patient details
+#
+#    Examples:
+#      | patient-search-type | SearchDetails                                                            |
+#      | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female |
+
+
+#  @NTS-3067 @E2EUI-1128 @LOGOUT @P0 @v_1
+#  Scenario Outline:NTS-3067:The user can not create a referral for an existing patient without a clinical indication test selected
+#    Given a web browser is at the patient search page
+#      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+#    And a web browser is at the Patient Details page of a "<patient-search-type>" patient with NHS number "<NhsNumber>" and Date of Birth "<DOB>" without clinical indication test selected
+#    And the clinical indication ID missing banner is displayed
+#    And the Start Referral button is disabled
+#
+#    Examples:
+#      | patient-search-type | NhsNumber  | DOB        |
+#      | NHS Spine           | 9449310602 | 23-03-2011 |
