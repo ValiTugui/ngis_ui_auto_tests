@@ -9,6 +9,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -218,10 +219,10 @@ public class PatientDetailsPage {
         newPatient.setTitle("Mr");
         title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
 
-        newPatient.setFirstName(faker.name().firstName());
+        newPatient.setFirstName(TestUtils.getRandomFirstName());
         Actions.fillInValue(firstName, newPatient.getFirstName());
 
-        newPatient.setLastName(faker.name().lastName());
+        newPatient.setLastName(TestUtils.getRandomLastName());
         Actions.fillInValue(familyName, newPatient.getLastName());
 
         String dayOfBirth = PatientSearchPage.testData.getDay();
@@ -279,8 +280,8 @@ public class PatientDetailsPage {
 
     public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason() {
         Wait.forElementToBeDisplayed(driver, firstName);
-        newPatient.setFirstName(faker.name().firstName());
-        newPatient.setLastName(faker.name().lastName());
+        newPatient.setFirstName(TestUtils.getRandomFirstName());
+        newPatient.setLastName(TestUtils.getRandomLastName());
         newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
         newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
         newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
@@ -506,8 +507,8 @@ public class PatientDetailsPage {
         Wait.forElementToBeDisplayed(driver, title);
         newPatient.setTitle("Mr");
         title.sendKeys("Mr"); // OR //Actions.fillInValue(title, "MR");
-        String firstNameValue = faker.name().firstName();
-        String lastNameValue = faker.name().lastName();
+        String firstNameValue = TestUtils.getRandomFirstName();
+        String lastNameValue = TestUtils.getRandomLastName();
         newPatient.setFirstName(firstNameValue);
         Actions.fillInValue(firstName, newPatient.getFirstName());
 
@@ -568,11 +569,11 @@ public class PatientDetailsPage {
         String lastNameValue;
 
         if (patientNameWithSpecialCharacters.equalsIgnoreCase("SPECIAL_CHARACTERS")) {
-            firstNameValue = faker.name().firstName().replaceFirst("[a-z]", "é");
-            lastNameValue = faker.name().lastName().concat("müller");
+            firstNameValue = TestUtils.getRandomFirstName().replaceFirst("[a-z]", "é");
+            lastNameValue = TestUtils.getRandomLastName().concat("müller");
         } else {
-            firstNameValue = faker.name().firstName();
-            lastNameValue = faker.name().lastName();
+            firstNameValue = TestUtils.getRandomFirstName();
+            lastNameValue = TestUtils.getRandomLastName();
         }
 
         newPatient.setFirstName(firstNameValue);
@@ -700,14 +701,14 @@ public class PatientDetailsPage {
     }
 
     public void fillInLastName() {
-        Actions.fillInValue(familyName, faker.name().lastName());
+        Actions.fillInValue(familyName, TestUtils.getRandomLastName());
     }
 
     public void createNewFamilyMember(NGISPatientModel familyMember) {
         selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
         familyMember.setTITLE("Mr");
-        familyMember.setFIRST_NAME(faker.name().firstName());
-        familyMember.setLAST_NAME(faker.name().lastName());
+        familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
+        familyMember.setLAST_NAME(TestUtils.getRandomLastName());
         familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
         familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
         familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
@@ -753,10 +754,10 @@ public class PatientDetailsPage {
                 referralDetails.setTITLE("Mr");
             }
             if (referralDetails.getFIRST_NAME() == null || referralDetails.getFIRST_NAME().isEmpty()) {
-                referralDetails.setFIRST_NAME(faker.name().firstName());
+                referralDetails.setFIRST_NAME(TestUtils.getRandomFirstName());
             }
             if (referralDetails.getLAST_NAME() == null || referralDetails.getLAST_NAME().isEmpty()) {
-                referralDetails.setLAST_NAME(faker.name().lastName());
+                referralDetails.setLAST_NAME(TestUtils.getRandomLastName());
             }
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));

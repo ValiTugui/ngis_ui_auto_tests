@@ -440,9 +440,8 @@ public class PatientSearchSteps extends Pages {
 
                 break;
             }
-            case "NGIS": {
+            case "NGIS-Redundant-Static": { // used for static data
                 String actualPrefix = patientDetailsPage.title.getAttribute("value");
-                ;
                 String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
                 String actualLastName = patientDetailsPage.familyName.getAttribute("value");
                 String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
@@ -469,6 +468,31 @@ public class PatientSearchSteps extends Pages {
                 Assert.assertEquals(NgisPatientOne.LIFE_STATUS, actualLifeStatus);
                 Assert.assertEquals(NgisPatientOne.NHS_NUMBER, actualNHSNumber);
 
+                break;
+            }
+            case "NGIS": {
+                String actualPrefix = patientDetailsPage.title.getAttribute("value");
+                String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
+                String actualLastName = patientDetailsPage.familyName.getAttribute("value");
+                String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
+                String actualGender = patientDetailsPage.administrativeGenderButton.getText().trim();
+                String actualLifeStatus = patientDetailsPage.lifeStatusButton.getText().trim();
+                //String actualNHSNumber = patientDetailsPage.nhsNumber.getAttribute("value");
+
+                NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+                String expectedDOB = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
+                Debugger.println("Expected Prefix = " + newPatient.getTitle() + ", Actual Prefix : " + actualPrefix);
+                Debugger.println("Expected FirstName = " + newPatient.getFirstName() + ", Actual FirstName: " + actualFirstName);
+                Debugger.println("Expected LastName = " + newPatient.getLastName() + ", Actual LastName: " + actualLastName);
+                Debugger.println("Expected DOB = " + expectedDOB + ", Actual DOB: " + actualFullDOB);
+                Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+                //Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " + actualNHSNumber);
+
+                Assert.assertEquals(newPatient.getTitle(), actualPrefix);
+                Assert.assertEquals(newPatient.getFirstName(), actualFirstName);
+                Assert.assertEquals(newPatient.getLastName(), actualLastName);
+                Assert.assertEquals(expectedDOB, actualFullDOB);
+                Assert.assertEquals(newPatient.getGender(), actualGender);
                 break;
             }
 
@@ -524,7 +548,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
     public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
-        Wait.seconds(6); // Wait for the patient to be updated in the database and for it to be retrieved back
+        Wait.seconds(7); // Wait for the patient to be updated in the database and for it to be retrieved back
         patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
     }
 
