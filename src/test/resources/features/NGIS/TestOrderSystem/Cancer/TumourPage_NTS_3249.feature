@@ -1,5 +1,6 @@
 @regression
 @TO_Cancer
+@tumoursPage2
 @tumoursPage
 Feature: Tumours Page
 

@@ -536,7 +536,7 @@ Feature: New Patient page
 #    Then the patient is successfully created with a message "Details saved"
 
 
-    Examples:
-      | pageTitle                         |
-      | Add a new patient to the database |
+#    Examples:
+#      | pageTitle                         |
+#      | Add a new patient to the database |
 
