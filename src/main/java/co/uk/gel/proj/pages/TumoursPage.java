@@ -164,7 +164,7 @@ public class TumoursPage {
 
     public String fillInTumourDescription() {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
-        String description = faker.name().lastName();
+        String description = TestUtils.getRandomLastName();
         tumourDetails.setTumourDescription(description);
         Actions.fillInValue(descriptiveName, description);
         return description;
