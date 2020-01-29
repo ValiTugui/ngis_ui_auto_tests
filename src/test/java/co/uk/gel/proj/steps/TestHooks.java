@@ -86,7 +86,6 @@ public class TestHooks extends Pages {
 
     @After("@LOGOUT")
     public void logOutAndTearDown(Scenario scenario) {
-        fillInNotesFieldForUITesting(scenario);
         homePage.logOutFromApplication();
     }
 
@@ -116,19 +115,5 @@ public class TestHooks extends Pages {
         this.response = response;
     }
 
-    public void fillInNotesFieldForUITesting(Scenario scenario){
-        // Try navigate to Notes stage and accept any alert message is populated
-        referralPage.navigateToStage("Notes");
-        Wait.seconds(2); // this deliberate wait time is needed to be handle the latency of loading pop up Alert box on Jenkins
-        if(Actions.isAlertPresent(driver)){
-            Actions.acceptAlert(driver);
-        }
-        WebElement notesField = notesPage.getNotesFieldLocator();
-        String currentDateTime = new Timestamp(new Date().getTime()).toString();
-        String notes = "\n This scenario " + scenario.getName() + " is executed by UI automation pack on " + currentDateTime;
-        notesPage.fillInValue(notesField, notes);
-        referralPage.clickSaveAndContinueButton();
-        Debugger.println(notes);
-    }
 
 }//end class

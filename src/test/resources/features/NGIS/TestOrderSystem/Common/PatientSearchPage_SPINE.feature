@@ -1,7 +1,7 @@
 @regression
 @TO_Common
 @patientSearchSPINE
-Feature: Patient search page
+Feature: Patient search page_SPINE
 
   Background:
     Given a web browser is at the patient search page
@@ -182,7 +182,7 @@ Feature: Patient search page
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
-  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -198,7 +198,7 @@ Feature: Patient search page
       | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12 |
       | NGIS                | 9449305099 | 10-0-2011  | Enter a month between 1 and 12 |
       | NGIS                | 9449305099 | 10- -2011  | Enter a month                  |
-      #Date in US format MM-DD-YYYY
+#       Date in US format MM-DD-YYYY
       | NGIS                | 9449305099 | 01-16-2011 | Enter a month between 1 and 12 |
 
     Examples: of invalid year
@@ -208,7 +208,7 @@ Feature: Patient search page
       | NGIS                | 9449305099 | 14-11-193  | Enter a year in 4 figures e.g. 1983 |
       | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900            |
       | NGIS                | 9449305099 | 14-11- -   | Enter a year                        |
-
+#
     Examples: of future date scenario
       | patient-search-type | NhsNumber  | DOB        | error_message                    |
       | NHS Spine           | 9449305099 | 12-03-2150 | Please enter a date before today |
@@ -216,6 +216,12 @@ Feature: Patient search page
     Examples: of invalid leap year
       | patient-search-type | NhsNumber  | DOB        | error_message                     |
       | NHS Spine           | 9449305099 | 29-02-2001 | Check the day and month are valid |
+
+    Examples: of alphaNumeric
+      | patient-search-type | NhsNumber  | DOB        | error_message |
+      | NHS Spine           | 9449305099 | ab-02-2011 | Enter a day   |
+      | NHS Spine           | 9449305099 | 22-!!-2011 | Enter a month |
+      | NHS Spine           | 9449305099 | 01-02-abcd | Enter a year  |
 
   @NTS-2801 @E2EUI-1840 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - Do you have NHS patient Number - No

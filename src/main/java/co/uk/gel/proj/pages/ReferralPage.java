@@ -335,7 +335,7 @@ public class ReferralPage<check> {
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
-            seleniumLib.scrollToElement(referralStage);
+            //seleniumLib.scrollToElement(referralStage);
             Actions.clickElement(driver, referralStage);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("navigateToStage.jpg");

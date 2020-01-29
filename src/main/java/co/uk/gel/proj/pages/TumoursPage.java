@@ -164,7 +164,7 @@ public class TumoursPage {
 
     public String fillInTumourDescription() {
         Wait.forElementToBeDisplayed(driver, descriptiveName);
-        String description = faker.name().lastName();
+        String description = TestUtils.getRandomLastName();
         tumourDetails.setTumourDescription(description);
         Actions.fillInValue(descriptiveName, description);
         return description;
@@ -201,7 +201,7 @@ public class TumoursPage {
 
     public String selectTumourType(String type) {
         Wait.forElementToBeClickable(driver, tumourType);
-        Actions.clickElement(driver, tumourType);
+        Actions.retryClickAndIgnoreElementInterception(driver, tumourType);
         Wait.forElementToBeClickable(driver, dropdownValue);
         Actions.selectValueFromDropdown(dropdownValue, type);
         tumourDetails.setTumourType(type);
