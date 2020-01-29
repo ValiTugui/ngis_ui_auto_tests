@@ -834,7 +834,7 @@ public class PatientChoicePage {
                 Debugger.println("Signature Pad Not loaded for Patient Signature.");
                 return false;
             }
-            seleniumLib.scrollToElement(signaturePad);
+            Actions.scrollToBottom(driver);
             SeleniumLib.drawSignature(signaturePad);
             return true;
         } catch (Exception exp) {
