@@ -49,22 +49,14 @@ Feature: Clinical Questions stage
     Then the user clicks the Save and Continue button
     And the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user selects the test to add to the family member "<FamilyMemberDetails>"
-    And the user clicks the Save and Continue button
-    When the user fills the clinical questions with the "<ClinicalQuestionDetails>" except to the Rare disease diagnosis field for the family member
-    And the user clicks the Save and Continue button
-    Then the user returns to family member landing page with the added family member details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father         | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    And the family member details on family Member landing page is correctly displayed
     Examples:
-      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                 | RelationshipToProband |
-      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          |
+      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
   @NTS-3433 @E2EUI-1625 @E2EUI-1068 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted

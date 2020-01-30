@@ -286,6 +286,9 @@ public class ReferralPage<check> {
 
     public void checkThatReferralWasSuccessfullyCreated() {
         try {
+            // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
+            //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+            Wait.seconds(3);
             Wait.forElementToBeDisplayed(driver, getReferralHeaderStatus, 200);
             Wait.forElementToBeDisplayed(driver, referralHeader, 100);
             Wait.forElementToBeDisplayed(driver, toDoList, 100);
