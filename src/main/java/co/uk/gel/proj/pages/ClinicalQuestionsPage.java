@@ -152,7 +152,6 @@ public class ClinicalQuestionsPage {
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms
             Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, hpoTable);
             int numberOfHPO = hpoTerms.size();
             //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
