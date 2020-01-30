@@ -659,8 +659,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the DOB and age in the referral header bar are displayed in expected format")
-    public void theDOBAndAgeInTheReferralHeaderBarAreDisplayedInExpectedFormat() {
+    @And("the DOB and age in the referral header bar are displayed in the expected format")
+    public void theDOBAndAgeInTheReferralHeaderBarAreDisplayedInTheExpectedFormat() {
 
         NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
         String expectedDateOfBirth = newPatient.getDay() + "-" + newPatient.getMonth() + "-" + newPatient.getYear();
