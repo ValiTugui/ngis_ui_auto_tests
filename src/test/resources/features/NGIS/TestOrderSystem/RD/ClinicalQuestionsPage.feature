@@ -6,7 +6,7 @@ Feature: Clinical Questions stage
 
   @NTS-3209 @E2EUI-2089 @E2EUI-1404 @v_1 @BVT_P0
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
-   Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
@@ -20,22 +20,22 @@ Feature: Clinical Questions stage
     And the Clinical Questions page is displayed with at least "<hpoTermsCount>" HPO terms in the HPO Phenotype section
 
     Examples:
-      | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount |termPresence |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             |Present      |
+      | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount | termPresence |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             | Present      |
 
-  @NTS-3245 @E2EUI-1610 @v_1 @BVT_P0
-  Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
+  @NTS-3246 @E2EUI-1531 @v_1 @P0
+  Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
-    When the user selects "<diseaseStatueValue>"
-    Then the HPO phenotype details mandatory state is "<mandatory>"
+    And  the user selects "<diseaseStatueValue>"
+    When the user provided the values "<year>" "<month>" for Age of onset fields
+    And the user does not see an error message on the page
     Examples:
-      | stage              | title                     |   diseaseStatueValue                |mandatory |
-      | Clinical questions | Answer clinical questions |  USER_DOES_NOT_SELECT_ANY_VALUE     |   false  |
-      | Clinical questions | Answer clinical questions |  Affected                           |   true   |
-      | Clinical questions | Answer clinical questions |  Unaffected                         |   false  |
-      | Clinical questions | Answer clinical questions |  Uncertain                          |   false  |
-      | Clinical questions | Answer clinical questions |  Unknown                            |   false  |
+      | stage              | title                     | diseaseStatueValue | year | month |
+      | Clinical questions | Answer clinical questions | Affected           | 1    | 2     |
+      | Clinical questions | Answer clinical questions | Affected           | 2    | 8     |
+      | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
+      | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
 
   @NTS-3346 @E2EUI-995 @P0 @v_1
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
@@ -107,66 +107,6 @@ Feature: Clinical Questions stage
       | stage              | title                     | hpoTerm1 | hpoTerm2 | hpoTerm3 |
       | Clinical questions | Answer clinical questions | Sparse   | Anonych  | J        |
 
-
-  @NTS-3246 @E2EUI-1531 @E2EUI-992 @v_1 @P0
-  Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And  the user selects "<diseaseStatueValue>"
-    When the user provided the values "<year>" "<month>" for Age of onset fields
-    And the user sees an error "<errorMessage>" message on the page
-    Examples:
-      | stage              | title                     | diseaseStatueValue | year  | month | errorMessage                                      |
-      | Clinical questions | Answer clinical questions | Affected           | -2.4  | 0     | Please enter whole years and months               |
-      | Clinical questions | Answer clinical questions | Affected           | 128   | 0     | Patient age cannot exceed 125 years               |
-      | Clinical questions | Answer clinical questions | Affected           | 10    | 1.4   | Please enter whole years and months               |
-      | Clinical questions | Answer clinical questions | Affected           | -1    | 11    | Please enter prenatal age in negative months      |
-      | Clinical questions | Answer clinical questions | Affected           | 1     | 12    | Number of months can only exceed 11 if years is 0 |
-      | Clinical questions | Answer clinical questions | Affected           | 1000  | 0     | Patient age cannot exceed 125 years               |
-      | Clinical questions | Answer clinical questions | Affected           | 24    | -1    | Only prenatal cases can have a negative number    |
-      | Clinical questions | Answer clinical questions | Affected           | 0     | -10   | Patient cannot be younger than -9 months          |
-
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
-  Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And  the user selects "<diseaseStatueValue>"
-    When the user provided the values "<year>" "<month>" for Age of onset fields
-    And the user does not see an error message on the page
-    Examples:
-      | stage              | title                     | diseaseStatueValue | year | month |
-      | Clinical questions | Answer clinical questions | Affected           | 1    | 2     |
-      | Clinical questions | Answer clinical questions | Affected           | 2    | 8     |
-      | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
-      | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
-
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
-  Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And  the user selects "<diseaseStatueValue>"
-    When the user provided the values "<month>" for Age of onset fields
-    And the user does not see an error message on the page
-    Examples:
-      | stage              | title                     | diseaseStatueValue | month |
-      | Clinical questions | Answer clinical questions | Affected           | 10    |
-      | Clinical questions | Answer clinical questions | Affected           | 15    |
-      | Clinical questions | Answer clinical questions | Affected           | 20    |
-      | Clinical questions | Answer clinical questions | Affected           | -2    |
-
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
-  Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And  the user selects "<diseaseStatueValue>"
-    When the user provided the year values "<year>" for Age of onset fields
-    And the user does not see an error message on the page
-    Examples:
-      | stage              | title                     | diseaseStatueValue | year |
-      | Clinical questions | Answer clinical questions | Affected           | 1    |
-      | Clinical questions | Answer clinical questions | Affected           | 15   |
-      | Clinical questions | Answer clinical questions | Affected           | 125  |
-
   @NTS-3346 @E2EUI-995 @P0 @v_1
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
     When the user navigates to the "<stage>" stage
@@ -177,4 +117,3 @@ Feature: Clinical Questions stage
     Examples:
       | stage              | title                     | maximumAllowedValues |
       | Clinical questions | Answer clinical questions | 50                   |
-
