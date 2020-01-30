@@ -44,6 +44,6 @@ public class Debugger {
         }
     }
     public static void println(String msg){
-        logger.log(Level.INFO, msg);
+        logger.log(Level.INFO, msg+"\nThreadID:"+Thread.currentThread().getId());
     }
 }//end

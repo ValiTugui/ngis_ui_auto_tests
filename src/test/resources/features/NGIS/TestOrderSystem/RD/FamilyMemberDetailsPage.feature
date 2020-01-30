@@ -60,7 +60,7 @@ Feature: Family Members Details Validation
   @NTS-3298 @E2EUI-1369 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3298: Verify "relationship to proband" field mandatory when adding a family member to referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -82,7 +82,6 @@ Feature: Family Members Details Validation
       | Ethnicity               | label      | ✱      | #dd2509      |
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |

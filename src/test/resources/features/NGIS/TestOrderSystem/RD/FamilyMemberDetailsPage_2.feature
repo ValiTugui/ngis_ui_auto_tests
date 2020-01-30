@@ -66,7 +66,7 @@ Feature: Family Members Details Validation
     Then the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks the Save and Continue button
+    When the user navigates to the "<Patient Choice>" stage
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
@@ -75,7 +75,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |Patient Choice|
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |Patient choice              |
 
 

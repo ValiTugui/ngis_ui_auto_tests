@@ -1,6 +1,7 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,10 +10,11 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.security.ssl.Debug;
 
 public class Wait {
 
-    protected static WebDriverWait wait;
+   // protected static WebDriverWait wait;
     protected static WebDriver webDriver;
 
     public Wait(WebDriver driver) {
@@ -20,46 +22,53 @@ public class Wait {
     }
 
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
-        wait = new WebDriverWait(driver, 100);
-        wait.until(ExpectedConditions.visibilityOf(element));
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 100);
+            wait.until(ExpectedConditions.visibilityOf(element));
+        }catch(Exception exp){
+            Debugger.println("Wait Exception:"+exp);
+            SeleniumLib.takeAScreenShot("WaitException.jpg");
+            Assert.assertTrue(false);
+        }
     }
     /*
 	Added this method to verify the element is actually displayed after the specified waiting period.
 	 */
     public static boolean isElementDisplayed(WebDriver driver, WebElement element,int seconds) {
         try{
-            wait = new WebDriverWait(driver, seconds);
+            WebDriverWait wait = new WebDriverWait(driver, seconds);
             wait.until(ExpectedConditions.visibilityOf(element));
             return element.isDisplayed();
         }catch (Exception exp){
+            Debugger.println("Exception from isElementDisplayed in Wait.java"+exp);
             return false;
         }
     }
 
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
-        wait = new WebDriverWait(driver, timeInSeconds);
+        WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
         try {
-            wait = new WebDriverWait(driver, 50);
+            WebDriverWait wait = new WebDriverWait(driver, 50);
             wait.until(ExpectedConditions.elementToBeClickable(element));
         }catch(Exception exp){
             Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
-            wait = new WebDriverWait(driver, 30);
+            WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.elementToBeClickable(element));
         }
     }
 
     public static void forElementToDisappear(WebDriver driver, By locator) {
-        wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 40);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public static boolean forNumberOfElementsToBeGreaterThan(WebDriver driver, By locator, int number) {
         try {
-            wait = new WebDriverWait(driver, 100);
+            WebDriverWait wait = new WebDriverWait(driver, 100);
             wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, number));
             return true;
         }catch (Exception exp){
@@ -72,7 +81,7 @@ public class Wait {
     public static void forNumberOfElementsToBeEqualTo(WebDriver driver, By locator, int number) {
         try {
             Debugger.println("Closing Cookies Banner.");
-            wait = new WebDriverWait(driver, 100);
+            WebDriverWait wait = new WebDriverWait(driver, 100);
             wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
         }catch(Exception exp){
             Debugger.println("Exception from closing cookies banner: "+exp);
@@ -80,12 +89,12 @@ public class Wait {
     }
 
     public static void forURLToContainSpecificText(WebDriver driver, String text) {
-        wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.urlContains(text));
     }
 
     public static void forAlertToBePresent(WebDriver driver) {
-        wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.alertIsPresent());
     }
 

@@ -331,18 +331,28 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        Wait.forElementToBeDisplayed(driver, referralStage);
         try {
-            Actions.clickElement(driver, referralStage);
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
-            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
-            // Below code added to handle that.
-            Actions.scrollToTop(driver);
-            Actions.clickElement(driver, referralStage);
+            Wait.forElementToBeDisplayed(driver, toDoList, 100);
+            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+            Wait.forElementToBeDisplayed(driver, referralStage);
+            try {
+                Actions.clickElement(driver, referralStage);
+            } catch (Exception exp) {
+                Debugger.println("Stage: Click Exception: "+exp);
+                //Sometimes click on stage link on second time gives ElementClickInterceptedException.
+                // Below code added to handle that.
+                Actions.scrollToTop(driver);
+                Actions.clickElement(driver, referralStage);
+            }
+        }catch(StaleElementReferenceException exp){
+            Debugger.println("Stage: Click Stale Exception: "+exp);
+            WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
+            Actions.clickElement(driver,linkElement);
+        }catch(Exception exp){
+            Debugger.println("Stage: Click Main Exception: "+exp);
+            WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
+            Actions.clickElement(driver,linkElement);
         }
     }
 
@@ -504,17 +514,19 @@ public class ReferralPage<check> {
            } else {
                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
            }
-
-           if (!seleniumLib.isElementPresent(pageTitle)) {
-               Wait.isElementDisplayed(driver,driver.findElement(pageTitle),120);
-               if (!seleniumLib.isElementPresent(pageTitle)) {
-                   SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
-                   return false;
-               }
+           WebElement titleElement = null;
+           try {
+               titleElement = driver.findElement(pageTitle);
+           }catch(NoSuchElementException exp){
+               //Wait for 10 seconds and check again. This is introduced based on the failures observed.
+               Wait.seconds(10);
+               Actions.scrollToTop(driver);
+               titleElement = driver.findElement(pageTitle);
            }
+           Wait.forElementToBeDisplayed(driver,titleElement);
            return true;
        }catch(Exception exp){
-           Debugger.println("Page with Title: "+expTitle+" not loaded.");
+           Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
            Actions.scrollToTop(driver);
            SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
            return false;
