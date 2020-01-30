@@ -162,13 +162,23 @@ public class TestHooks extends Pages {
         try {
 
             String zapResultXML = "ZAP_ResultOn_" + new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
+            String zapResultHTML = "ZAP_ResultOn_" + new SimpleDateFormat("yyyyMMddHHmm'.html'").format(new Date());
+
             writeXmlReport("logs/" + zapResultXML);
+            writeHTMLReport("logs/" + zapResultHTML);
         } catch (IOException e) {
             e.printStackTrace();
         }
         //  assertThat(alerts.size(), equalTo(0));
         LOGGER.info("Spider done.");
 
+    }
+
+    public void writeHTMLReport(String path) throws IOException {
+        byte[] htmlReport = zapScanner.getHtmlReport();
+        Path pathToFile = Paths.get(path);
+        Files.createDirectories(pathToFile.getParent());
+        Files.write(pathToFile, htmlReport);
     }
 
     public void writeXmlReport(String path) throws IOException {
