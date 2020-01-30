@@ -47,22 +47,14 @@ Feature: Clinical Questions stage
     And the user clicks the Save and Continue button
     And the "Notes" stage is selected
     When the user navigates to the "Family members" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    And the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the default family member details page is correctly displayed
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member is selected by default
-    And the user clicks the Save and Continue button
-    And the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
-    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    Then the user navigates to the "<stage>" stage
+    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    And the family member details on family Member landing page is correctly displayed
+    And the user navigates to the "<stage>" stage
     And the user sees the data such as "<diseaseStatueValue>" "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
     Examples:
-      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | FamilyMemberDetails                 | RelationshipToProband | rareDiseaseValue | diseaseStatueValue |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | CEREBRAL SARCOMA | Affected           |
+      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue | NoOfParticipants |
+      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           | 2                |
 
