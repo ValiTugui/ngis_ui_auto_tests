@@ -414,4 +414,22 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
     }
 
+    @When("the selects the ethnicity as {string}")
+    public void theSelectsTheEthnicityAs(String ethnicity) {
+        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, ethnicity);
+    }
+
+    @And("the Relationship to Proband from the patient referral card is {string}")
+    public void theRelationshipToProbandFromThePatientReferralCardIs(String expectedRelationShipToProband) {
+        String actualRelationShipToProband = Actions.getText(patientDetailsPage.referralProbandRelationShipStatus);
+        Debugger.println("actual relationShip : " + actualRelationShipToProband);
+        Debugger.println("Expected relationShip : " + expectedRelationShipToProband);
+        Assert.assertEquals(expectedRelationShipToProband,actualRelationShipToProband);
+
+    }
+
+    @When("the user fills in the Ethnicity field {string}")
+    public void theUserFillsInTheEthnicityField(String ethnicity) {
+        patientDetailsPage.addPatientEthnicity(ethnicity);
+    }
 }

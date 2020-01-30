@@ -6,8 +6,8 @@ Feature: Panels Page Verification
 
   @NTS-3380 @E2EUI-1278 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3380: Search and add panels to referral
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449310475:DOB=09-12-2010 |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     And the user should be able to see Add another panel section with search field and search icon
@@ -24,8 +24,8 @@ Feature: Panels Page Verification
 
   @NTS-3379 @E2EUI-1231 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3379: User is making a referral, as a user I will see a clear tick on the icon when I select yes or no
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303827:DOB=27-03-2011 |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1968:Gender=Male |
     When the user navigates to "<Panels>" stage
     And the user is navigated to a page with title Panels
     Then the user should be able to see the button options present
@@ -38,8 +38,8 @@ Feature: Panels Page Verification
 
   @NTS-3381 @E2EUI-1045 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303894:DOB=26-11-1986 |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks on Save and Continue in Panels Page
@@ -58,8 +58,8 @@ Feature: Panels Page Verification
 
   @NTS-3413 @E2EUI-1906 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3413 : verify the text under penetrance title
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | NGIS | Rare-Disease | NHSNumber=9449303827:DOB=27-03-2011 |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     When the user navigates to "<Panels>" stage
     And the user is navigated to a page with title Panels
     And the user should be able to see a sub title "<penetrance>" on panels page
@@ -71,8 +71,8 @@ Feature: Panels Page Verification
 
   @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3424 : Suggest and select panels on panels page
-    Given a referral is created with the below details for the given existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | NGIS | Rare-Disease | NHSNumber=9449303894:DOB=26-11-1986 |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     When the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks on Save and Continue in Panels Page

@@ -26,27 +26,14 @@ public class NotesPage {
     SeleniumLib seleniumLib;
     Faker faker = new Faker();
 
+    @FindBy(name = "notes")
+    public WebElement addNoteField;
+
     public NotesPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
-     public boolean fillNotes(String notes) {
-        try {
-              notesArea.sendKeys(notes);
-              return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in Filling fillNotes: "+exp);
-            SeleniumLib.takeAScreenShot("Notes.jpg");
-            return false;
-        }
-    }
-    @FindBy(xpath = "//textarea[@id='notes']")
-    public WebElement notesArea;
-
-    @FindBy(name = "notes")
-    public WebElement addNoteField;
 
     public String getText(WebElement element) {
         Wait.forElementToBeDisplayed(driver, element);
@@ -61,5 +48,9 @@ public class NotesPage {
 
     public void fillInAddNotesField() {
         fillInValue(addNoteField, faker.chuckNorris().fact());
+    }
+
+    public WebElement getNotesFieldLocator() {
+        return addNoteField;
     }
 }

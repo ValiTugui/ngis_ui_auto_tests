@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -36,6 +37,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import static co.uk.gel.lib.Actions.acceptAlert;
 import static co.uk.gel.lib.Actions.isAlertPresent;
@@ -420,7 +424,7 @@ public class TestHooks extends Pages {
 
 
     @After("@LOGOUT")
-    public void logOutAndTearDown() {
+    public void logOutAndTearDown(Scenario scenario) {
         homePage.logOutFromApplication();
     }
 
@@ -459,5 +463,6 @@ public class TestHooks extends Pages {
     public void setResponse(ValidatableResponse response) {
         this.response = response;
     }
+
 
 }//end class

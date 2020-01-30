@@ -202,14 +202,14 @@ public class Actions {
         boolean flag = true;
         while (flag) {
             counter++;
-            Debugger.println("Counter is:" + counter);
+            //Debugger.println("Counter is:" + counter);
             try {
                 Wait.forElementToBeClickable(driver, element);
                 Click.element(driver, element);
                 flag = false;
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
-                Debugger.println("Actions: Clicking on Element :" + element);
+                //Debugger.println("Actions: Clicking on Element :" + element);
             }
             if (counter == 10)
                 break;

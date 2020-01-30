@@ -645,7 +645,7 @@ public class SeleniumLib {
             Wait.seconds(1);
             return true;
         }catch(Exception exp){
-            Debugger.println("SeleniumLib: Could not draw Signature: "+exp);
+           // Debugger.println("SeleniumLib: Could not draw Signature: "+exp);
             takeAScreenShot("drawSignature.jpg");
             return false;
         }

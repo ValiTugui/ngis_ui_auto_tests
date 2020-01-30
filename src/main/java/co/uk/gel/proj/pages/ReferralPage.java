@@ -164,7 +164,7 @@ public class ReferralPage<check> {
 
 
     String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
-    String stageIsMarkedAsMandatoryToDo = "//a[contains(@href,'" + "dummyStage" + "')]//descendant::span[3]";
+    String stageIsMarkedAsMandatoryToDo = "a[href*='" + "dummyStage" + "']";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
     String helixIcon = "*[class*='helix']";
     String mandatoryToDOIconLocator = "todo__required-icon";
@@ -194,6 +194,7 @@ public class ReferralPage<check> {
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
+    String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -335,7 +336,6 @@ public class ReferralPage<check> {
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
-            seleniumLib.scrollToElement(referralStage);
             Actions.clickElement(driver, referralStage);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("navigateToStage.jpg");
@@ -344,7 +344,6 @@ public class ReferralPage<check> {
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
-
     }
 
     public boolean stageIsSelected(String stage) {
@@ -385,14 +384,18 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsMandatoryToDo(String stage) {
+        try {
         Wait.forElementToBeDisplayed(driver, toDoList);
         String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
-        List<WebElement> mandatoryAsteriskSymbol = toDoList.findElements(By.xpath(webElementLocator));
-        boolean isStageStatusIsToDO = mandatoryAsteriskSymbol.get(0).getAttribute("class").contains(mandatoryToDOIconLocator);
-        boolean isStageHasAsteriskPresent = mandatoryAsteriskSymbol.size() == 1;
-        if (isStageStatusIsToDO && isStageHasAsteriskPresent) {
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+        List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
+        if(webElementList.size() == 1){
             return true;
-        } else {
+            }
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp);
+            SeleniumLib.takeAScreenShot("ReferralPageMandatoryStage.jpg");
             return false;
         }
     }

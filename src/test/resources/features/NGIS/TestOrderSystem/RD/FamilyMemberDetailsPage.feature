@@ -7,7 +7,7 @@ Feature: Family Members Details Validation
   @NTS-3235 @E2EUI-908 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1971:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -38,7 +38,7 @@ Feature: Family Members Details Validation
   @NTS-3300 @E2EUI-1349 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3300: Check family member Details validation:The family member details have to be verified on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1972:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
@@ -71,8 +71,6 @@ Feature: Family Members Details Validation
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And the default family member details page is correctly displayed with the proper number of fields
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
@@ -81,6 +79,10 @@ Feature: Family Members Details Validation
       | Gender                  | label      | ✱      | #dd2509      |
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
+      | Ethnicity               | label      | ✱      | #dd2509      |
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
 
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
