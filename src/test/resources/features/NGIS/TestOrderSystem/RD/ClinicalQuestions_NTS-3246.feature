@@ -9,7 +9,7 @@ Feature: Clinical Questions stage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
-  @NTS-3246 @E2EUI-1531 @E2EUI-992 @v_1 @P0
+  @NTS-3246 @E2EUI-1531 @E2EUI-992 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -27,7 +27,7 @@ Feature: Clinical Questions stage
       | Clinical questions | Answer clinical questions | Affected           | 24    | -1    | Only prenatal cases can have a negative number    |
       | Clinical questions | Answer clinical questions | Affected           | 0     | -10   | Patient cannot be younger than -9 months          |
 
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
+  @NTS-3246 @E2EUI-1531 @v_1 @LOGOUT @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -41,7 +41,7 @@ Feature: Clinical Questions stage
       | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
       | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
 
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
+  @NTS-3246 @E2EUI-1531 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -55,7 +55,7 @@ Feature: Clinical Questions stage
       | Clinical questions | Answer clinical questions | Affected           | 20    |
       | Clinical questions | Answer clinical questions | Affected           | -2    |
 
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
+  @NTS-3246 @E2EUI-1531 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed

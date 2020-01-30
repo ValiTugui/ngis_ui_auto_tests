@@ -36,7 +36,7 @@ Examples:
 | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions   |
 | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions  |
 
-@NTS-3453 @E2EUI-1124 @v_1 @P0
+@NTS-3453 @E2EUI-1124 @LOGOUT @v_1 @P0
 Scenario Outline: NTS-3453 - Clinical Questions -  mandatory field validations for Disease status field
 And the user navigates to the "<ClinicalQuestions>" stage
 Then the "<title>" page is displayed

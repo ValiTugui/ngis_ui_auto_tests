@@ -27,7 +27,7 @@ Feature: Clinical Questions stage
       | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           |
 
-  @NTS-3439 @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @v_1 @BVT_P0
+  @NTS-3439 @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @E2EUI-902 @v_1 @BVT_P0
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
     When the user navigates to the "Test package" stage
     And the user selects the number of participants as "2"

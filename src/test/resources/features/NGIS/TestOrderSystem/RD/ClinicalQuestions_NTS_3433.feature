@@ -102,7 +102,7 @@ Feature: Clinical Questions stage
       | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm                 | termPresence | rareDiseaseValue | diagnosisTypeValue | statusValue |
       | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Sparse and thin eyebrow | Present      | CEREBRAL SARCOMA | Omim               | Confirmed   |
 
-  @NTS-3511 @E2EUI-876 @LOGOUT @v_1 @BVT_P0
+  @NTS-3511 @E2EUI-876 @E2EUI-1180 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3511 - Clinical Questions - Term presence value is 'Present' for atleast one HPO phenotype
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |

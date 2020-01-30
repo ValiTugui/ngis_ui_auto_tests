@@ -28,7 +28,7 @@ Feature: Clinical Questions stage
       | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | karyotypicSexValue | rareDiseaseValue | diseaseStatueValue |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | XXXY               | CEREBRAL SARCOMA | Affected           |
 
-  @NTS-3245 @E2EUI-1610 @v_1 @BVT_P0
+  @NTS-3245 @E2EUI-1610 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
