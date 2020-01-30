@@ -66,7 +66,7 @@ Feature: Family Members Details Validation
     Then the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user navigates to the "<Patient Choice>" stage
+    And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information

@@ -780,13 +780,15 @@ public class FamilyMemberDetailsPage {
 
     public void clickOnBackButton() {
         try {
-            seleniumLib.clickOnWebElement(backButton);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
+            Actions.clickElement(driver,backButton);
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
-            Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp);
+            try {
+                Actions.scrollToBottom(driver);
+                Actions.clickElement(driver,backButton);
+            }catch(Exception exp1){
+                SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
+                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1);
+            }
         }
     }
 
