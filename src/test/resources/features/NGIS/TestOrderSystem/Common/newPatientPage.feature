@@ -492,8 +492,7 @@ Feature: New Patient page
     Examples:
       | pageTitle                         |
       | Add a new patient to the database |
-#
-#
+
 #  @NTS-3538 @LOGOUT @v_1 @E2EUI-1550
 #  Scenario Outline: Ethnicity - Lookup an existing NGIS patient – NHSNo = No
 #    Given a web browser is at create new patient page
