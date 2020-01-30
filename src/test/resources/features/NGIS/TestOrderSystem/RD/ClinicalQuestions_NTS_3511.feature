@@ -2,7 +2,7 @@
 @TO_RD
 @clinicalQuestions
 
-Feature: Clinical Questions stage
+Feature: RD Questionnaire
 
   Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -42,7 +42,7 @@ Feature: Clinical Questions stage
     And the user sees the data in Phenotypic and karyotypic Sex
     Examples:
       | stage              | title                     | diseaseStatueValue | mandatory | year | month | hpoTerm1  | termPresence1 | hpoTerm2                | termPresence2 | rareDiseaseValue | diagnosisTypeValue | statusValue |
-      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | CEREBRAL SARCOMA | Orphanet           | Suspected   |
+      | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | Fibrosarcoma     | Orphanet           | Suspected   |
 
   @NTS-3511 @E2EUI-876 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3511 - Clinical Questions - Show dynamic Clinical Questions about the proband

@@ -2,7 +2,7 @@
 @TO_RD
 @clinicalQuestions
 
-Feature: Clinical Questions stage
+Feature: RD Questionnaire
 
   @NTS-3209 @E2EUI-2089 @E2EUI-1404 @v_1 @BVT_P0
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added

@@ -2,7 +2,7 @@
 @TO_RD
 @clinicalQuestions
 
-Feature: Clinical Questions stage
+Feature: RD Questionnaire
 
   Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

@@ -2,7 +2,7 @@
 @TO_RD
 @clinicalQuestions
 
-Feature: Clinical Questions stage
+Feature: RD Questionnaire
 
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

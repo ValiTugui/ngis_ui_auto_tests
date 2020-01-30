@@ -7,10 +7,8 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -62,7 +60,7 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
 
-    @FindBy(xpath = "//label[contains(@class,'radio')]/span")
+    @FindBy(xpath = "//label[contains(@class,'radio')]")
     public List<WebElement> radioButtons;
 
     @FindBy(xpath = "//input[contains(@class,'radio')]")
@@ -124,7 +122,7 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseDiagnosisStatusDropdown;
 
-    @FindBy(css = "[class*='notification-error']")
+    @FindBy(css = "*[data-testid*='notification-error']")
     public WebElement hpoErrorNotification;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
