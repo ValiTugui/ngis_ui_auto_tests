@@ -6,8 +6,8 @@ Feature: Family Members Navigation Stage Validation
 
   @NTS-3330 @E2EUI-1202 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3330: User is completing a referral and wants to add a family member record to the referral
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1980:Gender=Male |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -35,8 +35,8 @@ Feature: Family Members Navigation Stage Validation
 
   @NTS-3337 @E2EUI-1326 @LOGOUT @v_1 @P0
   Scenario Outline:NTS-3337: Verify the family members test package are selected by default
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1981:Gender=Male |
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -74,8 +74,8 @@ Feature: Family Members Navigation Stage Validation
 
   @NTS-3338 @LOGOUT @E2EUI-1510 @BVT_P0 @v_1
   Scenario Outline: NTS-3338: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1982:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -115,6 +115,6 @@ Feature: Family Members Navigation Stage Validation
     And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color
 
     Examples:
-      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                | RelationshipToProband2 | color2  |
-      | Test package | 1                | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling           | #425563 |
+      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                | color2  |
+      | Test package | 1                | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=9449310157:DOB=15-01-2000 | #425563 |
 
