@@ -105,9 +105,6 @@ public class PrintFormSteps extends Pages {
         String tumourInfo= newlyCreatedPatientRecord.getTumourType();
         String sampleInfo = newlyCreatedPatientRecord.getSampleType();
 
-
-
-
         Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
         Debugger.println("Patient DOB to verify in the downloaded PDF file                  : "  + dateOfBirth);
         Debugger.println("Patient Gender to verify in the downloaded PDF file               : "  + gender);

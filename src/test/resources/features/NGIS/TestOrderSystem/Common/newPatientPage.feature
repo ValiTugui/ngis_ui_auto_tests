@@ -409,6 +409,7 @@ Feature: New Patient page
       | Life status ✱     |
       | Ethnicity ✱       |
       | Hospital number ✱ |
+
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
       | labelHeader   |
       | Title         |

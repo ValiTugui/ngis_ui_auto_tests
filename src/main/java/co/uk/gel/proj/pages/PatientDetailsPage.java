@@ -802,11 +802,12 @@ public class PatientDetailsPage {
     }
     public boolean startReferral(){
         try{
+
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
-                addDetailsToNGISButton.click();
-                Wait.forElementToBeDisplayed(driver, successNotification);
+                    addDetailsToNGISButton.click();
+                    Wait.forElementToBeDisplayed(driver,successNotification);
                 clickStartReferralButton();
             } else if (updateNGISRecordButtonList.size() > 0) {
                 Debugger.println("Update Patient Details button shown");

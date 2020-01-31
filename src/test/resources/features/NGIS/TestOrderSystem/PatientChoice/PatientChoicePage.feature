@@ -11,16 +11,10 @@ Feature: Patient Choice Page
     And the user sees the patient choice status as "<Status1>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
-    Then the user is navigated to a page with title Add patient choice information
-    When the user fills new patient choice form with below details
-      | <PatientChoiceCategory> |
-      | <TestType>              |
-      | <RecordedBy>            |
-      | <PatientChoice>         |
-      | <ChildAssent>           |
-      | <ParentSignature>       |
-    And the user clicks the Save and Continue button
+    When the user selects the proband
+    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
+    And the user submits the patient choice with signature
+    And the user clicks the Save and Continue button on the "<PatientChoice>"
     Then the user is navigated to a page with title Patient choice
     And the user sees the patient choice status as "<Status2>"
     When the user navigates to the "<Family members>" stage
@@ -28,8 +22,8 @@ Feature: Patient Choice Page
     And the user sees the patient choice status as "<Status2>"
 
     Examples:
-      | Family members | Status1     | Patient choice stage | Status2           | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                        | ChildAssent | ParentSignature                       |
-      | Family members | Not entered | Patient choice       | Agreed to testing | Child                 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Parent(s) / carer / guardian have agreed to the test | Yes         | FirstName=firstname:LastName=lastname |
+      | Family members | Status1     | Patient choice stage | Status2           | PatientChoice                                        |
+      | Family members | Not entered | Patient choice       | Agreed to testing | Parent(s) / carer / guardian have agreed to the test |
 
   @NTS-3382 @E2EUI-2110 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
