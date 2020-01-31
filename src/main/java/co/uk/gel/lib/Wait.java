@@ -1,14 +1,14 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public class Wait {
 
@@ -19,16 +19,24 @@ public class Wait {
         webDriver = driver;
     }
 
+    @SuppressWarnings("deprecation")
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
-        wait = new WebDriverWait(driver, 100);
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+        wait.withTimeout(100, TimeUnit.SECONDS);
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
     /*
 	Added this method to verify the element is actually displayed after the specified waiting period.
 	 */
+    @SuppressWarnings("deprecation")
     public static boolean isElementDisplayed(WebDriver driver, WebElement element,int seconds) {
         try{
-            wait = new WebDriverWait(driver, seconds);
+            FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+            wait.withTimeout(seconds, TimeUnit.SECONDS);
+            wait.ignoring(NoSuchElementException.class);
+            wait.ignoring(StaleElementReferenceException.class);
             wait.until(ExpectedConditions.visibilityOf(element));
             return element.isDisplayed();
         }catch (Exception exp){
@@ -36,25 +44,42 @@ public class Wait {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
-        wait = new WebDriverWait(driver, timeInSeconds);
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+        wait.withTimeout(timeInSeconds, TimeUnit.SECONDS);
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    @SuppressWarnings("deprecation")
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
-        try {
-            wait = new WebDriverWait(driver, 50);
-            wait.until(ExpectedConditions.elementToBeClickable(element));
-        }catch(Exception exp){
-            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
-            wait = new WebDriverWait(driver, 30);
-            wait.until(ExpectedConditions.elementToBeClickable(element));
-        }
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+        wait.withTimeout(50, TimeUnit.SECONDS);
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+//        try {
+//            wait = new WebDriverWait(driver, 50);
+//            wait.until(ExpectedConditions.elementToBeClickable(element));
+//        }catch(Exception exp){
+//            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
+//            wait = new WebDriverWait(driver, 30);
+//            wait.until(ExpectedConditions.elementToBeClickable(element));
+//        }
     }
 
+    @SuppressWarnings("deprecation")
     public static void forElementToDisappear(WebDriver driver, By locator) {
-        wait = new WebDriverWait(driver, 40);
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+        wait.withTimeout(40, TimeUnit.SECONDS);
+        wait.ignoring(NoSuchElementException.class);
+        wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+//        wait = new WebDriverWait(driver, 40);
+//        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
 
     public static boolean forNumberOfElementsToBeGreaterThan(WebDriver driver, By locator, int number) {
