@@ -489,7 +489,7 @@ public class PatientDetailsSteps extends Pages {
                 break;
             }
             case "referralNotes": {
-                String actualReferralNotes = Actions.getValue(notesPage.notesArea).trim();
+                String actualReferralNotes = Actions.getValue(notesPage.addNoteField).trim();
                 Debugger.println("Actual actualReferralNotes :" + actualReferralNotes + " : " + actualReferralNotes.length());
                 Assert.assertEquals(actualReferralNotes.length(), maximumCharactersAllowed);
                 break;
