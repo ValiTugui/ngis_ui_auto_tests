@@ -21,27 +21,8 @@ public class Wait {
     }
 
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, 100);
-            wait.until(ExpectedConditions.visibilityOf(element));
-        }catch(Exception exp){
-            try{
-                Actions.scrollToTop(driver);
-                WebDriverWait wait = new WebDriverWait(driver, 100);
-                wait.until(ExpectedConditions.visibilityOf(element));
-            }catch(Exception exp1){
-                try{
-                    Actions.scrollToBottom(driver);
-                    WebDriverWait wait = new WebDriverWait(driver, 100);
-                    wait.until(ExpectedConditions.visibilityOf(element));
-                }catch(Exception exp2){
-                    Debugger.println("Wait Exception:"+exp);
-                    SeleniumLib.takeAScreenShot("WaitException.jpg");
-                    Assert.assertTrue(false);
-                }
-            }
-
-        }
+          WebDriverWait wait = new WebDriverWait(driver, 100);
+          wait.until(ExpectedConditions.visibilityOf(element));
     }
     /*
 	Added this method to verify the element is actually displayed after the specified waiting period.

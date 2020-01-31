@@ -125,30 +125,4 @@ Feature: Patient Choice Page Verification
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-3378 @E2EUI-1181 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3378: Navigate around the patient choice pages
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
-    When the user navigates to the "<Patient choice stage>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
-    Then the user is navigated to a page with title Add patient choice information
-    When the user selects the option Adult (With Capacity) in patient choice category
-    When the user selects the option Rare & inherited diseases – WGS in section Test type
-    When the user fills "<RecordedBy>" details in recorded by
-    And the user clicks on Continue Button
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
-    And the user clicks on Continue Button
-    When the user is in the section Review and submit
-    And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form with success message
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
-    Then the user is navigated to a page with title Add patient choice information
-    And the user clicks on the Back link
-    Then the user is navigated to a page with title Patient choice
 
-    Examples:
-      | Patient choice stage | RecordedBy                            |
-      | Patient choice       | ClinicianName=John:HospitalNumber=123 |
