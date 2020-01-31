@@ -332,6 +332,7 @@ public class ReferralPage<check> {
 
     public void navigateToStage(String stage) {
         try {
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, toDoList, 100);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
