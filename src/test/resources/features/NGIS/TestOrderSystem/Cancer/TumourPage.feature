@@ -424,7 +424,7 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic                 | First presentation | test       | Tumour added     |
 
 
-  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Add Tumour Page - Description field - maximum length validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |

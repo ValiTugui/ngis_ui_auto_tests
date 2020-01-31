@@ -111,7 +111,7 @@ Feature: Patient search page_NGIS
       | Patient details | New-NGIS            | NGIS         |
 
 
-    @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+    @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Patient search - NHSNumber field - maximum length validation
       Given a web browser is at the patient search page
         | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |

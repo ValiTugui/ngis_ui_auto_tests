@@ -110,7 +110,7 @@ Feature: Family Members Details Validation
 
 
 
-  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |

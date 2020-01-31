@@ -99,7 +99,7 @@ Feature: Family Members Search Validation
       | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900       |
 
 
-  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Family members - NHSNumber field - maximum length validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |

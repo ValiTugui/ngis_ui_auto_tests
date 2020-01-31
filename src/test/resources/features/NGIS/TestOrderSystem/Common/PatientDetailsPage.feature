@@ -405,18 +405,13 @@ Feature: Patient details page
       | Patient details | Check your patient's details | Add a requesting organisation |
 
 
-  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Patient detail - NHSNumber and Hospital Number field - maximum length validation
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     When the user click YES button for the question - Do you have the NHS no?
-#    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
-#    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
-
-#    When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
-#    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
     When the user fills in all the fields with NHS number on the New Patient page
     And the user clicks the Save patient details to NGIS button
     Then the patient is successfully created with a message "Details saved"
