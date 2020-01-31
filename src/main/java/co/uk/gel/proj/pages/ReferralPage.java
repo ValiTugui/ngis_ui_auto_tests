@@ -339,7 +339,6 @@ public class ReferralPage<check> {
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         Wait.forElementToBeDisplayed(driver, referralStage);
         try {
-            //seleniumLib.scrollToElement(referralStage);
             Actions.clickElement(driver, referralStage);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("navigateToStage.jpg");
@@ -348,7 +347,6 @@ public class ReferralPage<check> {
             Actions.scrollToTop(driver);
             Actions.clickElement(driver, referralStage);
         }
-
     }
 
     public boolean stageIsSelected(String stage) {
@@ -389,13 +387,18 @@ public class ReferralPage<check> {
     }
 
     public boolean stageIsMandatoryToDo(String stage) {
+        try {
         Wait.forElementToBeDisplayed(driver, toDoList);
         String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
         WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
         List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
         if(webElementList.size() == 1){
             return true;
-        } else {
+            }
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp);
+            SeleniumLib.takeAScreenShot("ReferralPageMandatoryStage.jpg");
             return false;
         }
     }

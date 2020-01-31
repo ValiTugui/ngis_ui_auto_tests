@@ -103,7 +103,7 @@ Feature: Family Members Search Validation
       | stage          |
       | Family members |
 
-  @NTS-3328 @E2EUI-1205 @BVT_P0 @v_1
+  @NTS-3343 @E2EUI-1205 @BVT_P0 @v_1
   Scenario Outline: NTS-3328: Find a family member Search Results Page validation
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

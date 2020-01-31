@@ -57,8 +57,10 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user selects the Relationship to proband as {string}")
     public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
+        //To fill ethnicity also, as this field made mandatory.
+        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-    }
+     }
 
     @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
@@ -232,7 +234,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @Then("the user should not see the removal message on the family member landing page")
     public void theUserDoesNotSeeTheRemovalMessageOnTheFamilyMemberLandingPage() {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheDeleteMessageIsPresent();
+        testResult = familyMemberDetailsPage.verifyTheDeleteMessageIsNotPresent();
         Assert.assertTrue(testResult);
     }
 
@@ -274,7 +276,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the user should see a warning message displayed as {string}")
     public void theUserShouldSeeAWarningMessageDisplayedAs(String expectedMessage) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.participantsNotMatchingMsg(expectedMessage);
+        testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(expectedMessage);
         Assert.assertTrue(testResult);
     }
 
@@ -425,7 +427,6 @@ public class FamilyMemberDetailsSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
-                return;
             }
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {

@@ -351,3 +351,85 @@ Feature: Patient details page
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type |
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
+
+    # Ethnicity is now Mandatory
+  @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
+  Scenario Outline: Ethnicity - Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    When the user deletes the content of the Ethnicity field
+    And the user clicks the Update NGIS record button
+    Then the error messages for the mandatory fields on the "<pageTitle3>" page are displayed as follows
+      | labelHeader | errorMessageHeader     | messageColourHeader |
+      | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
+    When the user fills in the Ethnicity field "B - White - Irish"
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | pageTitle2        | pageTitle3                   | patient-search-type |
+      | Add a new patient to the database | Find your patient | Check your patient's details | NGIS                |
+
+
+  # Ethnicity is now Mandatory
+  @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
+  Scenario Outline: Ethnicity - Referral Component Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    And the user navigates to the "<stage>" stage
+    And the "<stage>" stage is marked as Completed
+    When the user deletes the content of the Ethnicity field
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader | errorMessageHeader     | messageColourHeader |
+      | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
+    When the user fills in the Ethnicity field "B - White - Irish"
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle2>" page is displayed
+
+    Examples:
+      | stage           | pageTitle                    | pageTitle2                    |
+      | Patient details | Check your patient's details | Add a requesting organisation |
+
+
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
+  Scenario Outline: Patient detail - NHSNumber and Hospital Number field - maximum length validation
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user deletes data in the NHS Number field
+    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
+    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
+    And the user deletes the data in the Hospital Number field
+    When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
+    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
+      | Add a new patient to the database | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
