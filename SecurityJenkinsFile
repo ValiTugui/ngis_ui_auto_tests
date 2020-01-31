@@ -19,9 +19,7 @@ pipeline {
                          userRemoteConfigs: [[credentialsId: 'krimohshu_2fa',
                          url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git']]
                      ])
-                     sh ('git config --global user.email "krishan.shukla@optum.com"')
-                     sh ('git config --global user.name "Sandbox Jenkins"')
-                     sh ('git config --global push.default simple')
+
                  }
              }
         stage('Build') {
