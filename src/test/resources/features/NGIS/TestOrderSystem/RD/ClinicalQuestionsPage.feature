@@ -4,11 +4,13 @@
 
 Feature: RD Questionnaire
 
-  @NTS-3209 @E2EUI-2089 @E2EUI-1404 @v_1 @BVT_P0
-  Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
+  Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
+
+  @NTS-3209 @E2EUI-2089 @E2EUI-1404 @LOGOUT @v_1 @BVT_P0
+  Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
@@ -23,7 +25,7 @@ Feature: RD Questionnaire
       | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount | termPresence |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             | Present      |
 
-  @NTS-3246 @E2EUI-1531 @v_1 @P0
+  @NTS-3246 @E2EUI-1531 @v_1 @LOGOUT @P0
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
@@ -37,7 +39,7 @@ Feature: RD Questionnaire
       | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
       | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
 
-  @NTS-3346 @E2EUI-995 @P0 @v_1
+  @NTS-3346 @E2EUI-995 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
     When the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
