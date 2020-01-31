@@ -311,6 +311,21 @@ public class PatientChoiceSteps extends Pages {
         Wait.seconds(2);
 
     }
+    @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
+
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
+        Wait.seconds(2);
+        patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
+        patientChoicePage.selectChoicesWithAgreeingTesting();
+        Wait.seconds(2);
+        patientChoicePage.drawSignature();
+        Wait.seconds(2);
+
+    }
 
     @Then("the help text is displayed")
     public void theHelpTextIsDisplayed() {

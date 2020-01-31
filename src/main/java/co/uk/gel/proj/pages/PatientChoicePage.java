@@ -439,9 +439,15 @@ public class PatientChoicePage {
     //This is used for End to end RD user journey
     public boolean selectDefaultPatientChoices(){
         try {
-            selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
-            selectOptionForQuestion("Has research participation been discussed?", "Yes");
-            selectOptionForQuestion("The patient agrees that their data and samples may be used for research, separate to NHS care.", "Yes");
+            Click.element(driver, agreeTestChoice);
+            Click.element(driver, agreeResearchParticipation);
+            Click.element(driver, agreeSampleUsage);
+//            selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+//            Wait.seconds(3);
+//            selectOptionForQuestion("Has research participation been discussed?", "Yes");
+//            Wait.seconds(3);
+//            selectOptionForQuestion("The patient agrees that their data and samples may be used for research, separate to NHS care.", "Yes");
+//            Wait.seconds(3);
             return true;
         }catch(Exception exp){
             return false;
