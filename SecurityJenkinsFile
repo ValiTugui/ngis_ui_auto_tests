@@ -6,22 +6,14 @@ pipeline {
         }
     }
     stages {
-       stage('Git Checkout') {
-                 steps {
-                     script {
-                        currentBuild.result = "SUCCESS"
-                     }
-                     checkout([
-                         $class: 'GitSCM',
-
-                         branches: [[name: 'zapsecurity']],
-
-                         userRemoteConfigs: [[credentialsId: 'krimohshu_2fa',
-                         url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git']]
-                     ])
-
-                 }
-             }
+        stage('Checkout Source Code') {
+                   steps {
+                       checkout([
+                           $class: 'GitSCM', branches: [[name: 'zapsecurity']],
+                           userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'bd67b9d5-5ccb-4aae-9596-a37284f02405']]
+                       ])
+                   }
+               }
         stage('Build') {
             steps {
                 sh 'mvn -B clean test -DTestEnvironment=integration'
