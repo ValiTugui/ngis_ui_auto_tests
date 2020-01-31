@@ -47,15 +47,3 @@ Feature: RD Questionnaire
     Examples:
       | stage              | title                     | maximumAllowedValues |
       | Clinical questions | Answer clinical questions | 50                   |
-
-  @NTS-3240 @E2EUI-1972 @v_1 @P0
-  Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
-    And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And the user selects a value "<rareDiseaseDiagnosisValue>" from the Rare disease diagnosis
-    When the user presses the backspace key on the Rare disease diagnosis field
-    Then the value "<rareDiseaseDiagnosisValue>" should be cleared from the Rare disease diagnosis field
-
-    Examples:
-      | stage              | title                     | rareDiseaseDiagnosisValue |
-      | Clinical questions | Answer clinical questions | ACHONDROPLASIA            |
