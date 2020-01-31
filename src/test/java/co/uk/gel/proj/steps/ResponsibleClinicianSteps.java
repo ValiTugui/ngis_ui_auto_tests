@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -281,5 +282,18 @@ public class ResponsibleClinicianSteps extends Pages {
     @When("the user fills the responsible clinician page with {string}")
     public void theUserFillsTheResponsibleClinicianPageWith(String clinicalInfo) {
         responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
+    }
+
+    @And("the user deletes the data in the Clinician Phone Number field")
+    public void theUserDeletesTheDataInTheClinicianPhoneNumberField() {
+        Actions.clearField(responsibleClinicianPage.clinicianPhoneNumberField);
+    }
+
+    @When("the user attempts to fill in Clinician Phone Number field {string} with data that exceed the maximum data allowed {int}")
+    public void theUserAttemptsToFillInClinicianPhoneNumberFieldWithDataThatExceedTheMaximumDataAllowed(String phoneNumber, int maximumCharactersAllowed) {
+        if (phoneNumber.length() > maximumCharactersAllowed) {
+            responsibleClinicianPage.clinicianPhoneNumberField.sendKeys(phoneNumber);
+            Assert.assertTrue(true);
+        }
     }
 }

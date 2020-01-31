@@ -501,4 +501,12 @@ public class TumoursSteps extends Pages {
     public void theDifferentTumourSelectedIsShownWithACheckedRadioButton() {
         Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
+
+    @When("the user attempts to fill in the Tumour Description {string} with data that exceed the maximum data allowed {int}")
+    public void theUserAttemptsToFillInTheTumourDescriptionWithDataThatExceedTheMaximumDataAllowed(String tumourDescription, int maximumCharactersAllowed) {
+        if (tumourDescription.length() > maximumCharactersAllowed) {
+            tumoursPage.descriptiveName.sendKeys(tumourDescription);
+            Assert.assertTrue(true);
+        }
+    }
 }

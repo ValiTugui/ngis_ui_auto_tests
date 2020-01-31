@@ -63,6 +63,10 @@ public class NotesPage {
         fillInValue(addNoteField, faker.chuckNorris().fact());
     }
 
+    public void fillInAddNotesFieldWithOverThreeThousandCharacters() {
+        fillInValue(addNoteField, faker.number().digits(3010) );
+    }
+
     public WebElement getNotesFieldLocator() {
         return addNoteField;
     }

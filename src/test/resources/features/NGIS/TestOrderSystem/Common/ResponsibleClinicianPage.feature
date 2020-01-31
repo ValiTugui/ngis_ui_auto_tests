@@ -198,3 +198,20 @@ Feature: Responsible Clinician
       | stage1                | pageTitle                 |
       | Responsible clinician | Add clinician information |
 
+
+  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  Scenario Outline: Responsible Clinician Page - Phone number field - maximum length validation
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
+    And the user navigates to the "<stage>" stage
+    And the user fills in all the clinician form fields
+    And the user deletes the data in the Clinician Phone Number field
+    When the user attempts to fill in Clinician Phone Number field "<ClinicianPhoneNumber>" with data that exceed the maximum data allowed 15
+    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "ClinicianPhoneNumber" field
+
+    Examples:
+      | stage                 | ClinicianPhoneNumber|
+      | Responsible clinician | 1234567890123456789 |
+
+

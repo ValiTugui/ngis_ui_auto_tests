@@ -422,3 +422,17 @@ Feature: Tumours Page
     Examples:
       | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic                 | First presentation | test       | Tumour added     |
+
+
+  @NTS-4501 @E2EUI-1130 @v_1 @LOGOUT
+  Scenario Outline: Add Tumour Page - Description field - maximum length validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the tumours stage displays Add a tumour page with appropriate fields - description, Date of diagnosis etc
+    When the user attempts to fill in the Tumour Description "<TumourDescription>" with data that exceed the maximum data allowed 45
+    Then the user is prevented from entering data that exceed that allowable maximum data 45 in the "TumourDescription" field
+
+    Examples:
+      | stage   | TumourDescription                                  |
+      | Tumours | 12345678901234567890123456789012345678901234567890 |
