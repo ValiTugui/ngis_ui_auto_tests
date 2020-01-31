@@ -120,8 +120,8 @@ Feature: Family Members Navigation Stage Validation
 
   @NTS-3291 @E2EUI-1604 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1952:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -136,7 +136,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should see an error message "<ErrorMessage>" in "<MessageColor>" for the family member
-    When the user edits to complete the highlighted family member "<FamilyMemberDetails>"
+    When the user edits to complete the highlighted family member
     Then the user is navigated to a page with title Confirm family member details
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for

@@ -282,9 +282,9 @@ public class FamilyMemberDetailsPage {
 
     //For PatientInformation Identifiers
     public static int noOfPatientsForIdentification = 0;
-    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-1')]";
+    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
-    String probandBeingTested = "//span[contains(@class,'child-element')]";
+    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
     String bornInformation = "//span[contains(@id,'dateOfBirth')]";
     String genderInformation = "//span[contains(@id,'gender')]";
     String nhsNumberInformation = "//span[contains(@id,'nhsNumber')]";
@@ -836,32 +836,12 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean editSpecificFamilyMember(String familyDetails) {
-        String nhsNumber = "";
+    public boolean editSpecificFamilyMember(int num) {
         try {
-            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyDetails);
-            Set<String> paramsKey = paramNameValue.keySet();
-            for (String key : paramsKey) {
-                if (key.equalsIgnoreCase("NHSNumber")) {
-                    nhsNumber = paramNameValue.get(key);
-                    break;
-                }
-            }
-            if (nhsNumber == null || nhsNumber.isEmpty()) {
-                Debugger.println("NHS Number not provided to edit the patient choice.");
-                return false;
-            }
-            String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
-
-            By familyEdit = By.xpath(specificFamilyEdit.replaceAll("NHSLastFour", nhsLastFour));
-            WebElement element = driver.findElement(familyEdit);
-            if (Wait.isElementDisplayed(driver, element, 100)) {
-                seleniumLib.clickOnWebElement(element);
-            }
-
-            return true;
+            Actions.clickElement(driver,editButton.get(num));
+             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from clicking on edit button for family with NHSNumber:" + exp);
+            Debugger.println("Exception from clicking on edit button for family Member:" + exp);
             return false;
         }
     }
@@ -1347,7 +1327,6 @@ public class FamilyMemberDetailsPage {
             }
             noOfPatientsForIdentification = noOfPatients;
             Wait.seconds(2);
-            Debugger.println("Validating Information of " + noOfPatients + " Patients in Family Member Landing Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != noOfPatients) {
                 Debugger.println("Expected Presence of First/Last Name field for " + noOfPatients + " patients in  Family Member Landing Page.");
@@ -1500,7 +1479,7 @@ public class FamilyMemberDetailsPage {
                         }
                     }
                 }else {
-                    if(actualDob.equalsIgnoreCase(dob)) {
+                    if(actualDob !=null && actualDob.equalsIgnoreCase(dob)) {
                         return addedFamilyMembers.get(i);
                     }
                 }
@@ -1508,7 +1487,7 @@ public class FamilyMemberDetailsPage {
             Debugger.println("COULD NOT find Family Member for NHS :" + nhsNumber+" OR DOB: "+dob);
             return null;
         } catch (Exception exp) {
-            Debugger.println("Family Member with NHSNumber:" + nhsDetails + " Not found in the added list.");
+            Debugger.println("Family Member with NHSNumber:" + nhsDetails + " Not found in the added list."+exp);
             return null;
         }
     }

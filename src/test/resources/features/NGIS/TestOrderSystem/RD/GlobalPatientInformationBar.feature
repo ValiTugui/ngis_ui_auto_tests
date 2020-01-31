@@ -1,6 +1,6 @@
 @regression
 @TO_RD
-@FamilyMemberStageNavigation
+@FamilyMemberStageNavigation1
 @GlobalPatientInformation
 
 Feature: Global Patient Information Bar on Family Members Navigation Stage Navigation

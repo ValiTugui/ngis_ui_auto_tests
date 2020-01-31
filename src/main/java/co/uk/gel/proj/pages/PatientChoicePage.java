@@ -75,9 +75,9 @@ public class PatientChoicePage {
     String childAssent = "//label[contains(@class,'radio-container')][contains(text(),'dummyAssent')]";
 
     //For PatientInformation Identifiers
-    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-1')]";
+    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
-    String probandBeingTested = "//span[contains(@class,'child-element')]";
+    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
     String bornInformation = "//span[contains(@id,'dateOfBirth')]";
     String genderInformation = "//span[contains(@id,'gender')]";
     String ngsIdInformation = "//span[contains(@id,'ngisId')]";

@@ -198,9 +198,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheEditingReferralColor(nhsDetails,color);
         Assert.assertTrue(testResult);
     }
-    @When("the user edits to complete the highlighted family member {string}")
-    public void theUserShouldEditToCompleteTheHighlightedFamilyMember(String familyMember) {
-        familyMemberDetailsPage.editSpecificFamilyMember(familyMember);
+    @When("the user edits to complete the highlighted family member")
+    public void theUserShouldEditToCompleteTheHighlightedFamilyMember() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.editSpecificFamilyMember(0);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the family member landing page is correctly displayed")

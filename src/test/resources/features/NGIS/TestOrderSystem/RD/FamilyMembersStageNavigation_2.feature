@@ -59,8 +59,8 @@ Feature: Family Members Navigation Stage Validation
 
   @NTS-3339 @E2EUI-1791 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1951:Gender=Male |
     When the user navigates to the "<Family Members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user should be able to see the patient identifiers on family member landing page
