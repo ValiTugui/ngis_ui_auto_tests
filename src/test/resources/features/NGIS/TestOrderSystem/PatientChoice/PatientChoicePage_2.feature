@@ -6,7 +6,7 @@ Feature: Patient Choice Page Verification
   @NTS-3384 @E2EUI-1677 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3384: Verify the hospital no field on patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2016:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -42,7 +42,7 @@ Feature: Patient Choice Page Verification
   @NTS-3386 @E2EUI-1141 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3386: Recorded By field is mandatory field in Add patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2015:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -64,7 +64,7 @@ Feature: Patient Choice Page Verification
   @NTS-3387 @E2EUI-1464 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -108,7 +108,7 @@ Feature: Patient Choice Page Verification
   @NTS-3377 @E2EUI-2034 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3377: Editing Patient Choice in Patient Choice category
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2013:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -128,7 +128,7 @@ Feature: Patient Choice Page Verification
   @NTS-3378 @E2EUI-1181 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3378: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

@@ -4,8 +4,8 @@ Feature: Patient Choice Page
 
   @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status as "<Status1>"
@@ -27,8 +27,8 @@ Feature: Patient Choice Page
 
   @NTS-3382 @E2EUI-2110 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     When the user navigates to the "<Family members>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status as "<Status1>"
