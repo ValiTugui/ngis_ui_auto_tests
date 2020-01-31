@@ -6,14 +6,24 @@ pipeline {
         }
     }
     stages {
-     stage('Checkout Source Code') {
-                steps {
-                    checkout([
-                        $class: 'GitSCM', branches: [[name: 'zapsecurity']],
-                        userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'45b7bffbe3c7f4626aee13c0292c9321e55ccdbd']]
-                    ])
-                }
-            }
+       stage('Git Checkout') {
+                 steps {
+                     script {
+                        currentBuild.result = "SUCCESS"
+                     }
+                     checkout([
+                         $class: 'GitSCM',
+
+                         branches: [[name: 'zapsecurity']],
+
+                         userRemoteConfigs: [[credentialsId: 'krimohshu_2fa',
+                         url: 'https://github.com/genomicsengland/ngis_ui_auto_tests.git']]
+                     ])
+                     sh ('git config --global user.email "krishan.shukla@optum.com"')
+                     sh ('git config --global user.name "Sandbox Jenkins"')
+                     sh ('git config --global push.default simple')
+                 }
+             }
         stage('Build') {
             steps {
                 sh 'mvn -B clean test -DTestEnvironment=integration'
