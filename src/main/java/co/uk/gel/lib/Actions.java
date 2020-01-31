@@ -45,10 +45,10 @@ public class Actions {
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
         try {
             int index = random.nextInt(dropdownValues.size() - 1);
-            Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
+            //Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
             dropdownValues.get(index).click();
         } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
-            Debugger.println("Select the first dropDownValues" + exp);
+            //Debugger.println("Select the first dropDownValues" + exp);
              dropdownValues.get(0).click(); // Select the first dropDownValues
             //selectByIndexFromDropDown(dropdownValues, 0);
         }

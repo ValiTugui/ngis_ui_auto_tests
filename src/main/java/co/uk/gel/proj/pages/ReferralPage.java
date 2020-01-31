@@ -346,11 +346,11 @@ public class ReferralPage<check> {
                 Actions.clickElement(driver, referralStage);
             }
         }catch(StaleElementReferenceException exp){
-            Debugger.println("Stage: Click Stale Exception: "+exp);
+            Debugger.println("Stage Click: Stale Exception: "+exp);
             WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
             Actions.clickElement(driver,linkElement);
         }catch(Exception exp){
-            Debugger.println("Stage: Click Main Exception: "+exp);
+            Debugger.println("Stage Click: Main Exception: "+exp);
             WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
             Actions.clickElement(driver,linkElement);
         }
