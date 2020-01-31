@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
         //  tags = {"@E2EUI-895"}
         //   tags = {"@securityscan_cancer"}
         tags = {"@securitytest"}
-        // tags = {"@homePage"}
+        // tags =   {"@homePage"}
 )
 public class RunnerTest {
     @BeforeClass
