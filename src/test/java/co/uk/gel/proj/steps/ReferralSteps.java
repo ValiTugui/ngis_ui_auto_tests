@@ -20,6 +20,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -660,5 +661,30 @@ public class ReferralSteps extends Pages {
             }
         }
         Assert.assertTrue(testResult);
+    }
+
+    @And("the DOB and age in the referral header bar are displayed in the expected format")
+    public void theDOBAndAgeInTheReferralHeaderBarAreDisplayedInTheExpectedFormat() {
+
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String expectedDateOfBirth = newPatient.getDay() + "-" + newPatient.getMonth() + "-" + newPatient.getYear();
+        Debugger.println("Expected DOB = " + expectedDateOfBirth);
+
+        String expectedCalculatedAge = TestUtils.getAgeInYearsAndMonth(expectedDateOfBirth);
+        Debugger.println("Expected Age in Years and Months calculated from DOB = " + expectedCalculatedAge);
+
+        // To remove the month from the calculated age (NNy Nm) => (NNy)
+        expectedCalculatedAge = Objects.requireNonNull(expectedCalculatedAge).substring(0, expectedCalculatedAge.indexOf('y')+1)+")";
+        Debugger.println("Expected Age in Years ONLY calculated from DOB = " + expectedCalculatedAge);
+
+        String expectedDateOfBirthFormat = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+        Debugger.println("Expected DOB Format = " + expectedDateOfBirthFormat);
+
+        String expectedBornFormat = expectedDateOfBirthFormat + " " + expectedCalculatedAge;
+        Debugger.println("expectedDOBAndAgeBornFormat " + expectedBornFormat);
+
+        String actualBornInReferralHeader = Actions.getText(referralPage.referralHeaderBorn);
+        Debugger.println("actualDOBAndAgeBornFormat " + actualBornInReferralHeader);
+        Assert.assertEquals(expectedBornFormat,actualBornInReferralHeader);
     }
 }
