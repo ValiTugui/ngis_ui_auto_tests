@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,9 +25,22 @@ public class Wait {
             WebDriverWait wait = new WebDriverWait(driver, 100);
             wait.until(ExpectedConditions.visibilityOf(element));
         }catch(Exception exp){
-            Debugger.println("Wait Exception:"+exp);
-            SeleniumLib.takeAScreenShot("WaitException.jpg");
-            Assert.assertTrue(false);
+            try{
+                Actions.scrollToTop(driver);
+                WebDriverWait wait = new WebDriverWait(driver, 100);
+                wait.until(ExpectedConditions.visibilityOf(element));
+            }catch(Exception exp1){
+                try{
+                    Actions.scrollToBottom(driver);
+                    WebDriverWait wait = new WebDriverWait(driver, 100);
+                    wait.until(ExpectedConditions.visibilityOf(element));
+                }catch(Exception exp2){
+                    Debugger.println("Wait Exception:"+exp);
+                    SeleniumLib.takeAScreenShot("WaitException.jpg");
+                    Assert.assertTrue(false);
+                }
+            }
+
         }
     }
     /*
