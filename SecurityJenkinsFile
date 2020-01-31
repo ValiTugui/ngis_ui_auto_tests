@@ -1,0 +1,23 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2'
+        }
+    }
+    stages {
+     stage('Checkout Source Code') {
+                steps {
+                    checkout([
+                        $class: 'GitSCM', branches: [[name: 'zapsecurity']],
+                        userRemoteConfigs: [[url: 'ssh://git@github.com/genomicsengland/ngis_ui_auto_tests.git', credentialsId:'45b7bffbe3c7f4626aee13c0292c9321e55ccdbd']]
+                    ])
+                }
+            }
+        stage('Build') {
+            steps {
+                sh 'mvn -B clean test -DTestEnvironment=integration'
+            }
+        }
+    }
+}
