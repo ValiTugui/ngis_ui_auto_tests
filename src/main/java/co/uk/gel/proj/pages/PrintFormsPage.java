@@ -122,7 +122,7 @@ public class PrintFormsPage {
             }else{
                 Debugger.println("PDF content does not contain ngsid:"+ngsId+",dob:"+dob+" and referralID:"+referralId+"\n Actual Content:"+output);
                 SeleniumLib.closeCurrentWindow();
-                return true;//This needs to be checked
+                return false;
             }
         }catch(Exception exp){
             Debugger.println("Exception from loading PDF content: "+exp);

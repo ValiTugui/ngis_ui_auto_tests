@@ -169,7 +169,6 @@ public class ReferralSteps extends Pages {
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
         try {
-            Wait.seconds(2);
             boolean testResult = referralPage.stageIsCompleted(stage);
             if (!testResult) {
                 testResult = referralPage.stageIsCompleted(stage);

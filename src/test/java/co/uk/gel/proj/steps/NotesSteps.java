@@ -13,4 +13,9 @@ public class NotesSteps extends Pages {
     public void theUserFillsInTheAddNotesField() {
         notesPage.fillInAddNotesField();
     }
+
+    @When("the user attempts to fill in Referral Notes field with data that exceed the maximum data allowed {int}")
+    public void theUserAttemptsToFillInReferralNotesFieldWithDataThatExceedTheMaximumDataAllowed(int maximumCharactersAllowed) {
+        notesPage.fillInAddNotesFieldWithOverThreeThousandCharacters();
+    }
 }
