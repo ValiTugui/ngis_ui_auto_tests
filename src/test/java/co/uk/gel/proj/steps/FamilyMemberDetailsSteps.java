@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
@@ -65,7 +66,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(nhsDetails);
+        NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsDetails);
+        if(familyMember == null){
+            Debugger.println("Family Member:"+nhsDetails+" not found in the added list!");
+            Assert.assertTrue(false);
+        }
+        testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember);
         Assert.assertTrue(testResult);
     }
 
@@ -448,6 +454,11 @@ public class FamilyMemberDetailsSteps extends Pages {
                     familyMember.setNO_NHS_REASON("Patient is a foreign national");
                     familyMember.setGENDER(paramNameValue.get("Gender"));
                     familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+                    if(paramNameValue.get("Ethnicity") != null){
+                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+                    }else{
+                        familyMember.setETHNICITY("A - White - British");
+                    }
                     patientDetailsPage.createNewFamilyMember(familyMember);
                     patientDetailsPage.patientIsCreated();
                     Wait.seconds(5);
@@ -463,13 +474,24 @@ public class FamilyMemberDetailsSteps extends Pages {
                     referralPage.clickSaveAndContinueButton();
                 }
                 Wait.seconds(2);
-                if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(memberDetails.get(i).get(0))){
+                NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
+                if(familyMember == null){
+                    Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
+                    Assert.assertTrue(false);
+                }
+                if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
                     Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
                 }
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
                 clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
+                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
+                if(familyMember.getPHENOTYPIC_SEX() == null){
+                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender
+                }
+                clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue(familyMember.getPHENOTYPIC_SEX());
+                clinicalQuestionsPage.selectSpecificKaryotypicSexDropdownValue("XY");
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);

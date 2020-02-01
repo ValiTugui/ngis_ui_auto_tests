@@ -420,10 +420,9 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public boolean verifyTheTestAndDetailsOfAddedFamilyMember(String nhsDetails) {
-        NGISPatientModel familyMember = getFamilyMember(nhsDetails);
-        if (familyMember == null) {
-            Debugger.println("Family Member with NHS Details:" + nhsDetails + " Not found in the added list!.");
+    public boolean verifyTheTestAndDetailsOfAddedFamilyMember(NGISPatientModel familyMember) {
+       if (familyMember == null) {
+            Debugger.println("Family Member cannot be null.");
             return false;
         }
         //1. Verify the display of Title for the added Test.

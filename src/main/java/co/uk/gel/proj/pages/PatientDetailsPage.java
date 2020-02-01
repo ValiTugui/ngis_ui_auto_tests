@@ -723,7 +723,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(familyName, familyMember.getLAST_NAME());
         editDropdownField(administrativeGenderButton, familyMember.getGENDER());
         editDropdownField(lifeStatusButton, "Alive");
-        editDropdownField(ethnicityButton, "A - White - British");
+        editDropdownField(ethnicityButton, familyMember.getETHNICITY());
         editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
         Actions.fillInValue(hospitalNumber,familyMember.getHOSPITAL_NO() );
         //Address
@@ -762,6 +762,9 @@ public class PatientDetailsPage {
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             }
+            if (referralDetails.getETHNICITY() == null || referralDetails.getETHNICITY().isEmpty()) {
+                referralDetails.setETHNICITY("A - White - British");
+            }
             if (referralDetails.getADDRESS_LINE0() == null || referralDetails.getADDRESS_LINE0().isEmpty()) {
                 referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
                 referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
@@ -777,7 +780,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             editDropdownField(administrativeGenderButton, referralDetails.getGENDER());
             editDropdownField(lifeStatusButton, "Alive");
-            editDropdownField(ethnicityButton, "A - White - British");
+            editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
             Actions.fillInValue(addressLine0, referralDetails.getADDRESS_LINE0());
