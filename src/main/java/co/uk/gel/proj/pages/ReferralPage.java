@@ -331,29 +331,30 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
+        WebElement referralStage = null;
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList, 100);
-            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            Wait.forElementToBeDisplayed(driver, referralStage);
-            try {
+                Wait.forElementToBeDisplayed(driver, toDoList, 100);
+                String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+                referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+                Wait.forElementToBeDisplayed(driver, referralStage);
                 Actions.clickElement(driver, referralStage);
-            } catch (Exception exp) {
-                Debugger.println("Stage: Click Exception: "+exp);
-                //Sometimes click on stage link on second time gives ElementClickInterceptedException.
-                // Below code added to handle that.
-                Actions.scrollToTop(driver);
+            } catch (StaleElementReferenceException staleExp) {
+               Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
+               referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
+               Actions.clickElement(driver,referralStage);
+            }catch(TimeoutException exp) {
+                Debugger.println("Stage Click: TimeoutException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.clickElement(driver, referralStage);
+            }catch(NoSuchElementException exp) {
+                Debugger.println("Stage Click: NoSuchElementException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.clickElement(driver, referralStage);
+            }catch(Exception exp) {
+                Debugger.println("Stage Click: Exception: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
                 Actions.clickElement(driver, referralStage);
             }
-        }catch(StaleElementReferenceException exp){
-            Debugger.println("Stage Click: Stale Exception: "+exp);
-            WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
-            Actions.clickElement(driver,linkElement);
-        }catch(Exception exp){
-            Debugger.println("Stage Click: Main Exception: "+exp);
-            WebElement linkElement = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
-            Actions.clickElement(driver,linkElement);
-        }
     }
 
     public boolean stageIsSelected(String stage) {

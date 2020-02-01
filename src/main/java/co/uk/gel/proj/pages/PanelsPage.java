@@ -24,7 +24,7 @@ public class PanelsPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//h3[contains(text(),'Add an')]")
+    @FindBy(xpath = "//h3[contains(text(),'Add another panel')]")
     public WebElement addAnotherPanel;
 
     @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
@@ -121,9 +121,16 @@ public class PanelsPage {
                 panelList = panels.split(",");
             }
             for(int i=0; i<panelList.length; i++) {
-                panelsSearchFieldPlaceHolder.clear();
+                 panelsSearchFieldPlaceHolder.clear();
                 panelsSearchFieldPlaceHolder.sendKeys(panelList[i]);
-                Click.element(driver, panelsSearchResultsList.get(new Random().nextInt(panelsSearchResultsList.size())));
+                Wait.seconds(2);//Wait to load the related panel based on the search word
+                if(panelsSearchResultsList.size() == 0){
+                    Debugger.println("No matching Panels for the word: "+panelList[i]);
+                    return false;
+                }
+                Click.element(driver, panelsSearchResultsList.get(0));
+                Wait.seconds(2);//Waiting for 3 seconds after each panel adding
+                panelsSearchResultsList.clear();
             }
             return true;
         } catch (Exception exp) {
@@ -138,7 +145,6 @@ public class PanelsPage {
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
             List<WebElement> expElements = new ArrayList<WebElement>();
             expElements.add(penetranceTitle);
-            expElements.add(suggestedPanels);
             expElements.add(addAnotherPanel);
             expElements.add(completeButton);
             expElements.add(incompleteButton);
@@ -206,12 +212,11 @@ public class PanelsPage {
 
     public boolean verifyThePresenceOfPenetranceOptions() {
         try {
-            seleniumLib.waitForElementVisible(completeButton);
-            if (!seleniumLib.isElementPresent(completeButton)) {
-                Debugger.println("Complete button not found.");
-                return false;
+            if(!Wait.isElementDisplayed(driver,completeButton,10)){
+               Debugger.println("Complete button not found.");
+               return false;
             }
-            if (!seleniumLib.isElementPresent(incompleteButton)) {
+            if (!Wait.isElementDisplayed(driver,incompleteButton,10)) {
                 Debugger.println("Incomplete button not found.");
                 return false;
             }
@@ -372,8 +377,10 @@ public class PanelsPage {
         try {
             boolean isPresent = false;
             Wait.forElementToBeDisplayed(driver, penetranceTitle);
+            String actPanel = "";
             for (int i = 0; i < addedPanelsList.size(); i++) {
-                if (addedPanelsList.get(i).getText().startsWith(addedPanel)) {
+                actPanel = addedPanelsList.get(i).getText();
+                if (actPanel.contains(addedPanel)) {
                     isPresent = true;
                     break;
                 }

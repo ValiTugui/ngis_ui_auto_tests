@@ -293,10 +293,6 @@ public class FamilyMemberDetailsPage {
     String editButtonInformation = "//button[@aria-label='edit button']";
     String removeButtonInformation = "//button[@aria-label='remove button']";
 
-    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]//button";
-    @FindBy(className = "todo-list")
-    public WebElement toDoList;
-
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
 
     By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
@@ -1537,24 +1533,6 @@ public class FamilyMemberDetailsPage {
         }
         return partialUrl;
     }
-
-    public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        Wait.forElementToBeDisplayed(driver, referralStage);
-        try {
-            Actions.clickElement(driver, referralStage);
-            seleniumLib.clickOnWebElement(referralStage);
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
-            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
-            // Below code added to handle that.
-            Actions.scrollToTop(driver);
-            Actions.clickElement(driver, referralStage);
-        }
-    }
-
     public static void addFamilyMemberToList(NGISPatientModel familyMember){
         addedFamilyMembers.add(familyMember);
         Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());

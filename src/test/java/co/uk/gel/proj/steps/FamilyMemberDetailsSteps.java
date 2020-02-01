@@ -515,7 +515,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("^the user navigates to \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
-        familyMemberDetailsPage.navigateToStage(stage);
+        referralPage.navigateToStage(stage);
     }
     @Then("the user should {string} participant error message as {string}")
     public void theUserShouldParticipantErrorMessageAs(String expStatus, String errorMessage) {
