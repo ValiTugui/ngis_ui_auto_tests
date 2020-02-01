@@ -1,6 +1,6 @@
 @regression
 @TO_RD
-@FamilyMemberSearchPage1
+@FamilyMemberSearchPage
 
 Feature: Family Members Re-adding Validation
 
