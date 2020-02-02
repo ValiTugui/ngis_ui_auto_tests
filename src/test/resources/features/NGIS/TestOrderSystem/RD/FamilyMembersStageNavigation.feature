@@ -22,13 +22,13 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
-    And the user moves back to previous page
+    And the user clicks on back button
     Then the user is navigated to a page with title Confirm family member details
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
-    And the user moves back to previous page
+    And the user clicks on back button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details

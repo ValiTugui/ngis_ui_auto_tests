@@ -71,7 +71,7 @@ Feature: Family Members Details Validation
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
-    When the user moves back to previous page
+    When the user clicks on back button
     Then the user is navigated to a page with title Patient choice
 
     Examples:
