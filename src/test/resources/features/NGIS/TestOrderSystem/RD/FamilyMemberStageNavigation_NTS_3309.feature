@@ -23,13 +23,13 @@ Feature: Family Members Navigation Stage Validation
     And the user should "not get" participant error message as "<ErrorMessage>"
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
+#    Then the patient card displays with Born,Gender and NHS No details
+#    When the user clicks on the patient card
+#    Then the user is navigated to a page with title Confirm family member details
+#    When the user selects the Relationship to proband as "<RelationshipToProband>"
+#    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member is selected by default
+    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
@@ -45,8 +45,8 @@ Feature: Family Members Navigation Stage Validation
     And the "<FamilyMembers>" stage is marked as Completed
     Then the user should "not get" participant error message as "<ErrorMessage>"
     Examples:
-      | FamilyMembers  | TestPackage  | NoOfParticipants | NoOfParticipants1 | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails  | ErrorMessage                                                                                                |
-      | Family members | Test package | 2                | 1                 | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
+      | FamilyMembers  | TestPackage  | NoOfParticipants | NoOfParticipants1 | FamilyMemberDetails                                               | DiseaseStatusDetails  | ErrorMessage                                                                                                |
+      | Family members | Test package | 2                | 1                 | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
 
   @NTS-3309 @E2EUI-2105 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3309: Verify warning message if number of family members is less than number of participants

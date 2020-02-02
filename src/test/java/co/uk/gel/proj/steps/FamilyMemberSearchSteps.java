@@ -72,11 +72,6 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickSearchButton();
     }
 
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with Yes option selected$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForYes() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippedMandatoryValuesForYes();
-    }
-
     @Then("^the user will see error messages highlighted in red colour when search with the given details$")
     public void theUserWillSeeErrorMessagesInRedColorWhenSearchWithGivenDetails(DataTable messages) {
         List<List<String>> messageDetails = messages.asLists();
@@ -84,17 +79,6 @@ public class FamilyMemberSearchSteps extends Pages {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
             referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
         }
-    }
-
-
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with No option$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForNo() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
-    }
-
-    @When("the user provides NHS and DOB of an already added patient and search")
-    public void theUserProvidesDetailsOfExistingPatientAndSearch() {
-        familyMemberSearchPage.searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB();
     }
 
     @Then("^the message should display as \"([^\"]*)\" and \"([^\"]*)\" along with search string")
@@ -156,11 +140,6 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("^the display title of the family member search page is \"([^\"]*)\"$")
-    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
-        familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
-    }
-
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
         familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
@@ -178,16 +157,7 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("There is a {string} link available to create a new patient")
-    public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
-    }
-
-    @And("the user clicks the {string} to create a new patient")
-    public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
-    }
-    @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+     @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         familyMemberSearchPage.verifyNoPatientFoundDetails(expSearchString, errorMessage, fontFace);
     }
@@ -196,14 +166,6 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserClicksOnThe() {
         familyMemberSearchPage.clickOnNewPatientLink();
     }
-
-//    @And("the user should be able to see incomplete family member in {string}")
-//    public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
-//        boolean testResult = false;
-//        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
-//        Assert.assertTrue(testResult);
-//    }
-
 
     @Then("the family member landing page displayed without incomplete error message")
     public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {
@@ -236,6 +198,5 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifySearchButtonClickable();
         Assert.assertTrue(testResult);
     }
-
 
 }//end

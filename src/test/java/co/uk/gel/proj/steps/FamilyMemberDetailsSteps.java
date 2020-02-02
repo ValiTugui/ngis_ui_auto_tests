@@ -98,10 +98,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see test package for family member is selected by default")
-    public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault() {
+    @And("the user should be able to see test package for family member (.*) is selected by default")
+    public void theUserShouldBeAbleToSeeTestPackageForFamilyMemberIsSelectedByDefault(String nhsDetails) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected();
+        testResult = familyMemberDetailsPage.verifyTheTestCheckboxIsSelected(nhsDetails);
         Assert.assertTrue(testResult);
     }
 

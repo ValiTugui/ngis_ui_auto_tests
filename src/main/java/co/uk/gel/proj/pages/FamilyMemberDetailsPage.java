@@ -88,23 +88,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(id = "hospitalNumber")
     public WebElement hospitalNumber;
 
-    @FindBy(id = "dateDay")
-    public WebElement dateDay;
-
-    @FindBy(id = "dateMonth")
-    public WebElement dateMonth;
-
-    @FindBy(id = "dateYear")
-    public WebElement dateYear;
-
-    @FindBy(xpath = "//button[contains(string(),'Search')]")
-    public WebElement searchButton;
-
     @FindBy(css = "a[class*='patient-card']")
     public WebElement patientCard;
-
-    @FindBy(css = "button[class*='referral-navigation__continue']")
-    public WebElement saveAndContinueButton;
 
     @FindBy(xpath = "//button[contains(text(),'Back')]")
     public WebElement backButton;
@@ -140,9 +125,6 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//label[contains(text(),'Find an HPO phenotype or code')]/..//input")
     public WebElement hpoSearchField;
-
-    @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
-    public WebElement AddReferralButton;
 
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
@@ -260,7 +242,10 @@ public class FamilyMemberDetailsPage {
     String subTitleMessage =  "//p[contains(text(),\"dummyTitle\")]";
     String subTitleLink =  "//a[contains(text(),\"dummyLink\")]";
 
-    By dynamicDiv = By.xpath("//div[@class='css-46to1u-menu']");
+    @FindBy(css = "table[class*='table--hpo']")
+    public WebElement hpoTable;
+    @FindBy(css = "[class*='hpo-term__name']")
+    public List<WebElement> hpoTerms;
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -410,7 +395,7 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
         }
-        boolean isSelected = false;
+        boolean isHpoSelected = true;
         for (String key : paramsKey) {
             if (key.equalsIgnoreCase("DiseaseStatus")) {
                 continue;
@@ -425,18 +410,21 @@ public class FamilyMemberDetailsPage {
                     break;
                 }
                 case "HpoPhenoType": {
+                    isHpoSelected = false;//Consider only if HPO Pass as an argument
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        isSelected = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        if (!isSelected) {
-                            isSelected = searchAndSelectSpecificHPOPhenotype(paramNameValue.get(key));
+                        isHpoSelected = isHPOAlreadyConsidered(paramNameValue.get(key));
+                        if (!isHpoSelected) {
+                            if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
+                                isHpoSelected = true;
+                            }
                         }
                     }
                     break;
                 }
             }//switch
         }//for
-        return isSelected;
+        return isHpoSelected;
     }//method
 
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
@@ -459,39 +447,29 @@ public class FamilyMemberDetailsPage {
         }
         return isExists;
     }
-
-    public boolean searchAndSelectSpecificHPOPhenotype(String hpoTerm) {
+    public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
+        Wait.seconds(5);
         try {
-            Debugger.println("Selecting Specified HPOPhenotype: " + hpoTerm);
-            if (Wait.isElementDisplayed(driver, hpoSearchField, 60)) {
-                seleniumLib.clickOnWebElement(hpoSearchField);
+            if(seleniumLib.isElementPresent(hpoSearchField)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
-            } else {
-                Debugger.println("HpoSearch field has not visible...failing the test.");
-                SeleniumLib.takeAScreenShot("hpoSearchFiledNotVisible.jpg");
-                return false;
             }
-            boolean isSelected = false;
-
-            if(seleniumLib.isElementPresent(dynamicDiv)){
-                Wait.seconds(5);
-                List<WebElement> hpoItems = seleniumLib.getElements(dynamicDiv);
-                for(int i=0; i<hpoItems.size(); i++){
-                    if(hpoItems.get(i).getText().equalsIgnoreCase(hpoTerm)){
-                        hpoItems.get(i).click();
-                        isSelected = true;
-                        break;
-                    }
-                }
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
+                return -1;
             }
-            return isSelected;
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            // determine the total number of HPO terms
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, hpoTable);
+            int numberOfHPO = hpoTerms.size();
+            //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
+            return numberOfHPO;
         } catch (Exception exp) {
-            Debugger.println("Exception from searchAndSelectSpecificHPOPhenotype: " + exp);
-            SeleniumLib.takeAScreenShot("SpecificPhenoType.jpg");
-            return false;
+            Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
+            return 0;
         }
     }
-
     public boolean verifyAddedFamilyMemberDetailsInLandingPage(String nhsDetails) {
         NGISPatientModel familyMember = getFamilyMember(nhsDetails);
         if (familyMember == null) {
@@ -645,9 +623,9 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public boolean verifyTheTestCheckboxIsSelected() {
+    public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
-            NGISPatientModel familyMember = getFamilyMember("");
+            NGISPatientModel familyMember = getFamilyMember(nhsDetails);
             Debugger.println("Verifying TheTestCheckboxIsSelected for: " + familyMember.getFIRST_NAME() + "," + familyMember.getRELATIONSHIP_TO_PROBAND());
             Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 60);
             if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
@@ -1259,15 +1237,15 @@ public class FamilyMemberDetailsPage {
                 actualNhs = addedFamilyMembers.get(i).getNHS_NUMBER();
                 actualDob = addedFamilyMembers.get(i).getDATE_OF_BIRTH();
                 //Debugger.println("ActNHS:"+actualNhs+","+actualDob+",EXP:"+nhsNumber+","+dob);
-                if(!nhsNumber.equalsIgnoreCase("NA")) {
+                if(nhsNumber.isEmpty() || nhsNumber.equalsIgnoreCase("NA")) {
+                     if(actualDob !=null && actualDob.equalsIgnoreCase(dob)) {
+                        return addedFamilyMembers.get(i);
+                    }
+                }else {
                     if (actualNhs != null) {
                         if (actualNhs.equalsIgnoreCase(nhsNumber)) {
                             return addedFamilyMembers.get(i);
                         }
-                    }
-                }else {
-                    if(actualDob !=null && actualDob.equalsIgnoreCase(dob)) {
-                        return addedFamilyMembers.get(i);
                     }
                 }
             }
@@ -1306,7 +1284,7 @@ public class FamilyMemberDetailsPage {
     public static void addFamilyMemberToList(NGISPatientModel familyMember){
         addedFamilyMembers.add(familyMember);
         Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());
-        Debugger.println("Size is: "+addedFamilyMembers.size());
+        //Debugger.println("Size is: "+addedFamilyMembers.size());
     }
 
 }//ends
