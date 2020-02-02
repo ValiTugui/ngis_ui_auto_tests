@@ -288,10 +288,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the deselected member status display as {string}")
-    public void theDeselectedMemberStatusDisplay(String status) {
+    @And("the deselected member {string} status display as {string}")
+    public void theDeselectedMemberStatusDisplay(String nhsDetails,String status) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDeselectedPatientTestStatus(status);
+        testResult = familyMemberDetailsPage.verifyDeselectedPatientTestStatus(nhsDetails,status);
         Assert.assertTrue(testResult);
     }
 
@@ -358,6 +358,18 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("there is a message displayed on top of landing page stating {string}")
     public void thereIsAMessageDisplayedOnTopOfLandingPageStating(String subTitlemsg) {
         familyMemberDetailsPage.subTitleMessage(subTitlemsg);
+    }
+    @And("subtitle of the page displayed as (.*)")
+    public void subtitleOfPageDisplayedAs(String subTitlemsg) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySubTitleMessage(subTitlemsg);
+        Assert.assertTrue(testResult);
+    }
+    @And("subtitle links as (.*)")
+    public void subtitleLinkAs(String linkMessage) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySubTitleLink(linkMessage);
+        Assert.assertTrue(testResult);
     }
     @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
     public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
@@ -448,7 +460,11 @@ public class FamilyMemberDetailsSteps extends Pages {
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
                     patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
                     patientSearchPage.clickSearchButtonByXpath(driver);
-                    patientSearchPage.getPatientSearchNoResult();
+                    if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
+                        if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                            patientSearchPage.clickSearchButtonByXpath(driver);
+                        }
+                    }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
                     familyMember.setNO_NHS_REASON("Patient is a foreign national");

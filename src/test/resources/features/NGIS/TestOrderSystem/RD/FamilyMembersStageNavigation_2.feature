@@ -8,7 +8,7 @@ Feature: Family Members Navigation Stage Validation
   Scenario Outline: NTS-3330: User is completing a referral and wants to add a family member record to the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1980:Gender=Male |
-    When the user navigates to the "<stage>" stage
+    When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -29,7 +29,7 @@ Feature: Family Members Navigation Stage Validation
     And The user also should see the Add Family Member button and continue button displayed
 
     Examples:
-      | TestStatus       | color   | stage          | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | TestStatus       | color   | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Being tested     | #e5f6f5 | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
       | Not being tested | #fdf3e5 | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
 
@@ -38,24 +38,20 @@ Feature: Family Members Navigation Stage Validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1981:Gender=Male |
     When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And  the user clicks the Save and Continue button
+    When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    And the deselected member status display as "<Status>"
+    And the deselected member "<FamilyMemberDetails>" status display as "<Status>"
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Status           |
-      | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Full Sibling          | DiseaseStatus=Unaffected | Not being tested |
+      | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           |
+      | Family members | NHSNumber=NA:DOB=25-12-2000:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested |
 
   @NTS-3339 @E2EUI-1791 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
@@ -83,12 +79,7 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    And the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
+    When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
     And the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
@@ -104,17 +95,12 @@ Feature: Family Members Navigation Stage Validation
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails2>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
+    When the user search the family member with the specified details "<FamilyMemberDetails2>"
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member is selected by default
     And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color
 
     Examples:
-      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                | color2  |
-      | Test package | 1                | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=9449310157:DOB=15-01-2000 | #425563 |
+      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                                                | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                                               | color2  |
+      | Test package | 1                | Family members | NHSNumber=NA:DOB=30-06-1974:Gender=Male:Relationship=Maternal Aunt | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=NA:DOB=15-01-2000:Gender=Male:Relationship=Maternal Aunt | #425563 |
 

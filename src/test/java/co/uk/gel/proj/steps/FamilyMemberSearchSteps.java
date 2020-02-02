@@ -1,15 +1,20 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FamilyMemberSearchSteps extends Pages {
@@ -101,7 +106,40 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchDetails);
+        //Verify whether the search with or without NHS
+        String nhsNumber = paramNameValue.get("NHSNumber");
+        if(nhsNumber.equalsIgnoreCase("NA")){
+            NGISPatientModel familyMember = new NGISPatientModel();
+            familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+            familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+            patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
+            patientSearchPage.clickSearchButtonByXpath(driver);
+            if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
+                Debugger.println("NHS Not Found...going with No option.");
+                familyMember.setGENDER(paramNameValue.get("Gender"));
+                 if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                     patientSearchPage.clickSearchButtonByXpath(driver);
+                }
+            }
+            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+            patientDetailsPage.newPatientPageIsDisplayed();
+            familyMember.setNO_NHS_REASON("Patient is a foreign national");
+            familyMember.setGENDER(paramNameValue.get("Gender"));
+            familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+            if(paramNameValue.get("Ethnicity") != null){
+                familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+            }else{
+                familyMember.setETHNICITY("A - White - British");
+            }
+            patientDetailsPage.createNewFamilyMember(familyMember);
+            patientDetailsPage.patientIsCreated();
+            Wait.seconds(5);
+            referralPage.updatePatientNGSID(familyMember);
+        }else {
+            familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        }
+        Wait.seconds(2);
     }
 
     @Then("the user should see an error message {string} in {string} for the family member")
