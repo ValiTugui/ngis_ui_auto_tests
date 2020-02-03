@@ -381,10 +381,12 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralStage);
             Wait.seconds(2);
             List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
-            Wait.forElementToBeDisplayed(driver, completedIcon.get(0));
-            //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
-            if (completedIcon.size() == 1) {
-                return true;
+            if(completedIcon != null && completedIcon.size() > 0) {//Got ArrayIndexOutOfBounds Exception some times, so added this cehck
+                Wait.forElementToBeDisplayed(driver, completedIcon.get(0));
+                //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
+                if (completedIcon.size() == 1) {
+                    return true;
+                }
             }
             //In case of failure, trying another way
             String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
@@ -458,8 +460,12 @@ public class ReferralPage<check> {
 
 
     public String getTheCurrentPageTitle() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
-        return Actions.getText(pageTitle);
+        try {
+            Wait.forElementToBeDisplayed(driver, pageTitle, 120);
+            return Actions.getText(pageTitle);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public void navigateToFamilyMemberSearchPage() {
@@ -527,8 +533,12 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
        try {
+           String actualPageTitle = getTheCurrentPageTitle();
+           if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
+               return true;
+           }
+           //In case of failure trying with another method.
            By pageTitle;
-
            if (expTitle.contains("\'")) {
                // if the string contains apostrophe character, apply double quotes in the xpath string
                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
@@ -537,15 +547,17 @@ public class ReferralPage<check> {
            }
            WebElement titleElement = null;
            try {
+               Wait.seconds(5);
                titleElement = driver.findElement(pageTitle);
+               return (Wait.isElementDisplayed(driver,titleElement,100));
            }catch(NoSuchElementException exp){
                //Wait for 10 seconds and check again. This is introduced based on the failures observed.
-               Wait.seconds(10);
                Actions.scrollToTop(driver);
+               Wait.seconds(5);
                titleElement = driver.findElement(pageTitle);
+               return (Wait.isElementDisplayed(driver,titleElement,100));
            }
-           Wait.forElementToBeDisplayed(driver,titleElement);
-           return true;
+
        }catch(Exception exp){
            Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
            Actions.scrollToTop(driver);
