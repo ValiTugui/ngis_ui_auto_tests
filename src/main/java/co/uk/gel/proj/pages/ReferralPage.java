@@ -338,23 +338,23 @@ public class ReferralPage<check> {
                 String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
                 referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
                 Wait.forElementToBeDisplayed(driver, referralStage);
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             } catch (StaleElementReferenceException staleExp) {
                Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
                referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
-               Actions.clickElement(driver,referralStage);
+               Actions.retryClickAndIgnoreElementInterception(driver,referralStage);
             }catch(TimeoutException exp) {
                 Debugger.println("Stage Click: TimeoutException: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(NoSuchElementException exp) {
                 Debugger.println("Stage Click: NoSuchElementException: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(Exception exp) {
                 Debugger.println("Stage Click: Exception: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }
     }
 
@@ -373,7 +373,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList);
+            Wait.forElementToBeDisplayed(driver, toDoList,120);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
