@@ -63,25 +63,25 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           |
       | Family members | NHSNumber=NA:DOB=25-12-2000:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested |
 
-  @NTS-3322 @E2EUI-1509 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3322: Verify family members has completed in to-do list
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1955:Gender=Male |
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    And the user is navigated to a page with title Add clinician information
-    When the user navigates to the "<FamilyMember>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the user is navigated to a page with title Add a family member to this referral
-
-    Examples:
-      | FamilyMember   | TestPackage  | NoOfParticipants |
-      | Family members | Test package | 2                |
+#  @NTS-3322 @E2EUI-1509 @LOGOUT @v_1 @P0
+#  Scenario Outline: NTS-3322: Verify family members has completed in to-do list
+#    Given a new patient referral is created with associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1955:Gender=Male |
+#    When the user navigates to the "<TestPackage>" stage
+#    Then the user is navigated to a page with title Confirm the test package
+#    And the user selects the number of participants as "<NoOfParticipants>"
+#    And the user clicks the Save and Continue button
+#    And the "<TestPackage>" stage is marked as Completed
+#    And the user is navigated to a page with title Add clinician information
+#    When the user navigates to the "<FamilyMember>" stage
+#    Then the user is navigated to a page with title Add a family member to this referral
+#    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+#      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+#      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+#    Then the user is navigated to a page with title Add a family member to this referral
+#
+#    Examples:
+#      | FamilyMember   | TestPackage  | NoOfParticipants |
+#      | Family members | Test package | 2                |
 
 

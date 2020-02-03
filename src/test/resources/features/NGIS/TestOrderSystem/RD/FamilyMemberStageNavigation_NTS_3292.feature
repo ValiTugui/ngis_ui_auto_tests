@@ -4,7 +4,7 @@
 
 Feature: Family Members Navigation Stage Validation
 
-  @NTS-3292 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
+  @NTS-3292 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |

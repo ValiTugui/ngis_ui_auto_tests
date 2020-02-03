@@ -39,8 +39,8 @@ Feature: Family Members Navigation Stage Validation
     And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
     Examples:
-      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                                               | RelationshipToProband | DiseaseStatusDetails                                            |
-      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=NA:DOB=11-02-2004:Gender=Male:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                                               | DiseaseStatusDetails                                            |
+      | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=NA:DOB=11-02-2004:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
   @NTS-3299 @E2EUI-1698 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3299: Verify the family members test package are selected by default
