@@ -1,14 +1,16 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
+@FamilyMemberStageNavigation_set3
 
 Feature: Family Members Navigation Stage Validation
 
-  @NTS-3292 @NTS-3293 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
+  @NTS-3292 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
@@ -21,7 +23,7 @@ Feature: Family Members Navigation Stage Validation
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=14-05-1928:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     ##Step for E2EUI-1485
     And the family member details on family Member landing page is correctly displayed
     ##Step for 1331 and 1639

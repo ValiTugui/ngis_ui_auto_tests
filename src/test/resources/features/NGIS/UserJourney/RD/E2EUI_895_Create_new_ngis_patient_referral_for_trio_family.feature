@@ -41,7 +41,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     ##Notes
     When the user navigates to the "<Notes>" stage
     Then the user is navigated to a page with title Add notes to this referral
-    When the user fills in the Add Notes field
+    And the user fills in the Add Notes field
+
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
@@ -56,7 +57,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
+    And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the "<PatientChoice>"
     Then the "<PatientChoice>" page is displayed

@@ -48,7 +48,7 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyThePresenceOfPenetranceOptions());
     }
 
-    @And("the user clicks on {string} button and button will show tick marked")
+    @And("the user clicks on (.*) button and button will show tick marked")
     public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {
         Assert.assertTrue(panelsPage.verifyButtonAsCompletedByClickingInPanelsPage(expectedButton));
     }
@@ -66,7 +66,7 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see a sub title {string} on panels page")
+    @And("the user should be able to see a sub title (.*) on panels page")
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
         Assert.assertEquals(subtitle, panelsPage.verifyPenetranceTitle());
     }
@@ -75,7 +75,7 @@ public class PanelsSteps extends Pages {
     public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
         Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
     }
-    @Then("the user should be able to see suggested panels under the {string} section")
+    @Then("the user should be able to see suggested panels under the (.*) section")
     public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
         Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
     }
