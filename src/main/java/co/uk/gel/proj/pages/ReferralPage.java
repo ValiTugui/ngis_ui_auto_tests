@@ -381,6 +381,7 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralStage);
             Wait.seconds(2);
             List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
+            Wait.forElementToBeDisplayed(driver, completedIcon.get(0));
             //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
             if (completedIcon.size() == 1) {
                 return true;
@@ -396,7 +397,7 @@ public class ReferralPage<check> {
             return false;
         } catch (Exception exp) {
             try{
-                //In case of failure, trying another way
+                //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
                 String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
                 WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
                 if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
@@ -605,7 +606,8 @@ public class ReferralPage<check> {
     public void submitReferral(){
         try{
             if(Wait.isElementDisplayed(driver,submitReferralButton,100)){
-                submitReferralButton.click();
+                Actions.clickElement(driver, submitReferralButton);
+                Debugger.println("Referral submitted...");
             }
         }catch(Exception exp){
             Debugger.println("Exception from submitting Referral "+exp);
