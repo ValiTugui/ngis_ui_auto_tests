@@ -108,3 +108,25 @@ Feature: Family Members Details Validation
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
+
+
+
+  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
+  Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user deletes the data in the Hospital Number field
+    When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
+    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
+
+    Examples:
+      | stage          | FamilyMemberDetails                 | HospitalNumber      |
+      | Family members | NHSNumber=9449305552:DOB=20-09-2008 | 1234567890123456789 |
+
