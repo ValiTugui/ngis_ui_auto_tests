@@ -74,7 +74,7 @@ public class PrintFormsPage {
         try {
             //Delete if File already present
             //Debugger.println("Deleting Files if Present...");
-            TestUtils.deleteIfFilePresent("SampleForm","");
+            TestUtils.deleteIfFilePresent("SampleForm","RD");
             Wait.forElementToBeDisplayed(driver, landingPageList);
             Click.element(driver, formDownloadButtons.get(position));
         }catch(Exception exp){
@@ -98,7 +98,7 @@ public class PrintFormsPage {
                 Debugger.println("Could not switch to new tab for reading print form PDF file content.");
                 return false;
             }
-            String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
+            String pathToFile = defaultDownloadLocation + File.separator+"RD"+File.separator+"SampleForm.pdf";
             //Debugger.println("PDF file location: "+pathToFile);
             // pdf file with full path name
             driver.get("file:///" + pathToFile);
