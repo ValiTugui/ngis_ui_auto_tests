@@ -23,10 +23,9 @@ Feature: Global Patient Information Bar on Family Members Navigation Stage Navig
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
-    Then the user should be able to see test package for family member is selected by default
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
@@ -44,4 +43,4 @@ Feature: Global Patient Information Bar on Family Members Navigation Stage Navig
 
     Examples:
       | Requesting organisation | ordering_entity_name | Family members | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Print forms |
-      | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected | Print forms |
+      | Requesting organisation | Maidstone            | Family members | Test package | 2                | NHSNumber=9449305307:DOB=14-02-2011:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Unaffected | Print forms |

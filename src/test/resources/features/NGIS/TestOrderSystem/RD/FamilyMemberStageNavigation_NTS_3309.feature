@@ -23,11 +23,6 @@ Feature: Family Members Navigation Stage Validation
     And the user should "not get" participant error message as "<ErrorMessage>"
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-#    Then the patient card displays with Born,Gender and NHS No details
-#    When the user clicks on the patient card
-#    Then the user is navigated to a page with title Confirm family member details
-#    When the user selects the Relationship to proband as "<RelationshipToProband>"
-#    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
@@ -48,7 +43,7 @@ Feature: Family Members Navigation Stage Validation
       | FamilyMembers  | TestPackage  | NoOfParticipants | NoOfParticipants1 | FamilyMemberDetails                                               | DiseaseStatusDetails  | ErrorMessage                                                                                                |
       | Family members | Test package | 2                | 1                 | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
 
-  @NTS-3309 @E2EUI-2105 @LOGOUT @BVT_P0 @v_1
+  @NTS-3309 @E2EUI-2105 @LOGOUT @v_1
   Scenario Outline: NTS-3309: Verify warning message if number of family members is less than number of participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1965:Gender=Male |

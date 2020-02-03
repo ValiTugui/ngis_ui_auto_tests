@@ -410,7 +410,7 @@ public class FamilyMemberDetailsPage {
                     break;
                 }
                 case "HpoPhenoType": {
-                    isHpoSelected = false;//Consider only if HPO Pass as an argument
+                    isHpoSelected = false;//Consider only if HPO Passed as an argument
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         isHpoSelected = isHPOAlreadyConsidered(paramNameValue.get(key));
@@ -1273,7 +1273,19 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     addedFamilyMembers.get(i).setNGIS_ID(familyMember.getNGIS_ID());
-                    Debugger.println("Updated PatientID for familyMemeb with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
+                    Debugger.println("Updated PatientID for familyMember with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
+                }
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception in setting up NGIS ID " + exp);
+        }
+    }
+    public static void updateRelationship(NGISPatientModel familyMember) {
+        try {
+            for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
+                    addedFamilyMembers.get(i).setRELATIONSHIP_TO_PROBAND(familyMember.getRELATIONSHIP_TO_PROBAND());
+                    Debugger.println("Updated Relationship for member with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
                 }
             }
         } catch (Exception exp) {

@@ -38,7 +38,17 @@ public class FamilyMemberDetailsSteps extends Pages {
         patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
      }
-
+    @When("the user selects the Relationship to proband as {string} for family member {string}")
+    public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
+        //To fill ethnicity also, as this field made mandatory.
+        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
+        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+        NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
+        if(familyMember != null){
+            familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
+            FamilyMemberDetailsPage.updateRelationship(familyMember);
+        }
+    }
     @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
@@ -362,13 +372,13 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
-                clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(memberDetails.get(i).get(2));
-                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
-                if(familyMember.getPHENOTYPIC_SEX() == null){
-                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender
-                }
-                clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue(familyMember.getPHENOTYPIC_SEX());
-                clinicalQuestionsPage.selectSpecificKaryotypicSexDropdownValue("XY");
+                familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
+//                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
+//                if(familyMember.getPHENOTYPIC_SEX() == null){
+//                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender
+//                }
+//                clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue(familyMember.getPHENOTYPIC_SEX());
+//                clinicalQuestionsPage.selectSpecificKaryotypicSexDropdownValue("XY");
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
