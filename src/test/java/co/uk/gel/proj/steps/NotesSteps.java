@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class NotesSteps extends Pages {
     public NotesSteps(SeleniumDriver driver) {
