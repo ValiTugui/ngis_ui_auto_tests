@@ -458,7 +458,7 @@ public class ReferralPage<check> {
 
 
     public String getTheCurrentPageTitle() {
-        Wait.forElementToBeDisplayed(driver, pageTitle);
+        Wait.forElementToBeDisplayed(driver, pageTitle,120);
         return Actions.getText(pageTitle);
     }
 
@@ -527,8 +527,12 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
        try {
+           String actualPageTitle = getTheCurrentPageTitle();
+           if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
+               return true;
+           }
+           //In case of failure trying with another method.
            By pageTitle;
-
            if (expTitle.contains("\'")) {
                // if the string contains apostrophe character, apply double quotes in the xpath string
                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
@@ -538,14 +542,14 @@ public class ReferralPage<check> {
            WebElement titleElement = null;
            try {
                titleElement = driver.findElement(pageTitle);
+               return (Wait.isElementDisplayed(driver,titleElement,100));
            }catch(NoSuchElementException exp){
                //Wait for 10 seconds and check again. This is introduced based on the failures observed.
-               Wait.seconds(10);
                Actions.scrollToTop(driver);
                titleElement = driver.findElement(pageTitle);
+               return (Wait.isElementDisplayed(driver,titleElement,100));
            }
-           Wait.forElementToBeDisplayed(driver,titleElement);
-           return true;
+
        }catch(Exception exp){
            Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
            Actions.scrollToTop(driver);
