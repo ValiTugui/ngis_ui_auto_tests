@@ -22,6 +22,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(100, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -34,6 +35,7 @@ public class Wait {
         try{
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
             wait.withTimeout(seconds, TimeUnit.SECONDS);
+            wait.pollingEvery(5, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
             wait.ignoring(StaleElementReferenceException.class);
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -47,6 +49,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(timeInSeconds, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -56,6 +59,7 @@ public class Wait {
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(50, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.elementToBeClickable(element));
@@ -74,6 +78,7 @@ public class Wait {
     public static void forElementToDisappear(WebDriver driver, By locator) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(40, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
