@@ -195,6 +195,7 @@ public class ReferralPage<check> {
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
+    String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -384,13 +385,31 @@ public class ReferralPage<check> {
             if (completedIcon.size() == 1) {
                 return true;
             }
+            //In case of failure, trying another way
+            String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
+            WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
+            if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+                return true;
+            }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
             SeleniumLib.takeAScreenShot("StageComplete.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in Checking Stage Completion Status: " + exp);
-            SeleniumLib.takeAScreenShot("StageComplete.jpg");
-            return false;
+            try{
+                //In case of failure, trying another way
+                String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
+                WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
+                if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+                    return true;
+                }
+                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                return false;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                return false;
+            }
         }
     }
 
