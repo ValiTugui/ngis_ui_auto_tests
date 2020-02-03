@@ -1,6 +1,7 @@
 @regression
 @TO_RD
-@FamilyMemberStageNavigation_1
+@FamilyMemberStageNavigation
+@FamilyMemberStageNavigation_set2
 
 Feature: Family Members Navigation Stage Validation
 
