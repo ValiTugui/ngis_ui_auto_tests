@@ -195,6 +195,7 @@ public class ReferralPage<check> {
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
+    String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -337,23 +338,23 @@ public class ReferralPage<check> {
                 String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
                 referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
                 Wait.forElementToBeDisplayed(driver, referralStage);
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             } catch (StaleElementReferenceException staleExp) {
                Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
                referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
-               Actions.clickElement(driver,referralStage);
+               Actions.retryClickAndIgnoreElementInterception(driver,referralStage);
             }catch(TimeoutException exp) {
                 Debugger.println("Stage Click: TimeoutException: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(NoSuchElementException exp) {
                 Debugger.println("Stage Click: NoSuchElementException: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(Exception exp) {
                 Debugger.println("Stage Click: Exception: " + exp);
                 referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-                Actions.clickElement(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }
     }
 
@@ -372,7 +373,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList);
+            Wait.forElementToBeDisplayed(driver, toDoList,120);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
@@ -385,13 +386,31 @@ public class ReferralPage<check> {
             if (completedIcon.size() == 1) {
                 return true;
             }
+            //In case of failure, trying another way
+            String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
+            WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
+            if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+                return true;
+            }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
             SeleniumLib.takeAScreenShot("StageComplete.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception in Checking Stage Completion Status: " + exp);
-            SeleniumLib.takeAScreenShot("StageComplete.jpg");
-            return false;
+            try{
+                //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
+                String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
+                WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
+                if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+                    return true;
+                }
+                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                return false;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+                SeleniumLib.takeAScreenShot("StageComplete.jpg");
+                return false;
+            }
         }
     }
 
