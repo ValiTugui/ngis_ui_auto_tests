@@ -380,6 +380,7 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralStage);
             Wait.seconds(2);
             List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
+            Wait.forElementToBeDisplayed(driver, completedIcon.get(0));
             //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
             if (completedIcon.size() == 1) {
                 return true;
@@ -586,7 +587,8 @@ public class ReferralPage<check> {
     public void submitReferral(){
         try{
             if(Wait.isElementDisplayed(driver,submitReferralButton,100)){
-                submitReferralButton.click();
+                Actions.clickElement(driver, submitReferralButton);
+                Debugger.println("Referral submitted...");
             }
         }catch(Exception exp){
             Debugger.println("Exception from submitting Referral "+exp);
@@ -681,7 +683,7 @@ public class ReferralPage<check> {
     }
 
     public String  getSubmissionConfirmationMessageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
+        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
         return Actions.getText(submissionConfirmationBannerTitle);
     }
 
