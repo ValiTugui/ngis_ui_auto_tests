@@ -135,7 +135,6 @@ public class TestUtils {
             if(files[i].getName().startsWith(fileName)){
                 Debugger.println("File:"+files[i].getName()+" deleted from "+downloadLocation);
                 files[i].delete();
-                break;
             }
         }
     }
