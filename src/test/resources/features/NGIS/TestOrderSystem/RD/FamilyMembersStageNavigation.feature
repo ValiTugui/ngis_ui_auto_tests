@@ -3,7 +3,7 @@
 @FamilyMemberStageNavigation
 Feature: Family Members Navigation Stage Validation
 
-  @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT@BVT_P0 @v_1
+  @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
