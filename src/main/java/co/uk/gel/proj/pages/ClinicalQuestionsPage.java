@@ -464,21 +464,6 @@ public class ClinicalQuestionsPage {
             return null;
         }
     }
-    public String selectSpecificPhenotypicSexDropdownValue(String value){
-        try {
-            if(!Wait.isElementDisplayed(driver, phenotypicSexDropdown,15)){
-                Actions.scrollToTop(driver);
-            }
-            Actions.clickElement(driver, phenotypicSexDropdown);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, value);
-            return Actions.getText(phenotypicSexDropdown.findElement(By.cssSelector(selectSingleValue)));
-        }catch(Exception exp){
-            Debugger.println("Clinical Questions Page : Exception from selecting Karyotypic Sex : "+exp);
-            SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
-            return null;
-        }
-    }
 
     public boolean verifySpecificHPOTermDisplayed(String expectedHPOTermToBeDisplayed) {
         boolean elementFound = false;

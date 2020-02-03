@@ -809,6 +809,7 @@ public class PatientDetailsPage {
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
+                //Ethnicity included as it is mandatory field
                 editDropdownField(ethnicityButton, "A - White - British");
                 addDetailsToNGISButton.click();
                 Wait.forElementToBeDisplayed(driver,successNotification);
