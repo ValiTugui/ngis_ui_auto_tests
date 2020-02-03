@@ -243,6 +243,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
+        Actions.deleteCookies(driver);
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
@@ -275,6 +276,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {
+            Actions.deleteCookies(driver);
             Wait.forElementToBeDisplayed(driver,emailAddressField,20);
             if(!Wait.isElementDisplayed(driver,emailAddressField,10)){
                 Debugger.println("Email Address Field is not displayed even after the waiting period.");

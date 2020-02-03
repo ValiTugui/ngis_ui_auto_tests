@@ -54,10 +54,10 @@ Feature: Clinical Questions stage
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user fills the FamilyMemberDetailsPage for "<FamilyMemberDetails>" with the "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member is selected by default
+    And the user selects the test to add to the family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     And the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
