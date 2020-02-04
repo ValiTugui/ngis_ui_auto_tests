@@ -298,24 +298,30 @@ public class ClinicalQuestionsPage {
         return isFilled;
     }//method
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
-        String hpoValue = "";
-        boolean isExists = false;
-        if(!seleniumLib.isElementPresent(hpoRows)){
+        try {
+            String hpoValue = "";
+            boolean isExists = false;
+            if (!seleniumLib.isElementPresent(hpoRows)) {
+                return false;
+            }
+            Actions.scrollToTop(driver);
+            List<WebElement> rows = seleniumLib.getElements(hpoRows);
+            if (rows != null && rows.size() > 0) {
+                for (WebElement row : rows) {
+                    hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                    if (hpoValue.equalsIgnoreCase(hpoTerm)) {
+                        isExists = true;
+                        Debugger.println("Phenotype already exists:");
+                        break;//for loop
+                    }
+                }//for
+            }
+            return isExists;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking whether the HPO is already considered or not: "+exp);
             return false;
         }
-        Actions.scrollToTop(driver);
-        List<WebElement> rows = seleniumLib.getElements(hpoRows);
-        if (rows != null && rows.size() > 0) {
-            for (WebElement row : rows) {
-                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                if (hpoValue.equalsIgnoreCase(hpoTerm)) {
-                    isExists = true;
-                    Debugger.println("Phenotype already exists:");
-                    break;//for loop
-                }
-            }//for
-        }
-        return isExists;
+
     }
 
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
