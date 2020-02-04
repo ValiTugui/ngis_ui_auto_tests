@@ -21,6 +21,7 @@ public class TestUtils {
     public static final String PREFIX = "UItest";
 
     static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator;
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -140,6 +141,22 @@ public class TestUtils {
                 files[i].delete();
             }
         }
+    }
+    public static void clearAllSnapShots(){
+       try {
+           File location = new File(defaultSnapshotLocation);
+           File[] files = location.listFiles();
+           if (files == null || files.length < 1) {
+               return;
+           }
+           for (int i = 0; i < files.length; i++) {
+               if (files[i].getName().endsWith(".jpg")) {
+                   files[i].delete();
+               }
+           }
+       }catch(Exception exp){
+           Debugger.println("Exception in deleting all existing snapshots."+exp);
+       }
     }
     public static void moveDownloadedFileTo(String fileName,String targetFolder,String extension){
         String downloadLocation = defaultDownloadLocation;

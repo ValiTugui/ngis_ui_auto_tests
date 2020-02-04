@@ -537,6 +537,7 @@ public class ReferralPage<check> {
            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                return true;
            }
+           SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
            //In case of failure trying with another method.
            By pageTitle;
            if (expTitle.contains("\'")) {
