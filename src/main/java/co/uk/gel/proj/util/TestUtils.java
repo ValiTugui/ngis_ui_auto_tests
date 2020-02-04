@@ -145,6 +145,10 @@ public class TestUtils {
     public static void clearAllSnapShots(){
        try {
            File location = new File(defaultSnapshotLocation);
+           if(!location.exists()){//Create the location, if not exists, first time may not be existing.
+               location.mkdirs();
+               return;
+           }
            File[] files = location.listFiles();
            if (files == null || files.length < 1) {
                return;
