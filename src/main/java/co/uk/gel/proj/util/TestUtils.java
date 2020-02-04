@@ -7,6 +7,9 @@ import io.cucumber.java.hu.De;
 import sun.security.ssl.Debug;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -114,12 +117,12 @@ public class TestUtils {
 
         return dobInfoAsList;
     }
-    public static void deleteIfFilePresent(String fileName,String downloadLocation){
-        if(downloadLocation == null || downloadLocation.isEmpty()){
+    public static void deleteIfFilePresent(String fileName,String studyType){
+        String downloadLocation = "";
+        if(studyType == null || studyType.isEmpty()){
             downloadLocation = defaultDownloadLocation;
-        }else if(downloadLocation.equalsIgnoreCase("RD")){
-            downloadLocation = defaultDownloadLocation+File.separator+downloadLocation;
-
+        }else{//Specified folder in default downloads folder
+            downloadLocation = defaultDownloadLocation+studyType+File.separator;
         }
         File location = new File(downloadLocation);
         if(!location.exists()){//Create the location, if not exists, first time may not be existing.
@@ -135,6 +138,31 @@ public class TestUtils {
             if(files[i].getName().startsWith(fileName)){
                 Debugger.println("File:"+files[i].getName()+" deleted from "+downloadLocation);
                 files[i].delete();
+            }
+        }
+    }
+    public static void moveDownloadedFileTo(String fileName,String targetFolder,String extension){
+        String downloadLocation = defaultDownloadLocation;
+        String target = defaultDownloadLocation+targetFolder+File.separator;
+        File targetPath = new File(target);
+        if(!targetPath.exists()){//Create the location, if not exists, first time may not be existing.
+            targetPath.mkdirs();
+        }
+        File defaultPath = new File(downloadLocation);
+        File[] files = defaultPath.listFiles();
+        if(files == null || files.length <1){
+            Debugger.println("No files present in the download folder:"+downloadLocation);
+            return;
+        }
+        for(int i=0; i<files.length; i++){
+            if(files[i].getName().startsWith(fileName)){
+               try{
+                   Path result = null;
+                   result =  Files.move(Paths.get(downloadLocation+files[i].getName()), Paths.get(target+fileName+extension));
+               }catch(Exception exp){
+                   //Continue to next file, as if the file  is already open , it wont allow to move.
+                   continue;
+               }
             }
         }
     }
