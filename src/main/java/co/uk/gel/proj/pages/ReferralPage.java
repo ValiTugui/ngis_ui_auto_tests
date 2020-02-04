@@ -714,7 +714,7 @@ public class ReferralPage<check> {
     }
 
     public String  getSubmissionConfirmationMessageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
+        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
         return Actions.getText(submissionConfirmationBannerTitle);
     }
 

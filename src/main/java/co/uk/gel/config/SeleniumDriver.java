@@ -1,6 +1,7 @@
 package co.uk.gel.config;
 
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -28,7 +29,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
 
     static {
         DRIVER = new BrowserFactory().getDriver();
-        DRIVER.manage().deleteAllCookies();
+        Actions.deleteCookies(DRIVER);
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
         Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();
         String browserName = cap.getBrowserName().toLowerCase();

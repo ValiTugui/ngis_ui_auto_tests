@@ -117,12 +117,12 @@ public class TestUtils {
 
         return dobInfoAsList;
     }
-    public static void deleteIfFilePresent(String fileName,String studyType){
-        String downloadLocation = "";
-        if(studyType == null || studyType.isEmpty()){
+    public static void deleteIfFilePresent(String fileName,String downloadLocation){
+        if(downloadLocation == null || downloadLocation.isEmpty()){
             downloadLocation = defaultDownloadLocation;
-        }else{//Specified folder in default downloads folder
-            downloadLocation = defaultDownloadLocation+studyType+File.separator;
+        }else if(downloadLocation.equalsIgnoreCase("RD")){
+            downloadLocation = defaultDownloadLocation+File.separator+downloadLocation;
+
         }
         File location = new File(downloadLocation);
         if(!location.exists()){//Create the location, if not exists, first time may not be existing.

@@ -294,4 +294,14 @@ public class Actions {
             return false;
         }
     }
+
+    public static void deleteCookies(WebDriver driver) {
+        try {
+            Debugger.println("Clearing Browser cookies...");
+            driver.manage().deleteAllCookies();
+            Debugger.println("No cookies found... " + driver.manage().getCookies());
+        }catch (Exception exp){
+            Debugger.println("Exception caught while clearing cookies : " + exp);
+        }
+    }
 }
