@@ -73,10 +73,12 @@ public class PrintFormsPage {
         String ngsId = "";
         try {
             //Delete if File already present
-            Debugger.println("Deleting Files if Present...");
+            //Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm","");
             Wait.forElementToBeDisplayed(driver, landingPageList);
             Click.element(driver, formDownloadButtons.get(position));
+            Wait.seconds(10);
+            ///Move file to RD folder
         }catch(Exception exp){
             Debugger.println("Exception from  downloading Print form :"+exp);
             return false;
@@ -88,6 +90,7 @@ public class PrintFormsPage {
         String ngsId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getNGIS_ID(),"4");
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
         String dob = TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH());
+        Debugger.println("NG:"+ngsId+",REF:"+referralId+",dob:"+dob);
         String output;
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
@@ -97,17 +100,18 @@ public class PrintFormsPage {
                 Debugger.println("Could not switch to new tab for reading print form PDF file content.");
                 return false;
             }
+           // String pathToFile = defaultDownloadLocation + File.separator+"RD"+File.separator+"SampleForm.pdf";
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
-            Debugger.println("PDF file location: "+pathToFile);
+            //Debugger.println("PDF file location: "+pathToFile);
             // pdf file with full path name
             driver.get("file:///" + pathToFile);
             Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
             URL url = new URL(driver.getCurrentUrl());
-            Debugger.println("Opening Inputstream from loaded PDF.");
+            //Debugger.println("Opening Inputstream from loaded PDF.");
             is = url.openStream();
             fileToParse = new BufferedInputStream(is);
             document = PDDocument.load(fileToParse);
-            Debugger.println("Reading PDF content....");
+            //Debugger.println("Reading PDF content....");
             if(familyMember.getREFERAL_ID() == null){
                 Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");

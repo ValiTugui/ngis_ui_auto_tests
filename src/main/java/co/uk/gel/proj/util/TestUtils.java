@@ -117,20 +117,24 @@ public class TestUtils {
     public static void deleteIfFilePresent(String fileName,String downloadLocation){
         if(downloadLocation == null || downloadLocation.isEmpty()){
             downloadLocation = defaultDownloadLocation;
+        }else if(downloadLocation.equalsIgnoreCase("RD")){
+            downloadLocation = defaultDownloadLocation+File.separator+downloadLocation;
+
         }
         File location = new File(downloadLocation);
-        if(location == null){
+        if(!location.exists()){//Create the location, if not exists, first time may not be existing.
+            location.mkdirs();
             return;
         }
+
         File[] files = location.listFiles();
         if(files == null || files.length <1){
             return;
         }
         for(int i=0; i<files.length; i++){
             if(files[i].getName().startsWith(fileName)){
-                Debugger.println("File:"+files[i].getName()+" deleted.");
+                Debugger.println("File:"+files[i].getName()+" deleted from "+downloadLocation);
                 files[i].delete();
-                break;
             }
         }
     }

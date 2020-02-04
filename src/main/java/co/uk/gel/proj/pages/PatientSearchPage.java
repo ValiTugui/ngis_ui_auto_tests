@@ -222,10 +222,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickSearchButtonByXpath(WebDriver driver) {
-        Wait.forElementToBeClickable(driver, searchButtonByXpath);
-        Actions.retryClickAndIgnoreElementInterception(driver,searchButtonByXpath);
-        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-        // searchButtonByXpath.Click();
+        try {
+            Wait.forElementToBeClickable(driver, searchButtonByXpath);
+            Actions.retryClickAndIgnoreElementInterception(driver, searchButtonByXpath);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            // searchButtonByXpath.Click();
+        }catch(Exception exp){
+            Debugger.println("Exception from clicking on Search Patient Button:"+exp);
+            SeleniumLib.takeAScreenShot("SearchPatientButton.jpg");
+        }
     }
 
 
@@ -238,6 +243,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
+        Actions.deleteCookies(driver);
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
@@ -270,6 +276,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {
+            Actions.deleteCookies(driver);
             Wait.forElementToBeDisplayed(driver,emailAddressField,20);
             if(!Wait.isElementDisplayed(driver,emailAddressField,10)){
                 Debugger.println("Email Address Field is not displayed even after the waiting period.");
@@ -872,7 +879,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public String getPatientSearchNoResult() {
         String noResultText;
         try {
-            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,120);
             noResultText = Actions.getText(noPatientFoundLabel);
             Debugger.println("No result " + noResultText);
             return noResultText;
@@ -979,6 +986,30 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
             return false;
         }catch(Exception exp){
+            return false;
+        }
+    }
+    public boolean fillInPatientSearchWithNoFields(NGISPatientModel searchPatient) {
+        try {
+            clickNoButton();
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            dateDay.sendKeys(searchPatient.getDAY_OF_BIRTH());
+            dateMonth.sendKeys(searchPatient.getMONTH_OF_BIRTH());
+            dateYear.sendKeys(searchPatient.getYEAR_OF_BIRTH());
+            if(searchPatient.getFIRST_NAME() == null){
+                searchPatient.setFIRST_NAME(faker.name().firstName());
+            }
+            if(searchPatient.getLAST_NAME() == null){
+                searchPatient.setLAST_NAME(faker.name().lastName());
+            }
+            firstName.sendKeys(searchPatient.getFIRST_NAME());
+            lastName.sendKeys(searchPatient.getLAST_NAME());
+            Click.element(driver, genderButton);
+            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+searchPatient.getGENDER()+"']")));
+            return true;
+       }catch(Exception exp){
+            Debugger.println("Exception in searching patient with No Option."+exp);
+            SeleniumLib.takeAScreenShot("PatientSearchNo.jpg");
             return false;
         }
     }

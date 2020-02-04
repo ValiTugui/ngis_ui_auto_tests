@@ -2,7 +2,6 @@ package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -12,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Wait {
 
-    protected static WebDriverWait wait;
+    //protected static WebDriverWait wait;
     protected static WebDriver webDriver;
 
     public Wait(WebDriver driver) {
@@ -23,6 +22,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(100, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -35,6 +35,7 @@ public class Wait {
         try{
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
             wait.withTimeout(seconds, TimeUnit.SECONDS);
+            wait.pollingEvery(5, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
             wait.ignoring(StaleElementReferenceException.class);
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -48,6 +49,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(timeInSeconds, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -57,24 +59,17 @@ public class Wait {
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(50, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.elementToBeClickable(element));
-
-//        try {
-//            wait = new WebDriverWait(driver, 50);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }catch(Exception exp){
-//            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
-//            wait = new WebDriverWait(driver, 30);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }
     }
 
     @SuppressWarnings("deprecation")
     public static void forElementToDisappear(WebDriver driver, By locator) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(40, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
@@ -84,7 +79,7 @@ public class Wait {
 
     public static boolean forNumberOfElementsToBeGreaterThan(WebDriver driver, By locator, int number) {
         try {
-            wait = new WebDriverWait(driver, 100);
+            WebDriverWait wait = new WebDriverWait(driver, 100);
             wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, number));
             return true;
         }catch (Exception exp){
@@ -97,7 +92,7 @@ public class Wait {
     public static void forNumberOfElementsToBeEqualTo(WebDriver driver, By locator, int number) {
         try {
             Debugger.println("Closing Cookies Banner.");
-            wait = new WebDriverWait(driver, 100);
+            WebDriverWait wait = new WebDriverWait(driver, 100);
             wait.until(ExpectedConditions.numberOfElementsToBe(locator, number));
         }catch(Exception exp){
             Debugger.println("Exception from closing cookies banner: "+exp);
@@ -105,12 +100,12 @@ public class Wait {
     }
 
     public static void forURLToContainSpecificText(WebDriver driver, String text) {
-        wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.urlContains(text));
     }
 
     public static void forAlertToBePresent(WebDriver driver) {
-        wait = new WebDriverWait(driver, 100);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.alertIsPresent());
     }
 

@@ -44,13 +44,12 @@ public class PrintFormSteps extends Pages {
                     testResult = false;
                     continue;
                 }
-                Debugger.println("Downloaded...Verifying content....");
+                //Debugger.println("Downloaded...Verifying content....");
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                 if(familyMember == null){
                     continue;//For Proband
                 }
                 String referralID = referralPage.getPatientReferralId();
-                Debugger.println("ReferralID: "+referralID);
                 if(referralID != null) {
                     familyMember.setREFERAL_ID(referralID);
                  }

@@ -57,9 +57,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[@class='styles_button__12U2K styles_button--medium__O8vZ3 styles_new-patient-form__submit-button__1VyYW']")
-    public WebElement AddReferralButton;
-
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
@@ -69,17 +66,8 @@ public class FamilyMemberSearchPage {
     @FindBy(id = "firstName")
     public WebElement firstName;
 
-    @FindBy(css = "label[for*='firstName']")
-    public WebElement firstNameLabel;
-
     @FindBy(id = "lastName")
     public WebElement lastName;
-
-    @FindBy(id = "familyName")
-    public WebElement familyName;
-
-    @FindBy(css = "label[for*='lastName']")
-    public WebElement lastNameLabel;
 
     @FindBy(css = "label[for*='gender']")
     public WebElement genderLabel;
@@ -102,8 +90,6 @@ public class FamilyMemberSearchPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
-    String errorMessageLocator = "div[class*='error-message']";
-
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_no-results__header__1RMRD']")
     public WebElement errorMessage1;
 
@@ -118,12 +104,6 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
-
-    @FindBy(css = "#dateOfBirth")
-    public WebElement dateOfBirthclear;
-
-    @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
-    public WebElement genderClear;
 
     static String searchString = "";
 
@@ -148,8 +128,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
     public WebElement editBoxTestPackage;
 
-    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']")
-    public WebElement errorPatientCard;
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -236,41 +214,6 @@ public class FamilyMemberSearchPage {
         seleniumLib.clickOnWebElement(searchButton);
     }
 
-    public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("NHS Number is required.", validationErrors.get(0).getText());
-        Assert.assertEquals("Enter a day", validationErrors.get(1).getText());
-        Assert.assertEquals("Enter a month", validationErrors.get(2).getText());
-        Assert.assertEquals("Enter a year", validationErrors.get(3).getText());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
-    }
-
-
-
-    public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("Enter a day", validationErrors.get(0).getText());
-        Assert.assertEquals("Enter a month", validationErrors.get(1).getText());
-        Assert.assertEquals("Enter a year", validationErrors.get(2).getText());
-        Assert.assertEquals("First name is required.", validationErrors.get(3).getText());
-        Assert.assertEquals("Last name is required.", validationErrors.get(4).getText());
-        Assert.assertEquals("Gender is required.", validationErrors.get(5).getText());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", genderLabel.getCssValue("color").toString());
-    }
-    public void searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        //For Rare Disease Referral, NGISPatientTwo has bee considered. So providing same details to search again
-        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
-        dateDay.sendKeys(NgisPatientTwo.DAY_OF_BIRTH);
-        dateMonth.sendKeys(NgisPatientTwo.MONTH_OF_BIRTH);
-        dateYear.sendKeys(NgisPatientTwo.YEAR_OF_BIRTH);
-        searchString = "You’ve searched for "+NgisPatientTwo.NHS_NUMBER+", "+NgisPatientTwo.YEAR_OF_BIRTH+"-"+NgisPatientTwo.MONTH_OF_BIRTH+"-"+NgisPatientTwo.DAY_OF_BIRTH;
-        seleniumLib.clickOnWebElement(searchButton);
-    }
     public boolean verifyMessageOfExistingPatient(String expMessage1,String expMessage2) {
         Wait.forElementToBeDisplayed(driver,errorMessage1);
         String actMessage1 = errorMessage1.getText();
@@ -289,20 +232,6 @@ public class FamilyMemberSearchPage {
         }
         Debugger.println("Expected Message:"+expMessage1+" "+expMessage2+", but Actual:"+actMessage1+" "+actMessage2);
         return false;
-    }
-    public void fillInDOBFirstNameLastNameGender() {
-        Wait.forElementToBeDisplayed(driver, dateDay);
-        dateDay.sendKeys(NgisPatientTwo.DAY_OF_BIRTH);
-        dateMonth.sendKeys(NgisPatientTwo.MONTH_OF_BIRTH);
-        dateYear.sendKeys(NgisPatientTwo.YEAR_OF_BIRTH);
-        firstName.sendKeys(NgisPatientTwo.FIRST_NAME);
-        lastName.sendKeys(NgisPatientTwo.LAST_NAME);
-        Click.element(driver, genderButton);
-        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+NgisPatientTwo.GENDER+"']")));
-        seleniumLib.clickOnWebElement(genderInput);
-        Actions.selectValueFromDropdown(genderInput,NgisPatientTwo.GENDER);
-        searchString = "You’ve searched for "+NgisPatientTwo.FIRST_NAME+", "+NgisPatientTwo.LAST_NAME+", "+NgisPatientTwo.GENDER+", "+NgisPatientTwo.YEAR_OF_BIRTH+"-"+NgisPatientTwo.MONTH_OF_BIRTH+"-"+NgisPatientTwo.DAY_OF_BIRTH;
-        seleniumLib.clickOnWebElement(searchButton);
     }
 
     public void searchFamilyMemberWithGivenParams(String searchParams) {
@@ -427,11 +356,7 @@ public class FamilyMemberSearchPage {
         }
         return true;
     }
-    public void verifyTheTitleOfThePage(String titleOfPage) {
-        Wait.forElementToBeDisplayed(driver, searchButton);
-        Debugger.println("The actual page title  is :" + pageTitle.getText());
-        Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
-    }
+
     public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
         String actualPageDescription = pageDescription.getText();
         Debugger.println("The actual Description title  is :" + pageDescription.getText());
@@ -445,24 +370,8 @@ public class FamilyMemberSearchPage {
        }
        return true;
     }
-    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
-        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
-        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
-
-    }   public void clickOnNewPatientLink() {
+     public void clickOnNewPatientLink() {
         seleniumLib.clickOnWebElement(createNewPatientLink);
-    }
-
-    public void createNewPatientLinkDisplayed(String hyperLinkText) {
-
-        seleniumLib.clickOnWebElement(createNewPatientLink);
-        Actions.clearField(firstName);
-        Actions.clearField(familyName);
-        Actions.clearField(dateOfBirthclear);
-        Click.element(driver, genderClear);
-        Wait.seconds(3);
-        Click.element(driver,AddReferralButton);
-
     }
 
     public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
@@ -503,23 +412,6 @@ public class FamilyMemberSearchPage {
         Assert.assertEquals(errorMessage, noPatientFoundLabel.getText());
         Assert.assertEquals(expectedFontFace, noPatientFoundLabel.getCssValue("font-weight"));
 
-    }
-    public boolean getTextFromErrorPatientCardFields(String color) {
-        try {
-            Wait.forElementToBeDisplayed(driver, errorPatientCard);
-            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(color);
-            String actColor = errorPatientCard.getCssValue("color");
-            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
-                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
-                return false;
-            }
-            Debugger.println(errorPatientCard.getText());
-
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from validating Error " + exp);
-            return false;
-        }
     }
 
     public boolean checkTheErrorMessageForIncompleteFamilyMember() {
