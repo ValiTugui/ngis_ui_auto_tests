@@ -201,6 +201,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[contains(@class,'quicklinks-subnav')]")
     WebElement rowOfLinks;
 
+    @FindBy(xpath = "//button[contains(@class,'clear-button')]")
+    WebElement signatureClearButton;
+
    private String consentIDPath = "//span[text()='dummyID']/preceding::span[@class='consent-out-dated'][1]";
 
     @FindBy(xpath = "//p[contains(text(),' Confirmation ID')]//span[@class='cct-value']")
@@ -1167,6 +1170,18 @@ public class PatientChoicePage {
             }//for
             seleniumLib.clickOnWebElement(signaturePad);
             SeleniumLib.drawSignature(signaturePad);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in Filling Signature Information: " + exp);
+            SeleniumLib.takeAScreenShot("Signature.jpg");
+            return false;
+        }
+    }
+
+    public boolean clearTheSignature() {
+        try {
+            Wait.forElementToBeClickable(driver, signatureClearButton);
+            Actions.clickElement(driver, signatureClearButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in Filling Signature Information: " + exp);
