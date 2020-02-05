@@ -192,7 +192,6 @@ public class ClinicalQuestionsPage {
             diagnosisValue.click();
             Actions.clearField(diagnosisValue);
             Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
-            Wait.seconds(10);
         }
     }
 
