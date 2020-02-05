@@ -45,10 +45,10 @@ public class Actions {
     public static void selectRandomValueFromDropdown(List<WebElement> dropdownValues) {
         try {
             int index = random.nextInt(dropdownValues.size() - 1);
-            Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
+            //Debugger.println("size of dropdownValues: " + dropdownValues.size()  + " index " + index);
             dropdownValues.get(index).click();
         } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
-            Debugger.println("Select the first dropDownValues" + exp);
+            //Debugger.println("Select the first dropDownValues" + exp);
              dropdownValues.get(0).click(); // Select the first dropDownValues
             //selectByIndexFromDropDown(dropdownValues, 0);
         }
@@ -210,6 +210,16 @@ public class Actions {
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
                 //Debugger.println("Actions: Clicking on Element :" + element);
+            }catch(Exception exp){
+                try {
+                    Debugger.println("Actions: Clicking on Element Exception :"+exp);
+                    JavascriptExecutor executor = (JavascriptExecutor) driver;
+                    executor.executeScript("arguments[0].click();", element);
+                } catch (Exception exp1) {
+                    org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+                    actions.moveToElement(element).click().build().perform();
+                    //throw exp1;
+                }
             }
             if (counter == 10)
                 break;
@@ -292,6 +302,16 @@ public class Actions {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public static void deleteCookies(WebDriver driver) {
+        try {
+            Debugger.println("Clearing Browser cookies...");
+            driver.manage().deleteAllCookies();
+            Debugger.println("No cookies found... " + driver.manage().getCookies());
+        }catch (Exception exp){
+            Debugger.println("Exception caught while clearing cookies : " + exp);
         }
     }
 }

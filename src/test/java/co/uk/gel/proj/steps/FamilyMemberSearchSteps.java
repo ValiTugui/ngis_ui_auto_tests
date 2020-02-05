@@ -1,15 +1,20 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FamilyMemberSearchSteps extends Pages {
@@ -67,11 +72,6 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickSearchButton();
     }
 
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with Yes option selected$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForYes() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippedMandatoryValuesForYes();
-    }
-
     @Then("^the user will see error messages highlighted in red colour when search with the given details$")
     public void theUserWillSeeErrorMessagesInRedColorWhenSearchWithGivenDetails(DataTable messages) {
         List<List<String>> messageDetails = messages.asLists();
@@ -79,17 +79,6 @@ public class FamilyMemberSearchSteps extends Pages {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
             referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
         }
-    }
-
-
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with No option$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForNo() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
-    }
-
-    @When("the user provides NHS and DOB of an already added patient and search")
-    public void theUserProvidesDetailsOfExistingPatientAndSearch() {
-        familyMemberSearchPage.searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB();
     }
 
     @Then("^the message should display as \"([^\"]*)\" and \"([^\"]*)\" along with search string")
@@ -101,7 +90,40 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchDetails);
+        //Verify whether the search with or without NHS
+        String nhsNumber = paramNameValue.get("NHSNumber");
+        if(nhsNumber.equalsIgnoreCase("NA")){
+            NGISPatientModel familyMember = new NGISPatientModel();
+            familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+            familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+            patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
+            patientSearchPage.clickSearchButtonByXpath(driver);
+            if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
+                Debugger.println("NHS Not Found...going with No option.");
+                familyMember.setGENDER(paramNameValue.get("Gender"));
+                 if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                     patientSearchPage.clickSearchButtonByXpath(driver);
+                }
+            }
+            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+            patientDetailsPage.newPatientPageIsDisplayed();
+            familyMember.setNO_NHS_REASON("Patient is a foreign national");
+            familyMember.setGENDER(paramNameValue.get("Gender"));
+            familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+            if(paramNameValue.get("Ethnicity") != null){
+                familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+            }else{
+                familyMember.setETHNICITY("A - White - British");
+            }
+            if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                return;
+            }
+            referralPage.updatePatientNGSID(familyMember);
+        }else {
+            familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        }
+        Wait.seconds(2);
     }
 
     @Then("the user should see an error message {string} in {string} for the family member")
@@ -116,11 +138,6 @@ public class FamilyMemberSearchSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberSearchPage.checkTheResultMessageForFamilyMember(resultMessage);
         Assert.assertTrue(testResult);
-    }
-
-    @And("^the display title of the family member search page is \"([^\"]*)\"$")
-    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
-        familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
     }
 
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
@@ -140,16 +157,7 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("There is a {string} link available to create a new patient")
-    public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
-    }
-
-    @And("the user clicks the {string} to create a new patient")
-    public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
-    }
-    @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+     @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         familyMemberSearchPage.verifyNoPatientFoundDetails(expSearchString, errorMessage, fontFace);
     }
@@ -158,14 +166,6 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserClicksOnThe() {
         familyMemberSearchPage.clickOnNewPatientLink();
     }
-
-//    @And("the user should be able to see incomplete family member in {string}")
-//    public void theUserShouldBeAbleToSeeIncompleteFamilyMemberIn(String messageColor) {
-//        boolean testResult = false;
-//        testResult = familyMemberSearchPage.getTextFromErrorPatientCardFields(messageColor);
-//        Assert.assertTrue(testResult);
-//    }
-
 
     @Then("the family member landing page displayed without incomplete error message")
     public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {
@@ -198,6 +198,5 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifySearchButtonClickable();
         Assert.assertTrue(testResult);
     }
-
 
 }//end

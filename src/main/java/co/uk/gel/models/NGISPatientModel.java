@@ -32,6 +32,8 @@ public class NGISPatientModel {
     private String PATIENT_TYPE;
     private String NO_NHS_REASON;
     private String HOSPITAL_NO;
+    private String ETHNICITY;
+    private String PHENOTYPIC_SEX;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -266,5 +268,19 @@ public class NGISPatientModel {
         this.ADDRESS_LINE0 = ADDRESS_LINE0;
     }
 
+    public String getETHNICITY() {
+        return ETHNICITY;
+    }
 
+    public void setETHNICITY(String ETHNICITY) {
+        this.ETHNICITY = ETHNICITY;
+    }
+
+    public String getPHENOTYPIC_SEX() {
+        return PHENOTYPIC_SEX;
+    }
+
+    public void setPHENOTYPIC_SEX(String PHENOTYPIC_SEX) {
+        this.PHENOTYPIC_SEX = PHENOTYPIC_SEX;
+    }
 }//end

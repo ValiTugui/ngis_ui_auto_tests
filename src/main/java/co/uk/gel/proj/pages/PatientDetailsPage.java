@@ -12,10 +12,7 @@ import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
@@ -301,9 +298,38 @@ public class PatientDetailsPage {
             Actions.retryClickAndIgnoreElementInterception(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
+            Wait.seconds(2);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+        }
+    }
+    //Family member Gender is throwing error by using existing one, so created new one.
+     public void selectGender(WebElement element, String optionValue){
+         WebElement ddValue = null;
+        try {
+            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
+            Wait.seconds(3);
+            List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='"+optionValue+"']"));
+            Debugger.println("Size of Gender DD elements: "+ddElements.size());
+            if(ddElements.size() > 0) {
+                Wait.forElementToBeClickable(driver, ddElements.get(0));
+                Actions.clickElement(driver, ddElements.get(0));
+                Wait.seconds(2);
+            }
+//            if(errorMessages.size() > 0){
+//                return;
+//            }
+//            Debugger.println("Gender Still not selected......");
+//            driver.findElement(By.xpath("//label[@for='administrativeGender']/..//*[name()='svg']")).click();
+//            ddValue = driver.findElement(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='" + optionValue + "']"));
+//            Wait.forElementToBeClickable(driver,ddValue);
+//            ddValue.click();
+        }catch(Exception exp){
+            Debugger.println("Exception in selecting Gender for Family Member: "+exp);
+            SeleniumLib.takeAScreenShot("FMGenderDropDown.jpg");
         }
     }
 
@@ -330,9 +356,19 @@ public class PatientDetailsPage {
         Click.element(driver, savePatientDetailsToNGISButton);
    }
 
-    public void patientIsCreated() {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        Assert.assertEquals("Details saved", Actions.getText(successNotification));
+    public boolean patientIsCreated() {
+        try {
+            Wait.forElementToBeDisplayed(driver, successNotification,30);
+            if(Actions.getText(successNotification).equalsIgnoreCase("Details saved")){
+                return true;
+            }
+           return false;
+        }catch(Exception exp){
+            Debugger.println("Exception in creating the patient."+exp);
+            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
+            Assert.assertTrue("Patient could not create.Pls check PatientNotCreated.jpg",false);
+            return false;
+        }
     }
 
     public void clickStartReferralButton() {
@@ -716,39 +752,51 @@ public class PatientDetailsPage {
         Actions.fillInValue(familyName, TestUtils.getRandomLastName());
     }
 
-    public void createNewFamilyMember(NGISPatientModel familyMember) {
-        selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
-        familyMember.setTITLE("Mr");
-        familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
-        familyMember.setLAST_NAME(TestUtils.getRandomLastName());
-        familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
-        familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
-        familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
-        familyMember.setADDRESS_LINE2(faker.address().streetName());
-        familyMember.setADDRESS_LINE3(faker.address().cityName());
-        familyMember.setADDRESS_LINE4(faker.address().state());
-        familyMember.setPOST_CODE(RandomDataCreator.getRandomUKPostCode());
+    public boolean createNewFamilyMember(NGISPatientModel familyMember) {
+        try {
+            selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
+            familyMember.setTITLE("Mr");
+            familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
+            familyMember.setLAST_NAME(TestUtils.getRandomLastName());
+            familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
+            familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
+            familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
+            familyMember.setADDRESS_LINE2(faker.address().streetName());
+            familyMember.setADDRESS_LINE3(faker.address().cityName());
+            familyMember.setADDRESS_LINE4(faker.address().state());
+            familyMember.setPOST_CODE(RandomDataCreator.getRandomUKPostCode());
 
-        Wait.forElementToBeDisplayed(driver, title);
-        title.sendKeys(familyMember.getTITLE());
-        Actions.fillInValue(firstName, familyMember.getFIRST_NAME());
-        Actions.fillInValue(familyName, familyMember.getLAST_NAME());
-        editDropdownField(administrativeGenderButton, familyMember.getGENDER());
-        editDropdownField(lifeStatusButton, "Alive");
-        editDropdownField(ethnicityButton, "A - White - British");
-        editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
-        Actions.fillInValue(hospitalNumber,familyMember.getHOSPITAL_NO() );
-        //Address
-        Actions.fillInValue(addressLine0,familyMember.getADDRESS_LINE0() );
-        Actions.fillInValue(addressLine1, familyMember.getADDRESS_LINE1());
-        Actions.fillInValue(addressLine2, familyMember.getADDRESS_LINE2());
-        Actions.fillInValue(addressLine3, familyMember.getADDRESS_LINE3());
-        Actions.fillInValue(addressLine4, familyMember.getADDRESS_LINE4());
-        Actions.fillInValue(postcode, familyMember.getPOST_CODE());
-        //Adding Family member to a list for later stage verification
-        FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
-        Debugger.println("Family Member Added to List: NHS:"+familyMember.getNHS_NUMBER()+",DOB:"+familyMember.getDATE_OF_BIRTH()+",LNAME:"+familyMember.getLAST_NAME()+",FNAME:"+familyMember.getFIRST_NAME());
-        Actions.clickElement(driver, addNewPatientToReferral);
+            Wait.forElementToBeDisplayed(driver, title);
+            title.sendKeys(familyMember.getTITLE());
+            Actions.fillInValue(firstName, familyMember.getFIRST_NAME());
+            Actions.fillInValue(familyName, familyMember.getLAST_NAME());
+            selectGender(administrativeGenderButton,familyMember.getGENDER().trim());
+            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(ethnicityButton, familyMember.getETHNICITY());
+            editDropdownField(relationshipButton, familyMember.getRELATIONSHIP_TO_PROBAND());
+            Actions.fillInValue(hospitalNumber, familyMember.getHOSPITAL_NO());
+            //Address
+            Actions.fillInValue(addressLine0, familyMember.getADDRESS_LINE0());
+            Actions.fillInValue(addressLine1, familyMember.getADDRESS_LINE1());
+            Actions.fillInValue(addressLine2, familyMember.getADDRESS_LINE2());
+            Actions.fillInValue(addressLine3, familyMember.getADDRESS_LINE3());
+            Actions.fillInValue(addressLine4, familyMember.getADDRESS_LINE4());
+            Actions.fillInValue(postcode, familyMember.getPOST_CODE());
+            Actions.clickElement(driver, addNewPatientToReferral);
+            Wait.seconds(5);//Wait for 5 seconds to create the new member
+            if(patientIsCreated()){
+                //Adding Family member to a list for later stage verification
+                FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
+                Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
+                return true;
+            }
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception from adding mew family member:"+exp);
+            SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
+            Assert.assertTrue("Could not add new family member. Pls check NewFamilyMember.jpg",false);
+            return false;
+        }
     }
     public void fillInNHSNumber(){
         Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
@@ -774,6 +822,9 @@ public class PatientDetailsPage {
             if (referralDetails.getHOSPITAL_NO() == null || referralDetails.getHOSPITAL_NO().isEmpty()) {
                 referralDetails.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             }
+            if (referralDetails.getETHNICITY() == null || referralDetails.getETHNICITY().isEmpty()) {
+                referralDetails.setETHNICITY("A - White - British");
+            }
             if (referralDetails.getADDRESS_LINE0() == null || referralDetails.getADDRESS_LINE0().isEmpty()) {
                 referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
                 referralDetails.setADDRESS_LINE0(faker.address().buildingNumber());
@@ -789,7 +840,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
             editDropdownField(administrativeGenderButton, referralDetails.getGENDER());
             editDropdownField(lifeStatusButton, "Alive");
-            editDropdownField(ethnicityButton, "A - White - British");
+            editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
             //Address
             Actions.fillInValue(addressLine0, referralDetails.getADDRESS_LINE0());
@@ -818,8 +869,10 @@ public class PatientDetailsPage {
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
-                    addDetailsToNGISButton.click();
-                    Wait.forElementToBeDisplayed(driver,successNotification);
+                //Ethnicity included as it is mandatory field
+                editDropdownField(ethnicityButton, "A - White - British");
+                addDetailsToNGISButton.click();
+                Wait.forElementToBeDisplayed(driver,successNotification);
                 clickStartReferralButton();
             } else if (updateNGISRecordButtonList.size() > 0) {
                 Debugger.println("Update Patient Details button shown");

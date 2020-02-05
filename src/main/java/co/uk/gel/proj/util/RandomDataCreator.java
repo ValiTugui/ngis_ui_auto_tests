@@ -51,7 +51,7 @@ public class RandomDataCreator {
     public static int getRandomNumberRange(int lowerLimit, int upperLimit) {
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(upperLimit) + lowerLimit;
-        System.out.println("Random number generated is : " + randomInt);
+        //System.out.println("Random number generated is : " + randomInt);
         return randomInt;
     }
 

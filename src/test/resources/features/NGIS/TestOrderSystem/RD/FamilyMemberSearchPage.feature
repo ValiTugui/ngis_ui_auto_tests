@@ -98,19 +98,3 @@ Feature: Family Members Search Validation
       | Family members | NGIS                | 9449305099 | 10-28-2011 | Enter a month between 1 and 12 |
       | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900       |
 
-
-  @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
-  Scenario Outline: Family members - NHSNumber field - maximum length validation
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user navigates to the "<stage>" stage
-    And the user clicks on Add family member button
-    Then the user is navigated to a page with title Find a family member
-    And the YES button is selected by default on family member search
-    When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
-    Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
-
-    Examples:
-      | stage          | NHSNumber        |
-      | Family members | 9449310602111111 |
-

@@ -75,9 +75,9 @@ public class PatientChoicePage {
     String childAssent = "//label[contains(@class,'radio-container')][contains(text(),'dummyAssent')]";
 
     //For PatientInformation Identifiers
-    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-1')]";
+    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
-    String probandBeingTested = "//span[contains(@class,'child-element')]";
+    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
     String bornInformation = "//span[contains(@id,'dateOfBirth')]";
     String genderInformation = "//span[contains(@id,'gender')]";
     String ngsIdInformation = "//span[contains(@id,'ngisId')]";
@@ -269,17 +269,26 @@ public class PatientChoicePage {
     }
 
     public boolean selectPatientChoiceCategory(String category) {
+        String categoryToBeSelected = patientChoiceCategory.replaceAll("dummyCategory", category);
+        WebElement webElement = null;
         try {
-            String categoryToBeSelected = patientChoiceCategory.replaceAll("dummyCategory", category);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
-            WebElement webElement = driver.findElement(By.xpath(categoryToBeSelected));
+            webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
                 seleniumLib.clickOnWebElement(webElement);
-            } else {
-                Debugger.println("Category: " + category + " not loaded.");
+                return true;
             }
-            return true;
-        } catch (Exception exp) {
+            return false;
+        } catch (NoSuchElementException exp) {
+            //Waiting for another 20 seconds and trying again - Added this based on the errors observed
+            Wait.seconds(20);
+            webElement = driver.findElement(By.xpath(categoryToBeSelected));
+            if (Wait.isElementDisplayed(driver, webElement, 100)) {
+                seleniumLib.clickOnWebElement(webElement);
+                return true;
+            }
+            return false;
+        }catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
             SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
@@ -439,9 +448,9 @@ public class PatientChoicePage {
     //This is used for End to end RD user journey
     public boolean selectDefaultPatientChoices(){
         try {
-            selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
-            selectOptionForQuestion("Has research participation been discussed?", "Yes");
-            selectOptionForQuestion("The patient agrees that their data and samples may be used for research, separate to NHS care.", "Yes");
+            Click.element(driver, agreeTestChoice);
+            Click.element(driver, agreeResearchParticipation);
+            Click.element(driver, agreeSampleUsage);
             return true;
         }catch(Exception exp){
             return false;
@@ -669,18 +678,29 @@ public class PatientChoicePage {
         }
     }
     public boolean optionIsCompleted(String option) {
+        WebElement webElementLocator = null;
         try {
             Wait.forElementToBeDisplayed(driver, stepsList);
             String elementLocator = optionIsList.replace("dummyOption", option);
-            WebElement webElementLocator = driver.findElement(By.xpath(elementLocator));
-            if (!seleniumLib.isElementPresent(webElementLocator)) {
+            webElementLocator = driver.findElement(By.xpath(elementLocator));
+            if(!Wait.isElementDisplayed(driver,webElementLocator,60)){
+                Debugger.println("Option "+option+" is not marked as completed as expected.");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Checking patient_choice_form's option completion status: " + exp);
-            SeleniumLib.takeAScreenShot("PCOptionComplete.jpg");
-            return false;
+            try {
+                Actions.scrollToTop(driver);
+                if (!Wait.isElementDisplayed(driver, webElementLocator, 60)) {
+                    Debugger.println("Option " + option + " is not marked as completed as expected.");
+                    return false;
+                }
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in Checking patient_choice_form's option completion status: " + exp);
+                SeleniumLib.takeAScreenShot("PCOptionComplete.jpg");
+                return false;
+            }
         }
     }
 
@@ -693,6 +713,7 @@ public class PatientChoicePage {
                 }
             }
             Debugger.println("Expected message:"+message+", Not displayed in Patient Choice.");
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
@@ -829,18 +850,25 @@ public class PatientChoicePage {
 
     public boolean selectPatientSignature() {
         try {
-            Wait.forElementToBeDisplayed(driver, signaturePad, 30);
-            if (!seleniumLib.isElementPresent(signaturePad)) {
-                Debugger.println("Signature Pad Not loaded for Patient Signature.");
-                return false;
-            }
-            Actions.scrollToBottom(driver);
+            Wait.forElementToBeDisplayed(driver, signaturePad);
             SeleniumLib.drawSignature(signaturePad);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Patient Choice Page: selectPatientSignature: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
-            return false;
+            try {
+                Actions.scrollToBottom(driver);
+                SeleniumLib.drawSignature(signaturePad);
+                return true;
+            }catch(Exception exp1) {
+                try {
+                    Actions.scrollToTop(driver);
+                    SeleniumLib.drawSignature(signaturePad);
+                    return true;
+                }catch(Exception exp2) {
+                    Debugger.println("Patient Choice Page: selectSignature: " + exp);
+                    SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
+                    return false;
+                }
+            }
         }
     }
 

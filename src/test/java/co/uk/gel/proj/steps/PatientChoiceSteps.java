@@ -99,7 +99,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
         Assert.assertTrue(testResult);
-        Wait.seconds(3);
     }
     @When("the user selects the option (.*) in section (.*)")
     public void theUserSelectsThe(String option,String section) {
@@ -169,16 +168,17 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should see selected details displayed under the section (.*)")
     public void theUserShouldBeAbleToSeeSelectedChildAssentDetails(String sectionName,DataTable inputDetails) {
         List<List<String>> choiceOptions = inputDetails.asLists();
-        SeleniumLib.sleepInSeconds(5);
         for (int i = 0; i < choiceOptions.size(); i++) {
             Assert.assertTrue(patientChoicePage.verifySelectedChoicesInSection(sectionName,choiceOptions.get(i).get(0)));
+            Wait.seconds(2);
         }
     }
 
     @And("the user will see a warning message {string}")
     public void theUserWillSeeAWarningMessage(String warningMessage) {
-        patientChoicePage.verifyWarningMessage(warningMessage);
-        SeleniumLib.sleepInSeconds(5);
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyWarningMessage(warningMessage);
+       Assert.assertTrue(testResult);
     }
 
     @When("the user clicks on edit button in (.*)")
@@ -302,6 +302,21 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.selectPatientChoiceCategory();
         Wait.seconds(2);
         patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        Wait.seconds(2);
+        patientChoicePage.enterRecordedByDetails();
+        Wait.seconds(2);
+        patientChoicePage.selectChoicesWithAgreeingTesting();
+        Wait.seconds(2);
+        patientChoicePage.drawSignature();
+        Wait.seconds(2);
+
+    }
+    @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
+    public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
+
+        patientChoicePage.selectPatientChoiceCategory();
+        Wait.seconds(2);
+        patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
         Wait.seconds(2);
         patientChoicePage.enterRecordedByDetails();
         Wait.seconds(2);

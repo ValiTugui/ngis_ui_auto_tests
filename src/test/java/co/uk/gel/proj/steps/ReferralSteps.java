@@ -463,8 +463,10 @@ public class ReferralSteps extends Pages {
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
-        String actualReferralStatus = referralPage.getReferralStatus();
-        Assert.assertTrue(actualReferralStatus.contains(expectedReferralStatus));
+        boolean testResult  = false;
+        testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
+        Assert.assertTrue(testResult);
+
     }
 
     @Then("the submission confirmation message {string} is displayed")
@@ -565,7 +567,7 @@ public class ReferralSteps extends Pages {
                 case "NHSNumber": {
                     if(paramValue.startsWith("NA")) {
                         searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
-                        Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
+                        //Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
                         searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
                     }else{
                         searchPatient.setNHS_NUMBER(paramValue);
@@ -594,6 +596,10 @@ public class ReferralSteps extends Pages {
                 }
                 case "Title": {
                     searchPatient.setTITLE(paramValue);
+                    break;
+                }
+                case "Ethnicity": {
+                    searchPatient.setETHNICITY(paramValue);
                     break;
                 }
             }//switch
