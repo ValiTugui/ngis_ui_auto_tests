@@ -384,6 +384,13 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user should be able to clear the signature")
+    public void theUserShouldBeAbleToClearTheSignature() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clearTheSignature();
+        Assert.assertTrue(testResult);
+    }
+
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes and uploading recording form")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesAndUploadingForm() {
         patientChoicePage.selectPatientChoiceCategory();
