@@ -676,13 +676,20 @@ public class PatientDetailsPage {
             }
         } catch (Exception exp) {
             Debugger.println("Exception from edit drop-down details " + exp);
-            SeleniumLib.takeAScreenShot("editDropDownDetails.jpg");
+            SeleniumLib.takeAScreenShot("patientDetailsEditDropDownDetails.jpg");
         }
     }
 
     public void addPatientEthnicity(String ethnicity) {
-        editDropdownField(ethnicityButton, ethnicity);
-        Debugger.println("Ethnicity field is now filled + " + Actions.getText(ethnicityButton));
+        try {
+            if (Wait.isElementDisplayed(driver, ethnicityButton, 15)) {
+                editDropdownField(ethnicityButton, ethnicity);
+                Debugger.println("Ethnicity field is now filled + " + Actions.getText(ethnicityButton));
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from adding ethnicity value " + exp);
+            SeleniumLib.takeAScreenShot("AddEthnicityDropDownValue.jpg");
+        }
     }
 
     public void clickAddDetailsToNGISButton() {
