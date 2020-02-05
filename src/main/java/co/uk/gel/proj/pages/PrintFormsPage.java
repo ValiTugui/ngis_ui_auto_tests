@@ -122,8 +122,7 @@ public class PrintFormsPage {
                 familyMember.setREFERAL_ID("");
             }
             output = new PDFTextStripper().getText(document);
-            if(output.contains(ngsId) &&
-                    output.contains(dob) &&
+            if(output.contains(dob) &&
                     output.contains(referralId)){
                 //Close the tab and return.
                 SeleniumLib.closeCurrentWindow();
