@@ -204,6 +204,7 @@ public class ReferralPage<check> {
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
+    String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 100);
@@ -734,9 +735,25 @@ public class ReferralPage<check> {
     }
 
     public String getReferralStatus(){
-        Wait.forElementToBeDisplayed(driver, referralStatus);
-        return Actions.getText(referralStatus);
+        try {
+            Wait.forElementToBeDisplayed(driver, referralStatus);
+            return Actions.getText(referralStatus);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
+            return null;
+        }
     }
+    public boolean verifyReferralButtonStatus(String expectedStatus){
+        try {
+            String submitStatus = referralButtonStatusTitle.replaceAll("dummyStatus",expectedStatus);
+            return Wait.isElementDisplayed(driver, driver.findElement(By.xpath(submitStatus)),60);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
+            SeleniumLib.takeAScreenShot("referralButtonStatus.jpg");
+            return false;
+        }
+    }
+    //*[contains(@class,'referral-header__column')]//span[text()='Submitted']
 
     public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
         try {
