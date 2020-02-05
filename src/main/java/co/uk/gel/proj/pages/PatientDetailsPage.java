@@ -195,6 +195,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[5]")
     public WebElement clearEthnicityDropDownValue;
 
+    @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[1]")
+    public WebElement clearGenderDropDownValue;
+
     String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
@@ -628,13 +631,22 @@ public class PatientDetailsPage {
     }
 
     public void editPatientGenderLifeStatusAndEthnicity(String gender, String lifeStatus, String ethnicity) {
-        editDropdownField(administrativeGenderButton, gender);
-        editDropdownField(lifeStatusButton, lifeStatus);
-        editDropdownField(ethnicityButton, ethnicity);
+        try {
+            if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
+                Actions.retryClickAndIgnoreElementInterception(driver,clearGenderDropDownValue);
+                editDropdownField(administrativeGenderButton, gender);
+                editDropdownField(lifeStatusButton, lifeStatus);
+                editDropdownField(ethnicityButton, ethnicity);
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from edit drop-down details " + exp);
+            SeleniumLib.takeAScreenShot("editDropDownDetails.jpg");
+        }
     }
 
     public void addPatientEthnicity(String ethnicity) {
         editDropdownField(ethnicityButton, ethnicity);
+        Debugger.println("Ethnicity field is now filled + " + Actions.getText(ethnicityButton));
     }
 
     public void clickAddDetailsToNGISButton() {

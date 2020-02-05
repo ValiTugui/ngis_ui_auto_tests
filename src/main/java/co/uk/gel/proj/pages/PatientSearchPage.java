@@ -912,7 +912,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         lastName.sendKeys(newPatient.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='" + editedGender + "']")));
-        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
+        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
     }
 
 

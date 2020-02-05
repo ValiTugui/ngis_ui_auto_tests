@@ -542,14 +542,19 @@ public class ReferralPage<check> {
     }
 
     public List<String> getTheListOfFieldsErrorMessagesOnCurrentPage() {
-
         Wait.forElementToBeDisplayed(driver, pageTitle);
-        List<String> actualErrorMessages = new ArrayList<>();
-        for (WebElement errorMessage : errorMessages) {
-            actualErrorMessages.add(errorMessage.getText().trim());
+        try {
+            List<String> actualErrorMessages = new ArrayList<>();
+            for (WebElement errorMessage : errorMessages) {
+                actualErrorMessages.add(errorMessage.getText().trim());
+            }
+            Debugger.println("Actual-Error Messages" + actualErrorMessages);
+            return actualErrorMessages;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("fieldsErrorMessages.jpg");
+            Debugger.println("Could not find error message...." + exp);
+            return null;
         }
-        Debugger.println("Actual-Error Messages" + actualErrorMessages);
-        return actualErrorMessages;
     }
 
     public List<String> getTheFieldsLabelsOnCurrentPage() {

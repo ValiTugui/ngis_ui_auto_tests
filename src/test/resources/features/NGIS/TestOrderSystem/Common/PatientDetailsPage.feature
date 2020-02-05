@@ -213,6 +213,7 @@ Feature: Patient details page
     When the user clicks the patient result card
     Then the Patient Details page is displayed
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
+#    Navigate back to referral page
     And the user navigates back to patient existing referral page
       | APP_URL | patient-details|
     And the referral page is displayed
@@ -354,7 +355,7 @@ Feature: Patient details page
 
     # Ethnicity is now Mandatory
   @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
-  Scenario Outline: Ethnicity - Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
+  Scenario Outline: NTS-4500-Ethnicity - Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
@@ -387,7 +388,7 @@ Feature: Patient details page
 
   # Ethnicity is now Mandatory
   @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
-  Scenario Outline: Ethnicity - Referral Component Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
+  Scenario Outline: NTS-4500-Ethnicity - Referral Component Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage>" stage
