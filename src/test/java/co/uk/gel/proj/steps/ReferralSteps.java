@@ -463,8 +463,10 @@ public class ReferralSteps extends Pages {
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
-        String actualReferralStatus = referralPage.getReferralStatus();
-        Assert.assertTrue(actualReferralStatus.contains(expectedReferralStatus));
+        boolean testResult  = false;
+        testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
+        Assert.assertTrue(testResult);
+
     }
 
     @Then("the submission confirmation message {string} is displayed")
