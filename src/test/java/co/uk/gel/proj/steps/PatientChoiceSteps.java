@@ -99,7 +99,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
         Assert.assertTrue(testResult);
-        Wait.seconds(3);
     }
     @When("the user selects the option (.*) in section (.*)")
     public void theUserSelectsThe(String option,String section) {

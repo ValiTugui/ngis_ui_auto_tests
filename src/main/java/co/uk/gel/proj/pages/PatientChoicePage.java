@@ -269,17 +269,26 @@ public class PatientChoicePage {
     }
 
     public boolean selectPatientChoiceCategory(String category) {
+        String categoryToBeSelected = patientChoiceCategory.replaceAll("dummyCategory", category);
+        WebElement webElement = null;
         try {
-            String categoryToBeSelected = patientChoiceCategory.replaceAll("dummyCategory", category);
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
-            WebElement webElement = driver.findElement(By.xpath(categoryToBeSelected));
+            webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
                 seleniumLib.clickOnWebElement(webElement);
-            } else {
-                Debugger.println("Category: " + category + " not loaded.");
+                return true;
             }
-            return true;
-        } catch (Exception exp) {
+            return false;
+        } catch (NoSuchElementException exp) {
+            //Waiting for another 20 seconds and trying again - Added this based on the errors observed
+            Wait.seconds(20);
+            webElement = driver.findElement(By.xpath(categoryToBeSelected));
+            if (Wait.isElementDisplayed(driver, webElement, 100)) {
+                seleniumLib.clickOnWebElement(webElement);
+                return true;
+            }
+            return false;
+        }catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
             SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
@@ -704,6 +713,7 @@ public class PatientChoicePage {
                 }
             }
             Debugger.println("Expected message:"+message+", Not displayed in Patient Choice.");
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);

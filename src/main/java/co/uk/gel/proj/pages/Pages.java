@@ -185,7 +185,15 @@ public class Pages implements Navigable {
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
                 }
             }
-            Debugger.println("Switched URL    : " + driver.getCurrentUrl());
+            //Added below Section as it is observed that after login sometime page not loading and url redirecting to
+            // https://test-ordering.int.ngis.io/test-order/Home/Error
+            String switchedURL = driver.getCurrentUrl();
+            if(switchedURL.contains("Error")){
+                Debugger.println("URL contains Error after login.");
+                SeleniumLib.takeAScreenShot("URLError.jpg");
+                Assert.assertFalse("URL contains Error after login. Pls check URLError.jpg",true);
+            }
+            Debugger.println("Switched URL    : " + switchedURL);
         } catch (Exception exp) {
             Debugger.println("Exception from Switch URL: "+exp);
             SeleniumLib.takeAScreenShot("SwitchURLException.jpg");

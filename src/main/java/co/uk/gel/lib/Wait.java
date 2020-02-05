@@ -121,4 +121,20 @@ public class Wait {
         new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
     }
+    public static WebElement waitForByElementVisible(WebDriver driver,By element,int seconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, seconds);
+            final WebElement el = driver.findElement(element);
+
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+
+                    return el.isDisplayed();
+                }
+            });
+            return el;
+        }catch(Exception exp){
+            return null;
+        }
+    }
 }

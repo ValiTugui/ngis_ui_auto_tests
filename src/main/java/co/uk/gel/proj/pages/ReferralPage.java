@@ -35,7 +35,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header']")
     public WebElement referralHeader;
 
-    @FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
     @FindBy(css = "*[data-testid*='referral-sidebar']")
@@ -60,22 +61,28 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
     public WebElement referralHeaderPatientName;
 
-    @FindBy(xpath = "//span[text()='Born']/..//strong")
+    //@FindBy(xpath = "//span[text()='Born']/..//strong")
+    @FindBy(xpath = "//span[text()='Born']/following-sibling::span")
     public WebElement referralHeaderBorn;
 
-    @FindBy(xpath = "//span[text()='Gender']/..//strong")
+    //@FindBy(xpath = "//span[text()='Gender']/..//strong")
+    @FindBy(xpath = "//span[text()='Gender']/following-sibling::span")
     public WebElement referralHeaderGender;
 
-    @FindBy(xpath = "//span[text()='NHS No.']/..//strong")
+    //@FindBy(xpath = "//span[text()='NHS No.']/..//strong")
+    @FindBy(xpath = "//span[text()='NHS No.']/following-sibling::span")
     public WebElement referralHeaderNhsNo;
 
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
+    //@FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement referralHeaderPatientNgisId;
 
-    @FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
+    //@FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
+    @FindBy(xpath = "//span[text()='Clinical Indication']/following-sibling::span")
     public WebElement referralHeaderClinicalId;
 
-    @FindBy(xpath = "//span[text()='Referral ID']/..//strong")
+    //@FindBy(xpath = "//span[text()='Referral ID']/..//strong")
+    @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
     @FindBy(css = "strong[class*='header-item__value']")
@@ -90,7 +97,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-    @FindBy(css = "*[class*='referral-header__badge']")
+   // @FindBy(css = "*[class*='referral-header__badge']")
+    @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
     @FindBy(css = "*[class*='referral-header__cancel-reason']")
@@ -196,6 +204,7 @@ public class ReferralPage<check> {
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
+    String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -222,7 +231,7 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
+                    //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
                     Wait.seconds(40);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
@@ -540,6 +549,7 @@ public class ReferralPage<check> {
            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                return true;
            }
+           SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
            //In case of failure trying with another method.
            By pageTitle;
            if (expTitle.contains("\'")) {
@@ -717,14 +727,36 @@ public class ReferralPage<check> {
     }
 
     public String  getSubmissionConfirmationMessageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
-        return Actions.getText(submissionConfirmationBannerTitle);
+        try {
+            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
+            return Actions.getText(submissionConfirmationBannerTitle);
+        }catch(Exception exp){
+            Debugger.println("Referral submission confirm message not displayed: "+exp);
+            SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
+            return null;
+        }
     }
 
     public String getReferralStatus(){
-        Wait.forElementToBeDisplayed(driver, referralStatus);
-        return Actions.getText(referralStatus);
+        try {
+            Wait.forElementToBeDisplayed(driver, referralStatus);
+            return Actions.getText(referralStatus);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
+            return null;
+        }
     }
+    public boolean verifyReferralButtonStatus(String expectedStatus){
+        try {
+            String submitStatus = referralButtonStatusTitle.replaceAll("dummyStatus",expectedStatus);
+            return Wait.isElementDisplayed(driver, driver.findElement(By.xpath(submitStatus)),60);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
+            SeleniumLib.takeAScreenShot("referralButtonStatus.jpg");
+            return false;
+        }
+    }
+    //*[contains(@class,'referral-header__column')]//span[text()='Submitted']
 
     public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
         try {
