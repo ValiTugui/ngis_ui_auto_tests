@@ -20,8 +20,8 @@ public class TestUtils {
 
     public static final String PREFIX = "UItest";
 
-    static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator + "snapshots" + File.separator;
 
     public static String dateFormatReverserToYYYYMMDD(String dateInDDMMYYY) {
 
@@ -62,18 +62,19 @@ public class TestUtils {
         }
         return str;
     }
+
     public static String[] getPatientSplitNames(String fullname) {//LastName,FirstName (TITLE)
         String[] names = new String[3];
-        try{
-            String lastName = fullname.substring(0,fullname.indexOf(","));
-            String firstName = fullname.substring(fullname.indexOf(",")+1,fullname.indexOf("("));
-            String title = fullname.substring(fullname.indexOf("(")+1,fullname.indexOf(")"));
-            Debugger.println("First Name: "+firstName+",LastName: "+lastName+", Title: "+title);
+        try {
+            String lastName = fullname.substring(0, fullname.indexOf(","));
+            String firstName = fullname.substring(fullname.indexOf(",") + 1, fullname.indexOf("("));
+            String title = fullname.substring(fullname.indexOf("(") + 1, fullname.indexOf(")"));
+            Debugger.println("First Name: " + firstName + ",LastName: " + lastName + ", Title: " + title);
             names[0] = firstName.trim();
             names[1] = lastName.trim();
             names[2] = title.trim();
-        }catch(Exception exp){
-            Debugger.println("Ëxception in Splitting Patient Full name: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Ëxception in Splitting Patient Full name: " + exp);
             names[0] = "";
             names[1] = "";
             names[2] = "";
@@ -118,157 +119,177 @@ public class TestUtils {
 
         return dobInfoAsList;
     }
-    public static void deleteIfFilePresent(String fileName,String downloadLocation){
-        if(downloadLocation == null || downloadLocation.isEmpty()){
+
+    public static void deleteIfFilePresent(String fileName, String folder) {
+        String downloadLocation = "";
+        if (folder == null || folder.isEmpty()) {
             downloadLocation = defaultDownloadLocation;
-        }else if(downloadLocation.equalsIgnoreCase("RD")){
-            downloadLocation = defaultDownloadLocation+File.separator+downloadLocation;
+        } else if (folder.equalsIgnoreCase("RD")) {
+            downloadLocation = defaultDownloadLocation + folder;
 
         }
         File location = new File(downloadLocation);
-        if(!location.exists()){//Create the location, if not exists, first time may not be existing.
+        if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
             location.mkdirs();
-            return;
         }
 
         File[] files = location.listFiles();
-        if(files == null || files.length <1){
-            return;
-        }
-        for(int i=0; i<files.length; i++){
-            if(files[i].getName().startsWith(fileName)){
-                Debugger.println("File:"+files[i].getName()+" deleted from "+downloadLocation);
-                files[i].delete();
+        if (files != null && files.length > 0) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().startsWith(fileName)) {
+                    Debugger.println("File:" + files[i].getName() + " deleted from " + downloadLocation);
+                    files[i].delete();
+                }
             }
         }
+        if (folder == null || folder.isEmpty()) {
+            return;
+        }
+        //Delete from default location also
+        File defLocation = new File(defaultDownloadLocation);
+        File[] files_default = defLocation.listFiles();
+        if (files_default != null && files_default.length > 0) {
+            for (int i = 0; i < files_default.length; i++) {
+                if (files_default[i].getName().startsWith(fileName)) {
+                    Debugger.println("File:" + files_default[i].getName() + " deleted from " + defaultDownloadLocation);
+                    files_default[i].delete();
+                }
+            }
+
+        }
     }
-    public static void clearAllSnapShots(){
-       try {
-           File location = new File(defaultSnapshotLocation);
-           if(!location.exists()){//Create the location, if not exists, first time may not be existing.
-               location.mkdirs();
-               return;
-           }
-           File[] files = location.listFiles();
-           if (files == null || files.length < 1) {
-               return;
-           }
-           for (int i = 0; i < files.length; i++) {
-               if (files[i].getName().endsWith(".jpg")) {
-                   files[i].delete();
-               }
-           }
-       }catch(Exception exp){
-           Debugger.println("Exception in deleting all existing snapshots."+exp);
-       }
+
+    public static void clearAllSnapShots() {
+        try {
+            File location = new File(defaultSnapshotLocation);
+            if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
+                location.mkdirs();
+                return;
+            }
+            File[] files = location.listFiles();
+            if (files == null || files.length < 1) {
+                return;
+            }
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().endsWith(".jpg")) {
+                    files[i].delete();
+                }
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception in deleting all existing snapshots." + exp);
+        }
     }
-    public static void moveDownloadedFileTo(String fileName,String targetFolder,String extension){
+
+    public static void moveDownloadedFileTo(String fileName, String targetFolder, String extension) {
         String downloadLocation = defaultDownloadLocation;
-        String target = defaultDownloadLocation+targetFolder+File.separator;
+        String target = defaultDownloadLocation + targetFolder + File.separator;
         File targetPath = new File(target);
-        if(!targetPath.exists()){//Create the location, if not exists, first time may not be existing.
+        if (!targetPath.exists()) {//Create the location, if not exists, first time may not be existing.
             targetPath.mkdirs();
         }
         File defaultPath = new File(downloadLocation);
         File[] files = defaultPath.listFiles();
-        if(files == null || files.length <1){
-            Debugger.println("No files present in the download folder:"+downloadLocation);
+        if (files == null || files.length < 1) {
+            Debugger.println("No files present in the download folder:" + downloadLocation);
             return;
         }
-        for(int i=0; i<files.length; i++){
-            if(files[i].getName().startsWith(fileName)){
-               try{
-                   Path result = null;
-                   result =  Files.move(Paths.get(downloadLocation+files[i].getName()), Paths.get(target+fileName+extension));
-               }catch(Exception exp){
-                   //Continue to next file, as if the file  is already open , it wont allow to move.
-                   continue;
-               }
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].getName().startsWith(fileName)) {
+                try {
+                    Path result = null;
+                    result = Files.move(Paths.get(downloadLocation + files[i].getName()), Paths.get(target + fileName + extension));
+                } catch (Exception exp) {
+                    //Continue to next file, as if the file  is already open , it wont allow to move.
+                    continue;
+                }
             }
         }
     }
+
     public static String getDOBInMonthFormat(String dob) {//as dd-mm-yyyy
         try {
             String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
             String[] dobs = dob.split("-");
             return dobs[0] + "-" + months[(Integer.parseInt(dobs[1]) - 1)] + "-" + dobs[2];
-        }catch(Exception exp){
-            Debugger.println("Exception DOB IN MONTH format: "+dob);
+        } catch (Exception exp) {
+            Debugger.println("Exception DOB IN MONTH format: " + dob);
             return dob;
         }
     }
+
     public static String getNHSDisplayFormat(String nhs) {//as dd-mm-yyyy
         try {//Assume length of NHS is 10 digit
-             return nhs.substring(0,3)+ " " + nhs.substring(3,6) + " " + nhs.substring(6,10);
-        }catch(Exception exp){
-            Debugger.println("Exception getNHSInSplitFormat: "+nhs);
+            return nhs.substring(0, 3) + " " + nhs.substring(3, 6) + " " + nhs.substring(6, 10);
+        } catch (Exception exp) {
+            Debugger.println("Exception getNHSInSplitFormat: " + nhs);
             return nhs;
         }
     }
 
-    public static String insertWhiteSpaceAfterEveryNthCharacter(String textToBeModified, String position){
+    public static String insertWhiteSpaceAfterEveryNthCharacter(String textToBeModified, String position) {
         String in = textToBeModified;
         String val = position;
         String result = in.replaceAll("(.{" + val + "})", "$1 ").trim();
         return result;
     }
 
-      public static String getReferralURL(String baseURL, String referralID, String confirmationPage){
-          Debugger.println("existingReferralID " + referralID);
-          String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "referral/" + referralID + "/" + confirmationPage;
-          Debugger.println("referralFullUrl :" + referralFullUrl);
-         return referralFullUrl;
-        }
-        //Added new method to get Current day in String array (used in file upload section for patient choice)
-        public static String[] getCurrentDay(){
-            Calendar today = Calendar.getInstance();
-            String year = "";
-            String month = "";
-            String day = "";
-            int iyear = today.get(Calendar.YEAR);
-            int imonth = today.get(Calendar.MONTH) + 1;
-            int iday = today.get(Calendar.DATE);
+    public static String getReferralURL(String baseURL, String referralID, String confirmationPage) {
+        Debugger.println("existingReferralID " + referralID);
+        String referralFullUrl = AppConfig.getPropertyValueFromPropertyFile(baseURL) + "referral/" + referralID + "/" + confirmationPage;
+        Debugger.println("referralFullUrl :" + referralFullUrl);
+        return referralFullUrl;
+    }
 
-            if (imonth < 10) {
-                month = "0" + imonth;
-            } else {
-                month = "" + imonth;
-            }
-            year = "" + iyear;
-            if (iday < 10) {
-                day = "0" + iday;
-            } else {
-                day = "" + iday;
-            }
-            return new String[]{day,month,year};
-        }
+    //Added new method to get Current day in String array (used in file upload section for patient choice)
+    public static String[] getCurrentDay() {
+        Calendar today = Calendar.getInstance();
+        String year = "";
+        String month = "";
+        String day = "";
+        int iyear = today.get(Calendar.YEAR);
+        int imonth = today.get(Calendar.MONTH) + 1;
+        int iday = today.get(Calendar.DATE);
 
-    public static String getAgeInYearsAndMonth(String dob){
+        if (imonth < 10) {
+            month = "0" + imonth;
+        } else {
+            month = "" + imonth;
+        }
+        year = "" + iyear;
+        if (iday < 10) {
+            day = "0" + iday;
+        } else {
+            day = "" + iday;
+        }
+        return new String[]{day, month, year};
+    }
+
+    public static String getAgeInYearsAndMonth(String dob) {
         try {
             //Debugger.println("Date of Birth: "+dob);
-            String[] dobs= dob.split("-");
-            LocalDate dob_date = LocalDate.of(Integer.parseInt(dobs[2]),Integer.parseInt(dobs[1]),Integer.parseInt(dobs[0]));
-            LocalDate today = LocalDate.of(Integer.parseInt(getCurrentDay()[2]),Integer.parseInt(getCurrentDay()[1]),Integer.parseInt(getCurrentDay()[0]));
-            Period diff = Period.between(dob_date,today);
+            String[] dobs = dob.split("-");
+            LocalDate dob_date = LocalDate.of(Integer.parseInt(dobs[2]), Integer.parseInt(dobs[1]), Integer.parseInt(dobs[0]));
+            LocalDate today = LocalDate.of(Integer.parseInt(getCurrentDay()[2]), Integer.parseInt(getCurrentDay()[1]), Integer.parseInt(getCurrentDay()[0]));
+            Period diff = Period.between(dob_date, today);
             //Debugger.println("Age in Years and months: "+diff.getYears()+",months:"+diff.getMonths());
-            if(diff.getMonths() > 1) {
+            if (diff.getMonths() > 1) {
                 return "(" + diff.getYears() + "y " + diff.getMonths() + "m)";
-            }else{
+            } else {
                 return "(" + diff.getYears() + "y)";
             }
-        }catch(Exception exp){
-            Debugger.println("Exception from finding Age in Years: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from finding Age in Years: " + exp);
             return null;
         }
     }
 
     // NTS-4483 - prefix firstname and lastname with Uitest
-    public static String getRandomFirstName(){
+    public static String getRandomFirstName() {
         String someName = new Faker().name().firstName();
         return PREFIX + someName;
     }
 
-    public static String getRandomLastName(){
+    public static String getRandomLastName() {
         String someName = new Faker().name().lastName();
         return PREFIX + someName;
     }

@@ -58,7 +58,7 @@ Feature: Family Members Details Validation
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member is selected by default
+    And the user selects the test to add to the family member "<FamilyMemberDetails>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details

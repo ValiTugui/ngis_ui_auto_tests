@@ -60,22 +60,28 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
     public WebElement referralHeaderPatientName;
 
-    @FindBy(xpath = "//span[text()='Born']/..//strong")
+    //@FindBy(xpath = "//span[text()='Born']/..//strong")
+    @FindBy(xpath = "//span[text()='Born']/following-sibling::span")
     public WebElement referralHeaderBorn;
 
-    @FindBy(xpath = "//span[text()='Gender']/..//strong")
+    //@FindBy(xpath = "//span[text()='Gender']/..//strong")
+    @FindBy(xpath = "//span[text()='Gender']/following-sibling::span")
     public WebElement referralHeaderGender;
 
-    @FindBy(xpath = "//span[text()='NHS No.']/..//strong")
+    //@FindBy(xpath = "//span[text()='NHS No.']/..//strong")
+    @FindBy(xpath = "//span[text()='NHS No.']/following-sibling::span")
     public WebElement referralHeaderNhsNo;
 
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
+    //@FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement referralHeaderPatientNgisId;
 
-    @FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
+    //@FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
+    @FindBy(xpath = "//span[text()='Clinical Indication']/following-sibling::span")
     public WebElement referralHeaderClinicalId;
 
-    @FindBy(xpath = "//span[text()='Referral ID']/..//strong")
+    //@FindBy(xpath = "//span[text()='Referral ID']/..//strong")
+    @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
     @FindBy(css = "strong[class*='header-item__value']")
@@ -90,7 +96,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-    @FindBy(css = "*[class*='referral-header__badge']")
+   // @FindBy(css = "*[class*='referral-header__badge']")
+    @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
     @FindBy(css = "*[class*='referral-header__cancel-reason']")
@@ -222,7 +229,7 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
+                    //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
                     Wait.seconds(40);
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }

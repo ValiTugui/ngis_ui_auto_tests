@@ -329,6 +329,14 @@ public class FamilyMemberDetailsSteps extends Pages {
                     NGISPatientModel familyMember = new NGISPatientModel();
                     familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+                    familyMember.setGENDER(paramNameValue.get("Gender"));
+                    familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+                    familyMember.setNO_NHS_REASON("Patient is a foreign national");
+                    if(paramNameValue.get("Ethnicity") != null){
+                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+                    }else{
+                        familyMember.setETHNICITY("A - White - British");
+                    }
                     patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
                     patientSearchPage.clickSearchButtonByXpath(driver);
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
@@ -338,17 +346,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
-                    familyMember.setNO_NHS_REASON("Patient is a foreign national");
-                    familyMember.setGENDER(paramNameValue.get("Gender"));
-                    familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
-                    if(paramNameValue.get("Ethnicity") != null){
-                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
-                    }else{
-                        familyMember.setETHNICITY("A - White - British");
+
+                    if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                        break;
                     }
-                    patientDetailsPage.createNewFamilyMember(familyMember);
-                    patientDetailsPage.patientIsCreated();
-                    Wait.seconds(5);
                     referralPage.updatePatientNGSID(familyMember);
                 }else {
                     familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));

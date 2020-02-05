@@ -210,6 +210,16 @@ public class Actions {
             } catch (ElementClickInterceptedException e) {
                 Wait.forElementToBeClickable(driver, element);
                 //Debugger.println("Actions: Clicking on Element :" + element);
+            }catch(Exception exp){
+                try {
+                    Debugger.println("Actions: Clicking on Element Exception :"+exp);
+                    JavascriptExecutor executor = (JavascriptExecutor) driver;
+                    executor.executeScript("arguments[0].click();", element);
+                } catch (Exception exp1) {
+                    org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+                    actions.moveToElement(element).click().build().perform();
+                    //throw exp1;
+                }
             }
             if (counter == 10)
                 break;
