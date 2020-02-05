@@ -723,8 +723,14 @@ public class ReferralPage<check> {
     }
 
     public String  getSubmissionConfirmationMessageIsDisplayed() {
-        Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
-        return Actions.getText(submissionConfirmationBannerTitle);
+        try {
+            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
+            return Actions.getText(submissionConfirmationBannerTitle);
+        }catch(Exception exp){
+            Debugger.println("Referral submission confirm message not displayed: "+exp);
+            SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
+            return null;
+        }
     }
 
     public String getReferralStatus(){
