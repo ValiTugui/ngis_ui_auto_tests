@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -14,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SamplesPage {
@@ -224,16 +226,29 @@ public class SamplesPage {
     }
 
     public void answerSampleTopography(String value) {
+        try {
         Wait.forElementToBeDisplayed(driver, sampleTopographyField);
-        Actions.fillInValue(sampleTopographyField, value);
+        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("SampleTopograhy.jpg");
+            Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
+            Assert.assertFalse(true);
+        }
     }
 
     public void answerSampleMorphology(String value) {
-        Actions.fillInValue(sampleMorphologyField, value);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+        try {
+            Wait.forElementToBeDisplayed(driver, sampleMorphologyField);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleMorphologyField, value);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+        } catch (Exception exp) {
+                SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
+                Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
+                Assert.assertFalse(true);
+            }
     }
 
     public int fillInPercentageOfMalignantNuclei() {

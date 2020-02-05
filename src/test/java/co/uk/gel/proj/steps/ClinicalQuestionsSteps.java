@@ -40,8 +40,10 @@ public class ClinicalQuestionsSteps extends Pages {
     }
 
     @And("the user selects a value {string} from the Rare disease diagnosis")
-    public void theUserSelectsAValueFromTheRareDiseaseDiagnosis(String diagnosis) {
-        clinicalQuestionsPage.searchAndSelectARandomDiagnosis(diagnosis);
+    public void theUserSelectsAValueFromTheRareDiseaseDiagnosis(String expectedDiagnosis) {
+        String actualValue = clinicalQuestionsPage.searchAndSelectSpecificDiagnosis(expectedDiagnosis);
+        Assert.assertNotNull(actualValue);
+        Assert.assertTrue(actualValue.equalsIgnoreCase(expectedDiagnosis));
     }
 
     @When("the user presses the backspace key on the Rare disease diagnosis field")
@@ -77,17 +79,23 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @When("the user provided the values {string} {string} for Age of onset fields")
     public void theUserProvidedTheValuesForAgeOfOnsetFields(String year, String month) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInYearsOfOnset(year);
         clinicalQuestionsPage.fillInMonthsOfOnset(month);
    }
 
     @When("the user provided the values {string} for Age of onset fields")
     public void theUserProvidedTheValuesForAgeOfOnsetFields(String months) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInMonthsOfOnset(months);
     }
 
     @When("the user provided the year values {string} for Age of onset fields")
     public void theUserProvidedTheYearValuesForAgeOfOnsetFields(String year) {
+        clinicalQuestionsPage.clearValueFromYearsOfOnset();
+        clinicalQuestionsPage.clearValueFromMonthsOfOnset();
         clinicalQuestionsPage.fillInYearsOfOnset(year);
     }
 

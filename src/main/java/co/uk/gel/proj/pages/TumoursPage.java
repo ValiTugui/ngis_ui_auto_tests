@@ -230,13 +230,13 @@ public class TumoursPage {
 
     public void answerTumourDiagnosisQuestions(String diagnosis) {
         Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
-        Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
+        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
-        Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.selectRandomValueFromDropdown(dropdownValues);
-        Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
         Wait.forElementToBeDisplayed(driver, dropdownValue);
         Actions.retrySelectRandomValueFromDropDown(dropdownValues);
         // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -247,41 +247,40 @@ public class TumoursPage {
 
         switch (tumourType) {
             case "Solid tumour: metastatic": {
-                Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: primary": {
-                Actions.fillInValue(topographyOfPrimaryTumourField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
             case "Solid tumour: unknown":
             case "Brain tumour": {
-                Actions.fillInValue(topographyOfThisMetastaticDepositField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;
             }
 
             case "Haematological malignancy: liquid sample":
-
             case "Haematological malignancy: solid sample": {
-                Actions.fillInValue(workingDiagnosisMorphologyField, diagnosis);
+                Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
                 Wait.forElementToBeDisplayed(driver, dropdownValue);
                 Actions.selectRandomValueFromDropdown(dropdownValues);
                 break;

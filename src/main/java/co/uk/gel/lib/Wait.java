@@ -63,15 +63,6 @@ public class Wait {
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.elementToBeClickable(element));
-
-//        try {
-//            wait = new WebDriverWait(driver, 50);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }catch(Exception exp){
-//            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
-//            wait = new WebDriverWait(driver, 30);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }
     }
 
     @SuppressWarnings("deprecation")

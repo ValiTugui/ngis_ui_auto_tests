@@ -1,8 +1,8 @@
 @regression
 @TO_Cancer
-@questionnaire
+@CancerQuestionnaire
 
-Feature: Component name - Questionnaire
+Feature: Tumour Questionnaire
 
   @NTS-3266 @E2EUI-1602 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
