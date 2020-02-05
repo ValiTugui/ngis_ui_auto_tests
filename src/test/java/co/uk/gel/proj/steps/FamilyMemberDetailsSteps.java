@@ -120,6 +120,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
     }
 
+    @And("the user clicks the Add new patient to referral button")
+    public void theUserClicksTheAddNewPatientToReferralButton() {
+        familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
+    }
+
     @When("the user deselects the test")
     public void theUserDeselectTheSelectedTest() {
         familyMemberDetailsPage.deSelectTheTest();
