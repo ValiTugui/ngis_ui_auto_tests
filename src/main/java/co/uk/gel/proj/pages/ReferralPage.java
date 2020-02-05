@@ -35,7 +35,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header']")
     public WebElement referralHeader;
 
-    @FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
     @FindBy(css = "*[data-testid*='referral-sidebar']")
