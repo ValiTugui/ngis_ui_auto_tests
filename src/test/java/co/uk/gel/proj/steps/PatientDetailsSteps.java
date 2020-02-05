@@ -46,7 +46,9 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -261,7 +263,9 @@ public class PatientDetailsSteps extends Pages {
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
