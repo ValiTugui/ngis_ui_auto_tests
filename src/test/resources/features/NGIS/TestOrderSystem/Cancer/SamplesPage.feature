@@ -506,7 +506,6 @@ Feature: Samples Page
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
