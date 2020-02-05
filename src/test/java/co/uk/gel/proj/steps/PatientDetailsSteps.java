@@ -46,7 +46,9 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -261,7 +263,9 @@ public class PatientDetailsSteps extends Pages {
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
@@ -293,19 +297,17 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
-
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
-
-        List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
         List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
         List actualColourFieldErrorMessages = referralPage.getColourOfTheFieldsErrorMessagesOnCurrentPage();
         String expectedFontColorInRGB = "";
 
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0) + " count: " + i);
-            Debugger.println("Actual labelHeader " + actualFieldsErrorLabels.get(i - 1) + "\n");
-            Assert.assertTrue(actualFieldsErrorLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            Assert.assertTrue(actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
 
             Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
             Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
@@ -412,6 +414,7 @@ public class PatientDetailsSteps extends Pages {
     public void theUserDeletesTheContentOfTheEthnicityField() {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
         Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+        Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
     }
 
     @When("the selects the ethnicity as {string}")
