@@ -575,6 +575,38 @@ Feature: Samples Page
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
 
 
+  @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
+  Scenario Outline: Samples stage (Post Edit Sample)
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+#    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user clicks on the Back link
+    Then the "<pageTitle4>" page is displayed
+    Then the new edited sample details are displayed in the edit sample page
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+    And the user clicks the Save and Continue button
+    And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
+    Then the new sample is displayed in the landing page
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | sampleState | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Buccal swab | Sample added     |
+
+
+
+
+
 
 
 
