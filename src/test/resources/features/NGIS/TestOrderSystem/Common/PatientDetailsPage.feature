@@ -26,7 +26,7 @@ Feature: Patient details page
 
       Examples:
         | pageTitle                         | pageTitle2        | patient-search-type |
-        | Add a new patient to the database | Find your patient | NGIS            |
+        | Add a new patient to the database | Find your patient | NGIS                |
 
 
     @NTS-3068 @E2EUI-1182 @LOGOUT @v_1 @BVT_P0
@@ -407,7 +407,7 @@ Feature: Patient details page
 
 
   @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
-  Scenario Outline: Patient detail - NHSNumber and Hospital Number field - maximum length validation
+  Scenario Outline: NTS-4503 - Patient detail - NHSNumber and Hospital Number field - maximum length validation
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
@@ -434,3 +434,34 @@ Feature: Patient details page
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | NHSNumber        | HospitalNumber      |
       | Add a new patient to the database | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
+
+
+  @NTS-4538 @E2EUI-1054 @LOGOUT @P0 @v_1
+  Scenario Outline: NTS-4538 - Add patient contact(address) details to a patient
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name, gender and post-code
+    And the user clicks the Search button
+    Then a "<patient-type>" result is successfully returned
+    And the correct details of the "<patient-search-type>" patient are displayed in the card
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the correct patient address is displayed on patient details page
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-type | patient-search-type |
+      | Add a new patient to the database | Find your patient | NGIS         | New-NGIS            |
+
+
+
+
+

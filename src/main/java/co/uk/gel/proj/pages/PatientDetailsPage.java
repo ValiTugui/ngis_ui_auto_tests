@@ -269,13 +269,23 @@ public class PatientDetailsPage {
 
     public void fillInAllNewPatientDetails() {
         fillInNewPatientDetailsWithoutAddressFields();
-        Actions.fillInValue(addressLine0, faker.address().buildingNumber());
-        Actions.fillInValue(addressLine1, faker.address().streetAddressNumber());
-        Actions.fillInValue(addressLine2, faker.address().streetName());
-        Actions.fillInValue(addressLine3, faker.address().cityName());
-        Actions.fillInValue(addressLine4, faker.address().state());
+
+        List<String> patientAddressDetails = new ArrayList<String>();
+        patientAddressDetails.add(faker.address().buildingNumber());
+        patientAddressDetails.add(faker.address().streetAddressNumber());
+        patientAddressDetails.add(faker.address().streetName());
+        patientAddressDetails.add(faker.address().cityName());
+        patientAddressDetails.add(faker.address().state());
+        newPatient.setPatientAddress(patientAddressDetails);
+
+        Actions.fillInValue(addressLine0, patientAddressDetails.get(0));
+        Actions.fillInValue(addressLine1, patientAddressDetails.get(1));
+        Actions.fillInValue(addressLine2, patientAddressDetails.get(2));
+        Actions.fillInValue(addressLine3, patientAddressDetails.get(3));
+        Actions.fillInValue(addressLine4, patientAddressDetails.get(4));
         newPatient.setPostCode(getRandomUKPostCode());
         Actions.fillInValue(postcode, newPatient.getPostCode());
+        Debugger.println("Expected patient address - List " + patientAddressDetails  + " : " +  newPatient.getPatientAddress() );
     }
 
     public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason() {
@@ -896,5 +906,21 @@ public class PatientDetailsPage {
             SeleniumLib.takeAScreenShot("startReferralError.jpg");
             return false;
         }
+    }
+
+
+    public List<String> getActualPatientAddressOnPatientDetailPage() {
+
+        Wait.forElementToBeDisplayed(driver, addressLine0);
+        List<String> actualPatientAddress = new ArrayList<>();
+
+        actualPatientAddress.add(Actions.getValue(addressLine0));
+        actualPatientAddress.add(Actions.getValue(addressLine1));
+        actualPatientAddress.add(Actions.getValue(addressLine2));
+        actualPatientAddress.add(Actions.getValue(addressLine3));
+        actualPatientAddress.add(Actions.getValue(addressLine4));
+
+        Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
+        return actualPatientAddress;
     }
 }

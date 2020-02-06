@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
+
 
 public class PatientDetailsSteps extends Pages {
 
@@ -511,5 +513,17 @@ public class PatientDetailsSteps extends Pages {
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
         Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
+
+    @And("the correct patient address is displayed on patient details page")
+    public void theCorrectPatientAddressIsDisplayedOnPatientDetailsPage() {
+
+        List<String> actualPatientAddress = patientDetailsPage.getActualPatientAddressOnPatientDetailPage();
+        List<String> expectedPatientAddress = newPatient.getPatientAddress();
+        Debugger.println("actual Patient Address :" + actualPatientAddress);
+        Debugger.println("expected Patient Address :" + expectedPatientAddress);
+
+
+
     }
 }
