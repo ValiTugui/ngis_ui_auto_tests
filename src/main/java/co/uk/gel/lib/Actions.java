@@ -110,6 +110,12 @@ public class Actions {
         element.clear();
     }
 
+    public static void clearInputField(WebElement element) {
+        while (!getValue(element).isEmpty()) {
+            element.sendKeys(Keys.BACK_SPACE);
+        }
+    }
+
     public static void clearField(WebElement element) {
             element.sendKeys(Keys.BACK_SPACE);
     }
