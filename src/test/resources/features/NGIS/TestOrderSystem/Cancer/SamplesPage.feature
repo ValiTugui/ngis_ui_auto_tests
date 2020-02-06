@@ -582,8 +582,7 @@ Feature: Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
-#    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state and filling SampleID
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
     When the user clicks on the Back link
@@ -599,8 +598,8 @@ Feature: Samples Page
 
     Examples:
 
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | sampleState | notificationText |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Buccal swab | Sample added     |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
 
 
 
