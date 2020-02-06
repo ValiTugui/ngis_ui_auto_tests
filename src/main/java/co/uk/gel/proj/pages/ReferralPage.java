@@ -58,7 +58,7 @@ public class ReferralPage<check> {
     public WebElement backLink;
 
 
-    @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
+    @FindBy(xpath = "//ul[contains(@class,'referral-header__details')]//span[@aria-labelledby='name_1']")
     public WebElement referralHeaderPatientName;
 
     //@FindBy(xpath = "//span[text()='Born']/..//strong")

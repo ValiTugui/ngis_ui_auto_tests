@@ -44,6 +44,9 @@ public class SamplesPage {
     @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
     public WebElement sampleState;
 
+    @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'singleValue')]/span")
+    public WebElement selectedSampleStateValue;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q323')]//child::input")
     public WebElement sampleTopographyField;
 
@@ -187,7 +190,7 @@ public class SamplesPage {
         int numberOfAttempts = 5;
         Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
         Actions.retrySelectRandomValueFromDropDown(dropdownValues);
-        sampleDetails.setSampleState(Actions.getText(sampleState));
+        sampleDetails.setSampleState(Actions.getText(selectedSampleStateValue));
     }
 
     public void selectSampleState(String sampleStateValue) {
