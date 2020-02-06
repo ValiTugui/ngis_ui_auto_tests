@@ -595,6 +595,7 @@ Feature: Samples Page
     And the success notification is displayed "<notificationText>"
     Then the "<pageTitle>" page is displayed
     Then the new sample is displayed in the landing page
+    And on the Manage Samples page, the new sample details are displayed in the sample table list
 
     Examples:
 
