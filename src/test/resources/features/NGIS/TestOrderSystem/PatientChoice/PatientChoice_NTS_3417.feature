@@ -1,5 +1,5 @@
 @regression
-@PatientChoice
+@PatientChoice_1
 Feature: Patient Choice Page
 
   @NTS-3417 @E2EUI-2040 @E2EUI-1450 @v_1 @P0
@@ -99,7 +99,7 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(b)
@@ -127,7 +127,7 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_2
@@ -214,12 +214,12 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
     And the mandatory fields shown with the symbol in red color
       | mandatory_field      | field_type | symbol | symbol color |
       | Consultee first name | label      | ✱      | #425563      |
       | Consultee last name  | label      | ✱      | #425563      |
     When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
     When the user should be able to clear the signature
     Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
@@ -251,7 +251,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -281,7 +288,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -345,7 +359,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -375,7 +396,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -405,7 +433,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -493,7 +528,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -523,7 +565,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -553,7 +602,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #425563      |
+      | Consultee last name  | label      | ✱      | #425563      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
