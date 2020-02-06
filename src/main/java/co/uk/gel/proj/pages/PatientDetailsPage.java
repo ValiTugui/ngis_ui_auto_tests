@@ -249,7 +249,7 @@ public class PatientDetailsPage {
 
         String gender = "Male";
         newPatient.setGender(gender);
-        editDropdownField(administrativeGenderButton, gender);
+        selectGender(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
@@ -288,7 +288,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, newPatient.getFirstName());
         Actions.fillInValue(familyName, newPatient.getLastName());
         Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
-        editDropdownField(administrativeGenderButton, "Male");
+        selectGender(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
     }
@@ -572,7 +572,7 @@ public class PatientDetailsPage {
 
         String gender = "Male";
         newPatient.setGender(gender);
-        editDropdownField(administrativeGenderButton, gender);
+        selectGender(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
@@ -633,7 +633,7 @@ public class PatientDetailsPage {
         if(!Wait.isElementDisplayed(driver, administrativeGenderButton,15)){
             Actions.scrollToTop(driver);
         }
-        editDropdownField(administrativeGenderButton, gender);
+        selectGender(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
         editDropdownField(ethnicityButton, "A - White - British");
@@ -670,7 +670,7 @@ public class PatientDetailsPage {
         try {
             if (Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
                 Actions.retryClickAndIgnoreElementInterception(driver,clearGenderDropDownValue);
-                editDropdownField(administrativeGenderButton, gender);
+                selectGender(administrativeGenderButton, gender);
                 editDropdownField(lifeStatusButton, lifeStatus);
                 editDropdownField(ethnicityButton, ethnicity);
             }
@@ -845,7 +845,7 @@ public class PatientDetailsPage {
             title.sendKeys(referralDetails.getTITLE());
             Actions.fillInValue(firstName, referralDetails.getFIRST_NAME());
             Actions.fillInValue(familyName, referralDetails.getLAST_NAME());
-            editDropdownField(administrativeGenderButton, referralDetails.getGENDER());
+            selectGender(administrativeGenderButton, referralDetails.getGENDER());
             editDropdownField(lifeStatusButton, "Alive");
             editDropdownField(ethnicityButton, referralDetails.getETHNICITY());
             Actions.fillInValue(hospitalNumber, referralDetails.getHOSPITAL_NO());
@@ -859,6 +859,14 @@ public class PatientDetailsPage {
             //Adding referral to to a list for later stage verification, if needed
             FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
             Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
+            //Ensure all the fields are correctly populated without any error shown on patient details page
+            boolean flag = verifyTheElementsOnAddNewPatientPage();
+            if(!flag){
+                // Navigate to top of page
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
+                Assert.assertTrue(false);
+            }
             //Adding Patient to NGIS
             clickSavePatientDetailsToNGISButton();
             patientIsCreated();
