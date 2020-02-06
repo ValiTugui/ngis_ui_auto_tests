@@ -352,32 +352,37 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheTestAndDetailsOfAddedFamilyMember(NGISPatientModel familyMember) {
+        try {
        if (familyMember == null) {
             Debugger.println("Family Member cannot be null.");
             return false;
         }
         //1. Verify the display of Title for the added Test.
         By testTitle = By.xpath(selectedTestTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
-        if (!seleniumLib.isElementPresent(testTitle)) {
+            if (!Wait.isElementDisplayed(driver, driver.findElement(testTitle), 120)) {
             Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed." + testTitle);
             return false;
         }
         //2. Verify the display of Relation to Proband as given.
         By selectedFamilyMember = By.xpath(selectedMemberTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
-        if (!seleniumLib.isElementPresent(selectedFamilyMember)) {
+            if (!Wait.isElementDisplayed(driver, driver.findElement(selectedFamilyMember), 120)) {
             Debugger.println("Selected Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
             return false;
         }
         //3. Select the test as checked by default.
-        if (!seleniumLib.isElementPresent(selectedTest)) {
-            if (!seleniumLib.isElementPresent(unSelectedTest)) {
+            if (!Wait.isElementDisplayed(driver, driver.findElement(selectedTest), 120)) {
+                if (!Wait.isElementDisplayed(driver, driver.findElement(unSelectedTest), 120)) {
                 Debugger.println("Option to select test not present in Select Test Page.");
                 return false;
             } else {
-                seleniumLib.clickOnElement(unSelectedTest);//To make the test selected by default.
+                    Actions.clickElement(driver, driver.findElement(unSelectedTest));//To make the test selected by default.
             }
         }
         return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying selected test title:" + exp);
+            return false;
+        }
     }
 
     public boolean fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {

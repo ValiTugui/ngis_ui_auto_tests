@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
@@ -372,8 +373,12 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
                     Assert.assertTrue(false);
                 }
+                if (!referralPage.verifyThePageTitlePresence("Select tests for")) {
+                    Wait.seconds(30);//Continuos time out failures observed at this point in jenkins runs.
+                }
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
-                    Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
+                    Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
+                    SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();

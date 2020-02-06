@@ -207,8 +207,8 @@ public class ReferralPage<check> {
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
     public void checkThatReferalWasSuccessfullyCreated() {
-        Wait.forElementToBeDisplayed(driver, referralHeader, 100);
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
+        Wait.forElementToBeDisplayed(driver, referralHeader, 120);
+        Wait.forElementToBeDisplayed(driver, toDoList, 120);
         Wait.forElementToBeDisplayed(driver, sectionBody);
         Wait.forNumberOfElementsToBeEqualTo(driver, By.xpath(valuesInReferralHeaderBar), 7);
     }
@@ -296,10 +296,13 @@ public class ReferralPage<check> {
 
     public void checkThatReferralWasSuccessfullyCreated() {
         try {
-            Wait.forElementToBeDisplayed(driver, getReferralHeaderStatus, 200);
-            Wait.forElementToBeDisplayed(driver, referralHeader, 100);
-            Wait.forElementToBeDisplayed(driver, toDoList, 100);
-            Wait.forElementToBeDisplayed(driver, sectionBody);
+            // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
+            //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+            Wait.seconds(3);
+            Wait.forElementToBeDisplayed(driver, getReferralHeaderStatus, 300);
+            Wait.forElementToBeDisplayed(driver, referralHeader, 200);
+            Wait.forElementToBeDisplayed(driver, toDoList, 200);
+            Wait.forElementToBeDisplayed(driver, sectionBody, 200);
 //            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);

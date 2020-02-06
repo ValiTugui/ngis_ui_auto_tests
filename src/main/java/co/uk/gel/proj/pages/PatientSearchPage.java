@@ -223,6 +223,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         try {
+            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
             Wait.forElementToBeClickable(driver, searchButtonByXpath);
             Actions.retryClickAndIgnoreElementInterception(driver, searchButtonByXpath);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -648,7 +649,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -674,7 +675,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
 
         expectedElements.add(pageTitle);
