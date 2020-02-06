@@ -42,7 +42,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<Notes>" stage
     Then the user is navigated to a page with title Add notes to this referral
     And the user fills in the Add Notes field
-
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals

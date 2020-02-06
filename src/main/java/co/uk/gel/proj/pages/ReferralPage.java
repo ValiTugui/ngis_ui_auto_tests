@@ -57,8 +57,7 @@ public class ReferralPage<check> {
     @FindBy(css = "button[class*='referral-navigation__button--back']")
     public WebElement backLink;
 
-
-    @FindBy(xpath = "//ul[contains(@class,'referral-header-details')]/li[1]/strong")
+    @FindBy(xpath = "//ul[contains(@class,'referral-header__details')]//span[@aria-labelledby='name_1']")
     public WebElement referralHeaderPatientName;
 
     //@FindBy(xpath = "//span[text()='Born']/..//strong")
@@ -201,6 +200,7 @@ public class ReferralPage<check> {
     public WebElement familyMemberNames;
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
+    String mandatoryFieldSymbolPC = "//dummyFieldType[contains(text(),'dummyLabel')]/div";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
@@ -913,6 +913,7 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
     public boolean verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
         try {
             Wait.seconds(2);
