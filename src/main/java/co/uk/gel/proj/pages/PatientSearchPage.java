@@ -545,31 +545,34 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 case "DOB": {
                     String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
-                    Actions.clearField(dateDay);
+                    Actions.clearInputField(dateDay);
+                    Wait.seconds(1);
                     dateDay.sendKeys(dobSplit[0]);
-                    Actions.clearField(dateMonth);
+                    Actions.clearInputField(dateMonth);
+                    Wait.seconds(1);
                     dateMonth.sendKeys(dobSplit[1]);
-                    Actions.clearField(dateYear);
+                    Actions.clearInputField(dateYear);
+                    Wait.seconds(1);
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
                 case "FirstName": {
-                    Actions.clearField(firstName);
+                    Actions.clearTextField(firstName);
                     firstName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "LastName": {
-                    Actions.clearField(lastName);
+                    Actions.clearTextField(lastName);
                     lastName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "Gender": {
-                    genderButton.click();
+                    Actions.retryClickAndIgnoreElementInterception(driver,genderButton);
                     genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
                     break;
                 }
                 case "Postcode": {
-                    Actions.clearField(postcode);
+                    Actions.clearTextField(postcode);
                     postcode.sendKeys(paramNameValue.get(key));
                     break;
                 }

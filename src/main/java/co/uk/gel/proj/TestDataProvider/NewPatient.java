@@ -2,6 +2,7 @@ package co.uk.gel.proj.TestDataProvider;
 
 import co.uk.gel.proj.util.TestUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewPatient {
@@ -44,7 +45,7 @@ public class NewPatient {
 
 	private String clinicalIndicationTestTypeSampleType;
 	private int totalNumberOfUncheckedTumourList;
-	private List<String> addressList;
+	private List<String> patientAddress = new ArrayList<>();
 
 
 	public String getClinicalIndication() {
@@ -308,4 +309,13 @@ public class NewPatient {
 	public void setTotalNumberOfUncheckedTumourList (int totalNumberOfUncheckedTumourList) {
 		this.totalNumberOfUncheckedTumourList = totalNumberOfUncheckedTumourList;
 	}
+
+	public List<String> getPatientAddress(){
+		return this.patientAddress;
+	}
+
+	public void setPatientAddress(List<String> patientAddress) {
+		this.patientAddress = patientAddress;
+	}
+
 }
