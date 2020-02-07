@@ -753,14 +753,16 @@ public class PatientChoicePage {
 
     public boolean verifyWarningMessage(String message) {
         try {
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
             for (int i = 0; i < warningMessage.size(); i++) {
                 if (message.equalsIgnoreCase(warningMessage.get(i).getText())) {
                     return true;
                 }
             }
-            Debugger.println("Expected message:"+message+", Not displayed in Patient Choice.");
             SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
@@ -790,8 +792,6 @@ public class PatientChoicePage {
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             String actualColor = submitPatientChoiceButton.getCssValue("background-color");
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
-                Debugger.println("Actual background color : " + actualColor + ", Expected :"+expectedBackground);
-                SeleniumLib.takeAScreenShot("SubmitChoiceButtonColor.jpg");
                 return false;
             }
             return true;
@@ -1096,10 +1096,17 @@ public class PatientChoicePage {
 
     public boolean enabledContinueButtonOnPatientChoiceFormPage() {
         try {
-            Wait.forElementToBeDisplayed(driver, continueButton);
-            if (!continueButton.isEnabled()) {
-                Debugger.println("Add patient Choice Page:Recorded by:continue Button Not found");
-                return false;
+            if(Wait.isElementDisplayed(driver, continueButton,10)) {
+                if (!continueButton.isEnabled()) {
+                    Debugger.println("Add patient Choice Page:Recorded by:continue Button Not found");
+                    return false;
+                }
+            }else if(Wait.isElementDisplayed(driver,formToFollow,10)){
+                if(!formToFollow.isEnabled()){
+                    Debugger.println("Add patient Choice Page:Recorded by:Form to follow Button Not found");
+                    SeleniumLib.takeAScreenShot("RecordByButton.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
