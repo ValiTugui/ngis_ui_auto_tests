@@ -34,6 +34,12 @@ public class TestPackagePage {
     @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
     public WebElement routinePriorityButton;
 
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
+    public WebElement routinePriorityButtonSVGTickMark;
+
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
+    public WebElement urgentPriorityButtonSVGTickMark;
+
     @FindBy(css = "[class*='button--selected']")
     public WebElement chosenPriorityButton;
 
@@ -259,6 +265,22 @@ public class TestPackagePage {
            return true;
        }
        else return false;
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToRoutine(){
+        Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
+        if(Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 10)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToUrgent(){
+        Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
+        if(Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 10)){
+            return true;
+        }
+        return false;
     }
 
 }
