@@ -24,7 +24,7 @@ Feature: Patient search page_NGIS
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | patient-type |
-      | Add a new patient to the database | Find your patient | New-NGIS            | NGIS         |
+      | Add a new patient to the database | Find your patient | NGIS                | NGIS         |
 
 
   @NTS-3068 @E2EUI-1182 @v_1 @LOGOUT
@@ -89,7 +89,7 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
   @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, gender and post-code
@@ -106,7 +106,7 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
 
   @NTS-2822 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131 @v_1 @LOGOUT
@@ -124,11 +124,11 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
 
     @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
-  Scenario Outline: Patient search - NHSNumber field - maximum length validation
+  Scenario Outline: NTS-4503-Patient search - NHSNumber field - maximum length validation
       Given a web browser is at the patient search page
         | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
       When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10

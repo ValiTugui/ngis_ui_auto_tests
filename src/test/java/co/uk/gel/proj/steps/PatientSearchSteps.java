@@ -159,7 +159,7 @@ public class PatientSearchSteps extends Pages {
 
                 break;
             }
-            case "NGIS": {
+            case "NGIS-redundant": {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientOne.DATE_OF_BIRTH);
@@ -210,7 +210,7 @@ public class PatientSearchSteps extends Pages {
                 Assert.assertEquals(NgisPatientTwo.FULL_ADDRESS, actualAddress);
                 break;
             }
-            case "New-NGIS": {
+            case "NGIS": {
                 Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -328,6 +328,7 @@ public class PatientSearchSteps extends Pages {
     @When("^the user types in different valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInDifferentValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
         patientSearchPage.fillInValidSecondPatientDetailsUsingNOFields(searchDetails);
+
     }
 
     @Then("^the correct details of the second \"([^\"]*)\" patient using alternative searches are displayed in the result card$")

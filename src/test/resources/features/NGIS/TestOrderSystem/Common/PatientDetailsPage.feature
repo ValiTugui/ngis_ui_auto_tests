@@ -459,7 +459,7 @@ Feature: Patient details page
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-type | patient-search-type |
-      | Add a new patient to the database | Find your patient | NGIS         | New-NGIS            |
+      | Add a new patient to the database | Find your patient | NGIS         | NGIS                |
 
 
 
