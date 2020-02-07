@@ -110,7 +110,7 @@ public class Actions {
         element.clear();
     }
 
-    public static void clearInputField(WebElement element) {
+    public static void clearInputField(WebElement element) { // Required for deleting text-input for patient search DOB
         while (!getValue(element).isEmpty()) {
             element.sendKeys(Keys.BACK_SPACE);
         }
