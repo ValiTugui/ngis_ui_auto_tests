@@ -523,4 +523,11 @@ public class PatientDetailsSteps extends Pages {
         Debugger.println("expected Patient Address :" + expectedPatientAddress);
         Assert.assertEquals(expectedPatientAddress,actualPatientAddress);
     }
+
+    @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserFillsInAllTheMandatoryFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasons) {
+        patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
+
+
+    }
 }

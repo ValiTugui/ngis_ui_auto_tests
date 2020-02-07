@@ -493,3 +493,16 @@ Feature: New Patient page
       | pageTitle                         |
       | Add a new patient to the database |
 
+
+ @LOGOUT @v_1 @E2EUI-1753 @idris
+  Scenario Outline:
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | reason_for_no_nhsNumber     |
+      | Add a new patient to the database | Other - provide explanation |

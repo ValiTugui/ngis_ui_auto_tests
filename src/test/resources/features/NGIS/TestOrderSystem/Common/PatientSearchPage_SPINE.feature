@@ -263,7 +263,7 @@ Feature: Patient search page_SPINE
 
 
   @NTS-2797 @E2EUI-2161 @v_1
-  Scenario Outline:NTS-2797:"<patient-search-type>" - User can search for a different patient after successful alternative search
+  Scenario Outline: NTS-2797:"<patient-search-type>" - User can search for a different patient after successful alternative search
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button
