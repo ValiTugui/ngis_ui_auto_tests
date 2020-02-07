@@ -200,7 +200,6 @@ public class ReferralPage<check> {
     public WebElement familyMemberNames;
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
-    String mandatoryFieldSymbolPC = "//dummyFieldType[contains(text(),'dummyLabel')]/div";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";

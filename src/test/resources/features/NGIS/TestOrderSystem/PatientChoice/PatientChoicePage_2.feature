@@ -1,5 +1,5 @@
 @regression
-@patientChoice_2
+@patientChoice
 
 Feature: Patient Choice Page Verification
 
