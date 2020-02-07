@@ -494,8 +494,8 @@ Feature: New Patient page
       | Add a new patient to the database |
 
 
- @LOGOUT @v_1 @E2EUI-1753 @idris
-  Scenario Outline:
+ @NTS-4541 @LOGOUT @v_1 @E2EUI-1753
+  Scenario Outline: New patient be created without filling in the non-mandatory Title field
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
