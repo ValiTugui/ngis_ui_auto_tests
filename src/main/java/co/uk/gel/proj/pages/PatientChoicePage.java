@@ -429,17 +429,14 @@ public class PatientChoicePage {
 
     public void clickOnContinue() {
         try {
-            Wait.forElementToBeDisplayed(driver,continueButton,10);
-            Actions.clickElement(driver,continueButton);
-        }catch(Exception exp){
-            try {
-                //Continue button in Recorded by section has changed to FormToFolow
-                Wait.forElementToBeDisplayed(driver, formToFollow, 10);
+            if(Wait.isElementDisplayed(driver,continueButton,10)){
+                Actions.clickElement(driver, continueButton);
+            }else if(Wait.isElementDisplayed(driver, formToFollow, 10)){
                 Actions.clickElement(driver, formToFollow);
-            }catch(Exception exp1) {
-                Debugger.println("Exception in clicking on Continue Button in PC:" + exp1);
-                SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
             }
+        }catch(Exception exp){
+           Debugger.println("Exception in clicking on Continue Button in PC:" + exp);
+           SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
         }
     }
 
@@ -796,7 +793,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Continue Button not found. " + exp);
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
             return false;
         }
     }
