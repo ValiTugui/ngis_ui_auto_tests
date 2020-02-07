@@ -651,6 +651,7 @@ public class ReferralSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
     @And("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
         boolean testResult = false;

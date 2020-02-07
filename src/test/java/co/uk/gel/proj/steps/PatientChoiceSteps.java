@@ -31,9 +31,6 @@ public class PatientChoiceSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if (memberDetails.size() < noOfParticipants) {
-                Debugger.println("No of Participants mentioned and details provided are not matching.");
-            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
@@ -41,11 +38,13 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
+                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.selectDefaultPatientChoices());
+                patientChoicePage.selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
+                patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
@@ -53,6 +52,7 @@ public class PatientChoiceSteps extends Pages {
                     patientChoicePage.clickOnContinue();
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
+                    //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
                     patientChoicePage.drawSignature();
                 }
                 if (!patientChoicePage.submitPatientChoice()) {
@@ -237,11 +237,11 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should see patient choice submit button as (.*)")
     public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus();
+        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus("#f0f0f0");
         if(status.equalsIgnoreCase("enabled")){
-            Assert.assertTrue(testResult);
-        }else {
             Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
         }
     }
 
@@ -313,7 +313,6 @@ public class PatientChoiceSteps extends Pages {
     }
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
-
         patientChoicePage.selectPatientChoiceCategory();
         Wait.seconds(2);
         patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
@@ -324,7 +323,6 @@ public class PatientChoiceSteps extends Pages {
         Wait.seconds(2);
         patientChoicePage.drawSignature();
         Wait.seconds(2);
-
     }
 
     @Then("the help text is displayed")

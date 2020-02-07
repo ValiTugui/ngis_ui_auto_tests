@@ -35,6 +35,7 @@ Feature: Patient Choice Page
       | Parent(s) / guardian conversation happened; form to follow         |
       | Parent(s) / guardian changed their mind about the clinical test    |
       | Clinician has agreed to the test (in the Patient's best interests) |
+    ##Above options has changed due to CRO11 - Just an information
     When the user clicks on Continue Button
     Then the user should see a error message box with border color #dd2509 and message as Please select an answer
     When the user selects the option Parent(s) / guardian changed their mind about the clinical test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -56,13 +57,13 @@ Feature: Patient Choice Page
     And the user should see selected details displayed under the section Child assent
       | Does the child agree to participate in research?::No |
     When the user is in the section Review and submit
-#    Then the user will see a warning message "<WarningMessage2>"
+    Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                          |
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_2
   Scenario Outline: NTS-3428: scenario 2 - Editing Patient choice for a Child in person
@@ -81,13 +82,13 @@ Feature: Patient Choice Page
     And the user should see selected details displayed under the section Patient choices
       | Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Parent(s) / guardian conversation happened; form to follow |
     When the user is in the section Review and submit
-#    Then the user will see a warning message "<WarningMessage>"
+    Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
     Examples:
       | WarningMessage                                                                                                                                                                           |
-      | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3428: scenario 3 - Editing Patient choice for a Child in person
