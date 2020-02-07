@@ -462,7 +462,7 @@ public class PatientDetailsPage {
 
     public boolean editAndAddNhsNumberAsSuperUser() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
         nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
         return true;
     }
