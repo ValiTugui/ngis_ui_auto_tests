@@ -924,4 +924,8 @@ public class PatientDetailsPage {
         Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
         return actualPatientAddress;
     }
+
+    public void fillInHospitalNo(){
+        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+    }
 }

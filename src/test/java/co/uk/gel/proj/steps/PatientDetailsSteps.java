@@ -530,4 +530,9 @@ public class PatientDetailsSteps extends Pages {
 
 
     }
+
+    @And("the user fills in the HospitalNo field")
+    public void theUserFillsInTheHospitalNoField() {
+        patientDetailsPage.fillInHospitalNo();
+    }
 }
