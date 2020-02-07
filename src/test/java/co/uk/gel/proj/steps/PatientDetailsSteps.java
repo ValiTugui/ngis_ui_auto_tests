@@ -517,13 +517,10 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the correct patient address is displayed on patient details page")
     public void theCorrectPatientAddressIsDisplayedOnPatientDetailsPage() {
-
         List<String> actualPatientAddress = patientDetailsPage.getActualPatientAddressOnPatientDetailPage();
         List<String> expectedPatientAddress = newPatient.getPatientAddress();
         Debugger.println("actual Patient Address :" + actualPatientAddress);
         Debugger.println("expected Patient Address :" + expectedPatientAddress);
-
-
-
+        Assert.assertEquals(expectedPatientAddress,actualPatientAddress);
     }
 }
