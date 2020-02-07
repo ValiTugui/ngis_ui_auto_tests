@@ -546,10 +546,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
                     Actions.clearInputField(dateDay);
+                    Wait.seconds(1);
                     dateDay.sendKeys(dobSplit[0]);
                     Actions.clearInputField(dateMonth);
+                    Wait.seconds(1);
                     dateMonth.sendKeys(dobSplit[1]);
                     Actions.clearInputField(dateYear);
+                    Wait.seconds(1);
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
