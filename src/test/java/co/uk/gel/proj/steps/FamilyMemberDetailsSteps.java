@@ -383,7 +383,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
-                familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
+                if(!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))){
+                    Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
+                    Assert.assertTrue(false);
+                }
 //                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
 //                if(familyMember.getPHENOTYPIC_SEX() == null){
 //                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender

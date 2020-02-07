@@ -483,6 +483,8 @@ public class PatientChoicePage {
             Click.element(driver, agreeSampleUsage);
             return true;
         }catch(Exception exp){
+            Debugger.println("Exception from Setting default Patient Choice: "+exp);
+            SeleniumLib.takeAScreenShot("DefaultPatientChoice.jpg");
             return false;
         }
     }
@@ -942,8 +944,13 @@ public class PatientChoicePage {
     }
 
    public void selectMember(int i) {
-        Wait.forElementToBeDisplayed(driver, landingPageList);
-        Click.element(driver, memberEditButton.get(i));
+        try {
+            Wait.forElementToBeDisplayed(driver, landingPageList);
+            Click.element(driver, memberEditButton.get(i));
+        }catch(Exception exp){
+            Debugger.println("Exception from selecting Patient choice to edit at "+i+".:"+exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+        }
     }
 
     public void selectPatientChoiceCategory() {
@@ -966,10 +973,18 @@ public class PatientChoicePage {
     }
 
     public void selectChoicesWithAgreeingTesting() {
-        Click.element(driver, agreeTestChoice);
-        Click.element(driver, agreeResearchParticipation);
-        Click.element(driver, agreeSampleUsage);
-        Click.element(driver, patientChoicesContinueButton);
+        try {
+            Click.element(driver, agreeTestChoice);
+            Click.element(driver, agreeResearchParticipation);
+            Click.element(driver, agreeSampleUsage);
+            Click.element(driver, patientChoicesContinueButton);
+        }catch(Exception exp){
+            Actions.scrollToTop(driver);
+            Click.element(driver, agreeTestChoice);
+            Click.element(driver, agreeResearchParticipation);
+            Click.element(driver, agreeSampleUsage);
+            Click.element(driver, patientChoicesContinueButton);
+        }
     }
 
     public void drawSignature() {
