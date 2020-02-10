@@ -486,11 +486,13 @@ public class PatientChoicePage {
             }
             if(!selectUploadFormType(fileType)) {
                 Debugger.println("Could not select the file type drop down: "+fileType);
+                SeleniumLib.takeAScreenShot("FileDropDown.jpg");
                 return false;
             }
             //Date need to pass as today's date. Getting current day moved to TestUtils
             if(!fillTheDateOfSignatureInRecordedBy()){
                 Debugger.println("Could not fill the date of signature of file upload.");
+                SeleniumLib.takeAScreenShot("DateOfSignature.jpg");
                 return false;
             }
 
@@ -1423,18 +1425,21 @@ public class PatientChoicePage {
         try {
             if(!uploadRecordTypeDocument("",fileName)){
                 Debugger.println("File could not upload..");
+                SeleniumLib.takeAScreenShot("FileNotUploaded.jpg");
                 return false;
             }
             //Wait for 5 seconds to get the error message
             if (!Wait.isElementDisplayed(driver, filUploadErrorMsg, 30)) {
                 //Error message not yet displayed...
                 Debugger.println("Error Message for Unsupported file type not displayed");
+                SeleniumLib.takeAScreenShot("UnSupportFileError.jpg");
                 return false;
             }
             String actMessage = filUploadErrorMsg.getText();
             //Read the message.. and compare with what we pass
             if (!actMessage.contains(expMessage)) {
                 Debugger.println("Expected Error Message: " + expMessage + ", But Actual is:" + actMessage);
+                SeleniumLib.takeAScreenShot("UnSupportFileErrorMessage.jpg");
                 return false;
             }
             return true;
@@ -1477,6 +1482,7 @@ public class PatientChoicePage {
             if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
                 return true;
             }
+            SeleniumLib.takeAScreenShot("PCDateofSignatureStatus.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Date of Signature fields not found. " + exp);
@@ -1487,10 +1493,10 @@ public class PatientChoicePage {
     public boolean selectUploadFormType(String dropdownValue) {
         try {
             Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
-            seleniumLib.clickOnWebElement(fileTypeDropDown);
+            Actions.clickElement(driver,fileTypeDropDown);
             By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", dropdownValue));
             WebElement element = driver.findElement(formType);
-            element.click();
+            Actions.clickElement(driver,element);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selecting dropdown in recorded by" + exp);
@@ -1500,6 +1506,7 @@ public class PatientChoicePage {
     }
     public boolean fillTheDateOfSignatureInRecordedBy() {
         try {
+            Wait.forElementToBeDisplayed(driver,uploadDay,5);
             String today[] = TestUtils.getCurrentDay();
             uploadDay.sendKeys(today[0]);
             uploadMonth.sendKeys(today[1]);
@@ -1518,12 +1525,13 @@ public class PatientChoicePage {
             String actualMessage = fileUploadSuccessMsg.getText();
             if (!expMessage.equalsIgnoreCase(actualMessage)) {
                 Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
+                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormUploadSuccessMsg.jpg");
+            SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
             return false;
         }
     }
@@ -1532,11 +1540,13 @@ public class PatientChoicePage {
         try {
             Wait.forElementToBeDisplayed(driver, uploadMessage);
             if (!message.equalsIgnoreCase(uploadMessage.getText())) {
+                SeleniumLib.takeAScreenShot("PCFormUploadMsg.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, verifyUploadMessage - message not found in upload section." + exp);
+            SeleniumLib.takeAScreenShot("PCFormUploadMsg.jpg");
             return false;
         }
     }
