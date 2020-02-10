@@ -294,7 +294,7 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
-        Actions.clearField(patientDetailsPage.dateOfBirth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirth);
     }
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
@@ -340,7 +340,7 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
     public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
     @And("the NHS number field is displayed")
@@ -355,15 +355,15 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
     public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
 
     @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
     public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearField(patientDetailsPage.hospitalNumber);
-        Actions.clearField(patientDetailsPage.nhsNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.nhsNumber);
     }
 
     @When("the user fills in the NHS Number field")
@@ -507,12 +507,12 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user deletes data in the NHS Number field")
     public void theUserDeletesDataInTheNHSNumberField() {
-        Actions.clearField(patientDetailsPage.nhsNumber);
+        Actions.clearInputField(patientDetailsPage.nhsNumber);
     }
 
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
     @And("the correct patient address is displayed on patient details page")
@@ -522,5 +522,17 @@ public class PatientDetailsSteps extends Pages {
         Debugger.println("actual Patient Address :" + actualPatientAddress);
         Debugger.println("expected Patient Address :" + expectedPatientAddress);
         Assert.assertEquals(expectedPatientAddress,actualPatientAddress);
+    }
+
+    @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserFillsInAllTheMandatoryFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasons) {
+        patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
+
+
+    }
+
+    @And("the user fills in the HospitalNo field")
+    public void theUserFillsInTheHospitalNoField() {
+        patientDetailsPage.fillInHospitalNo();
     }
 }

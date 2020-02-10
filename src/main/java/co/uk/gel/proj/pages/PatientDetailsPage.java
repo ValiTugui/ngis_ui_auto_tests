@@ -259,10 +259,10 @@ public class PatientDetailsPage {
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
         //fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
-        if (reason.equalsIgnoreCase("Other - provide explanation")) {
-            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
-        }
+//        if (reason.equalsIgnoreCase("Other - provide explanation")) { // Moved to selectMissingNhsNumberReason(reason)
+//            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+//            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+//        }
         //This function moved from top to last as in e2e latest, works like this.
         fillInAllNewPatientDetails();
     }
@@ -288,7 +288,7 @@ public class PatientDetailsPage {
         Debugger.println("Expected patient address - List " + patientAddressDetails  + " : " +  newPatient.getPatientAddress() );
     }
 
-    public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason() {
+    public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(String reason) {
         Wait.forElementToBeDisplayed(driver, firstName);
         newPatient.setFirstName(TestUtils.getRandomFirstName());
         newPatient.setLastName(TestUtils.getRandomLastName());
@@ -300,7 +300,9 @@ public class PatientDetailsPage {
         Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
         selectGender(administrativeGenderButton, "Male");
         editDropdownField(lifeStatusButton, "Alive");
+        editDropdownField(ethnicityButton, "B - White - Irish");
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+        selectMissingNhsNumberReason(reason);
     }
 
     public void editDropdownField(WebElement element, String value) {
@@ -350,6 +352,10 @@ public class PatientDetailsPage {
            }
            Actions.retryClickAndIgnoreElementInterception(driver, noNhsNumberReasonDropdown);
            Actions.selectValueFromDropdown(noNhsNumberReasonDropdown,reason);
+           if (reason.equalsIgnoreCase("Other - provide explanation")) {
+               Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
+               otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+           }
        }catch(Exception exp) {
            Debugger.println("Patient new page  : Exception from selecting noNhsNumberReasonDropDown: " + exp);
            SeleniumLib.takeAScreenShot("noNhsNumberReasonDropDown.jpg");
@@ -456,7 +462,7 @@ public class PatientDetailsPage {
 
     public boolean editAndAddNhsNumberAsSuperUser() {
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
         nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
         return true;
     }
@@ -925,5 +931,9 @@ public class PatientDetailsPage {
 
         Debugger.println("Actual patient address in patient detail page " + actualPatientAddress);
         return actualPatientAddress;
+    }
+
+    public void fillInHospitalNo(){
+        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
     }
 }

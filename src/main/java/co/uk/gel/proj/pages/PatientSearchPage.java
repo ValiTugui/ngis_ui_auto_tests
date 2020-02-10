@@ -408,13 +408,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
 
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
         nhsNumber.sendKeys(nhsNo);
-        Actions.clearField(dateDay);
+        Actions.clearInputField(dateDay);
         dateDay.sendKeys(dayOfBirth);
-        Actions.clearField(dateMonth);
+        Actions.clearInputField(dateMonth);
         dateMonth.sendKeys(monthOfBirth);
-        Actions.clearField(dateYear);
+        Actions.clearInputField(dateYear);
         dateYear.sendKeys(yearOfBirth);
     }
 
