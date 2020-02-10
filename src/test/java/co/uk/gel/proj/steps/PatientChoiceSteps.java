@@ -451,4 +451,59 @@ public class PatientChoiceSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+    @And("^the following optional fields should be displayed in patient choice section$")
+    public void theOptionalFieldInPatientChoice(DataTable messages) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            testResult = patientChoicePage.verifyOptionalFieldPresence(messageDetails.get(i).get(0));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees the specified error messages for unsupported file uploads")
+    public void theUserSelectsFileToBeUploadedFrom(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> uploadFiles = inputDetails.asLists();
+        String fileName = "";
+        String errorMessage = "";
+        for (int i = 1; i < uploadFiles.size(); i++) {
+            fileName = uploadFiles.get(i).get(0);
+            errorMessage = uploadFiles.get(i).get(1);
+            testResult = patientChoicePage.verifyInvalidFileUploadMessages(fileName, errorMessage);
+            Assert.assertTrue(testResult);
+            Wait.seconds(2);//Just waiting for 2 seconds between each upload
+        }
+    }
+    @And("the file type dropdown options loaded with below details")
+    public void theFileTypeDropdownOptions(DataTable inputDetails) {
+        boolean testResult = false;
+        List<String> fileTypes = inputDetails.asList();
+        testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes);
+        Assert.assertTrue(testResult);
+    }
+    @And("the Date of Signature fields are displayed as {string}")
+    public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
+        boolean testResult = false;
+        testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection();
+        if (expStatus.equals("enabled")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
+    @And("the user selects (.*) from dropdown option in recorded by")
+    public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectUploadFormType(dropdownValue);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user fills current date as Date of Signature")
+    public void theUserFillsTheValidDateIn() {
+        boolean testResult = false;
+        testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
+        Assert.assertTrue(testResult);
+    }
 }//end
