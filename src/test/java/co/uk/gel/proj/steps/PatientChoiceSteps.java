@@ -506,4 +506,16 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
         Assert.assertTrue(testResult);
     }
+    @Then("the user sees a success message after form upload in recorded by as {string}")
+    public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user will see a {string} message on upload section")
+    public void theUserWillSeeAMessageOnUploadSection(String message) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadMessage(message);
+        Assert.assertTrue(testResult);
+    }
 }//end

@@ -265,7 +265,11 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//span[contains(@aria-labelledby,'ngisId')]")
     List <WebElement> ngsIdValues;
+    @FindBy(xpath = "//li[@class='message-blue-line']")
+    WebElement uploadMessage;
 
+    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
+    public WebElement fileUploadSuccessMsg;
 
 
     public boolean editPatientChoice() {
@@ -1508,4 +1512,33 @@ public class PatientChoicePage {
             return false;
         }
     }
+    public boolean verifyFormUploadSuccessMessage(String expMessage) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileUploadSuccessMsg);
+            String actualMessage = fileUploadSuccessMsg.getText();
+            if (!expMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceFormUploadSuccessMsg.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyUploadMessage(String message) {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadMessage);
+            if (!message.equalsIgnoreCase(uploadMessage.getText())) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage, verifyUploadMessage - message not found in upload section." + exp);
+            return false;
+        }
+    }
+
 }//end
