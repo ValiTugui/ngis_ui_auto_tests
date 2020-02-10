@@ -184,9 +184,9 @@ public class TumoursPage {
     }
 
     public void clearDateOfDiagnosisFields() {
-        Actions.clearField(dateDay);
-        Actions.clearField(dateMonth);
-        Actions.clearField(dateYear);
+        Actions.clearInputField(dateDay);
+        Actions.clearInputField(dateMonth);
+        Actions.clearInputField(dateYear);
         Wait.seconds(2);
     }
 
@@ -358,9 +358,9 @@ public class TumoursPage {
     }
 
     public void editDateOfDiagnosis() {
-        Actions.clearField(dateDay);
-        Actions.clearField(dateMonth);
-        Actions.clearField(dateYear);
+        Actions.clearInputField(dateDay);
+        Actions.clearInputField(dateMonth);
+        Actions.clearInputField(dateYear);
         fillInDateOfDiagnosis();
     }
 
