@@ -441,6 +441,14 @@ public class ReferralSteps extends Pages {
         } else {
             patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
         }
+        //Ensure all the fields are correctly populated without any error shown on patient details page
+        boolean flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPage();
+        if(!flag){
+            // Navigate to top of page
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
+            Assert.assertTrue(false);
+        }
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();
         patientDetailsPage.clickStartNewReferralButton();
@@ -643,6 +651,7 @@ public class ReferralSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
     @And("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
         boolean testResult = false;

@@ -109,8 +109,6 @@ Feature: Family Members Details Validation
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
-
-
   @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation
     Given a new patient referral is created with associated tests in Test Order System online service

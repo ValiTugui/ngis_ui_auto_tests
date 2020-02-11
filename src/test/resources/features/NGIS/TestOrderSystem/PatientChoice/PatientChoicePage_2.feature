@@ -1,6 +1,6 @@
 @regression
-@PatientChoice
-
+@patientChoice
+@patientChoice_page2
 Feature: Patient Choice Page Verification
 
   @NTS-3384 @E2EUI-1677 @LOGOUT @v_1 @P0
@@ -84,7 +84,7 @@ Feature: Patient Choice Page Verification
     When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
     And the user clicks on Continue Button
     When the user is in the section Patient signature
-    And the user should see patient choice submit button as enabled
+    And the user should see patient choice submit button as disabled
     ##Include the step for clicking on Continue without providing signature and validate the warning message.
     Examples:
       | Patient choice stage | RecordedBy         |

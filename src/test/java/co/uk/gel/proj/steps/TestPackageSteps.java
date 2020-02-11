@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import sun.security.ssl.Debug;
 
 public class TestPackageSteps extends Pages {
 
@@ -199,5 +200,14 @@ public class TestPackageSteps extends Pages {
     @And("the user navigates to {string} stage section without clicking on the {string} button from the {string}")
     public void theUserNavigatesToStageSectionWithoutClickingOnTheButtonFromThe(String targetStage, String buttonName, String currentStage) {
         referralPage.navigateToStage(targetStage);
+    }
+
+    @And("the user see a tick mark next to the chosen {string}")
+    public void theUserSeeATickMarkNextToTheChosen(String priority) {
+        if(priority.equalsIgnoreCase("Urgent")){
+            Assert.assertTrue(testPackagePage.ensureTickMarkIsDisplayedNextToUrgent());
+        } else {
+            Assert.assertTrue(testPackagePage.ensureTickMarkIsDisplayedNextToRoutine());
+        }
     }
 }

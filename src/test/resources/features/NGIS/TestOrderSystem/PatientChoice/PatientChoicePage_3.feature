@@ -1,5 +1,6 @@
 @regression
 @patientChoice
+@patientChoice_page3
 Feature: Patient Choice Page
 
   @NTS-3409 @E2EUI-1822 @LOGOUT @v_1 @P0
@@ -144,8 +145,8 @@ Feature: Patient Choice Page
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-34141 @E2EUI-1889 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3414: Verify the Supporting information form section in form library
+  @NTS-3411 @E2EUI-1889 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3411: Verify the Supporting information form section in form library
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2007:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage

@@ -59,7 +59,7 @@ Feature: Family Members Search Validation
       | stage          |
       | Family members |
 
-  @NTS-3328 @E2UI-1388 @E2EUI-1493 @v_1 @P0
+  @NTS-3328 @E2EUI-1388 @E2EUI-1493 @v_1 @P0
   Scenario Outline: NTS-3328: Search for a family member record - Yes Option
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button

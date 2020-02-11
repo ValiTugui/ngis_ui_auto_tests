@@ -57,7 +57,7 @@ Feature: Test Package page
       | stage        | priority | new_stage             | number_of |
       | Test package | Routine  | Responsible clinician | 1         |
 
-  @NTS-3070 @E2EUI-1123 @LOGOUT @v_1 @P0
+  @NTS-3070 @NTS-3823 @E2EUI-1316 @E2EUI-1123 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     And the user navigates to the "<stage>" stage
     And the Test Package page priority header has "<priority_label>"
@@ -68,6 +68,7 @@ Feature: Test Package page
     And the "<new_stage>" stage is selected
     And the "<stage>" stage is marked as Completed
     And the correct "<number_of>" tests are saved to the referral in  "<stage>" with the chosen "<priority>"
+    And the user see a tick mark next to the chosen "<priority>"
     Examples:
       | stage        | priority | previous_priority | new_stage             | priority_label                         | help_text                                                                         | number_of |
       | Test package | Urgent   | Routine           | Responsible clinician | What is the priority of your referral? | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | 1         |

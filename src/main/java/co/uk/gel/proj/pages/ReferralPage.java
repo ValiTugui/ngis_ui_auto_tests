@@ -57,7 +57,6 @@ public class ReferralPage<check> {
     @FindBy(css = "button[class*='referral-navigation__button--back']")
     public WebElement backLink;
 
-
     @FindBy(xpath = "//ul[contains(@class,'referral-header__details')]//span[@aria-labelledby='name_1']")
     public WebElement referralHeaderPatientName;
 
@@ -924,6 +923,7 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
     public boolean verifyBlankMandatoryFieldLabelColor(String fieldLabel, String highlightColor) {
         try {
             Wait.seconds(2);
