@@ -438,7 +438,7 @@ Feature: Patient details page
       | Add a new patient to the database | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
 
-  @NTS-4538 @E2EUI-1054 @LOGOUT @P0 @v_1
+  @NTS-4538 @E2EUI-1054 @E2EUI-1507 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-4538 - Add patient contact(address) details to a patient
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
@@ -463,6 +463,18 @@ Feature: Patient details page
       | pageTitle                         | pageTitle2        | patient-type | patient-search-type |
       | Add a new patient to the database | Find your patient | NGIS         | NGIS                |
 
+
+   @NTS-4565 @LOGOUT @v_1 @E2EUI-1582 @ignore
+  Scenario Outline: NTS-4565-The Patient Details page is not loaded when clicking browser's Back button after starting a referral
+     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |And the user navigates to the "<stage>" stage
+    And the "<stage>" stage is marked as Completed
+    When the user attempts to navigate away by clicking "back"
+    Then the "<pageTitle>" page is displayed
+
+    Examples:
+      | stage           | pageTitle                    |
+      | Patient details | Check your patient's details |
 
 
 
