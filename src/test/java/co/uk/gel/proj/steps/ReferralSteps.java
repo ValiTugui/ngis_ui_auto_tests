@@ -692,4 +692,10 @@ public class ReferralSteps extends Pages {
         Debugger.println("actualDOBAndAgeBornFormat " + actualBornInReferralHeader);
         Assert.assertEquals(expectedBornFormat,actualBornInReferralHeader);
     }
+
+    @Then("the user is successfully logged out")
+    public void theUserIsSuccessfullyLoggedOut() {
+        String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
+        String expectedPageSourceTitle = "Sign in to your account";
+    }
 }
