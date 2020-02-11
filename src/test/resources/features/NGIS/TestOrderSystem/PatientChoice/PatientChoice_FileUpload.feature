@@ -1,5 +1,5 @@
 @regression
-@PatientChoice
+@patientChoice
 
 Feature: Patient Choice Page - File uploads
 

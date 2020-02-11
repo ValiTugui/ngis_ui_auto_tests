@@ -1,5 +1,5 @@
 @regression
-@PatientChoice
+@patientChoice
 Feature: Patient Choice Page
 
   @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
