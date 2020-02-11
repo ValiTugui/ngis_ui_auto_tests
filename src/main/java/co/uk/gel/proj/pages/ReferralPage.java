@@ -471,13 +471,7 @@ public class ReferralPage<check> {
     }
 
     public String logoutSuccessMessageIsDisplayed() {
-        String navigatedURL = driver.getCurrentUrl();
-        boolean flag = true;
-        while (flag) {
-            if (navigatedURL.contains("login.microsoftonline.com")) {
-                flag = false;
-            }
-        }
+        Wait.forURLToContainSpecificText(driver, "login.microsoftonline.com");
         return driver.getTitle();
     }
 

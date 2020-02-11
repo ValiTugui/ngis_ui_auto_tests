@@ -156,7 +156,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPage());
+        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow());
         Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " + "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
         Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
     }

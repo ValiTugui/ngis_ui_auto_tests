@@ -102,6 +102,7 @@ Feature: Patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     Given a web browser is logged in as a "GEL_NORMAL_USER" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    Then the Patient Details page is displayed
     Then the NHS number field is disabled
 
     Examples:
@@ -114,6 +115,7 @@ Feature: Patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
+    Then the Patient Details page is displayed
     Then the NHS number field is enabled
 
     Examples:
