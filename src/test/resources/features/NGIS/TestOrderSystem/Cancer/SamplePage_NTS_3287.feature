@@ -33,7 +33,7 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Sample added     |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Sample added     |
 
-  @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-962 @LOGOUT @P0 @v_1
+  @NTS-3287 @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-962 @LOGOUT @P0 @v_1 
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -116,6 +116,7 @@ Feature: Samples Page
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState | sampleTopoMorphyGraphy | notificationText |

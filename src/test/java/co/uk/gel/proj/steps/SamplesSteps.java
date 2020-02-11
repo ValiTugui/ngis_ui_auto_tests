@@ -350,6 +350,7 @@ public class SamplesSteps extends Pages {
         String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
         boolean testResult = false;
         testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualSampleTestData, expectedTumourDescription);
+        Debugger.println("test-result for tumourDescription " + testResult);
         Assert.assertTrue(testResult);
     }
 
