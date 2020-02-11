@@ -91,8 +91,7 @@ Feature: Patient Choice Page - File uploads
       | PatientChoice  | RecordedBy                            |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-
-  @E2EUI-1890 @E2EUI-1950 @LOGOUT @v_1 @P0
+  @NTS-3483 @E2EUI-1890 @E2EUI-1950 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-TODO: Remove the option for consultee from the document upload enumeration - Child flow
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
@@ -109,7 +108,7 @@ Feature: Patient Choice Page - File uploads
     When the user is in the section Recorded by
     And the user fills "<RecordedByWithoutFormSelection>" details in recorded by
     And the file type dropdown options loaded with below details
-      | Record of Discussion Form |
+      |Record of Discussion Form |
       |Deceased Form |
      Examples:
       | PatientChoice  | RecordedByWithoutFormSelection                                              |
