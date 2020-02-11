@@ -319,6 +319,7 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
+        Debugger.println(" User Type : " + userType);
         if(userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
@@ -699,5 +700,11 @@ public class ReferralSteps extends Pages {
         String actualBornInReferralHeader = Actions.getText(referralPage.referralHeaderBorn);
         Debugger.println("actualDOBAndAgeBornFormat " + actualBornInReferralHeader);
         Assert.assertEquals(expectedBornFormat,actualBornInReferralHeader);
+    }
+
+    @Then("the user is successfully logged out")
+    public void theUserIsSuccessfullyLoggedOut() {
+        String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
+        String expectedPageSourceTitle = "Sign in to your account";
     }
 }

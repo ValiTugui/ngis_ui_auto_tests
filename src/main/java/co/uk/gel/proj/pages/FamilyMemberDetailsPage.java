@@ -1100,9 +1100,13 @@ public class FamilyMemberDetailsPage {
                     }
                 }
             }
+            if(!isPresent){
+                SeleniumLib.takeAScreenShot("BadgeBackgroundColor.jpg");
+            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from checking being tested field " + exp);
+            SeleniumLib.takeAScreenShot("BadgeBackgroundColor.jpg");
             return false;
         }
     }
@@ -1334,9 +1338,13 @@ public class FamilyMemberDetailsPage {
                     }
                 }
             }
+            if(!isPresent){
+                SeleniumLib.takeAScreenShot("BadgePresence.jpg");
+            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from checking being tested field " + exp);
+            SeleniumLib.takeAScreenShot("BadgePresence.jpg");
             return false;
         }
     }

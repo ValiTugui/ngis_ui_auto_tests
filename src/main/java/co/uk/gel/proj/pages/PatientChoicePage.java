@@ -832,11 +832,13 @@ public class PatientChoicePage {
             String actualColor = continueButton.getCssValue("background-color");
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
                 Debugger.println("Actual background color : " + actualColor + ", Expected :"+expectedBackground);
+                SeleniumLib.takeAScreenShot("ContinueButtonBgColor.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
+            SeleniumLib.takeAScreenShot("ContinueButtonBgColor.jpg");
             return false;
         }
     }
@@ -1582,6 +1584,7 @@ public class PatientChoicePage {
             int noOfStatus = patientChoiceStatus.size();
             if (noOfStatus < index) {
                 Debugger.println("Patient choice status not displayed for member at " + index + " position");
+                SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
                 return false;
             }
             Wait.forElementToBeDisplayed(driver, patientChoiceStatus.get(index), 30);
