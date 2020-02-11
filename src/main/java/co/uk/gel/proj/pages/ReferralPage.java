@@ -103,6 +103,7 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header__cancel-reason']")
     public WebElement referralCancelReason;
 
+    // @FindBy(css = "*[href*='signout']")
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
@@ -732,7 +733,7 @@ public class ReferralPage<check> {
 
     public String  getSubmissionConfirmationMessageIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 120);
+            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 200);
             return Actions.getText(submissionConfirmationBannerTitle);
         }catch(Exception exp){
             Debugger.println("Referral submission confirm message not displayed: "+exp);
