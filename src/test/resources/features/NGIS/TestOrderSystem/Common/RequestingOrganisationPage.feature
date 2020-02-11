@@ -55,9 +55,6 @@ Feature: Requesting Organisation page
 
   @NTS-3383 @E2EUI-1415 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3383: Requesting Organisation landing page
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user should be able to see an intro message "<introMessage>" on requesting organisation page
