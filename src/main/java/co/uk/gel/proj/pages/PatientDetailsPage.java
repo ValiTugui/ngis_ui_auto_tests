@@ -344,7 +344,7 @@ public class PatientDetailsPage {
             SeleniumLib.takeAScreenShot("FMGenderDropDown.jpg");
         }
     }
-    
+
     public void selectMissingNhsNumberReason(String reason) {
        try {
            if (!Wait.isElementDisplayed(driver, noNhsNumberReasonDropdown, 15)) {
