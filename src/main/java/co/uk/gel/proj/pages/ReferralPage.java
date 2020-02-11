@@ -470,6 +470,16 @@ public class ReferralPage<check> {
         Actions.clickElement(driver, logoutButton);
     }
 
+    public String logoutSuccessMessageIsDisplayed() {
+        String navigatedURL = driver.getCurrentUrl();
+        boolean flag = true;
+        while (flag) {
+            if (navigatedURL.contains("login.microsoftonline.com")) {
+                flag = false;
+            }
+        }
+        return driver.getTitle();
+    }
 
     public String getTheCurrentPageTitle() {
         try {
