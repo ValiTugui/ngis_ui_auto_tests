@@ -62,7 +62,7 @@ Feature: This is a referral feature
       | Patient details |
 
 
-  @LOGOUT @PO @v_1
+  @LOGOUT @PO @v_1 @ignore
   Scenario Outline: The user is able to logout from Referral Header - Test Ordering system
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
