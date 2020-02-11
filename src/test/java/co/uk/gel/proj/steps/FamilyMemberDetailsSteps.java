@@ -299,7 +299,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the family member status {string} Marked in {string}")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.testedFieldColor(testfield, color);
+        testResult = familyMemberDetailsPage.verifyTestBadgeBackgroundColor(testfield, color);
         Assert.assertTrue(testResult);
     }
 

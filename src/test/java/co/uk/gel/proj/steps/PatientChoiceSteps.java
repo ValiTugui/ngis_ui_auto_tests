@@ -73,10 +73,11 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.selectMember(1);
     }
 
-    @And("the user sees the patient choice status as {string}")
+    @And("the user sees the patient choice status for proband as (.*)")
     public void theUserSeesThePatientChoiceStatus(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifyPatientChoiceStatus(status);
+        //For proband he index will be 0
+        testResult = patientChoicePage.verifyPatientChoiceStatus(status, 0);
         Assert.assertTrue(testResult);
     }
 
@@ -179,6 +180,13 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifyWarningMessage(warningMessage);
        Assert.assertTrue(testResult);
+    }
+
+    @And("the user will see a notification warning message {string}")
+    public void theUserWillSeeANotificationWarningMessage(String warningMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyNotificationWarning(warningMessage);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user clicks on edit button in (.*)")
@@ -518,4 +526,41 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyUploadMessage(message);
         Assert.assertTrue(testResult);
     }
+    @When("the user clicks the Save and Continue button on the patient choice")
+    public void theUserClicksTheSaveAndContinueButtonOnThe() {
+        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+
+    }
+    @And("the user sees the patient choice status for family member (.*) as (.*)")
+    public void theFamilyMemberPatientChoice(String familyNumber, String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyPatientChoiceStatus(status, Integer.parseInt(familyNumber));
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the test badge status for family member as (.*)")
+    public void theFamilyMemberTestBadge(String status) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyFamilyMemberTestBadge(status);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on patient choice status link for family member (.*)")
+    public void clickOnFamilyMemberPatientChoice(String familyNumber) {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnPatientChoiceStatusLink(Integer.parseInt(familyNumber));
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should able to see TO DO list even after clicking the Save and Continue button")
+    public void theUserShouldAbleToSeeTODOListEvenAfterClickingTheSaveAndContinueButton() {
+        boolean testResult = false;
+        testResult = referralPage.checkThatToDoListSuccessfullyLoaded();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot("ToDoList.jpg");
+            Assert.assertFalse("ToDoList in Referral Page is not loaded after PC submitting Patient Choice..", true);
+        }
+        Assert.assertTrue(testResult);
+    }
+
 }//end

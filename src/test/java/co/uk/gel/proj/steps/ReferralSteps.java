@@ -319,7 +319,6 @@ public class ReferralSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         paperFormPage.clickSignInToTheOnlineServiceButton();
-        Debugger.println(" User Type : " + userType);
         if(userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {

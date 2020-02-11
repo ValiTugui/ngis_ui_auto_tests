@@ -218,10 +218,10 @@ public class FamilyMemberDetailsPage {
     public List<WebElement> ngisIdResults;
 
     @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
-    public WebElement familyPageBeingTestedField;
+    public List<WebElement> familyPageBeingTestedField;
 
     @FindBy(xpath = "//span[contains(text(),'Not being tested')]/ancestor::span[contains(@class,'css-')][1]")
-    public WebElement familyPageNotBeingTestedField;
+    public List<WebElement> familyPageNotBeingTestedField;
 
     @FindBy(xpath = "//div[@class='styles_error-message__text__1v2Kl']")
     public WebElement oneParticipantMsg;
@@ -1067,32 +1067,40 @@ public class FamilyMemberDetailsPage {
         return false;
     }
 
-    public boolean testedFieldColor(String testfield, String color) {
+    public boolean verifyTestBadgeBackgroundColor(String testBadge, String color) {
         try {
             Wait.seconds(5);
-            Wait.forElementToBeDisplayed(driver, familyPageBeingTestedField);
-            String actualMessage1 = Actions.getText(familyPageBeingTestedField);
-            String actualMessage2 = Actions.getText(familyPageNotBeingTestedField);
-
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(color);
-            String actColor1 = familyPageBeingTestedField.getCssValue("background-color");
-            String actColor2 = familyPageNotBeingTestedField.getCssValue("background-color");
-
-            if (testfield.equalsIgnoreCase(actualMessage1)) {
-                Debugger.println("Expected field: " + testfield + ", and Actual field: " + actualMessage1);
-                if (!expectedFontColor.equalsIgnoreCase(actColor1)) {
-                    Debugger.println("Expected Color: " + expectedFontColor + ", and Actual Color: " + actColor1);
-                    return false;
+            //Being test field color
+            String actualMessage = "";
+            String actualColor = "";
+            boolean isPresent = false;
+            if(testBadge.equalsIgnoreCase("Being tested")){
+                for(int i=0; i<familyPageBeingTestedField.size(); i++){
+                    actualMessage = Actions.getText(familyPageBeingTestedField.get(i));
+                    actualColor = familyPageBeingTestedField.get(i).getCssValue("background-color");
+                    if (testBadge.equalsIgnoreCase(actualMessage) &&
+                            expectedFontColor.equalsIgnoreCase(actualColor)) {
+                        isPresent = true;
+                    }else{
+                        isPresent = false;
+                        break;
+                    }
                 }
-
-            } else if (testfield.equalsIgnoreCase(actualMessage2)) {
-                Debugger.println("Expected field: " + testfield + ", and Actual field:" + actualMessage2);
-                if (!expectedFontColor.equalsIgnoreCase(actColor2)) {
-                    Debugger.println("Expected Color: " + expectedFontColor + ", and Actual Color: " + actColor2);
-                    return false;
+            } else if(testBadge.equalsIgnoreCase("Not being tested")){
+                for(int i=0; i<familyPageNotBeingTestedField.size(); i++){
+                    actualMessage = Actions.getText(familyPageNotBeingTestedField.get(i));
+                    actualColor = familyPageNotBeingTestedField.get(i).getCssValue("background-color");
+                    if (testBadge.equalsIgnoreCase(actualMessage) &&
+                            expectedFontColor.equalsIgnoreCase(actualColor)) {
+                        isPresent = true;
+                    }else{
+                        isPresent = false;
+                        break;
+                    }
                 }
             }
-            return true;
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception from checking being tested field " + exp);
             return false;
@@ -1303,5 +1311,33 @@ public class FamilyMemberDetailsPage {
         Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());
         //Debugger.println("Size is: "+addedFamilyMembers.size());
     }
-
+    public boolean verifyFamilyMemberTestBadge(String testBadge) {
+        try {
+            Wait.seconds(2);
+            //Being test field color
+            String actualMessage = "";
+            boolean isPresent = false;
+            if(testBadge.equalsIgnoreCase("Being tested")) {
+                for (int i = 0; i < familyPageBeingTestedField.size(); i++) {
+                    actualMessage = Actions.getText(familyPageBeingTestedField.get(i));
+                    if (testBadge.equalsIgnoreCase(actualMessage)) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+            }else if(testBadge.equalsIgnoreCase("Not being tested")) {
+                for (int i = 0; i < familyPageNotBeingTestedField.size(); i++) {
+                    actualMessage = Actions.getText(familyPageNotBeingTestedField.get(i));
+                    if (testBadge.equalsIgnoreCase(actualMessage)) {
+                        isPresent = true;
+                        break;
+                    }
+                }
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checking being tested field " + exp);
+            return false;
+        }
+    }
 }//ends

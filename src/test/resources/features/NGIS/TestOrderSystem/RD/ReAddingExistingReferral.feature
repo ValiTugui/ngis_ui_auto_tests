@@ -4,7 +4,7 @@
 
 Feature: Family Members Re-adding Validation
 
-  @NTS-32271 @E2EUI-1947 @v_1 @P0
+  @NTS-3227 @E2EUI-1947 @v_1 @P0
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via Yes option displays error message
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=9449310327:DOB=16-12-1970:Gender=Male |
