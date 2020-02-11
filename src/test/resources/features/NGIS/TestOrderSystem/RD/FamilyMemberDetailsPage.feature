@@ -1,6 +1,6 @@
 @regression
 @TO_RD
-@FamilyMembersDetailsPage_1
+@FamilyMembersDetailsPage
 
 Feature: Family Members Details Validation
 
