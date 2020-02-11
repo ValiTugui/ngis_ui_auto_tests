@@ -1,6 +1,6 @@
 @regression
 @TO_RD
-@FamilyMembersDetailsPage_1
+@FamilyMembersDetailsPage
 
 Feature: Family Members Details Validation
 
@@ -108,8 +108,6 @@ Feature: Family Members Details Validation
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
-
-
 
   @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
   Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation

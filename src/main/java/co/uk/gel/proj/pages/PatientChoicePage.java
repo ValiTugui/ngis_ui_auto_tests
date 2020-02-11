@@ -44,6 +44,12 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Recording clinician name')]/../input[@type='text']")
     WebElement recordingClinicianNameInput;
 
+    @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Responsible clinician name')]/../input[@type='text']")
+    WebElement responsibleClinicianNameInput;
+
+    @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Document scanned and checked by:')]/../input[@type='text']")
+    WebElement documentCheckedByInput;
+
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Patient Hospital Number')]/../input[@type='text']")
     WebElement patientHospitalNumberInput;
 
@@ -249,6 +255,21 @@ public class PatientChoicePage {
     @FindBy(xpath = "//a[@class='back-button d-block']")
     WebElement formLiraryBackButton;
 
+    @FindBy(xpath = "//div[@class='dropdown-content']//a[@class='dropdown-item']")
+    public List<WebElement> dropDownValues;
+
+    @FindBy(xpath = "//li[@class='message-error-line']")
+    WebElement filUploadErrorMsg;
+
+    String optionalFieldNames = "//label[text()='dummyLabel']";
+
+    @FindBy(xpath = "//span[contains(@aria-labelledby,'ngisId')]")
+    List <WebElement> ngsIdValues;
+    @FindBy(xpath = "//li[@class='message-blue-line']")
+    WebElement uploadMessage;
+
+    @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
+    public WebElement fileUploadSuccessMsg;
 
 
     public boolean editPatientChoice() {
@@ -373,6 +394,7 @@ public class PatientChoicePage {
             for (String key : paramsKey) {
                 switch (key) {
                     case "ClinicianName":
+                    case "RecordingClinicianName":
                         if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                             recordingClinicianNameInput.sendKeys(paramNameValue.get(key));
                             if(familyDetails != null && !familyDetails.isEmpty()) {
@@ -393,6 +415,16 @@ public class PatientChoicePage {
                     case "AdminName":
                         if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                             adminNameInput.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
+                    case "ResponsibleClinicianName":
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            responsibleClinicianNameInput.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
+                    case "DocumentCheckedBy":
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            documentCheckedByInput.sendKeys(paramNameValue.get(key));
                         }
                         break;
                     case "Action":
@@ -442,29 +474,28 @@ public class PatientChoicePage {
 
     public boolean uploadRecordTypeDocument(String fileType,String fileName) {
         try {
-            seleniumLib.clickOnWebElement(uploadDocumentOption);
             Wait.forElementToBeDisplayed(driver, uploadDocumentButton);
             if(!seleniumLib.upload(docUpload, uploadFilepath + fileName)){
                 Debugger.println("Could not upload the file:"+fileName);
                 return false;
             }
-            Wait.seconds(10);//To ensure medium files are uploaded
-            seleniumLib.scrollToElement(uploadDocumentOption);
-            seleniumLib.clickOnWebElement(fileTypeDropDown);
-
-            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", fileType));
-            WebElement element = driver.findElement(formType);
-            element.click();
+            Wait.seconds(5);//To ensure medium files are uploaded
+            if(fileType == null || fileType.isEmpty()){
+                //No need to select the file type and date. For another validations, page remains as it is
+                return true;
+            }
+            if(!selectUploadFormType(fileType)) {
+                Debugger.println("Could not select the file type drop down: "+fileType);
+                SeleniumLib.takeAScreenShot("FileDropDown.jpg");
+                return false;
+            }
             //Date need to pass as today's date. Getting current day moved to TestUtils
-            String today[] = TestUtils.getCurrentDay();
+            if(!fillTheDateOfSignatureInRecordedBy()){
+                Debugger.println("Could not fill the date of signature of file upload.");
+                SeleniumLib.takeAScreenShot("DateOfSignature.jpg");
+                return false;
+            }
 
-            uploadDay.sendKeys(today[0]);
-            uploadMonth.sendKeys(today[1]);
-            uploadYear.sendKeys(today[2]);
-            uploadDay.sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
-            Wait.seconds(5);
-            clickOnContinue();
-            Wait.seconds(2);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in uploading record type in Patient choice: " + exp);
@@ -1374,4 +1405,150 @@ public class PatientChoicePage {
             return false;
         }
     }
+    public boolean verifyOptionalFieldPresence(String fieldName){
+        try{
+            String fieldPath = optionalFieldNames.replaceAll("dummyLabel",fieldName);
+            WebElement optionalField = driver.findElement(By.xpath(fieldPath));
+            if(!Wait.isElementDisplayed(driver,optionalField,10)) {
+                Debugger.println("Filed: " + fieldName + " not displayed as optional field.");
+                SeleniumLib.takeAScreenShot("OptionalFieldMissing.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in validating Optional fields: "+exp);
+            SeleniumLib.takeAScreenShot("OptionalFieldMissing.jpg");
+            return false;
+        }
+    }
+    public boolean verifyInvalidFileUploadMessages(String fileName, String expMessage) {
+        try {
+            if(!uploadRecordTypeDocument("",fileName)){
+                Debugger.println("File could not upload..");
+                SeleniumLib.takeAScreenShot("FileNotUploaded.jpg");
+                return false;
+            }
+            //Wait for 5 seconds to get the error message
+            if (!Wait.isElementDisplayed(driver, filUploadErrorMsg, 30)) {
+                //Error message not yet displayed...
+                Debugger.println("Error Message for Unsupported file type not displayed");
+                SeleniumLib.takeAScreenShot("UnSupportFileError.jpg");
+                return false;
+            }
+            String actMessage = filUploadErrorMsg.getText();
+            //Read the message.. and compare with what we pass
+            if (!actMessage.contains(expMessage)) {
+                Debugger.println("Expected Error Message: " + expMessage + ", But Actual is:" + actMessage);
+                SeleniumLib.takeAScreenShot("UnSupportFileErrorMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: verifyInvalidFileUploadMessages: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceDocUpload.jpg");
+            return false;
+        }
+    }
+    public boolean verifyFileTypeDropdownValues(List<String> expectedOptions) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown, 30);
+            String[] expValues = expectedOptions.toArray(new String[0]);
+            Actions.clickElement(driver,fileTypeDropDown);
+            Wait.seconds(2);
+            boolean isPresent = false;
+            for (int i = 0; i < expValues.length; i++) {//For each expected value
+                isPresent = false;
+                for(int j=0; j<dropDownValues.size(); j++) {//For the actual dropdown values
+                    if (expValues[i].equalsIgnoreCase(dropDownValues.get(j).getText())) {
+                        isPresent = true;
+                        break;//inner loop
+                    }
+                }//for actual
+                if(!isPresent){
+                    Debugger.println("Expected drop down value:"+expValues[i]+" not present in File type dropdown in RecordType.");
+                    SeleniumLib.takeAScreenShot("FileTypeDD.jpg");
+                }
+            }//for expValues
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying file type dropdown options  : " + exp);
+            SeleniumLib.takeAScreenShot("FileTypeDD.jpg");
+            return false;
+        }
+    }
+    public boolean dateOfSignatureStatusInRecordedBYSection() {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadDay);
+            if (uploadDay.isEnabled() && uploadMonth.isEnabled() && uploadYear.isEnabled()) {
+                return true;
+            }
+            SeleniumLib.takeAScreenShot("PCDateofSignatureStatus.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Date of Signature fields not found. " + exp);
+            SeleniumLib.takeAScreenShot("PCDateofSignatureStatus.jpg");
+            return false;
+        }
+    }
+    public boolean selectUploadFormType(String dropdownValue) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileTypeDropDown);
+            Actions.clickElement(driver,fileTypeDropDown);
+            By formType = By.xpath(fileTypeDropDownValue.replaceAll("dummyOption", dropdownValue));
+            WebElement element = driver.findElement(formType);
+            Actions.clickElement(driver,element);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selecting dropdown in recorded by" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceRecordedByPleaseSelectDropDown.jpg");
+            return false;
+        }
+    }
+    public boolean fillTheDateOfSignatureInRecordedBy() {
+        try {
+            Wait.forElementToBeDisplayed(driver,uploadDay,5);
+            String today[] = TestUtils.getCurrentDay();
+            uploadDay.sendKeys(today[0]);
+            uploadMonth.sendKeys(today[1]);
+            uploadYear.sendKeys(today[2]);
+            uploadDay.sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
+            SeleniumLib.takeAScreenShot("PCDateofSignatureFilling.jpg");
+            return false;
+        }
+    }
+    public boolean verifyFormUploadSuccessMessage(String expMessage) {
+        try {
+            Wait.forElementToBeDisplayed(driver, fileUploadSuccessMsg);
+            String actualMessage = fileUploadSuccessMsg.getText();
+            if (!expMessage.equalsIgnoreCase(actualMessage)) {
+                Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not matching");
+                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient choice page:verifyFormUploadSuccessMessage: message not found " + exp);
+            SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyUploadMessage(String message) {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadMessage);
+            if (!message.equalsIgnoreCase(uploadMessage.getText())) {
+                SeleniumLib.takeAScreenShot("PCFormUploadMsg.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage, verifyUploadMessage - message not found in upload section." + exp);
+            SeleniumLib.takeAScreenShot("PCFormUploadMsg.jpg");
+            return false;
+        }
+    }
+
 }//end
