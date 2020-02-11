@@ -263,7 +263,7 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @NTS-3507 @E2EUI-1649 @E2EUI-1584 @LOGOUT @idris
+  @NTS-3507 @E2EUI-1649 @E2EUI-1584 @LOGOUT
   Scenario Outline:NTS-3507:Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
