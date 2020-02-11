@@ -1,6 +1,6 @@
 @regression
 @patientChoice
-
+@patientChoice_upload
 Feature: Patient Choice Page - File uploads
 
   @NTS-3440 @E2EUI-2038 @E2EUI-1823 @LOGOUT @v_1 @P0

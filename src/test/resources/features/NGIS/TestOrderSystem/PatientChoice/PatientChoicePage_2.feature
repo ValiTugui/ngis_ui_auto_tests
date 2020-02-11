@@ -1,6 +1,6 @@
 @regression
 @patientChoice
-
+@patientChoice_page2
 Feature: Patient Choice Page Verification
 
   @NTS-3384 @E2EUI-1677 @LOGOUT @v_1 @P0

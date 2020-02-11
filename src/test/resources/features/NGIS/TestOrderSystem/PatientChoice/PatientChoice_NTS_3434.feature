@@ -1,6 +1,6 @@
 @regression
 @patientChoice
-
+@patientChoice_nts_3434
 Feature: Patient Choice Page
 
   @NTS-3434 @E2EUI-1447 @v_1 @P0
