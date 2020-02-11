@@ -25,7 +25,7 @@ Feature: This is a referral feature
     And the "<stage>" stage is marked as Completed
     And the number of mandatory stages to be completed is "6"
 #---------------------------------------------------------------#
-   Then the Test package stage is marked as Mandatory To Do
+    Then the Test package stage is marked as Mandatory To Do
     And the Responsible clinician stage is marked as Mandatory To Do
     And the Tumours stage is marked as Mandatory To Do
     And the Patient choice stage is marked as Mandatory To Do
