@@ -952,4 +952,21 @@ public class ReferralPage<check> {
         Debugger.println("ReferralID: "+referralID);
         System.out.println("ReferralID: "+referralID);
     }
+
+    public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
+        Wait.forURLToContainSpecificText(driver, directoryPath);
+        try {
+            String navigatedURL = driver.getCurrentUrl();
+            if (navigatedURL.contains(directoryPath)) {
+                Debugger.println("url " + navigatedURL);
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying the URL addresss:" + exp);
+            SeleniumLib.takeAScreenShot("URLAddressVerification.jpg");
+            return false;
+        }
+    }
+
+
 }
