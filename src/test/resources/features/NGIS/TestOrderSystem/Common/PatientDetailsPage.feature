@@ -464,7 +464,7 @@ Feature: Patient details page
       | Add a new patient to the database | Find your patient | NGIS         | NGIS                |
 
 
-   @NTS-4565 @LOGOUT @v_1 @E2EUI-1582 @idris
+   @NTS-4565 @LOGOUT @v_1 @E2EUI-1582
   Scenario Outline: NTS-4565- New Patient Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
      Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
        | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |And the user navigates to the "<stage>" stage
@@ -478,7 +478,7 @@ Feature: Patient details page
       | Patient details | Add a new patient to the database | test-order/new-patient |
 
 
-  @NTS-4565 @LOGOUT @v_1 @E2EUI-1582 @idris
+  @NTS-4565 @LOGOUT @v_1 @E2EUI-1582
   Scenario Outline: NTS-4565- Patient Detailed Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
