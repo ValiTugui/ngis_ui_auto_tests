@@ -414,9 +414,15 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user deletes the content of the Ethnicity field")
     public void theUserDeletesTheContentOfTheEthnicityField() {
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
-        Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
-        Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
+        Wait.forElementToBeDisplayed(driver, patientDetailsPage.ethnicityButton);
+        if (Wait.isElementDisplayed(driver, patientDetailsPage.clearEthnicityDropDownValue, 10)) {
+            Wait.seconds(1);
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+            Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
+            Wait.seconds(1); // Wait for the error to be triggered after deleting drop-down value
+        }
+
     }
 
     @When("the selects the ethnicity as {string}")

@@ -116,6 +116,7 @@ Feature: Samples Page
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState | sampleTopoMorphyGraphy | notificationText |
