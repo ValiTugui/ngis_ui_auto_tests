@@ -124,9 +124,9 @@ public class FamilyMemberNewPatientPage {
     }
 
     public void clearFieldsInFamilyMemberNewPatientPage(String clearToDropdown){
-        Actions.clearField(firstName);
-        Actions.clearField(lastName);
-        Actions.clearField(dobOfFamilyMember);
+        Actions.clearInputField(firstName);
+        Actions.clearInputField(lastName);
+        Actions.clearInputField(dobOfFamilyMember);
         String[] expInputs = null;
         expInputs = clearToDropdown.split(",");
         String pathToElement = "";
@@ -144,7 +144,6 @@ public class FamilyMemberNewPatientPage {
                 //seleniumLib.moveMouseAndClickOnElement(xpathElement);
             }
         }
-
     }
     public void clickOnAddNewPatientToReferral(){
        try {

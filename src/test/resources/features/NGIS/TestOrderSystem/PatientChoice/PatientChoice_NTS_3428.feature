@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_nts_3428
-Feature: Patient Choice Page
+Feature: Patient Choice Category - Child
 
   @NTS-3428 @E2EUI-2041 @E2EUI-1392 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person

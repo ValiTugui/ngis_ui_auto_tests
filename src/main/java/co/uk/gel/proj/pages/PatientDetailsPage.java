@@ -259,7 +259,7 @@ public class PatientDetailsPage {
     public void fillInAllFieldsNewPatientDetailsWithOutNhsNumber(String reason) {
         //fillInAllNewPatientDetails();
         selectMissingNhsNumberReason(reason);
-//        if (reason.equalsIgnoreCase("Other - provide explanation")) { // Moved to selectMissingNhsNumberReason(reason)
+  //        if (reason.equalsIgnoreCase("Other - provide explanation")) { // Moved to selectMissingNhsNumberReason(reason)
 //            Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
 //            otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
 //        }
@@ -472,6 +472,7 @@ public class PatientDetailsPage {
         Debugger.println("Expected DOB : " + DOB + " : " + "Actual DOB" + Actions.getValue(dateOfBirth));
         Assert.assertEquals(DOB, Actions.getValue(dateOfBirth));
     }
+
 
 
     public boolean verifyTheElementsOnAddNewPatientPageNormalUserFlow() {

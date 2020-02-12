@@ -46,6 +46,11 @@ public class ReferralSteps extends Pages {
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
         referralPage.navigateToStage(stage);
+        //Introduced this as a trial as many times the failures observed in FamilyMembers Page as Title is not loaded.
+        //Will be removing later, if this wont help, lets pls keep it for couple of runs from Jenkins
+        if(stage.equalsIgnoreCase("Family members")){
+            Wait.seconds(5);
+        }
     }
 
     @And("the user clicks the Save and Continue button")

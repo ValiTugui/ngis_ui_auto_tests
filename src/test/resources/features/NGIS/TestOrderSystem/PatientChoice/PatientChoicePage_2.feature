@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_page2
-Feature: Patient Choice Page Verification
+Feature: Patient Choice Page - Field verification
 
   @NTS-3384 @E2EUI-1677 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3384: Verify the hospital no field on patient choice form

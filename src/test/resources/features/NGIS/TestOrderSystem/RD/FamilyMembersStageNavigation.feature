@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_set1
-Feature: Family Members Navigation Stage Validation
+Feature: Family Members Navigation Stage - Member additions
 
   @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout

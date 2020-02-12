@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_page3
-Feature: Patient Choice Page
+Feature: Patient Choice Page - Test status
 
   @NTS-3409 @E2EUI-1822 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3409: Navigate around the patient choice pages

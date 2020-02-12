@@ -2,12 +2,13 @@
 @TO_RD
 @FamilyMembersDetailsPage
 
-Feature: Family Members Details Validation
+Feature: Family Members Details Page - Field Validation_1
 
   @NTS-3235 @E2EUI-908 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1971:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button

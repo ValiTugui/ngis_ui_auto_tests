@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_nts_3441
-Feature: Patient Choice Page
+Feature: Patient Choice Category - Child - Paper Form
 
   @NTS-3441 @E2EUI-1215 @v_1 @P0
   Scenario Outline: NTS-3441: Verify the relevant Patient choice for a Child paper form

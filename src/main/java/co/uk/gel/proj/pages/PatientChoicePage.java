@@ -77,7 +77,7 @@ public class PatientChoicePage {
     public WebElement signatureSection;
 
     @FindBy(xpath = "//span[contains(text(),'Patient choice status')]/following-sibling::span[contains(@class,'css-')]")
-    WebElement patientChoiceStatus;
+    List<WebElement> patientChoiceStatus;
 
     String patientChoiceCategory = "//label[contains(@class,'radio-container')][text()='dummyCategory']";
     String testType = "//label[contains(@class,'radio-container')][text()='dummyTestType']";
@@ -196,6 +196,9 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//li[@class='message-line']")
     List<WebElement> warningMessage;
+
+    @FindBy(xpath = "//div[@data-testid='notification-warning']/span")
+    List<WebElement> notificationWarning;
 
     @FindBy(className = "steps-list")
     public WebElement stepsList;
@@ -589,21 +592,25 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyPatientChoiceStatus(String expStatus) {
+    public boolean verifyPatientChoiceStatus(String expStatus, int index) {
         try {
-            if (!Wait.isElementDisplayed(driver, patientChoiceStatus, 30)) {
-                Debugger.println("PatientChoice is not displayed.");
-                SeleniumLib.takeAScreenShot("PatientChoice.jpg");
+            int noOfStatus = patientChoiceStatus.size();
+            if (noOfStatus < index) {
+                Debugger.println("Patient choice status not displayed for member at " + index + " position");
+                SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
                 return false;
             }
-            String actStatus = patientChoiceStatus.getText();
+            Wait.forElementToBeDisplayed(driver, patientChoiceStatus.get(index), 30);
+            String actStatus = patientChoiceStatus.get(index).getText();
             if (!expStatus.equalsIgnoreCase(actStatus)) {
                 Debugger.println("Expected Patient Choice: " + expStatus + ", But actual is: " + actStatus);
+                SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception FamilyMemberDetailsPage:verifyPatientChoiceStatus :" + exp);
+            Debugger.println("Exception in verifyPatientChoiceStatus :" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
             return false;
         }
     }
@@ -794,6 +801,26 @@ public class PatientChoicePage {
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNotificationWarning(String message) {
+        try {
+            Wait.seconds(2);
+            for (int i = 0; i < notificationWarning.size(); i++) {
+                if (notificationWarning.get(i).getText().contains(message)) {
+                    return true;
+                }
+            }
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
             return false;
         }
     }
@@ -805,11 +832,13 @@ public class PatientChoicePage {
             String actualColor = continueButton.getCssValue("background-color");
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
                 Debugger.println("Actual background color : " + actualColor + ", Expected :"+expectedBackground);
+                SeleniumLib.takeAScreenShot("ContinueButtonBgColor.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
+            SeleniumLib.takeAScreenShot("ContinueButtonBgColor.jpg");
             return false;
         }
     }
@@ -933,24 +962,18 @@ public class PatientChoicePage {
     public boolean selectPatientSignature() {
         try {
             Wait.forElementToBeDisplayed(driver, signaturePad);
-            SeleniumLib.drawSignature(signaturePad);
-            return true;
-        } catch (Exception exp) {
-            try {
-                Actions.scrollToBottom(driver);
-                SeleniumLib.drawSignature(signaturePad);
-                return true;
-            }catch(Exception exp1) {
-                try {
-                    Actions.scrollToTop(driver);
-                    SeleniumLib.drawSignature(signaturePad);
-                    return true;
-                }catch(Exception exp2) {
-                    Debugger.println("Patient Choice Page: selectSignature: " + exp);
-                    SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
-                    return false;
+            if(!SeleniumLib.drawSignature(signaturePad)){
+                Actions.scrollToTop(driver);
+                if(!SeleniumLib.drawSignature(signaturePad)){
+                    Actions.scrollToBottom(driver);
+                    return SeleniumLib.drawSignature(signaturePad);
                 }
             }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice Page: selectSignature: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
+            return false;
         }
     }
 
@@ -1550,5 +1573,23 @@ public class PatientChoicePage {
             return false;
         }
     }
+    public boolean clickOnPatientChoiceStatusLink(int index) {
+        try {
+            int noOfStatus = patientChoiceStatus.size();
+            if (noOfStatus < index) {
+                Debugger.println("Patient choice status not displayed for member at " + index + " position");
+                SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver, patientChoiceStatus.get(index), 30);
+            Actions.clickElement(driver, patientChoiceStatus.get(index));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in clicking patient choice status link" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
+            return false;
+        }
+    }
+
 
 }//end
