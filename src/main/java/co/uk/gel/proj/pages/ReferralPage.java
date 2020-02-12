@@ -184,20 +184,20 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     public WebElement notificationSuccessMessage;
 
-    //For Global Patient Banner Verification
-    @FindBy(xpath = "//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
+    //For Global Patient Banner Verification - Family Members
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
     public WebElement familyMemberDob;
-    @FindBy(xpath = "//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
     public WebElement familyMemberGender;
-    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
     public WebElement familyMemberNgisId;
-    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> ngisIDChunkSeparators;
-    @FindBy(xpath = "//h2[contains(@class,'css-')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
 
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
@@ -846,27 +846,32 @@ public class ReferralPage<check> {
             String firstNameLastName = familyMemberNames.getText();
             if(!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME())){
                 Debugger.println("First Name Last Name: "+familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME()+" not displayed on the banner.");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             String bannerGender = familyMemberGender.getText();
             if(!bannerGender.equalsIgnoreCase(familyMember.getGENDER())){
                 Debugger.println("Gender: "+familyMember.getGENDER()+" not displayed on the banner.");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             String bannerDob  = familyMemberDob.getText();
             if(!bannerDob.startsWith(familyMember.getBORN_DATE())){
                 Debugger.println("Born Date: "+familyMember.getBORN_DATE()+" not displayed on the banner.");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             String bannerNhs  = familyMemberNhsNumbers.getText();
             if(bannerNhs != null && !bannerNhs.isEmpty()) {
                 if (!bannerNhs.equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     Debugger.println("NHS Number: " + familyMember.getNHS_NUMBER() + " not displayed on the banner.");
+                    SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                     return false;
                 }
             }
             if(!verifyNHSDisplayFormat()){
                 Debugger.println("NHS Number display format is not as expected.");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
 
@@ -879,15 +884,19 @@ public class ReferralPage<check> {
             }else{
                 if (!bannerNGIS.equalsIgnoreCase(familyMember.getNGIS_ID())) {
                     Debugger.println("NGSID: " + familyMember.getNGIS_ID() + " not displayed on the banner.");
+                    SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                     return false;
                 }
             }
             if(!verifyNGISIDDisplayFormat()){
                 Debugger.println("NGSID display format is not as expected.");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
+            Debugger.println("Exception verifying GlobalPatientCard Information: "+exp);
+            SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
             return false;
         }
     }
@@ -932,7 +941,7 @@ public class ReferralPage<check> {
             WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
             String actualColor = fieldElement.getCssValue("color");
             if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
-                Debugger.println("Field: " + fieldLabel + "not highlighted in :" +expectedFontColor+" as expected.");
+                Debugger.println("Field: " + fieldLabel + " not highlighted in :" +expectedFontColor+" as expected. Actual colour is:"+actualColor);
                 SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
                 return false;
             }

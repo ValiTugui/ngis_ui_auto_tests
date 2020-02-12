@@ -16,7 +16,6 @@ Feature: Family Members Details Validation
     Then the user can see a message "<SearchDetails>" "<PatientSearchMessage>" in "bold" font
     When the user clicks on the create new patient record
     Then the user is navigated to a page with title Add a new patient to the database
-    ###Ethinicity also may also be mandatory in new release - keep an eye
     And the mandatory fields shown with the symbol in red color
       | mandatory_field              | field_type | symbol | symbol color |
       | First name                   | label      | ✱      | #dd2509      |
@@ -27,6 +26,7 @@ Feature: Family Members Details Validation
       | Reason NHS Number is missing | label      | ✱      | #dd2509      |
       | Hospital number              | label      | ✱      | #dd2509      |
       | Relationship to proband      | label      | ✱      | #dd2509      |
+      | Ethnicity                    | label      | ✱      | #dd2509      |
     When the user removes the data from all fields "<ClearFields>" in the family member new patient page
     And the user clicks the Add new patient to referral button
     Then the blank mandatory field labels highlighted in red color
@@ -39,6 +39,7 @@ Feature: Family Members Details Validation
       | Reason NHS Number is missing | #dd2509 |
       | Hospital number              | #dd2509 |
       | Relationship to proband      | #dd2509 |
+      | Ethnicity                    | #dd2509 |
     Examples:
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      |
@@ -75,7 +76,7 @@ Feature: Family Members Details Validation
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |Patient Choice|
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |Patient choice              |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Patient Choice |
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected | Patient choice |
 
 

@@ -234,7 +234,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsDetails);
         if(familyMember == null){
-            Debugger.println("FamilyMemer with NHS "+nhsDetails+" Could not found.");
+            Debugger.println("FamilyMember with NHS "+nhsDetails+" Could not found.");
             Assert.assertTrue(testResult);
         }
         testResult = referralPage.verifyGlobalPatientInformationBar(familyMember);
