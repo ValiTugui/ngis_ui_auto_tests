@@ -331,7 +331,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");
-                if(nhsNumber.equalsIgnoreCase("NA")){
+                if(nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")){
                     NGISPatientModel familyMember = new NGISPatientModel();
                     familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
@@ -396,6 +396,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
+                referralPage.verifyThePageTitlePresence("Add a family member to this referral");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);

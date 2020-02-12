@@ -476,99 +476,111 @@ public class FamilyMemberDetailsPage {
         }
     }
     public boolean verifyAddedFamilyMemberDetailsInLandingPage(String nhsDetails) {
-        NGISPatientModel familyMember = getFamilyMember(nhsDetails);
-        if (familyMember == null) {
-            Debugger.println("Family Member with NHS Number:" + nhsDetails + " Not added to the list!.");
-            return false;
-        }
-        //1. Verify the Name
-        String landingPageName = landingPageNamePath.replaceAll("dummyName",familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME());
-        By firstNameLastName = By.xpath(landingPageName);
-        if (!seleniumLib.isElementPresent(firstNameLastName)) {
-            Debugger.println("Added Family member name: " + familyMember.getFIRST_NAME() + ", " + familyMember.getFIRST_NAME()+" Not displayed on Family Member Landing Page.");
-            return false;
-        }
-        //2. Verify Relation to Proband.
-        String landingPageRelation = landingPageRelationPath.replaceAll("dummyRelation",familyMember.getRELATIONSHIP_TO_PROBAND());
-        By relationToProband = By.xpath(landingPageRelation);
-        if (!seleniumLib.isElementPresent(relationToProband)) {
-            Debugger.println("Added Family member relationship: " + familyMember.getRELATIONSHIP_TO_PROBAND() +" Not displayed on Family Member Landing Page.");
-            return false;
-        }
-        boolean isPresent = false;
-        //3.Verify DOB
-        String dob = "";
-        for(int i=0; i<landingPageBorns.size();i++){
-            dob = landingPageBorns.get(i).getText();
-            if(dob.startsWith(TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH()))){
-                isPresent = true;
-                break;
+        try {
+            NGISPatientModel familyMember = getFamilyMember(nhsDetails);
+            if (familyMember == null) {
+                Debugger.println("Family Member with NHS Number:" + nhsDetails + " Not added to the list!.");
+                return false;
             }
-        }
-        if(!isPresent){
-            Debugger.println("Added Family member BornDate: " + familyMember.getBORN_DATE() +" Not displayed on Family Member Landing Page.");
-            return isPresent;
-        }
-        //4.Verify Gender
-        for(int i=0; i<landingPageGenders.size();i++){
-            if(familyMember.getGENDER().equalsIgnoreCase(landingPageGenders.get(i).getText())){
-                isPresent = true;
-                break;
+            //1. Verify the Name
+            String landingPageName = landingPageNamePath.replaceAll("dummyName", familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME());
+            By firstNameLastName = By.xpath(landingPageName);
+            if (!seleniumLib.isElementPresent(firstNameLastName)) {
+                Debugger.println("Added Family member name: " + familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return false;
             }
-        }
-        if(!isPresent){
-            Debugger.println("Added Family member Gender: " + familyMember.getGENDER()+" Not displayed on Family Member Landing Page.");
-            return false;
-        }
-        //5.Verify NHS
-        if(landingPageNhsNumbers.size() > 1){//Checking for added family members, excluded Proband
+            //2. Verify Relation to Proband.
+            String landingPageRelation = landingPageRelationPath.replaceAll("dummyRelation", familyMember.getRELATIONSHIP_TO_PROBAND());
+            By relationToProband = By.xpath(landingPageRelation);
+            if (!seleniumLib.isElementPresent(relationToProband)) {
+                Debugger.println("Added Family member relationship: " + familyMember.getRELATIONSHIP_TO_PROBAND() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return false;
+            }
+            boolean isPresent = false;
+            //3.Verify DOB
+            String dob = "";
+            for (int i = 0; i < landingPageBorns.size(); i++) {
+                dob = landingPageBorns.get(i).getText();
+                if (dob.startsWith(TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH()))) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Added Family member BornDate: " + familyMember.getBORN_DATE() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return isPresent;
+            }
+            //4.Verify Gender
+            for (int i = 0; i < landingPageGenders.size(); i++) {
+                if (familyMember.getGENDER().equalsIgnoreCase(landingPageGenders.get(i).getText())) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Added Family member Gender: " + familyMember.getGENDER() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return false;
+            }
+            //5.Verify NHS
+            if (landingPageNhsNumbers.size() > 1) {//Checking for added family members, excluded Proband
+                isPresent = false;
+                String actualNhs = "";
+                for (int i = 0; i < landingPageNhsNumbers.size(); i++) {
+                    actualNhs = landingPageNhsNumbers.get(i).getText();
+                    if (actualNhs != null) {
+                        if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
+                            isPresent = true;
+                            break;
+                        }
+                    } else {
+                        //Family Member added without NHS number need not validate for NHS number.
+                        isPresent = true;//NHS is not mandatory
+                    }
+                }//for
+            }
+            if (!isPresent) {
+                Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return false;
+            }
+            //6.Verify NGISID
+            String ngsId = "";
             isPresent = false;
-            String actualNhs = "";
-            for(int i=0; i<landingPageNhsNumbers.size();i++) {
-                actualNhs = landingPageNhsNumbers.get(i).getText();
-                if (actualNhs != null) {
-                    if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
+            for (int i = 0; i < landingPageNgsIds.size(); i++) {
+                ngsId = landingPageNgsIds.get(i).getText();
+                if (ngsId != null) {
+                    if (familyMember.getNGIS_ID() == null) {
                         isPresent = true;
+                        //Set the NGIS to the family member for verification in print forms , on need basis
+                        familyMember.setNGIS_ID(ngsId);
+                        FamilyMemberDetailsPage.updateNGISID(familyMember);
                         break;
+                    } else {
+                        if (familyMember.getNGIS_ID().equalsIgnoreCase(ngsId)) {
+                            isPresent = true;
+                            break;
+                        }
                     }
                 } else {
-                    //Family Member added without NHS number need not validate for NHS number.
-                    isPresent = true;//NHS is not mandatory
-                }
-            }//for
-        }
-        if(!isPresent){
-            Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER()+" Not displayed on Family Member Landing Page.");
-            return false;
-        }
-        //6.Verify NGISID
-        String ngsId = "";
-        isPresent = false;
-        for (int i = 0; i < landingPageNgsIds.size(); i++) {
-            ngsId = landingPageNgsIds.get(i).getText();
-            if(ngsId != null) {
-                if(familyMember.getNGIS_ID() == null) {
                     isPresent = true;
-                    //Set the NGIS to the family member for verification in print forms , on need basis
-                    familyMember.setNGIS_ID(ngsId);
-                    FamilyMemberDetailsPage.updateNGISID(familyMember);
-                    break;
-                }else {
-                    if (familyMember.getNGIS_ID().equalsIgnoreCase(ngsId)) {
-                        isPresent = true;
-                        break;
-                    }
                 }
-            }else{
-                isPresent = true;
             }
-        }
-        if (!isPresent) {
-            Debugger.println("Added Family member NGSID: " + familyMember.getNGIS_ID() + " Not displayed on Family Member Landing Page.");
+            if (!isPresent) {
+                Debugger.println("Added Family member NGSID: " + familyMember.getNGIS_ID() + " Not displayed on Family Member Landing Page.");
+                SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
+                return false;
+            }
+
+            return isPresent;
+        }catch(Exception exp){
+            Debugger.println("Exception in validating added family member in landing page: "+exp);
+            SeleniumLib.takeAScreenShot("FMLandingPage.jpg");
             return false;
         }
-
-        return isPresent;
     }
 
     public boolean verifyTheElementsOnFamilyMemberDetailsPage() {
