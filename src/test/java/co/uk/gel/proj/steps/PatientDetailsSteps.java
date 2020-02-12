@@ -156,7 +156,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPage());
+        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow());
         Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " + "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
         Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
     }
@@ -414,9 +414,15 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user deletes the content of the Ethnicity field")
     public void theUserDeletesTheContentOfTheEthnicityField() {
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
-        Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
-        Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
+        Wait.forElementToBeDisplayed(driver, patientDetailsPage.ethnicityButton);
+        if (Wait.isElementDisplayed(driver, patientDetailsPage.clearEthnicityDropDownValue, 10)) {
+            Wait.seconds(1);
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+            Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
+            Wait.seconds(1); // Wait for the error to be triggered after deleting drop-down value
+        }
+
     }
 
     @When("the selects the ethnicity as {string}")

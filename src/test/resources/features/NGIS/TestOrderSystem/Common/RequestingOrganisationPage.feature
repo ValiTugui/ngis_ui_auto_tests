@@ -44,7 +44,6 @@ Feature: Requesting Organisation page
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
     Then the requesting organisation page has the "<title>"
-    And the requesting organisation has search label displayed
     And the user sees the search label with "<expectedText>"
     And the user sees the search field with search icon
     And the user see the search field has placeholder text as "<placeholderText>"

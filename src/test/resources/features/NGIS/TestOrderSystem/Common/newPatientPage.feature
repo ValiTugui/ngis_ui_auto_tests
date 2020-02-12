@@ -263,7 +263,7 @@ Feature: New Patient page
       | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @NTS-3507 @E2EUI-1649 @E2EUI-1584 @LOGOUT @idris
+  @NTS-3507 @E2EUI-1649 @E2EUI-1584 @LOGOUT
   Scenario Outline:NTS-3507:Super-user - Hospital number is conditionally non-nullable if NHS number is null
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -476,7 +476,7 @@ Feature: New Patient page
 
 # Ethnicity is now Mandatory
   @NTS-4500 @LOGOUT @v_1 @E2EUI-2499
-  Scenario Outline: Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
+  Scenario Outline: NTS-4500-Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
@@ -498,7 +498,7 @@ Feature: New Patient page
 
 
  @NTS-4541 @LOGOUT @v_1 @E2EUI-1753
-  Scenario Outline: New patient be created without filling in the non-mandatory Title field
+  Scenario Outline: NTS-4541 -New patient be created without filling in the non-mandatory Title field
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed

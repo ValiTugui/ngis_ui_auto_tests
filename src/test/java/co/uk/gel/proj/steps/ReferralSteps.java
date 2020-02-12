@@ -436,18 +436,23 @@ public class ReferralSteps extends Pages {
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
+        boolean flag = false;
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+                //Ensure all the fields are correctly populated without any error shown on patient details page
+                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+
             }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters != null) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
+                //Ensure all the fields are correctly populated without any error shown on patient details page
+                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageSuperUserFlow();
             }
         } else {
             patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
+            flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
         }
-        //Ensure all the fields are correctly populated without any error shown on patient details page
-        boolean flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPage();
         if(!flag){
             // Navigate to top of page
             Actions.scrollToTop(driver);
@@ -710,6 +715,8 @@ public class ReferralSteps extends Pages {
     @Then("the user is successfully logged out")
     public void theUserIsSuccessfullyLoggedOut() {
         String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
-        String expectedPageSourceTitle = "Sign in to your account";
+        String expectedPageSourceTitle = "Sign out";
+        Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
+        Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
     }
 }

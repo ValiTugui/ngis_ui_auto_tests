@@ -474,7 +474,9 @@ public class PatientDetailsPage {
     }
 
 
-    public boolean verifyTheElementsOnAddNewPatientPage() {
+
+    public boolean verifyTheElementsOnAddNewPatientPageNormalUserFlow() {
+
         Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
         pageTitle.isDisplayed();
         title.isDisplayed();
@@ -494,6 +496,39 @@ public class PatientDetailsPage {
         ethnicityButton.isDisplayed();
         ethnicityLabel.isDisplayed();
         noNhsNumberReasonDropdown.isDisplayed();
+        hospitalNumber.isDisplayed();
+        hospitalNumberLabel.isDisplayed();
+        addressLabel.isDisplayed();
+        addressLine0.isDisplayed();
+        addressLine1.isDisplayed();
+        addressLine2.isDisplayed();
+        addressLine3.isDisplayed();
+        addressLine4.isDisplayed();
+        postcodeLabel.isDisplayed();
+        postcode.isDisplayed();
+
+        return true;
+    }
+  public boolean verifyTheElementsOnAddNewPatientPageSuperUserFlow() {
+
+        Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
+        pageTitle.isDisplayed();
+        title.isDisplayed();
+        titleLabel.isDisplayed();
+        firstName.isDisplayed();
+        firstnameLabel.isDisplayed();
+        familyName.isDisplayed();
+        familyNameLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        administrativeGenderButton.isDisplayed();
+        administrativeGenderLabel.isDisplayed();
+        lifeStatusButton.isDisplayed();
+        lifeStatusLabel.isDisplayed();
+        dateOfBirth.isDisplayed();
+        dateOfBirthLabel.isDisplayed();
+        ethnicityButton.isDisplayed();
+        ethnicityLabel.isDisplayed();
         hospitalNumber.isDisplayed();
         hospitalNumberLabel.isDisplayed();
         addressLabel.isDisplayed();
@@ -870,7 +905,7 @@ public class PatientDetailsPage {
             FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
             Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
             //Ensure all the fields are correctly populated without any error shown on patient details page
-            boolean flag = verifyTheElementsOnAddNewPatientPage();
+            boolean flag = verifyTheElementsOnAddNewPatientPageNormalUserFlow();
             if(!flag){
                 // Navigate to top of page
                 Actions.scrollToTop(driver);

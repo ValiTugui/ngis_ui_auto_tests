@@ -61,9 +61,8 @@ Feature: This is a referral feature
       | stage           |
       | Patient details |
 
-
-  @LOGOUT @PO @v_1 @ignore
-  Scenario Outline: The user is able to logout from Referral Header - Test Ordering system
+  @NTS-4562 @PO @v_1 @E2EUI-1088
+  Scenario Outline: NTS-4562-The user is able to logout from Referral Header - Test Ordering system
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage>" stage
