@@ -3,7 +3,7 @@
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_set3
 
-Feature: Family Members Navigation Stage Validation
+Feature: Family Members Navigation Stage - Remove Member
 
   @NTS-3292 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral

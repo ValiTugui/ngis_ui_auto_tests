@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMembersDetailsPage
 
-Feature: Family Members Details Validation
+Feature: Family Members Details Page - Field Validation_2
 
   @NTS-3296 @LOGOUT @E2EUI-1038 @v_1 @P0
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation

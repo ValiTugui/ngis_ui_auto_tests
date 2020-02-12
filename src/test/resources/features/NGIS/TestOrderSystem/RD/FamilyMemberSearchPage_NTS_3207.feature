@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberSearchPage
 
-Feature: Family Members Search Validation
+Feature: Family Members Search Page - Field Validation_2
 
   @NTS-3207 @E2EUI-950 @E2EUI-1116 @v_1 @P0
   Scenario Outline: NTS-3207-3328: Find a family member page validation with NHS selected YES: All mandatory fields left blank

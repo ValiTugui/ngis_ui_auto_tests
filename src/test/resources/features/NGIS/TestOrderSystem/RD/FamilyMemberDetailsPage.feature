@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMembersDetailsPage
 
-Feature: Family Members Details Validation
+Feature: Family Members Details Page - Field Validation_1
 
   @NTS-3235 @E2EUI-908 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.

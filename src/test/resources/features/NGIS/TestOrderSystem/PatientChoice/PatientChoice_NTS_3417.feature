@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_nts_3417
-Feature: Patient Choice Page
+Feature: Patient Choice Category - Adult (Without Capacity)
 
   @NTS-3417 @E2EUI-2040 @E2EUI-1060 @E2EUI-1450 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)

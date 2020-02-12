@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_nts_3389
-Feature: Patient Choice Page
+Feature: Patient Choice Category - Adult (With Capacity)
 
   @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity

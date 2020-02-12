@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_nts_3434
-Feature: Patient Choice Page
+Feature: Patient Choice Category - Adult (With Capacity) - Paper Form
 
   @NTS-3434 @E2EUI-1447 @v_1 @P0
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form

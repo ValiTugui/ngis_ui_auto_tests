@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_page1
-Feature: Patient Choice Page
+Feature: Patient Choice Page - Combination
 
   @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page

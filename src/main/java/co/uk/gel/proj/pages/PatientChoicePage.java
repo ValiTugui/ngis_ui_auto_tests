@@ -966,7 +966,7 @@ public class PatientChoicePage {
             return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToBottom(driver);
+                
                 SeleniumLib.drawSignature(signaturePad);
                 return true;
             }catch(Exception exp1) {

@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberSearchPage
 
-Feature: Family Members Re-adding Validation
+Feature: Family Members Search Page - Re-Adding existing members
 
   @NTS-3227 @E2EUI-1947 @v_1 @P0
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via Yes option displays error message

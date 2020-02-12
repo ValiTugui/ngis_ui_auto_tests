@@ -3,7 +3,7 @@
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_set2
 
-Feature: Family Members Navigation Stage Validation
+Feature: Family Members Navigation Stage - Patient Identifiers
 
   @NTS-3243 @E2EUI-1287 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow

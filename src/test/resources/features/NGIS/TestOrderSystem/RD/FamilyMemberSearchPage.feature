@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberSearchPage
 
-Feature: Family Members Search Validation
+Feature: Family Members Search Page - Field Validation_1
 
   @NTS-3302 @E2EUI-965 @v_1 @P0
   Scenario Outline: NTS-3302: Find a Family Member page layout
