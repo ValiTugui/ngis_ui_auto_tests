@@ -127,6 +127,7 @@ public class BrowserFactory {
         if (!javascriptEnabled) {
             opts.addArguments("disable-javascript");
         }
+        opts.addArguments("--no-sandbox");
         return opts;
     }
 
