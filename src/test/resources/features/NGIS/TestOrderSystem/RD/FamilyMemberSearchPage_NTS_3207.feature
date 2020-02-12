@@ -4,7 +4,7 @@
 
 Feature: Family Members Search Validation
 
-  @NTS-3207-3328 @E2EUI-950 @E2EUI-1116 @v_1 @P0
+  @NTS-3207 @E2EUI-950 @E2EUI-1116 @v_1 @P0
   Scenario Outline: NTS-3207-3328: Find a family member page validation with NHS selected YES: All mandatory fields left blank
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
