@@ -105,6 +105,17 @@ public class TestUtils {
         }
         return monthForm;
     }
+    public static String convertMonthToMonthNumberForm(String monthName) {
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] monthNumbers = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        for(int i=0; i<months.length; i++){
+            if(monthName.equalsIgnoreCase(months[i])){
+                return monthNumbers[i];
+            }
+        }
+        return null;
+    }
 
     public static ArrayList<String> convertDOBNumbersToStrings(String dobInNumbers) {
         int strLength = dobInNumbers.length();
