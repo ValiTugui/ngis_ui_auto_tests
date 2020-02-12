@@ -375,7 +375,7 @@ Feature: Patient details page
     And the user clicks the patient result card
     Then the Patient Details page is displayed
     When the user deletes the content of the Ethnicity field
-    And the user clicks the Update NGIS record button
+#    And the user clicks the Update NGIS record button
     Then the error messages for the mandatory fields on the "<pageTitle3>" page are displayed as follows
       | labelHeader | errorMessageHeader     | messageColourHeader |
       | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
