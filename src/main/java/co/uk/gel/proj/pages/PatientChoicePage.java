@@ -962,24 +962,18 @@ public class PatientChoicePage {
     public boolean selectPatientSignature() {
         try {
             Wait.forElementToBeDisplayed(driver, signaturePad);
-            SeleniumLib.drawSignature(signaturePad);
-            return true;
-        } catch (Exception exp) {
-            try {
-                
-                SeleniumLib.drawSignature(signaturePad);
-                return true;
-            }catch(Exception exp1) {
-                try {
-                    Actions.scrollToTop(driver);
-                    SeleniumLib.drawSignature(signaturePad);
-                    return true;
-                }catch(Exception exp2) {
-                    Debugger.println("Patient Choice Page: selectSignature: " + exp);
-                    SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
-                    return false;
+            if(!SeleniumLib.drawSignature(signaturePad)){
+                Actions.scrollToTop(driver);
+                if(!SeleniumLib.drawSignature(signaturePad)){
+                    Actions.scrollToBottom(driver);
+                    return SeleniumLib.drawSignature(signaturePad);
                 }
             }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Patient Choice Page: selectSignature: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
+            return false;
         }
     }
 
