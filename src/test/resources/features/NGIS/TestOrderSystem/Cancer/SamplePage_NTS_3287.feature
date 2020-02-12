@@ -84,6 +84,7 @@ Feature: Samples Page
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And the "<stage2>" stage is marked as Completed
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
 
     Examples:
@@ -117,6 +118,7 @@ Feature: Samples Page
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
       | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
 
     Examples:
