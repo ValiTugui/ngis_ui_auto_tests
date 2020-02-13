@@ -719,4 +719,11 @@ public class ReferralSteps extends Pages {
         Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
         Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
     }
+
+    @And("the page url address contains the directory-path web-page {string}")
+    public void thePageUrlAddressContainsTheDirectoryPathWebPage(String directoryPath) {
+        boolean flag = false;
+        flag = referralPage.verifyTheCurrentURLContainsTheDirectoryPathPage(directoryPath);
+        Assert.assertTrue(flag);
+    }
 }
