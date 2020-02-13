@@ -56,7 +56,7 @@ Feature: Patient Choice Page
     And the user should see selected details displayed under the section Child assent
       | Does the child agree to participate in research?::No |
     When the user is in the section Review and submit
-    Then the user will see a warning message "<WarningMessage2>"
+#    Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
@@ -81,7 +81,7 @@ Feature: Patient Choice Page
     And the user should see selected details displayed under the section Patient choices
       | Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Parent(s) / guardian conversation happened; form to follow |
     When the user is in the section Review and submit
-    Then the user will see a warning message "<WarningMessage>"
+#    Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
@@ -232,7 +232,6 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
      ###Click on show additional warnings link and ensure the additional warning message displayed
     ###Verify for the link Add Partner Details (trio analysis only)
-    And the user clicks on Continue Button
     Then the user should see selected details displayed under the section Patient choices
       | Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Parent(s) / guardian have agreed to the test |
       | Has research participation been discussed?::Yes                                                                                                                                       |

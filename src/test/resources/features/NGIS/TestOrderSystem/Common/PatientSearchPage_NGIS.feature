@@ -109,3 +109,15 @@ Feature: Patient search page_NGIS
     Examples:
       | stage           | patient-search-type | patient-type |
       | Patient details | New-NGIS            | NGIS         |
+
+
+    @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
+  Scenario Outline: Patient search - NHSNumber field - maximum length validation
+      Given a web browser is at the patient search page
+        | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+      When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
+      Then the user is prevented from entering data that exceed that allowable maximum data 10 in the "NHSNumber" field
+
+    Examples:
+      | NHSNumber        |
+      | 9449310602111111 |

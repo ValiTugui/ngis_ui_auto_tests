@@ -432,4 +432,81 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheEthnicityField(String ethnicity) {
         patientDetailsPage.addPatientEthnicity(ethnicity);
     }
+
+    @When("the user attempts to fill in the NHS Number {string} with data that exceed the maximum data allowed {int}")
+    public void theUserAttemptsToFillInTheNHSNumberWithDataThatExceedTheMaximumDataAllowed(String nHSNumber, int maximumCharactersAllowed) {
+        if (nHSNumber.length() > maximumCharactersAllowed) {
+            patientDetailsPage.nhsNumber.sendKeys(nHSNumber);
+            Assert.assertTrue(true);
+        }
+    }
+
+    @When("the user attempts to fill in the Hospital Number {string} with data that exceed the maximum data allowed {int}")
+    public void theUserAttemptsToFillInTheHospitalNumberWithDataThatExceedTheMaximumDataAllowed(String hospitalNumber, int maximumCharactersAllowed) {
+
+        if (hospitalNumber.length() > maximumCharactersAllowed) {
+            patientDetailsPage.hospitalNumber.sendKeys(hospitalNumber);
+            Assert.assertTrue(true);
+        }
+
+    }
+
+    @Then("the user is prevented from entering data that exceed that allowable maximum data {int}")
+    public void theUserIsPreventedFromEnteringDataThatExceedThatAllowableMaximumData(int maximumCharactersAllowed) {
+
+        String actualNhsNumber = patientDetailsPage.nhsNumber.getAttribute("value").trim();
+        Debugger.println("Actual NhsNumber :" + actualNhsNumber + " : " + actualNhsNumber.length());
+        Assert.assertEquals(actualNhsNumber.length(), maximumCharactersAllowed);
+    }
+
+
+    @Then("the user is prevented from entering data that exceed that allowable maximum data {int} in the {string} field")
+    public void theUserIsPreventedFromEnteringDataThatExceedThatAllowableMaximumDataInTheField(int maximumCharactersAllowed, String inputField) {
+
+        switch (inputField) {
+            case "NHSNumber": {
+                String actualNhsNumber = patientDetailsPage.nhsNumber.getAttribute("value").trim();
+                Debugger.println("Actual NhsNumber :" + actualNhsNumber + " : " + actualNhsNumber.length());
+                Assert.assertEquals(actualNhsNumber.length(), maximumCharactersAllowed);
+                break;
+            }
+            case "HospitalNumber": {
+                String actualHospitalNumber = patientDetailsPage.hospitalNumber.getAttribute("value").trim();
+                Debugger.println("Actual Hospital :" + actualHospitalNumber + " : " + actualHospitalNumber.length());
+                Assert.assertEquals(actualHospitalNumber.length(), maximumCharactersAllowed);
+                break;
+            }
+            case "ClinicianPhoneNumber": {
+                String actualPhoneNumber = responsibleClinicianPage.clinicianPhoneNumberField.getAttribute("value").trim();
+                Debugger.println("Actual PhoneNumber :" + actualPhoneNumber + " : " + actualPhoneNumber.length());
+                Assert.assertEquals(actualPhoneNumber.length(), maximumCharactersAllowed);
+                break;
+            }
+            case "TumourDescription": {
+                String actualTumourDescription = Actions.getValue(tumoursPage.descriptiveName).trim();
+                Debugger.println("Actual actualTumourDescription :" + actualTumourDescription + " : " + actualTumourDescription.length());
+                Assert.assertEquals(actualTumourDescription.length(), maximumCharactersAllowed);
+                break;
+            }
+            case "referralNotes": {
+                String actualReferralNotes = Actions.getValue(notesPage.addNoteField).trim();
+                Debugger.println("Actual actualReferralNotes :" + actualReferralNotes + " : " + actualReferralNotes.length());
+                Assert.assertEquals(actualReferralNotes.length(), maximumCharactersAllowed);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid query search parameters");
+        }
+
+    }
+
+    @And("the user deletes data in the NHS Number field")
+    public void theUserDeletesDataInTheNHSNumberField() {
+        Actions.clearField(patientDetailsPage.nhsNumber);
+    }
+
+    @And("the user deletes the data in the Hospital Number field")
+    public void theUserDeletesTheDataInTheHospitalNumberField() {
+        Actions.clearField(patientDetailsPage.hospitalNumber);
+    }
 }

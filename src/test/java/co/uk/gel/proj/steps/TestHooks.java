@@ -438,13 +438,26 @@ public class TestHooks extends Pages {
         homePage.logOutFromApplication();
     }
 
-    @After("@secuirtyscans")
     public void secuirtyScans() {
         if (scenario.isFailed()) {
             LOGGER.info("START - Security scan is starting though selenium scenario failed");
             userRunSecurityScan();
             LOGGER.info("END - Security scan is starting though selenium scenario failed");
+            LOGGER.info("Selenium Script of Security scan FAILED for Scenario" + scenario.getName());
         }
+        else
+        {
+            LOGGER.info("Selenium Script of Security scan PASSED for Scenario" + scenario.getName());
+
+        }
+    }
+    @After("@secuirtyscans, @securityscan_cancer , @securityscan_rd")
+    public void secuirtyScansCancer() {
+        secuirtyScans();
+    }
+    @After("")
+    public void secuirtyScansRD() {
+        secuirtyScans();
     }
 
 

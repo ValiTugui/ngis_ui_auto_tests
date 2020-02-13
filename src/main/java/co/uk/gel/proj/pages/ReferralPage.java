@@ -85,9 +85,9 @@ public class ReferralPage<check> {
     public WebElement referralSuccessNotification;
 
     @FindBy(css = "*[class*='downloads__notice']")
-    public WebElement submissionConfirmationBanner;
+    public WebElement  submissionConfirmationBanner;
 
-    @FindBy(css = "*[class*='notice__title']")
+       @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
     @FindBy(css = "*[class*='referral-header__badge']")
@@ -331,19 +331,30 @@ public class ReferralPage<check> {
     }
 
     public void navigateToStage(String stage) {
-        Wait.forElementToBeDisplayed(driver, toDoList, 100);
-        String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-        Wait.forElementToBeDisplayed(driver, referralStage);
+        WebElement referralStage = null;
         try {
-            Actions.clickElement(driver, referralStage);
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("navigateToStage.jpg");
-            //Sometimes click on stage link on second time gives ElementClickInterceptedException.
-            // Below code added to handle that.
-            Actions.scrollToTop(driver);
-            Actions.clickElement(driver, referralStage);
-        }
+                Wait.forElementToBeDisplayed(driver, toDoList, 100);
+                String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+                referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+                Wait.forElementToBeDisplayed(driver, referralStage);
+                Actions.clickElement(driver, referralStage);
+            } catch (StaleElementReferenceException staleExp) {
+               Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
+               referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
+               Actions.clickElement(driver,referralStage);
+            }catch(TimeoutException exp) {
+                Debugger.println("Stage Click: TimeoutException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.clickElement(driver, referralStage);
+            }catch(NoSuchElementException exp) {
+                Debugger.println("Stage Click: NoSuchElementException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.clickElement(driver, referralStage);
+            }catch(Exception exp) {
+                Debugger.println("Stage Click: Exception: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.clickElement(driver, referralStage);
+            }
     }
 
     public boolean stageIsSelected(String stage) {
@@ -504,17 +515,19 @@ public class ReferralPage<check> {
            } else {
                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
            }
-
-           if (!seleniumLib.isElementPresent(pageTitle)) {
-               Wait.isElementDisplayed(driver,driver.findElement(pageTitle),120);
-               if (!seleniumLib.isElementPresent(pageTitle)) {
-                   SeleniumLib.takeAScreenShot("ElementNotPresentForPageTitle.jpg");
-                   return false;
-               }
+           WebElement titleElement = null;
+           try {
+               titleElement = driver.findElement(pageTitle);
+           }catch(NoSuchElementException exp){
+               //Wait for 10 seconds and check again. This is introduced based on the failures observed.
+               Wait.seconds(10);
+               Actions.scrollToTop(driver);
+               titleElement = driver.findElement(pageTitle);
            }
+           Wait.forElementToBeDisplayed(driver,titleElement);
            return true;
        }catch(Exception exp){
-           Debugger.println("Page with Title: "+expTitle+" not loaded.");
+           Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
            Actions.scrollToTop(driver);
            SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
            return false;
