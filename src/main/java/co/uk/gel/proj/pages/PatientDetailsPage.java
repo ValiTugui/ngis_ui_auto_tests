@@ -929,6 +929,8 @@ public class PatientDetailsPage {
         }catch(Exception exp){
             Debugger.println("Exception in creating new Referral:"+exp);
             SeleniumLib.takeAScreenShot("NewReferralCreationError.jpg");
+            //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+            Debugger.println("NewReferralCreationError:URL:"+driver.getCurrentUrl());
             return false;
         }
     }

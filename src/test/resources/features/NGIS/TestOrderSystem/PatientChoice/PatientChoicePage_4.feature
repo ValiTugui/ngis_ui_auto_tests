@@ -389,7 +389,7 @@ Feature: Patient Choice Page - Family Member Addition
       | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | WarningMessage                                                                                                         | RecordedBy                            |
       | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |
 
-  @E2EUI-1678 @LOGOUT @v_1 @BVT_P0
+  @NTS-3415 @E2EUI-1678 @LOGOUT @v_1 @BVT_P0
   Scenario Outline:Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
