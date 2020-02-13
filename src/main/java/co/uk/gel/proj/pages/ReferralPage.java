@@ -294,7 +294,7 @@ public class ReferralPage<check> {
     }
 
 
-    public void checkThatReferralWasSuccessfullyCreated() {
+    public boolean checkThatReferralWasSuccessfullyCreated() {
         try {
             // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
             //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
@@ -304,10 +304,12 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             Wait.forElementToBeDisplayed(driver, sectionBody, 200);
 //            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+            return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
             SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
             Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg", true);
+            return false;
         }
     }
 

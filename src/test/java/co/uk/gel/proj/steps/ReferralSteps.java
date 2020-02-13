@@ -631,8 +631,14 @@ public class ReferralSteps extends Pages {
             patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
             patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
             Assert.assertTrue(patientDetailsPage.createNewPatientReferral(searchPatient));
-            referralPage.checkThatReferralWasSuccessfullyCreated();
-            referralPage.saveAndContinueButtonIsDisplayed();
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+                Debugger.println("Referral could not created sucessfully...");
+                Assert.assertTrue(false);
+            }
+            if(!referralPage.saveAndContinueButtonIsDisplayed()){
+                Debugger.println("SaveAndContinueButton not displayed:");
+                Assert.assertTrue("SaveAndContinueButton not displayed:",false);
+            }
         }else if(searchResult.equalsIgnoreCase("1 patient record found")){
             //Existing Patient
             patientSearchPage.clickPatientCard();
