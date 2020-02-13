@@ -115,8 +115,8 @@ Feature: Patient Choice Page - Family Member Addition
       | TestPackage  | TwoParticipants | FamilyMembers  | PatientChoice  | ThreeParticipants |
       | Test package | 2               | Family members | Patient choice | 3                 |
 
-  @E2EUI-2109 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-todo: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
+  @NTS-3451 @E2EUI-2109 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
     ##Patient Details
@@ -172,7 +172,7 @@ Feature: Patient Choice Page - Family Member Addition
     Examples:
       | PatientChoice  |
       | Patient choice |
-
+    ###Commented the below test, as this is about checking the session expiry time. Manual team suggesetd they may take it separately.
 #  @NTS-3473 @E2EUI-2037 @LOGOUT @v_1 @P1
 #  Scenario Outline: NTS-3473: Patient Choice critical error Should not be occurred when refresh token expires
 #    Given a new patient referral is created with associated tests in Test Order System online service
@@ -408,7 +408,7 @@ Feature: Patient Choice Page - Family Member Addition
     ### this will fail since  Patient consent category: is present in rendered form
     Then the user should be able to see the patient choice form with success message
     When the user clicks on "Preferences" link
-    And the user will see a warning message "<WarningMessage2>"
+    Then the user will see a warning message "<WarningMessage2>"
     And the user clicks on "New patient choice" link
 
     Examples:

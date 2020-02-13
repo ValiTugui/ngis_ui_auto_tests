@@ -581,11 +581,5 @@ public class PatientChoiceSteps extends Pages {
     public void theUserShouldWaitUntilTokenExpires(String timeToWait) {
         patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
     }
-    @And("the user should see that the correct patient details displayed in consent form for the selected patient")
-    public void theUserShouldSeeThatTheCorrectPatientDetailsDisplayedInConsentFormForTheSelectedPatient() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyTheDetailsOnBannerIsSameasOnConsentForm();
-        Assert.assertTrue(testResult);
-    }
 
 }//end
