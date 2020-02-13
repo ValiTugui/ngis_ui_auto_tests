@@ -17,7 +17,9 @@ import org.openqa.selenium.support.PageFactory;
 
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class PatientChoicePage {
 
@@ -273,6 +275,32 @@ public class PatientChoicePage {
 
     @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
     public WebElement fileUploadSuccessMsg;
+
+    @FindBy(xpath = "(//li[contains(@class,'css-7fkf02')])[1]/child::*[@aria-labelledby='name_1']")
+    public WebElement patientNameContentOnReferralBanner;
+
+    @FindBy(xpath = "//label[text() = 'Patient']/..")
+    public WebElement patientNameContentOnConsentForm;
+
+    ArrayList<String> uploadedNameOfTheFile = new ArrayList<String>();
+
+    @FindBy(xpath = "//div[@id='office-use-only-table']//div[contains(text(),'Patient consent')]")
+    public WebElement patientConsentCategory;
+
+    @FindBy(xpath = "//p[text()=' Referral ID:']//span[@class='cct-value']")
+    public WebElement referalIdOnHistoryTab;
+
+    @FindBy(xpath = "//span[text()='Referral ID']/parent::li")
+    public WebElement referralIdOnReferralBar;
+
+    @FindBy(xpath = "//p[contains(@class,'uploaded-filename')]")
+    public WebElement uploadedFileName;
+
+    @FindBy(xpath = "//div[text()=' Patient date of birth (dd/mm/yyyy): ']//parent::div//parent::div//div[contains(@class,'ouo-table-f')]")
+    public WebElement dobFieldContentOnConsentForm;
+
+    @FindBy(xpath = "//span[@id='dateOfBirth_1']/parent::*[1]/child::*[@class='css-12vmmiw-itemValueCss']")
+    public WebElement dobFieldContentOnReferralBanner;
 
 
     public boolean editPatientChoice() {
@@ -1587,6 +1615,81 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception in clicking patient choice status link" + exp);
             SeleniumLib.takeAScreenShot("PatientChoiceStatus.jpg");
+            return false;
+        }
+    }
+
+    public void waitUntilTokenExpire(int timeToWait) {
+        Wait.seconds(timeToWait);
+    }
+    public boolean verifyTheDetailsOnBannerIsSameasOnConsentForm() {
+        try {
+            String reversedPatientName = "";
+            Wait.forElementToBeDisplayed(driver, patientNameContentOnConsentForm);
+            seleniumLib.scrollToElement(patientNameContentOnConsentForm);
+            String ConsentForm = patientNameContentOnConsentForm.getText().replace("Patient", "");
+            String ReferralBanner = patientNameContentOnReferralBanner.getText().replace("(Mr)", "");
+            Debugger.println("ConsentForm " + ConsentForm + " ReferralBanner " + ReferralBanner);
+            String[] da = dobFieldContentOnReferralBanner.getText().split(" ");
+            String d1 = da[0];
+            Date dobReferral = new Date(d1);
+            SimpleDateFormat obj = new SimpleDateFormat("dd/MM/yyyy");
+            Debugger.println("Dob referral " + obj.format(dobReferral));
+            if (!dobFieldContentOnConsentForm.getText().contains(obj.format(dobReferral))) {
+                Debugger.println("inside Dob    ");
+                return false;
+            }
+            Debugger.println("outside Dob    ");
+            Pattern pat = Pattern.compile("\\s");
+            String[] patientName3 = pat.split(ConsentForm);
+            for (int i = 0; i < patientName3.length; i++) {
+                if (i == patientName3.length - 1)
+                    reversedPatientName = patientName3[i] + reversedPatientName;
+                else
+                    reversedPatientName = " " + patientName3[i] + reversedPatientName;
+            }
+            Debugger.println(" reversedPatientName   " + reversedPatientName + "  ref  " + ReferralBanner);
+            if (!ReferralBanner.replace(",", "").trim().equalsIgnoreCase(reversedPatientName.trim())) {
+                Debugger.println("inside Name 2nd if    ");
+            }
+            Debugger.println("outside  Name if    ");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage:verifyTheDetailsOnBannerIsSameasOnConsentForm: Exception " + exp);
+            return false;
+        }
+    }
+    public boolean verifyFamilyMemberDetailsPatientChoicePage(NGISPatientModel familyMember) {
+        try {
+            boolean isPresent = false;
+            List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
+            for (int i = 0; i < nameList.size(); i++) {
+                if (nameList.get(i).getText().contains(familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME())) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Family Member Name: " + familyMember.getLAST_NAME() + "," + familyMember.getFIRST_NAME() + " not present in Patient Choice Landing Page.");
+                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+                return isPresent;
+            }
+
+            isPresent = false;
+            for (int i = 0; i < ngsIdValues.size(); i++) {
+                if (ngsIdValues.get(i).getText().contains(familyMember.getNGIS_ID())) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("NGISID: " + familyMember.getNGIS_ID() + " not present in Patient Choice Landing Page.");
+                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+                return isPresent;
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in Verifying FamilyMember details in Patient choice landing Page.");
             return false;
         }
     }
