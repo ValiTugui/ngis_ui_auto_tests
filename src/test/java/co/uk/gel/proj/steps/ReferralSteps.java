@@ -631,8 +631,14 @@ public class ReferralSteps extends Pages {
             patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
             patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
             Assert.assertTrue(patientDetailsPage.createNewPatientReferral(searchPatient));
-            referralPage.checkThatReferralWasSuccessfullyCreated();
-            referralPage.saveAndContinueButtonIsDisplayed();
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+                Debugger.println("Referral could not created successfully...");
+                Assert.assertTrue(false);
+            }
+            if(!referralPage.saveAndContinueButtonIsDisplayed()){
+                Debugger.println("SaveAndContinueButton not displayed:");
+                Assert.assertTrue("SaveAndContinueButton not displayed:",false);
+            }
         }else if(searchResult.equalsIgnoreCase("1 patient record found")){
             //Existing Patient
             patientSearchPage.clickPatientCard();
@@ -640,6 +646,8 @@ public class ReferralSteps extends Pages {
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if(!toDoListDisplayed){
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
+                //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+                Debugger.println("ToDoListNotLeaded:URL:"+driver.getCurrentUrl());
                 Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
             }
         }else{

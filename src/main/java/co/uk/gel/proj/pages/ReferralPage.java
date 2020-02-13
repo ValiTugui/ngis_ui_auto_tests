@@ -294,7 +294,7 @@ public class ReferralPage<check> {
     }
 
 
-    public void checkThatReferralWasSuccessfullyCreated() {
+    public boolean checkThatReferralWasSuccessfullyCreated() {
         try {
             // deliberate 3 seconds wait is added to handle the slowness of UI on Jenkins run
             //ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
@@ -304,10 +304,14 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             Wait.forElementToBeDisplayed(driver, sectionBody, 200);
 //            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
+            return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
             SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
+            //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+            Debugger.println("ReferralNotCreated:URL:"+driver.getCurrentUrl());
             Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg", true);
+            return false;
         }
     }
 
@@ -403,7 +407,7 @@ public class ReferralPage<check> {
             //In case of failure, trying another way
             String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
             WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+            if(Wait.isElementDisplayed(driver,completedMarkElement,100)){
                 return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
@@ -414,7 +418,7 @@ public class ReferralPage<check> {
                 //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
                 String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
                 WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-                if(Wait.isElementDisplayed(driver,completedMarkElement,30)){
+                if(Wait.isElementDisplayed(driver,completedMarkElement,100)){
                     return true;
                 }
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);

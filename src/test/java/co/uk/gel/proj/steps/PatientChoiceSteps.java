@@ -3,6 +3,8 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -561,6 +563,23 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertFalse("ToDoList in Referral Page is not loaded after PC submitting Patient Choice..", true);
         }
         Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see the details of family members displayed in patient choice landing page")
+    public void detailsOfPatientsInPatientChoicePage(DataTable inputDetails) {
+        List<List<String>> memberDetails = inputDetails.asLists();
+        NGISPatientModel familyMember = null;
+        boolean testResult = false;
+        for (int i = 1; i < memberDetails.size(); i++) {
+            familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
+            testResult = patientChoicePage.verifyFamilyMemberDetailsPatientChoicePage(familyMember);
+            Assert.assertTrue(testResult);
+            Wait.seconds(2);
+        }
+    }
+    @And("the user should wait for session expiry time (.*) seconds")
+    public void theUserShouldWaitUntilTokenExpires(String timeToWait) {
+        patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
     }
 
 }//end

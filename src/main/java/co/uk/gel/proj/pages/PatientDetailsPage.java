@@ -363,8 +363,13 @@ public class PatientDetailsPage {
        }
 
     public void clickSavePatientDetailsToNGISButton() {
-        Wait.forElementToBeClickable(driver,savePatientDetailsToNGISButton);
-        Click.element(driver, savePatientDetailsToNGISButton);
+        try {
+            Wait.forElementToBeClickable(driver, savePatientDetailsToNGISButton);
+            Click.element(driver, savePatientDetailsToNGISButton);
+        }catch(Exception exp){
+            Debugger.println("Exception from Clicking on SavePatientDetailsToNGISButton:"+exp);
+            SeleniumLib.takeAScreenShot("NosavePatientDetailsToNGISButton.jpg");
+        }
    }
 
     public boolean patientIsCreated() {
@@ -373,6 +378,8 @@ public class PatientDetailsPage {
             if(Actions.getText(successNotification).equalsIgnoreCase("Details saved")){
                 return true;
             }
+            Debugger.println("Patient Referral Creation Success Message not displayed: Pls check PatientNotCreated.jpg");
+            SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
            return false;
         }catch(Exception exp){
             Debugger.println("Exception in creating the patient."+exp);
@@ -396,9 +403,9 @@ public class PatientDetailsPage {
 
     public void clickStartNewReferralButton() {
         try {
-        Wait.forElementToBeDisplayed(driver, startNewReferralButton);
-        Actions.clickElement(driver, startNewReferralButton);
-        Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+            Wait.forElementToBeDisplayed(driver, startNewReferralButton);
+            Actions.clickElement(driver, startNewReferralButton);
+            Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
             SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
@@ -901,9 +908,6 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine3, referralDetails.getADDRESS_LINE3());
             Actions.fillInValue(addressLine4, referralDetails.getADDRESS_LINE4());
             Actions.fillInValue(postcode, referralDetails.getPOST_CODE());
-            //Adding referral to to a list for later stage verification, if needed
-            FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
-            Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
             //Ensure all the fields are correctly populated without any error shown on patient details page
             boolean flag = verifyTheElementsOnAddNewPatientPageNormalUserFlow();
             if(!flag){
@@ -914,12 +918,19 @@ public class PatientDetailsPage {
             }
             //Adding Patient to NGIS
             clickSavePatientDetailsToNGISButton();
-            patientIsCreated();
+            if(!patientIsCreated()){
+                return false;
+            }
+            //Adding referral to to a list for later stage verification, if needed
+            FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
+            Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
             clickStartNewReferralButton();
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in creating new Referral:"+exp);
             SeleniumLib.takeAScreenShot("NewReferralCreationError.jpg");
+            //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+            Debugger.println("NewReferralCreationError:URL:"+driver.getCurrentUrl());
             return false;
         }
     }
