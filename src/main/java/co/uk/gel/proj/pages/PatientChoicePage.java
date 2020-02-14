@@ -1241,25 +1241,6 @@ public class PatientChoicePage {
         }
     }
 
-//    public boolean clickOnLink(String link) {
-//        Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
-//        try {
-//            String dummyLink = linkText.replaceAll("dummyLinkText", link);
-//            WebElement webElement = driver.findElement(By.xpath(dummyLink));
-//            if (Wait.isElementDisplayed(driver, webElement, 3)) {
-//                seleniumLib.clickOnWebElement(webElement);
-//            } else {
-//                Debugger.println("Links on page after form loading " + link + " not loaded.");
-//                return false;
-//            }
-//            return true;
-//        } catch (Exception exp) {
-//            Debugger.println("Patient Choice Page: Click on Link: " + exp);
-//            SeleniumLib.takeAScreenShot("PatientChoiceFormPageLinks.jpg");
-//            return false;
-//        }
-//    }
-
     public boolean clickOnAmendPatientChoice() {
         Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
@@ -1679,10 +1660,12 @@ public class PatientChoicePage {
     public boolean verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
         try {
             Wait.forElementToBeDisplayed(driver, referalIdOnHistoryTab);
+            Wait.forElementToBeDisplayed(driver, referralIdOnReferralBar);
             //As observed it is taking 3 secs to load the referral Id on history tab
             Wait.seconds(3);
             if (!referralIdOnReferralBar.getText().contains(referalIdOnHistoryTab.getText())) {
                 Debugger.println("The referral id on history tab and referral bar are different");
+                SeleniumLib.takeAScreenShot("PCReferralIdValidation.jpg");
                 return false;
             }
             return true;
