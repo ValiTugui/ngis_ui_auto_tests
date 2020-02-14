@@ -365,11 +365,6 @@ public class PatientChoiceSteps extends Pages {
         }
     }
 
-    @When("the user clicks on {string} link")
-    public void theUserClicksOnLink(String link) {
-        patientChoicePage.clickOnLink(link);
-    }
-
     @When("the user clicks on the amend patient choice button")
     public void theUserClicksOnTheAmendPatientChoiceButton() {
         patientChoicePage.clickOnAmendPatientChoice();
@@ -582,19 +577,14 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
     }
 
-    @And("the user should be able to see the uploaded file name")
-    public void theUserShouldBeAbleToSeeTheUploadedFileName() {
+    @And("the user should be able to see the uploaded file name {string}")
+    public void theUserShouldBeAbleToSeeTheUploadedFileName(String fileName) {
         boolean testResult = false;
-        testResult = patientChoicePage.uploadedfileNameIsDisplayedOnThePage();
+        testResult = patientChoicePage.verifyUploadedFileName(fileName);
         Assert.assertTrue(testResult);
 
     }
-    @Then("the user verifies that the newly uploaded file name doesn't match with the old uploaded file name")
-    public void theNewUploadedFileNameDoesnTMatchWithTheOldUploadedFileName() {
-        boolean testResult = false;
-        testResult = patientChoicePage.verifyNewUploadedFileNameNotMatchingWithOldFileName();
-        Assert.assertTrue(testResult);
-    }
+
     @Then("the user is navigated to a page of section with title (.*)")
     public void theUserIsNavigatedToAPageOfSectionPatientChoiceHistory(String title) {
         boolean testResult = false;

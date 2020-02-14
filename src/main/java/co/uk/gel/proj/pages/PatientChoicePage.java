@@ -267,8 +267,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[contains(@class,'uploaded-filename')]")
     public WebElement uploadedFileName;
 
-    ArrayList<String> uploadedNameOfTheFile = new ArrayList<String>();
-
     @FindBy(xpath = "//p[text()=' Referral ID:']//span[@class='cct-value']")
     public WebElement referalIdOnHistoryTab;
 
@@ -1243,24 +1241,24 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean clickOnLink(String link) {
-        Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
-        try {
-            String dummyLink = linkText.replaceAll("dummyLinkText", link);
-            WebElement webElement = driver.findElement(By.xpath(dummyLink));
-            if (Wait.isElementDisplayed(driver, webElement, 3)) {
-                seleniumLib.clickOnWebElement(webElement);
-            } else {
-                Debugger.println("Links on page after form loading " + link + " not loaded.");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient Choice Page: Click on Link: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormPageLinks.jpg");
-            return false;
-        }
-    }
+//    public boolean clickOnLink(String link) {
+//        Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
+//        try {
+//            String dummyLink = linkText.replaceAll("dummyLinkText", link);
+//            WebElement webElement = driver.findElement(By.xpath(dummyLink));
+//            if (Wait.isElementDisplayed(driver, webElement, 3)) {
+//                seleniumLib.clickOnWebElement(webElement);
+//            } else {
+//                Debugger.println("Links on page after form loading " + link + " not loaded.");
+//                return false;
+//            }
+//            return true;
+//        } catch (Exception exp) {
+//            Debugger.println("Patient Choice Page: Click on Link: " + exp);
+//            SeleniumLib.takeAScreenShot("PatientChoiceFormPageLinks.jpg");
+//            return false;
+//        }
+//    }
 
     public boolean clickOnAmendPatientChoice() {
         Wait.forElementToBeDisplayed(driver, amendPatientChoice);
@@ -1645,22 +1643,19 @@ public class PatientChoicePage {
             return false;
         }
     }
-    public boolean uploadedfileNameIsDisplayedOnThePage() {
+    public boolean verifyUploadedFileName(String fileName) {
         try {
-            Debugger.println("Test1");
             Wait.forElementToBeDisplayed(driver, uploadedFileName);
-            Debugger.println("Test2");
             if (!uploadedFileName.isDisplayed()) {
-                Debugger.println("The uploaded file nane is not displayed on the ui");
+                Debugger.println("The uploaded file name "+fileName+" is not displayed. Pls check UploadedFileName.jpg.");
+                SeleniumLib.takeAScreenShot("UploadedFileName.jpg");
                 return false;
             }
-            Debugger.println("Test3");
-            uploadedNameOfTheFile.add(uploadedFileName.getText());
-            Debugger.println("Test4");
-            for (int i = 0; i < uploadedNameOfTheFile.size(); i++) {
-                Debugger.println(uploadedNameOfTheFile.get(i));
+            if(!uploadedFileName.getText().equalsIgnoreCase(fileName)){
+                Debugger.println("The uploaded file name expected."+fileName+" Actual:"+uploadedFileName.getText()+".Pls check UploadedFileName.jpg.");
+                SeleniumLib.takeAScreenShot("UploadedFileName.jpg");
+                return false;
             }
-            Debugger.println("Test5");
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientChoice page:uploadedfileNameIsDisplayedOnThePage :exception found " + exp);
@@ -1669,20 +1664,7 @@ public class PatientChoicePage {
         }
 
     }
-    public boolean verifyNewUploadedFileNameNotMatchingWithOldFileName() {
-        try {
-            if (uploadedNameOfTheFile.get(0).equals(uploadedNameOfTheFile.get(1))) {
-                Debugger.println("The new uploaded filename matches with new uploaded file name");
-                return false;
-            }
-            Debugger.println("The new uploaded filename is not matcing with old uploaded file name");
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PrintForms page:verifyNewUploadedFileNameNotMatchingWithOldFileName:exception found " + exp);
-            SeleniumLib.takeAScreenShot("NewfileNameNotMatchingWithOld.jpg");
-            return false;
-        }
-    }
+
     public boolean verifyThePageSectionTitleInPatientChoicePage(String expTitle) {
         By pageTitle = By.xpath("//h2[contains(text(),'" + expTitle + "')]");
         if (!seleniumLib.isElementPresent(pageTitle)) {

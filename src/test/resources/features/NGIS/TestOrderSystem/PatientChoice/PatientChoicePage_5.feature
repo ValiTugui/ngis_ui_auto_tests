@@ -1,6 +1,6 @@
 @regression
 @PatientChoice
-@PatientChoice_setfinal
+@PatientChoice_set
 Feature: Patient Choice Page - Identifiers
 
   @NTS-3450 @E2EUI-1773 @LOGOUT @v_1 @P0
@@ -46,8 +46,8 @@ Feature: Patient Choice Page - Identifiers
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1936:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1936:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     ###Validation of added family member is covered in addition step
     Examples:
@@ -113,10 +113,10 @@ Feature: Patient Choice Page - Identifiers
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-TODO @E2EUI-1892 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-TODO: Moving the warn message to research section
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+  @NTS-4603 @E2EUI-1892 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4603: Moving the warn message to research section
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -147,7 +147,9 @@ Feature: Patient Choice Page - Identifiers
     When the user selects the option Cancer (paired tumour normal) – WGS in section Test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    When the user selects the option Patient has agreed to the test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    Then the user is in the section Patient choices
+    Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user selects the option Yes for the question Has research participation been discussed?
     And the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
     And the user clicks on Continue Button
@@ -156,11 +158,11 @@ Feature: Patient Choice Page - Identifiers
     And the user clicks on submit patient choice Button
 
     Examples:
-      | Patient choice stage | RecordedBy                              | WarningMessage                                                                                                                                                             |
+      | Patient choice stage | RecordedBy                              | WarningMessage                                                                                                                                                                              |
       | Patient choice       | ClinicianName=Johny:HospitalNumber=1234 | A patient choice record currently exists for this test referral ID. You may create another to override the current record by clicking the 'Amend patient choice for referral' button below. |
 
-  @NTS-TODO @E2EUI-1856 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-TODO: Verify that the old file uploaded names remain after all files have been deleted.
+  @NTS-4603 @E2EUI-1856 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4603: Verify that the old file uploaded names remain after all files have been deleted.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Stage>" stage
@@ -170,21 +172,21 @@ Feature: Patient Choice Page - Identifiers
     And the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
     And the user fills "<RecordedByWithoutFormSelection1>" details in recorded by
-    Then the user should be able to see the uploaded file name
-    When the user clicks on "History" link
-    And the user clicks on "New patient choice" link
+    Then the user should be able to see the uploaded file name "<FileName1>"
+    And the user selects the History tab in patient choice page
+    And the user selects the New patient choice tab in patient choice page
+    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
     When the user selects the option Adult (With Capacity) in patient choice category
     And the user selects the option Rare & inherited diseases – WGS in section Test type
     And the user fills "<RecordedByWithoutFormSelection2>" details in recorded by
-    Then the user should be able to see the uploaded file name
-    And the user verifies that the newly uploaded file name doesn't match with the old uploaded file name
+    Then the user should be able to see the uploaded file name "<FileName2>"
 
     Examples:
-      | Stage          | RecordedByWithoutFormSelection1                                             | RecordedByWithoutFormSelection2                                                   |
-      | Patient choice | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile.pdf | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=ch4_bluewater1.jpg |
+      | Stage          | RecordedByWithoutFormSelection1                                             | FileName1    | RecordedByWithoutFormSelection2                                              | FileName2     |
+      | Patient choice | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile.pdf | testfile.pdf | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile2.pdf | testfile2.pdf |
 
-  @NTS-TODO @E2EUI-1891 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-TODO: Verify verify referral id displayed in history tab is same as on the banner
+  @NTS-4603 @E2EUI-1891 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4603: Verify verify referral id displayed in history tab is same as on the banner
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Patient choice stage>" stage
@@ -207,7 +209,7 @@ Feature: Patient Choice Page - Identifiers
     When the user is navigated to a page with title Patient choice
     And the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
-    And the user clicks on "History" link
+    And the user selects the History tab in patient choice page
     And the user is navigated to a page of section with title Patient choice history
     Then the user verifies the referral id on history tab is same as on referral id on referral bar
 
