@@ -373,10 +373,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
                     Assert.assertTrue(false);
                 }
-                Wait.seconds(15);//Continuos time out failures observed at this point in jenkins runs.
-                if (!referralPage.verifyThePageTitlePresence("Select tests for")) {
-                    Wait.seconds(20);//Continuos time out failures observed at this point in jenkins runs.
-                }
+//                Wait.seconds(15);//Continuos time out failures observed at this point in jenkins runs.
+//                if (!referralPage.verifyThePageTitlePresence("Select tests for")) {
+//                    Wait.seconds(20);//Continuos time out failures observed at this point in jenkins runs.
+//                }
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
                     Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");

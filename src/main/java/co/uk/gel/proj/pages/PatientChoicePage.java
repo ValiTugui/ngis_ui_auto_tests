@@ -264,6 +264,15 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
     public WebElement fileUploadSuccessMsg;
 
+    @FindBy(xpath = "//p[contains(@class,'uploaded-filename')]")
+    public WebElement uploadedFileName;
+
+    @FindBy(xpath = "//p[text()=' Referral ID:']//span[@class='cct-value']")
+    public WebElement referalIdOnHistoryTab;
+
+    @FindBy(xpath = "//span[text()='Referral ID']/parent::li")
+    public WebElement referralIdOnReferralBar;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1232,25 +1241,6 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean clickOnLink(String link) {
-        Wait.forElementToBeDisplayed(driver, rowOfLinks, 10);
-        try {
-            String dummyLink = linkText.replaceAll("dummyLinkText", link);
-            WebElement webElement = driver.findElement(By.xpath(dummyLink));
-            if (Wait.isElementDisplayed(driver, webElement, 3)) {
-                seleniumLib.clickOnWebElement(webElement);
-            } else {
-                Debugger.println("Links on page after form loading " + link + " not loaded.");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient Choice Page: Click on Link: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceFormPageLinks.jpg");
-            return false;
-        }
-    }
-
     public boolean clickOnAmendPatientChoice() {
         Wait.forElementToBeDisplayed(driver, amendPatientChoice);
         try {
@@ -1631,6 +1621,57 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception in Verifying FamilyMember details in Patient choice landing Page.");
             SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+            return false;
+        }
+    }
+    public boolean verifyUploadedFileName(String fileName) {
+        try {
+            Wait.forElementToBeDisplayed(driver, uploadedFileName);
+            if (!uploadedFileName.isDisplayed()) {
+                Debugger.println("The uploaded file name "+fileName+" is not displayed. Pls check UploadedFileName.jpg.");
+                SeleniumLib.takeAScreenShot("UploadedFileName.jpg");
+                return false;
+            }
+            if(!uploadedFileName.getText().equalsIgnoreCase(fileName)){
+                Debugger.println("The uploaded file name expected."+fileName+" Actual:"+uploadedFileName.getText()+".Pls check UploadedFileName.jpg.");
+                SeleniumLib.takeAScreenShot("UploadedFileName.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoice page:uploadedfileNameIsDisplayedOnThePage :exception found " + exp);
+            SeleniumLib.takeAScreenShot("uploadedFileName.jpg");
+            return false;
+        }
+
+    }
+
+    public boolean verifyThePageSectionTitleInPatientChoicePage(String expTitle) {
+        By pageTitle = By.xpath("//h2[contains(text(),'" + expTitle + "')]");
+        if (!seleniumLib.isElementPresent(pageTitle)) {
+            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+            if (!seleniumLib.isElementPresent(pageTitle)) {
+                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referalIdOnHistoryTab);
+            Wait.forElementToBeDisplayed(driver, referralIdOnReferralBar);
+            //As observed it is taking 3 secs to load the referral Id on history tab
+            Wait.seconds(3);
+            if (!referralIdOnReferralBar.getText().contains(referalIdOnHistoryTab.getText())) {
+                Debugger.println("The referral id on history tab and referral bar are different");
+                SeleniumLib.takeAScreenShot("PCReferralIdValidation.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage : verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar : exception found" + exp);
+            SeleniumLib.takeAScreenShot("verifyReferralIds.jpg");
             return false;
         }
     }

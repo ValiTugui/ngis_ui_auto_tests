@@ -365,11 +365,6 @@ public class PatientChoiceSteps extends Pages {
         }
     }
 
-    @When("the user clicks on {string} link")
-    public void theUserClicksOnLink(String link) {
-        patientChoicePage.clickOnLink(link);
-    }
-
     @When("the user clicks on the amend patient choice button")
     public void theUserClicksOnTheAmendPatientChoiceButton() {
         patientChoicePage.clickOnAmendPatientChoice();
@@ -580,6 +575,27 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should wait for session expiry time (.*) seconds")
     public void theUserShouldWaitUntilTokenExpires(String timeToWait) {
         patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
+    }
+
+    @And("the user should be able to see the uploaded file name {string}")
+    public void theUserShouldBeAbleToSeeTheUploadedFileName(String fileName) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadedFileName(fileName);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("the user is navigated to a page of section with title (.*)")
+    public void theUserIsNavigatedToAPageOfSectionPatientChoiceHistory(String title) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyThePageSectionTitleInPatientChoicePage(title);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user verifies the referral id on history tab is same as on referral id on referral bar")
+    public void theUserVerifiesTheReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar();
+        Assert.assertTrue(testResult);
     }
 
 }//end

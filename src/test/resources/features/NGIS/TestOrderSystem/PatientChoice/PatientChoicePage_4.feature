@@ -118,7 +118,7 @@ Feature: Patient Choice Page - Family Member Addition
   @NTS-3451 @E2EUI-2109 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package
@@ -131,15 +131,15 @@ Feature: Patient Choice Page - Family Member Addition
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=12-05-1932:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=NA:DOB=10-12-1950:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=12-05-1933:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=10-12-1951:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
      #Patient Choice - Doing PC for only one Family Member
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=12-05-1932 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
+      | NHSNumber=NA:DOB=12-05-1933 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
     Then the "<PatientChoice>" stage is marked as Mandatory To Do
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
@@ -224,7 +224,7 @@ Feature: Patient Choice Page - Family Member Addition
     And the "<PatientChoice>" stage is marked as Mandatory To Do
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
-      | Test package | 1                | Family members | patient choice |
+      | Test package | 1                | Family members | Patient choice |
 
   @NTS-3446 @E2EUI-2035 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
@@ -400,16 +400,16 @@ Feature: Patient Choice Page - Family Member Addition
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     And the user is navigated to a page with title Add patient choice information
-    When the user clicks on "Preferences" link
+    And the user selects the Preferences tab in patient choice page
     And the user will see a warning message "<WarningMessage1>"
-    And the user clicks on "New patient choice" link
+    And the user selects the New patient choice tab in patient choice page
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     ### this will fail since  Patient consent category: is present in rendered form
     Then the user should be able to see the patient choice form with success message
-    When the user clicks on "Preferences" link
+    And the user selects the Preferences tab in patient choice page
     Then the user will see a warning message "<WarningMessage2>"
-    And the user clicks on "New patient choice" link
+    And the user selects the New patient choice tab in patient choice page
 
     Examples:
       | PatientChoice  | WarningMessage2                                                                                                         | WarningMessage1                                                                                    |

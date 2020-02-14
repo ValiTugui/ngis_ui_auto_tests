@@ -184,9 +184,9 @@ Feature: Patient Choice Page - Test status
     And the user should see patient choice submit button as enabled
     When the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
-    When the user clicks on "Preferences" link
+    And the user selects the Preferences tab in patient choice page
     And the user will see a warning message "<WarningMessage2>"
-    When the user clicks on "New patient choice" link
+    And the user selects the New patient choice tab in patient choice page
     Then the user is navigated to a page with title Add patient choice information
     When the user clicks on the amend patient choice button
     When the user selects the option Adult (With Capacity) in patient choice category
@@ -204,7 +204,7 @@ Feature: Patient Choice Page - Test status
     And the user should see patient choice submit button as enabled
     And the user clicks on submit patient choice Button
     And the user should be able to see the patient choice form with success message
-    And the user clicks on "Preferences" link
+    And the user selects the Preferences tab in patient choice page
     And the user will see a warning message "<WarningMessage2>"
 
     Examples:
@@ -231,8 +231,8 @@ Feature: Patient Choice Page - Test status
     When the user fills PatientSignature details in patient signature
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
-    And the user clicks on "History" link
-    And the user should be able to see patient choice in history tab
+    When the user selects the History tab in patient choice page
+    Then the user should be able to see patient choice in history tab
 
     Examples:
       | Patient choice stage | RecordedBy                            |
@@ -240,8 +240,8 @@ Feature: Patient Choice Page - Test status
 
   @NTS-3437 @E2EUI-1878 @LOGOUT @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
-    When the user clicks on "History" link
-    And the user clicks on "New patient choice" link
+    When the user selects the History tab in patient choice page
+    And the user selects the New patient choice tab in patient choice page
     Then the user is navigated to a page with title Add patient choice information
     And the user clicks on the amend patient choice button
     When the user selects the option Adult (With Capacity) in patient choice category
@@ -253,7 +253,7 @@ Feature: Patient Choice Page - Test status
     When the user is in the section Review and submit
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
-    And the user clicks on "History" link
+    When the user selects the History tab in patient choice page
     Then the user should be able to see replaced patient choice in history tab
 
     Examples:
