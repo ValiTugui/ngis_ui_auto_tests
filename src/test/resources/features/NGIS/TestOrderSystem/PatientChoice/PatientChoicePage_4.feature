@@ -224,7 +224,7 @@ Feature: Patient Choice Page - Family Member Addition
     And the "<PatientChoice>" stage is marked as Mandatory To Do
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
-      | Test package | 1                | Family members | patient choice |
+      | Test package | 1                | Family members | Patient choice |
 
   @NTS-3446 @E2EUI-2035 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
