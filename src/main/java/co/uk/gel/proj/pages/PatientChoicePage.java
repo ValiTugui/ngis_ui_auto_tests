@@ -264,6 +264,17 @@ public class PatientChoicePage {
     @FindBy(xpath = "//p[contains(@class,'loading-data-count')]")
     public WebElement fileUploadSuccessMsg;
 
+    @FindBy(xpath = "//p[contains(@class,'uploaded-filename')]")
+    public WebElement uploadedFileName;
+
+    ArrayList<String> uploadedNameOfTheFile = new ArrayList<String>();
+
+    @FindBy(xpath = "//p[text()=' Referral ID:']//span[@class='cct-value']")
+    public WebElement referalIdOnHistoryTab;
+
+    @FindBy(xpath = "//span[text()='Referral ID']/parent::li")
+    public WebElement referralIdOnReferralBar;
+
     public boolean editPatientChoice() {
         try {
             Wait.forElementToBeDisplayed(driver, editPatientChoice);
@@ -1631,6 +1642,71 @@ public class PatientChoicePage {
         } catch (Exception exp) {
             Debugger.println("Exception in Verifying FamilyMember details in Patient choice landing Page.");
             SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+            return false;
+        }
+    }
+    public boolean uploadedfileNameIsDisplayedOnThePage() {
+        try {
+            Debugger.println("Test1");
+            Wait.forElementToBeDisplayed(driver, uploadedFileName);
+            Debugger.println("Test2");
+            if (!uploadedFileName.isDisplayed()) {
+                Debugger.println("The uploaded file nane is not displayed on the ui");
+                return false;
+            }
+            Debugger.println("Test3");
+            uploadedNameOfTheFile.add(uploadedFileName.getText());
+            Debugger.println("Test4");
+            for (int i = 0; i < uploadedNameOfTheFile.size(); i++) {
+                Debugger.println(uploadedNameOfTheFile.get(i));
+            }
+            Debugger.println("Test5");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoice page:uploadedfileNameIsDisplayedOnThePage :exception found " + exp);
+            SeleniumLib.takeAScreenShot("uploadedFileName.jpg");
+            return false;
+        }
+
+    }
+    public boolean verifyNewUploadedFileNameNotMatchingWithOldFileName() {
+        try {
+            if (uploadedNameOfTheFile.get(0).equals(uploadedNameOfTheFile.get(1))) {
+                Debugger.println("The new uploaded filename matches with new uploaded file name");
+                return false;
+            }
+            Debugger.println("The new uploaded filename is not matcing with old uploaded file name");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintForms page:verifyNewUploadedFileNameNotMatchingWithOldFileName:exception found " + exp);
+            SeleniumLib.takeAScreenShot("NewfileNameNotMatchingWithOld.jpg");
+            return false;
+        }
+    }
+    public boolean verifyThePageSectionTitleInPatientChoicePage(String expTitle) {
+        By pageTitle = By.xpath("//h2[contains(text(),'" + expTitle + "')]");
+        if (!seleniumLib.isElementPresent(pageTitle)) {
+            Wait.forElementToBeDisplayed(driver, driver.findElement(pageTitle));
+            if (!seleniumLib.isElementPresent(pageTitle)) {
+                Debugger.println("Expected title :" + expTitle + " not loaded in the page.");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referalIdOnHistoryTab);
+            //As observed it is taking 3 secs to load the referral Id on history tab
+            Wait.seconds(3);
+            if (!referralIdOnReferralBar.getText().contains(referalIdOnHistoryTab.getText())) {
+                Debugger.println("The referral id on history tab and referral bar are different");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage : verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar : exception found" + exp);
+            SeleniumLib.takeAScreenShot("verifyReferralIds.jpg");
             return false;
         }
     }

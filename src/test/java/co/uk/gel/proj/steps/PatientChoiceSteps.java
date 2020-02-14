@@ -582,4 +582,30 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
     }
 
+    @And("the user should be able to see the uploaded file name")
+    public void theUserShouldBeAbleToSeeTheUploadedFileName() {
+        boolean testResult = false;
+        testResult = patientChoicePage.uploadedfileNameIsDisplayedOnThePage();
+        Assert.assertTrue(testResult);
+
+    }
+    @Then("the user verifies that the newly uploaded file name doesn't match with the old uploaded file name")
+    public void theNewUploadedFileNameDoesnTMatchWithTheOldUploadedFileName() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyNewUploadedFileNameNotMatchingWithOldFileName();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user is navigated to a page of section with title (.*)")
+    public void theUserIsNavigatedToAPageOfSectionPatientChoiceHistory(String title) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyThePageSectionTitleInPatientChoicePage(title);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user verifies the referral id on history tab is same as on referral id on referral bar")
+    public void theUserVerifiesTheReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar();
+        Assert.assertTrue(testResult);
+    }
+
 }//end
