@@ -42,7 +42,7 @@ Feature: Requesting Organisation page
     Then  the Save and Continue button should be disabled
     Examples:
       | stage                   | ordering_entity_name |
-    #  | Requesting organisation | k                    |
+      | Requesting organisation | k                    |
      # entity name with two characters
       | Requesting organisation | lm                   |
 
