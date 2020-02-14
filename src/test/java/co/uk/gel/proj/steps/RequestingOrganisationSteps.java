@@ -89,4 +89,11 @@ public class RequestingOrganisationSteps extends Pages {
         Assert.assertTrue(requestingOrganisationPage.checkRequestingOrganisationPageInfo(checkText.get(0), checkText.get(1)));
         Assert.assertTrue(paperFormPage.confirmOrderingEntitySearchFieldPlaceholderText(checkText.get(2)));
     }
+
+    @And("the message {string} displayed on the page")
+    public void theMessageDisplayedOnThePage(String expMessage) {
+        String actualMessage = requestingOrganisationPage.getNoResultMessage();
+        Assert.assertNotNull(actualMessage);
+        Assert.assertTrue(actualMessage.equalsIgnoreCase(actualMessage));
+    }
 }

@@ -228,7 +228,7 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             if (helix.size() > 0) {
                 try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                   Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds.
                     //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
@@ -236,6 +236,7 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
+            Wait.seconds(2);
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
