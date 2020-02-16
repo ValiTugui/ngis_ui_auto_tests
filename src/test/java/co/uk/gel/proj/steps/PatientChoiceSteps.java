@@ -44,7 +44,7 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
-                patientChoicePage.selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
                 patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 Wait.seconds(2);
@@ -63,8 +63,9 @@ public class PatientChoiceSteps extends Pages {
                     continue;
                 }
                 patientChoicePage.clickOnSaveAndContinueButton();
+                Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
             }//end
-            Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
@@ -203,11 +204,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should see continue button is highlighted in color (.*)")
-    public void theUserShouldSeeContinueButtonIsNotHighlighted(String backgroundColor) {
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton(backgroundColor));
-    }
-
    @Then("the user should see a error message box with border color (.*) and message as (.*)")
     public void theUserShouldSeeAErrorMessageBox(String boxColor,String message) {
         boolean testResult = false;
@@ -254,7 +250,27 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+    @And("the user should see form to follow button as (.*)")
+    public void theUserShouldSeeHighlightedFormToFollowButton(String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormToFollowButtonStatus("#f0f0f0");
+        if(status.equalsIgnoreCase("enabled")){
+            Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
+        }
+    }
 
+    @And("the user should see Continue button as (.*)")
+    public void theUserShouldSeeHighlightedContinueButton(String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyContinueButtonStatus("#f0f0f0");
+        if(status.equalsIgnoreCase("enabled")){
+            Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
+        }
+    }
     @Then("the user should be able to see patient hospital number")
     public void theUserShouldBeAbleToSeePatientHospitalNumber() {
         boolean testResult = false;
@@ -489,7 +505,7 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes);
         Assert.assertTrue(testResult);
     }
-    @And("the Date of Signature fields are displayed as {string}")
+    @And("the Date of Signature fields are displayed as (.*)")
     public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
         boolean testResult = false;
         testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection();
@@ -511,7 +527,7 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
         Assert.assertTrue(testResult);
     }
-    @Then("the user sees a success message after form upload in recorded by as {string}")
+    @Then("the user sees a success message after form upload in recorded by as (.*)")
     public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
@@ -598,4 +614,21 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user clicks on Form To Follow Button")
+    public void theUserClicksOnFormToFollowButton() {
+        patientChoicePage.clickOnFormToFollow();
+    }
+
+    @When("the user Cancel the uploaded forms")
+    public void theUserCancelUploadedForms() {
+        patientChoicePage.clickOnCancelUpload();
+    }
+
+    @Then("the user should not see any uploaded files")
+    public void theUserShouldNotSeeAnyUploadedFiles() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadedFileName("");
+        Assert.assertTrue(testResult);
+
+    }
 }//end

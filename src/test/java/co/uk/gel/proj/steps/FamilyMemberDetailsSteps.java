@@ -393,6 +393,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
+                Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.");
                 Wait.seconds(2);
             }//end
         }catch(Exception exp){

@@ -278,8 +278,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {
             Actions.deleteCookies(driver);
-            Wait.forElementToBeDisplayed(driver,emailAddressField,20);
-            if(!Wait.isElementDisplayed(driver,emailAddressField,10)){
+            Wait.forElementToBeDisplayed(driver,emailAddressField,30);
+            if(!Wait.isElementDisplayed(driver,emailAddressField,30)){
                 Debugger.println("Email Address Field is not displayed even after the waiting period.");
                 if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");

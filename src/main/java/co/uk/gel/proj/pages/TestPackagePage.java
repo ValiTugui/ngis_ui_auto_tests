@@ -137,7 +137,7 @@ public class TestPackagePage {
         return selectedFamilyMembers.get(0).isDisplayed();
     }
 
-    public void selectNumberOfParticipants(int number) {
+    public boolean selectNumberOfParticipants(int number) {
         try {
             Wait.forElementToBeDisplayed(driver, routinePriorityButton);
             Wait.forElementToBeDisplayed(driver, testCardBody);
@@ -147,14 +147,22 @@ public class TestPackagePage {
                 Assert.assertFalse("Number of Participants element in TestPackage is not displayed:",true);
             }
             numberOfParticipants.click();
-            Wait.seconds(1);
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
-            Wait.seconds(5);
+            Wait.seconds(2);
+            //Ensure that the test package is selected
+            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='"+number+"']"));
+            if(!Wait.isElementDisplayed(driver,selectedPack,2)){
+                Debugger.println("Test Package could not select with number: "+number);
+                SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
+                return false;
+            }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception in Selecting number of Participants in Test Package."+exp);
             SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
-            Assert.assertFalse("Exception in Selecting number of Participants in Test Package."+exp,true);
+            return false;
         }
     }
     public boolean testIsSelected() {

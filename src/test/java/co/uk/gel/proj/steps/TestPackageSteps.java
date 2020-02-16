@@ -59,11 +59,14 @@ public class TestPackageSteps extends Pages {
 
     @And("the user selects the number of participants as {string}")
     public void theUserSelectsTheNumberOfParticipantsAs(String numberOfParticipants) {
+        boolean testResult = false;
         try {
-            testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
+            testResult = testPackagePage.selectNumberOfParticipants(Integer.parseInt(numberOfParticipants));
+            Assert.assertTrue(testResult);
         }catch(Exception exp){
-            Debugger.println("TestPackageSteps: Exception in the no of Participants to be selected...continuing with 2");
-            testPackagePage.selectNumberOfParticipants(2);
+            Debugger.println("Could not select test package: "+numberOfParticipants+", Trying with default 2...");
+            testResult = testPackagePage.selectNumberOfParticipants(2);
+            Assert.assertTrue(testResult);
         }
     }
 
