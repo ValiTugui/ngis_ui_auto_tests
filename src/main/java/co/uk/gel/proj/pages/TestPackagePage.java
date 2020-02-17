@@ -150,10 +150,10 @@ public class TestPackagePage {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
-            Wait.seconds(2);
+            Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
             //Ensure that the test package is selected
             WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='"+number+"']"));
-            if(!Wait.isElementDisplayed(driver,selectedPack,2)){
+            if(!Wait.isElementDisplayed(driver,selectedPack,10)){
                 Debugger.println("Test Package could not select with number: "+number);
                 SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
                 return false;
