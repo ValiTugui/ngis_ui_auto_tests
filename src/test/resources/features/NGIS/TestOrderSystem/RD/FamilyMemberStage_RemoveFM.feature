@@ -1,9 +1,9 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_set3
+@FamilyMemberStageNavigation_removeFM
 
-Feature: Family Members Navigation Stage - Remove Member
+Feature: Family Members Navigation Stage - Remove Family Member
 
   @NTS-3292 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral
@@ -15,8 +15,10 @@ Feature: Family Members Navigation Stage - Remove Member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add notes to this referral
     Then the "<ClinicalQuestions>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage

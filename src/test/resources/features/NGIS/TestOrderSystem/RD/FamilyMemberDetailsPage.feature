@@ -128,4 +128,3 @@ Feature: Family Members Details Page - Field Validation_1
     Examples:
       | stage          | FamilyMemberDetails                 | HospitalNumber      |
       | Family members | NHSNumber=9449305552:DOB=20-09-2008 | 1234567890123456789 |
-

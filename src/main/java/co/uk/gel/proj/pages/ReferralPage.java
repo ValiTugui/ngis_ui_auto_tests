@@ -228,7 +228,7 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             if (helix.size() > 0) {
                 try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                   Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds.
                     //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
@@ -236,6 +236,7 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
+            Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
@@ -481,8 +482,11 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            Wait.forElementToBeDisplayed(driver, pageTitle, 120);
-            return Actions.getText(pageTitle);
+            if(Wait.isElementDisplayed(driver, pageTitle, 120)) {
+                return Actions.getText(pageTitle);
+            }
+            SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
+            return null;
         }catch(Exception exp){
             return null;
         }
@@ -553,6 +557,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
        try {
+           Debugger.println("Verifying Presence of Page Title:"+expTitle);
            String actualPageTitle = getTheCurrentPageTitle();
            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                return true;
@@ -578,7 +583,6 @@ public class ReferralPage<check> {
                titleElement = driver.findElement(pageTitle);
                return (Wait.isElementDisplayed(driver,titleElement,100));
            }
-
        }catch(Exception exp){
            Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
            Actions.scrollToTop(driver);
@@ -900,12 +904,20 @@ public class ReferralPage<check> {
     }
     public void updatePatientNGSID(NGISPatientModel familyMember){
         try{
+            if(!Wait.isElementDisplayed(driver,familyMemberNgisId,10)){
+                Debugger.println("Could not locate FM NGSID element.");
+                return;
+            }
             String bannerNGIS  = familyMemberNgisId.getText();
+            if(bannerNGIS == null || bannerNGIS.isEmpty()){
+                Debugger.println("NGSID could not read.");
+                SeleniumLib.takeAScreenShot("NGISIDCouldNotRead.jpg");
+            }
             familyMember.setNGIS_ID(bannerNGIS);
             FamilyMemberDetailsPage.updateNGISID(familyMember);
 
         }catch(Exception exp){
-           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH());
+           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH()+"\n"+exp);
         }
     }
     public boolean verifyMandatoryFieldDisplaySymbol(String fieldName,String fieldType,String symbol,String symbolColor){
