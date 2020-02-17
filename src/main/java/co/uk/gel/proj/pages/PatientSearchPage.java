@@ -723,8 +723,12 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-        Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
+        try {
+            Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
+            Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
+        }catch(Exception exp){
+            Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+        }
     }
 
     public void fillInNHSNumberAndDateOfBirth(String patientType) throws IOException {

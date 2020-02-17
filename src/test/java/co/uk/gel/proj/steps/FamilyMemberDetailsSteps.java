@@ -352,7 +352,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
-
                     if(!patientDetailsPage.createNewFamilyMember(familyMember)){
                         break;
                     }

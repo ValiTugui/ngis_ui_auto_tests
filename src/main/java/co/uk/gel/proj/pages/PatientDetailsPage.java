@@ -813,6 +813,7 @@ public class PatientDetailsPage {
 
     public boolean createNewFamilyMember(NGISPatientModel familyMember) {
         try {
+            Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
             familyMember.setTITLE("Mr");
             familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
@@ -843,13 +844,10 @@ public class PatientDetailsPage {
             Actions.fillInValue(postcode, familyMember.getPOST_CODE());
             Actions.clickElement(driver, addNewPatientToReferral);
             Wait.seconds(5);//Wait for 5 seconds to create the new member
-            if(patientIsCreated()){
-                //Adding Family member to a list for later stage verification
-                FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
-                Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
-                return true;
-            }
-            return false;
+
+            FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
+            Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from adding mew family member:"+exp);
             SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");

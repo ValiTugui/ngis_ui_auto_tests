@@ -53,6 +53,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
@@ -85,6 +86,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
@@ -126,6 +128,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
@@ -150,6 +153,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     And the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add notes to this referral
     Then the "<ClinicalQuestions>" stage is marked as Completed
     And the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -179,6 +183,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
@@ -212,6 +217,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<TwoParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members
     When the user navigates to the "<FamilyMembers>" stage
@@ -265,6 +271,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     ##Family Members - Family member details to be added
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -295,6 +302,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     And the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage
