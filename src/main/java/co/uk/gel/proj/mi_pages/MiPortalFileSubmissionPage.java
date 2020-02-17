@@ -31,7 +31,6 @@ import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
 
-//public class PatientSearchPage {
 public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
@@ -45,11 +44,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    // mi-portal
     @FindBy(xpath = "//a[@data-value='file_submissions']")
     public WebElement fileSubmissionLnk;
 
-    // @FindBy(css = "button[class*='btn dropdown-toggle btn-default']")
     @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
     public WebElement dropDownFileSubmissionsSearch;
 
@@ -59,32 +56,27 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//ul[@class='dropdown-menu inner ']/li//span[text()='GLH']")
     public WebElement DropDownGLH;
 
-    //ul[@class='dropdown-menu inner ']/li//span[text()='GLH']
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
 
-    @FindBy(id="file_submissions-search-add")
+    @FindBy(id = "file_submissions-search-add")
     public WebElement addButton;
 
-    @FindBy(xpath="//div[@id='file_submissions-search-search_term_pills']/span")
+    @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span")
     public WebElement filterCriteria;
 
-    @FindBy(xpath="//div[@id='file_submissions-search-search_term_pills']/span/a")
+    @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
     public WebElement ClosefilterCriteria;
 
-    @FindBy(id="file_submissions-search-search")
+    @FindBy(id = "file_submissions-search-search")
     public WebElement searchButton;
 
-    @FindBy(id="file_submissions-display-display_options")
+    @FindBy(id = "file_submissions-display-display_options")
     public WebElement searchResultDisplayOptions;
 
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
-
-    ////td[text()='ngis_glh_to_gel_sample_sent_wwm_20200212_161115.csv']
-
-    ////td[text()='ngis_glh_to_gel_sample_sent_wwm_20200212_161115.csv']/../td[10]
 
 
     public void selectSearchValueDropDown(WebElement element, String value) {
@@ -93,7 +85,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(2);
-            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='"+value+"']")));
+            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
         }
@@ -141,13 +133,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         for (int i = 0; i < headers.size(); i++) {
             pairs.put(headers.get(i), values.get(i));
         }
-
         return pairs;
     }
-
-
-
-
 
 }
 
