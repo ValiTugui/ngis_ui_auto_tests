@@ -1,6 +1,5 @@
-#@BVT_UI_SMOKE_TEST_PACK
 @userJourneysCancer
-#@BVT_UI_SMOKE_TEST_CANCER
+
 Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
 
   @NTS-3362 @LOGOUT
