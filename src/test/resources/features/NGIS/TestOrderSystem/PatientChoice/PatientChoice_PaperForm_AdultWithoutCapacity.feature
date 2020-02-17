@@ -1,31 +1,32 @@
 @regression
 @patientChoice
-@patientChoice_nts_3417
-Feature: Patient Choice Page
+@patientChoice_adultWithoutCapacity
+Feature: Patient Choice Edit Paper Form - Adult Without Capacity
 
   @NTS-3417 @E2EUI-2040 @E2EUI-1060 @E2EUI-1450 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    When the user navigates to the "<PatientChoiceStage>" stage
+    When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
-    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
+    And the user is in the section Patient choice category
     When the user selects the option Adult (Without Capacity) in patient choice category
-    Then the option Adult (Without Capacity) displayed with edit option in Patient choice category
     Then the Patient choice category option is marked as completed
+    And the option Adult (Without Capacity) displayed with edit option in Patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
     Then the Test type option is marked as completed
-    When the user fills "<RecordedBy>" details in recorded by
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     Then the option Recorded by: displayed with edit option in Recorded by
-    And the Recorded by option is marked as completed
+    Then the Recorded by option is marked as completed
 
     Examples:
-      | PatientChoiceStage | RecordedBy                            |
-      | Patient choice     | ClinicianName=John |
+      | PatientChoice  | ClinicianName      |
+      | Patient choice | ClinicianName=John |
 
   @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3417: scenario 1 - Editing Patient choice for an Adult (without capacity)

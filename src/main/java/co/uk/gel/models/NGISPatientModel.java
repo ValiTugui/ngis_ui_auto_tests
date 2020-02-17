@@ -1,6 +1,7 @@
 package co.uk.gel.models;
 
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 
 public class NGISPatientModel {
 
@@ -202,6 +203,10 @@ public class NGISPatientModel {
 
     public void setBORN_DATE(String BORN_DATE) {
         this.BORN_DATE = BORN_DATE;
+        if(DATE_OF_BIRTH == null){
+            String[] dates = BORN_DATE.split("-");
+            DATE_OF_BIRTH = dates[0]+"-"+ TestUtils.convertMonthToMonthNumberForm(dates[1])+"-"+dates[2];
+        }
     }
 
     public String getRECORDING_CLINICIAN_NAME() {

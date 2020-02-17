@@ -2,9 +2,9 @@
 @TO_RD
 @FamilyMemberSearchPage
 
-Feature: Family Members Search Validation
+Feature: Family Members Search Page - Field Validation_1
 
-  @NTS-3302 @E2EUI-965 @v_1 @P0
+  @NTS-3302 @E2EUI-965 @E2EUI-1395 @v_1 @P0
   Scenario Outline: NTS-3302: Find a Family Member page layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -19,7 +19,8 @@ Feature: Family Members Search Validation
     And the NHS number entry fields should be of length 10
     And the DOB entry fields should have the format dd-mm-yyyy displayed
     And the Search button should be displayed with search symbol and click-able
-
+      ##Below step for E2EUI-1395
+    And the user verifies the svg icon for tick mark
     Examples:
       | stage          |
       | Family members |

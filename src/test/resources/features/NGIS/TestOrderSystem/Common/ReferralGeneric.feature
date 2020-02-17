@@ -72,4 +72,3 @@ Feature: This is a referral feature
     Examples:
       | stage           |
       | Patient details |
-

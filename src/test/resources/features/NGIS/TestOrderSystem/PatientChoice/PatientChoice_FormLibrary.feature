@@ -1,43 +1,35 @@
 @regression
 @patientChoice
-@patientChoice_page1
-Feature: Patient Choice Page
+@patientChoice_formLibrary
+Feature: Patient Choice Page - Form Library
 
-  @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
-  Scenario Outline: NTS-3341: Verify the patient choice status in family member page
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
-    When the user navigates to the "<Family members>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status as "<Status1>"
-    When the user navigates to the "<Patient choice stage>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
-    And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<PatientChoice>"
-    Then the user is navigated to a page with title Patient choice
-    And the user sees the patient choice status as "<Status2>"
-    When the user navigates to the "<Family members>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status as "<Status2>"
-
-    Examples:
-      | Family members | Status1     | Patient choice stage | Status2           | PatientChoice                                        |
-      | Family members | Not entered | Patient choice       | Agreed to testing | Parent(s) / carer / guardian have agreed to the test |
-
-  @NTS-3382 @E2EUI-2110 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
-    When the user navigates to the "<Family members>" stage
-    And the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status as "<Status1>"
+  @NTS-3435 @E2EUI-2180 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3435: Upload the latest 'Opt-in' form to the form library
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the Form library tab in patient choice page
+    Then the user should see the supporting information links under the section Patient choice forms
+      | FormName                             |
+      | Agreement to Participate in Research |
+
+    Examples:
+      | Patient choice stage |
+      | Patient choice       |
+
+  @NTS-3382 @E2EUI-2110 @E2EUI-1899 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Male |
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the Form library tab in patient choice page
+    And the user sees the new patient choice tab selected by default with subtitle Form library
     Then the user should see the supporting information links under the section Patient choice forms
       | FormName                                                     |
       | Record of Discussion Regarding WGS                           |
@@ -60,5 +52,5 @@ Feature: Patient Choice Page
       | Clinician's Guide Supplementary Information NGRL     |
       | Patient's Information Research                       |
     Examples:
-      | Family members | Status1     | Patient choice stage |
-      | Family members | Not entered | Patient choice       |
+      | Patient choice stage |
+      | Patient choice       |

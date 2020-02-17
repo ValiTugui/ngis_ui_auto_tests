@@ -20,6 +20,7 @@
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
+        <reportName>test</reportName>
     </properties>
     <build>
         <plugins>
@@ -99,6 +100,7 @@
                             </resultSources>
                             <outputPath>target/test-report</outputPath>
                             <timestamp>${maven.build.timestamp}</timestamp>
+                            <prefix>${reportName}</prefix>
                             <template>default</template>
                         </configuration>
                     </execution>

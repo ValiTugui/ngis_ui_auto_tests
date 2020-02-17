@@ -20,18 +20,22 @@ Feature: Requesting Organisation page
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @NTS-3069 @E2EUI-916 @E2EUI-936 @E2EUI-1421 @LOGOUT @v_1 @P1
+  @NTS-3069 @E2EUI-916 @E2EUI-936 @E2EUI-1421 @E2EUI-1343 @E2EUI-980 @E2EUI-1290 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
     Then there isn't any search results returned
     And  the Save and Continue button should be disabled
+    And the message "<messageText>" displayed on the page
     Examples:
-      | stage                   | ordering_entity_name |
-      | Requesting organisation | lllLondon            |
+      | stage                   | ordering_entity_name | messageText                                           |
+      | Requesting organisation | lllLondon            | Your search has returned 0 results. Please try again. |
+      | Requesting organisation | xyxyx                | Your search has returned 0 results. Please try again. |
+      | Requesting organisation | $@%','*%#$           | Your search has returned 0 results. Please try again. |
+      | Requesting organisation | 11111                | Your search has returned 0 results. Please try again. |
 
 
-  @NTS-3069 @E2EUI-924 @LOGOUT @v_1 @P1
+  @NTS-3069 @E2EUI-924 @E2EUI-1206 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3069 - Feature: page validation with a single character
     When the user navigates to the "<stage>" stage
     And the user enters the invalid keyword "<ordering_entity_name>" in the search field
@@ -39,12 +43,14 @@ Feature: Requesting Organisation page
     Examples:
       | stage                   | ordering_entity_name |
       | Requesting organisation | k                    |
+     # entity name with two characters
+      | Requesting organisation | lm                   |
+
 
   @NTS-3155 @E2EUI-1361 @E2EUI-1542 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
     Then the requesting organisation page has the "<title>"
-    And the requesting organisation has search label displayed
     And the user sees the search label with "<expectedText>"
     And the user sees the search field with search icon
     And the user see the search field has placeholder text as "<placeholderText>"
