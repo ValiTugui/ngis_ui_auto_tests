@@ -1,7 +1,7 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_set2
+@FamilyMemberStageNavigation_patientIdentifier
 
 Feature: Family Members Navigation Stage - Patient Identifiers
 
@@ -18,10 +18,12 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add notes to this referral
     Then the "<ClinicalQuestions>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     And the user clicks on back button
@@ -50,6 +52,7 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
@@ -71,10 +74,12 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
     Then the user is navigated to a page with title Add clinician information
+    And the "<TestPackage>" stage is marked as Completed
     When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage
@@ -96,19 +101,25 @@ Feature: Family Members Navigation Stage - Patient Identifiers
   Scenario Outline: NTS-3330: User is completing a referral and wants to add a family member record to the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1980:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
     Then the default family member details page is correctly displayed
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
     And the user clicks on a test that is selected and the test is no longer selected
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
     Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
     And subtitle of the page displayed as Tested family members you add here will be visible in the pedigree.
     And subtitle links as add non-tested family members
@@ -125,6 +136,7 @@ Feature: Family Members Navigation Stage - Patient Identifiers
   Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1951:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Family Members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user should be able to see the patient identifiers on family member landing page
@@ -142,11 +154,13 @@ Feature: Family Members Navigation Stage - Patient Identifiers
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1982:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<One>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
@@ -158,7 +172,7 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on the link to amend the number of participants for test
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants2>"
+    And the user selects the number of participants as "<Four>"
     And the user clicks the Save and Continue button
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -169,5 +183,5 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color
 
     Examples:
-      | TestPackage  | NoOfParticipants | Family member  | FamilyMemberDetails                                                | DiseaseStatusDetails     | color   | NoOfParticipants2 | FamilyMemberDetails2                                               | color2  |
-      | Test package | 1                | Family members | NHSNumber=NA:DOB=30-06-1974:Gender=Male:Relationship=Maternal Aunt | DiseaseStatus=Unaffected | #dd2509 | 4                 | NHSNumber=NA:DOB=15-01-2000:Gender=Male:Relationship=Maternal Aunt | #425563 |
+      | TestPackage  | One | Family member  | FamilyMemberDetails                                                | DiseaseStatusDetails     | color   | Four | FamilyMemberDetails2                                               | color2  |
+      | Test package | 1   | Family members | NHSNumber=NA:DOB=30-06-1974:Gender=Male:Relationship=Maternal Aunt | DiseaseStatus=Unaffected | #dd2509 | 4    | NHSNumber=NA:DOB=15-01-2000:Gender=Male:Relationship=Maternal Aunt | #425563 |

@@ -904,12 +904,20 @@ public class ReferralPage<check> {
     }
     public void updatePatientNGSID(NGISPatientModel familyMember){
         try{
+            if(!Wait.isElementDisplayed(driver,familyMemberNgisId,10)){
+                Debugger.println("Could not locate FM NGSID element.");
+                return;
+            }
             String bannerNGIS  = familyMemberNgisId.getText();
+            if(bannerNGIS == null || bannerNGIS.isEmpty()){
+                Debugger.println("NGSID could not read.");
+                SeleniumLib.takeAScreenShot("NGISIDCouldNotRead.jpg");
+            }
             familyMember.setNGIS_ID(bannerNGIS);
             FamilyMemberDetailsPage.updateNGISID(familyMember);
 
         }catch(Exception exp){
-           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH());
+           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH()+"\n"+exp);
         }
     }
     public boolean verifyMandatoryFieldDisplaySymbol(String fieldName,String fieldType,String symbol,String symbolColor){

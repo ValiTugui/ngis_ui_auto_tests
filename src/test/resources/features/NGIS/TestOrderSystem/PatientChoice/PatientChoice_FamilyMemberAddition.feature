@@ -7,6 +7,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status for proband as Not entered
