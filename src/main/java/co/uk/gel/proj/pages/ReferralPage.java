@@ -236,7 +236,7 @@ public class ReferralPage<check> {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 }
             }
-            Wait.seconds(2);
+            Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
