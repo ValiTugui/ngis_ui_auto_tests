@@ -199,10 +199,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient identifiers on family member landing page")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage() {
+    @And("the user should be able to see the patient identifiers (.*) patient")
+    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage(String patientNo) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage();
+        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
         Assert.assertTrue(testResult);
     }
     @When("the user clicks on the link to amend the number of participants for test")
