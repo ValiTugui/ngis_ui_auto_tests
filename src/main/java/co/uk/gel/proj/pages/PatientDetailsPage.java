@@ -844,7 +844,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(postcode, familyMember.getPOST_CODE());
             Actions.clickElement(driver, addNewPatientToReferral);
             Wait.seconds(5);//Wait for 5 seconds to create the new member
-
+            //Removed isPatientCreated check for Family member addition as it is not needed
             FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
             Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
             return true;

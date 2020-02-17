@@ -358,19 +358,19 @@ public class ReferralPage<check> {
                 Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             } catch (StaleElementReferenceException staleExp) {
                Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
-               referralStage = driver.findElement(By.xpath("//nav[@role='navigation']/ul/li/a[text()='"+stage+"']"));
+               referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
                Actions.retryClickAndIgnoreElementInterception(driver,referralStage);
             }catch(TimeoutException exp) {
                 Debugger.println("Stage Click: TimeoutException: " + exp);
-                referralStage = driver.findElement(By.xpath("//nav[@role='navigation']/ul/li/a[text()='"+stage+"']"));
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
                 Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(NoSuchElementException exp) {
                 Debugger.println("Stage Click: NoSuchElementException: " + exp);
-                referralStage = driver.findElement(By.xpath("//nav[@role='navigation']/ul/li/a[text()='"+stage+"']"));
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
                 Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }catch(Exception exp) {
                 Debugger.println("Stage Click: Exception: " + exp);
-                referralStage = driver.findElement(By.xpath("//nav[@role='navigation']/ul/li/a[text()='"+stage+"']"));
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
                 Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
             }
     }
@@ -562,7 +562,7 @@ public class ReferralPage<check> {
            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                return true;
            }
-           Debugger.println("Page Title: Not present..Trying another way....");
+           SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
            //In case of failure trying with another method.
            By pageTitle;
            if (expTitle.contains("\'")) {
