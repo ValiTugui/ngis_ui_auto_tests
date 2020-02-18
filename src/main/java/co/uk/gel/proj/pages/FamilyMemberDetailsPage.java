@@ -105,7 +105,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
     public WebElement relationshipToProbandDropdown;
 
-    @FindBy(xpath = "//div[@data-testid='notification-error']//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//div[@data-testid='notification-error']//span")
     public List<WebElement> notificationErrors;
 
     @FindBy(xpath = "//a[contains(text(),'amend the expected number of participants')]")
@@ -782,6 +782,10 @@ public class FamilyMemberDetailsPage {
                     isPresent = true;
                     break;
                 }
+            }
+            if(!isPresent){
+                Debugger.println("Expected Message:"+expMessage+" not present.");
+                SeleniumLib.takeAScreenShot("MessageNotPresent.jpg");
             }
             return isPresent;
         } catch (Exception exp) {

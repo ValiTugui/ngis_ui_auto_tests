@@ -150,7 +150,7 @@ Feature: Patient Choice ConsentScenario - Adult with Capacity
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @LOGOUT @NTS-3434 @E2EUI-1447 @v_1 @P0 @scenario_05
+  @NTS-3434 @E2EUI-1447 @LOGOUT @v_1 @P0 @scenario_05
   Scenario Outline: NTS-3434: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

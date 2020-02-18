@@ -9,7 +9,7 @@ Feature: Patient Choice Navigation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     Then the option Adult (With Capacity) displayed with edit option in Patient choice category
@@ -40,7 +40,7 @@ Feature: Patient Choice Navigation
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     When the user selects the option Adult (With Capacity) in patient choice category
     Then the option Adult (With Capacity) displayed with edit option in Patient choice category
     Then the Patient choice category option is marked as completed
@@ -400,3 +400,33 @@ Feature: Patient Choice Navigation
 #      | PatientChoice  |
 #      | Patient choice |
 #
+
+  @NTS-3409 @E2EUI-1824 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3409: Navigate around the patient choice pages
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the option Adult (With Capacity) in patient choice category
+    Then the option Adult (With Capacity) displayed with edit option in Patient choice category
+    Then the Patient choice category option is marked as completed
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    Then the Test type option is marked as completed
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the user is in the section Patient choices
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    Then the user is in the section Review and submit
+    When the user clicks on submit patient choice Button
+    Then the user should be able to see the patient choice form with success message
+
+    Examples:
+      | Patient choice stage | RecordedBy                            |
+      | Patient choice       | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+

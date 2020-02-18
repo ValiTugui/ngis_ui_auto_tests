@@ -5,6 +5,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.java.eo.Se;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -121,11 +122,12 @@ public class PanelsPage {
                 panelList = panels.split(",");
             }
             for(int i=0; i<panelList.length; i++) {
-                 panelsSearchFieldPlaceHolder.clear();
+                panelsSearchFieldPlaceHolder.clear();
                 panelsSearchFieldPlaceHolder.sendKeys(panelList[i]);
                 Wait.seconds(2);//Wait to load the related panel based on the search word
                 if(panelsSearchResultsList.size() == 0){
                     Debugger.println("No matching Panels for the word: "+panelList[i]);
+                    SeleniumLib.takeAScreenShot("NoPanelsListed.jpg");
                     return false;
                 }
                 Click.element(driver, panelsSearchResultsList.get(0));
@@ -392,6 +394,29 @@ public class PanelsPage {
         } catch (Exception exp) {
             Debugger.println("Panels page: addedPanelsList, Element not found." + exp);
             SeleniumLib.takeAScreenShot("PanelsPageAddedPanels.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyDefaultStatusOfPenetranceButton(String expectedButton) {
+        try {
+            if (expectedButton.equalsIgnoreCase("complete")) {
+                if (!"true".equalsIgnoreCase(completeButton.getAttribute("aria-pressed"))) {
+                    Debugger.println("Complete Button expected as Selected, but not.");
+                    SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
+                    return false;
+                }
+            }else if (expectedButton.equalsIgnoreCase("Incomplete")) {
+                if (!"true".equalsIgnoreCase(incompleteButton.getAttribute("aria-pressed"))) {
+                    Debugger.println("InComplete Button expected as Selected, but not.");
+                    SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Panels page: verifyDefaultStatusOfPenetranceButton " + exp);
+            SeleniumLib.takeAScreenShot("PenatranceStatus.jpg");
             return false;
         }
     }

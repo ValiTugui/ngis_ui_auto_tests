@@ -74,8 +74,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-
-  @NTS-2801 @E2EUI-915 @E2EUI-1399 @LOGOUT @v_1
+  @NTS-2801 @E2EUI-1399 @E2EUI-1406 @E2EUI-1885 @E2EUI-1614 @LOGOUT @v_1
   Scenario Outline: NTS-2801-DOB field Validations - invalid day , month , year values
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |

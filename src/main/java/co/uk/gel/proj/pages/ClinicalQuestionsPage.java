@@ -267,6 +267,7 @@ public class ClinicalQuestionsPage {
             selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
         }
         boolean isFilled = false;
+        boolean isPhenotypePresent = false;
         for (String key : paramsKey) {
             if (key.equalsIgnoreCase("DiseaseStatus")) {
                 continue;
@@ -283,6 +284,7 @@ public class ClinicalQuestionsPage {
                 case "HpoPhenoType": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
+                        isPhenotypePresent = true;
                         isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
                         if (!isFilled) {
                             if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
@@ -292,9 +294,41 @@ public class ClinicalQuestionsPage {
                     }
                     break;
                 }
+                case "PhenotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, phenotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
+                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting phenotypic sex dropdown: ",false);
+                        }
+                    }
+                }
+                case "KaryotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, karyotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
+                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting karyotypic sex dropdown: ",false);
+                        }
+                    }
+                }
             }//switch
         }//for
-        return isFilled;
+        if(isPhenotypePresent) {
+            return isFilled;
+        }else{
+            return true;
+        }
     }//method
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         try {
