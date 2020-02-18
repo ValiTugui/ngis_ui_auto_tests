@@ -38,10 +38,10 @@ public class SamplesPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div[2]") //@FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div")
     public WebElement sampleType;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div[2]")  ////@FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
     public WebElement sampleState;
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'singleValue')]/span")

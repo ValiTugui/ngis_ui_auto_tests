@@ -91,25 +91,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         //ToDo
     }
 
-    @And("the user is able to see the Filename {string}, Status {string}, ErrorMessage {string} and WarningMessage {string}")
-    public void theUserIsAbleToSeeTheFilenameStatusErrorMessageAndWarningMessage(String expectedFileName, String expectedStatus, String expectedErrorMessage, String expectedWarningMessage) {
-
-        String actualFileName = miPortalFileSubmissionPage.getAValueOfSearchedResult(expectedFileName, 8);
-        String actualStatus = miPortalFileSubmissionPage.getAValueOfSearchedResult(expectedFileName, 10);
-        String actualErrorMessage = miPortalFileSubmissionPage.getAValueOfSearchedResult(expectedFileName, 11);
-        String actualWarningMessage =  miPortalFileSubmissionPage.getAValueOfSearchedResult(expectedFileName, 12);
-
-        expectedErrorMessage = "{\"non_field_errors\":[\"Sample received datetime must be set if the sample has been received\"]}, {\"non_field_errors\":[\"Sample received datetime must be set if the sample has been received\"]}";
-        Debugger.println("Expected FileName :" + expectedFileName + " : " + "Actual FileName :" + actualFileName);
-        Debugger.println("Expected Status :" + expectedStatus + " : " + "Actual Status : " + actualStatus);
-        Debugger.println("Expected ErrorMessage :" + expectedErrorMessage + " : " + "Actual ErrorMessage : " + actualErrorMessage);
-        Debugger.println("Expected WarningMessage :" + expectedWarningMessage + " : " + "Actual WarningMessage" + actualWarningMessage);
-        Assert.assertEquals(expectedFileName, actualFileName);
-        Assert.assertEquals(expectedStatus, actualStatus);
-        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
-        Assert.assertEquals(expectedWarningMessage, actualWarningMessage);
-    }
-
     @And("the user is able to see the field values - Filenames {string}, Status {string}, ErrorMessage {string} and WarningMessage {string}")
     public void theUserIsAbleToSeeTheFieldValuesFilenamesStatusErrorMessageAndWarningMessage(String expectedFileName, String expectedStatus, String expectedErrorMessage, String expectedWarningMessage) {
         Map<String, String> Test = new HashMap<>();
