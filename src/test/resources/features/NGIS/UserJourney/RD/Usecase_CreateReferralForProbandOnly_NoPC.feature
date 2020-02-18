@@ -1,6 +1,6 @@
 @userJourneys
 @userJourneysRD
-
+@userJourneysRD_probandOnlyWithoutPC
 Feature: Create Referral for Proband Only + Edit Data + Patient Choice Not Given
 
   @NTS-4555 @E2EUI-1298 @LOGOUT
