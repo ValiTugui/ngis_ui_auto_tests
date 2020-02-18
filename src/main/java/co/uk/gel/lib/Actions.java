@@ -84,6 +84,10 @@ public class Actions {
         return element.getAttribute("autoComplete");
     }
 
+    public static String getPlaceHolderAttribute(WebElement element) {
+        return element.getAttribute("placeholder");
+    }
+
 
     public static void fillInValue(WebElement element, String value) {
         element.sendKeys(value);
