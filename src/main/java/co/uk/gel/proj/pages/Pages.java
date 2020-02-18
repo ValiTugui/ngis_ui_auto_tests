@@ -106,8 +106,8 @@ public class Pages implements Navigable {
             Debugger.println("Mi portal login");
             loginToMiPortal(urlToNavigate, pageToNavigate, userType);
         } else {
-        login(urlToNavigate, pageToNavigate, userType);
-    }
+            login(urlToNavigate, pageToNavigate, userType);
+        }
     }
 
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
