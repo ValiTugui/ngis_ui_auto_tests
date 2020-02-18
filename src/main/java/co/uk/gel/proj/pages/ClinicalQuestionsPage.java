@@ -292,6 +292,34 @@ public class ClinicalQuestionsPage {
                     }
                     break;
                 }
+                case "PhenotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, phenotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
+                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting phenotypic sex dropdown: ",false);
+                        }
+                    }
+                }
+                case "KaryotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, karyotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
+                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting karyotypic sex dropdown: ",false);
+                        }
+                    }
+                }
             }//switch
         }//for
         return isFilled;
