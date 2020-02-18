@@ -81,8 +81,8 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Not Given
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
 
-  @NTS-4571 @E2EUI-907 @LOGOUT
-  Scenario Outline: NTS-4571: Use Case #6: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search Spine Patient
+  @NTS-4561 @E2EUI-977 @LOGOUT
+  Scenario Outline: NTS-4561: Use Case #7: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search Spine Patient
 
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303673:DOB=16-07-2010 |
@@ -159,8 +159,8 @@ Feature: Create Referral for Proband Only + Edit Data + Patient Choice Not Given
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
 
-  @NTS-4584 @E2EUI-1411 @LOGOUT
-  Scenario Outline: NTS-4584: Use Case #6: Create Referral for Proband Only + Default Data + Patient Choice Not Given - Search Non Spine/NGIS Patient
+  @NTS-4556 @E2EUI-1274 @LOGOUT
+  Scenario Outline: NTS-4556: Use Case #7: Create Referral for Proband Only + Default Data + Patient Choice Not Given - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
     ##Patient Details
