@@ -267,6 +267,7 @@ public class ClinicalQuestionsPage {
             selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
         }
         boolean isFilled = false;
+        boolean isPhenotypePresent = false;
         for (String key : paramsKey) {
             if (key.equalsIgnoreCase("DiseaseStatus")) {
                 continue;
@@ -283,6 +284,7 @@ public class ClinicalQuestionsPage {
                 case "HpoPhenoType": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
+                        isPhenotypePresent = true;
                         isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
                         if (!isFilled) {
                             if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
@@ -322,7 +324,11 @@ public class ClinicalQuestionsPage {
                 }
             }//switch
         }//for
-        return isFilled;
+        if(isPhenotypePresent) {
+            return isFilled;
+        }else{
+            return true;
+        }
     }//method
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         try {
