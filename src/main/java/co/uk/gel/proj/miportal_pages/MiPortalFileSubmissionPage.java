@@ -1,34 +1,19 @@
-package co.uk.gel.proj.mi_pages;
+package co.uk.gel.proj.miportal_pages;
 
-import co.uk.gel.csvmodels.SpineDataModelFromCSV;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
-import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.RandomDataCreator;
-import co.uk.gel.proj.util.StylesUtils;
-import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.IOException;
 import java.util.*;
-
-import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
-import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
 
 public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
