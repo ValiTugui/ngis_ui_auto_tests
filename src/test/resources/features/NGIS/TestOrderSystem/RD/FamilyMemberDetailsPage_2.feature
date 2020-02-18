@@ -79,4 +79,23 @@ Feature: Family Members Details Page - Field Validation_2
       | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Patient Choice |
       | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected | Patient choice |
 
+  @NTS-3475 @E2EUI-2090 @v_1 @P1
+  Scenario Outline: NTS-3475: Verify Expected Family Members Error message
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<Requesting organisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user should "get" participant error message as "<ErrorMessage>"
 
+    Examples:
+      | Requesting organisation | ordering_entity_name | FamilyMembers  | NoOfParticipants | ErrorMessage                                                                                                                                                                                |
+      | Requesting organisation | Queen                | Family members | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. |

@@ -26,7 +26,6 @@ Feature: Family Members Search Page - Field Validation_3
       | stage          | SearchDetails                       |
       | Family members | NHSNumber=9449310351:DOB=00-00-0000 |
 
-
   @NTS-3328 @E2EUI-1016 @v_1 @P0
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and providing a valid Last name and all other mandatory fields left blank
     When the user navigates to the "<stage>" stage

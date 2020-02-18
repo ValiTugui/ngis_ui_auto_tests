@@ -457,15 +457,15 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             actualAlertText = driver.switchTo().alert().getText();
             Actions.acceptAlert(driver);
-            Debugger.println("The alert message :: " + actualAlertText);
-            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+            //Debugger.println("The alert message :: " + actualAlertText);
+            //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
             Wait.forAlertToBePresent(driver);
             Wait.seconds(2);
             actualAlertText = Actions.getTextOfAlertMessage(driver);
             Actions.dismissAlert(driver);
-            Debugger.println("The alert message :: " + actualAlertText);
-            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+            //Debugger.println("The alert message :: " + actualAlertText);
+            //Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         }
         return actualAlertText;
     }
@@ -482,7 +482,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if(Wait.isElementDisplayed(driver, pageTitle, 120)) {
+            if(Wait.isElementDisplayed(driver, pageTitle, 30)) {
                 return Actions.getText(pageTitle);
             }
             SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
