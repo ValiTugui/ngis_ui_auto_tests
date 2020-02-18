@@ -521,3 +521,32 @@ Feature: Patient details page
     Examples:
       | stage           | pageTitle                         | pageTitle2        | pageTitle3                   | reason_for_no_nhsNumber     | patient-search-type | directoryPathPage         |
       | Patient details | Add a new patient to the database | Find your patient | Check your patient's details | Other - provide explanation | NGIS                | test-order/patient-search |
+
+
+
+  @NTS-4627 @E2EUI-1664 @v_1 @LOGOUT
+  Scenario Outline:  Patient detail - Hospital Number field - Display an editable hospital number
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user deletes the data in the Hospital Number field
+    And the Hospital number field displays the hint text "<hintText>"
+    When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
+    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | HospitalNumber      | hintText |
+      | Add a new patient to the database | Find your patient | NGIS                | 1234567890123456789 | B123456  |

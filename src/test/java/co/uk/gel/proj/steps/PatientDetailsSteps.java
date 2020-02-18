@@ -541,4 +541,12 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheHospitalNoField() {
         patientDetailsPage.fillInHospitalNo();
     }
+
+    @And("the Hospital number field displays the hint text {string}")
+    public void theHospitalNumberFieldDisplaysTheHintText(String expectedHintText) {
+        String actualHintText = Actions.getPlaceHolderAttribute(patientDetailsPage.hospitalNumber);
+        Debugger.println("Actual Hint text  " + actualHintText);
+        Debugger.println("Expected Hint text " + expectedHintText);
+        Assert.assertEquals(expectedHintText, actualHintText);
+    }
 }
