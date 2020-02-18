@@ -1,7 +1,7 @@
 
 
 Feature: This is mi-portal fileSubmission
-  
+
   @mi-portal1
   Scenario Outline: mi-portal page
     Given a web browser is at the mi-portal home page
