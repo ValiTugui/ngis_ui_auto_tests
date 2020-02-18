@@ -72,9 +72,9 @@ Feature: Create Referrals for SPINE Patient
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
+#    And the user submits the referral
+#    And the submission confirmation message "Your referral has been submitted" is displayed
+#    Then the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
@@ -152,9 +152,9 @@ Feature: Create Referrals for SPINE Patient
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
+#    And the user submits the referral
+#    And the submission confirmation message "Your referral has been submitted" is displayed
+#    Then the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | SearchPanels                                   |
@@ -229,9 +229,9 @@ Feature: Create Referrals for SPINE Patient
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
+#    And the user submits the referral
+#    And the submission confirmation message "Your referral has been submitted" is displayed
+#    Then the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |

@@ -11,7 +11,7 @@
 
 Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
-  @E2EUI-1800 @LOGOUT @v_1
+  @NTS-3377 @E2EUI-1800 @LOGOUT @v_1
   Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
 
     ###Referral creation  - provide nhs and dob of an existing patient

@@ -14,7 +14,6 @@ Feature: This is mi-portal fileSubmission
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then search results are displayed for the file-submission search
-    And the user is able to see the Filename "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
     And the user is able to see the field values - Filenames "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
 
     Examples:
