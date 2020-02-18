@@ -4,7 +4,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.proj.mi_pages.MiPortalFileSubmissionPage;
+import co.uk.gel.proj.miportal_pages.MiPortalFileSubmissionPage;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
