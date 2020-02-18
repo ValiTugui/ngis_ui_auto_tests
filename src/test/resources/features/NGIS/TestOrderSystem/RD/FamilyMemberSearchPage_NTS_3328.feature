@@ -193,7 +193,7 @@ Feature: Family Members Search Page - Field Validation_3
       | stage          | SearchDetails     |
       | Family members | FirstName=StaMbuk |
 
-  @NTS-3328 @E2EUI-1260 @LOGOUT @BVT_P0 @v_1
+  @NTS-3328 @E2EUI-1260 @E2EUI-1259 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
     And the user navigates to the "<stage>" stage
     When the user clicks on Add family member button
