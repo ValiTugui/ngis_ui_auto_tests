@@ -880,7 +880,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 Wait.seconds(10);
             }
         }catch(Exception exp){
-
+            Debugger.println("Exception from log out:"+exp);
+            Assert.assertFalse("Exception from log out:",true);
         }
     }
 
