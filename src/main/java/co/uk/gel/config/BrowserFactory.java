@@ -74,7 +74,7 @@ public class BrowserFactory {
                     driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
                 else {
                     if (OS.indexOf("linux") >= 0) {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU);
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU );
 
 
                     } else
@@ -96,9 +96,21 @@ public class BrowserFactory {
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
-        if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
-        else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
-        throw new RuntimeException("Unknown WebDriver browser: " + type);
+        return createProxyDriver(type ,proxy , null );
+    }
+
+    public static WebDriver createProxyDriver(String type, Proxy proxy, String path , String typeOfOS) {
+
+        if(typeOfOS!=null){
+            if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path , "linux");
+            else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy) );
+            throw new RuntimeException("Unknown WebDriver browser in linux OS selction " + type);
+        }
+        else {
+            if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
+            else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
+            throw new RuntimeException("Unknown WebDriver browser: " + type);
+        }
     }
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
@@ -132,7 +144,7 @@ public class BrowserFactory {
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
 
-       return createChromeDriver(capabilities, path, "linux");
+       return createChromeDriver(capabilities, path, "non-linux");
 
     }
 
