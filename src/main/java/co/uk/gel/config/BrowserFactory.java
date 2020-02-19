@@ -102,11 +102,13 @@ public class BrowserFactory {
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path , String typeOfOS) {
 
         if(typeOfOS!=null){
+            System.out.println("Calling typeOfOS = linux");
             if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path , "linux");
             else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy) );
             throw new RuntimeException("Unknown WebDriver browser in linux OS selction " + type);
         }
         else {
+            System.out.println("Calling typeOfOS = non-linux");
             if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
             else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
             throw new RuntimeException("Unknown WebDriver browser: " + type);
