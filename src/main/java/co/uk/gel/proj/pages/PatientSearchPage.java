@@ -881,6 +881,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             }
         }catch(Exception exp){
             Debugger.println("Exception from log out:"+exp);
+            SeleniumLib.takeAScreenShot("NotAbleToLogout.jpg");
             Assert.assertFalse("Exception from log out:",true);
         }
     }
@@ -894,6 +895,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return noResultText;
         } catch (Exception exp) {
             Debugger.println("Oops no patient text found " + exp);
+            SeleniumLib.takeAScreenShot("NoPatientTextFound.jpg");
             return null;
         }
     }

@@ -1048,6 +1048,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("nhsEngland logo is not displayed");
+            SeleniumLib.takeAScreenShot("NhsEnglandLogoHeaderNotFound.jpg");
             return false;
         }
     }
@@ -1064,6 +1065,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("nhsEngland logo is not displayed");
+            SeleniumLib.takeAScreenShot("NhsEnglandLogoFooterNotFound.jpg");
             return false;
         }
     }
@@ -1080,6 +1082,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("Genomics England logo is not displayed");
+            SeleniumLib.takeAScreenShot("GenomicsEnglandLogoNotFound.jpg");
             return false;
         }
     }
@@ -1096,6 +1099,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("Report an issue or provide feedback text is not displayed");
+            SeleniumLib.takeAScreenShot("ServiceDeskLinkNotFound.jpg");
             return false;
         }
     }
@@ -1112,6 +1116,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("privacy policy text link text is not displayed");
+            SeleniumLib.takeAScreenShot("PrivacyPolicyLinkNotFound.jpg");
             return false;
         }
     }
@@ -1128,6 +1133,7 @@ public class ReferralPage<check> {
             }
         } catch (Exception exp) {
             Debugger.println("privacy policy text link text is not displayed");
+            SeleniumLib.takeAScreenShot("CopyRightLinkNotFound.jpg");
             return false;
         }
     }
