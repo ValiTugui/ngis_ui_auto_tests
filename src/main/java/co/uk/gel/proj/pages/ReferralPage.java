@@ -482,7 +482,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if(Wait.isElementDisplayed(driver, pageTitle, 30)) {
+            if(Wait.isElementDisplayed(driver, pageTitle, 10)) {
                 return Actions.getText(pageTitle);
             }
             SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
