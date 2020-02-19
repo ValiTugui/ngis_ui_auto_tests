@@ -451,7 +451,7 @@ public class TestHooks extends Pages {
 
         }
     }
-    @After("@secuirtyscans, @securityscan_cancer , @securityscan_rd")
+    @After("@secuirtyscans, @securityscan_cancer , @securityscan_rd , @securitydebugging")
     public void secuirtyScansCancer() {
         secuirtyScans();
     }
