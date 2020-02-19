@@ -68,7 +68,7 @@ Feature: Patient Choice Page - validations
     When the user selects the option Not applicable for the question Does the child agree to participate in research?
     Then the user should be able to see enabled continue button
     Examples:
-      | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                                                |
+      | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                      |
       | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
 
   @NTS-3378 @E2EUI-1181 @E2EUI-1752 @LOGOUT @v_1 @P0
@@ -171,6 +171,7 @@ Feature: Patient Choice Page - validations
   Scenario Outline: NTS-3385: Create referral navigation component - Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
@@ -187,6 +188,7 @@ Feature: Patient Choice Page - validations
   Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -212,5 +214,34 @@ Feature: Patient Choice Page - validations
     And the user should see patient choice submit button as disabled
     ##Include the step for clicking on Continue without providing signature and validate the warning message.
     Examples:
-      | Patient choice stage | RecordedBy         |ErrorMessage|
-      | Patient choice       | ClinicianName=John |Please complete the required field Clinician Name (Admin support user ID is optional):|
+      | Patient choice stage | RecordedBy         | ErrorMessage                                                                           |
+      | Patient choice       | ClinicianName=John | Please complete the required field Clinician Name (Admin support user ID is optional): |
+
+  @NTS-3457 @E2EUI-1667 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3457: Warn a user that they will lose their changes when navigating away from patient choice
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
+    When the user selects the option Adult (With Capacity) in patient choice category
+    Then the Patient choice category option is marked as completed
+    When the user navigates to the "<Panels>" stage
+    Then the user sees a prompt alert "<DiscardMessage>" after clicking "<Panels>" button and "<Dismiss>" it
+    And the user is navigated to a page with title Add patient choice information
+    When the user attempts to navigate away by clicking "refresh"
+    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "refresh" button and "<Dismiss>" it
+    And the user is navigated to a page with title Add patient choice information
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "logout" button and "<Dismiss>" it
+    And the user is navigated to a page with title Add patient choice information
+#    When the user attempts to navigate away by clicking "back"
+#    Then the user sees a prompt alert "<UnsavedMessage>" after clicking "backbutton" button and "<Dismiss>" it
+#    And the user is navigated to a page with title Add patient choice information
+
+    Examples:
+      | PatientChoice  | Panels | DiscardMessage                                              | Dismiss|UnsavedMessage                    |
+      | Patient choice | Panels | This section contains unsaved information. Discard changes? | Dismiss|Changes you made may not be saved |

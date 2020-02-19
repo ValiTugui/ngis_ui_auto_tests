@@ -4,7 +4,7 @@
 @FamilyMemberStageNavigation_addFM
 Feature: Family Members Navigation Stage - Member additions
 
-  @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT @BVT_P0 @v_1
+  @NTS-3295 @E2EUI-1279 @E2EUI-1362 @E2EUI-1581 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
@@ -46,7 +46,7 @@ Feature: Family Members Navigation Stage - Member additions
       | FamilyMembers  | FamilyMemberDetails                                               | ReferralColor |
       | Family members | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | #da291c       |
 
-  @NTS-3337 @E2EUI-1326 @LOGOUT @v_1 @P0
+  @NTS-3337 @E2EUI-1326 @E2EUI-1770 @LOGOUT @v_1 @P0
   Scenario Outline:NTS-3337: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1981:Gender=Male |

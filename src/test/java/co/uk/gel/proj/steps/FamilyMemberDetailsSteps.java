@@ -6,10 +6,12 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.ReferralPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import cucumber.api.java.hu.De;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -407,5 +409,52 @@ public class FamilyMemberDetailsSteps extends Pages {
         }else {
             Assert.assertFalse(testResult);
         }
+    }
+
+    @And("proband participant is displayed first in the list followed by {string}")
+    public void probandParticipantIsDisplayedFirstInTheListFollowedBy(String relationshipToProband) {
+        int indexOfProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral("Proband");
+        int indexOfRelationToProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral(relationshipToProband);
+        Debugger.println("Index of proband :: "+ indexOfProband);
+        Debugger.println("Index of relationshipToProband :: "+ relationshipToProband);
+        Assert.assertTrue(indexOfProband != -1);
+        Assert.assertTrue(indexOfRelationToProband != -1);
+        Assert.assertTrue(indexOfRelationToProband > indexOfProband);
+    }
+
+    @When("the user deselects the test for the {string}")
+    public void theUserDeselectsTheTestForThe(String relationshipToProband) {
+        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
+        // navigate from family member patient details page
+        referralPage.clickSaveAndContinueButton();
+        theUserDeselectTheSelectedTest();
+        theUserSeesTheTestRemainsUnSelected();
+        // navigate from family members selected tests page
+        referralPage.clickSaveAndContinueButton();
+        // navigate from family members clinical questions page
+        referralPage.clickSaveAndContinueButton();
+    }
+
+    @Then("the family member details on family Member landing page is shown as {string} for the participant {string}")
+    public void theFamilyMemberDetailsOnFamilyMemberLandingPageIsShownAsForTheParticipant(String testStatus, String relationToProband) {
+       if(testStatus.equalsIgnoreCase("Not being tested")) {
+           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
+       }else { // check Being tested status
+           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
+       }
+    }
+
+    @And("the user selects the test for the {string}")
+    public void theUserSelectsTheTestForThe(String relationshipToProband) {
+        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
+        // navigate from family member patient details page
+        referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(familyMemberDetailsPage.selectTheTest());
+        // navigate from family members selected tests page
+        referralPage.clickSaveAndContinueButton();
+        // navigate from family members clinical questions page
+        referralPage.clickSaveAndContinueButton();
     }
 }//end

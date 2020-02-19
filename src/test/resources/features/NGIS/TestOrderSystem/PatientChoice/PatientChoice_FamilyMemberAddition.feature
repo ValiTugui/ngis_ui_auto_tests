@@ -146,7 +146,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | Patient choice stage |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Patient choice       |
 
-  @NTS-4099 @E2EUI-1583 @E2EUI-1760 @LOGOUT @v_1 @P0
+  @NTS-3411 @E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |

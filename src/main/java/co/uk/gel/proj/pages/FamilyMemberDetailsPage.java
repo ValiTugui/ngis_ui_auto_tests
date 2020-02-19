@@ -105,7 +105,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "(//label[text()='Relationship to proband']//following::div)[1]")
     public WebElement relationshipToProbandDropdown;
 
-    @FindBy(xpath = "//div[@data-testid='notification-error']//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//div[@data-testid='notification-error']//span")
     public List<WebElement> notificationErrors;
 
     @FindBy(xpath = "//a[contains(text(),'amend the expected number of participants')]")
@@ -134,6 +134,12 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
+
+    @FindBy(css ="span[class*='child-element']")
+    List<WebElement> displayedChildElements;
+
+    @FindBy(xpath ="//button[@aria-label='edit button']")
+    WebElement editButtonForParticipant;
 
     By selectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
     By unSelectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
@@ -175,6 +181,9 @@ public class FamilyMemberDetailsPage {
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@class,'child-element')][2]")
     public WebElement beingTestedField;
+
+    @FindBy(xpath = "//span[contains(text(),'Not being tested')]")
+    public WebElement notBeingTestedField;
 
     @FindBy(xpath = "//div[contains(@class,'css-1')]/following::span[contains(@id,'dateOfBirth')]")
     public WebElement dobField;
@@ -774,6 +783,10 @@ public class FamilyMemberDetailsPage {
                     break;
                 }
             }
+            if(!isPresent){
+                Debugger.println("Expected Message:"+expMessage+" not present.");
+                SeleniumLib.takeAScreenShot("MessageNotPresent.jpg");
+            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying unmatchedParticipantErrorMessage:" + exp);
@@ -1362,4 +1375,68 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
+
+    public int getDisplayIndexOfSpecificReferral(String referralIdentifierName) {
+
+        try {
+            Wait.forElementToBeDisplayed(driver, displayedChildElements.get(0));
+            for(int i=0 ; i<  displayedChildElements.size(); i++){
+                String name = Actions.getText(displayedChildElements.get(i));
+                if(name.equalsIgnoreCase(referralIdentifierName)){
+                    return i;
+                }
+                continue;
+            }
+           return -1;
+
+        } catch (Exception exp) {
+            Debugger.println("Exception from Proband/ family member" + exp);
+            SeleniumLib.takeAScreenShot("FamilyMembersLandingPage.jpg");
+            return -1;
+        }
+    }
+
+        public boolean editFamilyMember(){
+           try {
+                Wait.forElementToBeDisplayed(driver, editButtonForParticipant);
+                Actions.clickElement(driver, editButtonForParticipant);
+                return true;
+            }catch (Exception exp) {
+               Debugger.println("Exception from editing family member" + exp);
+               SeleniumLib.takeAScreenShot("EditFamilyMember.jpg");
+               return false;
+           }
+        }
+
+    public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested() {
+        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
+        List<WebElement> expElements = new ArrayList<WebElement>();
+        expElements.add(notBeingTestedField);
+        expElements.add(dobField);
+        expElements.add(genderField);
+        expElements.add(patientChoiceStatus);
+        expElements.add(addFamilyMemberButton);
+
+        for (int i = 0; i < expElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean selectTheTest() {
+        try {
+            if (Wait.isElementDisplayed(driver, testPackageCheckBox, 10)) {
+                seleniumLib.clickOnWebElement(testPackageCheckBox);
+                return true;
+            }
+            return false;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("testSelect.jpg");
+            Debugger.println("FamilyMemberDetailsPage:selectTheTest:Exception:" + exp);
+            return false;
+        }
+    }
+
+
 }//ends

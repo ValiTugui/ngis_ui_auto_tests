@@ -253,7 +253,6 @@ public class ReferralSteps extends Pages {
 
     @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
     public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
-
         String actualAlertMessage;
         if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
@@ -799,4 +798,5 @@ public class ReferralSteps extends Pages {
         flag = referralPage.copyrightTextIsDisplayedInTheFooter();
         Assert.assertTrue(flag);
     }
+
 }

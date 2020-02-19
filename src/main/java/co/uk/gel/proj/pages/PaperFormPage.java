@@ -146,8 +146,15 @@ public class PaperFormPage {
         }
     }
 
-    public void selectRandomEntityFromSuggestionsList() {
-        Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+    public boolean selectRandomEntityFromSuggestionsList() {
+        try {
+            Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from Selecting Requesting Organization: "+exp);
+            SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+            return false;
+        }
     }
 
     public void selectFirstEntityFromSuggestionsList() {

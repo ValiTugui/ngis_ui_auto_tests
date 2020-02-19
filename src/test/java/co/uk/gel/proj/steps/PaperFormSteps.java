@@ -43,7 +43,9 @@ public class PaperFormSteps extends Pages {
 
     @And("the user selects a random entity from the suggestions list")
     public void theUserSelectsARandomEntityFromTheSuggestionsList() {
-        paperFormPage.selectRandomEntityFromSuggestionsList();
+        boolean testResult = false;
+        testResult = paperFormPage.selectRandomEntityFromSuggestionsList();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the first entity from the suggestions list")
