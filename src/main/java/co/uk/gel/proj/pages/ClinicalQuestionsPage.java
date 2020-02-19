@@ -144,6 +144,7 @@ public class ClinicalQuestionsPage {
             if(seleniumLib.isElementPresent(hpoSearchField)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
             }
+
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
@@ -297,9 +298,13 @@ public class ClinicalQuestionsPage {
                 case "PhenotypicSex": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         try {
-                            Click.element(driver, phenotypicSexDropdown);
+                            Actions.retryClickAndIgnoreElementInterception(driver,phenotypicSexDropdown);
+//                            seleniumLib.clickOnWebElement(phenotypicSexDropdown);
+//                            Actions.clickElement(driver,phenotypicSexDropdown);
+//                            Click.element(driver, phenotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                             Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            isFilled= true;
                             break;
                         } catch (Exception exp) {
                             Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
@@ -314,6 +319,7 @@ public class ClinicalQuestionsPage {
                             Click.element(driver, karyotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                             Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            isFilled= true;
                             break;
                         } catch (Exception exp) {
                             Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
