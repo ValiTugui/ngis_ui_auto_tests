@@ -29,7 +29,7 @@ public class BrowserFactory {
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
-    private final static String CHROME_DRIVER_UBUNTU = "/usr/bin/chromedriver";
+    private final static String CHROME_DRIVER_UBUNTU = "/home/kshukla1/driverforsecurity/chromedriver";
     private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
@@ -125,10 +125,10 @@ public class BrowserFactory {
 
         if (OS.equalsIgnoreCase("linux")) {
             chromeOptions.addArguments("--headless");
-            chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
+         //   chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
             chromeOptions.addArguments("disable-infobars"); // disabling infobars
-            chromeOptions.addArguments("--disable-extensions"); // disabling extensions
-            chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
+           // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
+         //   chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
             chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
             chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model
         }
