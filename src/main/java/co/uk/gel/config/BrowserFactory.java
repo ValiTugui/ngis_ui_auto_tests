@@ -74,7 +74,7 @@ public class BrowserFactory {
                     driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
                 else {
                     if (OS.indexOf("linux") >= 0) {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU );
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU , "linux" );
 
 
                     } else
@@ -96,7 +96,7 @@ public class BrowserFactory {
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
-        return createProxyDriver(type ,proxy , null );
+        return createProxyDriver(type ,proxy , path,null );
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path , String typeOfOS) {
