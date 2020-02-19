@@ -29,6 +29,7 @@ public class BrowserFactory {
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
+    private final static String CHROME_DRIVER_UBUNTU = "/usr/lib/chromium-browser/chromedriver";
     private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
@@ -70,8 +71,16 @@ public class BrowserFactory {
                   String OS = System.getProperty("os.name").toLowerCase();
                   if(OS.indexOf("win") >= 0)
                       driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
-                  else
-                driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                  else {
+                      if (OS.indexOf("linux") >= 0) {
+                          driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+
+
+                      } else
+                          driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                  }
+
+
                 //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
                 break;
             default:
