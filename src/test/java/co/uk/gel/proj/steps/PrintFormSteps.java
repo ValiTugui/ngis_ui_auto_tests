@@ -39,7 +39,7 @@ public class PrintFormSteps extends Pages {
 
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("Downloading and Verifying content for :"+memberDetails.get(i).get(0));
-                if(!printFormsPage.downloadSpecificPrintForm(i)){
+                if(!printFormsPage.downloadSpecificPrintForm(i,"RD")){
                     Debugger.println("Could not download form for "+memberDetails.get(i).get(0));
                     testResult = false;
                     continue;
@@ -53,7 +53,7 @@ public class PrintFormSteps extends Pages {
                 if(referralID != null) {
                     familyMember.setREFERAL_ID(referralID);
                  }
-                if(!printFormsPage.openAndVerifyPDFContent(familyMember)){
+                if(!printFormsPage.openAndVerifyPDFContent(familyMember,"RD")){
                     Debugger.println("Could not verify PDF content for "+memberDetails.get(i).get(0));
                     testResult = false;
                     continue;

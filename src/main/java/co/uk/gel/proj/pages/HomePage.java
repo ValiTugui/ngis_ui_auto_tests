@@ -197,11 +197,11 @@ public class HomePage {
             if(Actions.isAlertPresent(driver)){
                 Actions.acceptAlert(driver);
             }
-            driver.manage().deleteAllCookies();
+            Actions.deleteCookies(driver);
         } catch (UnhandledAlertException f) {
             try {
                 driver.switchTo().defaultContent();
-                driver.manage().deleteAllCookies();
+                Actions.deleteCookies(driver);
 
             } catch (NoAlertPresentException e) {
                 e.printStackTrace();

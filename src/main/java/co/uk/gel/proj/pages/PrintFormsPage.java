@@ -69,21 +69,24 @@ public class PrintFormsPage {
 
 
 
-    public boolean downloadSpecificPrintForm(int position){
+    public boolean downloadSpecificPrintForm(int position,String folder){
         String ngsId = "";
         try {
             //Delete if File already present
             //Debugger.println("Deleting Files if Present...");
-            TestUtils.deleteIfFilePresent("SampleForm","");
+            TestUtils.deleteIfFilePresent("SampleForm",folder);
             Wait.forElementToBeDisplayed(driver, landingPageList);
             Click.element(driver, formDownloadButtons.get(position));
+            Wait.seconds(10);
+            ///Move file to RD folder
+            TestUtils.moveDownloadedFileTo("SampleForm",folder,".pdf");
         }catch(Exception exp){
             Debugger.println("Exception from  downloading Print form :"+exp);
             return false;
         }
         return true;
     }
-    public boolean openAndVerifyPDFContent(NGISPatientModel familyMember){
+    public boolean openAndVerifyPDFContent(NGISPatientModel familyMember,String folder){
         Debugger.println("Family Member NGSID to be validated in PDF: "+familyMember.getNGIS_ID());
         String ngsId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getNGIS_ID(),"4");
         String referralId = TestUtils.insertWhiteSpaceAfterEveryNthCharacter(familyMember.getREFERAL_ID(), "4");
@@ -98,7 +101,12 @@ public class PrintFormsPage {
                 Debugger.println("Could not switch to new tab for reading print form PDF file content.");
                 return false;
             }
-            String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
+            String pathToFile = "";
+            if(folder == null || folder.isEmpty()){
+                pathToFile = defaultDownloadLocation + "SampleForm.pdf";
+            }else {
+                pathToFile = defaultDownloadLocation + folder + File.separator + "SampleForm.pdf";
+            }
             //Debugger.println("PDF file location: "+pathToFile);
             // pdf file with full path name
             driver.get("file:///" + pathToFile);
@@ -114,8 +122,7 @@ public class PrintFormsPage {
                 familyMember.setREFERAL_ID("");
             }
             output = new PDFTextStripper().getText(document);
-            if(output.contains(ngsId) &&
-                    output.contains(dob) &&
+            if(output.contains(dob) &&
                     output.contains(referralId)){
                 //Close the tab and return.
                 SeleniumLib.closeCurrentWindow();

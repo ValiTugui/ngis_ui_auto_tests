@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
+
 
 public class PatientDetailsSteps extends Pages {
 
@@ -46,7 +48,9 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -152,7 +156,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPage());
+        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow());
         Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " + "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
         Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
     }
@@ -261,7 +265,9 @@ public class PatientDetailsSteps extends Pages {
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
+        boolean flag = false;
+        flag = patientDetailsPage.patientIsCreated();
+        Assert.assertTrue(flag);
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
@@ -288,24 +294,22 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
-        Actions.clearField(patientDetailsPage.dateOfBirth);
+        Actions.clearInputField(patientDetailsPage.dateOfBirth);
     }
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
-
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
-
-        List actualFieldsErrorLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
+        List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
         List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
         List actualColourFieldErrorMessages = referralPage.getColourOfTheFieldsErrorMessagesOnCurrentPage();
         String expectedFontColorInRGB = "";
 
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
             Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0) + " count: " + i);
-            Debugger.println("Actual labelHeader " + actualFieldsErrorLabels.get(i - 1) + "\n");
-            Assert.assertTrue(actualFieldsErrorLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
+            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            Assert.assertTrue(actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
 
             Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
             Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
@@ -336,7 +340,7 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
     public void theUserFillsInAllFieldsWithoutNHSNumberEntersAReasonForNoNhsNumberAndLeavesHospitalNoFieldBlank(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
     @And("the NHS number field is displayed")
@@ -351,15 +355,15 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user fills in all fields with the NHS number and leaves HospitalNo blank")
     public void theUserFillsInAllFieldsWithTheNHSNumberAndLeavesHospitalNoBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
 
     @Then("the user fills in all fields and leaves NHS Number and HospitalNo fields blank")
     public void theUserFillsInAllFieldsAndLeavesNHSNumberAndHospitalNoFieldsBlank() {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber("N/A");
-        Actions.clearField(patientDetailsPage.hospitalNumber);
-        Actions.clearField(patientDetailsPage.nhsNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.nhsNumber);
     }
 
     @When("the user fills in the NHS Number field")
@@ -410,8 +414,15 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user deletes the content of the Ethnicity field")
     public void theUserDeletesTheContentOfTheEthnicityField() {
-        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
-        Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+        Wait.forElementToBeDisplayed(driver, patientDetailsPage.ethnicityButton);
+        if (Wait.isElementDisplayed(driver, patientDetailsPage.clearEthnicityDropDownValue, 10)) {
+            Wait.seconds(1);
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+            Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
+            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
+            Wait.seconds(1); // Wait for the error to be triggered after deleting drop-down value
+        }
+
     }
 
     @When("the selects the ethnicity as {string}")
@@ -502,11 +513,32 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user deletes data in the NHS Number field")
     public void theUserDeletesDataInTheNHSNumberField() {
-        Actions.clearField(patientDetailsPage.nhsNumber);
+        Actions.clearInputField(patientDetailsPage.nhsNumber);
     }
 
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
-        Actions.clearField(patientDetailsPage.hospitalNumber);
+        Actions.clearInputField(patientDetailsPage.hospitalNumber);
+    }
+
+    @And("the correct patient address is displayed on patient details page")
+    public void theCorrectPatientAddressIsDisplayedOnPatientDetailsPage() {
+        List<String> actualPatientAddress = patientDetailsPage.getActualPatientAddressOnPatientDetailPage();
+        List<String> expectedPatientAddress = newPatient.getPatientAddress();
+        Debugger.println("actual Patient Address :" + actualPatientAddress);
+        Debugger.println("expected Patient Address :" + expectedPatientAddress);
+        Assert.assertEquals(expectedPatientAddress,actualPatientAddress);
+    }
+
+    @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserFillsInAllTheMandatoryFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasons) {
+        patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
+
+
+    }
+
+    @And("the user fills in the HospitalNo field")
+    public void theUserFillsInTheHospitalNoField() {
+        patientDetailsPage.fillInHospitalNo();
     }
 }

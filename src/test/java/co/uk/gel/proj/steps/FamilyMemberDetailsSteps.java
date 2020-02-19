@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
@@ -120,6 +121,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberNewPatientPage.clearFieldsInFamilyMemberNewPatientPage(clearDropdown);
     }
 
+    @And("the user clicks the Add new patient to referral button")
+    public void theUserClicksTheAddNewPatientToReferralButton() {
+        familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
+    }
+
     @When("the user deselects the test")
     public void theUserDeselectTheSelectedTest() {
         familyMemberDetailsPage.deSelectTheTest();
@@ -228,7 +234,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsDetails);
         if(familyMember == null){
-            Debugger.println("FamilyMemer with NHS "+nhsDetails+" Could not found.");
+            Debugger.println("FamilyMember with NHS "+nhsDetails+" Could not found.");
             Assert.assertTrue(testResult);
         }
         testResult = referralPage.verifyGlobalPatientInformationBar(familyMember);
@@ -293,7 +299,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     @And("the family member status {string} Marked in {string}")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.testedFieldColor(testfield, color);
+        testResult = familyMemberDetailsPage.verifyTestBadgeBackgroundColor(testfield, color);
         Assert.assertTrue(testResult);
     }
 
@@ -325,10 +331,18 @@ public class FamilyMemberDetailsSteps extends Pages {
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");
-                if(nhsNumber.equalsIgnoreCase("NA")){
+                if(nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")){
                     NGISPatientModel familyMember = new NGISPatientModel();
                     familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+                    familyMember.setGENDER(paramNameValue.get("Gender"));
+                    familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+                    familyMember.setNO_NHS_REASON("Patient is a foreign national");
+                    if(paramNameValue.get("Ethnicity") != null){
+                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+                    }else{
+                        familyMember.setETHNICITY("A - White - British");
+                    }
                     patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
                     patientSearchPage.clickSearchButtonByXpath(driver);
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
@@ -338,17 +352,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
-                    familyMember.setNO_NHS_REASON("Patient is a foreign national");
-                    familyMember.setGENDER(paramNameValue.get("Gender"));
-                    familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
-                    if(paramNameValue.get("Ethnicity") != null){
-                        familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
-                    }else{
-                        familyMember.setETHNICITY("A - White - British");
+
+                    if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                        break;
                     }
-                    patientDetailsPage.createNewFamilyMember(familyMember);
-                    patientDetailsPage.patientIsCreated();
-                    Wait.seconds(5);
                     referralPage.updatePatientNGSID(familyMember);
                 }else {
                     familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
@@ -366,13 +373,20 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
                     Assert.assertTrue(false);
                 }
+                if (!referralPage.verifyThePageTitlePresence("Select tests for")) {
+                    Wait.seconds(30);//Continuos time out failures observed at this point in jenkins runs.
+                }
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
-                    Assert.assertFalse("Family Member "+memberDetails.get(i).get(0)+" Not added.",true);
+                    Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
+                    SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
-                familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2));
+                if(!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))){
+                    Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
+                    Assert.assertTrue(false);
+                }
 //                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
 //                if(familyMember.getPHENOTYPIC_SEX() == null){
 //                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender
@@ -382,6 +396,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
+                referralPage.verifyThePageTitlePresence("Add a family member to this referral");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);

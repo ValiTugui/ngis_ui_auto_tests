@@ -3,7 +3,7 @@
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_set2
 
-Feature: Family Members Navigation Stage Validation
+Feature: Family Members Navigation Stage - Patient Identifiers
 
   @NTS-3243 @E2EUI-1287 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
@@ -60,8 +60,8 @@ Feature: Family Members Navigation Stage Validation
     Then the user sees test remains as deselected
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                                               | RelationshipToProband |
-      | Family members | NHSNumber=NA:DOB=14-05-1960:Gender=Male:Relationship=Full Sibling | Full Sibling          |
+      | FamilyMembers  | FamilyMemberDetails                                               |
+      | Family members | NHSNumber=NA:DOB=14-05-1960:Gender=Male:Relationship=Full Sibling |
 
 #  @NTS-3291 @E2EUI-1604 @LOGOUT @v_1 @P0
 #  Scenario Outline: NTS-3291: Verify that Indicate family members with outstanding questions to answer

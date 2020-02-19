@@ -41,6 +41,7 @@ Feature: Samples Page
     And the Manage Samples page displays the page title and sub-titles text body
       | pageTitleHeader | subTitleHeader1                                       |
       | Manage samples  | Change existing sample details or add another sample. |
+#    Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
 
     Examples:
@@ -246,6 +247,8 @@ Feature: Samples Page
     And the success notification is displayed "<notificationText-updated>"
     And the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
     Then the new edited sample details are displayed in the edit sample page
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
@@ -282,6 +285,8 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
     Then the new sample is displayed in the landing page
     And on the Manage Samples page, the child sample's details are properly displayed in the sample table list
+    #    Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
@@ -300,7 +305,7 @@ Feature: Samples Page
     When the user clicks the Add a tumour link from the error message
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<addATumourLink>" button and "<acknowledgeMessage>" it
     Then the "<pageTitle3>" page is displayed
-#
+
     Examples:
 
       | stage   | pageTitle      | pageTitle2   | pageTitle3   | sampleType          | partOfMessage                                  | addATumourLink | acknowledgeMessage |
@@ -324,6 +329,8 @@ Feature: Samples Page
     When the user clicks the Not the right tumour link below the linked tumour details on Add a Sample page
     Then the user sees a prompt alert "<partOfMessage>" after clicking "<notTheRightTumourLink>" button and "<acknowledgeMessage>" it
     And the "<pageTitle3>" page is displayed
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | sampleType          | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
@@ -364,6 +371,8 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
     And the Add a Sample Details displays the appropriate field elements for Sample Tumour type - Sample topography, morphology, Tumour content, number of slides, collection date and sample comments
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
@@ -395,6 +404,8 @@ Feature: Samples Page
     Then the "Add notes to this referral" page is displayed
     And the "Notes" stage is selected
     But the "Samples" stage is marked "<stageStatus>"
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
 
     Examples:
@@ -420,6 +431,8 @@ Feature: Samples Page
     Then the "<pageTitle3>" page is displayed
     And the user clicks the Save and Continue button
     And the "<stage2>" stage is marked as Completed
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
@@ -506,7 +519,6 @@ Feature: Samples Page
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
@@ -568,11 +580,45 @@ Feature: Samples Page
     Then the "<pageTitle>" page is displayed
     And the success notification is displayed "Sample added"
     Then the new sample is displayed in the landing page
+#  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
+    And the Tumour description value is reset after test
 
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
+
+
+  @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
+  Scenario Outline: Samples stage (Post Edit Sample)
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state and filling SampleID
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user clicks on the Back link
+    Then the "<pageTitle4>" page is displayed
+    Then the new edited sample details are displayed in the edit sample page
+    And the user clicks the Save and Continue button
+    Then the "<pageTitle3>" page is displayed
+    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
+    And the user clicks the Save and Continue button
+    And the success notification is displayed "<notificationText>"
+    Then the "<pageTitle>" page is displayed
+    Then the new sample is displayed in the landing page
+    And on the Manage Samples page, the new sample details are displayed in the sample table list
+
+    Examples:
+
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
+
+
+
 
 
 

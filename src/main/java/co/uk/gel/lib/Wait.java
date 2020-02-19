@@ -22,6 +22,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(100, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -34,6 +35,7 @@ public class Wait {
         try{
             FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
             wait.withTimeout(seconds, TimeUnit.SECONDS);
+            wait.pollingEvery(5, TimeUnit.SECONDS);
             wait.ignoring(NoSuchElementException.class);
             wait.ignoring(StaleElementReferenceException.class);
             wait.until(ExpectedConditions.visibilityOf(element));
@@ -47,6 +49,7 @@ public class Wait {
     public static void forElementToBeDisplayed(WebDriver driver, WebElement element, int timeInSeconds) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(timeInSeconds, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.visibilityOf(element));
@@ -56,24 +59,17 @@ public class Wait {
     public static void forElementToBeClickable(WebDriver driver, WebElement element) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(50, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.elementToBeClickable(element));
-
-//        try {
-//            wait = new WebDriverWait(driver, 50);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }catch(Exception exp){
-//            Debugger.println("Exception from waiting for element to be clickable...."+element+"..Waiting for 30 more seconds...");
-//            wait = new WebDriverWait(driver, 30);
-//            wait.until(ExpectedConditions.elementToBeClickable(element));
-//        }
     }
 
     @SuppressWarnings("deprecation")
     public static void forElementToDisappear(WebDriver driver, By locator) {
         FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
         wait.withTimeout(40, TimeUnit.SECONDS);
+        wait.pollingEvery(5, TimeUnit.SECONDS);
         wait.ignoring(NoSuchElementException.class);
         wait.ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
@@ -124,5 +120,21 @@ public class Wait {
     public static void forPageToBeLoaded(WebDriver driver) {
         new WebDriverWait(driver, 30).until((ExpectedCondition<Boolean>) wd ->
                 ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
+    }
+    public static WebElement waitForByElementVisible(WebDriver driver,By element,int seconds) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, seconds);
+            final WebElement el = driver.findElement(element);
+
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
+
+                    return el.isDisplayed();
+                }
+            });
+            return el;
+        }catch(Exception exp){
+            return null;
+        }
     }
 }

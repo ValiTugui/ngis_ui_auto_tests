@@ -35,7 +35,7 @@ public class ResponsibleClinicianPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(css = "div[class*='clinician-details__intro']")
+	@FindBy(xpath = "//h1//following::p")
 	public WebElement clinicianDetails;
 
 	@FindBy(css = "div[class*='clinician-details-form__heading']")

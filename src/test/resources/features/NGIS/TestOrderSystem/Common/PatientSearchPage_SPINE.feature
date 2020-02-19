@@ -177,7 +177,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
-  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @E2EUI-1399 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -263,7 +263,7 @@ Feature: Patient search page_SPINE
 
 
   @NTS-2797 @E2EUI-2161 @v_1
-  Scenario Outline:NTS-2797:"<patient-search-type>" - User can search for a different patient after successful alternative search
+  Scenario Outline: NTS-2797:"<patient-search-type>" - User can search for a different patient after successful alternative search
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button

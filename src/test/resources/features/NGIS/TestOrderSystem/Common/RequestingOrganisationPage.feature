@@ -5,7 +5,7 @@ Feature: Requesting Organisation page
 
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_SUPER_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
   @NTS-3047 @E2EUI-1413 @E2EUI-1360 @LOGOUT @v_1 @BVT_P0
@@ -44,7 +44,6 @@ Feature: Requesting Organisation page
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
     Then the requesting organisation page has the "<title>"
-    And the requesting organisation has search label displayed
     And the user sees the search label with "<expectedText>"
     And the user sees the search field with search icon
     And the user see the search field has placeholder text as "<placeholderText>"
@@ -55,9 +54,6 @@ Feature: Requesting Organisation page
 
   @NTS-3383 @E2EUI-1415 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3383: Requesting Organisation landing page
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user should be able to see an intro message "<introMessage>" on requesting organisation page

@@ -7,18 +7,14 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 public class ClinicalQuestionsPage {
     WebDriver driver;
@@ -97,7 +93,7 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::div")
     public WebElement diagnosisField;
 
-    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//*[@class='css-19bqh2r']")
+    @FindBy(xpath = "//div[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']//div[@class='css-1hwfws3']")
     public WebElement cancelDiagnosisValue;
 
     @FindBy(css = "div[class*='error-message__text']")
@@ -126,7 +122,7 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseDiagnosisStatusDropdown;
 
-    @FindBy(css = "[class*='notification-error']")
+    @FindBy(css = "*[data-testid*='notification-error']")
     public WebElement hpoErrorNotification;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
@@ -156,7 +152,6 @@ public class ClinicalQuestionsPage {
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             // determine the total number of HPO terms
             Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, hpoTable);
             int numberOfHPO = hpoTerms.size();
             //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
@@ -174,23 +169,29 @@ public class ClinicalQuestionsPage {
         return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
     }
 
-    public String searchAndSelectARandomDiagnosis(String diagnosis) {
-        if (Actions.getText(diagnosisField).isEmpty()) {
-            Actions.fillInValue(driver, diagnosisValue, diagnosis);
+    public String searchAndSelectSpecificDiagnosis(String diagnosis) {
+        try {
+            Wait.forElementToBeDisplayed(driver, diagnosisValue);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
+                return null;
+            }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            Wait.seconds(10);
+            return Actions.getText(diagnosisField);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis.jpg");
+            return null;
         }
-        return Actions.getText(diagnosisField);
     }
 
     public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
         if (!Actions.getText(diagnosisField).isEmpty()) {
             Debugger.println(" DIAGNOSIS FIELD 1: " + diagnosisField.getText());
             diagnosisValue.click();
-            Actions.clearField(driver, diagnosisValue);
+            Actions.clearField(diagnosisValue);
             Wait.forElementToBeDisplayed(driver, cancelDiagnosisValue);
-            Wait.seconds(10);
         }
     }
 
@@ -205,9 +206,11 @@ public class ClinicalQuestionsPage {
             if(!Wait.isElementDisplayed(driver, diseaseStatusDropdown,15)){
                 Actions.scrollToTop(driver);
             }
-            Actions.clickElement(driver, diseaseStatusDropdown);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            if(!Actions.getText(diseaseStatusDropdown).equalsIgnoreCase(diseaseStatusValue)) {
+                Actions.clickElement(driver, diseaseStatusDropdown);
+                Wait.forElementToBeDisplayed(driver, dropdownValue);
+                Actions.selectValueFromDropdown(dropdownValue, diseaseStatusValue);
+            }
             return Actions.getText(diseaseStatusDropdown);
         }catch(Exception exp){
             Debugger.println("Exception from selecting Disease Status in Clinical Page: "+exp);
@@ -225,6 +228,14 @@ public class ClinicalQuestionsPage {
     public void fillInYearsOfOnset(String years) {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
         Actions.fillInValue(ageOfOnsetYearsField, years);
+    }
+    public void clearValueFromYearsOfOnset() {
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+        Actions.clearTextField(ageOfOnsetYearsField);
+    }
+    public void clearValueFromMonthsOfOnset() {
+        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+        Actions.clearTextField(ageOfOnsetMonthsField);
     }
 
     public void fillInMonthsOfOnset(String months) {
@@ -286,30 +297,36 @@ public class ClinicalQuestionsPage {
         return isFilled;
     }//method
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
-        String hpoValue = "";
-        boolean isExists = false;
-        if(!seleniumLib.isElementPresent(hpoRows)){
+        try {
+            String hpoValue = "";
+            boolean isExists = false;
+            if (!seleniumLib.isElementPresent(hpoRows)) {
+                return false;
+            }
+            Actions.scrollToTop(driver);
+            List<WebElement> rows = seleniumLib.getElements(hpoRows);
+            if (rows != null && rows.size() > 0) {
+                for (WebElement row : rows) {
+                    hpoValue = row.findElement(By.xpath("./td[1]")).getText();
+                    if (hpoValue.equalsIgnoreCase(hpoTerm)) {
+                        isExists = true;
+                        Debugger.println("Phenotype already exists:");
+                        break;//for loop
+                    }
+                }//for
+            }
+            return isExists;
+        }catch(Exception exp){
+            Debugger.println("Exception from checking whether the HPO is already considered or not: "+exp);
             return false;
         }
-        Actions.scrollToTop(driver);
-        List<WebElement> rows = seleniumLib.getElements(hpoRows);
-        if (rows != null && rows.size() > 0) {
-            for (WebElement row : rows) {
-                hpoValue = row.findElement(By.xpath("./td[1]")).getText();
-                if (hpoValue.equalsIgnoreCase(hpoTerm)) {
-                    isExists = true;
-                    Debugger.println("Phenotype already exists:");
-                    break;//for loop
-                }
-            }//for
-        }
-        return isExists;
+
     }
 
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {
             Wait.seconds(5);
-            seleniumLib.sendValue(hpoSearchField, "Nephritis");
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField, "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
             int i = 0;

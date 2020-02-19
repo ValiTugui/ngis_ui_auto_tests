@@ -278,8 +278,7 @@ public class FamilyMemberSearchPage {
                 }
                 case "Gender": {
                     if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        genderButton.click();
-                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                        selectFamilyMemberGender(genderButton,paramNameValue.get(key));
                     }
                     break;
                 }
@@ -290,10 +289,27 @@ public class FamilyMemberSearchPage {
                     }
                     break;
                 }
+
             }//switch
         }//for
         seleniumLib.clickOnWebElement(searchButton);
     }//method
+    public void selectFamilyMemberGender(WebElement element, String optionValue){
+        WebElement ddValue = null;
+        try {
+            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            Wait.seconds(2);
+            List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='gender']/..//div//span[text()='"+optionValue+"']"));
+            if(ddElements.size() > 0) {
+                Wait.forElementToBeClickable(driver, ddElements.get(0));
+                Actions.clickElement(driver, ddElements.get(0));
+                Wait.seconds(2);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception in selecting FamilyMember Gender in Search Page: "+exp);
+            SeleniumLib.takeAScreenShot("FMSearchGenderDropDown.jpg");
+        }
+    }
 
     public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
         try {
@@ -328,15 +344,19 @@ public class FamilyMemberSearchPage {
     }
 
     public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
+        String actualMessage = "";
         try {
-            String actualMessage = familyMemeberFound.getText();
-            if (!resultMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + resultMessage + ", but Actual Message: " + actualMessage);
-                return false;
+            if(Wait.isElementDisplayed(driver,familyMemeberFound,30)) {
+                 actualMessage = familyMemeberFound.getText();
+                if (resultMessage.equalsIgnoreCase(actualMessage)) {
+                    return true;
+                }
             }
-            return true;
+            Debugger.println("Family member search result not displayed as expected:" + resultMessage + ", but actual: " + actualMessage);
+            SeleniumLib.takeAScreenShot("FMSearchResult.jpg");
+            return false;
         }catch(Exception exp){
-            Debugger.println("Exception from validating result Message "+exp);
+            Debugger.println("Exception from validating family member search result:"+exp);
             return false;
         }
     }

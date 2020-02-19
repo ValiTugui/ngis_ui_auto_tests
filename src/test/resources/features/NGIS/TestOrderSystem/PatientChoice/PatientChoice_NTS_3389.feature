@@ -1,6 +1,7 @@
 @regression
-@PatientChoice
-Feature: Patient Choice Page
+@patientChoice
+@patientChoice_nts_3389
+Feature: Patient Choice Category - Adult (With Capacity)
 
   @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
@@ -52,7 +53,7 @@ Feature: Patient Choice Page
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available.|
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
-  Scenario: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
+  Scenario Outline: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
     When the user is in the section Patient choices
@@ -70,9 +71,13 @@ Feature: Patient Choice Page
     And the user should see selected details displayed under the section Patient choices
       | Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?::Patient conversation happened; form to follow |
     When the user is in the section Review and submit
-    ##Then the user will see a warning message "<WarningMessage2>"
+    Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
+
+    Examples:
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
   Scenario Outline: NTS-3389: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
@@ -186,5 +191,7 @@ Feature: Patient Choice Page
       | The patient agrees that their data and samples may be used for research, separate to NHS care.::Yes                                                       |
     When the user is in the section Patient signature
     And the user fills PatientSignature details in patient signature
-    And the user should see patient choice submit button as enabled
+    Then the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
+
+    ##E2EUI-2039: Scenario 6 is covered with above scenarios

@@ -31,9 +31,6 @@ public class PatientChoiceSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if (memberDetails.size() < noOfParticipants) {
-                Debugger.println("No of Participants mentioned and details provided are not matching.");
-            }
             for (int i = 1; i < memberDetails.size(); i++) {
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
@@ -41,11 +38,13 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
+                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.selectDefaultPatientChoices());
+                patientChoicePage.selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
+                patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
@@ -53,6 +52,7 @@ public class PatientChoiceSteps extends Pages {
                     patientChoicePage.clickOnContinue();
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
+                    //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
                     patientChoicePage.drawSignature();
                 }
                 if (!patientChoicePage.submitPatientChoice()) {
@@ -73,10 +73,11 @@ public class PatientChoiceSteps extends Pages {
         patientChoicePage.selectMember(1);
     }
 
-    @And("the user sees the patient choice status as {string}")
+    @And("the user sees the patient choice status for proband as (.*)")
     public void theUserSeesThePatientChoiceStatus(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifyPatientChoiceStatus(status);
+        //For proband he index will be 0
+        testResult = patientChoicePage.verifyPatientChoiceStatus(status, 0);
         Assert.assertTrue(testResult);
     }
 
@@ -99,7 +100,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.selectPatientChoiceCategory(inputData);
         Assert.assertTrue(testResult);
-        Wait.seconds(3);
     }
     @When("the user selects the option (.*) in section (.*)")
     public void theUserSelectsThe(String option,String section) {
@@ -182,6 +182,13 @@ public class PatientChoiceSteps extends Pages {
        Assert.assertTrue(testResult);
     }
 
+    @And("the user will see a notification warning message {string}")
+    public void theUserWillSeeANotificationWarningMessage(String warningMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyNotificationWarning(warningMessage);
+        Assert.assertTrue(testResult);
+    }
+
     @When("the user clicks on edit button in (.*)")
     public void theUserClicksOnEditButton(String category) {
         patientChoicePage.clickOnEditButton(category);
@@ -238,11 +245,11 @@ public class PatientChoiceSteps extends Pages {
     @And("the user should see patient choice submit button as (.*)")
     public void theUserShouldBeAbleToSeeTheHighlightedSubmitPatientChoiceButton(String status) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus();
+        testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus("#f0f0f0");
         if(status.equalsIgnoreCase("enabled")){
-            Assert.assertTrue(testResult);
-        }else {
             Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
         }
     }
 
@@ -314,7 +321,6 @@ public class PatientChoiceSteps extends Pages {
     }
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
-
         patientChoicePage.selectPatientChoiceCategory();
         Wait.seconds(2);
         patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
@@ -325,7 +331,6 @@ public class PatientChoiceSteps extends Pages {
         Wait.seconds(2);
         patientChoicePage.drawSignature();
         Wait.seconds(2);
-
     }
 
     @Then("the help text is displayed")
@@ -382,6 +387,13 @@ public class PatientChoiceSteps extends Pages {
     public void theUserFillsDetailsForSignature(String signatureDetails) {
         boolean testResult = false;
         testResult = patientChoicePage.fillTheSignatureDetails(signatureDetails);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to clear the signature")
+    public void theUserShouldBeAbleToClearTheSignature() {
+        boolean testResult = false;
+        testResult = patientChoicePage.clearTheSignature();
         Assert.assertTrue(testResult);
     }
 
@@ -447,4 +459,108 @@ public class PatientChoiceSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+    @And("^the following optional fields should be displayed in patient choice section$")
+    public void theOptionalFieldInPatientChoice(DataTable messages) {
+        boolean testResult = false;
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            testResult = patientChoicePage.verifyOptionalFieldPresence(messageDetails.get(i).get(0));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees the specified error messages for unsupported file uploads")
+    public void theUserSelectsFileToBeUploadedFrom(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> uploadFiles = inputDetails.asLists();
+        String fileName = "";
+        String errorMessage = "";
+        for (int i = 1; i < uploadFiles.size(); i++) {
+            fileName = uploadFiles.get(i).get(0);
+            errorMessage = uploadFiles.get(i).get(1);
+            testResult = patientChoicePage.verifyInvalidFileUploadMessages(fileName, errorMessage);
+            Assert.assertTrue(testResult);
+            Wait.seconds(2);//Just waiting for 2 seconds between each upload
+        }
+    }
+    @And("the file type dropdown options loaded with below details")
+    public void theFileTypeDropdownOptions(DataTable inputDetails) {
+        boolean testResult = false;
+        List<String> fileTypes = inputDetails.asList();
+        testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes);
+        Assert.assertTrue(testResult);
+    }
+    @And("the Date of Signature fields are displayed as {string}")
+    public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
+        boolean testResult = false;
+        testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection();
+        if (expStatus.equals("enabled")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
+    @And("the user selects (.*) from dropdown option in recorded by")
+    public void theUserSelectsFromDropdownOptionInRecordedBy(String dropdownValue) {
+        boolean testResult = false;
+        testResult = patientChoicePage.selectUploadFormType(dropdownValue);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user fills current date as Date of Signature")
+    public void theUserFillsTheValidDateIn() {
+        boolean testResult = false;
+        testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees a success message after form upload in recorded by as {string}")
+    public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user will see a {string} message on upload section")
+    public void theUserWillSeeAMessageOnUploadSection(String message) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadMessage(message);
+        Assert.assertTrue(testResult);
+    }
+    @When("the user clicks the Save and Continue button on the patient choice")
+    public void theUserClicksTheSaveAndContinueButtonOnThe() {
+        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+
+    }
+    @And("the user sees the patient choice status for family member (.*) as (.*)")
+    public void theFamilyMemberPatientChoice(String familyNumber, String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyPatientChoiceStatus(status, Integer.parseInt(familyNumber));
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the test badge status for family member as (.*)")
+    public void theFamilyMemberTestBadge(String status) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyFamilyMemberTestBadge(status);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on patient choice status link for family member (.*)")
+    public void clickOnFamilyMemberPatientChoice(String familyNumber) {
+        boolean testResult = false;
+        testResult = patientChoicePage.clickOnPatientChoiceStatusLink(Integer.parseInt(familyNumber));
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should able to see TO DO list even after clicking the Save and Continue button")
+    public void theUserShouldAbleToSeeTODOListEvenAfterClickingTheSaveAndContinueButton() {
+        boolean testResult = false;
+        testResult = referralPage.checkThatToDoListSuccessfullyLoaded();
+        if (!testResult) {
+            SeleniumLib.takeAScreenShot("ToDoList.jpg");
+            Assert.assertFalse("ToDoList in Referral Page is not loaded after PC submitting Patient Choice..", true);
+        }
+        Assert.assertTrue(testResult);
+    }
+
 }//end

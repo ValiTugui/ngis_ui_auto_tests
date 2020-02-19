@@ -48,6 +48,11 @@ public class ReferralSteps extends Pages {
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
         referralPage.navigateToStage(stage);
+        //Introduced this as a trial as many times the failures observed in FamilyMembers Page as Title is not loaded.
+        //Will be removing later, if this wont help, lets pls keep it for couple of runs from Jenkins
+        if(stage.equalsIgnoreCase("Family members")){
+            Wait.seconds(5);
+        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -170,6 +175,9 @@ public class ReferralSteps extends Pages {
 
     @And("the {string} stage is marked as Completed")
     public void theStageIsMarkedAsCompleted(String stage) {
+        // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
+        // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
+        Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
             if (!testResult) {
@@ -432,15 +440,28 @@ public class ReferralSteps extends Pages {
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
+        boolean flag = false;
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
+                //Ensure all the fields are correctly populated without any error shown on patient details page
+                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+
             }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters != null) {
                 patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
+                //Ensure all the fields are correctly populated without any error shown on patient details page
+                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageSuperUserFlow();
             }
         } else {
             patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
+            flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+        }
+        if(!flag){
+            // Navigate to top of page
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
+            Assert.assertTrue(false);
         }
         patientDetailsPage.clickSavePatientDetailsToNGISButton();
         patientDetailsPage.patientIsCreated();
@@ -467,8 +488,10 @@ public class ReferralSteps extends Pages {
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
-        String actualReferralStatus = referralPage.getReferralStatus();
-        Assert.assertTrue(actualReferralStatus.contains(expectedReferralStatus));
+        boolean testResult  = false;
+        testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
+        Assert.assertTrue(testResult);
+
     }
 
     @Then("the submission confirmation message {string} is displayed")
@@ -642,6 +665,7 @@ public class ReferralSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
     @And("the blank mandatory field labels highlighted in red color")
     public void theBlankMandatoryFieldsHighlightedInRedColor(DataTable fields) {
         boolean testResult = false;
@@ -690,5 +714,20 @@ public class ReferralSteps extends Pages {
         String actualBornInReferralHeader = Actions.getText(referralPage.referralHeaderBorn);
         Debugger.println("actualDOBAndAgeBornFormat " + actualBornInReferralHeader);
         Assert.assertEquals(expectedBornFormat,actualBornInReferralHeader);
+    }
+
+    @Then("the user is successfully logged out")
+    public void theUserIsSuccessfullyLoggedOut() {
+        String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
+        String expectedPageSourceTitle = "Sign out";
+        Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
+        Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
+    }
+
+    @And("the page url address contains the directory-path web-page {string}")
+    public void thePageUrlAddressContainsTheDirectoryPathWebPage(String directoryPath) {
+        boolean flag = false;
+        flag = referralPage.verifyTheCurrentURLContainsTheDirectoryPathPage(directoryPath);
+        Assert.assertTrue(flag);
     }
 }

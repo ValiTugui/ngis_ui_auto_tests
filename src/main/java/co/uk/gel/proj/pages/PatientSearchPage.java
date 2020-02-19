@@ -223,6 +223,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         try {
+            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
             Wait.forElementToBeClickable(driver, searchButtonByXpath);
             Actions.retryClickAndIgnoreElementInterception(driver, searchButtonByXpath);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -243,6 +244,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
+        Actions.deleteCookies(driver);
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
@@ -275,6 +277,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystem(WebDriver driver, String userType) {
         try {
+            Actions.deleteCookies(driver);
             Wait.forElementToBeDisplayed(driver,emailAddressField,20);
             if(!Wait.isElementDisplayed(driver,emailAddressField,10)){
                 Debugger.println("Email Address Field is not displayed even after the waiting period.");
@@ -405,13 +408,13 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
 
         Wait.forElementToBeDisplayed(driver, nhsNumber);
-        Actions.clearField(nhsNumber);  //nhsNumber.clear();
+        Actions.clearInputField(nhsNumber);  //nhsNumber.clear();
         nhsNumber.sendKeys(nhsNo);
-        Actions.clearField(dateDay);
+        Actions.clearInputField(dateDay);
         dateDay.sendKeys(dayOfBirth);
-        Actions.clearField(dateMonth);
+        Actions.clearInputField(dateMonth);
         dateMonth.sendKeys(monthOfBirth);
-        Actions.clearField(dateYear);
+        Actions.clearInputField(dateYear);
         dateYear.sendKeys(yearOfBirth);
     }
 
@@ -542,31 +545,34 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 case "DOB": {
                     String dobValue = paramNameValue.get(key);
                     String[] dobSplit = dobValue.split("-");
-                    Actions.clearField(dateDay);
+                    Actions.clearInputField(dateDay);
+                    Wait.seconds(1);
                     dateDay.sendKeys(dobSplit[0]);
-                    Actions.clearField(dateMonth);
+                    Actions.clearInputField(dateMonth);
+                    Wait.seconds(1);
                     dateMonth.sendKeys(dobSplit[1]);
-                    Actions.clearField(dateYear);
+                    Actions.clearInputField(dateYear);
+                    Wait.seconds(1);
                     dateYear.sendKeys(dobSplit[2]);
                     break;
                 }
                 case "FirstName": {
-                    Actions.clearField(firstName);
+                    Actions.clearTextField(firstName);
                     firstName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "LastName": {
-                    Actions.clearField(lastName);
+                    Actions.clearTextField(lastName);
                     lastName.sendKeys(paramNameValue.get(key));
                     break;
                 }
                 case "Gender": {
-                    genderButton.click();
+                    Actions.retryClickAndIgnoreElementInterception(driver,genderButton);
                     genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
                     break;
                 }
                 case "Postcode": {
-                    Actions.clearField(postcode);
+                    Actions.clearTextField(postcode);
                     postcode.sendKeys(paramNameValue.get(key));
                     break;
                 }
@@ -646,7 +652,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
 
         // Find elements
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(pageTitle);
         expectedElements.add(pageDescription);
@@ -672,7 +678,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
 
-        Wait.forElementToBeDisplayed(driver, searchButtonByXpath);
+        Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
 
         expectedElements.add(pageTitle);
@@ -877,7 +883,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public String getPatientSearchNoResult() {
         String noResultText;
         try {
-            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel);
+            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,120);
             noResultText = Actions.getText(noPatientFoundLabel);
             Debugger.println("No result " + noResultText);
             return noResultText;
@@ -917,7 +923,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         lastName.sendKeys(newPatient.getLastName());
         Click.element(driver, genderButton);
         Click.element(driver, genderValue.findElement(By.xpath("//span[text()='" + editedGender + "']")));
-        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
+        Debugger.println(" New patient search details " + newPatient.getFirstName() + " " + newPatient.getLastName() + " " + newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear());
     }
 
 

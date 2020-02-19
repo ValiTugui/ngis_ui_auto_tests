@@ -35,6 +35,7 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
 
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
@@ -601,7 +602,8 @@ public class SeleniumLib {
             }
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(screenshot, new File(filename));
+
+            FileUtils.copyFile(screenshot, new File(defaultSnapshotLocation+filename));
 
         }catch(Exception exp){
 

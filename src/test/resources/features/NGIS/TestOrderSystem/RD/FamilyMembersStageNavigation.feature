@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_set1
-Feature: Family Members Navigation Stage Validation
+Feature: Family Members Navigation Stage - Member additions
 
   @NTS-3295 @E2EUI-1279 @E2EUI-1362 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout
@@ -18,7 +18,7 @@ Feature: Family Members Navigation Stage Validation
     And subtitle of the page displayed as Tested family members you add here will be visible in the pedigree.
     And subtitle links as add non-tested family members
     ##Added patient details on landing page covered in below step
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    And the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=12-03-1942:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 

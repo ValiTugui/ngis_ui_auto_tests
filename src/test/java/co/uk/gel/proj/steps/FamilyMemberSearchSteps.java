@@ -93,7 +93,7 @@ public class FamilyMemberSearchSteps extends Pages {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchDetails);
         //Verify whether the search with or without NHS
         String nhsNumber = paramNameValue.get("NHSNumber");
-        if(nhsNumber.equalsIgnoreCase("NA")){
+        if(nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")){
             NGISPatientModel familyMember = new NGISPatientModel();
             familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
             familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
@@ -116,9 +116,9 @@ public class FamilyMemberSearchSteps extends Pages {
             }else{
                 familyMember.setETHNICITY("A - White - British");
             }
-            patientDetailsPage.createNewFamilyMember(familyMember);
-            patientDetailsPage.patientIsCreated();
-            Wait.seconds(5);
+            if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                return;
+            }
             referralPage.updatePatientNGSID(familyMember);
         }else {
             familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);

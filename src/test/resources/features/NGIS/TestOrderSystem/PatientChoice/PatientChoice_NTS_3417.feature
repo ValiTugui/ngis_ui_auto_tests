@@ -1,8 +1,9 @@
 @regression
-@PatientChoice
-Feature: Patient Choice Page
+@patientChoice
+@patientChoice_nts_3417
+Feature: Patient Choice Category - Adult (Without Capacity)
 
-  @NTS-3417 @E2EUI-2040 @E2EUI-1450 @v_1 @P0
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @E2EUI-1450 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -24,9 +25,9 @@ Feature: Patient Choice Page
 
     Examples:
       | PatientChoiceStage | RecordedBy                            |
-      | Patient choice     | ClinicianName=John:HospitalNumber=123 |
+      | Patient choice     | ClinicianName=John |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_1
   Scenario Outline: NTS-3417: scenario 1 - Editing Patient choice for an Adult (without capacity)
     When the user is in the section Patient choices
     Then the user should see the question displayed as Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?
@@ -66,7 +67,7 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Review and submit
-#    Then the user will see a warning message "<WarningMessage2>"
+    Then the user will see a warning message "<WarningMessage2>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
@@ -74,7 +75,7 @@ Feature: Patient Choice Page
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(a)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_1(a)
   Scenario Outline: NTS-3417: scenario 1(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
@@ -94,15 +95,15 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Review and submit
-#    Then the user will see a warning message "<WarningMessage>"
+    Then the user will see a warning message "<WarningMessage>"
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
-      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_1(b)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_1(b)
   Scenario Outline: NTS-3417: scenario 1(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     Then the user should see the question displayed as I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity
@@ -127,10 +128,10 @@ Feature: Patient Choice Page
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
-      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_2
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_2
   Scenario Outline: NTS-3417: scenario 2 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -157,7 +158,7 @@ Feature: Patient Choice Page
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_3
   Scenario Outline: NTS-3417: scenario 3 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -214,7 +215,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    And the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -223,7 +231,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(a)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_3(a)
   Scenario Outline: NTS-3417: scenario 3(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -244,7 +252,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -253,7 +268,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_3(b)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_3(b)
   Scenario Outline: NTS-3417: scenario 3(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -274,7 +289,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -283,7 +305,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_4
   Scenario Outline: NTS-3417: scenario 4 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -338,7 +360,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -347,7 +376,7 @@ Feature: Patient Choice Page
       | Consultee signature                | WarningMessage                                                                                                                                                      |
       | FirstName=WILTON:LastName=BRITTAIN | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_4(a)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_4(a)
   Scenario Outline: NTS-3417: scenario 4(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -368,7 +397,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -377,7 +413,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @LOGOUT @v_1 @P0 @scenario_4(b)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @LOGOUT @v_1 @P0 @scenario_4(b)
   Scenario Outline: NTS-3417: scenario 4(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -398,7 +434,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -408,7 +451,7 @@ Feature: Patient Choice Page
       | FirstName=WILTON:LastName=BRITTAIN |
 
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0
   Scenario Outline: NTS-3417: Pre-Req:Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -432,7 +475,7 @@ Feature: Patient Choice Page
       | PatientChoiceStage | RecordedBy                            |
       | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_5
   Scenario Outline: NTS-3417: scenario 5 - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -486,7 +529,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -495,7 +545,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @v_1 @P0 @scenario_5(a)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0 @scenario_5(a)
   Scenario Outline: NTS-3417: scenario 5(a) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -516,7 +566,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
@@ -525,7 +582,7 @@ Feature: Patient Choice Page
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @E2EUI-2040 @LOGOUT @v_1 @P0 @scenario_5(b)
+  @NTS-3417 @E2EUI-2040 @E2EUI-1060 @LOGOUT @v_1 @P0 @scenario_5(b)
   Scenario Outline: NTS-3417: scenario 5(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
     When the user is in the section Consultee attestation
@@ -546,7 +603,14 @@ Feature: Patient Choice Page
     And the user clicks on Continue Button
     Then the Consultee attestation option is marked as completed
     When the user is in the section Consultee signature
-    ##Check for the mandatory field and clear.......
+    And the mandatory fields in patient choice shown with the symbol in red color
+      | mandatory_field      | field_type | symbol | symbol color |
+      | Consultee first name | label      | ✱      | #dd2509      |
+      | Consultee last name  | label      | ✱      | #dd2509      |
+    When the user fills "<Consultee signature>" details for signature
+    And the user should see patient choice submit button as enabled
+    When the user should be able to clear the signature
+    Then the user should see patient choice submit button as disabled
     When the user fills "<Consultee signature>" details for signature
     And the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled

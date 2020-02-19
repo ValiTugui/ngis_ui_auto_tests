@@ -3,32 +3,43 @@
 @patientSearchNGIS
 Feature: Patient search page_NGIS
 
-  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the "<stage>" stage is marked as Completed
-    When the user navigates back to patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    Then the NHS number field is displayed
+    When the user fills in all the fields with NHS number on the New Patient page
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    When the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned
     And the correct details of the "<patient-search-type>" patient are displayed in the card
+
     Examples:
-      | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | pageTitle                         | pageTitle2        | patient-search-type | patient-type |
+      | Add a new patient to the database | Find your patient | NGIS                | NGIS         |
 
 
   @NTS-3068 @E2EUI-1182 @v_1 @LOGOUT
-  Scenario Outline: NTS-3068:Verifying the Patient Details page after successful search for "<patient-type>" patient
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the "<stage>" stage is marked as Completed
-    When the user navigates back to patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+  Scenario Outline: NTS-3068: Verifying the Patient Details page after successful search for "<patient-type>" patient
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    Then the NHS number field is displayed
+    When the user fills in all the fields with NHS number on the New Patient page
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    When the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
     And the user clicks the Search button
@@ -37,28 +48,33 @@ Feature: Patient search page_NGIS
     Then the Patient Details page is displayed
 
     Examples:
-      | stage           | patient-type |
-      | Patient details | NGIS         |
+      | pageTitle                         | pageTitle2        | patient-type |
+      | Add a new patient to the database | Find your patient | NGIS         |
 
   @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2796:patient search - Patient Search Results Page validation
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the "<stage>" stage is marked as Completed
-    When the user navigates back to patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    Then the NHS number field is displayed
+    When the user fills in all the fields with NHS number on the New Patient page
+    When the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    When the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then The patient record is displayed with a heading of "<result_message>"
 
     Examples:
-      | stage           | result_message         |
-      | Patient details | 1 patient record found |
+      | pageTitle                         | pageTitle2        | result_message         |
+      | Add a new patient to the database | Find your patient | 1 patient record found |
 
 
-  @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, and gender
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -73,7 +89,7 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
   @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, gender and post-code
@@ -90,7 +106,7 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
 
   @NTS-2822 @E2EUI-2140 @E2EUI-2132 @E2EUI-2131 @v_1 @LOGOUT
@@ -108,11 +124,11 @@ Feature: Patient search page_NGIS
     And the correct details of the "<patient-search-type>" patient are displayed in the card
     Examples:
       | stage           | patient-search-type | patient-type |
-      | Patient details | New-NGIS            | NGIS         |
+      | Patient details | NGIS                | NGIS         |
 
 
     @NTS-4503 @E2EUI-1130 @v_1 @LOGOUT
-  Scenario Outline: Patient search - NHSNumber field - maximum length validation
+  Scenario Outline: NTS-4503-Patient search - NHSNumber field - maximum length validation
       Given a web browser is at the patient search page
         | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
       When the user attempts to fill in the NHS Number "<NHSNumber>" with data that exceed the maximum data allowed 10
