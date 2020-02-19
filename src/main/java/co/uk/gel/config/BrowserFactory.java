@@ -37,6 +37,7 @@ public class BrowserFactory {
     private Spider zapSpider;
     private final static String CHROME = "chrome";
     private final static String FIREFOX = "firefox";
+    private String OS = null;
 
 
     public WebDriver getDriver() {
@@ -68,17 +69,17 @@ public class BrowserFactory {
                 zapScanner.clear(); //Start a new session
                 zapSpider = (Spider) zapScanner;
                 Debugger.println("Created client to ZAP API");
-                  String OS = System.getProperty("os.name").toLowerCase();
-                  if(OS.indexOf("win") >= 0)
-                      driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
-                  else {
-                      if (OS.indexOf("linux") >= 0) {
-                          driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU);
+                OS = System.getProperty("os.name").toLowerCase();
+                if (OS.indexOf("win") >= 0)
+                    driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
+                else {
+                    if (OS.indexOf("linux") >= 0) {
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU);
 
 
-                      } else
-                          driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
-                  }
+                    } else
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                }
 
 
                 //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
@@ -93,23 +94,45 @@ public class BrowserFactory {
         driver.manage().window().maximize();
         return driver;
     }
+
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
         if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
         else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
-        throw new RuntimeException("Unknown WebDriver browser: "+type);
+        throw new RuntimeException("Unknown WebDriver browser: " + type);
     }
 
-    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
+    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
+
+        System.out.printf("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-certificate-errors");
-        //  chromeOptions.addArguments("--headless");
         System.setProperty("webdriver.chrome.driver", path);
+
+        if (OS.equalsIgnoreCase("linux")) {
+            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
+            chromeOptions.addArguments("disable-infobars"); // disabling infobars
+            chromeOptions.addArguments("--disable-extensions"); // disabling extensions
+            chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
+            chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model
+        }
+
+
+        //  chromeOptions.addArguments("--headless");
+
         if (capabilities != null) {
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
             return new ChromeDriver(capabilities);
         } else return new ChromeDriver();
+
+    }
+
+    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
+
+       return createChromeDriver(capabilities, path, "linux");
 
     }
 
