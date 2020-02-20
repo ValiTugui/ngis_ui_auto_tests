@@ -79,7 +79,7 @@ public class PatientChoiceSteps extends Pages {
             for (int i = 1; i < memberDetails.size(); i++) {//First line is title
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(3)));
+                Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2)));
                 Wait.seconds(5);//After submitting PC
                 patientChoicePage.clickOnSaveAndContinueButton();
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
