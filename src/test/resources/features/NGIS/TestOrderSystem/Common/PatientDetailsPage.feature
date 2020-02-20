@@ -467,7 +467,8 @@ Feature: Patient details page
    @NTS-4565 @LOGOUT @v_1 @E2EUI-1582
   Scenario Outline: NTS-4565- New Patient Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
      Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |And the user navigates to the "<stage>" stage
+       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+     And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
      And the page url address contains the directory-path web-page "<directoryPathPage>"

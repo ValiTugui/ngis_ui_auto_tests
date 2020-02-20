@@ -130,4 +130,12 @@ Feature: This is a referral feature
     And the copyright text is displayed in the footer of Test Ordering
 
 
+  @LOGOUT @NTS-4689 @PO @v_1 @E2EUI-1152
+  Scenario Outline: Patient Search - Show user account information in Test Order Management System
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    And the username "<userType>" is displayed in the header of Test Ordering
 
+    Examples:
+      | userType        |
+      | GEL_NORMAL_USER |
