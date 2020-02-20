@@ -1770,11 +1770,12 @@ public class PatientChoicePage {
                 selectPatientSignature();
                 submitPatientChoice();
             }else if(category.equalsIgnoreCase("Child")){
-                selectOptionForQuestion("Parent(s) / guardian changed their mind about the clinical test","Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                selectOptionForQuestion("Parent(s) / guardian have agreed to the test","Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 selectOptionForQuestion("Yes","Has research participation been discussed?");
                 selectOptionForQuestion("Yes","The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.");
                 clickOnContinue();
                 selectOptionForQuestion("Yes","Does the child agree to participate in research?");
+                selectPatientSignature();
                 clickOnContinue();
                 submitPatientChoice();
             }else if(category.equalsIgnoreCase("Adult (Without Capacity)")){
