@@ -5,6 +5,7 @@ import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import org.junit.Assert;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static co.uk.gel.lib.Actions.getText;
 
 public class ReferralPage<check> {
 
@@ -169,6 +172,30 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
     public List<WebElement> clearDropDownValue;
+
+    @FindBy(xpath = "//*[contains(@class,'header')]//p")    //*[contains(@class,'header')]//child::a
+    public WebElement genomicMedicineServicelogo;
+
+    @FindBy(xpath = "//*[contains(@class,'header')]//span[contains(@class,'css-d8n')]")
+    public WebElement userName;
+
+    @FindBy(xpath = "//*[contains(@href,'signout')]//following::div")
+    public WebElement nhsEnglandLogoFromHeader;
+
+    @FindBy(css = "svg[aria-labelledby*='nhsTitle']")
+    public WebElement nhsEnglandLogoFromFooter;
+
+    @FindBy(css = "svg[aria-labelledby*='genomicsEnglandTitle']")
+    public WebElement genomicsEnglandLogoFromFooter;
+
+    @FindBy(css = "*[href*='jiraservicedesk']")
+    public WebElement footerServiceDeskLink;
+
+    @FindBy(css = "*[href*='privacy-policy']")
+    public WebElement footerPrivacyPolicyLink;
+
+    @FindBy(xpath = "//span[text()='Clinical content is © NHS England']")
+    public WebElement footerCopyrightText;
 
 
     String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
@@ -482,7 +509,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if(Wait.isElementDisplayed(driver, pageTitle, 10)) {
+            if(Wait.isElementDisplayed(driver, pageTitle, 30)) {
                 return Actions.getText(pageTitle);
             }
             SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
@@ -984,5 +1011,131 @@ public class ReferralPage<check> {
         }
     }
 
+    public String getGenomicMedicineServiceLogoInHeader() {
+        Wait.forElementToBeDisplayed(driver, genomicMedicineServicelogo);
+        return getText(genomicMedicineServicelogo);
+    }
+
+    public String getExpectedUserLoginEmailAddress(String userType) {
+        String userEmailAddress = "";
+        if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
+            userEmailAddress = AppConfig.getApp_username();
+        } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
+            userEmailAddress = AppConfig.getApp_superUsername();
+        }
+        return userEmailAddress;
+    }
+
+    public String getActualLoginUserName(){
+        Wait.forElementToBeDisplayed(driver, userName);
+        return getText(userName);
+    }
+
+    public String getActualLogoutText(){
+        Wait.forElementToBeDisplayed(driver, logoutButton);
+        return getText(logoutButton);
+    }
+
+    public boolean nhsEnglandLogoIsDisplayedInHeader() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsEnglandLogoFromHeader);
+            if (Wait.isElementDisplayed(driver, nhsEnglandLogoFromHeader, 10)) {
+                Debugger.println("NhsEngland logo is visible");
+                return true;
+            } else {
+                Debugger.println("element not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("nhsEngland logo is not displayed");
+            SeleniumLib.takeAScreenShot("NhsEnglandLogoHeaderNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean nhsEnglandLogoIsDisplayedInFooter() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsEnglandLogoFromFooter);
+            if (Wait.isElementDisplayed(driver, nhsEnglandLogoFromFooter, 10)) {
+                Debugger.println("NhsEngland logo is visible");
+                return true;
+            } else {
+                Debugger.println("element not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("nhsEngland logo is not displayed");
+            SeleniumLib.takeAScreenShot("NhsEnglandLogoFooterNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean genomicsEnglandLogIsDisplayedInFooter() {
+        try {
+            Wait.forElementToBeDisplayed(driver, genomicsEnglandLogoFromFooter);
+            if (Wait.isElementDisplayed(driver, genomicsEnglandLogoFromFooter, 10)) {
+                Debugger.println("genomicsEngland logo is visible");
+                return true;
+            } else {
+                Debugger.println("element not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("Genomics England logo is not displayed");
+            SeleniumLib.takeAScreenShot("GenomicsEnglandLogoNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean serviceDeskReportAndIssueIsDisplayedInTheFooter() {
+        try {
+            Wait.forElementToBeClickable(driver, footerServiceDeskLink);
+            if (Wait.isElementDisplayed(driver, footerServiceDeskLink, 10)) {
+                Debugger.println("Report an issue or provide feedback text link is visible");
+                return true;
+            } else {
+                Debugger.println("Report an issue or provide feedback text  not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("Report an issue or provide feedback text is not displayed");
+            SeleniumLib.takeAScreenShot("ServiceDeskLinkNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean privacyPolicyIsDisplayedInTheFooter() {
+        try {
+            Wait.forElementToBeClickable(driver, footerPrivacyPolicyLink);
+            if (Wait.isElementDisplayed(driver, footerPrivacyPolicyLink, 10)) {
+                Debugger.println("privacy policy  text link is visible");
+                return true;
+            } else {
+                Debugger.println("privacy policy text link is not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("privacy policy text link text is not displayed");
+            SeleniumLib.takeAScreenShot("PrivacyPolicyLinkNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean copyrightTextIsDisplayedInTheFooter() {
+        try {
+            Wait.forElementToBeClickable(driver, footerCopyrightText);
+            if (Wait.isElementDisplayed(driver, footerCopyrightText, 10)) {
+                Debugger.println("privacy policy  text link is visible");
+                return true;
+            } else {
+                Debugger.println("privacy policy text link is not found ");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("privacy policy text link text is not displayed");
+            SeleniumLib.takeAScreenShot("CopyRightLinkNotFound.jpg");
+            return false;
+        }
+    }
 
 }

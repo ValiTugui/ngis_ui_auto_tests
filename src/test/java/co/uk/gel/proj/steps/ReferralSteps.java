@@ -730,4 +730,73 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(flag);
     }
 
+
+    @And("the Genomic Medicine Service logo {string} is displayed in the header of Test Ordering")
+    public void theGenomicMedicineServiceLogoIsDisplayedInTheHeaderOfTestOrdering(String expectedGenomicsEngLogo) {
+        String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
+        Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
+        Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
+        Assert.assertEquals(expectedGenomicsEngLogo,actualGenomicsEngLogo);
+    }
+
+    @And("the username {string} is displayed in the header of Test Ordering")
+    public void theUsernameIsDisplayedInTheHeaderOfTestOrdering(String userType) {
+        String expectedUserEmailAddress = referralPage.getExpectedUserLoginEmailAddress(userType);
+        String actualUserName = referralPage.getActualLoginUserName();
+        String actualPartOfUserName = actualUserName.substring(0, 5); //retrieve first-six characters of the user_name
+        Debugger.println("Expected user-login email: " + expectedUserEmailAddress);
+        Debugger.println("Actual part of the username " + actualPartOfUserName);
+        Assert.assertTrue(expectedUserEmailAddress.contains(actualPartOfUserName));
+    }
+
+    @And("the logout {string} text is displayed in the header of Test Ordering")
+    public void theLogoutTextIsDisplayedInTheHeaderOfTestOrdering(String expectedLogoutText) {
+        String actualLogoutText = referralPage.getActualLogoutText();
+        Debugger.println("Actual logout text: " + actualLogoutText);
+        Debugger.println("Expected logout text: " + expectedLogoutText);
+        Assert.assertEquals(expectedLogoutText,actualLogoutText);
+    }
+
+    @Then("the NHS logo is displayed in the header of Test Ordering")
+    public void theNHSLogoIsDisplayedInTheHeaderOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.nhsEnglandLogoIsDisplayedInHeader();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the NHS logo is displayed in the footer of Test Ordering")
+    public void theNHSLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.nhsEnglandLogoIsDisplayedInFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Genomics England logo is displayed in the footer of Test Ordering")
+    public void theGenomicsEnglandLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.genomicsEnglandLogIsDisplayedInFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Report an issue or provide feedback text link is displayed in the footer of Test Ordering")
+    public void theReportAnIssueOrProvideFeedbackTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.serviceDeskReportAndIssueIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Privacy Policy text link is displayed in the footer of Test Ordering")
+    public void thePrivacyPolicyTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.privacyPolicyIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the copyright text is displayed in the footer of Test Ordering")
+    public void theCopyrightTextIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.copyrightTextIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
 }

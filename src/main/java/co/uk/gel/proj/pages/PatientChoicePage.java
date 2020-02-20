@@ -1742,6 +1742,7 @@ public class PatientChoicePage {
             SeleniumLib.takeAScreenShot("PCCancelUploadButton.jpg");
         }
     }
+    //Added this method to complete default PC for each category with agreeing test - used in user journeys
     public boolean completePatientChoiceWithAgreeingTestForFamilyMember(String familyMember,String category,String recordBy){
         boolean testResult = false;
         try{

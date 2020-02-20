@@ -34,6 +34,7 @@ public class PrintFormSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             if(memberDetails.size() < noOfParticipants){
                 Debugger.println("No of Participants mentioned and details provided are not matching.");
+                //Continue with the availabe participants - modified for user journeys
             }
 
             for (int i = 1; i < memberDetails.size(); i++) {
