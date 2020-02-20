@@ -512,7 +512,6 @@ public class ReferralPage<check> {
             if(Wait.isElementDisplayed(driver, pageTitle, 30)) {
                 return Actions.getText(pageTitle);
             }
-            SeleniumLib.takeAScreenShot("PageTitleNotLoaded.jpg");
             return null;
         }catch(Exception exp){
             return null;

@@ -1761,7 +1761,7 @@ public class PatientChoicePage {
             if(!testResult){
                 return testResult;
             }
-
+            Wait.seconds(3);
             if(category.equalsIgnoreCase("Adult (With Capacity)")){
                 selectOptionForQuestion("Patient has agreed to the test","Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 selectOptionForQuestion("Yes","Has research participation been discussed?");
