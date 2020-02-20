@@ -1016,14 +1016,18 @@ public class ReferralPage<check> {
         return getText(genomicMedicineServicelogo);
     }
 
-    public String getExpectedUserLoginEmailAddress(String userType) {
+    public String getExpectedUserNameFromLoginEmailAddress(String userType) {
         String userEmailAddress = "";
         if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
             userEmailAddress = AppConfig.getApp_username();
         } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
             userEmailAddress = AppConfig.getApp_superUsername();
         }
-        return userEmailAddress;
+        String[] splitedEmailAddress = userEmailAddress.split("@");  // Split the username details from the email domain ClinicalViewer.E2ETest@ngisnonprod.onmicrosoft.com
+        String userFullName = splitedEmailAddress[0];
+        userFullName = userFullName.replace(".", " ");
+        Debugger.println("User full name " + userFullName);
+        return userFullName;
     }
 
     public String getActualLoginUserName(){

@@ -741,12 +741,11 @@ public class ReferralSteps extends Pages {
 
     @And("the username {string} is displayed in the header of Test Ordering")
     public void theUsernameIsDisplayedInTheHeaderOfTestOrdering(String userType) {
-        String expectedUserEmailAddress = referralPage.getExpectedUserLoginEmailAddress(userType);
-        String actualUserName = referralPage.getActualLoginUserName();
-        String actualPartOfUserName = actualUserName.substring(0, 5); //retrieve first-six characters of the user_name
-        Debugger.println("Expected user-login email: " + expectedUserEmailAddress);
-        Debugger.println("Actual part of the username " + actualPartOfUserName);
-        Assert.assertTrue(expectedUserEmailAddress.contains(actualPartOfUserName));
+        String expectedLoginUserName = referralPage.getExpectedUserNameFromLoginEmailAddress(userType);
+        String actualLoginUserName = referralPage.getActualLoginUserName();
+        Debugger.println("Expected user-login full name: " + expectedLoginUserName);
+        Debugger.println("Actual user-login full name: " + actualLoginUserName);
+        Assert.assertEquals(expectedLoginUserName,actualLoginUserName);
     }
 
     @And("the logout {string} text is displayed in the header of Test Ordering")
