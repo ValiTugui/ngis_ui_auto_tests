@@ -4,7 +4,7 @@
 Feature: Create Referrals for NEW Patient - Additional Participant
 
   @NTS-4613 @E2EUI-1310 @UseCase14 @LOGOUT
-  Scenario Outline: NTS-4613:Use Case #14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Non Spine/NGIS Patient
+  Scenario Outline: NTS-4613:Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-2001:Gender=Male |
     ##Patient Details
@@ -20,7 +20,7 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - No of participants -1
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -74,8 +74,6 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     Then the user is navigated to a page with title Panels
-    When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
@@ -85,12 +83,12 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
      ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels | searchPanels                                                                              | Pedigree | RecordedBy                            |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels | Congenital hypothyroidism,Arrhythmogenic cardiomyopathy,Growth failure in early childhood | Pedigree | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels | Pedigree | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-4594 @E2EUI-832 @UseCase15 @LOGOUT
   Scenario Outline: NTS-4594: Use Case #15: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search Non Spine/NGIS Patient
@@ -109,7 +107,7 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     And the "<RequestingOrganisation>" stage is marked as Completed
    ###Test Package - proband only - No of participants -1
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
    ###Responsible Clinician
@@ -164,7 +162,6 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     ###Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree
@@ -173,15 +170,15 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
    ###Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | Parent/Guardian signature    | RecordedBy                            | Panels | searchPanels                                   | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | FirstName=Kim:LastName=Smith | ClinicianName=John:HospitalNumber=123 | Panels | Brugada syndrome,Arrhythmogenic cardiomyopathy | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | Parent/Guardian signature    | RecordedBy                            | Panels | searchPanels                                   | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | FirstName=Kim:LastName=Smith | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
 
-  @NTS-4587 @E2EUI-1428 @UseCase#16 @LOGOUT
-  Scenario Outline: NTS-4587: Use Case #16: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Non Spine/NGIS Patient
+  @NTS-4587 @E2EUI-1428 @UseCase16 @LOGOUT
+  Scenario Outline: NTS-4587: Use Case#16: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
     ##Patient Details
@@ -195,8 +192,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-     ##Test Package - proband only - No of participants -1
-    And the user selects the number of participants as "<NoOfParticipants>"
+     ##Test Package -
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -257,31 +254,31 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree |
 
   @NTS-4604 @E2EUI-1207 @UseCase17 @LOGOUT
-  Scenario Outline: NTS:4604: Use Case #17: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice No - Search Non Spine/NGIS Patient
+  Scenario Outline: NTS:4604: Use Case#17: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=09-06-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=09-06-1985:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user enters the keyword "Great Western Hospitals NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ###Test Package - Trio family - No of participants 1
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
@@ -333,7 +330,6 @@ Feature: Create Referrals for NEW Patient - Additional Participant
      ##Panels adding 1 new panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
      ###Pedigree - Pedigree line to be added
@@ -342,16 +338,16 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
      ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
 
   @NTS-4589 @E2EUI-882 @UseCase18 @LOGOUT
-  Scenario Outline: NTS-4589: Use Case #18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search Non Spine--NGIS Patient
+  Scenario Outline: NTS-4589: Use Case#18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search Non Spine--NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     ##Patient Details
@@ -367,7 +363,7 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - No of participants -1
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -427,15 +423,15 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4611 @E2EUI-1140 @UseCase19 @LOGOUT
-  Scenario Outline: NTS-4611: Use Case #19: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Spine Patient
+  Scenario Outline: NTS-4611: Use Case#19: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R107 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
     ##Patient Details
@@ -451,7 +447,7 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - No of participants -1
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -503,7 +499,6 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     ###Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree
@@ -513,13 +508,13 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+    And the user is able to download print forms for "<OneParticipant>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=22-03-2001 |
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels                  |
-      | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=22-03-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Arrhythmogenic cardiomyopathy |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels                  |
+      | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=22-03-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Arrhythmogenic cardiomyopathy |

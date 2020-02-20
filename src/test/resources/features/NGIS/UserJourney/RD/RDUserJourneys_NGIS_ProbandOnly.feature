@@ -4,7 +4,7 @@
 Feature: Create Referrals for NGIS Patient
 
   @NTS-4552 @E2EUI-1281 @UseCase02 @LOGOUT
-  Scenario Outline: NTS-4552: Use Case #02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search NGIS Patient
+  Scenario Outline: NTS-4552: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -81,7 +81,7 @@ Feature: Create Referrals for NGIS Patient
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4553 @E2EUI-991 @UseCase03 @LOGOUT
-  Scenario Outline: NTS-4553: Use Case #03: Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
+  Scenario Outline: NTS-4553: Use Case#03: Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -98,7 +98,7 @@ Feature: Create Referrals for NGIS Patient
     ##Test Package - proband only
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -123,7 +123,7 @@ Feature: Create Referrals for NGIS Patient
     And the user clicks the Save and Continue button
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
@@ -144,26 +144,22 @@ Feature: Create Referrals for NGIS Patient
     ##Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    When the user navigates to the "<Pedigree>" stage
-    Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     #Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
 
   @NTS-4574 @E2EUI-1466 @UseCase04 @LOGOUT
-  Scenario Outline: NTS-4574: Use Case #04: Create Referral for Proband Only + Default Data + Patient Choice No - Search NGIS Patient
+  Scenario Outline: NTS-4574: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -179,7 +175,7 @@ Feature: Create Referrals for NGIS Patient
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only - No of participants -1
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -202,7 +198,7 @@ Feature: Create Referrals for NGIS Patient
     And the user clicks the Save and Continue button
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
@@ -224,20 +220,19 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
   @NTS-4558 @E2EUI-1296 @UseCase05 @LOGOUT
-  Scenario Outline: NTS-4558: Use Case #05: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
+  Scenario Outline: NTS-4558: Use Case#05: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -252,7 +247,7 @@ Feature: Create Referrals for NGIS Patient
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
      ##Test Package - proband only - No of participants -1
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -275,7 +270,7 @@ Feature: Create Referrals for NGIS Patient
     And the user clicks the Save and Continue button
     ##Patient Choice
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     And the user selects the option Rare & inherited diseases – WGS in section Test type
@@ -292,24 +287,22 @@ Feature: Create Referrals for NGIS Patient
     #Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks on Save and Continue in Panels Page
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | PatientChoice                                      | Panels | searchPanels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test | Panels | Hyper        | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Hyper        | Pedigree |
 
   @NTS-4557 @E2EUI-1286 @UseCase06 @LOGOUT
-  Scenario Outline: NTS-4557: Use Case #06: User Journey by creating new NGIS Referral for proband with edit data and Patient choice not given
+  Scenario Outline: NTS-4557: Use Case#06: User Journey by creating new NGIS Referral for proband with edit data and Patient choice not given
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -324,7 +317,7 @@ Feature: Create Referrals for NGIS Patient
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -367,19 +360,18 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            |Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            |Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 |Panels | Pedigree |
 
   @NTS-4555 @E2EUI-1298 @UseCase07 @LOGOUT
-  Scenario Outline: NTS-4555: Use Case #07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search NGIS Patient
+  Scenario Outline: NTS-4555: Use Case#07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
     ##Patient Details
@@ -438,7 +430,6 @@ Feature: Create Referrals for NGIS Patient
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Incomplete
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
@@ -447,9 +438,9 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |

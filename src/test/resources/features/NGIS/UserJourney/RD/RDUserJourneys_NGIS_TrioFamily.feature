@@ -4,7 +4,7 @@
 Feature: Create Referrals for NGIS Patient - Trio Family
 
   @NTS-4563 @E2EUI-1329 @UseCase08 @LOGOUT
-  Scenario Outline: NTS-4563: Use Case #08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
+  Scenario Outline: NTS-4563: Use Case#08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449306052:DOB=28-04-2007 |
     ###Patient Details
@@ -13,14 +13,14 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ###Test Package - Trio family - No of participants 3
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
@@ -41,7 +41,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Family Members - Adding two members - Full Sibling and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                               | RelationshipToProband | DiseaseStatusDetails                                           |
       | NHSNumber=NA:DOB=11-03-2017:Gender=Male:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
       | NHSNumber=NA:DOB=12-02-1940:Gender=Female:Relationship=Mother     | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
@@ -59,10 +59,10 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=11-03-2017 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
-      | NHSNumber=NA:DOB=12-02-1940 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
+    When the user completes the patient choice for below family members as agreeing to test
+      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
+      | NHSNumber=NA:DOB=11-03-2017 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=12-02-1940 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
@@ -75,23 +75,23 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms - FamilyDetails -same as provided above Family details
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+    And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=11-03-2017 |
       | NHSNumber=NA:DOB=12-02-1940 |
     ###Submitting Referral
-#    When the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
+    When the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree |
 
   @NTS-4551 @E2EUI-1358 @UseCase09 @LOGOUT
-  Scenario Outline: NTS-4551: Use Case #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
+  Scenario Outline: NTS-4551: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305064:DOB=12-06-1997:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -105,7 +105,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only - No of participants -3
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -125,7 +125,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Notes>" stage is marked as Completed
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=17-07-1965:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=19-12-1970:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
@@ -143,10 +143,10 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     #Patient Choice - Family Details Provided below should be same as above
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
-      | NHSNumber=NA:DOB=19-12-1970 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |
+    When the user completes the patient choice for below family members as agreeing to test
+      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
+      | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=19-12-1970 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
@@ -158,21 +158,21 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+    And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=17-07-1965 |
       | NHSNumber=NA:DOB=19-12-1970 |
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | FamilyMembers  |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | FamilyMembers  |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Family members |
 
   @NTS-4569 @E2EUI-1009 @UseCase10 @LOGOUT
-  Scenario Outline: NTS-4569: Use Case #10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
+  Scenario Outline: NTS-4569: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449305064:DOB=12-06-1997:Gender=Female |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -186,7 +186,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -206,7 +206,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Notes>" stage is marked as Completed
     ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=17-07-1965:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=19-12-1970:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
@@ -229,7 +229,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     ##Patient Choice - Family Members
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
+    When the user edits patient choice for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
       | NHSNumber=NA:DOB=19-12-1970 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
@@ -243,31 +243,31 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     Then the user is navigated to a page with title Print sample forms
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | RecordedBy                            |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-4579 @E2EUI-1478 @UseCase11  @LOGOUT
-  Scenario Outline: NTS:4579 Use Case #11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient
+  Scenario Outline: NTS:4579 Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ###Test Package - Trio family - No of participants 3
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
@@ -288,7 +288,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Family Members - Adding two members - Father and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                               | RelationshipToProband | DiseaseStatusDetails                                           |
       | NHSNumber=NA:DOB=11-03-2017:Gender=Male:Relationship=Full Sibling | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
       | NHSNumber=NA:DOB=12-02-1940:Gender=Female:Relationship=Mother     | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
@@ -303,19 +303,13 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks on Continue Button
     When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user clicks on Continue Button
+    When the user is in the section Review and submit
     And the user clicks on submit patient choice Button
-    And the user should be able to see the patient choice form with success message
+    Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-      #    And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
-    #And the user submits the patient choice with signature
-    #And the user clicks the Save and Continue button on the patient choice
-    Then the "<PatientChoice>" page is displayed
-    Then the help text is displayed
-    #Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-    ###Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
+    When the user edits patient choice for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                                      | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=11-03-2017 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
       | NHSNumber=NA:DOB=12-02-1940 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
@@ -324,42 +318,40 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
-    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms
     Then the user is navigated to a page with title Print sample forms
     ###Submitting Referral
-#    When the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
+    When the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            | searchPanels                                   |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 | Brugada syndrome,Arrhythmogenic cardiomyopathy |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            | searchPanels                                   |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 | Arrhythmogenic cardiomyopathy |
 
   @NTS-4598 @E2EUI-1233 @UseCase12 @LOGOUT
-  Scenario Outline:NTS:4598: Use Case #12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
+  Scenario Outline:NTS:4598: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449306052:DOB=28-04-2007 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ###Test Package - Trio family - No of participants 3
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
@@ -380,7 +372,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Family Members - Adding two members - Father and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                             |
       | NHSNumber=NA:DOB=11-03-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Square face |
       | NHSNumber=NA:DOB=12-02-1979:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Square face |
@@ -402,7 +394,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     ### Patient choice for family members- Not given will select form to follow option
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
+    When the user edits patient choice for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                                 | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=11-03-1978 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient conversation happened; form to follow |             |                 |
       | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient conversation happened; form to follow |             |                 |
@@ -418,18 +410,18 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Print forms -No
     Then the user is navigated to a page with title Print sample forms
     ###Submitting Referral
-#    When the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    And the referral status is set to "Submitted"
+    When the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | RecordedBy                            |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-4601 @E2EUI-975 @UseCase13 @LOGOUT
-  Scenario Outline: NTS-4601: Use Case #13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
+  Scenario Outline: NTS-4601: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449307679:DOB=19-08-1999 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -443,7 +435,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the "<RequestingOrganisation>" stage is marked as Completed
     ##Test Package - proband only - No of participants -3
     When the user navigates to the "<TestPackage>" stage
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ##Responsible Clinician
@@ -463,7 +455,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Notes>" stage is marked as Completed
     ##Family Members -
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=11-01-1971:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Unaffected:AgeOfOnset=02,02:HpoPhenoType=Dystonia |
       | NHSNumber=NA:DOB=13-10-1973:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Unknown:AgeOfOnset=03,02:HpoPhenoType=Trichiasis  |
@@ -487,7 +479,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     #Patient Choice - Family Details Provided below should be same as above
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
+    When the user edits patient choice for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                 | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=11-01-1971 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
       | NHSNumber=NA:DOB=13-10-1973 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient conversation happened; form to follow |             |                 |
@@ -497,7 +489,6 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ##Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
@@ -505,35 +496,35 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
-     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+    And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=11-01-1971 |
       | NHSNumber=NA:DOB=13-10-1973 |
-#    And the user submits the referral
-#    And the submission confirmation message "Your referral has been submitted" is displayed
-#    Then the referral status is set to "Submitted"
+    And the user submits the referral
+    And the submission confirmation message "Your referral has been submitted" is displayed
+    Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | RecordedBy         | PatientChoiceStage | Panels | searchPanels               | Pedigree | FamilyMembers  |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | ClinicianName=John | Patient choice     | Panels | Cataracts,Brugada syndrome | Pedigree | Family members |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | RecordedBy         | PatientChoiceStage | Panels | searchPanels               | Pedigree | FamilyMembers  |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | ClinicianName=John | Patient choice     | Panels | Cataracts | Pedigree | Family members |
 
   @NTS-4595 @E2EUI-1799 @UseCase24 @LOGOUT
-  Scenario Outline: NTS-4595: Use Case #24: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient- Cancel referral(marked in error).
+  Scenario Outline: NTS-4595: Use Case#24: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient- Cancel referral(marked in error).
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_SUPER_USER | NHSNumber=9449306052:DOB=28-04-2007 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_SUPER_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
     ### Test Package - Trio family - No of participants 3
     Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user selects the number of participants as "<ThreeParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
     ###Responsible Clinician
@@ -554,7 +545,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Family Members - Adding two members - Full Sibling and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
+    When the user adds "<ThreeParticipant>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                               |
       | NHSNumber=NA:DOB=11-03-1980:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Early balding |
       | NHSNumber=NA:DOB=12-02-1980:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis     |
@@ -576,7 +567,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     ###Patient Choice - Family Details Provided below same as the Family Members added
     Then the user is navigated to a page with title Patient choice
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
+    When the user edits patient choice for "<ThreeParticipant>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                                      | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=11-03-1980 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
       | NHSNumber=NA:DOB=12-02-1980 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
@@ -584,7 +575,6 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the user clicks the Save and Continue button
     ###Panels
     When the user search and add the "<searchPanels>" panels
-    Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
@@ -604,5 +594,5 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the message should display as "<RevokeMessage>"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RevokeMessage                                                              | RecordedBy                            | searchPanels             |
-      | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | This referral has been cancelled so further changes might not take effect. | ClinicianName=John:HospitalNumber=123 | Arthrogryposis,Cataracts |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RevokeMessage                                                              | RecordedBy                            | searchPanels             |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | This referral has been cancelled so further changes might not take effect. | ClinicianName=John:HospitalNumber=123 | Arthrogryposis |

@@ -1742,4 +1742,59 @@ public class PatientChoicePage {
             SeleniumLib.takeAScreenShot("PCCancelUploadButton.jpg");
         }
     }
+    public boolean completePatientChoiceWithAgreeingTestForFamilyMember(String familyMember,String category,String recordBy){
+        boolean testResult = false;
+        try{
+            //Category
+            testResult = selectPatientChoiceCategory(category);
+            if(!testResult){
+                return testResult;
+            }
+            //TestType
+            testResult = selectTestType("Rare & inherited diseases – WGS");
+            if(!testResult){
+                return testResult;
+            }
+            //RecordBy
+            testResult = fillRecordedByDetails(familyMember,recordBy);
+            if(!testResult){
+                return testResult;
+            }
+
+            if(category.equalsIgnoreCase("Adult (With Capacity)")){
+                selectOptionForQuestion("Patient has agreed to the test","Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                selectOptionForQuestion("Yes","Has research participation been discussed?");
+                selectOptionForQuestion("Yes","The patient agrees that their data and samples may be used for research, separate to NHS care.");
+                clickOnContinue();
+                selectPatientSignature();
+                submitPatientChoice();
+            }else if(category.equalsIgnoreCase("Child")){
+                selectOptionForQuestion("Parent(s) / guardian changed their mind about the clinical test","Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                selectOptionForQuestion("Yes","Has research participation been discussed?");
+                selectOptionForQuestion("Yes","The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.");
+                clickOnContinue();
+                selectOptionForQuestion("Yes","Does the child agree to participate in research?");
+                clickOnContinue();
+                submitPatientChoice();
+            }else if(category.equalsIgnoreCase("Adult (Without Capacity)")){
+                selectOptionForQuestion("Consultee has agreed to the test","Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?");
+                selectOptionForQuestion("Yes","Has research participation been discussed?");
+                selectOptionForQuestion("Yes","The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.");
+                clickOnContinue();
+                selectOptionForQuestion("Yes","I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity");
+                selectOptionForQuestion("Yes","I have been consulted about this person's participation in the National Genomic Research Library.");
+                selectOptionForQuestion("Yes","I am willing to accept the role of consultee for this person.");
+                clickOnContinue();
+                fillTheSignatureDetails("FirstName=WILTON:LastName=BRITTAIN");
+                submitPatientChoice();
+            }
+            return testResult;
+
+        }catch(Exception exp){
+            Debugger.println("Exception from Submitting Patient Choice for :"+familyMember+"\n"+exp);
+            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            return false;
+        }
+
+    }
 }//end
