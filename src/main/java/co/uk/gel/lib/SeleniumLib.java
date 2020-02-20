@@ -1,6 +1,7 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Point;
@@ -599,6 +600,10 @@ public class SeleniumLib {
             }
             if(filename.indexOf(".") == -1){
                 filename = filename+".jpg";
+            }
+            String[]today = TestUtils.getCurrentDay();
+            if(today != null && today.length == 3){
+                filename = "T"+today[0]+today[1]+filename;
             }
             File screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.FILE);

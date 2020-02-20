@@ -72,6 +72,24 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
     }
+    @When("the user completes the patient choice for below family members as agreeing to test")
+    public void theUserCompletesThePatientChoiceForBelowFamilyMembers(DataTable inputDetails) {
+        try {
+            List<List<String>> memberDetails = inputDetails.asLists();
+            for (int i = 1; i < memberDetails.size(); i++) {//First line is title
+                patientChoicePage.selectMember(i);
+                Wait.seconds(2);
+                Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2)));
+                Wait.seconds(5);//After submitting PC
+                patientChoicePage.clickOnSaveAndContinueButton();
+                Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+            }//end
+
+        } catch (Exception exp) {
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
+        }
+    }
     @When("the user edits patient choice for the newly added family member")
     public void theUserEditsPatientChoiceForTheNewlyAddedFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
         patientChoicePage.selectMember(1);
