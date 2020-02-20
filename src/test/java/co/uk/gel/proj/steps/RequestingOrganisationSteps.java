@@ -61,10 +61,6 @@ public class RequestingOrganisationSteps extends Pages {
         Assert.assertTrue(requestingOrganisationPage.checkOrderingEntityPageLabel());
     }
 
-    @Then("the requesting organisation page has the {string}")
-    public void the_requesting_organisation_page_has_the(String pageTitle) {
-        Assert.assertTrue(requestingOrganisationPage.checkPageTitleInfo(pageTitle));
-    }
 
     @And("the user sees the search field with search icon")
     public void theUserSeesTheSearchFieldWithSearchIcon() {
