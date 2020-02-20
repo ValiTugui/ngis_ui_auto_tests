@@ -526,7 +526,7 @@ Feature: Patient details page
 
 
   @NTS-4627 @E2EUI-1664 @v_1 @LOGOUT
-  Scenario Outline:  Patient detail - Hospital Number field - Display an editable hospital number
+  Scenario Outline:NTS-4627-Patient detail - Hospital Number field - Display an editable hospital number
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
@@ -551,3 +551,36 @@ Feature: Patient details page
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | HospitalNumber      | hintText |
       | Add a new patient to the database | Find your patient | NGIS                | 1234567890123456789 | B123456  |
+
+
+  @LOGOUT @NTS-4549 @E2EUI-822
+  Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Responsible Clinician page
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+    And the patient detail page displays expected input-fields and drop-down fields
+    And the user deletes data in the fields - First Name, Last Name, Date of Birth, Gender, Life Status and Ethnicity
+    Then the error messages for the mandatory fields on the "Check your patient's details" page are displayed as follows
+      | labelHeader     | errorMessageHeader         | messageColourHeader |
+      | First name ✱    | First name is required.    | #dd2509             |
+      | Last name ✱     | Last name is required.     | #dd2509             |
+      | Date of birth ✱ | Date of birth is required. | #dd2509             |
+      | Gender ✱        | Gender is required.        | #dd2509             |
+      | Life status ✱   | Life status is required.   | #dd2509             |
+      | Ethnicity ✱     | Ethnicity is required.     | #dd2509             |
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
+      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |
