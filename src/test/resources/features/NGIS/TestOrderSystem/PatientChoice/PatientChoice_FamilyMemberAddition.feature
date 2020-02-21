@@ -6,7 +6,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -46,7 +46,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3436 @E2EUI-1173 @E2EUI-1112 @LOGOUT @v_1 @P0
   Scenario Outline:the user should be navigate to patient choice page by not entered link
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
@@ -76,7 +76,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3435 @E2EUI-1877 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2002:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2002:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -121,7 +121,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3450 @E2EUI-1773 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3450: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -149,7 +149,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3411 @E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -184,7 +184,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3451 @E2EUI-2109 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package
@@ -241,7 +241,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-4100 @E2EUI-1540 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-4100: Removing the patient choice step in the family member flow
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package - Trio family - No of participants -2
@@ -266,7 +266,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3505 @E2EUI-1644 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3505:When additional family members are added and their patient choice hasn't been provided, the patient choice stage status should be updated as incomplete
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -322,7 +322,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   @NTS-3445 @E2EUI-1931 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package No of participants -1

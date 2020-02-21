@@ -322,6 +322,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -331,8 +332,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            | searchPanels                                   |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 | Arrhythmogenic cardiomyopathy |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            | searchPanels |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 | Cataracts    |
 
   @NTS-4598 @E2EUI-1233 @UseCase12 @LOGOUT
   Scenario Outline:NTS:4598: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
@@ -493,6 +494,7 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -504,8 +506,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | RecordedBy         | PatientChoiceStage | Panels | searchPanels               | Pedigree | FamilyMembers  |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | ClinicianName=John | Patient choice     | Panels | Cataracts | Pedigree | Family members |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | RecordedBy         | PatientChoiceStage | Panels | searchPanels | Pedigree | FamilyMembers  |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | ClinicianName=John | Patient choice     | Panels | Cataracts    | Pedigree | Family members |
 
   @NTS-4595 @E2EUI-1799 @UseCase24 @LOGOUT
   Scenario Outline: NTS-4595: Use Case#24: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient- Cancel referral(marked in error).
@@ -594,5 +596,5 @@ Feature: Create Referrals for NGIS Patient - Trio Family
     Then the message should display as "<RevokeMessage>"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RevokeMessage                                                              | RecordedBy                            | searchPanels             |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RevokeMessage                                                              | RecordedBy                            | searchPanels   |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | This referral has been cancelled so further changes might not take effect. | ClinicianName=John:HospitalNumber=123 | Arthrogryposis |

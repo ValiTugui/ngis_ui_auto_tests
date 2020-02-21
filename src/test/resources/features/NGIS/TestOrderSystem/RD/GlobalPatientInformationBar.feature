@@ -8,7 +8,7 @@ Feature: Global Patient Information Bar on Family Members Navigation Stage Navig
   @NTS-3329 @E2EUI-1665 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3329: Verify Global patient information bar component
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male|
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male|
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation

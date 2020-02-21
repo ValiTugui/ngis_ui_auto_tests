@@ -133,6 +133,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     When the user selects the option Yes for the question Has research participation been discussed?
     Then the user should see the question displayed as The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
     When the user selects the option Yes for the question The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
     When the user is in the section Child assent
     Then the user should see the question displayed as Does the child agree to participate in research?
     When the user selects the option Yes for the question Does the child agree to participate in research?
@@ -155,6 +156,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree -  Modify pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -164,8 +166,8 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | SearchPanels                  | Parent/Guardian signature          |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Arrhythmogenic cardiomyopathy | FirstName=WILTON:LastName=BRITTAIN |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | SearchPanels | Parent/Guardian signature          |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    | FirstName=WILTON:LastName=BRITTAIN |
 
   @NTS-4578 @E2EUI-1095 @UseCase04 @LOGOUT
   Scenario Outline: NTS-4578: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Non Spine/NGIS Patient
@@ -303,6 +305,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     #Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -311,8 +314,8 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
   @NTS-4584 @E2EUI-1411 @UseCase06 @LOGOUT
   Scenario Outline: NTS-4584: Use Case#06: Create Referral for Proband Only + Default Data + Patient Choice Not Given - Search Non Spine/NGIS Patient
@@ -375,6 +378,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -450,6 +454,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -459,5 +464,5 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels                  | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Arrhythmogenic cardiomyopathy | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |

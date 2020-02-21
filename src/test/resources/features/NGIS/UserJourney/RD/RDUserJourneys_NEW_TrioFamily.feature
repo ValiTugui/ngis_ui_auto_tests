@@ -157,6 +157,7 @@ Feature: Create Referrals for NEW Patient - Trio Family
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms - No
     Then the user is navigated to a page with title Print sample forms
@@ -166,8 +167,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
     And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  |TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels      |
-      | Patient details | Requesting organisation |Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | Square face |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels        |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | Cardiac arrhythmias |
 
   @NTS-4576 @E2EUI-1251 @UseCase10 @LOGOUT
   Scenario Outline: NTS:4576: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Non Spine/NGIS Patient
@@ -244,13 +245,10 @@ Feature: Create Referrals for NEW Patient - Trio Family
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms - FamilyDetails -same as provided above Family details
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<ThreeParticipant>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=11-03-1999 |
-      | NHSNumber=NA:DOB=12-02-1940 |
     ###Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
@@ -332,6 +330,7 @@ Feature: Create Referrals for NEW Patient - Trio Family
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -340,8 +339,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | searchPanels                  | RecordedBy                            |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | Arrhythmogenic cardiomyopathy | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | searchPanels        | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | Cardiac arrhythmias | ClinicianName=John:HospitalNumber=123 |
 
     ##UseCase 12 - E2EU-895 - Covered as part of BVT Smoke test
 
@@ -427,5 +426,5 @@ Feature: Create Referrals for NEW Patient - Trio Family
     And the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | searchPanels                              | RecordedBy                            |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | Arrhythmogenic cardiomyopathy | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | searchPanels        | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | Cardiac arrhythmias | ClinicianName=John:HospitalNumber=123 |
