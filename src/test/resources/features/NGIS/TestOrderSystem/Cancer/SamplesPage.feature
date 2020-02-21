@@ -590,7 +590,7 @@ Feature: Samples Page
 
 
   @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
-  Scenario Outline: Samples stage (Post Edit Sample)
+  Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -619,7 +619,7 @@ Feature: Samples Page
 
 
    @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
-  Scenario Outline: Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
+  Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
      When the user navigates to the "<stage>" stage
