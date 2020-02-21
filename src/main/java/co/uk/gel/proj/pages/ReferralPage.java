@@ -509,6 +509,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
+            //Reduced the waiting time to 5 seconds from 30 seconds
             if(Wait.isElementDisplayed(driver, pageTitle, 5)) {
                 return Actions.getText(pageTitle);
             }
@@ -1021,14 +1022,18 @@ public class ReferralPage<check> {
         return getText(genomicMedicineServicelogo);
     }
 
-    public String getExpectedUserLoginEmailAddress(String userType) {
+    public String getExpectedUserNameFromLoginEmailAddress(String userType) {
         String userEmailAddress = "";
         if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
             userEmailAddress = AppConfig.getApp_username();
         } else if (userType.equalsIgnoreCase("GEL_SUPER_USER")) {
             userEmailAddress = AppConfig.getApp_superUsername();
         }
-        return userEmailAddress;
+        String[] splitedEmailAddress = userEmailAddress.split("@");  // Split the username details from the email domain ClinicalViewer.E2ETest@ngisnonprod.onmicrosoft.com
+        String userFullName = splitedEmailAddress[0];
+        userFullName = userFullName.replace(".", " ");
+        Debugger.println("User full name " + userFullName);
+        return userFullName;
     }
 
     public String getActualLoginUserName(){

@@ -545,7 +545,7 @@ public class ResponsibleClinicianPage {
 	public boolean fillResponsibleClinicianDetails(String clinicalInfo) {
 		try {
 			if(clinicalInfo == null || clinicalInfo.isEmpty()){
-				return true;//Not need this stage in some cases
+				return true;
 			}
 			HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
 			Set<String> paramsKey = paramNameValue.keySet();
