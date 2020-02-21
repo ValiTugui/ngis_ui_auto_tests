@@ -248,9 +248,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
-            if (!Wait.isElementDisplayed(driver,emailAddressField,15)) {//If the element is not displayed, even after the waiting time
+            if (!Wait.isElementDisplayed(driver,emailAddressField,120)) {//If the element is not displayed, even after the waiting time
                 Debugger.println("Email Address Field is not visible, even after the waiting period.");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,10)) {//Click on UseAnotherAccount and Proceed.
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,120)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");
                     useAnotherAccount.click();
                     Wait.seconds(3);
