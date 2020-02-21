@@ -50,13 +50,13 @@ Feature: Requesting Organisation page
   @NTS-3155 @E2EUI-1361 @E2EUI-1542 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
-    Then the requesting organisation page has the "<title>"
+    And the user is navigated to a page with title <pageTitle>
     And the user sees the search label with "<expectedText>"
     And the user sees the search field with search icon
     And the user see the search field has placeholder text as "<placeholderText>"
     And  the Save and Continue button should be disabled
     Examples:
-      | stage                   | title                         | expectedText                                                   | placeholderText                                                                         |
+      | stage                   | pageTitle                     | expectedText                                                   | placeholderText                                                                         |
       | Requesting organisation | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
 
   @NTS-3383 @E2EUI-1415 @LOGOUT @v_1 @P0
