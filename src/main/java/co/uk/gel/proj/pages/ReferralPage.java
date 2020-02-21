@@ -509,12 +509,12 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if(Wait.isElementDisplayed(driver, pageTitle, 30)) {
+            if(Wait.isElementDisplayed(driver, pageTitle, 5)) {
                 return Actions.getText(pageTitle);
             }
             return null;
         }catch(Exception exp){
-            return null;
+           return null;
         }
     }
 
@@ -582,39 +582,46 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyThePageTitlePresence(String expTitle) {
-       try {
-           Debugger.println("Verifying Presence of Page Title:"+expTitle);
-           String actualPageTitle = getTheCurrentPageTitle();
-           if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
-               return true;
-           }
-           //In case of failure trying with another method.
-           By pageTitle;
-           if (expTitle.contains("\'")) {
-               // if the string contains apostrophe character, apply double quotes in the xpath string
-               pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
-           } else {
-               pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
-           }
-           WebElement titleElement = null;
-           try {
-               Wait.seconds(5);
-               titleElement = driver.findElement(pageTitle);
-               return (Wait.isElementDisplayed(driver,titleElement,100));
-           }catch(NoSuchElementException exp){
-               //Wait for 10 seconds and check again. This is introduced based on the failures observed.
-               Actions.scrollToTop(driver);
-               Wait.seconds(5);
-               titleElement = driver.findElement(pageTitle);
-               return (Wait.isElementDisplayed(driver,titleElement,100));
-           }
-       }catch(Exception exp){
-           Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
-           Actions.scrollToTop(driver);
-           SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
-           return false;
-       }
-
+        try {
+            String actualPageTitle = getTheCurrentPageTitle();
+            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
+                return true;
+            }
+            //Added extra below code, as it is observed that the page title path for each element in stage is not same
+            List <WebElement> titleElements = driver.findElements(By.xpath("/h1"));
+            if(titleElements != null){
+                for(int i=0;i<titleElements.size(); i++){
+                    if(titleElements.get(i).getText().contains(expTitle)){
+                        return true;
+                    }
+                }
+            }
+            //In case of failure trying with another method.
+            By pageTitle;
+            if (expTitle.contains("\'")) {
+                // if the string contains apostrophe character, apply double quotes in the xpath string
+                pageTitle = By.xpath("//h1[contains(text(), \"" + expTitle + "\")]");
+            } else {
+                pageTitle = By.xpath("//h1[contains(text(),'" + expTitle + "')]");
+            }
+            WebElement titleElement = null;
+            try {
+                Wait.seconds(5);
+                titleElement = driver.findElement(pageTitle);
+                return (Wait.isElementDisplayed(driver,titleElement,100));
+            }catch(NoSuchElementException exp){
+                //Wait for 10 seconds and check again. This is introduced based on the failures observed.
+                Actions.scrollToTop(driver);
+                Wait.seconds(5);
+                titleElement = driver.findElement(pageTitle);
+                return (Wait.isElementDisplayed(driver,titleElement,100));
+            }
+        }catch(Exception exp){
+            Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+            return false;
+        }
     }
 
     public void clickOnSaveAndContinueButton() {

@@ -23,13 +23,13 @@ Feature: Panels Page Verification
     Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks on Save and Continue in Panels Page
     Then the user is navigated to a page with title Build a pedigree
-     When the user navigates to the "<Panels>" stage
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     And the user sees the selected "<searchPanels>" panels under added panels
 
     Examples:
-      | Panels | searchPanels                     | textLine                                                                                                      |
-      | Panels | Cardiac arrhythmias,skin tumours | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | Panels | searchPanels                                  | textLine                                                                                                      |
+      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
   @NTS-3381 @E2EUI-1045 @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page

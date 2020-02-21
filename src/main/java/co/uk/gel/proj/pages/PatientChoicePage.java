@@ -139,6 +139,18 @@ public class PatientChoicePage {
     @FindBy(id = "Choices_Q2.3.1-0")
     public WebElement agreeSampleUsage;
 
+    @FindBy(id = "Child-0")
+    public WebElement childAssentYes;
+
+    @FindBy(id = "Consultee_Q1.0-0")
+    public WebElement consulteeReadYes;
+
+    @FindBy(id = "Consultee_Q2.0-0")
+    public WebElement consulteeConsultedYes;
+
+    @FindBy(id = "Consultee_Q3.0-0")
+    public WebElement consulteeAgreedYes;
+
     @FindBy(css = "button[class*='submit-signature-button']")
     public WebElement submitSignatureButton;
 
@@ -462,7 +474,7 @@ public class PatientChoicePage {
     public void clickOnContinue() {
         try {
             if (Wait.isElementDisplayed(driver, continueButton, 10)) {
-                Actions.clickElement(driver, continueButton);
+                Actions.retryClickAndIgnoreElementInterception(driver, continueButton);
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 Actions.clickElement(driver, formToFollow);
             }
@@ -533,10 +545,12 @@ public class PatientChoicePage {
             }
             if (!isFound) {
                 Debugger.println("Option: " + option + " not present for the question:" + question);
+                SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
             }
             return isFound;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp);
+            SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
             return false;
         }
     }
@@ -1762,34 +1776,33 @@ public class PatientChoicePage {
                 return testResult;
             }
             Wait.seconds(3);
-            if(category.equalsIgnoreCase("Adult (With Capacity)")){
-                selectOptionForQuestion("Patient has agreed to the test","Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
-                selectOptionForQuestion("Yes","Has research participation been discussed?");
-                selectOptionForQuestion("Yes","The patient agrees that their data and samples may be used for research, separate to NHS care.");
+            clickOnContinue();
+            Wait.seconds(3);
+            verifyTheSectionTitle("Patient choice");
+            Actions.clickElement(driver,agreeTestChoice);
+            Actions.clickElement(driver,agreeResearchParticipation);
+            Actions.clickElement(driver,agreeSampleUsage);
+            Wait.seconds(5);
+            clickOnContinue();
+            Wait.seconds(2);
+            if(category.equalsIgnoreCase("Child")){
+                verifyTheSectionTitle("Child assent");
+                Actions.scrollToTop(driver);
+                Actions.clickElement(driver,childAssentYes);
+                Wait.seconds(2);
                 clickOnContinue();
-                selectPatientSignature();
-                submitPatientChoice();
-            }else if(category.equalsIgnoreCase("Child")){
-                selectOptionForQuestion("Parent(s) / guardian have agreed to the test","Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
-                selectOptionForQuestion("Yes","Has research participation been discussed?");
-                selectOptionForQuestion("Yes","The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.");
-                clickOnContinue();
-                selectOptionForQuestion("Yes","Does the child agree to participate in research?");
-                selectPatientSignature();
-                clickOnContinue();
-                submitPatientChoice();
+                Wait.seconds(2);
             }else if(category.equalsIgnoreCase("Adult (Without Capacity)")){
-                selectOptionForQuestion("Consultee has agreed to the test","Has the consultee had the opportunity to read and discuss information about genomic testing and agreed to the genomic test on behalf of the patient?");
-                selectOptionForQuestion("Yes","Has research participation been discussed?");
-                selectOptionForQuestion("Yes","The consultee agrees that the patient's data and samples may be used for research, separate to NHS care.");
+                verifyTheSectionTitle("Consultee attestation");
+                Actions.scrollToTop(driver);
+                Actions.clickElement(driver,consulteeReadYes);
+                Actions.clickElement(driver,consulteeConsultedYes);
+                Actions.clickElement(driver,consulteeAgreedYes);
+                Wait.seconds(2);
                 clickOnContinue();
-                selectOptionForQuestion("Yes","I have had the opportunity to read and discuss information about being a consultee for the person who lacks capacity");
-                selectOptionForQuestion("Yes","I have been consulted about this person's participation in the National Genomic Research Library.");
-                selectOptionForQuestion("Yes","I am willing to accept the role of consultee for this person.");
-                clickOnContinue();
-                fillTheSignatureDetails("FirstName=WILTON:LastName=BRITTAIN");
-                submitPatientChoice();
+                Wait.seconds(2);
             }
+            submitPatientChoice();
             return testResult;
 
         }catch(Exception exp){
