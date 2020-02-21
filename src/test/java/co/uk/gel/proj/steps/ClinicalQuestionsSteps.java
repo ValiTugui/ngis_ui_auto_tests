@@ -11,9 +11,13 @@ import org.junit.Assert;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class ClinicalQuestionsSteps extends Pages {
+    public List<String> phenotypicSexDropdownList;
+    public List<String> karyotypicSexDropdownList;
+
     public ClinicalQuestionsSteps(SeleniumDriver driver) {
         super(driver);
     }
@@ -265,5 +269,52 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserSeesTheErrorMessageInTheHPOPhenotypeSection(String expectedErrorMessage) {
         String actualErrorMessage = clinicalQuestionsPage.getErrorMessageFromHPOPhenotypeSection();
         Assert.assertTrue(actualErrorMessage.equalsIgnoreCase(expectedErrorMessage));
+    }
+
+    @When("the user clicks the phenotypic sex dropdown")
+    public void theUserClicksThePhenotypicSexDropdown() {
+        phenotypicSexDropdownList = clinicalQuestionsPage.getValuesFromPhenotypicSexDropDown();
+
+    }
+
+    @When("the user clicks the karyotypic sex dropdown")
+    public void theUserClicksTheKaryotypicSexDropdown() {
+        karyotypicSexDropdownList = clinicalQuestionsPage.getValuesFromKaryotypicSexDropDown();
+
+    }
+
+
+    @And("the user sees the following values in phenotypic sex dropdown")
+    public void theUserSeesTheFollowingValuesInPhenotypicSexDropdown(List<String> expectedValues) {
+        Assert.assertTrue(TestUtils.compareTwoCollectionsContainIdenticalValues(phenotypicSexDropdownList, expectedValues));
+    }
+
+    @And("the user sees the following values in karyotypic sex dropdown")
+    public void theUserSeesTheFollowingValuesInKaryotypicSexDropdown(List<String> expectedValues) {
+        Assert.assertTrue(TestUtils.compareTwoCollectionsContainIdenticalValues(karyotypicSexDropdownList, expectedValues));
+    }
+
+    @And("the user answers the phenotypic sex questions")
+    public void theUserAnswersThePhenotypicSexQuestions() {
+        Assert.assertTrue(clinicalQuestionsPage.selectRandomPhenotypicSex() != null);
+    }
+
+    @And("the user clicks on add another link")
+    public void theUserClicksOnAddAnotherLink() {
+        clinicalQuestionsPage.clickAddAnotherLink();
+    }
+
+    @And("the user selects a value {string} from the Rare disease diagnosis in the second table")
+    public void theUserSelectsAValueFromTheRareDiseaseDiagnosisInTheSecondTable(String expectedDiagnosis) {
+       clinicalQuestionsPage.searchAndSelectSpecificDiagnosisSecondField(expectedDiagnosis);
+    }
+
+    @And("the user selects the Rare disease diagnosis questions such as {string} and corresponding status {string} in the second table")
+    public void theUserSelectsTheRareDiseaseDiagnosisQuestionsSuchAsAndCorrespondingStatusInTheSecondTable(String diagnosisTypeValue, String statusValue) {
+        String actualValue = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue , 2);
+        Assert.assertTrue(diagnosisTypeValue.equalsIgnoreCase(actualValue));
+
+        String actualStatusValue = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue, 2);
+        Assert.assertTrue(statusValue.equalsIgnoreCase(actualStatusValue));
     }
 }
