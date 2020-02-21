@@ -590,7 +590,7 @@ Feature: Samples Page
 
 
   @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
-  Scenario Outline: Samples stage (Post Edit Sample)
+  Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -618,6 +618,24 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
 
 
+   @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
+  Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+     When the user navigates to the "<stage>" stage
+     Then the "<pageTitle>" page is displayed
+     When the user clicks the Add sample button
+     Then the "<pageTitle2>" page is displayed
+     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+     And the user clicks the Save and Continue button
+     Then the "<pageTitle3>" page is displayed
+     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
+     And the Sample Collection date field is displayed with label "Sample collection date"
+     And the user is able to enter date in the Sample Collection date field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
+      | Samples | Manage samples | Add a sample | Add sample details | Omics sample          | Buccal swab |
 
 
 
