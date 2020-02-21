@@ -8,7 +8,7 @@ Feature: Patient details page_SPINE
 @NTS-3541 @E2EUI-1289 @LOGOUT @PO @v_1
 Scenario Outline: NTS-3541:Show patient's referrals on patient detail page
 Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-| TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | RD | create a new patient record | None | GEL_SUPER_USER |
+| TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | RD | create a new patient record | None | GEL_SUPER_USER |
 And the user navigates to the "<stage1>" stage
 And the "<stage1>" stage is marked as Completed
 When the user navigates to the "<stage>" stage

@@ -6,7 +6,7 @@ Feature: Patient Choice - History - Preference
   @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -55,7 +55,7 @@ Feature: Patient Choice - History - Preference
   @NTS-3481 @E2EUI-2151 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3481: Verify the updated warning message content in patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
      #patient choice for the proband
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
@@ -83,7 +83,7 @@ Feature: Patient Choice - History - Preference
   @NTS-3415 @E2EUI-1678 @LOGOUT @v_1 @BVT_P0
   Scenario Outline:Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     #patient choice for the proband
