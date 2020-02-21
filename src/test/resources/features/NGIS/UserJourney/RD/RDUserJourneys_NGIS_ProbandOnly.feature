@@ -148,6 +148,7 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     #Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -220,6 +221,7 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -291,6 +293,7 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -360,6 +363,7 @@ Feature: Create Referrals for NGIS Patient
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms

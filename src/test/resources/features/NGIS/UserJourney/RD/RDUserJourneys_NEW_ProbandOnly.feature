@@ -133,6 +133,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     When the user selects the option Yes for the question Has research participation been discussed?
     Then the user should see the question displayed as The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
     When the user selects the option Yes for the question The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
     When the user is in the section Child assent
     Then the user should see the question displayed as Does the child agree to participate in research?
     When the user selects the option Yes for the question Does the child agree to participate in research?
@@ -155,6 +156,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree -  Modify pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -303,6 +305,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     #Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -375,6 +378,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -450,6 +454,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
