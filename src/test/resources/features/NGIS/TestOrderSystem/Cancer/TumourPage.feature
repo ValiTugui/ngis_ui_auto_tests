@@ -32,11 +32,11 @@ Feature: Tumours Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     And the labels and help hint texts are displayed
-      | labelHeader                                       | HintTextHeader                                                                                             |
-      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                          |
-      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                            |
+      | labelHeader                                       | HintTextHeader                                                                                                                 |
+      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
+      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                                                |
       | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
-      | The tumour is... ✱                                | None                                                                                                       |
+      | The tumour is... ✱                                | None                                                                                                                           |
 
     Examples:
       | stage   |

@@ -61,9 +61,9 @@ Feature: Samples Page
     Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
-      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType  |
-      | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState |
+      | stage   | pageTitle      | pageTitle2   | errorMessage                      | messageColor | sampleField |
+      | Samples | Manage samples | Add a sample | Sample type is required.          | #dd2509      | sampleType  |
+      | Samples | Manage samples | Add a sample | Sample state is required.         | #dd2509      | sampleState |
       | Samples | Manage samples | Add a sample | Local sample tube ID is required. | #dd2509      | sampleID    |
 
   @NTS-3308 @E2EUI-943 @E2EUI-2338 @E2EUI-1232 @LOGOUT @P0 @v_1
@@ -97,9 +97,9 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the user clicks the Save and Continue button
     Then the error messages for the sample mandatory fields on Add a Sample page are displayed
-      | labelHeader                       | errorMessageHeader                           |
-      | Sample type ✱                     | Sample type is required.                     |
-      | Sample state ✱                    | Sample state is required.                    |
+      | labelHeader            | errorMessageHeader                |
+      | Sample type ✱          | Sample type is required.          |
+      | Sample state ✱         | Sample state is required.         |
       | Local sample tube ID ✱ | Local sample tube ID is required. |
 
     Examples:
@@ -131,9 +131,9 @@ Feature: Samples Page
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the labels and help hint texts are displayed on Add a Sample page
-      | labelHeader                       | HintTextHeader                                                                         |
-      | Sample type ✱                     | None                                                                                   |
-      | Sample state ✱                    | None                                                                                   |
+      | labelHeader            | HintTextHeader                                                                         |
+      | Sample type ✱          | None                                                                                   |
+      | Sample state ✱         | None                                                                                   |
       | Local sample tube ID ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
 
     Examples:
@@ -152,9 +152,9 @@ Feature: Samples Page
     And a search icon is displayed inside the Sample state drop down field
     And fields and drops-downs are shown as mandatory with astericks star symbol
     And place-holder text is displayed for Sample type, Sample State and SampleID on Add a Sample page
-      | labelHeader                       | PlaceHolder Text |
-      | Sample type ✱                     | Select...        |
-      | Sample state ✱                    | Select...        |
+      | labelHeader            | PlaceHolder Text |
+      | Sample type ✱          | Select...        |
+      | Sample state ✱         | Select...        |
       | Local sample tube ID ✱ | e.g. A1 xxxxx    |
 
     Examples:

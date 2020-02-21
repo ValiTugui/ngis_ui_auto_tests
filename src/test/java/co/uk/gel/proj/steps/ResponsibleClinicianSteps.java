@@ -298,7 +298,7 @@ public class ResponsibleClinicianSteps extends Pages {
         String actualHelpText = responsibleClinicianPage.getEmailSectionHelpText();
         Debugger.println("Expected Help Text:" + list.get(0).get("helpMessageHeader"));
         Assert.assertEquals(list.get(0).get("helpMessageHeader"), actualHelpText);
-}
+    }
 
     @When("the user fills in the Department name and address")
     public void theUserFillsInTheDepartmentNameAndAddress() {
