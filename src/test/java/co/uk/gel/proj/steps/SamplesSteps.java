@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -480,5 +482,20 @@ public class SamplesSteps extends Pages {
         }
     }
 
+    @And("the Sample Collection date field is displayed with label {string}")
+    public void theSampleCollectionDateFieldIsDisplayedWithLabel(String expectedSampleCollectionDateLabel) {
 
+        boolean flag = Wait.isElementDisplayed(driver, samplesPage.sampleCollectionDateField, 10);
+        Assert.assertTrue(flag);
+        String actualSampleCollectionDate = Actions.getText(samplesPage.sampleCollectionDateFieldLabel);
+        Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDate);
+        Debugger.println("Expected sampleCollection label: " + expectedSampleCollectionDateLabel);
+        Assert.assertEquals(expectedSampleCollectionDateLabel,actualSampleCollectionDate);
+    }
+
+    @And("the user is able to enter date in the Sample Collection date field")
+    public void theUserIsAbleToEnterDateInTheSampleCollectionDateField() {
+          samplesPage.selectSampleCollectionDate();
+        Assert.assertTrue(!Actions.getText(samplesPage.sampleCollectionDateFieldLabel).isEmpty()); //Collection field date is not empty
+    }
 }

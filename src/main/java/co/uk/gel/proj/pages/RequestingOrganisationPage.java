@@ -98,10 +98,6 @@ public class RequestingOrganisationPage {
         return zeroResulsFoundLabel.isDisplayed();
     }
 
-    public boolean checkPageTitleInfo(String pageTitle) {
-        Wait.forElementToBeDisplayed(driver, orderingEntityPageTitle);
-        return orderingEntityPageTitle.getText().contains(pageTitle);
-    }
 
     public boolean checkOrderingEntityPageLabel() {
         return orderEntityPageSubtitle.isDisplayed();

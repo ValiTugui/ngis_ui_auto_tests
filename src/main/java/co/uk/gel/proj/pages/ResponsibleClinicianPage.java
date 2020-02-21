@@ -50,6 +50,9 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "button[class*='clinician-details-form__remove']")
 	public List<WebElement> removeClinicianButton;
 
+	@FindBy(css = "p[class*='hint__text']")
+	public List<WebElement> hintTexts;
+
 	@FindBy(css = "label[for*='responsibleClinician.forename']")
 	public WebElement clinicianFirstNameLabel;
 
@@ -288,6 +291,12 @@ public class ResponsibleClinicianPage {
 		Actions.fillInValue(clinicianProfesionalRegistrationNumberField, fake.number().digits(12));
 	}
 
+	public void fillInDepartmentDetailsField() {
+		Wait.forElementToBeDisplayed(driver, clinicianDepartmentAddressField);
+		Actions.clearField(clinicianDepartmentAddressField);
+		Actions.fillInValue(clinicianDepartmentAddressField, fake.address().streetAddress());
+	}
+
 	public void confirmTheExpectedFieldsToBeSeemInClinicianForm(){
 		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
 		clinicianFirstNameField.isDisplayed();
@@ -480,6 +489,11 @@ public class ResponsibleClinicianPage {
 	public String getContactSectionHelpText(){
 		Wait.forElementToBeDisplayed(driver, clinicianFormInfo);
 		return Actions.getText(clinicianFormInfo);
+	}
+
+	public String getEmailSectionHelpText(){
+		Wait.forElementToBeDisplayed(driver, hintTexts.get(0));
+		return Actions.getText(hintTexts.get(0));
 	}
 
 	public boolean verifyDepartmentNameAndAddressLabelIsShownAsMandatory(){

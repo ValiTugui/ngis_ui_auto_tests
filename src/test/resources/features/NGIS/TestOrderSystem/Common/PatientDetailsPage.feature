@@ -471,6 +471,8 @@ Feature: Patient details page
      And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
+     #    Click the back button the second time due to user already navigated
+    When the user attempts to navigate away by clicking "back"
      And the page url address contains the directory-path web-page "<directoryPathPage>"
     Then the "<pageTitle>" page is displayed
 

@@ -64,7 +64,7 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType  |
       | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState |
-      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID    |
+      | Samples | Manage samples | Add a sample | Local sample tube ID is required. | #dd2509      | sampleID    |
 
   @NTS-3308 @E2EUI-943 @E2EUI-2338 @E2EUI-1232 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - verify the sample type drop down list
@@ -100,7 +100,7 @@ Feature: Samples Page
       | labelHeader                       | errorMessageHeader                           |
       | Sample type ✱                     | Sample type is required.                     |
       | Sample state ✱                    | Sample state is required.                    |
-      | Sample ID from local laboratory ✱ | Sample ID from local laboratory is required. |
+      | Local sample tube ID ✱ | Local sample tube ID is required. |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -123,7 +123,7 @@ Feature: Samples Page
 
 
   @NTS-3333 @E2EUI-1252 @LOGOUT @P0 @v_1
-  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Sample ID from local laboratory
+  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Local sample tube ID
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -134,7 +134,7 @@ Feature: Samples Page
       | labelHeader                       | HintTextHeader                                                                         |
       | Sample type ✱                     | None                                                                                   |
       | Sample state ✱                    | None                                                                                   |
-      | Sample ID from local laboratory ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
+      | Local sample tube ID ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -155,7 +155,7 @@ Feature: Samples Page
       | labelHeader                       | PlaceHolder Text |
       | Sample type ✱                     | Select...        |
       | Sample state ✱                    | Select...        |
-      | Sample ID from local laboratory ✱ | e.g. A1 xxxxx    |
+      | Local sample tube ID ✱ | e.g. A1 xxxxx    |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | subPageTitle                                                 |
@@ -590,7 +590,7 @@ Feature: Samples Page
 
 
   @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
-  Scenario Outline: Samples stage (Post Edit Sample)
+  Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -618,6 +618,24 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
 
 
+   @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
+  Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+     When the user navigates to the "<stage>" stage
+     Then the "<pageTitle>" page is displayed
+     When the user clicks the Add sample button
+     Then the "<pageTitle2>" page is displayed
+     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+     And the user clicks the Save and Continue button
+     Then the "<pageTitle3>" page is displayed
+     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
+     And the Sample Collection date field is displayed with label "Sample collection date"
+     And the user is able to enter date in the Sample Collection date field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
+      | Samples | Manage samples | Add a sample | Add sample details | Omics sample          | Buccal swab |
 
 
 

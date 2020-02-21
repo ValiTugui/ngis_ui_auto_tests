@@ -35,7 +35,7 @@ Feature: Tumours Page
       | labelHeader                                       | HintTextHeader                                                                                             |
       | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                          |
       | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                            |
-      | Histopathology laboratory ID or local sample ID ✱ | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
+      | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
       | The tumour is... ✱                                | None                                                                                                       |
 
     Examples:
@@ -68,10 +68,11 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
+# Replaced SPINE data with NGIS Data creation
   @NTS-3157 @E2EUI-1020 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3157:Validate the mandatory input field 'Date of diagnosis' for the Tumour Section
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     And the user answers all tumour system questions fields, select tumour type "<tumour_type>" and leaves date of diagnosis field blank
     And the user clicks the Save and Continue button
@@ -82,7 +83,9 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic | Enter a year  |
 
 
-  @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @LOGOUT @P0 @v_1
+#    Test to be skipped till we sort out SPINE Data 20/02/2020
+# @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @LOGOUT @P0 @v_1
+  @ignore
   Scenario Outline: NTS-3154: Add a new tumour for an existing patient
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
@@ -144,10 +147,11 @@ Feature: Tumours Page
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
+    # Replaced SPINE data with NGIS Data creation
   @NTS-3171 @E2EUI-2145 @LOGOUT @P0 @v_1
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
 # moving to another Stage e.g Samples page
@@ -160,11 +164,11 @@ Feature: Tumours Page
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
       | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
 
-
+ # Replaced SPINE data with NGIS Data creation
   @NTS-3171 @E2EUI-2145 @LOGOUT @P0 @v_1
   Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
    #  User click on refresh button
