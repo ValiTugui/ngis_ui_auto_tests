@@ -618,7 +618,7 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
 
 
-   @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1 @idris
+   @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
   Scenario Outline: Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
