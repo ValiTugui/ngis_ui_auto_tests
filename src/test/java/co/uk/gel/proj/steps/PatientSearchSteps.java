@@ -3,9 +3,12 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
@@ -577,4 +580,35 @@ public class PatientSearchSteps extends Pages {
         String actualMessage = patientSearchPage.noPatientFoundLabel.getText();
         Assert.assertEquals(expectedMessage, actualMessage);
     }
+//    //Step created to use the newly created patient as NGIS patient
+//    @And("the user logs out and continue referral creation as the normal user with the newly created NGIS patient")
+//    public void theUserNavigatesBackToPatientSearchPageAndContinueWithReferralCreation(List<String> attributeOfUrl) {
+//       // homePage.logOutFromApplication();
+//        //Wait.seconds(5);
+//        aWebBrowserIsAtThePatientSearchPage(attributeOfUrl);
+//        String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
+//        Assert.assertEquals(selectedStatus, "true");
+//        String referralDetails = attributeOfUrl.get(3);
+//        NGISPatientModel newReferral = FamilyMemberDetailsPage.getFamilyMember(referralDetails);
+//        if(newReferral == null){
+//            Debugger.println("Could for find the newly created patient in the list: "+referralDetails);
+//            Assert.assertFalse("Could for find the newly created patient in the list: ",true);
+//        }
+//        String searchResult = patientSearchPage.searchPatientReferral(newReferral);
+//        if(searchResult.equalsIgnoreCase("1 patient record found")){
+//            //Existing Patient
+//            patientSearchPage.clickPatientCard();
+//            Assert.assertTrue(patientDetailsPage.startReferral());
+//            boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
+//            if(!toDoListDisplayed){
+//                SeleniumLib.takeAScreenShot("ToDoListNotLoaded.jpg");
+//                //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+//                Debugger.println("ToDoListNotLeaded:URL:"+driver.getCurrentUrl());
+//                Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
+//            }
+//        }else{
+//            Debugger.println("Could not find the newly created NGIS Patient:"+referralDetails);
+//            Assert.assertFalse("Could not find the newly created NGIS Patient:"+referralDetails,true);
+//        }
+//    }
 }

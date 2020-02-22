@@ -1,5 +1,5 @@
 @userJourneys
-@userJourneysRD
+@userJourneysRD1
 @userJourneysRD_NEW_ProbandOnly
 Feature: Create Referrals for NEW Patient - Proband Only
 
@@ -59,10 +59,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -145,10 +144,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Incomplete
     When the user search and add the "<SearchPanels>" panels
@@ -219,10 +217,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     #Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -286,7 +283,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     When the user selects the option Rare & inherited diseases – WGS in section Test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Parent(s) / guardian changed their mind about the clinical test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user clicks on Continue Button
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
@@ -294,10 +291,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
@@ -369,10 +365,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -447,6 +442,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
      ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels

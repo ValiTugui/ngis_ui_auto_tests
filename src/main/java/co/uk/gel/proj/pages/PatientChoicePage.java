@@ -546,6 +546,8 @@ public class PatientChoicePage {
             if (!isFound) {
                 Debugger.println("Option: " + option + " not present for the question:" + question);
                 SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
+                Actions.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("PCOptionNotPresent.jpg");
             }
             return isFound;
         } catch (Exception exp) {

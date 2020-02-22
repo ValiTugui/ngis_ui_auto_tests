@@ -597,7 +597,7 @@ public class ReferralPage<check> {
                     }
                 }
             }
-            //In case of failure trying with another method.
+            //In case of failure again, trying with another method.
             By pageTitle;
             if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
@@ -607,16 +607,21 @@ public class ReferralPage<check> {
             }
             WebElement titleElement = null;
             try {
-                Wait.seconds(5);
+                Wait.seconds(2);
                 titleElement = driver.findElement(pageTitle);
-                return (Wait.isElementDisplayed(driver,titleElement,100));
+                if(Wait.isElementDisplayed(driver,titleElement,5)){
+                    return true;
+                }
             }catch(NoSuchElementException exp){
                 //Wait for 10 seconds and check again. This is introduced based on the failures observed.
                 Actions.scrollToTop(driver);
-                Wait.seconds(5);
+                Wait.seconds(1);
                 titleElement = driver.findElement(pageTitle);
-                return (Wait.isElementDisplayed(driver,titleElement,100));
-            }
+                if(Wait.isElementDisplayed(driver,titleElement,5)){
+                    return true;
+                }
+           }
+           return false;
         }catch(Exception exp){
             Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
             Actions.scrollToTop(driver);
