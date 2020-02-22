@@ -1,5 +1,5 @@
 @userJourneys
-@userJourneysRD1
+@userJourneysRD
 @userJourneysRD_NGIS_ProbandOnly
 Feature: Create Referrals for NGIS Patient
 

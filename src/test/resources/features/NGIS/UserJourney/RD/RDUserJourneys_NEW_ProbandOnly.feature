@@ -1,5 +1,5 @@
 @userJourneys
-@userJourneysRD1
+@userJourneysRD
 @userJourneysRD_NEW_ProbandOnly
 Feature: Create Referrals for NEW Patient - Proband Only
 
