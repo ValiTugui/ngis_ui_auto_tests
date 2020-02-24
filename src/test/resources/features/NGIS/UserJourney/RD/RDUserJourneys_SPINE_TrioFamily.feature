@@ -6,7 +6,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4592 @E2EUI-1195 @UseCase08 @LOGOUT
   Scenario Outline: NTS-4592: Use Case#08: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
      #Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -87,7 +87,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4560 @E2EUI-1244 @UseCase09 @LOGOUT
   Scenario Outline: NTS-4560: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
      #Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -165,7 +165,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4567 @E2EUI-1263 @UseCase10 @LOGOUT
   Scenario Outline: NTS-4567: Use Case#10: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -251,7 +251,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4607 @E2EUI-922 @UseCase11 @LOGOUT
   Scenario Outline: NTS-4607: Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -334,7 +334,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4577 @E2EUI-1091 @UseCase12 @LOGOUT
   Scenario Outline: NTS-4577: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -417,7 +417,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   @NTS-4600 @E2EUI-1177 @UseCase13 @LOGOUT
   Scenario Outline: NTS-4600: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button

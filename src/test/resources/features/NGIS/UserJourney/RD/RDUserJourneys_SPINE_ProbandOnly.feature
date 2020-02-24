@@ -6,7 +6,7 @@ Feature: Create Referrals for SPINE Patient
   @NTS-4570 @E2EUI-1430 @UseCase02 @LOGOUT
   Scenario Outline: NTS-4570: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -83,7 +83,7 @@ Feature: Create Referrals for SPINE Patient
   @NTS-4608 @E2EUI-1267 @UseCase03 @LOGOUT
   Scenario Outline: NTS-4608: Use Case#03: Create Referral for Proband Only + Edit Data + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -162,7 +162,7 @@ Feature: Create Referrals for SPINE Patient
   @NTS-4575 @E2EUI-1059 @UseCase04  @LOGOUT
   Scenario Outline: NTS-4575: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -385,7 +385,7 @@ Feature: Create Referrals for SPINE Patient
   @NTS-4561 @E2EUI-977 @UseCase07 @LOGOUT
   Scenario Outline: NTS-4561: Use Case#07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303592:DOB=07-03-1997 |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     When the user clicks the Save and Continue button
