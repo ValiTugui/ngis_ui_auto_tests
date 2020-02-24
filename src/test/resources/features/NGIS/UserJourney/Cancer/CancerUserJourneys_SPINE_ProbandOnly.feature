@@ -24,7 +24,6 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     When the user fills in all the clinician form fields
     And the user clicks the Save and Continue button
     ##Tumour
-    Then the user is navigated to a page with title Select or edit a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Answer questions about this tumour
