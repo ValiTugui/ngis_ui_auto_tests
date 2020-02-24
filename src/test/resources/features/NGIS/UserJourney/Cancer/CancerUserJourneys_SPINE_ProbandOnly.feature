@@ -1,6 +1,6 @@
-@userJourneys
-@userJourneysCancer
-@userJourneysCancer_SPINE_ProbandOnly
+#@userJourneys
+#@userJourneysCancer
+#@userJourneysCancer_SPINE_ProbandOnly
 
 Feature: Create Cancer Referrals for SPINE Patient - Proband Only
 
@@ -77,7 +77,7 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
   @E2EUI-1803 @NTS-4566 @LOGOUT
   Scenario Outline: Use Case #28: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male | When the user is navigated to a page with title Check your patient's details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male | When the user is navigated to a page with title Check your patient's details|
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "East London NHS Foundation Trust" in the search field
