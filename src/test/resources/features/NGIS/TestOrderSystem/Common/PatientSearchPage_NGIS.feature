@@ -3,7 +3,7 @@
 @patientSearchNGIS
 Feature: Patient search page_NGIS
 
-  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @E2EUI-1025 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |

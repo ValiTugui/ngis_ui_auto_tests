@@ -320,3 +320,15 @@ Feature: Patient search page_SPINE
   Scenario: NTS-3159 - Patient Search - To verify the Tab Title displayed correctly if cursor is mover over the Tab
     And User place the cursor over the tab in which the Dashboard - Home page is opened
     Then The user should see the tab title as "Genomic Medicine Service | Test Ordering Application - NGIS"
+
+
+  @NTS-4722 @E2EUI-835 @v_1
+  Scenario Outline: NTS-4722:Patient Search - Integer/decimal Type Validation in NHS Number Field
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the NHS number field remains empty as invalid characters are not accepted
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+
+    Examples: Integer Decimal in NHSField
+      | patient-search-type | NhsNumber | DOB        | error_message           |
+      | NHS Spine           | abcdefghh | 01-01-2020 | NHS Number is required. |
+      | NHS Spine           | !@#$%^&*  | 01-01-2020 | NHS Number is required. |

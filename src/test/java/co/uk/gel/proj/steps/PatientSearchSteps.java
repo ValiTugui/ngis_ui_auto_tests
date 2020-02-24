@@ -577,4 +577,10 @@ public class PatientSearchSteps extends Pages {
         String actualMessage = patientSearchPage.noPatientFoundLabel.getText();
         Assert.assertEquals(expectedMessage, actualMessage);
     }
+
+    @Then("the NHS number field remains empty as invalid characters are not accepted")
+    public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Wait.seconds(10);
+        Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+    }
 }
