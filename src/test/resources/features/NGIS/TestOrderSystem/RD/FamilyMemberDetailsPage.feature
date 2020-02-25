@@ -106,6 +106,7 @@ Feature: Family Members Details Page - Field Validation_1
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    And the referral submit button is not enabled
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
