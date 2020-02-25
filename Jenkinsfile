@@ -17,7 +17,7 @@ pipeline {
         }
         stage('UI Test Execution') {
             steps {
-                  wrap([$class: 'Xvfb', screen: '1440x900x24']) {
+                wrap([$class: 'Xvfb', autoDisplayName: true, displayNameOffset: 0, timeout: 0,screen: '1920x1080x24']) {
                    sh "mvn -f pom.xml -Dcucumber.options='--tags ${tags}' clean verify -DTestEnvironment=${TestEnvironment}"
                 }
             }
