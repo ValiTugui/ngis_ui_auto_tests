@@ -59,10 +59,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -145,10 +144,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Incomplete
     When the user search and add the "<SearchPanels>" panels
@@ -219,10 +217,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     #Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -286,7 +283,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     When the user selects the option Rare & inherited diseases – WGS in section Test type
     And the user fills "<RecordedBy>" details in recorded by
     And the user clicks on Continue Button
-    When the user selects the option Patient changed their mind about the clinical test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Parent(s) / guardian changed their mind about the clinical test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
     And the user clicks on Continue Button
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
@@ -294,10 +291,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
@@ -369,10 +365,9 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks on submit patient choice Button
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Patient choice
-    And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -447,6 +442,7 @@ Feature: Create Referrals for NEW Patient - Proband Only
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
      ##Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Complete
     When the user search and add the "<searchPanels>" panels
@@ -464,5 +460,67 @@ Feature: Create Referrals for NEW Patient - Proband Only
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
-      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
+      | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
+
+  @NTS-4079 @E2EUI-1801 @LOGOUT
+  Scenario Outline: NTS-4079: Use Case #26: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Create new Patient
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-06-2011:Gender=Male |
+    ###Patient Details
+    When the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
+    And the "<PatientDetails>" stage is marked as Completed
+    ###Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    ###Test Package - Proband only - No of participants 1
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    ###Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ###Clinical Question
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ClinicalQuestion>" stage is marked as Completed
+    ###Notes
+    And the user is navigated to a page with title Add notes to this referral
+    And the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    Then the "<Notes>" stage is marked as Completed
+    ###Family Members -No members required and this stage will not be marked as completed
+    And the user is navigated to a page with title Add a family member to this referral
+    And the user clicks the Save and Continue button
+    ###Patient choice for the proband Not to be given for this scenario so this stage will be marked with asterisk
+    Then the user is navigated to a page with title Patient choice
+    And the user clicks on Continue Button
+    Then the "<PatientChoice>" stage is marked as Mandatory To Do
+    ###Panels - no need to check for its completion
+    Then the user is navigated to a page with title Panels
+    And the user clicks the Save and Continue button
+    Then the "<Panels>" stage is marked as Completed
+    ###Pedigree - Pedigree by default marked as completed, no need to click on save and continue
+    And the user is navigated to a page with title Build a pedigree
+    Then the "<Pedigree>" stage is marked as Completed
+    ###Print forms - only Proband
+    When the user navigates to the "<PrintForms>" stage
+    Then the user is navigated to a page with title Print sample forms
+    ###Cancel Referral (without submitting)
+    And the user clicks the Cancel referral link
+    And the user selects the cancellation reason "The referral has been paused or stopped (“Revoke”)" from the modal
+    And the user submits the cancellation
+    Then the message should display as "<RevokeMessage>"
+
+    Examples:
+      | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
+      | Patient details | Requesting organisation | Manchester           | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |

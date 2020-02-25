@@ -1,6 +1,6 @@
-@userJourneys
-@userJourneysRD
-@userJourneysRD_SPINE_AdditionalParticipant
+#@userJourneys
+#@userJourneysRD
+#@userJourneysRD_SPINE_AdditionalParticipant
 Feature: Create Referrals for SPINE Patient - Additional Participant
 
   @NTS-4591 @E2EUI-1264 @UseCase14 @LOGOUT

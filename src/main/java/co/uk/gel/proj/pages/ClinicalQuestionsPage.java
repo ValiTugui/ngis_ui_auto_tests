@@ -317,12 +317,12 @@ public class ClinicalQuestionsPage {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
                         isPhenotypePresent = true;
-                        isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        if (!isFilled) {
-                            if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
-                                isFilled = true;
-                            }
+                        if(!(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0)){
+                            isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
+                        }else{
+                            isFilled = true;
                         }
+
                     }
                     break;
                 }
@@ -330,17 +330,12 @@ public class ClinicalQuestionsPage {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         try {
                             Actions.retryClickAndIgnoreElementInterception(driver,phenotypicSexDropdown);
-//                            seleniumLib.clickOnWebElement(phenotypicSexDropdown);
-//                            Actions.clickElement(driver,phenotypicSexDropdown);
-//                            Click.element(driver, phenotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                             Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
-                            isFilled= true;
                             break;
                         } catch (Exception exp) {
                             Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
                             SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
-                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting phenotypic sex dropdown: ",false);
                         }
                     }
                 }
@@ -350,12 +345,10 @@ public class ClinicalQuestionsPage {
                             Click.element(driver, karyotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                             Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
-                            isFilled= true;
                             break;
                         } catch (Exception exp) {
                             Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
                             SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
-                            Assert.assertTrue("FamilyMemberDetailsSteps: Exception from selecting karyotypic sex dropdown: ",false);
                         }
                     }
                 }
@@ -391,7 +384,6 @@ public class ClinicalQuestionsPage {
             Debugger.println("Exception from checking whether the HPO is already considered or not: "+exp);
             return false;
         }
-
     }
 
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
