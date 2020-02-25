@@ -585,6 +585,9 @@ public class ReferralSteps extends Pages {
                         searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                         //Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
                         searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
+                    }else if(paramValue.equalsIgnoreCase("NGIS")) {
+                        searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                        searchPatient.setNO_NHS_REASON("NGIS");
                     }else{
                         searchPatient.setNHS_NUMBER(paramValue);
                     }
@@ -798,4 +801,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(flag);
     }
 
+    @And("the referral submit button is not enabled")
+    public void theReferralSubmitButtonIsNotEnabled() {
+        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
+    }
 }

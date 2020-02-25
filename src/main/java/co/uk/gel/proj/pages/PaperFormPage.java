@@ -29,7 +29,7 @@ public class PaperFormPage {
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(xpath = "//h1[contains(@class,'styles_page-title')]/..//child::p")
+    @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")
     public WebElement orderEntitySubHeader;
 
     @FindBy(css = "input[class*='input']")

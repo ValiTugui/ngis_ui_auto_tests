@@ -6,7 +6,7 @@ Feature: Patient Choice Edit Paper Form - Adult Without Capacity
   @NTS-3417 @E2EUI-2040 @E2EUI-1060 @E2EUI-1450 @v_1 @P0
   Scenario Outline: NTS-3417: Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -455,7 +455,7 @@ Feature: Patient Choice Edit Paper Form - Adult Without Capacity
   @NTS-3417 @E2EUI-2040 @E2EUI-1060 @v_1 @P0
   Scenario Outline: NTS-3417: Pre-Req:Editing Patient choice for an Adult (without capacity)
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

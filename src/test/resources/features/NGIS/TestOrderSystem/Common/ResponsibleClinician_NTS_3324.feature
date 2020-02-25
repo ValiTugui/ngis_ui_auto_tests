@@ -9,7 +9,7 @@ Feature: Responsible Clinician
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
-    And the "<pageTitle>" page is displayed
+    And the user is navigated to a page with title <pageTitle>
     # add  Main clinician
     And the user fills in all the clinician form fields
     And the user see the "<hyperlinkText>" displayed to add Additional clinician details

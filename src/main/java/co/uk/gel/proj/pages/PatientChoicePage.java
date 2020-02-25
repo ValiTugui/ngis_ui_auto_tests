@@ -139,6 +139,18 @@ public class PatientChoicePage {
     @FindBy(id = "Choices_Q2.3.1-0")
     public WebElement agreeSampleUsage;
 
+    @FindBy(id = "Child-0")
+    public WebElement childAssentYes;
+
+    @FindBy(id = "Consultee_Q1.0-0")
+    public WebElement consulteeReadYes;
+
+    @FindBy(id = "Consultee_Q2.0-0")
+    public WebElement consulteeConsultedYes;
+
+    @FindBy(id = "Consultee_Q3.0-0")
+    public WebElement consulteeAgreedYes;
+
     @FindBy(css = "button[class*='submit-signature-button']")
     public WebElement submitSignatureButton;
 
@@ -462,7 +474,7 @@ public class PatientChoicePage {
     public void clickOnContinue() {
         try {
             if (Wait.isElementDisplayed(driver, continueButton, 10)) {
-                Actions.clickElement(driver, continueButton);
+                Actions.retryClickAndIgnoreElementInterception(driver, continueButton);
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 Actions.clickElement(driver, formToFollow);
             }
@@ -533,10 +545,14 @@ public class PatientChoicePage {
             }
             if (!isFound) {
                 Debugger.println("Option: " + option + " not present for the question:" + question);
+                SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
+                Actions.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("PCOptionNotPresent.jpg");
             }
             return isFound;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp);
+            SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
             return false;
         }
     }
@@ -1741,5 +1757,61 @@ public class PatientChoicePage {
             Debugger.println("Exception in clicking on CancelUpload Button in PC:" + exp);
             SeleniumLib.takeAScreenShot("PCCancelUploadButton.jpg");
         }
+    }
+    //Added this method to complete default PC for each category with agreeing test - used in user journeys
+    public boolean completePatientChoiceWithAgreeingTestForFamilyMember(String familyMember,String category,String recordBy){
+        boolean testResult = false;
+        try{
+            //Category
+            testResult = selectPatientChoiceCategory(category);
+            if(!testResult){
+                return testResult;
+            }
+            //TestType
+            testResult = selectTestType("Rare & inherited diseases – WGS");
+            if(!testResult){
+                return testResult;
+            }
+            //RecordBy
+            testResult = fillRecordedByDetails(familyMember,recordBy);
+            if(!testResult){
+                return testResult;
+            }
+            Wait.seconds(3);
+            clickOnContinue();
+            Wait.seconds(3);
+            verifyTheSectionTitle("Patient choice");
+            Actions.clickElement(driver,agreeTestChoice);
+            Actions.clickElement(driver,agreeResearchParticipation);
+            Actions.clickElement(driver,agreeSampleUsage);
+            Wait.seconds(5);
+            clickOnContinue();
+            Wait.seconds(2);
+            if(category.equalsIgnoreCase("Child")){
+                verifyTheSectionTitle("Child assent");
+                Actions.scrollToTop(driver);
+                Actions.clickElement(driver,childAssentYes);
+                Wait.seconds(2);
+                clickOnContinue();
+                Wait.seconds(2);
+            }else if(category.equalsIgnoreCase("Adult (Without Capacity)")){
+                verifyTheSectionTitle("Consultee attestation");
+                Actions.scrollToTop(driver);
+                Actions.clickElement(driver,consulteeReadYes);
+                Actions.clickElement(driver,consulteeConsultedYes);
+                Actions.clickElement(driver,consulteeAgreedYes);
+                Wait.seconds(2);
+                clickOnContinue();
+                Wait.seconds(2);
+            }
+            submitPatientChoice();
+            return testResult;
+
+        }catch(Exception exp){
+            Debugger.println("Exception from Submitting Patient Choice for :"+familyMember+"\n"+exp);
+            SeleniumLib.takeAScreenShot("PCSubmissionError.jpg");
+            return false;
+        }
+
     }
 }//end

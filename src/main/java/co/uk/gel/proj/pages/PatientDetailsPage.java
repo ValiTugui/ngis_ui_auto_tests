@@ -869,11 +869,17 @@ public class PatientDetailsPage {
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
         try {
             newPatientPageIsDisplayed();
-            selectMissingNhsNumberReason(referralDetails.getNO_NHS_REASON());
-            if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("Other - provide explanation")) {
-                Wait.forElementToBeDisplayed(driver, otherReasonExplanation);
-                otherReasonExplanation.sendKeys(faker.numerify("misplaced my NHS Number"));
+            //Going ahead with NHS number, for new NGIS Patients
+            if(referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")){
+                Actions.clickElement(driver, yesButton);
+                Actions.clickElement(driver, nhsNumber);
+                Actions.fillInValue(nhsNumber, referralDetails.getNHS_NUMBER());
+                Actions.clickElement(driver, nhsNumberLabel);
+            }else {
+                //New Patient Without NHS Number
+                selectMissingNhsNumberReason(referralDetails.getNO_NHS_REASON());
             }
+
             if (referralDetails.getTITLE() == null || referralDetails.getTITLE().isEmpty()) {
                 referralDetails.setTITLE("Mr");
             }
@@ -914,7 +920,12 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine4, referralDetails.getADDRESS_LINE4());
             Actions.fillInValue(postcode, referralDetails.getPOST_CODE());
             //Ensure all the fields are correctly populated without any error shown on patient details page
-            boolean flag = verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+            boolean flag = false;
+            if(referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {//Created as SUPER USER
+                flag = verifyTheElementsOnAddNewPatientPageSuperUserFlow();
+            }else{
+               flag = verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+            }
             if(!flag){
                 // Navigate to top of page
                 Actions.scrollToTop(driver);

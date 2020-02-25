@@ -4,12 +4,13 @@
 
 Feature: This is a referral feature
 
-  @NTS-4502 @LOGOUT @v_1 @E2EUI-1250
+  @NTS-4502 @LOGOUT @v_1 @E2EUI-1250 @E2EUI-1368 @NTS-4728
   Scenario Outline: Referral: Date of Birth and Age format in the referral header bar
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     When the user navigates to the "<stage>" stage
     Then the "<stage>" stage is marked as Completed
+    And the referral submit button is not enabled
     And the DOB and age in the referral header bar are displayed in the expected format
 
     Examples:
@@ -42,20 +43,28 @@ Feature: This is a referral feature
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage>" stage
     Then the "<stage>" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Requesting organisation" stage
     Then the "Requesting organisation" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Test package" stage
     Then the "Test package" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Responsible clinician" stage
     Then the "Responsible clinician" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Tumours" stage
     Then the "Tumours" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Samples" stage
     Then the "Samples" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Notes" stage
     Then the "Notes" stage is selected
+    And the referral submit button is not enabled
     And the user navigates to the "Patient choice" stage
     Then the "Patient choice" stage is selected
+    And the referral submit button is not enabled
 
     Examples:
       | stage           |

@@ -6,7 +6,7 @@ Feature: Patient Choice Navigation
   @NTS-3409 @E2EUI-1822 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -37,7 +37,7 @@ Feature: Patient Choice Navigation
   @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Adult (With Capacity): Verify the info message when user declined for a test
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -62,7 +62,7 @@ Feature: Patient Choice Navigation
   @NTS-3411 @E2EUI-1960 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3411: Child: Verify the info message when user declined for a test
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -89,7 +89,7 @@ Feature: Patient Choice Navigation
   @NTS-3410 @E2EUI-1127 @E2EUI-1934 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3410: Verify the patient Choice stage marked as completed
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -122,7 +122,7 @@ Feature: Patient Choice Navigation
   @NTS-3418 @E2EUI-1702 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
@@ -172,7 +172,7 @@ Feature: Patient Choice Navigation
   @NTS-3446 @E2EUI-2035 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -196,7 +196,7 @@ Feature: Patient Choice Navigation
   @NTS-3472 @E2EUI-2149 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3472: Remove Child Assent section where paper form is not present
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -233,7 +233,7 @@ Feature: Patient Choice Navigation
   @NTS-3471 @E2EUI-2155 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3471: Verify the child assent question content
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -273,7 +273,7 @@ Feature: Patient Choice Navigation
   @NTS-3415 @E2EUI-1627 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1991:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1991:Gender=Male |
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -335,7 +335,7 @@ Feature: Patient Choice Navigation
   @NTS-4603 @E2EUI-1892 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4603: Moving the warn message to research section
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
@@ -384,7 +384,7 @@ Feature: Patient Choice Navigation
 #  @NTS-3473 @E2EUI-2037 @LOGOUT @v_1 @P1
 #  Scenario Outline: NTS-3473: Patient Choice critical error Should not be occurred when refresh token expires
 #    Given a new patient referral is created with associated tests in Test Order System online service
-#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
 #     #patient choice for the proband
 #    When the user navigates to the "<PatientChoice>" stage
 #    Then the user is navigated to a page with title Patient choice
@@ -404,7 +404,7 @@ Feature: Patient Choice Navigation
   @NTS-3409 @E2EUI-1824 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband

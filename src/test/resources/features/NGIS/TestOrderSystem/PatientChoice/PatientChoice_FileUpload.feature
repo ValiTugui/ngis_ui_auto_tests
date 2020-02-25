@@ -6,7 +6,7 @@ Feature: Patient Choice Page - File uploads
   @NTS-3440 @E2EUI-2038 @2036 @E2EUI-1823 @E2EUI-1680 @E2EUI-1827 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3440: Editing Patient Choice Recorded by when uploading a paper form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -52,7 +52,7 @@ Feature: Patient Choice Page - File uploads
   @NTS-3448 @E2EUI-1147 @E2EUI-2087 @E2EUI-825 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3448: Validating Upload Document functionality with invalid file formats in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -84,7 +84,7 @@ Feature: Patient Choice Page - File uploads
   @NTS-3483 @E2EUI-1890 @E2EUI-1950 @E2EUI-1826 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3483: Remove the option for consultee from the document upload enumeration - Child flow
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -111,7 +111,7 @@ Feature: Patient Choice Page - File uploads
   @NTS-3480 @E2EUI-2154 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3480: Verify patient signature section should not present after upload document
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -144,7 +144,7 @@ Feature: Patient Choice Page - File uploads
   @NTS-4603 @E2EUI-1856 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4603: Verify that the old file uploaded names remain after all files have been deleted.
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
     When the user navigates to the "<Stage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

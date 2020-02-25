@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TestUtils {
 
@@ -303,5 +304,13 @@ public class TestUtils {
     public static String getRandomLastName() {
         String someName = new Faker().name().lastName();
         return PREFIX + someName;
+    }
+
+    public static boolean compareTwoCollectionsContainIdenticalValues(List<String> list1, List<String> list2){
+        List<String> sortedList1 = list1.stream().sorted().collect(Collectors.toList());
+        List<String> sortedList2 = list2.stream().sorted().collect(Collectors.toList());
+        Debugger.println("Sorted List 1: " + sortedList1);
+        Debugger.println("Sorted List 2: " + sortedList2);
+        return sortedList1.equals(sortedList2);
     }
 }
