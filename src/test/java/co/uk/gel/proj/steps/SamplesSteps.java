@@ -13,12 +13,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static co.uk.gel.lib.Actions.getText;
+import static co.uk.gel.lib.Actions.getValue;
 
 public class SamplesSteps extends Pages {
 
@@ -487,15 +485,17 @@ public class SamplesSteps extends Pages {
 
         boolean flag = Wait.isElementDisplayed(driver, samplesPage.sampleCollectionDateField, 10);
         Assert.assertTrue(flag);
-        String actualSampleCollectionDate = Actions.getText(samplesPage.sampleCollectionDateFieldLabel);
-        Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDate);
+        String actualSampleCollectionDateLabel = Actions.getText(samplesPage.sampleCollectionDateFieldLabel);
+        Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDateLabel);
         Debugger.println("Expected sampleCollection label: " + expectedSampleCollectionDateLabel);
-        Assert.assertEquals(expectedSampleCollectionDateLabel,actualSampleCollectionDate);
+        Assert.assertEquals(expectedSampleCollectionDateLabel,actualSampleCollectionDateLabel);
     }
 
     @And("the user is able to enter date in the Sample Collection date field")
     public void theUserIsAbleToEnterDateInTheSampleCollectionDateField() {
           samplesPage.selectSampleCollectionDate();
-        Assert.assertTrue(!Actions.getText(samplesPage.sampleCollectionDateFieldLabel).isEmpty()); //Collection field date is not empty
+          String actualSampleCollectionDate = Actions.getValue(samplesPage.sampleCollectionDateField);
+          Debugger.println("Actual sampleCollection Date:" + actualSampleCollectionDate);
+          Assert.assertTrue(!Objects.requireNonNull(getValue(samplesPage.sampleCollectionDateField)).isEmpty()); //Collection field date is not empty
     }
 }

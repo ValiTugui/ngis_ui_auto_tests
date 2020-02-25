@@ -634,8 +634,8 @@ Feature: Samples Page
      And the user is able to enter date in the Sample Collection date field
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
-      | Samples | Manage samples | Add a sample | Add sample details | Omics sample          | Buccal swab |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fibroblasts |
 
 
 

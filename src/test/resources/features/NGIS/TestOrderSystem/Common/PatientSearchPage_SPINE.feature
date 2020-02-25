@@ -162,7 +162,7 @@ Feature: Patient search page_SPINE
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
 
-  @NTS-2801 @E2EUI-1114 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-929 @v_1
   Scenario Outline: NTS-2801:Patient Search - NHS number Validations - number of digits limited to 10
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -177,7 +177,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
-  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @E2EUI-1399 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @E2EUI-1399 @E2EUI-929 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -320,3 +320,27 @@ Feature: Patient search page_SPINE
   Scenario: NTS-3159 - Patient Search - To verify the Tab Title displayed correctly if cursor is mover over the Tab
     And User place the cursor over the tab in which the Dashboard - Home page is opened
     Then The user should see the tab title as "Genomic Medicine Service | Test Ordering Application - NGIS"
+
+
+  @NTS-4722 @E2EUI-835 @v_1
+  Scenario Outline: NTS-4722:Patient Search - Integer/decimal Type Validation in NHS Number Field
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the NHS number field remains empty as invalid characters are not accepted
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+
+    Examples: Integer Decimal in NHSField
+      | patient-search-type | NhsNumber | DOB        | error_message           |
+      | NHS Spine           | abcdefghh | 01-01-2020 | NHS Number is required. |
+      | NHS Spine           | !@#$%^&*  | 01-01-2020 | NHS Number is required. |
+
+
+  @NTS-4727 @E2EUI-1133 @v_1 @BVT_P0
+  Scenario Outline: NTS-4727 : Patient Search - Gender field Validation when no gender is selected
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+
+    Examples:
+      | patient-search-type | SearchDetails                                              | error_message       |
+      | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz | Gender is required. |
