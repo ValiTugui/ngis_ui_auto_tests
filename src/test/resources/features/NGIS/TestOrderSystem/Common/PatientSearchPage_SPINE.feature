@@ -335,7 +335,7 @@ Feature: Patient search page_SPINE
 
 
   @NTS-4727 @E2EUI-1133 @v_1 @BVT_P0
-  Scenario Outline: NTS-4727 -Patient Search - Gender field Validation when no gender is selected
+  Scenario Outline: NTS-4727 : Patient Search - Gender field Validation when no gender is selected
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button
