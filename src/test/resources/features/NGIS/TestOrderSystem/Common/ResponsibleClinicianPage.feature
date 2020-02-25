@@ -61,6 +61,7 @@ Feature: Responsible Clinician
       | stage                 | hyperlinkText | error_info            |red_color_hex_code |
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
 
+  # E2EUI-1641
   @NTS-3175 @E2EUI-956 @E2EUI-1355 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
   Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
