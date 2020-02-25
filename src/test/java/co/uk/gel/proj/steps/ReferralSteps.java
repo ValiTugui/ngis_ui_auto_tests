@@ -800,5 +800,11 @@ public class ReferralSteps extends Pages {
         flag = referralPage.copyrightTextIsDisplayedInTheFooter();
         Assert.assertTrue(flag);
     }
+    @Then("the user should see a new popup dialog with title {string}")
+    public void theUserShouldSeeANewPageWith(String titleMessage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheSubmitDialogTitle(titleMessage);
+        Assert.assertTrue(testResult);
+    }
 
 }

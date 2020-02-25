@@ -648,6 +648,17 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName("");
         Assert.assertTrue(testResult);
-
     }
+
+    @And("the user should see the referral submit button as (.*)")
+    public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
+        boolean testResult = false;
+        testResult = patientChoicePage.referralSubmitButtonStatus("#000000");
+        if (expectedStatus.equals("enabled")) {
+           Assert.assertFalse(testResult);
+        } else {
+            Assert.assertTrue(testResult);
+        }
+    }
+
 }//end

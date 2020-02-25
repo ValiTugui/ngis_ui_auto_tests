@@ -569,4 +569,5 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDownValue);
 
     }
+
 }

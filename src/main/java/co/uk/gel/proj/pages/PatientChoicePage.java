@@ -1814,4 +1814,22 @@ public class PatientChoicePage {
         }
 
     }
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
+    public WebElement referralSubmitButton;
+
+    public boolean referralSubmitButtonStatus(String expectedColor) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
+            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
+            String actualColor = referralSubmitButton.getCssValue("background-color");
+            Debugger.println("Actual Color: "+actualColor);
+            if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
+            return false;
+        }
+    }
 }//end

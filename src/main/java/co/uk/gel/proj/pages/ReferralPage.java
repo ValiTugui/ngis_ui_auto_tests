@@ -233,6 +233,9 @@ public class ReferralPage<check> {
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
+    @FindBy(id = "dialog-title")
+    WebElement dialogTitle;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1151,6 +1154,13 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("CopyRightLinkNotFound.jpg");
             return false;
         }
+    }
+    public boolean verifyTheSubmitDialogTitle(String titleMessage) {
+        Wait.forElementToBeDisplayed(driver, dialogTitle);
+        if (!dialogTitle.getText().equalsIgnoreCase(titleMessage)) {
+            return false;
+        }
+        return true;
     }
 
 }
