@@ -798,4 +798,8 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(flag);
     }
 
+    @And("the referral submit button is not enabled")
+    public void theReferralSubmitButtonIsNotEnabled() {
+        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
+    }
 }

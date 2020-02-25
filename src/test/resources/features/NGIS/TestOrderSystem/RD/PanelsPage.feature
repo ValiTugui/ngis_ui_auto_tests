@@ -26,6 +26,7 @@ Feature: Panels Page Verification
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     And the user sees the selected "<searchPanels>" panels under added panels
+    And the referral submit button is not enabled
 
     Examples:
       | Panels | searchPanels                                  | textLine                                                                                                      |

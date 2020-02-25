@@ -20,6 +20,7 @@ Feature: RD Questionnaire
     When the user adds a new HPO phenotype term "<hpoTerm2>"
     Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
     And the Clinical Questions page is displayed with at least "<hpoTermsCount>" HPO terms in the HPO Phenotype section
+    And the referral submit button is not enabled
 
     Examples:
       | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount | termPresence |
