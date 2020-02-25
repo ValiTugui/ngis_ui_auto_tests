@@ -5,6 +5,7 @@
 
 Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
+  # E2EUI-905
   @E2EUI-1804 @NTS-3348 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
   Scenario Outline: NTS-3348 - UseCase 29: Create Referral for Proband Only - Patient Choice Not given
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
