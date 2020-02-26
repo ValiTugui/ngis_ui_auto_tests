@@ -39,6 +39,7 @@ public class ReferralPage<check> {
     public WebElement referralHeader;
 
     //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
+    //Changed the path to read the button property also
     @FindBy(xpath = "//*[@id='referral__header']//button")
     public WebElement submitReferralButton;
 
@@ -1152,6 +1153,16 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("privacy policy text link text is not displayed");
             SeleniumLib.takeAScreenShot("CopyRightLinkNotFound.jpg");
+            return false;
+        }
+    }
+    public boolean checkSubmitReferralIsDisabled() {
+        try {
+            Wait.forElementToBeDisplayed(driver, submitReferralButton);
+            return submitReferralButton.isEnabled();
+        } catch (Exception exp) {
+            Debugger.println("Exception in submitting Referral " + exp);
+            SeleniumLib.takeAScreenShot("submitReferralIsNotDisabledState.jpg");
             return false;
         }
     }

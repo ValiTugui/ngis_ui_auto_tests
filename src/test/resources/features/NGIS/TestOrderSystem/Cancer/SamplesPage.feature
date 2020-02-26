@@ -79,8 +79,8 @@ Feature: Samples Page
       | Solid tumour sample       |
       | Liquid tumour sample      |
       | Normal or germline sample |
-      | Abnormal tissue sample    |
-      | Omics sample              |
+#      | Abnormal tissue sample - Descoped 24/02/2020 |
+#      | Omics sample  - Descoped 24/02/2020            |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -172,9 +172,9 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
       | sampleStateHeader   |
-      | Urine               |
+      | Fibroblasts         |
       | DNA                 |
-      | Buccal swab         |
+      | Saliva              |
       | Fresh frozen tumour |
       | Fresh frozen tissue |
 
@@ -192,7 +192,7 @@ Feature: Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<non-tumour-SampleType>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
@@ -203,7 +203,7 @@ Feature: Samples Page
 #    Editing sample details
     When the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
     Then the "<pageTitle4>" page is displayed
-    And the user edits the fields on Edit a Sample page by selecting the sample type "<sampleType-edited>", sample state "<sampleState-edited>" and SampleID
+    And the user edits the fields on Edit a Sample page by selecting the sample type "<non-tumour-sampleType-edited>", sample state "<sampleState-edited>" and SampleID
     And the user clicks the Save and Continue button
     When the user clicks on the Back link
     And the user navigates to the "<stage>" stage
@@ -212,8 +212,8 @@ Feature: Samples Page
     Then the new edited sample details are displayed in the edit sample page
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType   | sampleState | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample | Urine       | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | DNA                | Sample updated           |
 
 
   @NTS-3345 @E2EUI-838 @E2EUI-857 @LOGOUT @v_1 @BVT_P0
@@ -252,7 +252,7 @@ Feature: Samples Page
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Urine       | test                   | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
 
 
   @NTS-3347 @E2EUI-1342 @LOGOUT @P0 @v_1
@@ -290,7 +290,7 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Omics sample          | Urine       | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | DNA         | test                   |
 
   @NTS-3365 @E2EUI-2359 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
@@ -352,7 +352,7 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
-      | Samples | Manage samples | Add a sample | Add sample details | Omics sample          | Buccal swab |
+      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      |
 
   @NTS-3376 @E2EUI-1490 @LOGOUT @P0 @v_1
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
@@ -376,7 +376,7 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Saliva      |
 
 
   @NTS-3408 @E2EUI-2143 @E2EUI-2108 @E2EUI-2106 @E2EUI-2098 @LOGOUT @P0 @v_1
@@ -410,8 +410,8 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
-      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Saliva      | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | DNA         | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
 
 
   @NTS-3412 @E2EUI-2103 @LOGOUT @P0 @v_1
@@ -436,8 +436,6 @@ Feature: Samples Page
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Buccal swab |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Urine       |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
 
 
@@ -474,7 +472,7 @@ Feature: Samples Page
     Examples:
 
       | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
-      | Samples | Manage samples | Add a sample | Notes     | Omics sample          | Buccal swab | Dismiss            | unsaved information | samples/add        |
+      | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/add        |
 
 
   @NTS-3416 @E2EUI-2141 @LOGOUT @P0 @v_1
@@ -507,7 +505,7 @@ Feature: Samples Page
     Examples:
 
       | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
 
 
   @NTS-3416 @E2EUI-2440 @LOGOUT @P0 @v_1
@@ -543,7 +541,7 @@ Feature: Samples Page
     Examples:
 
       | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | DNA         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
   @NTS-3432 @E2EUI-1352 @LOGOUT @P0 @v_1
@@ -572,7 +570,7 @@ Feature: Samples Page
 #     user is back to Manage Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
-    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Urine" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Saliva" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle4>" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
@@ -615,7 +613,7 @@ Feature: Samples Page
     Examples:
 
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | notificationText |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
 
    @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
