@@ -17,8 +17,8 @@ Feature: This is mi-portal fileSubmission
     And the user is able to see the field values - Filenames "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
 
     Examples:
-      | mi_stage | value   | operator | date  | filename                                             | Status  | ErrorMessage | WarningMessage |
-      |          | Created | equals   | today | ngis_bio_to_gel_samples_received_20200213_143000.csv | invalid |              |                |
+      | mi_stage | value   | operator | date  | filename                                            | Status | ErrorMessage | WarningMessage |
+      |          | Created | equals   | today | ngis_gel_to_bio_sample_sent_wwm_20200226_103815.csv | valid  |              |                |
 
 
 

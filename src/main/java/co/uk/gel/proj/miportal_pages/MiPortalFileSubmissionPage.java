@@ -100,6 +100,10 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public Map<String, String> getValuesOfSearchedResult(String filterCriteria) {
+
+        // deliberate 3 seconds wait is added to handle the slowness of UI
+        //Exception.org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page document
+        Wait.seconds(3);
         List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
         List<String> headers = new ArrayList<>();
         for (WebElement ele : allHeaders) {
