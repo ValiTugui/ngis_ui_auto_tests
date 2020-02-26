@@ -29,8 +29,8 @@ Feature: Pedigree - UI Customizations
       | PedigreeStage | FamilyMemberDetails         | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1970 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3TODO @E2EUI-1754 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3TODO : Clinical Indication is displayed properly on Pedigree tool.
+  @NTS-3464 @E2EUI-1754 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3464 : Clinical Indication is displayed properly on Pedigree tool.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     ##Patient Details
