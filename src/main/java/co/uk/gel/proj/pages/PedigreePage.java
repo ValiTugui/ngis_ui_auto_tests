@@ -26,9 +26,6 @@ public class PedigreePage {
     @FindBy(xpath = "//p[contains(@class,'pedigree-tool__intro')]")
     public List<WebElement> pedigreeIntroMessages;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_notification-')]//div[2]")
-    public WebElement errorMsg;
-
     @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//p[1]")
     public WebElement firstTextMessage;
 
@@ -101,6 +98,27 @@ public class PedigreePage {
     @FindBy(css = "button[class*='referral-navigation__continue']")
     public WebElement saveThePedigree;
 
+    @FindBy(xpath = "//div[@id='tab_Clinical']//label[contains(@class,'field-name')]")
+    public List <WebElement> clinicalTabFields;
+    @FindBy(xpath = "//input[@name='carrierStatus']")
+    public List <WebElement> diseaseStatusOptions;
+
+    @FindBy(xpath="//select[@name='clinicalIndicationAgeOfOnsetYears']")
+    public WebElement clinicalTab_AgeOfOnsetYears;
+    @FindBy(xpath="//select[@name='clinicalIndicationAgeOfOnsetMonths']")
+    public WebElement clinicalTab_AgeOfOnsetMonths;
+
+    @FindBy(xpath="//input[@name='clinicalIndicationName']")
+    public WebElement clinicalTab_ClinicalIndicatorName;
+
+    @FindBy(xpath = "//label[contains(@class,'Status_Unaffected')]")
+    public WebElement Unaffected;
+    @FindBy(xpath = "//label[contains(@class,'Status_Affected')]")
+    public WebElement Affected;
+    @FindBy(xpath = "//label[contains(@class,'Status_Unknown')]")
+    public WebElement Unknown;
+
+
     String selectedPedigreeTab = "//dl[@class='tabs']//a[contains(text(),'dummyOption')]";
 
     public PedigreePage(WebDriver driver) {
@@ -113,13 +131,19 @@ public class PedigreePage {
         saveAndExitButton.click();
     }
 
-    public boolean locatePedigreeNodeFor(NGISPatientModel patient){
+    public boolean locatePedigreeNodeFor(String ngsID){
         try{
-            String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID",patient.getNGIS_ID());
+            if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
+                Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+                return false;
+            }
+            //Waiting for 5 seconds to ensure the diagram is loaded
+            Wait.seconds(5);
+            String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID",ngsID);
             WebElement pedigreeNode = driver.findElement(By.xpath(nodePath));
             return Wait.isElementDisplayed(driver,pedigreeNode,60);
         }catch(Exception exp){
-            Debugger.println("Exception in locating pedigree Node For: "+patient.getNGIS_ID());
+            Debugger.println("Exception in locating pedigree Node For: "+ngsID);
             return false;
         }
     }
@@ -136,24 +160,6 @@ public class PedigreePage {
             return false;
         }
     }
-    @FindBy(xpath = "//div[@id='tab_Clinical']//label[contains(@class,'field-name')]")
-    public List <WebElement> clinicalTabFields;
-    @FindBy(xpath = "//input[@name='carrierStatus']")
-    public List <WebElement> diseaseStatusOptions;
-
-    @FindBy(xpath="//select[@name='clinicalIndicationAgeOfOnsetYears']")
-    public WebElement clinicalTab_AgeOfOnsetYears;
-    @FindBy(xpath="//select[@name='clinicalIndicationAgeOfOnsetMonths']")
-    public WebElement clinicalTab_AgeOfOnsetMonths;
-
-    @FindBy(xpath = "//label[contains(@class,'Status_Unaffected')]")
-    public WebElement Unaffected;
-    @FindBy(xpath = "//label[contains(@class,'Status_Affected')]")
-    public WebElement Affected;
-    @FindBy(xpath = "//label[contains(@class,'Status_Uncertain')]")
-    public WebElement Uncertain;
-    @FindBy(xpath = "//label[contains(@class,'Status_Unknown')]")
-    public WebElement Unknown;
 
     public boolean verifyFieldsStatusOnClinicalTab(String fieldName,String fieldStatus) {
         try {
@@ -207,9 +213,42 @@ public class PedigreePage {
             return false;
         }
     }
+    public boolean verifyFieldsValueOnClinicalTab(String fieldName) {
+        try {
+            //Ensure the field is present
+            boolean isPresent = false;
+            for(int i=0; i<clinicalTabFields.size(); i++){
+                if(clinicalTabFields.get(i).getText().equalsIgnoreCase(fieldName)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Field "+fieldName+" not present in Clinical Tab.");
+                return false;
+            }
+            //Verify the Value of each Field
+            switch (fieldName) {
+                case "Clinical Indication Name": {
+                    Wait.forElementToBeDisplayed(driver,clinicalTab_ClinicalIndicatorName);
+                    Debugger.println(fieldName+":"+clinicalTab_ClinicalIndicatorName.getText());
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in validating field status In Clinical Tab :"+exp);
+            return false;
+        }
+    }
     public boolean clickSpecificNodeOnPedigreeDiagram(NGISPatientModel patient) {
-        //Waiting for 10 seconds to ensure the diagram is loaded
-        Wait.seconds(10);
+        Actions.scrollToBottom(driver);
+        if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
+            Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+            return false;
+        }
+        //Waiting for 5 seconds to ensure the diagram is loaded
+        Wait.seconds(5);
         String gender = patient.getGENDER();
         if(gender == null || patient.getNGIS_ID() == null){
             Debugger.println("Gender: "+gender+" and/or NGSID:"+patient.getNGIS_ID()+" is NULL.");
@@ -287,10 +326,11 @@ public class PedigreePage {
                 SeleniumLib.sleep(3);
             } else if (gender.equalsIgnoreCase("Female")) {
                 try {
-                     expectedYCoordinate = Integer.toString(Integer.parseInt(tempYCoordinate) - 143);
+                     expectedYCoordinate = Integer.toString(Integer.parseInt(tempYCoordinate) - 106);
                 } catch (Exception exp) {
-                    expectedYCoordinate = Float.toString(Float.parseFloat(tempYCoordinate) - 143);
+                    expectedYCoordinate = Float.toString(Float.parseFloat(tempYCoordinate) - 106);
                 }
+                Debugger.println("Calculated X,Y.."+expectedYCoordinate);
                 By female_node = null;
                 for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                     xCoordinate = Integer.toString((int) Double.parseDouble(tempXCoordinate) + idx_array[i]);
@@ -300,19 +340,17 @@ public class PedigreePage {
                             female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow'][@cx='" + xCoordinate + "'][contains(@cy,'" + yCoordinate + "')]");
                             try {
                                 seleniumLib.moveMouseAndClickOnElement(female_node);
-                                nodemssage = "Clicked on Pedigree Node (female).";
-                                diagramClicked = true;
+                               diagramClicked = true;
                                 break;
                             } catch (NoSuchElementException E) {
                                 Debugger.println("Exception.....FemaleNode..." + idx_array[i] + "....." + female_node);
-                                nodemssage = "Could not Click on Pedigree Node (female)";
                             }
                         }
                     } else {
                         break;
                     }
                 }//For
-                SeleniumLib.sleep(3);
+                Wait.seconds(3);
             }
         } catch (MoveTargetOutOfBoundsException exp) {
             By ZoomOut = By.xpath("//div[@title='Zoom out']");
@@ -322,12 +360,9 @@ public class PedigreePage {
                 clickSpecificNodeOnPedigreeDiagram(patient);
             }
 
-            nodemssage = "MoveTargetOutOfBoundsException: Clicked on Pedigree Node.";
         } catch (WebDriverException exp) {
             //Exception might be thrown from FireFox. We are constructing the xpath from the exception.
             try {
-                //DAMSDebugger.println("EXCEPTION in WebDriverException catch block\n" + exp);
-                //System.out.println("Message....\n"+exp.getMessage()+"\n");
                 String[] tem_element_props = exp.getMessage().split("<");
                 String[] element_props = tem_element_props[1].split("\"");
                 String[] temp = element_props[0].split(" ");
@@ -336,21 +371,16 @@ public class PedigreePage {
                 for (int i = 2; i < element_props.length - 1; i++) {
                     Xpath = Xpath + "[@" + element_props[i].trim() + "'" + element_props[++i].trim() + "']";
                 }
-                //DAMSDebugger.println("Diagram Path Constructed from WebDriverException is\n" + Xpath);
-                seleniumLib.moveMouseAndClickOnElement(By.xpath(Xpath));
-                nodemssage = "WebDriverException: Clicked on Pedigree Node.";
+                 seleniumLib.moveMouseAndClickOnElement(By.xpath(Xpath));
             } catch (MoveTargetOutOfBoundsException mtobe) {
-                //DAMSDebugger.println("EXCEPTION in MoveTargetOutOfBoundsException catch block\n" + mtobe);
                 By ZoomOut = By.xpath("//div[@title='Zoom out']");
                 seleniumLib.clickOnElement(ZoomOut);
                 if(!zoomoutflag) {
                     zoomoutflag = true;
                     clickSpecificNodeOnPedigreeDiagram(patient);
                 }
-                nodemssage = "MoveTargetOutOfBoundsException: Clicked on Pedigree Node.";
             } catch (Exception scp) {
                 Debugger.println("catch block for try with in WebDriverException catch block\n" + scp);
-                nodemssage = "Exception from clicking node..Clicked on Pedigree Node." + scp;
             }
 
         } catch (Exception exp) {

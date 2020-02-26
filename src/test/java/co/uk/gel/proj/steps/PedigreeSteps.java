@@ -34,6 +34,22 @@ public class PedigreeSteps extends Pages {
         boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
         Assert.assertTrue(testResult);
     }
+    @And("the user should be able see the pedigree diagram loaded for the given members")
+    public void theUserShouldSeeThePedigreeDiagramLoadedForMembers(DataTable members) {
+        boolean testResult = false;
+        List<List<String>> memberDetails = members.asLists();
+        for (int i = 1; i < memberDetails.size(); i++) {
+            NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
+            if (patient == null) {
+                Debugger.println("Specified Member" + memberDetails.get(i).get(0) + " could not get from the list.");
+            }
+            if (patient.getNGIS_ID() == null) {
+                patient.setNGIS_ID(referralPage.getPatientNGISId());
+            }
+            testResult = pedigreePage.locatePedigreeNodeFor(patient.getNGIS_ID());
+            Assert.assertTrue(testResult);
+        }
+    }
     @And("the user will see a warning message {string} on the pedigree page")
     public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
         pedigreePage.pedigreeWarningMessage(warningMessage);
@@ -118,6 +134,19 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsStatusOnClinicalTab(fields.get(i).get(0),fields.get(i).get(1));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the below field values should be displayed properly on Clinical Tab")
+    public void theUserShouldBeAbleToReadTheGivenFiledValues(DataTable fieldsDetails) {
+        boolean testResult = false;
+        List<List<String>> fields = fieldsDetails.asLists();
+        for (int i = 1; i < fields.size(); i++) {
+            testResult = pedigreePage.verifyFieldsValueOnClinicalTab(fields.get(i).get(0));
             if(!testResult){
                 Assert.assertTrue(testResult);
             }
