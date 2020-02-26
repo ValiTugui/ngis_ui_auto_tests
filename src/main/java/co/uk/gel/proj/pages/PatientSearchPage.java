@@ -891,7 +891,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,120);
             noResultText = Actions.getText(noPatientFoundLabel);
-            Debugger.println("No result " + noResultText);
+            //Debugger.println("No result " + noResultText);
             return noResultText;
         } catch (Exception exp) {
             Debugger.println("Oops no patient text found " + exp);

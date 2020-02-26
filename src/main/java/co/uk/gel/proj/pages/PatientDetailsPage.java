@@ -332,7 +332,7 @@ public class PatientDetailsPage {
             //Click.element(driver, element);
             Wait.seconds(3);
             List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='administrativeGender']/..//div//span[text()='"+optionValue+"']"));
-            Debugger.println("Size of Gender DD elements: "+ddElements.size());
+            //Debugger.println("Size of Gender DD elements: "+ddElements.size());
             if(ddElements.size() > 0) {
                 Wait.forElementToBeClickable(driver, ddElements.get(0));
                 Actions.clickElement(driver, ddElements.get(0));
@@ -820,7 +820,7 @@ public class PatientDetailsPage {
 
     public boolean createNewFamilyMember(NGISPatientModel familyMember) {
         try {
-            Debugger.println("Adding new Family Member...");
+            //Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
             familyMember.setTITLE("Mr");
             familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());

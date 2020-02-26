@@ -22,7 +22,6 @@ public class PedigreePage {
     @FindBy(xpath = "//span[@id='action-saveAndExit']")
     public WebElement saveAndExitButton;
 
-
     @FindBy(xpath = "//p[contains(@class,'pedigree-tool__intro')]")
     public List<WebElement> pedigreeIntroMessages;
 
@@ -121,6 +120,9 @@ public class PedigreePage {
 
     String selectedPedigreeTab = "//dl[@class='tabs']//a[contains(text(),'dummyOption')]";
 
+    @FindBy(xpath = "//div[@title='Zoom out']")
+    public WebElement zoomOutButton;
+
     public PedigreePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -133,6 +135,7 @@ public class PedigreePage {
 
     public boolean locatePedigreeNodeFor(String ngsID){
         try{
+            Actions.scrollToBottom(driver);
             if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
                 Debugger.println("Pedigree diagram not loaded after waiting a minute.");
                 return false;
@@ -254,22 +257,28 @@ public class PedigreePage {
             Debugger.println("Gender: "+gender+" and/or NGSID:"+patient.getNGIS_ID()+" is NULL.");
             return false;
         }
-        Debugger.println("Clicking Pedigree Node for Patient with NGIS: "+patient.getNGIS_ID());
-        String nodemssage = "";
+        Debugger.println("Clicking on Pedigree Node for NGIS: "+patient.getNGIS_ID()+", Gender:"+patient.getGENDER()+",DOB:"+patient.getDATE_OF_BIRTH());
         boolean diagramClicked = false;
-        boolean zoomoutflag = false;
+        boolean zoomOutFlag = false;
         try {
             String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID",patient.getNGIS_ID());
             WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
-            if(!Wait.isElementDisplayed(driver,patientPedigreeNode,60)){
-                Debugger.println("Pedigree Node for NGSID:"+patient.getNGIS_ID()+" could not locate.");
-                return false;
+            if(!Wait.isElementDisplayed(driver,patientPedigreeNode,30)){
+                Debugger.println("Pedigree Node for NGSID:"+patient.getNGIS_ID()+" could not locate. ZoomOut and Try");
+                if(!zoomOutFlag){
+                    Wait.forElementToBeDisplayed(driver,zoomOutButton,10);
+                    Actions.clickElement(driver,zoomOutButton);
+                    zoomOutFlag = true;
+                    clickSpecificNodeOnPedigreeDiagram(patient);
+                }else{
+                    return false;
+                }
             }
             String xCoordinate = null;
             String yCoordinate = null;
             String tempXCoordinate = patientPedigreeNode.getAttribute("x");
             String tempYCoordinate = patientPedigreeNode.getAttribute("y");
-            Debugger.println("Default x............"+tempXCoordinate+"..."+tempYCoordinate);
+            //Debugger.println("Default x............"+tempXCoordinate+"..."+tempYCoordinate);
             String expectedXCoordinate = "";
             String expectedYCoordinate = "";
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
@@ -282,13 +291,13 @@ public class PedigreePage {
                     expectedXCoordinate = Float.toString(Float.parseFloat(tempXCoordinate) - 40);
                     expectedYCoordinate = Float.toString(Float.parseFloat(tempYCoordinate) - 146);
                 }
-                Debugger.println("Calculated x,y..."+expectedXCoordinate+","+expectedYCoordinate);
+                //Debugger.println("Calculated x,y..."+expectedXCoordinate+","+expectedYCoordinate);
                 for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                     xCoordinate = Integer.toString((int) Double.parseDouble(expectedXCoordinate) + idx_array[i]);
                     if (!diagramClicked) {
                         for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
                             yCoordinate = Integer.toString((int) Double.parseDouble(expectedYCoordinate) + idy_array[j]);
-                            Debugger.println("X,Y..."+xCoordinate+","+yCoordinate);
+                            //Debugger.println("X,Y..."+xCoordinate+","+yCoordinate);
                             By male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][contains(@y,'" + yCoordinate + "')]");
                             try {
                                 seleniumLib.moveMouseAndClickOnElement(male_node);
@@ -297,23 +306,23 @@ public class PedigreePage {
                             } catch (NoSuchElementException nseexp) {
                                 Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
                             }catch(MoveTargetOutOfBoundsException mtobe ){
-                                Debugger.println("MoveTargetOutOfBounds.....");
+                                //Debugger.println("MoveTargetOutOfBounds.....");
                                 By ZoomOut = By.xpath("//div[@title='Zoom out']");
                                 seleniumLib.clickOnElement(ZoomOut);
-                                if(!zoomoutflag) {
-                                    zoomoutflag = true;
+                                if(!zoomOutFlag) {
+                                    zoomOutFlag = true;
                                     clickSpecificNodeOnPedigreeDiagram(patient);
                                 }
                             }catch (Exception exp){
-                                Debugger.println("General Exp....."+exp);
+                                //Debugger.println("General Exp....."+exp);
                                 try{
                                     String tmpstr = "//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][contains(@y,'" + yCoordinate + "')][@transform='matrix(1,0,0,1,0,0)']";
                                     By xpathtemp = By.xpath(tmpstr);
-                                    Debugger.println("Constructed...."+tmpstr);
+                                    //Debugger.println("Constructed...."+tmpstr);
                                     seleniumLib.moveMouseAndClickOnElement(xpathtemp);
                                     diagramClicked = true;
                                 }catch(Exception exp1){
-                                    Debugger.println("General Internal Exp....."+exp1);
+                                    //Debugger.println("General Internal Exp....."+exp1);
                                     i = idx_array.length+1;
                                     break;
                                 }
@@ -330,7 +339,7 @@ public class PedigreePage {
                 } catch (Exception exp) {
                     expectedYCoordinate = Float.toString(Float.parseFloat(tempYCoordinate) - 106);
                 }
-                Debugger.println("Calculated X,Y.."+expectedYCoordinate);
+                //Debugger.println("Calculated X,Y.."+expectedYCoordinate);
                 By female_node = null;
                 for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                     xCoordinate = Integer.toString((int) Double.parseDouble(tempXCoordinate) + idx_array[i]);
@@ -339,29 +348,31 @@ public class PedigreePage {
                             yCoordinate = Integer.toString((int) Double.parseDouble(expectedYCoordinate) + idy_array[j]);
                             female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow'][@cx='" + xCoordinate + "'][contains(@cy,'" + yCoordinate + "')]");
                             try {
-                                seleniumLib.moveMouseAndClickOnElement(female_node);
+                               seleniumLib.moveMouseAndClickOnElement(female_node);
                                diagramClicked = true;
-                                break;
+                               break;
                             } catch (NoSuchElementException E) {
-                                Debugger.println("Exception.....FemaleNode..." + idx_array[i] + "....." + female_node);
+                                Debugger.println("FemaleNode...X:" + xCoordinate + "..Y:" + yCoordinate);
                             }
                         }
                     } else {
                         break;
                     }
                 }//For
-                Wait.seconds(3);
+                if(diagramClicked){
+                    return diagramClicked;
+                }
             }
         } catch (MoveTargetOutOfBoundsException exp) {
-            By ZoomOut = By.xpath("//div[@title='Zoom out']");
-            seleniumLib.clickOnElement(ZoomOut);
-            if(!zoomoutflag){
-                zoomoutflag = true;
+           Wait.forElementToBeDisplayed(driver,zoomOutButton,10);
+           Actions.clickElement(driver,zoomOutButton);
+            if(!zoomOutFlag){
+                zoomOutFlag = true;
                 clickSpecificNodeOnPedigreeDiagram(patient);
             }
 
         } catch (WebDriverException exp) {
-            //Exception might be thrown from FireFox. We are constructing the xpath from the exception.
+            //Exception might be thrown from FireFox. Constructing the xpath from the exception.
             try {
                 String[] tem_element_props = exp.getMessage().split("<");
                 String[] element_props = tem_element_props[1].split("\"");
@@ -373,10 +384,10 @@ public class PedigreePage {
                 }
                  seleniumLib.moveMouseAndClickOnElement(By.xpath(Xpath));
             } catch (MoveTargetOutOfBoundsException mtobe) {
-                By ZoomOut = By.xpath("//div[@title='Zoom out']");
-                seleniumLib.clickOnElement(ZoomOut);
-                if(!zoomoutflag) {
-                    zoomoutflag = true;
+                Wait.forElementToBeDisplayed(driver,zoomOutButton,10);
+                Actions.clickElement(driver,zoomOutButton);
+                if(!zoomOutFlag) {
+                    zoomOutFlag = true;
                     clickSpecificNodeOnPedigreeDiagram(patient);
                 }
             } catch (Exception scp) {

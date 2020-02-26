@@ -1191,15 +1191,4 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
-    public boolean checkSubmitReferralIsDisabled() {
-        try {
-            Wait.forElementToBeDisplayed(driver, submitReferralButton);
-            return submitReferralButton.isEnabled();
-        } catch (Exception exp) {
-            Debugger.println("Exception in submitting Referral " + exp);
-            SeleniumLib.takeAScreenShot("submitReferralIsNotDisabledState.jpg");
-            return false;
-        }
-    }
 }

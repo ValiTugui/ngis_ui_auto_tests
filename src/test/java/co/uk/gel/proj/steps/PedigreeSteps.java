@@ -46,7 +46,7 @@ public class PedigreeSteps extends Pages {
             if (patient.getNGIS_ID() == null) {
                 patient.setNGIS_ID(referralPage.getPatientNGISId());
             }
-            testResult = pedigreePage.locatePedigreeNodeFor(patient.getNGIS_ID());
+            testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
             Assert.assertTrue(testResult);
         }
     }
