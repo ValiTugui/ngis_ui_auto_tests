@@ -39,8 +39,7 @@ public class ReferralPage<check> {
     public WebElement referralHeader;
 
     //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
-    //Changed the path to read the button property also
-    @FindBy(xpath = "//*[@id='referral__header']//button")
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
     @FindBy(css = "*[data-testid*='referral-sidebar']")
@@ -236,6 +235,9 @@ public class ReferralPage<check> {
 
     @FindBy(id = "dialog-title")
     WebElement dialogTitle;
+    //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
+    @FindBy(xpath = "//*[@id='referral__header']//button")
+    public WebElement referralSubmitButton;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -1176,9 +1178,9 @@ public class ReferralPage<check> {
 
     public boolean referralSubmitButtonStatus(String expectedColor) {
         try {
-            Wait.forElementToBeDisplayed(driver, submitReferralButton);
+            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
-            String actualColor = submitReferralButton.getCssValue("background-color");
+            String actualColor = referralSubmitButton.getCssValue("background-color");
             Debugger.println("Actual Color: "+actualColor);
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
                 return false;
