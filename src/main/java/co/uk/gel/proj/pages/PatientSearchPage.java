@@ -223,7 +223,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickSearchButtonByXpath(WebDriver driver) {
         try {
-            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 120);
+            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 200);
             Wait.forElementToBeClickable(driver, searchButtonByXpath);
             Actions.retryClickAndIgnoreElementInterception(driver, searchButtonByXpath);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
@@ -236,7 +236,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public String checkThatPatientCardIsDisplayed(WebDriver driver) {
-        Wait.forElementToBeDisplayed(driver, patientCard);
+        Wait.forElementToBeDisplayed(driver, patientCard, 200);
         Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
         Debugger.println("The search result is from :" + patientCardBadge.getText());
         //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
@@ -889,7 +889,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public String getPatientSearchNoResult() {
         String noResultText;
         try {
-            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,120);
+            Wait.forElementToBeDisplayed(driver, noPatientFoundLabel,200);
             noResultText = Actions.getText(noPatientFoundLabel);
             Debugger.println("No result " + noResultText);
             return noResultText;
