@@ -509,4 +509,10 @@ public class TumoursSteps extends Pages {
             Assert.assertTrue(true);
         }
     }
+
+    @And("the user see a tick mark next to the added tumour")
+    public void theUserSeeATickMarkNextToTheAddedTumour() {
+        Assert.assertTrue(tumoursPage.ensureTickMarkIsDisplayedNextToSampleType());
+    }
+
 }

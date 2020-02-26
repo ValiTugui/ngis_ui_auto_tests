@@ -85,26 +85,27 @@ Feature: Tumours Page
 
 #    Test to be skipped till we sort out SPINE Data 20/02/2020
 # @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @LOGOUT @P0 @v_1
-  @ignore
-  Scenario Outline: NTS-3154: Add a new tumour for an existing patient
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page for the existing patient with tumour list
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
+#  @ignore - this ignore tag is not picked up by Jenkins run. so commented out the entire ticket.
+#  Scenario Outline: NTS-3154: Add a new tumour for an existing patient
+#    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+#    When the user navigates to the "<stage>" stage
+#    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+#    And the user clicks the Save and Continue button
+#    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+#    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+#    And the user clicks the Save and Continue button
+#    Then the new tumour is displayed in the landing page for the existing patient with tumour list
+#    And the new tumour is not highlighted
+#    And the "<stage>" stage is marked as Completed
+#    And the success notification is displayed "<notificationText>"
+#
+#    Examples:
+#      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+#      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-    Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-  @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
+ # E2EUI-1440
+  @NTS-3154 @NTS-4734 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -116,6 +117,7 @@ Feature: Tumours Page
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
+    And the user see a tick mark next to the added tumour
     And the "<stage>" stage is marked as Completed
     And the success notification is displayed "<notificationText>"
 

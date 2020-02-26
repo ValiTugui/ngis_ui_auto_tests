@@ -592,7 +592,7 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyReferralStatus(String expectedStatus) {
-        Wait.forElementToBeDisplayed(driver, referralStatus);
+        Wait.forElementToBeDisplayed(driver, referralStatus, 200);
         return expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus));
     }
 

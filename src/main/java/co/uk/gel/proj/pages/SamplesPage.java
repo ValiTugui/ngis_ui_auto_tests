@@ -176,6 +176,9 @@ public class SamplesPage {
     @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
     public WebElement addSampleDetailsSubHeading;
 
+    @FindBy(css ="span[class*='checkmark--checked']")
+    public WebElement sampleTypeSVGTickMark;
+
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
         Actions.selectValueFromDropdown(dropdownValue, type);
@@ -546,5 +549,13 @@ public class SamplesPage {
 
     public String getTheLabelForTumourContentPercentageField(){
         return Actions.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToSampleType(){
+        Wait.forElementToBeDisplayed(driver, sampleTypeSVGTickMark);
+        if(Wait.isElementDisplayed(driver, sampleTypeSVGTickMark, 10)){
+            return true;
+        }
+        return false;
     }
 }

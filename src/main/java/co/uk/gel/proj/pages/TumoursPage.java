@@ -147,6 +147,9 @@ public class TumoursPage {
     @FindBy(xpath = "//tr[contains(@class,'checked')]//th/div/div|//tr[contains(@class,'checked')]//td[@class='checkbox-row__cell']")
     public List <WebElement> newlyCheckedTumourDetailsList;
 
+    @FindBy(css ="span[class*='checkmark--checked']")
+    public WebElement TumourSVGTickMark;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -484,5 +487,13 @@ public class TumoursPage {
         int totalListOfUnselectedTumour = listOfUnselectedTumourList.size();
         tumourDetails.setTotalNumberOfUncheckedTumourList(totalListOfUnselectedTumour);
         return tumourDetails.getTotalNumberOfUncheckedTumourList();
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToSampleType(){
+        Wait.forElementToBeDisplayed(driver, TumourSVGTickMark);
+        if(Wait.isElementDisplayed(driver, TumourSVGTickMark, 10)){
+            return true;
+        }
+        return false;
     }
 }

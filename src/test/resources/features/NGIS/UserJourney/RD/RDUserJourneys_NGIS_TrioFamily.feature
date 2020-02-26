@@ -3,6 +3,7 @@
 @userJourneysRD_NGIS_TrioFamily
 Feature: Create Referrals for NGIS Patient - Trio Family
 
+  # E2EUI-905
   @NTS-4563 @E2EUI-1329 @UseCase08 @LOGOUT
   Scenario Outline: NTS-4563: Use Case#08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
