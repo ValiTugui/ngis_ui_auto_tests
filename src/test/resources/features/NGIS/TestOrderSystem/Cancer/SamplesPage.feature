@@ -251,7 +251,7 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited         | sampleState-edited | notificationText-updated |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
 
 
@@ -289,7 +289,7 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour     | sampleState | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | DNA         | test                   |
 
   @NTS-3365 @E2EUI-2359 @LOGOUT @P0 @v_1
@@ -351,7 +351,7 @@ Feature: Samples Page
     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      |
 
   @NTS-3376 @E2EUI-1490 @LOGOUT @P0 @v_1
@@ -375,7 +375,7 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Saliva      |
 
 
@@ -470,8 +470,7 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
+      | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
       | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/add        |
 
 
@@ -503,8 +502,7 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
       | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
 
 
@@ -539,8 +537,7 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
       | Samples | Manage samples | Add a sample | Normal or germline sample | DNA         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
@@ -611,8 +608,7 @@ Feature: Samples Page
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | notificationText |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour     | notificationText |
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
 

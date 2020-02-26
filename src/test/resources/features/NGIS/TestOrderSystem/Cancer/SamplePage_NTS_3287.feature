@@ -120,5 +120,5 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState | sampleTopoMorphyGraphy | notificationText |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState | sampleTopoMorphyGraphy | notificationText |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Saliva       | test                   | Sample added     |
