@@ -148,12 +148,12 @@ public class SamplesSteps extends Pages {
                 break;
             }
             case "sampleState": {
-                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleType("Normal or germline sample");
                 samplesPage.fillInSampleID();
                 break;
             }
             case "sampleID": {
-                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleType("Normal or germline sample");
                 samplesPage.selectSampleState();
                 break;
             }

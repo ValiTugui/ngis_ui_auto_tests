@@ -277,7 +277,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
 
-  @NTS-2799 @E2EUI-1390 @v_1
+  @NTS-2799 @E2EUI-1390 @E2EUI-955  @v_1
   Scenario: NTS-2799:To verify the text information present on the 'Find a Patient' page
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
