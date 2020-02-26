@@ -174,6 +174,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[contains(@class,'results__header')]")
     public WebElement patientSearchResult;
 
+    @FindBy(xpath = "//label[@for='gender']/..//div[contains(@class,'option')]/span/span")
+    public List<WebElement> genderValues;
+
 
     @FindBy(xpath = "//h1[text()='Find your patient']")
     public WebElement findYourPatientTitle;
@@ -1023,6 +1026,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("PatientSearchNo.jpg");
             return false;
         }
+    }
+
+    public List<String> getTheGenderDropDownValues() {
+        Wait.forElementToBeClickable(driver,genderButton);
+        Actions.clickElement(driver, genderButton);
+        List<String> actualGenderValues = new ArrayList<String>();
+        for (WebElement genderValue : genderValues) {
+            actualGenderValues.add(genderValue.getText().trim());
+        }
+        Debugger.println("Actual gender values: " + actualGenderValues);
+        return actualGenderValues;
     }
 }
 
