@@ -52,10 +52,11 @@ public class PedigreeSteps extends Pages {
     }
     @And("the user will see a warning message {string} on the pedigree page")
     public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
-        pedigreePage.pedigreeWarningMessage(warningMessage);
+        boolean testResult = false;
+        testResult = pedigreePage.pedigreeWarningMessage(warningMessage);
+        Assert.assertTrue(testResult);
     }
 
-    //    Newly added
     @Then("the user should be able to see a {string} on the pedigree page")
     public void theUserShouldBeAbleToSeeAOnThePedigreePage(String warningMessage) {
         boolean testResult = false;
@@ -89,40 +90,8 @@ public class PedigreeSteps extends Pages {
     public void theUserClicksOnTheUnassignedParticipantsDropDownLink() {
         pedigreePage.unassignedParticipantsDropDown();
     }
-    @And("the user clicks {string} after drag and drop the given unassigned participants")
-    public void theUserClicksAfterDragAndDropTheGivenUnassignedParticipants(String button) {
-        pedigreePage.dragAndDropTheUnassignedParticipants();
-        pedigreePage.pedigreeAlertPopUPButton(button);
-    }
-
-    //@E2EUI-1246
-    @And("the user verify the pedigree application must be active")
-    public void theUserVerifyThePedigreeApplicationMustBeActive() {
-        boolean testResult = false;
-        Wait.seconds(5);
-        testResult = pedigreePage.verifyCIInPedigree();
-        Assert.assertTrue(testResult);
-    }
-
-
-    @And("the user should be able to save pedigree")
-    public void theUserShouldBeAbleToSavePedigree() {
-        boolean testResult = false;
-        testResult = pedigreePage.saveThePedigree();
-        Assert.assertTrue(testResult);
-    }
-
-    //    Newly added - Stag dev plus one
-
-    @Then("the user should be able to sees pedigree try family icon in review test selection")
-    public void theUserShouldBeAbleToSeesPedigreeTryFamilyIconInReviewTestSelection() {
-        boolean testResult = false;
-        testResult = pedigreePage.validateTryFamilyIcon();
-        Assert.assertTrue(testResult);
-    }
     @And("the user select the pedigree tab (.*)")
     public void theUserClicksTheSpecifiedOnTheNode(String value) {
-
         boolean testResult=false;
         testResult= pedigreePage.clickSpecificPedigreeTab(value);
         Assert.assertTrue(testResult);
@@ -153,4 +122,11 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+    @Then("the user should be able to see (.*) button on Pedigree Page")
+    public void theUserShouldBeAbleToSeeOnlySaveButton(String buttonName) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyPresenceOfButton(buttonName);
+        Assert.assertTrue(testResult);
+    }
+
 }//end
