@@ -123,6 +123,11 @@ public class PedigreePage {
     @FindBy(xpath = "//div[@title='Zoom out']")
     public WebElement zoomOutButton;
 
+    @FindBy(xpath = "//button[text()='Save']")
+    WebElement saveButton;
+    @FindBy(xpath = "//button[text()='Save and continue']")
+    WebElement saveAndContinueButton;
+
     public PedigreePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -138,6 +143,7 @@ public class PedigreePage {
             Actions.scrollToBottom(driver);
             if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
                 Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+                SeleniumLib.takeAScreenShot("PedigreeNotLoaded");
                 return false;
             }
             //Waiting for 5 seconds to ensure the diagram is loaded
@@ -147,6 +153,7 @@ public class PedigreePage {
             return Wait.isElementDisplayed(driver,pedigreeNode,60);
         }catch(Exception exp){
             Debugger.println("Exception in locating pedigree Node For: "+ngsID);
+            SeleniumLib.takeAScreenShot("PedigreeNotLoaded");
             return false;
         }
     }
@@ -154,12 +161,17 @@ public class PedigreePage {
         try {
             String selectedTab = selectedPedigreeTab.replaceAll("dummyOption", tabName);
             WebElement selectTabOption = driver.findElement(By.xpath(selectedTab));
-            Wait.forElementToBeDisplayed(driver, selectTabOption);
+            if(!Wait.isElementDisplayed(driver, selectTabOption,30)){
+                Debugger.println("Expected Tab: "+tabName+" Not loaded in Pedigree popup.");
+                SeleniumLib.takeAScreenShot("NoTabLoadedInPedigree.jpg");
+                return false;
+            }
             selectTabOption.click();
             Wait.seconds(2);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on Specific Tab  in  Pedigree:"+exp);
+            SeleniumLib.takeAScreenShot("NoTabLoadedInPedigree.jpg");
             return false;
         }
     }
@@ -176,6 +188,7 @@ public class PedigreePage {
             }
             if(!isPresent){
                 Debugger.println("Field "+fieldName+" not present in Clinical Tab.");
+                SeleniumLib.takeAScreenShot("NoFieldInClinicalTab.jpg");
                 return false;
             }
             //Verify the Status of each Field
@@ -213,6 +226,7 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Clinical Tab :"+exp);
+            SeleniumLib.takeAScreenShot("NoFieldInClinicalTab.jpg");
             return false;
         }
     }
@@ -228,6 +242,7 @@ public class PedigreePage {
             }
             if(!isPresent){
                 Debugger.println("Field "+fieldName+" not present in Clinical Tab.");
+                SeleniumLib.takeAScreenShot("NoFieldPresentInClinicalTab.jpg");
                 return false;
             }
             //Verify the Value of each Field
@@ -241,6 +256,7 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in validating field status In Clinical Tab :"+exp);
+            SeleniumLib.takeAScreenShot("NoFieldPresentInClinicalTab.jpg");
             return false;
         }
     }
@@ -248,6 +264,7 @@ public class PedigreePage {
         Actions.scrollToBottom(driver);
         if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
             Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+            SeleniumLib.takeAScreenShot("NoPedigreeDiagramLoaded.jpg");
             return false;
         }
         //Waiting for 5 seconds to ensure the diagram is loaded
@@ -598,6 +615,32 @@ public class PedigreePage {
             return true;
         }catch (Exception exp){
             Debugger.println("try family icon not visible : validateTryFamilyIcon : in pedigree page : "+exp);
+            return false;
+        }
+    }
+    public boolean verifyPresenceOfButton(String buttonName) {
+        try {
+            if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
+                Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+                return false;
+            }
+           boolean isPresent = false;
+           if(buttonName.equalsIgnoreCase("Save")) {
+               isPresent = Wait.isElementDisplayed(driver, saveButton, 120);
+           }else if(buttonName.equalsIgnoreCase("SaveAndContinue")) {
+               isPresent = Wait.isElementDisplayed(driver, saveAndContinueButton, 120);
+           }
+           if(!isPresent){
+                Debugger.println("Expected "+buttonName+" not present in Pedigree Stage.");
+                Actions.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("No"+buttonName+"InPedigree.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying "+buttonName+" in Pedigree Page." + exp);
+            Actions.scrollToBottom(driver);
+            SeleniumLib.takeAScreenShot("No"+buttonName+"InPedigree.jpg");
             return false;
         }
     }
