@@ -104,7 +104,8 @@ Feature: Tumours Page
 #      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
 #      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-  @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
+ # E2EUI-1440
+  @NTS-3154 @NTS-4734 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -116,6 +117,7 @@ Feature: Tumours Page
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
+    And the user see a tick mark next to the added tumour
     And the "<stage>" stage is marked as Completed
     And the success notification is displayed "<notificationText>"
 
