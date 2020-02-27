@@ -48,6 +48,7 @@ public class PedigreeSteps extends Pages {
             }
             testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
             Assert.assertTrue(testResult);
+            Wait.seconds(10);//Waiting to ensure the diagram loaded and dissappeard
         }
     }
     @And("the user will see a warning message {string} on the pedigree page")
