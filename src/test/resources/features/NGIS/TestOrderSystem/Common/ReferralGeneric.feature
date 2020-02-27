@@ -148,3 +148,15 @@ Feature: This is a referral feature
     Examples:
       | userType        |
       | GEL_NORMAL_USER |
+
+  @LOGOUT @NTS-4689 @PO @v_1 @E2EUI-1152
+  Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    When the user navigates to the "Patient details" stage
+    Then the "Patient details" stage is marked as Completed
+    And the username "<userType>" is displayed in the header of Test Ordering
+
+    Examples:
+      | userType       |
+      | GEL_SUPER_USER |
