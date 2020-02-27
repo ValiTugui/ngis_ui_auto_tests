@@ -181,8 +181,8 @@ public class PedigreePage {
                     break;
                 }
                 case "Number of Colorectal Polyps Adenomas": {
-                    if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
-                        if(!tumoursTab_PolypsAdenomas.isEnabled()){
+                    if(fieldStatus.equalsIgnoreCase("AutoComplete")) {
+                        if(tumoursTab_PolypsAdenomas.isEnabled()){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
                             return false;
                         }
