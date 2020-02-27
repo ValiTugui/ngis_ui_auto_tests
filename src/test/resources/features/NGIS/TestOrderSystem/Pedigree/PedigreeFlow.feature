@@ -142,7 +142,8 @@ Feature: Pedigree - Pedigree Flow
     And the user should be able see the pedigree diagram loaded for the given members
       | MemberDetails               |
       | NHSNumber=NA:DOB=25-10-2005 |
-    ##Patient Choice - Added this as sometimes direct clicking on Requesting Organisation from Pedigree is not happening due to some overlay
+    ##Below Stages - Added this as sometimes direct clicking on Requesting Organisation from Pedigree is not happening due to some overlay
+    When the user navigates to the "<Panels>" stage
     When the user navigates to the "<PatientChoice>" stage
     ##Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
@@ -183,8 +184,8 @@ Feature: Pedigree - Pedigree Flow
       | NHSNumber=NA:DOB=17-07-1978 |
 
     Examples:
-      | Requesting organisation | ordering_entity_name | PatientChoice  | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
-      | Requesting organisation | Maidstone            | Patient choice | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
+      | Requesting organisation | ordering_entity_name | PatientChoice  | Panels | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
+      | Requesting organisation | Maidstone            | Patient choice | Panels | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
   @NTS-3464 @E2EUI-1630 @E2EUI-1051 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
