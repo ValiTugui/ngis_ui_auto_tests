@@ -23,7 +23,7 @@ Feature: Patient search page_SPINE
     When the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     Then the NHS number field is not enabled with auto-fill feature
 
-  @NTS-2817 @E2EUI-831 @v_1
+  @NTS-2817 @E2EUI-831 @E2EUI-1294 @v_1
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
     When the user clicks the NO button
     Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
