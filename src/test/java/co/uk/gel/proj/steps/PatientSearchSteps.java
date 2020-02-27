@@ -259,10 +259,14 @@ public class PatientSearchSteps extends Pages {
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
-
         patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
     }
 
+
+    @When("the user fills in invalid patient details {string} in the search fields when No is selected")
+    public void theUserFillsInInvalidPatientDetailsInTheSearchFieldsWhenNoIsSelected(String invalidPatientDetails) {
+        patientSearchPage.fillInValidPatientDetailsUsingNOFields(invalidPatientDetails);
+    }
 
     @Then("^The patient record is displayed with a heading of \"([^\"]*)\"$")
     public void thePatientRecordIsDisplayedWithAHeadingOf(String expectedResultHeader) throws Throwable {
@@ -610,9 +614,8 @@ public class PatientSearchSteps extends Pages {
         List<Map<String, String>> expectedGenderList = dataTable.asMaps(String.class, String.class);
         List<String> actualGenderList = patientSearchPage.getTheGenderDropDownValues();
         for (int i = 0; i < expectedGenderList.size(); i++) {
-            Debugger.println("Expected gender: " + expectedGenderList.get(i).get("genderListHeader") + ":" + i + ":" + "Actual ethnicity " + actualGenderList.get(i) + "\n");
+            Debugger.println("Expected gender: " + expectedGenderList.get(i).get("genderListHeader") + ":" + i + ":" + "Actual gender list " + actualGenderList.get(i) + "\n");
             Assert.assertEquals(expectedGenderList.get(i).get("genderListHeader"), actualGenderList.get(i));
         }
-
     }
 }

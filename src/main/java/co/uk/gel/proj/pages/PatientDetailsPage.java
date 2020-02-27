@@ -997,4 +997,8 @@ public class PatientDetailsPage {
     public void fillInHospitalNo(){
         Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
     }
+
+    public void fillInFirstName() {
+        Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
+    }
 }
