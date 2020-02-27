@@ -6,6 +6,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
         | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
       And the "<patientDetails>" stage is marked as Completed
+      And the referral status from the card is "Created"
       And the user navigates to the "<requestingOrganisation>" stage
       And the user enters the keyword "Maidstone" in the search field
       And the user selects a random entity from the suggestions list
@@ -49,7 +50,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Then the new sample is displayed in the landing page
       And on the Manage samples page, the sample table list shows the column header names
         | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-        | Sample type      | State             | Local lab ID           | Parent ID            | Tumour description      |
+        | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       And the "<samples>" stage is marked as Completed
       And the user navigates to the "<notes>" stage
       Then the "<notes>" stage is selected
@@ -75,16 +76,16 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       And the user submits the referral
       And the submission confirmation message "Your referral has been submitted" is displayed
       And the referral status is set to "Submitted"
-      And user run security scan
       Examples:
         | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
         | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
 
   @NTS-3407 @E2EUI-895 @LOGOUT @securityscan_rd
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
+
     ##Create referral with new patient without providing NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
@@ -170,7 +171,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    And user run security scan
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
       | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Urgent request because of deteriorating patient condition | Family members | Patient choice | Panels | Pedigree | Print forms | This referral has been cancelled so further changes might not take effect |
