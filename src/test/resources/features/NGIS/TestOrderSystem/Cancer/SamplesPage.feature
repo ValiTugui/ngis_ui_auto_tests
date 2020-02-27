@@ -48,6 +48,7 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
 
+  # E2EUI-887
   @NTS-3308 @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -87,6 +88,7 @@ Feature: Samples Page
       | Samples | Manage samples | Add a sample |
 
 
+  # E2EUI-887
   @NTS-3312 @E2EUI-868 @@E2EUI-1261 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -255,6 +257,8 @@ Feature: Samples Page
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
 
 
+  # E2EUI-1440
+  @NTS-4734
   @NTS-3347 @E2EUI-1342 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -280,6 +284,7 @@ Feature: Samples Page
     Then the user sees a text below the the Sample-ID on Add a Sample page "Is this sample derived from another sample?"
     And the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user adds a sample as Child sample by selecting a sample row as a Parent Sample on Add a Sample page
+    And the user see a tick mark next to the selected parent Sample
     And the user clicks the Save and Continue button
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
     And the user clicks the Save and Continue button
@@ -630,10 +635,4 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fibroblasts |
-
-
-
-
-
-
 

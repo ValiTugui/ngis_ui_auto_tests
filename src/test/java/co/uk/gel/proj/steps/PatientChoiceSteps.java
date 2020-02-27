@@ -648,6 +648,6 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName("");
         Assert.assertTrue(testResult);
-
     }
+
 }//end

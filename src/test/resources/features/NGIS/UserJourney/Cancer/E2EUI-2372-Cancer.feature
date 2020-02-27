@@ -2,11 +2,13 @@
 
 Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
 
+ # E2EUI-905
   @NTS-3362 @LOGOUT
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "<patientDetails>" stage is marked as Completed
+    And the referral status from the card is "Created"
     And the user navigates to the "<requestingOrganisation>" stage
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list

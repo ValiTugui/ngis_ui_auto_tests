@@ -101,7 +101,8 @@ public class TestPackagePage {
 
     public boolean verifyTheHelpText(String expectedHelpText) {
         Wait.forElementToBeDisplayed(driver, priorityHintText);
-        String actualHelpText = priorityHintText.getText();
+        String actualHelpText = Actions.getText(priorityHintText);
+        Debugger.println("Help text info : " + actualHelpText);
         return actualHelpText.contains(expectedHelpText);
     }
 
@@ -214,12 +215,16 @@ public class TestPackagePage {
         }
 
     public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
-        return priorityLabel.getText().contains(expectedHeaderText);
+        String actualHeaderText = Actions.getText(priorityLabel);
+        Debugger.println("Actual Priority label header text : " + actualHeaderText);
+        return actualHeaderText.contains(expectedHeaderText);
     }
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority){
-        Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
-        return chosenPriorityButton.getText().contains(expectedPriority);
+        Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+        String actualText = Actions.getText(chosenPriorityButton);
+        Debugger.println("Selected test Priority : " + actualText);
+        return actualText.contains(expectedPriority);
     }
 
     public boolean verifyNumberOfParticipantsFieldExists(){

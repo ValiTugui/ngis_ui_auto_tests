@@ -498,4 +498,9 @@ public class SamplesSteps extends Pages {
           Debugger.println("Actual sampleCollection Date:" + actualSampleCollectionDate);
           Assert.assertTrue(!Objects.requireNonNull(getValue(samplesPage.sampleCollectionDateField)).isEmpty()); //Collection field date is not empty
     }
+
+    @And("the user see a tick mark next to the selected parent Sample")
+    public void theUserSeeATickMarkNextToTheSelectedParentSample() {
+        Assert.assertTrue(samplesPage.ensureTickMarkIsDisplayedNextToSampleType());
+    }
 }

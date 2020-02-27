@@ -800,9 +800,27 @@ public class ReferralSteps extends Pages {
         flag = referralPage.copyrightTextIsDisplayedInTheFooter();
         Assert.assertTrue(flag);
     }
-
     @And("the referral submit button is not enabled")
     public void theReferralSubmitButtonIsNotEnabled() {
         Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
     }
+
+    @Then("the user should see a new popup dialog with title {string}")
+    public void theUserShouldSeeANewPageWith(String titleMessage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheSubmitDialogTitle(titleMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see the referral submit button as (.*)")
+    public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
+        boolean testResult = false;
+        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
+        if (expectedStatus.equals("enabled")) {
+            Assert.assertFalse(testResult);
+        } else {
+            Assert.assertTrue(testResult);
+        }
+    }
+
 }

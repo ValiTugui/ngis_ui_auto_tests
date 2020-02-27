@@ -595,4 +595,5 @@ public class PatientDetailsSteps extends Pages {
         Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.postcode);
         Actions.clearInputField(patientDetailsPage.postcode);
     }
+
 }

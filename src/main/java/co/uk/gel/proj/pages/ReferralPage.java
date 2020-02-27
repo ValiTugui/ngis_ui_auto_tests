@@ -233,6 +233,12 @@ public class ReferralPage<check> {
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
+    @FindBy(id = "dialog-title")
+    WebElement dialogTitle;
+    //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
+    @FindBy(xpath = "//*[@id='referral__header']//button")
+    public WebElement referralSubmitButton;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -247,12 +253,12 @@ public class ReferralPage<check> {
 
     public void clickSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
-            Wait.seconds(2);
+            Wait.seconds(5);
             if (helix.size() > 0) {
                 try {
                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
@@ -286,7 +292,7 @@ public class ReferralPage<check> {
                 //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
             }
 
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
@@ -311,7 +317,7 @@ public class ReferralPage<check> {
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             return true;
         } catch (Exception exp) {
@@ -378,7 +384,7 @@ public class ReferralPage<check> {
     public void navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
-                Wait.forElementToBeDisplayed(driver, toDoList, 100);
+                Wait.forElementToBeDisplayed(driver, toDoList, 200);
                 String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
                 referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
                 Wait.forElementToBeDisplayed(driver, referralStage);
@@ -417,7 +423,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList,120);
+            Wait.forElementToBeDisplayed(driver, toDoList,200);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
@@ -426,7 +432,7 @@ public class ReferralPage<check> {
             Wait.seconds(2);
             List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
             if(completedIcon != null && completedIcon.size() > 0) {//Got ArrayIndexOutOfBounds Exception some times, so added this cehck
-                Wait.forElementToBeDisplayed(driver, completedIcon.get(0));
+                Wait.forElementToBeDisplayed(driver, completedIcon.get(0), 200);
                 //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
                 if (completedIcon.size() == 1) {
                     return true;
@@ -435,7 +441,7 @@ public class ReferralPage<check> {
             //In case of failure, trying another way
             String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
             WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if(Wait.isElementDisplayed(driver,completedMarkElement,100)){
+            if(Wait.isElementDisplayed(driver,completedMarkElement,200)){
                 return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
@@ -446,7 +452,7 @@ public class ReferralPage<check> {
                 //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
                 String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
                 WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-                if(Wait.isElementDisplayed(driver,completedMarkElement,100)){
+                if(Wait.isElementDisplayed(driver,completedMarkElement,200)){
                     return true;
                 }
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);
@@ -632,7 +638,7 @@ public class ReferralPage<check> {
 
     public void clickOnSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Debugger.println("Save and Continue Button not displayed even after wait period.");
             }
@@ -1152,7 +1158,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
     public boolean checkSubmitReferralIsDisabled() {
         try {
             Wait.forElementToBeDisplayed(driver, submitReferralButton);
@@ -1160,6 +1165,29 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Exception in submitting Referral " + exp);
             SeleniumLib.takeAScreenShot("submitReferralIsNotDisabledState.jpg");
+            return false;
+        }
+    }
+    public boolean verifyTheSubmitDialogTitle(String titleMessage) {
+        Wait.forElementToBeDisplayed(driver, dialogTitle);
+        if (!dialogTitle.getText().equalsIgnoreCase(titleMessage)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean referralSubmitButtonStatus(String expectedColor) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
+            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
+            String actualColor = referralSubmitButton.getCssValue("background-color");
+            Debugger.println("Actual Color: "+actualColor);
+            if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
             return false;
         }
     }
