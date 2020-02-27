@@ -247,12 +247,12 @@ public class ReferralPage<check> {
 
     public void clickSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
-            Wait.seconds(2);
+            Wait.seconds(5);
             if (helix.size() > 0) {
                 try {
                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
@@ -286,7 +286,7 @@ public class ReferralPage<check> {
                 //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
             }
 
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
@@ -311,7 +311,7 @@ public class ReferralPage<check> {
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             return true;
         } catch (Exception exp) {
@@ -632,7 +632,7 @@ public class ReferralPage<check> {
 
     public void clickOnSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Debugger.println("Save and Continue Button not displayed even after wait period.");
             }

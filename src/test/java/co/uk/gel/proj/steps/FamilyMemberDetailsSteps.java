@@ -11,7 +11,6 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
-import cucumber.api.java.hu.De;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -365,7 +364,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
                     referralPage.clickSaveAndContinueButton();
                 }
-                Wait.seconds(2);
+                Wait.seconds(5);
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
                 if(familyMember == null){
                     Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
@@ -376,23 +375,23 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
-                Wait.seconds(2);
+                Wait.seconds(5);
                 referralPage.clickSaveAndContinueButton();
-                Wait.seconds(2);
+                Wait.seconds(5);
                 if(!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))){
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                     Assert.assertTrue(false);
                 }
-                Wait.seconds(2);
+                Wait.seconds(5);
                 referralPage.clickSaveAndContinueButton();
-                Wait.seconds(2);
+                Wait.seconds(5);
                 referralPage.verifyThePageTitlePresence("Add a family member to this referral");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
                 Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.");
-                Wait.seconds(2);
+                Wait.seconds(5);
             }//end
         }catch(Exception exp){
             Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: "+exp);
