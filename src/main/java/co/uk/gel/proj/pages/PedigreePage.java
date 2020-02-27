@@ -25,18 +25,6 @@ public class PedigreePage {
     @FindBy(xpath = "//p[contains(@class,'pedigree-tool__intro')]")
     public List<WebElement> pedigreeIntroMessages;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//p[1]")
-    public WebElement firstTextMessage;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//p[2]")
-    public WebElement secondTextMessage;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//p[3]")
-    public WebElement thirdTextMessage;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//p[4]")
-    public WebElement fourthTextMessage;
-
     private String pedigreeNGISDNode = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : dummyNGSID')]/..";
 
     @FindBy(xpath = "//span[text()='Unassigned participants']//i")
@@ -72,7 +60,6 @@ public class PedigreePage {
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')] ")
     public WebElement warningMessageOnPedigreePage;
 
-
     @FindBy(css = "div[class*='referral__main']")
     public WebElement contentSection;
 
@@ -88,15 +75,23 @@ public class PedigreePage {
     @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
     public WebElement tryFamilyIcon;
 
-    @FindBy(xpath = "//span[@id='text-familyId']")
-    public WebElement familyTestID;
-    @FindBy(xpath = "//div[@id='canvas']/child::*")
-    public WebElement pedigreeAppSection;
-    @FindBy(xpath = "//div[@id='clinical-indication-name']")
-    public WebElement pedigreeCISection;
-    @FindBy(css = "button[class*='referral-navigation__continue']")
-    public WebElement saveThePedigree;
+    //Tumours Tab
+    @FindBy(xpath = "//div[@id='tab_Tumours']//label[contains(@class,'field-name')]")
+    public List <WebElement> tumoursTabFields;
+    @FindBy(xpath="//input[@name='numberOfColorectalPolypsTotal']")
+    public WebElement tumoursTab_PolypsTotal;
+    @FindBy(xpath="//input[@name='numberOfColorectalPolypsAdenomas']")
+    public WebElement tumoursTab_PolypsAdenomas;
 
+    //Phenotype Tab
+    @FindBy(xpath = "//div[@id='tab_Phenotype']//label[contains(@class,'field-name')]")
+    public List <WebElement> phenotypeTabFields;
+    @FindBy(xpath="//select[@name='hpoPresent']")
+    public WebElement phenotypeTab_HPOPresent;
+    @FindBy(xpath="//input[@name='hpo_positive' and contains(@class,'suggest multi suggest')]")
+    public WebElement phenotypeTab_Phenotype;
+
+    //Clinical Tab
     @FindBy(xpath = "//div[@id='tab_Clinical']//label[contains(@class,'field-name')]")
     public List <WebElement> clinicalTabFields;
     @FindBy(xpath = "//input[@name='carrierStatus']")
@@ -106,7 +101,8 @@ public class PedigreePage {
     public WebElement clinicalTab_AgeOfOnsetYears;
     @FindBy(xpath="//select[@name='clinicalIndicationAgeOfOnsetMonths']")
     public WebElement clinicalTab_AgeOfOnsetMonths;
-
+    @FindBy(xpath="//select[@name='diagnosisCertainty']")
+    public WebElement clinicalTab_diagnosisCertainty;
     @FindBy(xpath="//input[@name='clinicalIndicationName']")
     public WebElement clinicalTab_ClinicalIndicatorName;
 
@@ -117,7 +113,6 @@ public class PedigreePage {
     @FindBy(xpath = "//label[contains(@class,'Status_Unknown')]")
     public WebElement Unknown;
 
-
     String selectedPedigreeTab = "//dl[@class='tabs']//a[contains(text(),'dummyOption')]";
 
     @FindBy(xpath = "//div[@title='Zoom out']")
@@ -127,6 +122,8 @@ public class PedigreePage {
     WebElement saveButton;
     @FindBy(xpath = "//button[text()='Save and continue']")
     WebElement saveAndContinueButton;
+    @FindBy(xpath = "//button[text()='Try again']")
+    WebElement tryAgainButton;
 
     public PedigreePage(WebDriver driver) {
         this.driver = driver;
@@ -138,25 +135,6 @@ public class PedigreePage {
         saveAndExitButton.click();
     }
 
-    public boolean locatePedigreeNodeFor(String ngsID){
-        try{
-            Actions.scrollToBottom(driver);
-            if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
-                Debugger.println("Pedigree diagram not loaded after waiting a minute.");
-                SeleniumLib.takeAScreenShot("PedigreeNotLoaded");
-                return false;
-            }
-            //Waiting for 5 seconds to ensure the diagram is loaded
-            Wait.seconds(5);
-            String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID",ngsID);
-            WebElement pedigreeNode = driver.findElement(By.xpath(nodePath));
-            return Wait.isElementDisplayed(driver,pedigreeNode,60);
-        }catch(Exception exp){
-            Debugger.println("Exception in locating pedigree Node For: "+ngsID);
-            SeleniumLib.takeAScreenShot("PedigreeNotLoaded");
-            return false;
-        }
-    }
     public boolean clickSpecificPedigreeTab(String tabName) {
         try {
             String selectedTab = selectedPedigreeTab.replaceAll("dummyOption", tabName);
@@ -168,6 +146,7 @@ public class PedigreePage {
             }
             selectTabOption.click();
             Wait.seconds(2);
+            SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on Specific Tab  in  Pedigree:"+exp);
@@ -175,7 +154,92 @@ public class PedigreePage {
             return false;
         }
     }
-
+    public boolean verifyFieldsStatusOnTumoursTab(String fieldName,String fieldStatus) {
+        try {
+            //Ensure the field is present
+            boolean isPresent = false;
+            for(int i=0; i<tumoursTabFields.size(); i++){
+                if(tumoursTabFields.get(i).getText().equalsIgnoreCase(fieldName)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Field "+fieldName+" not present in Tumours Tab.");
+                SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
+                return false;
+            }
+            //Verify the Status of each Field
+            switch (fieldName) {
+                case "Number Of Colorectal Polyps Total": {
+                    if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
+                        if(!tumoursTab_PolypsTotal.isEnabled()){
+                            Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+                case "Number of Colorectal Polyps Adenomas": {
+                    if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
+                        if(!tumoursTab_PolypsAdenomas.isEnabled()){
+                            Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in validating field status In Tumours Tab :"+exp);
+            SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
+            return false;
+        }
+    }
+    public boolean verifyFieldsStatusOnPhenotypeTab(String fieldName,String fieldStatus) {
+        try {
+            //Ensure the field is present
+            boolean isPresent = false;
+            for(int i=0; i<phenotypeTabFields.size(); i++){
+                if(phenotypeTabFields.get(i).getText().equalsIgnoreCase(fieldName)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Field "+fieldName+" not present in Phenotype Tab.");
+                SeleniumLib.takeAScreenShot("NoFieldInPhenotyeTab.jpg");
+                return false;
+            }
+            //Verify the Status of each Field
+            switch (fieldName) {
+                case "HPO Present": {
+                    if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
+                        if(!phenotypeTab_HPOPresent.getAttribute("class").contains("disabled")){
+                            Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Phenotype Tab.");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+                case "Phenotype": {
+                    if(fieldStatus.equalsIgnoreCase("AutoComplete")) {
+                        if(!phenotypeTab_Phenotype.getAttribute("class").contains("suggest multi suggest")){
+                            Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Phenotype Tab.");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in validating field status In Phenotype Tab :"+exp);
+            SeleniumLib.takeAScreenShot("NoFieldInPhenotypeTab.jpg");
+            return false;
+        }
+    }
     public boolean verifyFieldsStatusOnClinicalTab(String fieldName,String fieldStatus) {
         try {
             //Ensure the field is present
@@ -218,6 +282,15 @@ public class PedigreePage {
                                 Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
                                 return false;
                             }
+                        }
+                    }
+                    break;
+                }
+                case "Diagnosis Certainty": {
+                    if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
+                        if(!clinicalTab_diagnosisCertainty.getAttribute("class").contains("disabled")){
+                            Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
+                            return false;
                         }
                     }
                     break;
@@ -477,35 +550,6 @@ public class PedigreePage {
         }
     }
 
-    public boolean verifyTheTextMessagesAreDisplayedOnPedigreePage() {
-
-        try {
-            if (!seleniumLib.isElementPresent(firstTextMessage)) {
-                Debugger.println("Pedigree Page:firstTextMessage Present, 1st Text line not found");
-                return false;
-            }
-            if (!seleniumLib.isElementPresent(secondTextMessage)) {
-                Debugger.println("Pedigree Page:second Text Message line is Present, 2nd Text line is not found");
-                return false;
-            }
-
-            if (!seleniumLib.isElementPresent(thirdTextMessage)) {
-                Debugger.println("Pedigree Page:third Text Message line is Present, 3rd Text line is not found");
-                return false;
-            }
-
-            if (!seleniumLib.isElementPresent(fourthTextMessage)) {
-                Debugger.println("Pedigree Page:fourth Text Message line is Present,4th Text line is not found");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PanelsPage: Exception from changeTheStatusOfPenetrance " + exp);
-            SeleniumLib.takeAScreenShot("verifyTheTextMessagesAreDisplayedOnPedigreePage.jpg");
-            return false;
-        }
-    }
-
     public boolean popupMessageInPedigree(){
         try {
             Wait.forElementToBeDisplayed(driver, popupMessageBox);
@@ -589,22 +633,6 @@ public class PedigreePage {
         }
     }
 
-    public boolean saveThePedigree() {
-        try {
-            Wait.forElementToBeDisplayed(driver, pedigreeAppSection);
-            Wait.forElementToBeDisplayed(driver, pedigreeCISection);
-            Wait.forElementToBeDisplayed(driver, familyTestID);
-            Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, saveThePedigree);
-            seleniumLib.clickOnWebElement(saveThePedigree);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PedigreePage: SavePedigreeButton: " + exp);
-            SeleniumLib.takeAScreenShot("SavePedigreeButton.jpg");
-            return false;
-        }
-    }
-
     public boolean validateTryFamilyIcon(){
         try{
             Wait.forElementToBeDisplayed(driver, tryFamilyIcon);
@@ -621,14 +649,17 @@ public class PedigreePage {
     public boolean verifyPresenceOfButton(String buttonName) {
         try {
             if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
-                Debugger.println("Pedigree diagram not loaded after waiting a minute.");
-                return false;
+                if(!Wait.isElementDisplayed(driver,zoomOutButton,30)) {
+                    Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+                    SeleniumLib.takeAScreenShot("NoPedigreeDiagromLoaded.jpg");
+                    return false;
+                }
             }
            boolean isPresent = false;
            if(buttonName.equalsIgnoreCase("Save")) {
-               isPresent = Wait.isElementDisplayed(driver, saveButton, 120);
+               isPresent = Wait.isElementDisplayed(driver, saveButton, 60);
            }else if(buttonName.equalsIgnoreCase("SaveAndContinue")) {
-               isPresent = Wait.isElementDisplayed(driver, saveAndContinueButton, 120);
+               isPresent = Wait.isElementDisplayed(driver, saveAndContinueButton, 60);
            }
            if(!isPresent){
                 Debugger.println("Expected "+buttonName+" not present in Pedigree Stage.");
@@ -641,6 +672,37 @@ public class PedigreePage {
             Debugger.println("Exception in verifying "+buttonName+" in Pedigree Page." + exp);
             Actions.scrollToBottom(driver);
             SeleniumLib.takeAScreenShot("No"+buttonName+"InPedigree.jpg");
+            return false;
+        }
+    }
+    public boolean saveAndContinueOnPedigree(){
+        try {
+            Wait.seconds(10);//Explicit wait for 10 seconds to ensure the diagram is loaded
+            if(!Wait.isElementDisplayed(driver,saveAndExitButton,60)){
+                if(!Wait.isElementDisplayed(driver,zoomOutButton,30)) {
+                    Debugger.println("Pedigree diagram not loaded after waiting a minute.");
+                    SeleniumLib.takeAScreenShot("NoPedigreeDiagromLoaded.jpg");
+                    return false;
+                }
+            }
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+                Debugger.println("SaveAndContinueButton on Pedigree diagram not loaded after waiting a minute.");
+                SeleniumLib.takeAScreenShot("NoSaveAndContinueInPedigree.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver,saveAndContinueButton);
+            Wait.seconds(3);//Observed some alert many times.
+            Actions.acceptAlert(driver);
+            Wait.seconds(3);
+            if(Wait.isElementDisplayed(driver,tryAgainButton,5)){
+                Actions.clickElement(driver,tryAgainButton);
+            }
+            return true;
+
+        } catch (Exception exp) {
+            Debugger.println("Exception in clicking Save and Continue in Pedigree Page." + exp);
+            Actions.scrollToBottom(driver);
+            SeleniumLib.takeAScreenShot("PedigreeSaveAndContinue.jpg");
             return false;
         }
     }

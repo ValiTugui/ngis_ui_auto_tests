@@ -110,6 +110,32 @@ public class PedigreeSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user should see below fields on Phenotype Tab with the given status")
+    public void theUserShouldSeeBelowFieldsOnPhenotypeTabWithTheGivenStatus(DataTable fieldsDetails) {
+        boolean testResult = false;
+        List<List<String>> fields = fieldsDetails.asLists();
+        for (int i = 1; i < fields.size(); i++) {
+            testResult = pedigreePage.verifyFieldsStatusOnPhenotypeTab(fields.get(i).get(0),fields.get(i).get(1));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see below fields on Tumours Tab with the given status")
+    public void theUserShouldSeeBelowFieldsOnTumoursTabWithTheGivenStatus(DataTable fieldsDetails) {
+        boolean testResult = false;
+        List<List<String>> fields = fieldsDetails.asLists();
+        for (int i = 1; i < fields.size(); i++) {
+            testResult = pedigreePage.verifyFieldsStatusOnTumoursTab(fields.get(i).get(0),fields.get(i).get(1));
+            if(!testResult){
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
     @Then("the below field values should be displayed properly on Clinical Tab")
     public void theUserShouldBeAbleToReadTheGivenFiledValues(DataTable fieldsDetails) {
         boolean testResult = false;
@@ -126,6 +152,12 @@ public class PedigreeSteps extends Pages {
     public void theUserShouldBeAbleToSeeOnlySaveButton(String buttonName) {
         boolean testResult = false;
         testResult = pedigreePage.verifyPresenceOfButton(buttonName);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user clicks on Save and Continue on Pedigree Page")
+    public void theUserClicksOnSaveAndContinueOnPedigree() {
+        boolean testResult = false;
+        testResult = pedigreePage.saveAndContinueOnPedigree();
         Assert.assertTrue(testResult);
     }
 
