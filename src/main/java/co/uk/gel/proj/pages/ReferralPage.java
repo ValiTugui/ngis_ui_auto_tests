@@ -233,6 +233,12 @@ public class ReferralPage<check> {
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
+    @FindBy(id = "dialog-title")
+    WebElement dialogTitle;
+    //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
+    @FindBy(xpath = "//*[@id='referral__header']//button")
+    public WebElement referralSubmitButton;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1152,7 +1158,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
     public boolean checkSubmitReferralIsDisabled() {
         try {
             Wait.forElementToBeDisplayed(driver, submitReferralButton);
@@ -1160,6 +1165,29 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("Exception in submitting Referral " + exp);
             SeleniumLib.takeAScreenShot("submitReferralIsNotDisabledState.jpg");
+            return false;
+        }
+    }
+    public boolean verifyTheSubmitDialogTitle(String titleMessage) {
+        Wait.forElementToBeDisplayed(driver, dialogTitle);
+        if (!dialogTitle.getText().equalsIgnoreCase(titleMessage)) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean referralSubmitButtonStatus(String expectedColor) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
+            String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
+            String actualColor = referralSubmitButton.getCssValue("background-color");
+            Debugger.println("Actual Color: "+actualColor);
+            if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
             return false;
         }
     }

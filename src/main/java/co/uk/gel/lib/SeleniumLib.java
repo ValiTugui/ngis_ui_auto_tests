@@ -668,5 +668,13 @@ public class SeleniumLib {
             return false;
         }
     }
+    public void moveMouseAndClickOnElement(By element) {
+        Actions action = new Actions(driver);
+        WebElement we = driver.findElement(element);
+        if(we == null){
+            return;
+        }
+        action.click(we).build().perform();
+    }
 }//end
 
