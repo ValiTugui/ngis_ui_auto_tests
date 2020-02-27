@@ -570,4 +570,30 @@ public class PatientDetailsSteps extends Pages {
 
     }
 
+    @And("the user fills in all the fields without NHS number and enter a reason for noNhsNumber {string}")
+    public void theUserFillsInAllTheFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
+        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+    }
+
+    @And("the user fill in the first name field")
+    public void theUserFillInTheFirstNameField() {
+        patientDetailsPage.fillInFirstName();
+    }
+
+    @And("the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode")
+    public void theUserDeletesThePrePopulatedFieldsFirstNameLastNameDateOfBirthGenderAndPostCode() {
+
+        Actions.clearInputField(patientDetailsPage.firstName);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
+        Actions.clearInputField(patientDetailsPage.familyName);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
+        patientDetailsPage.dateOfBirth.click();
+        Actions.clearInputField(patientDetailsPage.dateOfBirth);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
+        Wait.seconds(1);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.postcode);
+        Actions.clearInputField(patientDetailsPage.postcode);
+    }
+
 }

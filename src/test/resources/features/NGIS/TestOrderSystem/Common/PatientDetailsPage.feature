@@ -556,7 +556,7 @@ Feature: Patient details page
 
 
   @LOGOUT @NTS-4549 @E2EUI-822
-  Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Responsible Clinician page
+  Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Patient details in ToDo List page
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
