@@ -356,6 +356,11 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
 
+    @And("the patient search page displays the sub-titles text {string}")
+    public void thePatientSearchPageDisplaysTheSubTitlesText(String descriptionOfPage) {
+        patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+    }
+
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
         String[] textFieldElements = allTextFields.split(":");  // Split all textFieldElement
