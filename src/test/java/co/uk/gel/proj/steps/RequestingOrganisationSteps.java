@@ -2,9 +2,11 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,15 +23,20 @@ public class RequestingOrganisationSteps extends Pages {
 
     @Then("the details of the new organisation are displayed")
     public void theDetailsOfTheNewOrganisationAreDisplayed() {
-        Assert.assertTrue("Stage : Requesting Organisation - Ordering entity details are not shown", requestingOrganisationPage.verifyOrganisationDetails());
-        for (WebElement header : requestingOrganisationPage.organisationDetailHeader) {
-            Assert.assertTrue(!Actions.getText(header).isEmpty());
+        try {
+            Assert.assertTrue("Stage : Requesting Organisation - Ordering entity details are not shown", requestingOrganisationPage.verifyOrganisationDetails());
+            for (WebElement header : requestingOrganisationPage.organisationDetailHeader) {
+                Assert.assertTrue(!Actions.getText(header).isEmpty());
+            }
+            for (WebElement details : requestingOrganisationPage.organisationDetailText) {
+                Assert.assertTrue(!Actions.getText(details).isEmpty());
+            }
+            // to store Ordering entity name and address
+            PatientDetailsPage.newPatient.setOrderingEntity(Actions.getText(requestingOrganisationPage.organisationDetailText.get(1)));
+        }catch(Exception exp){
+            Debugger.println("Exception from verifying details of Selected Organization Details: "+exp);
+            SeleniumLib.takeAScreenShot("SelectedOrgDetails.jpg");
         }
-        for (WebElement details : requestingOrganisationPage.organisationDetailText) {
-            Assert.assertTrue(!Actions.getText(details).isEmpty());
-        }
-        // to store Ordering entity name and address
-        PatientDetailsPage.newPatient.setOrderingEntity(Actions.getText(requestingOrganisationPage.organisationDetailText.get(1)));
     }
 
     @Then("there isn't any search results returned")
@@ -54,10 +61,6 @@ public class RequestingOrganisationSteps extends Pages {
         Assert.assertTrue(requestingOrganisationPage.checkOrderingEntityPageLabel());
     }
 
-    @Then("the requesting organisation page has the {string}")
-    public void the_requesting_organisation_page_has_the(String pageTitle) {
-        Assert.assertTrue(requestingOrganisationPage.checkPageTitleInfo(pageTitle));
-    }
 
     @And("the user sees the search field with search icon")
     public void theUserSeesTheSearchFieldWithSearchIcon() {
@@ -88,5 +91,12 @@ public class RequestingOrganisationSteps extends Pages {
     public void theRequestingOrganisationPageInTestDirectoryIsDisplayedWithTitleTitleCopyTextSearchIconAndSearchPlaceholderText(List<String> checkText) {
         Assert.assertTrue(requestingOrganisationPage.checkRequestingOrganisationPageInfo(checkText.get(0), checkText.get(1)));
         Assert.assertTrue(paperFormPage.confirmOrderingEntitySearchFieldPlaceholderText(checkText.get(2)));
+    }
+
+    @And("the message {string} displayed on the page")
+    public void theMessageDisplayedOnThePage(String expMessage) {
+        String actualMessage = requestingOrganisationPage.getNoResultMessage();
+        Assert.assertNotNull(actualMessage);
+        Assert.assertTrue(actualMessage.equalsIgnoreCase(actualMessage));
     }
 }

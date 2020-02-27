@@ -128,6 +128,11 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
     public WebElement editBoxTestPackage;
 
+    @FindBy(xpath = "//button[text()='No']/*[name()='svg']")
+    public WebElement noButtonSVG;
+
+    @FindBy(xpath = "//button[text()='Yes']/*[name()='svg']")
+    public WebElement yesButtonSVG;
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -495,6 +500,33 @@ public class FamilyMemberSearchPage {
         }catch(Exception exp){
             Debugger.println("Exception verifying search button clickable:"+exp);
             SeleniumLib.takeAScreenShot("SearchButtonClickableError.jpg");
+            return false;
+        }
+    }
+    public boolean verifySVGForTickMark() {
+        try {
+            Wait.forElementToBeDisplayed(driver, noButton);
+            Wait.forElementToBeDisplayed(driver, yesButton);
+            if (!noButton.isSelected()) {//Select No, if not selected and verify presence of SVG
+                Actions.clickElement(driver,noButton);
+                if(!Wait.isElementDisplayed(driver,noButtonSVG,5)){
+                    Debugger.println("SVG tick not present in selected No button");
+                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
+                    return false;
+                }
+            }
+            if (!yesButton.isSelected()) {
+                Actions.clickElement(driver,yesButton);
+                if(!Wait.isElementDisplayed(driver,yesButtonSVG,5)){
+                    Debugger.println("SVG tick not present in selected Yes button");
+                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying SVG tick mark: "+exp);
+            SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
             return false;
         }
     }

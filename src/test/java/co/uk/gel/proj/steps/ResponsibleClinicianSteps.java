@@ -75,11 +75,6 @@ public class ResponsibleClinicianSteps extends Pages {
         responsibleClinicianPage.fillInClinicianFormFieldsExceptDepartmentAddressField();
     }
 
-    @And("the user sees the title text as {string}")
-    public void theUserSeesTheTitleTextAs(String expectedPageTitle) {
-        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
-    }
-
     @When("the user fills in all clinician form fields except Last name")
     public void theUserFillsInAllClinicianFormFieldsExceptLastName() {
         responsibleClinicianPage.fillInClinicianFormFieldsExceptLastNameField();
@@ -295,5 +290,18 @@ public class ResponsibleClinicianSteps extends Pages {
             responsibleClinicianPage.clinicianPhoneNumberField.sendKeys(phoneNumber);
             Assert.assertTrue(true);
         }
+    }
+
+    @And("user sees the following help text under email address field")
+    public void userSeesTheFollowingHelpTextUnderEmailAddressField(DataTable dataTable) {
+        List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+        String actualHelpText = responsibleClinicianPage.getEmailSectionHelpText();
+        Debugger.println("Expected Help Text:" + list.get(0).get("helpMessageHeader"));
+        Assert.assertEquals(list.get(0).get("helpMessageHeader"), actualHelpText);
+    }
+
+    @When("the user fills in the Department name and address")
+    public void theUserFillsInTheDepartmentNameAndAddress() {
+        responsibleClinicianPage.fillInDepartmentDetailsField();
     }
 }

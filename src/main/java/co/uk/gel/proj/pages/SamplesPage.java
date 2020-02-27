@@ -38,10 +38,10 @@ public class SamplesPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div[2]") //@FindBy(xpath = "//label[contains(@for,'sampleType')]//following::div")
     public WebElement sampleType;
 
-    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div[2]")  ////@FindBy(xpath = "//label[contains(@for,'sampleState')]//following::div")
     public WebElement sampleState;
 
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'singleValue')]/span")
@@ -175,6 +175,9 @@ public class SamplesPage {
 
     @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
     public WebElement addSampleDetailsSubHeading;
+
+    @FindBy(css ="span[class*='checkmark--checked']")
+    public WebElement sampleTypeSVGTickMark;
 
     public void selectSampleType(String type) {
         Actions.clickElement(driver, sampleType);
@@ -546,5 +549,13 @@ public class SamplesPage {
 
     public String getTheLabelForTumourContentPercentageField(){
         return Actions.getText(tumourContentPercentageOfMalignantNucleiFieldLabel);
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToSampleType(){
+        Wait.forElementToBeDisplayed(driver, sampleTypeSVGTickMark);
+        if(Wait.isElementDisplayed(driver, sampleTypeSVGTickMark, 10)){
+            return true;
+        }
+        return false;
     }
 }

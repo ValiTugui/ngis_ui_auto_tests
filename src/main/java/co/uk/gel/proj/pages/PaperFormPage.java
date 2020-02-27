@@ -29,7 +29,7 @@ public class PaperFormPage {
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(xpath = "//h1[contains(@class,'styles_page-title')]/..//child::p")
+    @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")
     public WebElement orderEntitySubHeader;
 
     @FindBy(css = "input[class*='input']")
@@ -146,8 +146,15 @@ public class PaperFormPage {
         }
     }
 
-    public void selectRandomEntityFromSuggestionsList() {
-        Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+    public boolean selectRandomEntityFromSuggestionsList() {
+        try {
+            Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from Selecting Requesting Organization: "+exp);
+            SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+            return false;
+        }
     }
 
     public void selectFirstEntityFromSuggestionsList() {

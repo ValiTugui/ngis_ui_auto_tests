@@ -1,22 +1,24 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_set3
+@FamilyMemberStageNavigation_removeFM
 
-Feature: Family Members Navigation Stage - Remove Member
+Feature: Family Members Navigation Stage - Remove Family Member
 
   @NTS-3292 @E2EUI-1331 @E2EUI-1485 @E2EUI-1639 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
     When the user navigates to the "<ClinicalQuestions>" stage
+    Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add notes to this referral
     Then the "<ClinicalQuestions>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage

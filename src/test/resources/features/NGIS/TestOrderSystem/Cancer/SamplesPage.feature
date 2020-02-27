@@ -48,6 +48,7 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
 
+  # E2EUI-887
   @NTS-3308 @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -61,10 +62,10 @@ Feature: Samples Page
     Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | errorMessage                                 | messageColor | sampleField |
-      | Samples | Manage samples | Add a sample | Sample type is required.                     | #dd2509      | sampleType  |
-      | Samples | Manage samples | Add a sample | Sample state is required.                    | #dd2509      | sampleState |
-      | Samples | Manage samples | Add a sample | Sample ID from local laboratory is required. | #dd2509      | sampleID    |
+      | stage   | pageTitle      | pageTitle2   | errorMessage                      | messageColor | sampleField |
+      | Samples | Manage samples | Add a sample | Sample type is required.          | #dd2509      | sampleType  |
+      | Samples | Manage samples | Add a sample | Sample state is required.         | #dd2509      | sampleState |
+      | Samples | Manage samples | Add a sample | Local sample tube ID is required. | #dd2509      | sampleID    |
 
   @NTS-3308 @E2EUI-943 @E2EUI-2338 @E2EUI-1232 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3308: Add a sample page - verify the sample type drop down list
@@ -79,14 +80,15 @@ Feature: Samples Page
       | Solid tumour sample       |
       | Liquid tumour sample      |
       | Normal or germline sample |
-      | Abnormal tissue sample    |
-      | Omics sample              |
+#      | Abnormal tissue sample - Descoped 24/02/2020 |
+#      | Omics sample  - Descoped 24/02/2020            |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
 
 
+  # E2EUI-887
   @NTS-3312 @E2EUI-868 @@E2EUI-1261 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -97,10 +99,10 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the user clicks the Save and Continue button
     Then the error messages for the sample mandatory fields on Add a Sample page are displayed
-      | labelHeader                       | errorMessageHeader                           |
-      | Sample type ✱                     | Sample type is required.                     |
-      | Sample state ✱                    | Sample state is required.                    |
-      | Sample ID from local laboratory ✱ | Sample ID from local laboratory is required. |
+      | labelHeader            | errorMessageHeader                |
+      | Sample type ✱          | Sample type is required.          |
+      | Sample state ✱         | Sample state is required.         |
+      | Local sample tube ID ✱ | Local sample tube ID is required. |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -123,7 +125,7 @@ Feature: Samples Page
 
 
   @NTS-3333 @E2EUI-1252 @LOGOUT @P0 @v_1
-  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Sample ID from local laboratory
+  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Local sample tube ID
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -131,10 +133,10 @@ Feature: Samples Page
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the labels and help hint texts are displayed on Add a Sample page
-      | labelHeader                       | HintTextHeader                                                                         |
-      | Sample type ✱                     | None                                                                                   |
-      | Sample state ✱                    | None                                                                                   |
-      | Sample ID from local laboratory ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
+      | labelHeader            | HintTextHeader                                                                         |
+      | Sample type ✱          | None                                                                                   |
+      | Sample state ✱         | None                                                                                   |
+      | Local sample tube ID ✱ | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -152,10 +154,10 @@ Feature: Samples Page
     And a search icon is displayed inside the Sample state drop down field
     And fields and drops-downs are shown as mandatory with astericks star symbol
     And place-holder text is displayed for Sample type, Sample State and SampleID on Add a Sample page
-      | labelHeader                       | PlaceHolder Text |
-      | Sample type ✱                     | Select...        |
-      | Sample state ✱                    | Select...        |
-      | Sample ID from local laboratory ✱ | e.g. A1 xxxxx    |
+      | labelHeader            | PlaceHolder Text |
+      | Sample type ✱          | Select...        |
+      | Sample state ✱         | Select...        |
+      | Local sample tube ID ✱ | e.g. A1 xxxxx    |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | subPageTitle                                                 |
@@ -172,9 +174,9 @@ Feature: Samples Page
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
       | sampleStateHeader   |
-      | Urine               |
+      | Fibroblasts         |
       | DNA                 |
-      | Buccal swab         |
+      | Saliva              |
       | Fresh frozen tumour |
       | Fresh frozen tissue |
 
@@ -192,7 +194,7 @@ Feature: Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<non-tumour-SampleType>", sample state "<sampleState>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle3>" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
@@ -203,7 +205,7 @@ Feature: Samples Page
 #    Editing sample details
     When the user selects the existing sample from the landing page by clicking on the chevron right arrow icon
     Then the "<pageTitle4>" page is displayed
-    And the user edits the fields on Edit a Sample page by selecting the sample type "<sampleType-edited>", sample state "<sampleState-edited>" and SampleID
+    And the user edits the fields on Edit a Sample page by selecting the sample type "<non-tumour-sampleType-edited>", sample state "<sampleState-edited>" and SampleID
     And the user clicks the Save and Continue button
     When the user clicks on the Back link
     And the user navigates to the "<stage>" stage
@@ -212,8 +214,8 @@ Feature: Samples Page
     Then the new edited sample details are displayed in the edit sample page
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType   | sampleState | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample | Urine       | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | DNA                | Sample updated           |
 
 
   @NTS-3345 @E2EUI-838 @E2EUI-857 @LOGOUT @v_1 @BVT_P0
@@ -251,10 +253,12 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited      | sampleState-edited | notificationText-updated |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Urine       | test                   | Sample added     | Abnormal tissue sample | Buccal swab        | Sample updated           |
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited         | sampleState-edited | notificationText-updated |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
 
 
+  # E2EUI-1440
+  @NTS-4734
   @NTS-3347 @E2EUI-1342 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -280,6 +284,7 @@ Feature: Samples Page
     Then the user sees a text below the the Sample-ID on Add a Sample page "Is this sample derived from another sample?"
     And the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
     And the user adds a sample as Child sample by selecting a sample row as a Parent Sample on Add a Sample page
+    And the user see a tick mark next to the selected parent Sample
     And the user clicks the Save and Continue button
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
     And the user clicks the Save and Continue button
@@ -289,8 +294,8 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour | sampleState | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Omics sample          | Urine       | test                   |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour     | sampleState | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | DNA         | test                   |
 
   @NTS-3365 @E2EUI-2359 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
@@ -351,8 +356,8 @@ Feature: Samples Page
     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour | sampleState |
-      | Samples | Manage samples | Add a sample | Add sample details | Omics sample          | Buccal swab |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      |
 
   @NTS-3376 @E2EUI-1490 @LOGOUT @P0 @v_1
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
@@ -375,8 +380,8 @@ Feature: Samples Page
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour    | sampleState |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Urine       |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Saliva      |
 
 
   @NTS-3408 @E2EUI-2143 @E2EUI-2108 @E2EUI-2106 @E2EUI-2098 @LOGOUT @P0 @v_1
@@ -410,8 +415,8 @@ Feature: Samples Page
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Urine       | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
-      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | Urine       | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Saliva      | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | DNA         | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
 
 
   @NTS-3412 @E2EUI-2103 @LOGOUT @P0 @v_1
@@ -436,8 +441,6 @@ Feature: Samples Page
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Omics sample              | Buccal swab |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Abnormal tissue sample    | Urine       |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
 
 
@@ -472,9 +475,8 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
-      | Samples | Manage samples | Add a sample | Notes     | Omics sample          | Buccal swab | Dismiss            | unsaved information | samples/add        |
+      | stage   | pageTitle      | pageTitle2   | new_stage | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
+      | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/add        |
 
 
   @NTS-3416 @E2EUI-2141 @LOGOUT @P0 @v_1
@@ -505,9 +507,8 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
 
 
   @NTS-3416 @E2EUI-2440 @LOGOUT @P0 @v_1
@@ -541,9 +542,8 @@ Feature: Samples Page
     And the user clicks the Save and Continue button
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Omics sample          | Buccal swab | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | DNA         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
   @NTS-3432 @E2EUI-1352 @LOGOUT @P0 @v_1
@@ -572,7 +572,7 @@ Feature: Samples Page
 #     user is back to Manage Samples Page
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
-    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Urine" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Saliva" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "<pageTitle4>" page is displayed
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
@@ -590,7 +590,7 @@ Feature: Samples Page
 
 
   @NTS-4531 @E2EUI-1480 @LOGOUT @P0 @v_1
-  Scenario Outline: Samples stage (Post Edit Sample)
+  Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
@@ -613,15 +613,26 @@ Feature: Samples Page
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 
     Examples:
-
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour | notificationText |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Omics sample          | Sample added     |
-
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType-non-tumour     | notificationText |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
 
+   @NTS-4709 @E2EUI-1023 @LOGOUT @P0 @v_1
+  Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+     When the user navigates to the "<stage>" stage
+     Then the "<pageTitle>" page is displayed
+     When the user clicks the Add sample button
+     Then the "<pageTitle2>" page is displayed
+     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state "<sampleState>" and filling SampleID
+     And the user clicks the Save and Continue button
+     Then the "<pageTitle3>" page is displayed
+     And the Add a Sample Details displays the appropriate field elements for Sample non-Tumour type - sample collection date and sample comments
+     And the Sample Collection date field is displayed with label "Sample collection date"
+     And the user is able to enter date in the Sample Collection date field
 
-
-
-
-
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fibroblasts |
 

@@ -3,13 +3,17 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -20,6 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 import java.awt.*;
+import java.util.Map;
 
 public class PatientSearchSteps extends Pages {
 
@@ -576,5 +581,38 @@ public class PatientSearchSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, patientSearchPage.noPatientFoundLabel);
         String actualMessage = patientSearchPage.noPatientFoundLabel.getText();
         Assert.assertEquals(expectedMessage, actualMessage);
+    }
+
+    @Then("the NHS number field remains empty as invalid characters are not accepted")
+    public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+    }
+
+    @And("the user sees placeholder texts displayed in the fields - Date of birth {string}, First name {string}, Last name {string} and Postcode {string}")
+    public void theUserSeesPlaceholderTextsDisplayedInTheFieldsDateOfBirthFirstNameLastNameAndPostcode(String expectedDOBPlaceHolder, String expectedFirstNamePlaceHolder, String expectedLastNamePlaceHolder, String expectedPostCodePlaceHolder) {
+
+        String actualDOBPlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.dateDay) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateMonth) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateYear);
+        String actualFirstNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.firstName);
+        String actualLastNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.lastName);
+        String actualPostCodePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.postcode);
+
+        Debugger.println("Actual placeholder-text: " + "DOB:" + actualDOBPlaceHolder + " FName:" + actualFirstNamePlaceHolder + " LName:" + actualLastNamePlaceHolder + " PostCode:" + actualPostCodePlaceHolder);
+        Debugger.println("Expected placeholder-text: " + "DOB:" + expectedDOBPlaceHolder + " FName: " + expectedFirstNamePlaceHolder + " LName:" + expectedLastNamePlaceHolder + " PostCode:" + expectedPostCodePlaceHolder);
+        Assert.assertEquals(expectedDOBPlaceHolder,actualDOBPlaceHolder);
+        Assert.assertEquals(expectedFirstNamePlaceHolder, actualFirstNamePlaceHolder);
+        Assert.assertEquals(expectedLastNamePlaceHolder,actualLastNamePlaceHolder);
+        Assert.assertEquals(expectedPostCodePlaceHolder,actualPostCodePlaceHolder);
+    }
+
+
+    @And("the following drop-down values are displayed for gender")
+    public void theFollowingDropDownValuesAreDisplayedForGender(DataTable dataTable) {
+        List<Map<String, String>> expectedGenderList = dataTable.asMaps(String.class, String.class);
+        List<String> actualGenderList = patientSearchPage.getTheGenderDropDownValues();
+        for (int i = 0; i < expectedGenderList.size(); i++) {
+            Debugger.println("Expected gender: " + expectedGenderList.get(i).get("genderListHeader") + ":" + i + ":" + "Actual ethnicity " + actualGenderList.get(i) + "\n");
+            Assert.assertEquals(expectedGenderList.get(i).get("genderListHeader"), actualGenderList.get(i));
+        }
+
     }
 }

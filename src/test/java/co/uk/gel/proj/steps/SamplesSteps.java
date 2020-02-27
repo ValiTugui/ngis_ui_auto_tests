@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
@@ -11,12 +13,10 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static co.uk.gel.lib.Actions.getText;
+import static co.uk.gel.lib.Actions.getValue;
 
 public class SamplesSteps extends Pages {
 
@@ -148,12 +148,12 @@ public class SamplesSteps extends Pages {
                 break;
             }
             case "sampleState": {
-                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleType("Normal or germline sample");
                 samplesPage.fillInSampleID();
                 break;
             }
             case "sampleID": {
-                samplesPage.selectSampleType("Omics sample");
+                samplesPage.selectSampleType("Normal or germline sample");
                 samplesPage.selectSampleState();
                 break;
             }
@@ -480,5 +480,27 @@ public class SamplesSteps extends Pages {
         }
     }
 
+    @And("the Sample Collection date field is displayed with label {string}")
+    public void theSampleCollectionDateFieldIsDisplayedWithLabel(String expectedSampleCollectionDateLabel) {
 
+        boolean flag = Wait.isElementDisplayed(driver, samplesPage.sampleCollectionDateField, 10);
+        Assert.assertTrue(flag);
+        String actualSampleCollectionDateLabel = Actions.getText(samplesPage.sampleCollectionDateFieldLabel);
+        Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDateLabel);
+        Debugger.println("Expected sampleCollection label: " + expectedSampleCollectionDateLabel);
+        Assert.assertEquals(expectedSampleCollectionDateLabel,actualSampleCollectionDateLabel);
+    }
+
+    @And("the user is able to enter date in the Sample Collection date field")
+    public void theUserIsAbleToEnterDateInTheSampleCollectionDateField() {
+          samplesPage.selectSampleCollectionDate();
+          String actualSampleCollectionDate = Actions.getValue(samplesPage.sampleCollectionDateField);
+          Debugger.println("Actual sampleCollection Date:" + actualSampleCollectionDate);
+          Assert.assertTrue(!Objects.requireNonNull(getValue(samplesPage.sampleCollectionDateField)).isEmpty()); //Collection field date is not empty
+    }
+
+    @And("the user see a tick mark next to the selected parent Sample")
+    public void theUserSeeATickMarkNextToTheSelectedParentSample() {
+        Assert.assertTrue(samplesPage.ensureTickMarkIsDisplayedNextToSampleType());
+    }
 }

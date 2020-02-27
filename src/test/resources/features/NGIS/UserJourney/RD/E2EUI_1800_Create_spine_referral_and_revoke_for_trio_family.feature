@@ -11,12 +11,12 @@
 
 Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
-  @E2EUI-1800 @LOGOUT @v_1
+  @NTS-3377 @E2EUI-1800 @LOGOUT @v_1
   Scenario Outline: E2EUI-1800: User Journey by creating Spine Referral and Revoking for Trio Family - By Signature
 
     ###Referral creation  - provide nhs and dob of an existing patient
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_SUPER_USER | NHSNumber=2000008178:DOB=29-12-1967:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=2000008178:DOB=29-12-1967:Gender=Male |
     ###Patient Details
     When the user navigates to the "<PatientDetails>" stage
     Then the user is navigated to a page with title Check your patient

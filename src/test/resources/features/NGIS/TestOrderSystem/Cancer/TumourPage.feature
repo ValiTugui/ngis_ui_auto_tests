@@ -32,11 +32,11 @@ Feature: Tumours Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     And the labels and help hint texts are displayed
-      | labelHeader                                       | HintTextHeader                                                                                             |
-      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                          |
-      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                            |
-      | Histopathology laboratory ID or local sample ID ✱ | Add the pathology or haemotology identifier from the local report. Use the subspecimen ID if there is one. |
-      | The tumour is... ✱                                | None                                                                                                       |
+      | labelHeader                                       | HintTextHeader                                                                                                                 |
+      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
+      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                                                |
+      | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
+      | The tumour is... ✱                                | None                                                                                                                           |
 
     Examples:
       | stage   |
@@ -68,10 +68,11 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
+# Replaced SPINE data with NGIS Data creation
   @NTS-3157 @E2EUI-1020 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3157:Validate the mandatory input field 'Date of diagnosis' for the Tumour Section
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     And the user answers all tumour system questions fields, select tumour type "<tumour_type>" and leaves date of diagnosis field blank
     And the user clicks the Save and Continue button
@@ -82,26 +83,29 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic | Enter a year  |
 
 
-  @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @LOGOUT @P0 @v_1
-  Scenario Outline: NTS-3154: Add a new tumour for an existing patient
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page for the existing patient with tumour list
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
+#    Test to be skipped till we sort out SPINE Data 20/02/2020
+# @NTS-3154 @E2EUI-1320 @E2EUI-894 @E2EUI-1549 @E2EUI-1236 @LOGOUT @P0 @v_1
+#  @ignore - this ignore tag is not picked up by Jenkins run. so commented out the entire ticket.
+#  Scenario Outline: NTS-3154: Add a new tumour for an existing patient
+#    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+#    When the user navigates to the "<stage>" stage
+#    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
+#    And the user clicks the Save and Continue button
+#    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
+#    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
+#    And the user clicks the Save and Continue button
+#    Then the new tumour is displayed in the landing page for the existing patient with tumour list
+#    And the new tumour is not highlighted
+#    And the "<stage>" stage is marked as Completed
+#    And the success notification is displayed "<notificationText>"
+#
+#    Examples:
+#      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
+#      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
-    Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
-  @NTS-3154 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
+ # E2EUI-1440
+  @NTS-3154 @NTS-4734 @E2EUI-894 @E2EUI-1549 @E2EUI-949 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3154: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -113,6 +117,7 @@ Feature: Tumours Page
     And the user clicks the Save and Continue button
     Then the new tumour is displayed in the landing page
     And the new tumour is not highlighted
+    And the user see a tick mark next to the added tumour
     And the "<stage>" stage is marked as Completed
     And the success notification is displayed "<notificationText>"
 
@@ -144,10 +149,11 @@ Feature: Tumours Page
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
+    # Replaced SPINE data with NGIS Data creation
   @NTS-3171 @E2EUI-2145 @LOGOUT @P0 @v_1
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
 # moving to another Stage e.g Samples page
@@ -160,11 +166,11 @@ Feature: Tumours Page
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
       | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
 
-
+ # Replaced SPINE data with NGIS Data creation
   @NTS-3171 @E2EUI-2145 @LOGOUT @P0 @v_1
   Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
    #  User click on refresh button

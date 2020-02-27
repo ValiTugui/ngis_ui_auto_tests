@@ -6,10 +6,12 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.pages.ReferralPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import cucumber.api.java.hu.De;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -199,10 +201,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient identifiers on family member landing page")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage() {
+    @And("the user should be able to see the patient identifiers (.*) patient")
+    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage(String patientNo) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage();
+        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
         Assert.assertTrue(testResult);
     }
     @When("the user clicks on the link to amend the number of participants for test")
@@ -322,9 +324,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
-            if(memberDetails.size() < noOfParticipants){
-                Debugger.println("No of Participants mentioned and details provided are not matching.");
-            }
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {
                 referralPage.navigateToFamilyMemberSearchPage();
@@ -352,7 +351,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
-
                     if(!patientDetailsPage.createNewFamilyMember(familyMember)){
                         break;
                     }
@@ -373,9 +371,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
                     Assert.assertTrue(false);
                 }
-                if (!referralPage.verifyThePageTitlePresence("Select tests for")) {
-                    Wait.seconds(30);//Continuos time out failures observed at this point in jenkins runs.
-                }
+                Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
                     Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
@@ -387,12 +383,6 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                     Assert.assertTrue(false);
                 }
-//                //Adding Phenotypic and Karyotypic sex also as it is needed in Pedigree validation
-//                if(familyMember.getPHENOTYPIC_SEX() == null){
-//                    familyMember.setPHENOTYPIC_SEX(familyMember.getGENDER());//By default same as Gender
-//                }
-//                clinicalQuestionsPage.selectSpecificPhenotypicSexDropdownValue(familyMember.getPHENOTYPIC_SEX());
-//                clinicalQuestionsPage.selectSpecificKaryotypicSexDropdownValue("XY");
                 Wait.seconds(2);
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(2);
@@ -401,6 +391,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
+                Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.");
                 Wait.seconds(2);
             }//end
         }catch(Exception exp){
@@ -418,5 +409,52 @@ public class FamilyMemberDetailsSteps extends Pages {
         }else {
             Assert.assertFalse(testResult);
         }
+    }
+
+    @And("proband participant is displayed first in the list followed by {string}")
+    public void probandParticipantIsDisplayedFirstInTheListFollowedBy(String relationshipToProband) {
+        int indexOfProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral("Proband");
+        int indexOfRelationToProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral(relationshipToProband);
+        Debugger.println("Index of proband :: "+ indexOfProband);
+        Debugger.println("Index of relationshipToProband :: "+ relationshipToProband);
+        Assert.assertTrue(indexOfProband != -1);
+        Assert.assertTrue(indexOfRelationToProband != -1);
+        Assert.assertTrue(indexOfRelationToProband > indexOfProband);
+    }
+
+    @When("the user deselects the test for the {string}")
+    public void theUserDeselectsTheTestForThe(String relationshipToProband) {
+        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
+        // navigate from family member patient details page
+        referralPage.clickSaveAndContinueButton();
+        theUserDeselectTheSelectedTest();
+        theUserSeesTheTestRemainsUnSelected();
+        // navigate from family members selected tests page
+        referralPage.clickSaveAndContinueButton();
+        // navigate from family members clinical questions page
+        referralPage.clickSaveAndContinueButton();
+    }
+
+    @Then("the family member details on family Member landing page is shown as {string} for the participant {string}")
+    public void theFamilyMemberDetailsOnFamilyMemberLandingPageIsShownAsForTheParticipant(String testStatus, String relationToProband) {
+       if(testStatus.equalsIgnoreCase("Not being tested")) {
+           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
+       }else { // check Being tested status
+           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
+       }
+    }
+
+    @And("the user selects the test for the {string}")
+    public void theUserSelectsTheTestForThe(String relationshipToProband) {
+        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
+        // navigate from family member patient details page
+        referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(familyMemberDetailsPage.selectTheTest());
+        // navigate from family members selected tests page
+        referralPage.clickSaveAndContinueButton();
+        // navigate from family members clinical questions page
+        referralPage.clickSaveAndContinueButton();
     }
 }//end

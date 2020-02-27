@@ -541,4 +541,32 @@ public class PatientDetailsSteps extends Pages {
     public void theUserFillsInTheHospitalNoField() {
         patientDetailsPage.fillInHospitalNo();
     }
+
+    @And("the Hospital number field displays the hint text {string}")
+    public void theHospitalNumberFieldDisplaysTheHintText(String expectedHintText) {
+        String actualHintText = Actions.getPlaceHolderAttribute(patientDetailsPage.hospitalNumber);
+        Debugger.println("Actual Hint text  " + actualHintText);
+        Debugger.println("Expected Hint text " + expectedHintText);
+        Assert.assertEquals(expectedHintText, actualHintText);
+    }
+
+    @And("the user deletes data in the fields - First Name, Last Name, Date of Birth, Gender, Life Status and Ethnicity")
+    public void theUserDeletesDataInTheFieldsFirstNameLastNameDateOfBirthGenderLifeStatusAndEthnicity() {
+
+        Actions.clearInputField(patientDetailsPage.firstName);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.firstName);
+        Actions.clearInputField(patientDetailsPage.familyName);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.familyName);
+        patientDetailsPage.dateOfBirth.click();
+        Actions.clearInputField(patientDetailsPage.dateOfBirth);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.administrativeGenderButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearGenderDropDownValue);
+        Wait.seconds(1);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.lifeStatusButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDown);
+        Wait.seconds(1);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.ethnicityButton);
+        Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearLifeStatusDropDownValue);
+
+    }
 }

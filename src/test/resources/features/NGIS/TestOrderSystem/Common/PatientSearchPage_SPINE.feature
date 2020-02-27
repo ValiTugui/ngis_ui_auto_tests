@@ -12,6 +12,11 @@ Feature: Patient search page_SPINE
     Then the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     And the YES button is selected by default on patient search
     And the background colour of the YES button is strong blue "#005eb8"
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader       |
+      | NHS Number ✱      |
+      | Date of birth ✱   |
+
 
   @NTS-3336 @E2EUI-1663 @v_1 @P0
   Scenario: NTS-3336: Auto-fill feature not enabled for NHS Number field
@@ -22,6 +27,16 @@ Feature: Patient search page_SPINE
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
     When the user clicks the NO button
     Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader     |
+      | Date of birth ✱ |
+      | First name ✱    |
+      | Last name ✱     |
+      | Date of birth ✱ |
+      | Gender ✱        |
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
+      | labelHeader |
+      | Postcode    |
 
   @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
@@ -86,7 +101,7 @@ Feature: Patient search page_SPINE
     When the user clicks the Search button
     Then the mandatory fields such as DOB , First Name, Last Name and Gender should be highlighted with a red mark
 
-  @NTS-2789 @E2EUI-1304 @E2EUI-904  @E2EUI-827 @v_1
+  @NTS-2789 @E2EUI-1304 @E2EUI-904  @E2EUI-827 @E2EUI-968 @v_1
   Scenario Outline: NTS-2789:Invalid data - Do you have NHS patient Number - No
     And the user clicks the NO button
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
@@ -103,7 +118,7 @@ Feature: Patient search page_SPINE
     When the user clicks the Search button
     Then the non mandatory field "Postcode" shouldn't be highlighted with a red mark
 
-  @NTS-2789 @E2EUI-1304  @v_1
+  @NTS-2789 @E2EUI-1304 @E2EUI-968 @v_1
   Scenario Outline: NTS-2789:Patient Search Results Page invalid data
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -162,7 +177,7 @@ Feature: Patient search page_SPINE
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
 
-  @NTS-2801 @E2EUI-1114 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-929 @v_1
   Scenario Outline: NTS-2801:Patient Search - NHS number Validations - number of digits limited to 10
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -177,7 +192,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | 912*&      | 23-03-2011 | Please enter your full NHS Number (10 characters) |
       | NGIS                | 944956778a | 14-06-2011 | Please enter your full NHS Number (10 characters) |
 
-  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @E2EUI-1399 @v_1
+  @NTS-2801 @E2EUI-1114 @E2EUI-1840 @E2EUI-2163 @E2EUI-915 @E2EUI-1399 @E2EUI-929 @v_1
   Scenario Outline: NTS-2801:Patient Search - DOB field Validations - invalid day , month , year values
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -277,7 +292,7 @@ Feature: Patient search page_SPINE
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
 
-  @NTS-2799 @E2EUI-1390 @v_1
+  @NTS-2799 @E2EUI-1390 @E2EUI-955  @v_1
   Scenario: NTS-2799:To verify the text information present on the 'Find a Patient' page
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
@@ -320,3 +335,54 @@ Feature: Patient search page_SPINE
   Scenario: NTS-3159 - Patient Search - To verify the Tab Title displayed correctly if cursor is mover over the Tab
     And User place the cursor over the tab in which the Dashboard - Home page is opened
     Then The user should see the tab title as "Genomic Medicine Service | Test Ordering Application - NGIS"
+
+
+  @NTS-4722 @E2EUI-835 @v_1
+  Scenario Outline: NTS-4722:Patient Search - Integer/decimal Type Validation in NHS Number Field
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the NHS number field remains empty as invalid characters are not accepted
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+
+    Examples: Integer Decimal in NHSField
+      | patient-search-type | NhsNumber | DOB        | error_message           |
+      | NHS Spine           | abcdefghh | 01-01-2020 | NHS Number is required. |
+      | NHS Spine           | !@#$%^&*  | 01-01-2020 | NHS Number is required. |
+
+
+  @NTS-4727 @E2EUI-1133 @v_1 @BVT_P0
+  Scenario Outline: NTS-4727:Patient Search - Gender field Validation when no gender is selected
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then the message will be displayed as "<error_message>" in "#212b32" color
+
+    Examples:
+      | patient-search-type | SearchDetails                                              | error_message       |
+      | NHS Spine           | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz | Gender is required. |
+
+
+  @NTS-4742 @E2EUI-1071 @v_1 @BVT_P0
+  Scenario Outline:NTS-4727:Patient Search Page Layout - NHS number is NOT Known - Verify placeholder values
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the user sees placeholder texts displayed in the fields - Date of birth "<DOB>", First name "<firstName>", Last name "<lastName>" and Postcode "<postCode>"
+
+    Examples:
+      | pageTitle         | DOB        | firstName  | lastName   | postCode   |
+      | Find your patient | DD-MM-YYYY | e.g. Helen | e.g. Jones | e.g. N16 7TU |
+
+
+  @NTS-4742 @E2EUI-1071 @v_1 @BVT_P0
+  Scenario Outline: NTS-4742:Patient Search Page Layout - NHS number is NOT Known - verify Gender values
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    And the following drop-down values are displayed for gender
+      | genderListHeader |
+      | Female           |
+      | Male             |
+      | Other            |
+      | Unknown          |
+
+    Examples:
+      | pageTitle         |
+      | Find your patient |

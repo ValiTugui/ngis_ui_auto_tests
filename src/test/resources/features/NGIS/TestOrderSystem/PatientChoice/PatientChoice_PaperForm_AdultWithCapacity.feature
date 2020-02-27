@@ -1,30 +1,32 @@
 @regression
 @patientChoice
-@patientChoice_nts_3389
-Feature: Patient Choice Category - Adult (With Capacity)
+@patientChoice_adultWithCapacity
+Feature: Patient Choice Edit Paper Form - Adult With Capacity
 
   @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    When the user navigates to the "<Patient choice stage>" stage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+    When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
-    When the user edits the patient choice status
+    When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
+    And the user is in the section Patient choice category
     When the user selects the option Adult (With Capacity) in patient choice category
-    Then the option Adult (With Capacity) displayed with edit option in Patient choice category
     Then the Patient choice category option is marked as completed
+    And the option Adult (With Capacity) displayed with edit option in Patient choice category
     When the user selects the option Rare & inherited diseases – WGS in section Test type
-    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
     Then the Test type option is marked as completed
-    When the user fills "<RecordedBy>" details in recorded by
+    And the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the user is in the section Recorded by
+    When the user fills "<ClinicianName>" details in recorded by
     And the user clicks on Continue Button
     Then the option Recorded by: displayed with edit option in Recorded by
     Then the Recorded by option is marked as completed
 
     Examples:
-      | Patient choice stage | RecordedBy                            |
-      | Patient choice       | ClinicianName=John:HospitalNumber=123 |
+      | PatientChoice  | ClinicianName                         |
+      | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
@@ -49,8 +51,8 @@ Feature: Patient Choice Category - Adult (With Capacity)
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                |WarningMessage2|
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available.|
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
@@ -97,7 +99,7 @@ Feature: Patient Choice Category - Adult (With Capacity)
     And the options displayed as below for the question Has research participation been discussed?
       | Yes |
       | No  |
-    And the user should see continue button is highlighted in color #f0f0f0
+    And the user should see Continue button as disabled
     When the user selects the option No for the question Has research participation been discussed?
     Then the user should see the question displayed as Why has research participation not been discussed?
     And the options displayed as below for the question Why has research participation not been discussed?
@@ -106,7 +108,7 @@ Feature: Patient Choice Category - Adult (With Capacity)
       | Patient lacks capacity and no consultee available |
       | Other                                             |
     And the user will see a warning message "<WarningMessage>"
-    And the user should see continue button is highlighted in color #f0f0f0
+    And the user should see Continue button as disabled
     When the user selects the option Patient would like to revisit at a later date for the question Why has research participation not been discussed?
     And the user clicks on Continue Button
     Then the user should see selected details displayed under the section Patient choices
@@ -193,5 +195,4 @@ Feature: Patient Choice Category - Adult (With Capacity)
     And the user fills PatientSignature details in patient signature
     Then the user should see patient choice submit button as enabled
     And Save and continue button is displayed as disabled
-
     ##E2EUI-2039: Scenario 6 is covered with above scenarios

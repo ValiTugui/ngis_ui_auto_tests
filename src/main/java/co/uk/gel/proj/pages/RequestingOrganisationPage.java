@@ -1,6 +1,8 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
@@ -73,6 +75,9 @@ public class RequestingOrganisationPage {
     @FindBy(css = "p[class*='styles_bodyText']")
     public WebElement slidePanelBodyText;
 
+    @FindBy(css = "div[class*='no-results']")
+    public WebElement noSearchResult;
+
     public boolean verifyOrganisationDetails() {
         Wait.forElementToBeDisplayed(driver, organisationDetailsContainer);
         return organisationDetailsContainer.getText().contains(organisationDetailText.get(0).getText());
@@ -93,10 +98,6 @@ public class RequestingOrganisationPage {
         return zeroResulsFoundLabel.isDisplayed();
     }
 
-    public boolean checkPageTitleInfo(String pageTitle) {
-        Wait.forElementToBeDisplayed(driver, orderingEntityPageTitle);
-        return orderingEntityPageTitle.getText().contains(pageTitle);
-    }
 
     public boolean checkOrderingEntityPageLabel() {
         return orderEntityPageSubtitle.isDisplayed();
@@ -141,6 +142,17 @@ public class RequestingOrganisationPage {
         }catch(Exception exp){
             Debugger.println("Exception from verifying checkRequestingOrganisationPageInfo: "+exp);
             return false;
+        }
+    }
+
+    public String getNoResultMessage(){
+        try {
+        Wait.forElementToBeDisplayed(driver, noSearchResult);
+        return Actions.getText(noSearchResult);
+        }catch(Exception exp){
+            Debugger.println("Exception during RequestingOrganisationPage -> getNoResultMessage() : "+exp);
+            SeleniumLib.takeAScreenShot("NoResultMessage.jpg");
+            return null;
         }
     }
 

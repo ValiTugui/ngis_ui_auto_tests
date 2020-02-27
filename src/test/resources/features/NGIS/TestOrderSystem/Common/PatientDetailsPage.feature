@@ -464,13 +464,16 @@ Feature: Patient details page
       | Add a new patient to the database | Find your patient | NGIS         | NGIS                |
 
 
-   @NTS-4565 @LOGOUT @v_1 @E2EUI-1582
+  @NTS-4565 @LOGOUT @v_1 @E2EUI-1582
   Scenario Outline: NTS-4565- New Patient Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
-     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |And the user navigates to the "<stage>" stage
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user navigates to the "<stage>" stage
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
-     And the page url address contains the directory-path web-page "<directoryPathPage>"
+     #    Click the back button the second time due to user already navigated
+    When the user attempts to navigate away by clicking "back"
+    And the page url address contains the directory-path web-page "<directoryPathPage>"
     Then the "<pageTitle>" page is displayed
 
     Examples:
@@ -521,3 +524,65 @@ Feature: Patient details page
     Examples:
       | stage           | pageTitle                         | pageTitle2        | pageTitle3                   | reason_for_no_nhsNumber     | patient-search-type | directoryPathPage         |
       | Patient details | Add a new patient to the database | Find your patient | Check your patient's details | Other - provide explanation | NGIS                | test-order/patient-search |
+
+
+
+  @NTS-4627 @E2EUI-1664 @v_1 @LOGOUT
+  Scenario Outline:NTS-4627-Patient detail - Hospital Number field - Display an editable hospital number
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user deletes the data in the Hospital Number field
+    And the Hospital number field displays the hint text "<hintText>"
+    When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
+    Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | HospitalNumber      | hintText |
+      | Add a new patient to the database | Find your patient | NGIS                | 1234567890123456789 | B123456  |
+
+
+  @LOGOUT @NTS-4549 @E2EUI-822
+  Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Responsible Clinician page
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully updated with a message "Details saved"
+    And the patient detail page displays expected input-fields and drop-down fields
+    And the user deletes data in the fields - First Name, Last Name, Date of Birth, Gender, Life Status and Ethnicity
+    Then the error messages for the mandatory fields on the "Check your patient's details" page are displayed as follows
+      | labelHeader     | errorMessageHeader         | messageColourHeader |
+      | First name ✱    | First name is required.    | #dd2509             |
+      | Last name ✱     | Last name is required.     | #dd2509             |
+      | Date of birth ✱ | Date of birth is required. | #dd2509             |
+      | Gender ✱        | Gender is required.        | #dd2509             |
+      | Life status ✱   | Life status is required.   | #dd2509             |
+      | Ethnicity ✱     | Ethnicity is required.     | #dd2509             |
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
+      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |

@@ -3,6 +3,8 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import io.cucumber.datatable.DataTable;
@@ -21,9 +23,10 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
-        boolean testResult = false;
-        testResult = patientChoicePage.editPatientChoice();
-        Assert.assertTrue(testResult);
+//        boolean testResult = false;
+//        testResult = patientChoicePage.editPatientChoice();
+//        Assert.assertTrue(testResult);
+        patientChoicePage.selectMember(0);
     }
 
     @When("the user edits patient choice for {string} family members with the below details")
@@ -42,7 +45,7 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
-                patientChoicePage.selectOptionForQuestion("Patient has agreed to the test", "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
                 patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 Wait.seconds(2);
@@ -61,8 +64,27 @@ public class PatientChoiceSteps extends Pages {
                     continue;
                 }
                 patientChoicePage.clickOnSaveAndContinueButton();
+                Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
             }//end
-            Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+
+        } catch (Exception exp) {
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
+        }
+    }
+    @When("the user completes the patient choice for below family members as agreeing to test")
+    public void theUserCompletesThePatientChoiceForBelowFamilyMembers(DataTable inputDetails) {
+        try {
+            List<List<String>> memberDetails = inputDetails.asLists();
+            for (int i = 1; i < memberDetails.size(); i++) {//First line is title
+                patientChoicePage.selectMember(i);
+                Wait.seconds(2);
+                Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2)));
+                Wait.seconds(5);//After submitting PC
+                patientChoicePage.clickOnSaveAndContinueButton();
+                Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+            }//end
+
         } catch (Exception exp) {
             Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
@@ -201,11 +223,6 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should see continue button is highlighted in color (.*)")
-    public void theUserShouldSeeContinueButtonIsNotHighlighted(String backgroundColor) {
-        Assert.assertTrue(patientChoicePage.notHighlightedContinueButton(backgroundColor));
-    }
-
    @Then("the user should see a error message box with border color (.*) and message as (.*)")
     public void theUserShouldSeeAErrorMessageBox(String boxColor,String message) {
         boolean testResult = false;
@@ -252,7 +269,27 @@ public class PatientChoiceSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+    @And("the user should see form to follow button as (.*)")
+    public void theUserShouldSeeHighlightedFormToFollowButton(String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyFormToFollowButtonStatus("#f0f0f0");
+        if(status.equalsIgnoreCase("enabled")){
+            Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
+        }
+    }
 
+    @And("the user should see Continue button as (.*)")
+    public void theUserShouldSeeHighlightedContinueButton(String status) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyContinueButtonStatus("#f0f0f0");
+        if(status.equalsIgnoreCase("enabled")){
+            Assert.assertFalse(testResult);
+        }else {
+            Assert.assertTrue(testResult);
+        }
+    }
     @Then("the user should be able to see patient hospital number")
     public void theUserShouldBeAbleToSeePatientHospitalNumber() {
         boolean testResult = false;
@@ -361,11 +398,6 @@ public class PatientChoiceSteps extends Pages {
         } else {
              Assert.assertFalse(testResult);
         }
-    }
-
-    @When("the user clicks on {string} link")
-    public void theUserClicksOnLink(String link) {
-        patientChoicePage.clickOnLink(link);
     }
 
     @When("the user clicks on the amend patient choice button")
@@ -492,7 +524,7 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.verifyFileTypeDropdownValues(fileTypes);
         Assert.assertTrue(testResult);
     }
-    @And("the Date of Signature fields are displayed as {string}")
+    @And("the Date of Signature fields are displayed as (.*)")
     public void theDateOfSignatureFieldsAreDisplayedAs(String expStatus) {
         boolean testResult = false;
         testResult = patientChoicePage.dateOfSignatureStatusInRecordedBYSection();
@@ -514,7 +546,7 @@ public class PatientChoiceSteps extends Pages {
         testResult = patientChoicePage.fillTheDateOfSignatureInRecordedBy();
         Assert.assertTrue(testResult);
     }
-    @Then("the user sees a success message after form upload in recorded by as {string}")
+    @Then("the user sees a success message after form upload in recorded by as (.*)")
     public void theUserSeesASuccessMessageAfterFormUploadInRecordedByAs(String expMessage) {
         boolean testResult = false;
         testResult = patientChoicePage.verifyFormUploadSuccessMessage(expMessage);
@@ -563,4 +595,59 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user should see the details of family members displayed in patient choice landing page")
+    public void detailsOfPatientsInPatientChoicePage(DataTable inputDetails) {
+        List<List<String>> memberDetails = inputDetails.asLists();
+        NGISPatientModel familyMember = null;
+        boolean testResult = false;
+        for (int i = 1; i < memberDetails.size(); i++) {
+            familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
+            testResult = patientChoicePage.verifyFamilyMemberDetailsPatientChoicePage(familyMember);
+            Assert.assertTrue(testResult);
+            Wait.seconds(2);
+        }
+    }
+    @And("the user should wait for session expiry time (.*) seconds")
+    public void theUserShouldWaitUntilTokenExpires(String timeToWait) {
+        patientChoicePage.waitUntilTokenExpire(Integer.parseInt(timeToWait));
+    }
+
+    @And("the user should be able to see the uploaded file name {string}")
+    public void theUserShouldBeAbleToSeeTheUploadedFileName(String fileName) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadedFileName(fileName);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("the user is navigated to a page of section with title (.*)")
+    public void theUserIsNavigatedToAPageOfSectionPatientChoiceHistory(String title) {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyThePageSectionTitleInPatientChoicePage(title);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user verifies the referral id on history tab is same as on referral id on referral bar")
+    public void theUserVerifiesTheReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyReferralIdOnHistoryTabIsSameAsOnReferralIdOnReferralBar();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on Form To Follow Button")
+    public void theUserClicksOnFormToFollowButton() {
+        patientChoicePage.clickOnFormToFollow();
+    }
+
+    @When("the user Cancel the uploaded forms")
+    public void theUserCancelUploadedForms() {
+        patientChoicePage.clickOnCancelUpload();
+    }
+
+    @Then("the user should not see any uploaded files")
+    public void theUserShouldNotSeeAnyUploadedFiles() {
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyUploadedFileName("");
+        Assert.assertTrue(testResult);
+
+    }
 }//end

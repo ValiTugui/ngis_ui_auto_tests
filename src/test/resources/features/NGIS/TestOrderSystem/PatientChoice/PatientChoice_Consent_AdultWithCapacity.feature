@@ -1,12 +1,12 @@
 @regression
 @patientChoice
-@patientChoice_nts_3434
-Feature: Patient Choice Category - Adult (With Capacity) - Paper Form
+@patientChoice_consentAdultWithCapacity
+Feature: Patient Choice ConsentScenario - Adult with Capacity
 
   @NTS-3434 @E2EUI-1447 @v_1 @P0
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -20,7 +20,7 @@ Feature: Patient Choice Category - Adult (With Capacity) - Paper Form
     When the user is in the section Recorded by
     When the user fills "<RecordedBy>" details in recorded by
     Then the user will see a warning message "<WarningMessage>"
-    Then the user sees a success message after form upload in recorded by as "<FormSuccessMessage>"
+    And the user sees a success message after form upload in recorded by as Successfully Uploaded
     And the user will see a "<Message>" message on upload section
     And the user clicks on Continue Button
     And the Recorded by option is marked as completed
@@ -52,7 +52,7 @@ Feature: Patient Choice Category - Adult (With Capacity) - Paper Form
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3434 @E2EUI-1447 @v_1 @P0 @scenario_02
+  @NTS-3434 @E2EUI-1447 @E2EUI-2034 @v_1 @P0 @scenario_02
   Scenario Outline: NTS-3434: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -150,7 +150,7 @@ Feature: Patient Choice Category - Adult (With Capacity) - Paper Form
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @LOGOUT @NTS-3434 @E2EUI-1447 @v_1 @P0 @scenario_05
+  @NTS-3434 @E2EUI-1447 @LOGOUT @v_1 @P0 @scenario_05
   Scenario Outline: NTS-3434: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

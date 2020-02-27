@@ -48,11 +48,6 @@ public class ReferralSteps extends Pages {
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
         referralPage.navigateToStage(stage);
-        //Introduced this as a trial as many times the failures observed in FamilyMembers Page as Title is not loaded.
-        //Will be removing later, if this wont help, lets pls keep it for couple of runs from Jenkins
-        if(stage.equalsIgnoreCase("Family members")){
-            Wait.seconds(5);
-        }
     }
 
     @And("the user clicks the Save and Continue button")
@@ -177,6 +172,7 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
+        Debugger.println("Verifying completion of Package:"+stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
@@ -259,7 +255,6 @@ public class ReferralSteps extends Pages {
 
     @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
     public void theUserSeesAPromptAlertAfterClickingButtonAndIt(String partOfMessage, String browserInteraction, String acknowledgeAlertPopup) {
-
         String actualAlertMessage;
         if (browserInteraction.equals("Samples") || (browserInteraction.equals("back") || (browserInteraction.equals("add a Tumour") || (browserInteraction.equals("Not the right tumour"))))) {
             actualAlertMessage = referralPage.acknowledgeThePromptAlertPopups(acknowledgeAlertPopup);
@@ -594,6 +589,9 @@ public class ReferralSteps extends Pages {
                         searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                         //Debugger.println("NHS Number IS: "+searchPatient.getNHS_NUMBER());
                         searchPatient.setNO_NHS_REASON(paramValue.replaceAll("NA-",""));
+                    }else if(paramValue.equalsIgnoreCase("NGIS")) {
+                        searchPatient.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+                        searchPatient.setNO_NHS_REASON("NGIS");
                     }else{
                         searchPatient.setNHS_NUMBER(paramValue);
                     }
@@ -635,8 +633,14 @@ public class ReferralSteps extends Pages {
             patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
             patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
             Assert.assertTrue(patientDetailsPage.createNewPatientReferral(searchPatient));
-            referralPage.checkThatReferralWasSuccessfullyCreated();
-            referralPage.saveAndContinueButtonIsDisplayed();
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+                Debugger.println("Referral could not created successfully...");
+                Assert.assertTrue(false);
+            }
+            if(!referralPage.saveAndContinueButtonIsDisplayed()){
+                Debugger.println("SaveAndContinueButton not displayed:");
+                Assert.assertTrue("SaveAndContinueButton not displayed:",false);
+            }
         }else if(searchResult.equalsIgnoreCase("1 patient record found")){
             //Existing Patient
             patientSearchPage.clickPatientCard();
@@ -644,6 +648,8 @@ public class ReferralSteps extends Pages {
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if(!toDoListDisplayed){
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
+                //Observed undefined attached in the URL sometime....This is to verify the URL the moment
+                Debugger.println("ToDoListNotLeaded:URL:"+driver.getCurrentUrl());
                 Assert.assertFalse("ToDoList in Referral Page is not loaded even after the waiting time..",true);
             }
         }else{
@@ -729,5 +735,78 @@ public class ReferralSteps extends Pages {
         boolean flag = false;
         flag = referralPage.verifyTheCurrentURLContainsTheDirectoryPathPage(directoryPath);
         Assert.assertTrue(flag);
+    }
+
+
+    @And("the Genomic Medicine Service logo {string} is displayed in the header of Test Ordering")
+    public void theGenomicMedicineServiceLogoIsDisplayedInTheHeaderOfTestOrdering(String expectedGenomicsEngLogo) {
+        String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
+        Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
+        Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
+        Assert.assertEquals(expectedGenomicsEngLogo,actualGenomicsEngLogo);
+    }
+
+    @And("the username {string} is displayed in the header of Test Ordering")
+    public void theUsernameIsDisplayedInTheHeaderOfTestOrdering(String userType) {
+        String expectedLoginUserName = referralPage.getExpectedUserNameFromLoginEmailAddress(userType);
+        String actualLoginUserName = referralPage.getActualLoginUserName();
+        Debugger.println("Expected user-login full name: " + expectedLoginUserName);
+        Debugger.println("Actual user-login full name: " + actualLoginUserName);
+        Assert.assertEquals(expectedLoginUserName,actualLoginUserName);
+    }
+
+    @And("the logout {string} text is displayed in the header of Test Ordering")
+    public void theLogoutTextIsDisplayedInTheHeaderOfTestOrdering(String expectedLogoutText) {
+        String actualLogoutText = referralPage.getActualLogoutText();
+        Debugger.println("Actual logout text: " + actualLogoutText);
+        Debugger.println("Expected logout text: " + expectedLogoutText);
+        Assert.assertEquals(expectedLogoutText,actualLogoutText);
+    }
+
+    @Then("the NHS logo is displayed in the header of Test Ordering")
+    public void theNHSLogoIsDisplayedInTheHeaderOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.nhsEnglandLogoIsDisplayedInHeader();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the NHS logo is displayed in the footer of Test Ordering")
+    public void theNHSLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.nhsEnglandLogoIsDisplayedInFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Genomics England logo is displayed in the footer of Test Ordering")
+    public void theGenomicsEnglandLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.genomicsEnglandLogIsDisplayedInFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Report an issue or provide feedback text link is displayed in the footer of Test Ordering")
+    public void theReportAnIssueOrProvideFeedbackTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.serviceDeskReportAndIssueIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Privacy Policy text link is displayed in the footer of Test Ordering")
+    public void thePrivacyPolicyTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.privacyPolicyIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the copyright text is displayed in the footer of Test Ordering")
+    public void theCopyrightTextIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.copyrightTextIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the referral submit button is not enabled")
+    public void theReferralSubmitButtonIsNotEnabled() {
+        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
     }
 }

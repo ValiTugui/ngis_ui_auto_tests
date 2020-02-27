@@ -4,17 +4,11 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.miportal_pages.MiPortalFileSubmissionPage;
 import co.uk.gel.proj.util.Debugger;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
-
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Pages implements Navigable {
 
@@ -50,6 +44,8 @@ public class Pages implements Navigable {
     protected PedigreePage pedigreePage;
     protected PrintFormsPage printFormsPage;
 
+    protected MiPortalFileSubmissionPage miPortalFileSubmissionPage;
+
 
     public Pages(SeleniumDriver driver) {
         this.driver = driver;
@@ -80,6 +76,9 @@ public class Pages implements Navigable {
         notesPage = PageFactory.initElements(driver,NotesPage.class);
         pedigreePage = PageFactory.initElements(driver,PedigreePage.class);
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
+
+        // MI-PORTAL PAGES
+        miPortalFileSubmissionPage = PageFactory.initElements(driver, MiPortalFileSubmissionPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -103,7 +102,12 @@ public class Pages implements Navigable {
     }
 
     public void NavigateTo(String urlToNavigate, String pageToNavigate, String userType) {
-        login(urlToNavigate, pageToNavigate, userType);
+        if (urlToNavigate.contains("miportal")) {
+            Debugger.println("Mi portal login");
+            loginToMiPortal(urlToNavigate, pageToNavigate, userType);
+        } else {
+            login(urlToNavigate, pageToNavigate, userType);
+        }
     }
 
     private void login(String urlToNavigate, String pageToNavigate, String userType) {
@@ -154,6 +158,52 @@ public class Pages implements Navigable {
         }
     }
 
+
+    private void loginToMiPortal(String urlToNavigate, String pageToNavigate, String userType) {
+        try {
+            Debugger.println("Pages:login:Navigating to URL: " + urlToNavigate + ", Page:" + pageToNavigate);
+            driver.get(urlToNavigate);
+            Wait.seconds(5);//Wait for 15 Seconds
+            String navigatedURL = driver.getCurrentUrl();
+            Debugger.println("Current URL before LOGIN is :" + navigatedURL);
+            //Navigate to Test Directory
+            if (navigatedURL.contains("https://miportal.")) {
+                //homePage.waitUntilHomePageResultsContainerIsLoaded();
+                Debugger.println("User is in miportal homepage - no login"); //Wait for allpage to be loaded
+            } else if (navigatedURL.contains("login.microsoft")) {
+                if (userType != null) {
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                } else {
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                }
+            } else {
+                //Log out, if not logged out from previous session
+                patientSearchPage.logoutFromApplication();
+                if (userType != null) {
+                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                } else {
+                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                }
+            }
+            navigatedURL = driver.getCurrentUrl();
+            Debugger.println("Current URL after LOGIN to TOMS :" + navigatedURL);
+
+            // we have noticed after login to TOMS, sometimes dashboard page is shown in the TOMS - following code will handle this and redirects to test directory
+            if (driver.getCurrentUrl().contains("dashboard")) {
+                dashBoardPage.clickFindAGenomicTest();
+                Wait.seconds(2);
+                navigatedURL = driver.getCurrentUrl();
+                Debugger.println("Current URL AFTER dashboard page re-direction:" + navigatedURL);
+            }
+
+        } catch (UnhandledAlertException exp) {
+            Debugger.println("UnhandledAlertException in Navigating to URL: " + urlToNavigate);
+            SeleniumLib.takeAScreenShot("UnhandledAlertExp.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception in Navigating to URL: " + urlToNavigate + "\nExp:" + exp);
+            Assert.assertFalse("Exception in Navigating to URL: " + urlToNavigate + "Exp:" + exp, true);
+        }
+    }
     @Override
     public void switchToURL(String currentURL) {
         Debugger.println("Switching URL from: " + currentURL);

@@ -90,6 +90,9 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[0].question-id-q111']")
     public WebElement diagnosisValue;
 
+    @FindBy(xpath = "//input[@id='unit-id-clinical_questions-QR06-13.answers[1].question-id-q111']")
+    public WebElement diagnosisValueSecondField;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q111')]//child::div")
     public WebElement diagnosisField;
 
@@ -105,6 +108,9 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//span[contains(text(),'Omim')]")
     public WebElement omimRadioButton;
 
+    @FindBy(xpath = "//span[contains(text(),'Omim')]")
+    public List<WebElement> omimRadioButtons;
+
     @FindBy(css = "[class*='switchable-enum']")
     public WebElement rareDiseaseDiagnosisTable;
 
@@ -112,6 +118,9 @@ public class ClinicalQuestionsPage {
 
     @FindBy(xpath = "//span[contains(text(),'Orphanet')]")
     public WebElement orphanetRadioButton;
+
+    @FindBy(xpath = "//span[contains(text(),'Orphanet')]")
+    public List<WebElement> orphanetRadioButtons;
 
     @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]")
     public List<WebElement> rareDiseaseDiagnosesRadioButtons;
@@ -122,8 +131,14 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseDiagnosisStatusDropdown;
 
+    @FindBy(xpath = "//div[contains(@id,'question-id-q114')]")
+    public List<WebElement> rareDiseaseDiagnosisStatusDropdowns;
+
     @FindBy(css = "*[data-testid*='notification-error']")
     public WebElement hpoErrorNotification;
+
+    @FindBy(xpath = "//button[contains(text(), '+ Add another')]")
+    public WebElement addAnotherRareDiseaseLink;
 
     String hpoSectionMarkedAsMandatoryToDO = "HPO phenotype or code ✱";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
@@ -144,6 +159,7 @@ public class ClinicalQuestionsPage {
             if(seleniumLib.isElementPresent(hpoSearchField)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
             }
+
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
@@ -185,6 +201,22 @@ public class ClinicalQuestionsPage {
             return null;
         }
     }
+
+    public void searchAndSelectSpecificDiagnosisSecondField(String diagnosis) {
+        try {
+            Wait.forElementToBeDisplayed(driver, diagnosisValueSecondField);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValueSecondField, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
+                Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
+            }
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Wait.seconds(2);
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("RareDiseaseDiagnosisSecondField.jpg");
+        }
+    }
+
 
     public void clearRareDiseaseDiagnosisFieldByPressingBackspaceKey() throws AWTException {
         if (!Actions.getText(diagnosisField).isEmpty()) {
@@ -267,6 +299,7 @@ public class ClinicalQuestionsPage {
             selectDiseaseStatus(paramNameValue.get("DiseaseStatus"));
         }
         boolean isFilled = false;
+        boolean isPhenotypePresent = false;
         for (String key : paramsKey) {
             if (key.equalsIgnoreCase("DiseaseStatus")) {
                 continue;
@@ -283,18 +316,49 @@ public class ClinicalQuestionsPage {
                 case "HpoPhenoType": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        if (!isFilled) {
-                            if(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0){
-                                isFilled = true;
-                            }
+                        isPhenotypePresent = true;
+                        if(!(searchAndSelectRandomHPOPhenotype(paramNameValue.get(key))>0)){
+                            isFilled = isHPOAlreadyConsidered(paramNameValue.get(key));
+                        }else{
+                            isFilled = true;
                         }
+
                     }
                     break;
                 }
+                case "PhenotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Actions.retryClickAndIgnoreElementInterception(driver,phenotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
+                        }
+                    }
+                }
+                case "KaryotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, karyotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
+                            break;
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
+                        }
+                    }
+                }
             }//switch
         }//for
-        return isFilled;
+        if(isPhenotypePresent) {
+            return isFilled;
+        }else{
+            return true;
+        }
     }//method
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         try {
@@ -320,7 +384,6 @@ public class ClinicalQuestionsPage {
             Debugger.println("Exception from checking whether the HPO is already considered or not: "+exp);
             return false;
         }
-
     }
 
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
@@ -512,6 +575,26 @@ public class ClinicalQuestionsPage {
         return diagnosisType;
     }
 
+    public String selectRareDiseaseDiagnosisType(String expectedDiseaseDiagnosisType, int itemPositionInTable) {
+        String diagnosisType = null;
+        int index = itemPositionInTable - 1; // second text field the table is denoted by array [1] and third item is denoted by array [2]
+        Wait.forElementToBeDisplayed(driver, omimRadioButtons.get(index));
+        Wait.forElementToBeDisplayed(driver, orphanetRadioButtons.get(index));
+        if (expectedDiseaseDiagnosisType.equalsIgnoreCase("Omim")) {
+            Actions.clickElement(driver, omimRadioButtons.get(index));
+        } else {
+            Actions.clickElement(driver, orphanetRadioButtons.get(index));
+        }
+        for (WebElement element : rareDiseaseDiagnosesRadioButtons) {
+            boolean check1 = element.findElement(By.tagName(tagName)).getCssValue("border-color").equals("rgb(74, 139, 202)");
+            boolean check2 = Actions.getText(element).equalsIgnoreCase(expectedDiseaseDiagnosisType);
+            if (check1 && check2) {
+                diagnosisType = Actions.getText(element);
+            }
+        }
+        return diagnosisType;
+    }
+
     public String selectRareDiseaseStatus(String value) {
         try {
             Actions.clickElement(driver, rareDiseaseDiagnosisStatusDropdown);
@@ -523,6 +606,20 @@ public class ClinicalQuestionsPage {
         SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
         return null;
     }
+    }
+
+    public String selectRareDiseaseStatus(String value, int itemPositionInTable) {
+        try {
+            int index = itemPositionInTable - 1; // second text field the table is denoted by array [1] and third item is denoted by array [2]
+            Actions.clickElement(driver, rareDiseaseDiagnosisStatusDropdowns.get(index));
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, value);
+            return Actions.getText(rareDiseaseDiagnosisStatusDropdowns.get(index).findElement(By.cssSelector(selectSingleValue)));
+        } catch (Exception exp) {
+            Debugger.println("Clinical Questions Page : Exception from selecting RareDiseaseStatus value  : " + exp);
+            SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
+            return null;
+        }
     }
 
     public boolean verifySpecificTermPresence(String presence) {
@@ -561,4 +658,28 @@ public class ClinicalQuestionsPage {
             Wait.forElementToBeDisplayed(driver, hpoErrorNotification);
             return Actions.getText(hpoErrorNotification);
         }
+
+    public List<String> getValuesFromPhenotypicSexDropDown() {
+        Actions.clickElement(driver, phenotypicSexDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+        Wait.seconds(1);
+        // this step is necessary to make the dropdown to disappear
+        Actions.selectRandomValueFromDropdown(dropdownValues);
+        Wait.seconds(1);
+        return values;
+    }
+
+    public List<String> getValuesFromKaryotypicSexDropDown() {
+        Actions.clickElement(driver, karyotypicSexDropdown);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+        Wait.seconds(1);
+        return values;
+    }
+
+    public void clickAddAnotherLink(){
+        Wait.forElementToBeDisplayed(driver, addAnotherRareDiseaseLink);
+        Actions.clickElement(driver, addAnotherRareDiseaseLink);
+    }
 }

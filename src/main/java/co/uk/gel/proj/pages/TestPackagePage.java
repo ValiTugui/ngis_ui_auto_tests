@@ -101,7 +101,8 @@ public class TestPackagePage {
 
     public boolean verifyTheHelpText(String expectedHelpText) {
         Wait.forElementToBeDisplayed(driver, priorityHintText);
-        String actualHelpText = priorityHintText.getText();
+        String actualHelpText = Actions.getText(priorityHintText);
+        Debugger.println("Help text info : " + actualHelpText);
         return actualHelpText.contains(expectedHelpText);
     }
 
@@ -137,7 +138,7 @@ public class TestPackagePage {
         return selectedFamilyMembers.get(0).isDisplayed();
     }
 
-    public void selectNumberOfParticipants(int number) {
+    public boolean selectNumberOfParticipants(int number) {
         try {
             Wait.forElementToBeDisplayed(driver, routinePriorityButton);
             Wait.forElementToBeDisplayed(driver, testCardBody);
@@ -147,14 +148,22 @@ public class TestPackagePage {
                 Assert.assertFalse("Number of Participants element in TestPackage is not displayed:",true);
             }
             numberOfParticipants.click();
-            Wait.seconds(1);
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
-            Wait.seconds(5);
+            Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
+            //Ensure that the test package is selected
+            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='"+number+"']"));
+            if(!Wait.isElementDisplayed(driver,selectedPack,10)){
+                Debugger.println("Test Package could not select with number: "+number);
+                SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
+                return false;
+            }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception in Selecting number of Participants in Test Package."+exp);
             SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
-            Assert.assertFalse("Exception in Selecting number of Participants in Test Package."+exp,true);
+            return false;
         }
     }
     public boolean testIsSelected() {
@@ -206,12 +215,16 @@ public class TestPackagePage {
         }
 
     public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
-        return priorityLabel.getText().contains(expectedHeaderText);
+        String actualHeaderText = Actions.getText(priorityLabel);
+        Debugger.println("Actual Priority label header text : " + actualHeaderText);
+        return actualHeaderText.contains(expectedHeaderText);
     }
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority){
-        Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
-        return chosenPriorityButton.getText().contains(expectedPriority);
+        Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+        String actualText = Actions.getText(chosenPriorityButton);
+        Debugger.println("Selected test Priority : " + actualText);
+        return actualText.contains(expectedPriority);
     }
 
     public boolean verifyNumberOfParticipantsFieldExists(){

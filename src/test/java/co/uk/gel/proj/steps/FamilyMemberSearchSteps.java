@@ -198,5 +198,12 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifySearchButtonClickable();
         Assert.assertTrue(testResult);
     }
+    @And("the user verifies the svg icon for tick mark")
+    public void theUserVerifiesTheIconForTickMark() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifySVGForTickMark();
+        Assert.assertTrue(testResult);
+    }
+
 
 }//end

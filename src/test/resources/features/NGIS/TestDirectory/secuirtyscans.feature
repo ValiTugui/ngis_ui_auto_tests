@@ -6,7 +6,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
         | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
       And the "<patientDetails>" stage is marked as Completed
-      And the referral status from the card is "Created"
+  #      And the referral status from the card is "Created"
       And the user navigates to the "<requestingOrganisation>" stage
       And the user enters the keyword "Maidstone" in the search field
       And the user selects a random entity from the suggestions list

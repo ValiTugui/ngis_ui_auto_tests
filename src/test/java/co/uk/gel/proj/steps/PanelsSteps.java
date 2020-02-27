@@ -92,4 +92,9 @@ public class PanelsSteps extends Pages {
         }
     }
 
+    @And("the user should see the default status of penetrance button as (.*)")
+    public void theUserShouldSeeTheDefaultStatusOfPenetranceButtonAs(String expectedButton) {
+        Assert.assertTrue(panelsPage.verifyDefaultStatusOfPenetranceButton(expectedButton));
+    }
+
 }//end

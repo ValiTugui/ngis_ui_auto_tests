@@ -3,7 +3,7 @@
 @patientSearchNGIS
 Feature: Patient search page_NGIS
 
-  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @E2EUI-1025 @E2EUI-1217 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
@@ -74,7 +74,7 @@ Feature: Patient search page_NGIS
       | Add a new patient to the database | Find your patient | 1 patient record found |
 
 
-  @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @E2EUI-1662 @E2EUI-865 @E2EUI-1217 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, and gender
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |

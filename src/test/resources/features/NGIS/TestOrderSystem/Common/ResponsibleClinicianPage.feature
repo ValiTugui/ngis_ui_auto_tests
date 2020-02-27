@@ -61,6 +61,7 @@ Feature: Responsible Clinician
       | stage                 | hyperlinkText | error_info            |red_color_hex_code |
       | Responsible clinician | Add another   | Last name is required | #dd2509           |
 
+  # E2EUI-1641
   @NTS-3175 @E2EUI-956 @E2EUI-1355 @LOGOUT @v_1 @BVT_P0
   Scenario Outline: NTS-3175 - Responsible Clinician Page - User select 'Save and continue' button without providing nullable Department address
   Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -83,7 +84,7 @@ Feature: Responsible Clinician
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
-    And the user sees the title text as "<pageTitle>"
+    And the user is navigated to a page with title <pageTitle>
     And the user sees First name, Last name, Phone number and email, Department name and address, Professional registration number
     When the user fills in all clinician form fields except Last name
     And the user see the "<hyperlinkText>" displayed to add Additional clinician details
@@ -116,13 +117,13 @@ Feature: Responsible Clinician
       | stage1                | stage2  | pageTitle                 | hyperlinkText |
       | Responsible clinician | Tumours | Add clinician information | Add another   |
 
-  @NTS-3321 @E2EUI-1137 @E2EUI-1295 @LOGOUT @v_1 @P0
+  @NTS-3321 @E2EUI-1137 @E2EUI-1295 @E2EUI-1238 @E2EUI-1629 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3321 - Responsible Clinician Page - Layout
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
-    Then the "<pageTitle>" page is displayed
+    And the user is navigated to a page with title <pageTitle>
     And the page shows the following help messages
       | helpMessageHeader                                                                                                                                                                                                                     |
       | Each referral requires a responsible clinician. They are ultimately accountable for referral accuracy and sample collection. A referral can also include additional clinicians. All linked clinicians will receive the test results. |
@@ -130,6 +131,9 @@ Feature: Responsible Clinician
     And The user sees the text field First name
     And The user sees the text field Last name
     And The user sees the text field Email address
+    And user sees the following help text under email address field
+      | helpMessageHeader                                                                                               |
+      | Laboratories will only return results to an address approved to receive patient information                     |
     And The user sees the text field Phone number
     And The user sees the text field Department name and address
     And The user sees the text field Professional registration number
@@ -149,7 +153,7 @@ Feature: Responsible Clinician
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage1>" stage
-    And the "<pageTitle>" page is displayed
+    And the user is navigated to a page with title <pageTitle>
     And The user sees the text field First name and it is blank
     And The user sees the text field Last name and it is blank
     And The user sees the text field Email address and it is blank
@@ -186,7 +190,7 @@ Feature: Responsible Clinician
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage1>" stage
-    And the "<pageTitle>" page is displayed
+    And the user is navigated to a page with title <pageTitle>
     And The user sees the text field First name
     And The user sees the text field Last name
     And The user sees the text field Email address
@@ -214,4 +218,48 @@ Feature: Responsible Clinician
       | stage                 | ClinicianPhoneNumber|
       | Responsible clinician | 1234567890123456789 |
 
+  # E2EUI-1037
+  @NTS-4696  @LOGOUT
+  Scenario Outline: NTS-4696 - Responsible Clinician Page - responsible clinician details updated
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
+    And the user navigates to the "<stage1>" stage
+    And the user is navigated to a page with title <pageTitle>
+    And The user sees the text field First name
+    And The user sees the text field Last name
+    And The user sees the text field Email address
+    And The user sees the text field Phone number
+    And The user sees the text field Department name and address
+    And The user sees the text field Professional registration number
+    And the user fills in all the clinician form fields
+    And the user see the "<hyperlinkText>" displayed to add Additional clinician details
+    And the user clicks the Save and Continue button
+    And the "<stage1>" stage is marked as Completed
+    Then the "<stage2>" stage is selected
+    Examples:
+      | stage1                | stage2  | pageTitle                 | hyperlinkText |
+      | Responsible clinician | Tumours | Add clinician information | Add another   |
 
+
+  # @E2EUI-1642
+  @NTS-4696  @LOGOUT
+  Scenario Outline: NTS-4696 - Responsible Clinician Page - user returns back and complete the responsible clinician stage
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+    And the "Patient details" stage is marked as Completed
+    And the user navigates to the "<stage>" stage
+    And the user sees the label Department name and address marked as mandatory
+    And The user sees the text field Department name and address
+    When the user fills in all clinician form fields except Department name and address
+    And the user clicks the Save and Continue button
+    Then the "<stage>" stage is marked as Mandatory To Do
+    And the "<new_stage>" stage is selected
+    And the user navigates to the "<stage>" stage
+    When the user fills in the Department name and address
+    And the user clicks the Save and Continue button
+    And the "<stage>" stage is marked as Completed
+    Then the "<new_stage>" stage is selected
+    Examples:
+      | stage                 |  new_stage   |
+      | Responsible clinician |   Tumours    |

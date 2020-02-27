@@ -54,6 +54,21 @@ public class Actions {
         }
     }
 
+    public static List<String> getValuesFromDropdown(List<WebElement> dropdownValues) {
+        try {
+            ArrayList<String> values = new ArrayList<String>();
+           for(WebElement element : dropdownValues){
+               values.add(Actions.getText(element));
+           }
+           if(!values.isEmpty()){
+               return values;
+           }
+           return null;
+        } catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
+            return null;
+        }
+    }
+
     public static String getText(WebElement element) {
         try {
             return element.getText();
@@ -82,6 +97,10 @@ public class Actions {
 
     public static String getAutoCompleteAttribute(WebElement element) {
         return element.getAttribute("autoComplete");
+    }
+
+    public static String getPlaceHolderAttribute(WebElement element) {
+        return element.getAttribute("placeholder");
     }
 
 

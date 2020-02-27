@@ -7,7 +7,7 @@ Feature: Family Members Search Page - Re-Adding existing members
   @NTS-3227 @E2EUI-1947 @v_1 @P0
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via Yes option displays error message
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=9449310327:DOB=16-12-1970:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310327:DOB=16-12-1970:Gender=Male |
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     And the YES button is selected by default on family member search
