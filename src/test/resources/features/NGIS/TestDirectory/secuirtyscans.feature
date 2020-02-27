@@ -6,7 +6,6 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
         | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
       And the "<patientDetails>" stage is marked as Completed
-  #      And the referral status from the card is "Created"
       And the user navigates to the "<requestingOrganisation>" stage
       And the user enters the keyword "Maidstone" in the search field
       And the user selects a random entity from the suggestions list
@@ -44,6 +43,24 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       And the user clicks the Save and Continue button
       Then the "Add sample details" page is displayed
       When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
+      And the user clicks the Save and Continue button
+      And the success notification is displayed "Sample added"
+      Then the "Manage samples" page is displayed
+      Then the new sample is displayed in the landing page
+      And on the Manage samples page, the sample table list shows the column header names
+        | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
+        | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      And the "<samples>" stage is marked as Completed
+    #Samples 2 - Add Normal or Germline Sample
+      And the user navigates to the "<samples>" stage
+      And the "<samples>" stage is selected
+      Then the "Manage samples" page is displayed
+      When the user clicks the Add sample button
+      Then the "Add a sample" page is displayed
+      When the user answers the questions on Add a Sample page by selecting the sample type "Normal or germline sample", sample state and filling SampleID
+      And the user clicks the Save and Continue button
+      Then the "Add sample details" page is displayed
+      When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
       And the user clicks the Save and Continue button
       And the success notification is displayed "Sample added"
       Then the "Manage samples" page is displayed
