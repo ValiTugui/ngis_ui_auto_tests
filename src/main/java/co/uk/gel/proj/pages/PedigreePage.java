@@ -110,7 +110,6 @@ public class PedigreePage {
             }
             selectTabOption.click();
             Wait.seconds(2);
-            SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking on Specific Tab  in  Pedigree:"+exp);
@@ -137,7 +136,7 @@ public class PedigreePage {
             switch (fieldName) {
                 case "Number Of Colorectal Polyps Total": {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
-                        if(!tumoursTab_PolypsTotal.isEnabled()){
+                        if(tumoursTab_PolypsTotal.isEnabled()){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
                             SeleniumLib.takeAScreenShot("TumourTab.jpg");
                             return false;
