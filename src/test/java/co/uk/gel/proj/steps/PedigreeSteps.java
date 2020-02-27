@@ -61,15 +61,10 @@ public class PedigreeSteps extends Pages {
     @Then("the user should be able to see a {string} on the pedigree page")
     public void theUserShouldBeAbleToSeeAOnThePedigreePage(String warningMessage) {
         boolean testResult = false;
-        testResult = pedigreePage.warningMessageInPedigree(warningMessage);
+        testResult = pedigreePage.infoMessagesInPedigreePage(warningMessage);
         Assert.assertTrue(testResult);
     }
-    @Then("the user should be able to see following content on pedigree page")
-    public void theUserShouldBeAbleToSeeFollowingContentOnPedigreePage(DataTable fieldDetails) {
-        boolean testResult = false;
-        testResult = pedigreePage.contentOnPedigree(fieldDetails);
-        Assert.assertTrue(testResult);
-    }
+
     @Then("the user should see the below messages displayed in the pedigree page")
     public void theUserShouldBelowMessageDisplayedOnPedigreePage(DataTable messages) {
         boolean testResult = false;
@@ -80,17 +75,7 @@ public class PedigreeSteps extends Pages {
         }
     }
 
-    @And("the user verifies the pop up is present and close it")
-    public void theUserVerifiesThePopUpIsPresentAndCloseIt() {
-        boolean testResult = false;
-        testResult = pedigreePage.popupMessageInPedigree();
-        Assert.assertTrue(testResult);
-    }
 
-    @When("the user clicks on the unassigned participants drop down Link")
-    public void theUserClicksOnTheUnassignedParticipantsDropDownLink() {
-        pedigreePage.unassignedParticipantsDropDown();
-    }
     @And("the user select the pedigree tab (.*)")
     public void theUserClicksTheSpecifiedOnTheNode(String value) {
         boolean testResult=false;

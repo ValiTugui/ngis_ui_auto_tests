@@ -27,53 +27,17 @@ public class PedigreePage {
 
     private String pedigreeNGISDNode = "//*[name()='tspan'][contains(text(),'NGIS Patient ID : dummyNGSID')]/..";
 
-    @FindBy(xpath = "//span[text()='Unassigned participants']//i")
-    public WebElement unassignedParticipantsLink;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_referral__main')]//li[@class='UnRendered-legend-box-item abnormality drop-UnRendered']")
-    public WebElement From;
-
     @FindBy(xpath = "//ul[@class='message-list']")
     WebElement warningMessageBox;
 
     @FindBy(xpath = "//li[@class='message-line']")
     List<WebElement> warningMessage;
 
-    @FindBy(xpath = "//div[@class='ok-cancel-dialogue']//span[1]/input")
-    public WebElement okButton;
-
-    @FindBy(xpath = "//div[@class='ok-cancel-dialogue']//span[2]/input")
-    public WebElement cancelButton;
-
-    @FindBy(xpath = "//div[@id='canvas']/child::*")
-    public WebElement ele;
-
-    @FindBy(xpath = "//div[@class='ok-cancel-dialogue']//div[@class='ok-cancel-body']")
-    public WebElement popUpmsg;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_referral-header__stage-content_')]")
-    public WebElement popupMessageBox;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_modal__head_')]//button[@type='button']")
-    public WebElement closePopUP;
-
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')] ")
     public WebElement warningMessageOnPedigreePage;
 
-    @FindBy(css = "div[class*='referral__main']")
-    public WebElement contentSection;
-
     @FindBy(xpath = "//p[contains(text(),'The pedigree')]")
     public WebElement heading;
-
-    @FindBy(xpath = "//div[@id='clinical-indication-name']")
-    public WebElement cIName;
-
-    @FindBy(xpath = "//span[@class='styles_header-item__name__1Nxuq']/..//span[text()='Clinical Indication']/following-sibling::strong")
-    WebElement expClinicalIndicationNameHeader;
-
-    @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
-    public WebElement tryFamilyIcon;
 
     //Tumours Tab
     @FindBy(xpath = "//div[@id='tab_Tumours']//label[contains(@class,'field-name')]")
@@ -175,6 +139,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                         if(!tumoursTab_PolypsTotal.isEnabled()){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
+                            SeleniumLib.takeAScreenShot("TumourTab.jpg");
                             return false;
                         }
                     }
@@ -184,6 +149,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("AutoComplete")) {
                         if(tumoursTab_PolypsAdenomas.isEnabled()){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Tumours Tab.");
+                            SeleniumLib.takeAScreenShot("TumourTab.jpg");
                             return false;
                         }
                     }
@@ -218,6 +184,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                         if(!phenotypeTab_HPOPresent.getAttribute("class").contains("disabled")){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Phenotype Tab.");
+                            SeleniumLib.takeAScreenShot("PhenotypeTab.jpg");
                             return false;
                         }
                     }
@@ -227,6 +194,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("AutoComplete")) {
                         if(!phenotypeTab_Phenotype.getAttribute("class").contains("suggest multi suggest")){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Phenotype Tab.");
+                            SeleniumLib.takeAScreenShot("PhenotypeTab.jpg");
                             return false;
                         }
                     }
@@ -261,6 +229,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                         if(!clinicalTab_AgeOfOnsetYears.getAttribute("class").contains("disabled")){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
+                            SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                             return false;
                         }
                     }
@@ -270,6 +239,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                         if(!clinicalTab_AgeOfOnsetMonths.getAttribute("class").contains("disabled")){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
+                            SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                             return false;
                         }
                     }
@@ -280,6 +250,7 @@ public class PedigreePage {
                         if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                             if (diseaseStatusOptions.get(i).isEnabled()) {
                                 Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
+                                SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                                 return false;
                             }
                         }
@@ -290,6 +261,7 @@ public class PedigreePage {
                     if(fieldStatus.equalsIgnoreCase("Non-Editable")) {
                         if(!clinicalTab_diagnosisCertainty.getAttribute("class").contains("disabled")){
                             Debugger.println("Field :"+fieldName+" expected as "+fieldStatus+" under Clinical Tab.");
+                            SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                             return false;
                         }
                     }
@@ -499,38 +471,28 @@ public class PedigreePage {
                 }
             }
             Debugger.println("Expected message:"+message+", Not displayed in Patient Choice.");
+            SeleniumLib.takeAScreenShot("PedigreeWarning.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("PatientChoicePage, patientChoiceInformationWarningMessage - warning message box not found. " + exp);
+            SeleniumLib.takeAScreenShot("PedigreeWarning.jpg");
             return false;
         }
     }
 
-    public boolean warningMessageInPedigree(String warningMessage) {
+    public boolean infoMessagesInPedigreePage(String warningMessage) {
         try {
             Wait.forElementToBeDisplayed(driver, warningMessageOnPedigreePage);
             String actualMessage = warningMessageOnPedigreePage.getText();
             if (!warningMessage.equalsIgnoreCase(warningMessageOnPedigreePage.getText())) {
                 Debugger.println("Expected Message: " + warningMessage + ", but Actual Message is: " + actualMessage);
+                SeleniumLib.takeAScreenShot("PedigreeInfoMessage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Pedigree Page:Warning Message :not found " + exp);
-            SeleniumLib.takeAScreenShot("PedigreePageWarningMessage.jpg");
-            return false;
-        }
-    }
-
-    public boolean contentOnPedigree(DataTable fieldDetails) {
-        List<List<String>> fieldsText = fieldDetails.asLists();
-        try {
-            Wait.forElementToBeDisplayed(driver, contentSection, 10);
-            Debugger.println("The Cancel referral dialog is not properly displayed");
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("ReferralPage: validateCancelReferralDialog: " + exp);
-            SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
+            Debugger.println("Pedigree Page:Info Message :not found " + exp);
+            SeleniumLib.takeAScreenShot("PedigreeInfoMessage.jpg");
             return false;
         }
     }
@@ -546,103 +508,6 @@ public class PedigreePage {
             SeleniumLib.takeAScreenShot("pedigreeMessage.jpg");
             return false;
         }catch(Exception exp){
-            return false;
-        }
-    }
-
-    public boolean popupMessageInPedigree(){
-        try {
-            Wait.forElementToBeDisplayed(driver, popupMessageBox);
-            if (!seleniumLib.isElementPresent(popupMessageBox)) {
-                Debugger.println("pop up box not found.");
-            }
-            seleniumLib.clickOnWebElement(closePopUP);
-            Debugger.println("click on close the pop up in pedigree page");
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientChoicePage,errorMessageInPatientChoicePage: element not found." + exp);
-            return false;
-        }
-    }
-
-    public void unassignedParticipantsDropDown() {
-        try {
-            Wait.forElementToBeDisplayed(driver, unassignedParticipantsLink);
-//            unassignedParticipantsLink.click();
-            seleniumLib.clickOnWebElement(unassignedParticipantsLink);
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("UnassignedParticipantsDropDown.jpg");
-            Debugger.println("Could not click on Unassigned Participants DropDown on Unassigned Participants DropDown: " + exp);
-            Assert.assertFalse("Could not click on Unassigned Participants DropDown on Unassigned Participants DropDown", true);
-        }
-    }
-
-    public void dragAndDropTheUnassignedParticipants() {
-        try {
-            seleniumLib.scrollToElement(unassignedParticipantsLink);
-            Actions.scrollToBottom(driver);
-            Actions.clickElement(driver, From);
-            new org.openqa.selenium.interactions.Actions(driver).dragAndDropBy(From, 258, -90);
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("DragAndDropTheUnassignedParticipants.jpg");
-            Debugger.println("Exception from PedigreePage:dragAndDropTheUnassignedParticipants " + exp);
-            Assert.assertFalse("Exception from dragAndDropTheUnassignedParticipant", true);
-        }
-
-        //   new org.openqa.selenium.interactions.Actions(driver).dragAndDrop(From,To).perform();
-
-    }
-
-    public void pedigreeAlertPopUPButton(String button) {
-        try {
-            if (Wait.isElementDisplayed(driver, popUpmsg, 10)) {
-                if (button.contains("Yes")) {
-                    okButton.click();
-                    Wait.forElementToBeDisplayed(driver, ele);
-                } else {
-                    cancelButton.click();
-                }
-            }
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("PedigreeAlertPopUPButton.jpg");
-            Debugger.println("Exception from PedigreePage:pedigreeAlertPopUPButton " + exp);
-            Assert.assertFalse("Exception from pedigreeAlertPopUPButton", true);
-        }
-    }
-
-    public boolean verifyCIInPedigree() {
-        try {
-            Wait.seconds(5);
-            Debugger.println(" Clinical Indication Name is displayed ");
-            Wait.forElementToBeDisplayed(driver, ele);
-            Wait.forElementToBeDisplayed(driver, cIName);
-            String actualMessage = Actions.getText(cIName);
-            String exp = Actions.getText(expClinicalIndicationNameHeader);
-            Debugger.println("Act : " + actualMessage);
-            Debugger.println("exp " + exp);
-            if (!exp.equalsIgnoreCase(actualMessage)) {
-
-                return false;
-            }
-            Debugger.println("Match Found ");
-            return true;
-        } catch (Exception e) {
-
-            Debugger.println("exception caught " + e);
-            return false;
-        }
-    }
-
-    public boolean validateTryFamilyIcon(){
-        try{
-            Wait.forElementToBeDisplayed(driver, tryFamilyIcon);
-            if(!tryFamilyIcon.isDisplayed()){
-                Debugger.println("try family icon not visible : validateTryFamilyIcon : in pedigree page");
-                return false;
-            }
-            return true;
-        }catch (Exception exp){
-            Debugger.println("try family icon not visible : validateTryFamilyIcon : in pedigree page : "+exp);
             return false;
         }
     }
