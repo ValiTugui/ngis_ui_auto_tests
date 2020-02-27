@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
@@ -34,6 +35,7 @@ public class PedigreeSteps extends Pages {
         boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
         Assert.assertTrue(testResult);
     }
+
     @And("the user should be able see the pedigree diagram loaded for the given members")
     public void theUserShouldSeeThePedigreeDiagramLoadedForMembers(DataTable members) {
         boolean testResult = false;
@@ -145,6 +147,12 @@ public class PedigreeSteps extends Pages {
         boolean testResult = false;
         testResult = pedigreePage.saveAndContinueOnPedigree();
         Assert.assertTrue(testResult);
+    }
+    //This step introduced as navigating back from pedigree stage sometimes not working due to some overlay on other stage elements
+    @When("the user scroll to the top of landing page")
+    public void theUserScrollToTopOfLandingPage() {
+        Actions.scrollToTop(driver);
+        Wait.seconds(3);
     }
 
 }//end

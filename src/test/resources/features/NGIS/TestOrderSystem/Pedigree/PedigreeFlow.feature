@@ -142,9 +142,8 @@ Feature: Pedigree - Pedigree Flow
     And the user should be able see the pedigree diagram loaded for the given members
       | MemberDetails               |
       | NHSNumber=NA:DOB=25-10-2005 |
-    ##Below Stages - Added this as sometimes direct clicking on Requesting Organisation from Pedigree is not happening due to some overlay
-    When the user navigates to the "<Panels>" stage
-    When the user navigates to the "<PatientChoice>" stage
+    ##Below step added this as sometimes direct clicking on Requesting Organisation from Pedigree is not happening due to some overlay
+    When the user scroll to the top of landing page
     ##Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
