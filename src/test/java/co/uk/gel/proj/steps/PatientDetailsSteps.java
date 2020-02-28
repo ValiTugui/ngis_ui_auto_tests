@@ -596,4 +596,9 @@ public class PatientDetailsSteps extends Pages {
         Actions.clearInputField(patientDetailsPage.postcode);
     }
 
+    @When("the user select the gender {string}")
+    public void theUserSelectTheGender(String gender) {
+        Actions.scrollToTop(driver);
+        patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+    }
 }
