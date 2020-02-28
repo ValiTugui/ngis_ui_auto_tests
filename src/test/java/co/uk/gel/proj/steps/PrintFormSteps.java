@@ -208,10 +208,9 @@ public class PrintFormSteps extends Pages {
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
         }
         if (expectedSection.equalsIgnoreCase("Patient choice")) {
-            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
-                //String unZippedFolderName = printFormsPage.extractZipFile(fileName);
-                printFormsPage.validatePDFContent(expectedText, fileName);
+                testResult=printFormsPage.validatePDFContent(expectedText, fileName);
             }
         }
         Assert.assertTrue(testResult);
@@ -220,8 +219,7 @@ public class PrintFormSteps extends Pages {
     @And("the user is able to verify the section {string} in the downloaded form {string}")
     public void theUserIsAbleToVerifyTheSectionInTheDownloadedForm(String fieldType, String fileName) {
         boolean testResult = false;
-        String testType = printFormsPage.readSelectedTestType(fieldType);
-        //Handle Null
+        String testType = printFormsPage.readSelectedTestAndLabDetails(fieldType);
         if (testType != null) {
             testResult = printFormsPage.validatePDFContent(testType, fileName);
         }

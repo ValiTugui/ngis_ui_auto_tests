@@ -104,7 +104,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
-    @FindBy(css = "*[class*='referral-header__cancel-reason']")
+    //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
+    @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement referralCancelReason;
 
     // @FindBy(css = "*[href*='signout']")
@@ -211,7 +212,8 @@ public class ReferralPage<check> {
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
-    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
+    //    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
+    @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
 
     //For Global Patient Banner Verification - Family Members
@@ -1218,7 +1220,7 @@ public class ReferralPage<check> {
                     }
                 }
             }
-            if(!isPresent) {
+            if (!isPresent) {
                 Debugger.println("The Cancel referral dialog is not properly displayed");
                 SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
             }

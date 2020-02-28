@@ -504,7 +504,7 @@ public class PrintFormsPage {
         }
     }
 
-    public String readSelectedTestType(String fieldType) {
+    public String readSelectedTestAndLabDetails(String fieldType) {
         try {
             String returnValue = null;
 

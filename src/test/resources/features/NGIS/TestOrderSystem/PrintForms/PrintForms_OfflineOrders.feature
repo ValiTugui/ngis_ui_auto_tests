@@ -7,7 +7,7 @@ Feature: Print Forms - Offline Orders
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
-      | R29 |
+      | R100 |
     And the user clicks the Start Test Order Referral button
     When the user clicks the PDF order form button
     And the user enters the keyword "Surrey and Sussex Healthcare NHS Trust" in the search field
