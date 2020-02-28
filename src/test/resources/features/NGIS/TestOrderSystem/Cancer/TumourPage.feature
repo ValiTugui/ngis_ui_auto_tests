@@ -15,7 +15,7 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
-  @NTS-3165 @E2EUI-823 @E2EUI-1120 @LOGOUT @P0 @v_1
+  @NTS-3165 @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3165: Text information for user on Tumour referral page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -321,7 +321,7 @@ Feature: Tumours Page
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
 
-  @NTS-3204 @E2EUI-890 @LOGOUT @P0 @v_1
+  @NTS-3204 @E2EUI-890 @E2EUI-1026 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3204:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -442,3 +442,20 @@ Feature: Tumours Page
     Examples:
       | stage   | TumourDescription                                  |
       | Tumours | 12345678901234567890123456789012345678901234567890 |
+
+
+  @NTS-4757 @E2EUI-1339 @v_1 @LOGOUT
+  Scenario Outline: NTS-4757: Add Tumour page error validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user clicks the Save and Continue button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                                       | errorMessageHeader                                           | messageColourHeader |
+      | Date of diagnosis ✱                               | Enter a year                                                 | #dd2509             |
+      | The tumour is... ✱                                | Please select the tumour type                                | #dd2509             |
+      | Histopathology laboratory ID or local sample ID ✱ | Histopathology laboratory ID or local sample ID is required. | #dd2509             |
+
+    Examples:
+      | stage   | pageTitle    |
+      | Tumours | Add a tumour |
