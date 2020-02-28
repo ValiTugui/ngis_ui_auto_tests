@@ -1255,7 +1255,6 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver, referralCancelReason, 100);
             String actStatus = referralCancelReason.getText();
             Debugger.println("The cancellation reason present is " + actStatus + " ,And expected " + reason);
             if (!reason.equalsIgnoreCase(actStatus)) {

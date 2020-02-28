@@ -384,6 +384,11 @@ public class PrintFormsPage {
                 return true;
             }
             WebElement lockIcon = printFormsStage.findElement(By.xpath(".//*[name()='svg']"));
+            if(lockIcon == null){
+                Debugger.println("Could not find the lock Icon element.");
+                SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
+                return false;
+            }
             String lock = lockIcon.getAttribute("data-testid");
             if (!lock.contains(lockStatus)) {
                 Debugger.println("Print forms stage: actual " + lock + " expected " + lockStatus);
