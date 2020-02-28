@@ -420,7 +420,6 @@ public class PrintFormsPage {
                 return false;
             }
         }
-
         PDDocument document = null;
         BufferedInputStream fileToParse = null;
         InputStream is = null;
@@ -450,11 +449,9 @@ public class PrintFormsPage {
             Debugger.println("Reading PDF content....");
             PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
             String outputData = pdfTextStripper.getText(document);
-
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
             outputData = outputData.replaceAll("\\s+", " ");
-            Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
-
+           // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
             boolean testResult = true;
             for (String str : textList) {
                 if (!outputData.contains(str)) {
@@ -524,7 +521,8 @@ public class PrintFormsPage {
                 returnValue = selectedTestTypes[0];
             } else if (fieldType.contains("laboratory")) {
                 Wait.forElementToBeDisplayed(driver, selectedLaboratory);
-                returnValue = selectedLaboratory.getText();
+                String[] labName= selectedLaboratory.getText().split(" ");
+                returnValue=labName[0];
             }
             return returnValue;
         } catch (Exception exp) {

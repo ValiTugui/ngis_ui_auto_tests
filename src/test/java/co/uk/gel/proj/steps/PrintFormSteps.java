@@ -220,10 +220,10 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToVerifyTheSectionInTheDownloadedForm(String fieldType, String fileName) {
         boolean testResult = false;
         String testType = printFormsPage.readSelectedTestAndLabDetails(fieldType);
-        if (testType != null) {
-            testResult = printFormsPage.validatePDFContent(testType, fileName);
+        if (testType == null) {
+            Debugger.println("No value present for "+fieldType+"on the Offline test order page ");
         }
-        Debugger.println("No value present for "+fieldType+"on the Offline test order page ");
+        testResult = printFormsPage.validatePDFContent(testType, fileName);
         Assert.assertTrue(testResult);
     }
 }//end
