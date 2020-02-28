@@ -54,7 +54,7 @@ Feature: Tumours Page
       | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
 
-  @NTS-3252 @E2EUI-1107 @LOGOUT @P0 @v_1
+  @NTS-3252 @E2EUI-1107 @E2EUI-1096 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3252: Tumour-list - Indicate any tumour list with incomplete or outstanding mandatory questions
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
