@@ -122,9 +122,21 @@ public class BrowserFactory {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-certificate-errors");
         System.setProperty("webdriver.chrome.driver", path);
-
+        String isHeadless=null;
         if (OS.equalsIgnoreCase("linux")) {
-            chromeOptions.addArguments("--headless");
+            isHeadless = System.getProperties().getProperty("headless");
+
+            if(isHeadless != null){
+                if(  System.getProperties().getProperty("headless").equalsIgnoreCase("yes")){
+                }
+                else{
+                    chromeOptions.addArguments("--headless");
+                }
+            }
+            else{
+                chromeOptions.addArguments("--headless");
+            }
+
          //   chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
             chromeOptions.addArguments("disable-infobars"); // disabling infobars
            // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
