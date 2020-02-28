@@ -23,7 +23,7 @@ Feature: Patient search page_SPINE
     When the default patient search page is correctly displayed with the NHS number and Date of Birth fields
     Then the NHS number field is not enabled with auto-fill feature
 
-  @NTS-2817 @E2EUI-831 @v_1
+  @NTS-2817 @E2EUI-831 @E2EUI-1294 @v_1
   Scenario:NTS-2817: Patient search page is correctly rendered when NO button is selected
     When the user clicks the NO button
     Then the patient search page displays input fields such as DOB, First Name, Last Name, Gender, postcode and search buttons
@@ -173,6 +173,15 @@ Feature: Patient search page_SPINE
 
 
   @NTS-2799 @E2EUI-1390 @v_1
+  Scenario Outline: NTS-2799:To verify the text information present on the 'Find a Patient' page
+    Then the display title of the page is "Find your patient"
+    And the patient search page displays the sub-titles text "<subTitle>"
+
+    Examples:
+      | subTitle                                                                                                                                                                   |
+      | Add any information you have to search the NHS Spine and the Genomics England database (NGIS). Full name, gender and postcode are required if NHS Number is not available. |
+
+  @NTS-2799 @E2EUI-955  @v_1
   Scenario: NTS-2799:To verify the text information present on the 'Find a Patient' page
     Then the display title of the page is "Find your patient"
     And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
@@ -291,11 +300,6 @@ Feature: Patient search page_SPINE
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female                  | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female                   |
       | NHS Spine           | DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female:Postcode=Kt7 0BE | DOB=11-04-1909:FirstName=ALEXANDRINA:LastName=MCBRYDE:Gender=Female:Postcode=KT17 2EG |
 
-
-  @NTS-2799 @E2EUI-1390 @E2EUI-955  @v_1
-  Scenario: NTS-2799:To verify the text information present on the 'Find a Patient' page
-    Then the display title of the page is "Find your patient"
-    And the display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
 
   @NTS-2816 @E2EUI-1990 @v_1
   Scenario: NTS-2816:To verify auto-complete and auto-fill are disabled on the patient search page with NHS Number field
