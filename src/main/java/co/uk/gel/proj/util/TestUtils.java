@@ -1,5 +1,6 @@
 package co.uk.gel.proj.util;
 
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import com.github.javafaker.Faker;
 import com.google.common.base.Splitter;
@@ -7,6 +8,9 @@ import io.cucumber.java.hu.De;
 import sun.security.ssl.Debug;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +20,8 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class TestUtils {
 
@@ -312,5 +318,50 @@ public class TestUtils {
         Debugger.println("Sorted List 1: " + sortedList1);
         Debugger.println("Sorted List 2: " + sortedList2);
         return sortedList1.equals(sortedList2);
+    }
+
+    public static boolean extractZipFile(String fileName) {
+
+        try {
+            Wait.seconds(5);
+            String pathToFile = defaultDownloadLocation + fileName;
+            Debugger.println("Extraction of file starting: " + pathToFile);
+            File zipfile = new File(pathToFile);
+            if (!zipfile.exists()) {
+                Debugger.println("Zipped file does not exist in location " + pathToFile);
+                return false;
+            }
+            ZipFile zippedFile = new ZipFile(pathToFile);
+            Enumeration<? extends ZipEntry> entries = zippedFile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry zipEntry = entries.nextElement();
+                String name = defaultDownloadLocation + (zipEntry.getName());
+                Debugger.println("Zipped filename- " + name);
+                //Create directory and sub-directories to extract the zip file
+                File file = new File(name);
+                if (name.endsWith("/")) {//If it is a directory
+                    file.mkdirs();
+                    continue;
+                }
+                File parent = file.getParentFile();
+                if (parent != null) {
+                    parent.mkdirs();
+                }
+                InputStream inputStream = zippedFile.getInputStream(zipEntry);
+                FileOutputStream fileOutStream = new FileOutputStream(file);
+                byte[] bytes = new byte[2096];
+                int length;
+                while ((length = inputStream.read(bytes)) >= 0) {
+                    fileOutStream.write(bytes, 0, length);
+                }
+                inputStream.close();
+                fileOutStream.close();
+            }//while
+            zippedFile.close();
+            return true;
+        } catch (IOException exp) {
+            Debugger.println("Exception from Extracting the Zip file: " + fileName + " : " + exp);
+            return false;
+        }
     }
 }
