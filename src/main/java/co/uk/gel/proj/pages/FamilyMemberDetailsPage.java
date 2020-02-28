@@ -1317,7 +1317,7 @@ public class FamilyMemberDetailsPage {
             for (int i = 0; i < addedFamilyMembers.size(); i++) {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     addedFamilyMembers.get(i).setNGIS_ID(familyMember.getNGIS_ID());
-                    Debugger.println("Updated Patient NGSID for familyMember with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
+                    //Debugger.println("Updated Patient NGSID for familyMember with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
                 }
             }
         } catch (Exception exp) {
@@ -1339,8 +1339,6 @@ public class FamilyMemberDetailsPage {
 
     public static void addFamilyMemberToList(NGISPatientModel familyMember){
         addedFamilyMembers.add(familyMember);
-        Debugger.println("Family Member Added: "+familyMember.getFIRST_NAME()+","+familyMember.getLAST_NAME()+","+familyMember.getDATE_OF_BIRTH());
-        //Debugger.println("Size is: "+addedFamilyMembers.size());
     }
     public boolean verifyFamilyMemberTestBadge(String testBadge) {
         try {
