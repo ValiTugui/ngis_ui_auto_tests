@@ -222,6 +222,7 @@ public class PrintFormSteps extends Pages {
         String testType = printFormsPage.readSelectedTestAndLabDetails(fieldType);
         if (testType == null) {
             Debugger.println("No value present for "+fieldType+"on the Offline test order page ");
+            Assert.assertTrue(testResult);
         }
         testResult = printFormsPage.validatePDFContent(testType, fileName);
         Assert.assertTrue(testResult);
