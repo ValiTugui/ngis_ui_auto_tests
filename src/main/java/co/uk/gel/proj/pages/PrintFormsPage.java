@@ -375,6 +375,12 @@ public class PrintFormsPage {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
                 WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
+                if(unlockedPrintFormsStage != null ){
+                //then procces
+                } else{
+                // debugger line
+                return false;
+                }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
                     Debugger.println("Print forms stage is not unlocked");
                     //Screen shot
