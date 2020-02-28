@@ -1,6 +1,4 @@
-@BVT_UI_SMOKE_TEST_PACK
-@userJourneysRD_BVT
-@BVT_UI_SMOKE_TEST_RD_DUO
+@RD_DUO
   ## This is for testing purpose as we see many failures in the add family member section
 Feature: NTS-3407 - RD flow - Adding Duo family
 
