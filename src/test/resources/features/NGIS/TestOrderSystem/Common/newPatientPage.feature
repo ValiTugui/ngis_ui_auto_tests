@@ -512,7 +512,7 @@ Feature: New Patient page
 
 
   @NTS-4745 @E2EUI-821 @LOGOUT
-  Scenario Outline: NTS-4745 Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
+  Scenario Outline: NTS-4745: Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
@@ -542,7 +542,7 @@ Feature: New Patient page
 
 
   @NTS-4745 @E2EUI-821 @LOGOUT
-  Scenario Outline: NTS-4745 Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
+  Scenario Outline: NTS-4745:Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     Then the "<pageTitle>" page is displayed
@@ -569,4 +569,66 @@ Feature: New Patient page
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
+
+
+   @NTS-4754 @E2EUI-1380 @LOGOUT
+  Scenario Outline: NTS-4754: Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle2>" page is displayed
+    And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
+    When the user select the gender "<gender>"
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle2>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
+      | First name ✱                   | First name is required.             | #dd2509             |
+      | Last name ✱                    | Last name is required.              | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
+      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+
+    Examples:
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+
+
+   @NTS-4754 @E2EUI-1380 @LOGOUT
+  Scenario Outline: NTS-4754:Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER|
+    Then the "<pageTitle>" page is displayed
+    And the user clicks the NO button
+    When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
+    And the user clicks the Search button
+    Then the message  "<message>" is displayed below the search button
+    When the user clicks the "<hyperlinkText>" link from the No Search Results page
+    And the "<pageTitle2>" page is displayed
+    And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
+    When the user select the gender "<gender>"
+    And the user click YES button for the question - Do you have the NHS no?
+    And the user clicks the Save patient details to NGIS button
+    Then the error messages for the mandatory fields on the "<pageTitle2>" page are displayed as follows
+      | labelHeader       | errorMessageHeader           | messageColourHeader |
+      | First name ✱      | First name is required.      | #dd2509             |
+      | Last name ✱       | Last name is required.       | #dd2509             |
+      | Date of birth ✱   | Date of birth is required.   | #dd2509             |
+      | Life status ✱     | Life status is required.     | #dd2509             |
+      | Ethnicity ✱       | Ethnicity is required.       | #dd2509             |
+      | NHS Number ✱      | NHS Number is required.      | #dd2509             |
+      | Hospital number ✱ | Hospital number is required. | #dd2509             |
+
+
+    Examples:
+      | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+
+
 
