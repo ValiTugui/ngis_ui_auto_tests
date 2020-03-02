@@ -993,9 +993,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             String bornExpected = TestUtils.getDOBInMonthFormat(dob)+" "+TestUtils.getAgeInYearsAndMonth(dob);
             Debugger.println("NHS Actual: "+familyMember.getNHS_NUMBER()+", Expected:"+nhsNumber);
             Debugger.println("BORN Actual: "+familyMember.getBORN_WITH_AGE()+", Expected:"+bornExpected);
-            if(familyMember.getNHS_NUMBER().equalsIgnoreCase(nhsNumber)
-                    && familyMember.getBORN_WITH_AGE().contains(bornExpected)){
-                return true;
+            if(familyMember.getNHS_NUMBER().equalsIgnoreCase(nhsNumber)){
+                if(familyMember.getBORN_WITH_AGE().contains(bornExpected)) {
+                    return true;
+                }else{
+                    //Checking with the first part of the DOB as Month/Days/Hours shown based on some internal logic
+                    if(familyMember.getBORN_WITH_AGE().contains(bornExpected.substring(0,11))){
+                        return true;
+                    }
+                }
             }
             Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
             return false;
