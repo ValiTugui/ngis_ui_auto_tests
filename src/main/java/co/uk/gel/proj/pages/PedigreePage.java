@@ -687,7 +687,7 @@ public class PedigreePage {
                 Wait.seconds(10);
                 backGroundColor = pedigreeWorkArea.getCssValue("background-color");
                 retryCount++;
-                if (retryCount > 5) {//Max 50 seconds
+                if (retryCount > 10) {//Max 100 seconds
                     break;
                 }
             }
