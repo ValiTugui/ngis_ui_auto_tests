@@ -35,6 +35,9 @@ public class NGISPatientModel {
     private String HOSPITAL_NO;
     private String ETHNICITY;
     private String PHENOTYPIC_SEX;
+    //For adding nodes to Pedigree Diagram
+    private String NON_NGIS_ID1;
+    private String NON_NGIS_ID2;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -287,5 +290,21 @@ public class NGISPatientModel {
 
     public void setPHENOTYPIC_SEX(String PHENOTYPIC_SEX) {
         this.PHENOTYPIC_SEX = PHENOTYPIC_SEX;
+    }
+
+    public String getNON_NGIS_ID1() {
+        return NON_NGIS_ID1;
+    }
+
+    public void setNON_NGIS_ID1(String NON_NGIS_ID1) {
+        this.NON_NGIS_ID1 = NON_NGIS_ID1;
+    }
+
+    public String getNON_NGIS_ID2() {
+        return NON_NGIS_ID2;
+    }
+
+    public void setNON_NGIS_ID2(String NON_NGIS_ID2) {
+        this.NON_NGIS_ID2 = NON_NGIS_ID2;
     }
 }//end
