@@ -25,8 +25,8 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-  @NTS-3304 @E2EUI-1301 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3304: Search a family member record with NHS selected No, Date of birth Field validation with incorrect date
+  @NTS-3302 @E2EUI-1301 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3302: Search a family member record with NHS selected No, Date of birth Field validation with incorrect date
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
