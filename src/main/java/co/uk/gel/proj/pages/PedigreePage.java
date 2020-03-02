@@ -6,8 +6,6 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
-import io.cucumber.datatable.DataTable;
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
@@ -146,19 +144,11 @@ public class PedigreePage {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    public void saveAndExitPedigree() {
-        try {
-            saveAndExitButton.click();
-        }catch(Exception exp){
-            Debugger.println("Could not Save and Exit Pedigree."+exp);
-            SeleniumLib.takeAScreenShot("PedigreeSave.jpg");
-        }
-    }
     public void closePopup() {
         try {
-            Actions.clickElement(driver,closePopup);
-        }catch(Exception exp){
-            Debugger.println("Could not close the Popup."+exp);
+            Actions.clickElement(driver, closePopup);
+        } catch (Exception exp) {
+            Debugger.println("Could not close the Popup." + exp);
             SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
         }
     }
@@ -399,7 +389,7 @@ public class PedigreePage {
         }
     }
 
-    public boolean clickSpecificNodeOnPedigreeDiagram(NGISPatientModel patient,String patientType) {
+    public boolean clickSpecificNodeOnPedigreeDiagram(NGISPatientModel patient, String patientType) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
@@ -413,11 +403,11 @@ public class PedigreePage {
         boolean zoomOutFlag = false;
         String nodePath = null;
         try {
-            if(patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
+            if (patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
                 SeleniumLib.scrollToElement(pedigreeWorkArea);
                 Debugger.println("Clicking on Pedigree Node for NGIS: " + patient.getNGIS_ID());
                 nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", patient.getNGIS_ID());
-            }else{
+            } else {
                 Debugger.println("Clicking on Pedigree Node for Non NGIS: " + patient.getNON_NGIS_ID1());
                 nodePath = pedigreeNonNGISDNode.replaceAll("dummyNGSID", patient.getNON_NGIS_ID1());
             }
@@ -427,39 +417,39 @@ public class PedigreePage {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
                     Actions.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
-                    clickSpecificNodeOnPedigreeDiagram(patient,patientType);
+                    clickSpecificNodeOnPedigreeDiagram(patient, patientType);
                 } else {
-                    Debugger.println("Could not locate the Pedigree node for "+patientType+", NGS:"+patient.getNGIS_ID()+",NonNGIS:"+patient.getNON_NGIS_ID1());
+                    Debugger.println("Could not locate the Pedigree node for " + patientType + ", NGS:" + patient.getNGIS_ID() + ",NonNGIS:" + patient.getNON_NGIS_ID1());
                     return false;
                 }
             }
-            if(patientType.equalsIgnoreCase("NGIS")){
+            if (patientType.equalsIgnoreCase("NGIS")) {
                 if (gender.equalsIgnoreCase("Male")) {
                     Debugger.println("Clicking on NGIS:-Male Node");
-                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"),patientType);
-                }else if (gender.equalsIgnoreCase("Female")) {
+                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                } else if (gender.equalsIgnoreCase("Female")) {
                     Debugger.println("Clicking on NGIS:-Female Node");
-                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 }
-            }else{//Non-NGIS
+            } else {//Non-NGIS
                 int xLocation = Integer.parseInt(patientPedigreeNode.getAttribute("x"));
                 if (xLocation < 0) {//Left of the proband node - Male
                     Debugger.println("Clicking on Non-NGIS:-Male Node");
-                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"),patientType);
-                }else{
+                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientType);
+                } else {
                     Debugger.println("Clicking on Non-NGIS:-Female Node");
-                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientType);
                 }
             }
             return true;
-        } catch(Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
             SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
 
-    private boolean clickOnMaleNode(String ngsIdX,String patientType) {
+    private boolean clickOnMaleNode(String ngsIdX, String patientType) {
         boolean diagramClicked = false;
         boolean zoomOutFlag = false;
         try {
@@ -474,7 +464,7 @@ public class PedigreePage {
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            Debugger.println(patientType+",MaleBase Node X Location:"+nodeX);
+            Debugger.println(patientType + ",MaleBase Node X Location:" + nodeX);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
@@ -482,7 +472,7 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("Male: "+patientType+",Clicked On:"+xCoordinate+","+yCoordinate);
+                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate + "," + yCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
                         Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
@@ -491,7 +481,7 @@ public class PedigreePage {
                         seleniumLib.clickOnElement(ZoomOut);
                         if (!zoomOutFlag) {
                             zoomOutFlag = true;
-                            clickOnMaleNode(ngsIdX,patientType);
+                            clickOnMaleNode(ngsIdX, patientType);
                         }
                     } catch (Exception exp) {
                         try {
@@ -516,15 +506,13 @@ public class PedigreePage {
         }
     }
 
-    private boolean clickOnFemaleNode(String ngsIdX,String patientType) {
+    private boolean clickOnFemaleNode(String ngsIdX, String patientType) {
         boolean diagramClicked = false;
         boolean zoomOutFlag = false;
         try {
             String xCoordinate = null;
-            String yCoordinate = null;
-            String nodeY = "";
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
-            Debugger.println("FemaleNode: Base Calculated X:"+ngsIdX);
+            Debugger.println("FemaleNode: Base Calculated X:" + ngsIdX);
             By female_node = null;
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(ngsIdX) + idx_array[i]);
@@ -534,7 +522,7 @@ public class PedigreePage {
                         try {
                             seleniumLib.moveMouseAndClickOnElement(female_node);
                             diagramClicked = true;
-                            Debugger.println("Female: "+patientType+",Clicked On:"+xCoordinate);
+                            Debugger.println("Female: " + patientType + ",Clicked On:" + xCoordinate);
                             break;
                         } catch (NoSuchElementException E) {
                             Debugger.println("FemaleNode...X:" + xCoordinate);
@@ -553,7 +541,7 @@ public class PedigreePage {
             Actions.clickElement(driver, zoomOutButton);
             if (!zoomOutFlag) {
                 zoomOutFlag = true;
-                clickOnFemaleNode(ngsIdX,patientType);
+                clickOnFemaleNode(ngsIdX, patientType);
             }
 
         } catch (WebDriverException exp) {
@@ -573,7 +561,7 @@ public class PedigreePage {
                 Actions.clickElement(driver, zoomOutButton);
                 if (!zoomOutFlag) {
                     zoomOutFlag = true;
-                    clickOnFemaleNode(ngsIdX,patientType);
+                    clickOnFemaleNode(ngsIdX, patientType);
                 }
             } catch (Exception scp) {
                 Debugger.println("catch block for try with in WebDriverException catch block\n" + scp);
@@ -842,68 +830,71 @@ public class PedigreePage {
             return false;
         }
     }
-    public boolean verifyButtonStatus(String buttonName,String expStatus) {
+
+    public boolean verifyButtonStatus(String buttonName, String expStatus) {
         try {
             waitForThePedigreeDiagramToBeLoaded();
             String currentStatus = "";
-             if(buttonName.equalsIgnoreCase("Undo")){
-                 currentStatus = undoButton.getCssValue("color");
-             }else if(buttonName.equalsIgnoreCase("Redo")){
-                 currentStatus = redoButton.getCssValue("color");
-             }
-             String disableColor = StylesUtils.convertFontColourStringToCSSProperty("#777777");
-             //Debugger.println("BN:"+buttonName+",curStatus:"+currentStatus+",dis:"+disableColor+",exp:"+expStatus);
-             //Disable color is - rgba(119, 119, 119, 1)
-             if(currentStatus.equalsIgnoreCase(disableColor)){
-                 if(expStatus.equalsIgnoreCase("Disabled")){
-                     return true;
-                 }else{
-                     return false;
-                 }
-             }else{
-                 if(expStatus.equalsIgnoreCase("Enabled")){
-                     return true;
-                 }else{
-                     return false;
-                 }
-             }
+            if (buttonName.equalsIgnoreCase("Undo")) {
+                currentStatus = undoButton.getCssValue("color");
+            } else if (buttonName.equalsIgnoreCase("Redo")) {
+                currentStatus = redoButton.getCssValue("color");
+            }
+            String disableColor = StylesUtils.convertFontColourStringToCSSProperty("#777777");
+            //Debugger.println("BN:"+buttonName+",curStatus:"+currentStatus+",dis:"+disableColor+",exp:"+expStatus);
+            //Disable color is - rgba(119, 119, 119, 1) - Since display as span, based on color, judging for disable/enable
+            if (currentStatus.equalsIgnoreCase(disableColor)) {
+                if (expStatus.equalsIgnoreCase("Disabled")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (expStatus.equalsIgnoreCase("Enabled")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         } catch (Exception exp) {
             Debugger.println("Exception in verifyButtonStatus:" + exp);
             SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
             return false;
         }
     }
+
     public boolean clickOnMenuButton(String buttonName) {
         try {
 
-            if(buttonName.equalsIgnoreCase("Undo")){
-                Actions.retryClickAndIgnoreElementInterception(driver,undoButton);
-            }else if(buttonName.equalsIgnoreCase("Redo")){
-                Actions.retryClickAndIgnoreElementInterception(driver,redoButton);
-            }else if(buttonName.equalsIgnoreCase("Reset")){
-                 Actions.retryClickAndIgnoreElementInterception(driver,resetButton);
+            if (buttonName.equalsIgnoreCase("Undo")) {
+                Actions.retryClickAndIgnoreElementInterception(driver, undoButton);
+            } else if (buttonName.equalsIgnoreCase("Redo")) {
+                Actions.retryClickAndIgnoreElementInterception(driver, redoButton);
+            } else if (buttonName.equalsIgnoreCase("Reset")) {
+                Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
                 //Popup will display for Reset button click
                 Wait.seconds(2);
                 SeleniumLib.scrollToElement(resetConfirmDialog);
                 Wait.seconds(2);
-                Actions.clickElement(driver,resetConfirmYes);
+                Actions.clickElement(driver, resetConfirmYes);
                 Wait.seconds(2);
                 Actions.scrollToTop(driver);
                 Wait.seconds(2);
                 waitForThePedigreeDiagramToBeLoaded();
                 Wait.seconds(2);
-            }else if(buttonName.equalsIgnoreCase("Save")){
-                Actions.retryClickAndIgnoreElementInterception(driver,saveAndExitButton);
-            }else if(buttonName.equalsIgnoreCase("Export")){
-                 Actions.retryClickAndIgnoreElementInterception(driver,exportButton);
+            } else if (buttonName.equalsIgnoreCase("Save")) {
+                Actions.retryClickAndIgnoreElementInterception(driver, saveAndExitButton);
+            } else if (buttonName.equalsIgnoreCase("Export")) {
+                Actions.retryClickAndIgnoreElementInterception(driver, exportButton);
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in clicking on Button:"+buttonName+"," + exp);
+            Debugger.println("Exception in clicking on Button:" + buttonName + "," + exp);
             SeleniumLib.takeAScreenShot("ButtonClick.jpg");
             return false;
         }
     }
+
     //Add Parent Node to Specified Proband
     public boolean addParentNodeToProband(NGISPatientModel patient) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
@@ -927,23 +918,26 @@ public class PedigreePage {
                     zoomOutFlag = true;
                     addParentNodeToProband(patient);
                 } else {
+                    Debugger.println("Could find the Pedigree node for NGIS:" + patient.getNGIS_ID());
+                    SeleniumLib.takeAScreenShot("NoPedigreeNode.jpg");
                     return false;
                 }
             }
             if (gender.equalsIgnoreCase("Male")) {
                 return addParentNodeToMaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
-            }else if (gender.equalsIgnoreCase("Female")) {
+            } else if (gender.equalsIgnoreCase("Female")) {
                 return true;
+                //Add Parent Node to Female node will be done, if such test case come across
                 //return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
             }
-            //To handle for Indeterminate gender
             return true;
-        } catch(Exception exp){
+        } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
             SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
             return false;
         }
     }
+
     private boolean addParentNodeToMaleNode(String ngsIdX, String ngsIdY) {
         boolean diagramClicked = false;
         boolean zoomOutFlag = false;
@@ -963,7 +957,7 @@ public class PedigreePage {
             int idy_array[] = {-1, 0, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            Debugger.println("Add Parent Nodes: Calculated Base: x,y..."+nodeX+","+nodeY);
+            Debugger.println("Add Parent Nodes: Calculated Base: x,y..." + nodeX + "," + nodeY);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
@@ -973,7 +967,7 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("NGIS:Proband:ClickedON:"+xCoordinate+","+yCoordinate);
+                        Debugger.println("NGIS:Proband:ClickedON:" + xCoordinate + "," + yCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
                         Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
@@ -1001,26 +995,30 @@ public class PedigreePage {
                 }
             }//for x-coordinate
             //Click On Parent Node, after clicking the Proband Node
-            if(!diagramClicked){
-                Debugger.println("Could not click on Proband Node.");
+            if (!diagramClicked) {
+                Debugger.println("Could find the Pedigree node for Pdoband");
+                SeleniumLib.takeAScreenShot("PedigreeProbandNode.jpg");
                 return diagramClicked;
             }
             try {
                 String parentXCoordinate = Integer.toString(Integer.parseInt(xCoordinate) + 40);
                 String parentYCoordinate = Integer.toString(Integer.parseInt(yCoordinate) + (-35));
                 //Debugger.println("Parent X:" + parentXCoordinate + ",Y:" + parentYCoordinate);
-                By parentNode = By.xpath("//*[name()='ellipse'][@cx='"+parentXCoordinate+"'][@cy='"+parentYCoordinate+"']");
+                By parentNode = By.xpath("//*[name()='ellipse'][@cx='" + parentXCoordinate + "'][@cy='" + parentYCoordinate + "']");
                 seleniumLib.clickOnElement(parentNode);
-            }catch(Exception exp){
+            } catch (Exception exp) {
                 Debugger.println("Could not click on Parent Node.");
+                SeleniumLib.takeAScreenShot("PedigreeParentNode.jpg");
                 diagramClicked = false;
             }
             return diagramClicked;
         } catch (Exception exp) {
             Debugger.println("Unable to click on Pedigree Node.\n" + exp);
+            SeleniumLib.takeAScreenShot("PedigreeProbandNode.jpg");
             return false;
         }
     }
+
     public boolean verifyNonNGISNodesPresence(NGISPatientModel patient) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
@@ -1028,18 +1026,18 @@ public class PedigreePage {
         try {
             //Scroll to the WorkArea to locate the diagram nodes without interruption
             SeleniumLib.scrollToElement(pedigreeWorkArea);
-            if(nonNGISPatientNodes.size() == 0){
-                Debugger.println("Non NGIS Patient Nodes not added to the NGIS Node:"+patient.getNGIS_ID());
+            if (nonNGISPatientNodes.size() == 0) {
+                Debugger.println("Non NGIS Patient Nodes not added to the NGIS Node:" + patient.getNGIS_ID());
                 SeleniumLib.takeAScreenShot("NonNGISPedigree.jpg");
                 return false;
             }
             String nonNgisId = "";
-            for(int i=0; i<nonNGISPatientNodes.size(); i++){
+            for (int i = 0; i < nonNGISPatientNodes.size(); i++) {
                 nonNgisId = nonNGISPatientNodes.get(i).getText();
-                if(nonNgisId != null) {
-                    if(i == 0) {
+                if (nonNgisId != null) {
+                    if (i == 0) {
                         patient.setNON_NGIS_ID1(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
-                    }else{
+                    } else {
                         patient.setNON_NGIS_ID2(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
                     }
                 }
@@ -1047,22 +1045,23 @@ public class PedigreePage {
             //For Further use in pedigree actions
             FamilyMemberDetailsPage.updateNonNGISID(patient);
             return true;
-        } catch(Exception exp){
-            Debugger.println("Exception verifying NonNGIS Patient Node Presence:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception verifying NonNGIS Patient Node Presence:" + exp);
             SeleniumLib.takeAScreenShot("NonNGIsPedigreeDiagram.jpg");
             return false;
         }
     }
-    public boolean selectAgeOfOnset(String years,String months) {
+
+    public boolean selectAgeOfOnset(String years, String months) {
         try {
             //For dropdown selection, tried using method from Actions class, some how it is not selecting
             //Looks the type of dropdown is different here. So used another method existing in SeleniumLib and seems working
-            if(!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetYears,years)){
+            if (!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetYears, years)) {
                 Debugger.println("Could not select the AgeOfOnset Years");
                 SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
                 return false;
             }
-            if(!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetMonths,months)){
+            if (!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetMonths, months)) {
                 Debugger.println("Could not select the AgeOfOnset Months");
                 SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
                 return false;
