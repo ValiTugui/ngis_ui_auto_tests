@@ -998,7 +998,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                     return true;
                 }else{
                     //Checking with the first part of the DOB as Month/Days/Hours shown based on some internal logic
-                    if(familyMember.getBORN_WITH_AGE().substring(0,11).equalsIgnoreCase(bornExpected.substring(0,11))){
+                    if(familyMember.getBORN_WITH_AGE().contains(bornExpected.substring(0,11))){
                         return true;
                     }
                 }
