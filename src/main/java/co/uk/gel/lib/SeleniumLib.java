@@ -218,25 +218,18 @@ public class SeleniumLib {
         }
     }
 
-    public String selectFromListByText(By element, String text) {
+    public boolean selectFromListByText(WebElement element, String text) {
         if (text == null || text.isEmpty()) {
-            return "";
+            return false;
         }
         try {
-            webElement = getElement(element);
-            if (webElement == null) {
-                Debugger.println("element is null " + webElement);
-                return "Web element not present: " + element;
-            }
-            elementHighlight(webElement);
-            // new Select(getElement(element)).selectByVisibleText(text);
-            new Select(webElement).selectByVisibleText(text);
-            return "Success";
+            new Select(element).selectByVisibleText(text);
+            return true;
         } catch (NoSuchElementException e) {
             try {
-                Select select = new Select(webElement);
+                Select select = new Select(element);
                 if (select == null) {
-                    return "Web element is null: " + element;
+                    return false;
                 }
                 List<WebElement> options = select.getOptions();
                 for (WebElement option : options) {
@@ -246,13 +239,13 @@ public class SeleniumLib {
                     if (originalText.equalsIgnoreCase(expectedString)) {
                         select.selectByVisibleText(option.getText());
                         //Debugger.println("Yes..got it..........");
-                        return "Success";
+                        return true;
                     }
                 }
             } catch (Exception exp) {
-                return "Error from Finding element: " + element;
+                return false;
             }
-            return "No found";
+            return false;
         }
     }
 

@@ -399,39 +399,58 @@ public class PedigreePage {
         }
     }
 
-    public boolean clickSpecificNodeOnPedigreeDiagram(NGISPatientModel patient) {
+    public boolean clickSpecificNodeOnPedigreeDiagram(NGISPatientModel patient,String patientType) {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
         //Scroll to the WorkArea to locate the diagram nodes without interruption
-        SeleniumLib.scrollToElement(pedigreeWorkArea);
         String gender = patient.getGENDER();
         if (gender == null || patient.getNGIS_ID() == null) {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
             return false;
         }
-        Debugger.println("Clicking on Pedigree Node for NGIS: " + patient.getNGIS_ID() + ", Gender:" + patient.getGENDER() + ",DOB:" + patient.getDATE_OF_BIRTH());
+
         boolean zoomOutFlag = false;
+        String nodePath = null;
         try {
-            String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", patient.getNGIS_ID());
+            if(patientType == null || patientType.isEmpty() || patientType.equalsIgnoreCase("NGIS")) {
+                SeleniumLib.scrollToElement(pedigreeWorkArea);
+                Debugger.println("Clicking on Pedigree Node for NGIS: " + patient.getNGIS_ID());
+                nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", patient.getNGIS_ID());
+            }else{
+                Debugger.println("Clicking on Pedigree Node for Non NGIS: " + patient.getNON_NGIS_ID1());
+                nodePath = pedigreeNonNGISDNode.replaceAll("dummyNGSID", patient.getNON_NGIS_ID1());
+            }
             WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
-                Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate. ZoomOut and Try");
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
                     Actions.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
-                    clickSpecificNodeOnPedigreeDiagram(patient);
+                    clickSpecificNodeOnPedigreeDiagram(patient,patientType);
                 } else {
+                    Debugger.println("Could not locate the Pedigree node for "+patientType+", NGS:"+patient.getNGIS_ID()+",NonNGIS:"+patient.getNON_NGIS_ID1());
                     return false;
                 }
             }
-            if (gender.equalsIgnoreCase("Male")) {
-                return clickOnMaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
-            }else if (gender.equalsIgnoreCase("Female")) {
-                return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
+            if(patientType.equalsIgnoreCase("NGIS")){
+                if (gender.equalsIgnoreCase("Male")) {
+                    Debugger.println("Clicking on NGIS:-Male Node");
+                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                }else if (gender.equalsIgnoreCase("Female")) {
+                    Debugger.println("Clicking on NGIS:-Female Node");
+                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                }
+            }else{//Non-NGIS
+                int xLocation = Integer.parseInt(patientPedigreeNode.getAttribute("x"));
+                if (xLocation < 0) {//Left of the proband node - Male
+                    Debugger.println("Clicking on Non-NGIS:-Male Node");
+                    return clickOnMaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                }else{
+                    Debugger.println("Clicking on Non-NGIS:-Female Node");
+                    return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"),patientType);
+                }
             }
-            //To handle for Indeterminate gender
             return true;
         } catch(Exception exp){
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
@@ -440,36 +459,30 @@ public class PedigreePage {
         }
     }
 
-    private boolean clickOnMaleNode(String ngsIdX, String ngsIdY) {
+    private boolean clickOnMaleNode(String ngsIdX,String patientType) {
         boolean diagramClicked = false;
         boolean zoomOutFlag = false;
         try {
             String nodeX = "";
-            String nodeY = "";
             try {
                 nodeX = Integer.toString(Integer.parseInt(ngsIdX) - 40);
-                nodeY = Integer.toString(Integer.parseInt(ngsIdY) - 146);
             } catch (Exception exp) {
                 nodeX = Float.toString(Float.parseFloat(ngsIdX) - 40);
-                nodeY = Float.toString(Float.parseFloat(ngsIdY) - 146);
             }
             By male_node = null;
             //Trying with close locations
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
-            int idy_array[] = {-1, 0, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            //Debugger.println("Calculated x,y..."+expectedXCoordinate+","+expectedYCoordinate);
+            Debugger.println(patientType+",MaleBase Node X Location:"+nodeX);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
-                    yCoordinate = Integer.toString((int) Double.parseDouble(nodeY) + idy_array[j]);
-                    //Debugger.println("X,Y..."+xCoordinate+","+yCoordinate);
-                    male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][contains(@y,'" + yCoordinate + "')]");
+                    male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "']");
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("Clicked....X,Y..."+xCoordinate+","+yCoordinate);
+                        Debugger.println("Male: "+patientType+",Clicked On:"+xCoordinate+","+yCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
                         Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
@@ -478,11 +491,11 @@ public class PedigreePage {
                         seleniumLib.clickOnElement(ZoomOut);
                         if (!zoomOutFlag) {
                             zoomOutFlag = true;
-                            clickOnMaleNode(ngsIdX, ngsIdY);
+                            clickOnMaleNode(ngsIdX,patientType);
                         }
                     } catch (Exception exp) {
                         try {
-                            String tmpstr = "//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][contains(@y,'" + yCoordinate + "')][@transform='matrix(1,0,0,1,0,0)']";
+                            String tmpstr = "//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][@transform='matrix(1,0,0,1,0,0)']";
                             By xpathtemp = By.xpath(tmpstr);
                             seleniumLib.moveMouseAndClickOnElement(xpathtemp);
                             diagramClicked = true;
@@ -503,7 +516,7 @@ public class PedigreePage {
         }
     }
 
-    private boolean clickOnFemaleNode(String ngsIdX, String ngsIdY) {
+    private boolean clickOnFemaleNode(String ngsIdX,String patientType) {
         boolean diagramClicked = false;
         boolean zoomOutFlag = false;
         try {
@@ -511,26 +524,20 @@ public class PedigreePage {
             String yCoordinate = null;
             String nodeY = "";
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
-            int idy_array[] = {-1, 0, 1, 2, -2, 3, -3, 4, -4};
-            try {
-                nodeY = Integer.toString(Integer.parseInt(ngsIdY) - 106);
-            } catch (Exception exp) {
-                nodeY = Float.toString(Float.parseFloat(ngsIdY) - 106);
-            }
-            //Debugger.println("Calculated X,Y.."+expectedYCoordinate);
+            Debugger.println("FemaleNode: Base Calculated X:"+ngsIdX);
             By female_node = null;
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(ngsIdX) + idx_array[i]);
                 if (!diagramClicked) {
                     for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
-                        yCoordinate = Integer.toString((int) Double.parseDouble(nodeY) + idy_array[j]);
-                        female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow'][@cx='" + xCoordinate + "'][contains(@cy,'" + yCoordinate + "')]");
+                        female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow'][@cx='" + xCoordinate + "']");
                         try {
                             seleniumLib.moveMouseAndClickOnElement(female_node);
                             diagramClicked = true;
+                            Debugger.println("Female: "+patientType+",Clicked On:"+xCoordinate);
                             break;
                         } catch (NoSuchElementException E) {
-                            Debugger.println("FemaleNode...X:" + xCoordinate + "..Y:" + yCoordinate);
+                            Debugger.println("FemaleNode...X:" + xCoordinate);
                         }
                     }
                 } else {
@@ -546,7 +553,7 @@ public class PedigreePage {
             Actions.clickElement(driver, zoomOutButton);
             if (!zoomOutFlag) {
                 zoomOutFlag = true;
-                clickOnFemaleNode(ngsIdX, ngsIdY);
+                clickOnFemaleNode(ngsIdX,patientType);
             }
 
         } catch (WebDriverException exp) {
@@ -566,7 +573,7 @@ public class PedigreePage {
                 Actions.clickElement(driver, zoomOutButton);
                 if (!zoomOutFlag) {
                     zoomOutFlag = true;
-                    clickOnFemaleNode(ngsIdX, ngsIdY);
+                    clickOnFemaleNode(ngsIdX,patientType);
                 }
             } catch (Exception scp) {
                 Debugger.println("catch block for try with in WebDriverException catch block\n" + scp);
@@ -909,18 +916,16 @@ public class PedigreePage {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
             return false;
         }
-        Debugger.println("Clicking on Pedigree Node for NGIS: " + patient.getNGIS_ID() + ", Gender:" + patient.getGENDER() + ",DOB:" + patient.getDATE_OF_BIRTH());
         boolean zoomOutFlag = false;
         try {
             String nodePath = pedigreeNGISDNode.replaceAll("dummyNGSID", patient.getNGIS_ID());
             WebElement patientPedigreeNode = driver.findElement(By.xpath(nodePath));
             if (!Wait.isElementDisplayed(driver, patientPedigreeNode, 30)) {
-                Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate. ZoomOut and Try");
                 if (!zoomOutFlag) {
                     Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
                     Actions.clickElement(driver, zoomOutButton);
                     zoomOutFlag = true;
-                    clickSpecificNodeOnPedigreeDiagram(patient);
+                    addParentNodeToProband(patient);
                 } else {
                     return false;
                 }
@@ -928,7 +933,8 @@ public class PedigreePage {
             if (gender.equalsIgnoreCase("Male")) {
                 return addParentNodeToMaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
             }else if (gender.equalsIgnoreCase("Female")) {
-                return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
+                return true;
+                //return clickOnFemaleNode(patientPedigreeNode.getAttribute("x"), patientPedigreeNode.getAttribute("y"));
             }
             //To handle for Indeterminate gender
             return true;
@@ -957,7 +963,7 @@ public class PedigreePage {
             int idy_array[] = {-1, 0, 1, 2, -2, 3, -3, 4, -4};
             String xCoordinate = null;
             String yCoordinate = null;
-            //Debugger.println("Calculated x,y..."+expectedXCoordinate+","+expectedYCoordinate);
+            Debugger.println("Add Parent Nodes: Calculated Base: x,y..."+nodeX+","+nodeY);
             for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
                 for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
@@ -967,7 +973,7 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        //Debugger.println("Clicked....X,Y..."+xCoordinate+","+yCoordinate);
+                        Debugger.println("NGIS:Proband:ClickedON:"+xCoordinate+","+yCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
                         Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
@@ -976,7 +982,7 @@ public class PedigreePage {
                         seleniumLib.clickOnElement(ZoomOut);
                         if (!zoomOutFlag) {
                             zoomOutFlag = true;
-                            clickOnMaleNode(ngsIdX, ngsIdY);
+                            addParentNodeToMaleNode(ngsIdX, ngsIdY);
                         }
                     } catch (Exception exp) {
                         try {
@@ -1002,7 +1008,7 @@ public class PedigreePage {
             try {
                 String parentXCoordinate = Integer.toString(Integer.parseInt(xCoordinate) + 40);
                 String parentYCoordinate = Integer.toString(Integer.parseInt(yCoordinate) + (-35));
-                Debugger.println("Parent X:" + parentXCoordinate + ",Y:" + parentYCoordinate);
+                //Debugger.println("Parent X:" + parentXCoordinate + ",Y:" + parentYCoordinate);
                 By parentNode = By.xpath("//*[name()='ellipse'][@cx='"+parentXCoordinate+"'][@cy='"+parentYCoordinate+"']");
                 seleniumLib.clickOnElement(parentNode);
             }catch(Exception exp){
@@ -1016,7 +1022,6 @@ public class PedigreePage {
         }
     }
     public boolean verifyNonNGISNodesPresence(NGISPatientModel patient) {
-
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
@@ -1028,13 +1033,44 @@ public class PedigreePage {
                 SeleniumLib.takeAScreenShot("NonNGISPedigree.jpg");
                 return false;
             }
+            String nonNgisId = "";
             for(int i=0; i<nonNGISPatientNodes.size(); i++){
-                Debugger.println("NonNGISID: "+nonNGISPatientNodes.get(i).getText());
+                nonNgisId = nonNGISPatientNodes.get(i).getText();
+                if(nonNgisId != null) {
+                    if(i == 0) {
+                        patient.setNON_NGIS_ID1(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
+                    }else{
+                        patient.setNON_NGIS_ID2(nonNgisId.replaceAll("Non NGIS Patient ID :", "").trim());
+                    }
+                }
             }
+            //For Further use in pedigree actions
+            FamilyMemberDetailsPage.updateNonNGISID(patient);
             return true;
         } catch(Exception exp){
             Debugger.println("Exception verifying NonNGIS Patient Node Presence:"+exp);
             SeleniumLib.takeAScreenShot("NonNGIsPedigreeDiagram.jpg");
+            return false;
+        }
+    }
+    public boolean selectAgeOfOnset(String years,String months) {
+        try {
+            //For dropdown selection, tried using method from Actions class, some how it is not selecting
+            //Looks the type of dropdown is different here. So used another method existing in SeleniumLib and seems working
+            if(!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetYears,years)){
+                Debugger.println("Could not select the AgeOfOnset Years");
+                SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
+                return false;
+            }
+            if(!seleniumLib.selectFromListByText(clinicalTab_AgeOfOnsetMonths,months)){
+                Debugger.println("Could not select the AgeOfOnset Months");
+                SeleniumLib.takeAScreenShot("AgeOfOnset.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not select AgeOfOnset values :" + exp);
+            SeleniumLib.takeAScreenShot("AgeOfOnsetNotSelected.jpg");
             return false;
         }
     }

@@ -33,7 +33,7 @@ public class PedigreeSteps extends Pages {
             patient.setNGIS_ID(referralPage.getPatientNGISId());
         }
 
-        boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
+        boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient,"NGIS");
         Assert.assertTrue(testResult);
     }
 
@@ -49,7 +49,7 @@ public class PedigreeSteps extends Pages {
             if (patient.getNGIS_ID() == null) {
                 patient.setNGIS_ID(referralPage.getPatientNGISId());
             }
-            testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient);
+            testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient,"NGIS");
             Assert.assertTrue(testResult);
             Wait.seconds(10);//Waiting to ensure the diagram loaded and dissappeard
         }
@@ -288,6 +288,28 @@ public class PedigreeSteps extends Pages {
             patient.setNGIS_ID(referralPage.getPatientNGISId());
         }
         boolean testResult = pedigreePage.verifyNonNGISNodesPresence(patient);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user selects pedigree node for one of the Non NGIS family member for {string}")
+    public void theUserPedigreeNodeForNonNGISPatient(String searchDetails) {
+        NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
+        if(patient == null){
+            Debugger.println("Specified Proband Details could not get from the list.");
+            return;
+        }
+        if(patient.getNGIS_ID() == null) {
+            patient.setNGIS_ID(referralPage.getPatientNGISId());
+        }
+        boolean testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient,"NonNGIS");
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to update the Age of Onset with {string}")
+    public void theUserShouldBeAbleToUpdateTheAgeOfOnsetWithTheGivenDetails(String ageOfOnset) {
+        boolean testResult = false;
+        String[] year_months = ageOfOnset.split(",");
+        testResult = pedigreePage.selectAgeOfOnset(year_months[0],year_months[1]);
         Assert.assertTrue(testResult);
     }
 }//end
