@@ -8,6 +8,7 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -99,11 +100,12 @@ public class ReferralPage<check> {
        @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-   // @FindBy(css = "*[class*='referral-header__badge']")
+    // @FindBy(css = "*[class*='referral-header__badge']")
     @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
-    @FindBy(css = "*[class*='referral-header__cancel-reason']")
+    //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
+    @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement referralCancelReason;
 
     // @FindBy(css = "*[href*='signout']")
@@ -116,7 +118,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='header__right-area']")
     public WebElement headerRightArea;
 
-    @FindBy(css = "*[class*='referral-header__cancel']")
+    //    @FindBy(css = "*[class*='referral-header__cancel']")
+    @FindBy(css = "*[class*='cancel__button_']")
     public WebElement cancelReferralLink;
 
     @FindBy(css = "div[id*='react-select']")
@@ -128,7 +131,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement cancelReferralNotification;
 
-    @FindBy(css = "button[class*='modal__action']")
+    //    @FindBy(css = "button[class*='modal__action']")
+    @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'actionButtonCss')]//button")
     public List<WebElement> cancelReferralButtons;
 
     @FindBy(css = "*[class*='error-message']")
@@ -208,7 +212,8 @@ public class ReferralPage<check> {
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
-    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
+    //    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
+    @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
 
     //For Global Patient Banner Verification - Family Members
@@ -238,6 +243,24 @@ public class ReferralPage<check> {
     //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
     @FindBy(xpath = "//*[@id='referral__header']//button")
     public WebElement referralSubmitButton;
+
+    @FindBy(xpath = "//div[@role='dialog']")
+    public WebElement dialogBox;
+
+    @FindBy(xpath = "//div[@role='dialog']//h1")
+    public WebElement dialogHeader;
+
+    @FindBy(xpath = "//label[@for='cancel-options']")
+    public WebElement cancelReasonQuestion;
+
+    @FindBy(xpath = "//label[@for='cancel-options']//following-sibling::div[contains(@class,'_hint_')]")
+    public WebElement cancelWarningText;
+
+    @FindBy(xpath = "//div[@role='dialog']//button")
+    public WebElement dialogBoxCloseButton;
+
+    @FindBy(xpath = "//span[text()='Cancelled']")
+    public WebElement cancelledReferralStatus;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -1191,4 +1214,60 @@ public class ReferralPage<check> {
             return false;
         }
     }
-}
+
+    public boolean validateCancelReferralDialog(DataTable fieldDetails) {
+        List<List<String>> fieldsText = fieldDetails.asLists();
+        boolean isPresent = false;
+        try {
+            Wait.forElementToBeDisplayed(driver, dialogBox, 100);
+            if (fieldsText.get(1).get(0).equalsIgnoreCase(dialogHeader.getText())) {
+                if (cancelReasonQuestion.getText().contains(fieldsText.get(2).get(0))) {
+                    if (fieldsText.get(3).get(0).equalsIgnoreCase(cancelWarningText.getText())) {
+                        String button1 = cancelReferralButtons.get(0).getText();
+                        String button2 = cancelReferralButtons.get(1).getText();
+                        if (cancelReferralButtons.get(0).isDisplayed() && cancelReferralButtons.get(1).isDisplayed()) {
+                            if ((button1.equalsIgnoreCase(fieldsText.get(4).get(0))) && (button2.equalsIgnoreCase(fieldsText.get(5).get(0)))) {
+                                if (dialogBoxCloseButton.isDisplayed()) {
+                                    isPresent = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("The Cancel referral dialog is not properly displayed");
+                SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: validateCancelReferralDialog: " + exp);
+            SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
+            return false;
+        }
+    }
+
+    public boolean referralCancelledStatusWithReason(String reason) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralCancelReason, 100);
+            if (!seleniumLib.isElementPresent(cancelledReferralStatus)) {
+                Debugger.println("The referral cancelled status not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
+                return false;
+            }
+            String actStatus = referralCancelReason.getText();
+            Debugger.println("The cancellation reason present is " + actStatus + " ,And expected " + reason);
+            if (!reason.equalsIgnoreCase(actStatus)) {
+                Debugger.println("The referral cancellation reason not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: CancelledStatus: " + exp);
+            SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
+            return false;
+        }
+    }
+
+}//end

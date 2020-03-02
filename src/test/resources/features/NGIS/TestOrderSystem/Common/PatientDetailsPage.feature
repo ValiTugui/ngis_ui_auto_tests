@@ -586,3 +586,20 @@ Feature: Patient details page
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
       | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |
+
+
+  @NTS-4752 @E2EUI-1184 @LOGOUT @v_1
+  Scenario Outline:NTS-4752:Patient details stage is editable and it's not locked
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user navigates to the "<stage>" stage
+    Then the "<stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    When the user clears the date of birth field
+    And the user fills in the date of birth "<dateOfBirth>"
+    And the user clicks the Save and Continue button
+    Then the patient is successfully updated with a message "Patient details updated"
+
+    Examples:
+      | stage           | dateOfBirth |
+      | Patient details | 20/10/2010  |
