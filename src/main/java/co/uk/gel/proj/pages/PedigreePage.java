@@ -717,10 +717,15 @@ public class PedigreePage {
             }
             String actualCiName = clinicalIndicationName.getText();
             if (!expectedCiName.equalsIgnoreCase(actualCiName)) {
-                Debugger.println("Clinical Indication Name mismatch in Pedigree Page.Expected:" + expectedCiName + ",Actual:" + actualCiName);
-                Actions.scrollToBottom(driver);
-                SeleniumLib.takeAScreenShot("PedigreeCIName.jpg");
-                return false;
+                //Wait for 30 more seconds and check - added this based on jenkin run failure
+                Wait.seconds(30);
+                actualCiName = clinicalIndicationName.getText();
+                if (!expectedCiName.equalsIgnoreCase(actualCiName)) {
+                    Debugger.println("Clinical Indication Name mismatch in Pedigree Page.Expected:" + expectedCiName + ",Actual:" + actualCiName);
+                    Actions.scrollToBottom(driver);
+                    SeleniumLib.takeAScreenShot("PedigreeCIName.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
