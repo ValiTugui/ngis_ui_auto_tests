@@ -580,7 +580,7 @@ public class SeleniumLib {
         }
     }
 
-    public void scrollToElement(WebElement element) {
+    public static void scrollToElement(WebElement element) {
         try {
             if(element == null){
                 return;
@@ -676,5 +676,6 @@ public class SeleniumLib {
         }
         action.click(we).build().perform();
     }
+
 }//end
 
