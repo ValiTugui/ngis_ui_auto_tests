@@ -631,4 +631,26 @@ Feature: New Patient page
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
 
 
+   @NTS-4760 @LOGOUT @v_1 @E2EUI-1097
+  Scenario Outline:NTS-4760:New patient page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+     #  User click on refresh button
+    When the user attempts to navigate away by clicking "<browser_exit1>"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+     #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | reason_for_no_nhsNumber     | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Add a new patient to the database | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |
+
+
 

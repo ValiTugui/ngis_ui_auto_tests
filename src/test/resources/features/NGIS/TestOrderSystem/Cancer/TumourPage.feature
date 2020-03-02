@@ -15,7 +15,7 @@ Feature: Tumours Page
       | stage   |
       | Tumours |
 
-  @NTS-3165 @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @LOGOUT @P0 @v_1
+  @NTS-3165 @E2EUI-823 @E2EUI-1120 @E2EUI-1026 @E2EUI-1515 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3165: Text information for user on Tumour referral page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
