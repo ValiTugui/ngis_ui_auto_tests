@@ -227,4 +227,63 @@ public class PrintFormSteps extends Pages {
         testResult = printFormsPage.validatePDFContent(testType, fileName);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should be able to see referral card status as cancelled with selected {string} reason")
+    public void theUserShouldBeAbleToSeeReferralCardStatusAsCancelledWithSelectedReason(String reason) {
+        boolean testResult = false;
+        testResult = patientDetailsPage.referralCancelledStatusOnPatientCard(reason);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks the cancelled patient referral card")
+    public void theUserClicksTheCancelledPatientReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickCancelledReferralCard();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see start a new Referral button")
+    public void theUserShouldBeAbleToSeeStartANewReferralButton() {
+        boolean testResult = false;
+        testResult = printFormsPage.startANewReferralButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on start a new referral button")
+    public void theUserClicksOnStartANewReferralButton() {
+        boolean testResult = false;
+        testResult = printFormsPage.clickOnStartANewReferralButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user is able to see the following guidelines below the confirmation message")
+    public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable noticeText) {
+        boolean testResult = false;
+        testResult = printFormsPage.validateGuidelinesContent(noticeText);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see referral submit button as {string}")
+    public void theUserShouldSeeReferralSubmitButtonAs(String expectedStatus) {
+        boolean testResult = false;
+        if (expectedStatus.equals("enabled")) {
+            testResult = printFormsPage.referralSubmitButtonStatus();
+            Assert.assertTrue(testResult);
+        } else {
+            testResult = true;
+            testResult = printFormsPage.referralSubmitButtonStatus();
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @Then("the user is able to download form of the {string} section having file name {string}")
+    public void theUserIsAbleToDownloadFormOfTheSectionHavingFileName(String expectedSection, String fileName) {
+        boolean testResult = false;
+        if (expectedSection.equalsIgnoreCase("Patient choice")) {
+            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.extractAndValidateZipFile(fileName);
+        }
+        Assert.assertTrue(testResult);
+    }
+
 }//end

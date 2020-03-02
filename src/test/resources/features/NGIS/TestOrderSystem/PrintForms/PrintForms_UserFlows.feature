@@ -290,4 +290,70 @@ Feature: Print Forms - User flows
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | PrintForms  | Notes |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Print forms | Notes |
 
+    @NTS-3476 @E2EUI-1697 @E2EUI-1628 @E2EUI-1757 @LOGOUT @v_1 @P0
+  Scenario Outline:NTS-3476: Validating submit referral and able to start a new referral after submission.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=5-10-2000:Gender=Male |
+    ###Patient Details
+    When the user is navigated to a page with title Check your patient
+    And the user clicks the Save and Continue button
+    ###Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "BOLTON ROYAL HOSPITAL" in the search field
+    And the user selects a random entity from the suggestions list
+    And the user clicks the Save and Continue button
+    ###Test Package
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<OneParticipant>"
+    And the user clicks the Save and Continue button
+    ###Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills in all the clinician form fields
+    And the user clicks the Save and Continue button
+    ###Clinical Questions
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    ###Patient Choice
+    When the user navigates to the "<PatientChoiceStage>" stage
+    Then the user is navigated to a page with title Patient choice
+    When the user edits the patient choice status
+    Then the user is navigated to a page with title Add patient choice information
+    When the user selects the option Adult (With Capacity) in patient choice category
+    And the user selects the option Rare & inherited diseases – WGS in section Test type
+    And the user fills "<ClinicianName>" details in recorded by
+    And the user clicks on Continue Button
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+    And the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
+    When the user is navigated to a page with title Patient choice
+    And the "<PatientChoiceStage>" stage is marked as Completed
+    ###Print Forms
+    When the user navigates to the "<PrintForms>" stage
+    And the user is navigated to a page with title Print sample forms
+    And the user should see referral submit button as "enabled"
+    And the user submits the referral
+    Then the submission confirmation message "Your referral has been submitted" is displayed
+    And the user is able to see the following guidelines below the confirmation message
+      | Contact the laboratory if a submitted referral needs to be updated           |
+      | Updates made online might not be seen before tests begin.                    |
+      | Make sure you have:                                                          |
+      | - printed your sample forms from this page                                   |
+      | - sent your forms to the relevant laboratory                                 |
+      | Search for a Clinical indication in the Test Directory to request more tests |
+      | Start a new referral                                                         |
+   ###Start a new referral for E2EUI-1628, E2EUI-1757
+    And the user should be able to see start a new Referral button
+    When the user clicks on start a new referral button
+    Then the user is navigated to a page with title Search for genomic tests
+
+    Examples:
+      | OneParticipant | PatientChoiceStage | ClinicalQuestionDetails                   | ClinicianName                             | PrintForms  |
+      | 1              | Patient choice     | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | ClinicianName=John Doe:HospitalNumber=123 | Print forms |
 

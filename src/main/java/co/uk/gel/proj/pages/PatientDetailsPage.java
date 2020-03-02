@@ -210,6 +210,15 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add new patient to referral']")
     public WebElement addNewPatientToReferral;
 
+    @FindBy(xpath = "//div[@data-testid='referral-card-header']")
+    public WebElement referralCardHeader;
+
+    @FindBy(xpath = "//span[text()='Cancelled']")
+    public WebElement cancelledReferralStatus;
+
+    @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
+    public WebElement referralCancelReasonOnCard;
+
 
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
@@ -1002,4 +1011,45 @@ public class PatientDetailsPage {
     public void fillInFirstName() {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
-}
+
+    public boolean referralCancelledStatusOnPatientCard(String reason) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
+            if (!cancelledReferralStatus.isDisplayed()) {
+                Debugger.println("The referral cancelled status not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
+            String actStatus = referralCancelReasonOnCard.getText();
+            if (!reason.equalsIgnoreCase(actStatus)) {
+                Debugger.println("The referral cancellation reason not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: referralCancelledStatusOnPatientCard: " + exp);
+            SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickCancelledReferralCard() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
+            if (!Wait.isElementDisplayed(driver, cancelledReferralStatus, 30)) {
+                Debugger.println("PatientDetailsPage:clickReferalCard: ReferralCard Not Visible.");
+                SeleniumLib.takeAScreenShot("PatientCard.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, cancelledReferralStatus);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);
+            SeleniumLib.takeAScreenShot("clickCancelledReferral.jpg");
+            return false;
+        }
+    }
+
+}//end
