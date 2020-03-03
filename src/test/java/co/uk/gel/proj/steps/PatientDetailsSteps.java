@@ -294,6 +294,7 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
+        Wait.seconds(1);
         Actions.clearInputField(patientDetailsPage.dateOfBirth);
     }
 
@@ -518,6 +519,7 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
+        Wait.seconds(1);
         Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 

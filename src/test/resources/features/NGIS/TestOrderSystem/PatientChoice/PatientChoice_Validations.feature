@@ -217,6 +217,7 @@ Feature: Patient Choice Page - validations
       | Patient choice stage | RecordedBy         | ErrorMessage                                                                           |
       | Patient choice       | ClinicianName=John | Please complete the required field Clinician Name (Admin support user ID is optional): |
 
+  #E2EUI-842
   @NTS-3457 @E2EUI-1667 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3457: Warn a user that they will lose their changes when navigating away from patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
