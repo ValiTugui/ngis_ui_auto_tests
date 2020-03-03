@@ -41,7 +41,7 @@ public class Actions {
         try {
             dropDownValues.get(index).click();
         }catch (IllegalArgumentException | ElementClickInterceptedException | StaleElementReferenceException exp) {
-
+            SeleniumLib.takeAScreenShot("DropDownValues_SelectByIndex.jpg");
         }
     }
 

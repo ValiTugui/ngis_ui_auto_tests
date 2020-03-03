@@ -232,14 +232,14 @@ public class PrintFormSteps extends Pages {
     @And("the user should be able to see referral card status as cancelled with selected {string} reason")
     public void theUserShouldBeAbleToSeeReferralCardStatusAsCancelledWithSelectedReason(String reason) {
         boolean testResult = false;
-        testResult = patientDetailsPage.verifyReferralCancelledStatusOnPatientCard(reason);
+        testResult = referralPage.verifyReferralCancelledStatusOnPatientCard(reason);
         Assert.assertTrue(testResult);
     }
 
     @And("the user clicks the cancelled patient referral card")
     public void theUserClicksTheCancelledPatientReferralCard() {
         boolean testResult = false;
-        testResult = patientDetailsPage.clickOnCancelledReferralCard();
+        testResult = referralPage.clickOnCancelledReferralCard();
         Assert.assertTrue(testResult);
     }
 
@@ -285,7 +285,7 @@ public class PrintFormSteps extends Pages {
         boolean testResult = false;
         List<String> stages = stageNames.asList();
         for(int i=0;i<stages.size(); i++) {
-            testResult = patientDetailsPage.validateMandatoryStages(stages.get(i));
+            testResult = referralPage.validateMandatoryStages(stages.get(i));
             if (!testResult) {
                 Assert.assertTrue(testResult);
             }
