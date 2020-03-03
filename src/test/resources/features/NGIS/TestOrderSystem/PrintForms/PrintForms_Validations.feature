@@ -58,8 +58,8 @@ Feature: Print Forms - Validations
       | Revoked         | The referral has been paused or stopped (“Revoke”)           | This referral has been cancelled so further changes might not take effect. Start a new referral |
       | Marked in error | An uneditable mistake was made in creation (“Mark in error”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
 
-  @NTS-TODO @E2EUI-1787 @LOGOUT
-  Scenario Outline: NTS-TODO: scenario_1: View cancelled referral
+  @NTS-4702 @E2EUI-1787 @LOGOUT
+  Scenario Outline: NTS-4702: scenario_1: View cancelled referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_SUPER_USER | NHSNumber=9449310661:DOB=05-04-2000 |
      ###Patient Details
@@ -74,8 +74,8 @@ Feature: Print Forms - Validations
       | Reason  | CancellationReason                                 | CancellationSuccessMessage                                                                      |
       | Revoked | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect. Start a new referral |
 
-  @NTS-TODO @E2EUI-1787 @LOGOUT
-  Scenario Outline:NTS-TODO: scenario_2: View cancelled referral
+  @NTS-4702 @E2EUI-1787 @LOGOUT
+  Scenario Outline:NTS-4702: scenario_2: View cancelled referral
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54  |Rare Disease|GEL_SUPER_USER |
     ##Patient Search Page
@@ -95,8 +95,8 @@ Feature: Print Forms - Validations
       | NhsNumber            | DOB            | Reason  |
       | NHSNumber=9449310661 | DOB=05-04-2000 | Revoked |
 
-  @NTS-4368 @E2EUI-1212 @LOGOUT
-  Scenario Outline: NTS-4368: update the 'warning' message design - Print forms
+  @NTS-4702 @E2EUI-1212 @LOGOUT
+  Scenario Outline: NTS-4702: update the 'warning' message design - Print forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details

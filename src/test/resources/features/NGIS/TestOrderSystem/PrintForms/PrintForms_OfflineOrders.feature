@@ -25,8 +25,8 @@ Feature: Print Forms - Offline Orders
       | TextToValidate                                                                                   |
       | RARE AND INHERITED DISEASES,Surrey and Sussex Healthcare NHS Trust,N o t f o r C i n i c a l U s |
 
-  @NTS-4705 @E2EUI-957
-  Scenario Outline: Test Directory - Paper ordering process apply new styles on consent forms
+  @NTS-4703 @E2EUI-957
+  Scenario Outline: NTS-4703: Test Directory - Paper ordering process apply new styles on consent forms
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -41,7 +41,7 @@ Feature: Print Forms - Offline Orders
     Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user should see the "Download" button next to each of the forms
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
-##check this step #add folder num verification
+
     Examples:
       | RequestingOrganisation                                  |
       | Liverpool Heart and Chest Hospital NHS Foundation Trust |
