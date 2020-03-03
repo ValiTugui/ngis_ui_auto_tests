@@ -492,6 +492,7 @@ public class FamilyMemberDetailsPage {
             return numberOfHPO;
         } catch(ElementClickInterceptedException interExp){
             //SeleniumLib click handles the javascript and Actions click also.
+            SeleniumLib.takeAScreenShot("PhenoTypeInterceptedExp.jpg");
             seleniumLib.clickOnWebElement(dropdownValues.get(0));
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, hpoTable);
