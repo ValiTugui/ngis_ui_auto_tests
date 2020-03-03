@@ -371,21 +371,35 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
+                Debugger.println("Verifying Test details for Family member: "+memberDetails.get(i).get(0));
                 if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
                     Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
                 Wait.seconds(5);
+                Debugger.println("Clicking on Save and Continue in Family Member Stage...to proceed with Disease status updation");
                 referralPage.clickSaveAndContinueButton();
+                Debugger.println("Clicked on Save and Continue in Family Member Stage...");
                 Wait.seconds(5);
+                Debugger.println("Updating family member with Disease status...");
                 if(!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))){
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);
+                Debugger.println("Disease status updated .. Clicking on Save and Continue in Family Member Stage...");
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(5);
-                referralPage.verifyThePageTitlePresence("Add a family member to this referral");
+                if(!referralPage.verifyThePageTitlePresence("Add a family member to this referral")){
+                    Debugger.println("Family Member Details Page is Yet be loaded......waiting for 10 more seconds");
+                    Wait.seconds(10);
+                    if(!referralPage.verifyThePageTitlePresence("Add a family member to this referral")){
+                        Debugger.println("Family Member Details Page is Still not loaded......waiting for 10 more seconds");
+                        Wait.seconds(10);
+                    }
+                }
+
+                Debugger.println("Verifying added family member details in Landing page....");
                 if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
