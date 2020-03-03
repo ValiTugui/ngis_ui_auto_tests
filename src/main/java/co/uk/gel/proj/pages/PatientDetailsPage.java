@@ -11,6 +11,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -1002,4 +1003,5 @@ public class PatientDetailsPage {
     public void fillInFirstName() {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
-}
+
+    }//end
