@@ -290,8 +290,8 @@ Feature: Print Forms - User flows
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | PrintForms  | Notes |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Print forms | Notes |
 
-    @NTS-3476 @E2EUI-1697 @E2EUI-1628 @E2EUI-1757 @LOGOUT @v_1 @P0
-  Scenario Outline:NTS-3476: Validating submit referral and able to start a new referral after submission.
+  @NTS-4746 @E2EUI-1697 @E2EUI-1628 @E2EUI-1757 @LOGOUT @v_1 @P0
+  Scenario Outline:NTS-4746: Validating submit referral and able to start a new referral after submission.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=5-10-2000:Gender=Male |
     ###Patient Details
@@ -348,7 +348,7 @@ Feature: Print Forms - User flows
       | - sent your forms to the relevant laboratory                                 |
       | Search for a Clinical indication in the Test Directory to request more tests |
       | Start a new referral                                                         |
-   ###Start a new referral for E2EUI-1628, E2EUI-1757
+   ###Starting a new referral, for scenario's E2EUI-1628, E2EUI-1757
     And the user should be able to see start a new Referral button
     When the user clicks on start a new referral button
     Then the user is navigated to a page with title Search for genomic tests
@@ -357,8 +357,8 @@ Feature: Print Forms - User flows
       | OneParticipant | PatientChoiceStage | ClinicalQuestionDetails                   | ClinicianName                             | PrintForms  |
       | 1              | Patient choice     | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | ClinicianName=John Doe:HospitalNumber=123 | Print forms |
 
-  @NTS-4343 @E2EUI-889 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-4343: Submit a referral
+  @NTS-4746 @E2EUI-889 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4746: Submit a referral and resubmit again
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details
