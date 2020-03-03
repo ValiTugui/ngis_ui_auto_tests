@@ -297,7 +297,7 @@ Feature: Samples Page
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour     | sampleState | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | DNA         | test                   |
 
-  @NTS-3365 @E2EUI-2359 @LOGOUT @P0 @v_1
+  @NTS-3365 @E2EUI-2359 @E2EUI-1302 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
