@@ -753,9 +753,13 @@ public class PatientDetailsPage {
     }
 
     public void clickAddDetailsToNGISButton() {
-        Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
-        Click.element(driver, addDetailsToNGISButton);
-        Wait.forElementToBeDisplayed(driver, successNotification);
+        try {
+            Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
+            Click.element(driver, addDetailsToNGISButton);
+        }catch(Exception exp){
+            Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:"+exp);
+            SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
+        }
     }
 
     public void clickUpdateNGISRecordButton() {
