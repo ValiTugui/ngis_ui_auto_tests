@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
@@ -515,6 +516,7 @@ public class PatientDetailsSteps extends Pages {
     @And("the user deletes data in the NHS Number field")
     public void theUserDeletesDataInTheNHSNumberField() {
         Actions.clearInputField(patientDetailsPage.nhsNumber);
+        Wait.seconds(1);
     }
 
     @And("the user deletes the data in the Hospital Number field")
@@ -602,5 +604,26 @@ public class PatientDetailsSteps extends Pages {
     public void theUserSelectTheGender(String gender) {
         Actions.scrollToTop(driver);
         patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+    }
+    
+    @And("the Add To Patient Details {string} button is displayed")
+    public void theAddToPatientDetailsButtonIsDisplayed(String expectedPatientButton) {
+        String actualPatientSubmitButton = Actions.getText(patientDetailsPage.addDetailsToNGISButton);
+        Debugger.println("Actual Patient Submit: " + actualPatientSubmitButton);
+        Debugger.println("Expected Patient Submit: " + expectedPatientButton);
+        Assert.assertEquals(expectedPatientButton,actualPatientSubmitButton);
+    }
+
+    @And("the user clicks the Add patient details to NGIS button")
+    public void theUserClicksTheAddPatientDetailsToNGISButton() {
+        patientDetailsPage.clickAddDetailsToNGISButton();
+    }
+
+
+    @And("the user edits the NHS number field with a newly generated NHS Number")
+    public void theUserEditsTheNHSNumberFieldWithANewlyGeneratedNHSNumber() {
+        String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
+        Actions.clickElement(driver, patientDetailsPage.nhsNumber);
+        Actions.fillInValue(patientDetailsPage.nhsNumber, patientNhsNumber);
     }
 }

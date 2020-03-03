@@ -44,6 +44,32 @@ Examples:
 | patient-search-type | stage1          |   stage          | FamilyMemberDetails                 | RelationshipToProband |
 | NGIS                | Patient details |   Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
+
+  @NTS-4795 @E2EUI-969 @v_1 @BVT_P0
+  Scenario Outline: NTS-4795:SPINE patient search "<patient-search-type>" With NHS Number and Date of Birth and add to NGIS
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    And the Patient Details page is displayed
+    When the user fills in the Ethnicity field "B - White - Irish"
+    And the Add To Patient Details "<addToPatientDetails>" button is displayed
+## #    edit the NHS-Number for the Spine Data to be re-usable
+#    And the user deletes data in the NHS Number field
+#    And the user edits the NHS number field with a newly generated NHS Number
+#    And the user clicks the Add patient details to NGIS button
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | addToPatientDetails |
+      | NHS Spine           | 9449308691 | 23-05-2011 | Add details to NGIS |
+
+
+
+
+
+
 #  SPINE DATA replaced with NGIS DATA
 
 #  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0
