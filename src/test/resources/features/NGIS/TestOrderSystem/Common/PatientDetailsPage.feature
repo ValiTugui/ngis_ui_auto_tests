@@ -666,3 +666,18 @@ Feature: Patient details page
     Examples:
       | stage           | dateOfBirth |browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
+
+
+   @NTS-4762 @LOGOUT @v_1 @E2EUI-1192
+  Scenario Outline: NTS-4762: Referral-Patient Detail - Update the 'success' message design
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user navigates to the "<stage>" stage
+    Then the "<stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    And the user clicks the Save and Continue button
+    Then the patient is successfully updated with a message "Patient details updated"
+
+    Examples:
+      | stage           |
+      | Patient details |
