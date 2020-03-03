@@ -76,8 +76,8 @@ Feature: Pedigree - Pedigree Flow
     Then the user is navigated to a page with title Select tests for
     ##Pedigree
     When the user navigates to the "<Pedigree>" stage
-    Then the "<Pedigree>" stage is marked as Completed
-    And the user should see the referral submit button as enabled
+    And the "<Pedigree>" stage is marked as Completed
+    Then the user should see the referral submit button as enabled
 
     Examples:
       | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
