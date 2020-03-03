@@ -763,8 +763,13 @@ public class PatientDetailsPage {
     }
 
     public void clickUpdateNGISRecordButton() {
-        Wait.forElementToBeClickable(driver,updateNGISRecordButton);
-        Click.element(driver, updateNGISRecordButton);
+        try {
+            Wait.forElementToBeClickable(driver, updateNGISRecordButton);
+            Click.element(driver, updateNGISRecordButton);
+        }catch(Exception exp){
+            Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:"+exp);
+            SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
+        }
     }
 
       public String getNotificationMessageForPatientCreatedOrUpdated() {
