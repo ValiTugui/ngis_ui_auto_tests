@@ -43,10 +43,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
-    //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
-    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
-    public By disabledSubmitReferralButton;
-
     @FindBy(css = "*[data-testid*='referral-sidebar']")
     public WebElement toDoList;
 
@@ -1289,17 +1285,18 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean submitButtonStatusAfterSubmission() {
+    public boolean verifySubmitButtonStatusAfterSubmission() {
         try {
-            seleniumLib.waitForElementVisible(submitReferralButton);
-            if (seleniumLib.isElementClickable(disabledSubmitReferralButton)) {
-                Debugger.println("The referral submit button is enabled....'referral is not submitted yet'");
+            Wait.forElementToBeDisplayed(driver,submitReferralButton);
+            if(submitReferralButton.isEnabled()){
+                Debugger.println("ReferralButton status is enabled after Submission.");
+                SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: submiButtonStatusAfterSubmission: " + exp);
-            SeleniumLib.takeAScreenShot("DisabledSubmitReferral.jpg");
+            SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
             return false;
         }
     }

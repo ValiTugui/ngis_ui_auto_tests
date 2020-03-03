@@ -296,7 +296,7 @@ public class PrintFormSteps extends Pages {
     @Then("after submitting the referral once, the user is unable to submit it again")
     public void afterSubmittingTheReferralOnceTheUserIsUnableToSubmitItAgain() {
         boolean testResult = false;
-        testResult = referralPage.submitButtonStatusAfterSubmission();
+        testResult = referralPage.verifySubmitButtonStatusAfterSubmission();
         Assert.assertTrue(testResult);
     }
 
