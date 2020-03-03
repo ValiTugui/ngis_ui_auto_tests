@@ -605,7 +605,7 @@ public class PatientDetailsSteps extends Pages {
         Actions.scrollToTop(driver);
         patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
     }
-    
+
     @And("the Add To Patient Details {string} button is displayed")
     public void theAddToPatientDetailsButtonIsDisplayed(String expectedPatientButton) {
         String actualPatientSubmitButton = Actions.getText(patientDetailsPage.addDetailsToNGISButton);
@@ -620,10 +620,4 @@ public class PatientDetailsSteps extends Pages {
     }
 
 
-    @And("the user edits the NHS number field with a newly generated NHS Number")
-    public void theUserEditsTheNHSNumberFieldWithANewlyGeneratedNHSNumber() {
-        String patientNhsNumber = RandomDataCreator.generateRandomNHSNumber();
-        Actions.clickElement(driver, patientDetailsPage.nhsNumber);
-        Actions.fillInValue(patientDetailsPage.nhsNumber, patientNhsNumber);
-    }
 }

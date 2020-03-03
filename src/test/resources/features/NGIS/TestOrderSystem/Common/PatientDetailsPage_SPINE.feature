@@ -56,10 +56,6 @@ Examples:
     And the Patient Details page is displayed
     When the user fills in the Ethnicity field "B - White - Irish"
     And the Add To Patient Details "<addToPatientDetails>" button is displayed
-## #    edit the NHS-Number for the Spine Data to be re-usable
-#    And the user deletes data in the NHS Number field
-#    And the user edits the NHS number field with a newly generated NHS Number
-#    And the user clicks the Add patient details to NGIS button
 
     Examples:
       | patient-search-type | NhsNumber  | DOB        | addToPatientDetails |
