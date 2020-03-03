@@ -130,7 +130,7 @@ Feature: Pedigree - Pedigree Flow
       | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
       | Requesting organisation | Maidstone            | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
-  @NTS-3386 @E2EUI-1373 @LOGOUT @v_1 @P0
+  @NTS-3386 @E2EUI-1373 @E2EUI-836 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3386 : Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
@@ -172,7 +172,7 @@ Feature: Pedigree - Pedigree Flow
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=17-07-1980:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=NA:DOB=17-07-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=17-07-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     ##Pedigree
     When the user navigates to the "<Pedigree>" stage
@@ -183,10 +183,10 @@ Feature: Pedigree - Pedigree Flow
       | NHSNumber=NA:DOB=17-07-1978 |
 
     Examples:
-      | Requesting organisation | ordering_entity_name | PatientChoice  | Panels | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
-      | Requesting organisation | Maidstone            | Patient choice | Panels | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
+      | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
+      | Requesting organisation | Maidstone            | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
-  @NTS-3464 @E2EUI-1630 @E2EUI-1051 @LOGOUT @v_1 @P0
+  @NTS-3386 @E2EUI-1630 @E2EUI-1051 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2000:Gender=Female |
@@ -195,6 +195,7 @@ Feature: Pedigree - Pedigree Flow
     And the user is navigated to a page with title Build a pedigree
     Then the user should be able to see Save button on Pedigree Page
     ##Requesting Organisation
+    When the user scroll to the top of landing page
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Manchester" in the search field

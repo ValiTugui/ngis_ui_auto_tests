@@ -562,6 +562,7 @@ Feature: Patient details page
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks the - "Go back to patient search" - link
+    And the page url address contains the directory-path web-page "<directoryPathPage>"
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user clicks the NO button
@@ -584,8 +585,8 @@ Feature: Patient details page
       | Ethnicity ✱     | Ethnicity is required.     | #dd2509             |
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
-      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |
+      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         |
+      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search |
 
 
   @NTS-4752 @E2EUI-1184 @LOGOUT @v_1
@@ -603,3 +604,65 @@ Feature: Patient details page
     Examples:
       | stage           | dateOfBirth |
       | Patient details | 20/10/2010  |
+
+
+
+  @NTS-4760 @LOGOUT @v_1 @E2EUI-1097
+  Scenario Outline: NTS-4760:Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the - "Go back to patient search" - link
+    And the page url address contains the directory-path web-page "<directoryPathPage>"
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+      #  User click on refresh button
+    And the user clears the date of birth field
+    When the user attempts to navigate away by clicking "<browser_exit1>"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+     #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+#    fill in date of birth
+    And the user fills in the date of birth "01/03/2010"
+    And the user clicks the Update NGIS record button
+    Then the patient is successfully created with a message "Details saved"
+
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
+
+
+  @NTS-4760 @LOGOUT @v_1 @E2EUI-1097
+  Scenario Outline:NTS-4760:Referral-Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user navigates to the "<stage>" stage
+    Then the "<stage>" stage is selected
+    And the "<stage>" stage is marked as Completed
+    #  User click on refresh button
+    And the user clears the date of birth field
+    When the user attempts to navigate away by clicking "<browser_exit1>"
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+     #  User click on logout button
+    When the user clicks the Log out button
+    Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
+    And the web browser is still at the same "<partialCurrentUrl1>" page
+    #  fill in date of birth
+    And the user fills in the date of birth "<dateOfBirth>"
+    And the user clicks the Save and Continue button
+    Then the patient is successfully updated with a message "Patient details updated"
+
+    Examples:
+      | stage           | dateOfBirth |browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |

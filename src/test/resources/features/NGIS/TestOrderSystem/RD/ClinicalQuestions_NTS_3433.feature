@@ -58,6 +58,7 @@ Feature: RD Questionnaire
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
+  #E2EUI-842
   @NTS-3433 @E2EUI-1625 @E2EUI-1068 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
     And the user navigates to the "<stage>" stage

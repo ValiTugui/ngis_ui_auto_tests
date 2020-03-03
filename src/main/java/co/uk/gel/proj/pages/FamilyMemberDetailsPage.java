@@ -475,7 +475,7 @@ public class FamilyMemberDetailsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            if(seleniumLib.isElementPresent(hpoSearchField)) {
+            if(Wait.isElementDisplayed(driver,hpoSearchField,30)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
             }
             Wait.forElementToBeDisplayed(driver, dropdownValue);
@@ -490,7 +490,12 @@ public class FamilyMemberDetailsPage {
             int numberOfHPO = hpoTerms.size();
             //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
-        } catch (Exception exp) {
+        } catch(ElementClickInterceptedException interExp){
+            //Scrolling to the element and then trying again
+            Debugger.println("Element Intercepted Exception at Phenotype Selection.");
+            SeleniumLib.scrollToElement(dropdownValue);
+            return searchAndSelectRandomHPOPhenotype(hpoTerm);
+        }catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
             return 0;
         }
@@ -1335,6 +1340,19 @@ public class FamilyMemberDetailsPage {
                 if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     addedFamilyMembers.get(i).setNGIS_ID(familyMember.getNGIS_ID());
                     //Debugger.println("Updated Patient NGSID for familyMember with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNGIS_ID());
+                }
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception in setting up NGIS ID " + exp);
+        }
+    }
+    public static void updateNonNGISID(NGISPatientModel familyMember) {
+        try {
+            for (int i = 0; i < addedFamilyMembers.size(); i++) {
+                if (addedFamilyMembers.get(i).getNHS_NUMBER().equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
+                    addedFamilyMembers.get(i).setNON_NGIS_ID1(familyMember.getNON_NGIS_ID1());
+                    addedFamilyMembers.get(i).setNON_NGIS_ID2(familyMember.getNON_NGIS_ID2());
+                    Debugger.println("Updated Patient Non-NGSID for familyMember with DOB:"+familyMember.getDATE_OF_BIRTH()+", "+familyMember.getNON_NGIS_ID1()+","+familyMember.getNON_NGIS_ID2());
                 }
             }
         } catch (Exception exp) {
