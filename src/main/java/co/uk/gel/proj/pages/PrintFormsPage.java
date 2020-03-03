@@ -7,6 +7,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
@@ -81,6 +82,19 @@ public class PrintFormsPage {
 
     @FindBy(xpath = "//h2[contains(@class,'panelTitle')]")
     public WebElement selectedLaboratory;
+
+    @FindBy(css = "*[class*='downloads__notice']")
+    public WebElement submissionConfirmationBanner;
+
+    @FindBy(xpath = "//button[text()='Start a new referral']")
+    WebElement startANewReferralButton;
+
+    @FindBy(xpath = "//div[contains(@class,'notice__text')]")
+    public WebElement downloadNotice;
+
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
+    public WebElement referralSubmitButton;
+
 
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
@@ -375,11 +389,11 @@ public class PrintFormsPage {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
                 WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
-                if(unlockedPrintFormsStage != null ){
-                //then procces
-                } else{
-                // debugger line
-                return false;
+                if (unlockedPrintFormsStage != null) {
+                    //then procces
+                } else {
+                    // debugger line
+                    return false;
                 }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
                     Debugger.println("Print forms stage is not unlocked");
@@ -390,7 +404,7 @@ public class PrintFormsPage {
                 return true;
             }
             WebElement lockIcon = printFormsStage.findElement(By.xpath(".//*[name()='svg']"));
-            if(lockIcon == null){
+            if (lockIcon == null) {
                 Debugger.println("Could not find the lock Icon element.");
                 SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
                 return false;
@@ -462,7 +476,7 @@ public class PrintFormsPage {
             String outputData = pdfTextStripper.getText(document);
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
             outputData = outputData.replaceAll("\\s+", " ");
-           // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
+            // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
             boolean testResult = true;
             for (String str : textList) {
                 if (!outputData.contains(str)) {
@@ -499,7 +513,7 @@ public class PrintFormsPage {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     seleniumLib.clickOnWebElement(downloadButton.get(i));
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    Wait.seconds(10);//Wait for 5 seconds to ensure file got downloaded.
                     //Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
                     return true;
                 }
@@ -532,8 +546,8 @@ public class PrintFormsPage {
                 returnValue = selectedTestTypes[0];
             } else if (fieldType.contains("laboratory")) {
                 Wait.forElementToBeDisplayed(driver, selectedLaboratory);
-                String[] labName= selectedLaboratory.getText().split(" ");
-                returnValue=labName[0];
+                String[] labName = selectedLaboratory.getText().split(" ");
+                returnValue = labName[0];
             }
             return returnValue;
         } catch (Exception exp) {
@@ -541,6 +555,103 @@ public class PrintFormsPage {
             SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
             return null;
         }
+    }
+
+    public boolean startANewReferralButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
+            if (!seleniumLib.isElementPresent(startANewReferralButton)) {
+                Debugger.println("Referral Submitted :Start New Referral Button Not found");
+                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
+            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnStartANewReferralButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, startANewReferralButton);
+            seleniumLib.clickOnWebElement(startANewReferralButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
+            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateGuidelinesContent(DataTable noticeText) {
+        try {
+            boolean isPresent = false;
+            List<String> expectedText = noticeText.asList();
+            Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
+            String[] actualText = downloadNotice.getText().split("\\n");
+            if (actualText[0].equalsIgnoreCase(expectedText.get(0))) {
+                if (actualText[1].equalsIgnoreCase(expectedText.get(1))) {
+                    if (actualText[2].equalsIgnoreCase(expectedText.get(2))) {
+                        if (actualText[3].equalsIgnoreCase(expectedText.get(3))) {
+                            if (actualText[4].equalsIgnoreCase(expectedText.get(4))) {
+                                if (actualText[5].equalsIgnoreCase(expectedText.get(5))) {
+                                    if (actualText[6].equalsIgnoreCase(expectedText.get(6))) {
+                                        Debugger.println("Guidelines notification verified... ");
+                                        isPresent = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                Debugger.println("Guidelines notification is not as expected ");
+                SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
+            SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
+            return false;
+        }
+    }
+
+    public boolean referralSubmitButtonStatus() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
+            String referralSubmitButtonBgColor = referralSubmitButton.getCssValue("background-color");
+            if (referralSubmitButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
+                Debugger.println("Actual color : " + referralSubmitButtonBgColor + " is displayed when referral submit button is disabled and not highlighted");
+                return false;
+            }
+            Debugger.println("Actual color : " + referralSubmitButtonBgColor + " is displayed when referral submit button is enabled and highlighted");
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: Submit referral Button not found. -" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceReferralSubmitBtn.jpg");
+            return false;
+        }
+    }
+
+    public boolean extractAndValidateZipFile(String fileName) {
+        Wait.seconds(10); //wait for zip file download completion
+        if (fileName.endsWith(".zip")) {
+            if (!TestUtils.extractZipFile(fileName)) {
+                Debugger.println("Could not extract the zip file: " + fileName);
+                return false;
+            }
+        }
+        String[] nameOfFile = fileName.split("\\.");
+        Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
+        File file = new File(defaultDownloadLocation + nameOfFile[0]);
+        if (!file.isDirectory() && file.listFiles().length != 0) {
+            Debugger.println("The downloaded file is empty " + file);
+            return false;
+        }
+        Debugger.println("The extracted Zip is not empty");
+        return true;
     }
 
 }//end

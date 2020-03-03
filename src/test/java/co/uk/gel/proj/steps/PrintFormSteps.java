@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
@@ -227,4 +228,83 @@ public class PrintFormSteps extends Pages {
         testResult = printFormsPage.validatePDFContent(testType, fileName);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should be able to see referral card status as cancelled with selected {string} reason")
+    public void theUserShouldBeAbleToSeeReferralCardStatusAsCancelledWithSelectedReason(String reason) {
+        boolean testResult = false;
+        testResult = patientDetailsPage.referralCancelledStatusOnPatientCard(reason);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks the cancelled patient referral card")
+    public void theUserClicksTheCancelledPatientReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickCancelledReferralCard();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see start a new Referral button")
+    public void theUserShouldBeAbleToSeeStartANewReferralButton() {
+        boolean testResult = false;
+        testResult = printFormsPage.startANewReferralButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on start a new referral button")
+    public void theUserClicksOnStartANewReferralButton() {
+        boolean testResult = false;
+        testResult = printFormsPage.clickOnStartANewReferralButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user is able to see the following guidelines below the confirmation message")
+    public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable noticeText) {
+        boolean testResult = false;
+        testResult = printFormsPage.validateGuidelinesContent(noticeText);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see referral submit button as {string}")
+    public void theUserShouldSeeReferralSubmitButtonAs(String expectedStatus) {
+        boolean testResult = false;
+        if (expectedStatus.equals("enabled")) {
+            testResult = printFormsPage.referralSubmitButtonStatus();
+            Assert.assertTrue(testResult);
+        } else {
+            testResult = true;
+            testResult = printFormsPage.referralSubmitButtonStatus();
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @Then("the user is able to download form of the {string} section having file name {string}")
+    public void theUserIsAbleToDownloadFormOfTheSectionHavingFileName(String expectedSection, String fileName) {
+        boolean testResult = false;
+        if (expectedSection.equalsIgnoreCase("Patient choice")) {
+            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.extractAndValidateZipFile(fileName);
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral")
+    public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable incompleteStageNames) {
+        boolean testResult = false;
+        boolean testResult1=false, testResult2 = false;
+        testResult1 = patientDetailsPage.validateMandatoryStages(incompleteStageNames);
+        testResult2 = patientDetailsPage.clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle(incompleteStageNames);
+        if ((testResult1 == true) && (testResult2==true)) {
+            testResult=true;
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("after submitting the referral once, the user is unable to submit it again")
+    public void afterSubmittingTheReferralOnceTheUserIsUnableToSubmitItAgain() {
+        boolean testResult = false;
+        testResult = referralPage.submitButtonStatusAfterSubmission();
+        Assert.assertTrue(testResult);
+    }
+
+
 }//end
