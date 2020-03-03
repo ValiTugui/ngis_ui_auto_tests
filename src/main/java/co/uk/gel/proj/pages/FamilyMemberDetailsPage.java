@@ -491,10 +491,11 @@ public class FamilyMemberDetailsPage {
             //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
         } catch(ElementClickInterceptedException interExp){
-            //Scrolling to the element and then trying again
-            Debugger.println("Element Intercepted Exception at Phenotype Selection.");
-            SeleniumLib.scrollToElement(dropdownValue);
-            return searchAndSelectRandomHPOPhenotype(hpoTerm);
+            //SeleniumLib click handles the javascript and Actions click also.
+            seleniumLib.clickOnWebElement(dropdownValues.get(0));
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, hpoTable);
+            return hpoTerms.size();
         }catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
             return 0;
