@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
@@ -285,5 +286,25 @@ public class PrintFormSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral")
+    public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable incompleteStageNames) {
+        boolean testResult = false;
+        boolean testResult1=false, testResult2 = false;
+        testResult1 = patientDetailsPage.validateMandatoryStages(incompleteStageNames);
+        testResult2 = patientDetailsPage.clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle(incompleteStageNames);
+        if ((testResult1 == true) && (testResult2==true)) {
+            testResult=true;
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("after submitting the referral once, the user is unable to submit it again")
+    public void afterSubmittingTheReferralOnceTheUserIsUnableToSubmitItAgain() {
+        boolean testResult = false;
+        testResult = referralPage.submitButtonStatusAfterSubmission();
+        Assert.assertTrue(testResult);
+    }
+
 
 }//end

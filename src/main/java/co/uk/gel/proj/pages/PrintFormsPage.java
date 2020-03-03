@@ -587,43 +587,29 @@ public class PrintFormsPage {
 
     public boolean validateGuidelinesContent(DataTable noticeText) {
         try {
-            boolean isPresent=false;
+            boolean isPresent = false;
             List<String> expectedText = noticeText.asList();
             Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
-//            Debugger.println("Text present is-- " + downloadNotice.getText());
             String[] actualText = downloadNotice.getText().split("\\n");
-
-           // Debugger.println("Actual: " + actualText[0] + " ,and Expected: " + expectedText.get(0));
             if (actualText[0].equalsIgnoreCase(expectedText.get(0))) {
-
-             //   Debugger.println("Actual: " + actualText[1] + " Expected: " + expectedText.get(1));
                 if (actualText[1].equalsIgnoreCase(expectedText.get(1))) {
-
-               //     Debugger.println("Actual: " + actualText[2] + " Expected: " + expectedText.get(2));
                     if (actualText[2].equalsIgnoreCase(expectedText.get(2))) {
-
-                 //       Debugger.println("Actual: " + actualText[3] + " Expected: " + expectedText.get(3));
                         if (actualText[3].equalsIgnoreCase(expectedText.get(3))) {
-
-                   //         Debugger.println("Actual: " + actualText[4] + " Expected: " + expectedText.get(4));
                             if (actualText[4].equalsIgnoreCase(expectedText.get(4))) {
-
-                     //           Debugger.println("Actual: " + actualText[5] + " Expected: " + expectedText.get(5));
                                 if (actualText[5].equalsIgnoreCase(expectedText.get(5))) {
-
-                       //             Debugger.println("Actual: " + actualText[6] + " Expected: " + expectedText.get(6));
                                     if (actualText[6].equalsIgnoreCase(expectedText.get(6))) {
                                         Debugger.println("Guidelines notification verified... ");
-                                        isPresent= true;
+                                        isPresent = true;
                                     }
                                 }
                             }
                         }
                     }
                 }
+            } else {
+                Debugger.println("Guidelines notification is not as expected ");
+                SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
             }
-            Debugger.println("Guidelines notification is not as expected ");
-            SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
@@ -649,7 +635,7 @@ public class PrintFormsPage {
         }
     }
 
-    public boolean extractAndValidateZipFile( String fileName) {
+    public boolean extractAndValidateZipFile(String fileName) {
         Wait.seconds(10); //wait for zip file download completion
         if (fileName.endsWith(".zip")) {
             if (!TestUtils.extractZipFile(fileName)) {

@@ -11,6 +11,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -218,6 +219,17 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
     public WebElement referralCancelReasonOnCard;
+
+    @FindBy(xpath = "//*[contains(@class,'referral-header__stage-list')]//a")
+    List<WebElement> incompleteSection;
+
+    @FindBy(xpath = "//*[@role = 'dialog']")
+    WebElement mandatoryStageDialogBox;
+
+    @FindBy(xpath = "//button[contains(@class,'closeButtonCss')]")
+    public WebElement dialogBoxCloseButton;
+
+    private String incompleteStage = "//*[contains(@class,'referral-header__stage-list')]//a[text()='" + "dummyValue" + "']";
 
 
     public boolean patientDetailsPageIsDisplayed() {
@@ -1048,6 +1060,65 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);
             SeleniumLib.takeAScreenShot("clickCancelledReferral.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateMandatoryStages(DataTable fieldDetails) {
+        List<String> fieldsText = fieldDetails.asList();
+        try {
+             Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
+            if (fieldsText.get(1).equalsIgnoreCase(incompleteSection.get(0).getText())) {
+                if (fieldsText.get(2).equalsIgnoreCase(incompleteSection.get(1).getText())) {
+                    if (fieldsText.get(3).equalsIgnoreCase(incompleteSection.get(2).getText())) {
+                        if (fieldsText.get(4).equalsIgnoreCase(incompleteSection.get(3).getText())) {
+                            if (fieldsText.get(5).equalsIgnoreCase(incompleteSection.get(4).getText())) {
+                                if(dialogBoxCloseButton.isDisplayed())
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            Debugger.println("The mandatory stage  dialog is not properly displayed");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: validateMandatoryStages: " + exp);
+            SeleniumLib.takeAScreenShot("validateMandatoryStages.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle(DataTable stageName) {
+        try {
+            Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
+            List<String> expStage = stageName.asList();
+            ArrayList<String> actualStages = new ArrayList<String>();
+            for (int i = 0; i < incompleteSection.size(); i++) {
+                actualStages.add(incompleteSection.get(i).getText());
+            }
+            for (int i = 0; i < actualStages.size(); i++) {
+                if (!actualStages.get(i).equalsIgnoreCase(expStage.get(i + 1))) {
+                    Debugger.println("Expected Stage: " + expStage.get(i + 1) + " ,But Actual Stage: " + actualStages.get(i));
+                    return false;
+                }
+            }
+            String pathOfStage = incompleteStage.replace("dummyValue", expStage.get(1));
+            WebElement selectedStage = driver.findElement(By.xpath(pathOfStage));
+            Debugger.println("Clicks on stage link: " + selectedStage.getText());
+            selectedStage.click();//click on the 1st link -requesting Organisation
+            Wait.seconds(10);
+            String currentUrl = driver.getCurrentUrl();
+            //only checking for Requesting organisation link, other links not working as expected as of now, functionality to be improved in later builds.
+            if (!currentUrl.contains("ordering-entity")) {
+                Debugger.println("The link in the pop-up window is not opening the stage as expected, current URL is: " + currentUrl);
+                SeleniumLib.takeAScreenShot("PatientDetailsPageIncompleteSectionInTodoList.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle: " + exp);
+            SeleniumLib.takeAScreenShot("PatientDetailsPageIncompleteSectionInTodoList.jpg");
             return false;
         }
     }
