@@ -160,3 +160,16 @@ Feature: This is a referral feature
     Examples:
       | userType       |
       | GEL_SUPER_USER |
+
+
+  @NTS-4793 @E2EUI-1008 @LOGOUT @PO @v_1
+  Scenario Outline: NTS-4793:Re-order data in referral banner
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    And the user navigates to the "<stage1>" stage
+    And the "<stage1>" stage is marked as Completed
+    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
+
+    Examples:
+      | patient-search-type | stage1          |
+      | NGIS                | Patient details |
