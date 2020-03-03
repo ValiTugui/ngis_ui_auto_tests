@@ -337,7 +337,7 @@ Feature: Print Forms - User flows
     ###Print Forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
-    And the user should see referral submit button as "enabled"
+    And the user should see the referral submit button as enabled
     And the user submits the referral
     Then the submission confirmation message "Your referral has been submitted" is displayed
     And the user is able to see the following guidelines below the confirmation message
@@ -365,7 +365,7 @@ Feature: Print Forms - User flows
     When the user is navigated to a page with title Check your patient's details
     And the referral status is set to "Created"
     When the user submits the referral
-    And the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral
+    Then the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral
       | MandatoryStagesToComplete |
       | Requesting organisation   |
       | Test package              |

@@ -525,7 +525,7 @@ public class PrintFormsPage {
             return false;
         }
     }
-
+    //This method has to be modified as per the earlier PR comment.
     public String readSelectedTestAndLabDetails(String fieldType) {
         try {
             String returnValue = null;
@@ -560,7 +560,7 @@ public class PrintFormsPage {
     public boolean startANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
-            if (!seleniumLib.isElementPresent(startANewReferralButton)) {
+            if (!Wait.isElementDisplayed(driver,startANewReferralButton,30)) {
                 Debugger.println("Referral Submitted :Start New Referral Button Not found");
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
@@ -576,7 +576,7 @@ public class PrintFormsPage {
     public boolean clickOnStartANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, startANewReferralButton);
-            seleniumLib.clickOnWebElement(startANewReferralButton);
+            Actions.clickElement(driver,startANewReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
@@ -585,29 +585,19 @@ public class PrintFormsPage {
         }
     }
 
-    public boolean validateGuidelinesContent(DataTable noticeText) {
+    public boolean validateGuidelinesContent(String expectedGuideLine) {
         try {
             boolean isPresent = false;
-            List<String> expectedText = noticeText.asList();
             Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
-            String[] actualText = downloadNotice.getText().split("\\n");
-            if (actualText[0].equalsIgnoreCase(expectedText.get(0))) {
-                if (actualText[1].equalsIgnoreCase(expectedText.get(1))) {
-                    if (actualText[2].equalsIgnoreCase(expectedText.get(2))) {
-                        if (actualText[3].equalsIgnoreCase(expectedText.get(3))) {
-                            if (actualText[4].equalsIgnoreCase(expectedText.get(4))) {
-                                if (actualText[5].equalsIgnoreCase(expectedText.get(5))) {
-                                    if (actualText[6].equalsIgnoreCase(expectedText.get(6))) {
-                                        Debugger.println("Guidelines notification verified... ");
-                                        isPresent = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                Debugger.println("Guidelines notification is not as expected ");
+            String[] actualGuideLines = downloadNotice.getText().split("\\n");
+            for(int i=0; i<actualGuideLines.length; i++){
+                if(actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)){
+                    isPresent = true;
+                    break;
+               }
+            }
+            if(!isPresent){
+                Debugger.println("Guideline:"+expectedGuideLine+" Not present in the guideline list ");
                 SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
             }
             return isPresent;
@@ -618,40 +608,31 @@ public class PrintFormsPage {
         }
     }
 
-    public boolean referralSubmitButtonStatus() {
-        try {
-            Wait.forElementToBeDisplayed(driver, referralSubmitButton);
-            String referralSubmitButtonBgColor = referralSubmitButton.getCssValue("background-color");
-            if (referralSubmitButtonBgColor.equalsIgnoreCase("rgba(240, 240, 240, 1)")) {
-                Debugger.println("Actual color : " + referralSubmitButtonBgColor + " is displayed when referral submit button is disabled and not highlighted");
-                return false;
-            }
-            Debugger.println("Actual color : " + referralSubmitButtonBgColor + " is displayed when referral submit button is enabled and highlighted");
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PrintFormsPage: Submit referral Button not found. -" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceReferralSubmitBtn.jpg");
-            return false;
-        }
-    }
-
     public boolean extractAndValidateZipFile(String fileName) {
-        Wait.seconds(10); //wait for zip file download completion
-        if (fileName.endsWith(".zip")) {
-            if (!TestUtils.extractZipFile(fileName)) {
-                Debugger.println("Could not extract the zip file: " + fileName);
-                return false;
+        try {
+            Wait.seconds(10); //wait for zip file download completion
+            if (fileName.endsWith(".zip")) {
+                if (!TestUtils.extractZipFile(fileName)) {
+                    Debugger.println("Could not extract the zip file: " + fileName);
+                    return false;
+                }
             }
-        }
-        String[] nameOfFile = fileName.split("\\.");
-        Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
-        File file = new File(defaultDownloadLocation + nameOfFile[0]);
-        if (!file.isDirectory() && file.listFiles().length != 0) {
-            Debugger.println("The downloaded file is empty " + file);
+            String[] nameOfFile = fileName.split("\\.");
+            //Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
+            File file = new File(defaultDownloadLocation + nameOfFile[0]);
+            if (file.isDirectory()) {
+                File[] filesList = file.listFiles();
+                if (filesList != null && filesList.length > 0) {
+                    return true;
+                }
+            }
+            Debugger.println("ZipFile does not contains and directory for Files as expected.");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception from extracting and validatin zip file."+exp);
             return false;
         }
-        Debugger.println("The extracted Zip is not empty");
-        return true;
+
     }
 
 }//end

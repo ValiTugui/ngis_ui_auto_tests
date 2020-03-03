@@ -232,14 +232,14 @@ public class PrintFormSteps extends Pages {
     @And("the user should be able to see referral card status as cancelled with selected {string} reason")
     public void theUserShouldBeAbleToSeeReferralCardStatusAsCancelledWithSelectedReason(String reason) {
         boolean testResult = false;
-        testResult = patientDetailsPage.referralCancelledStatusOnPatientCard(reason);
+        testResult = patientDetailsPage.verifyReferralCancelledStatusOnPatientCard(reason);
         Assert.assertTrue(testResult);
     }
 
     @And("the user clicks the cancelled patient referral card")
     public void theUserClicksTheCancelledPatientReferralCard() {
         boolean testResult = false;
-        testResult = patientDetailsPage.clickCancelledReferralCard();
+        testResult = patientDetailsPage.clickOnCancelledReferralCard();
         Assert.assertTrue(testResult);
     }
 
@@ -258,23 +258,16 @@ public class PrintFormSteps extends Pages {
     }
 
     @And("the user is able to see the following guidelines below the confirmation message")
-    public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable noticeText) {
+    public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable guideLines) {
         boolean testResult = false;
-        testResult = printFormsPage.validateGuidelinesContent(noticeText);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should see referral submit button as {string}")
-    public void theUserShouldSeeReferralSubmitButtonAs(String expectedStatus) {
-        boolean testResult = false;
-        if (expectedStatus.equals("enabled")) {
-            testResult = printFormsPage.referralSubmitButtonStatus();
-            Assert.assertTrue(testResult);
-        } else {
-            testResult = true;
-            testResult = printFormsPage.referralSubmitButtonStatus();
-            Assert.assertFalse(testResult);
+        List<String> stages = guideLines.asList();
+        for(int i=0;i<stages.size(); i++) {
+            testResult = printFormsPage.validateGuidelinesContent(stages.get(i));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
         }
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user is able to download form of the {string} section having file name {string}")
@@ -288,13 +281,14 @@ public class PrintFormSteps extends Pages {
     }
 
     @Then("the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral")
-    public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable incompleteStageNames) {
+    public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable stageNames) {
         boolean testResult = false;
-        boolean testResult1=false, testResult2 = false;
-        testResult1 = patientDetailsPage.validateMandatoryStages(incompleteStageNames);
-        testResult2 = patientDetailsPage.clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle(incompleteStageNames);
-        if ((testResult1 == true) && (testResult2==true)) {
-            testResult=true;
+        List<String> stages = stageNames.asList();
+        for(int i=0;i<stages.size(); i++) {
+            testResult = patientDetailsPage.validateMandatoryStages(stages.get(i));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
         }
         Assert.assertTrue(testResult);
     }

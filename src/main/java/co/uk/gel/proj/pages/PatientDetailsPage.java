@@ -1024,7 +1024,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
-    public boolean referralCancelledStatusOnPatientCard(String reason) {
+    public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
             if (!cancelledReferralStatus.isDisplayed()) {
@@ -1047,80 +1047,42 @@ public class PatientDetailsPage {
         }
     }
 
-    public boolean clickCancelledReferralCard() {
+    public boolean clickOnCancelledReferralCard() {
         try {
             Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
             if (!Wait.isElementDisplayed(driver, cancelledReferralStatus, 30)) {
-                Debugger.println("PatientDetailsPage:clickReferalCard: ReferralCard Not Visible.");
-                SeleniumLib.takeAScreenShot("PatientCard.jpg");
+                Debugger.println("PatientDetailsPage:clickReferralCard: ReferralCard Not Visible.");
+                SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, cancelledReferralStatus);
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);
-            SeleniumLib.takeAScreenShot("clickCancelledReferral.jpg");
+            SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
             return false;
         }
     }
 
-    public boolean validateMandatoryStages(DataTable fieldDetails) {
-        List<String> fieldsText = fieldDetails.asList();
+    public boolean validateMandatoryStages(String stageName) {
+        boolean isPresent = false;
         try {
              Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
-            if (fieldsText.get(1).equalsIgnoreCase(incompleteSection.get(0).getText())) {
-                if (fieldsText.get(2).equalsIgnoreCase(incompleteSection.get(1).getText())) {
-                    if (fieldsText.get(3).equalsIgnoreCase(incompleteSection.get(2).getText())) {
-                        if (fieldsText.get(4).equalsIgnoreCase(incompleteSection.get(3).getText())) {
-                            if (fieldsText.get(5).equalsIgnoreCase(incompleteSection.get(4).getText())) {
-                                if(dialogBoxCloseButton.isDisplayed())
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            Debugger.println("The mandatory stage  dialog is not properly displayed");
-            return false;
+             for(int i=0; i<incompleteSection.size(); i++){
+                 if(incompleteSection.get(i).getText().equalsIgnoreCase(stageName)){
+                     isPresent = true;
+                     break;
+                 }
+             }
+             if(!isPresent) {
+                 Debugger.println("The mandatory stage:"+stageName+" not present in dialog.");
+                 SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
+             }
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: validateMandatoryStages: " + exp);
-            SeleniumLib.takeAScreenShot("validateMandatoryStages.jpg");
+            SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
             return false;
         }
     }
-
-    public boolean clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle(DataTable stageName) {
-        try {
-            Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
-            List<String> expStage = stageName.asList();
-            ArrayList<String> actualStages = new ArrayList<String>();
-            for (int i = 0; i < incompleteSection.size(); i++) {
-                actualStages.add(incompleteSection.get(i).getText());
-            }
-            for (int i = 0; i < actualStages.size(); i++) {
-                if (!actualStages.get(i).equalsIgnoreCase(expStage.get(i + 1))) {
-                    Debugger.println("Expected Stage: " + expStage.get(i + 1) + " ,But Actual Stage: " + actualStages.get(i));
-                    return false;
-                }
-            }
-            String pathOfStage = incompleteStage.replace("dummyValue", expStage.get(1));
-            WebElement selectedStage = driver.findElement(By.xpath(pathOfStage));
-            Debugger.println("Clicks on stage link: " + selectedStage.getText());
-            selectedStage.click();//click on the 1st link -requesting Organisation
-            Wait.seconds(10);
-            String currentUrl = driver.getCurrentUrl();
-            //only checking for Requesting organisation link, other links not working as expected as of now, functionality to be improved in later builds.
-            if (!currentUrl.contains("ordering-entity")) {
-                Debugger.println("The link in the pop-up window is not opening the stage as expected, current URL is: " + currentUrl);
-                SeleniumLib.takeAScreenShot("PatientDetailsPageIncompleteSectionInTodoList.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("PatientDetailsPage: clickOnIncompleteSectionInTodoPopUpListAndGetPageTitle: " + exp);
-            SeleniumLib.takeAScreenShot("PatientDetailsPageIncompleteSectionInTodoList.jpg");
-            return false;
-        }
-    }
-
 }//end
