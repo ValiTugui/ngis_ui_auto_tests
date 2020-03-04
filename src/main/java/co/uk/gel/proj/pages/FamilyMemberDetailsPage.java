@@ -76,7 +76,6 @@ public class FamilyMemberDetailsPage {
     public WebElement nhsNumberLabel;
 
     @FindBy(xpath = "//h2[contains(@class,'css')]/following::button[2]")
-
     public WebElement removeFamilyMember;
 
     @FindBy(id = "nhsNumber")
@@ -1472,6 +1471,5 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-
 
 }//ends
