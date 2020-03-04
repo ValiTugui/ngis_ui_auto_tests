@@ -88,3 +88,30 @@ Feature: Family Members Navigation Stage - Member additions
     Examples:
       | FamilyMember   | TestPackage  | Two |
       | Family members | Test package | 2   |
+
+
+  @NTS-4801 @E2EUI-1106 @LOGOUT @BVT_P0 @v_1
+  Scenario Outline: NTS-4801 - Family members add page - Add non-nullable validation for system fields
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1999:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user navigate to Family Member - Add a new Patient to the database page "<pageTitle>"
+      | APP_URL | family-members/new-patient|
+    And the user clicks the Add new patient to referral button
+    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
+      | labelHeader                    | errorMessageHeader                   | messageColourHeader |
+      | First name ✱                   | First name is required.             | #dd2509             |
+      | Last name ✱                    | Last name is required.              | #dd2509             |
+      | Date of birth ✱                | Date of birth is required.          | #dd2509             |
+      | Gender ✱                       | Gender is required.                 | #dd2509             |
+      | Life status ✱                  | Life status is required.            | #dd2509             |
+      | Ethnicity ✱                    | Ethnicity is required.              | #dd2509             |
+      | Reason NHS Number is missing ✱ | Select the reason for no NHS Number | #dd2509             |
+      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+      | Relationship to proband ✱      | Relationship to proband is required. | #dd2509             |
+
+    Examples:
+      | FamilyMembers  | pageTitle                         |
+      | Family members | Add a new patient to the database |

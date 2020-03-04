@@ -470,4 +470,18 @@ public class FamilyMemberDetailsSteps extends Pages {
         // navigate from family members clinical questions page
         referralPage.clickSaveAndContinueButton();
     }
+
+    @When("the user navigate to Family Member - Add a new Patient to the database page {string}")
+    public void theUserNavigateToFamilyMemberAddANewPatientToTheDatabasePage(String expectedPageTitle,List<String> attributeOfURL) {
+
+        String existingReferralID = referralPage.getPatientReferralId();
+        Debugger.println("existingReferralID " + existingReferralID);
+        String baseURL = attributeOfURL.get(0);
+        String confirmationPage = attributeOfURL.get(1);
+        String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
+        Debugger.println("referralFullUrl :" + referralFullUrl);
+        NavigateTo(referralFullUrl, confirmationPage);
+        Wait.forElementToBeDisplayed(driver, referralPage.pageTitle);
+        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
+    }
 }//end
