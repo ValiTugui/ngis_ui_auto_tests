@@ -45,7 +45,7 @@ Examples:
 | NGIS                | Patient details |   Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
 
-  @NTS-4795 @E2EUI-969 @v_1 @BVT_P0
+  @NTS-4795 @E2EUI-969 @LOGOUT @v_1
   Scenario Outline: NTS-4795:SPINE patient search "<patient-search-type>" With NHS Number and Date of Birth and add to NGIS
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
@@ -60,6 +60,25 @@ Examples:
     Examples:
       | patient-search-type | NhsNumber  | DOB        | addToPatientDetails |
       | NHS Spine           | 9449308691 | 23-05-2011 | Add details to NGIS |
+
+
+  @NTS-4795 @E2EUI-969 @LOGOUT @v_1
+  Scenario Outline: NTS-4795:SPINE patient search "<patient-search-type>" With first name, last name, DOB, Gender and Post-code
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
+    And the user clicks the NO button
+    When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    And the Patient Details page is displayed
+    When the user fills in the Ethnicity field "B - White - Irish"
+    And the Add To Patient Details "<addToPatientDetails>" button is displayed
+
+    Examples:
+      | patient-search-type | addToPatientDetails | SearchDetails                                                                     |
+      | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown:Postcode=RH3 7JP |
+      | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown|
 
 
 
