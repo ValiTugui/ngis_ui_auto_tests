@@ -41,13 +41,15 @@ public class PedigreePage {
     @FindBy(xpath = "//div[@id='work-area']")
     public WebElement pedigreeWorkArea;
 
+    @FindBy(xpath = "//div[@id='pedigree-tool']")
+    public WebElement pedigreeTool;
+
     @FindBy(xpath = "//div[@class='msdialog-box pedigree-okcancel']")
     public WebElement confirmationDialog;
     @FindBy(xpath = "//input[@type='button'][not(contains(@style,'display: none'))][@name='ok']")
     public WebElement confirmationYes;
     @FindBy(xpath = "//div[@class='ok-cancel-body']")
     public WebElement popupMessageBody;
-
 
     //Personal Tab
     @FindBy(xpath = "//div[@id='tab_Personal']//label[contains(@class,'field-name')]")
@@ -1210,7 +1212,6 @@ public class PedigreePage {
     public boolean verifyErrorMessageOnPopup(String errorMessage){
         boolean isPresent = false;
         try {
-            //Popup will display for Reset button click
             Wait.seconds(2);
             SeleniumLib.scrollToElement(confirmationDialog);
             Wait.seconds(2);
@@ -1219,7 +1220,7 @@ public class PedigreePage {
                 isPresent = true;
             }
             if(!isPresent){
-                Debugger.println("Popup error message does not contains");
+                Debugger.println("Popup error message mismatch. Actual:"+actualMessage+",Expected:"+errorMessage);
                 SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
             }
             Actions.clickElement(driver, confirmationYes);
@@ -1243,6 +1244,15 @@ public class PedigreePage {
             SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
             return false;
         }
+    }
+    public boolean verifyThePedigreeDiagramLoadedAsJavaScript(){
+        //Previously it was loading as svg diagram inside iframe... now loading as
+        //Manual team also checking teh same thing via developer tool options.
+        if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
+            Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
+            return false;
+        }
+        return true;
     }
 
 }//end

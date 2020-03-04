@@ -3,7 +3,7 @@
 @pedigree_diagramLayout
 Feature: Pedigree - Diagram Layout
 
-  @NTS-3304 @E2EUI-934 @LOGOUT @v_1 @P0
+  @NTS-3304 @E2EUI-934 @E2EUI-1046 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3304 : Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
@@ -39,6 +39,8 @@ Feature: Pedigree - Diagram Layout
       | Personal  |
       | Phenotype |
       | Tumours   |
+    ##E2EUI-1046
+    And the verify the Pedigree diagram is loaded with java script instead of iframe
     And the user is able to close the popup by clicking on the close icon
 
     Examples:

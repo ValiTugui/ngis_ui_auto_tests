@@ -386,10 +386,20 @@ public class FamilyMemberSearchPage {
         return true;
     }
 
-    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
-        String actualPageDescription = pageDescription.getText();
-       // Debugger.println("The actual Description title  is :" + pageDescription.getText());
-        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    public boolean verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+        try {
+            String actualPageDescription = pageDescription.getText();
+           if(!actualPageDescription.contains(DescriptionOfPage)){
+               Debugger.println("Expected message not found of FamilyMember search page.");
+               SeleniumLib.takeAScreenShot("FMDescription.jpg");
+               return false;
+           }
+           return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying message FamilyMember search page.");
+            SeleniumLib.takeAScreenShot("FMDescription.jpg");
+            return false;
+        }
     }
     public boolean verifyTheQuestionOfThePage(String searchQuestion) {
         String actualQuestion = nhsQuestion.getText();

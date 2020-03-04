@@ -391,4 +391,12 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.verifyErrorMessageOnPopup(errorMessage);
         Assert.assertTrue(testResult);
     }
+
+    @And("the verify the Pedigree diagram is loaded with java script instead of iframe")
+    public void theVerifyThePedigreeDiagramIsLoadedWithJavaScriptInsteadOfIframe() {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyThePedigreeDiagramLoadedAsJavaScript();
+        Assert.assertTrue(testResult);
+
+    }
 }//end
