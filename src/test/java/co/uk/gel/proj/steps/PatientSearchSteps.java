@@ -623,4 +623,14 @@ public class PatientSearchSteps extends Pages {
             Assert.assertEquals(expectedGenderList.get(i).get("genderListHeader"), actualGenderList.get(i));
         }
     }
+
+    @And("the user see a tick mark next to the YES button")
+    public void theUserSeeATickMarkNextToTheYESButton() {
+        Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToYesButton());
+    }
+
+    @And("the user see a tick mark next to the NO button")
+    public void theUserSeeATickMarkNextToTheNOButton() {
+        Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToNoButton());
+    }
 }

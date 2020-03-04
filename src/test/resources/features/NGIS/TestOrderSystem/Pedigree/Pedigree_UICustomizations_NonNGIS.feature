@@ -3,6 +3,7 @@
 @pedigree_uiCustomizationNonNGIS
 Feature: Pedigree - UI Customizations - Non NGIS
 
+  #E2EUI-842
   @NTS-4759 @E2EUI-1626 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4759: Warn a user that they will lose their changes when navigating away from pedigree
     Given a new patient referral is created with associated tests in Test Order System online service

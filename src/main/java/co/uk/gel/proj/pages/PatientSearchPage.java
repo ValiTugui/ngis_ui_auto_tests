@@ -61,6 +61,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[text()='Yes']")
     public WebElement yesButton;
 
+    @FindBy(xpath = "//button[text()='Yes']/*[name()='svg']")
+    public WebElement yesButtonSVG;
+
     @FindBy(css = "legend[class*='field-label']")
     public WebElement dateLabel;
 
@@ -114,6 +117,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//button[text()='No']")
     public WebElement noButton;
+
+    @FindBy(xpath = "//button[text()='No']/*[name()='svg']")
+    public WebElement noButtonSVG;
 
     @FindBy(css = "button[class*='search']")
     public WebElement searchButton;
@@ -1043,6 +1049,23 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
         Debugger.println("Actual gender values: " + actualGenderValues);
         return actualGenderValues;
+    }
+
+
+    public boolean ensureTickMarkIsDisplayedNextToYesButton(){
+        Wait.forElementToBeDisplayed(driver, yesButtonSVG);
+        if(Wait.isElementDisplayed(driver, yesButtonSVG, 10)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToNoButton(){
+        Wait.forElementToBeDisplayed(driver, noButtonSVG);
+        if(Wait.isElementDisplayed(driver, noButtonSVG, 10)){
+            return true;
+        }
+        return false;
     }
 }
 
