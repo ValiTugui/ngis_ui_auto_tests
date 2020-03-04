@@ -99,9 +99,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_search-terms__text__160LA']")
     public WebElement searchStringMessage;
 
-    @FindBy(css = "div[id*='react-select']")
-    public WebElement genderValue;
-
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
@@ -133,6 +130,10 @@ public class FamilyMemberSearchPage {
 
     @FindBy(xpath = "//button[text()='Yes']/*[name()='svg']")
     public WebElement yesButtonSVG;
+
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement addNonTestedFamilyMemberLink;
+
 
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
@@ -182,11 +183,11 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickNoButton() {
-        seleniumLib.clickOnWebElement(noButton);
+        Actions.clickElement(driver,noButton);
     }
 
     public void clickYesButton() {
-        seleniumLib.clickOnWebElement(yesButton);
+        Actions.clickElement(driver,yesButton);
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
@@ -216,7 +217,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickSearchButton() {
-        seleniumLib.clickOnWebElement(searchButton);
+        Actions.clickElement(driver,searchButton);
     }
 
     public boolean verifyMessageOfExistingPatient(String expMessage1,String expMessage2) {
@@ -384,7 +385,7 @@ public class FamilyMemberSearchPage {
 
     public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
         String actualPageDescription = pageDescription.getText();
-        Debugger.println("The actual Description title  is :" + pageDescription.getText());
+       // Debugger.println("The actual Description title  is :" + pageDescription.getText());
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
     public boolean verifyTheQuestionOfThePage(String searchQuestion) {
@@ -529,5 +530,8 @@ public class FamilyMemberSearchPage {
             SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
             return false;
         }
+    }
+    public void clickOnAddNonTestedFamilyMemberLink() {
+        Actions.clickElement(driver,addNonTestedFamilyMemberLink);
     }
 }//end

@@ -875,20 +875,26 @@ public class ReferralPage<check> {
         }
     }
           
-    public boolean verifyNHSDisplayFormat(){
+    private boolean verifyNHSDisplayFormat(){
         //Verify the NHS format.
         int noOfNhsSections = nhsChunkSeparators.size();
-        if(noOfNhsSections != 3){
-            Debugger.println("Expected NHS format as 3 sets, but separated in "+noOfNhsSections+" ways");
+        if(noOfNhsSections%3 != 0){
+            Debugger.println("Expected NHS format as Sets of Three, but separated in "+noOfNhsSections+" ways");
             return false;
         }
         //Expected each section in 3,3,4 size
         int nhsExpSection[] = {3,3,4};
+        int expIdx = 0;
         for(int i=0; i<noOfNhsSections; i++){
-            if(nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[i]){
+            if(i !=0 && i%3 == 1){
+                expIdx = 0;
+            }
+            if(nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[expIdx]){
                 Debugger.println("NHS Display is not in 3-3-4 separation.");
                 return false;
             }
+            expIdx++;
+
         }
         return true;
     }

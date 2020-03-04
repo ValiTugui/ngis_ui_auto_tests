@@ -205,5 +205,8 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-
+    @When("the user clicks on add non-tested-family member link on family landing page")
+    public void theUserClicksOnAddNonTestedFamilyMemberLinkOnFamilyLandingPage() {
+        familyMemberSearchPage.clickOnAddNonTestedFamilyMemberLink();
+    }
 }//end

@@ -76,7 +76,6 @@ public class FamilyMemberDetailsPage {
     public WebElement nhsNumberLabel;
 
     @FindBy(xpath = "//h2[contains(@class,'css')]/following::button[2]")
-
     public WebElement removeFamilyMember;
 
     @FindBy(id = "nhsNumber")
@@ -493,7 +492,7 @@ public class FamilyMemberDetailsPage {
         } catch(ElementClickInterceptedException interExp){
             //Scrolling to the element and then trying again
             Debugger.println("Element Intercepted Exception at Phenotype Selection.");
-            SeleniumLib.scrollToElement(dropdownValue);
+            Actions.scrollToTop(driver);
             return searchAndSelectRandomHPOPhenotype(hpoTerm);
         }catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
@@ -1470,6 +1469,5 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-
 
 }//ends

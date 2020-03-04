@@ -33,7 +33,8 @@ public class Debugger {
                     }
 
                 });
-                handler.setFormatter(new SimpleFormatter());
+                //Commented to avoid printing date time in each line.
+                //handler.setFormatter(new SimpleFormatter());
                 logger.addHandler(handler);
 
             } catch (Exception E) {

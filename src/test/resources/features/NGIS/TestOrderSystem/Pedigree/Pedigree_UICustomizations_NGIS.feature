@@ -3,7 +3,7 @@
 @pedigree_uiCustomizationNGIS
 Feature: Pedigree - UI Customizations - NGIS
 
-  @NTS-3384 @E2EUI-1226 @E2EUI-1948 @E2EUI-1070 @E2EUI-1007 @E2EUI-1080 @E2EUI-1187 @E2EUI-1571 @E2EUI-1444 @LOGOUT @v_1 @P0
+  @NTS-3384 @E2EUI-1226 @E2EUI-1948 @E2EUI-1070 @E2EUI-1030 @E2EUI-1007 @E2EUI-1080 @E2EUI-1187 @E2EUI-1571 @E2EUI-1444 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3384: UI Customizations: NGIS Patient -  Clinical Tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1970:Gender=Male |
@@ -34,7 +34,7 @@ Feature: Pedigree - UI Customizations - NGIS
       | PedigreeStage | MemberDetails               | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1970 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3388 @E2EUI-1073 @LOGOUT @v_1 @P0
+  @NTS-3388 @E2EUI-1073 @E2EUI-1277 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3388: UI Customizations: NGIS Patient -  Tumours Tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1972:Gender=Male |
