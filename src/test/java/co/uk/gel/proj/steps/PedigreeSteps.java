@@ -399,4 +399,15 @@ public class PedigreeSteps extends Pages {
         Assert.assertTrue(testResult);
 
     }
+
+    @Then("the user should see the Non NGSID displayed in personal tab for the selected Non NGIS member for {string}")
+    public void theUserShouldSeeTheNonNGSIDDisplayedInPersonalTabForTheSelectedMember(String searchDetails) {
+        NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
+        if (patient == null) {
+            Debugger.println("Specified Proband Details could not get from the list.");
+            return;
+        }
+        boolean testResult = pedigreePage.verifyNonNGISPatientIDInPersonalTab(patient.getNON_NGIS_ID1());
+        Assert.assertTrue(testResult);
+    }
 }//end

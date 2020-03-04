@@ -68,6 +68,8 @@ public class PedigreePage {
     public WebElement personalTab_Heredity;
     @FindBy(xpath = "//input[@name='age_of_death']")
     public WebElement personalTab_AgeAtDeath;
+    @FindBy(xpath = "//input[@name='nonNgisPatientStableUid']")
+    public WebElement personalTab_nonNgisPatientStableUid;
 
     //Tumours Tab
     @FindBy(xpath = "//div[@id='tab_Tumours']//label[contains(@class,'field-name')]")
@@ -417,7 +419,6 @@ public class PedigreePage {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
-        //Scroll to the WorkArea to locate the diagram nodes without interruption
         String gender = patient.getGENDER();
         if (gender == null || patient.getNGIS_ID() == null) {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
@@ -1251,6 +1252,21 @@ public class PedigreePage {
         if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
             Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
             return false;
+        }
+        return true;
+    }
+
+    public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID){
+
+        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,10)){
+            Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
+        }
+        String actualUid = personalTab_nonNgisPatientStableUid.getText();
+        if(!actualUid.equalsIgnoreCase(nonNgisUID)){
+            Debugger.println("Expected nonNgisPatientStableUid:"+nonNgisUID+", but actual:"+actualUid);
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
         }
         return true;
     }
