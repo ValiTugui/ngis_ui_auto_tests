@@ -650,4 +650,10 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user edits the index number (.*) of family member in patient choice")
+    public void theUserEditsTheIndexNumberOfFamilyMemberInPatientChoice(String index) {
+        int editIndex  = Integer.parseInt(index);
+        patientChoicePage.selectMember(editIndex);
+    }
+
 }//end

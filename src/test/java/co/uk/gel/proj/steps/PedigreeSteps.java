@@ -136,12 +136,7 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-    @Then("the user should be able to see (.*) button on Pedigree Page")
-    public void theUserShouldBeAbleToSeeOnlySaveButton(String buttonName) {
-        boolean testResult = false;
-        testResult = pedigreePage.verifyPresenceOfButton(buttonName);
-        Assert.assertTrue(testResult);
-    }
+
     @And("the user clicks on Save and Continue on Pedigree Page")
     public void theUserClicksOnSaveAndContinueOnPedigree() {
         boolean testResult = false;
@@ -153,6 +148,20 @@ public class PedigreeSteps extends Pages {
     public void theUserScrollToTopOfLandingPage() {
         Actions.scrollToTop(driver);
         Wait.seconds(3);
+    }
+
+    @When("the user selects the document evaluation option")
+    public void theUserSelectsTheDocumentEvaluationOption() {
+        boolean testResult = false;
+        testResult = pedigreePage.clickOnDocumentEvaluationOption();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see (.*) button on Pedigree Page")
+    public void theUserShouldBeAbleToSeeSaveAndContinueButtonOnPedigreePage(String buttonName) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyPresenceOfButton(buttonName);
+        Assert.assertTrue(testResult);
     }
 
 }//end

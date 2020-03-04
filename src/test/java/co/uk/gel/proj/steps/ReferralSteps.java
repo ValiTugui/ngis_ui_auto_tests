@@ -823,4 +823,12 @@ public class ReferralSteps extends Pages {
         }
     }
 
+    @When("the user verify the text present in the page as {string}")
+    public void theUserVerifyTheTextPresentInThePageAs(String expInputs) {
+        String[] inputValue = expInputs.split(",");
+        for (int i = 0; i < inputValue.length; i++) {
+            Debugger.println("Start checking for " + inputValue[i]);
+            Assert.assertTrue(referralPage.verifyTheTextInTheCurrentPage(inputValue[i]));
+        }
+    }
 }

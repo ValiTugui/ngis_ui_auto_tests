@@ -417,9 +417,9 @@ public class PatientDetailsSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, patientDetailsPage.ethnicityButton);
         if (Wait.isElementDisplayed(driver, patientDetailsPage.clearEthnicityDropDownValue, 10)) {
             Wait.seconds(1);
-            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.clearEthnicityDropDownValue);
+            Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.clearEthnicityDropDownValue);
             Debugger.println("Content of Ethnicity field is now deleted: " + Actions.getText(patientDetailsPage.ethnicityButton));
-            Actions.retryClickAndIgnoreElementInterception(driver,patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
+            Actions.retryClickAndIgnoreElementInterception(driver, patientDetailsPage.hospitalNumber);// click om an element field to trigger error on ethnicity button
             Wait.seconds(1); // Wait for the error to be triggered after deleting drop-down value
         }
 
@@ -435,7 +435,7 @@ public class PatientDetailsSteps extends Pages {
         String actualRelationShipToProband = Actions.getText(patientDetailsPage.referralProbandRelationShipStatus);
         Debugger.println("actual relationShip : " + actualRelationShipToProband);
         Debugger.println("Expected relationShip : " + expectedRelationShipToProband);
-        Assert.assertEquals(expectedRelationShipToProband,actualRelationShipToProband);
+        Assert.assertEquals(expectedRelationShipToProband, actualRelationShipToProband);
 
     }
 
@@ -527,7 +527,7 @@ public class PatientDetailsSteps extends Pages {
         List<String> expectedPatientAddress = newPatient.getPatientAddress();
         Debugger.println("actual Patient Address :" + actualPatientAddress);
         Debugger.println("expected Patient Address :" + expectedPatientAddress);
-        Assert.assertEquals(expectedPatientAddress,actualPatientAddress);
+        Assert.assertEquals(expectedPatientAddress, actualPatientAddress);
     }
 
     @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
@@ -601,4 +601,5 @@ public class PatientDetailsSteps extends Pages {
         Actions.scrollToTop(driver);
         patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
     }
-}
+
+}//end
