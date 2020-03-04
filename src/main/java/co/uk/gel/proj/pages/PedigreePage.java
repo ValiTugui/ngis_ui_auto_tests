@@ -1248,7 +1248,7 @@ public class PedigreePage {
     }
     public boolean verifyThePedigreeDiagramLoadedAsJavaScript(){
         //Previously it was loading as svg diagram inside iframe... now loading as
-        //Manual team also checking teh same thing via developer tool options.
+        //Manual team also checking the same thing via developer tool options.
         if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
             Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
             return false;

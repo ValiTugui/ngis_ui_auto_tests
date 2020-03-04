@@ -38,7 +38,7 @@ Feature: Patient search page_SPINE
       | labelHeader |
       | Postcode    |
 
-  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0
+  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1437 @v_1 @BVT_P0
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button

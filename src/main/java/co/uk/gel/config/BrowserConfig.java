@@ -26,7 +26,6 @@ public class BrowserConfig {
                 //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-            System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();
