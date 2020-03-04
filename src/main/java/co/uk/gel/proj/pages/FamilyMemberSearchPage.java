@@ -99,6 +99,9 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//p[@class='styles_text__1aikh styles_text--5__203Ot styles_search-terms__text__160LA']")
     public WebElement searchStringMessage;
 
+    @FindBy(css = "div[id*='react-select']")
+    public WebElement genderValue;
+
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
@@ -187,7 +190,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickYesButton() {
-        Actions.clickElement(driver,yesButton);
+        seleniumLib.clickOnWebElement(yesButton);
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenNoIsSelected() {
@@ -217,7 +220,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickSearchButton() {
-        Actions.clickElement(driver,searchButton);
+        seleniumLib.clickOnWebElement(searchButton);
     }
 
     public boolean verifyMessageOfExistingPatient(String expMessage1,String expMessage2) {

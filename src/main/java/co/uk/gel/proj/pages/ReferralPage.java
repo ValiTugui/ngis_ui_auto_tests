@@ -262,6 +262,18 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Cancelled']")
     public WebElement cancelledReferralStatus;
 
+    @FindBy(xpath = "//div[@data-testid='referral-card-header']")
+    public WebElement referralCardHeader;
+
+    @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
+    public WebElement referralCancelReasonOnCard;
+
+    @FindBy(xpath = "//*[contains(@class,'referral-header__stage-list')]//a")
+    List<WebElement> incompleteSection;
+
+    @FindBy(xpath = "//*[@role = 'dialog']")
+    WebElement mandatoryStageDialogBox;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -875,26 +887,20 @@ public class ReferralPage<check> {
         }
     }
           
-    private boolean verifyNHSDisplayFormat(){
+    public boolean verifyNHSDisplayFormat() {
         //Verify the NHS format.
         int noOfNhsSections = nhsChunkSeparators.size();
-        if(noOfNhsSections%3 != 0){
-            Debugger.println("Expected NHS format as Sets of Three, but separated in "+noOfNhsSections+" ways");
+        if (noOfNhsSections != 3) {
+            Debugger.println("Expected NHS format as 3 sets, but separated in " + noOfNhsSections + " ways");
             return false;
         }
         //Expected each section in 3,3,4 size
         int nhsExpSection[] = {3,3,4};
-        int expIdx = 0;
         for(int i=0; i<noOfNhsSections; i++){
-            if(i !=0 && i%3 == 1){
-                expIdx = 0;
-            }
-            if(nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[expIdx]){
+            if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[i]) {
                 Debugger.println("NHS Display is not in 3-3-4 separation.");
                 return false;
             }
-            expIdx++;
-
         }
         return true;
     }
@@ -1275,5 +1281,83 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    public boolean verifySubmitButtonStatusAfterSubmission() {
+        try {
+            Wait.forElementToBeDisplayed(driver,submitReferralButton);
+            if(submitReferralButton.isEnabled()){
+                Debugger.println("ReferralButton status is enabled after Submission.");
+                SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: submiButtonStatusAfterSubmission: " + exp);
+            SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
+            return false;
+        }
+    }
+    public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
+            if (!cancelledReferralStatus.isDisplayed()) {
+                Debugger.println("The referral cancelled status not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
+            String actStatus = referralCancelReasonOnCard.getText();
+            if (!reason.equalsIgnoreCase(actStatus)) {
+                Debugger.println("The referral cancellation reason not found");
+                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: referralCancelledStatusOnPatientCard: " + exp);
+            SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnCancelledReferralCard() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
+            if (!Wait.isElementDisplayed(driver, cancelledReferralStatus, 30)) {
+                Debugger.println("PatientDetailsPage:clickReferralCard: ReferralCard Not Visible.");
+                SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, cancelledReferralStatus);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);
+            SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateMandatoryStages(String stageName) {
+        boolean isPresent = false;
+        try {
+            Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
+            for(int i=0; i<incompleteSection.size(); i++){
+                if(incompleteSection.get(i).getText().equalsIgnoreCase(stageName)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent) {
+                Debugger.println("The mandatory stage:"+stageName+" not present in dialog.");
+                SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: validateMandatoryStages: " + exp);
+            SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
+            return false;
+        }
+    }
+
 
 }//end

@@ -33,7 +33,7 @@ public class Debugger {
                     }
 
                 });
-                //Commented to avoid printing date time in each line.
+                //Commented to avoid printing date time in each line while writing to log.
                 //handler.setFormatter(new SimpleFormatter());
                 logger.addHandler(handler);
 
