@@ -87,9 +87,9 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
       When the user clicks the Save and Continue button
       Then the "<PrintForms>" stage is selected
-#      When the user navigates to the "<PrintForms>" stage
-#      Then the user is navigated to a page with title Print sample forms
-      And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
+      When the user navigates to the "<PrintForms>" stage
+      Then the user is navigated to a page with title Print sample forms
+#      And the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details
       And the user submits the referral
       And the submission confirmation message "Your referral has been submitted" is displayed
       And the referral status is set to "Submitted"
@@ -97,8 +97,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
       Examples:
         | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
         | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
-
   @NTS-3407 @E2EUI-895 @LOGOUT @securityscan_rd
+    @NTS-3407 @E2EUI-895 @LOGOUT
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 
     ##Create referral with new patient without providing NHS number
@@ -185,7 +185,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
 #      | NHSNumber=NA:DOB=14-05-1935 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
-   And the referral status is set to "Submitted"
+    And the referral status is set to "Submitted"
     When user run security scan
     Examples:
       | PatientDetails  | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | NotesDetails                                              | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  | RevokeMessage                                                             |
