@@ -3,6 +3,7 @@
 @patientSearchNGIS
 Feature: Patient search page_NGIS
 
+  # E2EUI-1125 E2EUI-1268
   @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @E2EUI-1025 @E2EUI-1217 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     Given a web browser is at create new patient page
@@ -10,6 +11,7 @@ Feature: Patient search page_NGIS
     Then the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     When the user click YES button for the question - Do you have the NHS no?
+    And the user see a tick mark next to the YES button
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
@@ -74,6 +76,7 @@ Feature: Patient search page_NGIS
       | Add a new patient to the database | Find your patient | 1 patient record found |
 
 
+   # E2EUI-1125 E2EUI-1268
   @NTS-2795 @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @E2EUI-1662 @E2EUI-865 @E2EUI-1217 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, and gender
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -83,6 +86,7 @@ Feature: Patient search page_NGIS
     When the user navigates back to patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the user clicks the NO button
+    And the user see a tick mark next to the NO button
     And the user search for the new patient using date of birth, first name, last name and gender
     And the user clicks the Search button
     Then a "<patient-type>" result is successfully returned

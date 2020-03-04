@@ -8,9 +8,9 @@ Feature: Pedigree - Pedigree Flow
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2007:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Check your patient's details
     ##Requesting Organisation
+    When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "TAMESIDE GENERAL HOSPITAL" in the search field
     And the user selects a random entity from the suggestions list
@@ -80,17 +80,17 @@ Feature: Pedigree - Pedigree Flow
     Then the user should see the referral submit button as enabled
 
     Examples:
-      | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
-      | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |
+      | Requesting organisation | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
+      | Requesting organisation | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |
 
   @NTS-3386 @E2EUI-1854 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3386 : Add a new RD family of female proband and 2 female daughters with no error messages in the Pedigree application.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Female |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Check your patient's details
     ##Requesting Organisation
+    When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "LONDON GENERAL HOSPITAL" in the search field
     And the user selects a random entity from the suggestions list
@@ -129,15 +129,15 @@ Feature: Pedigree - Pedigree Flow
       | NHSNumber=NA:DOB=17-07-2011 |
 
     Examples:
-      | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
-      | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
+      | Requesting organisation | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
+      | Requesting organisation | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
-  @NTS-3386 @E2EUI-1373 @LOGOUT @v_1 @P0
+  @NTS-3386 @E2EUI-1373 @E2EUI-836 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3386 : Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Check your patient's details
     ##Pedigree - checking for Proband
     And the user navigates to the "<Pedigree>" stage
     And the user is navigated to a page with title Build a pedigree
@@ -175,7 +175,7 @@ Feature: Pedigree - Pedigree Flow
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=17-07-1980:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-      | NHSNumber=NA:DOB=17-07-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | NHSNumber=NA:DOB=17-07-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     ##Pedigree
     When the user navigates to the "<Pedigree>" stage

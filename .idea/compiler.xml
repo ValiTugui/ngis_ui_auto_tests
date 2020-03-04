@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ngis_ui_auto_tests" />
         <module name="StagFinal" />
+        <module name="ngis_ui_auto_tests" />
+        <module name="Stag_Final" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ngis_ui_auto_tests" target="1.8" />
+      <module name="Stag_Final" target="1.8" />
       <module name="StagFinal" target="1.8" />
     </bytecodeTargetLevel>
   </component>

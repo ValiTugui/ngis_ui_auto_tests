@@ -30,6 +30,8 @@ public class StylesUtils {
                 return "rgba(9, 97, 183, 1)";
             case "#d1d5da":
                 return "rgba(209, 213, 218, 1)";
+            case "#777777":
+                return "rgba(119, 119, 119, 1)";
             default:
                 throw new IllegalStateException("Unexpected value: " + fontColor);
         }

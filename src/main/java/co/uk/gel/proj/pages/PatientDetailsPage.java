@@ -11,6 +11,7 @@ import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -211,6 +212,36 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//button[text()='Add new patient to referral']")
     public WebElement addNewPatientToReferral;
+
+    @FindBy(xpath = "//h2[text()='Add information in any order']")
+    public WebElement addInformationInOrderText;
+
+    @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
+    public WebElement printSampleFormsTitle;
+
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    public boolean verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements() {
+        try {
+            List<WebElement> elementsNearToSuccessMsgBox = new ArrayList<>();
+            elementsNearToSuccessMsgBox.add(addInformationInOrderText);
+            elementsNearToSuccessMsgBox.add(printSampleFormsTitle);
+            elementsNearToSuccessMsgBox.add(referralHeaderBanner);
+            for (WebElement elements : elementsNearToSuccessMsgBox) {
+                if (!elements.isDisplayed()) {
+                    Debugger.println("The Cancellation success message is overlapping other elements");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintForms page:verifyTheCancelletionSuccessMsgDoesnotOverlapWithOtherElements:exception found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceCancellationSuccessMsg.jpg");
+            return false;
+        }
+    }
+
 
 
     public boolean patientDetailsPageIsDisplayed() {

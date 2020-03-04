@@ -602,4 +602,10 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
     }
 
+    @Then("the user verifies that the revoke message doesn't overlap any other element")
+    public void theUserVerifiesThatTheRevokeMessageDoesnTOverlapAnyOtherElement() {
+        boolean testResult=false;
+        testResult= patientDetailsPage.verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements();
+        Assert.assertTrue(testResult);
+    }
 }//end

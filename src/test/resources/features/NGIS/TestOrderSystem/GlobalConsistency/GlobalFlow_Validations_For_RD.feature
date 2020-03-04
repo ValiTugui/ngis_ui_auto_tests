@@ -1,8 +1,9 @@
 @regression
-@TO_RD_And_Tumour
-@GlobalPatientInformation
+@TO_RD
+@GlobalFlow
+@GlobalFlow_Validations_For_RD
 
-Feature: Global Patient Information Bar on Family Members Navigation Stage Navigation
+Feature: Global Patient Flow for Rare-Disease
 
   @NTS-4711 @E2EUI-964 @E2EUI-1587 @LOGOUT @RD
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
