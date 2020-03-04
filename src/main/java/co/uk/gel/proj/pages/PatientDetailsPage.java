@@ -755,8 +755,8 @@ public class PatientDetailsPage {
 
     public void clickAddDetailsToNGISButton() {
         try {
-        Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
-        Click.element(driver, addDetailsToNGISButton);
+            Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
+            Click.element(driver, addDetailsToNGISButton);
         }catch(Exception exp){
             Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:"+exp);
             SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
@@ -765,8 +765,8 @@ public class PatientDetailsPage {
 
     public void clickUpdateNGISRecordButton() {
         try {
-        Wait.forElementToBeClickable(driver,updateNGISRecordButton);
-        Click.element(driver, updateNGISRecordButton);
+            Wait.forElementToBeClickable(driver, updateNGISRecordButton);
+            Click.element(driver, updateNGISRecordButton);
         }catch(Exception exp){
             Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:"+exp);
             SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
