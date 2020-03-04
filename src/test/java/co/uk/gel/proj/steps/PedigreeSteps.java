@@ -158,7 +158,6 @@ public class PedigreeSteps extends Pages {
                 }
                 Assert.assertTrue(testResult);
             } else {
-                Debugger.println("EDITABLE: "+testResult);
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("TumoursTab.jpg");
@@ -267,7 +266,9 @@ public class PedigreeSteps extends Pages {
 
     @When("the user click on (.*) menu button")
     public void theUserClickOnButton(String buttonName) {
-        pedigreePage.clickOnMenuButton(buttonName);
+        boolean testResult = false;
+        testResult = pedigreePage.clickOnMenuButton(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user adds new parent node to proband {string}")
@@ -408,6 +409,13 @@ public class PedigreeSteps extends Pages {
             return;
         }
         boolean testResult = pedigreePage.verifyNonNGISPatientIDInPersonalTab(patient.getNON_NGIS_ID1());
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user enters tumour field values as {string}")
+    public void theUserEntersTumourFieldValuesAs(String tumourValues) {
+        boolean testResult = false;
+        testResult = pedigreePage.setTumourValues(tumourValues);
         Assert.assertTrue(testResult);
     }
 }//end

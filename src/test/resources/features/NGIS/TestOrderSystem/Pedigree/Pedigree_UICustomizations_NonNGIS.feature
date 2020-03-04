@@ -239,7 +239,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | Other |
     And the user should see the below options for GestationAge field Personal tab
       | 0 weeks  |
-      | 1 week  |
+      | 1 week   |
       | 2 weeks  |
       | 10 weeks |
       | 11 weeks |
@@ -260,7 +260,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @E2EUI-1345 @LOGOUT @v_1 @P0
+  @NTS-4796 @E2EUI-1345 @E2EUI-1160 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4796: Editable Fields for Non NGIS Participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
@@ -278,12 +278,18 @@ Feature: Pedigree - UI Customizations - Non NGIS
     When the user selects pedigree node for one of the Non NGIS family member for "<ProbandDetails>"
     And the user select the pedigree tab Tumours
     Then the user should see below fields on Tumours Tab with the given status
-      | FieldName                            | FieldStatus  |
-      | Number Of Colorectal Polyps Total    | Editable |
-      | Number of Colorectal Polyps Adenomas | Editable |
+      | FieldName                            | FieldStatus |
+      | Number Of Colorectal Polyps Total    | Editable    |
+      | Number of Colorectal Polyps Adenomas | Editable    |
+    ##E2EUI-1160
+    And the user enters tumour field values as "<TumourFieldValues>"
+    And the user is able to close the popup by clicking on the close icon
+    When the user click on Save menu button
+    Then the user should see error pop up message displayed as "<ErrorMessage>"
+
     Examples:
-      | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
-      | Family members | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | FamilyMember   | ProbandDetails              | TumourFieldValues | ErrorMessage                                                                                                                                                                   | WarningMessage                                                                                |
+      | Family members | NHSNumber=NA:DOB=25-11-2001 | 123abc,234jut     | Invalid value entered for 'Number Of Colorectal Polyps Total' for Participant with id,Invalid value entered for 'Number of Colorectal Polyps Adenomas' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4796 @E2EUI-1348 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4796: Non NGIS Patient Stable UID

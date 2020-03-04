@@ -171,12 +171,16 @@ public class PedigreePage {
 
     public void closePopup() {
         try {
+            Wait.forElementToBeClickable(driver,closePopup);
+            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
+        } catch (ElementClickInterceptedException exp) {
             SeleniumLib.scrollToElement(closePopup);
-            Actions.clickElement(driver, closePopup);
+            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
         } catch (Exception exp) {
             Debugger.println("Could not close the Popup." + exp);
             SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
         }
+
     }
 
     public boolean clickSpecificPedigreeTab(String tabName) {
@@ -913,6 +917,7 @@ public class PedigreePage {
                 waitForThePedigreeDiagramToBeLoaded();
                 Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Save")) {
+                Actions.scrollToTop(driver);
                 Actions.retryClickAndIgnoreElementInterception(driver, saveAndExitButton);
             } else if (buttonName.equalsIgnoreCase("Export")) {
                 Actions.retryClickAndIgnoreElementInterception(driver, exportButton);
@@ -1271,4 +1276,23 @@ public class PedigreePage {
         return true;
     }
 
+    public boolean setTumourValues(String tumourValues){
+        try{
+            String[] values = tumourValues.split(",");
+            if(values == null || values.length != 2){
+                Debugger.println("Wrong input "+tumourValues+":Expected TWO tumour values.");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsTotal);
+            tumoursTab_PolypsTotal.sendKeys(values[0]);
+            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsAdenomas);
+            tumoursTab_PolypsAdenomas.sendKeys(values[1]);
+            Wait.seconds(2);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in setting AgeAtDeath:"+exp);
+            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
+            return false;
+        }
+    }
 }//end
