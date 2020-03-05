@@ -619,5 +619,10 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickAddDetailsToNGISButton();
     }
 
+    @And("the user retrieve the patient HumanReadable-ID from the patient detail url")
+    public void theUserRetrieveThePatientHumanReadableIDFromThePatientDetailUrl() {
+        String expectedPatientID = patientDetailsPage.getTheExpectedCurrentPatientID();
+        Debugger.println("Expected patient ID " + expectedPatientID);
+    }
 
 }
