@@ -436,28 +436,35 @@ Feature: Print Forms - User flows
       | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                    | PatientChoice  | ClinicianName                                |
       | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Functional abnormality of the bladder | Patient choice | ClinicianName=Billy:HospitalNumber=178827893 |
 
-  @NTS- @E2EUI-1789 @E2EUI-1262 @E2EUI-826 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
+  @NTS-4802 @E2EUI-1789 @E2EUI-1262 @E2EUI-826 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-10-2001:Gender=Female |
+    ###Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
+    ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ALTRINCHAM GENERAL" in the search field
     And the user selects the first entity from the suggestions list
     And the user clicks the Save and Continue button
+    ###Test Package
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<ThreeParticipants>"
     And the user clicks the Save and Continue button
+    ###Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     Then the user clicks the Save and Continue button
+    ###Clinical Questions
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    ###Notes
     Then the user is navigated to a page with title Add notes to this referral
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
+    ###Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<ThreeParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
@@ -466,6 +473,7 @@ Feature: Print Forms - User flows
     Then the user is navigated to a page with title Add a family member to this referral
     And the user reads the patient details in family member landing page
     And the user clicks the Save and Continue button
+    ###Patient Choice
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status
     Then the user is navigated to a page with title Add patient choice information
@@ -488,6 +496,7 @@ Feature: Print Forms - User flows
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=14-05-1976 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
       | NHSNumber=NA:DOB=10-11-1977 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
+   ###Print Forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
     And the user reads the patient details in print forms page

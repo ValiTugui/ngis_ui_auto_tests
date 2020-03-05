@@ -299,7 +299,7 @@ public class PrintFormSteps extends Pages {
     public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable stageNames) {
         boolean testResult = false;
         List<String> stages = stageNames.asList();
-        for (int i = 0; i < stages.size(); i++) {
+        for (int i = 1; i < stages.size(); i++) {
             testResult = referralPage.validateMandatoryStages(stages.get(i));
             if (!testResult) {
                 Assert.assertTrue(testResult);
