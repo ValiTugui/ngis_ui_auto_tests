@@ -46,7 +46,7 @@ Feature: Print Forms - Offline Orders
       | RequestingOrganisation                                  |
       | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-todo @E2EUI-1993 @v_1 @P0 @trial
+  @NTS-todo @E2EUI-1993 @v_1 @P0
   Scenario Outline: NTS-: Scenario_1: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -122,7 +122,7 @@ Feature: Print Forms - Offline Orders
       | Text                                                                                                                                       | RequestingOrganisation                                  |
       | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West Genomic Laboratory Hub,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-4713 @E2EUI-1795 @trial
+  @NTS-4713 @E2EUI-1795
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |

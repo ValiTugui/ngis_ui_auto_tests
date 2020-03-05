@@ -315,36 +315,21 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user clicks {string} link to verify the address of the lab in the downloaded file {string}")
-    public void theUserClicksLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress,String fileName) {
+    @Then("the user should be able to click {string} link to verify the address of the lab in the downloaded file")
+    public void theUserShouldBeAbleToClickShowAddressLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress) {
         boolean testResult = false;
         String labAddress=printFormsPage.readLabAddress(showAddress);
         if(labAddress==null){
             Assert.assertTrue(testResult);
         }
-        testResult = printFormsPage.validatePDFContent(labAddress, fileName);
+        testResult = printFormsPage.validatePDFContent(labAddress,"SampleForm.pdf");
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should be able to verify the referral banner present at the top")
-    public void theUserShouldBeAbleToVerifyTheReferralBannerPresentAtTheTop() {
-        boolean testResult = false;
-        testResult = referralPage.verifyTheElementsOnReferralBanner();
-        Assert.assertTrue(testResult);
-    }
     @And("the user verifies that the the relationship to proband {string} is updated in Print forms section")
     public void theUserVerifiesThatTheTheRelationshipToProbandIsUpdatedInPrintFormsSection(String realationToProband) {
         boolean testResult = false;
         testResult = printFormsPage.verifyRelationshipToProband(realationToProband);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user sees the participant list containing details of participants taking part in the referral creation")
-    public void theUserSeesTheParticipantListContainingDetailsOfParticipantsTakingPartInTheReferralCreation() {
-        boolean testResult = false;
-        testResult = printFormsPage.verifyTheParticipantDetailsOnPrintFormsPage();
-        Assert.assertTrue(testResult);
-        testResult = referralPage.checkThatToDoListSuccessfullyLoaded();
         Assert.assertTrue(testResult);
     }
 

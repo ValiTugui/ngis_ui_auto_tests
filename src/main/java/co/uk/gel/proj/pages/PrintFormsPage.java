@@ -109,13 +109,6 @@ public class PrintFormsPage {
     @FindBy(xpath = "//span[contains(.,'Proband')]/ancestor::div[contains(@class,'participant-list')]/div[2]//span[@class='child-element']")
     WebElement relationshipToProbandField;
 
-    @FindBy(xpath = "//div[contains(@class,'contentCss')]")
-    public List<WebElement> participants;
-
-    @FindBy(xpath = "//button[@aria-label='print button']")
-    public List<WebElement> printFormIcons;
-
-
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
         try {
@@ -547,26 +540,18 @@ public class PrintFormsPage {
         }
     }
 
-    //This method has to be modified as per the earlier PR comment.
     public String readSelectedTestDetails() {
         try {
             String returnValue = null;
-
-//            if (fieldType.contains("test type")) {
             Wait.forElementToBeDisplayed(driver, orderedTestType);
             String testTypes = orderedTestType.getText();
-//                String[] tests = testTypes.split("\\n");
-//                if (tests == null || tests.length < 2) {
-//                    Debugger.println("No tests present...");
-//                    return null;
-//                }
             String[] selectedTestTypes = testTypes.split("\\.");
             if (selectedTestTypes == null || selectedTestTypes.length < 1) {
-                Debugger.println("No test exists...");
+                Debugger.println("No selected test exists...");
+                SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
                 return null;
             }
             returnValue = selectedTestTypes[0];
-//            }
             return returnValue;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
@@ -578,15 +563,18 @@ public class PrintFormsPage {
     public String readSelectedLabDetails() {
         try {
             String returnValue = null;
-//            if (fieldType.contains("laboratory")) {
             Wait.forElementToBeDisplayed(driver, selectedLaboratory);
             String[] labName = selectedLaboratory.getText().split(" ");
+            if (labName == null || labName.length < 1) {
+                Debugger.println("No lab details exists...");
+                SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
+                return null;
+            }
             returnValue = labName[0];
-//            }
             return returnValue;
         } catch (Exception exp) {
-            Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
-            SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
+            Debugger.println("PrintFormsPage: readSelectedLabDetails: " + exp);
+            SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
             return null;
         }
     }
@@ -670,41 +658,43 @@ public class PrintFormsPage {
 
     public String readLabAddress(String showAddress) {
         try {
-//            try {
-//                Wait.forElementToBeDisplayed(driver, showLabAddressLink);
-//
-//            } catch (NoSuchElementException exp) {
-//                Debugger.println("Show lab Address link is not present... Lab address already opened.. click on Hide Address "+exp);
-//                if (hideLabAddressLink.isDisplayed()) {
-//                    hideLabAddressLink.click();
-//                }
-//            }
                 Wait.forElementToBeDisplayed(driver, showLabAddressLink);
-                if (showAddress.equalsIgnoreCase(showLabAddressLink.getText()))
+                if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
                     seleniumLib.clickOnWebElement(showLabAddressLink);
-                if (!detailedAddressText.getText().contains("Hide address")) {
-                    Debugger.println("Laboratory address not found in the print forms page");
+                }
+                Wait.forElementToBeDisplayed(driver, detailedAddressText);
+                String detailedAddress = detailedAddressText.getText();
+                if(detailedAddress == null || detailedAddress.isEmpty()){
+                    Debugger.println("No detailed Address present.");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
                     return null;
                 }
+                if (!detailedAddress.contains("Hide address")) {
+                    Debugger.println("Laboratory address does not contain Hide Address option");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+
                 //Debugger.println("The lab address is: " + detailedAddressText.getText());
-                String[] labAddress = detailedAddressText.getText().split("\\n");
-                if (labAddress == null || labAddress.length < 1) {
-                    Debugger.println("Lab address is Not present");
+                String[] labAddress = detailedAddress.split("\\n");
+                if (labAddress == null || labAddress.length < 2) {
+                    Debugger.println("Lab address is Not Shown");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
                     return null;
                 }
                 //Debugger.println("lab Address to search in form: " + labAddress[1]);
                 hideLabAddressLink.click();
                 return labAddress[1];
-//            }
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readLabAddress: " + exp);
-            SeleniumLib.takeAScreenShot("addressDetailsOfLab.jpg");
+            SeleniumLib.takeAScreenShot("LabAddress.jpg");
             return null;
         }
     }
 
     public boolean verifyRelationshipToProband(String relationToProband) {
         try {
+            Wait.forElementToBeDisplayed(driver, relationshipToProbandField);
             String relationshipToProbandInPrintFormSection = relationshipToProbandField.getText();
             if (!relationToProband.equals(relationshipToProbandInPrintFormSection)) {
                 Debugger.println("The relationship to proband is not updated: " + relationshipToProbandInPrintFormSection);
@@ -715,28 +705,6 @@ public class PrintFormsPage {
         } catch (Exception exp) {
             Debugger.println("Referral page: verifyRelationshipToProband : " + exp);
             SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTheParticipantDetailsOnPrintFormsPage() {
-        try {
-            participants = new ArrayList<>();
-            printFormIcons = new ArrayList<>();
-            for (WebElement links : printFormIcons) {
-                if (links.isDisplayed())
-                    for (WebElement element : participants) {
-                        if (!element.getText().contains("NHS No Born Gender Patient NGIS ID")) {
-                            Debugger.println("Participant details are not displayed on the referral banner  ");
-                            SeleniumLib.takeAScreenShot("ParticipantDetailsOfReferral.jpg");
-                            return false;
-                        }
-                    }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Print Forms Page:verifyTheParticipantDetailsOnPrintFormsPage: " + exp);
-            SeleniumLib.takeAScreenShot("ParticipantDetailsOfReferral.jpg");
             return false;
         }
     }

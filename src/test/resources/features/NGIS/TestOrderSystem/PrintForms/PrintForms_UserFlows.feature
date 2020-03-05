@@ -436,7 +436,7 @@ Feature: Print Forms - User flows
       | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                    | PatientChoice  | ClinicianName                                |
       | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Functional abnormality of the bladder | Patient choice | ClinicianName=Billy:HospitalNumber=178827893 |
 
-  @NTS- @E2EUI-1789 @LOGOUT @v_1 @P0
+  @NTS- @E2EUI-1789 @E2EUI-1262 @E2EUI-826 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-10-2001:Gender=Female |
@@ -445,7 +445,6 @@ Feature: Print Forms - User flows
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ALTRINCHAM GENERAL" in the search field
     And the user selects the first entity from the suggestions list
-#    And the user selects a random entity from the suggestions list
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<ThreeParticipants>"
@@ -491,15 +490,16 @@ Feature: Print Forms - User flows
       | NHSNumber=NA:DOB=10-11-1977 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
-    And the user sees the participant list containing details of participants taking part in the referral creation
     And the user reads the patient details in print forms page
     Then the user should see same data in family member landing page and print forms page
     And the user is able to download print form for the proband
+    ###Covering E2EUI-826
+    And the user should be able to click "Show address" link to verify the address of the lab in the downloaded file
     Then the user is able to download print forms for "<ThreeParticipants>" family members with the below details
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=14-05-1976 |
       | NHSNumber=NA:DOB=10-11-1977 |
-
+    And the user should be able to click "Show address" link to verify the address of the lab in the downloaded file
     Examples:
       | ThreeParticipants | ClinicalQuestionDetails                   | ResponsibleClinicianDetails                | ClinicianName                           | PrintForms  |
       | 3                 | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | LastName=Barick:Department=Victoria Street | ClinicianName=Deepak:HospitalNumber=123 | Print forms |
