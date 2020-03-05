@@ -55,27 +55,4 @@ public class GlobalBehaviourSteps extends Pages {
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
         Assert.assertTrue(testResult);
     }
-
-    @And("the user verifies the color and size of the labels in (.*) page")
-    public void theUserVerifiesTheColorAndSizeOfTheLabelsInCheckYourPatientSDetailsPage(String pageTitle, DataTable fontproperty) {
-        Assert.assertEquals(pageTitle, referralPage.getTheCurrentPageTitle());
-        List<List<String>> expectedLlabelProperties = fontproperty.asLists(String.class);
-        List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
-        List actualFieldLabelsSize = referralPage.getTheFontSizeOfFieldLabelsOnCurrentPage();
-        List actualColourFieldLabel = referralPage.getColourOfTheFieldsLabelsOnCurrentPage();
-        String expectedFontColorInRGB = "";
-        for (int i = 1; i < expectedLlabelProperties.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLlabelProperties.get(i).get(0) + " count: " + i);
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
-            Assert.assertTrue(actualFieldsLabels.contains(expectedLlabelProperties.get(i).get(0)));
-            Debugger.println("Expected size of labels " + expectedLlabelProperties.get(i).get(2) + " count: " + i);
-            Debugger.println("Actual size of labels " + actualFieldLabelsSize.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLlabelProperties.get(i).get(2), actualFieldLabelsSize.get(i - 1));
-            Debugger.println("Expected label Colour " + expectedLlabelProperties.get(i).get(1) + " count: " + i);
-            expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLlabelProperties.get(i).get(1));
-            Debugger.println("Expected label Colour RGB " + expectedFontColorInRGB);
-            Debugger.println("Actual label Colour RGB " + actualColourFieldLabel.get(i - 1) + "\n");
-            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldLabel.get(i - 1));
-        }
-    }
 }//end

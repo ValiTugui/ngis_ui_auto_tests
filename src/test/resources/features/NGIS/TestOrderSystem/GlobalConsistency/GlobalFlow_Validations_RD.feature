@@ -345,3 +345,44 @@ Feature: Feature: Global Patient Flow - End to end RD
     Examples:
       | warningMessage                    | warningMessage1                                             | newStage | acknowledgeMessage | ClinicalQuestionDetails                   | FamilyMemberDetails                                               | DiseaseStatusDetails                    | RecordedBy                            | SearchPanels | MemberDetails               |
       | Changes you made may not be saved | This section contains unsaved information. Discard changes? | Notes    | Dismiss            | DiseaseStatus=Unaffected:AgeOfOnset=00,02 | NHSNumber=NA:DOB=19-04-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02 | ClinicianName=Bond:HospitalNumber=007 | cardiac arr  | NHSNumber=NA:DOB=02-01-2010 |
+
+  @NTS-4711 @E2EUI-1572  @LOGOUT
+  Scenario Outline: NTS-4711: e2e content consistency: update first name, last name
+    Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | GEL_NORMAL_USER |
+      ##Patient Search Page
+    And the user is navigated to a page with title Find your patient
+    When the user clicks the NO button
+    And the user verify the text present in the page as "<Name>"
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    Then the message "No patient found" is displayed below the search button
+    Then the user clicks on the create new patient record
+      ##Create a New Patient Page
+    And the user is navigated to a page with title Add a new patient to the database
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
+    And the user verify the text present in the page as "<Name>"
+    And the user clicks the Start a new Referral button
+      ##Patient Details Page
+    When the user is navigated to a page with title Check your patient's details
+    And the user verify the text present in the page as "<Name>"
+      ##Responsible Clinician Page
+    And the user navigates to the "<Responsibleclinician>" stage
+    And the user verify the text present in the page as "<Name>"
+      ##Family Member Page
+    When the user navigates to the "<Familymembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+      ##Family Member Search Page
+    And the user clicks on Add family member button
+    When the user clicks the NO button
+    When the user types in valid details "<FamilyMemberDetails>" of a "NGIS" patient in the No of Fields
+    And the user clicks the Search button
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    And the user verify the text present in the page as "<Name>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+
+    Examples:
+      | Responsibleclinician  | Familymembers  | FamilyMemberDetails                                                      | RelationshipToProband | Name                 |
+      | Responsible clinician | Family members | DOB=23-03-2011:FirstName=Nelly:LastName=Stambukdelifschitz:Gender=Female | Full Sibling          | First name,Last name |

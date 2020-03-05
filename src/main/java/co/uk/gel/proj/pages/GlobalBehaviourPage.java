@@ -16,12 +16,10 @@ import java.util.List;
 public class GlobalBehaviourPage {
 
     WebDriver driver;
-    SeleniumLib seleniumLib;
 
     public GlobalBehaviourPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(xpath = "//*[contains(text(),'NGIS TOMS')]")
@@ -44,12 +42,6 @@ public class GlobalBehaviourPage {
 
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
-
-    @FindBy(xpath = "//div[@id='referral__header']")
-    public WebElement referralHeaderBanner;
-
-    @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
-    List<WebElement> referralHeaderDetails;
 
     @FindBy(xpath="//button[text()='Continue']")
     public WebElement continueButtonOnLandingPage;
@@ -87,33 +79,16 @@ public class GlobalBehaviourPage {
         }
     }
 
-    public boolean verifyTheElementsOnReferralBanner() {
-        try {
-            Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
-            Actions.scrollToBottom(driver);
-            for (int i = 0; i < referralHeaderDetails.size(); i++) {
-                if (!seleniumLib.isElementPresent(referralHeaderDetails.get(i)) && !referralHeaderDetails.get(i).isDisplayed()) {
-                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Probound referral details not found: Elements not found " + exp);
-            SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
-            return false;
-        }
-    }
-
-
     public boolean verifyTheContinueButtonOnLandingPage() {
         try {
-            if (!seleniumLib.isElementPresent(continueButtonOnLandingPage)) {
+            if (!Wait.isElementDisplayed(driver,continueButtonOnLandingPage,30)) {
                 Debugger.println("Continue button is not present on landing page");
+                SeleniumLib.takeAScreenShot("ContinueButtonNotPresent.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
+            Debugger.println("Exception in verifying verifyTheContinueButtonOnLandingPage:"+exp);
             SeleniumLib.takeAScreenShot("ContinueButtonOnLandingPage");
             return false;
         }

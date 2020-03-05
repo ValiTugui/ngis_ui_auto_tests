@@ -137,8 +137,4 @@ public class Wait {
             return null;
         }
     }
-    public static void forElementToBePresent(By locator,int maxWaitTime){
-        WebDriverWait wait =new WebDriverWait(webDriver,maxWaitTime);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
 }
