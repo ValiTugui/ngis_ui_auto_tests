@@ -289,14 +289,14 @@ public class ReferralPage<check> {
     public void clickSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
             if (helix.size() > 0) {
                 try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                   Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
                 } catch (TimeoutException texp) {
                     //Still the helix in action, waiting for another 40 seconds.
                     //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
@@ -308,13 +308,12 @@ public class ReferralPage<check> {
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
-        } catch (Exception exp) {
+        }catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
             Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
         }
     }
-
     public void clickSaveAndContinueButtonOnThePatientChoiceComponent() {
         try {
             try {
@@ -322,14 +321,14 @@ public class ReferralPage<check> {
                 Wait.forElementToBeDisplayed(driver, consentDocumentShadow, 200);
                 Wait.forElementToBeDisplayed(driver, consentDocumentPrintableForm, 200);
                 Wait.forElementToBeDisplayed(driver, consentDocumentHeaderInfo, 200);
-            } catch (Exception exp) {
+            }catch (Exception exp){
                 Debugger.println("Consent Form is not visible ...");
                 SeleniumLib.takeAScreenShot("PatientChoiceConsentDocument.jpg");
                 //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
             }
 
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Wait.forElementToBeClickable(driver,saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
@@ -379,7 +378,7 @@ public class ReferralPage<check> {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
             SeleniumLib.takeAScreenShot("ReferralNotCreated.jpg");
             //Observed undefined attached in the URL sometime....This is to verify the URL the moment
-            Debugger.println("ReferralNotCreated:URL:" + driver.getCurrentUrl());
+            Debugger.println("ReferralNotCreated:URL:"+driver.getCurrentUrl());
             Assert.assertFalse("Referral Could not created Successfully. Check ReferralNotCreated.jpg", true);
             return false;
         }
@@ -389,9 +388,9 @@ public class ReferralPage<check> {
         try {
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             return Wait.isElementDisplayed(driver, toDoList, 30);
-        } catch (Exception exp) {
+        }catch(Exception exp){
             Debugger.println("ToDoList not listed even after waiting period...waiting for another 30 seconds...");
-            return Wait.isElementDisplayed(driver, toDoList, 30);
+            return Wait.isElementDisplayed(driver,toDoList,30);
         }
     }
 
@@ -420,28 +419,28 @@ public class ReferralPage<check> {
     public void navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList, 200);
-            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-            referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            Wait.forElementToBeDisplayed(driver, referralStage);
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (TimeoutException exp) {
-            Debugger.println("Stage Click: TimeoutException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (NoSuchElementException exp) {
-            Debugger.println("Stage Click: NoSuchElementException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (Exception exp) {
-            Debugger.println("Stage Click: Exception: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        }
+                Wait.forElementToBeDisplayed(driver, toDoList, 200);
+                String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
+                referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+                Wait.forElementToBeDisplayed(driver, referralStage);
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            } catch (StaleElementReferenceException staleExp) {
+               Debugger.println("Stage Click: StaleElementReferenceException: "+staleExp);
+               referralStage = driver.findElement(By.xpath("//a[contains(text(),'"+stage+"')]"));
+               Actions.retryClickAndIgnoreElementInterception(driver,referralStage);
+            }catch(TimeoutException exp) {
+                Debugger.println("Stage Click: TimeoutException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            }catch(NoSuchElementException exp) {
+                Debugger.println("Stage Click: NoSuchElementException: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            }catch(Exception exp) {
+                Debugger.println("Stage Click: Exception: " + exp);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            }
     }
 
     public boolean stageIsSelected(String stage) {
@@ -459,7 +458,7 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList, 200);
+            Wait.forElementToBeDisplayed(driver, toDoList,200);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
@@ -467,7 +466,7 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralStage);
             Wait.seconds(2);
             List<WebElement> completedIcon = referralStage.findElements(By.cssSelector(stageCompleteLocator));
-            if (completedIcon != null && completedIcon.size() > 0) {//Got ArrayIndexOutOfBounds Exception some times, so added this cehck
+            if(completedIcon != null && completedIcon.size() > 0) {//Got ArrayIndexOutOfBounds Exception some times, so added this cehck
                 Wait.forElementToBeDisplayed(driver, completedIcon.get(0), 200);
                 //boolean status = referralStage.getAttribute("class").contains(stageCompleteLocator);
                 if (completedIcon.size() == 1) {
@@ -475,26 +474,26 @@ public class ReferralPage<check> {
                 }
             }
             //In case of failure, trying another way
-            String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
+            String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
             WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if (Wait.isElementDisplayed(driver, completedMarkElement, 200)) {
+            if(Wait.isElementDisplayed(driver,completedMarkElement,200)){
                 return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
             SeleniumLib.takeAScreenShot("StageComplete.jpg");
             return false;
         } catch (Exception exp) {
-            try {
+            try{
                 //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
-                String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
+                String completedMark = stageCompletedMark.replaceAll("dummyStage",stage);
                 WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-                if (Wait.isElementDisplayed(driver, completedMarkElement, 200)) {
+                if(Wait.isElementDisplayed(driver,completedMarkElement,200)){
                     return true;
                 }
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
-            } catch (Exception exp1) {
+            }catch(Exception exp1) {
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
@@ -504,12 +503,12 @@ public class ReferralPage<check> {
 
     public boolean stageIsMandatoryToDo(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList);
-            String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
-            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
-            if (webElementList.size() == 1) {
-                return true;
+        Wait.forElementToBeDisplayed(driver, toDoList);
+        String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
+        WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
+        List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
+        if(webElementList.size() == 1){
+            return true;
             }
             return false;
         } catch (Exception exp) {
@@ -540,7 +539,7 @@ public class ReferralPage<check> {
     }
 
     public void clickLogoutButton() {
-        // Wait.forElementToBeDisplayed(driver, headerRightArea); // Element not in E2E-Latest
+       // Wait.forElementToBeDisplayed(driver, headerRightArea); // Element not in E2E-Latest
         Actions.clickElement(driver, logoutButton);
     }
 
@@ -552,12 +551,12 @@ public class ReferralPage<check> {
     public String getTheCurrentPageTitle() {
         try {
             //Reduced the waiting time to 5 seconds from 30 seconds
-            if (Wait.isElementDisplayed(driver, pageTitle, 5)) {
+            if(Wait.isElementDisplayed(driver, pageTitle, 5)) {
                 return Actions.getText(pageTitle);
             }
             return null;
-        } catch (Exception exp) {
-            return null;
+        }catch(Exception exp){
+           return null;
         }
     }
 
@@ -591,19 +590,19 @@ public class ReferralPage<check> {
         try {
             Wait.seconds(2);
             int noOfErrors = validationErrors.size();
-            if (noOfErrors == 0) {
+            if(noOfErrors == 0){
                 clickSaveAndContinueButton();//Click on Save and Continue Again. Some times click not happens on this button
                 Wait.seconds(2);
             }
             noOfErrors = validationErrors.size();
-            if (noOfErrors == 0) {
+            if(noOfErrors == 0){
 
             }
             String actualMessage = "";
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             boolean isPresent = false;
-            for (int i = 0; i < noOfErrors; i++) {
+            for(int i=0; i<noOfErrors; i++) {
                 actualMessage = validationErrors.get(i).getText();
                 if (errorMessage.equalsIgnoreCase(actualMessage)) {
                     actColor = validationErrors.get(0).getCssValue("color");
@@ -613,8 +612,8 @@ public class ReferralPage<check> {
                     }
                 }
             }
-            if (!isPresent) {
-                Debugger.println("ErrorMessage:" + errorMessage + ", not displayed in :" + expectedFontColor);
+            if(!isPresent){
+                Debugger.println("ErrorMessage:"+errorMessage+", not displayed in :"+expectedFontColor);
                 SeleniumLib.takeAScreenShot("NoErrorMessage.jpg");
             }
             return isPresent;
@@ -627,14 +626,14 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             String actualPageTitle = getTheCurrentPageTitle();
-            if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
+            if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                 return true;
             }
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
-            List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
-            if (titleElements != null) {
-                for (int i = 0; i < titleElements.size(); i++) {
-                    if (titleElements.get(i).getText().contains(expTitle)) {
+            List <WebElement> titleElements = driver.findElements(By.xpath("/h1"));
+            if(titleElements != null){
+                for(int i=0;i<titleElements.size(); i++){
+                    if(titleElements.get(i).getText().contains(expTitle)){
                         return true;
                     }
                 }
@@ -651,21 +650,21 @@ public class ReferralPage<check> {
             try {
                 Wait.seconds(2);
                 titleElement = driver.findElement(pageTitle);
-                if (Wait.isElementDisplayed(driver, titleElement, 5)) {
+                if(Wait.isElementDisplayed(driver,titleElement,5)){
                     return true;
                 }
-            } catch (NoSuchElementException exp) {
+            }catch(NoSuchElementException exp){
                 //Wait for 10 seconds and check again. This is introduced based on the failures observed.
                 Actions.scrollToTop(driver);
                 Wait.seconds(1);
                 titleElement = driver.findElement(pageTitle);
-                if (Wait.isElementDisplayed(driver, titleElement, 5)) {
+                if(Wait.isElementDisplayed(driver,titleElement,5)){
                     return true;
                 }
-            }
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("Page with Title: " + expTitle + " not loaded." + exp);
+           }
+           return false;
+        }catch(Exception exp){
+            Debugger.println("Page with Title: "+expTitle+" not loaded."+exp);
             Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
             return false;
@@ -725,38 +724,35 @@ public class ReferralPage<check> {
         }
         return actualTableHeaders;
     }
-
-    public void submitReferral() {
-        try {
-            if (Wait.isElementDisplayed(driver, submitReferralButton, 100)) {
+    public void submitReferral(){
+        try{
+            if(Wait.isElementDisplayed(driver,submitReferralButton,100)){
                 Actions.clickElement(driver, submitReferralButton);
                 Debugger.println("Referral submitted...");
             }
-        } catch (Exception exp) {
-            Debugger.println("Exception from submitting Referral " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from submitting Referral "+exp);
             SeleniumLib.takeAScreenShot("submitReferral.jpg");
         }
     }
-
-    public void clicksOnCancelReferralLink() {
-        try {
-            if (Wait.isElementDisplayed(driver, cancelReferralLink, 100)) {
+    public void clicksOnCancelReferralLink(){
+        try{
+            if(Wait.isElementDisplayed(driver,cancelReferralLink,100)){
                 cancelReferralLink.click();
                 Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
             }
-        } catch (Exception exp) {
-            Debugger.println("Exception from Cancelling Referral " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from Cancelling Referral "+exp);
             SeleniumLib.takeAScreenShot("cancelReferral.jpg");
         }
     }
-
     public void selectCancellationReason(String reason) {
         try {
             Actions.clickElement(driver, cancelReasonDropdown);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, reason);
-        } catch (Exception exp) {
-            Debugger.println("Exception from cancel drop down: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from cancel drop down: "+exp);
             SeleniumLib.takeAScreenShot("cancelReferralDD.jpg");
         }
     }
@@ -764,13 +760,12 @@ public class ReferralPage<check> {
     public void clickCancelReferralLink() {
         Actions.clickElement(driver, cancelReferralLink);
     }
-
     public boolean cancelReferralConfirmationIsDisplayed() {
         try {
             Wait.forElementToBeDisplayed(driver, cancelReferralNotification);
             Wait.forElementToDisappear(driver, By.cssSelector(cancelReferralLocator));
             return true;
-        } catch (Exception exp) {
+        } catch (Exception exp){
             Debugger.println("Cancel Referral notification is not displayed");
             return false;
         }
@@ -786,76 +781,73 @@ public class ReferralPage<check> {
         return Actions.getText(referralStatus).contains(expectedStatus);
     }
 
-    public String getPatientNGISId() {
+    public String getPatientNGISId(){
         Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 3);
         return Actions.getText(referralHeaderPatientNgisId);
     }
 
-    public String getPatientReferralId() {
+    public String getPatientReferralId(){
         Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
         return Actions.getText(referralHeaderReferralId);
     }
 
-    public String getPatientClinicalIndication() {
+    public String getPatientClinicalIndication(){
         Wait.isElementDisplayed(driver, referralHeaderClinicalId, 3);
         return Actions.getText(referralHeaderClinicalId);
     }
-
     public void submitCancellation() {
         try {
             Actions.clickElement(driver, cancelReferralButtons.get(1));
             Wait.seconds(5);//Waiting for 5 seconds to load the cancellation message.
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on cancel Referral: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from Clicking on cancel Referral: "+exp);
             SeleniumLib.takeAScreenShot("cancelRefButton.jpg ");
         }
     }
-
-    public boolean verifyCancellationMessage(String expMessage) {
-        try {
-            Wait.forElementToBeDisplayed(driver, notificationSuccessMessage);
-            if (!Wait.isElementDisplayed(driver, notificationSuccessMessage, 30)) {
+    public boolean verifyCancellationMessage(String expMessage){
+        try{
+             Wait.forElementToBeDisplayed(driver,notificationSuccessMessage);
+            if(!Wait.isElementDisplayed(driver,notificationSuccessMessage,30)){
                 String actMessage = notificationSuccessMessage.getText();
-                if (!expMessage.equalsIgnoreCase(actMessage)) {
-                    Debugger.println("Expected Message: " + expMessage + " not displayed after referral cancellation.ActualMessage:" + actMessage);
+                if(!expMessage.equalsIgnoreCase(actMessage)) {
+                    Debugger.println("Expected Message: " + expMessage + " not displayed after referral cancellation.ActualMessage:"+actMessage);
                     return false;
                 }
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from Cancelling Referral." + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception from Cancelling Referral."+exp);
             SeleniumLib.takeAScreenShot("cancelRefMessage.jpg");
             return false;
         }
     }
 
-    public String getSubmissionConfirmationMessageIsDisplayed() {
+    public String  getSubmissionConfirmationMessageIsDisplayed() {
         try {
             Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 200);
             return Actions.getText(submissionConfirmationBannerTitle);
-        } catch (Exception exp) {
-            Debugger.println("Referral submission confirm message not displayed: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Referral submission confirm message not displayed: "+exp);
             SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
             return null;
         }
     }
 
-    public String getReferralStatus() {
+    public String getReferralStatus(){
         try {
             Wait.forElementToBeDisplayed(driver, referralStatus);
             return Actions.getText(referralStatus);
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying referral Submission status:" + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
             return null;
         }
     }
-
-    public boolean verifyReferralButtonStatus(String expectedStatus) {
+    public boolean verifyReferralButtonStatus(String expectedStatus){
         try {
-            String submitStatus = referralButtonStatusTitle.replaceAll("dummyStatus", expectedStatus);
-            return Wait.isElementDisplayed(driver, driver.findElement(By.xpath(submitStatus)), 60);
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying referral Submission status:" + exp);
+            String submitStatus = referralButtonStatusTitle.replaceAll("dummyStatus",expectedStatus);
+            return Wait.isElementDisplayed(driver, driver.findElement(By.xpath(submitStatus)),60);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying referral Submission status:"+exp);
             SeleniumLib.takeAScreenShot("referralButtonStatus.jpg");
             return false;
         }
@@ -879,7 +871,7 @@ public class ReferralPage<check> {
     }
 
 
-    public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
+     public List<String> getColourOfTheFieldsErrorMessagesOnCurrentPage() {
         try {
             Wait.forElementToBeDisplayed(driver, pageTitle);
             List<String> actualErrorMessagesColour = new ArrayList<>();
@@ -894,7 +886,7 @@ public class ReferralPage<check> {
             return null;
         }
     }
-
+          
     public boolean verifyNHSDisplayFormat() {
         //Verify the NHS format.
         int noOfNhsSections = nhsChunkSeparators.size();
@@ -903,8 +895,8 @@ public class ReferralPage<check> {
             return false;
         }
         //Expected each section in 3,3,4 size
-        int nhsExpSection[] = {3, 3, 4};
-        for (int i = 0; i < noOfNhsSections; i++) {
+        int nhsExpSection[] = {3,3,4};
+        for(int i=0; i<noOfNhsSections; i++){
             if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[i]) {
                 Debugger.println("NHS Display is not in 3-3-4 separation.");
                 return false;
@@ -912,123 +904,119 @@ public class ReferralPage<check> {
         }
         return true;
     }
-
-    public boolean verifyNGISIDDisplayFormat() {
+    public boolean verifyNGISIDDisplayFormat(){
         //Verify for the NGIS format
         int noOfNgisSections = ngisIDChunkSeparators.size();
-        if (noOfNgisSections != 3) {
-            Debugger.println("Expected NGISID format as 3 sets, but separated in " + noOfNgisSections + " ways");
+        if(noOfNgisSections != 3){
+            Debugger.println("Expected NGISID format as 3 sets, but separated in "+noOfNgisSections+" ways");
             return false;
         }
         //Expected each section in 4,4,4 size
-        int bgisExpSection[] = {4, 4, 4};
-        for (int i = 0; i < noOfNgisSections; i++) {
-            if (ngisIDChunkSeparators.get(i).getText().trim().length() != bgisExpSection[i]) {
+        int bgisExpSection[] = {4,4,4};
+        for(int i=0; i<noOfNgisSections; i++){
+            if(ngisIDChunkSeparators.get(i).getText().trim().length() != bgisExpSection[i]){
                 Debugger.println("NGISID Display is not in 4-4-4 separation.");
                 return false;
             }
         }
         return true;
     }
-
-    public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember) {
-        try {
+    public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember){
+        try{
             //Verify  First name and last name
             String firstNameLastName = familyMemberNames.getText();
-            if (!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME())) {
-                Debugger.println("First Name Last Name: " + familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME() + " not displayed on the banner.");
+            if(!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME())){
+                Debugger.println("First Name Last Name: "+familyMember.getLAST_NAME()+", "+familyMember.getFIRST_NAME()+" not displayed on the banner.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             String bannerGender = familyMemberGender.getText();
-            if (!bannerGender.equalsIgnoreCase(familyMember.getGENDER())) {
-                Debugger.println("Gender: " + familyMember.getGENDER() + " not displayed on the banner.");
+            if(!bannerGender.equalsIgnoreCase(familyMember.getGENDER())){
+                Debugger.println("Gender: "+familyMember.getGENDER()+" not displayed on the banner.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
-            String bannerDob = familyMemberDob.getText();
-            if (!bannerDob.startsWith(familyMember.getBORN_DATE())) {
-                Debugger.println("Born Date: " + familyMember.getBORN_DATE() + " not displayed on the banner.");
+            String bannerDob  = familyMemberDob.getText();
+            if(!bannerDob.startsWith(familyMember.getBORN_DATE())){
+                Debugger.println("Born Date: "+familyMember.getBORN_DATE()+" not displayed on the banner.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
-            String bannerNhs = familyMemberNhsNumbers.getText();
-            if (bannerNhs != null && !bannerNhs.isEmpty()) {
+            String bannerNhs  = familyMemberNhsNumbers.getText();
+            if(bannerNhs != null && !bannerNhs.isEmpty()) {
                 if (!bannerNhs.equalsIgnoreCase(familyMember.getNHS_NUMBER())) {
                     Debugger.println("NHS Number: " + familyMember.getNHS_NUMBER() + " not displayed on the banner.");
                     SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                     return false;
                 }
             }
-            if (!verifyNHSDisplayFormat()) {
+            if(!verifyNHSDisplayFormat()){
                 Debugger.println("NHS Number display format is not as expected.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
 
-            String bannerNGIS = familyMemberNgisId.getText();
-            if (familyMember.getNGIS_ID() == null || familyMember.getNGIS_ID().isEmpty()) {
+            String bannerNGIS  = familyMemberNgisId.getText();
+            if(familyMember.getNGIS_ID() == null || familyMember.getNGIS_ID().isEmpty()){
                 //NGIS ID is auto generated and will get only after selecting the family member while adding.
                 //So initializing here to validate on remaining pages.
                 familyMember.setNGIS_ID(bannerNGIS);
                 FamilyMemberDetailsPage.updateNGISID(familyMember);
-            } else {
+            }else{
                 if (!bannerNGIS.equalsIgnoreCase(familyMember.getNGIS_ID())) {
                     Debugger.println("NGSID: " + familyMember.getNGIS_ID() + " not displayed on the banner.");
                     SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                     return false;
                 }
             }
-            if (!verifyNGISIDDisplayFormat()) {
+            if(!verifyNGISIDDisplayFormat()){
                 Debugger.println("NGSID display format is not as expected.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
             }
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception verifying GlobalPatientCard Information: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception verifying GlobalPatientCard Information: "+exp);
             SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
             return false;
         }
     }
-
-    public void updatePatientNGSID(NGISPatientModel familyMember) {
-        try {
-            if (!Wait.isElementDisplayed(driver, familyMemberNgisId, 10)) {
+    public void updatePatientNGSID(NGISPatientModel familyMember){
+        try{
+            if(!Wait.isElementDisplayed(driver,familyMemberNgisId,10)){
                 Debugger.println("Could not locate FM NGSID element.");
                 return;
             }
-            String bannerNGIS = familyMemberNgisId.getText();
-            if (bannerNGIS == null || bannerNGIS.isEmpty()) {
+            String bannerNGIS  = familyMemberNgisId.getText();
+            if(bannerNGIS == null || bannerNGIS.isEmpty()){
                 Debugger.println("NGSID could not read.");
                 SeleniumLib.takeAScreenShot("NGISIDCouldNotRead.jpg");
             }
             familyMember.setNGIS_ID(bannerNGIS);
             FamilyMemberDetailsPage.updateNGISID(familyMember);
 
-        } catch (Exception exp) {
-            Debugger.println("Exception in updating PatientNGSID for patient with DOB:" + familyMember.getDATE_OF_BIRTH() + "\n" + exp);
+        }catch(Exception exp){
+           Debugger.println("Exception in updating PatientNGSID for patient with DOB:"+familyMember.getDATE_OF_BIRTH()+"\n"+exp);
         }
     }
-
-    public boolean verifyMandatoryFieldDisplaySymbol(String fieldName, String fieldType, String symbol, String symbolColor) {
-        try {
-            String fieldPath = mandatoryFieldSymbol.replaceAll("dummyFieldType", fieldType);
-            fieldPath = fieldPath.replaceAll("dummyLabel", fieldName);
+    public boolean verifyMandatoryFieldDisplaySymbol(String fieldName,String fieldType,String symbol,String symbolColor){
+        try{
+            String fieldPath = mandatoryFieldSymbol.replaceAll("dummyFieldType",fieldType);
+            fieldPath = fieldPath.replaceAll("dummyLabel",fieldName);
             WebElement mandatoryField = driver.findElement(By.xpath(fieldPath));
             String actSymbol = mandatoryField.getText();
             String actColor = mandatoryField.getCssValue("color");
             String expColor = StylesUtils.convertFontColourStringToCSSProperty(symbolColor);
-            if (symbol.equalsIgnoreCase(actSymbol)) {
-                if (expColor.equalsIgnoreCase(actColor)) {
-                    return true;
+            if(symbol.equalsIgnoreCase(actSymbol)){
+                if(expColor.equalsIgnoreCase(actColor)){
+                   return true;
                 }
             }
-            Debugger.println("Filed: " + fieldName + " not displayed as mandatory field.Actual Symbol:" + actSymbol + ",EXP:" + symbol + ",Actual Color:" + actColor + ",EXP:" + expColor);
+            Debugger.println("Filed: "+fieldName+" not displayed as mandatory field.Actual Symbol:"+actSymbol+",EXP:"+symbol+",Actual Color:"+actColor+",EXP:"+expColor);
             SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
             return false;
-        } catch (Exception exp) {
-            Debugger.println("Exception in validating Mandatory fields: " + exp);
+        }catch(Exception exp){
+            Debugger.println("Exception in validating Mandatory fields: "+exp);
             SeleniumLib.takeAScreenShot("MandatoryFieldError.jpg");
             return false;
         }
@@ -1038,11 +1026,11 @@ public class ReferralPage<check> {
         try {
             Wait.seconds(2);
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(highlightColor);
-            String fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel", fieldLabel);
+            String fieldLabelPath = mandatoryFieldLabel.replaceAll("dummyLabel",fieldLabel);
             WebElement fieldElement = driver.findElement(By.xpath(fieldLabelPath));
             String actualColor = fieldElement.getCssValue("color");
             if (!expectedFontColor.equalsIgnoreCase(actualColor)) {
-                Debugger.println("Field: " + fieldLabel + " not highlighted in :" + expectedFontColor + " as expected. Actual colour is:" + actualColor);
+                Debugger.println("Field: " + fieldLabel + " not highlighted in :" +expectedFontColor+" as expected. Actual colour is:"+actualColor);
                 SeleniumLib.takeAScreenShot("MandatoryLabelColorError.jpg");
                 return false;
             }
@@ -1053,12 +1041,11 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
     //To log the ReferralId in the Log file.
-    public void logTheReferralId() {
+    public void logTheReferralId(){
         String referralID = getPatientReferralId();
-        Debugger.println("ReferralID: " + referralID);
-        System.out.println("ReferralID: " + referralID);
+        Debugger.println("ReferralID: "+referralID);
+        System.out.println("ReferralID: "+referralID);
     }
 
     public boolean verifyTheCurrentURLContainsTheDirectoryPathPage(String directoryPath) {
@@ -1095,12 +1082,12 @@ public class ReferralPage<check> {
         return userFullName;
     }
 
-    public String getActualLoginUserName() {
+    public String getActualLoginUserName(){
         Wait.forElementToBeDisplayed(driver, userName);
         return getText(userName);
     }
 
-    public String getActualLogoutText() {
+    public String getActualLogoutText(){
         Wait.forElementToBeDisplayed(driver, logoutButton);
         return getText(logoutButton);
     }
@@ -1206,7 +1193,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
     public boolean checkSubmitReferralIsDisabled() {
         try {
             Wait.forElementToBeDisplayed(driver, submitReferralButton);
@@ -1217,7 +1203,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
     public boolean verifyTheSubmitDialogTitle(String titleMessage) {
         Wait.forElementToBeDisplayed(driver, dialogTitle);
         if (!dialogTitle.getText().equalsIgnoreCase(titleMessage)) {
@@ -1231,7 +1216,7 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralSubmitButton);
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             String actualColor = referralSubmitButton.getCssValue("background-color");
-            Debugger.println("Actual Color: " + actualColor);
+            Debugger.println("Actual Color: "+actualColor);
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
                 return false;
             }

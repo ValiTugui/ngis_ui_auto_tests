@@ -134,6 +134,10 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[text()='Yes']/*[name()='svg']")
     public WebElement yesButtonSVG;
 
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement addNonTestedFamilyMemberLink;
+
+
     public FamilyMemberSearchPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -182,7 +186,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickNoButton() {
-        seleniumLib.clickOnWebElement(noButton);
+        Actions.clickElement(driver,noButton);
     }
 
     public void clickYesButton() {
@@ -382,10 +386,20 @@ public class FamilyMemberSearchPage {
         return true;
     }
 
-    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
-        String actualPageDescription = pageDescription.getText();
-        Debugger.println("The actual Description title  is :" + pageDescription.getText());
-        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    public boolean verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+        try {
+            String actualPageDescription = pageDescription.getText();
+           if(!actualPageDescription.contains(DescriptionOfPage)){
+               Debugger.println("Expected message not found of FamilyMember search page.");
+               SeleniumLib.takeAScreenShot("FMDescription.jpg");
+               return false;
+           }
+           return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying message FamilyMember search page.");
+            SeleniumLib.takeAScreenShot("FMDescription.jpg");
+            return false;
+        }
     }
     public boolean verifyTheQuestionOfThePage(String searchQuestion) {
         String actualQuestion = nhsQuestion.getText();
@@ -529,5 +543,8 @@ public class FamilyMemberSearchPage {
             SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
             return false;
         }
+    }
+    public void clickOnAddNonTestedFamilyMemberLink() {
+        Actions.clickElement(driver,addNonTestedFamilyMemberLink);
     }
 }//end
