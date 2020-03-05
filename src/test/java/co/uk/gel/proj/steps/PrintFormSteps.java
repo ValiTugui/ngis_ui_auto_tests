@@ -106,7 +106,6 @@ public class PrintFormSteps extends Pages {
         String tumourInfo = newlyCreatedPatientRecord.getTumourType();
         String sampleInfo = newlyCreatedPatientRecord.getSampleType();
 
-
         Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
         Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
         Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
@@ -189,7 +188,7 @@ public class PrintFormSteps extends Pages {
         boolean testResult = false;
         testResult = printFormsPage.downloadProbandPrintForm();
         Assert.assertTrue(testResult);
-        }
+    }
 
     @Then("the user is able to validate the text {string} in the downloaded form {string}")
     public void theUserIsAbleToValidateTheTextInTheDownloadedForm(String expText, String formName) {
@@ -210,7 +209,7 @@ public class PrintFormSteps extends Pages {
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
         }
         if (expectedSection.equalsIgnoreCase("Patient choice")) {
-            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            testResult=printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
                 testResult = printFormsPage.validatePDFContent(expectedText, fileName);
             }
@@ -228,8 +227,8 @@ public class PrintFormSteps extends Pages {
                 Assert.assertTrue(testResult);
             }
             testResult = printFormsPage.validatePDFContent(testType, fileName);
-        Assert.assertTrue(testResult);
-    }
+            Assert.assertTrue(testResult);
+        }
         else if (fieldType.contains("laboratory")) {
             String labDetails = printFormsPage.readSelectedLabDetails();
             if (labDetails == null) {
@@ -256,21 +255,21 @@ public class PrintFormSteps extends Pages {
     public void theUserClicksTheCancelledPatientReferralCard() {
         boolean testResult = false;
         testResult = referralPage.clickOnCancelledReferralCard();
-            Assert.assertTrue(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see start a new Referral button")
     public void theUserShouldBeAbleToSeeStartANewReferralButton() {
         boolean testResult = false;
         testResult = printFormsPage.startANewReferralButton();
-            Assert.assertTrue(testResult);
-        }
+        Assert.assertTrue(testResult);
+    }
 
     @When("the user clicks on start a new referral button")
     public void theUserClicksOnStartANewReferralButton() {
-            boolean testResult = false;
+        boolean testResult = false;
         testResult = printFormsPage.clickOnStartANewReferralButton();
-            Assert.assertTrue(testResult);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user is able to see the following guidelines below the confirmation message")
@@ -293,8 +292,8 @@ public class PrintFormSteps extends Pages {
             printFormsPage.downloadForm(fileName, expectedSection);
             testResult = printFormsPage.extractAndValidateZipFile(fileName);
         }
-            Assert.assertTrue(testResult);
-        }
+        Assert.assertTrue(testResult);
+    }
 
     @Then("the user sees a dialog box with following mandatory stages to be completed for successful submission of a referral")
     public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable stageNames) {
@@ -309,20 +308,13 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("after submitting the referral once, the user is unable to submit it again")
-    public void afterSubmittingTheReferralOnceTheUserIsUnableToSubmitItAgain() {
-        boolean testResult = false;
-        testResult = referralPage.verifySubmitButtonStatusAfterSubmission();
-        Assert.assertTrue(testResult);
-    }
-
     @Then("the user should be able to click {string} link to verify the address of the lab in the downloaded file")
     public void theUserShouldBeAbleToClickShowAddressLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress) {
         boolean testResult = false;
         String labAddress=printFormsPage.readLabAddress(showAddress);
         if(labAddress==null){
-        Assert.assertTrue(testResult);
-    }
+            Assert.assertTrue(testResult);
+        }
         testResult = printFormsPage.validatePDFContent(labAddress,"SampleForm.pdf");
         Assert.assertTrue(testResult);
     }
@@ -331,6 +323,13 @@ public class PrintFormSteps extends Pages {
     public void theUserVerifiesThatTheTheRelationshipToProbandIsUpdatedInPrintFormsSection(String realationToProband) {
         boolean testResult = false;
         testResult = printFormsPage.verifyRelationshipToProband(realationToProband);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to close the pop up dialog box")
+    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
+        boolean testResult= false;
+        testResult=referralPage.closeMandatoryStagePopUp();
         Assert.assertTrue(testResult);
     }
 

@@ -7,17 +7,29 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import io.github.jonathanlink.PDFLayoutTextStripper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import io.github.jonathanlink.PDFLayoutTextStripper;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class PrintFormsPage {
     WebDriver driver;
@@ -316,6 +328,8 @@ public class PrintFormsPage {
                 Debugger.println(" Patient Referral Id " + expectedPatientReferralId + " info is NOT shown correctly in Sample form");
                 testResult = false;
             }
+
+
             //Close the tab and return.
             SeleniumLib.closeCurrentWindow();
             return testResult;
@@ -501,7 +515,7 @@ public class PrintFormsPage {
                 is.close();
             } catch (Exception exc) {
                 Debugger.println("Exception in closing pdf file: " + exc);
-                }
+            }
         }
     }
 
@@ -525,7 +539,7 @@ public class PrintFormsPage {
             return false;
         }
     }
-    //Split Test and Lab verification as per the previous PR comment
+    //Split as per the previous PR comment
     public String readSelectedTestDetails() {
         try {
             String returnValue = null;
@@ -571,8 +585,8 @@ public class PrintFormsPage {
             if (!Wait.isElementDisplayed(driver, startANewReferralButton, 30)) {
                 Debugger.println("Referral Submitted :Start New Referral Button Not found");
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
-                            return false;
-                        }
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
@@ -595,19 +609,19 @@ public class PrintFormsPage {
 
     public boolean validateGuidelinesContent(String expectedGuideLine) {
         try {
-        boolean isPresent = false;
+            boolean isPresent = false;
             Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
             String[] actualGuideLines = downloadNotice.getText().split("\\n");
             for (int i = 0; i < actualGuideLines.length; i++) {
                 if (actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)) {
-                            isPresent = true;
-                            break;
-                        }
-                    }
+                    isPresent = true;
+                    break;
+                }
+            }
             if (!isPresent) {
                 Debugger.println("Guideline:" + expectedGuideLine + " Not present in the guideline list ");
                 SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
-        }
+            }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
@@ -622,8 +636,8 @@ public class PrintFormsPage {
             if (fileName.endsWith(".zip")) {
                 if (!TestUtils.extractZipFile(fileName)) {
                     Debugger.println("Could not extract the zip file: " + fileName);
-                return false;
-            }
+                    return false;
+                }
             }
             String[] nameOfFile = fileName.split("\\.");
             //Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
@@ -631,7 +645,7 @@ public class PrintFormsPage {
             if (file.isDirectory()) {
                 File[] filesList = file.listFiles();
                 if (filesList != null && filesList.length > 0) {
-            return true;
+                    return true;
                 }
             }
             Debugger.println("ZipFile does not contain directory for Files as expected.");
@@ -654,7 +668,7 @@ public class PrintFormsPage {
                     Debugger.println("No detailed Address present.");
                     SeleniumLib.takeAScreenShot("LabAddress.jpg");
                     return null;
-            }
+                }
                 if (!detailedAddress.contains("Hide address")) {
                     Debugger.println("Laboratory address does not contain Hide Address option");
                     SeleniumLib.takeAScreenShot("LabAddress.jpg");
@@ -694,6 +708,5 @@ public class PrintFormsPage {
             return false;
         }
     }
-
 
 }//end
