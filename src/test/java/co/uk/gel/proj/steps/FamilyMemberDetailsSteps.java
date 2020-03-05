@@ -39,24 +39,26 @@ public class FamilyMemberDetailsSteps extends Pages {
         //To fill ethnicity also, as this field made mandatory.
         patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-     }
+    }
+
     @When("the user selects the Relationship to proband as {string} for family member {string}")
-    public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
+    public void theUserSelectRelationshipForFamilyMember(String relationToProband, String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
         patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
         familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
-        if(familyMember != null){
+        if (familyMember != null) {
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
             FamilyMemberDetailsPage.updateRelationship(familyMember);
         }
     }
+
     @And("the user selects the test to add to the family member {string}")
     public void theFamilyMemberDetailsWithTheSelectedTestAreAddedToTheReferral(String nhsDetails) {
         boolean testResult = false;
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(nhsDetails);
-        if(familyMember == null){
-            Debugger.println("Family Member:"+nhsDetails+" not found in the added list!");
+        if (familyMember == null) {
+            Debugger.println("Family Member:" + nhsDetails + " not found in the added list!");
             Assert.assertTrue(false);
         }
         testResult = familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember);
@@ -83,6 +85,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberDetailsPage();
         Assert.assertTrue(testResult);
     }
+
     @Then("confirm family member details page populate with same details found in patient card for {string}")
     public void theFamilyDetailsPagePopulateWithSameDetailsAsInPatientCard(String memberDetails) {
         boolean testResult = false;
@@ -103,6 +106,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyPatientRecordDetailsDisplay("");
         Assert.assertTrue(testResult);
     }
+
     @And("verify the patient card displays the same NHS and DOB in {string}")
     public void thePatientCardDisplaysTheSameNHSAndDOBSUedForSearching(String familyDetails) {
         boolean testResult = false;
@@ -145,11 +149,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @And("the color of referral name for {string} displays as {string}")
-    public void theEditingReferralColorInRed(String nhsDetails,String color) {
+    public void theEditingReferralColorInRed(String nhsDetails, String color) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheEditingReferralColor(nhsDetails,color);
+        testResult = familyMemberDetailsPage.verifyTheEditingReferralColor(nhsDetails, color);
         Assert.assertTrue(testResult);
     }
+
     @When("the user edits to complete the highlighted family member")
     public void theUserShouldEditToCompleteTheHighlightedFamilyMember() {
         boolean testResult = false;
@@ -194,9 +199,9 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @And("the deselected member {string} status display as {string}")
-    public void theDeselectedMemberStatusDisplay(String nhsDetails,String status) {
+    public void theDeselectedMemberStatusDisplay(String nhsDetails, String status) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyDeselectedPatientTestStatus(nhsDetails,status);
+        testResult = familyMemberDetailsPage.verifyDeselectedPatientTestStatus(nhsDetails, status);
         Assert.assertTrue(testResult);
     }
 
@@ -206,6 +211,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
         Assert.assertTrue(testResult);
     }
+
     @When("the user clicks on the link to amend the number of participants for test")
     public void theUserClicksOnTheLinkToAmendTheNumberOfParticipantsForTest() {
         familyMemberDetailsPage.clickOnParticipantAmendmentLink();
@@ -234,13 +240,14 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void theFamilyMemberBannerShouldDisplayWithTheEditingMembersInformation(String nhsDetails) {
         boolean testResult = false;
         NGISPatientModel familyMember = familyMemberDetailsPage.getFamilyMember(nhsDetails);
-        if(familyMember == null){
-            Debugger.println("FamilyMember with NHS "+nhsDetails+" Could not found.");
+        if (familyMember == null) {
+            Debugger.println("FamilyMember with NHS " + nhsDetails + " Could not found.");
             Assert.assertTrue(testResult);
         }
         testResult = referralPage.verifyGlobalPatientInformationBar(familyMember);
         Assert.assertTrue(testResult);
     }
+
     @When("the user clicks on edit icon to update patient choice status for family member")
     public void theUserClicksOnEditIconToUpdatePatientChoiceStatusForFamilyMember() {
         familyMemberDetailsPage.editPatientChoiceOfFamilyMember();
@@ -257,17 +264,20 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifySubTitleMessage(subTitlemsg);
         Assert.assertTrue(testResult);
     }
+
     @And("subtitle links as (.*)")
     public void subtitleLinkAs(String linkMessage) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifySubTitleLink(linkMessage);
         Assert.assertTrue(testResult);
     }
+
     @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
     public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
         familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
 
     }
+
     @And("the user reads the patient details in family member landing page")
     public void theUserShouldBeAbleToSeeThePatientDetailsInFamilyMemberLandingPage() {
         familyMemberDetailsPage.readPatientDetailsInFamilyMemberLandingPage();
@@ -329,32 +339,32 @@ public class FamilyMemberDetailsSteps extends Pages {
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");
-                if(nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")){
+                if (nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")) {
                     NGISPatientModel familyMember = new NGISPatientModel();
                     familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
                     familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
                     familyMember.setGENDER(paramNameValue.get("Gender"));
                     familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
                     familyMember.setNO_NHS_REASON("Patient is a foreign national");
-                    if(paramNameValue.get("Ethnicity") != null){
+                    if (paramNameValue.get("Ethnicity") != null) {
                         familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
-                    }else{
+                    } else {
                         familyMember.setETHNICITY("A - White - British");
                     }
                     patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
                     patientSearchPage.clickSearchButtonByXpath(driver);
-                    if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
-                        if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                    if (patientSearchPage.getPatientSearchNoResult() == null) {//Got error saying invalid NHS number, proceeding with No search in that case
+                        if (patientSearchPage.fillInPatientSearchWithNoFields(familyMember)) {
                             patientSearchPage.clickSearchButtonByXpath(driver);
                         }
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
                     patientDetailsPage.newPatientPageIsDisplayed();
-                    if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                    if (!patientDetailsPage.createNewFamilyMember(familyMember)) {
                         break;
                     }
                     referralPage.updatePatientNGSID(familyMember);
-                }else {
+                } else {
                     familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
@@ -366,13 +376,13 @@ public class FamilyMemberDetailsSteps extends Pages {
                 }
                 Wait.seconds(5);
                 NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
-                if(familyMember == null){
-                    Debugger.println("Family Member:"+memberDetails.get(i).get(0)+" not found in the added list!");
+                if (familyMember == null) {
+                    Debugger.println("Family Member:" + memberDetails.get(i).get(0) + " not found in the added list!");
                     Assert.assertTrue(false);
                 }
                 Wait.seconds(5);//Continuos time out failures observed at this point in jenkins runs.
-                Debugger.println("Verifying Test details for Family member: "+memberDetails.get(i).get(0));
-                if(!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)){
+                Debugger.println("Verifying Test details for Family member: " + memberDetails.get(i).get(0));
+                if (!familyMemberDetailsPage.verifyTheTestAndDetailsOfAddedFamilyMember(familyMember)) {
                     Assert.assertFalse("Select Test title for Family Member " + memberDetails.get(i).get(0) + " Not displayed. Pls check SelectTitle.jpg", true);
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
@@ -382,7 +392,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Clicked on Save and Continue in Family Member Stage...");
                 Wait.seconds(5);
                 Debugger.println("Updating family member with Disease status...");
-                if(!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))){
+                if (!familyMemberDetailsPage.fillFamilyMemberDiseaseStatusWithGivenParams(memberDetails.get(i).get(2))) {
                     Debugger.println("fillFamilyMemberDiseaseStatusWithGivenParams not completed.");
                     Assert.assertTrue(false);
                 }
@@ -390,26 +400,26 @@ public class FamilyMemberDetailsSteps extends Pages {
                 Debugger.println("Disease status updated .. Clicking on Save and Continue in Family Member Stage...");
                 referralPage.clickSaveAndContinueButton();
                 Wait.seconds(5);
-                if(!referralPage.verifyThePageTitlePresence("Add a family member to this referral")){
+                if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
                     Debugger.println("Family Member Details Page is Yet be loaded......waiting for 10 more seconds");
                     Wait.seconds(10);
-                    if(!referralPage.verifyThePageTitlePresence("Add a family member to this referral")){
+                    if (!referralPage.verifyThePageTitlePresence("Add a family member to this referral")) {
                         Debugger.println("Family Member Details Page is Still not loaded......waiting for 10 more seconds");
                         Wait.seconds(10);
                     }
                 }
 
                 Debugger.println("Verifying added family member details in Landing page....");
-                if(!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))){
+                if (!familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(memberDetails.get(i).get(0))) {
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
-                Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.");
+                Debugger.println("Verified added family member" + memberDetails.get(i).get(0) + " details in the FM landing page.");
                 Wait.seconds(5);
             }//end
-        }catch(Exception exp){
-            Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: "+exp);
-            Assert.assertTrue("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ",false);
+        } catch (Exception exp) {
+            Debugger.println("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: " + exp);
+            Assert.assertTrue("FamilyMemberDetailsSteps: Exception in Filling the Family Member Details: ", false);
         }
     }
 
@@ -419,7 +429,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
         if (expStatus.equalsIgnoreCase("get")) {
             Assert.assertTrue(testResult);
-        }else {
+        } else {
             Assert.assertFalse(testResult);
         }
     }
@@ -428,8 +438,8 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void probandParticipantIsDisplayedFirstInTheListFollowedBy(String relationshipToProband) {
         int indexOfProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral("Proband");
         int indexOfRelationToProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral(relationshipToProband);
-        Debugger.println("Index of proband :: "+ indexOfProband);
-        Debugger.println("Index of relationshipToProband :: "+ relationshipToProband);
+        Debugger.println("Index of proband :: " + indexOfProband);
+        Debugger.println("Index of relationshipToProband :: " + relationshipToProband);
         Assert.assertTrue(indexOfProband != -1);
         Assert.assertTrue(indexOfRelationToProband != -1);
         Assert.assertTrue(indexOfRelationToProband > indexOfProband);
@@ -437,7 +447,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user deselects the test for the {string}")
     public void theUserDeselectsTheTestForThe(String relationshipToProband) {
-        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Debugger.println("Tests going to be unselected for " + relationshipToProband);
         Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
         // navigate from family member patient details page
         referralPage.clickSaveAndContinueButton();
@@ -451,16 +461,16 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @Then("the family member details on family Member landing page is shown as {string} for the participant {string}")
     public void theFamilyMemberDetailsOnFamilyMemberLandingPageIsShownAsForTheParticipant(String testStatus, String relationToProband) {
-       if(testStatus.equalsIgnoreCase("Not being tested")) {
-           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
-       }else { // check Being tested status
-           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
-       }
+        if (testStatus.equalsIgnoreCase("Not being tested")) {
+            familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
+        } else { // check Being tested status
+            familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
+        }
     }
 
     @And("the user selects the test for the {string}")
     public void theUserSelectsTheTestForThe(String relationshipToProband) {
-        Debugger.println("Tests going to be unselected for "+ relationshipToProband);
+        Debugger.println("Tests going to be unselected for " + relationshipToProband);
         Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
         // navigate from family member patient details page
         referralPage.clickSaveAndContinueButton();
@@ -471,40 +481,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         referralPage.clickSaveAndContinueButton();
     }
 
-    @And("the user added additional phenotypes {string} to the family member")
-    public void theUserAddedAdditionalPhenotypesToTheFamilyMember(String phenotypes) {
+    @Then("the user is navigated to family member test package page with title (.*)")
+    public void theUserIsNavigatedToFamilyMemberTestPackagePageWithTitle(String testPageTitle) {
         boolean testResult = false;
-        try {
-            familyMemberDetailsPage.editSpecificFamilyMember(0);
-            Wait.seconds(2);
-            referralPage.clickSaveAndContinueButton();
-            Wait.seconds(6);
-            referralPage.clickSaveAndContinueButton();
-            if(phenotypes.indexOf(",") == -1) {
-                if(!familyMemberDetailsPage.isHPOAlreadyConsidered(phenotypes)) {
-                    if (familyMemberDetailsPage.searchAndSelectRandomHPOPhenotype(phenotypes) > 0) {
-                        testResult = true;
-                    }
-                }
-                Wait.seconds(3);
-            }else{
-                String[] phenos = phenotypes.split(",");
-                for(int i=0; i<phenos.length; i++){
-                    if(!familyMemberDetailsPage.isHPOAlreadyConsidered(phenos[i])) {
-                        if (familyMemberDetailsPage.searchAndSelectRandomHPOPhenotype(phenos[i]) > 0) {
-                            testResult = true;
-                        }
-                    }
-                    Wait.seconds(3);
-                }
-            }
-            referralPage.clickSaveAndContinueButton();
-            Wait.seconds(3);
-            Assert.assertTrue(testResult);
-        }catch(Exception exp){
-            Debugger.println("Exception from adding additional HPO Phenotypes: "+exp);
-            SeleniumLib.takeAScreenShot("AdditionalPhenotype.jpg");
-            Assert.assertTrue(testResult);
-        }
+        testResult = familyMemberDetailsPage.verifyThePageTitlePresence(testPageTitle);
+        Assert.assertTrue(testResult);
     }
+
 }//end

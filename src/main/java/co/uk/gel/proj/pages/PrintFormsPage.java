@@ -7,7 +7,6 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.datatable.DataTable;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
@@ -22,6 +21,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import java.io.*;
 import java.net.URL;
@@ -29,6 +29,8 @@ import java.util.*;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import static co.uk.gel.proj.pages.FamilyMemberDetailsPage.getFamilyMember;
 
 public class PrintFormsPage {
     WebDriver driver;
@@ -41,6 +43,11 @@ public class PrintFormsPage {
     }
 
     String defaultDownloadLocation = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
+
+    String specificPrintFormDownload = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-1qv4t1n']//button";
+    String specificPrintFormDownload_e2elatest = "//ul//span[text()='NHSLastFour']/ancestor::div[@class='css-11efprl']//button";
+
+    String specificPrintFormDownload_integration = "//ul//span[text()='NGISLastFour']/ancestor::div/button[@aria-label='print button']";
 
     String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
     String probandPrintFormDownloadLocator = "//button[@class='css-dixxn2']";
@@ -62,39 +69,58 @@ public class PrintFormsPage {
     @FindBy(xpath = "//button[contains(@aria-label,'print')]")
     public List<WebElement> formDownloadButtons;
 
-    @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]")
-    WebElement warningMessageOnPrintForms;
-
-    @FindBy(xpath = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(text(),'Print forms')]")
-    public WebElement printFormsStage;
-
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
-    WebElement backButtonOnPrintFormPage;
-
     @FindBy(xpath = "//div[contains(@class,'styles_body_')]/h3")
     public List<WebElement> formSection;
 
     @FindBy(css = "a[class*='btn-secondary']")
     public List<WebElement> downloadButton;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_body')]//div//div")
-    public WebElement orderedTestType;
+    @FindBy(xpath = "//div[contains(@class,'contentCss')]")
+    public List<WebElement> participants;
 
     @FindBy(xpath = "//h2[contains(@class,'panelTitle')]")
     public WebElement selectedLaboratory;
+
+    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    WebElement backButtonOnPrintFormPage;
+
+    String landingPageNamePath = "//div[contains(@class,'_participant-list__')]//span/h2[contains(text(),'dummyName')]";
+    String landingPageRelationPath = "//div[contains(@class,'_participant-list__')]//span[contains(text(),'dummyRelation')]";
+    @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'dateOfBirth')]")
+    List<WebElement> landingPageBorns;
+    @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'gender')]")
+    List<WebElement> landingPageGenders;
+    @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'nhsNumber')]")
+    List<WebElement> landingPageNhsNumbers;
+    @FindBy(xpath = "//div[contains(@class,'_participant-list__')]//ul/li//span[contains(@aria-labelledby,'ngisId')]")
+    List<WebElement> landingPageNgsIds;
+
+    @FindBy(xpath = "//button[@aria-label='print button']")
+    public List<WebElement> printFormsIcons;
+
+    @FindBy(css = "address[class*='styles_address']")
+    WebElement labCompletedAddress;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_body')]//div//div")
+    public WebElement orderedTestType;
+
+    @FindBy(xpath = "//span[text()='Show address']")
+    WebElement showLabAddressLink;
+
+    @FindBy(xpath = "//div[contains(@class,'lab-address')]")
+    WebElement detailedAddressText;
+
+    @FindBy(xpath = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(text(),'Print forms')]")
+    public WebElement printFormsStage;
+
+    @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]")
+    WebElement warningMessageOnPrintForms;
 
     @FindBy(css = "*[class*='downloads__notice']")
     public WebElement submissionConfirmationBanner;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
     WebElement startANewReferralButton;
-
-    @FindBy(xpath = "//div[contains(@class,'notice__text')]")
-    public WebElement downloadNotice;
-
-    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
-    public WebElement referralSubmitButton;
-
 
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
@@ -140,11 +166,11 @@ public class PrintFormsPage {
             driver.get("file:///" + pathToFile);
             Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
             URL url = new URL(driver.getCurrentUrl());
-            //Debugger.println("Opening Inputstream from loaded PDF.");
+            Debugger.println("Opening Inputstream from loaded PDF.");
             is = url.openStream();
             fileToParse = new BufferedInputStream(is);
             document = PDDocument.load(fileToParse);
-            //Debugger.println("Reading PDF content....");
+            Debugger.println("Reading PDF content....");
             if (familyMember.getREFERAL_ID() == null) {
                 Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");
@@ -215,8 +241,6 @@ public class PrintFormsPage {
                         return false;
                     }
                 }
-
-
             }
             return true;
         } catch (Exception exp) {
@@ -317,8 +341,6 @@ public class PrintFormsPage {
                 Debugger.println(" Patient Referral Id " + expectedPatientReferralId + " info is NOT shown correctly in Sample form");
                 testResult = false;
             }
-
-
             //Close the tab and return.
             SeleniumLib.closeCurrentWindow();
             return testResult;
@@ -376,8 +398,160 @@ public class PrintFormsPage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Print Forms Page:Warning Message: " + exp);
+            Debugger.println("Print Forms Page:Warning Message :not found " + exp);
             SeleniumLib.takeAScreenShot("PrintFormsPageWarningMessage.jpg");
+            return false;
+        }
+    }
+
+    //1993
+    public boolean findPDFContent(String expText, String fileName) {
+        PDDocument document = null;
+        BufferedInputStream fileToParse = null;
+        InputStream is = null;
+        String[] textList = null;
+        if (!expText.contains(",")) {
+            textList = new String[]{expText};
+        } else {
+            textList = expText.split(",");
+        }
+        try {
+            if (!SeleniumLib.switchToNewTab()) {
+                Debugger.println("Could not switch to new tab for reading " + fileName + " PDF form file content.");
+                return false;
+            }
+            File file = new File(defaultDownloadLocation + fileName);
+            if (file.isDirectory()) {
+                traverseDirectory(file);
+            }
+
+            //creating path for the downloaded pdf file
+            String pathToFile = defaultDownloadLocation + fileName;
+            Debugger.println("PDF file location: " + pathToFile);
+            // pdf file with full path name
+            driver.get("file:///" + pathToFile);
+            Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
+            URL url = new URL(driver.getCurrentUrl());
+            Debugger.println("Opening InputStream from loaded PDF.");
+            is = url.openStream();
+            fileToParse = new BufferedInputStream(is);
+            document = PDDocument.load(fileToParse);
+            Debugger.println("Reading PDF content....");
+            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
+            String outputData = pdfTextStripper.getText(document);
+//            Debugger.println("Actual content of PDF file "+outputData);
+            outputData = outputData.replaceAll("\\s+", " ");
+            Debugger.println("Data read from PDF form :\n" + outputData);
+            boolean testResult = true;
+            for (String str : textList) {
+                if (!outputData.contains(str)) {
+                    Debugger.println(" The expected " + str + " is  NOT shown correctly in Sample form");
+                    testResult = false;
+//                    break;
+                }
+            }
+            //Close the tab and return.
+            SeleniumLib.closeCurrentWindow();
+            return testResult;
+        } catch (Exception exp) {
+            Debugger.println("Exception from loading PDF content: " + exp);
+            SeleniumLib.takeAScreenShot("PrintFormPdfValidation.jpg");
+            SeleniumLib.closeCurrentWindow();
+            return false;
+        } finally {
+            try {
+                if (document != null) {
+                    document.close();
+                }
+                fileToParse.close();
+                is.close();
+            } catch (Exception ex) {
+
+            }
+        }
+    }
+
+    public String extractZipFile(String fileName) {
+        try {
+            Wait.seconds(5);
+            String pathToFile = defaultDownloadLocation + fileName;
+            Debugger.println("Extraction of file starting: " + pathToFile);
+            File zipfile = new File(pathToFile);
+            if (!zipfile.exists()) {
+                Debugger.println("Zipped file does not exist in location " + pathToFile);
+            }
+            ZipFile zippedFile = new ZipFile(pathToFile);
+            Enumeration<? extends ZipEntry> entries = zippedFile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry zipEntry = entries.nextElement();
+
+                String name = defaultDownloadLocation + (zipEntry.getName());
+                Debugger.println("Zipped filename- " + name);
+
+                //Create directory and sub-directories to extract the zip file
+                File file = new File(name);
+                if (name.endsWith("/")) {
+                    file.mkdirs();
+                    continue;
+                }
+                File parent = file.getParentFile();
+                if (parent != null) {
+                    parent.mkdirs();
+                }
+                InputStream inputStream = zippedFile.getInputStream(zipEntry);
+                FileOutputStream fileOutStream = new FileOutputStream(file);
+                byte[] bytes = new byte[2096];
+                int length;
+                while ((length = inputStream.read(bytes)) >= 0) {
+                    fileOutStream.write(bytes, 0, length);
+                }
+                inputStream.close();
+                fileOutStream.close();
+            }
+            zippedFile.close();
+
+            Debugger.println("Returned file is " + zippedFile.getName());
+            return zippedFile.getName();//filename is not proper need to return the parent directory
+        } catch (IOException exp) {
+            Debugger.println("Exception from Extracting the Zipped file: " + fileName + " : " + exp);
+            return null;
+        }
+    }
+
+    public static void traverseDirectory(File dirName) {
+        System.out.println("from traverse " + dirName.getAbsoluteFile());
+        if (dirName.isDirectory()) {
+            String[] subDir = dirName.list();
+            for (String filename : subDir) {
+                traverseDirectory(new File(dirName, filename));
+            }
+        }
+        List<String> childFiles = new ArrayList<>();
+        childFiles.add(String.valueOf(dirName.getAbsoluteFile()));
+        for (int i = 0; i < childFiles.size(); i++) {
+            Debugger.println("file- " + childFiles.get(i));
+        }
+    }
+
+    public boolean downloadForm(String fileName, String expectedFormSection) {
+        try {
+            //Delete if File already present
+            Debugger.println("Deleting Files if Present...");
+            TestUtils.deleteIfFilePresent(fileName, "");
+            Debugger.println("Attempting to download the form..." + fileName);
+            for (int i = 0; i < formSection.size(); i++) {
+                String actualText = formSection.get(i).getText();
+                if (actualText.equalsIgnoreCase(expectedFormSection)) {
+                    seleniumLib.clickOnWebElement(downloadButton.get(i));
+                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Could not locate the form download button ..... " + exp);
+            SeleniumLib.takeAScreenShot("OfflineOrderPrintFormsDownload.jpg");
             return false;
         }
     }
@@ -389,37 +563,231 @@ public class PrintFormsPage {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
                 WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
-                if (unlockedPrintFormsStage != null) {
-                    //then procces
-                } else {
-                    // debugger line
-                    return false;
-                }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
                     Debugger.println("Print forms stage is not unlocked");
-                    //Screen shot
-                    SeleniumLib.takeAScreenShot("LockinPrintForms.jpg");
                     return false;
                 }
                 return true;
             }
             WebElement lockIcon = printFormsStage.findElement(By.xpath(".//*[name()='svg']"));
-            if (lockIcon == null) {
-                Debugger.println("Could not find the lock Icon element.");
-                SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
-                return false;
-            }
             String lock = lockIcon.getAttribute("data-testid");
             if (!lock.contains(lockStatus)) {
-                Debugger.println("Print forms stage: actual " + lock + " expected " + lockStatus);
-                SeleniumLib.takeAScreenShot("PrintFormsLockStatus.jpg");
+                Debugger.println("actual " + lock + " expected " + lockStatus);
+                Debugger.println("Print forms stage attribute is Not matching");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintForms: validateLockIconInPrintFormsStage: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
             return false;
+        }
+    }
+
+    public boolean userSeesTheDetailsOfLabAddress(String showAddress) {
+        try {
+            Wait.forElementToBeDisplayed(driver, showLabAddressLink);
+            if (showAddress.equalsIgnoreCase(showLabAddressLink.getText()))
+                seleniumLib.clickOnWebElement(showLabAddressLink);
+            if (!detailedAddressText.getText().contains("Hide address")) {
+                Debugger.println(detailedAddressText.getText());
+                Debugger.println("Laboratory addres not found ");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Print Forms Page : userSeesTheDetailsOfLabAddress found  " + exp);
+            SeleniumLib.takeAScreenShot("addresDetailsOfLab.jpg");
+            return false;
+        }
+    }
+
+    public boolean userVerifiesTheParticipantDetailsOnPrintFormsPage() {
+        try {
+            participants = new ArrayList<>();
+            printFormsIcons = new ArrayList<>();
+            for (WebElement links : printFormsIcons) {
+                if (links.isDisplayed())
+                    for (WebElement element : participants) {
+                        //  seleniumLib.clickOnWebElement(showLabAddressLink);
+                        if (!element.getText().contains("NHS No Born Gender Patient NGIS ID")) {
+                            Debugger.println("Participant details are not displayed on the referral banner  ");
+                            return false;
+                        }
+                    }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Print Forms Page:userVerifiesTheParticipantDetailsOnPrintFormsPage found " + exp);
+            SeleniumLib.takeAScreenShot("ParticipantDetailsOfLab.jpg");
+            return false;
+        }
+    }
+
+    public void clickPrintFormsAddressLink() {
+        try {
+            if (Wait.isElementDisplayed(driver, showAddressButton, 100)) {
+                showAddressButton.click();
+            }
+        } catch (Exception exp) {
+            Debugger.println("Exception from clickPrintFormsAddressLink " + exp);
+            SeleniumLib.takeAScreenShot("clickPrintFormsAddressLink.jpg");
+        }
+    }
+
+    public boolean verifyLaboratoryAddressIsDisplayed() {
+        try {
+            if (!Wait.isElementDisplayed(driver, labCompletedAddress, 30)) {
+                Debugger.println("Expected lab address message is not displayed");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("verifyLaboratoryAddressIsDisplayed in print forms Page:verifyLaboratoryAddressIsDisplayed:" + exp);
+            SeleniumLib.takeAScreenShot("verifyLaboratoryAddressIsDisplayed.jpg");
+            return false;
+        }
+    }
+
+    public List<String> readAddedFamilyMemberDetailsInLandingPage(String nhsDetails) {
+        // need to add other fileds
+        List<String> patientDetails = null;
+        NGISPatientModel familyMember = getFamilyMember(nhsDetails);
+        if (familyMember == null) {
+            Debugger.println("Family Member with NHS Number:" + nhsDetails + " Not added to the list!.");
+
+        }
+        //1. Verify the Name
+        String landingPageName = landingPageNamePath.replaceAll("dummyName", familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME());
+        By firstNameLastName = By.xpath(landingPageName);
+        if (!seleniumLib.isElementPresent(firstNameLastName)) {
+            Debugger.println("Added Family member name: " + familyMember.getFIRST_NAME() + ", " + familyMember.getFIRST_NAME() + " Not displayed on Family Member Landing Page.");
+        }
+        patientDetails.add(familyMember.getFIRST_NAME());
+        Debugger.println("Name Verified...");
+        //2. Verify Relation to Proband.
+        String landingPageRelation = landingPageRelationPath.replaceAll("dummyRelation", familyMember.getRELATIONSHIP_TO_PROBAND());
+        By relationToProband = By.xpath(landingPageRelation);
+        if (!seleniumLib.isElementPresent(relationToProband)) {
+            Debugger.println("Added Family member relationship: " + familyMember.getRELATIONSHIP_TO_PROBAND() + " Not displayed on Family Member Landing Page.");
+        }
+        patientDetails.add(familyMember.getRELATIONSHIP_TO_PROBAND());
+        Debugger.println("Relationship Verified...");
+        boolean isPresent = false;
+        //3.Verify DOB
+        String dob = "";
+        for (int i = 0; i < landingPageBorns.size(); i++) {
+            dob = landingPageBorns.get(i).getText();
+            if (familyMember.getDATE_OF_BIRTH() != null) {
+                if (dob.startsWith(TestUtils.getDOBInMonthFormat(familyMember.getDATE_OF_BIRTH()))) {
+                    isPresent = true;
+                    break;
+                }
+            } else {
+                if (familyMember.getBORN_WITH_AGE().contains(dob)) {
+                    isPresent = true;
+                    break;
+                }
+                Debugger.println("with age:" + familyMember.getBORN_WITH_AGE() + " ACTUAL:" + dob);
+            }
+        }
+        if (!isPresent) {
+            Debugger.println("Added Family member BornDate: " + familyMember.getBORN_DATE() + " Not displayed on Family Member Landing Page.");
+
+        }
+        patientDetails.add(familyMember.getBORN_DATE());
+        Debugger.println("BornDate Verified...");
+        Debugger.println("DOB Verified...");
+        //4.Verify Gender
+        for (int i = 0; i < landingPageGenders.size(); i++) {
+            if (familyMember.getGENDER().equalsIgnoreCase(landingPageGenders.get(i).getText())) {
+                isPresent = true;
+                break;
+            }
+        }
+        if (!isPresent) {
+            Debugger.println("Added Family member Gender: " + familyMember.getGENDER() + " Not displayed on Family Member Landing Page.");
+        }
+        patientDetails.add(familyMember.getGENDER());
+        Debugger.println("Gender Verified...");
+
+        //5.Verify NHS
+        if (landingPageNhsNumbers.size() > 1) {//Checking for added family members, excluded Proband
+            isPresent = false;
+            String actualNhs = "";
+            for (int i = 0; i < landingPageNhsNumbers.size(); i++) {
+                actualNhs = landingPageNhsNumbers.get(i).getText();
+                Debugger.println("Actual and ExpectedNHS: " + actualNhs + "," + familyMember.getNHS_NUMBER());
+                if (actualNhs != null) {
+                    if (familyMember.getNHS_NUMBER().equalsIgnoreCase(actualNhs)) {
+                        isPresent = true;
+                        break;
+                    }
+                } else {
+                    Debugger.println("NHS Not Present...");
+                    //Family Member added without NHS number need not validate for NHS number.
+                    isPresent = true;//NHS is not mandatory
+                }
+            }//for
+        }
+        if (!isPresent) {
+            Debugger.println("Added Family member NHSNumber: " + familyMember.getNHS_NUMBER() + " Not displayed on Family Member Landing Page.");
+        }
+        patientDetails.add(familyMember.getNHS_NUMBER());
+        Debugger.println("NHS Verified...");
+        //6.Verify NGISID
+        String ngsId = "";
+        if (familyMember.getNGIS_ID() != null) {
+            isPresent = false;
+            for (int i = 0; i < landingPageNgsIds.size(); i++) {
+                ngsId = landingPageNgsIds.get(i).getText();
+                Debugger.println("Actual and Expected NGSID: " + ngsId + "," + familyMember.getNGIS_ID());
+                if (ngsId != null) {
+                    if (familyMember.getNGIS_ID() == null) {
+                        isPresent = true;
+                        //Set the NGIS to the family member for verification in print forms , on need basis
+                        familyMember.setNGIS_ID(ngsId);
+                        FamilyMemberDetailsPage.updateNGISID(familyMember);
+                        break;
+                    } else {
+                        if (familyMember.getNGIS_ID().equalsIgnoreCase(ngsId)) {
+                            isPresent = true;
+                            break;
+                        }
+                    }
+                } else {
+                    Debugger.println("NGS Id not present...");
+                    isPresent = true;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Added Family member NGSID: " + familyMember.getNGIS_ID() + " Not displayed on Family Member Landing Page.");
+            }
+            patientDetails.add(familyMember.getNGIS_ID());
+            Debugger.println("NGSID Verified...");
+        }
+        return patientDetails;
+    }
+
+    public String readSelectedTestType(String fieldType) {
+        try {
+            String returnValue = null;
+//            Wait.forElementToBeDisplayed(driver,orderedTestType);
+            if (fieldType.contains("test type")) {
+                Debugger.println(orderedTestType.getText());
+                String text = orderedTestType.getText();
+                String[] text1 = text.split("\\n");
+                Debugger.println("1- " + text1[0] + " 2- " + text1[1]);
+                String[] text2 = text1[1].split("\\.");
+                Debugger.println("3-" + text2[0] + " 4- " + text2[1]);
+                returnValue = text2[0];
+            } else if (fieldType.contains("laboratory")) {
+                String text = selectedLaboratory.getText();
+                returnValue = text;
+            }
+            return returnValue;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
+            return null;
         }
     }
 
@@ -438,201 +806,32 @@ public class PrintFormsPage {
         }
     }
 
-    public boolean validatePDFContent(String expText, String fileName) {
-        if (fileName.endsWith(".zip")) {
-            if (!TestUtils.extractZipFile(fileName)) {
-                Debugger.println("Could not extract the zip file: " + fileName);
-                return false;
-            }
-        }
-        PDDocument document = null;
-        BufferedInputStream fileToParse = null;
-        InputStream is = null;
-        String[] textList = null;
-        if (!expText.contains(",")) {
-            textList = new String[]{expText};
-        } else {
-            textList = expText.split(",");
-        }
-        try {
-            if (!SeleniumLib.switchToNewTab()) {
-                Debugger.println("Could not switch to new tab for reading " + fileName + " PDF form file content.");
-                return false;
-            }
-
-            //creating path for the downloaded pdf file
-            String pathToFile = defaultDownloadLocation + fileName;
-            Debugger.println("PDF file location: " + pathToFile);
-            // pdf file with full path name
-            driver.get("file:///" + pathToFile);
-            Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
-            URL url = new URL(driver.getCurrentUrl());
-            Debugger.println("Opening InputStream from loaded PDF.");
-            is = url.openStream();
-            fileToParse = new BufferedInputStream(is);
-            document = PDDocument.load(fileToParse);
-            Debugger.println("Reading PDF content....");
-            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
-            String outputData = pdfTextStripper.getText(document);
-            //Debugger.println("Actual Data from PDF form :\n" + outputData);
-            outputData = outputData.replaceAll("\\s+", " ");
-            // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
-            boolean testResult = true;
-            for (String str : textList) {
-                if (!outputData.contains(str)) {
-                    Debugger.println(" The expected " + str + " is  NOT shown correctly in the form: " + fileName);
-                    testResult = false;
-                }
-            }
-            //Close the tab and return.
-            SeleniumLib.closeCurrentWindow();
-            return testResult;
-        } catch (Exception exp) {
-            Debugger.println("Exception from loading PDF content: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormPdfValidation.jpg");
-            SeleniumLib.closeCurrentWindow();
-            return false;
-        } finally {
-            try {
-                if (document != null) {
-                    document.close();
-                }
-                fileToParse.close();
-                is.close();
-            } catch (Exception exc) {
-                Debugger.println("Exception in closing pdf file: " + exc);
-            }
-        }
-    }
-
-    public boolean downloadForm(String fileName, String expectedFormSection) {
-        try {
-            //Delete if File already present
-            TestUtils.deleteIfFilePresent(fileName, "");
-            for (int i = 0; i < formSection.size(); i++) {
-                String actualText = formSection.get(i).getText();
-                if (actualText.equalsIgnoreCase(expectedFormSection)) {
-                    seleniumLib.clickOnWebElement(downloadButton.get(i));
-                    Wait.seconds(10);//Wait for 5 seconds to ensure file got downloaded.
-                    //Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
-                    return true;
-                }
-            }
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("Could not locate the form download button ..... " + exp);
-            SeleniumLib.takeAScreenShot("OfflineOrderPrintFormsDownload.jpg");
-            return false;
-        }
-    }
-    //This method has to be modified as per the earlier PR comment.
-    public String readSelectedTestAndLabDetails(String fieldType) {
-        try {
-            String returnValue = null;
-
-            if (fieldType.contains("test type")) {
-                Wait.forElementToBeDisplayed(driver, orderedTestType);
-                String testTypes = orderedTestType.getText();
-                String[] tests = testTypes.split("\\n");
-                if (tests == null || tests.length < 2) {
-                    Debugger.println("No tests present...");
-                    return null;
-                }
-                String[] selectedTestTypes = tests[1].split("\\.");
-                if (selectedTestTypes == null || selectedTestTypes.length < 1) {
-                    Debugger.println("No test exists...");
-                    return null;
-                }
-                returnValue = selectedTestTypes[0];
-            } else if (fieldType.contains("laboratory")) {
-                Wait.forElementToBeDisplayed(driver, selectedLaboratory);
-                String[] labName = selectedLaboratory.getText().split(" ");
-                returnValue = labName[0];
-            }
-            return returnValue;
-        } catch (Exception exp) {
-            Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
-            SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
-            return null;
-        }
-    }
-
     public boolean startANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
-            if (!Wait.isElementDisplayed(driver,startANewReferralButton,30)) {
+            if (!seleniumLib.isElementPresent(startANewReferralButton)) {
                 Debugger.println("Referral Submitted :Start New Referral Button Not found");
-                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
+            Debugger.println("Referral Submitted :Start New Referral Button" + exp);
             SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
             return false;
         }
     }
 
-    public boolean clickOnStartANewReferralButton() {
+    public boolean clicksOnStartANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, startANewReferralButton);
-            Actions.clickElement(driver,startANewReferralButton);
+            seleniumLib.clickOnWebElement(startANewReferralButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
+            Debugger.println("Start a new : SavePedigreeButton: " + exp);
             SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
             return false;
         }
     }
 
-    public boolean validateGuidelinesContent(String expectedGuideLine) {
-        try {
-            boolean isPresent = false;
-            Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
-            String[] actualGuideLines = downloadNotice.getText().split("\\n");
-            for(int i=0; i<actualGuideLines.length; i++){
-                if(actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)){
-                    isPresent = true;
-                    break;
-               }
-            }
-            if(!isPresent){
-                Debugger.println("Guideline:"+expectedGuideLine+" Not present in the guideline list ");
-                SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
-            }
-            return isPresent;
-        } catch (Exception exp) {
-            Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
-            SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
-            return false;
-        }
-    }
-
-    public boolean extractAndValidateZipFile(String fileName) {
-        try {
-            Wait.seconds(10); //wait for zip file download completion
-            if (fileName.endsWith(".zip")) {
-                if (!TestUtils.extractZipFile(fileName)) {
-                    Debugger.println("Could not extract the zip file: " + fileName);
-                    return false;
-                }
-            }
-            String[] nameOfFile = fileName.split("\\.");
-            //Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
-            File file = new File(defaultDownloadLocation + nameOfFile[0]);
-            if (file.isDirectory()) {
-                File[] filesList = file.listFiles();
-                if (filesList != null && filesList.length > 0) {
-                    return true;
-                }
-            }
-            Debugger.println("ZipFile does not contains and directory for Files as expected.");
-            return false;
-        }catch(Exception exp){
-            Debugger.println("Exception from extracting and validatin zip file."+exp);
-            return false;
-        }
-
-    }
 
 }//end

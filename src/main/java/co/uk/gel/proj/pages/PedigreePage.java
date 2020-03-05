@@ -10,6 +10,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import java.util.List;
 
 public class PedigreePage {
@@ -40,52 +41,32 @@ public class PedigreePage {
 
     @FindBy(xpath = "//div[@id='work-area']")
     public WebElement pedigreeWorkArea;
-
-    @FindBy(xpath = "//div[@id='pedigree-tool']")
-    public WebElement pedigreeTool;
-
+    @FindBy(xpath = "//div[@class='editor-menu']")
+    public WebElement pedigreeMenu;
     @FindBy(xpath = "//div[@class='msdialog-box pedigree-okcancel']")
-    public WebElement confirmationDialog;
+    public WebElement resetConfirmDialog;
     @FindBy(xpath = "//input[@type='button'][not(contains(@style,'display: none'))][@name='ok']")
-    public WebElement confirmationYes;
-    @FindBy(xpath = "//div[@class='ok-cancel-body']")
-    public WebElement popupMessageBody;
-
-    //Personal Tab
-    @FindBy(xpath = "//div[@id='tab_Personal']//label[contains(@class,'field-name')]")
-    public List<WebElement> personalTabFields;
-    @FindBy(xpath = "//select[@name='year']")
-    public WebElement personalTab_YearOfBirth;
-    @FindBy(xpath = "//select[@name='ethnicity']")
-    public WebElement personalTab_Ethnicity;
-    @FindBy(xpath = "//select[@name='gender']")
-    public WebElement personalTab_Gender;
-    @FindBy(xpath = "//select[@name='karyotypic_sex']")
-    public WebElement personalTab_KaryotypicSex;
-    @FindBy(xpath = "//select[@name='gestationAgeWeeks']")
-    public WebElement personalTab_gestationAge;
-    @FindBy(xpath = "//select[@name='childlessSelect']")
-    public WebElement personalTab_Heredity;
-    @FindBy(xpath = "//input[@name='age_of_death']")
-    public WebElement personalTab_AgeAtDeath;
+    public WebElement resetConfirmYes;
 
     //Tumours Tab
     @FindBy(xpath = "//div[@id='tab_Tumours']//label[contains(@class,'field-name')]")
     public List<WebElement> tumoursTabFields;
+
     @FindBy(xpath = "//input[@name='numberOfColorectalPolypsTotal']")
     public WebElement tumoursTab_PolypsTotal;
+
     @FindBy(xpath = "//input[@name='numberOfColorectalPolypsAdenomas']")
     public WebElement tumoursTab_PolypsAdenomas;
 
     //Phenotype Tab
     @FindBy(xpath = "//div[@id='tab_Phenotype']//label[contains(@class,'field-name')]")
     public List<WebElement> phenotypeTabFields;
+
     @FindBy(xpath = "//select[@name='hpoPresent']")
     public WebElement phenotypeTab_HPOPresent;
+
     @FindBy(xpath = "//input[@name='hpo_positive' and contains(@class,'suggest multi suggest')]")
     public WebElement phenotypeTab_Phenotype;
-    @FindBy(xpath = "//ul[contains(@class,'hpo_suggestions')]/li")
-    public List<WebElement> hpoSuggestedLists;
 
     //Clinical Tab
     @FindBy(xpath = "//div[@id='tab_Clinical']//label[contains(@class,'field-name')]")
@@ -100,8 +81,10 @@ public class PedigreePage {
     public WebElement diseaseStatusUnknown;
     @FindBy(xpath = "//select[@name='clinicalIndicationAgeOfOnsetYears']")
     public WebElement clinicalTab_AgeOfOnsetYears;
+
     @FindBy(xpath = "//select[@name='clinicalIndicationAgeOfOnsetMonths']")
     public WebElement clinicalTab_AgeOfOnsetMonths;
+
     @FindBy(xpath = "//select[@name='diagnosisCertainty']")
     public WebElement clinicalTab_diagnosisCertainty;
     @FindBy(xpath = "//select[@name='disorderType']")
@@ -117,8 +100,10 @@ public class PedigreePage {
 
     @FindBy(xpath = "//button[text()='Save']")
     WebElement saveButton;
+
     @FindBy(xpath = "//button[text()='Save and continue']")
     WebElement saveAndContinueButton;
+
     @FindBy(xpath = "//button[text()='Try again']")
     WebElement tryAgainButton;
 
@@ -169,7 +154,6 @@ public class PedigreePage {
 
     public void closePopup() {
         try {
-            SeleniumLib.scrollToElement(closePopup);
             Actions.clickElement(driver, closePopup);
         } catch (Exception exp) {
             Debugger.println("Could not close the Popup." + exp);
@@ -224,7 +208,7 @@ public class PedigreePage {
             boolean fieldDisableStatus = false;
             switch (fieldName) {
                 case "Number Of Colorectal Polyps Total": {
-                    if (tumoursTab_PolypsTotal.isEnabled()) {
+                        if (tumoursTab_PolypsTotal.isEnabled()) {
                         fieldDisableStatus = false;
                     } else {
                         fieldDisableStatus = true;
@@ -232,7 +216,7 @@ public class PedigreePage {
                     break;
                 }
                 case "Number of Colorectal Polyps Adenomas": {
-                    if (tumoursTab_PolypsAdenomas.isEnabled()) {
+                        if (tumoursTab_PolypsAdenomas.isEnabled()) {
                         fieldDisableStatus = false;
                     } else {
                         fieldDisableStatus = true;
@@ -244,9 +228,9 @@ public class PedigreePage {
         } catch (Exception exp) {
             Debugger.println("Exception in getting field status In Tumours Tab :" + exp);
             SeleniumLib.takeAScreenShot("NoFieldInTumoursTab.jpg");
-            return false;
-        }
-    }
+                            return false;
+                        }
+                    }
 
     public boolean getDisableStatusOfPhenotypeTabField(String fieldName) {
         try {
@@ -263,7 +247,7 @@ public class PedigreePage {
                         fieldDisableStatus = true;
                     }
                     break;
-                }
+            }
             }
             return fieldDisableStatus;
         } catch (Exception exp) {
@@ -353,7 +337,7 @@ public class PedigreePage {
                 case "Diagnosis Certainty": {
                     fieldDisableStatus = clinicalTab_diagnosisCertainty.getAttribute("class").contains("disabled");
                     break;
-                }
+                        }
                 case "Please select coding system for disorder search:": {
                     fieldDisableStatus = clinicalTab_disorderType.getAttribute("class").contains("disabled");
                     break;
@@ -372,7 +356,7 @@ public class PedigreePage {
                     } else {
                         fieldDisableStatus = true;
                     }
-                }
+            }
             }
             return fieldDisableStatus;
         } catch (Exception exp) {
@@ -489,45 +473,45 @@ public class PedigreePage {
             String xCoordinate = null;
             String yCoordinate = null;
             Debugger.println(patientType + ",MaleBase Node X Location:" + nodeX);
-            for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
+                for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(nodeX) + idx_array[i]);
-                for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
+                        for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
                     male_node = By.xpath("//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "']");
-                    try {
-                        seleniumLib.moveMouseAndClickOnElement(male_node);
-                        diagramClicked = true;
-                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate);
-                        break;
+                            try {
+                                seleniumLib.moveMouseAndClickOnElement(male_node);
+                                diagramClicked = true;
+                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate + "," + yCoordinate);
+                                break;
                     } catch (NoSuchElementException NSEE) {
-                        Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
-                    } catch (MoveTargetOutOfBoundsException mtobe) {
-                        By ZoomOut = By.xpath("//div[@title='Zoom out']");
-                        seleniumLib.clickOnElement(ZoomOut);
-                        if (!zoomOutFlag) {
-                            zoomOutFlag = true;
+                                Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
+                            } catch (MoveTargetOutOfBoundsException mtobe) {
+                                By ZoomOut = By.xpath("//div[@title='Zoom out']");
+                                seleniumLib.clickOnElement(ZoomOut);
+                                if (!zoomOutFlag) {
+                                    zoomOutFlag = true;
                             clickOnMaleNode(ngsIdX, patientType);
-                        }
-                    } catch (Exception exp) {
-                        try {
+                                }
+                            } catch (Exception exp) {
+                                try {
                             String tmpstr = "//*[name()='rect'][@class='pedigree-node-shadow'][@x='" + xCoordinate + "'][@transform='matrix(1,0,0,1,0,0)']";
-                            By xpathtemp = By.xpath(tmpstr);
-                            seleniumLib.moveMouseAndClickOnElement(xpathtemp);
-                            diagramClicked = true;
-                        } catch (Exception exp1) {
-                            i = idx_array.length + 1;
-                            break;
-                        }
-                    }
+                                    By xpathtemp = By.xpath(tmpstr);
+                                    seleniumLib.moveMouseAndClickOnElement(xpathtemp);
+                                    diagramClicked = true;
+                                } catch (Exception exp1) {
+                                    i = idx_array.length + 1;
+                                    break;
+                                }
+                            }
                 }//for y-coordinate
                 if (diagramClicked) {
-                    break;
-                }
+                        break;
+                    }
             }//for x-coordinate
             return diagramClicked;
-        } catch (Exception exp) {
+                } catch (Exception exp) {
             Debugger.println("Unable to click on Pedigree Node.\n" + exp);
             return false;
-        }
+                }
     }
 
     private boolean clickOnFemaleNode(String ngsIdX, String patientType) {
@@ -537,28 +521,28 @@ public class PedigreePage {
             String xCoordinate = null;
             int idx_array[] = {0, -1, 1, 2, -2, 3, -3, 4, -4};
             Debugger.println("FemaleNode: Base Calculated X:" + ngsIdX);
-            By female_node = null;
-            for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
+                By female_node = null;
+                for (int i = 0; i < idx_array.length; i++) {//X coordinates may vary depends on the browser
                 xCoordinate = Integer.toString((int) Double.parseDouble(ngsIdX) + idx_array[i]);
-                if (!diagramClicked) {
-                    for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
+                    if (!diagramClicked) {
+                        for (int j = 0; j < idx_array.length; j++) {//Y coordinates may vary depends on the browser
                         female_node = By.xpath("//*[name()='circle'][@class='pedigree-node-shadow'][@cx='" + xCoordinate + "']");
-                        try {
-                            seleniumLib.moveMouseAndClickOnElement(female_node);
-                            diagramClicked = true;
+                            try {
+                                seleniumLib.moveMouseAndClickOnElement(female_node);
+                                diagramClicked = true;
                             Debugger.println("Female: " + patientType + ",Clicked On:" + xCoordinate);
-                            break;
-                        } catch (NoSuchElementException E) {
+                                break;
+                            } catch (NoSuchElementException E) {
                             Debugger.println("FemaleNode...X:" + xCoordinate);
+                            }
                         }
+                    } else {
+                        break;
                     }
-                } else {
-                    break;
+                }//For
+                if (diagramClicked) {
+                    return diagramClicked;
                 }
-            }//For
-            if (diagramClicked) {
-                return diagramClicked;
-            }
 
         } catch (MoveTargetOutOfBoundsException exp) {
             Wait.forElementToBeDisplayed(driver, zoomOutButton, 10);
@@ -651,8 +635,8 @@ public class PedigreePage {
     public boolean verifyPresenceOfButton(String buttonName) {
         try {
             if (!waitForThePedigreeDiagramToBeLoaded()) {
-                return false;
-            }
+                    return false;
+                }
             boolean isPresent = false;
             if (buttonName.equalsIgnoreCase("Save")) {
                 isPresent = Wait.isElementDisplayed(driver, saveButton, 60);
@@ -677,8 +661,8 @@ public class PedigreePage {
     public boolean saveAndContinueOnPedigree() {
         try {
             if (!waitForThePedigreeDiagramToBeLoaded()) {
-                return false;
-            }
+                    return false;
+                }
             if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)) {
                 Debugger.println("SaveAndContinueButton on Pedigree diagram not loaded after waiting a minute.");
                 SeleniumLib.takeAScreenShot("NoSaveAndContinueInPedigree.jpg");
@@ -903,9 +887,9 @@ public class PedigreePage {
                 Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
                 //Popup will display for Reset button click
                 Wait.seconds(2);
-                SeleniumLib.scrollToElement(confirmationDialog);
+                SeleniumLib.scrollToElement(resetConfirmDialog);
                 Wait.seconds(2);
-                Actions.clickElement(driver, confirmationYes);
+                Actions.clickElement(driver, resetConfirmYes);
                 Wait.seconds(2);
                 Actions.scrollToTop(driver);
                 Wait.seconds(2);
@@ -1102,157 +1086,18 @@ public class PedigreePage {
             return false;
         }
     }
-    public boolean setYearOfBirth(String years) {
+
+    public boolean clickOnDocumentEvatuionOption() {
         try {
-            if (!seleniumLib.selectFromListByText(personalTab_YearOfBirth, years)) {
-                Debugger.println("Could not select the Year Of Birth");
-                SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
-                return false;
+            if (Wait.isElementDisplayed(driver, clinicalTab__documentEvaluation, 100)) {
+                Actions.clickElement(driver, clinicalTab__documentEvaluation);
+                Debugger.println("Document Evalution Option Selected");
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Could not select Year Of Birth values :" + exp);
-            SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
+            Debugger.println("Exception from submitting Referral " + exp);
+            SeleniumLib.takeAScreenShot("submitReferral.jpg");
             return false;
         }
     }
-    public boolean verifyHPOPhenotype(String phenotype) {
-        boolean isPresent = false;
-        try {
-            for(int i=0; i<hpoSuggestedLists.size(); i++){
-                Debugger.println("HPO: "+hpoSuggestedLists.get(i).getText());
-                if(hpoSuggestedLists.get(i).getText().contains(phenotype)){
-                    isPresent = true;
-                    break;
-                }
-            }
-            if(!isPresent){
-                Debugger.println("Phenotype: "+phenotype+" not loaded in Pedigree diagram.");
-                SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
-            }
-            return isPresent;
-        } catch (Exception exp) {
-            Debugger.println("Could not verifyHPOPhenotype :" + exp);
-            SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyDiagnosisDisorders(String disorder) {
-        boolean isPresent = false;
-        try {
-            //Re-using an existing method in SeleniumLib for Select drop downs
-            isPresent = seleniumLib.selectFromListByText(clinicalTab_disorderType,disorder);
-            if(!isPresent){
-                Debugger.println("Diagnosis disorder :"+disorder+" not present in Clinical Tab.");
-                SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
-            }
-            return isPresent;
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying DiagnosisDisorders options.");
-            SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyFieldsPresenceOnPersonalTab(String fieldName) {
-        try {
-            boolean isPresent = false;
-            for (int i = 0; i < personalTabFields.size(); i++) {
-                if (personalTabFields.get(i).getText().equalsIgnoreCase(fieldName)) {
-                    isPresent = true;
-                    break;
-                }
-            }
-            if (!isPresent) {
-                Debugger.println("Field " + fieldName + " not present in Personal Tab.");
-                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in validating field status In Personal Tab :" + exp);
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            return false;
-        }
-    }
-    public boolean verifyPersonalTabDropDownOptions(String fieldName,String option) {
-        boolean isPresent = false;
-        try {
-            //Re-using an existing method in SeleniumLib for Select drop downs
-            switch(fieldName) {
-                case "Ethnicity":
-                    isPresent = seleniumLib.selectFromListByText(personalTab_Ethnicity, option);
-                break;
-                case "Gender":
-                    isPresent = seleniumLib.selectFromListByText(personalTab_Gender, option);
-                break;
-                case "KaryoTypicSex":
-                    isPresent = seleniumLib.selectFromListByText(personalTab_KaryotypicSex, option);
-                break;
-                case "GestationAge":
-                    isPresent = seleniumLib.selectFromListByText(personalTab_gestationAge, option);
-                break;
-                case "Heredity":
-                    isPresent = seleniumLib.selectFromListByText(personalTab_Heredity, option);
-                    break;
-
-            }
-            if(!isPresent){
-                Debugger.println(fieldName+" Option :"+option+" not present.");
-                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            }
-            return isPresent;
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying Personal Tab Filed Enumeration.");
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            return false;
-        }
-    }
-    public boolean verifyErrorMessageOnPopup(String errorMessage){
-        boolean isPresent = false;
-        try {
-            Wait.seconds(2);
-            SeleniumLib.scrollToElement(confirmationDialog);
-            Wait.seconds(2);
-            String actualMessage = popupMessageBody.getText();
-            if(actualMessage.contains(errorMessage)){
-                isPresent = true;
-            }
-            if(!isPresent){
-                Debugger.println("Popup error message mismatch. Actual:"+actualMessage+",Expected:"+errorMessage);
-                SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
-            }
-            Actions.clickElement(driver, confirmationYes);
-            Wait.seconds(2);
-            return isPresent;
-
-        }catch(Exception exp){
-            Debugger.println("Exception in validating Error popup:"+exp);
-            SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
-            return false;
-        }
-    }
-    public boolean setAgeAtDeath(String age){
-        try{
-            Wait.forElementToBeDisplayed(driver,personalTab_AgeAtDeath);
-            personalTab_AgeAtDeath.sendKeys(age);
-            Wait.seconds(2);
-            return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in setting AgeAtDeath:"+exp);
-            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
-            return false;
-        }
-    }
-    public boolean verifyThePedigreeDiagramLoadedAsJavaScript(){
-        //Previously it was loading as svg diagram inside iframe... now loading as
-        //Manual team also checking teh same thing via developer tool options.
-        if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
-            Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
-            return false;
-        }
-        return true;
-    }
-
 }//end

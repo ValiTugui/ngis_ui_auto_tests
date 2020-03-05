@@ -726,100 +726,116 @@ public class ReferralSteps extends Pages {
         Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
     }
 
-    @And("the page url address contains the directory-path web-page {string}")
-    public void thePageUrlAddressContainsTheDirectoryPathWebPage(String directoryPath) {
-        boolean flag = false;
-        flag = referralPage.verifyTheCurrentURLContainsTheDirectoryPathPage(directoryPath);
-        Assert.assertTrue(flag);
-    }
+//    @And("the page url address contains the directory-path web-page {string}")
+//    public void thePageUrlAddressContainsTheDirectoryPathWebPage(String directoryPath) {
+//        boolean flag = false;
+//        flag = referralPage.verifyTheCurrentURLContainsTheDirectoryPathPage(directoryPath);
+//        Assert.assertTrue(flag);
+//    }
+//
+//
+//    @And("the Genomic Medicine Service logo {string} is displayed in the header of Test Ordering")
+//    public void theGenomicMedicineServiceLogoIsDisplayedInTheHeaderOfTestOrdering(String expectedGenomicsEngLogo) {
+//        String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
+//        Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
+//        Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
+//        Assert.assertEquals(expectedGenomicsEngLogo,actualGenomicsEngLogo);
+//    }
+//
+//    @And("the username {string} is displayed in the header of Test Ordering")
+//    public void theUsernameIsDisplayedInTheHeaderOfTestOrdering(String userType) {
+//        String expectedLoginUserName = referralPage.getExpectedUserNameFromLoginEmailAddress(userType);
+//        String actualLoginUserName = referralPage.getActualLoginUserName();
+//        Debugger.println("Expected user-login full name: " + expectedLoginUserName);
+//        Debugger.println("Actual user-login full name: " + actualLoginUserName);
+//        Assert.assertEquals(expectedLoginUserName,actualLoginUserName);
+//    }
+//
+//    @And("the logout {string} text is displayed in the header of Test Ordering")
+//    public void theLogoutTextIsDisplayedInTheHeaderOfTestOrdering(String expectedLogoutText) {
+//        String actualLogoutText = referralPage.getActualLogoutText();
+//        Debugger.println("Actual logout text: " + actualLogoutText);
+//        Debugger.println("Expected logout text: " + expectedLogoutText);
+//        Assert.assertEquals(expectedLogoutText,actualLogoutText);
+//    }
+//
+//    @Then("the NHS logo is displayed in the header of Test Ordering")
+//    public void theNHSLogoIsDisplayedInTheHeaderOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.nhsEnglandLogoIsDisplayedInHeader();
+//        Assert.assertTrue(flag);
+//    }
+//
+//    @And("the NHS logo is displayed in the footer of Test Ordering")
+//    public void theNHSLogoIsDisplayedInTheFooterOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.nhsEnglandLogoIsDisplayedInFooter();
+//        Assert.assertTrue(flag);
+//    }
+//
+//    @And("the Genomics England logo is displayed in the footer of Test Ordering")
+//    public void theGenomicsEnglandLogoIsDisplayedInTheFooterOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.genomicsEnglandLogIsDisplayedInFooter();
+//        Assert.assertTrue(flag);
+//    }
+//
+//    @And("the Report an issue or provide feedback text link is displayed in the footer of Test Ordering")
+//    public void theReportAnIssueOrProvideFeedbackTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.serviceDeskReportAndIssueIsDisplayedInTheFooter();
+//        Assert.assertTrue(flag);
+//    }
+//
+//    @And("the Privacy Policy text link is displayed in the footer of Test Ordering")
+//    public void thePrivacyPolicyTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.privacyPolicyIsDisplayedInTheFooter();
+//        Assert.assertTrue(flag);
+//    }
+//
+//    @And("the copyright text is displayed in the footer of Test Ordering")
+//    public void theCopyrightTextIsDisplayedInTheFooterOfTestOrdering() {
+//        boolean flag = false;
+//        flag = referralPage.copyrightTextIsDisplayedInTheFooter();
+//        Assert.assertTrue(flag);
+//    }
+//    @And("the referral submit button is not enabled")
+//    public void theReferralSubmitButtonIsNotEnabled() {
+//        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
+//    }
+//
+//    @Then("the user should see a new popup dialog with title {string}")
+//    public void theUserShouldSeeANewPageWith(String titleMessage) {
+//        boolean testResult = false;
+//        testResult = referralPage.verifyTheSubmitDialogTitle(titleMessage);
+//        Assert.assertTrue(testResult);
+//    }
+//
+//    @And("the user should see the referral submit button as (.*)")
+//    public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
+//        boolean testResult = false;
+//        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
+//        if (expectedStatus.equals("enabled")) {
+//            Assert.assertFalse(testResult);
+//        } else {
+//            Assert.assertTrue(testResult);
+//        }
+//    }
 
-
-    @And("the Genomic Medicine Service logo {string} is displayed in the header of Test Ordering")
-    public void theGenomicMedicineServiceLogoIsDisplayedInTheHeaderOfTestOrdering(String expectedGenomicsEngLogo) {
-        String actualGenomicsEngLogo = referralPage.getGenomicMedicineServiceLogoInHeader();
-        Debugger.println("actual Genomics Logo " + actualGenomicsEngLogo);
-        Debugger.println("expected Genomics Logo " + expectedGenomicsEngLogo);
-        Assert.assertEquals(expectedGenomicsEngLogo,actualGenomicsEngLogo);
-    }
-
-    @And("the username {string} is displayed in the header of Test Ordering")
-    public void theUsernameIsDisplayedInTheHeaderOfTestOrdering(String userType) {
-        String expectedLoginUserName = referralPage.getExpectedUserNameFromLoginEmailAddress(userType);
-        String actualLoginUserName = referralPage.getActualLoginUserName();
-        Debugger.println("Expected user-login full name: " + expectedLoginUserName);
-        Debugger.println("Actual user-login full name: " + actualLoginUserName);
-        Assert.assertEquals(expectedLoginUserName,actualLoginUserName);
-    }
-
-    @And("the logout {string} text is displayed in the header of Test Ordering")
-    public void theLogoutTextIsDisplayedInTheHeaderOfTestOrdering(String expectedLogoutText) {
-        String actualLogoutText = referralPage.getActualLogoutText();
-        Debugger.println("Actual logout text: " + actualLogoutText);
-        Debugger.println("Expected logout text: " + expectedLogoutText);
-        Assert.assertEquals(expectedLogoutText,actualLogoutText);
-    }
-
-    @Then("the NHS logo is displayed in the header of Test Ordering")
-    public void theNHSLogoIsDisplayedInTheHeaderOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.nhsEnglandLogoIsDisplayedInHeader();
-        Assert.assertTrue(flag);
-    }
-
-    @And("the NHS logo is displayed in the footer of Test Ordering")
-    public void theNHSLogoIsDisplayedInTheFooterOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.nhsEnglandLogoIsDisplayedInFooter();
-        Assert.assertTrue(flag);
-    }
-
-    @And("the Genomics England logo is displayed in the footer of Test Ordering")
-    public void theGenomicsEnglandLogoIsDisplayedInTheFooterOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.genomicsEnglandLogIsDisplayedInFooter();
-        Assert.assertTrue(flag);
-    }
-
-    @And("the Report an issue or provide feedback text link is displayed in the footer of Test Ordering")
-    public void theReportAnIssueOrProvideFeedbackTextLinkIsDisplayedInTheFooterOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.serviceDeskReportAndIssueIsDisplayedInTheFooter();
-        Assert.assertTrue(flag);
-    }
-
-    @And("the Privacy Policy text link is displayed in the footer of Test Ordering")
-    public void thePrivacyPolicyTextLinkIsDisplayedInTheFooterOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.privacyPolicyIsDisplayedInTheFooter();
-        Assert.assertTrue(flag);
-    }
-
-    @And("the copyright text is displayed in the footer of Test Ordering")
-    public void theCopyrightTextIsDisplayedInTheFooterOfTestOrdering() {
-        boolean flag = false;
-        flag = referralPage.copyrightTextIsDisplayedInTheFooter();
-        Assert.assertTrue(flag);
-    }
-    @And("the referral submit button is not enabled")
-    public void theReferralSubmitButtonIsNotEnabled() {
-        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
-    }
-
-    @Then("the user should see a new popup dialog with title {string}")
-    public void theUserShouldSeeANewPageWith(String titleMessage) {
-        boolean testResult = false;
-        testResult = referralPage.verifyTheSubmitDialogTitle(titleMessage);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should see the referral submit button as (.*)")
-    public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
-        boolean testResult = false;
-        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
-        if (expectedStatus.equals("enabled")) {
-            Assert.assertFalse(testResult);
-        } else {
-            Assert.assertTrue(testResult);
+    @When("the user verify the text present in the page as {string}")
+    public void theUserVerifyTheTextPresentInThePageAs(String expInputs) {
+        String[] inputValue = expInputs.split(",");
+        for (int i = 0; i < inputValue.length; i++) {
+            Debugger.println("Start checking for " + inputValue[i]);
+            Assert.assertTrue(referralPage.verifyTheTextInTheCurrentPage(inputValue[i]));
         }
+    }
+
+    @Then("the user verifies the NHS format as {string}")
+    public void theUserVerifiesTheNHSFormatAs(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSFormat(nhsFormat);
+        Assert.assertTrue(testResult);
     }
 }

@@ -25,11 +25,11 @@ public class PedigreeSteps extends Pages {
     @When("the user clicks on the specified node on the pedigree diagram for {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
         NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
-        if (patient == null) {
+        if(patient == null){
             Debugger.println("Specified Family member could not get from the list.");
             return;
         }
-        if (patient.getNGIS_ID() == null) {
+        if(patient.getNGIS_ID() == null) {
             patient.setNGIS_ID(referralPage.getPatientNGISId());
         }
 
@@ -54,7 +54,6 @@ public class PedigreeSteps extends Pages {
             Wait.seconds(10);//Waiting to ensure the diagram loaded and dissappeard
         }
     }
-
     @And("the user will see a warning message {string} on the pedigree page")
     public void theUserWillSeeAWarningMessageOnThePatientChoiceInformationOption(String warningMessage) {
         boolean testResult = false;
@@ -82,8 +81,8 @@ public class PedigreeSteps extends Pages {
 
     @And("the user select the pedigree tab (.*)")
     public void theUserClicksTheSpecifiedOnTheNode(String value) {
-        boolean testResult = false;
-        testResult = pedigreePage.clickSpecificPedigreeTab(value);
+        boolean testResult=false;
+        testResult= pedigreePage.clickSpecificPedigreeTab(value);
         Assert.assertTrue(testResult);
     }
 
@@ -93,7 +92,7 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsPresenceOnClinicalTab(fields.get(i).get(0));
-            if (!testResult) {
+            if(!testResult){
                 Assert.assertTrue(testResult);
             }
             testResult = pedigreePage.getDisableStatusOfClinicalTabField(fields.get(i).get(0));
@@ -101,8 +100,8 @@ public class PedigreeSteps extends Pages {
                 if (!testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
-                }
-                Assert.assertTrue(testResult);
+        }
+        Assert.assertTrue(testResult);
             } else {
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
@@ -124,7 +123,7 @@ public class PedigreeSteps extends Pages {
             }
             testResult = pedigreePage.getDisableStatusOfPhenotypeTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
-                if (!testResult) {
+            if(!testResult){
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
                 }
@@ -133,9 +132,9 @@ public class PedigreeSteps extends Pages {
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("ClinicalTab.jpg");
-                }
-                Assert.assertFalse(testResult);
             }
+                Assert.assertFalse(testResult);
+        }
         }//for
         Assert.assertTrue(testResult);
     }
@@ -149,16 +148,14 @@ public class PedigreeSteps extends Pages {
             if (!testResult) {
                 Assert.assertTrue(testResult);
             }
-
             testResult = pedigreePage.getDisableStatusOfTumoursTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
-                if (!testResult) {
+            if(!testResult){
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Non-Editable,But actual Editable.");
                     SeleniumLib.takeAScreenShot("TumoursTab.jpg");
                 }
                 Assert.assertTrue(testResult);
             } else {
-                Debugger.println("EDITABLE: "+testResult);
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("TumoursTab.jpg");
@@ -166,6 +163,7 @@ public class PedigreeSteps extends Pages {
                 Assert.assertFalse(testResult);
             }
         }
+        Assert.assertTrue(testResult);
     }
 
     @Then("the below field values should be displayed properly on Clinical Tab")
@@ -174,17 +172,10 @@ public class PedigreeSteps extends Pages {
         List<List<String>> fields = fieldsDetails.asLists();
         for (int i = 1; i < fields.size(); i++) {
             testResult = pedigreePage.verifyFieldsValueOnClinicalTab(fields.get(i).get(0));
-            if (!testResult) {
+            if(!testResult){
                 Assert.assertTrue(testResult);
             }
         }
-        Assert.assertTrue(testResult);
-    }
-
-    @Then("the user should be able to see (.*) button on Pedigree Page")
-    public void theUserShouldBeAbleToSeeOnlySaveButton(String buttonName) {
-        boolean testResult = false;
-        testResult = pedigreePage.verifyPresenceOfButton(buttonName);
         Assert.assertTrue(testResult);
     }
 
@@ -194,7 +185,6 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.saveAndContinueOnPedigree();
         Assert.assertTrue(testResult);
     }
-
     //This step introduced as navigating back from pedigree stage sometimes not working due to some overlay on other stage elements
     @When("the user scroll to the top of landing page")
     public void theUserScrollToTopOfLandingPage() {
@@ -239,6 +229,8 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
+
+
 
     @And("the user should be able to see the below tabs in the popup window")
     public void theUserShouldSeeThePedigreeTabsInPopup(DataTable tabNames) {
@@ -320,83 +312,18 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.selectAgeOfOnset(year_months[0], year_months[1]);
         Assert.assertTrue(testResult);
     }
-    @Then("the user updates the parent date of year as {string}")
-    public void theUserUpdatesTheParentDateOfYearAs(String yearOfBirth) {
+
+
+    @Then("the user should be able to see (.*) button on Pedigree Page")
+    public void theUserShouldBeAbleToSeeSaveAndContinueButtonOnPedigreePage(String buttonName) {
         boolean testResult = false;
-        testResult = pedigreePage.setYearOfBirth(yearOfBirth);
+        testResult = pedigreePage.verifyPresenceOfButton(buttonName);
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should see the hpo phenotypes {string} displayed")
-    public void theUserShouldSeeTheHpoPhenotypesDisplayed(String phenotypes) {
-        boolean testResult = false;
-        if(phenotypes.indexOf(",") == -1) {
-            testResult = pedigreePage.verifyHPOPhenotype(phenotypes);
-        }else{
-            String[] phenos = phenotypes.split(",");
-            for(int i=0; i<phenos.length; i++){
-                testResult = pedigreePage.verifyHPOPhenotype(phenos[i]);
-                if(!testResult){
-                    Assert.assertTrue(testResult);
-                }
-            }
-        }
-        Assert.assertTrue(testResult);
-    }
-    @Then("the user should see the below options for (.*) field Personal tab")
-    public void theUserShouldSeeTheBelowListedEthnicityEnumerationsLoadedInPedigree(String fieldName,DataTable enumerations) {
-        boolean testResult = false;
-        List<List<String>> enumerationsList = enumerations.asLists();
-        for (int i = 0; i < enumerationsList.size(); i++) {
-            testResult = pedigreePage.verifyPersonalTabDropDownOptions(fieldName,enumerationsList.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
-            }
-        }
-        Assert.assertTrue(testResult);
-    }
-    @Then("the user enters age at death as {string}")
-    public void theUserShouldNotSavePedigreeWithInvalidAgeAtDeath(String ageAtDeath) {
-        boolean testResult = false;
-        testResult = pedigreePage.setAgeAtDeath(ageAtDeath);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the user should see diagnosis code options as below")
-    public void theUserShouldSeeDiagnosisCodeOptionsAs(DataTable diagnosis) {
-        boolean testResult = false;
-        List<List<String>> disOrders = diagnosis.asLists();
-        for (int i = 1; i < disOrders.size(); i++) {
-            testResult = pedigreePage.verifyDiagnosisDisorders(disOrders.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
-            }
-        }
-        Assert.assertTrue(testResult);
-    }
-    @Then("the user should see below fields on Personal Tab with the given status")
-    public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(DataTable fieldsDetails) {
-        boolean testResult = false;
-        List<List<String>> fields = fieldsDetails.asLists();
-        for (int i = 1; i < fields.size(); i++) {
-            testResult = pedigreePage.verifyFieldsPresenceOnPersonalTab(fields.get(i).get(0));
-            if (!testResult) {
-                Assert.assertTrue(testResult);
-            }
-        }//for
-    }
-    @Then("the user should see error pop up message displayed as {string}")
-    public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(String errorMessage) {
-        boolean testResult = false;
-        testResult = pedigreePage.verifyErrorMessageOnPopup(errorMessage);
-        Assert.assertTrue(testResult);
-    }
-
-    @And("the verify the Pedigree diagram is loaded with java script instead of iframe")
-    public void theVerifyThePedigreeDiagramIsLoadedWithJavaScriptInsteadOfIframe() {
-        boolean testResult = false;
-        testResult = pedigreePage.verifyThePedigreeDiagramLoadedAsJavaScript();
-        Assert.assertTrue(testResult);
-
+    @Then("the user selects the document evaluation option")
+    public void theUserSelectsTheDocumentEvaluationOption() {
+        boolean testResult =false;
+        testResult=pedigreePage.clickOnDocumentEvatuionOption();
     }
 }//end

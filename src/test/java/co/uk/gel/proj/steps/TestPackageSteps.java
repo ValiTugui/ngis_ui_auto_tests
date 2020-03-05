@@ -213,4 +213,12 @@ public class TestPackageSteps extends Pages {
             Assert.assertTrue(testPackagePage.ensureTickMarkIsDisplayedNextToRoutine());
         }
     }
+
+    @And("the user selects the test by clicking the deselected test")
+    public void theUserSelectsTheTestByClickingTheDeselectedTest() {
+        boolean testResult = false;
+        testResult =testPackagePage.selectTheDeselectTestPackage();
+        Assert.assertTrue(testResult);
+
+    }
 }

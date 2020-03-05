@@ -1005,8 +1005,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
                 }else{
                     //Checking with the first part of the DOB as Month/Days/Hours shown based on some internal logic
                     if(familyMember.getBORN_WITH_AGE().contains(bornExpected.substring(0,11))){
-                        return true;
-                    }
+                return true;
+            }
                 }
             }
             Debugger.println("Search Result - Patient Card does not contains the NHS and DOB as expected for :"+familyDetails);
