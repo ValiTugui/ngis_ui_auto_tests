@@ -308,13 +308,6 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("after submitting the referral once, the user is unable to submit it again")
-    public void afterSubmittingTheReferralOnceTheUserIsUnableToSubmitItAgain() {
-        boolean testResult = false;
-        testResult = referralPage.verifySubmitButtonStatusAfterSubmission();
-        Assert.assertTrue(testResult);
-    }
-
     @Then("the user should be able to click {string} link to verify the address of the lab in the downloaded file")
     public void theUserShouldBeAbleToClickShowAddressLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress) {
         boolean testResult = false;
@@ -330,6 +323,13 @@ public class PrintFormSteps extends Pages {
     public void theUserVerifiesThatTheTheRelationshipToProbandIsUpdatedInPrintFormsSection(String realationToProband) {
         boolean testResult = false;
         testResult = printFormsPage.verifyRelationshipToProband(realationToProband);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to close the pop up dialog box")
+    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
+        boolean testResult= false;
+        testResult=referralPage.closeMandatoryStagePopUp();
         Assert.assertTrue(testResult);
     }
 

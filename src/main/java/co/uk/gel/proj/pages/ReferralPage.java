@@ -274,6 +274,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@role = 'dialog']")
     WebElement mandatoryStageDialogBox;
 
+    @FindBy(xpath = "//*[@role = 'dialog']//button[contains(@class,'closeButton')]")
+    WebElement mandatoryStageDialogBoxCloseButton;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1282,21 +1285,6 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean verifySubmitButtonStatusAfterSubmission() {
-        try {
-            Wait.forElementToBeDisplayed(driver,submitReferralButton);
-            if(submitReferralButton.isEnabled()){
-                Debugger.println("ReferralButton status is enabled after Submission.");
-                SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("ReferralPage: submiButtonStatusAfterSubmission: " + exp);
-            SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
-            return false;
-        }
-    }
     public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
@@ -1355,6 +1343,23 @@ public class ReferralPage<check> {
         } catch (Exception exp) {
             Debugger.println("ReferralPage: validateMandatoryStages: " + exp);
             SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
+            return false;
+        }
+    }
+
+    public boolean closeMandatoryStagePopUp() {
+        try {
+            Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox);
+            if(!mandatoryStageDialogBoxCloseButton.isDisplayed()){
+                Debugger.println("The close button is not present in the mandatory stages dialog box.");
+                SeleniumLib.takeAScreenShot("CloseMandatoryStages.jpg");
+                return false;
+            }
+            mandatoryStageDialogBoxCloseButton.click();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("ReferralPage: closeMandatoryStagePopUp: "+exp);
+            SeleniumLib.takeAScreenShot("CloseMandatoryStages.jpg");
             return false;
         }
     }

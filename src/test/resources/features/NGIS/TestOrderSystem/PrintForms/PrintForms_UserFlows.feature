@@ -372,6 +372,7 @@ Feature: Print Forms - User flows
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
+    And the user should be able to close the pop up dialog box
     ###Requesting Organisation
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -430,8 +431,7 @@ Feature: Print Forms - User flows
       | Search for a Clinical indication in the Test Directory to request more tests |
       | Start a new referral                                                         |
     When the user submits the referral
-    Then after submitting the referral once, the user is unable to submit it again
-
+    Then the user should see the referral submit button as "disabled"
     Examples:
       | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                    | PatientChoice  | ClinicianName                                |
       | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Functional abnormality of the bladder | Patient choice | ClinicianName=Billy:HospitalNumber=178827893 |
