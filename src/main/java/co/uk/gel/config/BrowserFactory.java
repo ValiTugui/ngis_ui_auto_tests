@@ -124,6 +124,8 @@ public class BrowserFactory {
         System.setProperty("webdriver.chrome.driver", path);
         if (OS.equalsIgnoreCase("linux")) {
                 chromeOptions.addArguments("--headless");
+                chromeOptions.addArguments("window-size=1920,1080");
+           // 1920x1080x24
          //   chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
             chromeOptions.addArguments("disable-infobars"); // disabling infobars
            // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
