@@ -838,4 +838,15 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyNHSFormat(nhsFormat);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should see the referral submit button as (.*)")
+    public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
+        boolean testResult = false;
+        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
+        if (expectedStatus.equals("enabled")) {
+            Assert.assertFalse(testResult);
+        } else {
+            Assert.assertTrue(testResult);
+        }
+    }
 }
