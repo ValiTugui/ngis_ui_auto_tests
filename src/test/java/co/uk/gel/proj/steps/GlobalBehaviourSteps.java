@@ -5,12 +5,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.StylesUtils;
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
-
-import java.util.List;
 
 public class GlobalBehaviourSteps extends Pages {
 
@@ -48,4 +44,4 @@ public class GlobalBehaviourSteps extends Pages {
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
         Assert.assertTrue(testResult);
     }
-}//end
+}

@@ -162,7 +162,7 @@ Feature: Feature: Global Patient Flow - End to end RD
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
-    When the user edits the index number 1 of family member in patient choice
+    When the user edits patient choice for the newly added family member
     Then the user is navigated to a page with title Add family member patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     And the user selects the option Rare & inherited diseases – WGS in section Test type
