@@ -47,6 +47,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
   Scenario Outline:the user should be navigate to patient choice page by not entered link
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    ##Patient Details Page
     Then the user is navigated to a page with title Check your patient's details
     ##Test Package
     When the user navigates to the "<TestPackage>" stage
@@ -60,6 +61,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-1943:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status for family member 1 as Not entered
     And the user clicks on patient choice status link for family member 1
     Then the user is navigated to a page with title Add family member patient choice information

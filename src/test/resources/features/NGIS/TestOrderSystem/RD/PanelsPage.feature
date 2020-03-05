@@ -8,6 +8,9 @@ Feature: Panels Page Verification
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
+    ##Patient Details Page
+    When the user is navigated to a page with title Check your patient's details
+    ##Panels Page
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     ##@E2EUI-1231
@@ -22,15 +25,17 @@ Feature: Panels Page Verification
     When the user search and add the "<searchPanels>" panels
     Then the user sees the selected "<searchPanels>" panels under added panels
     And the user clicks on Save and Continue in Panels Page
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
+    ##panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     And the user sees the selected "<searchPanels>" panels under added panels
-    And the referral submit button is not enabled
+    Then the user should see the referral submit button as disabled
 
     Examples:
-      | Panels | searchPanels                                  | textLine                                                                                                      |
-      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | Panels | searchPanels                  | textLine                                                                                                      |
+      | Panels | Cardiac arrhythmias,Cataracts | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
   @NTS-3381 @E2EUI-1045 @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
