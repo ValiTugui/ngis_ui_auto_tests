@@ -1,9 +1,9 @@
 @regression
-@TO_Tumour
+@TO_RD
 @GlobalFlow
-@GlobalFlow_Validations_For_Tumour
+@GlobalFlow_Validations_Tumour
 
-Feature: Global Patient Flow for Tumour
+Feature: Global Patient Flow - End to end Tumour
 
   @NTS-4711 @E2EUI-964 @E2EUI-1587 @LOGOUT @Cancer/Tumour
   Scenario Outline:NTS-4711:Verify Page titles for Cancer/Tumour on every stage

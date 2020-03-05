@@ -1,9 +1,9 @@
 @regression
-@TO_RD_And_Tumour
+@TO_RD
 @GlobalFlow
-@GlobalStagValidation
+@GlobalFlow_Validations_Common
 
-Feature: Global Patient Information Bar on Family Members Navigation Stage Navigation
+Feature: Feature: Global Patient Flow - Stage Validation
 
   @NTS-4320 @E2EUI-1065 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4320: Verify continue button

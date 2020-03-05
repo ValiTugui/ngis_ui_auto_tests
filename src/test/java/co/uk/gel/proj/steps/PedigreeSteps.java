@@ -446,4 +446,11 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.verifyParticipateInSelectStatus(selectStatus);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user selects the document evaluation option")
+    public void theUserSelectsTheDocumentEvaluationOption() {
+        boolean testResult =false;
+        testResult=pedigreePage.selectDocumentEvaluationOption();
+        Assert.assertTrue(testResult);
+    }
 }//end

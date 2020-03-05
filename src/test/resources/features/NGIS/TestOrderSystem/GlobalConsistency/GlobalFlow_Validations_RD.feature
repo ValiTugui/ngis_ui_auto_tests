@@ -1,9 +1,9 @@
 @regression
 @TO_RD
 @GlobalFlow
-@GlobalFlow_Validations_For_RD
+@GlobalFlow_Validations_RD
 
-Feature: Global Patient Flow for Rare-Disease
+Feature: Feature: Global Patient Flow - End to end RD
 
   @NTS-4711 @E2EUI-964 @E2EUI-1587 @LOGOUT @RD
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
@@ -58,13 +58,13 @@ Feature: Global Patient Flow for Rare-Disease
     When the user verify the text present in the page as "<Referral>"
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     ## Relationship what we pass need to update
-    Then the user is navigated to family member test package page with title Select tests for full sibling
+    Then the user is navigated to a page with title Select tests for
     And the user clicks on the Back link
     ##Family Members Details Page Title
     Then the user is navigated to a page with title Confirm family member details
     And  the user clicks the Save and Continue button
     ##Family Members Test Package Page Title
-    Then the user is navigated to family member test package page with title Select tests for full sibling
+    Then the user is navigated to a page with title Select tests for
     And  the user clicks the Save and Continue button
     ##Family Members Clinical Questions Page Title
     Then the user is navigated to a page with title Add family member details
@@ -264,7 +264,7 @@ Feature: Global Patient Flow for Rare-Disease
     And the user clicks the Save and Continue button
     ##Patient Choice Page
     Then the user is navigated to a page with title Patient choice
-    And the user edits the patient choice status
+    And the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Cancer (paired tumour normal) – WGS in section Test type

@@ -1390,4 +1390,19 @@ public class PedigreePage {
             return false;
         }
     }
+    public boolean selectDocumentEvaluationOption() {
+        try {
+            if (!Wait.isElementDisplayed(driver, clinicalTab__documentEvaluation, 30)) {
+                Debugger.println("Document Evalution Option not present.");
+                SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, clinicalTab__documentEvaluation);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectDocumentEvaluationOption " + exp);
+            SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
+            return false;
+        }
+    }
 }//end
