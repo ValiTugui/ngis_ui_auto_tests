@@ -164,7 +164,6 @@ public class PedigreeSteps extends Pages {
                 Assert.assertFalse(testResult);
             }
         }
-        Assert.assertTrue(testResult);
     }
 
     @Then("the below field values should be displayed properly on Clinical Tab")
@@ -266,7 +265,9 @@ public class PedigreeSteps extends Pages {
 
     @When("the user click on (.*) menu button")
     public void theUserClickOnButton(String buttonName) {
-        pedigreePage.clickOnMenuButton(buttonName);
+        boolean testResult = false;
+        testResult = pedigreePage.clickOnMenuButton(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user adds new parent node to proband {string}")
@@ -319,4 +320,109 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.selectAgeOfOnset(year_months[0], year_months[1]);
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user updates the parent date of year as {string}")
+    public void theUserUpdatesTheParentDateOfYearAs(String yearOfBirth) {
+        boolean testResult = false;
+        testResult = pedigreePage.setYearOfBirth(yearOfBirth);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the hpo phenotypes {string} displayed")
+    public void theUserShouldSeeTheHpoPhenotypesDisplayed(String phenotypes) {
+        boolean testResult = false;
+        if(phenotypes.indexOf(",") == -1) {
+            testResult = pedigreePage.verifyHPOPhenotype(phenotypes);
+        }else{
+            String[] phenos = phenotypes.split(",");
+            for(int i=0; i<phenos.length; i++){
+                testResult = pedigreePage.verifyHPOPhenotype(phenos[i]);
+                if(!testResult){
+                    Assert.assertTrue(testResult);
+                }
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the below options for (.*) field Personal tab")
+    public void theUserShouldSeeTheBelowListedEthnicityEnumerationsLoadedInPedigree(String fieldName,DataTable enumerations) {
+        boolean testResult = false;
+        List<List<String>> enumerationsList = enumerations.asLists();
+        for (int i = 0; i < enumerationsList.size(); i++) {
+            testResult = pedigreePage.verifyPersonalTabDropDownOptions(fieldName,enumerationsList.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user enters age at death as {string}")
+
+    public void theUserShouldNotSavePedigreeWithInvalidAgeAtDeath(String ageAtDeath) {
+        boolean testResult = false;
+        testResult = pedigreePage.setAgeAtDeath(ageAtDeath);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see diagnosis code options as below")
+    public void theUserShouldSeeDiagnosisCodeOptionsAs(DataTable diagnosis) {
+        boolean testResult = false;
+        List<List<String>> disOrders = diagnosis.asLists();
+        for (int i = 1; i < disOrders.size(); i++) {
+            testResult = pedigreePage.verifyDiagnosisDisorders(disOrders.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see below fields on Personal Tab with the given status")
+    public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(DataTable fieldsDetails) {
+        boolean testResult = false;
+        List<List<String>> fields = fieldsDetails.asLists();
+        for (int i = 1; i < fields.size(); i++) {
+            testResult = pedigreePage.verifyFieldsPresenceOnPersonalTab(fields.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }//for
+    }
+
+    @Then("the user should see error pop up message displayed as {string}")
+    public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(String errorMessage) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyErrorMessageOnPopup(errorMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the verify the Pedigree diagram is loaded with java script instead of iframe")
+    public void theVerifyThePedigreeDiagramIsLoadedWithJavaScriptInsteadOfIframe() {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyThePedigreeDiagramLoadedAsJavaScript();
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("the user should see the Non NGSID displayed in personal tab for the selected Non NGIS member for {string}")
+    public void theUserShouldSeeTheNonNGSIDDisplayedInPersonalTabForTheSelectedMember(String searchDetails) {
+        NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
+        if (patient == null) {
+            Debugger.println("Specified Proband Details could not get from the list.");
+            return;
+        }
+        boolean testResult = pedigreePage.verifyNonNGISPatientIDInPersonalTab(patient.getNON_NGIS_ID1());
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user enters tumour field values as {string}")
+    public void theUserEntersTumourFieldValuesAs(String tumourValues) {
+        boolean testResult = false;
+        testResult = pedigreePage.setTumourValues(tumourValues);
+        Assert.assertTrue(testResult);
+    }
+
+
 }//end

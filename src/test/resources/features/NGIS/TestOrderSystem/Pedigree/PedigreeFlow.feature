@@ -86,9 +86,9 @@ Feature: Pedigree - Pedigree Flow
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Female |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Check your patient's details
     ##Requesting Organisation
-    When the user navigates to the "<Requesting organisation>" stage
+    And the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
@@ -166,8 +166,8 @@ Feature: Pedigree - Pedigree Flow
      ##Notes
     Then the user is navigated to a page with title Add notes to this referral
     And the user fills in the Add Notes field
-    ##Family Member
     And the user clicks the Save and Continue button
+    ##Family Member
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
@@ -219,3 +219,34 @@ Feature: Pedigree - Pedigree Flow
     Examples:
       | Requesting organisation | Pedigree | NoOfParticipants |
       | Requesting organisation | Pedigree | 1                |
+
+  @NTS-3386 @E2EUI-1194 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3386 : Order the display of HPO Terms in Pedigree
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Female |
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+     ##Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<Two>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    ##Family Member
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<Two>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=17-07-1979:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    And the user added additional phenotypes "<Phenotypes>" to the family member
+    Then the "<FamilyMembers>" stage is marked as Completed
+    ##Pedigree
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    When the user clicks on the specified node on the pedigree diagram for "<FamilyMemberDetails>"
+    And the user select the pedigree tab Phenotype
+    Then the user should see the hpo phenotypes "<Phenotypes>" displayed
+
+    Examples:
+      | TestPackage  | Two | FamilyMembers  | Pedigree | Phenotypes                          | FamilyMemberDetails         |
+      | Test package | 2   | Family members | Pedigree | Congestive heart failure,Lymphedema | NHSNumber=NA:DOB=17-07-1979 |

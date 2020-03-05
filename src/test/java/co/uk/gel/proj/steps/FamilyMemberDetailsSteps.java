@@ -470,4 +470,41 @@ public class FamilyMemberDetailsSteps extends Pages {
         // navigate from family members clinical questions page
         referralPage.clickSaveAndContinueButton();
     }
+
+    @And("the user added additional phenotypes {string} to the family member")
+    public void theUserAddedAdditionalPhenotypesToTheFamilyMember(String phenotypes) {
+        boolean testResult = false;
+        try {
+            familyMemberDetailsPage.editSpecificFamilyMember(0);
+            Wait.seconds(2);
+            referralPage.clickSaveAndContinueButton();
+            Wait.seconds(6);
+            referralPage.clickSaveAndContinueButton();
+            if(phenotypes.indexOf(",") == -1) {
+                if(!familyMemberDetailsPage.isHPOAlreadyConsidered(phenotypes)) {
+                    if (familyMemberDetailsPage.searchAndSelectRandomHPOPhenotype(phenotypes) > 0) {
+                        testResult = true;
+                    }
+                }
+                Wait.seconds(3);
+            }else{
+                String[] phenos = phenotypes.split(",");
+                for(int i=0; i<phenos.length; i++){
+                    if(!familyMemberDetailsPage.isHPOAlreadyConsidered(phenos[i])) {
+                        if (familyMemberDetailsPage.searchAndSelectRandomHPOPhenotype(phenos[i]) > 0) {
+                            testResult = true;
+                        }
+                    }
+                    Wait.seconds(3);
+                }
+            }
+            referralPage.clickSaveAndContinueButton();
+            Wait.seconds(3);
+            Assert.assertTrue(testResult);
+        }catch(Exception exp){
+            Debugger.println("Exception from adding additional HPO Phenotypes: "+exp);
+            SeleniumLib.takeAScreenShot("AdditionalPhenotype.jpg");
+            Assert.assertTrue(testResult);
+        }
+    }
 }//end

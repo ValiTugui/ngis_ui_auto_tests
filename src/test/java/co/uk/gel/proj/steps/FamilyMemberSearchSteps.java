@@ -142,7 +142,9 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
-        familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+        Assert.assertTrue(testResult);
     }
 
     @And("^the display question for NHS Number of the family member search page is (.*)$")
@@ -205,5 +207,9 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user clicks on add non-tested-family member link on family landing page")
+    public void theUserClicksOnAddNonTestedFamilyMemberLinkOnFamilyLandingPage() {
+        familyMemberSearchPage.clickOnAddNonTestedFamilyMemberLink();
+    }
 
 }//end

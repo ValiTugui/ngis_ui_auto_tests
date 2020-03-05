@@ -7,6 +7,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
@@ -81,6 +82,19 @@ public class PrintFormsPage {
 
     @FindBy(xpath = "//h2[contains(@class,'panelTitle')]")
     public WebElement selectedLaboratory;
+
+    @FindBy(css = "*[class*='downloads__notice']")
+    public WebElement submissionConfirmationBanner;
+
+    @FindBy(xpath = "//button[text()='Start a new referral']")
+    WebElement startANewReferralButton;
+
+    @FindBy(xpath = "//div[contains(@class,'notice__text')]")
+    public WebElement downloadNotice;
+
+    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
+    public WebElement referralSubmitButton;
+
 
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
@@ -499,7 +513,7 @@ public class PrintFormsPage {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     seleniumLib.clickOnWebElement(downloadButton.get(i));
-                    Wait.seconds(5);//Wait for 5 seconds to ensure file got downloaded.
+                    Wait.seconds(10);//Wait for 5 seconds to ensure file got downloaded.
                     //Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
                     return true;
                 }
@@ -511,7 +525,7 @@ public class PrintFormsPage {
             return false;
         }
     }
-
+    //This method has to be modified as per the earlier PR comment.
     public String readSelectedTestAndLabDetails(String fieldType) {
         try {
             String returnValue = null;
@@ -541,6 +555,84 @@ public class PrintFormsPage {
             SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
             return null;
         }
+    }
+
+    public boolean startANewReferralButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
+            if (!Wait.isElementDisplayed(driver,startANewReferralButton,30)) {
+                Debugger.println("Referral Submitted :Start New Referral Button Not found");
+                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage :startANewReferralButton: " + exp);
+            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickOnStartANewReferralButton() {
+        try {
+            Wait.forElementToBeDisplayed(driver, startANewReferralButton);
+            Actions.clickElement(driver,startANewReferralButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
+            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean validateGuidelinesContent(String expectedGuideLine) {
+        try {
+            boolean isPresent = false;
+            Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
+            String[] actualGuideLines = downloadNotice.getText().split("\\n");
+            for(int i=0; i<actualGuideLines.length; i++){
+                if(actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)){
+                    isPresent = true;
+                    break;
+               }
+            }
+            if(!isPresent){
+                Debugger.println("Guideline:"+expectedGuideLine+" Not present in the guideline list ");
+                SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: validateGuidelinesContent: " + exp);
+            SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
+            return false;
+        }
+    }
+
+    public boolean extractAndValidateZipFile(String fileName) {
+        try {
+            Wait.seconds(10); //wait for zip file download completion
+            if (fileName.endsWith(".zip")) {
+                if (!TestUtils.extractZipFile(fileName)) {
+                    Debugger.println("Could not extract the zip file: " + fileName);
+                    return false;
+                }
+            }
+            String[] nameOfFile = fileName.split("\\.");
+            //Debugger.println("The file details are " + nameOfFile[0] + " and file type: " + nameOfFile[1]);
+            File file = new File(defaultDownloadLocation + nameOfFile[0]);
+            if (file.isDirectory()) {
+                File[] filesList = file.listFiles();
+                if (filesList != null && filesList.length > 0) {
+                    return true;
+                }
+            }
+            Debugger.println("ZipFile does not contains and directory for Files as expected.");
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception from extracting and validatin zip file."+exp);
+            return false;
+        }
+
     }
 
 }//end

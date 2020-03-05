@@ -8,6 +8,7 @@ import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
@@ -294,6 +295,7 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clears the date of birth field")
     public void theUserClearsTheDateOfBirthField() {
         patientDetailsPage.dateOfBirth.click();
+        Wait.seconds(1);
         Actions.clearInputField(patientDetailsPage.dateOfBirth);
     }
 
@@ -514,10 +516,12 @@ public class PatientDetailsSteps extends Pages {
     @And("the user deletes data in the NHS Number field")
     public void theUserDeletesDataInTheNHSNumberField() {
         Actions.clearInputField(patientDetailsPage.nhsNumber);
+        Wait.seconds(1);
     }
 
     @And("the user deletes the data in the Hospital Number field")
     public void theUserDeletesTheDataInTheHospitalNumberField() {
+        Wait.seconds(1);
         Actions.clearInputField(patientDetailsPage.hospitalNumber);
     }
 
@@ -601,4 +605,19 @@ public class PatientDetailsSteps extends Pages {
         Actions.scrollToTop(driver);
         patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
     }
+
+    @And("the Add To Patient Details {string} button is displayed")
+    public void theAddToPatientDetailsButtonIsDisplayed(String expectedPatientButton) {
+        String actualPatientSubmitButton = Actions.getText(patientDetailsPage.addDetailsToNGISButton);
+        Debugger.println("Actual Patient Submit: " + actualPatientSubmitButton);
+        Debugger.println("Expected Patient Submit: " + expectedPatientButton);
+        Assert.assertEquals(expectedPatientButton,actualPatientSubmitButton);
+    }
+
+    @And("the user clicks the Add patient details to NGIS button")
+    public void theUserClicksTheAddPatientDetailsToNGISButton() {
+        patientDetailsPage.clickAddDetailsToNGISButton();
+    }
+
+
 }

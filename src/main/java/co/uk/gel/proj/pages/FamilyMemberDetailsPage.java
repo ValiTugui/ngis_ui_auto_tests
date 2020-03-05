@@ -475,7 +475,7 @@ public class FamilyMemberDetailsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            if(seleniumLib.isElementPresent(hpoSearchField)) {
+            if(Wait.isElementDisplayed(driver,hpoSearchField,30)) {
                 seleniumLib.sendValue(hpoSearchField, hpoTerm);
             }
             Wait.forElementToBeDisplayed(driver, dropdownValue);
@@ -490,7 +490,14 @@ public class FamilyMemberDetailsPage {
             int numberOfHPO = hpoTerms.size();
             //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
             return numberOfHPO;
-        } catch (Exception exp) {
+        } catch(ElementClickInterceptedException interExp){
+            //SeleniumLib click handles the javascript and Actions click also.
+            SeleniumLib.takeAScreenShot("PhenoTypeInterceptedExp.jpg");
+            seleniumLib.clickOnWebElement(dropdownValues.get(0));
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, hpoTable);
+            return hpoTerms.size();
+        }catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
             return 0;
         }

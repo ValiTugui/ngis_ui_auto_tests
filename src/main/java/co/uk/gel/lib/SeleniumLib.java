@@ -132,7 +132,7 @@ public class SeleniumLib {
 
     public void clickOnWebElement(WebElement webEle) {
        try {
-           WebDriverWait wait = new WebDriverWait(driver, 60);//Default waiting for a minute
+           WebDriverWait wait = new WebDriverWait(driver, 30);//Default waiting
            wait.until(ExpectedConditions.visibilityOf(webEle));
            if(!webEle.isDisplayed()){
                //Waiting for another 30 seconds
