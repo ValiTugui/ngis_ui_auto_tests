@@ -10,7 +10,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.List;
 
 public class PedigreePage {
@@ -181,6 +180,7 @@ public class PedigreePage {
             Debugger.println("Could not close the Popup." + exp);
             SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
         }
+
     }
 
     public boolean clickSpecificPedigreeTab(String tabName) {

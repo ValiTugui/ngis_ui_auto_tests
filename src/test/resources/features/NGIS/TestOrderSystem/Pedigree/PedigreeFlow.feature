@@ -170,8 +170,8 @@ Feature: Pedigree - Pedigree Flow
     ##Family Member
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=17-07-1980:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                              |
+      | NHSNumber=NA:DOB=17-07-1980:Gender=Female:Relationship=Mother | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema   |
       | NHSNumber=NA:DOB=17-07-1978:Gender=Male:Relationship=Father   | Father                | DiseaseStatus=Unaffected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     ##Pedigree

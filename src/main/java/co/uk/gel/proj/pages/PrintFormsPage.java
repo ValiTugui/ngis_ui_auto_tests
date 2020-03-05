@@ -389,11 +389,11 @@ public class PrintFormsPage {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
                 WebElement unlockedPrintFormsStage = driver.findElement(By.xpath(webElementLocator));
-                if(unlockedPrintFormsStage != null ){
-                //then procces
-                } else{
-                // debugger line
-                return false;
+                if (unlockedPrintFormsStage != null) {
+                    //then procces
+                } else {
+                    // debugger line
+                    return false;
                 }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
                     Debugger.println("Print forms stage is not unlocked");
@@ -404,7 +404,7 @@ public class PrintFormsPage {
                 return true;
             }
             WebElement lockIcon = printFormsStage.findElement(By.xpath(".//*[name()='svg']"));
-            if(lockIcon == null){
+            if (lockIcon == null) {
                 Debugger.println("Could not find the lock Icon element.");
                 SeleniumLib.takeAScreenShot("PrintFormsLockIconValidation.jpg");
                 return false;
@@ -476,7 +476,7 @@ public class PrintFormsPage {
             String outputData = pdfTextStripper.getText(document);
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
             outputData = outputData.replaceAll("\\s+", " ");
-           // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
+            // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
             boolean testResult = true;
             for (String str : textList) {
                 if (!outputData.contains(str)) {
@@ -546,8 +546,8 @@ public class PrintFormsPage {
                 returnValue = selectedTestTypes[0];
             } else if (fieldType.contains("laboratory")) {
                 Wait.forElementToBeDisplayed(driver, selectedLaboratory);
-                String[] labName= selectedLaboratory.getText().split(" ");
-                returnValue=labName[0];
+                String[] labName = selectedLaboratory.getText().split(" ");
+                returnValue = labName[0];
             }
             return returnValue;
         } catch (Exception exp) {
