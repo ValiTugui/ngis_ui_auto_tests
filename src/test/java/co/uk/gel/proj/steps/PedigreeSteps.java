@@ -418,4 +418,32 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.setTumourValues(tumourValues);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should see HPO Present options as below")
+    public void theUserShouldSeeHPOPresentOptionsAs(DataTable hpoOptions) {
+        boolean testResult = false;
+        List<List<String>> hpos = hpoOptions.asLists();
+        for (int i = 1; i < hpos.size(); i++) {
+            testResult = pedigreePage.verifyHPOPresentOptions(hpos.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to search disease {string} and codes in the pedigree and add to the selected nodes")
+    public void theUserShouldBeAbleToSearchDiseaseAndCodesInThePedigreeAndAddToTheSelectedNodes(String disease) {
+        boolean testResult = false;
+        testResult = pedigreePage.searchAndAddDiseaseOrder(disease);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("user should see the Participating in Test check box is (.*)")
+    public void userShouldSeeTheParticipatingInTestCheckBoxIsNotSelected(String selectStatus) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyParticipateInSelectStatus(selectStatus);
+        Assert.assertTrue(testResult);
+    }
 }//end

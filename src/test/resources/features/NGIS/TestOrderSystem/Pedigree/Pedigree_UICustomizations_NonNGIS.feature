@@ -92,7 +92,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | AgeAtDeath | ErrorMessage                                                     | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-2001 | 20hmy      | Invalid value entered for 'Age of Death' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @E2EUI-1311 @LOGOUT @v_1 @P0
+  @NTS-4759 @E2EUI-1311 @E2EUI-1230 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4759: Updating Ethnicity Enumerations to Reflect FHIR Definition
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
@@ -149,7 +149,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @E2EUI-1105 @E2EUI-1030 @LOGOUT @v_1 @P0
+  @NTS-4759 @E2EUI-1105 @E2EUI-1030 @E2EUI-1165 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4759: Add additional non-tested family member
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
@@ -174,6 +174,14 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | Options  |
       | OMIM     |
       | Orphanet |
+    ##E2EUI-1165
+    When the user select the pedigree tab Phenotype
+    And the user should see HPO Present options as below
+      | Options |
+      | Present |
+      | Absent  |
+      | Unknown  |
+    And the user is able to close the popup by clicking on the close icon
 
     Examples:
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
@@ -291,7 +299,8 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | FamilyMember   | ProbandDetails              | TumourFieldValues | ErrorMessage                                                                                                                                                                   | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-2001 | 123abc,234jut     | Invalid value entered for 'Number Of Colorectal Polyps Total' for Participant with id,Invalid value entered for 'Number of Colorectal Polyps Adenomas' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @E2EUI-1348 @LOGOUT @v_1 @P0
+  @NTS-4796 @E2EUI-1348 @E2EUI-1230 @LOGOUT @v_1 @P0
+    ##One part of 1230 covered here and another part in NTS-4795
   Scenario Outline: NTS-4796: Non NGIS Patient Stable UID
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
@@ -312,3 +321,26 @@ Feature: Pedigree - UI Customizations - Non NGIS
     Examples:
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+
+  @NTS-4796 @E2EUI-1074 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4796: Connecting Lookup Services to Pedigree Tool
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+    ##Family Member
+    When the user navigates to the "<FamilyMember>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user clicks on add non-tested-family member link on family landing page
+    ##Pedigree Stage
+    Then the user is navigated to a page with title Build a pedigree
+    And the user should be able to see a "<WarningMessage>" on the pedigree page
+    When the user adds new parent node to proband "<ProbandDetails>"
+    Then the user sees two NON NGIS Patient ID nodes added to the patient "<ProbandDetails>"
+    When the user selects pedigree node for one of the Non NGIS family member for "<ProbandDetails>"
+    And the user select the pedigree tab Clinical
+    Then the user should be able to search disease "<Disease>" and codes in the pedigree and add to the selected nodes
+
+    Examples:
+      | FamilyMember   | ProbandDetails              | Disease|WarningMessage                                                                                |
+      | Family members | NHSNumber=NA:DOB=25-11-2001 | carcinoid|Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
