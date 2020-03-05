@@ -2,6 +2,8 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import org.openqa.selenium.WebDriver;
@@ -14,10 +16,12 @@ import java.util.List;
 public class GlobalBehaviourPage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public GlobalBehaviourPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(xpath = "//*[contains(text(),'NGIS TOMS')]")
@@ -40,6 +44,15 @@ public class GlobalBehaviourPage {
 
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
+
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
+    List<WebElement> referralHeaderDetails;
+
+    @FindBy(xpath="//button[text()='Continue']")
+    public WebElement continueButtonOnLandingPage;
 
 
     public void getNGISVersion() {
@@ -70,8 +83,40 @@ public class GlobalBehaviourPage {
         Click.element(driver, footerLinks.get(1));
         Actions.switchTab(driver);
         if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
-            Pages.login(this.driver, emailAddressField, passwordField, nextButton );
+            Pages.login(this.driver, emailAddressField, passwordField, nextButton);
         }
     }
 
-}
+    public boolean verifyTheElementsOnReferralBanner() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
+            Actions.scrollToBottom(driver);
+            for (int i = 0; i < referralHeaderDetails.size(); i++) {
+                if (!seleniumLib.isElementPresent(referralHeaderDetails.get(i)) && !referralHeaderDetails.get(i).isDisplayed()) {
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Probound referral details not found: Elements not found " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean verifyTheContinueButtonOnLandingPage() {
+        try {
+            if (!seleniumLib.isElementPresent(continueButtonOnLandingPage)) {
+                Debugger.println("Continue button is not present on landing page");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("ContinueButtonOnLandingPage");
+            return false;
+        }
+    }
+
+}//end

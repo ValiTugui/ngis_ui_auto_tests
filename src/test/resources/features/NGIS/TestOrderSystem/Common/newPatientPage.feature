@@ -53,7 +53,7 @@ Feature: New Patient page
     And the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     When the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     And the user clicks the "<hyperlinkText>" link from the No Search Results page
     Then the new patient page is opened
     Then the "<pageTitle>" page is displayed
@@ -86,7 +86,7 @@ Feature: New Patient page
     And the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     When the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     And the user clicks the "<hyperlinkText>" link from the No Search Results page
     Then the new patient page is opened
     Then the "<pageTitle>" page is displayed
@@ -127,7 +127,7 @@ Feature: New Patient page
     When the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     Then the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
@@ -147,7 +147,7 @@ Feature: New Patient page
     When the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
@@ -200,7 +200,7 @@ Feature: New Patient page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     When the user clears the date of birth field
@@ -226,7 +226,7 @@ Feature: New Patient page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
@@ -325,7 +325,7 @@ Feature: New Patient page
     When the user clicks the NO button
     And the user types in invalid details of a patient in the NO fields
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
@@ -519,7 +519,7 @@ Feature: New Patient page
     And the user clicks the NO button
     When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle2>" page is displayed
     And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
@@ -549,7 +549,7 @@ Feature: New Patient page
     And the user clicks the NO button
     When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle2>" page is displayed
     And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
@@ -579,7 +579,7 @@ Feature: New Patient page
     And the user clicks the NO button
     When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle2>" page is displayed
     And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode
@@ -608,7 +608,7 @@ Feature: New Patient page
     And the user clicks the NO button
     When the user fills in invalid patient details "<searchDetails>" in the search fields when No is selected
     And the user clicks the Search button
-    Then the message  "<message>" is displayed below the search button
+    Then the message "<message>" is displayed below the search button
     When the user clicks the "<hyperlinkText>" link from the No Search Results page
     And the "<pageTitle2>" page is displayed
     And the user deletes the pre-populated fields - First Name, Last Name, Date of Birth, Gender, and PostCode

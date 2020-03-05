@@ -149,6 +149,7 @@ public class PedigreeSteps extends Pages {
             if (!testResult) {
                 Assert.assertTrue(testResult);
             }
+
             testResult = pedigreePage.getDisableStatusOfTumoursTabField(fields.get(i).get(0));
             if (fields.get(i).get(1).equalsIgnoreCase("Non-Editable")) {
                 if (!testResult) {
@@ -320,7 +321,6 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.selectAgeOfOnset(year_months[0], year_months[1]);
         Assert.assertTrue(testResult);
     }
-
     @Then("the user updates the parent date of year as {string}")
     public void theUserUpdatesTheParentDateOfYearAs(String yearOfBirth) {
         boolean testResult = false;
@@ -344,7 +344,6 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-
     @Then("the user should see the below options for (.*) field Personal tab")
     public void theUserShouldSeeTheBelowListedEthnicityEnumerationsLoadedInPedigree(String fieldName,DataTable enumerations) {
         boolean testResult = false;
@@ -357,9 +356,7 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-
     @Then("the user enters age at death as {string}")
-
     public void theUserShouldNotSavePedigreeWithInvalidAgeAtDeath(String ageAtDeath) {
         boolean testResult = false;
         testResult = pedigreePage.setAgeAtDeath(ageAtDeath);
@@ -378,7 +375,6 @@ public class PedigreeSteps extends Pages {
         }
         Assert.assertTrue(testResult);
     }
-
     @Then("the user should see below fields on Personal Tab with the given status")
     public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(DataTable fieldsDetails) {
         boolean testResult = false;
@@ -390,7 +386,6 @@ public class PedigreeSteps extends Pages {
             }
         }//for
     }
-
     @Then("the user should see error pop up message displayed as {string}")
     public void theUserShouldSeeBelowFieldsOnPersonalTabWithTheGivenStatus(String errorMessage) {
         boolean testResult = false;
@@ -424,5 +419,31 @@ public class PedigreeSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user should see HPO Present options as below")
+    public void theUserShouldSeeHPOPresentOptionsAs(DataTable hpoOptions) {
+        boolean testResult = false;
+        List<List<String>> hpos = hpoOptions.asLists();
+        for (int i = 1; i < hpos.size(); i++) {
+            testResult = pedigreePage.verifyHPOPresentOptions(hpos.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
 
+    @Then("the user should be able to search disease {string} and codes in the pedigree and add to the selected nodes")
+    public void theUserShouldBeAbleToSearchDiseaseAndCodesInThePedigreeAndAddToTheSelectedNodes(String disease) {
+        boolean testResult = false;
+        testResult = pedigreePage.searchAndAddDiseaseOrder(disease);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("user should see the Participating in Test check box is (.*)")
+    public void userShouldSeeTheParticipatingInTestCheckBoxIsNotSelected(String selectStatus) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyParticipateInSelectStatus(selectStatus);
+        Assert.assertTrue(testResult);
+    }
 }//end
