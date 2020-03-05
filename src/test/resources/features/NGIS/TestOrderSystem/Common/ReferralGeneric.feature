@@ -161,7 +161,6 @@ Feature: This is a referral feature
       | userType       |
       | GEL_SUPER_USER |
 
-
   @NTS-4793 @E2EUI-1008 @LOGOUT @PO @v_1
   Scenario Outline: NTS-4793:Re-order data in referral banner
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

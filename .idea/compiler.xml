@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ngis_ui_auto_tests" />
+        <module name="PC_Dev+1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ngis_ui_auto_tests" target="1.8" />
+      <module name="PC_Dev+1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
