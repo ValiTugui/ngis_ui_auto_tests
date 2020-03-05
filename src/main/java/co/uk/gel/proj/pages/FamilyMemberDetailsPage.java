@@ -264,6 +264,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
 
+    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]/following-sibling::button[@aria-label='edit button']";
+
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -1063,26 +1065,28 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         familyMemberLandingPageDetails = new ArrayList<String>();
         try {
-            if(participantsList.size()!=0){
-                for (int i = 0; i < nhsNumberResults.size(); i++) {
-                    familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
-                }
-                for (int i = 0; i < hospitalNoResults.size(); i++) {
-                    familyMemberLandingPageDetails.add(hospitalNoResults.get(i).getText());
-                }
-                for (int i = 0; i < nameResults.size(); i++) {
-                    familyMemberLandingPageDetails.add(nameResults.get(i).getText());
-                }
-                for (int i = 0; i < genderResults.size(); i++) {
-                    familyMemberLandingPageDetails.add(genderResults.get(i).getText());
-                }
-                for (int i = 0; i < ngisIdResults.size(); i++) {
-                    familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
-                }
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("FMDetailsNotLoaded.jpg");
+                return;
+            }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
+                familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                familyMemberLandingPageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                familyMemberLandingPageDetails.add(nameResults.get(i).getText());
+                familyMemberLandingPageDetails.add(genderResults.get(i).getText());
+                familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
             }
             Debugger.println("No of Patient Details Read from FamilyMember Landing Page: "+familyMemberLandingPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from FamilyMember Landing Page:"+exp);
+            SeleniumLib.takeAScreenShot("FMDetailsNotLoaded.jpg");
         }
     }
 
@@ -1099,27 +1103,25 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
         printFormsPageDetails = new ArrayList<String>();
         try {
-            if(participantsList.size()!=0){
-                for (int i = 0; i < nhsNumberResults.size(); i++) {
-                    printFormsPageDetails.add(nhsNumberResults.get(i).getText());
-                }
-
-                for (int i = 0; i < hospitalNoResults.size(); i++) {
-                    printFormsPageDetails.add(hospitalNoResults.get(i).getText());
-                }
-
-                for (int i = 0; i < nameResults.size(); i++) {
-                    printFormsPageDetails.add(nameResults.get(i).getText());
-                }
-
-                for (int i = 0; i < genderResults.size(); i++) {
-                    printFormsPageDetails.add(genderResults.get(i).getText());
-                }
-
-                for (int i = 0; i < ngisIdResults.size(); i++) {
-                    printFormsPageDetails.add(ngisIdResults.get(i).getText());
-                }
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("PrintFormDetailsNotLoaded.jpg");
+                return;
             }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
+                printFormsPageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                printFormsPageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                printFormsPageDetails.add(nameResults.get(i).getText());
+                printFormsPageDetails.add(genderResults.get(i).getText());
+                printFormsPageDetails.add(ngisIdResults.get(i).getText());
+            }
+
             Debugger.println("No of Patient Details Read from Print Form Page: "+printFormsPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Print Form Page:"+exp);
@@ -1131,27 +1133,25 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
         patientChoicePageDetails = new ArrayList<String>();
         try {
-            if(participantsList.size()!=0){
-                for (int i = 0; i < nhsNumberResults.size(); i++) {
-                    patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
-                }
-
-                for (int i = 0; i < hospitalNoResults.size(); i++) {
-                    patientChoicePageDetails.add(hospitalNoResults.get(i).getText());
-                }
-
-                for (int i = 0; i < nameResults.size(); i++) {
-                    patientChoicePageDetails.add(nameResults.get(i).getText());
-                }
-
-                for (int i = 0; i < genderResults.size(); i++) {
-                    patientChoicePageDetails.add(genderResults.get(i).getText());
-                }
-
-                for (int i = 0; i < ngisIdResults.size(); i++) {
-                    patientChoicePageDetails.add(ngisIdResults.get(i).getText());
-                }
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("PCDDetailsNotLoaded.jpg");
+                return;
             }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
+                patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                patientChoicePageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                patientChoicePageDetails.add(nameResults.get(i).getText());
+                patientChoicePageDetails.add(genderResults.get(i).getText());
+                patientChoicePageDetails.add(ngisIdResults.get(i).getText());
+            }
+
             Debugger.println("No of Patient Details Read from PatientChoice Page: "+patientChoicePageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Patient Choice Page:"+exp);
@@ -1521,7 +1521,6 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
-    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]/following-sibling::button[@aria-label='edit button']";
 
     public boolean editFamilyMemberHavingNHSDob(String familyMemberDetails) {
         String nhsNumber = "";
