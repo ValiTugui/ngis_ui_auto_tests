@@ -19,7 +19,8 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
-    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+//    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+    @FindBy(xpath = "//h2[contains(@class,'css') and contains(text(),',')]")
     public List<WebElement> nameResults;
 
     @FindBy(xpath = "//label[contains(text(),'Title')]")
@@ -217,13 +218,17 @@ public class FamilyMemberDetailsPage {
     static ArrayList<String> patientChoicePageDetails;
     static ArrayList<String> printFormsPageDetails;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'nhsNumber')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'nhsNumber')]")
     public List<WebElement> nhsNumberResults;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'gender')]")
+//    @FindBy(xpath = "//span[contains(@aria-labelledby,'gender')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'gender')]")
     public List<WebElement> genderResults;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'hospitalNumber')]")
+    public List<WebElement> hospitalNoResults;
+
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'ngisId')]")
     public List<WebElement> ngisIdResults;
 
     @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
@@ -1055,13 +1060,31 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         familyMemberLandingPageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                familyMemberLandingPageDetails.add(nameResults.get(i).getText());
-                familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
-                familyMemberLandingPageDetails.add(genderResults.get(i).getText());
-                familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
+            if(nhsNumberResults.size()!=0){
+                for (int i = 0; i < nhsNumberResults.size(); i++) {
+                    familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
+                }
             }
-            Debugger.println("No of Patient Details Read from FamilyMember LAnding Page: "+familyMemberLandingPageDetails.size());
+            if(hospitalNoResults.size()!=0){
+                for (int i = 0; i < hospitalNoResults.size(); i++) {
+                    familyMemberLandingPageDetails.add(hospitalNoResults.get(i).getText());
+                }
+            }
+            if(nameResults.size()!=0) {
+                for (int i = 0; i < nameResults.size(); i++) {
+                    familyMemberLandingPageDetails.add(nameResults.get(i).getText());
+                }
+            }  if(genderResults.size()!=0) {
+                for (int i = 0; i < genderResults.size(); i++) {
+                    familyMemberLandingPageDetails.add(genderResults.get(i).getText());
+                }
+            }   if(ngisIdResults.size()!=0) {
+                for (int i = 0; i < ngisIdResults.size(); i++) {
+                    familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
+                }
+            }
+            Debugger.println("Patient Details Read from FamilyMember Landing Page: "+familyMemberLandingPageDetails);
+            Debugger.println("No of Patient Details Read from FamilyMember Landing Page: "+familyMemberLandingPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from FamilyMember Landing Page:"+exp);
         }
@@ -1080,13 +1103,32 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
         printFormsPageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                printFormsPageDetails.add(nameResults.get(i).getText());
-                printFormsPageDetails.add(nhsNumberResults.get(i).getText());
-                printFormsPageDetails.add(genderResults.get(i).getText());
-                printFormsPageDetails.add(ngisIdResults.get(i).getText());
+            if(nhsNumberResults.size()!=0){
+                for (int i = 0; i < nhsNumberResults.size(); i++) {
+                    printFormsPageDetails.add(nhsNumberResults.get(i).getText());
+                }
             }
-            Debugger.println("No of Patient Details Read from Print Form Page: "+familyMemberLandingPageDetails.size());
+            if(hospitalNoResults.size()!=0){
+                for (int i = 0; i < hospitalNoResults.size(); i++) {
+                    printFormsPageDetails.add(hospitalNoResults.get(i).getText());
+                }
+            }
+            if(nameResults.size()!=0) {
+                for (int i = 0; i < nameResults.size(); i++) {
+                    printFormsPageDetails.add(nameResults.get(i).getText());
+                }
+            }  if(genderResults.size()!=0) {
+                for (int i = 0; i < genderResults.size(); i++) {
+                    printFormsPageDetails.add(genderResults.get(i).getText());
+                }
+            }   if(ngisIdResults.size()!=0) {
+                for (int i = 0; i < ngisIdResults.size(); i++) {
+                    printFormsPageDetails.add(ngisIdResults.get(i).getText());
+                }
+            }
+            Debugger.println("Patient Details Read from Print Form Landing Page: "+printFormsPageDetails);
+
+            Debugger.println("No of Patient Details Read from Print Form Page: "+printFormsPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Print Form Page:"+exp);
         }
@@ -1097,12 +1139,31 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
         patientChoicePageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                patientChoicePageDetails.add(nameResults.get(i).getText());
-                patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
-                patientChoicePageDetails.add(genderResults.get(i).getText());
-                patientChoicePageDetails.add(ngisIdResults.get(i).getText());
+            if(nhsNumberResults.size()!=0){
+                for (int i = 0; i < nhsNumberResults.size(); i++) {
+                    patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
+                }
             }
+            if(hospitalNoResults.size()!=0){
+                for (int i = 0; i < hospitalNoResults.size(); i++) {
+                    patientChoicePageDetails.add(hospitalNoResults.get(i).getText());
+                }
+            }
+            if(nameResults.size()!=0) {
+                for (int i = 0; i < nameResults.size(); i++) {
+                    patientChoicePageDetails.add(nameResults.get(i).getText());
+                }
+            }  if(genderResults.size()!=0) {
+                for (int i = 0; i < genderResults.size(); i++) {
+                    patientChoicePageDetails.add(genderResults.get(i).getText());
+                }
+            }   if(ngisIdResults.size()!=0) {
+                for (int i = 0; i < ngisIdResults.size(); i++) {
+                    patientChoicePageDetails.add(ngisIdResults.get(i).getText());
+                }
+            }
+            Debugger.println("Patient Details Read from PatientChoice Page: "+patientChoicePageDetails);
+
             Debugger.println("No of Patient Details Read from PatientChoice Page: "+patientChoicePageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Patient Choice Page:"+exp);
@@ -1472,6 +1533,36 @@ public class FamilyMemberDetailsPage {
             return false;
         }
     }
+    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]/following-sibling::button[@aria-label='edit button']";
 
+    public boolean editFamilyMemberHavingNHSDob(String familyMemberDetails) {
+        String nhsNumber = "";
+        try {
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                if (key.equalsIgnoreCase("NHSNumber")) {
+                    nhsNumber = paramNameValue.get(key);
+                    break;
+                }
+            }
+            if (nhsNumber == null || nhsNumber.isEmpty()) {
+                Debugger.println("NHS Number not provided to edit the patient choice.");
+                return false;
+            }
+            String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
+            By familyEdit = By.xpath(specificFamilyEdit.replaceAll("NHSLastFour", nhsLastFour));
+            WebElement element = driver.findElement(familyEdit);
+            if (!Wait.isElementDisplayed(driver, element, 100)) {
+                Debugger.println("Family member edit button not displayed for "+familyMemberDetails);
+                return false;
+            }
+            seleniumLib.clickOnWebElement(element);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on edit button for family member with NHSNumber: " + exp);
+            return false;
+        }
+    }
 
 }//ends

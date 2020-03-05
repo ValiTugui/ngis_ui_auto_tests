@@ -1374,5 +1374,27 @@ public class ReferralPage<check> {
         }
     }
 
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    @FindBy(xpath = "//div[@id='referral__header']//li[contains(@class,'css-')]")
+    List<WebElement> referralHeaderDetails;
+
+    public boolean verifyTheElementsOnReferralBanner() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
+            for (int i = 0; i < referralHeaderDetails.size(); i++) {
+                if (!seleniumLib.isElementPresent(referralHeaderDetails.get(i)) && !referralHeaderDetails.get(i).isDisplayed()) {
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Proband referral details not found: Elements on referral banner not found " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
+            return false;
+        }
+    }
 
 }//end

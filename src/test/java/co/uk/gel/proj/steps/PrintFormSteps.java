@@ -209,9 +209,9 @@ public class PrintFormSteps extends Pages {
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
         }
         if (expectedSection.equalsIgnoreCase("Patient choice")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult=printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
-                testResult=printFormsPage.validatePDFContent(expectedText, fileName);
+                testResult = printFormsPage.validatePDFContent(expectedText, fileName);
             }
         }
         Assert.assertTrue(testResult);
@@ -220,13 +220,28 @@ public class PrintFormSteps extends Pages {
     @And("the user is able to verify the section {string} in the downloaded form {string}")
     public void theUserIsAbleToVerifyTheSectionInTheDownloadedForm(String fieldType, String fileName) {
         boolean testResult = false;
-        String testType = printFormsPage.readSelectedTestAndLabDetails(fieldType);
-        if (testType == null) {
-            Debugger.println("No value present for "+fieldType+"on the Offline test order page ");
+        if (fieldType.contains("test type")) {
+            String testType = printFormsPage.readSelectedTestDetails();
+            if (testType == null) {
+                Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
+                Assert.assertTrue(testResult);
+            }
+            testResult = printFormsPage.validatePDFContent(testType, fileName);
             Assert.assertTrue(testResult);
         }
-        testResult = printFormsPage.validatePDFContent(testType, fileName);
-        Assert.assertTrue(testResult);
+        else if (fieldType.contains("laboratory")) {
+            String labDetails = printFormsPage.readSelectedLabDetails();
+            if (labDetails == null) {
+                Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
+                Assert.assertTrue(testResult);
+            }
+            testResult = printFormsPage.validatePDFContent(labDetails, fileName);
+            Assert.assertTrue(testResult);
+        }
+        else {
+            Debugger.println("The section name in the step is Not correct.: " + fieldType);
+            Assert.assertTrue(testResult);
+        }
     }
 
     @And("the user should be able to see referral card status as cancelled with selected {string} reason")
@@ -261,7 +276,7 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable guideLines) {
         boolean testResult = false;
         List<String> stages = guideLines.asList();
-        for(int i=0;i<stages.size(); i++) {
+        for (int i = 0; i < stages.size(); i++) {
             testResult = printFormsPage.validateGuidelinesContent(stages.get(i));
             if (!testResult) {
                 Assert.assertTrue(testResult);
@@ -284,7 +299,7 @@ public class PrintFormSteps extends Pages {
     public void theUserSeesADialogBoxWithFollowingMandatoryStagesToBeCompletedForSuccessfulSubmissionOfAReferral(DataTable stageNames) {
         boolean testResult = false;
         List<String> stages = stageNames.asList();
-        for(int i=0;i<stages.size(); i++) {
+        for (int i = 0; i < stages.size(); i++) {
             testResult = referralPage.validateMandatoryStages(stages.get(i));
             if (!testResult) {
                 Assert.assertTrue(testResult);
@@ -300,5 +315,37 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user clicks {string} link to verify the address of the lab in the downloaded file {string}")
+    public void theUserClicksLinkToVerifyTheAddressOfTheLabInTheDownloadedFile(String showAddress,String fileName) {
+        boolean testResult = false;
+        String labAddress=printFormsPage.readLabAddress(showAddress);
+        if(labAddress==null){
+            Assert.assertTrue(testResult);
+        }
+        testResult = printFormsPage.validatePDFContent(labAddress, fileName);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to verify the referral banner present at the top")
+    public void theUserShouldBeAbleToVerifyTheReferralBannerPresentAtTheTop() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheElementsOnReferralBanner();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user verifies that the the relationship to proband {string} is updated in Print forms section")
+    public void theUserVerifiesThatTheTheRelationshipToProbandIsUpdatedInPrintFormsSection(String realationToProband) {
+        boolean testResult = false;
+        testResult = printFormsPage.verifyRelationshipToProband(realationToProband);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the participant list containing details of participants taking part in the referral creation")
+    public void theUserSeesTheParticipantListContainingDetailsOfParticipantsTakingPartInTheReferralCreation() {
+        boolean testResult = false;
+        testResult = printFormsPage.verifyTheParticipantDetailsOnPrintFormsPage();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.checkThatToDoListSuccessfullyLoaded();
+        Assert.assertTrue(testResult);
+    }
 
 }//end
