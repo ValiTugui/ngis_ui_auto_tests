@@ -766,19 +766,49 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(flag);
     }
 
-    @When("the user verify the text present in the page as {string}")
-    public void theUserVerifyTheTextPresentInThePageAs(String expInputs) {
-        String[] inputValue = expInputs.split(",");
-        for (int i = 0; i < inputValue.length; i++) {
-            Debugger.println("Start checking for " + inputValue[i]);
-            Assert.assertTrue(referralPage.verifyTheTextInTheCurrentPage(inputValue[i]));
-        }
+    @And("the NHS logo is displayed in the footer of Test Ordering")
+    public void theNHSLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.nhsEnglandLogoIsDisplayedInFooter();
+        Assert.assertTrue(flag);
     }
 
-    @Then("the user verifies the NHS format as {string}")
-    public void theUserVerifiesTheNHSFormatAs(String nhsFormat) {
+    @And("the Genomics England logo is displayed in the footer of Test Ordering")
+    public void theGenomicsEnglandLogoIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.genomicsEnglandLogIsDisplayedInFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Report an issue or provide feedback text link is displayed in the footer of Test Ordering")
+    public void theReportAnIssueOrProvideFeedbackTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.serviceDeskReportAndIssueIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the Privacy Policy text link is displayed in the footer of Test Ordering")
+    public void thePrivacyPolicyTextLinkIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.privacyPolicyIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the copyright text is displayed in the footer of Test Ordering")
+    public void theCopyrightTextIsDisplayedInTheFooterOfTestOrdering() {
+        boolean flag = false;
+        flag = referralPage.copyrightTextIsDisplayedInTheFooter();
+        Assert.assertTrue(flag);
+        }
+    @And("the referral submit button is not enabled")
+    public void theReferralSubmitButtonIsNotEnabled() {
+        Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
+    }
+
+    @Then("the user should see a new popup dialog with title {string}")
+    public void theUserShouldSeeANewPageWith(String titleMessage) {
         boolean testResult = false;
-        testResult = referralPage.verifyNHSFormat(nhsFormat);
+        testResult = referralPage.verifyTheSubmitDialogTitle(titleMessage);
         Assert.assertTrue(testResult);
     }
 
@@ -792,4 +822,5 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
 }

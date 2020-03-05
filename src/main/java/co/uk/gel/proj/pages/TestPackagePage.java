@@ -298,7 +298,7 @@ public class TestPackagePage {
         return false;
     }
 
-    public boolean selectTheDeselectTestPackage() {
+    public boolean selectTheDeselectedTestPackage() {
         try {
             Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
             testPackageCheckBox.click();

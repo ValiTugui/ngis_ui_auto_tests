@@ -217,7 +217,7 @@ public class TestPackageSteps extends Pages {
     @And("the user selects the test by clicking the deselected test")
     public void theUserSelectsTheTestByClickingTheDeselectedTest() {
         boolean testResult = false;
-        testResult =testPackagePage.selectTheDeselectTestPackage();
+        testResult =testPackagePage.selectTheDeselectedTestPackage();
         Assert.assertTrue(testResult);
 
     }

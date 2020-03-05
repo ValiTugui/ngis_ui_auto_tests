@@ -212,9 +212,6 @@ public class ReferralPage<check> {
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
-    public List<WebElement> ngisIDChunkSeparators;
-
     //    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
@@ -230,8 +227,8 @@ public class ReferralPage<check> {
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
-    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
-    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
+    public List<WebElement> ngisIDChunkSeparators;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
 
@@ -1349,80 +1346,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-
-    public boolean verifyNHSFormat(String format) {
-        //Verify the NHS format.
-        String[] nhsFormat = format.split(",");
-        int size = nhsFormat.length;
-        int[] nhsExpSection = new int[size];
-        for (int i = 0; i < size; i++) {
-            nhsExpSection[i] = Integer.parseInt(nhsFormat[i]);
-        }
-        int expIdx = 0;
-        if (nhsChunkSeparators.size() > 0) {
-            for (int i = 0; i < nhsChunkSeparators.size(); i++) {
-                if (i != 0 && i % 3 == 0) {
-                    expIdx = 0;
-                }
-                if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[expIdx]) {
-                    Debugger.println("Actual " + nhsChunkSeparators.get(i).getText() + " Excepted length " + nhsExpSection[expIdx]);
-                    Debugger.println("NHS Display is not in 3-3-4 separation.");
-                    return false;
-                }
-                expIdx++;
-            }
-            Debugger.println("NHS Format verified in global card...");
-        }
-
-        if (nhsChunkSeparatorsInPatientRecordCard.size() > 0) {
-            if (nhsChunkSeparatorsInPatientRecordCard.size() != 3) {
-                Debugger.println("Expected NHS format in patient card as 3 sets, but separated in " + nhsChunkSeparatorsInPatientRecordCard.size() + " ways");
-                return false;
-            }
-            for (int i = 0; i < nhsChunkSeparatorsInPatientRecordCard.size(); i++) {
-                if (nhsChunkSeparatorsInPatientRecordCard.get(i).getText().trim().length() != nhsExpSection[i]) {
-                    Debugger.println("NHS Display in patient card is not in 3-3-4 separation.");
-                    return false;
-                }
-            }
-            Debugger.println("NHS Format verified all places...");
-        }
-        return true;
-    }
-    public boolean verifyTheTextInTheCurrentPage(String expInput) {
-        try {
-            String bodyText = driver.findElement(By.tagName("body")).getText();
-            List<WebElement> expElements = driver.findElements(By.xpath("//*[contains(text(),'" + expInput + "')]"));
-            String[] text = {"nhs number", "Nhs Number", "nhs no", "Nhs No", "NHS no", "test-order"};
-
-            for (int i = 0; i < text.length; i++) {
-                if (bodyText.contains(text[i])) {
-                    return false;
-                }
-            }
-
-            if (expElements.size() == 0) {
-                Debugger.println("Nothing present in the current page which contains " + expInput);
-                return true;
-            }
-
-            for (int i = 0; i < expElements.size(); i++) {
-                if (!expElements.get(i).getText().contains(expInput)) {
-                    if (expElements.get(i).getText().equalsIgnoreCase("")) {
-                        break;
-                    }
-                    Debugger.println("Actual text is " + expElements.get(i).getText());
-                    Debugger.println("Expected text is " + expInput);
-                    return false;
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception, ReferralPage:verifyNHSNumberInTheCurrentPage " + exp);
-            return false;
-        }
-    }
-
     public boolean closeMandatoryStagePopUp() {
         try {
             Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox);
