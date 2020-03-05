@@ -12,6 +12,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import io.github.jonathanlink.PDFLayoutTextStripper;
@@ -77,7 +78,8 @@ public class PrintFormsPage {
     @FindBy(css = "a[class*='btn-secondary']")
     public List<WebElement> downloadButton;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_body')]//div//div")
+    //    @FindBy(xpath = "//div[contains(@class,'styles_body')]//div//div")
+    @FindBy(xpath = "//h3[text()='Tests']//following::div[contains(@class,'styles_cellSection')]")
     public WebElement orderedTestType;
 
     @FindBy(xpath = "//h2[contains(@class,'panelTitle')]")
@@ -95,6 +97,17 @@ public class PrintFormsPage {
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement referralSubmitButton;
 
+    @FindBy(xpath = "//span[text()='Show address']")
+    WebElement showLabAddressLink;
+
+    @FindBy(xpath = "//span[text()='Hide address']")
+    public WebElement hideLabAddressLink;
+
+    @FindBy(xpath = "//div[contains(@class,'lab-address')]")
+    WebElement detailedAddressText;
+
+    @FindBy(xpath = "//span[contains(.,'Proband')]/ancestor::div[contains(@class,'participant-list')]/div[2]//span[@class='child-element']")
+    WebElement relationshipToProbandField;
 
     public boolean downloadSpecificPrintForm(int position, String folder) {
         String ngsId = "";
@@ -215,8 +228,6 @@ public class PrintFormsPage {
                         return false;
                     }
                 }
-
-
             }
             return true;
         } catch (Exception exp) {
@@ -397,8 +408,7 @@ public class PrintFormsPage {
                 }
                 if (!seleniumLib.isElementPresent(unlockedPrintFormsStage)) {
                     Debugger.println("Print forms stage is not unlocked");
-                    //Screen shot
-                    SeleniumLib.takeAScreenShot("LockinPrintForms.jpg");
+                    SeleniumLib.takeAScreenShot("LockedPrintForms.jpg");
                     return false;
                 }
                 return true;
@@ -462,6 +472,10 @@ public class PrintFormsPage {
 
             //creating path for the downloaded pdf file
             String pathToFile = defaultDownloadLocation + fileName;
+            File fileLocation = new File(pathToFile);
+            if (!fileLocation.exists()) {
+                pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
+            }
             Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
             driver.get("file:///" + pathToFile);
@@ -476,7 +490,7 @@ public class PrintFormsPage {
             String outputData = pdfTextStripper.getText(document);
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
             outputData = outputData.replaceAll("\\s+", " ");
-            // Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
+            //Debugger.println("Formatted Data from PDF sample form :\n" + outputData);
             boolean testResult = true;
             for (String str : textList) {
                 if (!outputData.contains(str)) {
@@ -513,7 +527,7 @@ public class PrintFormsPage {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     seleniumLib.clickOnWebElement(downloadButton.get(i));
-                    Wait.seconds(10);//Wait for 5 seconds to ensure file got downloaded.
+                    Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
                     //Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
                     return true;
                 }
@@ -525,30 +539,19 @@ public class PrintFormsPage {
             return false;
         }
     }
-    //This method has to be modified as per the earlier PR comment.
-    public String readSelectedTestAndLabDetails(String fieldType) {
+    //Split as per the previous PR comment
+    public String readSelectedTestDetails() {
         try {
             String returnValue = null;
-
-            if (fieldType.contains("test type")) {
-                Wait.forElementToBeDisplayed(driver, orderedTestType);
-                String testTypes = orderedTestType.getText();
-                String[] tests = testTypes.split("\\n");
-                if (tests == null || tests.length < 2) {
-                    Debugger.println("No tests present...");
-                    return null;
-                }
-                String[] selectedTestTypes = tests[1].split("\\.");
-                if (selectedTestTypes == null || selectedTestTypes.length < 1) {
-                    Debugger.println("No test exists...");
-                    return null;
-                }
-                returnValue = selectedTestTypes[0];
-            } else if (fieldType.contains("laboratory")) {
-                Wait.forElementToBeDisplayed(driver, selectedLaboratory);
-                String[] labName = selectedLaboratory.getText().split(" ");
-                returnValue = labName[0];
+            Wait.forElementToBeDisplayed(driver, orderedTestType);
+            String testTypes = orderedTestType.getText();
+            String[] selectedTestTypes = testTypes.split("\\.");
+            if (selectedTestTypes == null || selectedTestTypes.length < 1) {
+                Debugger.println("No selected test exists...");
+                SeleniumLib.takeAScreenShot("readSelectedTests.jpg");
+                return null;
             }
+            returnValue = selectedTestTypes[0];
             return returnValue;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage: readSelectedTestType: " + exp);
@@ -557,10 +560,29 @@ public class PrintFormsPage {
         }
     }
 
+    public String readSelectedLabDetails() {
+        try {
+            String returnValue = null;
+            Wait.forElementToBeDisplayed(driver, selectedLaboratory);
+            String[] labName = selectedLaboratory.getText().split(" ");
+            if (labName == null || labName.length < 1) {
+                Debugger.println("No lab details exists...");
+                SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
+                return null;
+            }
+            returnValue = labName[0];
+            return returnValue;
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: readSelectedLabDetails: " + exp);
+            SeleniumLib.takeAScreenShot("readSelectedLab.jpg");
+            return null;
+        }
+    }
+
     public boolean startANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner);
-            if (!Wait.isElementDisplayed(driver,startANewReferralButton,30)) {
+            if (!Wait.isElementDisplayed(driver, startANewReferralButton, 30)) {
                 Debugger.println("Referral Submitted :Start New Referral Button Not found");
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
@@ -576,7 +598,7 @@ public class PrintFormsPage {
     public boolean clickOnStartANewReferralButton() {
         try {
             Wait.forElementToBeDisplayed(driver, startANewReferralButton);
-            Actions.clickElement(driver,startANewReferralButton);
+            Actions.clickElement(driver, startANewReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("PrintFormsPage : clickOnStartANewReferralButton: " + exp);
@@ -590,14 +612,14 @@ public class PrintFormsPage {
             boolean isPresent = false;
             Wait.forElementToBeDisplayed(driver, downloadNotice, 50);
             String[] actualGuideLines = downloadNotice.getText().split("\\n");
-            for(int i=0; i<actualGuideLines.length; i++){
-                if(actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)){
+            for (int i = 0; i < actualGuideLines.length; i++) {
+                if (actualGuideLines[i].equalsIgnoreCase(expectedGuideLine)) {
                     isPresent = true;
                     break;
-               }
+                }
             }
-            if(!isPresent){
-                Debugger.println("Guideline:"+expectedGuideLine+" Not present in the guideline list ");
+            if (!isPresent) {
+                Debugger.println("Guideline:" + expectedGuideLine + " Not present in the guideline list ");
                 SeleniumLib.takeAScreenShot("GuidelinesNotice.jpg");
             }
             return isPresent;
@@ -610,7 +632,7 @@ public class PrintFormsPage {
 
     public boolean extractAndValidateZipFile(String fileName) {
         try {
-            Wait.seconds(10); //wait for zip file download completion
+            Wait.seconds(15); //wait for zip file download completion
             if (fileName.endsWith(".zip")) {
                 if (!TestUtils.extractZipFile(fileName)) {
                     Debugger.println("Could not extract the zip file: " + fileName);
@@ -626,13 +648,65 @@ public class PrintFormsPage {
                     return true;
                 }
             }
-            Debugger.println("ZipFile does not contains and directory for Files as expected.");
+            Debugger.println("ZipFile does not contain directory for Files as expected.");
             return false;
-        }catch(Exception exp){
-            Debugger.println("Exception from extracting and validatin zip file."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from extracting and validatin zip file." + exp);
             return false;
         }
+    }
 
+    public String readLabAddress(String showAddress) {
+        try {
+                Wait.forElementToBeDisplayed(driver, showLabAddressLink);
+                if (showAddress.equalsIgnoreCase(showLabAddressLink.getText())) {
+                    seleniumLib.clickOnWebElement(showLabAddressLink);
+                }
+                Wait.forElementToBeDisplayed(driver, detailedAddressText);
+                String detailedAddress = detailedAddressText.getText();
+                if(detailedAddress == null || detailedAddress.isEmpty()){
+                    Debugger.println("No detailed Address present.");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+                if (!detailedAddress.contains("Hide address")) {
+                    Debugger.println("Laboratory address does not contain Hide Address option");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+
+                //Debugger.println("The lab address is: " + detailedAddressText.getText());
+                String[] labAddress = detailedAddress.split("\\n");
+                if (labAddress == null || labAddress.length < 2) {
+                    Debugger.println("Lab address is Not Shown");
+                    SeleniumLib.takeAScreenShot("LabAddress.jpg");
+                    return null;
+                }
+                //Debugger.println("lab Address to search in form: " + labAddress[1]);
+                hideLabAddressLink.click();
+                return labAddress[1];
+        } catch (Exception exp) {
+            Debugger.println("PrintFormsPage: readLabAddress: " + exp);
+            SeleniumLib.takeAScreenShot("LabAddress.jpg");
+            return null;
+        }
+    }
+
+    public boolean verifyRelationshipToProband(String relationToProband) {
+        try {
+            Wait.forElementToBeDisplayed(driver, relationshipToProbandField);
+            String relationshipToProbandInPrintFormSection = relationshipToProbandField.getText();
+            if (!relationToProband.equals(relationshipToProbandInPrintFormSection)) {
+                Debugger.println("The relationship to proband is not updated: " + relationshipToProbandInPrintFormSection);
+                SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Referral page: verifyRelationshipToProband : " + exp);
+            SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
+            return false;
+        }
     }
 
 }//end
