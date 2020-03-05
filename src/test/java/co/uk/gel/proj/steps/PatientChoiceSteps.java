@@ -23,9 +23,6 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
-//        boolean testResult = false;
-//        testResult = patientChoicePage.editPatientChoice();
-//        Assert.assertTrue(testResult);
         patientChoicePage.selectMember(0);
     }
 
@@ -648,6 +645,12 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifyUploadedFileName("");
         Assert.assertTrue(testResult);
+    }
+
+    @When("the user edits the index number (.*) of family member in patient choice")
+    public void theUserEditsTheIndexNumberOfFamilyMemberInPatientChoice(String index) {
+        int editIndex  = Integer.parseInt(index);
+        patientChoicePage.selectMember(editIndex);
     }
 
 }//end
