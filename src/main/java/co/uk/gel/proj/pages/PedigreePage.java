@@ -1292,6 +1292,7 @@ public class PedigreePage {
         if(!actualUid.equalsIgnoreCase(nonNgisUID)){
             Debugger.println("Expected nonNgisPatientStableUid:"+nonNgisUID+", but actual:"+actualUid);
             SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
         }
         return true;
     }
