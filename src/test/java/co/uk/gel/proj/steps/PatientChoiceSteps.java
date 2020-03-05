@@ -23,6 +23,9 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user edits the patient choice status")
     public void theUserEditsThePatientChoiceStatus() {
+//        boolean testResult = false;
+//        testResult = patientChoicePage.editPatientChoice();
+//        Assert.assertTrue(testResult);
         patientChoicePage.selectMember(0);
     }
 

@@ -390,3 +390,37 @@ Feature: Patient search page_SPINE
     Examples:
       | pageTitle         |
       | Find your patient |
+
+
+  @NTS-4801 @E2EUI-1106 @v_1
+  Scenario Outline:  NTS-4801:Patient Search - Add non-nullable validation for system fields - NHS Number and DOB
+    Then the "<pageTitle>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the Search button
+    Then the user will see error messages highlighted in red colour
+      | NHS Number is required. | #dd2509             |
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+
+    Examples:
+      | pageTitle         |
+      | Find your patient |
+
+  @NTS-4801 @E2EUI-1106 @v_1
+  Scenario Outline: NTS-4801:Patient Search - Add non-nullable validation for system fields - First Name, Last Name, Gender and DOB
+    Then the "<pageTitle>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user clicks the Search button
+    Then the user will see error messages highlighted in red colour
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+      | First name is required. | #dd2509 |
+      | Last name is required.  | #dd2509 |
+      | Gender is required.     | #dd2509 |
+
+    Examples:
+      | pageTitle         |
+      | Find your patient |

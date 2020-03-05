@@ -212,9 +212,6 @@ public class ReferralPage<check> {
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
-    @FindBy(xpath = "//span[text()='Referral ID']/following::span[contains(@aria-labelledby,'referralId')]//span[contains(@class,'_chunk__separator_')]")
-    public List<WebElement> referralIDChunkSeparators;
-
     @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> ngisIDChunkSeparators;
 

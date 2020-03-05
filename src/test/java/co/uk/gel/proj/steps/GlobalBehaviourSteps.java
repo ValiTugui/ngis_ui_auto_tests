@@ -42,13 +42,6 @@ public class GlobalBehaviourSteps extends Pages {
         Actions.switchTab(driver);
     }
 
-    @And("the user should verify the referral banner present at the top")
-    public void theUserShouldVerifyTheReferralBannerPresentAtTheTop() {
-        boolean testResult = false;
-        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
-        Assert.assertTrue(testResult);
-    }
-
     @Then("the user should be able to see continue button on landing page")
     public void theUserShouldBeAbleToSeeContinueButtonOnLandingPage() {
         boolean testResult = false;

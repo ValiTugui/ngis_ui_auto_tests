@@ -35,7 +35,7 @@ Feature: Panels Page Verification
 
     Examples:
       | Panels | searchPanels                  | textLine                                                                                                      |
-      | Panels | Cardiac arrhythmias,Cataracts | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
+      | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
   @NTS-3381 @E2EUI-1045 @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
