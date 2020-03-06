@@ -5,8 +5,11 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+
+import java.util.List;
 
 public class GlobalBehaviourSteps extends Pages {
 
@@ -42,6 +45,24 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserShouldBeAbleToSeeContinueButtonOnLandingPage() {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
+        Assert.assertTrue(testResult);
+    }
+//    @And("the user should verify the referral banner present at the top")
+//    public void theUserShouldVerifyTheReferralBannerPresentAtTheTop() {
+//        boolean testResult = false;
+//        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
+//        Assert.assertTrue(testResult);
+//    }
+    @When("the the user should see previous labels replaced as current labels")
+    public void theUserVerifyTheTextPresentInThePageAs(DataTable labelsList) {
+        boolean testResult = false;
+        List<List<String>> labels = labelsList.asLists();
+        for (int i = 1; i < labels.size(); i++) {
+            testResult = globalBehaviourPage.verifyReplacedLabelsInTheCurrentPage(labels.get(i).get(0),labels.get(i).get(1));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
         Assert.assertTrue(testResult);
     }
 }

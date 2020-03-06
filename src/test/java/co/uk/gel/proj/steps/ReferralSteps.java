@@ -823,4 +823,18 @@ public class ReferralSteps extends Pages {
         }
     }
 
+    @Then("the user verifies that the revoke message doesn't overlap any other element")
+    public void theUserVerifiesThatTheRevokeMessageDoesnTOverlapAnyOtherElement() {
+        boolean testResult=false;
+        testResult= referralPage.verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the NHS display format as {string}")
+    public void theUserVerifiesTheNHSFormatAs(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSDisplayFormat(nhsFormat);
+        Assert.assertTrue(testResult);
+    }
+
 }

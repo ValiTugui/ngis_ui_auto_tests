@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -43,7 +44,13 @@ public class GlobalBehaviourPage {
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
 
-    @FindBy(xpath="//button[text()='Continue']")
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
+    List<WebElement> referralHeaderDetails;
+
+    @FindBy(xpath = "//button[text()='Continue']")
     public WebElement continueButtonOnLandingPage;
 
 
@@ -81,15 +88,48 @@ public class GlobalBehaviourPage {
 
     public boolean verifyTheContinueButtonOnLandingPage() {
         try {
-            if (!Wait.isElementDisplayed(driver,continueButtonOnLandingPage,30)) {
+            if (!Wait.isElementDisplayed(driver, continueButtonOnLandingPage, 30)) {
                 Debugger.println("Continue button is not present on landing page");
                 SeleniumLib.takeAScreenShot("ContinueButtonNotPresent.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying verifyTheContinueButtonOnLandingPage:"+exp);
+            Debugger.println("Exception in verifying verifyTheContinueButtonOnLandingPage:" + exp);
             SeleniumLib.takeAScreenShot("ContinueButtonOnLandingPage");
+            return false;
+        }
+    }
+
+    public boolean verifyReplacedLabelsInTheCurrentPage(String shouldNotPresent, String shouldPresent) {
+        try {
+            //Searching in the whole page body, the presence and non-presence of earlier and replaced nhs labels
+            String bodyText = driver.findElement(By.tagName("body")).getText();
+            String[] notExpectedLabels = shouldNotPresent.split(",");
+            String[] expectedLabels = shouldPresent.split(",");
+            //Checking for Non-Presence
+            for (int i = 0; i < notExpectedLabels.length; i++) {
+                if (bodyText.contains(notExpectedLabels[i])) {
+                    Debugger.println("Page contains Unexpected Label/Text :" + notExpectedLabels[i]);
+                    SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
+                    return false;
+                }
+            }
+            //Checking for Presence
+            boolean isPresent = false;
+            for (int i = 0; i < expectedLabels.length; i++) {
+                if (bodyText.contains(notExpectedLabels[i])) {
+                    isPresent = true;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Page not contains Expected Label/Text :" + shouldPresent);
+                SeleniumLib.takeAScreenShot("NHSLabelNonPresence.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifyNHSLabelstInTheCurrentPage " + exp);
+            SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
             return false;
         }
     }
