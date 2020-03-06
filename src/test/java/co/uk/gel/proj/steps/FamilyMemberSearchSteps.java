@@ -211,4 +211,5 @@ public class FamilyMemberSearchSteps extends Pages {
     public void theUserClicksOnAddNonTestedFamilyMemberLinkOnFamilyLandingPage() {
         familyMemberSearchPage.clickOnAddNonTestedFamilyMemberLink();
     }
+
 }//end

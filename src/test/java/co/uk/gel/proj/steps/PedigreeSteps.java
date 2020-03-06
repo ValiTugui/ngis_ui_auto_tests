@@ -158,7 +158,6 @@ public class PedigreeSteps extends Pages {
                 }
                 Assert.assertTrue(testResult);
             } else {
-                Debugger.println("EDITABLE: "+testResult);
                 if (testResult) {
                     Debugger.println("Filed " + fields.get(i).get(0) + ": Expected status,Editable,But actual Non-Editable.");
                     SeleniumLib.takeAScreenShot("TumoursTab.jpg");
@@ -267,7 +266,9 @@ public class PedigreeSteps extends Pages {
 
     @When("the user click on (.*) menu button")
     public void theUserClickOnButton(String buttonName) {
-        pedigreePage.clickOnMenuButton(buttonName);
+        boolean testResult = false;
+        testResult = pedigreePage.clickOnMenuButton(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user adds new parent node to proband {string}")
@@ -398,5 +399,58 @@ public class PedigreeSteps extends Pages {
         testResult = pedigreePage.verifyThePedigreeDiagramLoadedAsJavaScript();
         Assert.assertTrue(testResult);
 
+    }
+
+    @Then("the user should see the Non NGSID displayed in personal tab for the selected Non NGIS member for {string}")
+    public void theUserShouldSeeTheNonNGSIDDisplayedInPersonalTabForTheSelectedMember(String searchDetails) {
+        NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
+        if (patient == null) {
+            Debugger.println("Specified Proband Details could not get from the list.");
+            return;
+        }
+        boolean testResult = pedigreePage.verifyNonNGISPatientIDInPersonalTab(patient.getNON_NGIS_ID1());
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user enters tumour field values as {string}")
+    public void theUserEntersTumourFieldValuesAs(String tumourValues) {
+        boolean testResult = false;
+        testResult = pedigreePage.setTumourValues(tumourValues);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see HPO Present options as below")
+    public void theUserShouldSeeHPOPresentOptionsAs(DataTable hpoOptions) {
+        boolean testResult = false;
+        List<List<String>> hpos = hpoOptions.asLists();
+        for (int i = 1; i < hpos.size(); i++) {
+            testResult = pedigreePage.verifyHPOPresentOptions(hpos.get(i).get(0));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to search disease {string} and codes in the pedigree and add to the selected nodes")
+    public void theUserShouldBeAbleToSearchDiseaseAndCodesInThePedigreeAndAddToTheSelectedNodes(String disease) {
+        boolean testResult = false;
+        testResult = pedigreePage.searchAndAddDiseaseOrder(disease);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("user should see the Participating in Test check box is (.*)")
+    public void userShouldSeeTheParticipatingInTestCheckBoxIsNotSelected(String selectStatus) {
+        boolean testResult = false;
+        testResult = pedigreePage.verifyParticipateInSelectStatus(selectStatus);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user selects the document evaluation option")
+    public void theUserSelectsTheDocumentEvaluationOption() {
+        boolean testResult =false;
+        testResult=pedigreePage.selectDocumentEvaluationOption();
+        Assert.assertTrue(testResult);
     }
 }//end

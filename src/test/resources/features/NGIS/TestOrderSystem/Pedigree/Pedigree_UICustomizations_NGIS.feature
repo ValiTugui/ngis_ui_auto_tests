@@ -110,3 +110,39 @@ Feature: Pedigree - UI Customizations - NGIS
     Examples:
       | ClinicalStage      | FamilyMemberDetails         | ClinicalQuestionDetails                 | Pedigree | WarningMessage                                                                                |
       | Clinical questions | NHSNumber=NA:DOB=25-10-2008 | DiseaseStatus=Affected:AgeOfOnset=03,02 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+
+
+  @NTS-3464 @E2EUI-1157 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3464 : Is participating in test
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+    ##Pedigree - checking for Proband
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    And the user should be able to see a "<WarningMessage>" on the pedigree page
+    When the user clicks on the specified node on the pedigree diagram for "<ProbandDetails>"
+    And the user select the pedigree tab Personal
+    Then user should see the Participating in Test check box is Not Selected
+    And the user is able to close the popup by clicking on the close icon
+    ##Below step added this as sometimes direct clicking on Requesting Organisation from Pedigree is not happening due to some overlay
+    When the user scroll to the top of landing page
+    ##Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    ##Pedigree
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    And the user should be able to see a "<WarningMessage>" on the pedigree page
+    When the user clicks on the specified node on the pedigree diagram for "<ProbandDetails>"
+    And the user select the pedigree tab Personal
+    Then user should see the Participating in Test check box is Selected
+    And the user is able to close the popup by clicking on the close icon
+
+    Examples:
+      | TestPackage  | ProbandDetails              | NoOfParticipants | Pedigree | WarningMessage                                                                                |
+      | Test package | NHSNumber=NA:DOB=25-10-2005 | 1                | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
