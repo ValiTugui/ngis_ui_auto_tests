@@ -13,12 +13,15 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerUtilities;
 import sun.security.ssl.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static co.uk.gel.lib.Actions.getText;
 
@@ -88,7 +91,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
-    @FindBy(css = "strong[class*='header-item__value']")
+    @FindBy(xpath = "//*[contains(@class,'referral-header')]//child::li")
     public List<WebElement> referralHeaderValues;
 
     @FindBy(css = "*[class*='referral-success-notification']")
@@ -1358,6 +1361,32 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+// Method to retrieve the EXPECTED referral ID using the referral URL
+    public String getTheExpectedCurrentReferralID() {
+        //NewPatient newPatient = PatientDetailsPage.getNewlyCreatedPatientData();
+        try {
+            String cURL[] = driver.getCurrentUrl().split("/");
+            //Debugger.println("Print Current refferral ID " + referralID);
+            String regex = "^[r0-9]+$";
+            Pattern pattern = Pattern.compile(regex);
+            for (int i = cURL.length - 1; i > 0; i--) {
+                String cString = cURL[i];
+                Matcher matcher = pattern.matcher(cString);
+                if (matcher.matches()) {
+                    Debugger.println("Referral id is " + cString);
+                    return cString;
+                }
+            }
+            Debugger.println("No referral id found in url. Current URL is " + driver.getCurrentUrl());
+            //return "";
+        } catch (Exception exp) {
+            Debugger.println("Exception in retrieving referralID " + exp);
+            SeleniumLib.takeAScreenShot("ReferralIDError.jpg");
+        }
+        return "";
+    }
+
 
 
 }//end

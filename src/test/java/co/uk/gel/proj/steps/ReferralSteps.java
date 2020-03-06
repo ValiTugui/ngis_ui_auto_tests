@@ -358,6 +358,7 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
+        Wait.seconds(10);
     }
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
@@ -820,6 +821,15 @@ public class ReferralSteps extends Pages {
         }
     }
 
+    @And("the user retrieve the referral HumanReadable-ID from the referral page url")
+    public void theUserRetrieveTheReferralHumanReadableIDFromTheReferralPageUrl() {
+        // Set the retrieved ReferralHumanID from URl into setReferralID
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String expectedReferralID = referralPage.getTheExpectedCurrentReferralID();
+        newPatient.setReferralID(expectedReferralID);
+        Debugger.println("Expected ReferralID " + expectedReferralID);
+    }
+
     @And("the user sees the patient details on the referral header of each referral component page {string}")
     public void theUserSeesThePatientDetailsOnTheReferralHeaderOfEachReferralComponentPage(String titlePage, DataTable dataTable) {
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
@@ -830,9 +840,9 @@ public class ReferralSteps extends Pages {
         String actualFullDOB = referralPage.referralHeaderBorn.getText();
         String actualGender = referralPage.referralHeaderGender.getText();
         String actualNHSNumber = referralPage.referralHeaderNhsNo.getText();
-        String actualPatientId = referralPage.referralHeaderPatientNgisId.getText();
-        String actualCid = referralPage.referralHeaderClinicalId.getText();
-        String actualReferralId = referralPage.referralHeaderReferralId.getText();
+        String actualPatientId = referralPage.getPatientNGISId();
+        String actualCid = referralPage.getPatientClinicalIndication();
+        String actualReferralId = referralPage.getPatientReferralId();
 
         NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
         String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
@@ -857,12 +867,11 @@ public class ReferralSteps extends Pages {
         Assert.assertNotNull(actualCid);
 
         Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
-        Assert.assertNotNull(actualReferralId);
-
+        Assert.assertEquals(newPatient.getReferralID(),actualReferralId);
         boolean flag;
-        flag = Wait.isElementDisplayed(driver, referralPage.referralHeaderBorn, 10);
-
-
+        flag = Wait.isElementDisplayed(driver, referralPage.submitReferralButton, 10);
+        Assert.assertTrue(flag);
+        flag = Wait.isElementDisplayed(driver, referralPage.getReferralHeaderStatus, 10);
+        Assert.assertTrue(flag);
     }
-
 }

@@ -181,6 +181,7 @@ Feature: This is a referral feature
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage1>" stage
     And the "<stage1>" stage is marked as Completed
+    And the user retrieve the referral HumanReadable-ID from the referral page url
     When the user navigates back to patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the YES button is selected by default on patient search
@@ -196,6 +197,4 @@ Feature: This is a referral feature
     Examples:
       | stage1          | PageTitle                    |
       | Patient details | Check your patient's details |
-
-
 

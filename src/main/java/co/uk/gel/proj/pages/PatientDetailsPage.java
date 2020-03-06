@@ -694,10 +694,6 @@ public class PatientDetailsPage {
 
         String gender = "Male";
         newPatient.setGender(gender);
-
-        if(!Wait.isElementDisplayed(driver, administrativeGenderButton,15)){
-            Actions.scrollToTop(driver);
-        }
         selectGender(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");
@@ -1017,7 +1013,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
-
+    // Method to retrieve the EXPECTED Patient-ID using TOS Patient Detail URL
     public String getTheExpectedCurrentPatientID() {
         try {
             String cURL[] = driver.getCurrentUrl().split("/");
@@ -1037,8 +1033,8 @@ public class PatientDetailsPage {
             Debugger.println("No patient id found in url. Current URL is " + driver.getCurrentUrl());
             //return "";
         } catch (Exception exp) {
-            Debugger.println("Exception in starting the Referral: " + exp);
-            SeleniumLib.takeAScreenShot("startReferralError.jpg");
+            Debugger.println("Exception in retrieving patientID: " + exp);
+            SeleniumLib.takeAScreenShot("RetrievingPatientError.jpg");
         }
         return "";
     }
