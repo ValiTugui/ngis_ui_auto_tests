@@ -521,4 +521,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         Wait.forElementToBeDisplayed(driver, referralPage.pageTitle);
         Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
     }
+    @And("the user edits the highlighted family member with {string}")
+    public void theUserEditsTheHighlightedFamilyMemberWith(String familyMember) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.editFamilyMemberHavingNHSDob(familyMember);
+        Assert.assertTrue(testResult);
+    }
 }//end
