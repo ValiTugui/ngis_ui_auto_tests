@@ -274,6 +274,21 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//*[@role = 'dialog']")
     WebElement mandatoryStageDialogBox;
 
+    @FindBy(xpath = "//*[@role = 'dialog']//button[contains(@class,'closeButton')]")
+    WebElement mandatoryStageDialogBoxCloseButton;
+
+    @FindBy(xpath = "//h2[text()='Add information in any order']")
+    public WebElement addInformationInOrderText;
+
+    @FindBy(xpath = "//h1[contains(text(),'Print sample forms')]")
+    public WebElement printSampleFormsTitle;
+
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
+    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -655,13 +670,17 @@ public class ReferralPage<check> {
                     return true;
                 }
             } catch (NoSuchElementException exp) {
-                //Wait for 10 seconds and check again. This is introduced based on the failures observed.
-                Actions.scrollToTop(driver);
+                //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
+                //So clicking on save abd continue and trying again.
+                clickSaveAndContinueButton();
                 Wait.seconds(1);
-                titleElement = driver.findElement(pageTitle);
-                if (Wait.isElementDisplayed(driver, titleElement, 5)) {
+                actualPageTitle = getTheCurrentPageTitle();
+                if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                     return true;
                 }
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+                return false;
             }
             return false;
         } catch (Exception exp) {
@@ -895,24 +914,6 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean verifyNHSDisplayFormat() {
-        //Verify the NHS format.
-        int noOfNhsSections = nhsChunkSeparators.size();
-        if (noOfNhsSections != 3) {
-            Debugger.println("Expected NHS format as 3 sets, but separated in " + noOfNhsSections + " ways");
-            return false;
-        }
-        //Expected each section in 3,3,4 size
-        int nhsExpSection[] = {3, 3, 4};
-        for (int i = 0; i < noOfNhsSections; i++) {
-            if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[i]) {
-                Debugger.println("NHS Display is not in 3-3-4 separation.");
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean verifyNGISIDDisplayFormat() {
         //Verify for the NGIS format
         int noOfNgisSections = ngisIDChunkSeparators.size();
@@ -960,7 +961,7 @@ public class ReferralPage<check> {
                     return false;
                 }
             }
-            if (!verifyNHSDisplayFormat()) {
+            if (!verifyNHSDisplayFormat("3,3,4")) {
                 Debugger.println("NHS Number display format is not as expected.");
                 SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
                 return false;
@@ -1297,21 +1298,6 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean verifySubmitButtonStatusAfterSubmission() {
-        try {
-            Wait.forElementToBeDisplayed(driver,submitReferralButton);
-            if(submitReferralButton.isEnabled()){
-                Debugger.println("ReferralButton status is enabled after Submission.");
-                SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("ReferralPage: submiButtonStatusAfterSubmission: " + exp);
-            SeleniumLib.takeAScreenShot("SubmitReferralStatus.jpg");
-            return false;
-        }
-    }
     public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
@@ -1356,14 +1342,14 @@ public class ReferralPage<check> {
         boolean isPresent = false;
         try {
             Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox, 10);
-            for(int i=0; i<incompleteSection.size(); i++){
-                if(incompleteSection.get(i).getText().equalsIgnoreCase(stageName)){
+            for (int i = 0; i < incompleteSection.size(); i++) {
+                if (incompleteSection.get(i).getText().equalsIgnoreCase(stageName)) {
                     isPresent = true;
                     break;
                 }
             }
-            if(!isPresent) {
-                Debugger.println("The mandatory stage:"+stageName+" not present in dialog.");
+            if (!isPresent) {
+                Debugger.println("The mandatory stage:" + stageName + " not present in dialog.");
                 SeleniumLib.takeAScreenShot("MandatoryStages.jpg");
             }
             return isPresent;
@@ -1374,5 +1360,70 @@ public class ReferralPage<check> {
         }
     }
 
+    public boolean closeMandatoryStagePopUp() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox);
+            if (!mandatoryStageDialogBoxCloseButton.isDisplayed()) {
+                Debugger.println("The close button is not present in the mandatory stages dialog box.");
+                SeleniumLib.takeAScreenShot("CloseMandatoryStages.jpg");
+                return false;
+            }
+            mandatoryStageDialogBoxCloseButton.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: closeMandatoryStagePopUp: " + exp);
+            SeleniumLib.takeAScreenShot("CloseMandatoryStages.jpg");
+            return false;
+        }
+    }
 
+    public boolean verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements() {
+        try {
+            List<WebElement> elementsNearToSuccessMsgBox = new ArrayList<>();
+            elementsNearToSuccessMsgBox.add(addInformationInOrderText);
+            elementsNearToSuccessMsgBox.add(printSampleFormsTitle);
+            elementsNearToSuccessMsgBox.add(referralHeaderBanner);
+            for (WebElement elements : elementsNearToSuccessMsgBox) {
+                if (!elements.isDisplayed()) {
+                    Debugger.println("The Cancellation success message is overlapping other elements");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PrintForms page:verifyTheCancelletionSuccessMsgDoesnotOverlapWithOtherElements:exception found " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceCancellationSuccessMsg.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNHSDisplayFormat(String expectedFormat) {
+        //Verify the NHS format.
+        String[] nhsFormat = expectedFormat.split(",");
+        int size = nhsFormat.length;
+        int[] nhsExpSection = new int[size];
+        for (int i = 0; i < size; i++) {
+            nhsExpSection[i] = Integer.parseInt(nhsFormat[i]);
+        }
+
+        if (nhsChunkSeparators.size() < 1) {
+            Debugger.println("NO NHS numbers displayed in the Page.");
+            SeleniumLib.takeAScreenShot("NHSFormat.jpg");
+            return false;
+        }
+        int expIdx = 0;
+        //Verify the format for all NHS displayed in the page - expected to display a chunk of 3 3 4
+        for (int i = 0; i < nhsChunkSeparators.size(); i++) {
+            if (i != 0 && i % 3 == 0) {
+                expIdx = 0;
+            }
+            if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[expIdx]) {
+                Debugger.println("NHS Number not displayed in specified format 3 3 4");
+                SeleniumLib.takeAScreenShot("NHSFormat.jpg");
+                return false;
+            }
+            expIdx++;
+        }
+        return true;
+    }
 }//end

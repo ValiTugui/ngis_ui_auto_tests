@@ -19,7 +19,8 @@ public class FamilyMemberDetailsPage {
     WebDriver driver;
     SeleniumLib seleniumLib;
 
-    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+//    @FindBy(xpath = "//h2[@class='css-1ujfcb9']")
+    @FindBy(xpath = "//h2[contains(@class,'css') and contains(text(),',')]")
     public List<WebElement> nameResults;
 
     @FindBy(xpath = "//label[contains(text(),'Title')]")
@@ -217,13 +218,20 @@ public class FamilyMemberDetailsPage {
     static ArrayList<String> patientChoicePageDetails;
     static ArrayList<String> printFormsPageDetails;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'nhsNumber')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'nhsNumber')]")
     public List<WebElement> nhsNumberResults;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'gender')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//div[contains(@class,'contentCss')]")
+    public List<WebElement> participantsList;
+
+//    @FindBy(xpath = "//span[contains(@aria-labelledby,'gender')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'gender')]")
     public List<WebElement> genderResults;
 
-    @FindBy(xpath = "//span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'hospitalNumber')]")
+    public List<WebElement> hospitalNoResults;
+
+    @FindBy(xpath = "//div[contains(@class,'participant-list')]//span[contains(@aria-labelledby,'ngisId')]")
     public List<WebElement> ngisIdResults;
 
     @FindBy(xpath = "//span[contains(text(),'Being tested')]/ancestor::span[contains(@class,'css-1')][1]")
@@ -255,6 +263,8 @@ public class FamilyMemberDetailsPage {
     public WebElement hpoTable;
     @FindBy(css = "[class*='hpo-term__name']")
     public List<WebElement> hpoTerms;
+
+    String specificFamilyEdit = "//ul//span[text()='NHSLastFour']/ancestor::div[contains(@class,'css-1')]/following-sibling::button[@aria-label='edit button']";
 
     public FamilyMemberDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -1055,15 +1065,28 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         familyMemberLandingPageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                familyMemberLandingPageDetails.add(nameResults.get(i).getText());
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("FMDetailsNotLoaded.jpg");
+                return;
+            }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
                 familyMemberLandingPageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                familyMemberLandingPageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                familyMemberLandingPageDetails.add(nameResults.get(i).getText());
                 familyMemberLandingPageDetails.add(genderResults.get(i).getText());
                 familyMemberLandingPageDetails.add(ngisIdResults.get(i).getText());
             }
-            Debugger.println("No of Patient Details Read from FamilyMember LAnding Page: "+familyMemberLandingPageDetails.size());
+            Debugger.println("No of Patient Details Read from FamilyMember Landing Page: "+familyMemberLandingPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from FamilyMember Landing Page:"+exp);
+            SeleniumLib.takeAScreenShot("FMDetailsNotLoaded.jpg");
         }
     }
 
@@ -1080,13 +1103,26 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, printFormsPageTitle);
         printFormsPageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                printFormsPageDetails.add(nameResults.get(i).getText());
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("PrintFormDetailsNotLoaded.jpg");
+                return;
+            }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
                 printFormsPageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                printFormsPageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                printFormsPageDetails.add(nameResults.get(i).getText());
                 printFormsPageDetails.add(genderResults.get(i).getText());
                 printFormsPageDetails.add(ngisIdResults.get(i).getText());
             }
-            Debugger.println("No of Patient Details Read from Print Form Page: "+familyMemberLandingPageDetails.size());
+
+            Debugger.println("No of Patient Details Read from Print Form Page: "+printFormsPageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Print Form Page:"+exp);
         }
@@ -1097,12 +1133,25 @@ public class FamilyMemberDetailsPage {
         Wait.forElementToBeDisplayed(driver, patientChoicePageTitle);
         patientChoicePageDetails = new ArrayList<String>();
         try {
-            for (int i = 0; i < nameResults.size(); i++) {
-                patientChoicePageDetails.add(nameResults.get(i).getText());
+            int noOfParticipants = participantsList.size();
+            if(noOfParticipants == 0){
+                Debugger.println("No family members loaded in the landing Page.");
+                SeleniumLib.takeAScreenShot("PCDDetailsNotLoaded.jpg");
+                return;
+            }
+            //Hospital/NHS results may or may not come based on the way we create the family members
+            for(int i=0; i<nhsNumberResults.size(); i++) {
                 patientChoicePageDetails.add(nhsNumberResults.get(i).getText());
+            }
+            for(int i=0; i<hospitalNoResults.size(); i++) {
+                patientChoicePageDetails.add(hospitalNoResults.get(i).getText());
+            }
+            for (int i = 0; i < noOfParticipants; i++) {
+                patientChoicePageDetails.add(nameResults.get(i).getText());
                 patientChoicePageDetails.add(genderResults.get(i).getText());
                 patientChoicePageDetails.add(ngisIdResults.get(i).getText());
             }
+
             Debugger.println("No of Patient Details Read from PatientChoice Page: "+patientChoicePageDetails.size());
         } catch (Exception exp) {
             Debugger.println("Exception from reading the Family Member Details from Patient Choice Page:"+exp);
@@ -1473,5 +1522,34 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+    public boolean editFamilyMemberHavingNHSDob(String familyMemberDetails) {
+        String nhsNumber = "";
+        try {
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(familyMemberDetails);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                if (key.equalsIgnoreCase("NHSNumber")) {
+                    nhsNumber = paramNameValue.get(key);
+                    break;
+                }
+            }
+            if (nhsNumber == null || nhsNumber.isEmpty()) {
+                Debugger.println("NHS Number not provided to edit the patient choice.");
+                return false;
+            }
+            String nhsLastFour = nhsNumber.substring(6, nhsNumber.length());//Assuming NHSNumber is always 10 digit.
+            By familyEdit = By.xpath(specificFamilyEdit.replaceAll("NHSLastFour", nhsLastFour));
+            WebElement element = driver.findElement(familyEdit);
+            if (!Wait.isElementDisplayed(driver, element, 100)) {
+                Debugger.println("Family member edit button not displayed for "+familyMemberDetails);
+                return false;
+            }
+            seleniumLib.clickOnWebElement(element);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on edit button for family member with NHSNumber: " + exp);
+            return false;
+        }
+    }
 
 }//ends

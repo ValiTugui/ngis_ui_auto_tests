@@ -10,7 +10,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.util.List;
 
 public class PedigreePage {
@@ -41,12 +40,38 @@ public class PedigreePage {
 
     @FindBy(xpath = "//div[@id='work-area']")
     public WebElement pedigreeWorkArea;
-    @FindBy(xpath = "//div[@class='editor-menu']")
-    public WebElement pedigreeMenu;
+
+    @FindBy(xpath = "//div[@id='pedigree-tool']")
+    public WebElement pedigreeTool;
+
     @FindBy(xpath = "//div[@class='msdialog-box pedigree-okcancel']")
-    public WebElement resetConfirmDialog;
+    public WebElement confirmationDialog;
     @FindBy(xpath = "//input[@type='button'][not(contains(@style,'display: none'))][@name='ok']")
-    public WebElement resetConfirmYes;
+    public WebElement confirmationYes;
+    @FindBy(xpath = "//div[@class='ok-cancel-body']")
+    public WebElement popupMessageBody;
+
+    //Personal Tab
+    @FindBy(xpath = "//div[@id='tab_Personal']//label[contains(@class,'field-name')]")
+    public List<WebElement> personalTabFields;
+    @FindBy(xpath = "//select[@name='year']")
+    public WebElement personalTab_YearOfBirth;
+    @FindBy(xpath = "//select[@name='ethnicity']")
+    public WebElement personalTab_Ethnicity;
+    @FindBy(xpath = "//select[@name='gender']")
+    public WebElement personalTab_Gender;
+    @FindBy(xpath = "//select[@name='karyotypic_sex']")
+    public WebElement personalTab_KaryotypicSex;
+    @FindBy(xpath = "//select[@name='gestationAgeWeeks']")
+    public WebElement personalTab_gestationAge;
+    @FindBy(xpath = "//select[@name='childlessSelect']")
+    public WebElement personalTab_Heredity;
+    @FindBy(xpath = "//input[@name='age_of_death']")
+    public WebElement personalTab_AgeAtDeath;
+    @FindBy(xpath = "//input[@name='nonNgisPatientStableUid']")
+    public WebElement personalTab_nonNgisPatientStableUid;
+    @FindBy(xpath = "//input[@type='checkbox' and @name='participatingInTest']")
+    public WebElement personalTab_participatingInTest;
 
     //Tumours Tab
     @FindBy(xpath = "//div[@id='tab_Tumours']//label[contains(@class,'field-name')]")
@@ -63,6 +88,8 @@ public class PedigreePage {
     public WebElement phenotypeTab_HPOPresent;
     @FindBy(xpath = "//input[@name='hpo_positive' and contains(@class,'suggest multi suggest')]")
     public WebElement phenotypeTab_Phenotype;
+    @FindBy(xpath = "//ul[contains(@class,'hpo_suggestions')]/li")
+    public List<WebElement> hpoSuggestedLists;
 
     //Clinical Tab
     @FindBy(xpath = "//div[@id='tab_Clinical']//label[contains(@class,'field-name')]")
@@ -85,6 +112,8 @@ public class PedigreePage {
     public WebElement clinicalTab_disorderType;
     @FindBy(xpath = "//div[@class='field-box field-disorders']//input[@name='disorders']")
     public WebElement clinicalTab_disOrders;
+    @FindBy(xpath = "//ul[contains(@class,'disorder_suggestions')]")
+    public WebElement clinicalTab_disOrdersSuggestions;
     @FindBy(xpath = "//input[@type='checkbox' and @name='evaluated']")
     public WebElement clinicalTab__documentEvaluation;
     @FindBy(xpath = "//input[@name='clinicalIndicationName']")
@@ -146,11 +175,16 @@ public class PedigreePage {
 
     public void closePopup() {
         try {
-            Actions.clickElement(driver, closePopup);
+            Wait.forElementToBeClickable(driver,closePopup);
+            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
+        } catch (ElementClickInterceptedException exp) {
+            SeleniumLib.scrollToElement(closePopup);
+            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
         } catch (Exception exp) {
             Debugger.println("Could not close the Popup." + exp);
             SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
         }
+
     }
 
     public boolean clickSpecificPedigreeTab(String tabName) {
@@ -393,7 +427,6 @@ public class PedigreePage {
         if (!waitForThePedigreeDiagramToBeLoaded()) {
             return false;
         }
-        //Scroll to the WorkArea to locate the diagram nodes without interruption
         String gender = patient.getGENDER();
         if (gender == null || patient.getNGIS_ID() == null) {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
@@ -472,7 +505,7 @@ public class PedigreePage {
                     try {
                         seleniumLib.moveMouseAndClickOnElement(male_node);
                         diagramClicked = true;
-                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate + "," + yCoordinate);
+                        Debugger.println("Male: " + patientType + ",Clicked On:" + xCoordinate);
                         break;
                     } catch (NoSuchElementException NSEE) {
                         Debugger.println("No Such element....." + idx_array[i] + "...." + male_node);
@@ -873,24 +906,29 @@ public class PedigreePage {
 
             if (buttonName.equalsIgnoreCase("Undo")) {
                 Actions.retryClickAndIgnoreElementInterception(driver, undoButton);
+                Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Redo")) {
                 Actions.retryClickAndIgnoreElementInterception(driver, redoButton);
+                Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Reset")) {
                 Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
                 //Popup will display for Reset button click
                 Wait.seconds(2);
-                SeleniumLib.scrollToElement(resetConfirmDialog);
+                SeleniumLib.scrollToElement(confirmationDialog);
                 Wait.seconds(2);
-                Actions.clickElement(driver, resetConfirmYes);
+                Actions.clickElement(driver, confirmationYes);
                 Wait.seconds(2);
                 Actions.scrollToTop(driver);
                 Wait.seconds(2);
                 waitForThePedigreeDiagramToBeLoaded();
                 Wait.seconds(2);
             } else if (buttonName.equalsIgnoreCase("Save")) {
+                Actions.scrollToTop(driver);
                 Actions.retryClickAndIgnoreElementInterception(driver, saveAndExitButton);
+                Wait.seconds(3);//Wait to save the diagram
             } else if (buttonName.equalsIgnoreCase("Export")) {
                 Actions.retryClickAndIgnoreElementInterception(driver, exportButton);
+                Wait.seconds(2);
             }
             return true;
         } catch (Exception exp) {
@@ -1075,6 +1113,296 @@ public class PedigreePage {
         } catch (Exception exp) {
             Debugger.println("Could not select AgeOfOnset values :" + exp);
             SeleniumLib.takeAScreenShot("AgeOfOnsetNotSelected.jpg");
+            return false;
+        }
+    }
+    public boolean setYearOfBirth(String years) {
+        try {
+            if (!seleniumLib.selectFromListByText(personalTab_YearOfBirth, years)) {
+                Debugger.println("Could not select the Year Of Birth");
+                SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not select Year Of Birth values :" + exp);
+            SeleniumLib.takeAScreenShot("YearOfBirth.jpg");
+            return false;
+        }
+    }
+    public boolean verifyHPOPhenotype(String phenotype) {
+        boolean isPresent = false;
+        try {
+            for(int i=0; i<hpoSuggestedLists.size(); i++){
+                Debugger.println("HPO: "+hpoSuggestedLists.get(i).getText());
+                if(hpoSuggestedLists.get(i).getText().contains(phenotype)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Phenotype: "+phenotype+" not loaded in Pedigree diagram.");
+                SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Could not verifyHPOPhenotype :" + exp);
+            SeleniumLib.takeAScreenShot("HPOPhenotype.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyDiagnosisDisorders(String disorder) {
+        boolean isPresent = false;
+        try {
+            //Re-using an existing method in SeleniumLib for Select drop downs
+            isPresent = seleniumLib.selectFromListByText(clinicalTab_disorderType,disorder);
+            if(!isPresent){
+                Debugger.println("Diagnosis disorder :"+disorder+" not present in Clinical Tab.");
+                SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying DiagnosisDisorders options.");
+            SeleniumLib.takeAScreenShot("DiagnosisDisorder.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyFieldsPresenceOnPersonalTab(String fieldName) {
+        try {
+            boolean isPresent = false;
+            for (int i = 0; i < personalTabFields.size(); i++) {
+                if (personalTabFields.get(i).getText().equalsIgnoreCase(fieldName)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Field " + fieldName + " not present in Personal Tab.");
+                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in validating field status In Personal Tab :" + exp);
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
+        }
+    }
+    public boolean verifyPersonalTabDropDownOptions(String fieldName,String option) {
+        boolean isPresent = false;
+        try {
+            //Re-using an existing method in SeleniumLib for Select drop downs
+            switch(fieldName) {
+                case "Ethnicity":
+                    isPresent = seleniumLib.selectFromListByText(personalTab_Ethnicity, option);
+                break;
+                case "Gender":
+                    isPresent = seleniumLib.selectFromListByText(personalTab_Gender, option);
+                break;
+                case "KaryoTypicSex":
+                    isPresent = seleniumLib.selectFromListByText(personalTab_KaryotypicSex, option);
+                break;
+                case "GestationAge":
+                    isPresent = seleniumLib.selectFromListByText(personalTab_gestationAge, option);
+                break;
+                case "Heredity":
+                    isPresent = seleniumLib.selectFromListByText(personalTab_Heredity, option);
+                    break;
+
+            }
+            if(!isPresent){
+                Debugger.println(fieldName+" Option :"+option+" not present.");
+                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying Personal Tab Filed Enumeration.");
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
+        }
+    }
+    public boolean verifyErrorMessageOnPopup(String errorMessage){
+        boolean isPresent = false;
+        try {
+            Wait.seconds(2);
+            SeleniumLib.scrollToElement(confirmationDialog);
+            Wait.seconds(2);
+            String actualMessage = popupMessageBody.getText();
+            if(errorMessage.indexOf(",") != -1){
+                //In case of multiple error messages, checking one by one
+                String[] messages = errorMessage.split(",");
+                for(int i=0; i<messages.length; i++){
+                    if(actualMessage.contains(messages[i])){
+                        isPresent = true;
+                    }else{
+                        break;
+                    }
+                }
+            }else {
+                if (actualMessage.contains(errorMessage)) {
+                    isPresent = true;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Popup error message mismatch. Actual:"+actualMessage+",Expected:"+errorMessage);
+                SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
+            }
+            Actions.clickElement(driver, confirmationYes);
+            Wait.seconds(2);
+            return isPresent;
+
+        }catch(Exception exp){
+            Debugger.println("Exception in validating Error popup:"+exp);
+            SeleniumLib.takeAScreenShot("ErrorPopup.jpg");
+            return false;
+        }
+    }
+    public boolean setAgeAtDeath(String age){
+        try{
+            Wait.forElementToBeDisplayed(driver,personalTab_AgeAtDeath);
+            personalTab_AgeAtDeath.sendKeys(age);
+            Wait.seconds(2);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in setting AgeAtDeath:"+exp);
+            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
+            return false;
+        }
+    }
+    public boolean verifyThePedigreeDiagramLoadedAsJavaScript(){
+        //Previously it was loading as svg diagram inside iframe... now loading as
+        //Manual team also checking the same thing via developer tool options.
+        if(!Wait.isElementDisplayed(driver,pedigreeTool,10)){
+            Debugger.println("Pedigree diagram expected to load as java script..with tag div...Not present the expected tag.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID){
+
+        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,10)){
+            Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
+        }
+        String actualUid = personalTab_nonNgisPatientStableUid.getText();
+        if(!actualUid.equalsIgnoreCase(nonNgisUID)){
+            Debugger.println("Expected nonNgisPatientStableUid:"+nonNgisUID+", but actual:"+actualUid);
+            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean setTumourValues(String tumourValues){
+        try{
+            String[] values = tumourValues.split(",");
+            if(values == null || values.length != 2){
+                Debugger.println("Wrong input "+tumourValues+":Expected TWO tumour values.");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsTotal);
+            tumoursTab_PolypsTotal.sendKeys(values[0]);
+            Wait.forElementToBeDisplayed(driver,tumoursTab_PolypsAdenomas);
+            tumoursTab_PolypsAdenomas.sendKeys(values[1]);
+            Wait.seconds(2);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in setting AgeAtDeath:"+exp);
+            SeleniumLib.takeAScreenShot("AgeAtDeath.jpg");
+            return false;
+        }
+    }
+    public boolean verifyHPOPresentOptions(String hpo) {
+        boolean isPresent = false;
+        try {
+            //Re-using an existing method in SeleniumLib for Select drop downs
+            isPresent = seleniumLib.selectFromListByText(phenotypeTab_HPOPresent,hpo);
+            if(!isPresent){
+                Debugger.println("HPO Present :"+hpo+" not present in PhenoType Tab.");
+                SeleniumLib.takeAScreenShot("PhenoType.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying HPO Present options.");
+            SeleniumLib.takeAScreenShot("PhenoType.jpg");
+            return false;
+        }
+    }
+
+    public boolean searchAndAddDiseaseOrder(String diseases) {
+        try {
+            if(!Wait.isElementDisplayed(driver,clinicalTab_disOrders,10)){
+                Debugger.println("Disease disorder field not populated in Clinical Tab.");
+                SeleniumLib.takeAScreenShot("DiseaseOrder.jpg");
+                return false;
+            }
+            String[] diseaseList = null;
+            if(diseases.indexOf(",") == -1) {
+                diseaseList = new String[]{diseases};
+            }else{
+                diseaseList = diseases.split(",");
+            }
+            for(int i=0; i<diseaseList.length; i++){
+                clinicalTab_disOrders.sendKeys(diseaseList[i]);
+                Wait.seconds(3);//To load the matching disOrders, if exists
+                if(!Wait.isElementDisplayed(driver,clinicalTab_disOrdersSuggestions,5)){
+                    Debugger.println("No suggestions displayed for the disease :"+diseaseList[i]);
+                    SeleniumLib.takeAScreenShot("DiseaseOrderSuggestion.jpg");
+                    return false;
+                }
+                Actions.retryClickAndIgnoreElementInterception(driver,clinicalTab_disOrdersSuggestions);
+                Wait.seconds(2);
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying HPO Present options.");
+            SeleniumLib.takeAScreenShot("PhenoType.jpg");
+            return false;
+        }
+    }
+    public boolean verifyParticipateInSelectStatus(String expStatus) {
+        boolean isSelected = false;
+        try {
+            if(!Wait.isElementDisplayed(driver,personalTab_participatingInTest,10)){
+                Debugger.println("PArticipatingInTest feild not displayed in Personal Tab.");
+                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
+                return false;
+            }
+            boolean actStatus = personalTab_participatingInTest.isSelected();
+            if(expStatus.equalsIgnoreCase("Selected")){
+                isSelected = actStatus;
+            }else{
+                if(!actStatus){
+                    isSelected = true;
+                }
+            }
+            if(!isSelected){
+                Debugger.println("Expected Status of IsParticipatingTest:"+expStatus+", but actual:"+isSelected);
+                SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
+            }
+            return isSelected;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying DiagnosisDisorders options.");
+            SeleniumLib.takeAScreenShot("ParticipateInTest.jpg");
+            return false;
+        }
+    }
+    public boolean selectDocumentEvaluationOption() {
+        try {
+            if (!Wait.isElementDisplayed(driver, clinicalTab__documentEvaluation, 30)) {
+                Debugger.println("Document Evalution Option not present.");
+                SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, clinicalTab__documentEvaluation);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from selectDocumentEvaluationOption " + exp);
+            SeleniumLib.takeAScreenShot("EvaluateDocOption.jpg");
             return false;
         }
     }

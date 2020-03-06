@@ -156,23 +156,48 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            if(seleniumLib.isElementPresent(hpoSearchField)) {
-                seleniumLib.sendValue(hpoSearchField, hpoTerm);
+            if(!Wait.isElementDisplayed(driver,hpoSearchField,10)) {
+                Debugger.println("HPO Phenotype search field is not visible.");
+                SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch.jpg");
+                //Scroll to the element and try
+                SeleniumLib.scrollToElement(hpoSearchField);
+                if(!Wait.isElementDisplayed(driver,hpoSearchField,10)){
+                    Debugger.println("Scrolled to HPO Phenotype search field, still not displayed.");
+                    SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch1.jpg");
+                    return 0;
+                }
             }
-
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
-                Debugger.println("HPO term " + hpoTerm + " present in the dropdown.");
-                return -1;
+            hpoSearchField.sendKeys(hpoTerm);
+            if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
+                Debugger.println("HPO Phenotype options are not loaded for search term:"+hpoTerm);
+                SeleniumLib.takeAScreenShot("HPOPhenoTypeDDValues.jpg");
+                return 0;
+            }
+            if(dropdownValues.size() < 1){
+                Debugger.println("No suggested list for HPO Phenotype is loaded...");
+                SeleniumLib.takeAScreenShot("HPOPhenoTypeDDValues.jpg");
+                return 0;
             }
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
-            // determine the total number of HPO terms
+            // determine the total number of HPO terms Loaded - If selected, it would be minimum one
             Wait.seconds(2);
             int numberOfHPO = hpoTerms.size();
-            //Debugger.println("SizeOfHPOTerms: " + numberOfHPO);
+            if(numberOfHPO < 1){
+                Debugger.println("No HPO Phenotype has got selected..");
+                SeleniumLib.takeAScreenShot("HPOTerms.jpg");
+                return 0;
+            }
             return numberOfHPO;
-        } catch (Exception exp) {
+        } catch (TimeoutException exp) {
+            //One reason observed is the overlay of global patient card on phenotype element...so trying to scroll down and select
+            //Scroll to Top also may cause the same issue, so scrolling to previous element and trying
+            SeleniumLib.scrollToElement(ageOfOnsetYearsField);
+            SeleniumLib.takeAScreenShot("PhenoTypeTimeOut.jpg");
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            return 0;
+        }catch (Exception exp) {
             Debugger.println("ClinicalQuestionsPage: searchAndSelectRandomHPOPhenotype: Exception " + exp);
+            SeleniumLib.takeAScreenShot("HPOPhenotypeException.jpg");
             return 0;
         }
     }

@@ -803,7 +803,7 @@ public class ReferralSteps extends Pages {
         boolean flag = false;
         flag = referralPage.copyrightTextIsDisplayedInTheFooter();
         Assert.assertTrue(flag);
-    }
+        }
     @And("the referral submit button is not enabled")
     public void theReferralSubmitButtonIsNotEnabled() {
         Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
@@ -826,4 +826,19 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
+    @Then("the user verifies that the revoke message doesn't overlap any other element")
+    public void theUserVerifiesThatTheRevokeMessageDoesnTOverlapAnyOtherElement() {
+        boolean testResult=false;
+        testResult= referralPage.verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the NHS display format as {string}")
+    public void theUserVerifiesTheNHSFormatAs(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSDisplayFormat(nhsFormat);
+        Assert.assertTrue(testResult);
+    }
+
 }

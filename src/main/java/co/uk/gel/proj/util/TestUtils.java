@@ -144,7 +144,6 @@ public class TestUtils {
             downloadLocation = defaultDownloadLocation;
         } else if (folder.equalsIgnoreCase("RD")) {
             downloadLocation = defaultDownloadLocation + folder;
-
         }
         File location = new File(downloadLocation);
         if (!location.exists()) {//Create the location, if not exists, first time may not be existing.

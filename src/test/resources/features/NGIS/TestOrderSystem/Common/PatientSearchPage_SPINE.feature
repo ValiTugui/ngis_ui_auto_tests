@@ -38,7 +38,7 @@ Feature: Patient search page_SPINE
       | labelHeader |
       | Postcode    |
 
-  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @v_1 @BVT_P0
+  @NTS-2780 @E2EUI-2128 @E2EUI-1109 @E2EUI-1437 @v_1 @BVT_P0
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
@@ -386,6 +386,40 @@ Feature: Patient search page_SPINE
       | Male             |
       | Other            |
       | Unknown          |
+
+    Examples:
+      | pageTitle         |
+      | Find your patient |
+
+
+  @NTS-4801 @E2EUI-1106 @v_1
+  Scenario Outline:  NTS-4801:Patient Search - Add non-nullable validation for system fields - NHS Number and DOB
+    Then the "<pageTitle>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the Search button
+    Then the user will see error messages highlighted in red colour
+      | NHS Number is required. | #dd2509             |
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+
+    Examples:
+      | pageTitle         |
+      | Find your patient |
+
+  @NTS-4801 @E2EUI-1106 @v_1
+  Scenario Outline: NTS-4801:Patient Search - Add non-nullable validation for system fields - First Name, Last Name, Gender and DOB
+    Then the "<pageTitle>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user clicks the Search button
+    Then the user will see error messages highlighted in red colour
+      | Enter a day             | #dd2509 |
+      | Enter a month           | #dd2509 |
+      | Enter a year            | #dd2509 |
+      | First name is required. | #dd2509 |
+      | Last name is required.  | #dd2509 |
+      | Gender is required.     | #dd2509 |
 
     Examples:
       | pageTitle         |
