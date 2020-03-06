@@ -175,8 +175,8 @@ Feature: This is a referral feature
       | NGIS                | Patient details |
 
 
-  @E2EUI-1324 @LOGOUT @PO @v_1
-  Scenario Outline: Header bar for a referral
+  @NTS-4809 @E2EUI-1324 @LOGOUT @PO @v_1
+  Scenario Outline: NTS-4809: Header bar for a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage1>" stage
