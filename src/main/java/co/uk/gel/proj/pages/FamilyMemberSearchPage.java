@@ -388,7 +388,7 @@ public class FamilyMemberSearchPage {
 
     public boolean verifyTheDescriptionOfThePage(String DescriptionOfPage) {
         try {
-            String actualPageDescription = pageDescription.getText();
+        String actualPageDescription = pageDescription.getText();
            if(!actualPageDescription.contains(DescriptionOfPage)){
                Debugger.println("Expected message not found of FamilyMember search page.");
                SeleniumLib.takeAScreenShot("FMDescription.jpg");

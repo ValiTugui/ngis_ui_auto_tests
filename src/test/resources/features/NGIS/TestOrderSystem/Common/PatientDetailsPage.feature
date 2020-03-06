@@ -605,8 +605,6 @@ Feature: Patient details page
       | stage           | dateOfBirth |
       | Patient details | 20/10/2010  |
 
-
-
   @NTS-4760 @LOGOUT @v_1 @E2EUI-1097
   Scenario Outline: NTS-4760:Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a web browser is at create new patient page

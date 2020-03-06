@@ -22,7 +22,10 @@ import org.openqa.selenium.Alert;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class ReferralSteps extends Pages {
 
@@ -796,7 +799,7 @@ public class ReferralSteps extends Pages {
         boolean flag = false;
         flag = referralPage.copyrightTextIsDisplayedInTheFooter();
         Assert.assertTrue(flag);
-    }
+        }
     @And("the referral submit button is not enabled")
     public void theReferralSubmitButtonIsNotEnabled() {
         Assert.assertTrue(referralPage.checkSubmitReferralIsDisabled());
@@ -819,6 +822,21 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
+    @Then("the user verifies that the revoke message doesn't overlap any other element")
+    public void theUserVerifiesThatTheRevokeMessageDoesnTOverlapAnyOtherElement() {
+        boolean testResult=false;
+        testResult= referralPage.verifyTheCancellationSuccessMsgDoesNotOverlapWithOtherElements();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the NHS display format as {string}")
+    public void theUserVerifiesTheNHSFormatAs(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSDisplayFormat(nhsFormat);
+        Assert.assertTrue(testResult);
+    }
+
 
     @And("the user retrieve the referral HumanReadable-ID from the referral page url")
     public void theUserRetrieveTheReferralHumanReadableIDFromTheReferralPageUrl() {

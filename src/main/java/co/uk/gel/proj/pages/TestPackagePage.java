@@ -84,6 +84,9 @@ public class TestPackagePage {
     private String checkboxValue = "checked";
     private String dropDownBoxValues = "";
 
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
+    WebElement testPackageCheckBox;
+
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
         return testPackagePageTitle.getText().equalsIgnoreCase(title);
@@ -142,10 +145,10 @@ public class TestPackagePage {
         try {
             Wait.forElementToBeDisplayed(driver, routinePriorityButton);
             Wait.forElementToBeDisplayed(driver, testCardBody);
-            Wait.forElementToBeDisplayed(driver,numberOfParticipants);
-            if(!Wait.isElementDisplayed(driver,numberOfParticipants,5)){
+            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+            if (!Wait.isElementDisplayed(driver, numberOfParticipants, 5)) {
                 Debugger.println("Number of Participants element in TestPackage is not displayed:");
-                Assert.assertFalse("Number of Participants element in TestPackage is not displayed:",true);
+                Assert.assertFalse("Number of Participants element in TestPackage is not displayed:", true);
             }
             numberOfParticipants.click();
             Wait.seconds(2);
@@ -153,23 +156,24 @@ public class TestPackagePage {
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
             Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
             //Ensure that the test package is selected
-            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='"+number+"']"));
-            if(!Wait.isElementDisplayed(driver,selectedPack,10)){
-                Debugger.println("Test Package could not select with number: "+number);
+            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
+            if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
+                Debugger.println("Test Package could not select with number: " + number);
                 SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
                 return false;
             }
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception in Selecting number of Participants in Test Package."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in Selecting number of Participants in Test Package." + exp);
             SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
             return false;
         }
     }
+
     public boolean testIsSelected() {
-    	Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-		Wait.forElementToBeDisplayed(driver, testCardBody);
-		return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+        Wait.forElementToBeDisplayed(driver, routinePriorityButton);
+        Wait.forElementToBeDisplayed(driver, testCardBody);
+        return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
     }
 
     public boolean testIsDeselected() {
@@ -180,7 +184,7 @@ public class TestPackagePage {
         // ensure test card is deselected & test is deselected
         if (!testCardIsSelected && !testIsSelected) {
             //Selected tests for pro-band section should now be updated with 0 tests
-            Debugger.println(" HEADER text info ::::  "+ selectTestsHeader.getText());
+            Debugger.println(" HEADER text info ::::  " + selectTestsHeader.getText());
             return selectTestsHeader.getText().contains("0");
         } else {
             return false;
@@ -202,50 +206,50 @@ public class TestPackagePage {
         routinePriorityButton.click();
     }
 
-    public void setTotalNumberOfParticipantsField(int number){
-            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-            Actions.clickElement(driver, numberOfParticipants);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
-            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
-        }
+    public void setTotalNumberOfParticipantsField(int number) {
+        Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+        Actions.clickElement(driver, numberOfParticipants);
+        Wait.forElementToBeDisplayed(driver, dropdownValue);
+        Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+    }
 
-        public boolean verifyTheTestsList(String expectedNumberOfTests) {
-            Wait.forElementToBeDisplayed(driver, selectTestsHeader);
-            return selectTestsHeader.getText().contains(expectedNumberOfTests);
-        }
+    public boolean verifyTheTestsList(String expectedNumberOfTests) {
+        Wait.forElementToBeDisplayed(driver, selectTestsHeader);
+        return selectTestsHeader.getText().contains(expectedNumberOfTests);
+    }
 
-    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
+    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText) {
         String actualHeaderText = Actions.getText(priorityLabel);
         Debugger.println("Actual Priority label header text : " + actualHeaderText);
         return actualHeaderText.contains(expectedHeaderText);
     }
 
-    public boolean verifyGivenPriorityIsSelected(String expectedPriority){
+    public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
         Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
         String actualText = Actions.getText(chosenPriorityButton);
         Debugger.println("Selected test Priority : " + actualText);
         return actualText.contains(expectedPriority);
     }
 
-    public boolean verifyNumberOfParticipantsFieldExists(){
+    public boolean verifyNumberOfParticipantsFieldExists() {
         Wait.forElementToBeDisplayed(driver, numberOfParticipantsLabel);
         Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
         return (numberOfParticipantsLabel.isDisplayed() && numberOfParticipantsDropDown.get(0).isDisplayed());
     }
 
-    public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty(){
+    public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty() {
         Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
         return numberOfParticipantsDropDown.get(0).getText().contains("");
     }
 
-    public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue){
+    public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue) {
         Wait.forElementToBeDisplayed(driver, numberOfParticipants);
         Actions.clickElement(driver, numberOfParticipants);
         dropDownBoxValues = numberOfParticipants.getText();
         return (dropDownBoxValues.contains(String.valueOf(minExpectedValue)) && dropDownBoxValues.contains(String.valueOf(maxExpectedValue)));
     }
 
-    public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage){
+    public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage) {
         Wait.forElementToBeDisplayed(driver, errorMessage);
         return errorMessage.getText().contains(expectedErrorMessage);
     }
@@ -263,37 +267,47 @@ public class TestPackagePage {
         return element.getText();
     }
 
-    public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants){
+    public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants) {
         Wait.forElementToBeDisplayed(driver, numberOfParticipants);
         int actualNumberOfParticipants = Integer.parseInt(numberOfParticipants.getText());
-        if(actualNumberOfParticipants == Integer.parseInt(expectedNumberOfParticipants)){
+        if (actualNumberOfParticipants == Integer.parseInt(expectedNumberOfParticipants)) {
             return true;
-        }
-        else return false;
+        } else return false;
 
     }
 
     public boolean numberOfParticipantsFieldIsNotDisplayed() {
-       if(numberOfParticipantsDropDown.size() == 0) {
-           return true;
-       }
-       else return false;
+        if (numberOfParticipantsDropDown.size() == 0) {
+            return true;
+        } else return false;
     }
 
-    public boolean ensureTickMarkIsDisplayedNextToRoutine(){
+    public boolean ensureTickMarkIsDisplayedNextToRoutine() {
         Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
-        if(Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 10)){
+        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 10)) {
             return true;
         }
         return false;
     }
 
-    public boolean ensureTickMarkIsDisplayedNextToUrgent(){
+    public boolean ensureTickMarkIsDisplayedNextToUrgent() {
         Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
-        if(Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 10)){
+        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 10)) {
             return true;
         }
         return false;
     }
 
-}
+    public boolean selectTheDeselectedTestPackage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
+            testPackageCheckBox.click();
+            return true;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("testSelect.jpg");
+            Debugger.println("SelectTheTest:Exception:" + exp);
+            return false;
+        }
+    }
+
+}//end
