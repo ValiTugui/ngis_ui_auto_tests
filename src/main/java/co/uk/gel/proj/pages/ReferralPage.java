@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static co.uk.gel.lib.Actions.getText;
 
 public class ReferralPage<check> {
 
@@ -1366,31 +1363,4 @@ public class ReferralPage<check> {
             return false;
         }
     }
-// Method to retrieve the EXPECTED referral ID using the referral URL
-    public String getTheExpectedCurrentReferralID() {
-        //NewPatient newPatient = PatientDetailsPage.getNewlyCreatedPatientData();
-        try {
-            String cURL[] = driver.getCurrentUrl().split("/");
-            //Debugger.println("Print Current refferral ID " + referralID);
-            String regex = "^[r0-9]+$";
-            Pattern pattern = Pattern.compile(regex);
-            for (int i = cURL.length - 1; i > 0; i--) {
-                String cString = cURL[i];
-                Matcher matcher = pattern.matcher(cString);
-                if (matcher.matches()) {
-                    Debugger.println("Referral id is " + cString);
-                    return cString;
-                }
-            }
-            Debugger.println("No referral id found in url. Current URL is " + driver.getCurrentUrl());
-            //return "";
-        } catch (Exception exp) {
-            Debugger.println("Exception in retrieving referralID " + exp);
-            SeleniumLib.takeAScreenShot("ReferralIDError.jpg");
-        }
-        return "";
-    }
-
-
-
 }//end

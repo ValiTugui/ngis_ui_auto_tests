@@ -358,7 +358,6 @@ public class ReferralSteps extends Pages {
     @When("the user submits the referral")
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
-        Wait.seconds(10);
     }
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
@@ -825,7 +824,9 @@ public class ReferralSteps extends Pages {
     public void theUserRetrieveTheReferralHumanReadableIDFromTheReferralPageUrl() {
         // Set the retrieved ReferralHumanID from URl into setReferralID
         NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
-        String expectedReferralID = referralPage.getTheExpectedCurrentReferralID();
+        String currentURl = driver.getCurrentUrl();
+        String referralIdRegex = "^[r0-9]+$";
+        String expectedReferralID = TestUtils.getTheExpectedCurrentHumanReadableID(currentURl,referralIdRegex);
         newPatient.setReferralID(expectedReferralID);
         Debugger.println("Expected ReferralID " + expectedReferralID);
     }

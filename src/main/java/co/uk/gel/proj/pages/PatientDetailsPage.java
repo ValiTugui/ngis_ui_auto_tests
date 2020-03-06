@@ -20,8 +20,7 @@ import sun.jvm.hotspot.debugger.DebuggerUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -1013,30 +1012,5 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
-    // Method to retrieve the EXPECTED Patient-ID using TOS Patient Detail URL
-    public String getTheExpectedCurrentPatientID() {
-        try {
-            String cURL[] = driver.getCurrentUrl().split("/");
-            //Debugger.println("Print Current patient ID " + patient ID);
-            String regex = "^[p0-9]+$";
-            Pattern pattern = Pattern.compile(regex);
-            for (int i = cURL.length - 1; i > 0; i--) {
-                String cString = cURL[i];
-                Debugger.println(cString);
-                Matcher matcher = pattern.matcher(cString);
-                if (matcher.matches()) {
-                    Debugger.println("patient id is " + cString);
-                    newPatient.setPatientID(cString); // Set the retrieved patientHumanID from URl into setPatientID
-                    return cString;
-                }
-            }
-            Debugger.println("No patient id found in url. Current URL is " + driver.getCurrentUrl());
-            //return "";
-        } catch (Exception exp) {
-            Debugger.println("Exception in retrieving patientID: " + exp);
-            SeleniumLib.takeAScreenShot("RetrievingPatientError.jpg");
-        }
-        return "";
-    }
 
 }//end

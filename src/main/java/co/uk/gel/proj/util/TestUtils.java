@@ -1,5 +1,6 @@
 package co.uk.gel.proj.util;
 
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import com.github.javafaker.Faker;
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -362,5 +365,28 @@ public class TestUtils {
             Debugger.println("Exception from Extracting the Zip file: " + fileName + " : " + exp);
             return false;
         }
+    }
+
+
+    public static String getTheExpectedCurrentHumanReadableID(String currentURL, String regexForId) {
+        try {
+            String cURL[] = currentURL.split("/");
+            //Debugger.println("Print Current refferral ID " + referralID);
+            String regex = regexForId;
+            Pattern pattern = Pattern.compile(regex);
+            for (int i = cURL.length - 1; i > 0; i--) {
+                String cString = cURL[i];
+                Matcher matcher = pattern.matcher(cString);
+                if (matcher.matches()) {
+                    Debugger.println("Referral id is " + cString);
+                    return cString;
+                }
+            }
+            Debugger.println("No human-readable id found in url. Current URL is " + currentURL);
+        } catch (Exception exp) {
+            Debugger.println("Exception in human readableID" + exp);
+            SeleniumLib.takeAScreenShot("HumanReadableIDError.jpg");
+        }
+        return null;
     }
 }

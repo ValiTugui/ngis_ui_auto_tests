@@ -10,6 +10,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
@@ -621,8 +622,13 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user retrieve the patient HumanReadable-ID from the patient detail url")
     public void theUserRetrieveThePatientHumanReadableIDFromThePatientDetailUrl() {
-        String expectedPatientID = patientDetailsPage.getTheExpectedCurrentPatientID();
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String currentURl = driver.getCurrentUrl();
+        String patientIdRegex = "^[p0-9]+$";
+        String expectedPatientID = TestUtils.getTheExpectedCurrentHumanReadableID(currentURl,patientIdRegex);
         Debugger.println("Expected patient ID " + expectedPatientID);
+        Assert.assertNotNull(expectedPatientID);
+        newPatient.setPatientID(expectedPatientID);
     }
 
 }
