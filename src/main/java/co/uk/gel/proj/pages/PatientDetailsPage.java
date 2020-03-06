@@ -16,9 +16,10 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import sun.jvm.hotspot.debugger.DebuggerUtilities;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import static co.uk.gel.proj.util.RandomDataCreator.getRandomUKPostCode;
 
@@ -134,8 +135,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[text()='Start referral']")
-    //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
+    @FindBy(xpath = "//button[text()='Start referral']")  //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
@@ -146,7 +146,7 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//*[text()='Go back to patient search']")
     public WebElement goBackToPatientSearchLink;
-
+    
     @FindBy(css = "a[class*='referral-list']")
     public List<WebElement> referralListCards;
 
@@ -692,10 +692,6 @@ public class PatientDetailsPage {
 
         String gender = "Male";
         newPatient.setGender(gender);
-
-        if (!Wait.isElementDisplayed(driver, administrativeGenderButton, 15)) {
-            Actions.scrollToTop(driver);
-        }
         selectGender(administrativeGenderButton, gender);
         editDropdownField(lifeStatusButton, "Alive");
         Actions.fillInValue(dateOfDeath, "01/01/2015");

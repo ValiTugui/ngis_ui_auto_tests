@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.jvm.hotspot.debugger.DebuggerUtilities;
 import sun.security.ssl.Debug;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static co.uk.gel.lib.Actions.getText;
 
 public class ReferralPage<check> {
 
@@ -88,7 +88,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
-    @FindBy(css = "strong[class*='header-item__value']")
+    @FindBy(xpath = "//*[contains(@class,'referral-header')]//child::li")
     public List<WebElement> referralHeaderValues;
 
     @FindBy(css = "*[class*='referral-success-notification']")

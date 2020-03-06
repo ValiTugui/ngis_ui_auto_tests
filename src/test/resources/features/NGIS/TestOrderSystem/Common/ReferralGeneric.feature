@@ -172,3 +172,28 @@ Feature: This is a referral feature
     Examples:
       | patient-search-type | stage1          |
       | NGIS                | Patient details |
+
+
+  @NTS-4809 @E2EUI-1324 @LOGOUT @PO @v_1
+  Scenario Outline: NTS-4809: Header bar for a referral
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+    And the user navigates to the "<stage1>" stage
+    And the "<stage1>" stage is marked as Completed
+    And the user retrieve the referral HumanReadable-ID from the referral page url
+    When the user navigates back to patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the user retrieve the patient HumanReadable-ID from the patient detail url
+    And the user click on the referral card on patient details page to navigate to referral page
+    And the user sees the patient details on the referral header of each referral component page "<PageTitle>"
+      | PatientName | PatientDOB | PatientGender | PatientNHSNo | PatientNgisId | ClinicalIndicationName | PatientReferralID | ReferralStatus | ReferralSubmitButton |
+
+    Examples:
+      | stage1          | PageTitle                    |
+      | Patient details | Check your patient's details |
+
