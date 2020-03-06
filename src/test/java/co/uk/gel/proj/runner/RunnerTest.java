@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
          plugin = {"pretty", "html:target/cucumber","json:target/cucumber.json"},
          glue = {"co.uk.gel.proj.steps"},
          features = {"src/test/resources/features"},
-         tags = {"@E2EUI-1157"}
+         tags = {"@RD_DUO"}
         )
     public class RunnerTest {
         @BeforeClass
