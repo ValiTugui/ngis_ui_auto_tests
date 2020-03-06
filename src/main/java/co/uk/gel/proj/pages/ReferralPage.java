@@ -657,13 +657,17 @@ public class ReferralPage<check> {
                     return true;
                 }
             }catch(NoSuchElementException exp){
-                //Wait for 10 seconds and check again. This is introduced based on the failures observed.
-                Actions.scrollToTop(driver);
+                //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
+                //So clicking on save abd continue and trying again.
+                clickSaveAndContinueButton();
                 Wait.seconds(1);
-                titleElement = driver.findElement(pageTitle);
-                if(Wait.isElementDisplayed(driver,titleElement,5)){
+                actualPageTitle = getTheCurrentPageTitle();
+                if(actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)){
                     return true;
                 }
+                Actions.scrollToTop(driver);
+                SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
+                return false;
            }
            return false;
         }catch(Exception exp){
