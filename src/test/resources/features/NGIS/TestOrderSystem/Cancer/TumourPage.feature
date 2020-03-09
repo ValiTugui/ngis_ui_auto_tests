@@ -459,3 +459,18 @@ Feature: Tumours Page
     Examples:
       | stage   | pageTitle    |
       | Tumours | Add a tumour |
+
+
+  @NTS-4829 @E2EUI-1758 @v_1 @LOGOUT
+  Scenario Outline:NTS-4829:Update validation in Estimated Date of Diagnosis to account for birth date on Tumour page
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user enters "<Date_of_Diagnosis>" in the date of diagnosis field
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
+
+    Examples:
+      | stage   | Date_of_Diagnosis                                | error_message                                     |
+      | Tumours | Month_is_more_than_9_months_before_date_of_birth | Cannot be more than 9 months before date of birth |
+      | Tumours | Date_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
+      | Tumours | Year_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
