@@ -13,8 +13,6 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.jvm.hotspot.debugger.DebuggerUtilities;
-import sun.security.ssl.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -292,6 +290,8 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
+    @FindBy(xpath = "//span[@id='referralId_1']/..//span[contains(@class,'itemValueCss')]")
+    public WebElement referralId;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -1479,5 +1479,22 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
             return false;
         }
-    }//end
+    }
+    public boolean verifyPatientReferralIdInUrl() {
+        try {
+            String refId = referralId.getText();
+            String getURl = driver.getCurrentUrl();
+            if (!getURl.contains("/" + refId + "/")) {
+                Debugger.println("Referral ID : " + refId + " URL : " + getURl);
+                SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: verifyPatientIdInUrl: Exception " + exp);
+            SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
+            return false;
+        }
+    }
+
 }

@@ -317,4 +317,11 @@ public class ClinicalQuestionsSteps extends Pages {
         String actualStatusValue = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue, 2);
         Assert.assertTrue(statusValue.equalsIgnoreCase(actualStatusValue));
     }
+
+    @And("the user should able to see the same family member DiseaseStatusDetails {string}")
+    public void theUserShouldAbleToSeeTheSameFamilyMemberDiseaseStatusDetails(String diseaseStatus) {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifyTheFilledDiseaseStatusDetails(diseaseStatus);
+        Assert.assertTrue(testResult);
+    }
 }
