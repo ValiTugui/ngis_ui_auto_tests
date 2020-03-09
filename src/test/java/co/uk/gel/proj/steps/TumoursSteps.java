@@ -4,10 +4,12 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -30,16 +32,42 @@ public class TumoursSteps extends Pages {
 
 
     @And("the user enters {string} in the date of diagnosis field")
-    public void theUserEntersInTheDateOfDiagnosisField(String dateOfDiagnosis) {
-        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-        if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
-            String[] value = dateOfDiagnosis.split("-");
-            tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
-        }else {
-            String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
-            tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-            Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
-            //click on tumourTypeLabel label to move cursor away from dateYear field
+    public void theUserEntersInTheDateOfDiagnosisField(String criteriaForDateDiagnosis) throws Exception {
+
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String actualFullDOB = referralPage.referralHeaderBorn.getText();
+        String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+        Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+        Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
+
+        expectedDateOfBirth = newPatient.getDay() + "-" + newPatient.getMonth() + "-" + newPatient.getYear();
+        String dateOfDiagnosis;
+
+        switch (criteriaForDateDiagnosis) {
+            case "Month_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,0,-10, 0);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                //click on tumourTypeLabel label to move cursor away from dateYear field
+                break;
+            }
+            case "Date_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,-2,-9, 0);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+            }
+            case "Year_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,0,0, -1);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid text field name");
         }
     }
 
