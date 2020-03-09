@@ -213,7 +213,7 @@ Feature: This is a referral feature
       | Responsible clinician     |
       | Tumours                   |
       | Patient choice            |
-    And the user clicks on the the mandatory stage "<stage2>" in the dialog box
+    And the user clicks on the mandatory stage "<stage2>" in the dialog box
     And the "<stage2>" stage is selected
     Then the "<pageTitle>" page is displayed
     And the user enters the keyword "<ordering_entity_name>" in the search field
@@ -229,7 +229,7 @@ Feature: This is a referral feature
       | Responsible clinician     |
       | Tumours                   |
       | Patient choice            |
-    And the user clicks on the the mandatory stage "<stage3>" in the dialog box
+    And the user clicks on the mandatory stage "<stage3>" in the dialog box
     And the "<stage3>" stage is selected
 
     Examples:
@@ -252,7 +252,7 @@ Feature: This is a referral feature
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
-    And the user clicks on the the mandatory stage "<stage2>" in the dialog box
+    And the user clicks on the mandatory stage "<stage2>" in the dialog box
     And the "<stage2>" stage is selected
     Then the "<pageTitle>" page is displayed
     And the user enters the keyword "<ordering_entity_name>" in the search field
@@ -268,7 +268,7 @@ Feature: This is a referral feature
       | Responsible clinician     |
       | Clinical questions        |
       | Patient choice            |
-    And the user clicks on the the mandatory stage "<stage3>" in the dialog box
+    And the user clicks on the mandatory stage "<stage3>" in the dialog box
     And the "<stage3>" stage is selected
 
     Examples:

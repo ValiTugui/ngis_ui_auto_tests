@@ -915,8 +915,8 @@ public class ReferralSteps extends Pages {
         }
     }
 
-    @And("the user clicks on the the mandatory stage {string} in the dialog box")
-    public void theUserClicksOnTheTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
+    @And("the user clicks on the mandatory stage {string} in the dialog box")
+    public void theUserClicksOnTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
         boolean flag = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
         Assert.assertTrue(flag);
     }
