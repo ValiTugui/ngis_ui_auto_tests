@@ -1,7 +1,8 @@
 @regression
-@testDirectorytestOrder
+@testDirectory
+@clinicalIndicationTestSelect
 
-Feature: Home Page
+Feature: Test Directory Test Order
 
   @NTS-4565 @E2EUI-1842 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-4565: Verify the confirmation message doesn't push down the content after cancelling a referral
