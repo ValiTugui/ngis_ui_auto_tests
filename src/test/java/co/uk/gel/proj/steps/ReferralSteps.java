@@ -22,10 +22,7 @@ import org.openqa.selenium.Alert;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class ReferralSteps extends Pages {
 
@@ -891,6 +888,36 @@ public class ReferralSteps extends Pages {
         flag = Wait.isElementDisplayed(driver, referralPage.submitReferralButton, 10);
         Assert.assertTrue(flag);
         flag = Wait.isElementDisplayed(driver, referralPage.getReferralHeaderStatus, 10);
+        Assert.assertTrue(flag);
+    }
+
+    @And("the user sees a dialog box with a title {string}")
+    public void theUserSeesADialogBoxWithATitle(String dialogBoxTitlePage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyThePageTitlePresence(dialogBoxTitlePage);
+        Debugger.println("test-result flag for verifying page title is: " + testResult);
+        Assert.assertTrue(testResult);
+
+        boolean flag = false;
+        flag = referralPage.mandatoryStageDialogBoxIsDisplayed();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the user sees a list of outstanding mandatory stages to be completed in the dialog box")
+    public void theUserSeesAListOfOutstandingMandatoryStagesToBeCompletedInTheDialogBox(DataTable dataTable) {
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
+
+        for (int i = 0; i < expectedList.size(); i++) {
+            Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
+            Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
+            Assert.assertEquals(expectedList.get(i).get("MandatoryStagesToComplete"), actualMandatoryStages.get(i));
+        }
+    }
+
+    @And("the user clicks on the mandatory stage {string} in the dialog box")
+    public void theUserClicksOnTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
+        boolean flag = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
         Assert.assertTrue(flag);
     }
 }

@@ -289,6 +289,10 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
     public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
 
+    @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
+    public List<WebElement> listOfMandatoryStagesOnDialogBox;
+
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1426,4 +1430,54 @@ public class ReferralPage<check> {
         }
         return true;
     }
-}//end
+
+    public boolean mandatoryStageDialogBoxIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mandatoryStageDialogBox);
+            if (!mandatoryStageDialogBox.isDisplayed()) {
+                Debugger.println("the mandatory stages dialog box is not displayed.");
+                SeleniumLib.takeAScreenShot("MandatoryStagesDialogBox.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("MandatoryStagePopUp: " + exp);
+            SeleniumLib.takeAScreenShot("MandatoryStageDialogBox.jpg");
+            return false;
+        }
+    }
+
+    public List<String> getTheListOfMandatoryStagesOnDialogBox() {
+        try {
+            List<String> actualListOfMandatoryStages = new ArrayList<>();
+            for (WebElement mandatoryStage : listOfMandatoryStagesOnDialogBox) {
+                actualListOfMandatoryStages.add(mandatoryStage.getText().trim());
+            }
+            Debugger.println("Actual-List of MandatoryStages" + actualListOfMandatoryStages);
+            return actualListOfMandatoryStages;
+        } catch (Exception exp) {
+            Debugger.println("ListOfMandatoryStage: " + exp);
+            SeleniumLib.takeAScreenShot("ListOfMandatoryStage.jpg");
+            return null;
+        }
+    }
+
+    public boolean clickOnTheMandatoryStageTextLinkInDialogBox(String expectedMandatoryStage) {
+        try {
+            By mandatoryStage;
+            mandatoryStage = By.xpath("//div[@role='dialog']//*[text()= \"" + expectedMandatoryStage + "\"]");
+            Wait.forElementToBeDisplayed(driver, driver.findElement(mandatoryStage), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(mandatoryStage), 10)) {
+                Debugger.println(" Mandatory Stage Link is not displayed even after waiting period...Failing.");
+                SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(mandatoryStage));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Mandatory Stage Link is not displayed even after waiting period...Failing." + exp);
+            SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
+            return false;
+        }
+    }//end
+}
