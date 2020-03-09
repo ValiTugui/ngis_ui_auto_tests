@@ -91,7 +91,7 @@ Feature: Test Directory Test Order
       | Back to search | Who to test  | Test package includes... |
 
   @NTS-4710 @E2EUI-1573 @LOGOUT
-  Scenario Outline: NTS-4710: e2e content consistency: update save and continue
+  Scenario Outline: NTS-4710: test environment content consistency: update save and continue
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
     ##Patient Details Page

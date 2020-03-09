@@ -290,9 +290,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
-    @FindBy(xpath = "//span[@id='referralId_1']/..//span[contains(@class,'itemValueCss')]")
-    public WebElement referralId;
-
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1482,7 +1479,7 @@ public class ReferralPage<check> {
     }
     public boolean verifyPatientReferralIdInUrl() {
         try {
-            String refId = referralId.getText();
+            String refId = referralHeaderReferralId.getText();
             String getURl = driver.getCurrentUrl();
             if (!getURl.contains("/" + refId + "/")) {
                 Debugger.println("Referral ID : " + refId + " URL : " + getURl);
