@@ -16,7 +16,6 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.jvm.hotspot.debugger.DebuggerUtilities;
 import java.util.ArrayList;
 import java.util.List;
 

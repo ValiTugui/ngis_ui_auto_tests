@@ -20,7 +20,7 @@ Feature: Patient Choice Page - Form Library
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-3382 @E2EUI-2110 @E2EUI-1899 @LOGOUT @v_1 @P0
+  @NTS-3382 @E2EUI-2110 @E2EUI-1899 @E2EUI-1889 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Male |

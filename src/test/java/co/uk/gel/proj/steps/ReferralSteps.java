@@ -920,4 +920,38 @@ public class ReferralSteps extends Pages {
         boolean flag = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
         Assert.assertTrue(flag);
     }
+
+    @Then("the user should be able to see same referral id in the global banner and the url")
+    public void theUserShouldBeAbleToSeeSameReferralIdInTheGlobalBannerAndTheUrl() {
+        boolean testResult = false;
+        testResult = referralPage.verifyPatientReferralIdInUrl();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see the active stage {string} in to-do list")
+    public void theUserShouldAbleToSeeTheActiveStageInToDoList(String activeStage) {
+        boolean testResult = false;
+        testResult = referralPage.stageIsSelected(activeStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the not completed {string} stages")
+    public void theUserSeesTheNotCompletedStages(String expectedInCompletedStages) {
+        boolean testResult;
+        String[] stage = expectedInCompletedStages.split(",");
+        for (int i = 0; i < stage.length; i++) {
+            testResult = referralPage.stageIsSelected(stage[i]);
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @Then("the user sees the completed {string} stages")
+    public void theUserSeesAllTheCompletedStages(String expectedCompletedStages) {
+        boolean testResult;
+        String[] stage = expectedCompletedStages.split(",");
+        for (int i = 0; i < stage.length; i++) {
+            testResult = referralPage.stageIsCompleted(stage[i]);
+            Assert.assertTrue(testResult);
+        }
+    }
 }

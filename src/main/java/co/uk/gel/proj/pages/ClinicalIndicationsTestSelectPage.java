@@ -1,6 +1,7 @@
 package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
@@ -94,6 +95,9 @@ public class ClinicalIndicationsTestSelectPage {
     public WebElement clinicalIndicationsSearchValue;
 
     String clinicalIndicationsHeadingsLocator = "//*/h4";
+
+    @FindBy(xpath = "//div[contains(@class,'styles_container__3_ged')]")
+    public WebElement overlayPage;
 
     public void clickStartTestOrderReferralButton() {
         try {
@@ -335,6 +339,37 @@ public class ClinicalIndicationsTestSelectPage {
 
     public boolean checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven() {
         return clinicalIndicationsSearchValue.getText().contains(AppConfig.getSearchTerm());
+    }
+
+    public boolean verifyTheOverlayIsDisplayed() {
+
+        try {
+            if(!Wait.isElementDisplayed(driver, overlayPage,10)){
+                Debugger.println("Clinical indication page is not covered by an overlay");
+                SeleniumLib.takeAScreenShot("OverLayPage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying verifyTheOverlayIsDisplayed" + exp);
+            SeleniumLib.takeAScreenShot("OverLayPage.jpg");
+            return false;
+        }
+    }
+
+    public boolean closeClinicalIndicationPopUp() {
+        try{
+            if(!Wait.isElementDisplayed(driver, closePopupButton,10)){
+                Debugger.println("Clinical indication close pop icon not displayed.");
+                SeleniumLib.takeAScreenShot("CIClosePopupIcon.jpg");
+            }
+            closePopupButton.click();
+            return true;
+        }catch (Exception exp){
+            Debugger.println("Exception from closing Clinical Indication: "+exp);
+            SeleniumLib.takeAScreenShot("CIClosePopupIcon.jpg");
+            return false;
+        }
     }
 
 }
