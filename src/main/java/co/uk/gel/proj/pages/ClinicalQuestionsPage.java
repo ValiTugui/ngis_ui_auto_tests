@@ -798,13 +798,16 @@ public class ClinicalQuestionsPage {
         try {
             List actualFieldsLabels = getTheOptionalFieldsLabelsOnCurrentPage();
             for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
-                Debugger.println("Expected fields labels on patient  page :" + expectedLabelList.get(i).get("labelHeader") + "\n");
-                Assert.assertTrue(actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader")));
+                if(!actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader"))){
+                    Debugger.println("Expected Label "+expectedLabelList.get(i).get("labelHeader")+" Not present in Clinical Page");
+                    SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from getting field labels." + exp);
-            SeleniumLib.takeAScreenShot("fields-labels.jpg");
+            SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
             return false;
         }
     }
