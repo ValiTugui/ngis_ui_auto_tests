@@ -290,6 +290,10 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
+    //To click outside the modal dialog
+    @FindBy(xpath = "//body")
+    public WebElement pageBodyElement;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -1494,4 +1498,14 @@ public class ReferralPage<check> {
         }
     }
 
+    public boolean clicksOutsideModalDialog() {
+        try {
+            Wait.forElementToBeClickable(driver, dialogBoxCloseButton);
+            pageBodyElement.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("We cont click : clicksOutsideModalDialog : " + exp);
+            return false;
+        }
+    }
 }

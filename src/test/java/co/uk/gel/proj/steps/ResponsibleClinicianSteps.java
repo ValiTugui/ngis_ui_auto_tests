@@ -304,4 +304,5 @@ public class ResponsibleClinicianSteps extends Pages {
     public void theUserFillsInTheDepartmentNameAndAddress() {
         responsibleClinicianPage.fillInDepartmentDetailsField();
     }
+
 }

@@ -527,4 +527,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.editFamilyMemberHavingNHSDob(familyMember);
         Assert.assertTrue(testResult);
     }
+
+    @Then("The user should not see the rare disease diagnoses {string} field")
+    public void theUserShouldNotSeeTheRareDiseaseDiagnosesField(String expValue) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyRareDiseaseDiagnoseFieldPresence(expValue);
+        Assert.assertTrue(testResult);
+    }
 }//end

@@ -954,4 +954,18 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+
+    @And("the user should be able to close the pop up dialog box")
+    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
+        boolean testResult= false;
+        testResult=referralPage.closeMandatoryStagePopUp();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks outside of the modal")
+    public void theUserShouldBeAbleToClickAnywhereOutSideTheDialogBox() {
+        boolean testResult = false;
+        testResult = referralPage.clicksOutsideModalDialog();
+        Assert.assertTrue(testResult);
+    }
 }

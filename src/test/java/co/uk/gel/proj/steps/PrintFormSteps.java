@@ -326,11 +326,5 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to close the pop up dialog box")
-    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
-        boolean testResult= false;
-        testResult=referralPage.closeMandatoryStagePopUp();
-        Assert.assertTrue(testResult);
-    }
 
 }//end
