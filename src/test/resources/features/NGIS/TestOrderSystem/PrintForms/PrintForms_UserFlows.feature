@@ -209,7 +209,9 @@ Feature: Print Forms - User flows
       | printForms  | OneParticipant | diseaseStatueValue | year | month | ClinicianName                         | WarningMessage                                                                                            |
       | Print forms | 1              | Unaffected         | 1    | 2     | ClinicianName=John:HospitalNumber=123 | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @E2EUI-1223 @LOGOUT @v_1 @P0
+  @NTS-4746 @E2EUI-1223 @E2EUI-1848 @E2EUI-1445 @LOGOUT @v_1 @P0
+    ##Note: For E2EUI-1445, all the fields mentioned in the E2EUI ticket is not validated as some of them not possible to validate via automation
+    ## like box, barcode, flags etc
   Scenario Outline: NTS-4746: User is completing a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2000:Gender=Male |

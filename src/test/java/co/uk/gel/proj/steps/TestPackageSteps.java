@@ -221,4 +221,18 @@ public class TestPackageSteps extends Pages {
         Assert.assertTrue(testResult);
 
     }
+
+    @Then("the user should be able to sees trio family icon in review test selection")
+    public void theUserShouldBeAbleToSeesTrioFamilyIconInReviewTestSelection() {
+        boolean testResult = false;
+        testResult = testPackagePage.validateTrioFamilyIconInOfflineOrder();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see trio family icon in test package")
+    public void theUserShouldBeAbleToSeeTrioFamilyIconInTestPackage() {
+        boolean testResult = false;
+        testResult = testPackagePage.verifyTrioFamilyIconPresenceInTestPackage();
+        Assert.assertTrue(testResult);
+    }
 }

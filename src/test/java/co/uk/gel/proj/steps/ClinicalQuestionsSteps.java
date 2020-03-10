@@ -4,6 +4,7 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +13,7 @@ import org.junit.Assert;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ClinicalQuestionsSteps extends Pages {
@@ -323,5 +325,51 @@ public class ClinicalQuestionsSteps extends Pages {
         boolean testResult = false;
         testResult = clinicalQuestionsPage.verifyTheFilledDiseaseStatusDetails(diseaseStatus);
         Assert.assertTrue(testResult);
+    }
+    //Created this new method for optional field validation as it is observed that the existing method pass with mandatory label also.
+    @And("the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page")
+    public void theNonMandatoryInputFieldsAndDropsDownsLabelsAreShownWithoutAsteriskStarSymbol(DataTable dataTable) {
+        List<Map<String, String>> expectedLabelList = dataTable.asMaps(String.class, String.class);
+        boolean fieldLabelsFlag;
+        fieldLabelsFlag = clinicalQuestionsPage.verifyTheExpectedFieldLabelsWithActualFieldLabels(expectedLabelList);
+        Assert.assertTrue(fieldLabelsFlag);
+    }
+
+    @And("the user should see that special characters are not allowed")
+    public void theUserShouldSeeThatSpecialCharactersAreNotAllowed() {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifyThePresenceOfSpecialCharacters();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the hint text {string} for HPO phenotype details")
+    public void theUserShouldBeAbleToSeeTheHintTextForHPOPhenotypeDetails(String hintText) {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifyTheHPOFieldsHintText(hintText);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see the hint text {string} for the {string}")
+    public void theUserShouldBeAbleToSeeTheHintTextForThe(String hintText, String dropdownInput) {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifyTheDropDownFieldsHintText(hintText, dropdownInput);
+        Assert.assertTrue(testResult);
+    }
+    //This is not same as field labels, so created new one
+    @And("the user should be able to see the field headers on Clinical questions page")
+    public void theUserShouldBeAbleToSeeTheFieldHeadersOnClinicalQuestionsPage(DataTable expectedHeaders) {
+        boolean testResult = false;
+        List<String> stages = expectedHeaders.asList();
+        for (int i = 1; i < stages.size(); i++) {
+            testResult = clinicalQuestionsPage.verifyFieldHeaders(stages.get(i));
+            if (!testResult) {
+                Assert.assertTrue(testResult);
+            }
+        }
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see selected radio button in {string} temp plate")
+    public void theUserShouldSeeSelectedRadioButtonInTempPlate(String expectedTermPresence) {
+        Assert.assertTrue(clinicalQuestionsPage.verifySpecificTermPresence(expectedTermPresence));
     }
 }

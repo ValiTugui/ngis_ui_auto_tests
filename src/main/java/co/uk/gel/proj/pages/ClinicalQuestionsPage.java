@@ -145,6 +145,15 @@ public class ClinicalQuestionsPage {
 
     String selectSingleValue = "div[class*='singleValue']";
     String tagName = "span";
+    @FindBy(css = "*[class*='styles_field-label__']")
+    public List<WebElement> genericFieldLabels;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_hpo-select')]//div[contains(@class,'placeholder')]")
+    WebElement hpoPlaceHolder;
+
+    String dropDownPlaceHolderText = "//label[text()='dummyValue']//following::div[contains(@id,'answers.question-id')][1]";
+    @FindBy(xpath = "//h2[contains(@class,'group__heading')]")
+    public List<WebElement> fieldHeaders;
 
     public boolean verifyTheCountOfHPOTerms(int minimumNumberOfHPOTerms) {
         Wait.forElementToBeDisplayed(driver, hpoTable);
@@ -785,4 +794,106 @@ public class ClinicalQuestionsPage {
         }//for
         return true;
     }//method
+    public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
+        try {
+            List actualFieldsLabels = getTheOptionalFieldsLabelsOnCurrentPage();
+            for (int i = 0; i < expectedLabelList.size(); i++) { //i starts from 1 because i=0 represents the header;
+                if(!actualFieldsLabels.contains(expectedLabelList.get(i).get("labelHeader"))){
+                    Debugger.println("Expected Label "+expectedLabelList.get(i).get("labelHeader")+" Not present in Clinical Page");
+                    SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from getting field labels." + exp);
+            SeleniumLib.takeAScreenShot("ClinicalPage.jpg");
+            return false;
+        }
+    }
+    public List<String> getTheOptionalFieldsLabelsOnCurrentPage() {
+        List<String> actualFieldLabels = new ArrayList<>();
+        for (WebElement fieldLabel : genericFieldLabels) {
+            if (!fieldLabel.getText().contains("✱")) {
+                actualFieldLabels.add(fieldLabel.getText().trim());
+            }
+        }
+        Debugger.println("Actual field labels " + actualFieldLabels);
+        return actualFieldLabels;
+    }
+
+    public boolean verifyThePresenceOfSpecialCharacters() {
+        try {
+            String year = ageOfOnsetYearsField.getAttribute("value");
+            String month = ageOfOnsetMonthsField.getAttribute("value");
+            if (!year.equalsIgnoreCase("")) {
+                Debugger.println("Age of on set Year Field is " + year);
+                SeleniumLib.takeAScreenShot("PresenceOfSplCharInYearField.jpg");
+                return false;
+            }
+            if (!month.equalsIgnoreCase("")) {
+                Debugger.println("Age of on set Month Field is " + month);
+                SeleniumLib.takeAScreenShot("PresenceOfSplCharInMonthField.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clinical Questions Page, verifyThePresenceOfSpecialCharacters " + exp);
+            SeleniumLib.takeAScreenShot("PresenceOfSplCharInClinicalQuestionsPage.jpg");
+            return false;
+        }
+    }
+    public boolean verifyTheHPOFieldsHintText(String hintText) {
+        try {
+            Wait.forElementToBeDisplayed(driver, hpoPlaceHolder, 10);
+            if (!Wait.isElementDisplayed(driver,hpoPlaceHolder,10)) {
+                Debugger.println("HPO Placeholder could not locate");
+                SeleniumLib.takeAScreenShot("HPOSearchFieldPlaceholder.jpg");
+                return false;
+            }
+            if (!hpoPlaceHolder.getText().contains(hintText)) {
+                Debugger.println("Placeholder text for HPO Phenotype Actual:" + hpoPlaceHolder.getText() + ",Expected:" + hintText);
+                SeleniumLib.takeAScreenShot("HPOSearchFieldPlaceholder.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from the hpo hint text validation " + exp);
+            SeleniumLib.takeAScreenShot("HPOSearchFieldPlaceholder.jpg");
+            return false;
+        }
+    }
+    public boolean verifyTheDropDownFieldsHintText(String hintText, String dropDownFieldLabel) {
+        try {
+            String dropDownHint = dropDownPlaceHolderText.replaceAll("dummyValue",dropDownFieldLabel);
+            WebElement dropdownPlaceHolder = driver.findElement(By.xpath(dropDownHint));
+            Wait.forElementToBeDisplayed(driver, dropdownPlaceHolder, 10);
+            if (!dropdownPlaceHolder.getText().contains(hintText)) {
+                Debugger.println("Filed: "+dropDownFieldLabel+"Hint Actual: "+ dropdownPlaceHolder.getText() + ",Excepted:" + hintText);
+                SeleniumLib.takeAScreenShot("DropDownFieldsHintText.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from the dropdown hint text " + exp);
+            SeleniumLib.takeAScreenShot("DropDownFieldsHintText.jpg");
+            return false;
+        }
+    }
+    public boolean verifyFieldHeaders(String expectedHeader) {
+        try {
+            for (int i = 0; i < fieldHeaders.size(); i++) {
+                if (fieldHeaders.get(i).getText().equalsIgnoreCase(expectedHeader)) {
+                    return true;
+                }
+            }
+            Debugger.println("Excepted header " + expectedHeader + " not present in the page.");
+            SeleniumLib.takeAScreenShot("ExceptedHeader.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Clinical Question Page: Header Titles " + exp);
+            SeleniumLib.takeAScreenShot("HeaderTitlesOnClinicalQuestionsPage.jpg");
+            return false;
+        }
+    }
 }
