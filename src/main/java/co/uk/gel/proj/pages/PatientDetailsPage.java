@@ -1041,6 +1041,11 @@ public class PatientDetailsPage {
                 return false;
             }
             String recentSuggestion = relationToProbandElement.getText();
+            if(recentSuggestion == null){
+                Debugger.println("Relation to Proband no suggestions present.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
             if (!recentSuggestion.equalsIgnoreCase(expValue)) {
                 Debugger.println("Expected Error Message: " + expValue + ", But Actual is:" + recentSuggestion);
                 SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");

@@ -1515,12 +1515,13 @@ public class ReferralPage<check> {
         try {
             String incompleteStagePath = incompleteStageInDialogBox.replace("dummyValue", expStage);
             WebElement selectedStage = driver.findElement(By.xpath(incompleteStagePath));
-            Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox,20);
-            if(!selectedStage.isDisplayed()){
+            if(!Wait.isElementDisplayed(driver,selectedStage,10)){
                 Debugger.println("The stage "+selectedStage+ " is not incomplete");
                 SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
                 return false;
             }
+            Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox,20);
+
             JavascriptExecutor executor = (JavascriptExecutor) driver;
             executor.executeScript("arguments[0].click();", selectedStage);
             return true;
