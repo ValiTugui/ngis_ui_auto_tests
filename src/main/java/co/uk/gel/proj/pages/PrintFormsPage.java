@@ -695,9 +695,9 @@ public class PrintFormsPage {
     public boolean verifyRelationshipToProband(String relationToProband) {
         try {
             Wait.forElementToBeDisplayed(driver, relationshipToProbandField);
-            String relationShipToProband = relationshipToProbandField.getText();
-            if (!relationToProband.equals(relationShipToProband)) {
-                Debugger.println("The relationship to proband is not updated: " + relationShipToProband);
+            String relationshipToProbandInPrintFormSection = relationshipToProbandField.getText();
+            if (!relationToProband.equals(relationshipToProbandInPrintFormSection)) {
+                Debugger.println("The relationship to proband is not updated: " + relationshipToProbandInPrintFormSection);
                 SeleniumLib.takeAScreenShot("RelationshipToProbandStatus.jpg");
                 return false;
             }

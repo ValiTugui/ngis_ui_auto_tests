@@ -212,12 +212,12 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add new patient to referral']")
     public WebElement addNewPatientToReferral;
 
-    //Created newly
+    //Details of submitted Referrals
     @FindBy(xpath = "//label[text()='Relationship to proband']//following::div[1]")
     public WebElement relationshipToProbandDropdown;
 
     String relationshipToProbandType = "//span[contains(text(),'dummyOption')]/ancestor::div[contains(@class,'container')]";
-    //Details of submitted Referrals
+
     @FindBy(xpath = "//div[contains(text(),'Created and submitted referrals')]")
     WebElement createdAndSubmittedReferralsTitle;
 

@@ -284,6 +284,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
 
+    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
+    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
+
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
