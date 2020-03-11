@@ -326,5 +326,11 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user verifies that the relationship to proband {string} is updated in Print forms section")
+    public void verifyRelationshipInPrintFormsSection(String relationToProband) {
+        boolean testResult = false;
+        testResult = printFormsPage.verifyRelationshipToProband(relationToProband);
+        Assert.assertTrue(testResult);
+    }
 
 }//end

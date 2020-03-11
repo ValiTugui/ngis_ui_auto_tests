@@ -631,4 +631,11 @@ public class PatientDetailsSteps extends Pages {
         newPatient.setPatientID(expectedPatientID);
     }
 
+    @And("the user clicks on RelationshipToProband drop down and sees the values of the drop down{string} with recently used suggestion values")
+    public void theUserClicksOnRelationshipToProbandDropDownAndSeesTheValuesOfTheDropDownWithRecentlyUsedSuggestionValues(String expValue) {
+        boolean testResult=false;
+        testResult=patientDetailsPage.verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(expValue);
+        Assert.assertTrue(testResult);
+    }
+
 }

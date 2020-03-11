@@ -81,8 +81,8 @@ public class PanelsPage {
     @FindBy(xpath = "//div[contains(@class,'panel-assigner__intro')]//p")
     public WebElement panelsPageIntroMessage;
 
-    @FindBy(xpath = "//div[contains(@class,'panel-assigner__penetrance')]//h3")
-    public WebElement suggestedPanelsSection;
+    @FindBy(xpath = "//h3[contains(@class,'subheader')]")
+    public List<WebElement> panelSubtitles;
 
 
     public boolean verifyPanelSearchFieldAndSearchIcon(String expTitle) {
@@ -472,20 +472,28 @@ public class PanelsPage {
         }
     }
 
-    public boolean verifyThePresenceOfSection(String sectionTitle) {
+    public boolean verifyThePresenceOfSuggestedPanelsSection(String sectionTitle) {
         try {
-            if(!Wait.isElementDisplayed(driver,suggestedPanelsSection,10)){
-                Debugger.println("PanelAssigner Suggesttion Not displayed.");
+            if(panelSubtitles.size() == 0){
+                Debugger.println("PanelAssigner Suggestion Not displayed.");
                 SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
                 return false;
             }
-            String actualMessage = suggestedPanelsSection.getText();
-            if(!actualMessage.contains(sectionTitle)){
-                Debugger.println("PanelAssigner Suggestion title mismatch. Expected:"+sectionTitle+"\nActual:"+actualMessage);
+            String actualMessage = "";
+            boolean isPresent = false;
+            for(int i=0; i<panelSubtitles.size(); i++){
+                actualMessage = panelSubtitles.get(i).getText();
+                if(actualMessage.contains(sectionTitle)){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("PanelAssigner Suggestion Not displayed.");
                 SeleniumLib.takeAScreenShot("PanelsSuggestion.jpg");
                 return false;
             }
-            return true;
+            return isPresent;
 
         } catch (Exception exp) {
             Debugger.println("Exception in verifying verifyThePresenceOfSection:" + exp);

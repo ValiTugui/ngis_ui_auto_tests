@@ -284,15 +284,14 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
 
-    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
-    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
-
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
     //To click outside the modal dialog
     @FindBy(xpath = "//body")
     public WebElement pageBodyElement;
+
+    private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -1504,7 +1503,42 @@ public class ReferralPage<check> {
             pageBodyElement.click();
             return true;
         } catch (Exception exp) {
-            Debugger.println("We cont click : clicksOutsideModalDialog : " + exp);
+            Debugger.println("Exception in clicksOutsideModalDialog : " + exp);
+            return false;
+        }
+    }
+
+    public boolean clickOnIncompleteStageInDialogBox(String expStage) {
+        try {
+            String incompleteStagePath = incompleteStageInDialogBox.replace("dummyValue", expStage);
+            WebElement selectedStage = driver.findElement(By.xpath(incompleteStagePath));
+            Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox,20);
+            if(!selectedStage.isDisplayed()){
+                Debugger.println("The stage "+selectedStage+ " is not incomplete");
+                SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
+                return false;
+            }
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", selectedStage);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on incomplete stage, PatientDetailsPage: clickOnIncompleteStageInTodoList: " + exp);
+            SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPresenceOfCancelReferralLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver, cancelReferralLink,10)) {
+                Debugger.println("Cancel Referral link not present as expected.");
+                SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyPresenceOfCancelReferralLink :" + exp);
+            SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
             return false;
         }
     }

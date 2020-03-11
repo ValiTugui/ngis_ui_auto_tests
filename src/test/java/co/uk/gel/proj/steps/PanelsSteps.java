@@ -116,7 +116,7 @@ public class PanelsSteps extends Pages {
     @And("the user should see the section with title (.*)")
     public void theUserShouldSeeTheSectionWithTitleSuggestionsBasedOnTheClinicalInformation(String sectionName) {
         boolean testResult = false;
-        testResult = panelsPage.verifyThePresenceOfSection(sectionName);
+        testResult = panelsPage.verifyThePresenceOfSuggestedPanelsSection(sectionName);
         Assert.assertTrue(testResult);
     }
 

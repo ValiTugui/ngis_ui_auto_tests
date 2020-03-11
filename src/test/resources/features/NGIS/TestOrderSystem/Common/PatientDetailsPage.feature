@@ -679,3 +679,17 @@ Feature: Patient details page
     Examples:
       | stage           |
       | Patient details |
+
+  @NTS-3557 @LOGOUT @E2EUI-1809 @v_1 @P0 @scenario_1
+  Scenario: NTS-3557: Validating cancel button present when login as super user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
+    When the user is navigated to a page with title Check your patient
+    Then the user should be able to see a cancel referral link "present"
+
+  @NTS-3557 @E2EUI-1809 @v_1 @P0 @scenario_2
+  Scenario: : NTS-3557- Validating cancel button present when login as normal user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient
+    Then the user should be able to see a cancel referral link "not present"
