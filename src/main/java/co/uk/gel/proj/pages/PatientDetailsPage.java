@@ -230,7 +230,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//a[contains(@class,'styles_referral-list__link__')]")
     List<WebElement> submittedReferralCardsList;
 
-
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
         //Wait.forElementToBeDisplayed(driver, startReferralButton);
@@ -1035,8 +1034,13 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, relationshipToProbandDropdown);
             Actions.clickElement(driver,relationshipToProbandDropdown);
             String actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
-            String recentSuggestion = driver.findElement(By.xpath(actValue)).getText();
-            Actions.scrollToTop(driver);
+            WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
+            if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
+                Debugger.println("Relation to Proband element not visible.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            String recentSuggestion = relationToProbandElement.getText();
             if (!recentSuggestion.equalsIgnoreCase(expValue)) {
                 Debugger.println("Expected Error Message: " + expValue + ", But Actual is:" + recentSuggestion);
                 SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
@@ -1098,7 +1102,4 @@ public class PatientDetailsPage {
             return false;
         }
     }
-
-
-
 }//end

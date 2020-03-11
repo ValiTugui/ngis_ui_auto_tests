@@ -986,5 +986,4 @@ public class ReferralSteps extends Pages {
             Assert.assertFalse(testResult);
         }
     }
-
 }

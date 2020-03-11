@@ -100,7 +100,7 @@ Feature: Family Members Details Page - Field Validation_2
       | Requesting organisation | ordering_entity_name | FamilyMembers  | NoOfParticipants | ErrorMessage                                                                                                                                                                                |
       | Requesting organisation | Queen                | Family members | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. |
 
-  @NTS-4413 @E2EUI-833 @LOGOUT @Scenario1
+  @NTS-4413 @E2EUI-833 @E2EUI-1880 @LOGOUT @Scenario1
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
