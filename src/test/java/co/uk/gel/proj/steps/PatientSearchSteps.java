@@ -633,4 +633,16 @@ public class PatientSearchSteps extends Pages {
     public void theUserSeeATickMarkNextToTheNOButton() {
         Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToNoButton());
     }
+
+    @And("the user clicks on the hyper link")
+    public void theUserClicksOnTheHyperLink() {
+        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+    }
+
+    @And("the display question for NHS Number is (.*)$")
+    public void theDisplayQuestionForNHSNumber(String nhsQuestion) {
+        boolean testResult = false;
+        testResult = patientSearchPage.verifyTheNHSQuestionOfThePage(nhsQuestion);
+        Assert.assertTrue(testResult);
+    }
 }

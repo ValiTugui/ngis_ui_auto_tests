@@ -1,10 +1,10 @@
 @regression
-@TO_RD
 @panelsPage
+@panelsPage_AddPanel
 
 Feature: Panels Page Verification
 
-  @NTS-3380 @NTS-3379 @NTS-3413 @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976 @LOGOUT @v_1 @P0
+  @NTS-3380 @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
@@ -14,7 +14,7 @@ Feature: Panels Page Verification
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel
     ##@E2EUI-1231
-    Then the user should be able to see the button options present
+    And Penetrance section with options Complete and Incomplete
     And the user clicks on Incomplete button and button will show tick marked
     And the user clicks on Complete button and button will show tick marked
     ##@E2EUI-1906
@@ -34,10 +34,10 @@ Feature: Panels Page Verification
     Then the user should see the referral submit button as disabled
 
     Examples:
-      | Panels | searchPanels                  | textLine                                                                                                      |
+      | Panels | searchPanels                                  | textLine                                                                                                      |
       | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
-  @NTS-3381 @E2EUI-1045 @NTS-3424 @E2EUI-1484 @LOGOUT @v_1 @P0
+  @NTS-3381 @E2EUI-1045 @E2EUI-1484 @E2EUI-1158 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
@@ -48,8 +48,9 @@ Feature: Panels Page Verification
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should be able to see panels page is correctly displayed
-    ##Below line for @NTS-3424 @E2EUI-1484
-    And the user should be able to see suggested panels under the Suggestions based on the clinical information section
+    ##Below line for @E2EUI-1484
+    And the user should see the section with title Suggestions based on the clinical information
+    And the user sees suggested panels under the section Suggestions based on the clinical information
     When the user search and add the "<searchPanels>" panels
     Then the user should be able to deselect the selected panels
     And the user should be able to change the penetrance status

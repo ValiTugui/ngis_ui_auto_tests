@@ -212,6 +212,23 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add new patient to referral']")
     public WebElement addNewPatientToReferral;
 
+    //Details of submitted Referrals
+    @FindBy(xpath = "//label[text()='Relationship to proband']//following::div[1]")
+    public WebElement relationshipToProbandDropdown;
+
+    String relationshipToProbandType = "//span[contains(text(),'dummyOption')]/ancestor::div[contains(@class,'container')]";
+
+    @FindBy(xpath = "//div[contains(text(),'Created and submitted referrals')]")
+    WebElement createdAndSubmittedReferralsTitle;
+
+    @FindBy(xpath = "//span[text()='Relationship to proband']/ancestor::div[contains(@class,'css-')]/ancestor::div[contains(@class,'css-')]//span[@data-testid='referral-card-id']")
+    List<WebElement> relationshipToProbandReferralID;
+
+    @FindBy(xpath = "//span[@data-testid='referral-card-id']")
+    List<WebElement> referralIDOfCreatedReferrals;
+
+    @FindBy(xpath = "//a[contains(@class,'styles_referral-list__link__')]")
+    List<WebElement> submittedReferralCardsList;
 
     public boolean patientDetailsPageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-details");
@@ -1012,4 +1029,82 @@ public class PatientDetailsPage {
         Actions.fillInValue(firstName, TestUtils.getRandomFirstName());
     }
 
+    public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
+        try {
+            Wait.forElementToBeDisplayed(driver, relationshipToProbandDropdown);
+            Actions.clickElement(driver,relationshipToProbandDropdown);
+            String actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
+            WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
+            if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
+                Debugger.println("Relation to Proband element not visible.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            String recentSuggestion = relationToProbandElement.getText();
+            if(recentSuggestion == null){
+                Debugger.println("Relation to Proband no suggestions present.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            if (!recentSuggestion.equalsIgnoreCase(expValue)) {
+                Debugger.println("Expected Error Message: " + expValue + ", But Actual is:" + recentSuggestion);
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion." + exp);
+            SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheSubmittedReferrals() {
+        try {
+            Wait.forElementToBeDisplayed(driver, createdAndSubmittedReferralsTitle);
+            //List of Total Referrals submitted  - both proband and family members
+            if (referralIDOfCreatedReferrals.size() == 0) {
+                Debugger.println("No referral created and submitted.");
+                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
+                return false;
+            }
+            //List of  Referrals submitted  - only family members
+            if (relationshipToProbandReferralID.size() == 0) {
+                Debugger.println("No family member added with all the referral present in the page.");
+                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
+                return false;
+            }
+            if(referralIDOfCreatedReferrals.size() <= relationshipToProbandReferralID.size()){
+                Debugger.println("Expected details of both proband and family referrals submitted.");
+                SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
+                return false;
+            }
+
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheSubmittedReferrals: " + exp);
+            SeleniumLib.takeAScreenShot("ExistingReferrals.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheSubmittedReferralCardsAreClickable() {
+        try {
+            if (submittedReferralCardsList.size() == 0) {
+                Debugger.println("No submitted referral card found.");
+                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
+                return false;
+            }
+            if(!Actions.isTabClickable(driver, submittedReferralCardsList.size(), submittedReferralCardsList)){
+                Debugger.println("Submitted referral cards are not clickable.");
+                SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheSubmittedReferralCardsAreClickable: " + exp);
+            SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
+            return false;
+        }
+    }
 }//end

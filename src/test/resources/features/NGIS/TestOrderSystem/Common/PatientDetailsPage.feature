@@ -4,52 +4,51 @@
 
 Feature: Patient details page
 
-    @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0
-    Scenario Outline: NTS-3068: New "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
-      Given a web browser is at create new patient page
-        | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
-      Then the "<pageTitle>" page is displayed
-      And the No button is selected by default for the question - Do you have the NHS Number?
-      When the user click YES button for the question - Do you have the NHS no?
-      When the user fills in all the fields with NHS number on the New Patient page
-      And the user clicks the Save patient details to NGIS button
-      Then the patient is successfully created with a message "Details saved"
-      And the user clicks the - "Go back to patient search" - link
-      Then the "<pageTitle2>" page is displayed
-      And the YES button is selected by default on patient search
-      And the user types in the details of the NGIS patient in the NHS number and DOB fields
-      And the user clicks the Search button
-      Then a "<patient-search-type>" result is successfully returned
-      And the user clicks the patient result card
-      Then the Patient Details page is displayed
-      And the correct details of the "<patient-search-type>" are displayed in patient details
+  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0
+  Scenario Outline: NTS-3068: New "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
+    Then the "<pageTitle>" page is displayed
+    And the No button is selected by default for the question - Do you have the NHS Number?
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user fills in all the fields with NHS number on the New Patient page
+    And the user clicks the Save patient details to NGIS button
+    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user types in the details of the NGIS patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the correct details of the "<patient-search-type>" are displayed in patient details
 
-      Examples:
-        | pageTitle                         | pageTitle2        | patient-search-type |
-        | Add a new patient to the database | Find your patient | NGIS                |
+    Examples:
+      | pageTitle                         | pageTitle2        | patient-search-type |
+      | Add a new patient to the database | Find your patient | NGIS                |
 
 
-    @NTS-3068 @E2EUI-1182 @LOGOUT @v_1 @BVT_P0
-    Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
-      Given a web browser is at create new patient page
-        | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
-      Then the "<pageTitle>" page is displayed
-      When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-      And the user clicks the - "Go back to patient search" - link
-      Then the "<pageTitle2>" page is displayed
-      And the YES button is selected by default on patient search
-      And the user clicks the NO button
-      And the user search for the new patient using date of birth, first name, last name and gender
-      And the user clicks the Search button
-      Then a "<patient-search-type>" result is successfully returned
-      And the user clicks the patient result card
-      Then the Patient Details page is displayed
-      And the correct details of the "<patient-search-type>" are displayed in patient details
+  @NTS-3068 @E2EUI-1182 @LOGOUT @v_1 @BVT_P0
+  Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
+    Given a web browser is at create new patient page
+      | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
+    Then the "<pageTitle>" page is displayed
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user clicks the - "Go back to patient search" - link
+    Then the "<pageTitle2>" page is displayed
+    And the YES button is selected by default on patient search
+    And the user clicks the NO button
+    And the user search for the new patient using date of birth, first name, last name and gender
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the Patient Details page is displayed
+    And the correct details of the "<patient-search-type>" are displayed in patient details
 
-      Examples:
-        | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-        | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
-
+    Examples:
+      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
+      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
 
   @NTS-3068 @E2EUI-1182 @LOGOUT @v_1
@@ -94,7 +93,6 @@ Feature: Patient details page
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
-
 
 
   @NTS-3101 @E2EUI-2147 @LOGOUT @v_1 @BVT_P0
@@ -217,7 +215,7 @@ Feature: Patient details page
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
 #    Navigate back to referral page
     And the user navigates back to patient existing referral page
-      | APP_URL | patient-details|
+      | APP_URL | patient-details |
     And the referral page is displayed
     And the new patient gender "<gender>" is displayed on the referral banner
 
@@ -290,7 +288,6 @@ Feature: Patient details page
     Examples:
       | stage           | gender  | lifeStatus | ethnicity   |
       | Patient details | Unknown | Deceased   | R - Chinese |
-
 
 
   @NTS-3848 @E2EUI-1609 @LOGOUT
@@ -526,7 +523,6 @@ Feature: Patient details page
       | Patient details | Add a new patient to the database | Find your patient | Check your patient's details | Other - provide explanation | NGIS                | test-order/patient-search |
 
 
-
   @NTS-4627 @E2EUI-1664 @v_1 @LOGOUT
   Scenario Outline:NTS-4627-Patient detail - Hospital Number field - Display an editable hospital number
     Given a web browser is at create new patient page
@@ -662,11 +658,11 @@ Feature: Patient details page
     Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
-      | stage           | dateOfBirth |browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
 
 
-   @NTS-4762 @LOGOUT @v_1 @E2EUI-1192
+  @NTS-4762 @LOGOUT @v_1 @E2EUI-1192
   Scenario Outline: NTS-4762: Referral-Patient Detail - Update the 'success' message design
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
@@ -679,3 +675,50 @@ Feature: Patient details page
     Examples:
       | stage           |
       | Patient details |
+
+  @NTS-3557 @LOGOUT @E2EUI-1809 @v_1 @P0 @scenario_1
+  Scenario: NTS-3557: Validating cancel button present when login as super user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
+    When the user is navigated to a page with title Check your patient
+    Then the user should be able to see a cancel referral link "present"
+
+  @NTS-3557 @E2EUI-1809 @v_1 @P0 @scenario_2
+  Scenario: : NTS-3557- Validating cancel button present when login as normal user
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient
+    Then the user should be able to see a cancel referral link "not present"
+
+  @NTS-4052 @E2EUI-1837 @LOGOUT @v_1 @P0 @scenario_1
+  Scenario Outline: NTS-4052: Multidate picker - Real dates validation in Find your Patient Page.
+   Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Find your patient
+    And the YES button is selected by default on patient search
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    Then the message will be displayed as "<error_message>" in "#dd2509" color for the DOB field
+    And the user clicks the NO button
+    When the user click YES button for the question - Do you have the NHS no?
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB2>" fields
+    Then the user does not see an error message on the page
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        | error_message                     | DOB2       |
+      | NGIS                | 9449305935 | 30-02-2000 | Check the day and month are valid | 19-03-2000 |
+
+  @NTS-4055 @E2EUI-1904 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4055: The patient record should be saved without entering "DATE OF DEATH", As a user I want to save a new patient record without date of death.
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Find your patient
+    When the user types in invalid details of a patient in the NHS number and DOB fields
+    And the user clicks the Search button
+    Then the message "No patient found" is displayed below the search button
+    Then the user clicks on the create new patient record
+    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
+      | labelHeader   |
+      | Date of death |
+    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    Examples:
+      | reason_for_no_nhsNumber       |
+      | Patient is a foreign national |

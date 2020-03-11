@@ -130,3 +130,52 @@ Feature: Print Forms - Validations
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | WarningMessage                                                                                            |
       | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
+
+  @NTS-3413 @E2EUI-1661 @LOGOUT
+  Scenario Outline: NTS-3413 :scenario_1: Any updates done in the referral will not be reflected in the Print Forms stage- for Family Member
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    ###Patient Details
+    When the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
+    And the "<PatientDetails>" stage is marked as Completed
+    ###Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "MANCHESTER ROYAL INFIRMARY" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+    ###Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    And the "<TestPackage>" stage is marked as Completed
+    ###Family Members
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    And the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    ###Print Forms
+    When the user navigates to the "<PrintForms>" stage
+    Then the user is navigated to a page with title Print sample forms
+    And the user verifies that the relationship to proband "<RelationshipToProband>" is updated in Print forms section
+    ###Family Members for modification
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user edits the highlighted family member with "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Confirm family member details
+    When the user selects the Relationship to proband as "<ChangedRelationshipToProband>"
+    And the user clicks the Save and Continue button
+    ###Print Forms
+    When the user navigates to the "<PrintForms>" stage
+    Then the user is navigated to a page with title Print sample forms
+    And the user verifies that the relationship to proband "<ChangedRelationshipToProband>" is updated in Print forms section
+
+    Examples:
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband |
+      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        |

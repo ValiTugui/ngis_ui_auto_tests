@@ -534,4 +534,20 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifyRareDiseaseDiagnoseFieldPresence(expValue);
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should verify the role and relationship of patient on referral card")
+    public void theUserShouldVerifyTheRoleAndRelationshipOfPatientOnReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferrals();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the visible and clickable referral card")
+    public void theUserShouldSeeTheVisibleAndClickableReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferralCardsAreClickable();
+        Assert.assertTrue(testResult);
+    }
+
+
 }//end

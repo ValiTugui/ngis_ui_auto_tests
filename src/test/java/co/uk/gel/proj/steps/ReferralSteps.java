@@ -968,4 +968,22 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.clicksOutsideModalDialog();
         Assert.assertTrue(testResult);
     }
+
+    @And("the user should be able to click on incomplete {string} section")
+    public void theUserShouldBeAbleToClickOnIncompleteSection(String expStage) {
+        boolean testResult = false;
+        testResult = referralPage.clickOnIncompleteStageInDialogBox(expStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see a cancel referral link {string}")
+    public void theUserShouldBeAbleToSeeACancelReferralLink(String cancelReferral) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPresenceOfCancelReferralLink();
+        if (cancelReferral.equals("present")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
 }
