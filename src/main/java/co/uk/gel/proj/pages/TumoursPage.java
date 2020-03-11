@@ -7,6 +7,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import io.cucumber.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -149,6 +150,15 @@ public class TumoursPage {
 
     @FindBy(css ="span[class*='checkmark--checked']")
     public WebElement TumourSVGTickMark;
+
+    @FindBy(xpath = "//tr[contains(@class,'styles_text')]")
+    public List<WebElement> addedTumours;
+
+    @FindBy(xpath = "//div[text()='Tumour updated']")
+    WebElement tumourUpdatedMsg;
+
+    @FindBy(xpath = "(//div[contains(@class,'styles_text__1aikh styles_text--5__203Ot styles_rt')])[2]")
+    public WebElement labelTextInTumour;
 
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
@@ -496,4 +506,66 @@ public class TumoursPage {
         }
         return false;
     }
+
+    public boolean clickOnTheExistingTumourBox() {
+        try {
+            for (WebElement element : addedTumours) {
+                if (!element.isSelected()) {
+                    Actions.clickElement(driver, element);
+                    Actions.acceptAlert(driver);
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("TumoursPage :clickOnTheExistingTumourBox: Exception found " + exp);
+            SeleniumLib.takeAScreenShot("TumourBox.jpg");
+            return false;
+        }
+    }
+
+    public boolean tumourSelectedWithoutAnyMessage() {
+        try {
+            Wait.forElementToBeDisplayed(driver,AddATumourPageTitle);
+            for (WebElement element : addedTumours) {
+                if (element.getTagName().contains("checked")) {
+                    if (tumourUpdatedMsg.isDisplayed()) {
+                        Debugger.println("Tumour update message is present, not expected.");
+                        SeleniumLib.takeAScreenShot("TumourUploadMessage.jpg");
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("TumoursPage :tumourSelectedWithoutAnyMessage: exception found " + exp);
+            SeleniumLib.takeAScreenShot("TumourUploadMessage.jpg");
+            return false;
+        }
+    }
+
+     public boolean verifyLabelTextInTumourIsNotPresent(String expected) {
+        try {
+            if(!Wait.isElementDisplayed(driver, labelTextInTumour,10)){
+                Debugger.println("labelTextInTumour not present.");
+                SeleniumLib.takeAScreenShot("TumourPageLabelText.jpg");
+                return false;
+            }
+            String actualLabelName = labelTextInTumour.getText();
+            if(actualLabelName == null){
+                Debugger.println("labelTextInTumour not present.");
+                SeleniumLib.takeAScreenShot("TumourPageLabelText.jpg");
+                return false;
+            }
+            if (actualLabelName.contains(expected)) {
+                SeleniumLib.takeAScreenShot("TumourPageLabelText.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("TumoursPage: getLabelTextInTumour: " + exp);
+            SeleniumLib.takeAScreenShot("TumourPageLabelText.jpg");
+            return false;
+        }
+    }
+
 }

@@ -1546,4 +1546,62 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    public boolean verifyNgisIdAndReferralId() {
+        if(!Wait.isElementDisplayed(driver,referralHeaderPatientNgisId,10)){
+            Debugger.println("referralHeaderPatientNgisId not present");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        if(!Wait.isElementDisplayed(driver,referralHeaderReferralId,10)){
+            Debugger.println("referralHeaderReferralId not present");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        String ngisId = referralHeaderPatientNgisId.getText();
+        String referralId = referralHeaderReferralId.getText();
+        if(ngisId == null || referralId == null){
+            Debugger.println("ngsId or referralIs is null");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeader);
+            if (!(ngisId.charAt(0) == 'p' && ngisId.length() == 12)) {
+                if (!(referralId.charAt(0) == 'p' && referralId.length() == 12)) {
+                    Debugger.println("The ngis id and referral id are not correct");
+                    SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: verifyNgisIdAndReferralId: exception found" + exp);
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTextFromReferralHeaderPatientNgisId() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeader);
+            String webElementText = referralHeaderPatientNgisId.getAttribute("value");
+            if(webElementText == null){
+                Debugger.println("NGISIDtextVerification not present.");
+                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+                return false;
+            }
+            if (!webElementText.contains(" ")) {
+                Debugger.println("Text copied from webelement is different from actual content");
+                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            Debugger.println("Exception found while copying and verifying the webelement text." + e);
+            SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+            return false;
+        }
+    }
+
 }
