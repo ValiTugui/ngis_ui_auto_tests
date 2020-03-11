@@ -986,4 +986,17 @@ public class ReferralSteps extends Pages {
             Assert.assertFalse(testResult);
         }
     }
+    @Then("the user verifies the Ngis Id and Referral Id from the referral banner")
+    public void theUserVerifiesTheNgisIdAndReferralIdFromTheReferralBanner() {
+        boolean testResult = false;
+        testResult = referralPage.verifyNgisIdAndReferralId();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("user copies text from NgisId and verifies it with actual content")
+    public void userCopiesTextFromNgisIdAndVerifiesItWithActualContent() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTextFromReferralHeaderPatientNgisId();
+        Assert.assertTrue(testResult);
+    }
 }
