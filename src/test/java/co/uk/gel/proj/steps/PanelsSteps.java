@@ -15,12 +15,16 @@ public class PanelsSteps extends Pages {
 
     @And("the user should be able to see (.*) section with search field and search icon")
     public void theUserShouldBeSeeAddAnotherPanelSearchFieldAndSearchIcon(String expectedTitle) {
-        Assert.assertTrue(panelsPage.panelSearchFieldAndSearchIcon(expectedTitle));
+        boolean testResult = false;
+        testResult = panelsPage.verifyPanelSearchFieldAndSearchIcon(expectedTitle);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user search and add the {string} panels")
     public void theUserShouldBeAbleToSearchAndAddThePanels(String searchPanel) {
-        Assert.assertTrue(panelsPage.searchAndAddPanel(searchPanel));
+        boolean testResult = false;
+        testResult = panelsPage.searchAndAddPanel(searchPanel);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see panels page is correctly displayed")
@@ -43,10 +47,7 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyPanelAppNavigation());
     }
 
-    @Then("the user should be able to see the button options present")
-    public void theUserShouldBeAbleToSeeTheButtonOptionsPresent() {
-        Assert.assertTrue(panelsPage.verifyThePresenceOfPenetranceOptions());
-    }
+
 
     @And("the user clicks on (.*) button and button will show tick marked")
     public void theUserClicksOnButtonAndButtonWillShowTickMarked(String expectedButton) {
@@ -68,17 +69,18 @@ public class PanelsSteps extends Pages {
 
     @And("the user should be able to see a sub title (.*) on panels page")
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
-        Assert.assertEquals(subtitle, panelsPage.verifyPenetranceTitle());
+        boolean testResult = false;
+        testResult = panelsPage.verifyPenetranceTitle(subtitle);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see an additional line {string} underneath the penetrance title")
     public void theUserShouldBeAbleToSeeAnAdditionalLineUnderneathThePenetranceTitle(String textLine) {
-        Assert.assertTrue(panelsPage.verifyTextLineUnderPenetranceTitle(textLine));
-    }
-    @Then("the user should be able to see suggested panels under the (.*) section")
-    public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection(String panelsSuggestion) {
-        Assert.assertTrue(panelsPage.verifySuggestedPanels(panelsSuggestion));
-    }
+        boolean testResult = false;
+        testResult = panelsPage.verifyPenetranceIntroMessage(textLine);
+        Assert.assertTrue(testResult);
+   }
+
     @Then("the user sees the selected {string} panels under added panels")
     public void theUserSeesTheSelectedPanelsUnderAddedPanels(String selectedAddedPanels) {
         String[] addedPanels = null;
@@ -97,4 +99,38 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyDefaultStatusOfPenetranceButton(expectedButton));
     }
 
+    @And("the panels landing page displays the introduction message as {string}")
+    public void thePanelsLandingPageDisplaysTheIntroductionMessageAs(String introMessage) {
+        boolean testResult = false;
+        testResult = panelsPage.verifyThePanelAssignerIntoMessage(introMessage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("Penetrance section with options Complete and Incomplete")
+    public void theUserShouldBeAbleToSeeTheButtonOptionsPresent() {
+        boolean testResult = false;
+        testResult = panelsPage.verifyThePresenceOfPenetranceOptions();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should see the section with title (.*)")
+    public void theUserShouldSeeTheSectionWithTitleSuggestionsBasedOnTheClinicalInformation(String sectionName) {
+        boolean testResult = false;
+        testResult = panelsPage.verifyThePresenceOfSection(sectionName);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees suggested panels under the section Suggestions based on the clinical information")
+    public void theUserShouldBeAbleToSeeSuggestedPanelsUnderTheSection() {
+        boolean testResult = false;
+        testResult = panelsPage.verifySuggestedPanels();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees link with title View On PanelApp attached to all the suggested panels")
+    public void theUserSeesLinkWithTitleViewOnPanelAppAttachedToAllTheSuggestedPanels() {
+        boolean testResult = false;
+        testResult =  panelsPage.verifySuggestedPanelsLinkToPanelApp();
+        Assert.assertTrue(testResult);
+    }
 }//end
