@@ -33,14 +33,34 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement dropDownFileSubmissionsSearch;
+    public WebElement FileSubmissionSearchDropDownButton;
+
+    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box box-solid box-primary']")
+    public WebElement mainSearchContainer;
+
+    @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
+    public WebElement searchBoxHeader;
+
+    @FindBy(xpath = "//div[@class='tab-pane active']//h3[@class='box-title']")
+    public WebElement searchTitle;
+
+    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
+    public WebElement genericDropDropDownValues;
+
+    @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
+    public List<WebElement> dropDownFileSubmissionsSearchDropValues;
+
+    @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
+    public WebElement dropDownFileSubmissionsSearchDropValues1;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
-    public WebElement dropDownFileSubmissionSearchOperator;
+    public WebElement FileSubmissionSearchOperatorDropDownButton;
+
+    @FindBy(xpath = "//button[@data-id='file_submissions-search-value']")
+    public WebElement FileSubmissionSearchValueDropDownButton;
 
     @FindBy(xpath = "//ul[@class='dropdown-menu inner ']/li//span[text()='GLH']")
     public WebElement DropDownGLH;
-
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
@@ -54,7 +74,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
     public WebElement ClosefilterCriteria;
 
-    @FindBy(id = "file_submissions-search-search")
+    @FindBy(xpath = "//button[@id='file_submissions-search-search']")
     public WebElement searchButton;
 
     @FindBy(id = "file_submissions-display-display_options")
@@ -125,5 +145,51 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         return pairs;
     }
 
-}
+    //getValuesOfCsvFileNamesSearchedResult
 
+    public List<Map<String, String>> getValuesOfCsvFileNamesSearchedResult(String filterCriteria) {
+        Wait.seconds(5);
+        try {
+            List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
+            //Retrieve the column headers
+            List<String> headers = new ArrayList<>();
+            for (WebElement ele : allHeaders) {
+                String header = ele.getText();
+                headers.add(header);
+            }
+            // Retrieve the values
+            String allResultRowsLoc = "//td[contains(text(),'" + filterCriteria + "')]/..";
+            List<WebElement> allResultRows = driver.findElements(By.xpath(allResultRowsLoc));
+            List<Map<String, String>> allRowsData = new ArrayList<>();
+
+            // iterating all rows which matches condition
+            for (WebElement row : allResultRows) {
+                // Retrieve column data of each row
+                List<WebElement> colData = row.findElements(By.tagName("td"));
+                List<String> colVal = new ArrayList<>();
+                if (colData != null) {
+                    for (WebElement ele : colData) {
+                        String val = ele.getText();
+                        colVal.add(val);
+                        System.out.println("test");
+                    }
+                }
+                //Adding to map as key value - column data of row
+                Map<String, String> pairs = new HashMap<>();
+                if (colVal != null && colVal.size() > 0) {
+                    for (int i = 0; i < headers.size(); i++) {
+                        pairs.put(headers.get(i), colVal.get(i));
+                    }
+                }
+                System.out.println("Individual rows\n" + pairs + "\n");
+                allRowsData.add(pairs);
+            }
+            return allRowsData;
+        } catch (Exception exp) {
+            Debugger.println("Exception from retrieving data." + exp);
+            SeleniumLib.takeAScreenShot("retrieving-search-results.jpg");
+            return null;
+        }
+    }
+
+}
