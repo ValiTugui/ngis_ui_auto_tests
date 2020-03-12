@@ -301,7 +301,7 @@ public class FamilyMemberSearchPage {
 
             }//switch
         }//for
-        seleniumLib.clickOnWebElement(searchButton);
+        Actions.clickElement(driver,searchButton);
     }//method
     public void selectFamilyMemberGender(WebElement element, String optionValue){
         WebElement ddValue = null;

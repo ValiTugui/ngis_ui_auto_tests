@@ -999,4 +999,30 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyTextFromReferralHeaderPatientNgisId();
         Assert.assertTrue(testResult);
     }
+
+    @Then("the user should be able to see the patient referral banner at the top")
+    public void theUserShouldBeAbleToSeeThePatientBanner() {
+        boolean testResult = false;
+        testResult = referralPage.readTheReferralBannerLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see the patient banner at same location")
+    public void theUserShouldBeAbleToSeeThePatientBannerAtSameLocation() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheBannerLocationAtSameLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees the color of feedback link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfFeedbackLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyFeedbackLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the color of privacy policy link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
 }

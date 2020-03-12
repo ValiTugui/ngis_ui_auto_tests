@@ -558,4 +558,20 @@ public class SamplesPage {
         }
         return false;
     }
+
+    public boolean editSpecificSample() {
+        try {
+            if(!Wait.isElementDisplayed(driver, editSampleButton,10)){
+                Debugger.println("Edit Sample Button Not Present ");
+                SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editSampleButton);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in :editSpecificSample" + exp);
+            SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
+            return false;
+        }
+    }
 }

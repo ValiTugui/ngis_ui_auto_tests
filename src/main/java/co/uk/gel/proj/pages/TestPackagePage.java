@@ -93,6 +93,12 @@ public class TestPackagePage {
     @FindBy(xpath = "(//div[contains(@class,'styles_test-card__test-category__25tRP')])[2]/child::*[@fill='inherit']")
     public WebElement trioFamilyIconInTestPackage;
 
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
+    public WebElement testCardCIName;
+
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__title')]")
+    public WebElement testCardCIId;
+
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
         return testPackagePageTitle.getText().equalsIgnoreCase(title);
@@ -346,5 +352,25 @@ public class TestPackagePage {
         }
     }
 
+    public boolean verifyCINameIDPresence(){
+        try{
+            Wait.forElementToBeDisplayed(driver, testCardBody);
+            if (!Wait.isElementDisplayed(driver,testCardCIId,10)){
+                Debugger.println("Test Card CI ID not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver,testCardCIName,10)){
+                Debugger.println("Test Card CI Name not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println(" Exception in verifyCINameIDPresence : "+exp);
+            SeleniumLib.takeAScreenShot("TestPackage.jpg");
+            return false;
+        }
+    }
 
 }//end

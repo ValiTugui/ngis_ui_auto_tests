@@ -235,4 +235,11 @@ public class TestPackageSteps extends Pages {
         testResult = testPackagePage.verifyTrioFamilyIconPresenceInTestPackage();
         Assert.assertTrue(testResult);
     }
+
+    @And("the User should be able to see the clinical indication code and name in the test package card")
+    public void theUserShouldBeAbleToSeeTheClinicalIndicationCodeAndNameInTheTestPackageCard() {
+        boolean testResult = false;
+        testResult = testPackagePage.verifyCINameIDPresence();
+        Assert.assertTrue(testResult);
+    }
 }

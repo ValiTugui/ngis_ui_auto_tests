@@ -4,7 +4,7 @@
 
 Feature: Clinical Question Page Validation
 
-  @NTS-4438 @E2EUI-1273 @LOGOUT
+  @NTS-4438 @E2EUI-1273 @E2EUI-1198 @LOGOUT
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -24,7 +24,7 @@ Feature: Clinical Question Page Validation
       | Stage              |
       | Clinical questions |
 
-  @NTS-4624 @E2EUI-1299 @LOGOUT
+  @NTS-4624 @E2EUI-1299  @LOGOUT
   Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -47,8 +47,8 @@ Feature: Clinical Question Page Validation
       | Karyotypic sex |
 
     Examples:
-      | stage              | title                     |DiseaseStatus |
-      | Clinical questions | Answer clinical questions |Affected      |
+      | stage              | title                     | DiseaseStatus |
+      | Clinical questions | Answer clinical questions | Affected      |
 
   @NTS-4631 @E2EUI-1169  @LOGOUT
   Scenario Outline: Age of Onset field input validation with special characters under Disease status - Clinical questions
@@ -183,3 +183,62 @@ Feature: Clinical Question Page Validation
     Examples:
       | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | rareDiseaseValue1         | diagnosisTypeValue1 | statusValue1 | TermPresence |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XYY | BASAL CELL NEVUS SYNDROME | Omim                | Confirmed    | Present      |
+
+  @NTS-4440 @E2EUI-1198 @LOGOUT
+  Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1987:Gender=Male |
+    When the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
+    And the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user should be able to see the field headers on Clinical questions page
+      | labelHeader                   |
+      | Disease status details        |
+      | HPO phenotype details         |
+      | Rare disease diagnoses        |
+      | Phenotypic and karyotypic Sex |
+    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
+      | labelHeader      |
+      | Disease status ✱ |
+    And the user sees an bottom message "<Message1>" on the page
+    And  the user selects "<diseaseStatueValue>"
+    When the user provided the values "<year>" "<month>" for Age of onset fields
+    And the user sees an bottom message "<Message2>" on the page
+    And the user adds a new HPO phenotype term "<hpoTerm>" using the autosuggest terms
+    And the user sees an bottom message "<Message3>" on the page
+    When the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
+    Then the user selects the Rare disease diagnosis questions such as "<diagnosisTypeValue>" and corresponding status "<statusValue>"
+    And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
+    And the user answers the phenotypic and karyotypic sex questions
+    Then the user clicks the Save and Continue button
+    Examples:
+      | stage              | diseaseStatueValue | Message1                                             | Message3                                             | year | month | Message2                                                            | hpoTerm | termPresence | diagnosisTypeValue | statusValue | rareDiseaseValue                                |
+      | Clinical questions | Unaffected         | Choose the status of the condition being tested for. | For example, ventricular fibrillation or HP:0001663. | 2    | 3     | For prenatal patients, enter number of months before birth, e.g. -3 | Leuk    | Present      | Orphanet           | Suspected   | Lissencephaly with cerebellar hypoplasia type A |
+
+  @NTS-4628 @E2EUI-1338 @LOGOUT
+  Scenario Outline: NTS-4628: Create the SNOMED custom dynamic unit
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    When the user is navigated to a page with title Check your patient's details
+    And  the user navigates to the "<TumourStage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "Recurrence"
+    And the user fills the Topography of "<PrimaryTumour>" SnomedCT and Topography of this "<Tumour>" SnomedCT with result drop list
+    And the user clicks on the Tumour Diagnosis add another link
+    And the user fills the Topography of "<PrimaryTumour>" SnomedCT and Topography of this "<Tumour>" SnomedCT with result drop list
+    And the user fills the Working diagnosis "<morphology>" SnomedCT with result drop list
+    And the user clicks on the Working diagnosis morphology add another link
+    And the user fills the Working diagnosis "<morphology>" SnomedCT with result drop list
+    And the user clicks the Save and Continue button
+    Then the success notification is displayed "<TumourAdded>"
+    When the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon
+    Then the user is navigated to a page with title Edit a tumour
+    And the user clicks the Save and Continue button
+    And the user is navigated to a page with title Answer questions about this tumour
+
+    Examples:
+      | TumourAdded  | TumourStage | PrimaryTumour | Tumour | morphology |
+      | Tumour added | Tumours     | testis        | Liver  | solid      |
+

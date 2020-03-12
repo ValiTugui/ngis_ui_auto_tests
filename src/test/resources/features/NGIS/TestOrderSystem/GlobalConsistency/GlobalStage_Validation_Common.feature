@@ -54,7 +54,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
 
-  @NTS-Todo @E2EUI-1624 @LOGOUT @RD
+  @NTS-4711 @E2EUI-1624 @LOGOUT @RD
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | GEL_NORMAL_USER |
@@ -122,3 +122,72 @@ Feature: Feature: Global Patient Flow - Stage Validation
     Examples:
       | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  |
       | 3,3,4       | NHS  | 9449306621 | 09-05-2011 | Requesting organisation | Family members | NHSNumber=9449310440:DOB=12-07-2003 | 1 patient record found | Print forms |
+
+  @NTS-3498 @E2EUI-1701 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3498: Verify Global patient information bar component
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
+    ###Patient Details
+    And the user is navigated to a page with title Check your patient's details
+    Then the user should be able to see the patient referral banner at the top
+    ###Requesting Organisation
+    When the user navigates to the "<Requesting organisation>" stage
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user should be able to see the patient banner at same location
+    And the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    ###Test Package
+    And the user is navigated to a page with title Confirm the test package
+    Then the user should be able to see the patient banner at same location
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    ###Responsible Clinician
+    And the user is navigated to a page with title Add clinician information
+    Then the user should be able to see the patient banner at same location
+    When the user navigates to the "<Clinical questions>" stage
+    And the user is navigated to a page with title Answer clinical questions
+    Then the user should be able to see the patient banner at same location
+    ###Notes
+    When the user navigates to the "<Notes>" stage
+    And the user is navigated to a page with title Add notes to this referral
+    Then the user should be able to see the patient banner at same location
+    ###Family Members
+    When the user navigates to the "<Family members>" stage
+    And the user is navigated to a page with title Add a family member to this referral
+    Then the user should be able to see the patient banner at same location
+    ###Patient Choice
+    When the user navigates to the "<Patient choice>" stage
+    And the user is navigated to a page with title Patient choice
+    Then the user should be able to see the patient banner at same location
+    ###Panels
+    When the user navigates to the "<Panels>" stage
+    And the user is navigated to a page with title Panels
+    Then the user should be able to see the patient banner at same location
+    ###Pedigree
+    When the user navigates to the "<Pedigree>" stage
+    And the user is navigated to a page with title Build a pedigree
+    Then the user should be able to see the patient banner at same location
+    ###Print Forms
+    When the user navigates to the "<Print forms>" stage
+    And the user is navigated to a page with title Print sample forms
+    Then the user should be able to see the patient banner at same location
+
+    Examples:
+      | Requesting organisation | ordering_entity_name | NoOfParticipants | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
+      | Requesting organisation | Maidstone            | 1                | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
+
+  @NTS-3498 @E2EUI-1850 @LOGOUT @v_1 @P0
+  Scenario: NTS-3498: The links from the footer should be the same color
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    And the user types in the CI term  in the search field and selects the first result from the results list
+      | Angiomatoid Fibrous Histiocytoma |
+    When the user clicks the Start Test Order Referral button
+    And the user clicks the Sign in hyperlink
+      | Sign in to the online service |
+    And the user logs in to the Test Order system successfully
+      | Find your patient |
+    Then the user sees the color of feedback link as NHS Blue #005EB8
+    And the user sees the color of privacy policy link as NHS Blue #005EB8

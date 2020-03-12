@@ -68,7 +68,7 @@ Feature: Home Page
     And the user should be able to see "5" sections of Order process are displayed
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
-  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail @COMP1_TD_ClinicalIndications
+  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242 @NTS-3254 @E2EUI-1849 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail @COMP1_TD_ClinicalIndications
   Scenario Outline: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
@@ -107,7 +107,7 @@ Feature: Home Page
       | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
 
-  @E2EUI-1419 @E2EUI-1497 @NTS-3262 @v_1 @P0 @COMP1_TD_ClinicalIndications @COMP1_TD_ClinicalTests
+  @E2EUI-1419 @E2EUI-1497 @NTS-3262 @E2EUI-1197 @v_1 @P0 @COMP1_TD_ClinicalIndications @COMP1_TD_ClinicalTests
   Scenario Outline: NTS-3262 - Clinical Indication Page - View details for Clinical Indications Tab.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
