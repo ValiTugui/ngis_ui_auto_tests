@@ -137,11 +137,12 @@ Feature: Family Members Details Page - Field Validation_2
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     And the user clicks the Save and Continue button
-    And the user sees the test has been selected by default
+    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
     Then The user should not see the rare disease diagnoses "<AgeOfOnset>" field
 

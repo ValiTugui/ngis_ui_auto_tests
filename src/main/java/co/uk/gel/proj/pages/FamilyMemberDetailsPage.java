@@ -315,7 +315,6 @@ public class FamilyMemberDetailsPage {
         String nhsNoText = patientCardNHSNo.getText();
         nhsNoText = TestUtils.removeAWord(nhsNoText, "NHS No.");
         familyMember.setNHS_NUMBER(nhsNoText.trim());
-
         if (!seleniumLib.isElementPresent(patientCardAddress)) {
             Debugger.println("Address not displayed in Search Result.");
             return false;
@@ -692,6 +691,10 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
             NGISPatientModel familyMember = getFamilyMember(nhsDetails);
+            if(familyMember == null){
+                Debugger.println("Could find the family member:"+nhsDetails+" in the list.");
+                return false;
+            }
             Debugger.println("Verifying TheTestCheckboxIsSelected for: " + familyMember.getFIRST_NAME() + "," + familyMember.getRELATIONSHIP_TO_PROBAND());
             Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 60);
             if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
@@ -1346,7 +1349,7 @@ public class FamilyMemberDetailsPage {
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(nhsDetails);
                 Set<String> paramsKey = paramNameValue.keySet();
                 for (String key : paramsKey) {
-                    if (key.equalsIgnoreCase("NHSNumber")) {
+                    if (key.contains("NHSNumber")) {
                         nhsNumber = paramNameValue.get(key);
                     }
                     if (key.equalsIgnoreCase("DOB")) {

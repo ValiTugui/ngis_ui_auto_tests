@@ -568,7 +568,7 @@ public class SamplesPage {
             }
             Actions.clickElement(driver,editSampleButton);
             return true;
-        } catch (NumberFormatException exp) {
+        } catch (Exception exp) {
             Debugger.println("Exception in :editSpecificSample" + exp);
             SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
             return false;
