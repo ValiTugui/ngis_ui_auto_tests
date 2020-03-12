@@ -64,7 +64,6 @@ Feature: Family Members Details Page - Field Validation_2
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
-    Then the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Continue Button
@@ -104,10 +103,10 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient
+    And the user is navigated to a page with title Check your patient
     When the user navigates to the "<TestPackage>" stage
-    And the user is navigated to a page with title  Confirm the test package
-    Then the user should be able to see trio family icon in test package
+    Then the user is navigated to a page with title Confirm the test package
+    And the user should be able to see trio family icon in test package
 
     Examples:
       | TestPackage  |
@@ -119,7 +118,7 @@ Feature: Family Members Details Page - Field Validation_2
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R105 |
-    And the user clicks on start a new referral button
+    And the user clicks the Start Test Order Referral button
     And the user clicks the PDF order form button
     Then the user is navigated to a page with title Add a requesting organisation
     When the user enters the keyword "<ordering_entity_name>" in the search field

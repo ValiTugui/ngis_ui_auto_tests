@@ -949,6 +949,11 @@ public class ReferralPage<check> {
     public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember) {
         try {
             //Verify  First name and last name
+            if(!Wait.isElementDisplayed(driver,familyMemberNames,10)){
+                Debugger.println("Global Patient Card not displayed with Patient names..");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
+                return false;
+            }
             String firstNameLastName = familyMemberNames.getText();
             if (!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME())) {
                 Debugger.println("First Name Last Name: " + familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME() + " not displayed on the banner.");
