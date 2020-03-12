@@ -920,4 +920,109 @@ public class ReferralSteps extends Pages {
         boolean flag = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
         Assert.assertTrue(flag);
     }
+
+    @Then("the user should be able to see same referral id in the global banner and the url")
+    public void theUserShouldBeAbleToSeeSameReferralIdInTheGlobalBannerAndTheUrl() {
+        boolean testResult = false;
+        testResult = referralPage.verifyPatientReferralIdInUrl();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see the active stage {string} in to-do list")
+    public void theUserShouldAbleToSeeTheActiveStageInToDoList(String activeStage) {
+        boolean testResult = false;
+        testResult = referralPage.stageIsSelected(activeStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the not completed {string} stages")
+    public void theUserSeesTheNotCompletedStages(String expectedInCompletedStages) {
+        boolean testResult;
+        String[] stage = expectedInCompletedStages.split(",");
+        for (int i = 0; i < stage.length; i++) {
+            testResult = referralPage.stageIsSelected(stage[i]);
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @Then("the user sees the completed {string} stages")
+    public void theUserSeesAllTheCompletedStages(String expectedCompletedStages) {
+        boolean testResult;
+        String[] stage = expectedCompletedStages.split(",");
+        for (int i = 0; i < stage.length; i++) {
+            testResult = referralPage.stageIsCompleted(stage[i]);
+            Assert.assertTrue(testResult);
+        }
+    }
+
+    @And("the user should be able to close the pop up dialog box")
+    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
+        boolean testResult= false;
+        testResult=referralPage.closeMandatoryStagePopUp();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks outside of the modal")
+    public void theUserShouldBeAbleToClickAnywhereOutSideTheDialogBox() {
+        boolean testResult = false;
+        testResult = referralPage.clicksOutsideModalDialog();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to click on incomplete {string} section")
+    public void theUserShouldBeAbleToClickOnIncompleteSection(String expStage) {
+        boolean testResult = false;
+        testResult = referralPage.clickOnIncompleteStageInDialogBox(expStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see a cancel referral link {string}")
+    public void theUserShouldBeAbleToSeeACancelReferralLink(String cancelReferral) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPresenceOfCancelReferralLink();
+        if (cancelReferral.equals("present")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
+    @Then("the user verifies the Ngis Id and Referral Id from the referral banner")
+    public void theUserVerifiesTheNgisIdAndReferralIdFromTheReferralBanner() {
+        boolean testResult = false;
+        testResult = referralPage.verifyNgisIdAndReferralId();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("user copies text from NgisId and verifies it with actual content")
+    public void userCopiesTextFromNgisIdAndVerifiesItWithActualContent() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTextFromReferralHeaderPatientNgisId();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the patient referral banner at the top")
+    public void theUserShouldBeAbleToSeeThePatientBanner() {
+        boolean testResult = false;
+        testResult = referralPage.readTheReferralBannerLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see the patient banner at same location")
+    public void theUserShouldBeAbleToSeeThePatientBannerAtSameLocation() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheBannerLocationAtSameLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees the color of feedback link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfFeedbackLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyFeedbackLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the color of privacy policy link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
 }

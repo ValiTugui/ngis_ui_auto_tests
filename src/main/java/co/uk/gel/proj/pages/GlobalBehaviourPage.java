@@ -6,9 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -53,6 +51,8 @@ public class GlobalBehaviourPage {
     @FindBy(xpath = "//button[text()='Continue']")
     public WebElement continueButtonOnLandingPage;
 
+    @FindBy(xpath = "//header[contains(@class,'styles_header')]//*[text()='NHS England']/..")
+    WebElement NHSEnglandSVGlogo;
 
     public void getNGISVersion() {
         driver.get(AppConfig.getTo_NGISVerion_url());
@@ -130,6 +130,86 @@ public class GlobalBehaviourPage {
         } catch (Exception exp) {
             Debugger.println("Exception in verifyNHSLabelstInTheCurrentPage " + exp);
             SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyDifferentScreenWidth(int widthValue) throws InterruptedException {
+        try {
+            Dimension initialSize = driver.manage().window().getSize();
+            Debugger.println(" During Launch  : Window Size is: " + initialSize);
+            Dimension newSize = new Dimension(widthValue, 696);
+            driver.manage().window().setSize(newSize);
+            Wait.seconds(6);//Waiting to resize and load new screen
+            Dimension modifiedSize = driver.manage().window().getSize();
+            Debugger.println("After width change : Window Size " + modifiedSize);
+            if (modifiedSize.equals(initialSize)) {
+                Debugger.println("The screen size is not modified; default size: " + initialSize + " ,but expected: " + newSize);
+                SeleniumLib.takeAScreenShot("ScreenSize.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("GlobalBehaviourPage: verifyDifferentScreenWidth: " + exp);
+            SeleniumLib.takeAScreenShot("ScreenSize.jpg");
+            return false;
+        }
+    }
+
+    public boolean isHorizontalScrollBarPresent() {
+        JavascriptExecutor javascript = (JavascriptExecutor) driver;
+        Boolean scrollPresence = false;
+        //checking horizontal scroll bar is present or not
+        try {
+            scrollPresence = (Boolean) javascript.executeScript("return document.documentElement.scrollWidth>document.documentElement.clientWidth;");
+            return scrollPresence;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: isHorizontalScrollBarPresent :" + exp);
+            SeleniumLib.takeAScreenShot("ScreenSizeScrollBar.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNHSEnglandLogoIsSVG() {
+        try {
+            if(!Wait.isElementDisplayed(driver, NHSEnglandSVGlogo,20)){
+                Debugger.println("NHS Logo is not present in Find your patient page");
+                SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+                return false;
+            }
+            if (!"svg".equalsIgnoreCase(NHSEnglandSVGlogo.getTagName())) {
+                Debugger.println("NHS Logo is not present with svg tag in Find your patient page");
+                SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("GlobalBehaviourPage: verifyNHSEnglandLogoInSVG: " + exp);
+            SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheElementsOnReferralBanner() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
+            Actions.scrollToBottom(driver);
+            for (int i = 0; i < referralHeaderDetails.size(); i++) {
+                if(!Wait.isElementDisplayed(driver,referralHeaderDetails.get(i),10)){
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    SeleniumLib.takeAScreenShot("referralHeader.jpg");
+                    return false;
+                }
+                if (!referralHeaderDetails.get(i).isDisplayed()) {
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    SeleniumLib.takeAScreenShot("referralHeader.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Probound referral details not found: Elements not found " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
             return false;
         }
     }

@@ -53,7 +53,7 @@ Feature: Patient search page_NGIS
       | pageTitle                         | pageTitle2        | patient-type |
       | Add a new patient to the database | Find your patient | NGIS         |
 
-  @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2796 @E2EUI-1472 @E2EUI-2137 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2796:patient search - Patient Search Results Page validation
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |
@@ -141,3 +141,18 @@ Feature: Patient search page_NGIS
     Examples:
       | NHSNumber        |
       | 9449310602111111 |
+
+  @NTS-3477 @E2EUI-1692 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3477: Display the role of the patient on the referral card
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the user clicks the patient result card
+    Then the user is navigated to a page with title Check your patient's details
+    And the user should verify the role and relationship of patient on referral card
+
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        |
+      | NGIS                | 9449306583 | 21-05-2008 |

@@ -165,4 +165,18 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     public void theBrowserNavigatesToThePreviouslySelectedClinicalIndicationDetailsPageWhileStillSavingTheUserSMostRecentSearchForFurtherPageNavigation() {
         Assert.assertTrue(clinicalIndicationsTestSelect.checkIfClinicalIndicationsSearchValueMatchesTheSearchTermGiven());
     }
+
+    @And("the user verifies the page will be covered by an overlay")
+    public void theUserVerifiesThePageWillBeCoveredByAnOverlay() {
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.verifyTheOverlayIsDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks the close icon of clinical indication pop up")
+    public void theUserClicksTheCloseIconOfClinicalIndicationPopUp() {
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.closeClinicalIndicationPopUp();
+        Assert.assertTrue(testResult);
+    }
 }

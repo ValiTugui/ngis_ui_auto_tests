@@ -543,4 +543,51 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.ensureTickMarkIsDisplayedNextToSampleType());
     }
 
+    @Then("the user selects the existing tumour from the tumour landing page")
+    public void theUserSelectsTheExistingTumourFromTheTumourLandingPage() {
+        boolean testResult = false;
+        testResult = tumoursPage.clickOnTheExistingTumourBox();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should not see any error message after selecting the tumour")
+    public void theUserShouldNotSeeAnyErrorMessageAfterSelectingTheTumour() {
+        boolean testResult = false;
+        testResult = tumoursPage.tumourSelectedWithoutAnyMessage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see that the {string} is not present")
+    public void theUserShouldBeAbleToSeeThatTheIsNotPresent(String expText) {
+        boolean testResult = false;
+        testResult = tumoursPage.verifyLabelTextInTumourIsNotPresent(expText);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the Topography of {string} SnomedCT and Topography of this {string} SnomedCT with result drop list")
+    public void theUserFillsTheTopographyOfSnomedCTAndTopographyOfThisSnomedCTWithResultDropList(String primaryTumour, String tumour) {
+        boolean testResult = false;
+        testResult = tumoursPage.fillTumourDiagnosisTable(primaryTumour, tumour);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user clicks on the Tumour Diagnosis add another link")
+    public void theUserClicksOnTheTumourDiagnosisAddAnotherLink() {
+        boolean testResult = false;
+        testResult = tumoursPage.clicksOnAddAnotherLinkForTumourDiagnosis();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user fills the Working diagnosis {string} SnomedCT with result drop list")
+    public void theUserFillsTheWorkingDiagnosisSnomedCTWithResultDropList(String expValue) {
+        boolean testResult = false;
+        testResult =tumoursPage.fillWorkingDiagnosis(expValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the Working diagnosis morphology add another link")
+    public void theUserClicksOnTheWorkingDiagnosisMorphologyAddAnotherLink() {
+        boolean testResult = false;
+        testResult = tumoursPage.clicksOnAddAnotherLinkForWorkingDiagnosisMorphology();
+        Assert.assertTrue(testResult);
+    }
+
 }

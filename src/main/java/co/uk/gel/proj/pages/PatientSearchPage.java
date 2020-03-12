@@ -1067,5 +1067,22 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
         return false;
     }
+
+    public boolean verifyTheNHSQuestionOfThePage(String nhsQuestion) {
+        try {
+            Wait.forElementToBeDisplayed(driver, yesNoFieldLabel, 10);
+            String actualQuestion = yesNoFieldLabel.getText();
+            if (!actualQuestion.equalsIgnoreCase(nhsQuestion)) {
+                Debugger.println("Actual Question is " + actualQuestion + ", Expected Question is " + nhsQuestion);
+                SeleniumLib.takeAScreenShot("NHSQuestion.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from  verifyTheNHSQuestionOfThePage..." + exp);
+            SeleniumLib.takeAScreenShot("NHSQuestion.jpg");
+            return false;
+        }
+    }
 }
 

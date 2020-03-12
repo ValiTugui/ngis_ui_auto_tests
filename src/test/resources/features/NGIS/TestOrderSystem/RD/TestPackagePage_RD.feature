@@ -152,3 +152,20 @@ Feature: Test Package page
     Examples:
       | TestPackage  | NoOfParticipants | FamilyMembers  | RelationshipToProband | NotBeingTested   | BeingTested  |
       | Test package | 2                | Family members | Father                | Not Being Tested | Being Tested |
+
+  @NTS-4700 @E2EUI-886 @LOGOUT
+  Scenario Outline: NTS-4700 : New fields on Test package page
+    ##Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user sees the test has been selected by default
+     ## need to check with sir
+    And the Test package page has Targeted genes section with the "<TargetedGenes>"
+    And the test package page has Total number of participants drop down box
+    ## need to check with sir
+    And the test package page has Selected family members with the "<membersInfo>"
+    And the User should be able to see the clinical indication code and name in the test package card
+
+    Examples:
+      | TestPackage  | TargetedGenes            | membersInfo |
+      | Test package | Skeletal dysplasia (309) | Proband     |

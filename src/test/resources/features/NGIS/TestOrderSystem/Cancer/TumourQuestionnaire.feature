@@ -57,3 +57,50 @@ Feature: Tumour Questionnaire
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState | sampleDynamicQuestionsLabel                                | topography                               | morphology     |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Fibroblasts | Tumour content (percentage of malignant nuclei / blasts) ✱ | All teeth, gums and supporting structures | Eccrine poroma |
 
+  @NTS-4728 @E2EUI-1971 @LOGOUT @P0 @v_1 @BVT_P0
+  Scenario Outline: NTS-4728 - Selecting / deselecting a tumour will  not prompt the 'Tumour updated' message
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    Then the "<patientDetails>" stage is marked as Completed
+    When the user navigates to the "<tumours>" stage
+    And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
+    And the user clicks the Save and Continue button
+    Then the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "Recurrence"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "test" result drop list
+    And the user clicks the Save and Continue button
+    Then the new tumour is displayed in the landing page for the existing patient with tumour list
+    And user clicks add a new tumour link
+    And the user adds a new tumour
+      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
+      | Solid tumour: metastatic | First presentation     | test                 | 2                    |
+    Then the new tumour is displayed in the landing page for the existing patient with tumour list
+    And the user selects the existing tumour from the tumour landing page
+    Then the user should not see any error message after selecting the tumour
+
+    Examples:
+      | patientDetails  | tumours |
+      | Patient details | Tumours |
+
+  @NTS-3499 @E2EUI-1949 @LOGOUT @P0 @v_1
+  Scenario Outline: NTS-3499: Update guidance on Tumours stage
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | Cancer | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<stage>" stage
+    And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
+    And the user clicks the Save and Continue button
+    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "Recurrence"
+    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "test" result drop list
+    And the user clicks the Save and Continue button
+    And information text are displayed on the select or edit a tumour page
+      | informationTextHeader                           |
+      | Only one tumour can be tested in each referral. |
+      | If the tumour to be tested is:                  |
+      | not shown                                       |
+      | a metastasis of one that is shown               |
+      | you must add a new tumour then select it.       |
+    And the user sees the Save and Continue button
+    Then the user should be able to see that the "<text>" is not present
+
+    Examples:
+      | stage   | text                                                                                                  |
+      | Tumours | If the tumour to be tested is shown but metastatic or not shown, add a new tumour to this test order. |

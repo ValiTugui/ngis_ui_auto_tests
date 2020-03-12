@@ -8,13 +8,12 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import sun.jvm.hotspot.debugger.DebuggerUtilities;
-import sun.security.ssl.Debug;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -292,6 +291,17 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
+    //To click outside the modal dialog
+    @FindBy(xpath = "//body")
+    public WebElement pageBodyElement;
+
+    private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
+
+    static int referralBannerXLocation, referralBannerYLocation;
+    @FindBy(xpath = "//a[contains(text(),'Report an issue')]")
+    WebElement reportAnIssueOrProvideFeedbackLink;
+    @FindBy(xpath = "//a[contains(text(),'Privacy Policy')]")
+    WebElement privacyPolicyLink;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -939,6 +949,11 @@ public class ReferralPage<check> {
     public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember) {
         try {
             //Verify  First name and last name
+            if(!Wait.isElementDisplayed(driver,familyMemberNames,10)){
+                Debugger.println("Global Patient Card not displayed with Patient names..");
+                SeleniumLib.takeAScreenShot("GlobalPatientCard.jpg");
+                return false;
+            }
             String firstNameLastName = familyMemberNames.getText();
             if (!firstNameLastName.equalsIgnoreCase(familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME())) {
                 Debugger.println("First Name Last Name: " + familyMember.getLAST_NAME() + ", " + familyMember.getFIRST_NAME() + " not displayed on the banner.");
@@ -1479,5 +1494,216 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
             return false;
         }
-    }//end
+    }
+    public boolean verifyPatientReferralIdInUrl() {
+        try {
+            String refId = referralHeaderReferralId.getText();
+            String getURl = driver.getCurrentUrl();
+            if (!getURl.contains("/" + refId + "/")) {
+                Debugger.println("Referral ID : " + refId + " URL : " + getURl);
+                SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: verifyPatientIdInUrl: Exception " + exp);
+            SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
+            return false;
+        }
+    }
+
+    public boolean clicksOutsideModalDialog() {
+        try {
+            Wait.forElementToBeClickable(driver, dialogBoxCloseButton);
+            pageBodyElement.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in clicksOutsideModalDialog : " + exp);
+            return false;
+        }
+    }
+
+    public boolean clickOnIncompleteStageInDialogBox(String expStage) {
+        try {
+            String incompleteStagePath = incompleteStageInDialogBox.replace("dummyValue", expStage);
+            WebElement selectedStage = driver.findElement(By.xpath(incompleteStagePath));
+            if(!Wait.isElementDisplayed(driver,selectedStage,10)){
+                Debugger.println("The stage "+selectedStage+ " is not incomplete");
+                SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver,mandatoryStageDialogBox,20);
+
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", selectedStage);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on incomplete stage, PatientDetailsPage: clickOnIncompleteStageInTodoList: " + exp);
+            SeleniumLib.takeAScreenShot("IncompleteStage.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPresenceOfCancelReferralLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver, cancelReferralLink,10)) {
+                Debugger.println("Cancel Referral link not present as expected.");
+                SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyPresenceOfCancelReferralLink :" + exp);
+            SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNgisIdAndReferralId() {
+        if(!Wait.isElementDisplayed(driver,referralHeaderPatientNgisId,10)){
+            Debugger.println("referralHeaderPatientNgisId not present");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        if(!Wait.isElementDisplayed(driver,referralHeaderReferralId,10)){
+            Debugger.println("referralHeaderReferralId not present");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        String ngisId = referralHeaderPatientNgisId.getText();
+        String referralId = referralHeaderReferralId.getText();
+        if(ngisId == null || referralId == null){
+            Debugger.println("ngsId or referralIs is null");
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeader);
+            if (!(ngisId.charAt(0) == 'p' && ngisId.length() == 12)) {
+                if (!(referralId.charAt(0) == 'p' && referralId.length() == 12)) {
+                    Debugger.println("The ngis id and referral id are not correct");
+                    SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: verifyNgisIdAndReferralId: exception found" + exp);
+            SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTextFromReferralHeaderPatientNgisId() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeader);
+            String webElementText = referralHeaderPatientNgisId.getAttribute("value");
+            if(webElementText == null){
+                Debugger.println("NGISIDtextVerification not present.");
+                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+                return false;
+            }
+            if (!webElementText.contains(" ")) {
+                Debugger.println("Text copied from webelement is different from actual content");
+                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            Debugger.println("Exception found while copying and verifying the webelement text." + e);
+            SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+            return false;
+        }
+    }
+
+    public boolean readTheReferralBannerLocation() {
+        try {
+            if (!Wait.isElementDisplayed(driver,referralHeader,20)) {
+                Debugger.println("Referral header banner is not present.");
+                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+                return false;
+            }
+            //Storing the referral header banner location to verify the position in various pages
+            Point referralHeaderLocation = referralHeader.getLocation();
+            referralBannerXLocation = referralHeaderLocation.getX();
+            referralBannerYLocation = referralHeaderLocation.getY();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheBannerLocation, " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheBannerLocationAtSameLocation() {
+        try {
+            if (!Wait.isElementDisplayed(driver,referralHeader,20)) {
+                Debugger.println("Referral header banner is not present.");
+                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+                return false;
+            }
+            Point referralBannerLocation = referralHeader.getLocation();
+            int currentLocationX = referralBannerLocation.getX();
+            int currentLocationY = referralBannerLocation.getY();
+            if (currentLocationX != referralBannerXLocation) {
+                Debugger.println("Referral Banner XLocation has changed...Expected at X:"+referralBannerXLocation+",Actual X:"+currentLocationX);
+                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+                return false;
+            }
+            if (currentLocationY != referralBannerYLocation) {
+                Debugger.println("Referral Banner YLocation has changed...Expected at Y:"+referralBannerYLocation+",Actual Y:"+currentLocationY);
+                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: verifyTheBannerLocationAtSameLocation: " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyFeedbackLinkFontColor(String colorValue) {
+        try {
+            if (!Wait.isElementDisplayed(driver,reportAnIssueOrProvideFeedbackLink,20)) {
+                Debugger.println("FeedbackLink/Report an issue present.");
+                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+                return false;
+            }
+            String linkColor = reportAnIssueOrProvideFeedbackLink.getCssValue("color");
+            String linkColorHexValue = TestUtils.convertMonthNumberToMonthForm(colorValue);
+            if (!linkColor.equalsIgnoreCase(linkColorHexValue)) {
+                Debugger.println("Actual font colour of link: " + linkColor + " ,But Expected is: " + linkColorHexValue);
+                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception verifying verifyFeedbackLinkFontColor:" + exp);
+            SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPrivacyPolicyLinkFontColor(String colorValue) {
+        try {
+            if (!Wait.isElementDisplayed(driver,privacyPolicyLink,20)) {
+                Debugger.println("Privacy policy link present.");
+                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+                return false;
+            }
+            String actualColor = privacyPolicyLink.getCssValue("color");
+            String expectedColor = TestUtils.convertMonthNumberToMonthForm(colorValue);
+            if (!expectedColor.equalsIgnoreCase(actualColor)) {
+                Debugger.println("Actual link colour is "+actualColor+" ,But Expected "+expectedColor);
+                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception verifying verifyPrivacyPolicyLinkFontColor:" + exp);
+            SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+            return false;
+        }
+    }
 }

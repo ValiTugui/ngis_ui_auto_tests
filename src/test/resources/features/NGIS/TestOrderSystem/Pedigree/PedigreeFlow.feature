@@ -130,7 +130,7 @@ Feature: Pedigree - Pedigree Flow
       | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
       | Requesting organisation | Maidstone            | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
-  @NTS-3386 @E2EUI-1373 @E2EUI-836 @LOGOUT @v_1 @P0
+  @NTS-3386 @E2EUI-1373 @E2EUI-836 @E2EUI-1269 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3386 : Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |

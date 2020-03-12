@@ -527,4 +527,33 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.editFamilyMemberHavingNHSDob(familyMember);
         Assert.assertTrue(testResult);
     }
+
+    @Then("The user should not see the rare disease diagnoses {string} field")
+    public void theUserShouldNotSeeTheRareDiseaseDiagnosesField(String expValue) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyRareDiseaseDiagnoseFieldPresence(expValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should verify the role and relationship of patient on referral card")
+    public void theUserShouldVerifyTheRoleAndRelationshipOfPatientOnReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferrals();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the visible and clickable referral card")
+    public void theUserShouldSeeTheVisibleAndClickableReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferralCardsAreClickable();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the relationship to proband which was previously selected is same as {string}")
+    public void theUserSeesTheRelationshipToProbandWhichWasPreviouslySelectedIsSameAs(String expectedRelation) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySelectedRelationshipToProband(expectedRelation);
+        Assert.assertTrue(testResult);
+    }
+
 }//end
