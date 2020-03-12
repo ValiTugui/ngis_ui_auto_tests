@@ -1593,6 +1593,11 @@ public class FamilyMemberDetailsPage {
         try {
             Wait.forElementToBeClickable(driver, relationshipToProband);
             String actualRelationship=relationshipToProband.getText();
+            if(actualRelationship == null){
+                Debugger.println("Relationship to proban is NULL");
+                SeleniumLib.takeAScreenShot("ReationToProband.jpg");
+                return false;
+            }
             if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
                 Debugger.println("Relationship to proband: Actual:"+actualRelationship+" ,Expected: "+expectedRelation);
                 SeleniumLib.takeAScreenShot("ReationToProband.jpg");

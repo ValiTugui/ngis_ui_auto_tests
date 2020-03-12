@@ -162,7 +162,7 @@ public class TumoursPage {
     //List of primary tumours field
     @FindBy(xpath = "//div[contains(@id,'question-id-q155')]//input[@type!='hidden']")
     public List<WebElement> topographyOfPrimaryTumourFieldList;
-    //List of secondory tumors field
+    //List of secondary tumors field
     @FindBy(xpath = "//div[contains(@id,'question-id-q161')]//input[@type!='hidden']")
     public List<WebElement> topographyOfThisMetastaticDepositFieldList;
 
@@ -174,10 +174,6 @@ public class TumoursPage {
 
     @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
-
-//    @FindBy(xpath = "//div[contains(@id,'question-id-q155')]")
-//    public List<WebElement> topographyOfPrimaryTumourFields;
-
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 

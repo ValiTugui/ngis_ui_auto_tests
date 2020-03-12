@@ -1112,6 +1112,11 @@ public class PatientDetailsPage {
         try {
             Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
             String buttonBgColor = savePatientDetailsToNGISButton.getCssValue("background-color");
+            if(buttonBgColor == null){
+                Debugger.println("Button background color attribute is not present");
+                SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
+                return false;
+            }
             if (!buttonBgColor.equalsIgnoreCase(StylesUtils.convertFontColourStringToCSSProperty(expectedColor))) {
                 Debugger.println("Actual button color :" + buttonBgColor + ", But Excepted button color :" + expectedColor);
                 SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");

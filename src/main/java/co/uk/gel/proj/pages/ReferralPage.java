@@ -12,7 +12,6 @@ import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
