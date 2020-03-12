@@ -7,6 +7,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
+import org.eclipse.jetty.websocket.common.extensions.compress.XWebkitDeflateFrameExtension;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -557,5 +558,21 @@ public class SamplesPage {
             return true;
         }
         return false;
+    }
+
+    public boolean editSpecificSample() {
+        try {
+            if(!Wait.isElementDisplayed(driver, editSampleButton,10)){
+                Debugger.println("Edit Sample Button Not Present ");
+                SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editSampleButton);
+            return true;
+        } catch (NumberFormatException exp) {
+            Debugger.println("Exception in :editSpecificSample" + exp);
+            SeleniumLib.takeAScreenShot("EditSampleButton.jpg");
+            return false;
+        }
     }
 }

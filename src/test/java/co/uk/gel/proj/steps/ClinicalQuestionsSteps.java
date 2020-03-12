@@ -372,4 +372,12 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theUserShouldSeeSelectedRadioButtonInTempPlate(String expectedTermPresence) {
         Assert.assertTrue(clinicalQuestionsPage.verifySpecificTermPresence(expectedTermPresence));
     }
+
+    @And("the user sees an bottom message {string} on the page")
+    public void theUserSeesAnBottomMessageOnThePage(String subTitlemsg) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySubTitleMessage(subTitlemsg);
+        Assert.assertTrue(testResult);
+    }
+
 }

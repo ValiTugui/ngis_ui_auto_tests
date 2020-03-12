@@ -321,3 +321,45 @@ Feature: Test Directory Test Order
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoice  | CompletedStages                                                         | In-completed_Stages                              |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice | Patient details,Requesting organisation,Test package,Clinical questions | Family members,Patient choice,Panels,Print forms |
+
+  @NTS-4726 @E2EUI-1155 @LOGOUT
+  Scenario Outline: NTS-4726: Displaying the current state for each stage
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449309221:DOB=26-02-2004 |
+      ##Patient Details
+    When the user is navigated to a page with title Check your patient's details
+    And the user should be able to see the active stage "<PatientDetails>" in to-do list
+    And the user clicks the Save and Continue button
+    Then the "<PatientDetails>" stage is marked as Completed
+    Then the user sees the not completed "<IncompletedStages1>" stages
+    And the print forms stage is locked
+  ##Requesting Organisation
+    Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "Maidstone" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
+    And the "<RequestingOrganisation>" stage is marked as Completed
+  ##Test Package
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<NoOfParticipants>"
+    And the user clicks the Save and Continue button
+    ##Responsible Clinician
+    Then the user is navigated to a page with title Add clinician information
+    And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
+    And the user clicks the Save and Continue button
+    And the "<ResponsibleClinician>" stage is marked as Completed
+    ##Clinical Question
+    Then the user is navigated to a page with title Answer clinical questions
+    And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add notes to this referral
+    And the user fills in the Add Notes field
+    And the user clicks the Save and Continue button
+    And the "<Notes>" stage is marked as Completed
+    Then the user sees the completed "<CompletedStages>" stages
+    And the user should be able to see the active stage "<FamilyMembers>" in to-do list
+    Then the user sees the not completed "<IncompletedStages2>" stages
+    Examples:
+      | PatientDetails  | RequestingOrganisation  | NoOfParticipants | ResponsibleClinicianDetails                               | ResponsibleClinician  | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | CompletedStages                                                               | IncompletedStages1                                                                                                                   | IncompletedStages2                                        |
+      | Patient details | Requesting organisation | 1                | FirstName=Karen:LastName=Smith:Department=Victoria Street | Responsible clinician | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient details,Requesting organisation,Test package,Clinical questions,Notes | Requesting organisation,Test package,Responsible clinician,Clinical questions,Notes,Family members,Patient choice,Panels,Print forms | Family members,Patient choice,Panels,Pedigree,Print forms |

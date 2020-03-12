@@ -9,6 +9,7 @@ import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
@@ -1104,6 +1105,22 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyTheSubmittedReferralCardsAreClickable: " + exp);
             SeleniumLib.takeAScreenShot("SubmittedReferralsList.jpg");
+            return false;
+        }
+    }
+    public boolean verifyColorOfSavePatientDetailsToNGISButton(String expectedColor) {
+        try {
+            Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
+            String buttonBgColor = savePatientDetailsToNGISButton.getCssValue("background-color");
+            if (!buttonBgColor.equalsIgnoreCase(StylesUtils.convertFontColourStringToCSSProperty(expectedColor))) {
+                Debugger.println("Actual button color :" + buttonBgColor + ", But Excepted button color :" + expectedColor);
+                SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Save Patient Details To NGIS Button not found. " + exp);
+            SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
             return false;
         }
     }

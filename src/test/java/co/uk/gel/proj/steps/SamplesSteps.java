@@ -503,4 +503,11 @@ public class SamplesSteps extends Pages {
     public void theUserSeeATickMarkNextToTheSelectedParentSample() {
         Assert.assertTrue(samplesPage.ensureTickMarkIsDisplayedNextToSampleType());
     }
+
+    @When("the user edits the added sample")
+    public void theUserEditsTheThAddedSample() {
+        boolean testResult = false;
+        testResult = samplesPage.editSpecificSample();
+        Assert.assertTrue(testResult);
+    }
 }

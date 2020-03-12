@@ -638,4 +638,11 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user sees the Save PatientDetails button highlighted with color as {string}")
+    public void theUserSeesTheButtonAndColorAs(String expButtonColor) {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyColorOfSavePatientDetailsToNGISButton(expButtonColor);
+        Assert.assertTrue(testResult);
+    }
+
 }

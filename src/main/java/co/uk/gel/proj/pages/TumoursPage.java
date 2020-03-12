@@ -159,6 +159,25 @@ public class TumoursPage {
     @FindBy(xpath = "(//div[contains(@class,'styles_text__1aikh styles_text--5__203Ot styles_rt')])[2]")
     public WebElement labelTextInTumour;
 
+    //List of primary tumours field
+    @FindBy(xpath = "//div[contains(@id,'question-id-q155')]//input[@type!='hidden']")
+    public List<WebElement> topographyOfPrimaryTumourFieldList;
+    //List of secondory tumors field
+    @FindBy(xpath = "//div[contains(@id,'question-id-q161')]//input[@type!='hidden']")
+    public List<WebElement> topographyOfThisMetastaticDepositFieldList;
+
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[1]/child::*[text()='+ Add another']")
+    public WebElement addAnotherLinkForTumourDiagnosis;
+
+    @FindBy(xpath = "//div[contains(@id,'question-id-q160')]//input[@type!='hidden']")
+    public List<WebElement> workingDiagnosisMorphologyFieldList;
+
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*[text()='+ Add another']")
+    public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
+
+//    @FindBy(xpath = "//div[contains(@id,'question-id-q155')]")
+//    public List<WebElement> topographyOfPrimaryTumourFields;
+
 
     public void navigateToAddTumourPageIfOnEditTumourPage() {
 
@@ -566,5 +585,85 @@ public class TumoursPage {
             return false;
         }
     }
+    public boolean fillTumourDiagnosisTable(String primaryTumour, String tumour) {
+        try {
+            if (topographyOfPrimaryTumourFieldList.size() == 0) {
+                Debugger.println("Topography Of Primary Tumour Field not found");
+                SeleniumLib.takeAScreenShot("TopographyOfPrimaryTumourField.jpg");
+                return false;
+            }
+            if (topographyOfThisMetastaticDepositFieldList.size() == 0) {
+                Debugger.println("Topography Of This Metastatic Deposit Field not found");
+                SeleniumLib.takeAScreenShot("TopographyOfThisMetastaticDepositField.jpg");
+                return false;
+            }
+            //Getting the last field and adding the value
+            int lastSearchField = topographyOfPrimaryTumourFieldList.size() - 1;
+            int lastSearchField2 = topographyOfThisMetastaticDepositFieldList.size() - 1;
+            Actions.fillInValue(topographyOfPrimaryTumourFieldList.get(lastSearchField), primaryTumour);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            Wait.seconds(3);//As observed it take time to fill the search field
 
+            Actions.fillInValue(topographyOfThisMetastaticDepositFieldList.get(lastSearchField2), tumour);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from fillTumourDiagnosisTable" + exp);
+            SeleniumLib.takeAScreenShot("TumourDiagnosisOnTumourPage.jpg");
+            return false;
+        }
+    }
+
+    public boolean clicksOnAddAnotherLinkForTumourDiagnosis() {
+        try {
+            if (!Wait.isElementDisplayed(driver,addAnotherLinkForTumourDiagnosis,10)) {
+                Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page");
+                SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,addAnotherLinkForTumourDiagnosis);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp);
+            SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
+            return false;
+        }
+    }
+
+    public boolean clicksOnAddAnotherLinkForWorkingDiagnosisMorphology() {
+        try {
+            if (!Wait.isElementDisplayed(driver,addAnotherLinkForWorkingDiagnosisMorphology,10)) {
+                Debugger.println("Add Another Link For Working Diagnosis Morphology Link not available : Tumour page");
+                SeleniumLib.takeAScreenShot("AddAnotherLinkForWorkingDiagnosis.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,addAnotherLinkForWorkingDiagnosisMorphology);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Add Another Link For Working Diagnosis Morphology Link not available : Tumour page :" + exp);
+            SeleniumLib.takeAScreenShot("AddAnotherLinkForWorkingDiagnosis.jpg");
+            return false;
+        }
+    }
+
+    public boolean fillWorkingDiagnosis(String morphology) {
+        try {
+            if (workingDiagnosisMorphologyFieldList.size() == 0) {
+                Debugger.println("Working Diagnosis Morphology Field not found");
+                SeleniumLib.takeAScreenShot("WorkingDiagnosisMorphologyField.jpg");
+                return false;
+            }
+            int lastSearchField = workingDiagnosisMorphologyFieldList.size() - 1;
+            Actions.fillInValue(workingDiagnosisMorphologyFieldList.get(lastSearchField), morphology);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println(" Exception from : TumoursPage :answerWorkingDiagnosis: Exception found " + exp);
+            SeleniumLib.takeAScreenShot("WorkingDiagnosis.jpg");
+            return false;
+        }
+    }
 }

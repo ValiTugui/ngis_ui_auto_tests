@@ -53,7 +53,7 @@ Feature: Patient search page_NGIS
       | pageTitle                         | pageTitle2        | patient-type |
       | Add a new patient to the database | Find your patient | NGIS         |
 
-  @NTS-2796 @E2EUI-1472 @v_1 @BVT_P0 @LOGOUT
+  @NTS-2796 @E2EUI-1472 @E2EUI-2137 @v_1 @BVT_P0 @LOGOUT
   Scenario Outline: NTS-2796:patient search - Patient Search Results Page validation
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_SUPER_USER |

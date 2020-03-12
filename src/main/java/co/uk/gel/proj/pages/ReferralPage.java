@@ -8,9 +8,11 @@ import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -295,6 +297,12 @@ public class ReferralPage<check> {
     public WebElement pageBodyElement;
 
     private String incompleteStageInDialogBox = "//*[contains(@class,'referral-header__stage-list')]//a[contains(text(),'" + "dummyValue" + "')]";
+
+    static int referralBannerXLocation, referralBannerYLocation;
+    @FindBy(xpath = "//a[contains(text(),'Report an issue')]")
+    WebElement reportAnIssueOrProvideFeedbackLink;
+    @FindBy(xpath = "//a[contains(text(),'Privacy Policy')]")
+    WebElement privacyPolicyLink;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -1604,4 +1612,94 @@ public class ReferralPage<check> {
         }
     }
 
+    public boolean readTheReferralBannerLocation() {
+        try {
+            if (!Wait.isElementDisplayed(driver,referralHeader,20)) {
+                Debugger.println("Referral header banner is not present.");
+                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+                return false;
+            }
+            //Storing the referral header banner location to verify the position in various pages
+            Point referralHeaderLocation = referralHeader.getLocation();
+            referralBannerXLocation = referralHeaderLocation.getX();
+            referralBannerYLocation = referralHeaderLocation.getY();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheBannerLocation, " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheBannerLocationAtSameLocation() {
+        try {
+            if (!Wait.isElementDisplayed(driver,referralHeader,20)) {
+                Debugger.println("Referral header banner is not present.");
+                SeleniumLib.takeAScreenShot("ReferralHeader.jpg");
+                return false;
+            }
+            Point referralBannerLocation = referralHeader.getLocation();
+            int currentLocationX = referralBannerLocation.getX();
+            int currentLocationY = referralBannerLocation.getY();
+            if (currentLocationX != referralBannerXLocation) {
+                Debugger.println("Referral Banner XLocation has changed...Expected at X:"+referralBannerXLocation+",Actual X:"+currentLocationX);
+                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+                return false;
+            }
+            if (currentLocationY != referralBannerYLocation) {
+                Debugger.println("Referral Banner YLocation has changed...Expected at Y:"+referralBannerYLocation+",Actual Y:"+currentLocationY);
+                SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("ReferralPage: verifyTheBannerLocationAtSameLocation: " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyFeedbackLinkFontColor(String colorValue) {
+        try {
+            if (!Wait.isElementDisplayed(driver,reportAnIssueOrProvideFeedbackLink,20)) {
+                Debugger.println("FeedbackLink/Report an issue present.");
+                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+                return false;
+            }
+            String linkColor = reportAnIssueOrProvideFeedbackLink.getCssValue("color");
+            String linkColorHexValue = TestUtils.convertMonthNumberToMonthForm(colorValue);
+            if (!linkColor.equalsIgnoreCase(linkColorHexValue)) {
+                Debugger.println("Actual font colour of link: " + linkColor + " ,But Expected is: " + linkColorHexValue);
+                SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception verifying verifyFeedbackLinkFontColor:" + exp);
+            SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyPrivacyPolicyLinkFontColor(String colorValue) {
+        try {
+            if (!Wait.isElementDisplayed(driver,privacyPolicyLink,20)) {
+                Debugger.println("Privacy policy link present.");
+                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+                return false;
+            }
+            String actualColor = privacyPolicyLink.getCssValue("color");
+            String expectedColor = TestUtils.convertMonthNumberToMonthForm(colorValue);
+            if (!expectedColor.equalsIgnoreCase(actualColor)) {
+                Debugger.println("Actual link colour is "+actualColor+" ,But Expected "+expectedColor);
+                SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception verifying verifyPrivacyPolicyLinkFontColor:" + exp);
+            SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
+            return false;
+        }
+    }
 }

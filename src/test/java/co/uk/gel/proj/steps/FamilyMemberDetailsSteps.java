@@ -549,5 +549,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the user sees the relationship to proband which was previously selected is same as {string}")
+    public void theUserSeesTheRelationshipToProbandWhichWasPreviouslySelectedIsSameAs(String expectedRelation) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySelectedRelationshipToProband(expectedRelation);
+        Assert.assertTrue(testResult);
+    }
 
 }//end

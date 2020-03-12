@@ -1589,4 +1589,21 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+    public boolean verifySelectedRelationshipToProband(String expectedRelation) {
+        try {
+            Wait.forElementToBeClickable(driver, relationshipToProband);
+            String actualRelationship=relationshipToProband.getText();
+            if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
+                Debugger.println("Relationship to proband: Actual:"+actualRelationship+" ,Expected: "+expectedRelation);
+                SeleniumLib.takeAScreenShot("ReationToProband.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception e) {
+            Debugger.println("Error message not found");
+            SeleniumLib.takeAScreenShot("ReationToProband.jpg");
+            return false;
+        }
+    }
+
 }//ends
