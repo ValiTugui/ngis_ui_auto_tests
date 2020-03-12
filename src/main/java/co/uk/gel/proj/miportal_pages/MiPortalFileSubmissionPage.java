@@ -19,8 +19,6 @@ import java.util.*;
 public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
-    public static NewPatient testData = new NewPatient();
-    static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
     public MiPortalFileSubmissionPage(WebDriver driver) {
@@ -59,9 +57,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@data-id='file_submissions-search-value']")
     public WebElement FileSubmissionSearchValueDropDownButton;
 
-    @FindBy(xpath = "//ul[@class='dropdown-menu inner ']/li//span[text()='GLH']")
-    public WebElement DropDownGLH;
-
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
 
@@ -93,23 +88,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
-        }
-    }
-
-    public boolean searchForCSVFileNameInSearchResults(String csvFilename) {
-        try {
-            String fileNameLocator = "//td[text()=" + csvFilename + "]";
-            WebElement fileNameLocatorElement = null;
-            fileNameLocatorElement = driver.findElement(By.xpath(fileNameLocator));
-            if (Wait.isElementDisplayed(driver, fileNameLocatorElement, 10)) {
-                Debugger.println("FileName is found :" + csvFilename);
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("CSV File " + csvFilename + " not found." + exp);
-            Actions.scrollToTop(driver);
-            SeleniumLib.takeAScreenShot("csvFilenameNotFound.jpg");
-            return false;
         }
     }
 
@@ -181,7 +159,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                         pairs.put(headers.get(i), colVal.get(i));
                     }
                 }
-                System.out.println("Individual rows\n" + pairs + "\n");
+                Debugger.println("Individual rows\n" + pairs + "\n");
                 allRowsData.add(pairs);
             }
             return allRowsData;

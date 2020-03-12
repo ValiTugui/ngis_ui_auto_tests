@@ -19,8 +19,6 @@ import java.util.List;
 public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
-    public static NewPatient testData = new NewPatient();
-    static Faker faker = new Faker();
     SeleniumLib seleniumLib;
 
     public MiPortalHomePage(WebDriver driver) {
@@ -28,8 +26,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-
-    // mi-portal
+    
     @FindBy(xpath = "//a[@data-value='file_submissions']")
     public WebElement fileSubmissionLnk;
 
@@ -57,7 +54,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     //sidebarCollapsed
     @FindBy(id = "sidebarCollapsed")
     public WebElement mainSideBar;     //User attribute to get the value - data-collapsed="false"
-    
+
     @FindBy(xpath = "//ul[contains(string(),'Sample Processing')]")
     public WebElement sampleProcessing;
 
