@@ -312,7 +312,7 @@ public class PatientDetailsPage {
         Actions.fillInValue(addressLine4, patientAddressDetails.get(4));
         newPatient.setPostCode(getRandomUKPostCode());
         Actions.fillInValue(postcode, newPatient.getPostCode());
-        Debugger.println("Expected patient address - List " + patientAddressDetails + " : " + newPatient.getPatientAddress());
+        //Debugger.println("Expected patient address - List " + patientAddressDetails + " : " + newPatient.getPatientAddress());
     }
 
     public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(String reason) {
@@ -1047,23 +1047,10 @@ public class PatientDetailsPage {
 
     public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
         try {
-            Wait.forElementToBeDisplayed(driver, relationshipToProbandDropdown);
-            Actions.clickElement(driver,relationshipToProbandDropdown);
             String actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
             WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
             if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
                 Debugger.println("Relation to Proband element not visible.");
-                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
-                return false;
-            }
-            String recentSuggestion = relationToProbandElement.getText();
-            if(recentSuggestion == null){
-                Debugger.println("Relation to Proband no suggestions present.");
-                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
-                return false;
-            }
-            if (!recentSuggestion.equalsIgnoreCase(expValue)) {
-                Debugger.println("Expected Error Message: " + expValue + ", But Actual is:" + recentSuggestion);
                 SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
                 return false;
             }
