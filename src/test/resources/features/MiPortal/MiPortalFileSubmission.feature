@@ -1,4 +1,4 @@
-
+@miportal
 
 Feature: This is mi-portal fileSubmission
 
@@ -21,7 +21,7 @@ Feature: This is mi-portal fileSubmission
       | mi_stage         | value   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
       | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
-
+    
   @miportal2
   Scenario Outline: verify the drop-down values of file-submission search column
     Given a web browser is at the mi-portal home page
@@ -29,7 +29,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user sees the values in the file-submission search column drop-down menu
+    And the user sees the values in the file-submission search column "file_submissions-search-col" drop-down menu
       | fileSubmissionsSearchColumnHeader |
       | Created                           |
       | Status                            |
@@ -48,7 +48,7 @@ Feature: This is mi-portal fileSubmission
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user sees the values in the search operator drop-down menu
+    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | equals                            |
       | before or on                      |
@@ -67,7 +67,7 @@ Feature: This is mi-portal fileSubmission
     #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user sees the values in the search operator drop-down menu
+    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | is                                  |
       | is one of                           |
@@ -87,7 +87,7 @@ Feature: This is mi-portal fileSubmission
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the file-submission search column drop-down
     And the user selects a search operator "<operator>" from the file-submission search operator drop-down
-    And the user sees the values in the search value drop-down menu
+    And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
       | Duplicate                        |
       | In Progress                      |
@@ -110,7 +110,7 @@ Feature: This is mi-portal fileSubmission
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the file-submission search column drop-down
     And the user selects a search operator "<operator>" from the file-submission search operator drop-down
-    And the user sees the values in the search value drop-down menu
+    And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader  |
       | East Midlands and East of England |
       | London North                      |
@@ -126,3 +126,4 @@ Feature: This is mi-portal fileSubmission
       | mi_stage         | value        | operator |
       | File Submissions | Submitted By | is       |
 #      | File Submissions | Status | is one of |
+

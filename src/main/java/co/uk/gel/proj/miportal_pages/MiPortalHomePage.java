@@ -26,7 +26,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         PageFactory.initElements(driver, this);
         seleniumLib = new SeleniumLib(driver);
     }
-    
+
     @FindBy(xpath = "//a[@data-value='file_submissions']")
     public WebElement fileSubmissionLnk;
 
@@ -105,9 +105,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public List<String> getDropDownValues() {
-        //Actions.clickElement(driver, sampleState);
+    public List<String> getDropDownValues(String dropDownButton) {
         try {
+            By buttonElement;
+            //button[@data-id='file_submissions-search-operator']
+            Wait.seconds(3);
+            buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
+            Actions.clickElement(driver, driver.findElement(buttonElement));
             List<String> actualDropDownValues = new ArrayList<>();
             for (WebElement actualValue : genericDropDropDownValues) {
                 actualDropDownValues.add(actualValue.getText().trim());

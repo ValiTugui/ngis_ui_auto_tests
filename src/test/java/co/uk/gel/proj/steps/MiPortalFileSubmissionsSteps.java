@@ -36,31 +36,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     }
 
-    @And("I perform a search on the mi")
-    public void iPerformASearchOnTheMi() {
-
-        Actions.clickElement(driver, miPortalFileSubmissionPage.fileSubmissionLnk);
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.FileSubmissionSearchDropDownButton, "Created");
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.FileSubmissionSearchOperatorDropDownButton, "equals");
-
-        //Actions.clearField(patientDetailsPage.getFileSubmissionDate);
-        //patientDetailsPage.getFileSubmissionDate.sendKeys("12-02-2020");
-
-        Actions.clickElement(driver,miPortalFileSubmissionPage.addButton);
-        Actions.clickElement(driver,miPortalFileSubmissionPage.searchButton);
-        Wait.seconds(10);
-
-        // String value = miPortalFileSubmissionPage.getAValueOfSearchedResult("ngis_glh_to_gel_sample_sent_wwm_20200212_161046.csv", 10);
-//        String value = miPortalFileSubmissionPage.getAValueOfSearchedResult("LP2723109-DNA_ngis_illumina_to_gel_intake_qc_20200212_170639.csv", 10);
-//        Debugger.println("Values " + value);
-//        Map<String, String>Test = new HashMap<>();
-//         Test =  miPortalFileSubmissionPage.getValuesOfSearchedResult("ngis_glh_to_gel_sample_sent_wwm_20200212_161046.csv");
-//        Test =  miPortalFileSubmissionPage.getValuesOfSearchedResult("LP2723109-DNA_ngis_illumina_to_gel_intake_qc_20200212_170639.csv");
-//        Debugger.println("Test " + Test);
-
-
-    }
-
     @When("the user navigates to the mi-portal {string} stage")
     public void theUserNavigatesToTheMiPortalStage(String miPage) {
        // Actions.clickElement(driver, miPortalFileSubmissionPage.fileSubmissionLnk);
@@ -96,6 +71,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user click on the Search button")
@@ -139,11 +117,10 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the values in the file-submission search column drop-down menu")
-    public void theUserSeesTheValuesInTheFileSubmissionSearchColumnDropDownMenu(DataTable dataTable) {
+    @And("the user sees the values in the file-submission search column {string} drop-down menu")
+    public void theUserSeesTheValuesInTheFileSubmissionSearchColumnDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
-        miPortalFileSubmissionPage.FileSubmissionSearchDropDownButton.click();
-        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
 
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
@@ -151,11 +128,10 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
-    @And("the user sees the values in the search operator drop-down menu")
-    public void theUserSeesTheValuesInTheSearchOperatorDropDownMenu(DataTable dataTable) {
+    @And("the user sees the values in the search operator {string} drop-down menu")
+    public void theUserSeesTheValuesInTheSearchOperatorDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
-        miPortalFileSubmissionPage.FileSubmissionSearchOperatorDropDownButton.click();
-        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
 
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchOperatorHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
@@ -163,13 +139,11 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
-    @And("the user sees the values in the search value drop-down menu")
-    public void theUserSeesTheValuesInTheSearchValueDropDownMenu(DataTable dataTable) {
+    @And("the user sees the values in the search value {string} drop-down menu")
+    public void theUserSeesTheValuesInTheSearchValueDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
        // Wait.seconds(2);
-        miPortalFileSubmissionPage.FileSubmissionSearchValueDropDownButton.click();
-
-        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
             Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"), actualDropDownValues.get(i));

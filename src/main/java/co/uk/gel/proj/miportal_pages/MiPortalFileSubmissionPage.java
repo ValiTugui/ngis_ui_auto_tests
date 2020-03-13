@@ -64,13 +64,16 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement addButton;
 
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span")
-    public WebElement filterCriteria;
+    public WebElement badgeFilterSearchCriteria;
 
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
     public WebElement ClosefilterCriteria;
 
     @FindBy(xpath = "//button[@id='file_submissions-search-search']")
     public WebElement searchButton;
+
+    @FindBy(xpath = "//button[@id='file_submissions-search-reset']")
+    public WebElement resetButton;
 
     @FindBy(id = "file_submissions-display-display_options")
     public WebElement searchResultDisplayOptions;
@@ -167,6 +170,42 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Exception from retrieving data." + exp);
             SeleniumLib.takeAScreenShot("retrieving-search-results.jpg");
             return null;
+        }
+    }
+
+    public boolean resetButtonIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
+            if (Wait.isElementDisplayed(driver, resetButton, 10)) {
+                Debugger.println("reset button is displayed");
+                return true;
+            } else {
+                Debugger.println("reset button element is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("reset button element is not found");
+            SeleniumLib.takeAScreenShot("resetButtonIsNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean badgeFilterSearchCriteriaIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
+            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is displayed");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is not found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
+            return false;
         }
     }
 
