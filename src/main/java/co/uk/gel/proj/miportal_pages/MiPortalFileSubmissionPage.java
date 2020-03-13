@@ -31,7 +31,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement FileSubmissionSearchDropDownButton;
+    public WebElement fileSubmissionSearchDropDownButton;
 
     @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box box-solid box-primary']")
     public WebElement mainSearchContainer;
@@ -52,10 +52,10 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement dropDownFileSubmissionsSearchDropValues1;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
-    public WebElement FileSubmissionSearchOperatorDropDownButton;
+    public WebElement fileSubmissionSearchOperatorDropDownButton;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-value']")
-    public WebElement FileSubmissionSearchValueDropDownButton;
+    public WebElement fileSubmissionSearchValueDropDownButton;
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
@@ -67,7 +67,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement badgeFilterSearchCriteria;
 
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
-    public WebElement ClosefilterCriteria;
+    public WebElement badgeClosefilterCriteria;
 
     @FindBy(xpath = "//button[@id='file_submissions-search-search']")
     public WebElement searchButton;
@@ -94,6 +94,53 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public void fillInTheFileSubmissionDate(String date) {
+        try {
+            Wait.forElementToBeClickable(driver, getFileSubmissionDate);
+            String actualDate = getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
+            if (!date.equals("today") || actualDate.isEmpty()) {
+                Wait.seconds(2);
+                getFileSubmissionDate.click();
+                getFileSubmissionDate.clear();
+                Wait.seconds(3);
+                getFileSubmissionDate.sendKeys(date);
+            }
+            Debugger.println("Get current date : " + getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value"));
+        } catch (Exception exp) {
+            Debugger.println("Exception filling date:" + exp);
+            SeleniumLib.takeAScreenShot("UnableToFillDate.jpg");
+        }
+    }
+
+    public void clickAddButton() {
+        try {
+            Wait.forElementToBeClickable(driver, addButton);
+            Click.element(driver, addButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on addButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
+        }
+    }
+
+    public void clickSearchButton() {
+        try {
+            Wait.forElementToBeClickable(driver, searchButton);
+            Click.element(driver, searchButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on searchButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+        }
+    }
+
+    public void clickResetButton() {
+        try {
+            Wait.forElementToBeClickable(driver, resetButton);
+            Click.element(driver, resetButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on resetButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoResetButton.jpg");
+        }
+    }
 
     public String getAValueOfSearchedResult(String filterCriteria, int index) {
         String locator = "//td[text()='" + filterCriteria + "']/../td[" + index + "]";
@@ -205,6 +252,42 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("badge search criteria element is not found");
             SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheElementsOnFileSubmissionPage() {
+        Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(searchBoxHeader);
+        expectedElements.add(fileSubmissionSearchDropDownButton);
+        expectedElements.add(fileSubmissionSearchOperatorDropDownButton);
+        expectedElements.add(getFileSubmissionDate);
+        expectedElements.add(addButton);
+        expectedElements.add(searchButton);
+        expectedElements.add(resetButton);
+
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is NOT displayed as expected");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
             return false;
         }
     }

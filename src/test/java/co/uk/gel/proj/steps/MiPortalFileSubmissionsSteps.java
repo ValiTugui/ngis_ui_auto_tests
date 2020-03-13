@@ -45,18 +45,18 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user selects a value {string} from the file-submission search column drop-down")
     public void theUserSelectsAValueFromTheFileSubmissionSearchColumnDropDown(String value) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.FileSubmissionSearchDropDownButton, value);
+        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchDropDownButton, value);
     }
 
 
     @And("the user selects a search operator {string} from the file-submission search operator drop-down")
     public void theUserSelectsASearchOperatorFromTheFileSubmissionSearchOperatorDropDown(String searchOperator) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.FileSubmissionSearchOperatorDropDownButton, searchOperator);
+        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchOperatorDropDownButton, searchOperator);
     }
 
     @And("the user enters a date {string} in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
-
+        miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
         Wait.seconds(2);
         miPortalFileSubmissionPage.getFileSubmissionDate.click();
         miPortalFileSubmissionPage.getFileSubmissionDate.clear();
@@ -66,7 +66,8 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user clicks on Add criteria button")
     public void theUserClicksOnAddCriteriaButton() {
-        Actions.clickElement(driver,miPortalFileSubmissionPage.addButton);
+       miPortalFileSubmissionPage.clickAddButton();
+       Wait.seconds(1);
     }
 
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
@@ -78,7 +79,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @When("the user click on the Search button")
     public void theUserClickOnTheSearchButton() {
-        Actions.clickElement(driver,miPortalFileSubmissionPage.searchButton);
+        miPortalFileSubmissionPage.clickSearchButton();
         Wait.seconds(5);
     }
 
@@ -149,5 +150,26 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"), actualDropDownValues.get(i));
         }
 
+    }
+
+
+    @Then("the file-submission page displays the search header, drop-down - column, operator, and value, add, search and reset buttons")
+    public void theFileSubmissionPageDisplaysTheSearchHeaderDropDownColumnOperatorAndValueAddSearchAndResetButtons() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyTheElementsOnFileSubmissionPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user click on the reset button")
+    public void theUserClickOnTheResetButton() {
+        miPortalFileSubmissionPage.clickResetButton();
+    }
+
+
+    @Then("the search criteria badge disappears")
+    public void theSearchCriteriaBadgeDisappears() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        Assert.assertTrue(testResult);
     }
 }
