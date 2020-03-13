@@ -1348,7 +1348,7 @@ public class PatientChoicePage {
         try {
             String formLinkPath = formSection.replaceAll("dummySection", sectionName);
             WebElement formLinkElement = driver.findElement(By.xpath(formLinkPath));
-            if (!formLinkElement.isDisplayed()) {
+            if (!Wait.isElementDisplayed(driver,formLinkElement,10)) {
                 Debugger.println("Section:" + sectionName + " Not present under Form Library in Patient Choice");
                 SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
                 return false;
@@ -1369,13 +1369,13 @@ public class PatientChoicePage {
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
                 if (supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)) {
                     //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
-                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
+                    Actions.retryClickAndIgnoreElementInterception(driver,supportingInformationLinks.get(i));
                     Wait.seconds(3);//Wait for three second to Load the form.
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
                     Actions.scrollToTop(driver);
-                    formLiraryBackButton.click();
+                    Actions.clickElement(driver,formLiraryBackButton);
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }

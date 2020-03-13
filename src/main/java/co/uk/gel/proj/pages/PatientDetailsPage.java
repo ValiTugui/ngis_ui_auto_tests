@@ -613,8 +613,23 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyReferralStatus(String expectedStatus) {
-        Wait.forElementToBeDisplayed(driver, referralStatus, 200);
-        return expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus));
+        try {
+            if(!Wait.isElementDisplayed(driver,referralStatus,100)){
+                Debugger.println("Referral status is not displayed....");
+                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
+                return false;
+            }
+            if(!expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus))){
+                Debugger.println("Referral status expected:"+expectedStatus+",Actual:"+Actions.getText(referralStatus));
+                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyReferralStatus:"+exp);
+            SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
+            return false;
+        }
     }
 
     public boolean verifyReferralReason(String expectedReason) {
