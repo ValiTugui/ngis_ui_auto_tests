@@ -361,7 +361,9 @@ public class ReferralSteps extends Pages {
     }
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
-        referralPage.clicksOnCancelReferralLink();
+        boolean testResult = false;
+        testResult = referralPage.clicksOnCancelReferralLink();
+        Assert.assertTrue(testResult);
     }
     
     @Then("the message should display as {string}")
@@ -372,12 +374,16 @@ public class ReferralSteps extends Pages {
     }
     @And("the user submits the cancellation")
     public void theUserSubmitsTheCancellation() {
-        referralPage.submitCancellation();
+        boolean testResult = false;
+        testResult = referralPage.submitCancellation();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the cancellation reason {string} from the modal")
     public void theUserSelectsTheCancellationReasonFromTheModal(String cancellationReasonText) {
-        referralPage.selectCancellationReason(cancellationReasonText);
+        boolean testResult = false;
+        testResult = referralPage.selectCancellationReason(cancellationReasonText);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the referral is successfully {string} with reason {string}")

@@ -41,8 +41,9 @@ Feature: Print Forms - Validations
     ###Patient Details- cancelling referral
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Cancel referral link
+    ##Title,Question,Warning,button1,button2
     Then the cancel referral dialog box is displayed with the following fields
-      | FieldText                                    |
+      | Dialog Contents                              |
       | Please enter the reason for the cancellation |
       | Why do you want to cancel this referral?     |
       | Cancelling a referral can’t be undone        |
@@ -77,7 +78,7 @@ Feature: Print Forms - Validations
   @NTS-4702 @E2EUI-1787 @LOGOUT
   Scenario Outline:NTS-4702: scenario_2: View cancelled referral
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54  |Rare Disease|GEL_SUPER_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | Rare Disease | GEL_SUPER_USER |
     ##Patient Search Page
     When the user is navigated to a page with title Find your patient
     When the user types in valid details of a "NGIS" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields

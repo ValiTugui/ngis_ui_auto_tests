@@ -167,7 +167,7 @@ Feature: Family Members Details Page - Field Validation_2
     And the user is navigated to a page with title Add a new patient to the database
     When the user selects the Relationship to proband as "<RelationshipToProband>"
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<relationShipType>" with recently used suggestion values
+    And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
       | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband | relationShipType |
@@ -181,19 +181,12 @@ Feature: Family Members Details Page - Field Validation_2
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
-    Examples:
-      | FamilyMembers  |
-      | Family members |
-
-  @NTS-4053 @E2EUI-2474 @LOGOUT @v_1 @P0 @scenario_4
-  Scenario Outline: NTS-4053: To verify that Auto filled should not be enabled for panels search box
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<Panels>" stage
-    Then User clicks on a field "searchbox" and auto-complete is disabled
+    Then User clicks on a field "panelsSearchBox" and auto-complete is disabled
     Examples:
-      | Panels |
-      | Panels |
+      | FamilyMembers  |Panels |
+      | Family members |Panels |
+
   @NTS-4053 @E2EUI-2474 @v_1 @P0 @scenario_5
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

@@ -146,7 +146,9 @@ public class PrintFormSteps extends Pages {
     @Then("the cancel referral dialog box is displayed with the following fields")
     public void theCancelReferralDialogBoxIsDisplayedWithTheFollowingFields(DataTable fieldDetails) {
         boolean testResult = false;
-        testResult = referralPage.validateCancelReferralDialog(fieldDetails);
+        List<List<String>> contents = fieldDetails.asLists();
+        //Title,Question,Warning,button1,button2
+        testResult = referralPage.validateCancelReferralDialog(contents.get(1).get(0),contents.get(2).get(0),contents.get(3).get(0),contents.get(4).get(0),contents.get(5).get(0));
         Assert.assertTrue(testResult);
     }
 

@@ -363,11 +363,14 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
-        String[] textFieldElements = allTextFields.split(":");  // Split all textFieldElement
-        for (String eachElement : textFieldElements) {
-            Debugger.println("Show eachElement: " + eachElement);
+        String[] textFieldElements = null;
+        if(allTextFields.indexOf(":") != -1) {
+            textFieldElements = allTextFields.split(":");  // Split all textFieldElement
+        }else{//If only one field is present
+            textFieldElements = new String[]{allTextFields};
         }
-        patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        boolean testResult = patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        Assert.assertTrue(testResult);
     }
 
 
