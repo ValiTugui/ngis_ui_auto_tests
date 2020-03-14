@@ -300,6 +300,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//a[contains(text(),'Privacy Policy')]")
     WebElement privacyPolicyLink;
 
+    @FindBy(xpath = "//button[contains(text(),'Try again')]")
+    public WebElement tryAgain;
+
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
         Wait.forElementToBeDisplayed(driver, toDoList, 120);
@@ -320,6 +323,10 @@ public class ReferralPage<check> {
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
+            //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
+            if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
+                Actions.clickElement(driver,tryAgain);
+            }
             if (helix.size() > 0) {
                 try {
                     Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));

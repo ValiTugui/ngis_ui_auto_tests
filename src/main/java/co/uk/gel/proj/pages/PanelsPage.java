@@ -293,18 +293,18 @@ public class PanelsPage {
     //Created this method separately for PanelsPage as in PanelsPage,as using from Referral Page was giving errors continuously
     public boolean clicksOnSaveAndContinueButtonOnPanelsPage() {
         try {
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)) {
+            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
                 Debugger.println("Save and Continue Button not visible in Panels Page after 120 seconds. Failing.");
                 return false;
             }
-            seleniumLib.clickOnWebElement(saveAndContinueButton);
+            Actions.clickElement(driver,saveAndContinueButton);
             Wait.seconds(2);
             //Again checking for the presence of button as some times , click not happening at first time.
-            if (seleniumLib.isElementPresent(saveAndContinueButton)) {//If still present
-                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            if (Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {//If still present
+                Actions.clickElement(driver,saveAndContinueButton);
             }
-            if (seleniumLib.isElementPresent(tryAgain)) {
-                seleniumLib.clickOnWebElement(tryAgain);
+            if (Wait.isElementDisplayed(driver, tryAgain, 30)) {
+                Actions.clickElement(driver,tryAgain);
             }
             if (helix.size() > 0) {
                 try {

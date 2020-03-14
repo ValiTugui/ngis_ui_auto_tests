@@ -655,7 +655,6 @@ public class PatientChoicePage {
             List<WebElement> probandTestedList = seleniumLib.getElements(By.xpath(probandBeingTested));
             if (probandTestedList == null || probandTestedList.size() != (noOfPatients * 2)) {
                 Debugger.println("Expected Presence of Proband and Being Tested Information for " + noOfPatients + " patients in  Patient ChoicePage.");
-                Actions.scrollToTop(driver);
                 SeleniumLib.takeAScreenShot("probandTested.jpg");
                 return false;
             }
