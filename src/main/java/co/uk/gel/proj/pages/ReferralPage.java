@@ -510,7 +510,7 @@ public class ReferralPage<check> {
             //In case of failure, trying another way
             String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
             WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if (Wait.isElementDisplayed(driver, completedMarkElement, 200)) {
+            if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
                 return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
@@ -521,14 +521,14 @@ public class ReferralPage<check> {
                 //In case of failure due to element not found exception, stale exception etc, trying another way with a wait time of 30 seconds
                 String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
                 WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-                if (Wait.isElementDisplayed(driver, completedMarkElement, 200)) {
+                if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
                     return true;
                 }
                 Debugger.println("Exception in Checking Stage Completion Status: " + exp);
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             } catch (Exception exp1) {
-                Debugger.println("Exception in Checking Stage Completion Status: " + exp);
+                Debugger.println("Exception1 in Checking Stage Completion Status: " + exp);
                 SeleniumLib.takeAScreenShot("StageComplete.jpg");
                 return false;
             }

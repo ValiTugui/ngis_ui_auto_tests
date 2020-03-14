@@ -249,10 +249,10 @@ public class FamilyMemberDetailsPage {
     String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css-')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
     String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
-    String bornInformation = "//span[contains(@id,'dateOfBirth')]";
-    String genderInformation = "//span[contains(@id,'gender')]";
-    String nhsNumberInformation = "//span[contains(@id,'nhsNumber')]";
-    String ngsIdInformation = "//span[contains(@id,'ngisId')]";
+    String bornInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'dateOfBirth')]";
+    String genderInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'gender')]";
+    String nhsNumberInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'nhsNumber')]";
+    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'ngisId')]";
     String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
     String editButtonInformation = "//button[@aria-label='edit button']";
     String removeButtonInformation = "//button[@aria-label='remove button']";
@@ -921,7 +921,7 @@ public class FamilyMemberDetailsPage {
             List<WebElement> bornList = seleniumLib.getElements(By.xpath(bornInformation));
             if (bornList == null || bornList.size() != noOfPatients) {
                 Debugger.println("Expected Presence of Born Information for " + noOfPatients + " patients in  Family Member Landing Page.");
-                SeleniumLib.takeAScreenShot("bornInfo.jpg");
+                SeleniumLib.takeAScreenShot("bornInfo111.jpg");
                 return false;
             }
             Wait.seconds(2);

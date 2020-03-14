@@ -265,7 +265,9 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
     @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
     public void theUserShouldBeAbleToSeePatientDetailsONFMLandingPage() {
-        familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
+        Assert.assertTrue(testResult);
 
     }
     @And("the user reads the patient details in family member landing page")
