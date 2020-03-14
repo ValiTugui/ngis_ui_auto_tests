@@ -187,13 +187,13 @@ Feature: Family Members Details Page - Field Validation_2
       | FamilyMembers  |Panels |
       | Family members |Panels |
 
-  @NTS-4053 @E2EUI-2474 @v_1 @P0 @scenario_5
+  @NTS-4053 @E2EUI-2474 @LOGOUT @v_1 @P0 @scenario_5
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
-    Then User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
+    And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
     Examples:
       | stage   |
       | Tumours |
