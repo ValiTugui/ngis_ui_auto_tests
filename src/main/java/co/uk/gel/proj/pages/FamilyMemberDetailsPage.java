@@ -415,7 +415,6 @@ public class FamilyMemberDetailsPage {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
-
         if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
             Debugger.println("Updating Disease Status ....");
             try {
@@ -827,13 +826,10 @@ public class FamilyMemberDetailsPage {
                     break;
                 }
             }
-            if (!isPresent) {
-                Debugger.println("Expected Message:" + expMessage + " not present.");
-                SeleniumLib.takeAScreenShot("MessageNotPresent.jpg");
-            }
             return isPresent;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying unmatchedParticipantErrorMessage:" + exp);
+            Debugger.println("Exception in verifying unmatchedParticipantErrorMessage: Check WarningMessageNotPresent.jpg" + exp);
+            SeleniumLib.takeAScreenShot("WarningMessageNotPresent.jpg");
             return false;
         }
     }

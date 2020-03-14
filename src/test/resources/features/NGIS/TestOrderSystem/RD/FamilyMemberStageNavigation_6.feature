@@ -32,19 +32,21 @@ Feature: Family Members Navigation Stage 6
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
-    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     And the referral submit button is not enabled
-    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     And the user reads the patient details in family member landing page
-    And the user clicks the Save and Continue button
     And the referral submit button is not enabled
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
     And the user reads the patient details in patient choice page
     And the user should see same set of family member identifiers in family member landing page and patient choice page

@@ -418,8 +418,14 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
         if (expStatus.equalsIgnoreCase("get")) {
+            if(!testResult){
+                SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+            }
             Assert.assertTrue(testResult);
         }else {
+            if(testResult){
+                SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+            }
             Assert.assertFalse(testResult);
         }
     }
