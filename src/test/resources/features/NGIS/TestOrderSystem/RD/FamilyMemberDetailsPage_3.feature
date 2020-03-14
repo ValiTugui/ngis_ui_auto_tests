@@ -70,5 +70,35 @@ Feature: Family Members Details Page - Flow validation
     And the "<FamilyMembers>" stage is marked as Mandatory To Do
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | FamilyMembers  | Patient Choice | Message                      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                      | ClinicalQuestionDetails                | TestType                        | RecordedBy                            | PatientChoice                  | YesOption | IncompleteSection |
-      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test | Yes       | Family members    |
+      | Requesting organisation | ordering_entity_name | NoOfParticipants | FamilyMembers  | Patient Choice | Message                      | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                      | ClinicalQuestionDetails                |
+      | Requesting organisation | Queen                | 2                | Family members | Patient choice | There is missing information | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | DiseaseStatus=Unknown:AgeOfOnset=01,02 |
+
+  @NTS-4413 @E2EUI-833 @E2EUI-1880 @LOGOUT @Scenario1
+  Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user should be able to see trio family icon in test package
+
+    Examples:
+      | TestPackage  |
+      | Test package |
+
+  @NTS-4413 @E2EUI-833 @LOGOUT @Scenario2
+  Scenario Outline: NTS-4413 : Change 'Trio Pedigree' icon as it is upside down
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
+    When the user types in the CI term  in the search field and selects the first result from the results list
+      | R105 |
+    And the user clicks the Start Test Order Referral button
+    And the user clicks the PDF order form button
+    Then the user is navigated to a page with title Add a requesting organisation
+    When the user enters the keyword "<ordering_entity_name>" in the search field
+    And the user selects a random entity from the suggestions list
+    And the user clicks on Continue Button
+    Then the user should be able to sees trio family icon in review test selection
+    Examples:
+      | ordering_entity_name |
+      | Maidstone            |
