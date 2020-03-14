@@ -151,21 +151,3 @@ Feature: Family Members Navigation Stage - Member additions
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | PatientDetails  | DiseaseStatusDetails     |
       | Family members | Test package | 2                | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | Patient details | DiseaseStatus=Unaffected |
-
-  @NTS-3503 @E2EUI-1898 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3503: Verify the test selection page by creating a new patient from the family members stage
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                |
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And the user clicks on a test that is selected and the test is no longer selected
-
-    Examples:
-      | NoOfParticipants | FamilyMembers  |
-      | 2                | Family members |

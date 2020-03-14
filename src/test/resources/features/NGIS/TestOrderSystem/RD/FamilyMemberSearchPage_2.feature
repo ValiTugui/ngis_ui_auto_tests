@@ -2,7 +2,7 @@
 @TO_RD
 @FamilyMemberSearchPage
 
-Feature: Family Members Search Page - Field Validation_3
+Feature: Family Members Search Page - Field Validation_2
 
   @NTS-3328 @E2EUI-841 @v_1 @P0
   Scenario Outline: NTS-3328: Find the family member page validation with NHS selected as YES: Entered incorrect date of birth field
