@@ -3,7 +3,7 @@
 @FamilyMemberStageNavigation
 @FamilyMemberStageNavigation_globalPatientInformation
 
-Feature: Global Patient Information Bar on Family Members Navigation Stage Navigation
+Feature: Family Members Navigation Stage 6
 
   @NTS-3329 @E2EUI-1665 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3329: Verify Global patient information bar component

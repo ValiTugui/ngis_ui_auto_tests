@@ -84,9 +84,9 @@ public class PatientChoicePage {
     String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
     String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
-    String bornInformation = "//span[contains(@id,'dateOfBirth')]";
-    String genderInformation = "//span[contains(@id,'gender')]";
-    String ngsIdInformation = "//span[contains(@id,'ngisId')]";
+    String bornInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'dateOfBirth')]";
+    String genderInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'gender')]";
+    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'ngisId')]";
     String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
     String editButtonInformation = "//button[@aria-label='edit button']";
 
@@ -637,12 +637,12 @@ public class PatientChoicePage {
             if (patientLists != null) {
                 noOfPatients = patientLists.size();
             }
-
             if (noOfPatients != FamilyMemberDetailsPage.noOfPatientsForIdentification) {
                 Debugger.println("No of Patients Information Present in FamilyMember Landing Page and Patient Choice Page is not matching.");
                 SeleniumLib.takeAScreenShot("PatientListChoicePage.jpg");
                 return false;
             }
+            Actions.scrollToTop(driver);
             Wait.seconds(2);
             //Debugger.println("Validating Information of " + noOfPatients + " Patients in Patient Choice Page.");
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
@@ -655,34 +655,35 @@ public class PatientChoicePage {
             List<WebElement> probandTestedList = seleniumLib.getElements(By.xpath(probandBeingTested));
             if (probandTestedList == null || probandTestedList.size() != (noOfPatients * 2)) {
                 Debugger.println("Expected Presence of Proband and Being Tested Information for " + noOfPatients + " patients in  Patient ChoicePage.");
+                Actions.scrollToTop(driver);
                 SeleniumLib.takeAScreenShot("probandTested.jpg");
                 return false;
             }
             Wait.seconds(2);
             List<WebElement> bornList = seleniumLib.getElements(By.xpath(bornInformation));
             if (bornList == null || bornList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of Born Information for " + noOfPatients + " patients in  Patient Choice Page.");
+                Debugger.println("Expected Presence of Born Information for " + noOfPatients + " patients in  Patient Choice Page.Actual:"+bornList.size());
                 SeleniumLib.takeAScreenShot("bornInfo.jpg");
                 return false;
             }
             Wait.seconds(2);
             List<WebElement> genderList = seleniumLib.getElements(By.xpath(genderInformation));
             if (genderList == null || genderList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of Gender Information for " + noOfPatients + " patients in  Patient Choice Page.");
+                Debugger.println("Expected Presence of Gender Information for " + noOfPatients + " patients in  Patient Choice Page. Actual:"+genderList.size());
                 SeleniumLib.takeAScreenShot("genderInfo.jpg");
                 return false;
             }
             Wait.seconds(2);
             List<WebElement> ngisList = seleniumLib.getElements(By.xpath(ngsIdInformation));
             if (ngisList == null || ngisList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of NGSID Information for " + noOfPatients + " patients in  Patient Choice Page.");
+                Debugger.println("Expected Presence of NGSID Information for " + noOfPatients + " patients in  Patient Choice Page.Actual:"+ngisList.size());
                 SeleniumLib.takeAScreenShot("ngsInfo.jpg");
                 return false;
             }
             Wait.seconds(2);
             List<WebElement> pchoiceList = seleniumLib.getElements(By.xpath(patientChoiceInformation));
             if (pchoiceList == null || pchoiceList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of PatientChoice Information for " + noOfPatients + " patients in  Patient Choice Page.");
+                Debugger.println("Expected Presence of PatientChoice Information for " + noOfPatients + " patients in  Patient Choice Page."+pchoiceList.size());
                 SeleniumLib.takeAScreenShot("pchoiceInfo.jpg");
                 return false;
             }

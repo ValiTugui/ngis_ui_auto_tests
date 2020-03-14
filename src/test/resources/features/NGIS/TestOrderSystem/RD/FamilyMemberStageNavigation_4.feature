@@ -1,9 +1,9 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_patientIdentifier
+@FamilyMemberStageNavigation_4
 
-Feature: Family Members Navigation Stage - Patient Identifiers
+Feature: Family Members Navigation Stage 4
 
   @NTS-3243 @E2EUI-1287 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3243: Verify the Family Members stage Navigation Flow
@@ -45,7 +45,7 @@ Feature: Family Members Navigation Stage - Patient Identifiers
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | FamilyMemberDetails                                               | DiseaseStatusDetails                                            |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | NHSNumber=NA:DOB=11-02-2004:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
-  @NTS-3299 @E2EUI-1698 @LOGOUT @v_1 @P0
+  @NTS-3299 @E2EUI-1698 @E2EUI-1898 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3299: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1959:Gender=Male |

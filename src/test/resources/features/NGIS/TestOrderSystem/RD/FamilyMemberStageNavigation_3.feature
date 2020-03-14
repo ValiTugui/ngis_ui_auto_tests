@@ -1,9 +1,9 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_mismatchFM
+@FamilyMemberStageNavigation_3
 
-Feature: Family Members Navigation Stage - Varying Members addition and removal
+Feature: Family Members Navigation Stage 3
 
   @NTS-3309 @E2EUI-1539 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected

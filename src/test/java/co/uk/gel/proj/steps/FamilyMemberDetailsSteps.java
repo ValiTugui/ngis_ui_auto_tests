@@ -201,7 +201,7 @@ public class FamilyMemberDetailsSteps extends Pages {
     }
 
     @And("the user should be able to see the patient identifiers (.*) patient")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage(String patientNo) {
+    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFMLandingPage(String patientNo) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
         Assert.assertTrue(testResult);
@@ -264,7 +264,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
     @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
-    public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
+    public void theUserShouldBeAbleToSeePatientDetailsONFMLandingPage() {
         familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
 
     }

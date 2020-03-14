@@ -1251,6 +1251,7 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("NoPatientList.jpg");
                 return false;
             }
+            noOfPatientsForIdentification = noOfPatients;//To validate later on Patient Choice Page
             Wait.seconds(2);
             List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
             if (nameList == null || nameList.size() != Integer.parseInt(patientNo)) {

@@ -103,7 +103,7 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient identifiers on patient choice page similar as in family member landing page")
+    @And("the user should be able to see the same number patient identifiers in FM landing and Patient Choice Landing Page")
     public void theUserShouldBeAbleToSeeThePatientIdentifiersOnPatientChoicePage() {
         boolean testResult = false;
         testResult = patientChoicePage.verifyPatientIdentifiersInPatientChoicePage();

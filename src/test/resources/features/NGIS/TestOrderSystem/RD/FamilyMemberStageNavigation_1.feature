@@ -1,8 +1,8 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_addFM
-Feature: Family Members Navigation Stage - Member additions
+@FamilyMemberStageNavigation_1
+Feature: Family Members Navigation Stage 1
 
   @NTS-3295 @E2EUI-1279 @E2EUI-1362 @E2EUI-1581 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-3295: Verify the family members page layout

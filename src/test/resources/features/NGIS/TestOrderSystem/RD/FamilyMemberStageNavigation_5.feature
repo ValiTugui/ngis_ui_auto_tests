@@ -1,8 +1,8 @@
 @regression
 @TO_RD
 @FamilyMemberStageNavigation
-@FamilyMemberStageNavigation_addFM
-Feature: Family Members Navigation Stage - Relation ship tp Proband
+@FamilyMemberStageNavigation_5
+Feature: Family Members Navigation Stage 5
 
   @NTS-3503 @E2EUI-1897 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3503: Verify Relationship to proband field in the family member's details page is cleared when submitting the Patient Details stage
@@ -40,23 +40,18 @@ Feature: Family Members Navigation Stage - Relation ship tp Proband
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 | RelationshipToProband | PatientDetails  | DiseaseStatusDetails     |
       | Family members | Test package | 2                | NHSNumber=9449305552:DOB=20-09-2008 | Full Sibling          | Patient details | DiseaseStatus=Unaffected |
 
-
-
-  @NTS-3503 @E2EUI-1898 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3503: Verify the test selection page by creating a new patient from the family members stage
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
-    When the user navigates to the "<FamilyMembers>" stage
+  @NTS-3339 @E2EUI-1791 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3339: Update PatientList component in family member section to use PatientIdentifiers
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1951:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<Family Members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Add family member button
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband |
-      | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                |
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And the user clicks on a test that is selected and the test is no longer selected
+    And the user should be able to see the patient identifiers 1 patient
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    And the user should be able to see the same number patient identifiers in FM landing and Patient Choice Landing Page
 
     Examples:
-      | NoOfParticipants | FamilyMembers  |
-      | 2                | Family members |
-
+      | Family Members | Patient choice stage |
+      | Family members | Patient choice       |
