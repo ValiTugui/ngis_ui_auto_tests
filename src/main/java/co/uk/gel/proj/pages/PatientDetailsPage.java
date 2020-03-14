@@ -864,8 +864,9 @@ public class PatientDetailsPage {
             //Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
             familyMember.setTITLE("Mr");
-            familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
-            familyMember.setLAST_NAME(TestUtils.getRandomLastName());
+            //Name without single appostrophe
+            familyMember.setFIRST_NAME(TestUtils.getRandomFirstName().replaceAll("'",""));
+            familyMember.setLAST_NAME(TestUtils.getRandomLastName().replaceAll("'",""));
             familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
             familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
