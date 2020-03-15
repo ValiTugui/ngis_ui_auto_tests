@@ -1,7 +1,7 @@
 @regression
 @patientChoice
-@patientChoice_child
-Feature: Patient Choice Edit Paper Form - Child
+@patientChoice_4
+Feature: Patient Choice-4 Edit Paper Form - Child
 
   @NTS-3428 @E2EUI-2041 @E2EUI-1392 @v_1 @P0
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
@@ -264,3 +264,51 @@ Feature: Patient Choice Edit Paper Form - Child
     Examples:
       | Parent/Guardian signature          |
       | FirstName=WILTON:LastName=BRITTAIN |
+
+  @NTS-4603 @E2EUI-1892 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-4603: Moving the warn message to research section
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<Patient choice stage>" stage
+    Then the user is navigated to a page with title Patient choice
+    And the user selects the proband
+    When the user selects the option Child in patient choice category
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    When the user is in the section Recorded by
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the user is in the section Patient choices
+    Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Parent(s) / guardian changed their mind about the clinical test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the user clicks on Continue Button
+    When the user is in the section Child assent
+    Then the user should see the question displayed as Does the child agree to participate in research?
+    When the user selects the option No for the question Does the child agree to participate in research?
+    And the user clicks on Continue Button
+    And the user clicks on submit patient choice Button
+    And the user should be able to see the patient choice form with success message
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Patient choice
+    ###Again editing the Proband
+    And the user selects the proband
+    And the user is navigated to a page with title Add patient choice information
+    Then the user will see a warning message "<WarningMessage>"
+    And the user clicks on the amend patient choice button
+    When the user selects the option Adult (With Capacity) in patient choice category
+    When the user selects the option Cancer (paired tumour normal) – WGS in section Test type
+    And the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    Then the user is in the section Patient choices
+    Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Patient has agreed to the test for the question Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    And the user selects the option Yes for the question Has research participation been discussed?
+    And the user selects the option Yes for the question The patient agrees that their data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Patient signature
+    And the user fills PatientSignature details in patient signature
+    And the user clicks on submit patient choice Button
+
+    Examples:
+      | Patient choice stage | RecordedBy                              | WarningMessage                                                                                                                                                                              |
+      | Patient choice       | ClinicianName=Johny:HospitalNumber=1234 | A patient choice record currently exists for this test referral ID. You may create another to override the current record by clicking the 'Amend patient choice for referral' button below. |

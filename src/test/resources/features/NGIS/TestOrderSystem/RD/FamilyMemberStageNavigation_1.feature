@@ -67,29 +67,6 @@ Feature: Family Members Navigation Stage 1
       | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           |
       | Family members | NHSNumber=NA:DOB=25-12-2000:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested |
 
-  @NTS-3322 @E2EUI-1509 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-3322: Verify family members has completed in to-do list
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1955:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    When the user selects the number of participants as "<Two>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
-    When the user navigates to the "<FamilyMember>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<Two>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the user is navigated to a page with title Add a family member to this referral
-
-    Examples:
-      | FamilyMember   | TestPackage  | Two |
-      | Family members | Test package | 2   |
-
-
   @NTS-4801 @E2EUI-1106 @LOGOUT @BVT_P0 @v_1
   Scenario Outline: NTS-4801 - Family members add page - Add non-nullable validation for system fields
     Given a new patient referral is created with associated tests in Test Order System online service

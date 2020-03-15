@@ -1,7 +1,7 @@
 @regression
 @patientChoice
-@patientChoice_consentAdultWithCapacity
-Feature: Patient Choice ConsentScenario - Adult with Capacity
+@patientChoice_1
+Feature: Patient Choice-1 - Adult with Capacity
 
   @NTS-3434 @E2EUI-1447 @v_1 @P0
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
@@ -179,3 +179,30 @@ Feature: Patient Choice ConsentScenario - Adult with Capacity
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
+
+
+  @NTS-3449 @E2EUI-989 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    When the user navigates to the "<FamilyMembers>" stage
+    And the user clicks on Add family member button
+    And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the patient card displays with Born,Gender and NHS No details
+    When the user clicks on the patient card
+    Then the user is navigated to a page with title Confirm family member details
+    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
+    And the user deselects the test
+    And the user clicks the Save and Continue button
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    And the user sees the test badge status for family member as Not being tested
+    When the user navigates to the "<PatientChoice>" stage
+    Then the user is navigated to a page with title Patient choice
+    And the user sees the test badge status for family member as Not being tested
+    ##Family member details validation covered in E2EUI-1583
+    Examples:
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | PatientChoice  |
+      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | Patient choice |

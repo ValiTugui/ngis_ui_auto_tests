@@ -492,6 +492,18 @@ public class ReferralPage<check> {
 
     public boolean stageIsCompleted(String stage) {
         try {
+            if(!Wait.isElementDisplayed(driver,toDoList,120)){
+                Debugger.println("TODO LIST IS NOT LOADED IN 120 SECONDS !!!!");
+                //Do scroll up on page
+                Actions.scrollToTop(driver);
+            }
+            //In case of failure, trying another way
+            String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
+            WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
+            if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
+                return true;
+            }
+
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             Wait.seconds(2);
@@ -506,12 +518,6 @@ public class ReferralPage<check> {
                 if (completedIcon.size() == 1) {
                     return true;
                 }
-            }
-            //In case of failure, trying another way
-            String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
-            WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
-            if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
-                return true;
             }
             Debugger.println("Status of Stage.." + stage + " is: " + referralStage.getAttribute("class") + ", but expected to be complete.");
             SeleniumLib.takeAScreenShot("StageComplete.jpg");

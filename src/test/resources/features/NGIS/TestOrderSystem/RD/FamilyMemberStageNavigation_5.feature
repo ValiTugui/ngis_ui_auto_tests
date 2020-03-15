@@ -47,11 +47,35 @@ Feature: Family Members Navigation Stage 5
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Family Members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
-    And the user should be able to see the patient identifiers 1 patient
+    And The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for "<PatientDetail>"
     When the user navigates to the "<Patient choice stage>" stage
     Then the user is navigated to a page with title Patient choice
-    And the user should be able to see the same number patient identifiers in FM landing and Patient Choice Landing Page
+    And the user should be able to see the details of same patient "<PatientDetail>" in Patient Choice Landing Page
 
     Examples:
-      | Family Members | Patient choice stage |
-      | Family members | Patient choice       |
+      | Family Members | Patient choice stage |PatientDetail|
+      | Family members | Patient choice       |NHSNumber=NA:DOB=25-10-1951|
+
+
+  @NTS-3322 @E2EUI-1509 @LOGOUT @v_1 @P0
+  Scenario Outline: NTS-3322: Verify family members has completed in to-do list
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1955:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    When the user selects the number of participants as "<Two>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    And the "<TestPackage>" stage is marked as Completed
+    When the user navigates to the "<FamilyMember>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<Two>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    Then the "<FamilyMember>" stage is marked as Completed
+
+    Examples:
+      | FamilyMember   | TestPackage  | Two |
+      | Family members | Test package | 2   |
+

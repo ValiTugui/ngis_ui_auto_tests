@@ -64,22 +64,24 @@ Feature: Family Members Navigation Stage 2
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
+    Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for "<FamilyMemberDetails>"
     And subtitle of the page displayed as Tested family members you add here will be visible in the pedigree.
     And subtitle links as add non-tested family members
-    And the family member status "<TestStatus>" Marked in "<color>"
+    And the test status Being tested Marked in #e5f6f5
+    And the test status Not being tested Marked in #fdf3e5
     And The user should be able to view patient choice status for all the family members added.
     And The user also should see the Add Family Member button and continue button displayed
 
     Examples:
-      | TestStatus       | color   | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
-      | Being tested     | #e5f6f5 | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
-      | Not being tested | #fdf3e5 | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | DiseaseStatus=Unknown    |
+      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | DiseaseStatus=Unaffected |
+
 
   @NTS-3338 @LOGOUT @E2EUI-1510 @BVT_P0 @v_1
   Scenario Outline: NTS-3338: To verify the error messages in family members test selection page by adding less and more number of expected participants to the referral.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1982:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<One>"

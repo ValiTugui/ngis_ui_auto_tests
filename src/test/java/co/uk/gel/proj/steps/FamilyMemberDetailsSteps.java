@@ -200,12 +200,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient identifiers (.*) patient")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFMLandingPage(String patientNo) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
-        Assert.assertTrue(testResult);
-    }
     @When("the user clicks on the link to amend the number of participants for test")
     public void theUserClicksOnTheLinkToAmendTheNumberOfParticipantsForTest() {
         familyMemberDetailsPage.clickOnParticipantAmendmentLink();
@@ -263,10 +257,10 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifySubTitleLink(linkMessage);
         Assert.assertTrue(testResult);
     }
-    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
-    public void theUserShouldBeAbleToSeePatientDetailsONFMLandingPage() {
+    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for {string}")
+    public void theUserShouldBeAbleToSeePatientDetailsONFMLandingPage(String familyMember) {
         boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(familyMember);
         Assert.assertTrue(testResult);
 
     }
@@ -299,7 +293,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the family member status {string} Marked in {string}")
+    @And("the test status (.*) Marked in (.*)")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTestBadgeBackgroundColor(testfield, color);

@@ -1,7 +1,7 @@
 @regression
 @patientChoice
-@patientChoice_historyPreference
-Feature: Patient Choice - History - Preference
+@patientChoice_8
+Feature: Patient Choice-8 - History - Preference
 
   @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library

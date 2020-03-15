@@ -32,7 +32,7 @@ Feature: Panels Page Landing Page
     Then the user sees the selected "<searchPanels>" panels under added panels
     When the user clicks on VisitPanelApp link
     Then the user navigates to panelApp page
-    And the user clicks on Save and Continue in Panels Page
+    And the user clicks the Save and Continue button
 
     Examples:
       | ClinicalQuestion   | ClinicalQuestionDetails                                         | Panels | IntroMessage                                                                                                                                                                                                              | searchPanels                                  | penetranceIntro                                                                                               |

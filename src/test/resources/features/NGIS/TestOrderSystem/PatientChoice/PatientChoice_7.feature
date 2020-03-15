@@ -1,7 +1,7 @@
 @regression
 @patientChoice
-@patientChoice_formLibrary
-Feature: Patient Choice Page - Form Library
+@patientChoice_7
+Feature: Patient Choice-7 - Form Library
 
   @NTS-3435 @E2EUI-2180 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3435: Upload the latest 'Opt-in' form to the form library

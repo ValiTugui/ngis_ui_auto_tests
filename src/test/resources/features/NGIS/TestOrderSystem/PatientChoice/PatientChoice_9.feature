@@ -1,7 +1,7 @@
 @regression
 @patientChoice
-@patientChoice_adultWithCapacity
-Feature: Patient Choice Edit Paper Form - Adult With Capacity
+@patientChoice_9
+Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
 
   @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity

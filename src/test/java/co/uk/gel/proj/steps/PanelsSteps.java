@@ -60,13 +60,6 @@ public class PanelsSteps extends Pages {
         Assert.assertTrue(panelsPage.verifyTheDeselectedPanels());
     }
 
-    @And("the user clicks on Save and Continue in Panels Page")
-    public void theUserClicksOnSaveAndContinue() {
-        boolean testResult = false;
-        testResult = panelsPage.clicksOnSaveAndContinueButtonOnPanelsPage();
-        Assert.assertTrue(testResult);
-    }
-
     @And("the user should be able to see a sub title (.*) on panels page")
     public void theUserShouldBeAbleToSeeASubTitleOnPanelsPage(String subtitle) {
         boolean testResult = false;

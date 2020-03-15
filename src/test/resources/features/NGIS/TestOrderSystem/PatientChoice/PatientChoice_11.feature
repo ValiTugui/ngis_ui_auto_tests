@@ -1,7 +1,7 @@
 @regression
 @patientChoice
 @patientChoice_validations
-Feature: Patient Choice Page - validations
+Feature: Patient Choice-11 - validations
 
   @NTS-3478 @E2EUI-2153 @E2EUI-1677 @LOGOUT @v_1 @P1
   Scenario Outline: NTS-3436: Patient choice option content has changed to Record of Discussion form not currently available

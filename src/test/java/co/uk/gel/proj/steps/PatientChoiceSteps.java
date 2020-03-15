@@ -91,7 +91,7 @@ public class PatientChoiceSteps extends Pages {
         }
     }
     @When("the user edits patient choice for the newly added family member")
-    public void theUserEditsPatientChoiceForTheNewlyAddedFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
+    public void theUserEditsPatientChoiceForTheNewlyAddedFamilyMembersWithTheBelowDetails() {
         patientChoicePage.selectMember(1);
     }
 
@@ -103,10 +103,11 @@ public class PatientChoiceSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the same number patient identifiers in FM landing and Patient Choice Landing Page")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnPatientChoicePage() {
+    @And("the user should be able to see the details of same patient {string} in Patient Choice Landing Page")
+    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnPatientChoicePage(String patientDetails) {
         boolean testResult = false;
-        testResult = patientChoicePage.verifyPatientIdentifiersInPatientChoicePage();
+        NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(patientDetails);
+        testResult = patientChoicePage.verifyFamilyMemberDetailsPatientChoicePage(patient);
         Assert.assertTrue(testResult);
     }
 

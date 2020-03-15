@@ -24,7 +24,7 @@ Feature: Panels Page Verification
     And the user should be able to see Add another panel section with search field and search icon
     When the user search and add the "<searchPanels>" panels
     Then the user sees the selected "<searchPanels>" panels under added panels
-    And the user clicks on Save and Continue in Panels Page
+    And the user clicks the Save and Continue button
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     ##panels
@@ -44,7 +44,7 @@ Feature: Panels Page Verification
     When the user navigates to the "<ClinicalQuestions>" stage
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the user clicks on Save and Continue in Panels Page
+    And the user clicks the Save and Continue button
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should be able to see panels page is correctly displayed
