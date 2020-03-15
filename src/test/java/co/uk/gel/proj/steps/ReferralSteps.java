@@ -291,7 +291,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks on the Back link")
     public void theUserClicksOnTheBackLink() {
-       referralPage.clickOnTheBackLink();
+       boolean testResult = false;
+        testResult = referralPage.clickOnTheBackLink();
+        Assert.assertTrue(testResult);
     }
     @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {

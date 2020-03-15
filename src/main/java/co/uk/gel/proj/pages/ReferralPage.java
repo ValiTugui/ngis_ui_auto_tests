@@ -497,7 +497,7 @@ public class ReferralPage<check> {
                 //Do scroll up on page
                 Actions.scrollToTop(driver);
             }
-            //In case of failure, trying another way
+            //Swapped the method of verification
             String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
             WebElement completedMarkElement = driver.findElement(By.xpath(completedMark));
             if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
@@ -617,8 +617,18 @@ public class ReferralPage<check> {
         return actualHelpHintTexts;
     }
 
-    public void clickOnTheBackLink() {
-        Actions.retryClickAndIgnoreElementInterception(driver, backLink);
+    public boolean clickOnTheBackLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver,backLink,30)){
+                Actions.scrollToBottom(driver);
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, backLink);
+            return false;
+        }catch(Exception exp){
+            Debugger.println("Exception from clicking in Back Link..."+exp);
+            SeleniumLib.takeAScreenShot("BackButtonLinkMissing.jpg");
+            return false;
+        }
     }
 
     public String successNotificationIsDisplayed() {

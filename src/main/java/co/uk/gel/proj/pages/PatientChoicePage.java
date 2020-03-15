@@ -1034,14 +1034,15 @@ public class PatientChoicePage {
 
     public boolean backButtonOnPatientChoiceInformationPage() {
         try {
-            Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
-            if (!seleniumLib.isElementPresent(backButtonOnAddPatientChoiceInformationPage)) {
-                Debugger.println("Add patient Choice Page:Recorded by:Back Button Not found");
+            if (!Wait.isElementDisplayed(driver,backButtonOnAddPatientChoiceInformationPage,30)) {
+                Debugger.println("Back button link not present in Patient Choice Page.");
+                SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Add patient Choice Page:backButtonOnPatientChoiceInformationPage:" + exp);
+            Debugger.println("Exception in verifying backButtonOnPatientChoiceInformationPage:" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
             return false;
         }
     }

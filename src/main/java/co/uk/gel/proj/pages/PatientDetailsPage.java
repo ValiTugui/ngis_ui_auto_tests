@@ -490,9 +490,20 @@ public class PatientDetailsPage {
     }
 
     public boolean nhsNumberFieldIsEnabled() {
-        Wait.forElementToBeDisplayed(driver, title);
-        Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-        return nhsNumber.isEnabled();
+        try {
+            Wait.forElementToBeDisplayed(driver, title);
+            if(!Wait.isElementDisplayed(driver,nhsNumber,10)){
+                Debugger.println("NHS number field not displayed");
+                SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+                return false;
+            }
+            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
+            return nhsNumber.isEnabled();
+        }catch(Exception exp){
+            Debugger.println("Exception from nhsNumberFieldIsEnabled:"+exp);
+            SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+            return false;
+        }
     }
 
     public boolean editAndAddNhsNumberAsSuperUser() {
