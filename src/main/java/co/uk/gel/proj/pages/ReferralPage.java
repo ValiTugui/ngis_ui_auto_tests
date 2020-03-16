@@ -125,7 +125,7 @@ public class ReferralPage<check> {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(xpath = "//label[contains(@for,'cancel-options')]//following::div")
+    @FindBy(xpath = "//label[contains(@for,'cancel-options')]//following::div[contains(@class,'-container')]")
     public WebElement cancelReasonDropdown;
 
     @FindBy(css = "*[data-testid*='notification-success']")
@@ -238,7 +238,7 @@ public class ReferralPage<check> {
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
-    @FindBy(id = "dialog-title")
+    @FindBy(xpath = "//div[@role='dialog']/h1")
     WebElement dialogTitle;
     //Defined new element without the span, as the attribute of the button needs to read for enable/disable status
     @FindBy(xpath = "//*[@id='referral__header']//button")
@@ -246,9 +246,6 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//div[@role='dialog']")
     public WebElement dialogBox;
-
-    @FindBy(xpath = "//div[@role='dialog']//h1")
-    public WebElement dialogHeader;
 
     @FindBy(xpath = "//label[@for='cancel-options']")
     public WebElement cancelReasonQuestion;
@@ -772,31 +769,43 @@ public class ReferralPage<check> {
         }
     }
 
-    public void clicksOnCancelReferralLink() {
+    public boolean clicksOnCancelReferralLink() {
         try {
-            if (Wait.isElementDisplayed(driver, cancelReferralLink, 100)) {
+            if (!Wait.isElementDisplayed(driver, cancelReferralLink, 100)) {
+                Debugger.println("Cancel referral link  not displayed.");
+                SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
+                return false;
+            }
                 cancelReferralLink.click();
                 Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
-            }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Cancelling Referral " + exp);
-            SeleniumLib.takeAScreenShot("cancelReferral.jpg");
+            SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
+            return false;
         }
     }
 
-    public void selectCancellationReason(String reason) {
+    public boolean selectCancellationReason(String reason) {
         try {
+            if(!Wait.isElementDisplayed(driver,cancelReasonDropdown,10)){
+                Debugger.println("Cancel referral dropdown not present.");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
             Actions.clickElement(driver, cancelReasonDropdown);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
+                Debugger.println("Cancel referral dropdown values not loaded.");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
             Actions.selectValueFromDropdown(dropdownValue, reason);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from cancel drop down: " + exp);
-            SeleniumLib.takeAScreenShot("cancelReferralDD.jpg");
+            Debugger.println("Exception from selectCancellationReason: " + exp);
+            SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+            return false;
         }
-    }
-
-    public void clickCancelReferralLink() {
-        Actions.clickElement(driver, cancelReferralLink);
     }
 
     public boolean cancelReferralConfirmationIsDisplayed() {
@@ -835,13 +844,20 @@ public class ReferralPage<check> {
         return Actions.getText(referralHeaderClinicalId);
     }
 
-    public void submitCancellation() {
+    public boolean submitCancellation() {
         try {
+            if(cancelReferralButtons.size() < 2){
+                Debugger.println("Cancel Referral Dialog/Buttons not present.");
+                SeleniumLib.takeAScreenShot("CancelReferral");
+                return false;
+            }
             Actions.clickElement(driver, cancelReferralButtons.get(1));
             Wait.seconds(5);//Waiting for 5 seconds to load the cancellation message.
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on cancel Referral: " + exp);
             SeleniumLib.takeAScreenShot("cancelRefButton.jpg ");
+            return false;
         }
     }
 
@@ -1240,8 +1256,15 @@ public class ReferralPage<check> {
     }
 
     public boolean verifyTheSubmitDialogTitle(String titleMessage) {
-        Wait.forElementToBeDisplayed(driver, dialogTitle);
+
+        if(!Wait.isElementDisplayed(driver, dialogTitle,10)){
+            Debugger.println("Submit Referral Message popup not displayed.");
+            SeleniumLib.takeAScreenShot("SubmitReferral.jpg");
+            return false;
+        }
         if (!dialogTitle.getText().equalsIgnoreCase(titleMessage)) {
+            Debugger.println("Submit Referral Message popup Title mismatch.Expected:"+titleMessage+",Actual:"+dialogTitle.getText());
+            SeleniumLib.takeAScreenShot("SubmitReferral.jpg");
             return false;
         }
         return true;
@@ -1263,34 +1286,69 @@ public class ReferralPage<check> {
         }
     }
 
-    public boolean validateCancelReferralDialog(DataTable fieldDetails) {
-        List<List<String>> fieldsText = fieldDetails.asLists();
+    public boolean validateCancelReferralDialog(String title,String question,String warning,String button1,String button2) {
         boolean isPresent = false;
         try {
-            Wait.forElementToBeDisplayed(driver, dialogBox, 100);
-            if (fieldsText.get(1).get(0).equalsIgnoreCase(dialogHeader.getText())) {
-                if (cancelReasonQuestion.getText().contains(fieldsText.get(2).get(0))) {
-                    if (fieldsText.get(3).get(0).equalsIgnoreCase(cancelWarningText.getText())) {
-                        String button1 = cancelReferralButtons.get(0).getText();
-                        String button2 = cancelReferralButtons.get(1).getText();
-                        if (cancelReferralButtons.get(0).isDisplayed() && cancelReferralButtons.get(1).isDisplayed()) {
-                            if ((button1.equalsIgnoreCase(fieldsText.get(4).get(0))) && (button2.equalsIgnoreCase(fieldsText.get(5).get(0)))) {
-                                if (dialogBoxCloseButton.isDisplayed()) {
+            if(!Wait.isElementDisplayed(driver,dialogBox,10)){
+                Debugger.println("Cancel Referral Dialog box not displayed.");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            //Dialog Title
+            if(!title.equalsIgnoreCase(dialogTitle.getText())){
+                Debugger.println("Cancel Referral Dialog title expected:"+title+",Actual:"+dialogTitle.getText());
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            //Question
+            if(!(cancelReasonQuestion.getText().contains(question))){
+                Debugger.println("Cancel Referral Dialog Question expected:"+title+",Actual:"+cancelReasonQuestion.getText());
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            //Warning
+            if(!(cancelWarningText.getText().contains(warning))){
+                Debugger.println("Cancel Referral Dialog Warning expected:"+title+",Actual:"+cancelWarningText.getText());
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            //Check for Button presence
+            if(cancelReferralButtons.size() == 0){
+                Debugger.println("Cancel Referral Buttons notpresent");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            if(cancelReferralButtons.size() != 2){
+                Debugger.println("Cancel Referral Two buttons expected");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
+            }
+            String buttonLabel = cancelReferralButtons.get(0).getText();
+            if(buttonLabel.equalsIgnoreCase(button1)) {
+                buttonLabel = cancelReferralButtons.get(1).getText();
+                if (buttonLabel.equalsIgnoreCase(button2)) {
                                     isPresent = true;
                                 }
-                            }
+            }else if(buttonLabel.equalsIgnoreCase(button2)) {
+                buttonLabel = cancelReferralButtons.get(1).getText();
+                if (buttonLabel.equalsIgnoreCase(button1)) {
+                    isPresent = true;
                         }
                     }
-                }
+            //Close the dialog
+            if(!Wait.isElementDisplayed(driver,dialogBoxCloseButton,5)){
+                Debugger.println("Close button in Cancel referral dialog is not present.");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
+                return false;
             }
             if (!isPresent) {
-                Debugger.println("The Cancel referral dialog is not properly displayed");
-                SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
+                Debugger.println("The Cancel referral dialog buttons not displayed as expected");
+                SeleniumLib.takeAScreenShot("CancelReferral.jpg");
             }
             return isPresent;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: validateCancelReferralDialog: " + exp);
-            SeleniumLib.takeAScreenShot("referralPageCancelDialog.jpg");
+            SeleniumLib.takeAScreenShot("CancelReferral.jpg");
             return false;
         }
     }

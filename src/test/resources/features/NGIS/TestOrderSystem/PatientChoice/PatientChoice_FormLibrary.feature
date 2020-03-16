@@ -20,7 +20,7 @@ Feature: Patient Choice Page - Form Library
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-3382 @E2EUI-2110 @E2EUI-1899 @E2EUI-1889 @LOGOUT @v_1 @P0
+  @NTS-3382 @E2EUI-2110 @E2EUI-1889 @LOGOUT @v_1 @P0
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Male |
@@ -38,12 +38,14 @@ Feature: Patient Choice Page - Form Library
       | Consultee Declaration Regarding Whole Genome Sequencing      |
       | Withdrawal from the National Genomic Research Library        |
     And the user should see the supporting information links under the section Annotated patient choice forms
-      | FormName                                                               |
-      | Annotated Record of Discussion Regarding WGS                           |
-      | Annotated Agreement to Participate in Research                         |
-      | Annotated National Genomic Research Library Young Person's Assent Form |
-      | Annotated Consultee Declaration Regarding Whole Genome Sequencing      |
-      | Annotated Withdrawal from the National Genomic Research Library        |
+      | FormName                       |
+      | Annotated Patient Choice Forms |
+    ##Below options commented out as per the latest release - March 12,2020
+#      | Annotated Record of Discussion Regarding WGS                           |
+#      | Annotated Agreement to Participate in Research                         |
+#      | Annotated National Genomic Research Library Young Person's Assent Form |
+#      | Annotated Consultee Declaration Regarding Whole Genome Sequencing      |
+#      | Annotated Withdrawal from the National Genomic Research Library        |
     And the user should see the supporting information links under the section Supporting information
       | FormName                                             |
       | Clinician's Guide Cancer                             |
@@ -51,6 +53,11 @@ Feature: Patient Choice Page - Form Library
       | Clinician's Guide Supplementary Information Clinical |
       | Clinician's Guide Supplementary Information NGRL     |
       | Patient's Information Research                       |
+      ##Below options added as per the latest release  - March 12,2020
+      | Patient Information for Cancer                       |
+      | Patient Information for Cancer - Easy Read           |
+      | Patient Information for Rare Disease                 |
+      | Patient Information for Rare Disease - Easy Read     |
     Examples:
       | Patient choice stage |
       | Patient choice       |
