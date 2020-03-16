@@ -2,10 +2,12 @@
 
 Feature: This is mi-portal fileSubmission
 
-  @miportal1 @mi_smokeTest
-  Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
+  Background:
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+
+  @miportal1 @mi_smokeTest
+  Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user selects a value "<value>" from the file-submission search column drop-down
     And the user selects a search operator "<operator>" from the file-submission search operator drop-down
@@ -35,8 +37,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal3
   Scenario Outline: verify the drop-down values of file-submission search column
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -53,8 +53,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal4
   Scenario Outline: When Search-column is "Created" - verify the drop-down values of file-submission search operator
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -72,8 +70,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal5
   Scenario Outline: When Search-column is "<value>":verify the drop-down values of file-submission search operator
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -91,8 +87,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal6
   Scenario Outline: When Search-column is "Status" and operator is "<operator>": verify the drop-down values of file-submission search values
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -114,8 +108,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal7
   Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -153,5 +145,23 @@ Feature: This is mi-portal fileSubmission
     Then the search criteria badge disappears
 
     Examples:
-      | mi_stage         | value   | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | value   | operator | date  |
+      | File Submissions | Created | equals   | today |
+
+
+  @miportal9
+  Scenario Outline: When no result is found
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then the user sees the message "<noResultFound>" below the search container
+
+    Examples:
+      | mi_stage         | value   | operator | date        | noResultFound                            |
+      | File Submissions | Created | equals   | future_date | No results found for these search terms. |

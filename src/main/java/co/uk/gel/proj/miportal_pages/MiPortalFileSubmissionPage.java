@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -98,14 +99,26 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             Wait.forElementToBeClickable(driver, getFileSubmissionDate);
             String actualDate = getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
-            if (!date.equals("today") || actualDate.isEmpty()) {
+            if (date.equals("today") && !actualDate.isEmpty()) {
+                Debugger.println("today's date " + getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value"));
+            } else if (date.equalsIgnoreCase("future_date")     ){
+                String dateToday = TestUtils.todayInDDMMYYYFormat();
+                Debugger.println("today's date in dd/mm/yyyy " + dateToday);
+                dateToday = dateToday.replace("/", "-");
+                Debugger.println("today's date in dd-mm-yyyy " + dateToday);
+                String updatedFutureDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1,0, 0); //Add future day +1
+                Debugger.println("future date in dd-mm-yyyy " + updatedFutureDate);
+                Actions.clickElement(driver, getFileSubmissionDate);
+                Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
-                getFileSubmissionDate.click();
-                getFileSubmissionDate.clear();
-                Wait.seconds(3);
-                getFileSubmissionDate.sendKeys(date);
+                Actions.fillInValue(getFileSubmissionDate,updatedFutureDate);
+            } else{
+                Wait.seconds(1);
+                Actions.clickElement(driver, getFileSubmissionDate);
+                Actions.clearInputField(getFileSubmissionDate);
+                Wait.seconds(2);
+                Actions.fillInValue(getFileSubmissionDate,date);
             }
-            Debugger.println("Get current date : " + getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value"));
         } catch (Exception exp) {
             Debugger.println("Exception filling date:" + exp);
             SeleniumLib.takeAScreenShot("UnableToFillDate.jpg");
@@ -292,4 +305,20 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean searchResultTableIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptions);
+            if (Wait.isElementDisplayed(driver, searchResultTable.get(0), 5)) {
+                Debugger.println("search result table is displayed as expected");
+                return true;
+            } else {
+                Debugger.println("search result table is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("search result table is not found");
+            SeleniumLib.takeAScreenShot("searchResultTableNotFound.jpg");
+            return false;
+        }
+    }
 }

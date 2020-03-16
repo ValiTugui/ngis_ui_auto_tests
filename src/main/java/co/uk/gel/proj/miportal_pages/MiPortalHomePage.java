@@ -125,5 +125,29 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
+
+    public boolean verifyNoSearchResultMessage(String noResultMessage) {
+        try {
+            By displayedMessage;
+            if (noResultMessage.contains("\'")) {
+                // if the string contains apostrophe character, apply double quotes in the xpath string
+                displayedMessage = By.xpath("//p[text()= \"" + noResultMessage + "\"]");
+            } else {
+                displayedMessage = By.xpath("//p[text()='" + noResultMessage + "']");
+            }
+            Wait.forElementToBeDisplayed(driver, driver.findElement(displayedMessage), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(displayedMessage), 10)) {
+                Debugger.println(" no result message is shown...Failing.");
+                SeleniumLib.takeAScreenShot("noResultMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("no result message is shown...Failing...Failing." + exp);
+            SeleniumLib.takeAScreenShot("noResultMessage.jpg");
+            return false;
+        }
+    }//end
+
 }
 
