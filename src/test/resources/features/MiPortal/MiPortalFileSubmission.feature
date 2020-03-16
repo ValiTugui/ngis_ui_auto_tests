@@ -123,7 +123,7 @@ Feature: This is mi-portal fileSubmission
     And the user selects a search operator "<operator>" from the file-submission search operator drop-down
     And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader  |
-      | East Midlands and East of England |
+      | East Mids and East of England |
       | London North                      |
       | London South                      |
       | North West                        |

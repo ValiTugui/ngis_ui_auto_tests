@@ -1,7 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -122,6 +121,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theUserSeesTheValuesInTheFileSubmissionSearchColumnDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
 
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
@@ -133,6 +133,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theUserSeesTheValuesInTheSearchOperatorDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
 
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchOperatorHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
@@ -143,8 +144,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the user sees the values in the search value {string} drop-down menu")
     public void theUserSeesTheValuesInTheSearchValueDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
-       // Wait.seconds(2);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
+
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
             Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
             Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"), actualDropDownValues.get(i));

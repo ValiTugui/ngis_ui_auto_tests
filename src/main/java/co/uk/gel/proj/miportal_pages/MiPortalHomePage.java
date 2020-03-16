@@ -96,6 +96,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("element not found ");
+                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
