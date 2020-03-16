@@ -60,7 +60,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @And("the user clicks on Add criteria button")
     public void theUserClicksOnAddCriteriaButton() {
-       miPortalFileSubmissionPage.clickAddButton();
+        miPortalHomePage.clickAddButton();
        Wait.seconds(1);
     }
 
@@ -73,7 +73,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @When("the user click on the Search button")
     public void theUserClickOnTheSearchButton() {
-        miPortalFileSubmissionPage.clickSearchButton();
+        miPortalHomePage.clickSearchButton();
         Wait.seconds(2);
     }
 
@@ -161,7 +161,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @When("the user click on the reset button")
     public void theUserClickOnTheResetButton() {
-        miPortalFileSubmissionPage.clickResetButton();
+        miPortalHomePage.clickResetButton();
     }
 
 

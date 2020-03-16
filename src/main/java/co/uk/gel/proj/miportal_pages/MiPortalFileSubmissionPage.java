@@ -124,37 +124,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("UnableToFillDate.jpg");
         }
     }
-
-    public void clickAddButton() {
-        try {
-            Wait.forElementToBeClickable(driver, addButton);
-            Click.element(driver, addButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on addButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
-        }
-    }
-
-    public void clickSearchButton() {
-        try {
-            Wait.forElementToBeClickable(driver, searchButton);
-            Click.element(driver, searchButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on searchButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
-        }
-    }
-
-    public void clickResetButton() {
-        try {
-            Wait.forElementToBeClickable(driver, resetButton);
-            Click.element(driver, resetButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on resetButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoResetButton.jpg");
-        }
-    }
-
+    
     public String getAValueOfSearchedResult(String filterCriteria, int index) {
         String locator = "//td[text()='" + filterCriteria + "']/../td[" + index + "]";
         return driver.findElement(By.xpath(locator)).getText();

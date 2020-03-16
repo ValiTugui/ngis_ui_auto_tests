@@ -1,6 +1,7 @@
 package co.uk.gel.proj.miportal_pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -27,8 +28,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//a[@data-value='file_submissions']")
-    public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//a[contains(string(),'File Submissions')]")
     public WebElement genericNavigation;
@@ -45,11 +44,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
     public List<WebElement> genericDropDropDownValues;
 
+    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span[@class='text']") //needed for multiple selection
+    public List<WebElement> genericDropDropDownValues1;
+
     @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
     public List<WebElement> dropDownFileSubmissionsSearchDropValues;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement dropDownFileSubmissionsSearchDropValues1;
 
     //sidebarCollapsed
     @FindBy(id = "sidebarCollapsed")
@@ -66,6 +65,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//a[@class='sidebar-toggle']")
     public WebElement sideBarToggle;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Add')]")
+    public WebElement addButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Search')]")
+    public WebElement searchButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
+    public WebElement resetButton;
 
 
     public boolean navigateToMiPage(String expectedMipage) {
@@ -103,6 +111,37 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("main search container is not displayed");
             SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
             return false;
+        }
+    }
+
+
+    public void clickAddButton() {
+        try {
+            Wait.forElementToBeClickable(driver, addButton);
+            Click.element(driver, addButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on addButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
+        }
+    }
+
+    public void clickSearchButton() {
+        try {
+            Wait.forElementToBeClickable(driver, searchButton);
+            Click.element(driver, searchButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on searchButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+        }
+    }
+
+    public void clickResetButton() {
+        try {
+            Wait.forElementToBeClickable(driver, resetButton);
+            Click.element(driver, resetButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on resetButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoResetButton.jpg");
         }
     }
 
