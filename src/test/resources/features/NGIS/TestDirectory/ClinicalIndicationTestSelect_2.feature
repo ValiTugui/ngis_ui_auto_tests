@@ -314,13 +314,22 @@ Feature: Test Directory Test Order
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information
     When the user selects the option Adult (With Capacity) in patient choice category
-    Then the user sees the completed "<CompletedStages>" stages
+    And the below stages marked as completed
+      | Patient details         |
+      | Requesting organisation |
+      | Test package            |
+      | Clinical questions      |
     And the user should be able to see the active stage "<PatientChoice>" in to-do list
-    Then the user sees the not completed "<In-completed_Stages>" stages
+    And the below stages marked as incompleted
+      | Family members |
+      | Patient choice |
+      | Panels         |
+      | Print forms    |
+
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoice  | CompletedStages                                                         | In-completed_Stages                              |
-      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice | Patient details,Requesting organisation,Test package,Clinical questions | Family members,Patient choice,Panels,Print forms |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoice  | CompletedStages |
+      | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice |                 |
 
   @NTS-4726 @E2EUI-1155 @LOGOUT
   Scenario Outline: NTS-4726: Displaying the current state for each stage
@@ -331,16 +340,21 @@ Feature: Test Directory Test Order
     And the user should be able to see the active stage "<PatientDetails>" in to-do list
     And the user clicks the Save and Continue button
     Then the "<PatientDetails>" stage is marked as Completed
-    Then the user sees the not completed "<IncompletedStages1>" stages
+    And the below stages marked as incompleted
+      | Requesting organisation |
+      | Test package            |
+      | Responsible clinician   |
+      | Clinical questions      |
+      | Patient choice          |
     And the print forms stage is locked
-  ##Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-  ##Test Package
+    ##Test Package
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -357,9 +371,18 @@ Feature: Test Directory Test Order
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     And the "<Notes>" stage is marked as Completed
-    Then the user sees the completed "<CompletedStages>" stages
+    Then the below stages marked as completed
+      | Patient details         |
+      | Requesting organisation |
+      | Test package            |
+      | Clinical questions      |
+      | Notes                   |
     And the user should be able to see the active stage "<FamilyMembers>" in to-do list
-    Then the user sees the not completed "<IncompletedStages2>" stages
+    And the below stages marked as incompleted
+      | Family members |
+      | Patient choice |
+      | Panels         |
+      | Print forms    |
     Examples:
-      | PatientDetails  | RequestingOrganisation  | NoOfParticipants | ResponsibleClinicianDetails                               | ResponsibleClinician  | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | CompletedStages                                                               | IncompletedStages1                                                                                                                   | IncompletedStages2                                        |
-      | Patient details | Requesting organisation | 1                | FirstName=Karen:LastName=Smith:Department=Victoria Street | Responsible clinician | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient details,Requesting organisation,Test package,Clinical questions,Notes | Requesting organisation,Test package,Responsible clinician,Clinical questions,Notes,Family members,Patient choice,Panels,Print forms | Family members,Patient choice,Panels,Pedigree,Print forms |
+      | PatientDetails  | RequestingOrganisation  | NoOfParticipants | ResponsibleClinicianDetails                               | ResponsibleClinician  | ClinicalQuestionDetails                                         | Notes | FamilyMembers  |
+      | Patient details | Requesting organisation | 2                | FirstName=Karen:LastName=Smith:Department=Victoria Street | Responsible clinician | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Family members |

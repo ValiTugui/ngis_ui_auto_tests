@@ -944,26 +944,36 @@ public class ReferralSteps extends Pages {
     @And("the user should be able to see the active stage {string} in to-do list")
     public void theUserShouldAbleToSeeTheActiveStageInToDoList(String activeStage) {
         boolean testResult = false;
-        testResult = referralPage.stageIsSelected(activeStage);
+        testResult = referralPage.stageIsActive(activeStage);
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user sees the not completed {string} stages")
-    public void theUserSeesTheNotCompletedStages(String expectedInCompletedStages) {
+    @Then("the below stages marked as incompleted")
+    public void theUserSeesTheNotCompletedStages(DataTable incompletedStages) {
         boolean testResult;
-        String[] stage = expectedInCompletedStages.split(",");
-        for (int i = 0; i < stage.length; i++) {
-            testResult = referralPage.stageIsSelected(stage[i]);
+        List<List<String>> stages = incompletedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsSelected(stages.get(i).get(0));
+            if(testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be incomplete, but complete.");
+                SeleniumLib.takeAScreenShot("IncompletedStage.jpg");
+                Assert.assertFalse(testResult);
+            }
             Assert.assertFalse(testResult);
         }
     }
 
-    @Then("the user sees the completed {string} stages")
-    public void theUserSeesAllTheCompletedStages(String expectedCompletedStages) {
+    @Then("the below stages marked as completed")
+    public void theUserSeesAllTheCompletedStages(DataTable completedStages) {
         boolean testResult;
-        String[] stage = expectedCompletedStages.split(",");
-        for (int i = 0; i < stage.length; i++) {
-            testResult = referralPage.stageIsCompleted(stage[i]);
+        List<List<String>> stages = completedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsSelected(stages.get(i).get(0));
+            if(!testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be complete, but not.");
+                SeleniumLib.takeAScreenShot("completedStage.jpg");
+                Assert.assertTrue(testResult);
+            }
             Assert.assertTrue(testResult);
         }
     }
