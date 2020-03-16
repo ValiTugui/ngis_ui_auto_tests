@@ -268,14 +268,19 @@ public class ReferralSteps extends Pages {
 
     @Then("the user sees a warning message {string} on the page")
     public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
-        Wait.forAlertToBePresent(driver);
-        Alert alertBox = driver.switchTo().alert();
-        Wait.seconds(10);
-        String actualWarningText = alertBox.getText();
-        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
-        Actions.acceptAlert(driver);
-        Wait.seconds(10);
-        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        try {
+            Wait.forAlertToBePresent(driver);
+            Alert alertBox = driver.switchTo().alert();
+            Wait.seconds(10);
+            String actualWarningText = alertBox.getText();
+            Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+            Actions.acceptAlert(driver);
+            Wait.seconds(10);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception in validating warning message: "+exp);
+            SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+        }
 
     }
 

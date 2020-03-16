@@ -453,10 +453,17 @@ public class ReferralPage<check> {
     public void navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList, 200);
+            //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
+            //handle by scrolling up/down
+            Wait.forElementToBeDisplayed(driver, toDoList, 60);
             String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
             referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-            Wait.forElementToBeDisplayed(driver, referralStage);
+            if(!Wait.isElementDisplayed(driver, referralStage,10)){
+                Actions.scrollToTop(driver);
+            }
+            if(!Wait.isElementDisplayed(driver, referralStage,10)){
+                Actions.scrollToBottom(driver);
+            }
             Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
         } catch (StaleElementReferenceException staleExp) {
             Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
