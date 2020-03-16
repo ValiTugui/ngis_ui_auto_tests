@@ -1,8 +1,9 @@
-
+@MIPORTAL
+@SYSTEM_TEST
 
 Feature: This is mi-portal fileSubmission
 
-  @mi-portal1
+  @mi-portal1 @NTS_todo
   Scenario Outline: mi-portal page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

@@ -1,9 +1,11 @@
-@userJourneys
-@userJourneysRD
-@userJourneysRD_NEW_TrioFamily
+#@userJourneys
+#@userJourneysRD
+#@userJourneysRD_NEW_TrioFamily
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NEW Patient - Trio Family
 
-  @NTS-4564 @E2EUI-844 @UseCase08 @LOGOUT
+  @NTS-4564  @LOGOUT
+#    @E2EUI-844 @UseCase08
   Scenario Outline: NTS-4564: Use Case#08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-1970:Gender=Male |
@@ -88,7 +90,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=James:LastName=Smith:Department=Minister Road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=2,11:HpoPhenoType=Square face | Notes | Family members | Patient choice | Panels | Pedigree |
 
-  @NTS-4573 @E2EUI-940 @UseCase09 @LOGOUT
+  @NTS-4573  @LOGOUT
+#    @E2EUI-940 @UseCase09
   Scenario Outline:NTS:4573: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Non-Spine/Non-NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2000:Gender=Male |
@@ -170,7 +173,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels        |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | Cardiac arrhythmias |
 
-  @NTS-4576 @E2EUI-1251 @UseCase10 @LOGOUT
+  @NTS-4576  @LOGOUT
+#    @E2EUI-1251 @UseCase10
   Scenario Outline: NTS:4576: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-2000:Gender=Male |
@@ -258,7 +262,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree |
 
-  @NTS-4597 @E2EUI-1282 @UseCase11 @LOGOUT
+  @NTS-4597  @LOGOUT
+#    @E2EUI-1282 @UseCase11
   Scenario Outline: NTS-4597: Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-1999:Gender=Male |
@@ -344,7 +349,8 @@ Feature: Create Referrals for NEW Patient - Trio Family
 
     ##UseCase 12 - E2EU-895 - Covered as part of BVT Smoke test
 
-  @NTS-4572 @E2EUI-1119 @UseCase13 @LOGOUT
+  @NTS-4572  @LOGOUT
+#    @E2EUI-1119 @UseCase13
   Scenario Outline: NTS:4572: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Non Spine/Non NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-1997:Gender=Male |

@@ -1,10 +1,12 @@
-@regression
-@clinicalQuestions
-@clinicalQuestionsFM
-
+#@regression
+#@clinicalQuestions
+#@clinicalQuestionsFM
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Clinical Question Page Validation
 
-  @NTS-4438 @E2EUI-1273 @E2EUI-1198 @LOGOUT
+  @NTS-4438 @LOGOUT
+#    @E2EUI-1273 @E2EUI-1198
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -24,7 +26,8 @@ Feature: Clinical Question Page Validation
       | Stage              |
       | Clinical questions |
 
-  @NTS-4624 @E2EUI-1299  @LOGOUT
+  @NTS-4624 @LOGOUT
+#    @E2EUI-1299
   Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -50,7 +53,8 @@ Feature: Clinical Question Page Validation
       | stage              | title                     | DiseaseStatus |
       | Clinical questions | Answer clinical questions | Affected      |
 
-  @NTS-4631 @E2EUI-1169  @LOGOUT
+  @NTS-4631 @LOGOUT
+#    @E2EUI-1169
   Scenario Outline: Age of Onset field input validation with special characters under Disease status - Clinical questions
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -88,7 +92,8 @@ Feature: Clinical Question Page Validation
       | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Affected           | 2.4  | 0     | Please enter whole years and months | @@           | @#$          |
 
 
-  @NTS-4631 @E2EUI-1514 @LOGOUT
+  @NTS-4631 @LOGOUT
+#    @E2EUI-1514
   Scenario Outline: NTS-4631: Updating age of onset in Clinical Questions
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1999:Gender=Male |
@@ -112,7 +117,8 @@ Feature: Clinical Question Page Validation
       | Clinical questions | Answer clinical questions | Affected           | 130        | 0           | Patient age cannot exceed 125 years | 0          | 1501        | Patient age cannot exceed 1500 months | 1          | 12          | Number of months can only exceed 11 if years is 0 | -1         | 0           | Please enter prenatal age in negative months | 0          | -10         | Patient cannot be younger than -9 months |
 
 
-  @NTS-4679 @E2EUI-1479 @LOGOUT
+  @NTS-4679 @LOGOUT
+#    @E2EUI-1479
   Scenario Outline: NTS-4679: UI | Recommended vs mandatory fields
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -147,7 +153,8 @@ Feature: Clinical Question Page Validation
       | Clinical Questions Stage | HintText | HpoHintText  | DiseaseStatus  | PhenotypicSex  | KaryotypicSex  |
       | Clinical questions       | Select   | Start typing | Disease status | Phenotypic sex | Karyotypic sex |
 
-  @NTS-4672 @E2EUI-1378 @LOGOUT
+  @NTS-4672 @LOGOUT
+#    @E2EUI-1378
   Scenario Outline: NTS-4672 : Implement "repeating" units from dynamic content framework
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
@@ -184,7 +191,8 @@ Feature: Clinical Question Page Validation
       | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | rareDiseaseValue1         | diagnosisTypeValue1 | statusValue1 | TermPresence |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XYY | BASAL CELL NEVUS SYNDROME | Omim                | Confirmed    | Present      |
 
-  @NTS-4440 @E2EUI-1198 @LOGOUT
+  @NTS-4440 @LOGOUT
+#    @E2EUI-1198
   Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1987:Gender=Male |
@@ -216,7 +224,8 @@ Feature: Clinical Question Page Validation
       | stage              | diseaseStatueValue | Message1                                             | Message3                                             | year | month | Message2                                                            | hpoTerm | termPresence | diagnosisTypeValue | statusValue | rareDiseaseValue                                |
       | Clinical questions | Unaffected         | Choose the status of the condition being tested for. | For example, ventricular fibrillation or HP:0001663. | 2    | 3     | For prenatal patients, enter number of months before birth, e.g. -3 | Leuk    | Present      | Orphanet           | Suspected   | Lissencephaly with cerebellar hypoplasia type A |
 
-  @NTS-4628 @E2EUI-1338 @LOGOUT
+  @NTS-4628 @LOGOUT
+#    @E2EUI-1338
   Scenario Outline: NTS-4628: Create the SNOMED custom dynamic unit
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |

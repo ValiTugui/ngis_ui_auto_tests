@@ -1,10 +1,13 @@
-@regression
-@clinicalQuestions
-@clinicalQuestionsFM
+#@regression
+#@clinicalQuestions
+#@clinicalQuestionsFM
+@TEST_ORDER
+@SYSTEM_TEST
 
 Feature: Clinical Question Page - Family Members
 
-  @NTS-4735 @E2EUI-1271 @LOGOUT
+  @NTS-4735 @LOGOUT
+#    @E2EUI-1271
   Scenario Outline: NTS-4735: Show dynamic Clinical Questions about additional family members
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=12-03-1999:Gender=Female |
@@ -38,7 +41,8 @@ Feature: Clinical Question Page - Family Members
       | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                            | RareDiseaseValue | diagnosisTypeValue | statusValue |
       | Family members | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:PhenotypicSex=Male:KaryotypicSex=XY | WEAVER SYNDROME  | Omim               | Confirmed   |
 
-  @NTS-4735 @E2EUI-1884 @LOGOUT
+  @NTS-4735 @LOGOUT
+#    @E2EUI-1884
   Scenario Outline: NTS-4735 :  The update to the diagnosis type for the Rare Disease question will not be saved
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R80 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
