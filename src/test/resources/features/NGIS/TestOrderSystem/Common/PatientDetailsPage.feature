@@ -551,7 +551,7 @@ Feature: Patient details page
       | Add a new patient to the database | Find your patient | NGIS                | 1234567890123456789 | B123456  |
 
 
-  @LOGOUT @NTS-4549 @E2EUI-822
+   @NTS-4549 @E2EUI-822 @LOGOUT
   Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Patient details in ToDo List page
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |

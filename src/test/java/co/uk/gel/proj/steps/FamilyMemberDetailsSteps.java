@@ -70,6 +70,12 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user fills the RareDiseaseDiagnoses Status as {string}")
+    public void theUserFillsTheRareDiseaseDiagnosesStatusAs(String diagnosis) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.selectRareDiseaseDiagnoses(diagnosis);
+        Assert.assertTrue(testResult);
+    }
     @Then("the user returns to family member landing page with the added family member details {string}")
     public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails(String nhsDetails) {
         boolean testResult = false;

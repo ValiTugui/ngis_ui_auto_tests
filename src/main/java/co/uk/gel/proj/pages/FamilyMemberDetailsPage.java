@@ -118,6 +118,15 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//div[contains(@id,'question-id-q96')]")
     public WebElement diseaseStatusDropdown;
 
+    @FindBy(xpath = "//div[contains(@id,'question-id-q90')]")
+    public WebElement phenotypicSexDropdown;
+
+    @FindBy(xpath = "//div[contains(@id,'question-id-q91')]")
+    public WebElement karyotypicSexDropdown;
+
+    @FindBy(xpath = "//input[contains(@id,'question-id-q111')]")
+    public WebElement rareDiseaseDiagnosesInput;
+
     @FindBy(xpath = "//*[contains(@id,'question-id-q97-years')]")
     public WebElement ageOfOnsetYearsField;
 
@@ -447,10 +456,55 @@ public class FamilyMemberDetailsPage {
                     }
                     break;
                 }
+                case "PhenotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, phenotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+                case "KaryotypicSex": {
+                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                        try {
+                            Click.element(driver, karyotypicSexDropdown);
+                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
+                        } catch (Exception exp) {
+                            Debugger.println("Exception from selecting karyotypicSexDropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
+                            return false;
+                        }
+                    }
+                    break;
+                }
+
             }//switch
         }//for
         return isHpoSelected;
     }//method
+
+    public boolean selectRareDiseaseDiagnoses(String diagnoses) {
+        try {
+            if (Wait.isElementDisplayed(driver, rareDiseaseDiagnosesInput, 30)) {
+                seleniumLib.sendValue(rareDiseaseDiagnosesInput, diagnoses);
+            }
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in selectRareDiseaseDiagnoses: " + exp);
+            SeleniumLib.takeAScreenShot("RareDiseaseDiagnoses.jpg");
+            return false;
+        }
+
+    }
 
     public boolean isHPOAlreadyConsidered(String hpoTerm) {
         String hpoValue = "";
@@ -522,7 +576,7 @@ public class FamilyMemberDetailsPage {
             }
             //2. Verify Relation to Proband.
             Debugger.println("FM Landing Page...Verifying Relationship..");
-            if(familyMember.getRELATIONSHIP_TO_PROBAND() != null) {//Only for family members, not for probands
+            if (familyMember.getRELATIONSHIP_TO_PROBAND() != null) {//Only for family members, not for probands
                 String landingPageRelation = landingPageRelationPath.replaceAll("dummyRelation", familyMember.getRELATIONSHIP_TO_PROBAND());
                 By relationToProband = By.xpath(landingPageRelation);
                 if (!seleniumLib.isElementPresent(relationToProband)) {
@@ -681,8 +735,8 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
             NGISPatientModel familyMember = getFamilyMember(nhsDetails);
-            if(familyMember == null){
-                Debugger.println("Could find the family member:"+nhsDetails+" in the list.");
+            if (familyMember == null) {
+                Debugger.println("Could find the family member:" + nhsDetails + " in the list.");
                 return false;
             }
             Debugger.println("Verifying TheTestCheckboxIsSelected for: " + familyMember.getFIRST_NAME() + "," + familyMember.getRELATIONSHIP_TO_PROBAND());
@@ -1079,8 +1133,8 @@ public class FamilyMemberDetailsPage {
             String actualColor = "";
             boolean isPresent = false;
             if (testBadge.equalsIgnoreCase("Being tested")) {
-                if(familyPageBeingTestedField.size() == 0){
-                    Debugger.println("No member with test status "+testBadge+" is present.");
+                if (familyPageBeingTestedField.size() == 0) {
+                    Debugger.println("No member with test status " + testBadge + " is present.");
                     //Checking color of all test status, if present only
                     isPresent = true;
                 }
@@ -1090,14 +1144,14 @@ public class FamilyMemberDetailsPage {
                         isPresent = true;
                     } else {
                         isPresent = false;
-                        Debugger.println("Expected background color of test badge:"+testBadge+" is:"+expectedBgColor+",Actual:"+actualColor);
+                        Debugger.println("Expected background color of test badge:" + testBadge + " is:" + expectedBgColor + ",Actual:" + actualColor);
                         SeleniumLib.takeAScreenShot("BadgeBackgroundColor.jpg");
                         break;
                     }
                 }
             } else if (testBadge.equalsIgnoreCase("Not being tested")) {
-                if(familyPageNotBeingTestedField.size() == 0){
-                    Debugger.println("No member with test status "+testBadge+" is present.");
+                if (familyPageNotBeingTestedField.size() == 0) {
+                    Debugger.println("No member with test status " + testBadge + " is present.");
                     //Checking color of all test status, if present only
                     isPresent = true;
                 }
@@ -1107,7 +1161,7 @@ public class FamilyMemberDetailsPage {
                         isPresent = true;
                     } else {
                         isPresent = false;
-                        Debugger.println("Expected background color of test badge:"+testBadge+" is:"+expectedBgColor+",Actual:"+actualColor);
+                        Debugger.println("Expected background color of test badge:" + testBadge + " is:" + expectedBgColor + ",Actual:" + actualColor);
                         SeleniumLib.takeAScreenShot("BadgeBackgroundColor.jpg");
                         break;
                     }
@@ -1409,14 +1463,14 @@ public class FamilyMemberDetailsPage {
     public boolean verifySelectedRelationshipToProband(String expectedRelation) {
         try {
             Wait.forElementToBeClickable(driver, relationshipToProband);
-            String actualRelationship=relationshipToProband.getText();
-            if(actualRelationship == null){
+            String actualRelationship = relationshipToProband.getText();
+            if (actualRelationship == null) {
                 Debugger.println("Relationship to proban is NULL");
                 SeleniumLib.takeAScreenShot("ReationToProband.jpg");
                 return false;
             }
             if (!(expectedRelation.equalsIgnoreCase(actualRelationship))) {
-                Debugger.println("Relationship to proband: Actual:"+actualRelationship+" ,Expected: "+expectedRelation);
+                Debugger.println("Relationship to proband: Actual:" + actualRelationship + " ,Expected: " + expectedRelation);
                 SeleniumLib.takeAScreenShot("ReationToProband.jpg");
                 return false;
             }

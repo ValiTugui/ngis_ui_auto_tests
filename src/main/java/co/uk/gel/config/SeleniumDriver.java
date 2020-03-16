@@ -31,9 +31,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
     static {
         DRIVER = new BrowserFactory().getDriver();
         Actions.deleteCookies(DRIVER);
-        //Commented the clearing of snapshots as multiple invocation of this during parallel runs causing
-        //Deletion of snapshots taken by other threads - if exists
-        //TestUtils.clearAllSnapShots();
+        TestUtils.clearAllSnapShots();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
         Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();
         String browserName = cap.getBrowserName().toLowerCase();

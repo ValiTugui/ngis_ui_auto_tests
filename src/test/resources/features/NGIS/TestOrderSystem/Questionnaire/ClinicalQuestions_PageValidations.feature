@@ -4,7 +4,7 @@
 
 Feature: Clinical Question Page Validation
 
-  @NTS-4438 @E2EUI-1273 @E2EUI-1198 @LOGOUT
+  @NTS-4438 @E2EUI-1273 @LOGOUT
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -32,14 +32,14 @@ Feature: Clinical Question Page Validation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
-    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader      |
-      | Disease status ✱ |
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field | field_type | symbol | symbol color |
+      | Disease status  | label      | ✱      | #dd2509      |
     When the user selects "<DiseaseStatus>"
-    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader                     |
-      | Disease status ✱                |
-      | Find an HPO phenotype or code ✱ |
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field               | field_type | symbol | symbol color |
+      | Disease status                | label      | ✱      | #dd2509      |
+      | Find an HPO phenotype or code | label      | ✱      | #dd2509      |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
       | labelHeader    |
       | Age of onset   |
@@ -121,9 +121,9 @@ Feature: Clinical Question Page Validation
     ##Clinical questions Stage
     And the user navigates to the "<Clinical Questions Stage>" stage
     Then the user is navigated to a page with title Answer clinical questions
-    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader      |
-      | Disease status ✱ |
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field | field_type | symbol | symbol color |
+      | Disease status  | label      | ✱      | #dd2509      |
     Then the user should be able to see the hint text "<HintText>" for the "<DiseaseStatus>"
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
       | labelHeader                   |
@@ -157,10 +157,10 @@ Feature: Clinical Question Page Validation
     And the user navigates to the "<ClinicalQuestion>" stage
     Then the user is navigated to a page with title Answer clinical questions
     When the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
-    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader                     |
-      | Disease status ✱                |
-      | Find an HPO phenotype or code ✱ |
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field               | field_type | symbol | symbol color |
+      | Disease status                | label      | ✱      | #dd2509      |
+      | Find an HPO phenotype or code | label      | ✱      | #dd2509      |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
       | labelHeader    |
       | Age of onset   |
@@ -198,9 +198,9 @@ Feature: Clinical Question Page Validation
       | HPO phenotype details         |
       | Rare disease diagnoses        |
       | Phenotypic and karyotypic Sex |
-    And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
-      | labelHeader      |
-      | Disease status ✱ |
+    And the mandatory fields shown with the symbol in red color
+      | mandatory_field               | field_type | symbol | symbol color |
+      | Disease status                | label      | ✱      | #dd2509      |
     And the user sees an bottom message "<Message1>" on the page
     And  the user selects "<diseaseStatueValue>"
     When the user provided the values "<year>" "<month>" for Age of onset fields

@@ -623,7 +623,7 @@ public class ReferralPage<check> {
                 Actions.scrollToBottom(driver);
             }
             Actions.retryClickAndIgnoreElementInterception(driver, backLink);
-            return false;
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from clicking in Back Link..."+exp);
             SeleniumLib.takeAScreenShot("BackButtonLinkMissing.jpg");
@@ -643,10 +643,7 @@ public class ReferralPage<check> {
             if (noOfErrors == 0) {
                 clickSaveAndContinueButton();//Click on Save and Continue Again. Some times click not happens on this button
                 Wait.seconds(2);
-            }
-            noOfErrors = validationErrors.size();
-            if (noOfErrors == 0) {
-
+                noOfErrors = validationErrors.size();
             }
             String actualMessage = "";
             String actColor = "";

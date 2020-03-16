@@ -100,7 +100,14 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-        Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        boolean testResult = false;
+        String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
+        if(actualBadge != null){
+            Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed());
+        }else{
+            Assert.assertTrue(testResult);
+        }
+
     }
 
 
