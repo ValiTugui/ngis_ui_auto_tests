@@ -1,10 +1,11 @@
-@regression
-@testDirectory
-@clinicalIndicationTestSelect
-
+#@regression
+#@clinicalIndicationTestSelect
+@TEST_DIRECTORY
+@SYSTEM_TEST
 Feature: Test Directory Test Order
 
-  @NTS-4565 @E2EUI-1842 @LOGOUT @v_1 @P0
+  @NTS-4565 @LOGOUT
+#    @E2EUI-1842
   Scenario Outline: NTS-4565: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
@@ -15,7 +16,8 @@ Feature: Test Directory Test Order
       | PartCurrentURL |
       | test-order     |
 
-  @NTS-3262 @E2EUI-1796 @v_1 @P0
+  @NTS-3262
+#    @E2EUI-1796
   Scenario Outline: NTS-3262: Test package displayed as a table on clinical indication pages
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -29,7 +31,8 @@ Feature: Test Directory Test Order
       | TestPackageTab |
       | Test Package   |
 
-  @NTS-3493 @E2EUI-2015 @LOGOUT @v_1 @P0 @scenario_01
+  @NTS-3493 @LOGOUT
+#    @E2EUI-2015 @scenario_01
   Scenario Outline: NTS-3493: Restricted access to navigate to cancelled referrals
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_SUPER_USER | NHSNumber=9449305897:DOB=10-10-1987 |
@@ -44,7 +47,8 @@ Feature: Test Directory Test Order
       | Reason                                             | RevokeMessage                                                             |
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
-  @NTS-3161 @E2EUI-2091 @LOGOUT @scenario1
+  @NTS-3161 @LOGOUT
+#    @E2EUI-2091 @scenario1
   Scenario Outline: NTS-3161: Verify Spinning Helix
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -62,7 +66,8 @@ Feature: Test Directory Test Order
       | ordering_entity_name |
       | Maidstone            |
 
-  @NTS-3251 @E2EUI-1695 @v_1 @P0
+  @NTS-3251
+#    @E2EUI-1695
   Scenario Outline: NTS-3251: Generic modal component for a button
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -90,7 +95,8 @@ Feature: Test Directory Test Order
       | linkName       | sectionName1 | sectionName2             |
       | Back to search | Who to test  | Test package includes... |
 
-  @NTS-4710 @E2EUI-1573 @LOGOUT
+  @NTS-4710 @LOGOUT
+#    @E2EUI-1573
   Scenario Outline: NTS-4710: test environment content consistency: update save and continue
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | Rare Diseases | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER | child |
@@ -166,7 +172,8 @@ Feature: Test Directory Test Order
       | ordering_entity_name                     | NoOfParticipants | ResponsibleClinicianDetails                          | ClinicalQuestionDetails                                                     | FamilyMemberDetails                | PatientChoice  | Panels | Pedigree | RelationshipToProband |
       | UNIVERSITY DENTAL HOSPITAL OF MANCHESTER | 1                | FirstName=Winnie:LastName=Ocean:Department=Down Town | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | NHSNumber=9449304831:DOB=27-4-2007 | Patient choice | Panels | Pedigree | Maternal Uncle        |
 
-  @NTS-4810 @E2EUI-1545 @LOGOUT
+  @NTS-4810 @LOGOUT
+#    @E2EUI-1545
   Scenario Outline: NTS-4810: Deep linking - Add patient_id to URLs
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -217,7 +224,8 @@ Feature: Test Directory Test Order
       | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 |
       | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=9449305307:DOB=14-02-2011 |
 
-  @NTS-4701 @E2EUI-1645 @LOGOUT
+  @NTS-4701 @LOGOUT
+#    @E2EUI-1645
   Scenario Outline: NTS-4701 : Stop a user losing their changes when they try to navigate to away using browser behaivor
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
@@ -265,7 +273,8 @@ Feature: Test Directory Test Order
       | new_stage               | TestPackage  | acknowledgeMessage | partOfMessage1                     | acknowledgeMessage | partOfMessage                                               | Panels |
       | Requesting organisation | Test package | Dismiss            | Changes you made may not be saved. | Dismiss            | This section contains unsaved information. Discard changes? | Panels |
 
-  @NTS-4725 @E2EUI-879 @LOGOUT
+  @NTS-4725 @LOGOUT
+#    @E2EUI-879
   Scenario Outline: NTS-4725: Highlight the current/active stage
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
@@ -329,7 +338,8 @@ Feature: Test Directory Test Order
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoice  | CompletedStages |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice |                 |
 
-  @NTS-4726 @E2EUI-1155 @LOGOUT
+  @NTS-4726 @LOGOUT
+#    @E2EUI-1155
   Scenario Outline: NTS-4726: Displaying the current state for each stage
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449309221:DOB=26-02-2004 |

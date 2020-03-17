@@ -1,9 +1,11 @@
-@userJourneys
-@userJourneysRD
-@userJourneysRD_NEW_AdditionalParticipant
+#@userJourneys
+#@userJourneysRD
+#@userJourneysRD_NEW_AdditionalParticipant
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NEW Patient - Additional Participant
 
-  @NTS-4613 @E2EUI-1310 @UseCase14 @LOGOUT
+  @NTS-4613 @LOGOUT
+#    @E2EUI-1310 @UseCase14
   Scenario Outline: NTS-4613:Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-2001:Gender=Male |
@@ -90,7 +92,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels | Pedigree | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4594 @E2EUI-832 @UseCase15 @LOGOUT
+  @NTS-4594  @LOGOUT
+#    @E2EUI-832 @UseCase15
   Scenario Outline: NTS-4594: Use Case #15: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-2011:Gender=Female |
@@ -177,7 +180,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | Parent/Guardian signature    | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | FirstName=Kim:LastName=Smith | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
-  @NTS-4587 @E2EUI-1428 @UseCase16 @LOGOUT
+  @NTS-4587  @LOGOUT
+#    @E2EUI-1428 @UseCase16
   Scenario Outline: NTS-4587: Use Case#16: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |
@@ -261,7 +265,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree |
 
-  @NTS-4604 @E2EUI-1207 @UseCase17 @LOGOUT
+  @NTS-4604  @LOGOUT
+#    @E2EUI-1207 @UseCase17
   Scenario Outline: NTS:4604: Use Case#17: Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice No - Search Non Spine/NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=09-06-1985:Gender=Male |
@@ -346,7 +351,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | FamilyMember   | FamilyMemberDetails                                             | DiseaseStatusDetails     | Status           | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | NHSNumber=NA:DOB=14-04-2014:Gender=Female:Relationship=Daughter | DiseaseStatus=Unaffected | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
-  @NTS-4589 @E2EUI-882 @UseCase18 @LOGOUT
+  @NTS-4589  @LOGOUT
+#    @E2EUI-882 @UseCase18
   Scenario Outline: NTS-4589: Use Case#18: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given - Search Non Spine--NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
@@ -430,7 +436,8 @@ Feature: Create Referrals for NEW Patient - Additional Participant
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4611 @E2EUI-1140 @UseCase19 @LOGOUT
+  @NTS-4611  @LOGOUT
+#    @E2EUI-1140 @UseCase19
   Scenario Outline: NTS-4611: Use Case#19: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R107 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=27-07-1987:Gender=Male |

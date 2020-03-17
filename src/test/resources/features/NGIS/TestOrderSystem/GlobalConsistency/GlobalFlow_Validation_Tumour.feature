@@ -1,11 +1,12 @@
-@regression
-@TO_RD
-@GlobalFlow
-@GlobalFlow_Validations_Tumour
-
+#@regression
+#@GlobalFlow
+#@GlobalFlow_Validations_Tumour
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Global Patient Flow - End to end Tumour
 
-  @NTS-4711 @E2EUI-964 @E2EUI-1587 @LOGOUT @Cancer/Tumour
+  @NTS-4711 @LOGOUT
+#    @E2EUI-964 @E2EUI-1587
   Scenario Outline:NTS-4711:Verify Page titles for Cancer/Tumour on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | GEL_NORMAL_USER |
@@ -139,7 +140,8 @@ Feature: Global Patient Flow - End to end Tumour
       | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                |
       | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=Herman:HospitalNumber=11203 |
 
-  @NTS-4731 @E2EUI-1087 @E2EUI-873 @LOGOUT @Tumour
+  @NTS-4731 @LOGOUT
+#    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M211 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-11-2011:Gender=Male |

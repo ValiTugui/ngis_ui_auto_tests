@@ -1,8 +1,11 @@
-@regression
-@printForms
+#@regression
+#@printForms
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Print Forms - Offline Orders
 
-  @NTS-4703 @E2EUI-847 @E2EUI-938 @LOGOUT @v_1 @P0
+  @NTS-4703
+#    @E2EUI-847 @E2EUI-938
   Scenario Outline: NTS-4703: User visits offline order page for form download
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -25,7 +28,8 @@ Feature: Print Forms - Offline Orders
       | TextToValidate                                                                                   |
       | RARE AND INHERITED DISEASES,Surrey and Sussex Healthcare NHS Trust,N o t f o r C i n i c a l U s |
 
-  @NTS-4703 @E2EUI-957 @LOGOUT
+  @NTS-4703
+#    @E2EUI-957
   Scenario Outline: NTS-4703: Test Directory - Paper ordering process apply new styles on consent forms
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -46,8 +50,9 @@ Feature: Print Forms - Offline Orders
       | RequestingOrganisation                                  |
       | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-4703 @E2EUI-1993 @LOGOUT @v_1 @P0
-  Scenario Outline: NTS-4703: Scenario_1: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
+  @NTS-todo
+#    @E2EUI-1993
+  Scenario Outline: NTS-: Scenario_1: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -69,7 +74,8 @@ Feature: Print Forms - Offline Orders
       | Watermark                     |
       | N o t f o r C i n i c a l U s |
 
-  @NTS-Todo @E2EUI-1993 @LOGOUT @v_1 @P
+  @NTS-Todo @LOGOUT
+#    @E2EUI-1993
   Scenario Outline: NTS- : Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=04-03-2000:Gender=Male |
@@ -95,7 +101,8 @@ Feature: Print Forms - Offline Orders
       | NoOfParticipants | PrintForms  | Watermark                         |
       | 1                | Print forms | N o t f o r C l i n i c a l U s e |
 
-  @NTS-4713 @E2EUI-1795
+  @NTS-4713
+#    @E2EUI-1795
   Scenario Outline: scenario_1: PDFs: Implement Generic PDF forms-Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -122,7 +129,8 @@ Feature: Print Forms - Offline Orders
       | Text                                                                                                                                       | RequestingOrganisation                                  |
       | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West Genomic Laboratory Hub,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-4713 @E2EUI-1795
+  @NTS-4713
+#    @E2EUI-1795
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
