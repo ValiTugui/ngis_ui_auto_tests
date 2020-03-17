@@ -5,6 +5,7 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.proj.miportal_pages.MiPortalFileSubmissionPage;
+import co.uk.gel.proj.miportal_pages.MiPortalHomePage;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -45,6 +46,7 @@ public class Pages implements Navigable {
     protected PrintFormsPage printFormsPage;
 
     protected MiPortalFileSubmissionPage miPortalFileSubmissionPage;
+    protected MiPortalHomePage miPortalHomePage;
 
 
     public Pages(SeleniumDriver driver) {
@@ -78,6 +80,7 @@ public class Pages implements Navigable {
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
 
         // MI-PORTAL PAGES
+        miPortalHomePage = PageFactory.initElements(driver, MiPortalHomePage.class);
         miPortalFileSubmissionPage = PageFactory.initElements(driver, MiPortalFileSubmissionPage.class);
     }
 
