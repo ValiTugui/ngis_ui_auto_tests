@@ -118,7 +118,7 @@ public class GlobalBehaviourPage {
             //Checking for Presence
             boolean isPresent = false;
             for (int i = 0; i < expectedLabels.length; i++) {
-                if (bodyText.contains(notExpectedLabels[i])) {
+                if (bodyText.contains(expectedLabels[i])) {
                     isPresent = true;
                 }
             }

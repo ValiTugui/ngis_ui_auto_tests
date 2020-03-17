@@ -268,14 +268,19 @@ public class ReferralSteps extends Pages {
 
     @Then("the user sees a warning message {string} on the page")
     public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
-        Wait.forAlertToBePresent(driver);
-        Alert alertBox = driver.switchTo().alert();
-        Wait.seconds(10);
-        String actualWarningText = alertBox.getText();
-        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
-        Actions.acceptAlert(driver);
-        Wait.seconds(10);
-        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        try {
+            Wait.forAlertToBePresent(driver);
+            Alert alertBox = driver.switchTo().alert();
+            Wait.seconds(10);
+            String actualWarningText = alertBox.getText();
+            Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+            Actions.acceptAlert(driver);
+            Wait.seconds(10);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception in validating warning message: "+exp);
+            SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+        }
 
     }
 
@@ -291,7 +296,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks on the Back link")
     public void theUserClicksOnTheBackLink() {
-       referralPage.clickOnTheBackLink();
+       boolean testResult = false;
+        testResult = referralPage.clickOnTheBackLink();
+        Assert.assertTrue(testResult);
     }
     @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
@@ -361,7 +368,9 @@ public class ReferralSteps extends Pages {
     }
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
-        referralPage.clicksOnCancelReferralLink();
+        boolean testResult = false;
+        testResult = referralPage.clicksOnCancelReferralLink();
+        Assert.assertTrue(testResult);
     }
     
     @Then("the message should display as {string}")
@@ -372,12 +381,16 @@ public class ReferralSteps extends Pages {
     }
     @And("the user submits the cancellation")
     public void theUserSubmitsTheCancellation() {
-        referralPage.submitCancellation();
+        boolean testResult = false;
+        testResult = referralPage.submitCancellation();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the cancellation reason {string} from the modal")
     public void theUserSelectsTheCancellationReasonFromTheModal(String cancellationReasonText) {
-        referralPage.selectCancellationReason(cancellationReasonText);
+        boolean testResult = false;
+        testResult = referralPage.selectCancellationReason(cancellationReasonText);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the referral is successfully {string} with reason {string}")
@@ -907,7 +920,6 @@ public class ReferralSteps extends Pages {
     public void theUserSeesAListOfOutstandingMandatoryStagesToBeCompletedInTheDialogBox(DataTable dataTable) {
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
         List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
-
         for (int i = 0; i < expectedList.size(); i++) {
             Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
             Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
@@ -935,22 +947,32 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user sees the not completed {string} stages")
-    public void theUserSeesTheNotCompletedStages(String expectedInCompletedStages) {
+    @Then("the below stages marked as incompleted")
+    public void theUserSeesTheNotCompletedStages(DataTable incompletedStages) {
         boolean testResult;
-        String[] stage = expectedInCompletedStages.split(",");
-        for (int i = 0; i < stage.length; i++) {
-            testResult = referralPage.stageIsSelected(stage[i]);
+        List<List<String>> stages = incompletedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
+            if(testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be incomplete, but complete.");
+                SeleniumLib.takeAScreenShot("IncompletedStage.jpg");
+                Assert.assertFalse(testResult);
+            }
             Assert.assertFalse(testResult);
         }
     }
 
-    @Then("the user sees the completed {string} stages")
-    public void theUserSeesAllTheCompletedStages(String expectedCompletedStages) {
+    @Then("the below stages marked as completed")
+    public void theUserSeesAllTheCompletedStages(DataTable completedStages) {
         boolean testResult;
-        String[] stage = expectedCompletedStages.split(",");
-        for (int i = 0; i < stage.length; i++) {
-            testResult = referralPage.stageIsCompleted(stage[i]);
+        List<List<String>> stages = completedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
+            if(!testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be complete, but not.");
+                SeleniumLib.takeAScreenShot("completedStage.jpg");
+                Assert.assertTrue(testResult);
+            }
             Assert.assertTrue(testResult);
         }
     }

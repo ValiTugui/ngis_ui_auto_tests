@@ -1,11 +1,12 @@
-@regression
-@TO_RD
-@GlobalFlow
-@GlobalFlow_Validations_RD
-
+#@regression
+#@GlobalFlow
+#@GlobalFlow_Validations_RD
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Feature: Global Patient Flow - End to end RD
 
-  @NTS-4731 @E2EUI-1087 @E2EUI-873 @LOGOUT @RD
+  @NTS-4731 @LOGOUT
+#    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |

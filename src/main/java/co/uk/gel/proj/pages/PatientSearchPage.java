@@ -183,9 +183,9 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//label[@for='gender']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> genderValues;
 
-
-    @FindBy(xpath = "//h1[text()='Find your patient']")
-    public WebElement findYourPatientTitle;
+    //For checking Panels Search field is enabled or not, declared here to re-use the existing method of enable/disable
+    @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
+    public WebElement panelsSearchFieldPlaceHolder;
 
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
@@ -244,12 +244,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public String checkThatPatientCardIsDisplayed(WebDriver driver) {
-        Wait.forElementToBeDisplayed(driver, patientCard, 200);
-        Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
-        Debugger.println("The search result is from :" + patientCardBadge.getText());
-        //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
-        return patientCardBadge.getText().trim();
+    public String checkThatPatientCardIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, patientCard, 200);
+            Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
+            Debugger.println("The search result is from :" + patientCardBadge.getText());
+            //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
+            return patientCardBadge.getText().trim();
+        }catch(Exception exp){
+            Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp);
+            return null;
+        }
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
@@ -602,60 +607,64 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
     }
 
-    public void clickOnFieldsAndVerifyAutoCompleteIsDisabled(String[] textFieldElements) {
-
+    public boolean clickOnFieldsAndVerifyAutoCompleteIsDisabled(String[] textFieldElements) {
+        boolean isAutoComplete = false;
         for (String fieldElement : textFieldElements) {
             switch (fieldElement) {
                 case "nhsNumber": {
-                    verifyFieldHasAutoCompleteDisabled(nhsNumber);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(nhsNumber);
                     break;
                 }
-
                 case "dateDay": {
-                    verifyFieldHasAutoCompleteDisabled(dateDay);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(dateDay);
                     break;
                 }
-
                 case "dateMonth": {
-                    verifyFieldHasAutoCompleteDisabled(dateMonth);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(dateMonth);
                     break;
                 }
-
                 case "dateYear": {
-                    verifyFieldHasAutoCompleteDisabled(dateYear);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(dateYear);
                     break;
                 }
-
                 case "firstName": {
-                    verifyFieldHasAutoCompleteDisabled(firstName);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(firstName);
                     break;
                 }
-
                 case "lastName": {
-                    verifyFieldHasAutoCompleteDisabled(lastName);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(lastName);
                     break;
                 }
-
                 case "postcode": {
-                    verifyFieldHasAutoCompleteDisabled(postcode);
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(postcode);
+                    break;
+                }
+                case "panelsSearchBox": {
+                    isAutoComplete = verifyFieldHasAutoCompleteDisabled(panelsSearchFieldPlaceHolder);
                     break;
                 }
                 default:
-
                     throw new IllegalArgumentException("Invalid text field name");
             }
-        }
+        }//for
+        return isAutoComplete;
     }
 
-    public void verifyFieldHasAutoCompleteDisabled(WebElement element) {
-
-        Wait.forElementToBeDisplayed(driver, element);
-        element.click();
-        Wait.seconds(1);
-        String autoCompleteValue = element.getAttribute("list");
-        Debugger.println("The values for auto complete is: " + autoCompleteValue);
-        Assert.assertEquals("autocompleteOff", autoCompleteValue);
-        Debugger.println("Test passed for the element field" + element);
+    public boolean verifyFieldHasAutoCompleteDisabled(WebElement element) {
+        try {
+            Wait.forElementToBeDisplayed(driver, element);
+            element.click();
+            Wait.seconds(1);
+            String autoCompleteValue = element.getAttribute("list");
+            if(!"autocompleteOff".equalsIgnoreCase(autoCompleteValue)){
+                Debugger.println("Expected the element "+element.toString()+" as autocompleteOFF.");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyFieldHasAutoCompleteDisabled:"+exp);
+            return false;
+        }
     }
 
     public boolean verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected() {
@@ -865,6 +874,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from entering patient with NHS and DOB."+exp);
+            SeleniumLib.takeAScreenShot("fillInNHSNumberAndDateOfBirth.jpg");
             return false;
         }
     }

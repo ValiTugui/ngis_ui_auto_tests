@@ -35,7 +35,7 @@ public class StylesUtils {
             case "#005EB8":
                 return "rgba(0, 79, 156, 1)";
             default:
-                throw new IllegalStateException("Unexpected value: " + fontColor);
+                return "Not defined";
         }
     }
     public static String convertFontColourBorderColor(String fontColor) {

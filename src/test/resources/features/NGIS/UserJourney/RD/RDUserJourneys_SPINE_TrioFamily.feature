@@ -1,9 +1,11 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_SPINE_TrioFamily
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for SPINE Patient - Trio Family
 
-  @NTS-4592 @E2EUI-1195 @UseCase08 @LOGOUT
+  @NTS-4592  @LOGOUT
+#    @E2EUI-1195 @UseCase08
   Scenario Outline: NTS-4592: Use Case#08: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -84,7 +86,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                            | Notes | FamilyMembers  | PatientChoice  | Panels | searchPanels      | Pedigree |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=William:LastName=John:Department=Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=15,05:HpoPhenoType=Hydrocephalus | Notes | Family members | Patient choice | Panels | Holoprosencephaly | Pedigree |
 
-  @NTS-4560 @E2EUI-1244 @UseCase09 @LOGOUT
+  @NTS-4560  @LOGOUT
+#    @E2EUI-1244 @UseCase09
   Scenario Outline: NTS-4560: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -162,7 +165,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | searchPanels |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | Cataracts    |
 
-  @NTS-4567 @E2EUI-1263 @UseCase10 @LOGOUT
+  @NTS-4567  @LOGOUT
+#    @E2EUI-1263 @UseCase10
   Scenario Outline: NTS-4567: Use Case#10: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -248,7 +252,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4607 @E2EUI-922 @UseCase11 @LOGOUT
+  @NTS-4607  @LOGOUT
+#    @E2EUI-922 @UseCase11
   Scenario Outline: NTS-4607: Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -331,7 +336,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | searchPanels | PrintFormsStage |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | Cataracts    | Print forms     |
 
-  @NTS-4577 @E2EUI-1091 @UseCase12 @LOGOUT
+  @NTS-4577 @LOGOUT
+#     @E2EUI-1091 @UseCase12
   Scenario Outline: NTS-4577: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -414,7 +420,8 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4600 @E2EUI-1177 @UseCase13 @LOGOUT
+  @NTS-4600  @LOGOUT
+#    @E2EUI-1177 @UseCase13
   Scenario Outline: NTS-4600: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |

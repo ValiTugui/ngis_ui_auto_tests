@@ -1,10 +1,11 @@
 #@userJourneys
 #@userJourneysCancer
 #@userJourneysCancer_SPINE_ProbandOnly
-
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Cancer Referrals for SPINE Patient - Proband Only
 
-  @NTS-4684 @E2EUI-1635 @UseCase21 @LOGOUT
+  @NTS-4684 @LOGOUT
+#    @E2EUI-1635 @UseCase21
   Scenario Outline: NTS-4684: Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M39 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -74,7 +75,8 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
       | tumour_type  | presentationType | sampleType   | sampleState         | RecordedBy                            |
       | Brain tumour | Recurrence       | Omics sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
-  @E2EUI-1803 @NTS-4566 @LOGOUT
+  @NTS-4566 @LOGOUT
+#    @E2EUI-1803
   Scenario Outline: Use Case #28: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male |

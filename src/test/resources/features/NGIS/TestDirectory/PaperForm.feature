@@ -1,7 +1,7 @@
-@regression
-@testDirectory
-@paperForm
-
+#@regression
+#@paperForm
+@TEST_DIRECTORY
+@SYSTEM_TEST
 Feature: Paper Form page functionalities
 
   Background:

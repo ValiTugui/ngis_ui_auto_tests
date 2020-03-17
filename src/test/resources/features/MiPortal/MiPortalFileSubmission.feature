@@ -1,4 +1,6 @@
-@miportal
+
+@MIPORTAL
+@SYSTEM_TEST
 
 Feature: This is mi-portal fileSubmission
 

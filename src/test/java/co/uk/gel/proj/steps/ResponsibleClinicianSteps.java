@@ -22,7 +22,9 @@ public class ResponsibleClinicianSteps extends Pages {
 
     @And("the user fills in all the clinician form fields")
     public void theUserFillsInAllTheClinicianFormFields() {
-        responsibleClinicianPage.fillInClinicianFormFields();
+        boolean testResult = false;
+        testResult = responsibleClinicianPage.fillInClinicianFormFields();
+        Assert.assertTrue(testResult);
     }
     @When("the user fills in {string} in clinician form fields")
     public void the_user_fills_in_in_clinician_form_fields(String emailValue) {

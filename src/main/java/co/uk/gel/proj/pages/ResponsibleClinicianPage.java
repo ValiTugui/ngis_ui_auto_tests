@@ -140,40 +140,47 @@ public class ResponsibleClinicianPage {
 	String mandatoryLabelAttribute = "label__required-icon";
 	String autoCompleteAttributeOff = "autoComplete_off";
 
-	public void fillInClinicianFormFields() {
-		String firstName = RandomDataCreator.getRandomFirstName();
-		String lastName = RandomDataCreator.getRandomLastName();
-		String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
-		String email = RandomDataCreator.getRandomEmailAddress();
-		String departmentAddress = RandomDataCreator.getRandomAddress();
-		String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
+	public boolean fillInClinicianFormFields() {
+		try {
+			String firstName = RandomDataCreator.getRandomFirstName();
+			String lastName = RandomDataCreator.getRandomLastName();
+			String phoneNumber = RandomDataCreator.getRandomPhoneNumber();
+			String email = RandomDataCreator.getRandomEmailAddress();
+			String departmentAddress = RandomDataCreator.getRandomAddress();
+			String professionalRegistrationNumber = RandomDataCreator.getRandomProfessionalRegistrationNumber();
 
-		Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
-        Actions.clearField(clinicianFirstNameField);
-        Actions.fillInValue(clinicianFirstNameField, firstName);
-        Actions.clearField(clinicianLastNameField);
-        Actions.fillInValue(clinicianLastNameField, lastName);
-        Actions.clearField(clinicianPhoneNumberField);
-        Actions.fillInValue(clinicianPhoneNumberField, phoneNumber);
-        Actions.clearField(clinicianEmailField);
-        Actions.fillInValue(clinicianEmailField, email);
-        Actions.clearField(clinicianDepartmentAddressField);
-        Actions.fillInValue(clinicianDepartmentAddressField, departmentAddress);
-        Actions.clearField(clinicianProfesionalRegistrationNumberField);
-        Actions.fillInValue(clinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
+			Wait.forElementToBeDisplayed(driver, clinicianFirstNameField);
+			Actions.clearField(clinicianFirstNameField);
+			Actions.fillInValue(clinicianFirstNameField, firstName);
+			Actions.clearField(clinicianLastNameField);
+			Actions.fillInValue(clinicianLastNameField, lastName);
+			Actions.clearField(clinicianPhoneNumberField);
+			Actions.fillInValue(clinicianPhoneNumberField, phoneNumber);
+			Actions.clearField(clinicianEmailField);
+			Actions.fillInValue(clinicianEmailField, email);
+			Actions.clearField(clinicianDepartmentAddressField);
+			Actions.fillInValue(clinicianDepartmentAddressField, departmentAddress);
+			Actions.clearField(clinicianProfesionalRegistrationNumberField);
+			Actions.fillInValue(clinicianProfesionalRegistrationNumberField, professionalRegistrationNumber);
 
-		ArrayList clinicianDetails = new ArrayList();
-		clinicianDetails.add(0,firstName);
-		clinicianDetails.add(1,lastName);
-		clinicianDetails.add(2,phoneNumber);
-		clinicianDetails.add(3,email);
-		clinicianDetails.add(4,departmentAddress);
-		clinicianDetails.add(5,professionalRegistrationNumber);
+			ArrayList clinicianDetails = new ArrayList();
+			clinicianDetails.add(0, firstName);
+			clinicianDetails.add(1, lastName);
+			clinicianDetails.add(2, phoneNumber);
+			clinicianDetails.add(3, email);
+			clinicianDetails.add(4, departmentAddress);
+			clinicianDetails.add(5, professionalRegistrationNumber);
 
-		storeClinicianDataForVerification(key1 , clinicianDetails);
-        PatientDetailsPage.newPatient.setResponsibleClinicianName(firstName + " " + lastName);
-        PatientDetailsPage.newPatient.setResponsibleClinicianEmail(email);
-        PatientDetailsPage.newPatient.setResponsibleClinicianContactNumber(phoneNumber);
+			storeClinicianDataForVerification(key1, clinicianDetails);
+			PatientDetailsPage.newPatient.setResponsibleClinicianName(firstName + " " + lastName);
+			PatientDetailsPage.newPatient.setResponsibleClinicianEmail(email);
+			PatientDetailsPage.newPatient.setResponsibleClinicianContactNumber(phoneNumber);
+			return true;
+		}catch(Exception exp){
+			Debugger.println("Exception in filling fillInClinicianFormFields:"+exp);
+			SeleniumLib.takeAScreenShot("fillInClinicianFormFields.jpg");
+			return false;
+		}
 
 	}
 

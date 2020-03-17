@@ -1,8 +1,11 @@
-@regression
-@printForms
+#@regression
+#@printForms
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Print Forms - User flows
 
-  @NTS-4746 @E2EUI-1729  @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-1729
   Scenario Outline: NTS-4746: Update copy on print form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=24-08-1998:Gender=Male |
@@ -29,7 +32,8 @@ Feature: Print Forms - User flows
       | OneParticipant | PrintForms  | WarningMessage                                                                                            |
       | 1              | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @E2EUI-1332 @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-1332
   Scenario Outline: NTS-4746: Download sample form stage becomes available
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-11-2011:Gender=Male |
@@ -56,7 +60,8 @@ Feature: Print Forms - User flows
       | OneParticipant | PrintForms  |
       | 1              | Print forms |
 
-  @NTS-4746 @E2EUI-1132 @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-1132
   Scenario Outline: NTS-4746: User has submitted a referral and able to start a new referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2001:Gender=Female |
@@ -82,7 +87,8 @@ Feature: Print Forms - User flows
       | PrintForms  | OneParticipant |
       | Print forms | 1              |
 
-  @NTS-4746 @E2EUI-2094 @LOGOUT @v_1 @P0 @scenario_01
+  @NTS-4746  @LOGOUT
+#    @E2EUI-2094 @scenario_01
   Scenario Outline: NTS-4746: scenario_01 Update warning box content on print sample forms
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -148,7 +154,8 @@ Feature: Print Forms - User flows
       | tumour_type           | presentationType   | sampleType          | sampleState         | ClinicianName                         | WarningMessage                                                                                            |
       | Solid tumour: primary | First presentation | Solid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @E2EUI-2094 @LOGOUT @v_1 @P0 @scenario_02
+  @NTS-4746  @LOGOUT
+#    @E2EUI-2094  @scenario_02
   Scenario Outline: NTS-4746 : scenario_02 Update warning box content on print sample forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-09-2009:Gender=Male |
@@ -209,7 +216,8 @@ Feature: Print Forms - User flows
       | printForms  | OneParticipant | diseaseStatueValue | year | month | ClinicianName                         | WarningMessage                                                                                            |
       | Print forms | 1              | Unaffected         | 1    | 2     | ClinicianName=John:HospitalNumber=123 | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @E2EUI-1223 @E2EUI-1848 @E2EUI-1445 @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-1223 @E2EUI-1848 @E2EUI-1445
     ##Note: For E2EUI-1445, all the fields mentioned in the E2EUI ticket is not validated as some of them not possible to validate via automation
     ## like box, barcode, flags etc
   Scenario Outline: NTS-4746: User is completing a referral
@@ -292,7 +300,8 @@ Feature: Print Forms - User flows
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | PrintForms  | Notes |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Print forms | Notes |
 
-  @NTS-4746 @E2EUI-1697 @E2EUI-1628 @E2EUI-1757 @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-1697 @E2EUI-1628 @E2EUI-1757
   Scenario Outline:NTS-4746: Validating submit referral and able to start a new referral after submission.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=5-10-2000:Gender=Male |
@@ -359,7 +368,8 @@ Feature: Print Forms - User flows
       | OneParticipant | PatientChoiceStage | ClinicalQuestionDetails                   | ClinicianName                             | PrintForms  |
       | 1              | Patient choice     | DiseaseStatus=Unaffected:AgeOfOnset=01,02 | ClinicianName=John Doe:HospitalNumber=123 | Print forms |
 
-  @NTS-4746 @E2EUI-889 @LOGOUT @v_1 @P0
+  @NTS-4746  @LOGOUT
+#    @E2EUI-889 @LOGOUT
   Scenario Outline: NTS-4746: Submit a referral and resubmit again
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -438,7 +448,8 @@ Feature: Print Forms - User flows
       | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                    | PatientChoice  | ClinicianName                                |
       | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Functional abnormality of the bladder | Patient choice | ClinicianName=Billy:HospitalNumber=178827893 |
 
-  @NTS-4802 @E2EUI-1789 @E2EUI-1262 @E2EUI-826 @LOGOUT @v_1 @P0
+  @NTS-4802  @LOGOUT
+#    @E2EUI-1789 @E2EUI-1262 @E2EUI-826
   Scenario Outline: NTS-4802:  As a user viewing the print forms section, I should be able to see all family member identifiers so that I can correctly identify they are the correct family members in the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-10-2001:Gender=Female |

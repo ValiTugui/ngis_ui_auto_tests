@@ -173,7 +173,7 @@ public class ClinicalQuestionsPage {
                 if(!Wait.isElementDisplayed(driver,hpoSearchField,10)){
                     Debugger.println("Scrolled to HPO Phenotype search field, still not displayed.");
                     SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch1.jpg");
-                    return 0;
+                    Actions.scrollToTop(driver);
                 }
             }
             hpoSearchField.sendKeys(hpoTerm);
@@ -363,28 +363,30 @@ public class ClinicalQuestionsPage {
                 case "PhenotypicSex": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         try {
-                            Actions.retryClickAndIgnoreElementInterception(driver,phenotypicSexDropdown);
+                            Click.element(driver, phenotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q90')]//span[text()='" + paramNameValue.get(key) + "']")));
-                            break;
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
                         } catch (Exception exp) {
-                            Debugger.println("Exception from selecting phenotypic sex dropdown...:" + exp);
-                            SeleniumLib.takeAScreenShot("PhenotypicSexDropdown.jpg");
+                            Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
+                            return false;
                         }
                     }
+                    break;
                 }
                 case "KaryotypicSex": {
                     if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
                         try {
                             Click.element(driver, karyotypicSexDropdown);
                             Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                            Click.element(driver, dropdownValue.findElement(By.xpath("//div[contains(@id,'answers.question-id-q91')]//span[text()='" + paramNameValue.get(key) + "']")));
-                            break;
+                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
                         } catch (Exception exp) {
-                            Debugger.println("Exception from selecting karyotypic sex dropdown...:" + exp);
-                            SeleniumLib.takeAScreenShot("KaryotypicSexDropdown.jpg");
+                            Debugger.println("Exception from selecting karyotypicSexDropdown...:" + exp);
+                            SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
+                            return false;
                         }
                     }
+                    break;
                 }
             }//switch
         }//for

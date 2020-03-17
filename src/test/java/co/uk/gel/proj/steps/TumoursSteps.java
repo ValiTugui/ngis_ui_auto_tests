@@ -67,7 +67,11 @@ public class TumoursSteps extends Pages {
                 break;
             }
             default:
-                throw new IllegalArgumentException("Invalid text field name");
+                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+               // throw new IllegalArgumentException("Invalid text field name");
         }
     }
 
@@ -311,10 +315,15 @@ public class TumoursSteps extends Pages {
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")
     public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
+        Debugger.println("One");
         tumoursPage.editTumourDescription();
+        Debugger.println("One1");
         tumoursPage.editDateOfDiagnosis();
+        Debugger.println("One2");
         tumoursPage.selectTumourType(tumourType);
+        Debugger.println("One3");
         tumoursPage.editSpecimenID();
+        Debugger.println("One4");
     }
 
     @And("on the select or edit a tumour page, the new tumour details are displayed in the tumour table list")
