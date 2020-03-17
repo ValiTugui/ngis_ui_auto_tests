@@ -1767,13 +1767,15 @@ public class ReferralPage<check> {
 
     @FindBy(name = "loginfmt")
     public WebElement emailAddressField;
-    @FindBy(id = "otherTileText")
-    public WebElement useAnotherAccount;
     @FindBy(xpath = "//input[contains(@type,'submit')]")
     public WebElement nextButton;
-    @FindBy(name = "passwd")
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
+    @FindBy(name ="passwd")
     public WebElement passwordField;
-    @FindBy(id = "companyLogo")
+
+    //new paths for the NHS Login page
+    @FindBy(id ="companyLogo")
     public WebElement nhsLogo;
     @FindBy(id="userNameInput")
     public WebElement emailAddressFieldNHSPage;
@@ -1814,19 +1816,18 @@ public class ReferralPage<check> {
                 Assert.fail("NHS Login Page is not displayed.");
             }
             Wait.forElementToBeClickable(driver,emailAddressFieldNHSPage);
-            /*String mailIdPresent=emailAddressFieldNHSPage.getText();
+            String mailIdPresent=emailAddressFieldNHSPage.getAttribute("value");
             if(!mailIdPresent.equals(nhsMail)){
                 emailAddressFieldNHSPage.sendKeys(nhsMail);
-            }*/
+            }
             Wait.forElementToBeClickable(driver, passwordFieldNHSPage);
             passwordFieldNHSPage.sendKeys(nhsPassword);
             signInNHSPage.click();
-            Debugger.println(" Logging to TO as user type: "+userType);
+            Debugger.println(" Logging to TO as user type: "+userType+" ,with id: "+nhsMail);
             Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
             SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
-//           return false;
         }
     }
 

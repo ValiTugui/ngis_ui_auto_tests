@@ -18,7 +18,7 @@ public class Pages implements Navigable {
     public final String testOrderURL = "test-order";
     protected String normalUser = "GEL_NORMAL_USER";
     protected String superUser = "GEL_SUPER_USER";
-    protected String nhsUser = "NHS_Test_User";
+    protected String nhsUser = "NHS_TEST_USER";
 
     protected WebDriver driver;
 
