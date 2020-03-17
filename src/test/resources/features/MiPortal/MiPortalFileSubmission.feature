@@ -103,7 +103,7 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | value  | operator  |
       | File Submissions | Status | is        |
-#      | File Submissions | Status | is one of |
+      | File Submissions | Status | is one of |
 
 
   @miportal7
@@ -127,8 +127,8 @@ Feature: This is mi-portal fileSubmission
 
     Examples:
       | mi_stage         | value        | operator |
-      | File Submissions | Submitted By | is       |
-#      | File Submissions | Status | is one of |
+      | File Submissions | Submitted By | is        |
+      | File Submissions | Submitted By | is one of |
 
 
   @miportal8

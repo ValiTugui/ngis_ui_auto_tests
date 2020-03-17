@@ -42,10 +42,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement searchTitle;
 
     @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
-    public List<WebElement> genericDropDropDownValues;
-
-    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span[@class='text']") //needed for multiple selection
     public List<WebElement> genericDropDropDownValues1;
+
+    //enhanced for multiple drop-down value selection
+    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span[@class='text']")
+    public List<WebElement> genericDropDropDownValues;
 
     @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
     public List<WebElement> dropDownFileSubmissionsSearchDropValues;

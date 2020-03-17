@@ -82,6 +82,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
 
+    String badgeFilterSearchCriteriaBy = "//div[@id='file_submissions-search-search_term_pills']/span";
 
     public void selectSearchValueDropDown(WebElement element, String value) {
         try {
@@ -124,7 +125,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("UnableToFillDate.jpg");
         }
     }
-    
+
     public String getAValueOfSearchedResult(String filterCriteria, int index) {
         String locator = "//td[text()='" + filterCriteria + "']/../td[" + index + "]";
         return driver.findElement(By.xpath(locator)).getText();
@@ -260,7 +261,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
             if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
                 Debugger.println("badge search criteria is NOT displayed as expected");
                 return true;
