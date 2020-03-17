@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_4
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice-4 Edit Paper Form - Child
 
-  @NTS-3428 @E2EUI-2041 @E2EUI-1392 @v_1 @P0
+  @NTS-3428
+    #@E2EUI-2041 @E2EUI-1392
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -27,7 +29,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | PatientChoice  | ClinicianName                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_1
+  @NTS-3428
+    #@E2EUI-2041 @scenario_1
   Scenario Outline: NTS-3428: scenario 1 - Editing Patient choice for a Child in person
     When the user is in the section Patient choices
     Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -66,7 +69,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | WarningMessage1                                                                                                                                               | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_2
+  @NTS-3428
+    #@E2EUI-2041 @scenario_2
   Scenario Outline: NTS-3428: scenario 2 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -91,7 +95,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_3
+  @NTS-3428
+    #@E2EUI-2041 @scenario_3
   Scenario Outline: NTS-3428: scenario 3 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -149,7 +154,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
 
     ### Parent(s) / guardian have agreed to the test  - Yes - No
     ### Child Assent - Not applicable
-  @NTS-3428 @E2EUI-2041 @v_1 @P0 @scenario_4
+  @NTS-3428
+    #@E2EUI-2041 @scenario_4
   Scenario Outline: NTS-3428: scenario 4 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -207,7 +213,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
 
     ### Parent(s) / guardian have agreed to the test  - Yes - Yes
     ### Child Assent - Yes
-  @NTS-3428 @E2EUI-2041 @LOGOUT @v_1 @P0 @scenario_5
+  @NTS-3428 @LOGOUT
+    #@E2EUI-2041 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -265,7 +272,8 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian signature          |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-4603 @E2EUI-1892 @LOGOUT @v_1 @P0
+  @NTS-4603 @LOGOUT
+    #@E2EUI-1892
   Scenario Outline: NTS-4603: Moving the warn message to research section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |

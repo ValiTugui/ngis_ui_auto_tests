@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_6
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice-6 - File uploads
 
-  @NTS-3440 @E2EUI-2038 @2036 @E2EUI-1823 @E2EUI-1680 @E2EUI-1827 @LOGOUT @v_1 @P0
+  @NTS-3440 @LOGOUT
+    #@E2EUI-2038 @2036 @E2EUI-1823 @E2EUI-1680 @E2EUI-1827
   Scenario Outline: NTS-3440: Editing Patient Choice Recorded by when uploading a paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
@@ -49,7 +51,8 @@ Feature: Patient Choice-6 - File uploads
       | PatientChoice  | WarningMessage1                                                                                                                                                                                                                                          | WarningMessage2                                                                                                                                                                      | ErrorMessage                                                                           | WarningMessage3                                                                                                                 | RecordedByWithoutFormSelection                                              |
       | Patient choice | You are the appointed administrator for ensuring that the Patient's Genomic Test decisions are accurately reproduced in this digital form. Please ensure that you take care to enter the answers as described on the paper record of decisions attached. | Your file may take a minute to upload, depending on its size. You can continue to fill out this form, but will not be able to complete and submit it until the upload has completed. | Please complete the required field Clinician Name (Admin support user ID is optional): | Please make sure you have uploaded all required forms (child assent, consultee, etc.), you currently have uploaded the files... | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile.pdf |
 
-  @NTS-3448 @E2EUI-1147 @E2EUI-2087 @E2EUI-825 @LOGOUT @v_1 @P0
+  @NTS-3448 @LOGOUT
+    #@E2EUI-1147 @E2EUI-2087 @E2EUI-825
   Scenario Outline: NTS-3448: Validating Upload Document functionality with invalid file formats in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
@@ -81,7 +84,8 @@ Feature: Patient Choice-6 - File uploads
       | PatientChoice  | ClinicianName                            |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3483 @E2EUI-1890 @E2EUI-1950 @E2EUI-1826 @LOGOUT @v_1 @P0
+  @NTS-3483 @LOGOUT
+    #@E2EUI-1890 @E2EUI-1950 @E2EUI-1826
   Scenario Outline: NTS-3483: Remove the option for consultee from the document upload enumeration - Child flow
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
@@ -108,7 +112,8 @@ Feature: Patient Choice-6 - File uploads
       | PatientChoice  | RecordedByWithoutFormSelection                                              |
       | Patient choice | RecordingClinicianName=John Doe:Action=UploadDocument:FileName=testfile.pdf |
 
-  @NTS-3480 @E2EUI-2154 @LOGOUT @v_1 @P1
+  @NTS-3480 @LOGOUT
+    #@E2EUI-2154
   Scenario Outline: NTS-3480: Verify patient signature section should not present after upload document
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
@@ -141,7 +146,8 @@ Feature: Patient Choice-6 - File uploads
       | PatientChoice  | RecordedByWithFormUpload                                                                                                           |
       | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
 
-  @NTS-4603 @E2EUI-1856 @LOGOUT @v_1 @P0
+  @NTS-4603 @LOGOUT
+    #@E2EUI-1856
   Scenario Outline: NTS-4603: Verify that the old file uploaded names remain after all files have been deleted.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2012:Gender=Male |

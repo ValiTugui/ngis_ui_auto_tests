@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_8
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice-8 - History - Preference
 
-  @NTS-3437 @E2EUI-1878 @v_1 @P0 @scenario_01
+  @NTS-3437
+    #@E2EUI-1878 @scenario_01
   Scenario Outline: NTS-3437 :scenario_01: Verify the Supporting information form section in form library
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -30,7 +32,8 @@ Feature: Patient Choice-8 - History - Preference
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3437 @E2EUI-1878 @LOGOUT @v_1 @P0 @scenario_02
+  @NTS-3437 @LOGOUT
+    #@E2EUI-1878  @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
     When the user selects the History tab in patient choice page
     And the user selects the New patient choice tab in patient choice page
@@ -52,7 +55,8 @@ Feature: Patient Choice-8 - History - Preference
       | RecordedBy                            |
       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3481 @E2EUI-2151 @LOGOUT @v_1 @P0
+  @NTS-3481 @LOGOUT
+    #@E2EUI-2151
   Scenario Outline: NTS-3481: Verify the updated warning message content in patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -80,7 +84,8 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  |
       | Patient choice |
 
-  @NTS-3415 @E2EUI-1678 @LOGOUT @v_1 @BVT_P0
+  @NTS-3415 @LOGOUT
+    #@E2EUI-1678
   Scenario Outline:Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
@@ -106,7 +111,8 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  | WarningMessage2                                                                                                         | WarningMessage1                                                                                    |
       | Patient choice | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. | No patient choice data found. Please complete patient choice before modifying patient preferences. |
 
-  @NTS-4603 @E2EUI-1891 @LOGOUT @v_1 @P0
+  @NTS-4603 @LOGOUT
+    #@E2EUI-1891
   Scenario Outline: NTS-4603: Verify verify referral id displayed in history tab is same as on the banner
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |

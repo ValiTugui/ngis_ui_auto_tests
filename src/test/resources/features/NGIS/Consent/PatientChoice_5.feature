@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_5
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice -5 Page - FamilyMemberAddition
 
-  @NTS-3341 @E2EUI-1659 @LOGOUT @BVT-P0 @v_1
+  @NTS-3341 @LOGOUT
+    #@E2EUI-1659
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
@@ -44,7 +46,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Family members | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
 
-  @NTS-3435 @E2EUI-1877 @LOGOUT @v_1 @P0
+  @NTS-3435 @LOGOUT
+    #@E2EUI-1877
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2002:Gender=Male |
@@ -89,7 +92,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Patient details | Test package | 2                | Family members | Patient choice |
 
 
-  @NTS-3450 @E2EUI-1773 @LOGOUT @v_1 @P0
+  @NTS-3450 @LOGOUT
+    #@E2EUI-1773
   Scenario Outline: NTS-3450: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -117,7 +121,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | Patient choice stage |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Patient choice       |
 
-  @NTS-3411 @E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570 @LOGOUT @v_1 @P0
+  @NTS-3411 @LOGOUT
+    #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
   Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
@@ -152,7 +157,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Patient details | Test package | 3                | Family members | Patient choice |
 
 
-  @NTS-3451 @E2EUI-2109 @LOGOUT @v_1 @P0
+  @NTS-3451 @LOGOUT
+    #@E2EUI-2109
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
@@ -184,7 +190,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Test package | 3                | Family members | Patient choice |
 
 
-  @NTS-3445 @E2EUI-1931 @LOGOUT @v_1 @P0
+  @NTS-3445 @LOGOUT
+    #@E2EUI-1931
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |

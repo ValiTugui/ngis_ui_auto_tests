@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_2
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice-2 ConsentScenario - Child
 
-  @NTS-3441 @E2EUI-1215 @v_1 @P0
+  @NTS-3441
+    #@E2EUI-1215
   Scenario Outline: NTS-3441: Verify the relevant Patient choice for a Child paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
@@ -29,7 +31,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | PatientChoice  | RecordedBy                                                                                                           | FormSuccessMessage    | WarningMessage                                                                                                                                                                                                                                           | Message                                                                                                                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Successfully Uploaded | You are the appointed administrator for ensuring that the Patient's Genomic Test decisions are accurately reproduced in this digital form. Please ensure that you take care to enter the answers as described on the paper record of decisions attached. | Please make sure you have uploaded all required forms (child assent, consultee, etc.), you currently have uploaded the files... |
 
-  @NTS-3441 @E2EUI-1215 @v_1 @P0 @scenario_1
+  @NTS-3441
+    #@E2EUI-1215 @scenario_1
   Scenario Outline: NTS-3441: scenario 1 - Verify the relevant Patient choice for a Child paper form
     When the user is in the section Patient choices
     Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -64,7 +67,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3441 @E2EUI-1215 @v_1 @P0 @scenario_2
+  @NTS-3441
+    #@E2EUI-1215 @scenario_2
   Scenario Outline: NTS-3441: scenario 2 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -90,7 +94,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3441 @E2EUI-1215 @v_1 @P0 @scenario_3
+  @NTS-3441
+    #@E2EUI-1215 @scenario_3
   Scenario Outline: NTS-3441: scenario 3 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -138,7 +143,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage1                                                                                                        | WarningMessage2    |
       | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3441 @E2EUI-1215 @v_1 @P0 @scenario_4
+  @NTS-3441
+    #@E2EUI-1215 @scenario_4
   Scenario Outline: NTS-3441: scenario 4 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
     Then the user should be able to see previous section re-opened
@@ -184,7 +190,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage2    | WarningMessage                                                                                                                                                      |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. |
 
-  @NTS-3441 @E2EUI-1215 @LOGOUT @v_1 @P0 @scenario_5
+  @NTS-3441 @LOGOUT
+    #@E2EUI-1215 @scenario_5
   Scenario Outline: NTS-3441: scenario 5 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -228,7 +235,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage    |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3471 @E2EUI-2155 @LOGOUT @v_1 @P1
+  @NTS-3471 @LOGOUT
+    #@E2EUI-2155
   Scenario Outline: NTS-3471: Verify the child assent question content
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -268,7 +276,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | Patient choice stage | RecordedBy                                                                                                           |
       | Patient choice       | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
 
-  @NTS-3415 @E2EUI-1627 @LOGOUT @v_1 @P0
+  @NTS-3415 @LOGOUT
+    #@E2EUI-1627
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1991:Gender=Male |

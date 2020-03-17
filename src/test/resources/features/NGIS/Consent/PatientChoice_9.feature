@@ -1,9 +1,11 @@
-@regression
-@patientChoice
-@patientChoice_9
+#@regression
+#@patientChoice
+@CONSENT
+@SYSTEM_TEST
 Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
 
-  @NTS-3389 @E2EUI-2039 @E2EUI-1100 @v_1 @P0
+  @NTS-3389
+    #@E2EUI-2039 @E2EUI-1100
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
@@ -28,7 +30,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | PatientChoice  | ClinicianName                         |
       | Patient choice | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_01
+  @NTS-3389
+    #@E2EUI-2039 @scenario_01
   Scenario Outline: NTS-3389: scenario_01 - Verify the relevant Patient choice for an Adult with capacity
     When the user is in the section Patient choices
     Then the user should see the question displayed as Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
@@ -54,7 +57,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_02
+  @NTS-3389
+    #@E2EUI-2039  @scenario_02
   Scenario Outline: NTS-3389: scenario_02 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -81,7 +85,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_03
+  @NTS-3389
+    #@E2EUI-2039 @scenario_03
   Scenario Outline: NTS-3389: scenario_03 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -124,7 +129,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                         |
       | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. |
 
-  @NTS-3389 @E2EUI-2039 @v_1 @P0 @scenario_04
+  @NTS-3389
+    #@E2EUI-2039  @scenario_04
   Scenario Outline: NTS-3389: scenario_04 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
@@ -163,7 +169,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                                                                      | Question2                                                                                      |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
-  @NTS-3389 @E2EUI-2039 @LOGOUT @v_1 @P0 @scenario_05
+  @NTS-3389
+  #@E2EUI-2039 @LOGOUT @scenario_05
   Scenario: NTS-3389: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened
