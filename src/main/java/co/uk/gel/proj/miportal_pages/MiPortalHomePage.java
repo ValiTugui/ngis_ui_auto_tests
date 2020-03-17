@@ -76,6 +76,21 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
     public WebElement resetButton;
 
+    @FindBy(xpath = "//h3[text()='Search Results']")
+    public WebElement searchResultTitle;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(), 'Display Options')]")
+    public WebElement searchResultDisplayOptionsButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download CSV')]")
+    public WebElement downloadCSVButton;
+
+    @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
+    public WebElement searchResultRowHeader;
+
+    @FindBy(xpath = "//div[@id='DataTables_Table_1_length']")
+    public WebElement searchResultEntryOptionsSelection;
+
 
     public boolean navigateToMiPage(String expectedMipage) {
         try {
@@ -188,6 +203,24 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }//end
+
+
+    public boolean verifyTheElementsInTheSearchResultSection() {
+        Wait.forElementToBeDisplayed(driver,searchResultRowHeader, 10 );
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(searchResultTitle);
+        expectedElements.add(searchResultDisplayOptionsButton);
+        expectedElements.add(searchResultRowHeader);
+        expectedElements.add(searchResultEntryOptionsSelection);
+        expectedElements.add(downloadCSVButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+            Debugger.println("element " + i + " shown");
+        }
+        return true;
+    }
 
 }
 

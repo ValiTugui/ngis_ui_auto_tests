@@ -165,3 +165,22 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | value   | operator | date        | noResultFound                            |
       | File Submissions | Created | equals   | future_date | No results found for these search terms. |
+
+
+  @miportal10
+  Scenario Outline: Verify the main elements displayed in search result section
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
+
+    Examples:
+      | mi_stage         | value   | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |

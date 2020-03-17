@@ -4,10 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -77,7 +75,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement resetButton;
 
     @FindBy(id = "file_submissions-display-display_options")
-    public WebElement searchResultDisplayOptions;
+    public WebElement searchResultDisplayOptionsButton;
 
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
@@ -278,8 +276,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean searchResultTableIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptions);
-            if (Wait.isElementDisplayed(driver, searchResultTable.get(0), 5)) {
+            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
+            if (Wait.isElementDisplayed(driver, searchResultTable.get(0), 10)) {
                 Debugger.println("search result table is displayed as expected");
                 return true;
             } else {

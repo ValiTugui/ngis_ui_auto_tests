@@ -180,4 +180,12 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("test-result flag for verifying no result found is: " + testResult);
         Assert.assertTrue(testResult);
     }
+
+
+    @And("the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV")
+    public void theSearchResultsSectionDisplaysTheElementsSearchResultsTextDisplayOptionsEntryOptionsResultRowHeaderAndDownLoadCSV() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyTheElementsInTheSearchResultSection();
+        Assert.assertTrue(testResult);
+    }
 }
