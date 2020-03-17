@@ -485,9 +485,9 @@ public class ReferralPage<check> {
             Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
         }
     }
-
-    public boolean stageIsActive(String stage) {
+    public boolean stageIsSelected(String stage) {
         try {
+            Wait.seconds(2);
             String activeMark = stageActiveMark.replaceAll("dummyStage", stage);
             WebElement activeMarkElement = driver.findElement(By.xpath(activeMark));
             if (Wait.isElementDisplayed(driver, activeMarkElement, 30)) {
@@ -495,32 +495,10 @@ public class ReferralPage<check> {
             }
             return false;
         } catch (NoSuchElementException nexp) {
-           return false;
+            return false;
         }
-   }
-
-    public boolean stageIsSelected(String stage) {
-        try {
-
-            String completedMark = stageCompletedMark.replaceAll("dummyStage", stage);
-            WebElement completedMarkElement = null;
-            try {
-                completedMarkElement = driver.findElement(By.xpath(completedMark));
-            } catch (Exception NoSuchElementException) {
-                //Checking for the completed Icon, if no element found that means it is not present.
-                //Checking the presence with mandatory icon to ensure the stage is present
-                String inCompletedMark = stageInCompletedMark.replaceAll("dummyStage", stage);
-                completedMarkElement = driver.findElement(By.xpath(inCompletedMark));
-                if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
-                    return false;
-                }
-            }
-            if (Wait.isElementDisplayed(driver, completedMarkElement, 30)) {
-                return true;
-            } else {
-                return false;
-            }
             //Commented below as it is observed that for non-completed stage also, it was returning as selected
+            // Looks like some change in the css property
 //
 //            Wait.forURLToContainSpecificText(driver, getPartialUrl(stage));
 //            Wait.forElementToBeDisplayed(driver, toDoList);
@@ -536,11 +514,11 @@ public class ReferralPage<check> {
 //                return true;
 //            }
 //            return false;
-        } catch (Exception exp) {
-            Debugger.println("Exception from verifying stageIsSelected: " + stage + "," + exp);
-            SeleniumLib.takeAScreenShot("stageIsSelected.jpg");
-            return false;
-        }
+//        } catch (Exception exp) {
+//            Debugger.println("Exception from verifying stageIsSelected: " + stage + "," + exp);
+//            SeleniumLib.takeAScreenShot("stageIsSelected.jpg");
+//            return false;
+//        }
 
     }
 
@@ -1620,6 +1598,7 @@ public class ReferralPage<check> {
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(mandatoryStage));
+            Wait.seconds(10);//Wait for 10 seconds to load the selected mandatory stage
             return true;
         } catch (Exception exp) {
             Debugger.println("Mandatory Stage Link is not displayed even after waiting period...Failing." + exp);

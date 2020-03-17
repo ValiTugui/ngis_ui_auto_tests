@@ -920,7 +920,6 @@ public class ReferralSteps extends Pages {
     public void theUserSeesAListOfOutstandingMandatoryStagesToBeCompletedInTheDialogBox(DataTable dataTable) {
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
         List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
-
         for (int i = 0; i < expectedList.size(); i++) {
             Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
             Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
@@ -944,7 +943,7 @@ public class ReferralSteps extends Pages {
     @And("the user should be able to see the active stage {string} in to-do list")
     public void theUserShouldAbleToSeeTheActiveStageInToDoList(String activeStage) {
         boolean testResult = false;
-        testResult = referralPage.stageIsActive(activeStage);
+        testResult = referralPage.stageIsSelected(activeStage);
         Assert.assertTrue(testResult);
     }
 
@@ -953,7 +952,7 @@ public class ReferralSteps extends Pages {
         boolean testResult;
         List<List<String>> stages = incompletedStages.asLists();
         for (int i = 0; i < stages.size(); i++) {
-            testResult = referralPage.stageIsSelected(stages.get(i).get(0));
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if(testResult){
                 Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be incomplete, but complete.");
                 SeleniumLib.takeAScreenShot("IncompletedStage.jpg");
@@ -968,7 +967,7 @@ public class ReferralSteps extends Pages {
         boolean testResult;
         List<List<String>> stages = completedStages.asLists();
         for (int i = 0; i < stages.size(); i++) {
-            testResult = referralPage.stageIsSelected(stages.get(i).get(0));
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
             if(!testResult){
                 Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be complete, but not.");
                 SeleniumLib.takeAScreenShot("completedStage.jpg");

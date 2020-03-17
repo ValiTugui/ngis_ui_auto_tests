@@ -1058,8 +1058,9 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
+        String actValue = null;
         try {
-            String actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
+            actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
             WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
             if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
                 Debugger.println("Relation to Proband element not visible.");
@@ -1067,7 +1068,16 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        } catch (Exception exp) {
+        }catch (NoSuchElementException exp) {
+            Actions.scrollToBottom(driver);
+            WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
+            if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
+                Debugger.println("Relation to Proband element not visible.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp) {
             Debugger.println("Exception verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion." + exp);
             SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
             return false;

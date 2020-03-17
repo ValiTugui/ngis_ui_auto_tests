@@ -257,7 +257,7 @@ Feature: Tumours Page
       | stage   | tumour_type              | presentationType | searchTerm |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       |
 
-  @NTS-3190 @E2EUI-1513 @E2EUI-9031 @LOGOUT @P0 @v_1
+  @NTS-3190 @E2EUI-1513 @E2EUI-903 @LOGOUT @P0 @v_1
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
