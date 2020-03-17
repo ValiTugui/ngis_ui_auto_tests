@@ -19,12 +19,12 @@ Feature: Patient details page_SPINE
     And the display question for NHS Number of the family member search page is Do you have the family member’s NHS Number?
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
-
 #    When the user clicks on the patient card
     And the user clicks the patient result card
     Then the user is navigated to a page with title Confirm family member details
     When the selects the ethnicity as "B - White - Irish"
-    And the user selects the Relationship to proband as "<RelationshipToProband>"
+#    And the user selects the Relationship to proband as "<RelationshipToProband>"
+    And the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
@@ -39,7 +39,6 @@ Feature: Patient details page_SPINE
     Then the Patient Details page is displayed
     And the patient's referrals are displayed at the bottom of the page
     And the referral status from the card is "Created"
-    And the Relationship to Proband from the patient referral card is "<RelationshipToProband>"
 
     Examples:
       | patient-search-type | stage1          | stage          | FamilyMemberDetails                 | RelationshipToProband |
@@ -82,11 +81,6 @@ Feature: Patient details page_SPINE
       | patient-search-type | addToPatientDetails | SearchDetails                                                                     |
       | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown:Postcode=RH3 7JP |
       | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown                  |
-
-
-
-
-
 
 #  SPINE DATA replaced with NGIS DATA
 

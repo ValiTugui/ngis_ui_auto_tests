@@ -1,12 +1,11 @@
 #@regression
 #@patientChoice
-#@patientChoice_validations
 @CONSENT
 @SYSTEM_TEST
-Feature: Patient Choice Page - validations
+Feature: Patient Choice-11 - validations
 
   @NTS-3478 @LOGOUT
-#    @E2EUI-2153 @E2EUI-1677 @LOGOUT
+    #@E2EUI-2153 @E2EUI-1677
   Scenario Outline: NTS-3436: Patient choice option content has changed to Record of Discussion form not currently available
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -38,8 +37,45 @@ Feature: Patient Choice Page - validations
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3436 @NTS-4307 @LOGOUT
-#    @E2EUI-1704  @E2EUI-880 @LOGOUT
+  @NTS-3436 @LOGOUT
+    #@E2EUI-1704
+  Scenario Outline: NTS-3436: No question is populated for the Not applicable case under child assent in patient choice questions.
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<PatientChoiceStage>" stage
+    Then the user is navigated to a page with title Patient choice
+    And the user selects the proband
+    Then the user is navigated to a page with title Add patient choice information
+    ##Below step is for E2EUI-880
+    And the user will see a notification warning message "<WarningMessage>"
+    And the user sees the new patient choice tab selected by default with subtitle New patient choice form
+    When the user selects the option Child in section Patient choice category
+    Then the option Child displayed with edit option in Patient choice category
+    And the Patient choice category option is marked as completed
+    When the user selects the option Rare & inherited diseases – WGS in section Test type
+    Then the option Rare & inherited diseases – WGS displayed with edit option in Test type
+    And the Test type option is marked as completed
+    When the user is in the section Recorded by
+    When the user fills "<RecordedBy>" details in recorded by
+    And the user clicks on Continue Button
+    And the Recorded by option is marked as completed
+    When the user is in the section Patient choices
+    Then the user should see the question displayed as Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Parent(s) / guardian have agreed to the test for the question Have the parent(s) / guardian had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?
+    When the user selects the option Yes for the question Has research participation been discussed?
+    When the user selects the option Yes for the question The patient's parent(s) / guardian agrees that their child's data and samples may be used for research, separate to NHS care.
+    And the user clicks on Continue Button
+    When the user is in the section Child assent
+    Then the user should see the question displayed as Does the child agree to participate in research?
+    When the user selects the option Not applicable for the question Does the child agree to participate in research?
+    Then the user should be able to see enabled continue button
+    Examples:
+      | PatientChoiceStage | RecordedBy                                                                                                     | WarningMessage                                                      |
+      | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
+
+  @NTS-4307 @LOGOUT
+    #@E2EUI-880
   Scenario Outline: NTS-3436: No question is populated for the Not applicable case under child assent in patient choice questions.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -76,7 +112,7 @@ Feature: Patient Choice Page - validations
       | Patient choice     | RecordingClinicianName=John Doe:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | A laboratory cannot start a test without patient choice information |
 
   @NTS-3378 @LOGOUT
-#    @E2EUI-1181 @E2EUI-1752 @LOGOUT
+    #@E2EUI-1181 @E2EUI-1752
   Scenario Outline: NTS-3378: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -115,7 +151,7 @@ Feature: Patient Choice Page - validations
       | Patient choice     | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-3444 @LOGOUT
-#    @E2EUI-1727 @LOGOUT
+    #@E2EUI-1727
   Scenario Outline: NTS-3444 : Validating Patient choice section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1993:Gender=Male |
@@ -174,7 +210,7 @@ Feature: Patient Choice Page - validations
       | Patient details | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Family members | Patient choice |
 
   @NTS-3385 @LOGOUT
-#    @E2EUI-1474 @LOGOUT
+    #@E2EUI-1474
   Scenario Outline: NTS-3385: Create referral navigation component - Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -192,7 +228,7 @@ Feature: Patient Choice Page - validations
       | Patient choice       |
 
   @NTS-3387 @LOGOUT
-#    @E2EUI-1464 @E2EUI-1141 @LOGOUT
+    #@E2EUI-1464 @E2EUI-1141
   Scenario Outline: NTS-3387: patient signature is a mandatory field in Add patient choice form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |
@@ -225,9 +261,8 @@ Feature: Patient Choice Page - validations
       | Patient choice stage | RecordedBy         | ErrorMessage                                                                           |
       | Patient choice       | ClinicianName=John | Please complete the required field Clinician Name (Admin support user ID is optional): |
 
-
-  @NTS-3457 @LOGOUT
-#    @E2EUI-1667 @E2EUI-842 @LOGOUT
+   @NTS-3457 @LOGOUT
+     #@E2EUI-1667
   Scenario Outline: NTS-3457: Warn a user that they will lose their changes when navigating away from patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2014:Gender=Male |

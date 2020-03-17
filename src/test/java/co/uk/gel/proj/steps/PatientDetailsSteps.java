@@ -105,7 +105,7 @@ public class PatientDetailsSteps extends Pages {
         String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
         patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
         Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
     }
@@ -137,7 +137,7 @@ public class PatientDetailsSteps extends Pages {
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
     }
 

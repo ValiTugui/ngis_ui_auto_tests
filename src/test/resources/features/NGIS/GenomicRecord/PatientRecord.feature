@@ -19,7 +19,7 @@ Feature: Patient search page_NGIS
     And the user clicks the Search button
     Then the user will see error messages highlighted in red colour
       | ErrorMessage                            | MessageColor |
-      | Invalid NHS Number. Check and try again | #DD2509      |
+      | Invalid NHS Number. Check and try again | #dd2509      |
     Examples:
       | InvalidNHS                          |
       | NHSNumber=5922721713:DOB=20-09-2008 |

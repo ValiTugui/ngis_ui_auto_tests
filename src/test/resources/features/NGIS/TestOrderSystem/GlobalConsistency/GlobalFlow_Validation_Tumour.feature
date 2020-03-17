@@ -13,18 +13,18 @@ Feature: Global Patient Flow - End to end Tumour
     ##Patient Search Page Title
     When the user is navigated to a page with title Find your patient
     And the user types in invalid details of a patient in the NHS number and DOB fields
-    When the user verify the text present in the page as "<Referral>"
     And the user clicks the Search button
     And the message "No patient found" is displayed below the search button
     And the user clicks on the create new patient record
     ##Create a New Patient Page Title
     And the user is navigated to a page with title Add a new patient to the database
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
-    When the user verify the text present in the page as "<Referral>"
     And the user clicks the Start a new Referral button
     ##Patient Details Page Title
     When the user is navigated to a page with title Check your patient's details
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Save and Continue button
     ##Requesting Organisation Page Title
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,58 +34,82 @@ Feature: Global Patient Flow - End to end Tumour
     And the user clicks the Save and Continue button
     ##Test Package Page Title
     Then the user is navigated to a page with title Confirm the test package
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Save and Continue button
     ##Responsible Clinician Page Title
     Then the user is navigated to a page with title Add clinician information
     When the user fills in all the clinician form fields
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
     And the user clicks the Save and Continue button
     ##Tumour Page Title
     Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
     And the user clicks the Save and Continue button
     ##Tumour Dynamic Questions Page Title
     Then the user is navigated to a page with title Answer questions about this tumour
     When the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Save and Continue button
     ##Added a Tumour Page Title
     Then the user is navigated to a page with title Select or edit a tumour
     And the success notification is displayed "Tumour added"
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
     And the user clicks the Save and Continue button
     ##Manage Samples Page Title
     Then the user is navigated to a page with title Manage samples
-    When the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Add sample button
     ##Add Samples Page Title
     Then the user is navigated to a page with title Add a sample
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Save and Continue button
     ##Samples Dynamic Questions Page Title
     Then the user is navigated to a page with title Add sample details
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     And the user clicks the Save and Continue button
     ##Manage Samples Page Title
     Then the user is navigated to a page with title Manage samples
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     When the user clicks the Save and Continue button
     ##Notes Page Title
     Then the user is navigated to a page with title Add notes to this referral
     When the user fills in the Add Notes field
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
     And the user clicks the Save and Continue button
     ##Patient Choice Page Title
     Then the user is navigated to a page with title Patient choice
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
     And the user edits the patient choice status
     ##Patient Choice Form Page Title
     Then the user is navigated to a page with title Add patient choice information
-    And the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel | CurrentLabel |
+      | test order    | Referral     |
     When the user selects the option Adult (With Capacity) in patient choice category
     When the user selects the option Cancer (paired tumour normal) – WGS in section Test type
     And the user fills "<RecordedBy>" details in recorded by
@@ -108,11 +132,13 @@ Feature: Global Patient Flow - End to end Tumour
     ##Referral Submitted
     And the submission confirmation message "Your referral has been submitted" is displayed
     When the referral status is set to "Submitted"
-    Then the user verify the text present in the page as "<Referral>"
+    And the user should see previous labels replaced as current labels
+      | PreviousLabel         | CurrentLabel      |
+      | Test Order,test order | Referral,referral |
 
     Examples:
-      | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                | Referral |
-      | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=Herman:HospitalNumber=11203 | referral |
+      | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                |
+      | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=Herman:HospitalNumber=11203 |
 
   @NTS-4731 @LOGOUT
 #    @E2EUI-1087 @E2EUI-873

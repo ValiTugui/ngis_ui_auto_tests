@@ -1,12 +1,11 @@
 #@regression
 #@patientChoice
-#@patientChoice_familyMember
 @CONSENT
 @SYSTEM_TEST
-Feature: Patient Choice Page - FamilyMemberAddition
+Feature: Patient Choice -5 Page - FamilyMemberAddition
 
   @NTS-3341 @LOGOUT
-#    @E2EUI-1659 @LOGOUT
+    #@E2EUI-1659
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
@@ -46,40 +45,9 @@ Feature: Patient Choice Page - FamilyMemberAddition
       | Family members | Patient choice stage | RecordedBy                            |
       | Family members | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3436 @LOGOUT
-#    @E2EUI-1173 @E2EUI-1112 @LOGOUT
-  Scenario Outline:the user should be navigate to patient choice page by not entered link
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
-    ##Patient Details Page
-    Then the user is navigated to a page with title Check your patient's details
-    ##Test Package
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    ##Family Members - Family member details to be added - creating new referrals
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1943:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the patient choice status for family member 1 as Not entered
-    And the user clicks on patient choice status link for family member 1
-    Then the user is navigated to a page with title Add family member patient choice information
-    When the user edits patient choice for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=14-05-1943 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    Then the user is navigated to a page with title Patient choice
-    And the user sees the patient choice status for family member 1 as Agreed to testing
-    Examples:
-      | FamilyMembers  | TestPackage  | NoOfParticipants |
-      | Family members | Test package | 2                |
 
   @NTS-3435 @LOGOUT
-#    @E2EUI-1877 @LOGOUT
+    #@E2EUI-1877
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2002:Gender=Male |
@@ -125,7 +93,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
 
 
   @NTS-3450 @LOGOUT
-#    @E2EUI-1773 @LOGOUT
+    #@E2EUI-1773
   Scenario Outline: NTS-3450: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -154,7 +122,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Patient choice       |
 
   @NTS-3411 @LOGOUT
-#    @E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
+    #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
   Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
@@ -190,7 +158,7 @@ Feature: Patient Choice Page - FamilyMemberAddition
 
 
   @NTS-3451 @LOGOUT
-#    @E2EUI-2109 @LOGOUT
+    #@E2EUI-2109
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
@@ -221,118 +189,9 @@ Feature: Patient Choice Page - FamilyMemberAddition
       | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Test package | 3                | Family members | Patient choice |
 
-  @NTS-3449 @LOGOUT
-#    @E2EUI-989 @LOGOUT
-  Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<FamilyMembers>" stage
-    And the user clicks on Add family member button
-    And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the patient card displays with Born,Gender and NHS No details
-    When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Select tests for
-    And the user deselects the test
-    And the user clicks the Save and Continue button
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user sees the test badge status for family member as Not being tested
-    When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    And the user sees the test badge status for family member as Not being tested
-    ##Family member details validation covered in E2EUI-1583
-    Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | PatientChoice  |
-      | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Maternal Aunt         | Patient choice |
-
-  @NTS-4100 @LOGOUT
-#    @E2EUI-1540 @LOGOUT
-  Scenario Outline: NTS-4100: Removing the patient choice step in the family member flow
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    ##Test Package - Trio family - No of participants -2
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<NoOfParticipants>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
-    ##Family Members - Family member details to be added - creating new referrals
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1936:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
-    ###Validation of added family member is covered in addition step
-    Examples:
-      | TestPackage  | NoOfParticipants | FamilyMembers  |
-      | Test package | 2                | Family members |
-
-  @NTS-3505 @LOGOUT
-#    @E2EUI-1644 @LOGOUT
-  Scenario Outline: NTS-3505:When additional family members are added and their patient choice hasn't been provided, the patient choice stage status should be updated as incomplete
-    Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
-    ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
-    And the user clicks the Save and Continue button
-    And the "<PatientDetails>" stage is marked as Completed
-    ##Test Package
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<TwoParticipants>"
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add clinician information
-    And the "<TestPackage>" stage is marked as Completed
-    ##Family Members
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=12-05-1932:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
-    #patient choice for the proband
-    When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
-    And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the patient choice
-    Then the "<PatientChoice>" page is displayed
-    Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-    #Patient Choice - Family Details Provided below should be same as above
-    When the user navigates to the "<PatientChoice>" stage
-    Then the user is navigated to a page with title Patient choice
-    When the user edits patient choice for "<TwoParticipants>" family members with the below details
-      | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                  | ChildAssent | ParentSignature |
-      | NHSNumber=NA:DOB=12-05-1932 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient has agreed to the test |             | Yes             |
-    Then the "<PatientChoice>" stage is marked as Completed
-    When the user navigates to the "<TestPackage>" stage
-    Then the user is navigated to a page with title Confirm the test package
-    And the user selects the number of participants as "<ThreeParticipants>"
-    And the user clicks the Save and Continue button
-    And the "<TestPackage>" stage is marked as Completed
-    ##Adding Additional Family Member
-    When the user navigates to the "<FamilyMembers>" stage
-    Then the user is navigated to a page with title Add a family member to this referral
-    When the user adds "<TwoParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=10-12-1950:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    And the "<PatientChoice>" stage is marked as Mandatory To Do
-
-    Examples:
-      | PatientDetails  | TestPackage  | TwoParticipants | FamilyMembers  | PatientChoice  | ThreeParticipants |
-      | Patient details | Test package | 2               | Family members | Patient choice | 3                 |
 
   @NTS-3445 @LOGOUT
-#    @E2EUI-1931 @LOGOUT
+    #@E2EUI-1931
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |

@@ -244,12 +244,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public String checkThatPatientCardIsDisplayed(WebDriver driver) {
-        Wait.forElementToBeDisplayed(driver, patientCard, 200);
-        Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
-        Debugger.println("The search result is from :" + patientCardBadge.getText());
-        //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
-        return patientCardBadge.getText().trim();
+    public String checkThatPatientCardIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, patientCard, 200);
+            Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
+            Debugger.println("The search result is from :" + patientCardBadge.getText());
+            //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
+            return patientCardBadge.getText().trim();
+        }catch(Exception exp){
+            Debugger.println("Exception from checkThatPatientCardIsDisplayed:"+exp);
+            return null;
+        }
     }
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
@@ -869,6 +874,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from entering patient with NHS and DOB."+exp);
+            SeleniumLib.takeAScreenShot("fillInNHSNumberAndDateOfBirth.jpg");
             return false;
         }
     }

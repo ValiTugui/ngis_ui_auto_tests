@@ -203,7 +203,7 @@ Feature: Family Members Details Page - Field Validation_2
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
-    Then User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
+    And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
     Examples:
       | stage   |
       | Tumours |
