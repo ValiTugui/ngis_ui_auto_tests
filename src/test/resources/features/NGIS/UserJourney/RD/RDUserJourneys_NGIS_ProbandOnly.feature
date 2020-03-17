@@ -1,9 +1,11 @@
-@userJourneys
-@userJourneysRD
-@userJourneysRD_NGIS_ProbandOnly
+#@userJourneys
+#@userJourneysRD
+#@userJourneysRD_NGIS_ProbandOnly
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NGIS Patient
 
-  @NTS-4552 @E2EUI-1281 @UseCase02 @LOGOUT
+  @NTS-4552 @LOGOUT
+#     @E2EUI-1281 @UseCase02
   Scenario Outline: NTS-4552: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
@@ -79,7 +81,8 @@ Feature: Create Referrals for NGIS Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4553 @E2EUI-991 @UseCase03 @LOGOUT
+  @NTS-4553  @LOGOUT
+#    @E2EUI-991 @UseCase03
   Scenario Outline: NTS-4553: Use Case#03: Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1981:Gender=Male |
@@ -157,7 +160,8 @@ Feature: Create Referrals for NGIS Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
-  @NTS-4574 @E2EUI-1466 @UseCase04 @LOGOUT
+  @NTS-4574  @LOGOUT
+#    @E2EUI-1466 @UseCase04
   Scenario Outline: NTS-4574: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1982:Gender=Male |
@@ -231,7 +235,8 @@ Feature: Create Referrals for NGIS Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                                                         | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4558 @E2EUI-1296 @UseCase05 @LOGOUT
+  @NTS-4558  @LOGOUT
+#    @E2EUI-1296 @UseCase05
   Scenario Outline: NTS-4558: Use Case#05: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1983:Gender=Male |
@@ -301,7 +306,8 @@ Feature: Create Referrals for NGIS Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Hyper        | Pedigree |
 
-  @NTS-4557 @E2EUI-1286 @UseCase06 @LOGOUT
+  @NTS-4557  @LOGOUT
+#    @E2EUI-1286 @UseCase06
   Scenario Outline: NTS-4557: Use Case#06: User Journey by creating new NGIS Referral for proband with edit data and Patient choice not given
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1984:Gender=Male |
@@ -370,7 +376,8 @@ Feature: Create Referrals for NGIS Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree |
 
-  @NTS-4555 @E2EUI-1298 @UseCase07 @LOGOUT
+  @NTS-4555 @LOGOUT
+#    @E2EUI-1298 @UseCase07
   Scenario Outline: NTS-4555: Use Case#07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1985:Gender=Male |

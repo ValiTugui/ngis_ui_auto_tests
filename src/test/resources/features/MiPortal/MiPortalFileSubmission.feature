@@ -1,8 +1,10 @@
-@miportal
+
+@MIPORTAL
+@SYSTEM_TEST
 
 Feature: This is mi-portal fileSubmission
 
-  @miportal1 @mi_smokeTest
+  @mi-portal1 @NTS_todo
   Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
