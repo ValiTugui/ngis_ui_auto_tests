@@ -78,11 +78,6 @@ Feature: Patient details page_SPINE
       | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown:Postcode=RH3 7JP |
       | NHS Spine           | Add details to NGIS | DOB=23-05-2011:FirstName=COLUMBINE:LastName=CRANE:Gender=Unknown                  |
 
-
-
-
-
-
 #  SPINE DATA replaced with NGIS DATA
 
 #  @NTS-3068 @E2EUI-1182 @E2EUI-1463 @LOGOUT @v_1 @BVT_P0

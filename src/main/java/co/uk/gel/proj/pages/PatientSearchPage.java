@@ -874,6 +874,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from entering patient with NHS and DOB."+exp);
+            SeleniumLib.takeAScreenShot("fillInNHSNumberAndDateOfBirth.jpg");
             return false;
         }
     }

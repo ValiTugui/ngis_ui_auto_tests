@@ -140,8 +140,6 @@ Feature: Test Directory Test Order
     Then the user is navigated to a page with title Add family member details
     And the user sees the Save and Continue button
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add a family member to this referral
-    And the user clicks on Continue Button
     ##Patient Choice Landing Page
     And the user is navigated to a page with title Patient choice
     Then the "<PatientChoice>" stage is selected
