@@ -63,14 +63,14 @@ Feature: Feature: Global Patient Flow - Stage Validation
     When the user types in valid details of a "<Type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then the message will be displayed as "<ResultMessage>" result found
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
     And the user clicks the patient result card
     ##Patient Details Page
     When the user is navigated to a page with title Check your patient
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     When the user clicks the Update NGIS record button
@@ -78,7 +78,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
     And the user clicks the Start Referral button
     ##Referral Details Page
     When the user is navigated to a page with title Check your patient's details
-    Then the the user should see previous labels replaced as current labels
+    Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -98,7 +98,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
     When the user navigates to the "<FamilyMembers>" stage
     ##Family Members Page
     Then the user is navigated to a page with title Add a family member to this referral
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -107,14 +107,14 @@ Feature: Feature: Global Patient Flow - Stage Validation
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the message will be displayed as "<ResultMessage>" result found
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
     ###Print forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -189,5 +189,5 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | Sign in to the online service |
     And the user logs in to the Test Order system successfully
       | Find your patient |
-    Then the user sees the color of feedback link as NHS Blue #005EB8
-    And the user sees the color of privacy policy link as NHS Blue #005EB8
+    Then the user sees the color of feedback link as NHS Blue #005eb8
+    And the user sees the color of privacy policy link as NHS Blue #005eb8
