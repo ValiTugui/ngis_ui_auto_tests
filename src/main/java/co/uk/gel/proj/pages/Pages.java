@@ -18,6 +18,7 @@ public class Pages implements Navigable {
     public final String testOrderURL = "test-order";
     protected String normalUser = "GEL_NORMAL_USER";
     protected String superUser = "GEL_SUPER_USER";
+    protected String nhsUser = "NHS_Test_User";
 
     protected WebDriver driver;
 
@@ -236,6 +237,9 @@ public class Pages implements Navigable {
                     patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                 }else if(userType.equalsIgnoreCase(superUser)){
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                }else if(userType.equalsIgnoreCase(nhsUser)){
+                    //Method to login through the NHS test user mail id and password
+                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to
@@ -253,4 +257,5 @@ public class Pages implements Navigable {
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
     }
+
 }//end class
