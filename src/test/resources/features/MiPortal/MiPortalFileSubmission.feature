@@ -236,3 +236,18 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | value   | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @miportal14 @NTS-4938 @E2EUI-2703
+  Scenario Outline: verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the values are not displayed in the file-submission search column "file_submissions-search-col" drop-down menu
+      | fileSubmissionsSearchColumnHeader |
+      | GLH                               |
+      | Ordering Entity                   |
+
+    Examples:
+      | mi_stage         |
+      | File Submissions |

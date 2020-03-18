@@ -239,4 +239,18 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Assert.assertTrue(testResult);
 
     }
+
+    @And("the values are not displayed in the file-submission search column {string} drop-down menu")
+    public void theValuesAreNotDisplayedInTheFileSubmissionSearchColumnDropDownMenu(String DropDownButton, DataTable dataTable) {
+        List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
+        List<String>expectedDropDownValuesList = new ArrayList<>();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(DropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            expectedDropDownValuesList.add(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"));
+            Debugger.println("values from dataTable: " + i + " : " + expectedDropDownValuesList.get(i));
+        }
+        Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
+        Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
+    }
 }
