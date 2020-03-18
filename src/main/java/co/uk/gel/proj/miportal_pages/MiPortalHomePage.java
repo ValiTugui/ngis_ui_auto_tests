@@ -1,6 +1,7 @@
 package co.uk.gel.proj.miportal_pages;
 
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
@@ -27,8 +28,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//a[@data-value='file_submissions']")
-    public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//a[contains(string(),'File Submissions')]")
     public WebElement genericNavigation;
@@ -43,13 +42,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement searchTitle;
 
     @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
+    public List<WebElement> genericDropDropDownValues1;
+
+    //enhanced for multiple drop-down value selection
+    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span[@class='text']")
     public List<WebElement> genericDropDropDownValues;
 
     @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
     public List<WebElement> dropDownFileSubmissionsSearchDropValues;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement dropDownFileSubmissionsSearchDropValues1;
 
     //sidebarCollapsed
     @FindBy(id = "sidebarCollapsed")
@@ -66,6 +66,30 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//a[@class='sidebar-toggle']")
     public WebElement sideBarToggle;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Add')]")
+    public WebElement addButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Search')]")
+    public WebElement searchButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
+    public WebElement resetButton;
+
+    @FindBy(xpath = "//h3[text()='Search Results']")
+    public WebElement searchResultTitle;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(), 'Display Options')]")
+    public WebElement searchResultDisplayOptionsButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download CSV')]")
+    public WebElement downloadCSVButton;
+
+    @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
+    public WebElement searchResultRowHeader;
+
+    @FindBy(xpath = "//div[@id='DataTables_Table_1_length']")
+    public WebElement searchResultEntryOptionsSelection;
 
 
     public boolean navigateToMiPage(String expectedMipage) {
@@ -106,6 +130,37 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+
+    public void clickAddButton() {
+        try {
+            Wait.forElementToBeClickable(driver, addButton);
+            Click.element(driver, addButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on addButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
+        }
+    }
+
+    public void clickSearchButton() {
+        try {
+            Wait.forElementToBeClickable(driver, searchButton);
+            Click.element(driver, searchButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on searchButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
+        }
+    }
+
+    public void clickResetButton() {
+        try {
+            Wait.forElementToBeClickable(driver, resetButton);
+            Click.element(driver, resetButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on resetButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoResetButton.jpg");
+        }
+    }
+
     public List<String> getDropDownValues(String dropDownButton) {
         try {
             By buttonElement;
@@ -125,5 +180,47 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
+
+    public boolean verifyNoSearchResultMessage(String noResultMessage) {
+        try {
+            By displayedMessage;
+            if (noResultMessage.contains("\'")) {
+                // if the string contains apostrophe character, apply double quotes in the xpath string
+                displayedMessage = By.xpath("//p[text()= \"" + noResultMessage + "\"]");
+            } else {
+                displayedMessage = By.xpath("//p[text()='" + noResultMessage + "']");
+            }
+            Wait.forElementToBeDisplayed(driver, driver.findElement(displayedMessage), 30);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(displayedMessage), 10)) {
+                Debugger.println(" no result message is shown...Failing.");
+                SeleniumLib.takeAScreenShot("noResultMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("no result message is shown...Failing...Failing." + exp);
+            SeleniumLib.takeAScreenShot("noResultMessage.jpg");
+            return false;
+        }
+    }//end
+
+
+    public boolean verifyTheElementsInTheSearchResultSection() {
+        Wait.forElementToBeDisplayed(driver,searchResultRowHeader, 10 );
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(searchResultTitle);
+        expectedElements.add(searchResultDisplayOptionsButton);
+        expectedElements.add(searchResultRowHeader);
+        expectedElements.add(searchResultEntryOptionsSelection);
+        expectedElements.add(downloadCSVButton);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+            Debugger.println("element " + i + " shown");
+        }
+        return true;
+    }
+
 }
 

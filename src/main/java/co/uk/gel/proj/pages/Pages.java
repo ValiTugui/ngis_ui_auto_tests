@@ -4,8 +4,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.proj.miportal_pages.MiPortalFileSubmissionPage;
-import co.uk.gel.proj.miportal_pages.MiPortalHomePage;
+import co.uk.gel.proj.miportal_pages.*;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -47,6 +46,12 @@ public class Pages implements Navigable {
 
     protected MiPortalFileSubmissionPage miPortalFileSubmissionPage;
     protected MiPortalHomePage miPortalHomePage;
+    protected MiOrderTrackingPage miOrderTrackingPage;
+    protected MiGlhSamplesPage miGlhSamplesPage;
+    protected MiPlaterSamplesPage miPlaterSamplesPage;
+    protected MiPickListsPage miPickListsPage;
+    protected MiSequencerSamplesPage miSequencerSamplesPage;
+    protected MiNewReferralsPage miNewReferralsPage;
 
 
     public Pages(SeleniumDriver driver) {
@@ -82,6 +87,12 @@ public class Pages implements Navigable {
         // MI-PORTAL PAGES
         miPortalHomePage = PageFactory.initElements(driver, MiPortalHomePage.class);
         miPortalFileSubmissionPage = PageFactory.initElements(driver, MiPortalFileSubmissionPage.class);
+        miOrderTrackingPage = PageFactory.initElements(driver, MiOrderTrackingPage.class);
+        miGlhSamplesPage = PageFactory.initElements(driver, MiGlhSamplesPage.class);
+        miPlaterSamplesPage = PageFactory.initElements(driver, MiPlaterSamplesPage.class);
+        miPickListsPage = PageFactory.initElements(driver, MiPickListsPage.class);
+        miSequencerSamplesPage = PageFactory.initElements(driver, MiSequencerSamplesPage.class);
+        miNewReferralsPage = PageFactory.initElements(driver, MiNewReferralsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
