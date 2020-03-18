@@ -192,7 +192,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(2);
-            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
+            Click.element(driver, driver.findElement(By.xpath("//div[contains(@class,'active')]//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
         }
