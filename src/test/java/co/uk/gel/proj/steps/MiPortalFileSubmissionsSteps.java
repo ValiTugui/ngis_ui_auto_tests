@@ -43,15 +43,15 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     }
 
 
-    @And("the user selects a value {string} from the file-submission search column drop-down")
-    public void theUserSelectsAValueFromTheFileSubmissionSearchColumnDropDown(String value) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchDropDownButton, value);
+    @And("the user selects a value {string} from the {string} column drop-down")
+    public void theUserSelectsAValueFromTheColumnDropDown(String value, String dropDownButton) {
+        miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
     }
 
 
-    @And("the user selects a search operator {string} from the file-submission search operator drop-down")
-    public void theUserSelectsASearchOperatorFromTheFileSubmissionSearchOperatorDropDown(String searchOperator) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchOperatorDropDownButton, searchOperator);
+    @And("the user selects a search operator {string} from the {string} operator drop-down")
+    public void theUserSelectsASearchOperatorFromTheOperatorDropDown(String searchOperator,String dropDownButton) {
+        miPortalHomePage.selectSearchValueDropDown(searchOperator, dropDownButton);
     }
 
     @And("the user enters a date {string} in the file-submission date field")

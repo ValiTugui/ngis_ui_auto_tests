@@ -184,6 +184,20 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public void selectSearchValueDropDown(String value,String dropDownButton) {
+        try {
+            By buttonElement;
+            buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
+            Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(buttonElement));
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
+            Wait.seconds(2);
+            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+        }
+    }
+
     public List<String> getDropDownValues(String dropDownButton) {
         try {
             By buttonElement;
@@ -229,7 +243,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean verifyTheElementsInTheSearchResultSection() {
-        Wait.forElementToBeDisplayed(driver,searchResultRowHeader, 10 );
+        Wait.forElementToBeDisplayed(driver,searchResultEntryOptionsSelection, 10 );
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(searchResultTitle);
         expectedElements.add(searchResultDisplayOptionsButton);

@@ -11,8 +11,8 @@ Feature: This is mi-portal fileSubmission
   @miportal1 @mi_smokeTest
   Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -60,7 +60,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
     And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | equals                            |
@@ -78,7 +78,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
     #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
     And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | is                                  |
@@ -96,8 +96,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
       | Duplicate                        |
@@ -118,8 +118,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
       | East Mids and East of England    |
@@ -144,8 +144,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -162,8 +162,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -181,8 +181,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -201,8 +201,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -221,8 +221,8 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the file-submission search column drop-down
-    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
