@@ -1,12 +1,12 @@
-@userJourneys
-@userJourneysCancer
-@userJourneys3
-
+#@userJourneys
+#@userJourneysCancer
+#@userJourneys3
+@SYSTEM_INTEGRATION_TEST
 
 Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
-  # E2EUI-905
-  @E2EUI-1804 @NTS-3348 @LOGOUT @v_1 @P0 @BVT_USER_JOURNEY_P0
+    @NTS-3348 @LOGOUT
+#      @E2EUI-1804 @E2EUI-905
   Scenario Outline: NTS-3348 - UseCase 29: Create Referral for Proband Only - Patient Choice Not given
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_SUPER_USER |

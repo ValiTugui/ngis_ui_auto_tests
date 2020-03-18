@@ -53,7 +53,7 @@ public class GlobalBehaviourSteps extends Pages {
 //        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
 //        Assert.assertTrue(testResult);
 //    }
-    @When("the the user should see previous labels replaced as current labels")
+    @When("the user should see previous labels replaced as current labels")
     public void theUserVerifyTheTextPresentInThePageAs(DataTable labelsList) {
         boolean testResult = false;
         List<List<String>> labels = labelsList.asLists();

@@ -27,17 +27,17 @@ public class TestPackagePage {
     public WebElement testPackagePageTitle;
     @FindBy(xpath = "//label[contains(@class,'field-label')]")
     public WebElement priorityLabel;
-
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
+    //Urgent button displays first
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
     public WebElement urgentPriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
     public WebElement routinePriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
     public WebElement routinePriorityButtonSVGTickMark;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
     public WebElement urgentPriorityButtonSVGTickMark;
 
     @FindBy(css = "[class*='button--selected']")
@@ -209,8 +209,13 @@ public class TestPackagePage {
     }
 
     public void clickUrgentPriority() {
-        Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
-        urgentPriorityButton.click();
+        try {
+            Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+            urgentPriorityButton.click();
+        }catch(Exception exp){
+            Debugger.println("Exception on clickUrgentPriority:"+exp);
+            SeleniumLib.takeAScreenShot("clickUrgentPriority.jpg");
+        }
     }
 
     public void clickRoutinePriority() {
@@ -237,10 +242,16 @@ public class TestPackagePage {
     }
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
-        Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
-        String actualText = Actions.getText(chosenPriorityButton);
-        Debugger.println("Selected test Priority : " + actualText);
-        return actualText.contains(expectedPriority);
+        try {
+            Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+            String actualText = Actions.getText(chosenPriorityButton);
+            Debugger.println("Selected test Priority Actual: " + actualText+",Expected:"+expectedPriority);
+            return actualText.contains(expectedPriority);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
+            SeleniumLib.takeAScreenShot("verifyGivenPriorityIsSelected.jpg");
+            return false;
+        }
     }
 
     public boolean verifyNumberOfParticipantsFieldExists() {
@@ -295,18 +306,22 @@ public class TestPackagePage {
     }
 
     public boolean ensureTickMarkIsDisplayedNextToRoutine() {
-        Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
-        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 10)) {
+        //Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 30)) {
             return true;
         }
+        Debugger.println("RoutineButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("RoutineButtonTick.jpg");
         return false;
     }
 
     public boolean ensureTickMarkIsDisplayedNextToUrgent() {
-        Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
-        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 10)) {
+        //Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 30)) {
             return true;
         }
+        Debugger.println("UrgentButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("UrgentButtonTick.jpg");
         return false;
     }
 

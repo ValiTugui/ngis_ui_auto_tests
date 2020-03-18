@@ -1,10 +1,11 @@
-@userJourneys
-@userJourneysCancer
-@userJourneysCancer_NEW_ProbandOnly
-
+#@userJourneys
+#@userJourneysCancer
+#@userJourneysCancer_NEW_ProbandOnly
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Cancer Referrals for NEW Patient - Proband Only
 
-  @NTS-4687 @E2EUI-1637 @UseCase21 @LOGOUT
+  @NTS-4687 @LOGOUT
+#    @E2EUI-1637 @UseCase21
   Scenario Outline: NTS-4687: Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Search non spine/ngis patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M170 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-2001:Gender=Male |
@@ -76,7 +77,8 @@ Feature: Create Cancer Referrals for NEW Patient - Proband Only
       | tumour_type           | presentationType | sampleType           | sampleState         | RecordedBy                            |
       | Solid tumour: primary | Recurrence       | Liquid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4550 @E2EUI-1802 @UseCase27 @LOGOUT
+  @NTS-4550 @LOGOUT
+#    @E2EUI-1802 @UseCase27
   Scenario Outline: Use Case#27: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |

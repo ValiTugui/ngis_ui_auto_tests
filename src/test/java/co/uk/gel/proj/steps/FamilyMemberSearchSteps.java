@@ -97,7 +97,10 @@ public class FamilyMemberSearchSteps extends Pages {
             NGISPatientModel familyMember = new NGISPatientModel();
             familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
             familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
-            patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
+            if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
+                Debugger.println("Could not fill the NHS number and DOB for search....");
+                Assert.assertTrue(false);
+            }
             patientSearchPage.clickSearchButtonByXpath(driver);
             if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                 Debugger.println("NHS Not Found...going with No option.");

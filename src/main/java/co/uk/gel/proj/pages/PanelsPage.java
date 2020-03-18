@@ -42,16 +42,6 @@ public class PanelsPage {
     @FindBy(xpath = "//input[contains(@placeholder,'Adult solid tumours')]/following::span[contains(@class,'select-panel__name')]")
     public List<WebElement> panelsSearchResultsList;
 
-    @FindBy(css = "button[class*='referral-navigation__continue']")
-    public WebElement saveAndContinueButton;
-
-    @FindBy(xpath = "//button[contains(text(),'Try again')]")
-    public WebElement tryAgain;
-
-    @FindBy(css = "*[class*='helix']")
-    public List<WebElement> helix;
-    String helixIcon = "*[class*='helix']";
-
     @FindBy(xpath = "//h3[contains(text(),'Penetrance')]")
     public WebElement penetranceTitle;
 
@@ -286,49 +276,6 @@ public class PanelsPage {
         } catch (Exception exp) {
             Debugger.println("PanelsPage: deselectTheSelectedPanels, Deselected panels not found." + exp);
             SeleniumLib.takeAScreenShot("PanelsPageDeselectedPanels.jpg");
-            return false;
-        }
-    }
-
-    //Created this method separately for PanelsPage as in PanelsPage,as using from Referral Page was giving errors continuously
-    public boolean clicksOnSaveAndContinueButtonOnPanelsPage() {
-        try {
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)) {
-                Debugger.println("Save and Continue Button not visible in Panels Page after 120 seconds. Failing.");
-                return false;
-            }
-            seleniumLib.clickOnWebElement(saveAndContinueButton);
-            Wait.seconds(2);
-            //Again checking for the presence of button as some times , click not happening at first time.
-            if (seleniumLib.isElementPresent(saveAndContinueButton)) {//If still present
-                seleniumLib.clickOnWebElement(saveAndContinueButton);
-            }
-            if (seleniumLib.isElementPresent(tryAgain)) {
-                seleniumLib.clickOnWebElement(tryAgain);
-            }
-            if (helix.size() > 0) {
-                try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 30 seconds.
-                    Debugger.println("PanelsPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }
-            }
-            return true;
-        } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("SaveAndContinue Stale Exception in PanelsPage...");
-            By continueBut = By.xpath("//button[contains(text(),'Save and continue')]");
-            if (seleniumLib.isElementPresent(continueBut)) {
-                Debugger.println("Clicking with new Element....");
-                seleniumLib.clickOnElement(continueBut);
-                Wait.seconds(10);
-                return true;
-            }
-            return false;
-        } catch (Exception exp) {
-            Debugger.println("Exception from PanelsPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("PanelsPageSaveAndContinue.jpg");
             return false;
         }
     }

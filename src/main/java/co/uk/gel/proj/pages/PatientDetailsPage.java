@@ -157,7 +157,7 @@ public class PatientDetailsPage {
     public WebElement referralCard;
 
     //@FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
-    @FindBy(xpath = "//div[contains(@class,'referral-header__column')]/div//child::span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//div[contains(@data-testid,'referral-card-header')]/div//child::span[contains(@class,'child-element')]")
     public WebElement referralStatus;
 
     @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
@@ -490,9 +490,20 @@ public class PatientDetailsPage {
     }
 
     public boolean nhsNumberFieldIsEnabled() {
-        Wait.forElementToBeDisplayed(driver, title);
-        Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-        return nhsNumber.isEnabled();
+        try {
+            Wait.forElementToBeDisplayed(driver, title);
+            if(!Wait.isElementDisplayed(driver,nhsNumber,10)){
+                Debugger.println("NHS number field not displayed");
+                SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+                return false;
+            }
+            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
+            return nhsNumber.isEnabled();
+        }catch(Exception exp){
+            Debugger.println("Exception from nhsNumberFieldIsEnabled:"+exp);
+            SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+            return false;
+        }
     }
 
     public boolean editAndAddNhsNumberAsSuperUser() {
@@ -864,8 +875,9 @@ public class PatientDetailsPage {
             //Debugger.println("Adding new Family Member...");
             selectMissingNhsNumberReason(familyMember.getNO_NHS_REASON());
             familyMember.setTITLE("Mr");
-            familyMember.setFIRST_NAME(TestUtils.getRandomFirstName());
-            familyMember.setLAST_NAME(TestUtils.getRandomLastName());
+            //Name without single appostrophe
+            familyMember.setFIRST_NAME(TestUtils.getRandomFirstName().replaceAll("'",""));
+            familyMember.setLAST_NAME(TestUtils.getRandomLastName().replaceAll("'",""));
             familyMember.setHOSPITAL_NO(faker.numerify("A#R##BB##"));
             familyMember.setADDRESS_LINE0(faker.address().buildingNumber());
             familyMember.setADDRESS_LINE1(faker.address().streetAddressNumber());
@@ -1046,8 +1058,9 @@ public class PatientDetailsPage {
     }
 
     public boolean verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(String expValue) {
+        String actValue = null;
         try {
-            String actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
+            actValue = relationshipToProbandType.replaceAll("dummyOption", expValue);
             WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
             if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
                 Debugger.println("Relation to Proband element not visible.");
@@ -1055,7 +1068,16 @@ public class PatientDetailsPage {
                 return false;
             }
             return true;
-        } catch (Exception exp) {
+        }catch (NoSuchElementException exp) {
+            Actions.scrollToBottom(driver);
+            WebElement relationToProbandElement = driver.findElement(By.xpath(actValue));
+            if(!Wait.isElementDisplayed(driver,relationToProbandElement,10)){
+                Debugger.println("Relation to Proband element not visible.");
+                SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp) {
             Debugger.println("Exception verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion." + exp);
             SeleniumLib.takeAScreenShot("relationShipToProbandSuggestion.jpg");
             return false;

@@ -30,10 +30,15 @@ public class TumoursPage {
         seleniumLib = new SeleniumLib(driver);
     }
 
+    @FindBy(xpath = "//input[@id='descriptiveName']")
     public WebElement descriptiveName;
+    @FindBy(xpath = "//input[@id='dateDay']")
     public WebElement dateDay;
+    @FindBy(xpath = "//input[@id='dateMonth']")
     public WebElement dateMonth;
+    @FindBy(xpath = "//input[@id='dateYear']")
     public WebElement dateYear;
+    @FindBy(xpath = "//input[@id='pathologyReportId']")
     public WebElement pathologyReportId;
 
     @FindBy(css = "h1[class*='page-title']")
@@ -190,11 +195,17 @@ public class TumoursPage {
     }
 
     public String fillInTumourDescription() {
-        Wait.forElementToBeDisplayed(driver, descriptiveName);
-        String description = TestUtils.getRandomLastName();
-        tumourDetails.setTumourDescription(description);
-        Actions.fillInValue(descriptiveName, description);
-        return description;
+        try {
+            Wait.forElementToBeDisplayed(driver, descriptiveName);
+            String description = TestUtils.getRandomLastName();
+            tumourDetails.setTumourDescription(description);
+            Actions.fillInValue(descriptiveName, description);
+            return description;
+        }catch (Exception exp){
+            Debugger.println("Exception in fillInTumourDescription:"+exp);
+            SeleniumLib.takeAScreenShot("fillInTumourDescription.jpg");
+            return null;
+        }
     }
 
     public void fillInDateOfDiagnosisInDifferentOrder(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
@@ -204,10 +215,19 @@ public class TumoursPage {
     }
 
     public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
-
-        dateDay.sendKeys(dayOfDiagnosis);
-        dateMonth.sendKeys(monthOfDiagnosis);
-        dateYear.sendKeys(yearOfDiagnosis);
+        try {
+            if(dayOfDiagnosis != null && !dayOfDiagnosis.isEmpty()) {
+                dateDay.sendKeys(dayOfDiagnosis);
+            }
+            if(monthOfDiagnosis != null && !monthOfDiagnosis.isEmpty()) {
+                dateMonth.sendKeys(monthOfDiagnosis);
+            }
+            if(yearOfDiagnosis != null && !yearOfDiagnosis.isEmpty()) {
+                dateYear.sendKeys(yearOfDiagnosis);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInDateOfDiagnosis:"+exp);
+        }
     }
 
     public void clearDateOfDiagnosisFields() {
@@ -379,9 +399,16 @@ public class TumoursPage {
     }
 
     public void editTumourDescription() {
-        Wait.forElementToBeDisplayed(driver, descriptiveName);
-        Actions.clearTextField(descriptiveName);
-        fillInTumourDescription();
+        try {
+            if(!Wait.isElementDisplayed(driver, descriptiveName,10)){
+                Actions.scrollToTop(driver);
+            }
+            Actions.clearTextField(descriptiveName);
+            fillInTumourDescription();
+        }catch(Exception exp){
+            Debugger.println("Exception in editTumourDescription:"+exp);
+            SeleniumLib.takeAScreenShot("editTumourDescription.jpg");
+        }
     }
 
     public void editDateOfDiagnosis() {
