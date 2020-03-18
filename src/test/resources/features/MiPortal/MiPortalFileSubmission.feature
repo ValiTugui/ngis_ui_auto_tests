@@ -4,10 +4,12 @@
 
 Feature: This is mi-portal fileSubmission
 
-  @mi-portal1 @NTS_todo
-  Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
+  Background:
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
+
+  @miportal1 @mi_smokeTest
+  Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user selects a value "<value>" from the file-submission search column drop-down
     And the user selects a search operator "<operator>" from the file-submission search operator drop-down
@@ -37,8 +39,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal3
   Scenario Outline: verify the drop-down values of file-submission search column
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -55,8 +55,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal4
   Scenario Outline: When Search-column is "Created" - verify the drop-down values of file-submission search operator
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -74,8 +72,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal5
   Scenario Outline: When Search-column is "<value>":verify the drop-down values of file-submission search operator
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -93,8 +89,6 @@ Feature: This is mi-portal fileSubmission
 
   @miportal6
   Scenario Outline: When Search-column is "Status" and operator is "<operator>": verify the drop-down values of file-submission search values
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -111,13 +105,11 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | value  | operator  |
       | File Submissions | Status | is        |
-#      | File Submissions | Status | is one of |
+      | File Submissions | Status | is one of |
 
 
   @miportal7
   Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -137,8 +129,8 @@ Feature: This is mi-portal fileSubmission
 
     Examples:
       | mi_stage         | value        | operator |
-      | File Submissions | Submitted By | is       |
-#      | File Submissions | Status | is one of |
+      | File Submissions | Submitted By | is        |
+      | File Submissions | Submitted By | is one of |
 
 
   @miportal8
@@ -153,6 +145,43 @@ Feature: This is mi-portal fileSubmission
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the reset button
     Then the search criteria badge disappears
+
+    Examples:
+      | mi_stage         | value   | operator | date  |
+      | File Submissions | Created | equals   | today |
+
+
+  @miportal9
+  Scenario Outline: When no result is found
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then the user sees the message "<noResultFound>" below the search container
+
+    Examples:
+      | mi_stage         | value   | operator | date        | noResultFound                            |
+      | File Submissions | Created | equals   | future_date | No results found for these search terms. |
+
+
+  @miportal10
+  Scenario Outline: Verify the main elements displayed in search result section
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<value>" from the file-submission search column drop-down
+    And the user selects a search operator "<operator>" from the file-submission search operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
 
     Examples:
       | mi_stage         | value   | operator | date       |

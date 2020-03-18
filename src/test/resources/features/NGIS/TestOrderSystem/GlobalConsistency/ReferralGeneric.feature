@@ -19,57 +19,57 @@ Feature: This is a referral feature
       | Patient details |
 
 # Awaiting review from Manual Testers
-  @LOGOUT  @ignore @NTS_todo
-  Scenario Outline: NTS-4543 - Displaying the current state for each stage
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    And the "<stage>" stage is marked as Completed
-    And the number of mandatory stages to be completed is "6"
-#---------------------------------------------------------------#
-   Then the Test package stage is marked as Mandatory To Do
-    And the Responsible clinician stage is marked as Mandatory To Do
-    And the Tumours stage is marked as Mandatory To Do
-    And the Patient choice stage is marked as Mandatory To Do
-
-    Examples:
-      | stage           |
-      | Patient details |
+#  @LOGOUT  @ignore @NTS_todo
+#  Scenario Outline: NTS-4543 - Displaying the current state for each stage
+#    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+#    And the user navigates to the "<stage>" stage
+#    And the "<stage>" stage is marked as Completed
+#    And the number of mandatory stages to be completed is "6"
+##---------------------------------------------------------------#
+#   Then the Test package stage is marked as Mandatory To Do
+#    And the Responsible clinician stage is marked as Mandatory To Do
+#    And the Tumours stage is marked as Mandatory To Do
+#    And the Patient choice stage is marked as Mandatory To Do
+#
+#    Examples:
+#      | stage           |
+#      | Patient details |
 
 
 # Awaiting review from Manual Testers
-  @LOGOUT @NTS_todo @ignore
-  Scenario Outline: NTS-4545 - Cancer referral - Navigation through the journey
-    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
-    And the user navigates to the "<stage>" stage
-    Then the "<stage>" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Requesting organisation" stage
-    Then the "Requesting organisation" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Test package" stage
-    Then the "Test package" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Responsible clinician" stage
-    Then the "Responsible clinician" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Tumours" stage
-    Then the "Tumours" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Samples" stage
-    Then the "Samples" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Notes" stage
-    Then the "Notes" stage is selected
-    And the referral submit button is not enabled
-    And the user navigates to the "Patient choice" stage
-    Then the "Patient choice" stage is selected
-    And the referral submit button is not enabled
-
-    Examples:
-      | stage           |
-      | Patient details |
+#  @LOGOUT @NTS_todo @ignore
+#  Scenario Outline: NTS-4545 - Cancer referral - Navigation through the journey
+#    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+#      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
+#    And the user navigates to the "<stage>" stage
+#    Then the "<stage>" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Requesting organisation" stage
+#    Then the "Requesting organisation" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Test package" stage
+#    Then the "Test package" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Responsible clinician" stage
+#    Then the "Responsible clinician" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Tumours" stage
+#    Then the "Tumours" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Samples" stage
+#    Then the "Samples" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Notes" stage
+#    Then the "Notes" stage is selected
+#    And the referral submit button is not enabled
+#    And the user navigates to the "Patient choice" stage
+#    Then the "Patient choice" stage is selected
+#    And the referral submit button is not enabled
+#
+#    Examples:
+#      | stage           |
+#      | Patient details |
 
    @NTS-4562 @LOGOUT
 #    @E2EUI-1088
@@ -145,7 +145,8 @@ Feature: This is a referral feature
     And the copyright text is displayed in the footer of Test Ordering
 
 
-  @LOGOUT @NTS-4689 @PO @v_1 @E2EUI-1152
+  @NTS-4689 @LOGOUT
+    #@E2EUI-1152
   Scenario Outline: Patient Search - Show user account information in Test Order Management System
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
@@ -155,7 +156,8 @@ Feature: This is a referral feature
       | userType        |
       | GEL_NORMAL_USER |
 
-  @LOGOUT @NTS-4689 @PO @v_1 @E2EUI-1152
+  @NTS-4689 @LOGOUT
+    #@E2EUI-1152
   Scenario Outline: Referral header Page -  The correct elements are displayed in the header of Test Ordering
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -167,7 +169,8 @@ Feature: This is a referral feature
       | userType       |
       | GEL_SUPER_USER |
 
-  @NTS-4793 @E2EUI-1008 @LOGOUT @PO @v_1
+  @NTS-4793 @LOGOUT
+    #@E2EUI-1008
   Scenario Outline: NTS-4793:Re-order data in referral banner
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -180,7 +183,8 @@ Feature: This is a referral feature
       | NGIS                | Patient details |
 
 
-  @NTS-4809 @E2EUI-1324 @LOGOUT @PO @v_1
+  @NTS-4809 @LOGOUT
+    #@E2EUI-1324
   Scenario Outline: NTS-4809: Header bar for a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -204,7 +208,8 @@ Feature: This is a referral feature
       | Patient details | Check your patient's details |
 
 
-  @NTS-4813 @E2EUI-1005 @LOGOUT @PO @v_1
+  @NTS-4813 @LOGOUT
+    #@E2EUI-1005
   Scenario Outline:NTS-4813:Referral Cancer - Show alert when page is mandatory and must be completed to submit
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
@@ -243,7 +248,8 @@ Feature: This is a referral feature
       | Patient details | There is missing information | Requesting organisation | Add a requesting organisation | Maidstone            | Test package |
 
 
-  @NTS-4813 @E2EUI-1005 @LOGOUT @PO @v_1
+  @NTS-4813 @LOGOUT
+    #@E2EUI-1005
   Scenario Outline:NTS-4813:Referral RD - Show alert when page is mandatory and must be completed to submit
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebellar anomalies | RD | create a new patient record | None | GEL_SUPER_USER |

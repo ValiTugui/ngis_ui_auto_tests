@@ -56,16 +56,11 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @And("the user enters a date {string} in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
         miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
-        Wait.seconds(2);
-        miPortalFileSubmissionPage.getFileSubmissionDate.click();
-        miPortalFileSubmissionPage.getFileSubmissionDate.clear();
-        Wait.seconds(3);
-        miPortalFileSubmissionPage.getFileSubmissionDate.sendKeys(date);
     }
 
     @And("the user clicks on Add criteria button")
     public void theUserClicksOnAddCriteriaButton() {
-       miPortalFileSubmissionPage.clickAddButton();
+        miPortalHomePage.clickAddButton();
        Wait.seconds(1);
     }
 
@@ -78,13 +73,15 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @When("the user click on the Search button")
     public void theUserClickOnTheSearchButton() {
-        miPortalFileSubmissionPage.clickSearchButton();
-        Wait.seconds(5);
+        miPortalHomePage.clickSearchButton();
+        Wait.seconds(2);
     }
 
     @Then("search results are displayed for the file-submission search")
     public void searchResultsAreDisplayedForTheFileSubmissionSearch() {
-        //ToDo
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.searchResultTableIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user is able to see the field values - Filenames {string}, Status {string}, ErrorMessage {string} and WarningMessage {string}")
@@ -164,7 +161,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
 
     @When("the user click on the reset button")
     public void theUserClickOnTheResetButton() {
-        miPortalFileSubmissionPage.clickResetButton();
+        miPortalHomePage.clickResetButton();
     }
 
 
@@ -172,6 +169,23 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theSearchCriteriaBadgeDisappears() {
         boolean testResult = false;
         testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user sees the message {string} below the search container")
+    public void theUserSeesTheMessageBelowTheSearchContainer(String noResultFoundMessage) {
+        boolean testResult = false;
+
+        testResult = miPortalHomePage.verifyNoSearchResultMessage(noResultFoundMessage);
+        Debugger.println("test-result flag for verifying no result found is: " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV")
+    public void theSearchResultsSectionDisplaysTheElementsSearchResultsTextDisplayOptionsEntryOptionsResultRowHeaderAndDownLoadCSV() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyTheElementsInTheSearchResultSection();
         Assert.assertTrue(testResult);
     }
 }
