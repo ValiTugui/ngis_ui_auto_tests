@@ -291,7 +291,7 @@ Feature: Create Referrals for NGIS Patient
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
-    And the user clicks on Save and Continue in Panels Page
+    And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
