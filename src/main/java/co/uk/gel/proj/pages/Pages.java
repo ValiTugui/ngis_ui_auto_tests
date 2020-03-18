@@ -18,7 +18,6 @@ public class Pages implements Navigable {
     public final String testOrderURL = "test-order";
     protected String normalUser = "GEL_NORMAL_USER";
     protected String superUser = "GEL_SUPER_USER";
-    protected String nhsUser = "NHS_TEST_USER";
 
     protected WebDriver driver;
 
@@ -234,12 +233,11 @@ public class Pages implements Navigable {
                 //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 if(userType.equalsIgnoreCase(normalUser)) {
-                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                   // patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                    // New Method to login through the NHS test user mail id and password
+                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }else if(userType.equalsIgnoreCase(superUser)){
                     patientSearchPage.loginToTestOrderingSystem(driver, userType);
-                }else if(userType.equalsIgnoreCase(nhsUser)){
-                    //Method to login through the NHS test user mail id and password
-                    referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to

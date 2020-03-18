@@ -1825,8 +1825,6 @@ public class ReferralPage<check> {
     public WebElement nextButton;
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
-    @FindBy(name ="passwd")
-    public WebElement passwordField;
 
     //new paths for the NHS Login page
     @FindBy(id ="companyLogo")
@@ -1840,8 +1838,8 @@ public class ReferralPage<check> {
 
     public void loginToTestOrderingSystemAsNHSUser(WebDriver driver,String userType ) {
         Actions.deleteCookies(driver);
-        String nhsMail="uiautomation.testuser@nhs.net";
-        String nhsPassword="8d2e-skvg-d82l";
+        String nhsMail=AppConfig.getApp_username();
+        String nhsPassword=AppConfig.getApp_password();
         Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser....");
         try {
             Wait.seconds(5);
