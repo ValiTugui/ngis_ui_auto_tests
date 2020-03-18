@@ -25,7 +25,7 @@ Feature: This is mi-portal fileSubmission
       | mi_stage         | value   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
       | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
-  @miportal2
+  @miportal2 @NTS-3390 @E2EUI-1283
   Scenario Outline: verify the defaults elements on File Submission search page
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -157,7 +157,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | today |
 
 
-  @miportal9
+  @miportal9 @NTS-3390 @E2EUI-1283
   Scenario Outline: When no result is found
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -176,7 +176,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | future_date | No results found for these search terms. |
 
 
-  @miportal10
+  @miportal10 @NTS-3390 @E2EUI-1283
   Scenario Outline: Verify the main elements displayed in search result section
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
