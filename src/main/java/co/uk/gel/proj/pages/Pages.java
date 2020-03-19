@@ -244,9 +244,20 @@ public class Pages implements Navigable {
                 //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 if(userType.equalsIgnoreCase(normalUser)) {
-                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                   String email = AppConfig.getApp_username();
+                   if(email.contains("nhs.net")){
+                       // If the email id contains nhs, proceed with NHS login
+                       referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                   }else {
+                       patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                   }
                 }else if(userType.equalsIgnoreCase(superUser)){
-                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                    String super_email = AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME");
+                    if(super_email.contains("nhs.net")){
+                        referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                    }else {
+                        patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                    }
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to
@@ -264,4 +275,5 @@ public class Pages implements Navigable {
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
     }
+
 }//end class
