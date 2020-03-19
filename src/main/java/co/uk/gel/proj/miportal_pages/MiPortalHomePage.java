@@ -114,6 +114,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
     public WebElement resetHeaderOrdering;
 
+    @FindBy(xpath = "//label[text()='Show']")
+    public WebElement headerShow;
+
+    @FindBy(xpath = "//label[text()='Hide']")
+    public WebElement headerHide;
+
 
     public boolean navigateToMiPage(String expectedMipage) {
         try {
@@ -323,6 +329,72 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+        }
+    }
+
+    public List<String> getColumnOrderShowHideLabelsOnDisplayedModal() {
+        try {
+            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 10)){
+                Debugger.println("No headerColumn element shown.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return null;
+            }
+            List<String> actualColumnOrderShowHideLabels = new ArrayList<>();
+            actualColumnOrderShowHideLabels.add(Actions.getText(headerColumnOrdering));
+            actualColumnOrderShowHideLabels.add(Actions.getText(headerShow));
+            actualColumnOrderShowHideLabels.add(Actions.getText(headerHide));
+            return actualColumnOrderShowHideLabels;
+        } catch (Exception exp) {
+            Debugger.println("No headerColumn,show or hide element shown:" + exp);
+            SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+            return null;
+        }
+    }
+
+
+    public String getHeaderShowOrHideLabel(String headerColumnStatus) {
+        try {
+            By columnElement;
+            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            columnElement = By.xpath("//label[text()=\"" + headerColumnStatus + "\"]");
+            if (!Wait.isElementDisplayed(driver,driver.findElement(columnElement) , 10)){
+                Debugger.println("No " + columnElement +  "element shown.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return null;
+            }
+            return Actions.getText(driver.findElement(columnElement));
+        } catch (Exception exp) {
+            Debugger.println("No element shown.");
+            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            return null;
+        }
+    }
+
+    public List<String> getListOfColumnsInHeaderShowOrHidden(String headerColumnStatus) {
+        try {
+            By columnStatusElement;
+            By columnStatusElementList;
+            String columnStatusHeaderLocator = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,\"" + headerColumnStatus + "\")]";
+            columnStatusElement = By.xpath(columnStatusHeaderLocator);
+            Wait.forElementToBeDisplayed(driver, driver.findElement(columnStatusElement), 10);
+            if (!Wait.isElementDisplayed(driver, driver.findElement(columnStatusElement), 10)) {
+                Debugger.println("No " + columnStatusElement + "element shown.");
+                SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
+                return null;
+            }
+            columnStatusElementList = By.xpath(columnStatusHeaderLocator + "/div");
+            List<WebElement> listOfHeaderValueElements = driver.findElements(columnStatusElementList);
+            List<String> actualHeaderValueList = new ArrayList<>();
+            for (WebElement headerValue : listOfHeaderValueElements) {
+                actualHeaderValueList.add(headerValue.getText().trim());
+            }
+            Debugger.println("Method Actual actualHeaderValueList " + ":" + actualHeaderValueList.size() + ":" + actualHeaderValueList);
+            return actualHeaderValueList;
+        } catch (Exception exp) {
+            Debugger.println("No element shown.");
+            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            return null;
         }
     }
 

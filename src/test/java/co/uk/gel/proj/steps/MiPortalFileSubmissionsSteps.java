@@ -253,4 +253,40 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
         Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
     }
+
+
+    @And("the user sees a section {string} split into two parts {string} and {string}")
+    public void theUserSeesASectionColumnOrderingSplitIntoTwoPartsShowAndHide(String expColumnOrdering, String expShow, String expHide) {
+        List<String>expectedColumnShowHideLabel = new ArrayList<>();
+        List actualColumnShowHideLabel = miPortalHomePage.getColumnOrderShowHideLabelsOnDisplayedModal();
+        expectedColumnShowHideLabel.add(expColumnOrdering);
+        expectedColumnShowHideLabel.add(expShow);
+        expectedColumnShowHideLabel.add(expHide);
+        for (int i = 0; i < expectedColumnShowHideLabel.size(); i++) {
+            Debugger.println("Expected " + expectedColumnShowHideLabel.get(i) + " : Actual : " + actualColumnShowHideLabel.get(i));
+            Assert.assertEquals(expectedColumnShowHideLabel.get(i), actualColumnShowHideLabel.get(i));
+        }
+    }
+
+    @And("the user sees the displayed fields-columns under {string} section")
+    public void theUserSeesTheDisplayedFieldsColumnsUnderSection(String expColumnHeaderStatus, DataTable dataTable) {
+        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+        List actualListOfColumnHeaders = null;
+
+        String actualColumnHeaderStatus = miPortalHomePage.getHeaderShowOrHideLabel(expColumnHeaderStatus);
+        Debugger.println("Values " + actualColumnHeaderStatus);
+        Assert.assertEquals(expColumnHeaderStatus,actualColumnHeaderStatus);
+
+        if (expColumnHeaderStatus.equalsIgnoreCase("Show")) {
+            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("visible");
+        } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
+            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
+        }
+
+        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
+            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList") + " : " + "Actual: " + actualListOfColumnHeaders.get(i));
+            Assert.assertEquals(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"), actualListOfColumnHeaders.get(i));
+        }
+    }
+
 }

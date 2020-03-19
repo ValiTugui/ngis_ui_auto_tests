@@ -238,7 +238,46 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
-   @NTS-4938
+  @NTS-3390
+  Scenario Outline: Verify the default header values of 'Show' abd 'Hide' in the Column Ordering section of File-Submission Display Options
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
+    And the user sees the displayed fields-columns under "Show" section
+      | HeaderColumnOrderingList |
+      | id                       |
+      | submitted_by_code        |
+      | submitted_by             |
+      | field_errors             |
+      | field_warnings           |
+      | filename                 |
+      | created                  |
+      | status                   |
+      | error_msgs               |
+      | warning_msgs             |
+    And the user sees the displayed fields-columns under "Hide" section
+      | HeaderColumnOrderingList |
+      | file_type                |
+      | path                     |
+    And the user closes the modal content by clicking on the reset-button
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | value   | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-4938
   Scenario Outline: verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
