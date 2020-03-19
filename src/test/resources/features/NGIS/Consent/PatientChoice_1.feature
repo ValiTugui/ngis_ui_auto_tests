@@ -5,7 +5,7 @@
 Feature: Patient Choice-1 - Adult with Capacity
 
   @NTS-3434
-    #@E2EUI-1447
+    #@E2EUI-1447 @E2EUI-2034
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |

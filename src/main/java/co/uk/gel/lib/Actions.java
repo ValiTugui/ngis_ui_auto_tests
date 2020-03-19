@@ -200,7 +200,13 @@ public class Actions {
     }
 
     public static String getTextOfAlertMessage(WebDriver driver) {
-        return driver.switchTo().alert().getText();
+        try {
+            return driver.switchTo().alert().getText();
+        }catch(Exception exp){
+            Debugger.println("Alert expected, but not present.");
+            SeleniumLib.takeAScreenShot("NoAlertMessage.jpg");
+            return "";
+        }
     }
 
     public static void refreshBrowser(WebDriver driver) {

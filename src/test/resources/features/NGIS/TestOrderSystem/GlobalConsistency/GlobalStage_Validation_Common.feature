@@ -56,7 +56,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
 
-  @NTS-4711 @LOGOUT
+  @NTS-47111 @LOGOUT
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -69,7 +69,6 @@ Feature: Feature: Global Patient Flow - Stage Validation
     And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
-    And the NHS display format as "<NHSNoFormat>"
     And the user clicks the patient result card
     ##Patient Details Page
     When the user is navigated to a page with title Check your patient
@@ -84,8 +83,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
-    And the NHS display format as "<NHSNoFormat>"
-    ##Requesting Organisation Page
+     ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "UNIVERSITY HOSPITAL AINTREE" in the search field

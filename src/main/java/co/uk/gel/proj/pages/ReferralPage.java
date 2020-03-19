@@ -224,9 +224,9 @@ public class ReferralPage<check> {
     public WebElement familyMemberNhsNumbers;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
     public WebElement familyMemberNgisId;
-    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
-    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> ngisIDChunkSeparators;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
@@ -593,18 +593,28 @@ public class ReferralPage<check> {
     public String acknowledgeThePromptAlertPopups(String acknowledgeMessage) {
         String actualAlertText = null;
         if (acknowledgeMessage.equalsIgnoreCase("Accept")) {
-            Wait.forAlertToBePresent(driver);
+            //Wait.forAlertToBePresent(driver);
             Wait.seconds(2);
-            actualAlertText = driver.switchTo().alert().getText();
-            Actions.acceptAlert(driver);
-            Debugger.println("The alert message :: " + actualAlertText);
+            try {
+                actualAlertText = driver.switchTo().alert().getText();
+                Actions.acceptAlert(driver);
+            }catch (NoAlertPresentException ex) {
+                Debugger.println("Expected alert message, but not present.");
+                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
+            }
+            Debugger.println("Accepted the alert message :: " + actualAlertText);
             Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         } else if (acknowledgeMessage.equalsIgnoreCase("Dismiss")) {
-            Wait.forAlertToBePresent(driver);
+            //Wait.forAlertToBePresent(driver);
             Wait.seconds(2);
-            actualAlertText = Actions.getTextOfAlertMessage(driver);
-            Actions.dismissAlert(driver);
-            Debugger.println("The alert message :: " + actualAlertText);
+            try {
+                actualAlertText = Actions.getTextOfAlertMessage(driver);
+                Actions.dismissAlert(driver);
+            }catch (NoAlertPresentException ex) {
+                Debugger.println("Expected alert message, but not present.");
+                SeleniumLib.takeAScreenShot("NoAlertPresent.jpg");
+            }
+            Debugger.println("Dismissed the alert message :: " + actualAlertText);
             Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
         }
         return actualAlertText;
@@ -1537,6 +1547,7 @@ public class ReferralPage<check> {
 
         if (nhsChunkSeparators.size() < 1) {
             Debugger.println("NO NHS numbers displayed in the Page.");
+            Actions.scrollToBottom(driver);
             SeleniumLib.takeAScreenShot("NHSFormat.jpg");
             return false;
         }
@@ -1689,6 +1700,7 @@ public class ReferralPage<check> {
             SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
             return false;
         }
+
         try {
             Wait.forElementToBeDisplayed(driver, referralHeader);
             if (!(ngisId.charAt(0) == 'p' && ngisId.length() == 12)) {
@@ -1708,16 +1720,20 @@ public class ReferralPage<check> {
 
     public boolean verifyTextFromReferralHeaderPatientNgisId() {
         try {
-            Wait.forElementToBeDisplayed(driver, referralHeader);
-            String webElementText = referralHeaderPatientNgisId.getAttribute("value");
-            if (webElementText == null) {
-                Debugger.println("NGISIDtextVerification not present.");
-                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+            if (!Wait.isElementDisplayed(driver, referralHeaderPatientNgisId, 10)) {
+                Debugger.println("referralHeaderPatientNgisId not present");
+                SeleniumLib.takeAScreenShot("ngisIdAndReferralId.jpg");
                 return false;
             }
-            if (!webElementText.contains(" ")) {
-                Debugger.println("Text copied from webelement is different from actual content");
-                SeleniumLib.takeAScreenShot("NGISIDtextVerification.jpg");
+            String webElementText = referralHeaderPatientNgisId.getText();
+            if (webElementText == null) {
+                Debugger.println("NGISIDTextVerification not present.");
+                SeleniumLib.takeAScreenShot("NGISIDTextVerification.jpg");
+                return false;
+            }
+            if (webElementText.contains(" ")) {
+                Debugger.println("Text copied from webElement is different from actual content");
+                SeleniumLib.takeAScreenShot("NGISIDTextVerification.jpg");
                 return false;
             }
             return true;

@@ -564,7 +564,7 @@ public class SeleniumLib {
         }
     }
 
-    static boolean isAlertPresent() {
+    public static boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
