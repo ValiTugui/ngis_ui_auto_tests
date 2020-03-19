@@ -7,7 +7,7 @@ Feature: This is mi-portal fileSubmission
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
-  @miportal1 @mi_smokeTest
+  @NTS_todo
   Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
@@ -24,7 +24,7 @@ Feature: This is mi-portal fileSubmission
       | mi_stage         | value   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
       | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
-  @miportal2 @NTS-3390 @E2EUI-1283
+ @NTS-3390
   Scenario Outline: verify the defaults elements on File Submission search page
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -37,7 +37,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions |
 
 
-  @miportal3
+  @NTS_todo
   Scenario Outline: verify the drop-down values of file-submission search column
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -54,7 +54,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions |
 
 
-  @miportal4 @E2EUI-2697
+  @NTS_todo
   Scenario Outline: When Search-column is "Created" - verify the drop-down values of file-submission search operator
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -72,7 +72,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created |
 
 
-  @miportal5
+  @NTS_todo
   Scenario Outline: When Search-column is "<value>":verify the drop-down values of file-submission search operator
     When the user navigates to the mi-portal "<mi_stage>" stage
     #    And the mi-portal "<mi_stage>" stage is selected
@@ -90,7 +90,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Submitted By |
 
 
-  @miportal6
+  @NTS_todo
   Scenario Outline: When Search-column is "Status" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -112,7 +112,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Status | is one of |
 
 
-  @miportal7 @NTS-4865 @E2EUI-2770
+  @NTS-4865
   Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -138,7 +138,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Submitted By | is one of |
 
 
-  @miportal8
+  @NTS_todo
   Scenario Outline: User is able to reset selected search criteria badge
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -156,7 +156,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | today |
 
 
-  @miportal9 @NTS-3390 @E2EUI-1283
+  @NTS-3390
   Scenario Outline: When no result is found
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -175,7 +175,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | future_date | No results found for these search terms. |
 
 
-  @miportal10 @NTS-3390 @E2EUI-1283
+  @NTS-3390
   Scenario Outline: Verify the main elements displayed in search result section
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -195,7 +195,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
-  @miportal11 @NTS-3390 @E2EUI-1283
+  @NTS-3390
   Scenario Outline: Verify user is able to Download the CSV fileSubmission result
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -215,7 +215,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
-  @miportal12 @NTS-3390 @E2EUI-1283
+  @NTS-3390
   Scenario Outline: Verify the elements in the Column Ordering section of File-Submission Display Options
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -238,7 +238,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
-  @miportal14 @NTS-4938 @E2EUI-2703
+   @NTS-4938
   Scenario Outline: verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected

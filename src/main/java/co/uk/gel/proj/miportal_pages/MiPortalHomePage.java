@@ -152,7 +152,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-    
+
     public void clickAddButton() {
         try {
             Wait.forElementToBeClickable(driver, addButton);
@@ -242,12 +242,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean verifyTheElementsInTheSearchResultSection() {
-        Wait.forElementToBeDisplayed(driver,searchResultEntryOptionsSelection, 10 );
+        Wait.forElementToBeDisplayed(driver,searchResultDisplayOptionsButton, 10 );
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(searchResultTitle);
         expectedElements.add(searchResultDisplayOptionsButton);
         expectedElements.add(searchResultRowHeader);
-        expectedElements.add(searchResultEntryOptionsSelection);
+        //expectedElements.add(searchResultEntryOptionsSelection);
         expectedElements.add(downloadCSVButton);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {

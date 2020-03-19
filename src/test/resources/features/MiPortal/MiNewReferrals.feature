@@ -6,7 +6,7 @@ Feature: This is mi-portal New Referrals
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
-  @miNewReferrals @NTS-4865 @E2EUI-2770
+   @NTS-4865
   Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
