@@ -2,7 +2,7 @@
 
 Feature: This is mi-portal homepage
 
-  @mi-home
+  @NTS_todo
   Scenario Outline: mi-portal page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |

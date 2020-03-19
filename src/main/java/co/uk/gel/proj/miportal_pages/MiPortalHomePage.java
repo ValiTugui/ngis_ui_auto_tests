@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -88,8 +89,30 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
     public WebElement searchResultRowHeader;
 
-    @FindBy(xpath = "//div[@id='DataTables_Table_1_length']")
+    @FindBy(xpath = "//div[@id='DataTables_Table_1_length']//select")
     public WebElement searchResultEntryOptionsSelection;
+
+    @FindBy(css = "div[class*='modal-content']")
+    public WebElement displayOptionsModalContent;
+
+    // //span[text()='Compact grid']/../input
+    @FindBy(xpath = "//span[text()='Compact grid']/../input")
+    public WebElement compactGridCheckBox;
+
+    @FindBy(xpath = "//span[text()='Compact grid']")
+    public WebElement compactGridCheckBoxLabel;
+
+    @FindBy(xpath = "//span[text()='Truncate columns']/../input")
+    public WebElement truncateColumnsCheckBox;
+
+    @FindBy(xpath = "//span[text()='Truncate columns']")
+    public WebElement truncateColumnsCheckBoxLabel;
+
+    @FindBy(xpath = "//h3[text()='Column ordering']")
+    public WebElement headerColumnOrdering;
+
+    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
+    public WebElement resetHeaderOrdering;
 
 
     public boolean navigateToMiPage(String expectedMipage) {
@@ -130,7 +153,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-
     public void clickAddButton() {
         try {
             Wait.forElementToBeClickable(driver, addButton);
@@ -158,6 +180,20 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetButton.jpg");
+        }
+    }
+
+    public void selectSearchValueDropDown(String value,String dropDownButton) {
+        try {
+            By buttonElement;
+            buttonElement = By.xpath("//button[@data-id=\"" + dropDownButton + "\"]");
+            Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(buttonElement));
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Click.element(driver, element);
+            Wait.seconds(2);
+            Click.element(driver, driver.findElement(By.xpath("//div[contains(@class,'active')]//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
+        } catch (Exception exp) {
+            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
         }
     }
 
@@ -206,12 +242,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean verifyTheElementsInTheSearchResultSection() {
-        Wait.forElementToBeDisplayed(driver,searchResultRowHeader, 10 );
+        Wait.forElementToBeDisplayed(driver,searchResultDisplayOptionsButton, 10 );
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(searchResultTitle);
         expectedElements.add(searchResultDisplayOptionsButton);
         expectedElements.add(searchResultRowHeader);
-        expectedElements.add(searchResultEntryOptionsSelection);
+        //expectedElements.add(searchResultEntryOptionsSelection);
         expectedElements.add(downloadCSVButton);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
@@ -220,6 +256,74 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("element " + i + " shown");
         }
         return true;
+    }
+
+
+    public boolean downloadMiCSVFile(String fileName) {
+        try {
+            //Delete if File already present
+            TestUtils.deleteIfFilePresent(fileName, "");
+            seleniumLib.clickOnWebElement(downloadCSVButton);
+            Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
+            Debugger.println("Form: " + fileName + " ,downloaded from section: " + fileName);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not locate the form download button ..... " + exp);
+            SeleniumLib.takeAScreenShot("OfflineOrderPrintFormsDownload.jpg");
+            return false;
+        }
+    }
+
+
+    public void clickSearchResultDisplayOptionsButton() {
+        try {
+            Wait.forElementToBeClickable(driver, searchResultDisplayOptionsButton);
+            Click.element(driver, searchResultDisplayOptionsButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on displayOptions:" + exp);
+            SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
+        }
+    }
+
+    public boolean modalContentIsDisplayed() {
+        try {
+            if (Wait.isElementDisplayed(driver, displayOptionsModalContent, 10)) {
+                Debugger.println("modal-content is displayed as expected");
+                return true;
+            } else {
+                Debugger.println("modal-content is NOT displayed");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("modal-content is NOT displayed");
+            SeleniumLib.takeAScreenShot("modalContentNotShown.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheCheckBoxesDisplayedOnModalContent() {
+        Wait.forElementToBeDisplayed(driver,displayOptionsModalContent, 10 );
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(compactGridCheckBox);
+        expectedElements.add(truncateColumnsCheckBox);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+            Debugger.println("element " + i + " shown");
+        }
+        return true;
+    }
+
+
+    public void clickResetButtonOnModalContent() {
+        try {
+            Wait.forElementToBeClickable(driver, resetHeaderOrdering);
+            Click.element(driver, resetHeaderOrdering);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
+            SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+        }
     }
 
 }
