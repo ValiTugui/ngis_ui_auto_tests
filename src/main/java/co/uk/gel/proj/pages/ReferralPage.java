@@ -1834,4 +1834,70 @@ public class ReferralPage<check> {
             return false;
         }
     }
+
+    @FindBy(name = "loginfmt")
+    public WebElement emailAddressField;
+    @FindBy(xpath = "//input[contains(@type,'submit')]")
+    public WebElement nextButton;
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
+
+    //new paths for the NHS Login page
+    @FindBy(id ="companyLogo")
+    public WebElement nhsLogo;
+    @FindBy(id="userNameInput")
+    public WebElement emailAddressFieldNHSPage;
+    @FindBy(id="passwordInput")
+    public WebElement passwordFieldNHSPage;
+    @FindBy(id="submitButton")
+    public WebElement signInNHSPage;
+
+    public void loginToTestOrderingSystemAsNHSUser(WebDriver driver,String userType ) {
+        Actions.deleteCookies(driver);
+        String nhsMail=AppConfig.getApp_username();
+        String nhsPassword=AppConfig.getApp_password();
+        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsNHSTestUser....");
+        try {
+            Wait.seconds(5);
+            if (!Wait.isElementDisplayed(driver,emailAddressField,120)) {//If the element is not displayed, even after the waiting time
+                Debugger.println("Email Address Field is not visible, even after the waiting period.");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,120)) {//Click on UseAnotherAccount and Proceed.
+                    Debugger.println("Clicking on useAnotherAccount to Proceed.");
+                    useAnotherAccount.click();
+                    Wait.seconds(3);
+                } else {
+                    Debugger.println("Email field or UseAnotherAccount option are not available. URL:"+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("EmailOrUserAccountNot.jpg");
+                    Assert.assertFalse("Email field or UseAnotherAccount option are not available.", true);
+                }
+            }else{
+                Debugger.println("emailAddressField Displayed.... Proceeding with Login...via NHS Test user mail account.");
+            }
+            Wait.forElementToBeClickable(driver, emailAddressField);
+            emailAddressField.sendKeys(nhsMail);
+            nextButton.click();
+            Wait.seconds(2);
+            //Wait for the NHS Login Page to load, then login through the userid and password fields present there
+            if(!Wait.isElementDisplayed(driver,nhsLogo,20)){
+                Debugger.println("NHS mail account login page is not displayed.");
+                SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
+                Assert.fail("NHS Login Page is not displayed.");
+            }
+            Wait.forElementToBeClickable(driver,emailAddressFieldNHSPage);
+            String mailIdPresent=emailAddressFieldNHSPage.getAttribute("value");
+            if(!mailIdPresent.equals(nhsMail)){
+                emailAddressFieldNHSPage.sendKeys(nhsMail);
+            }
+            Wait.forElementToBeClickable(driver, passwordFieldNHSPage);
+            passwordFieldNHSPage.sendKeys(nhsPassword);
+            signInNHSPage.click();
+            Debugger.println(" Logging to TO as user type: "+userType+" ,with id: "+nhsMail);
+            Wait.seconds(5);
+        }catch(Exception exp){
+            Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
+            SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
+        }
+    }
+
+
 }

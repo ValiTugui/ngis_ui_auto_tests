@@ -372,7 +372,7 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.clicksOnCancelReferralLink();
         Assert.assertTrue(testResult);
     }
-    
+
     @Then("the message should display as {string}")
     public void theMessageShouldDisplayAs(String revokeMessage) {
         boolean testResult = false;
