@@ -54,7 +54,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions |
 
 
-  @miportal4
+  @miportal4 @E2EUI-2697
   Scenario Outline: When Search-column is "Created" - verify the drop-down values of file-submission search operator
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected

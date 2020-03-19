@@ -152,8 +152,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
-
+    
     public void clickAddButton() {
         try {
             Wait.forElementToBeClickable(driver, addButton);
