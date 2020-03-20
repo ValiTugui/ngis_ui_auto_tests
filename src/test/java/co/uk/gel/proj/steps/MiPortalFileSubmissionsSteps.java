@@ -54,7 +54,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("search results are displayed for the file-submission search")
     public void searchResultsAreDisplayedForTheFileSubmissionSearch() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.searchResultTableIsDisplayed();
+        testResult = miPortalHomePage.searchResultTableIsDisplayed();
         Assert.assertTrue(testResult);
     }
 

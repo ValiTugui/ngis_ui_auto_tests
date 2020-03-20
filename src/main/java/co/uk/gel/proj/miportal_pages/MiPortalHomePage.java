@@ -223,6 +223,23 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean searchResultTableIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
+            if (Wait.isElementDisplayed(driver, searchResultRowHeader, 10)) {
+                Debugger.println("search result table is displayed as expected");
+                return true;
+            } else {
+                Debugger.println("search result table is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("search result table is not found");
+            SeleniumLib.takeAScreenShot("searchResultTableNotFound.jpg");
+            return false;
+        }
+    }
+
     public boolean verifyNoSearchResultMessage(String noResultMessage) {
         try {
             By displayedMessage;
