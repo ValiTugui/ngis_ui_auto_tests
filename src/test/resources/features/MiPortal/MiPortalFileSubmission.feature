@@ -290,3 +290,19 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         |
       | File Submissions |
+
+  @NTS-4968
+  Scenario Outline: Created Date equals filter displays only filtered date results in report table under File Submissions
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the column(s) of the search result table displayed the only filtered "<date>"
+
+    Examples:
+      | mi_stage         | value   | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |

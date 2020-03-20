@@ -13,6 +13,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -108,6 +109,20 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
         Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
         Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
+    }
+
+
+    @And("the column\\(s) of the search result table displayed the only filtered {string}")
+    public void theColumnSOfTheSearchResultTableDisplayedTheOnlyFiltered(String date) throws ParseException {
+        List<String> columnValues = miPortalFileSubmissionPage.getValuesOfAColumnField("Created");
+        String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+        Debugger.println(badge + "is new date ");
+        String expectedFilteredDate = (badge.split("="))[1].trim();
+        Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
+
+        for (String fieldValue : columnValues) {
+            Assert.assertTrue(fieldValue.contains(expectedFilteredDate));
+        }
     }
 
 }
