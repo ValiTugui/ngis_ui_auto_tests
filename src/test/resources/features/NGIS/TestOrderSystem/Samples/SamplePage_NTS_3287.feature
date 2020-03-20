@@ -1,6 +1,7 @@
 #@regression
 #@samplesPage
 #@samplesPage2
+@TUMOUR_SAMPLES
 @TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page
