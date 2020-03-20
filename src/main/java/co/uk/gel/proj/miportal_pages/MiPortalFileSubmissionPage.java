@@ -249,20 +249,5 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean searchResultTableIsDisplayed() {
-        try {
-            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
-            if (Wait.isElementDisplayed(driver, searchResultTable.get(0), 10)) {
-                Debugger.println("search result table is displayed as expected");
-                return true;
-            } else {
-                Debugger.println("search result table is not found");
-                return false;
-            }
-        } catch (Exception exp) {
-            Debugger.println("search result table is not found");
-            SeleniumLib.takeAScreenShot("searchResultTableNotFound.jpg");
-            return false;
-        }
-    }
+
 }
