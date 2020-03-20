@@ -89,7 +89,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
     public WebElement searchResultRowHeader;
 
-    @FindBy(xpath = "//div[@id='DataTables_Table_1_length']//select")
+    @FindBy(xpath = "//select[contains(@name,'DataTables_Table')]")
     public WebElement searchResultEntryOptionsSelection;
 
     @FindBy(css = "div[class*='modal-content']")
@@ -253,7 +253,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(searchResultTitle);
         expectedElements.add(searchResultDisplayOptionsButton);
         expectedElements.add(searchResultRowHeader);
-        //expectedElements.add(searchResultEntryOptionsSelection);
+        expectedElements.add(searchResultEntryOptionsSelection);
         expectedElements.add(downloadCSVButton);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
