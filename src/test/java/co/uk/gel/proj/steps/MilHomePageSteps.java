@@ -1,4 +1,4 @@
-package co.uk.gel.proj.mi_steps;
+package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;

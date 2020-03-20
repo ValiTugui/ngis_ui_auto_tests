@@ -26,8 +26,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//a[@data-value='file_submissions']")
-    public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
     public WebElement fileSubmissionSearchDropDownButton;
@@ -41,20 +39,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='tab-pane active']//h3[@class='box-title']")
     public WebElement searchTitle;
 
-    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
-    public WebElement genericDropDropDownValues;
-
-    @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
-    public List<WebElement> dropDownFileSubmissionsSearchDropValues;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement dropDownFileSubmissionsSearchDropValues1;
-
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
     public WebElement fileSubmissionSearchOperatorDropDownButton;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-value']")
-    public WebElement fileSubmissionSearchValueDropDownButton;
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
@@ -82,17 +68,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     String badgeFilterSearchCriteriaBy = "//div[@id='file_submissions-search-search_term_pills']/span";
 
-    public void selectSearchValueDropDown(WebElement element, String value) {
-        try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            //Click.element(driver, element);
-            Wait.seconds(2);
-            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
-        } catch (Exception exp) {
-            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
-        }
-    }
 
     public void fillInTheFileSubmissionDate(String date) {
         try {

@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -42,15 +43,15 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     }
 
 
-    @And("the user selects a value {string} from the file-submission search column drop-down")
-    public void theUserSelectsAValueFromTheFileSubmissionSearchColumnDropDown(String value) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchDropDownButton, value);
+    @And("the user selects a value {string} from the {string} column drop-down")
+    public void theUserSelectsAValueFromTheColumnDropDown(String value, String dropDownButton) {
+        miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
     }
 
 
-    @And("the user selects a search operator {string} from the file-submission search operator drop-down")
-    public void theUserSelectsASearchOperatorFromTheFileSubmissionSearchOperatorDropDown(String searchOperator) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.fileSubmissionSearchOperatorDropDownButton, searchOperator);
+    @And("the user selects a search operator {string} from the {string} operator drop-down")
+    public void theUserSelectsASearchOperatorFromTheOperatorDropDown(String searchOperator,String dropDownButton) {
+        miPortalHomePage.selectSearchValueDropDown(searchOperator, dropDownButton);
     }
 
     @And("the user enters a date {string} in the file-submission date field")
@@ -187,5 +188,69 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         boolean testResult = false;
         testResult = miPortalHomePage.verifyTheElementsInTheSearchResultSection();
         Assert.assertTrue(testResult);
+    }
+
+
+    @When("the user clicks on the Download CSV button to download the CSV file as {string}.csv")
+    public void theUserClicksOnTheDownloadCSVButtonToDownloadTheCSVFileAsCsv(String fileName) {
+        String dateToday = miPortalFileSubmissionPage.getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
+        fileName = fileName + "-" + dateToday + ".csv";
+        Debugger.println("Actual-filename : " + fileName);
+        miPortalHomePage.downloadMiCSVFile(fileName);
+    }
+
+    @When("the user clicks on the Display Options button")
+    public void theUserClicksOnTheDisplayOptionsButton() {
+        miPortalHomePage.clickSearchResultDisplayOptionsButton();
+    }
+
+    @Then("the user sees a modal-content page")
+    public void theUserSeesAModalContentPage(){
+        boolean testResult = false;
+        testResult = miPortalHomePage.modalContentIsDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the checkboxes with the label names {string} and {string}")
+    public void theUserSeesTheCheckboxesWithTheLabelNamesAnd(String expectedCgCheckBoxLabel, String expectedTcCheckBoxLabel) {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyTheCheckBoxesDisplayedOnModalContent();
+        Assert.assertTrue(testResult);
+
+        String actualCgCheckBoxLabel = Actions.getText(miPortalHomePage.compactGridCheckBoxLabel);
+        Debugger.println("Expected CompactCheckBox: " + expectedCgCheckBoxLabel + ":" + " Actual CompactCheckBox: " + actualCgCheckBoxLabel );
+        Assert.assertEquals(expectedCgCheckBoxLabel,actualCgCheckBoxLabel);
+
+        String actualTcCheckBoxLabel = Actions.getText(miPortalHomePage.truncateColumnsCheckBoxLabel);
+        Debugger.println("Expected TruncatedCheckBox: " + expectedTcCheckBoxLabel + ":" + " Actual TruncatedCheckBox: " + actualTcCheckBoxLabel );
+        Assert.assertEquals(expectedTcCheckBoxLabel,actualTcCheckBoxLabel);
+    }
+
+    @And("the user closes the modal content by clicking on the reset-button")
+    public void theUserClosesTheModalContentByClickingOnTheResetButton() {
+        miPortalHomePage.clickResetButtonOnModalContent();
+    }
+
+    @And("the selected search option is reset after test")
+    public void theSelectedSearchOptionIsResetAfterTest() {
+        miPortalHomePage.clickResetButton();
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        Assert.assertTrue(testResult);
+
+    }
+
+    @And("the values are not displayed in the file-submission search column {string} drop-down menu")
+    public void theValuesAreNotDisplayedInTheFileSubmissionSearchColumnDropDownMenu(String DropDownButton, DataTable dataTable) {
+        List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
+        List<String>expectedDropDownValuesList = new ArrayList<>();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(DropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            expectedDropDownValuesList.add(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"));
+            Debugger.println("values from dataTable: " + i + " : " + expectedDropDownValuesList.get(i));
+        }
+        Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
+        Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
     }
 }
