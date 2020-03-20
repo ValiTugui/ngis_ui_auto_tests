@@ -1,10 +1,11 @@
-@userJourneys
-@userJourneysRD
-@userJourneysRD_NGIS_TrioFamily
+#@userJourneys
+#@userJourneysRD
+#@userJourneysRD_NGIS_TrioFamily
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NGIS Patient - Trio Family
 
-  # E2EUI-905
-  @NTS-4563 @E2EUI-1329 @UseCase08 @LOGOUT
+  @NTS-4563  @LOGOUT
+#    @E2EUI-1329 @UseCase08 @E2EUI-905
   Scenario Outline: NTS-4563: Use Case#08: Create Referral for Trio Family with Default Data and Add Family Members to Test with Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449306052:DOB=28-04-2007 |
@@ -89,7 +90,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree |
 
-  @NTS-4551 @E2EUI-1358 @UseCase09 @LOGOUT
+  @NTS-4551 @LOGOUT
+#     @E2EUI-1358 @UseCase09
   Scenario Outline: NTS-4551: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
@@ -170,7 +172,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | FamilyMembers  |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Family members |
 
-  @NTS-4569 @E2EUI-1009 @UseCase10 @LOGOUT
+  @NTS-4569  @LOGOUT
+#    @E2EUI-1009 @UseCase10
   Scenario Outline: NTS-4569: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
@@ -251,7 +254,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4579 @E2EUI-1478 @UseCase11  @LOGOUT
+  @NTS-4579   @LOGOUT
+#    @E2EUI-1478 @UseCase11
   Scenario Outline: NTS:4579 Use Case#11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
@@ -336,7 +340,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            | searchPanels |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Patient choice | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 | Cataracts    |
 
-  @NTS-4598 @E2EUI-1233 @UseCase12 @LOGOUT
+  @NTS-4598  @LOGOUT
+#    @E2EUI-1233 @UseCase12
   Scenario Outline:NTS:4598: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
@@ -420,7 +425,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-4601 @E2EUI-975 @UseCase13 @LOGOUT
+  @NTS-4601  @LOGOUT
+#    @E2EUI-975 @UseCase13
   Scenario Outline: NTS-4601: Use Case#13: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
@@ -510,7 +516,8 @@ Feature: Create Referrals for NGIS Patient - Trio Family
       | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | RecordedBy         | PatientChoiceStage | Panels | searchPanels | Pedigree | FamilyMembers  |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | ClinicianName=John | Patient choice     | Panels | Cataracts    | Pedigree | Family members |
 
-  @NTS-4595 @E2EUI-1799 @UseCase24 @LOGOUT
+  @NTS-4595 @LOGOUT
+#     @E2EUI-1799 @UseCase24
   Scenario Outline: NTS-4595: Use Case#24: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient- Cancel referral(marked in error).
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_SUPER_USER | NHSNumber=9449303924:DOB=14-05-2004 |

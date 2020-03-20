@@ -528,7 +528,7 @@ public class PrintFormsPage {
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     seleniumLib.clickOnWebElement(downloadButton.get(i));
                     Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
-                    //Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
+                    Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
                     return true;
                 }
             }

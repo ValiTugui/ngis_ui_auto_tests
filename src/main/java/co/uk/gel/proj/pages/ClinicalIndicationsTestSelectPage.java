@@ -1,5 +1,6 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
@@ -96,7 +97,8 @@ public class ClinicalIndicationsTestSelectPage {
 
     String clinicalIndicationsHeadingsLocator = "//*/h4";
 
-    @FindBy(xpath = "//div[contains(@class,'styles_container__3_ged')]")
+    //@FindBy(xpath = "//div[contains(@class,'styles_container__3_ged')]")
+    @FindBy(xpath = "//div[contains(@class,'styles_overlayShow')]")
     public WebElement overlayPage;
 
     public void clickStartTestOrderReferralButton() {
@@ -115,7 +117,10 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public void clickBackToSearchButton() {
-        Click.element(driver, backToSearch);
+        if(!Wait.isElementDisplayed(driver,backToSearch,10)){
+            Actions.scrollToTop(driver);
+        }
+        Actions.retryClickAndIgnoreElementInterception(driver, backToSearch);
     }
 
     public void clickGoToTestPageButton() {
@@ -342,7 +347,6 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean verifyTheOverlayIsDisplayed() {
-
         try {
             if(!Wait.isElementDisplayed(driver, overlayPage,10)){
                 Debugger.println("Clinical indication page is not covered by an overlay");

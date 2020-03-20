@@ -1,10 +1,11 @@
-@userJourneys
-@userJourneysCancer
-@userJourneysCancer_NGIS_ProbandOnly
-
+#@userJourneys
+#@userJourneysCancer
+#@userJourneysCancer_NGIS_ProbandOnly
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Cancer Referrals for NGIS Patient - Proband Only
 
-  @NTS-4678 @E2EUI-1636 @UseCase21 @LOGOUT
+  @NTS-4678 @LOGOUT
+#    @E2EUI-1636 @UseCase21
   Scenario Outline:Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M170 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-06-2011:Gender=Male |

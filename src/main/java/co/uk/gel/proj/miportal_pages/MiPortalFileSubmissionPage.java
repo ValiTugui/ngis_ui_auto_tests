@@ -4,9 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
-import com.github.javafaker.Faker;
+import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,8 +26,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         seleniumLib = new SeleniumLib(driver);
     }
 
-    @FindBy(xpath = "//a[@data-value='file_submissions']")
-    public WebElement fileSubmissionLnk;
 
     @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
     public WebElement fileSubmissionSearchDropDownButton;
@@ -42,20 +39,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='tab-pane active']//h3[@class='box-title']")
     public WebElement searchTitle;
 
-    @FindBy(xpath = "//div[@class='inner open'and@aria-expanded='true']//li//span")
-    public WebElement genericDropDropDownValues;
-
-    @FindBy(xpath = "//select[@id='file_submissions-search-col']/option")
-    public List<WebElement> dropDownFileSubmissionsSearchDropValues;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-col']")
-    public WebElement dropDownFileSubmissionsSearchDropValues1;
-
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
     public WebElement fileSubmissionSearchOperatorDropDownButton;
-
-    @FindBy(xpath = "//button[@data-id='file_submissions-search-value']")
-    public WebElement fileSubmissionSearchValueDropDownButton;
 
     @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
     public WebElement getFileSubmissionDate;
@@ -76,69 +61,41 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement resetButton;
 
     @FindBy(id = "file_submissions-display-display_options")
-    public WebElement searchResultDisplayOptions;
+    public WebElement searchResultDisplayOptionsButton;
 
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
 
+    String badgeFilterSearchCriteriaBy = "//div[@id='file_submissions-search-search_term_pills']/span";
 
-    public void selectSearchValueDropDown(WebElement element, String value) {
-        try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            //Click.element(driver, element);
-            Wait.seconds(2);
-            Click.element(driver, driver.findElement(By.xpath("//ul[@class='dropdown-menu inner ']/li//span[text()='" + value + "']")));
-        } catch (Exception exp) {
-            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
-        }
-    }
 
     public void fillInTheFileSubmissionDate(String date) {
         try {
             Wait.forElementToBeClickable(driver, getFileSubmissionDate);
             String actualDate = getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
-            if (!date.equals("today") || actualDate.isEmpty()) {
+            if (date.equals("today") && !actualDate.isEmpty()) {
+                Debugger.println("today's date " + getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value"));
+            } else if (date.equalsIgnoreCase("future_date")     ){
+                String dateToday = TestUtils.todayInDDMMYYYFormat();
+                Debugger.println("today's date in dd/mm/yyyy " + dateToday);
+                dateToday = dateToday.replace("/", "-");
+                Debugger.println("today's date in dd-mm-yyyy " + dateToday);
+                String updatedFutureDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1,0, 0); //Add future day +1
+                Debugger.println("future date in dd-mm-yyyy " + updatedFutureDate);
+                Actions.clickElement(driver, getFileSubmissionDate);
+                Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
-                getFileSubmissionDate.click();
-                getFileSubmissionDate.clear();
-                Wait.seconds(3);
-                getFileSubmissionDate.sendKeys(date);
+                Actions.fillInValue(getFileSubmissionDate,updatedFutureDate);
+            } else{
+                Wait.seconds(1);
+                Actions.clickElement(driver, getFileSubmissionDate);
+                Actions.clearInputField(getFileSubmissionDate);
+                Wait.seconds(2);
+                Actions.fillInValue(getFileSubmissionDate,date);
             }
-            Debugger.println("Get current date : " + getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value"));
         } catch (Exception exp) {
             Debugger.println("Exception filling date:" + exp);
             SeleniumLib.takeAScreenShot("UnableToFillDate.jpg");
-        }
-    }
-
-    public void clickAddButton() {
-        try {
-            Wait.forElementToBeClickable(driver, addButton);
-            Click.element(driver, addButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on addButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoaddButton.jpg");
-        }
-    }
-
-    public void clickSearchButton() {
-        try {
-            Wait.forElementToBeClickable(driver, searchButton);
-            Click.element(driver, searchButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on searchButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoSearchButton.jpg");
-        }
-    }
-
-    public void clickResetButton() {
-        try {
-            Wait.forElementToBeClickable(driver, resetButton);
-            Click.element(driver, resetButton);
-        } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on resetButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoResetButton.jpg");
         }
     }
 
@@ -277,7 +234,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
             if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
                 Debugger.println("badge search criteria is NOT displayed as expected");
                 return true;
@@ -292,4 +249,20 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean searchResultTableIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
+            if (Wait.isElementDisplayed(driver, searchResultTable.get(0), 10)) {
+                Debugger.println("search result table is displayed as expected");
+                return true;
+            } else {
+                Debugger.println("search result table is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("search result table is not found");
+            SeleniumLib.takeAScreenShot("searchResultTableNotFound.jpg");
+            return false;
+        }
+    }
 }

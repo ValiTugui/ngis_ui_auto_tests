@@ -1,11 +1,12 @@
-@regression
-@TO_RD
-@GlobalFlow
-@GlobalFlow_Validations_Common
-
+#@regression
+#@GlobalFlow
+#@GlobalFlow_Validations_Common
+@TEST_ORDER
+@SYSTEM_TEST
 Feature: Feature: Global Patient Flow - Stage Validation
 
-  @NTS-4320 @E2EUI-1065 @LOGOUT @v_1 @P0
+  @NTS-4320 @LOGOUT
+#    @E2EUI-1065
   Scenario Outline: NTS-4320: Verify continue button
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male |
@@ -23,7 +24,8 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | FamilyMembers  |
       | Family members |
 
-  @LOGOUT @NTS-3497 @E2EUI-1995
+  @NTS-3497 @LOGOUT
+#    @E2EUI-1995
   Scenario Outline: NTS-3497: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1980:Gender=Male |
@@ -54,7 +56,8 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
 
-  @NTS-4711 @E2EUI-1624 @LOGOUT @RD
+  @NTS-4711 @LOGOUT
+#    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | GEL_NORMAL_USER |
@@ -63,14 +66,14 @@ Feature: Feature: Global Patient Flow - Stage Validation
     When the user types in valid details of a "<Type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
     And the user clicks the Search button
     Then the message will be displayed as "<ResultMessage>" result found
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
     And the user clicks the patient result card
     ##Patient Details Page
     When the user is navigated to a page with title Check your patient
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     When the user clicks the Update NGIS record button
@@ -78,7 +81,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
     And the user clicks the Start Referral button
     ##Referral Details Page
     When the user is navigated to a page with title Check your patient's details
-    Then the the user should see previous labels replaced as current labels
+    Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -98,7 +101,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
     When the user navigates to the "<FamilyMembers>" stage
     ##Family Members Page
     Then the user is navigated to a page with title Add a family member to this referral
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -107,14 +110,14 @@ Feature: Feature: Global Patient Flow - Stage Validation
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the message will be displayed as "<ResultMessage>" result found
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
     ###Print forms
     When the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms
-    And the the user should see previous labels replaced as current labels
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
     And the NHS display format as "<NHSNoFormat>"
@@ -123,7 +126,8 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | NHSNoFormat | Type | NhsNumber  | DOB        | RequestingOrganisation  | FamilyMembers  | FamilyMemberDetails                 | ResultMessage          | PrintForms  |
       | 3,3,4       | NHS  | 9449306621 | 09-05-2011 | Requesting organisation | Family members | NHSNumber=9449310440:DOB=12-07-2003 | 1 patient record found | Print forms |
 
-  @NTS-3498 @E2EUI-1701 @LOGOUT @v_1 @P0
+  @NTS-3498 @LOGOUT
+#    @E2EUI-1701
   Scenario Outline: NTS-3498: Verify Global patient information bar component
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
@@ -178,7 +182,8 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | Requesting organisation | ordering_entity_name | NoOfParticipants | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
       | Requesting organisation | Maidstone            | 1                | Family members | Clinical questions | Notes | Patient choice | Panels | Pedigree | Print forms |
 
-  @NTS-3498 @E2EUI-1850 @LOGOUT @v_1 @P0
+  @NTS-3498 @LOGOUT
+#  @E2EUI-1850
   Scenario: NTS-3498: The links from the footer should be the same color
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
@@ -189,5 +194,5 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | Sign in to the online service |
     And the user logs in to the Test Order system successfully
       | Find your patient |
-    Then the user sees the color of feedback link as NHS Blue #005EB8
-    And the user sees the color of privacy policy link as NHS Blue #005EB8
+    Then the user sees the color of feedback link as NHS Blue #005eb8
+    And the user sees the color of privacy policy link as NHS Blue #005eb8
