@@ -224,9 +224,9 @@ public class ReferralPage<check> {
     public WebElement familyMemberNhsNumbers;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
     public WebElement familyMemberNgisId;
-    @FindBy(xpath = "//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
-    @FindBy(xpath = "//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> ngisIDChunkSeparators;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
@@ -593,7 +593,7 @@ public class ReferralPage<check> {
     public String acknowledgeThePromptAlertPopups(String acknowledgeMessage) {
         String actualAlertText = null;
         if (acknowledgeMessage.equalsIgnoreCase("Accept")) {
-            //Wait.forAlertToBePresent(driver);
+            //Wait.forAlertToBePresent(driver);//Some times alert not present, handled with an exception
             Wait.seconds(2);
             try {
                 actualAlertText = driver.switchTo().alert().getText();
@@ -632,8 +632,8 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            //Reduced the waiting time to 5 seconds from 30 seconds
-            if (Wait.isElementDisplayed(driver, pageTitle, 5)) {
+            //Reduced the waiting time to 10 seconds from 30 seconds
+            if (Wait.isElementDisplayed(driver, pageTitle, 10)) {
                 return Actions.getText(pageTitle);
             }
             return null;

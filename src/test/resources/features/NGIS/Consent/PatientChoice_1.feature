@@ -9,6 +9,7 @@ Feature: Patient Choice-1 - Adult with Capacity
   Scenario Outline: NTS-3434: Verify the relevant Patient choice for an Adult with capacity paper form
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -193,7 +194,9 @@ Feature: Patient Choice-1 - Adult with Capacity
   Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details

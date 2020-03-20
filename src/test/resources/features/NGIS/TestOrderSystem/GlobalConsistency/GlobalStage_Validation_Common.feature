@@ -56,7 +56,7 @@ Feature: Feature: Global Patient Flow - Stage Validation
       | NoOfParticipants | RevokeMessage                                                             | PrintForms  | RequestingOrganisation  |
       | 1                | This referral has been cancelled so further changes might not take effect | Print forms | Requesting organisation |
 
-  @NTS-47111 @LOGOUT
+  @NTS-4711 @LOGOUT
 #    @E2EUI-1624
   Scenario Outline:NTS-4711:Verify Page titles for RD on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
