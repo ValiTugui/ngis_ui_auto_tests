@@ -6,7 +6,7 @@
 Feature: Tumours Page
 
   @NTS-3165 @LOGOUT
-#    @E2EUI-953
+#   @E2EUI-953
   Scenario Outline: NTS-3165:Tumours page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -36,18 +36,19 @@ Feature: Tumours Page
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     And the labels and help hint texts are displayed
-      | labelHeader                                       | HintTextHeader                                                                                                                 |
-      | Description                                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
-      | Date of diagnosis ✱                               | Year is required. Enter day and month if known.                                                                                |
-      | Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
-      | The tumour is... ✱                                | None                                                                                                                           |
+      | labelHeader                       | HintTextHeader                                                                                                                 |
+      | Description                       | Describe in a way that distinguishes this tumour from others the patient may have                                              |
+      | Date of diagnosis ✱               | Year is required. Enter day and month if known.                                                                                |
+      #| Histopathology laboratory ID or local sample ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
+      | Histopathology or SIHMDS Lab ID ✱ | For solid tumours, enter the "Histopathology laboratory ID". For haemato-oncology liquid tumours, enter the "Local Sample ID". |
+      | The tumour is... ✱                | None                                                                                                                           |
 
     Examples:
       | stage   |
       | Tumours |
 
 
- @NTS-3170 @LOGOUT
+  @NTS-3170 @LOGOUT
 #   @E2EUI-2018 @E2EUI-1840 @E2EUI-1350 @E2EUI-1486 @E2EUI-1459 @E2EUI-1846
   Scenario Outline:NTS-3152 Future date "<Date_of_Diagnosis>" : "<error_message>" can't be entered in the Date of diagnosis field from the Add a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -228,10 +229,11 @@ Feature: Tumours Page
     And the tumours stage is at Add a Tumour page
     When the user clicks the Save and Continue button
     Then the error messages for the tumour mandatory fields are displayed
-      | errorMessageHeader                                           |
-      | Enter a year                                                 |
-      | Please select the tumour type                                |
-      | Histopathology laboratory ID or local sample ID is required. |
+      | errorMessageHeader                           |
+      | Enter a year                                 |
+      | Please select the tumour type                |
+#      | Histopathology laboratory ID or local sample ID is required. |
+      | Histopathology or SIHMDS Lab ID is required. |
 
     Examples: Tumour type is not selected
       | stage   |
@@ -263,8 +265,9 @@ Feature: Tumours Page
       | a metastasis of one that is shown               |
       | you must add a new tumour then select it.       |
     And on the select or edit a tumour page, the tumour table list shows the column names
-      | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
-      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
+#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
     And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
 
     Examples:
@@ -300,8 +303,10 @@ Feature: Tumours Page
       | a metastasis of one that is shown               |
       | you must add a new tumour then select it.       |
     And on the select or edit a tumour page, the tumour table list shows the column names
-      | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
-      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
+#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
+
     And on the select or edit a tumour page, the new tumour details are displayed in the tumour table list
 
     Examples:
@@ -418,8 +423,9 @@ Feature: Tumours Page
       | a metastasis of one that is shown               |
       | you must add a new tumour then select it.       |
     And on the select or edit a tumour page, the tumour table list shows the column names
-      | descriptionHeader | pathologySampleHeader                           | dateDiagnosedHeader | statusHeader |
-      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
+#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
+      | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
     And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
     And Save and Continue button is displayed
 #
@@ -446,8 +452,8 @@ Feature: Tumours Page
     And the success notification is displayed "<notificationText>"
 
     Examples:
-      | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic                 | First presentation | test       | Tumour added     |
+      | stage   | tumour_type              | presentationType   | searchTerm | notificationText |
+      | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
 
   @NTS-4503 @LOGOUT
@@ -473,10 +479,11 @@ Feature: Tumours Page
     When the user navigates to the "<stage>" stage
     And the user clicks the Save and Continue button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                                       | errorMessageHeader                                           | messageColourHeader |
-      | Date of diagnosis ✱                               | Enter a year                                                 | #dd2509             |
-      | The tumour is... ✱                                | Please select the tumour type                                | #dd2509             |
-      | Histopathology laboratory ID or local sample ID ✱ | Histopathology laboratory ID or local sample ID is required. | #dd2509             |
+      | labelHeader                       | errorMessageHeader                           | messageColourHeader |
+      | Date of diagnosis ✱               | Enter a year                                 | #dd2509             |
+      | The tumour is... ✱                | Please select the tumour type                | #dd2509             |
+#      | Histopathology laboratory ID or local sample ID ✱ | Histopathology laboratory ID or local sample ID is required. | #dd2509             |
+      | Histopathology or SIHMDS Lab ID ✱ | Histopathology or SIHMDS Lab ID is required. | #dd2509             |
 
     Examples:
       | stage   | pageTitle    |

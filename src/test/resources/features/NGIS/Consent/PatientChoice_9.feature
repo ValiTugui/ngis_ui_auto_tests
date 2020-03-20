@@ -9,6 +9,7 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
   Scenario Outline: NTS-3389: Verify the relevant Patient choice for an Adult with capacity
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1992:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband

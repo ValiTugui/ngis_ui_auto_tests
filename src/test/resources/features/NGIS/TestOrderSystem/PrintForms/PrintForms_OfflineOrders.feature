@@ -50,9 +50,9 @@ Feature: Print Forms - Offline Orders
       | RequestingOrganisation                                  |
       | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-todo
+  @NTS-4703
 #    @E2EUI-1993
-  Scenario Outline: NTS-: Scenario_1: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
+  Scenario Outline: NTS-4703: Scenario_1: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -74,9 +74,9 @@ Feature: Print Forms - Offline Orders
       | Watermark                     |
       | N o t f o r C i n i c a l U s |
 
-  @NTS-Todo @LOGOUT
+  @NTS-4703 @LOGOUT
 #    @E2EUI-1993
-  Scenario Outline: NTS- : Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
+  Scenario Outline: NTS-4703: Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=04-03-2000:Gender=Male |
     ###Patient Details
