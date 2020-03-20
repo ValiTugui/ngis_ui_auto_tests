@@ -1,7 +1,7 @@
 #@regression
 #@samplesPage
 #@samplesPage2
-@TUMOUR_SAMPLES
+@Samples_Tumour
 @TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page
@@ -25,7 +25,8 @@ Feature: Samples Page
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      #| Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<stage>" stage is marked as Completed
 
     Examples:
@@ -52,7 +53,8 @@ Feature: Samples Page
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID           | Parent ID            | Tumour description      |
+#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 
     Examples:
@@ -84,7 +86,8 @@ Feature: Samples Page
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID           | Parent ID            | Tumour description      |
+#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<stage2>" stage is marked as Completed
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
@@ -119,11 +122,12 @@ Feature: Samples Page
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID           | Parent ID            | Tumour description      |
+#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And on the Manage Samples page, the new sample details are displayed in the sample table list
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter
     And the Tumour description value is reset after test
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState | sampleTopoMorphyGraphy | notificationText |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample  | Saliva       | test                   | Sample added     |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Saliva      | test                   | Sample added     |
