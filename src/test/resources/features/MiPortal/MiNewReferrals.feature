@@ -15,6 +15,7 @@ Feature: This is mi-portal New Referrals
     And the user selects a search operator "<operator>" from the "new_referrals-search-operator" operator drop-down
     And the user sees the values in the search value "new_referrals-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
+#  defect https://jira.extge.co.uk/browse/NMIS-782
       | East Mids and East of England    |
       | London North                     |
       | London South                     |
