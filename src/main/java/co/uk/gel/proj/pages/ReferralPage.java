@@ -633,7 +633,7 @@ public class ReferralPage<check> {
     public String getTheCurrentPageTitle() {
         try {
             //Reduced the waiting time to 10 seconds from 30 seconds
-            if (Wait.isElementDisplayed(driver, pageTitle, 10)) {
+            if (Wait.isElementDisplayed(driver, pageTitle, 10)){
                 return Actions.getText(pageTitle);
             }
             return null;
@@ -714,6 +714,7 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
+            Wait.seconds(5);//Many places observed the Title loading issue, trying with a 5 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
