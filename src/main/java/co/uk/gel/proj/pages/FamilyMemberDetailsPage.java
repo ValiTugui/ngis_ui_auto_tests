@@ -151,10 +151,15 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[@aria-label='edit button']")
     WebElement editButtonForParticipant;
 
-    By selectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]");
-    By unSelectedTest = By.xpath("//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]");
-    String selectedTestTitle = "//h3[contains(text(),'Selected tests for')]/span[contains(text(),";
-    String selectedMemberTitle = "//h4[contains(text(),'Selected family members')]/..//span[contains(text(),";
+    @FindBy(xpath = "//span[contains(@class,'family-member-test-package__patient')]")
+    WebElement selectedTestForRelationship;
+    @FindBy(xpath = "//h4[contains(text(),'Selected family members')]/..//span[contains(@class,'relationship-tag')]")
+    List<WebElement> relationShipTags;
+    @FindBy(xpath = "//div[contains(@class,'test-list_')]//span[contains(@class,'checked')]")
+    WebElement selectedTest;
+    @FindBy(xpath = "//div[contains(@class,'test-list_')]//span[contains(@class,'checkbox-card')]")
+    WebElement unSelectedTest;
+
     String addFamilyMemberTitle = "//h1[contains(text(),'Add a family member to this referral')]/../div//h2[contains(text(),";
     By hpoRows = By.xpath("//table[contains(@class,'--hpo')]/tbody/tr");
 
@@ -377,28 +382,52 @@ public class FamilyMemberDetailsPage {
                 return false;
             }
 
-            Debugger.println("Verifying Relationship Title");
+            Debugger.println("Verifying Selected Test To Relationship Title");
             //1. Verify the display of Title for the added Test.
-            By testTitle = By.xpath(selectedTestTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
-            if (!Wait.isElementDisplayed(driver, driver.findElement(testTitle), 120)) {
-                Debugger.println("Selected Test Title for Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed." + testTitle);
+            if(!Wait.isElementDisplayed(driver,selectedTestForRelationship,30)){
+                Debugger.println("Selected Test for Relationship title not loaded.");
+                SeleniumLib.takeAScreenShot("SelectedTitleForRelationship.jpg");
                 return false;
             }
-            Debugger.println("Verifying Relationship to proband");
+            String actualRelation = selectedTestForRelationship.getText();
+            if(actualRelation == null || actualRelation.isEmpty()){
+                Debugger.println("Selected Test for Relationship title not loaded as empty.");
+                SeleniumLib.takeAScreenShot("SelectedTitleForRelationship.jpg");
+                return false;
+            }
+            if (!actualRelation.contains(familyMember.getRELATIONSHIP_TO_PROBAND())) {
+                Debugger.println("Selected Test, Expected Relationship:" + familyMember.getRELATIONSHIP_TO_PROBAND() + ",Actual:" + actualRelation);
+                SeleniumLib.takeAScreenShot("SelectedTitleForRelationship.jpg");
+                return false;
+            }
+            Debugger.println("Verifying Relationship to proband tag");
             //2. Verify the display of Relation to Proband as given.
-            By selectedFamilyMember = By.xpath(selectedMemberTitle + "'" + familyMember.getRELATIONSHIP_TO_PROBAND() + "')]");
-            if (!Wait.isElementDisplayed(driver, driver.findElement(selectedFamilyMember), 120)) {
-                Debugger.println("Selected Family member with Relation " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not displayed.");
+            if(relationShipTags.size() == 0){
+                Debugger.println("Relationship to Proband is not loaded...");
+                SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return false;
             }
-            Debugger.println("Verifying Selected Test");
+            boolean isPresent = false;
+            for(int i=0; i<relationShipTags.size(); i++){
+                if(relationShipTags.get(i).getText().equalsIgnoreCase(familyMember.getRELATIONSHIP_TO_PROBAND())){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                Debugger.println("Relationship to Proband is not loaded...");
+                SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
+                return false;
+            }
+             Debugger.println("Verifying Selected Test");
             //3. Select the test as checked by default.
-            if (!Wait.isElementDisplayed(driver, driver.findElement(selectedTest), 120)) {
-                if (!Wait.isElementDisplayed(driver, driver.findElement(unSelectedTest), 120)) {
-                    Debugger.println("Option to select test not present in Select Test Page.");
+            if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
+                if (!Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
+                    Debugger.println("Option to Select/Deselect test not present in Select Test Page.");
+                    SeleniumLib.takeAScreenShot("SelectDeselectTest.jpg");
                     return false;
                 } else {
-                    Actions.clickElement(driver, driver.findElement(unSelectedTest));//To make the test selected by default.
+                    Actions.clickElement(driver, unSelectedTest);//To make the test selected by default.
                 }
             }
             Debugger.println("Verified Test selection Page successfully");
