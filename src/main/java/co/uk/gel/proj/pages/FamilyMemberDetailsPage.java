@@ -139,11 +139,8 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "div[id*='react-select']")
     public List<WebElement> dropdownValues;
 
-    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checked')]")
-    WebElement testPackageCheckBoxChecked;
-
-    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
-    WebElement testPackageCheckBox;
+    @FindBy(xpath = "//h4[contains(text(),'Selected family members')]")
+    WebElement selectedFamilyMembersLabel;
 
     @FindBy(css = "span[class*='child-element']")
     List<WebElement> displayedChildElements;
@@ -415,7 +412,7 @@ public class FamilyMemberDetailsPage {
                 }
             }
             if(!isPresent){
-                Debugger.println("Relationship to Proband is not loaded...");
+                Debugger.println("Relationship to Proband is not Present...");
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return false;
             }
@@ -763,45 +760,47 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
-            NGISPatientModel familyMember = getFamilyMember(nhsDetails);
-            if (familyMember == null) {
-                Debugger.println("Could find the family member:" + nhsDetails + " in the list.");
-                return false;
-            }
-            Debugger.println("Verifying TheTestCheckboxIsSelected for: " + familyMember.getFIRST_NAME() + "," + familyMember.getRELATIONSHIP_TO_PROBAND());
-            Wait.forElementToBeDisplayed(driver, testPackageCheckBoxChecked, 60);
-            if (!seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {//If not present
-                Debugger.println("Test for Family member " + familyMember.getRELATIONSHIP_TO_PROBAND() + " not in SELECTED State.");
+            NGISPatientModel ngisPatientModel = getFamilyMember(nhsDetails);
+            if(!Wait.isElementDisplayed(driver, selectedTest,20)){
+                Debugger.println("Test is not selected by default for the family member with NHS:"+ngisPatientModel.getNHS_NUMBER());
+                SeleniumLib.takeAScreenShot("TestNoSelectedByDefault.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("FamilyMemberDetailsPage:verifyTheTestCheckboxIsSelected:Exception:" + exp);
+            Debugger.println("Exception in verifying verifyTheTestCheckboxIsSelected:" + exp);
+            SeleniumLib.takeAScreenShot("TestNoSelectedByDefault.jpg");
             return false;
         }
     }
 
-    public void deSelectTheTest() {
+    public boolean deSelectTheTest() {
         try {
-            if (Wait.isElementDisplayed(driver, testPackageCheckBoxChecked, 10)) {
-                seleniumLib.clickOnWebElement(testPackageCheckBoxChecked);
+            if (!Wait.isElementDisplayed(driver, selectedTest, 20)) {
+                Debugger.println("Expected status of Test is Selected, but it is not.");
+                SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
+                return false;
             }
-
+            Actions.clickElement(driver,selectedTest);
+            return true;
         } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("testSelect.jpg");
-            Debugger.println("FamilyMemberDetailsPage:deSelectTheTest:Exception:" + exp);
+            Debugger.println("Exception in deSelectTheTest:" + exp);
+            SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
+            return false;
         }
     }
 
     public boolean verifyTestPackageCheckBoxDeSelected() {
         try {
-            if (seleniumLib.isElementPresent(testPackageCheckBoxChecked)) {
-                Debugger.println("Expected the TestPackage as DeSelected, but it is in Selected State.");
+            if (!Wait.isElementDisplayed(driver,unSelectedTest,10)) {
+                Debugger.println("Expected to be the test deselected, but selected.");
+                SeleniumLib.takeAScreenShot("DeselectedTest.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("FamilyMemberDetailsPage:verifyTestPackageCheckBoxDeSelected:Exception:" + exp);
+            Debugger.println("Exception in verifyTestPackageCheckBoxDeSelected:" + exp);
+            SeleniumLib.takeAScreenShot("DeselectedTest.jpg");
             return false;
         }
     }
@@ -883,9 +882,28 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public void deselectCheckBoxOnFamilyPage() {
-        Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
-        seleniumLib.clickOnWebElement(testPackageCheckBox);
+    public boolean clickOnDeselectedTestCheckBox() {
+        try {
+            if(!Wait.isElementDisplayed(driver, unSelectedTest,30)){
+                Debugger.println("Selected test check box has not loaded..");
+                SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,unSelectedTest);
+            return true;
+        }catch(ElementClickInterceptedException exp){
+            //The box might be in selected stage and element may not be able to click. So moving control out and click again
+           Actions.clickElement(driver,selectedFamilyMembersLabel);
+           Wait.seconds(2);
+           Actions.clickElement(driver,unSelectedTest);
+            Wait.seconds(2);
+           return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clickOnDeselectedTestCheckBox.."+exp);
+            SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
+            return false;
+        }
+
     }
 
     public boolean unmatchedParticipantErrorMessage(String expMessage) {
@@ -1425,14 +1443,14 @@ public class FamilyMemberDetailsPage {
 
     public boolean selectTheTest() {
         try {
-            if (Wait.isElementDisplayed(driver, testPackageCheckBox, 10)) {
-                seleniumLib.clickOnWebElement(testPackageCheckBox);
+            if (Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
+                Actions.clickElement(driver,unSelectedTest);
                 return true;
             }
             return false;
         } catch (Exception exp) {
+            Debugger.println("Exception in selectTheTest:" + exp);
             SeleniumLib.takeAScreenShot("testSelect.jpg");
-            Debugger.println("FamilyMemberDetailsPage:selectTheTest:Exception:" + exp);
             return false;
         }
     }

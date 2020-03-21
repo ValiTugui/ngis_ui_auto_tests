@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_patientIdentifier
-@TEST_ORDER
+@TEST_ORDER_FM
 @SYSTEM_TEST
 
 Feature: Family Members Navigation Stage - Patient Identifiers
@@ -119,16 +119,16 @@ Feature: Family Members Navigation Stage - Patient Identifiers
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user clicks on a test that is selected and the test is no longer selected
+    And the user is able to clicks on deselected test
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
-    Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.
+    Then The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for "<FamilyMemberDetails>"
     And subtitle of the page displayed as Tested family members you add here will be visible in the pedigree.
     And subtitle links as add non-tested family members
-    And the family member status "<TestStatus>" Marked in "<color>"
+    And the test status "<TestStatus>" Marked in "<color>"
     And The user should be able to view patient choice status for all the family members added.
     And The user also should see the Add Family Member button and continue button displayed
 

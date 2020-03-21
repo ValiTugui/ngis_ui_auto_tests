@@ -21,7 +21,7 @@ Feature: Clinical Question Page - Family Members
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
@@ -36,7 +36,7 @@ Feature: Clinical Question Page - Family Members
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the test package page has Selected family members with the "<FamilyMemberDetails>"
-    And the user clicks on a test that is selected and the test is no longer selected
+    And the user is able to clicks on deselected test
     And the user clicks the Save and Continue button
     When the user is navigated to a page with title Add family member details
     And the user should able to see the same family member DiseaseStatusDetails "<DiseaseStatusDetails>"

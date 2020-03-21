@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_mismatchFM
-@TEST_ORDER
+@TEST_ORDER_FM
 @SYSTEM_TEST
 Feature: Family Members Navigation Stage - Varying Members addition and removal
 

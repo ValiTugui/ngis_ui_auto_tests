@@ -168,7 +168,7 @@ Feature: Print Forms - Validations
     Then the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     ###Print Forms
     When the user navigates to the "<PrintForms>" stage
@@ -178,7 +178,7 @@ Feature: Print Forms - Validations
     When the user navigates to the "<FamilyMembers>" stage
     And the user edits the highlighted family member with "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<ChangedRelationshipToProband>"
+    When the user selects the Relationship to proband as "<ChangedRelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     ###Print Forms
     When the user navigates to the "<PrintForms>" stage

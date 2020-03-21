@@ -289,7 +289,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    And the user selects the Relationship to proband as "Full Sibling"
+    And the user selects the Relationship to proband as "Full Sibling" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button

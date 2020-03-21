@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@TEST_ORDER_FM
 @SYSTEM_TEST
 Feature: Family Members Details Page - Field Validation_1
 
@@ -52,7 +52,7 @@ Feature: Family Members Details Page - Field Validation_1
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
     And confirm family member details page populate with same details found in patient card for "<FamilyMemberDetails>"
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
 
@@ -84,7 +84,7 @@ Feature: Family Members Details Page - Field Validation_1
       | Life status             | label      | ✱      | #dd2509      |
       | Relationship to proband | label      | ✱      | #dd2509      |
       | Ethnicity               | label      | ✱      | #dd2509      |
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
 
     Examples:
@@ -105,7 +105,7 @@ Feature: Family Members Details Page - Field Validation_1
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
@@ -169,7 +169,7 @@ Feature: Family Members Details Page - Field Validation_1
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
@@ -223,7 +223,7 @@ Feature: Family Members Details Page - Field Validation_1
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"

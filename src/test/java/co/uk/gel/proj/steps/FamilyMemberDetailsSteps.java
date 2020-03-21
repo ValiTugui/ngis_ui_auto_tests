@@ -34,12 +34,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @When("the user selects the Relationship to proband as {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
-        //To fill ethnicity also, as this field made mandatory.
-        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-     }
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
@@ -135,7 +129,9 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user deselects the test")
     public void theUserDeselectTheSelectedTest() {
-        familyMemberDetailsPage.deSelectTheTest();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.deSelectTheTest();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees test remains as deselected")
@@ -246,9 +242,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.editPatientChoiceOfFamilyMember();
     }
 
-    @Then("the user clicks on a test that is selected and the test is no longer selected")
+    @Then("the user is able to clicks on deselected test")
     public void theUserClicksOnATestThatIsSelectedAndTheTestIsNoLongerSelected() {
-        familyMemberDetailsPage.deselectCheckBoxOnFamilyPage();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.clickOnDeselectedTestCheckBox();
+        Assert.assertTrue(testResult);
     }
 
     @And("subtitle of the page displayed as (.*)")
@@ -379,6 +377,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
                 Wait.seconds(5);
+                if(memberDetails.get(i).size() < 3){
+                    continue;//Some times the Disease status not passing
+                }
                 Debugger.println("Clicking on Save and Continue in Family Member Stage...to proceed with Disease status updation");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("Clicked on Save and Continue in Family Member Stage...");

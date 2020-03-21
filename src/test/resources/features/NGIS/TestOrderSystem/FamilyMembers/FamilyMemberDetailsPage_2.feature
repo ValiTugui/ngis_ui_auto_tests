@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@TEST_ORDER_FM
 @SYSTEM_TEST
 Feature: Family Members Details Page - Field Validation_2
 
@@ -57,7 +57,7 @@ Feature: Family Members Details Page - Field Validation_2
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
@@ -77,8 +77,8 @@ Feature: Family Members Details Page - Field Validation_2
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Patient Choice |
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected | Patient choice |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @NTS-3475
 #    @E2EUI-2090 @v_1 @P1
@@ -146,7 +146,7 @@ Feature: Family Members Details Page - Field Validation_2
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
@@ -172,13 +172,13 @@ Feature: Family Members Details Page - Field Validation_2
     Then the message "No patient found" is displayed below the search button
     Then the user clicks on the create new patient record
     And the user is navigated to a page with title Add a new patient to the database
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband | relationShipType |
-      | Family members | Patient is a foreign national | Father                | Father           |
+      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |
+      | Family members | Patient is a foreign national | Father                |
 
 
   @NTS-4053 @LOGOUT
@@ -221,7 +221,7 @@ Feature: Family Members Details Page - Field Validation_2
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
