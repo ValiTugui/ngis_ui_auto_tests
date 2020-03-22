@@ -228,12 +228,26 @@ public class PaperFormPage {
     }
 
     public boolean checkThatDownloadButtonsAreDisplayed() {
-        Wait.forElementToBeDisplayed(driver, routedNextStepsContent);
-        Debugger.println("No of download button are " + downloadButton.size());
-        for (int i = 0; i < downloadButton.size(); i++) {
-            Wait.forElementToBeDisplayed(driver, downloadButton.get(i));
+        if(!Wait.isElementDisplayed(driver,routedNextStepsContent,30)){
+            Debugger.println("routedNextStepsContent not present.");
+            SeleniumLib.takeAScreenShot("DownloadButtonContainer.jpg");
+            return false;
+        }
+        if(downloadSections.size() != downloadButton.size()){
+            Wait.seconds(10);//Wait 10 seconds for all sections download buttons are displayed
         }
         return (downloadSections.size() == downloadButton.size());
+    }
+
+    public boolean verifyTheDownloadButtonLabel(String buttonName){
+        for (int i = 0; i < downloadButton.size(); i++) {
+            if(!downloadButton.get(i).getText().matches(buttonName)){
+                Debugger.println("Download button label is not as expected:"+buttonName);
+                SeleniumLib.takeAScreenShot("DownLoadButtonName.jpg");
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean checkCancelOrderLinkIdDisplayed(String linkName) {

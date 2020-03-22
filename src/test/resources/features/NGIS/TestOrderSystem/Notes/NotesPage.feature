@@ -1,6 +1,6 @@
 #@regression
 #@notes
-@TEST_ORDER_NOTES
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Notes page
 

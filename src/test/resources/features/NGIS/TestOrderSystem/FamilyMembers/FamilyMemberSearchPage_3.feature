@@ -1,9 +1,9 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER_FM
+@TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Family Members Search Page - Re-Adding existing members
+Feature: Family Members Search Page 3- Re-Adding existing members
 
   @NTS-3227
 #    @E2EUI-1947

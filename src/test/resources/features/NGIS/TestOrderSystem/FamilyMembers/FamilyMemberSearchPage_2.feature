@@ -1,14 +1,15 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER_FM
+@TEST_ORDER
 @SYSTEM_TEST
-Feature: Family Members Search Page - Field Validation_3
+Feature: Family Members Search Page - Field Validation_2
 
   @NTS-3328
 #    @E2EUI-841
   Scenario Outline: NTS-3328: Find the family member page validation with NHS selected as YES: Entered incorrect date of birth field
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
@@ -234,6 +235,7 @@ Feature: Family Members Search Page - Field Validation_3
   Scenario Outline: NTS-3207-3328: Find a family member page validation with NHS selected YES: All mandatory fields left blank
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member

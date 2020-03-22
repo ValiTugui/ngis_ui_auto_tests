@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_removeFM
-@TEST_ORDER_FM
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Navigation Stage 1 - Remove Family Member
@@ -11,6 +11,7 @@ Feature: Family Members Navigation Stage 1 - Remove Family Member
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"

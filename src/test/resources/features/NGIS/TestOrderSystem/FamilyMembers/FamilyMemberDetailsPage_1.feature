@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER_FM
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page - Field Validation_1
 
@@ -42,6 +42,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-3300: Check family member Details validation:The family member details have to be verified on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1972:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
@@ -65,6 +66,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-3298: Verify "relationship to proband" field mandatory when adding a family member to referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -96,6 +98,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -120,6 +123,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -140,6 +144,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline:NTS-3474: Validating family member section must be completed to submit the referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
      ###Requesting Organisation
     When the user navigates to the "<Requesting organisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
@@ -217,6 +222,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-4744: Referral create as a Family member
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
@@ -261,6 +267,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-4052: Multidate picker - Real dates validation on Family Members Page.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R85 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
@@ -278,6 +285,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -304,6 +312,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Holoprosencephaly - NOT chromosomal | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -333,6 +342,7 @@ Feature: Family Members Details Page - Field Validation_1
   Scenario Outline: Make family member details editable
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button

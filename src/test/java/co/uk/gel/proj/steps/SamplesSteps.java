@@ -72,9 +72,17 @@ public class SamplesSteps extends Pages {
 
     @When("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state {string} and filling SampleID")
     public void theUserAnswersTheQuestionsOnAddASamplePageBySelectingTheSampleTypeSampleStateAndFillingSampleID(String sampleType, String sampleState) {
-        samplesPage.selectSampleType(sampleType);
-        samplesPage.selectSampleState(sampleState);
-        samplesPage.fillInSampleID();
+        boolean testResult = false;
+        testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.selectSpecificSampleState(sampleState);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.fillInSampleID();
+        Assert.assertTrue(testResult);
     }
 
     @And("the Add Samples details page displays the page title and sub-titles text body")
@@ -230,11 +238,9 @@ public class SamplesSteps extends Pages {
 
     @And("a search icon is displayed inside the Sample state drop down field")
     public void aSearchIconIsDisplayedInsideTheSampleStateDropDownField() {
-
-        boolean searchIconShown = false;
-        searchIconShown = samplesPage.verifySearchIconInsideSampleStateField();
-        Debugger.println("Return boolean for element present: " + searchIconShown);
-        Assert.assertTrue(searchIconShown);
+        boolean testResult = false;
+        testResult = samplesPage.verifySearchIconInsideSampleStateField();
+        Assert.assertTrue(testResult);
     }
 
     @And("fields and drops-downs are shown as mandatory with astericks star symbol")
@@ -288,14 +294,24 @@ public class SamplesSteps extends Pages {
 
     @When("the user selects the existing sample from the landing page by clicking on the chevron right arrow icon")
     public void theUserSelectsTheExistingSampleFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
-        samplesPage.selectSampleFromLandingPage();
+        boolean testResult = false;
+        testResult = samplesPage.selectSampleFromLandingPage();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user edits the fields on Edit a Sample page by selecting the sample type {string}, sample state {string} and SampleID")
     public void theUserEditsTheFieldsOnEditASamplePageBySelectingTheSampleTypeSampleStateAndSampleID(String sampleType, String sampleState) {
-        samplesPage.selectSampleType(sampleType);
-        samplesPage.selectSampleState(sampleState);
-        samplesPage.fillInSampleID();
+        boolean testResult = false;
+        testResult = samplesPage.selectSampleType(sampleType);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.selectSpecificSampleState(sampleState);
+        if(!testResult){
+            Assert.assertTrue(testResult);
+        }
+        testResult = samplesPage.fillInSampleID();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the new edited sample details are displayed in the edit sample page")

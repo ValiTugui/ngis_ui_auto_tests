@@ -495,6 +495,7 @@ public class PrintFormsPage {
             for (String str : textList) {
                 if (!outputData.contains(str)) {
                     Debugger.println(" The expected " + str + " is  NOT shown correctly in the form: " + fileName);
+                    Debugger.println(" PDF CONTENT:"+outputData);
                     testResult = false;
                 }
             }
@@ -523,19 +524,29 @@ public class PrintFormsPage {
         try {
             //Delete if File already present
             TestUtils.deleteIfFilePresent(fileName, "");
+            if(formSection.size() == 0){
+                Debugger.println("No Form Sections present to download.");
+                SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
+                return false;
+            }
+            boolean isDownloaded = false;
             for (int i = 0; i < formSection.size(); i++) {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
-                    seleniumLib.clickOnWebElement(downloadButton.get(i));
+                    Actions.clickElement(driver,downloadButton.get(i));
+                    isDownloaded = true;
                     Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
-                    Debugger.println("Form: " + fileName + " ,downloaded from section: " + actualText);
-                    return true;
+                    break;
                 }
             }
-            return false;
+            if(!isDownloaded){
+                Debugger.println("Could not download the form "+fileName+" for section :"+expectedFormSection);
+                SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
+            }
+            return isDownloaded;
         } catch (Exception exp) {
             Debugger.println("Could not locate the form download button ..... " + exp);
-            SeleniumLib.takeAScreenShot("OfflineOrderPrintFormsDownload.jpg");
+            SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
             return false;
         }
     }
@@ -651,7 +662,7 @@ public class PrintFormsPage {
             Debugger.println("ZipFile does not contain directory for Files as expected.");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception from extracting and validatin zip file." + exp);
+            Debugger.println("Exception from extracting and validating zip file." + exp);
             return false;
         }
     }
