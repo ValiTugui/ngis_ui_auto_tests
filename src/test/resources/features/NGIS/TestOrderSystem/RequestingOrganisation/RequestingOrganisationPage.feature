@@ -1,5 +1,5 @@
 #@regression
-@TEST_ORDER
+@TEST_ORDER_RO
 @SYSTEM_TEST
 Feature: Requesting Organisation page
 

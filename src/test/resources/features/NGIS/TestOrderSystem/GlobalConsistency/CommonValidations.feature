@@ -1,6 +1,6 @@
 #@regression
 #@noComponent
-@TEST_ORDER
+@TEST_ORDER_GLOBAL
 @SYSTEM_TEST
 Feature: No component
 

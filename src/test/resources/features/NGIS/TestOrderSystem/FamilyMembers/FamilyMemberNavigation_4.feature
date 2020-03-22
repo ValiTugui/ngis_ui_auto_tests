@@ -3,7 +3,7 @@
 #@FamilyMemberStageNavigation_addFM
 @TEST_ORDER_FM
 @SYSTEM_TEST
-Feature: Family Members Navigation Stage - Member additions
+Feature: Family Members Navigation Stage 4 - Member additions
 
   @NTS-3295 @LOGOUT
 #    @E2EUI-1279 @E2EUI-1362 @E2EUI-1581

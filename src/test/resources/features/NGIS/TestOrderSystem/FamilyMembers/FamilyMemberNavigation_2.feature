@@ -3,7 +3,7 @@
 #@FamilyMemberStageNavigation_mismatchFM
 @TEST_ORDER_FM
 @SYSTEM_TEST
-Feature: Family Members Navigation Stage - Varying Members addition and removal
+Feature: Family Members Navigation Stage 2 - Varying Members addition and removal
 
   @NTS-3309 @LOGOUT
 #    @E2EUI-1539

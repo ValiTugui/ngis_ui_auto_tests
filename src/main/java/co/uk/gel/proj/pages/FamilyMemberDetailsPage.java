@@ -1175,7 +1175,10 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTestBadgeBackgroundColor(String testBadge, String color) {
         try {
             Wait.seconds(5);
-            String expectedBgColor = StylesUtils.convertFontColourStringToCSSProperty(color);
+            String expectedBgColor = StylesUtils.convertFontColourStringToCSSProperty(color.trim());
+            if(expectedBgColor == null || expectedBgColor.equalsIgnoreCase("Not defined")){
+                return false;
+            }
             //Being test field color
             String actualColor = "";
             boolean isPresent = false;

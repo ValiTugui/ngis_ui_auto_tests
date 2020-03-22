@@ -297,7 +297,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the test status (.*) Marked in (.*)")
+    @And("the test status {string} Marked in {string}")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTestBadgeBackgroundColor(testfield, color);

@@ -1,6 +1,6 @@
 #@regression
 #@referral
-@TEST_ORDER
+@TEST_ORDER_GLOBAL
 @SYSTEM_TEST
 Feature: This is a referral feature
 

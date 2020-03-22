@@ -1,6 +1,6 @@
 #@regression
 #@testPackageRD
-@TEST_ORDER
+@TEST_ORDER_SA
 @SYSTEM_TEST
 
 Feature: Test Package page

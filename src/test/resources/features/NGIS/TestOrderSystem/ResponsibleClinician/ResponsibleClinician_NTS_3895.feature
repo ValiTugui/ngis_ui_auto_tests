@@ -1,6 +1,6 @@
 #@regression
 #@responsibleClinicianOrg
-@TEST_ORDER
+@TEST_ORDER_RO
 @SYSTEM_TEST
 Feature: Responsible Clinician - Modal Dialog
 

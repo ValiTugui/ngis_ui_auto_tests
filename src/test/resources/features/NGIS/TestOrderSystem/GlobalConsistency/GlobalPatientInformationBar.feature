@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_globalPatientInformation
-@TEST_ORDER
+@TEST_ORDER_GLOBAL
 @SYSTEM_TEST
 Feature: Global Patient Information Bar on Family Members Navigation Stage Navigation
 

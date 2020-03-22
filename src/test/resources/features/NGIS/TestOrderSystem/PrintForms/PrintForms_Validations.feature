@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@TEST_ORDER
+@TEST_ORDER_PF
 @SYSTEM_TEST
 Feature: Print Forms - Validations
 

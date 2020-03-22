@@ -1,8 +1,7 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@Samples_Tumour
-@TEST_ORDER
+@TEST_ORDER_SA
 @SYSTEM_TEST
 Feature: Samples Page
 
@@ -607,7 +606,6 @@ Feature: Samples Page
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
-
 
   @NTS-4531 @LOGOUT
 #    @E2EUI-1480

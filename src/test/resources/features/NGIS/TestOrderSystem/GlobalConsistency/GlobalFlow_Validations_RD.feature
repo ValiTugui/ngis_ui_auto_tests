@@ -1,7 +1,7 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_RD
-@TEST_ORDER
+@TEST_ORDER_GLOBAL
 @SYSTEM_TEST
 Feature: Feature: Global Patient Flow - End to end RD
 
