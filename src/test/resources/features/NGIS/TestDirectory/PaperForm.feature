@@ -103,7 +103,7 @@ Feature: Paper Form page functionalities
       | R100       | Manchester      | Referral     | Additional family members | Patient choice |
       | M89        | Leeds           | Referral     | Patient choice            | null           |
 
-  @NTS-3491 @LOGOUT
+  @NTS-3491
   #@E2EUI-2092
   Scenario:NTS-3491: Move the Online or Offline choice page
     Given a web browser is at the Private Test Selection homepage
@@ -113,7 +113,7 @@ Feature: Paper Form page functionalities
     And the user clicks the Start Test Order Referral button
     And the user should able to select online or offline order
 
-  @NTS-3491 @LOGOUT
+  @NTS-3491
     #@E2EUI-2095
   Scenario Outline: NTS-3491: Move the Online or Offline choice page
     Given a web browser is at the Private Test Selection homepage
@@ -127,7 +127,7 @@ Feature: Paper Form page functionalities
       | 1296        | Not Present      |
       | 1400        | Not Present      |
 
-  @NTS-3491 @LOGOUT
+  @NTS-3491
   #@E2EUI-1970
   Scenario: NTS-3491: Change NHS england logo to SVG format only for Test Order
     Given a web browser is at the Private Test Selection homepage

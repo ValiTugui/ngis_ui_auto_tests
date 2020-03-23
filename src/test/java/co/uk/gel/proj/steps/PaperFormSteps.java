@@ -148,11 +148,11 @@ public class PaperFormSteps extends Pages {
 
     @And("the user should see the {string} button next to each of the forms")
     public void theUserShouldSeeTheButtonNextToEachOfTheForms(String buttonName) {
-        Assert.assertTrue(paperFormPage.checkThatDownloadButtonsAreDisplayed());
-        for (int i = 0; i < paperFormPage.downloadButton.size(); i++) {
-            Wait.forElementToBeDisplayed(driver, paperFormPage.downloadButton.get(i));
-            Assert.assertTrue(paperFormPage.downloadButton.get(i).getText().matches(buttonName));
-        }
+        boolean testResult  = false;
+        testResult = paperFormPage.checkThatDownloadButtonsAreDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = paperFormPage.verifyTheDownloadButtonLabel(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the details of the search results are displayed")

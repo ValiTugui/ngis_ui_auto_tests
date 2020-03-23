@@ -35,6 +35,7 @@ public class StylesUtils {
             case "#005EB8":
                 return "rgba(0, 79, 156, 1)";
             default:
+                Debugger.println("The colour passed as argument :"+fontColor+" not defined in switch case!");
                 return "Not defined";
         }
     }

@@ -208,14 +208,14 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToDownloadFormOfTheSectionAndValidateTheTextInTheFile(String expectedSection, String expectedText, String fileName) {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Referral")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }
-        if (expectedSection.equalsIgnoreCase("Additional family members")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+         }else if (expectedSection.equalsIgnoreCase("Additional family members")) {
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }
-        if (expectedSection.equalsIgnoreCase("Patient choice")) {
+         }else if (expectedSection.equalsIgnoreCase("Patient choice")) {
             testResult=printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
                 testResult = printFormsPage.validatePDFContent(expectedText, fileName);
@@ -296,7 +296,8 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToDownloadFormOfTheSectionHavingFileName(String expectedSection, String fileName) {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Patient choice")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.extractAndValidateZipFile(fileName);
         }
         Assert.assertTrue(testResult);

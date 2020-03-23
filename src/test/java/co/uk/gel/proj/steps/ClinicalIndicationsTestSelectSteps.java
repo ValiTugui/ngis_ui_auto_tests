@@ -45,6 +45,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
     @Then("the text {string} is displayed")
     public void theTextIsDisplayed(String correctText) {
         Assert.assertTrue(correctText + "  is NOT Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
+
     }
 
     @And("the list of clinical indications are loaded")
@@ -64,6 +65,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user selects the {string} tab")
     public void theUserClicksOnTab(String tabName) {
+
         clinicalIndicationsTestSelect.selectTab(tabName);
     }
 
@@ -74,7 +76,9 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user click on Go to test page button")
     public void theUserClickOnGoToTestPageButtom() {
-        clinicalIndicationsTestSelect.clickGoToTestPageButton();
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.clickGoToTestPageButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see all {string} tabs and are clickable")
@@ -158,7 +162,9 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user click on Go to Clinical Indication button")
     public void theUserClickOnGoToClinicalIndicationButton() {
-        clinicalIndicationsTestSelect.clickGoToClinicalIndicationButton();
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.clickGoToClinicalIndicationButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation")

@@ -63,9 +63,6 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//label[contains(@class,'radio')]")
     public List<WebElement> radioButtons;
 
-    @FindBy(xpath = "//input[contains(@class,'radio')]")
-    public List<WebElement> selectedRadioButtons;
-
     @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]//child::div")
     public WebElement hpoModifiersDropdown;
 
@@ -114,8 +111,6 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "[class*='switchable-enum']")
     public WebElement rareDiseaseDiagnosisTable;
 
-    public List<WebElement> rareDiseaseDiagnosisTexts;
-
     @FindBy(xpath = "//span[contains(text(),'Orphanet')]")
     public WebElement orphanetRadioButton;
 
@@ -124,9 +119,6 @@ public class ClinicalQuestionsPage {
 
     @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]")
     public List<WebElement> rareDiseaseDiagnosesRadioButtons;
-
-    @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]//input")
-    public List<WebElement> selectedRareDiseaseDiagnosesRadioButtons;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseDiagnosisStatusDropdown;
