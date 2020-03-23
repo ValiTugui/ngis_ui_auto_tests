@@ -10,7 +10,7 @@ Feature: This is mi-portal fileSubmission
   @NTS_todo
   Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -21,7 +21,7 @@ Feature: This is mi-portal fileSubmission
     And the user is able to see one or more of the Filenames "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
 
     Examples:
-      | mi_stage         | value   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
+      | mi_stage         | column   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
       | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
  @NTS-3390
@@ -59,7 +59,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | equals                            |
@@ -68,7 +68,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   |
+      | mi_stage         | column  |
       | File Submissions | Created |
 
 
@@ -77,7 +77,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
     #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
       | fileSubmissionsSearchOperatorHeader |
       | is                                  |
@@ -85,7 +85,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value        |
+      | mi_stage         | column        |
       | File Submissions | Status       |
       | File Submissions | Submitted By |
 
@@ -95,7 +95,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
@@ -107,7 +107,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value  | operator  |
+      | mi_stage         | column  | operator  |
       | File Submissions | Status | is        |
       | File Submissions | Status | is one of |
 
@@ -117,7 +117,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user sees the values in the search value "file_submissions-search-value" drop-down menu
       | fileSubmissionsSearchValueHeader |
@@ -133,7 +133,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value        | operator |
+      | mi_stage         | column        | operator |
       | File Submissions | Submitted By | is        |
       | File Submissions | Submitted By | is one of |
 
@@ -143,7 +143,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -152,7 +152,7 @@ Feature: This is mi-portal fileSubmission
     Then the search criteria badge disappears
 
     Examples:
-      | mi_stage         | value   | operator | date  |
+      | mi_stage         | column   | operator | date  |
       | File Submissions | Created | equals   | today |
 
 
@@ -161,7 +161,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -171,7 +171,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date        | noResultFound                            |
+      | mi_stage         | column   | operator | date        | noResultFound                            |
       | File Submissions | Created | equals   | future_date | No results found for these search terms. |
 
 
@@ -180,7 +180,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -191,7 +191,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date       |
+      | mi_stage         | column   | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
@@ -200,7 +200,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -211,7 +211,7 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date       |
+      | mi_stage         | column   | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
@@ -220,7 +220,7 @@ Feature: This is mi-portal fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -239,11 +239,11 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Verify the default header values of 'Show' abd 'Hide' in the Column Ordering section of File-Submission Display Options
+  Scenario Outline: NTS-3390:Verify the default header values of 'Show' abd 'Hide' in the Column Ordering section of File-Submission Display Options
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
@@ -273,12 +273,12 @@ Feature: This is mi-portal fileSubmission
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date       |
+      | mi_stage         | column  | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
   @NTS-4938
-  Scenario Outline: verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
+  Scenario Outline:NTS-4938:verify the drop-down values "GLH and "Ordering Entity" are not displayed in FileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -292,17 +292,55 @@ Feature: This is mi-portal fileSubmission
       | File Submissions |
 
   @NTS-4968
-  Scenario Outline: Created Date equals filter displays only filtered date results in report table under File Submissions
+  Scenario Outline:NTS-4968:Created Date equals filter displays only filtered date results in report table under File Submissions
     When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user selects a value "<value>" from the "file_submissions-search-col" column drop-down
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then search results are displayed for the file-submission search
-    And the column(s) of the search result table displayed the only filtered "<date>"
+    And the column(s) field "Created" in the search result table displayed the only filtered "<date>"
 
     Examples:
-      | mi_stage         | value   | operator | date       |
+      | mi_stage         | column  | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-4969
+  Scenario Outline:ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-value" value drop-down
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the column(s) field "<columnHeader>" in the search result table displayed the only filtered "<fieldValue>"
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column       | operator | value        | columnHeader      | fieldValue   |
+      | File Submissions | Submitted By | is       | London North | Submitted By Code | GLH002       |
+      | File Submissions | Submitted By | is       | London North | Submitted By      | London North |
+
+
+  @NTS_todo
+  Scenario Outline: File Submissions: ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user selects a value "<value>" from the "file_submissions-search-value" value drop-down
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the column(s) field "<columnHeader>" in the search result table displayed the only filtered "<fieldValue>"
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column | operator | value   | columnHeader | fieldValue |
+      | File Submissions | Status | is       | Valid   | Status       | valid      |
+      | File Submissions | Status | is       | Invalid | Status       | invalid    |

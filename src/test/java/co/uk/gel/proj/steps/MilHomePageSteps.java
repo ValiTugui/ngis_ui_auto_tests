@@ -204,4 +204,9 @@ public class MilHomePageSteps extends Pages {
             Assert.assertEquals(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"), actualListOfColumnHeaders.get(i));
         }
     }
+
+    @And("the user selects a value {string} from the {string} value drop-down")
+    public void theUserSelectsAValueFromTheValueDropDown(String value, String dropDownButton) {
+        miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
+    }
 }
