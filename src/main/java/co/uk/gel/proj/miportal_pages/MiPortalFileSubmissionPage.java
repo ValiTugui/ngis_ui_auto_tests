@@ -249,5 +249,35 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public List<String> getValuesOfAColumnField(String headerName) {
+        Wait.seconds(3);
+        try {
+            List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
+            //Retrieve the column headers
+            List<String> headers = new ArrayList<>();
+            for (WebElement elementHeader : allHeaders) {
+                String header = elementHeader.getText();
+                headers.add(header);
+            }
+            Debugger.println("All headers" + headers);
+            int headerIndex = headers.indexOf(headerName) + 1;
+            Debugger.println("Header name is " + headerName);
+            Debugger.println("Header index is " + headerIndex);
+            String columnValueLocator = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[" + headerIndex + "]";
+            // Retrieve the values
+            List<WebElement> allResultRows = driver.findElements(By.xpath(columnValueLocator));
+            List<String> allColumnData = new ArrayList<>();
+            for (WebElement columnValue : allResultRows) {
+                String data = columnValue.getText();
+                Debugger.println("Data is " + data);
+                allColumnData.add(data);
+            }
+            return allColumnData;
+        } catch (Exception exp) {
+            Debugger.println("Exception from retrieving data." + exp);
+            SeleniumLib.takeAScreenShot("UnableToRetrieveAllColumnData.jpg");
+            return null;
+        }
+    }
 
 }

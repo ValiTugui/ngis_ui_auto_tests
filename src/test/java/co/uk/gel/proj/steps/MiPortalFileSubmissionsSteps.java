@@ -13,6 +13,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -108,6 +109,48 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
         Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
         Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
+    }
+
+
+    @And("the column\\(s) field {string} in the search result table displayed the only filtered {string}")
+    public void theColumnSFieldInTheSearchResultTableDisplayedTheOnlyFiltered(String columnField, String columnFieldValue) {
+
+        switch (columnField) {
+            case "Created": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Submitted By Code": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Submitted By": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Status": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid ColumnHeader");
+        }
+    }
+
+    public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
+
+        if (columnHeader.equalsIgnoreCase("Created")) {
+            String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+            Debugger.println(badge + " is new date ");
+            String expectedFilteredDate = (badge.split("="))[1].trim();
+            Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
+            columnFieldValue = expectedFilteredDate;
+        }
+        List<String> columnValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
+        Debugger.println("sss-submitted By" + columnValues);
+        for (String fieldValue : columnValues) {
+            Assert.assertTrue(fieldValue.contains(columnFieldValue));
+        }
     }
 
 }

@@ -224,6 +224,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean searchResultTableIsDisplayed() {
+      Wait.seconds(2);
         try {
             Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
             if (Wait.isElementDisplayed(driver, searchResultRowHeader, 10)) {
