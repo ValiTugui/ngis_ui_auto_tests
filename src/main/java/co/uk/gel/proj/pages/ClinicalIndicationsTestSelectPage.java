@@ -101,36 +101,59 @@ public class ClinicalIndicationsTestSelectPage {
     @FindBy(xpath = "//div[contains(@class,'styles_overlayShow')]")
     public WebElement overlayPage;
 
-    public void clickStartTestOrderReferralButton() {
+    public boolean clickStartTestOrderReferralButton() {
         try {
             Debugger.println("Starting Referral....");
             Wait.forElementToBeDisplayed(driver, startTestOrderButton, 30);
             if (!Wait.isElementDisplayed(driver, startTestOrderButton, 10)) {
                 Debugger.println("Start Referral button not displayed even after waiting period...Failing.");
+                SeleniumLib.takeAScreenShot("startReferralError.jpg");
                 Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.", true);
             }
-            Click.element(driver, startTestOrderButton);
+            Actions.clickElement(driver,startTestOrderButton);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Starting Referral...." + exp);
+            SeleniumLib.takeAScreenShot("startReferralError.jpg");
+            return false;
         }
 
     }
 
     public void clickBackToSearchButton() {
-        if(!Wait.isElementDisplayed(driver,backToSearch,10)){
-            Actions.scrollToTop(driver);
+        try {
+            if (!Wait.isElementDisplayed(driver, backToSearch, 10)) {
+                Actions.scrollToTop(driver);
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, backToSearch);
+        }catch(Exception exp){
+            Debugger.println("Exception in clickBackToSearchButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickBackToSearchButton.jpg");
         }
-        Actions.retryClickAndIgnoreElementInterception(driver, backToSearch);
     }
 
-    public void clickGoToTestPageButton() {
-        Wait.forElementToBeClickable(driver, goToTestPageButtonFromPopup);
-        Click.element(driver, goToTestPageButtonFromPopup);
+    public boolean clickGoToTestPageButton() {
+        try {
+            Wait.forElementToBeClickable(driver, goToTestPageButtonFromPopup);
+            Click.element(driver, goToTestPageButtonFromPopup);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clickGoToTestPageButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickGoToTestPageButton.jpg");
+            return false;
+        }
     }
 
-    public void clickGoToClinicalIndicationButton() {
-        Wait.forElementToBeClickable(driver, goToClinicalIndicationsButtonInPopup);
-        Click.element(driver, goToClinicalIndicationsButtonInPopup);
+    public boolean clickGoToClinicalIndicationButton() {
+        try {
+            Wait.forElementToBeClickable(driver, goToClinicalIndicationsButtonInPopup);
+            Click.element(driver, goToClinicalIndicationsButtonInPopup);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clickGoToClinicalIndicationButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickGoToClinicalIndicationButton.jpg");
+            return false;
+        }
     }
 
     public boolean validateIfLoadingWheelIsPresent() {
@@ -153,9 +176,11 @@ public class ClinicalIndicationsTestSelectPage {
                 return clinicalIndicationsResults.size() >= 0;
             }
             Debugger.println("FAILED: ClinicalIndicationResultContainer not loaded.");
+            SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }catch(Exception exp){
             Debugger.println("Exception in ClinicalIndicationResultContainer loading.. "+exp);
+            SeleniumLib.takeAScreenShot("clinicalIndicationsResultContainer.jpg");
             return false;
         }
     }
@@ -189,24 +214,24 @@ public class ClinicalIndicationsTestSelectPage {
             case "Eligibility Criteria":
             case "Clinical Indications": {
                 Click.element(driver, clinicalIndicationTabs.get(0));
-                Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
+                //Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
                 break;
             }
             case "Test Package":
             case "Test details": {
                 Click.element(driver, clinicalIndicationTabs.get(1));
-                Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
+                //Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
                 break;
             }
             case "Further Info":
             case "Labs": {
                 Click.element(driver, clinicalIndicationTabs.get(2));
-                Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
+                //Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
                 break;
             }
             case "Order process": {
                 Click.element(driver, clinicalIndicationTabs.get(3));
-                Debugger.println(clinicalIndicationTabs.get(3).getAttribute("href"));
+                //Debugger.println(clinicalIndicationTabs.get(3).getAttribute("href"));
                 break;
             }
             default:

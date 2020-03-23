@@ -15,6 +15,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import javax.swing.text.Style;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,12 +88,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
-    @FindBy(xpath = "//*[contains(@class,'referral-header')]//child::li")
-    public List<WebElement> referralHeaderValues;
-
-    @FindBy(css = "*[class*='referral-success-notification']")
-    public WebElement referralSuccessNotification;
-
     @FindBy(css = "*[class*='downloads__notice']")
     public WebElement submissionConfirmationBanner;
 
@@ -113,9 +108,6 @@ public class ReferralPage<check> {
 
     @FindBy(css = "*[class*='header__user']")
     public WebElement user;
-
-    @FindBy(css = "*[class*='header__right-area']")
-    public WebElement headerRightArea;
 
     //    @FindBy(css = "*[class*='referral-header__cancel']")
     @FindBy(css = "*[class*='cancel__button_']")
@@ -200,14 +192,10 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//span[text()='Clinical content is © NHS England']")
     public WebElement footerCopyrightText;
 
-
     String valuesInReferralHeaderBar = "//*[contains(@class,'referral-header')]//child::li";
     String stageIsMarkedAsMandatoryToDo = "a[href*='" + "dummyStage" + "']";
     String stageIsToDo = "a[href*='" + "dummyStage" + "']";
     String helixIcon = "*[class*='helix']";
-    String mandatoryToDOIconLocator = "todo__required-icon";
-    String currentStageLocator = "true";
-    String stageCompleteLocator1 = "todo--is-complete";
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
@@ -231,12 +219,14 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
 
+    @FindBy(xpath = "//div[@data-testid='referral-sidebar']//a[@data-selected='true']")
+    public WebElement activeStage;
+
     String mandatoryFieldSymbol = "//dummyFieldType[contains(text(),'dummyLabel')]/span";
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
-    String stageInCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='mandatory-icon']";
-    String stageActiveMark = "//a[contains(text(),'dummyStage') and @data-selected='true']";
+
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
     @FindBy(xpath = "//div[@role='dialog']/h1")
@@ -301,6 +291,9 @@ public class ReferralPage<check> {
     WebElement reportAnIssueOrProvideFeedbackLink;
     @FindBy(xpath = "//a[contains(text(),'Privacy Policy')]")
     WebElement privacyPolicyLink;
+    @FindBy(xpath = "//p[text()='NHS No.']//span[contains(@class,'_chunk__separator_')]")
+    List<WebElement> patientCardNHSChunks;
+
 
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
@@ -485,15 +478,21 @@ public class ReferralPage<check> {
             Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
         }
     }
-    public boolean stageIsSelected(String stage) {
+    public boolean stageIsSelected(String expStage) {
         try {
             Wait.seconds(2);
-            String activeMark = stageActiveMark.replaceAll("dummyStage", stage);
-            WebElement activeMarkElement = driver.findElement(By.xpath(activeMark));
-            if (Wait.isElementDisplayed(driver, activeMarkElement, 30)) {
-                return true;
+            if(!Wait.isElementDisplayed(driver,activeStage,10)){
+                Debugger.println("No stage is marked as active.");
+                SeleniumLib.takeAScreenShot("ActiveStage.jpg");
+                return false;
             }
-            return false;
+            String actualStage = activeStage.getText();
+            if(!expStage.equalsIgnoreCase(actualStage)){
+                Debugger.println("Stage: "+expStage+" expected to be currently active, but not.");
+                SeleniumLib.takeAScreenShot("ActiveStage.jpg");
+                return false;
+            }
+            return true;
         } catch (NoSuchElementException nexp) {
             return false;
         }
@@ -626,8 +625,14 @@ public class ReferralPage<check> {
     }
 
     public String logoutSuccessMessageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "login.microsoftonline.com");
-        return driver.getTitle();
+        try {
+            Wait.forURLToContainSpecificText(driver, "login.microsoftonline.com");
+            return driver.getTitle();
+        }catch(Exception exp){
+            Debugger.println("Exception in logoutSuccessMessageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("logOutMessage.jpg");
+            return null;
+        }
     }
 
     public String getTheCurrentPageTitle() {
@@ -897,8 +902,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientReferralId() {
-        Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
-        return Actions.getText(referralHeaderReferralId);
+        try {
+            Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
+            return Actions.getText(referralHeaderReferralId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public String getPatientClinicalIndication() {
@@ -1548,9 +1557,9 @@ public class ReferralPage<check> {
 
         if (nhsChunkSeparators.size() < 1) {
             Debugger.println("NO NHS numbers displayed in the Page.");
-            Actions.scrollToBottom(driver);
-            SeleniumLib.takeAScreenShot("NHSFormat.jpg");
-            return false;
+            //If NHS number not provided while creating Patient, it wont display
+            //Verifying the format only when it is present
+            return true;
         }
         int expIdx = 0;
         //Verify the format for all NHS displayed in the page - expected to display a chunk of 3 3 4
@@ -1559,11 +1568,36 @@ public class ReferralPage<check> {
                 expIdx = 0;
             }
             if (nhsChunkSeparators.get(i).getText().trim().length() != nhsExpSection[expIdx]) {
-                Debugger.println("NHS Number not displayed in specified format 3 3 4");
+                Debugger.println("NHS Number not displayed in specified format 3 3 4:"+nhsChunkSeparators.get(i).getText());
                 SeleniumLib.takeAScreenShot("NHSFormat.jpg");
                 return false;
             }
             expIdx++;
+        }
+        return true;
+    }
+    public boolean verifyNHSDisplayFormatInPatientCard(String expectedFormat) {
+        //Verify the NHS format.
+        String[] nhsFormat = expectedFormat.split(",");
+        int size = nhsFormat.length;
+        int[] nhsExpSection = new int[size];
+        for (int i = 0; i < size; i++) {
+            nhsExpSection[i] = Integer.parseInt(nhsFormat[i]);
+        }
+
+        if (patientCardNHSChunks.size() < 1) {
+            Debugger.println("NO NHS numbers displayed in the Patient card.");
+            Actions.scrollToBottom(driver);
+            SeleniumLib.takeAScreenShot("NHSFormatInPatientCard.jpg");
+            return false;
+        }
+        //Verify the format displayed in the patient card - expected a chunk of 3 3 4
+        for (int i = 0; i < patientCardNHSChunks.size(); i++) {
+            if (patientCardNHSChunks.get(i).getText().trim().length() != nhsExpSection[i]) {
+                Debugger.println("NHS Number not displayed in specified format 3 3 4");
+                SeleniumLib.takeAScreenShot("NHSFormatInPatientCard.jpg");
+                return false;
+            }
         }
         return true;
     }
@@ -1610,7 +1644,7 @@ public class ReferralPage<check> {
                 return false;
             }
             Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(mandatoryStage));
-            Wait.seconds(10);//Wait for 10 seconds to load the selected mandatory stage
+            Wait.seconds(15);//Wait for 15 seconds to load the selected mandatory stage
             return true;
         } catch (Exception exp) {
             Debugger.println("Mandatory Stage Link is not displayed even after waiting period...Failing." + exp);
@@ -1799,8 +1833,9 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
                 return false;
             }
+            colorValue = colorValue.replaceAll("\"","");
+            String linkColorHexValue = StylesUtils.convertFontColourStringToCSSProperty(colorValue);
             String linkColor = reportAnIssueOrProvideFeedbackLink.getCssValue("color");
-            String linkColorHexValue = TestUtils.convertMonthNumberToMonthForm(colorValue);
             if (!linkColor.equalsIgnoreCase(linkColorHexValue)) {
                 Debugger.println("Actual font colour of link: " + linkColor + " ,But Expected is: " + linkColorHexValue);
                 SeleniumLib.takeAScreenShot("ReportAnIssueLink.jpg");
@@ -1821,8 +1856,9 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
                 return false;
             }
+            colorValue = colorValue.replaceAll("\"","");
+            String expectedColor = StylesUtils.convertFontColourStringToCSSProperty(colorValue);
             String actualColor = privacyPolicyLink.getCssValue("color");
-            String expectedColor = TestUtils.convertMonthNumberToMonthForm(colorValue);
             if (!expectedColor.equalsIgnoreCase(actualColor)) {
                 Debugger.println("Actual link colour is " + actualColor + " ,But Expected " + expectedColor);
                 SeleniumLib.takeAScreenShot("PrivacyPolicyLink.jpg");
@@ -1882,7 +1918,7 @@ public class ReferralPage<check> {
             if(!Wait.isElementDisplayed(driver,nhsLogo,20)){
                 Debugger.println("NHS mail account login page is not displayed.");
                 SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
-                Assert.fail("NHS Login Page is not displayed.");
+                Assert.assertFalse("NHS Login Page is not displayed.",true);
             }
             Wait.forElementToBeClickable(driver,emailAddressFieldNHSPage);
             String mailIdPresent=emailAddressFieldNHSPage.getAttribute("value");
@@ -1897,6 +1933,7 @@ public class ReferralPage<check> {
         }catch(Exception exp){
             Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
             SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
+            Assert.assertFalse("Exception in Logging to TO as user type.",true);
         }
     }
 
