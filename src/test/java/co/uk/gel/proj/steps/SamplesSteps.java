@@ -274,7 +274,9 @@ public class SamplesSteps extends Pages {
 
     @And("the sub-page title {string} is displayed on Add a Sample Page")
     public void theSubPageTitleIsDisplayedOnAddASamplePage(String subPageTitle) {
-        samplesPage.verifyTheSubPageTitle(subPageTitle);
+        boolean testResult = false;
+        testResult = samplesPage.verifyTheSubPageTitle(subPageTitle);
+        Assert.assertTrue(testResult);
     }
 
 

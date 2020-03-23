@@ -417,17 +417,23 @@ public class SamplesPage {
     }
 
     public boolean verifyTheSubPageTitle(String expectedSubPageTitle) {
-        By actualSubPageTitle = By.xpath("//p[contains(text(),'" + expectedSubPageTitle + "')]");
-        if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
+        try {
+            By actualSubPageTitle = By.xpath("//p[contains(text(),'" + expectedSubPageTitle + "')]");
             if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
-                Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
-                return false;
+                Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
+                if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
+                    Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
+                    return false;
+                }
             }
+            //Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
+            //Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyTheSubPageTitle:"+exp);
+            SeleniumLib.takeAScreenShot("verifyTheSubPageTitle.jpg");
+            return false;
         }
-        Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
-        Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
-        return true;
     }
 
     public List<String> getTheSampleStateDropDownValues() {

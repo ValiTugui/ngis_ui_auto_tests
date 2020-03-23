@@ -262,32 +262,40 @@ public class TumoursPage {
         return ID;
     }
 
-    public String selectTumourFirstPresentationOrOccurrenceValue(String value) {
+    public boolean selectTumourFirstPresentationOrOccurrenceValue(String value) {
         Wait.seconds(2);
         try {
             Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
             Actions.clickElement(driver, tumourCoreDataDropdown);
             Actions.selectValueFromDropdown(dropdownValue, value);
-            return value;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
-            return null;
+            SeleniumLib.takeAScreenShot("SelectTumourFirstPresentation.jpg");
+            return false;
         }
     }
 
-    public void answerTumourDiagnosisQuestions(String diagnosis) {
-        Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
-        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
-        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
-        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
-        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-        //Actions.selectRandomValueFromDropdown(dropdownValues);
+    public boolean answerTumourDiagnosisQuestions(String diagnosis) {
+        try {
+            Wait.forElementToBeDisplayed(driver, topographyOfPrimaryTumourField);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfPrimaryTumourField, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(topographyOfThisMetastaticDepositField, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(workingDiagnosisMorphologyField, diagnosis);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
+            //Actions.selectRandomValueFromDropdown(dropdownValues);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in answerTumourDiagnosisQuestions:"+exp);
+            SeleniumLib.takeAScreenShot("answerTumourDiagnosisQuestions.jpg");
+            return false;
+        }
     }
 
     public void answerTumourDiagnosisQuestionsBasedOnTumourType(String tumourType, String diagnosis) {

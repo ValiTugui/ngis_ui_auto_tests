@@ -1,6 +1,6 @@
 #@regression
 #@testPackageRD
-@TEST_ORDER_SA
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Test Package 2 - RD
@@ -51,7 +51,6 @@ Feature: Test Package 2 - RD
     Examples:
       | stage        | number | browser_exit_option |
       | Test package | 2      | refresh             |
-
 
   @NTS-3156 @LOGOUT
 #    @E2EUI-828 @E2EUI-1585
