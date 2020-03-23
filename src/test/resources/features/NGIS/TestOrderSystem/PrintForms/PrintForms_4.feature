@@ -4,9 +4,9 @@
 @SYSTEM_TEST
 Feature: Print Forms 4 - Field name consistency in Print Forms
 
-  @NTS-4702
+  @NTS-3414
 #    @E2EUI-2780
-  Scenario Outline: NTS-4702: User visits offline order page for form download for Rare Disease
+  Scenario Outline: NTS-3414: User visits offline order page for form download for Rare Disease
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
@@ -27,9 +27,9 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
       | TextToValidate                                                                                                                                                                                          |
       | RARE AND INHERITED,v1.17,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid, Fetal blood (EDTA), Chorionic Villus, Fresh Tissue (not tumour),Stored DNA,Sample ID, Age of onset |
 
-  @NTS-4702 @LOGOUT
+  @NTS-3414 @LOGOUT
 #    @E2EUI-2780
-  Scenario Outline: NTS-4702: scenario-2:User visits offline order page for form download for Cancer
+  Scenario Outline: NTS-3414: scenario-2:User visits offline order page for form download for Cancer
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     And the user types in the CI term  in the search field and selects the first result from the results list
