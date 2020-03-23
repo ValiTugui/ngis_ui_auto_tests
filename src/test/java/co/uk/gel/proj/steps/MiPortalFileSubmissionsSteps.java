@@ -6,7 +6,6 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
-import co.uk.gel.proj.util.StylesUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -14,13 +13,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
-import static co.uk.gel.proj.pages.PatientDetailsPage.newPatient;
+import java.text.ParseException;
+import java.util.*;
 
 
 public class MiPortalFileSubmissionsSteps extends Pages {
@@ -44,51 +38,25 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     }
 
 
-    @When("the user navigates to the mi-portal {string} stage")
-    public void theUserNavigatesToTheMiPortalStage(String arg0) {
-        Actions.clickElement(driver, miPortalFileSubmissionPage.fileSubmissionLnk);
-    }
-
-
-    @And("the user selects a value {string} from the file-submission search column drop-down")
-    public void theUserSelectsAValueFromTheFileSubmissionSearchColumnDropDown(String value) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.dropDownFileSubmissionsSearch, value);
-    }
-
-
-    @And("the user selects a search operator {string} from the file-submission search operator drop-down")
-    public void theUserSelectsASearchOperatorFromTheFileSubmissionSearchOperatorDropDown(String searchOperator) {
-        miPortalFileSubmissionPage.selectSearchValueDropDown(miPortalFileSubmissionPage.dropDownFileSubmissionSearchOperator, searchOperator);
-    }
-
     @And("the user enters a date {string} in the file-submission date field")
     public void theUserEntersADateInTheFileSubmissionDateField(String date) {
-
-//        Wait.seconds(2);
-//        miPortalFileSubmissionPage.getFileSubmissionDate.click();
-//        miPortalFileSubmissionPage.getFileSubmissionDate.clear();
-//        Wait.seconds(3);
-//        miPortalFileSubmissionPage.getFileSubmissionDate.sendKeys("12-02-2020");
+        miPortalFileSubmissionPage.fillInTheFileSubmissionDate(date);
     }
 
-    @And("the user clicks on Add criteria button")
-    public void theUserClicksOnAddCriteriaButton() {
-        Actions.clickElement(driver,miPortalFileSubmissionPage.addButton);
-    }
 
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
-    @When("the user click on the Search button")
-    public void theUserClickOnTheSearchButton() {
-        Actions.clickElement(driver,miPortalFileSubmissionPage.searchButton);
-        Wait.seconds(2);
-    }
 
     @Then("search results are displayed for the file-submission search")
     public void searchResultsAreDisplayedForTheFileSubmissionSearch() {
-        //ToDo
+        boolean testResult = false;
+        testResult = miPortalHomePage.searchResultTableIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user is able to see the field values - Filenames {string}, Status {string}, ErrorMessage {string} and WarningMessage {string}")
@@ -101,4 +69,88 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Assert.assertEquals(expectedStatus, Test.get("Status"));
         Assert.assertEquals(expectedWarningMessage, Test.get("Warning Msgs"));
     }
+
+    @And("the user is able to see one or more of the Filenames {string}, Status {string}, ErrorMessage {string} and WarningMessage {string}")
+    public void theUserIsAbleToSeeOneOrMoreOfTheFilenamesStatusErrorMessageAndWarningMessage(String expectedFileName, String arg1, String arg2, String arg3) {
+
+        List<Map<String, String>> Test = new ArrayList<>();
+        Test = miPortalFileSubmissionPage.getValuesOfCsvFileNamesSearchedResult(expectedFileName);
+        Debugger.println("TestCSV - number of rows: " + Test.size() + "\n");
+
+        for (int i = 0; i < Test.size(); i++) {
+            Debugger.println(Test.get(i) + "\n");
+        }
+    }
+
+    @Then("the file-submission page displays the search header, drop-down - column, operator, and value, add, search and reset buttons")
+    public void theFileSubmissionPageDisplaysTheSearchHeaderDropDownColumnOperatorAndValueAddSearchAndResetButtons() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyTheElementsOnFileSubmissionPage();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @Then("the search criteria badge disappears")
+    public void theSearchCriteriaBadgeDisappears() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the values are not displayed in the file-submission search column {string} drop-down menu")
+    public void theValuesAreNotDisplayedInTheFileSubmissionSearchColumnDropDownMenu(String DropDownButton, DataTable dataTable) {
+        List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
+        List<String>expectedDropDownValuesList = new ArrayList<>();
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(DropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            expectedDropDownValuesList.add(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"));
+            Debugger.println("values from dataTable: " + i + " : " + expectedDropDownValuesList.get(i));
+        }
+        Debugger.println("Expected values:" + expectedDropDownValuesList + " are NOT equals to actual " + actualDropDownValues);
+        Assert.assertNotEquals(expectedDropDownValuesList, actualDropDownValues);
+    }
+
+
+    @And("the column\\(s) field {string} in the search result table displayed the only filtered {string}")
+    public void theColumnSFieldInTheSearchResultTableDisplayedTheOnlyFiltered(String columnField, String columnFieldValue) {
+
+        switch (columnField) {
+            case "Created": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Submitted By Code": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Submitted By": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            case "Status": {
+                theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(columnField, columnFieldValue);
+                break;
+            }
+            default:
+                throw new IllegalArgumentException("Invalid ColumnHeader");
+        }
+    }
+
+    public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
+
+        if (columnHeader.equalsIgnoreCase("Created")) {
+            String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+            Debugger.println(badge + " is new date ");
+            String expectedFilteredDate = (badge.split("="))[1].trim();
+            Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
+            columnFieldValue = expectedFilteredDate;
+        }
+        List<String> columnValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
+        Debugger.println("sss-submitted By" + columnValues);
+        for (String fieldValue : columnValues) {
+            Assert.assertTrue(fieldValue.contains(columnFieldValue));
+        }
+    }
+
 }

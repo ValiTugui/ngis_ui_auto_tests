@@ -4,10 +4,12 @@ import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -30,16 +32,46 @@ public class TumoursSteps extends Pages {
 
 
     @And("the user enters {string} in the date of diagnosis field")
-    public void theUserEntersInTheDateOfDiagnosisField(String dateOfDiagnosis) {
-        tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-        if (dateOfDiagnosis.equalsIgnoreCase("14-0-1899")){
-            String[] value = dateOfDiagnosis.split("-");
-            tumoursPage.fillInDateOfDiagnosisInDifferentOrder(value[0], value[1], value[2]);
-        }else {
-            String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
-            tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
-            Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
-            //click on tumourTypeLabel label to move cursor away from dateYear field
+    public void theUserEntersInTheDateOfDiagnosisField(String criteriaForDateDiagnosis) throws Exception {
+
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String actualFullDOB = referralPage.referralHeaderBorn.getText();
+        String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+        Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+        Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
+
+        expectedDateOfBirth = newPatient.getDay() + "-" + newPatient.getMonth() + "-" + newPatient.getYear();
+        String dateOfDiagnosis;
+
+        switch (criteriaForDateDiagnosis) {
+            case "Month_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,0,-10, 0);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                //click on tumourTypeLabel label to move cursor away from dateYear field
+                break;
+            }
+            case "Date_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,-2,-9, 0);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+            }
+            case "Year_is_more_than_9_months_before_date_of_birth": {
+                dateOfDiagnosis=TestUtils.getDateNineMonthsOrMoreBeforeDoB(expectedDateOfBirth,0,0, -1);
+                String[] value = dateOfDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+            }
+            default:
+                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
+                Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
+                break;
+               // throw new IllegalArgumentException("Invalid text field name");
         }
     }
 
@@ -104,13 +136,17 @@ public class TumoursSteps extends Pages {
 
     @And("the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation {string}")
     public void theUserAnswersTheTumourDynamicQuestionsForTumourCoreDataBySelectingTheTumourPresentation(String tumourPresentation) {
-        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
+        boolean testResult = false;
+        testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
+        Assert.assertTrue(testResult);
     }
 
 
     @And("the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched {string} result drop list")
     public void theUserAnswersTheTumourDynamicQuestionsForTumourDiagnosisBySelectingASnomedCTFromTheSearchedResultDropList(String snomedTest) {
-        tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
+        boolean testResult = false;
+        testResult = tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
+        Assert.assertTrue(testResult);
     }
 
 
@@ -283,10 +319,15 @@ public class TumoursSteps extends Pages {
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")
     public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
+        Debugger.println("One");
         tumoursPage.editTumourDescription();
+        Debugger.println("One1");
         tumoursPage.editDateOfDiagnosis();
+        Debugger.println("One2");
         tumoursPage.selectTumourType(tumourType);
+        Debugger.println("One3");
         tumoursPage.editSpecimenID();
+        Debugger.println("One4");
     }
 
     @And("on the select or edit a tumour page, the new tumour details are displayed in the tumour table list")
@@ -513,6 +554,53 @@ public class TumoursSteps extends Pages {
     @And("the user see a tick mark next to the added tumour")
     public void theUserSeeATickMarkNextToTheAddedTumour() {
         Assert.assertTrue(tumoursPage.ensureTickMarkIsDisplayedNextToSampleType());
+    }
+
+    @Then("the user selects the existing tumour from the tumour landing page")
+    public void theUserSelectsTheExistingTumourFromTheTumourLandingPage() {
+        boolean testResult = false;
+        testResult = tumoursPage.clickOnTheExistingTumourBox();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should not see any error message after selecting the tumour")
+    public void theUserShouldNotSeeAnyErrorMessageAfterSelectingTheTumour() {
+        boolean testResult = false;
+        testResult = tumoursPage.tumourSelectedWithoutAnyMessage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see that the {string} is not present")
+    public void theUserShouldBeAbleToSeeThatTheIsNotPresent(String expText) {
+        boolean testResult = false;
+        testResult = tumoursPage.verifyLabelTextInTumourIsNotPresent(expText);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user fills the Topography of {string} SnomedCT and Topography of this {string} SnomedCT with result drop list")
+    public void theUserFillsTheTopographyOfSnomedCTAndTopographyOfThisSnomedCTWithResultDropList(String primaryTumour, String tumour) {
+        boolean testResult = false;
+        testResult = tumoursPage.fillTumourDiagnosisTable(primaryTumour, tumour);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user clicks on the Tumour Diagnosis add another link")
+    public void theUserClicksOnTheTumourDiagnosisAddAnotherLink() {
+        boolean testResult = false;
+        testResult = tumoursPage.clicksOnAddAnotherLinkForTumourDiagnosis();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user fills the Working diagnosis {string} SnomedCT with result drop list")
+    public void theUserFillsTheWorkingDiagnosisSnomedCTWithResultDropList(String expValue) {
+        boolean testResult = false;
+        testResult =tumoursPage.fillWorkingDiagnosis(expValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the Working diagnosis morphology add another link")
+    public void theUserClicksOnTheWorkingDiagnosisMorphologyAddAnotherLink() {
+        boolean testResult = false;
+        testResult = tumoursPage.clicksOnAddAnotherLinkForWorkingDiagnosisMorphology();
+        Assert.assertTrue(testResult);
     }
 
 }

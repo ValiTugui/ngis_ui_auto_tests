@@ -27,17 +27,17 @@ public class TestPackagePage {
     public WebElement testPackagePageTitle;
     @FindBy(xpath = "//label[contains(@class,'field-label')]")
     public WebElement priorityLabel;
-
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
+    //Urgent button displays first
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
     public WebElement urgentPriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
     public WebElement routinePriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
     public WebElement routinePriorityButtonSVGTickMark;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
     public WebElement urgentPriorityButtonSVGTickMark;
 
     @FindBy(css = "[class*='button--selected']")
@@ -86,6 +86,18 @@ public class TestPackagePage {
 
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
+    public WebElement trioFamilyIconInPedigree;
+
+    @FindBy(xpath = "(//div[contains(@class,'styles_test-card__test-category__25tRP')])[2]/child::*[@fill='inherit']")
+    public WebElement trioFamilyIconInTestPackage;
+
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
+    public WebElement testCardCIName;
+
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__title')]")
+    public WebElement testCardCIId;
 
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
@@ -143,6 +155,10 @@ public class TestPackagePage {
 
     public boolean selectNumberOfParticipants(int number) {
         try {
+            if(!Wait.isElementDisplayed(driver,routinePriorityButton,30)){
+                Debugger.println("TestPackage Not loaded.");
+
+            }
             Wait.forElementToBeDisplayed(driver, routinePriorityButton);
             Wait.forElementToBeDisplayed(driver, testCardBody);
             Wait.forElementToBeDisplayed(driver, numberOfParticipants);
@@ -197,8 +213,13 @@ public class TestPackagePage {
     }
 
     public void clickUrgentPriority() {
-        Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
-        urgentPriorityButton.click();
+        try {
+            Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+            urgentPriorityButton.click();
+        }catch(Exception exp){
+            Debugger.println("Exception on clickUrgentPriority:"+exp);
+            SeleniumLib.takeAScreenShot("clickUrgentPriority.jpg");
+        }
     }
 
     public void clickRoutinePriority() {
@@ -225,10 +246,16 @@ public class TestPackagePage {
     }
 
     public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
-        Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
-        String actualText = Actions.getText(chosenPriorityButton);
-        Debugger.println("Selected test Priority : " + actualText);
-        return actualText.contains(expectedPriority);
+        try {
+            Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+            String actualText = Actions.getText(chosenPriorityButton);
+            Debugger.println("Selected test Priority Actual: " + actualText+",Expected:"+expectedPriority);
+            return actualText.contains(expectedPriority);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
+            SeleniumLib.takeAScreenShot("verifyGivenPriorityIsSelected.jpg");
+            return false;
+        }
     }
 
     public boolean verifyNumberOfParticipantsFieldExists() {
@@ -283,18 +310,22 @@ public class TestPackagePage {
     }
 
     public boolean ensureTickMarkIsDisplayedNextToRoutine() {
-        Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
-        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 10)) {
+        //Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 30)) {
             return true;
         }
+        Debugger.println("RoutineButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("RoutineButtonTick.jpg");
         return false;
     }
 
     public boolean ensureTickMarkIsDisplayedNextToUrgent() {
-        Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
-        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 10)) {
+        //Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 30)) {
             return true;
         }
+        Debugger.println("UrgentButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("UrgentButtonTick.jpg");
         return false;
     }
 
@@ -306,6 +337,57 @@ public class TestPackagePage {
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("testSelect.jpg");
             Debugger.println("SelectTheTest:Exception:" + exp);
+            return false;
+        }
+    }
+
+    public boolean validateTrioFamilyIconInOfflineOrder() {
+        try {
+            if (!Wait.isElementDisplayed(driver, trioFamilyIconInPedigree, 10)) {
+                Debugger.println("try family icon not visible : validateTrioFamilyIconInPedigree : in pedigree page");
+                SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("TestPackage : validateTrioFamilyIconInPedigree : in pedigree page : " + exp);
+            SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTrioFamilyIconPresenceInTestPackage() {
+        try {
+            if (!Wait.isElementDisplayed(driver, trioFamilyIconInTestPackage, 10)) {
+                Debugger.println("try family icon is not visible : test package page");
+                SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("try family icon is not visible : test package page : " + exp);
+            SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyCINameIDPresence(){
+        try{
+            Wait.forElementToBeDisplayed(driver, testCardBody);
+            if (!Wait.isElementDisplayed(driver,testCardCIId,10)){
+                Debugger.println("Test Card CI ID not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver,testCardCIName,10)){
+                Debugger.println("Test Card CI Name not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println(" Exception in verifyCINameIDPresence : "+exp);
+            SeleniumLib.takeAScreenShot("TestPackage.jpg");
             return false;
         }
     }

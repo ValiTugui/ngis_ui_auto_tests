@@ -1,5 +1,6 @@
 package co.uk.gel.proj.util;
 
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import com.github.javafaker.Faker;
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -362,5 +365,50 @@ public class TestUtils {
             Debugger.println("Exception from Extracting the Zip file: " + fileName + " : " + exp);
             return false;
         }
+    }
+
+
+    public static String getTheExpectedCurrentHumanReadableID(String currentURL, String regexForId) {
+        try {
+            String cURL[] = currentURL.split("/");
+            //Debugger.println("Print Current refferral ID " + referralID);
+            String regex = regexForId;
+            Pattern pattern = Pattern.compile(regex);
+            for (int i = cURL.length - 1; i > 0; i--) {
+                String cString = cURL[i];
+                Matcher matcher = pattern.matcher(cString);
+                if (matcher.matches()) {
+                    Debugger.println("Referral id is " + cString);
+                    return cString;
+                }
+            }
+            Debugger.println("No human-readable id found in url. Current URL is " + currentURL);
+        } catch (Exception exp) {
+            Debugger.println("Exception in human readableID" + exp);
+            SeleniumLib.takeAScreenShot("HumanReadableIDError.jpg");
+        }
+        return null;
+    }
+
+    public static String getDateNineMonthsOrMoreBeforeDoB(String dateToConvert, int days, int months, int years) throws Exception
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date convertedDate = formatter.parse(dateToConvert);
+        Debugger.println("Date format with GMT : " + convertedDate);
+        formatter.format(convertedDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(convertedDate);
+        Debugger.println("Base conversion : " + convertedDate);
+
+        calendar.add(Calendar.MONTH, months);  //calendar.add(Calendar.MONTH, -9)- To go back by 9 months i.e if month is December, go to March
+        calendar.add(Calendar.DATE,days); // calendar.add(Calendar.DATE,-1) -  To go back by one day i.e if day is 10th, go to 9th
+        calendar.add(calendar.YEAR, years); // calendar.add(calendar.YEAR, -1) To go back by one year i.e if year is 2020, go to 2019
+
+        Date  expectedDate = calendar.getTime();
+        Debugger.println("Expected Date format with GMT " + expectedDate);
+        String newDate = formatter.format(expectedDate);
+        Debugger.println("New date is in format dd-mm-yyyy: " + newDate);
+        return newDate;
     }
 }

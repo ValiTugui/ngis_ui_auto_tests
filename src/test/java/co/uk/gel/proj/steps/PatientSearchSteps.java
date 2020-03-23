@@ -100,7 +100,14 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-        Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        boolean testResult = false;
+        String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
+        if(actualBadge != null){
+            Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed());
+        }else{
+            Assert.assertTrue(testResult);
+        }
+
     }
 
 
@@ -363,11 +370,14 @@ public class PatientSearchSteps extends Pages {
 
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
-        String[] textFieldElements = allTextFields.split(":");  // Split all textFieldElement
-        for (String eachElement : textFieldElements) {
-            Debugger.println("Show eachElement: " + eachElement);
+        String[] textFieldElements = null;
+        if(allTextFields.indexOf(":") != -1) {
+            textFieldElements = allTextFields.split(":");  // Split all textFieldElement
+        }else{//If only one field is present
+            textFieldElements = new String[]{allTextFields};
         }
-        patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        boolean testResult = patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        Assert.assertTrue(testResult);
     }
 
 
@@ -632,5 +642,17 @@ public class PatientSearchSteps extends Pages {
     @And("the user see a tick mark next to the NO button")
     public void theUserSeeATickMarkNextToTheNOButton() {
         Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToNoButton());
+    }
+
+    @And("the user clicks on the hyper link")
+    public void theUserClicksOnTheHyperLink() {
+        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+    }
+
+    @And("the display question for NHS Number is (.*)$")
+    public void theDisplayQuestionForNHSNumber(String nhsQuestion) {
+        boolean testResult = false;
+        testResult = patientSearchPage.verifyTheNHSQuestionOfThePage(nhsQuestion);
+        Assert.assertTrue(testResult);
     }
 }

@@ -22,10 +22,7 @@ import org.openqa.selenium.Alert;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.fail;
 
@@ -165,7 +162,9 @@ public class ReferralSteps extends Pages {
 
     @Then("the {string} stage is selected")
     public void theStageIsSelected(String newStage) {
-        Assert.assertTrue(referralPage.stageIsSelected(newStage));
+        boolean testResult = false;
+        testResult = referralPage.stageIsSelected(newStage);
+        Assert.assertTrue(testResult);
     }
 
     @And("the {string} stage is marked as Completed")
@@ -273,14 +272,19 @@ public class ReferralSteps extends Pages {
 
     @Then("the user sees a warning message {string} on the page")
     public void theUserSeesAWarningMessageOnThePage(String expectedWarningText) {
-        Wait.forAlertToBePresent(driver);
-        Alert alertBox = driver.switchTo().alert();
-        Wait.seconds(10);
-        String actualWarningText = alertBox.getText();
-        Assert.assertTrue(expectedWarningText.contains(actualWarningText));
-        Actions.acceptAlert(driver);
-        Wait.seconds(10);
-        Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        try {
+            Wait.forAlertToBePresent(driver);
+            Alert alertBox = driver.switchTo().alert();
+            Wait.seconds(10);
+            String actualWarningText = alertBox.getText();
+            Assert.assertTrue(expectedWarningText.contains(actualWarningText));
+            Actions.acceptAlert(driver);
+            Wait.seconds(10);
+            Debugger.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception in validating warning message: "+exp);
+            SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+        }
 
     }
 
@@ -296,7 +300,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks on the Back link")
     public void theUserClicksOnTheBackLink() {
-       referralPage.clickOnTheBackLink();
+       boolean testResult = false;
+        testResult = referralPage.clickOnTheBackLink();
+        Assert.assertTrue(testResult);
     }
     @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
@@ -366,9 +372,11 @@ public class ReferralSteps extends Pages {
     }
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
-        referralPage.clicksOnCancelReferralLink();
+        boolean testResult = false;
+        testResult = referralPage.clicksOnCancelReferralLink();
+        Assert.assertTrue(testResult);
     }
-    
+
     @Then("the message should display as {string}")
     public void theMessageShouldDisplayAs(String revokeMessage) {
         boolean testResult = false;
@@ -377,12 +385,16 @@ public class ReferralSteps extends Pages {
     }
     @And("the user submits the cancellation")
     public void theUserSubmitsTheCancellation() {
-        referralPage.submitCancellation();
+        boolean testResult = false;
+        testResult = referralPage.submitCancellation();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the cancellation reason {string} from the modal")
     public void theUserSelectsTheCancellationReasonFromTheModal(String cancellationReasonText) {
-        referralPage.selectCancellationReason(cancellationReasonText);
+        boolean testResult = false;
+        testResult = referralPage.selectCancellationReason(cancellationReasonText);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the referral is successfully {string} with reason {string}")
@@ -563,19 +575,17 @@ public class ReferralSteps extends Pages {
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
-
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        boolean stepResult = false;
+        stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        Assert.assertTrue(stepResult);
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println("User Type : " + userType);
         if(userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
         switchToURL(driver.getCurrentUrl(), userType);
-        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
-        if(!searchPageLoaded){
-            Debugger.println("Search Page Could not load Properly:");
-            Assert.assertFalse("Search Page not loaded successfully.",true);
-        }
+        stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
+        Assert.assertTrue(stepResult);
         //Create NGIS Patient with the given Details and the use for referral Creation
         NGISPatientModel searchPatient = new NGISPatientModel();
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
@@ -727,7 +737,15 @@ public class ReferralSteps extends Pages {
         String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
         String expectedPageSourceTitle = "Sign out";
         Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
-        Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
+        if(actualSourcePageSourceTitle != null) {
+            if(!expectedPageSourceTitle.equalsIgnoreCase(actualSourcePageSourceTitle)) {
+                SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+                Assert.assertFalse("Logout Message not displayed as expected:"+expectedPageSourceTitle,true);
+            }
+        }else{
+            SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+            Assert.assertFalse("Logout Message not displayed.",true);
+        }
     }
 
     @And("the page url address contains the directory-path web-page {string}")
@@ -841,4 +859,211 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the NHS display format as {string} in patient card")
+    public void theUserVerifiesTheNHSFormatInPatientCard(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSDisplayFormatInPatientCard(nhsFormat);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user retrieve the referral HumanReadable-ID from the referral page url")
+    public void theUserRetrieveTheReferralHumanReadableIDFromTheReferralPageUrl() {
+        // Set the retrieved ReferralHumanID from URl into setReferralID
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String currentURl = driver.getCurrentUrl();
+        String referralIdRegex = "^[r0-9]+$";
+        String expectedReferralID = TestUtils.getTheExpectedCurrentHumanReadableID(currentURl,referralIdRegex);
+        newPatient.setReferralID(expectedReferralID);
+        Debugger.println("Expected ReferralID " + expectedReferralID);
+    }
+
+    @And("the user sees the patient details on the referral header of each referral component page {string}")
+    public void theUserSeesThePatientDetailsOnTheReferralHeaderOfEachReferralComponentPage(String titlePage, DataTable dataTable) {
+        Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
+        List<String> expectedList = dataTable.asList(String.class);
+        Debugger.println("List : " + expectedList);
+
+        String actualFullName = referralPage.referralHeaderPatientName.getText();
+        String actualFullDOB = referralPage.referralHeaderBorn.getText();
+        String actualGender = referralPage.referralHeaderGender.getText();
+        String actualNHSNumber = referralPage.referralHeaderNhsNo.getText();
+        String actualPatientId = referralPage.getPatientNGISId();
+        String actualCid = referralPage.getPatientClinicalIndication();
+        String actualReferralId = referralPage.getPatientReferralId();
+
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
+
+        Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
+        Assert.assertEquals(expectedFullName, actualFullName);
+
+        String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+        Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+        Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
+
+        Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+        Assert.assertEquals(newPatient.getGender(), actualGender);
+
+        Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " +  actualNHSNumber);
+        Assert.assertEquals(newPatient.getNhsNumber(), actualNHSNumber);
+
+        Debugger.println("Expected patient ID = " + newPatient.getPatientID() + ", Actual Patient-Id: " + actualPatientId);
+        Assert.assertEquals(newPatient.getPatientID(),actualPatientId);
+
+        Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
+        Assert.assertNotNull(actualCid);
+
+        Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
+        Assert.assertEquals(newPatient.getReferralID(),actualReferralId);
+        boolean flag;
+        flag = Wait.isElementDisplayed(driver, referralPage.submitReferralButton, 10);
+        Assert.assertTrue(flag);
+        flag = Wait.isElementDisplayed(driver, referralPage.getReferralHeaderStatus, 10);
+        Assert.assertTrue(flag);
+    }
+
+    @And("the user sees a dialog box with a title {string}")
+    public void theUserSeesADialogBoxWithATitle(String dialogBoxTitlePage) {
+        boolean testResult = false;
+        testResult = referralPage.verifyThePageTitlePresence(dialogBoxTitlePage);
+        Debugger.println("test-result flag for verifying page title is: " + testResult);
+        Assert.assertTrue(testResult);
+
+        boolean flag = false;
+        flag = referralPage.mandatoryStageDialogBoxIsDisplayed();
+        Assert.assertTrue(flag);
+    }
+
+    @And("the user sees a list of outstanding mandatory stages to be completed in the dialog box")
+    public void theUserSeesAListOfOutstandingMandatoryStagesToBeCompletedInTheDialogBox(DataTable dataTable) {
+        List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
+        List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
+        for (int i = 0; i < expectedList.size(); i++) {
+            //Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
+            //Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
+            Assert.assertEquals(expectedList.get(i).get("MandatoryStagesToComplete"), actualMandatoryStages.get(i));
+        }
+    }
+
+    @And("the user clicks on the mandatory stage {string} in the dialog box")
+    public void theUserClicksOnTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
+        boolean testResult = false;
+        testResult = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see same referral id in the global banner and the url")
+    public void theUserShouldBeAbleToSeeSameReferralIdInTheGlobalBannerAndTheUrl() {
+        boolean testResult = false;
+        testResult = referralPage.verifyPatientReferralIdInUrl();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see the active stage {string} in to-do list")
+    public void theUserShouldAbleToSeeTheActiveStageInToDoList(String activeStage) {
+        boolean testResult = false;
+        testResult = referralPage.stageIsSelected(activeStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the below stages marked as incompleted")
+    public void theUserSeesTheNotCompletedStages(DataTable incompletedStages) {
+        boolean testResult;
+        List<List<String>> stages = incompletedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
+            if(testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be incomplete, but complete.");
+                SeleniumLib.takeAScreenShot("IncompletedStage.jpg");
+                Assert.assertFalse(testResult);
+            }
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @Then("the below stages marked as completed")
+    public void theUserSeesAllTheCompletedStages(DataTable completedStages) {
+        boolean testResult;
+        List<List<String>> stages = completedStages.asLists();
+        for (int i = 0; i < stages.size(); i++) {
+            testResult = referralPage.stageIsCompleted(stages.get(i).get(0));
+            if(!testResult){
+                Debugger.println("Stage: "+stages.get(i).get(0)+" expected to be complete, but not.");
+                SeleniumLib.takeAScreenShot("completedStage.jpg");
+                Assert.assertTrue(testResult);
+            }
+            Assert.assertTrue(testResult);
+        }
+    }
+
+    @And("the user should be able to close the pop up dialog box")
+    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
+        boolean testResult= false;
+        testResult=referralPage.closeMandatoryStagePopUp();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks outside of the modal")
+    public void theUserShouldBeAbleToClickAnywhereOutSideTheDialogBox() {
+        boolean testResult = false;
+        testResult = referralPage.clicksOutsideModalDialog();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to click on incomplete {string} section")
+    public void theUserShouldBeAbleToClickOnIncompleteSection(String expStage) {
+        boolean testResult = false;
+        testResult = referralPage.clickOnIncompleteStageInDialogBox(expStage);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see a cancel referral link {string}")
+    public void theUserShouldBeAbleToSeeACancelReferralLink(String cancelReferral) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPresenceOfCancelReferralLink();
+        if (cancelReferral.equals("present")) {
+            Assert.assertTrue(testResult);
+        } else {
+            Assert.assertFalse(testResult);
+        }
+    }
+    @Then("the user verifies the Ngis Id and Referral Id from the referral banner")
+    public void theUserVerifiesTheNgisIdAndReferralIdFromTheReferralBanner() {
+        boolean testResult = false;
+        testResult = referralPage.verifyNgisIdAndReferralId();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("user copies text from NgisId and verifies it with actual content")
+    public void userCopiesTextFromNgisIdAndVerifiesItWithActualContent() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTextFromReferralHeaderPatientNgisId();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the patient referral banner at the top")
+    public void theUserShouldBeAbleToSeeThePatientBanner() {
+        boolean testResult = false;
+        testResult = referralPage.readTheReferralBannerLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see the patient banner at same location")
+    public void theUserShouldBeAbleToSeeThePatientBannerAtSameLocation() {
+        boolean testResult = false;
+        testResult = referralPage.verifyTheBannerLocationAtSameLocation();
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user sees the color of feedback link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfFeedbackLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyFeedbackLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the color of privacy policy link as NHS Blue (.*)")
+    public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
+        boolean testResult = false;
+        testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
 }

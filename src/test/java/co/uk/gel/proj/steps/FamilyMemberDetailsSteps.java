@@ -34,12 +34,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.clickPatientCard();
     }
 
-    @When("the user selects the Relationship to proband as {string}")
-    public void theUserFillsTheFamilyMemberDetailsPageWithThe(String relationToProband) {
-        //To fill ethnicity also, as this field made mandatory.
-        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
-     }
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
@@ -70,6 +64,12 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @When("the user fills the RareDiseaseDiagnoses Status as {string}")
+    public void theUserFillsTheRareDiseaseDiagnosesStatusAs(String diagnosis) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.selectRareDiseaseDiagnoses(diagnosis);
+        Assert.assertTrue(testResult);
+    }
     @Then("the user returns to family member landing page with the added family member details {string}")
     public void theUserReturnsToFamilyMemberLandingPageWithTheAddedFamilyMemberDetails(String nhsDetails) {
         boolean testResult = false;
@@ -129,7 +129,9 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user deselects the test")
     public void theUserDeselectTheSelectedTest() {
-        familyMemberDetailsPage.deSelectTheTest();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.deSelectTheTest();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees test remains as deselected")
@@ -200,12 +202,6 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to see the patient identifiers (.*) patient")
-    public void theUserShouldBeAbleToSeeThePatientIdentifiersOnFamilyMemberLandingPage(String patientNo) {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.verifyPatientIdentifiersInFamilyMemberLandingPage(patientNo);
-        Assert.assertTrue(testResult);
-    }
     @When("the user clicks on the link to amend the number of participants for test")
     public void theUserClicksOnTheLinkToAmendTheNumberOfParticipantsForTest() {
         familyMemberDetailsPage.clickOnParticipantAmendmentLink();
@@ -246,9 +242,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         familyMemberDetailsPage.editPatientChoiceOfFamilyMember();
     }
 
-    @Then("the user clicks on a test that is selected and the test is no longer selected")
+    @Then("the user is able to clicks on deselected test")
     public void theUserClicksOnATestThatIsSelectedAndTheTestIsNoLongerSelected() {
-        familyMemberDetailsPage.deselectCheckBoxOnFamilyPage();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.clickOnDeselectedTestCheckBox();
+        Assert.assertTrue(testResult);
     }
 
     @And("subtitle of the page displayed as (.*)")
@@ -263,9 +261,11 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.verifySubTitleLink(linkMessage);
         Assert.assertTrue(testResult);
     }
-    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for all the family members added.")
-    public void theUserShouldBeAbleToSeeDetailsLikeNameRelationshipWithProbandDateOfBirthGenderNHSNoPatientNGISIDForAllTheFamilyMembersAdded() {
-        familyMemberDetailsPage.verifyTheElementsOnFamilyMemberPage();
+    @Then("The user should be able to see details like name,relationship with proband,Date of birth,Gender,NHS No & Patient NGIS ID for {string}")
+    public void theUserShouldBeAbleToSeePatientDetailsONFMLandingPage(String familyMember) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyAddedFamilyMemberDetailsInLandingPage(familyMember);
+        Assert.assertTrue(testResult);
 
     }
     @And("the user reads the patient details in family member landing page")
@@ -297,7 +297,7 @@ public class FamilyMemberDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the family member status {string} Marked in {string}")
+    @And("the test status {string} Marked in {string}")
     public void theUserShouldBeAbleToSeeIfTheFamilyMemberIsMarkedIn(String testfield, String color) {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifyTestBadgeBackgroundColor(testfield, color);
@@ -377,6 +377,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     SeleniumLib.takeAScreenShot("SelectTitle.jpg");
                 }
                 Wait.seconds(5);
+                if(memberDetails.get(i).size() < 3){
+                    continue;//Some times the Disease status not passing
+                }
                 Debugger.println("Clicking on Save and Continue in Family Member Stage...to proceed with Disease status updation");
                 referralPage.clickSaveAndContinueButton();
                 Debugger.println("Clicked on Save and Continue in Family Member Stage...");
@@ -418,8 +421,14 @@ public class FamilyMemberDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.unmatchedParticipantErrorMessage(errorMessage);
         if (expStatus.equalsIgnoreCase("get")) {
+            if(!testResult){
+                SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+            }
             Assert.assertTrue(testResult);
         }else {
+            if(testResult){
+                SeleniumLib.takeAScreenShot("WarningMessage.jpg");
+            }
             Assert.assertFalse(testResult);
         }
     }
@@ -527,4 +536,33 @@ public class FamilyMemberDetailsSteps extends Pages {
         testResult = familyMemberDetailsPage.editFamilyMemberHavingNHSDob(familyMember);
         Assert.assertTrue(testResult);
     }
+
+    @Then("The user should not see the rare disease diagnoses {string} field")
+    public void theUserShouldNotSeeTheRareDiseaseDiagnosesField(String expValue) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifyRareDiseaseDiagnoseFieldPresence(expValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should verify the role and relationship of patient on referral card")
+    public void theUserShouldVerifyTheRoleAndRelationshipOfPatientOnReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferrals();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should see the visible and clickable referral card")
+    public void theUserShouldSeeTheVisibleAndClickableReferralCard() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyTheSubmittedReferralCardsAreClickable();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the relationship to proband which was previously selected is same as {string}")
+    public void theUserSeesTheRelationshipToProbandWhichWasPreviouslySelectedIsSameAs(String expectedRelation) {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.verifySelectedRelationshipToProband(expectedRelation);
+        Assert.assertTrue(testResult);
+    }
+
 }//end

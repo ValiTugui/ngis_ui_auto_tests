@@ -29,6 +29,7 @@ public class Actions {
                 dropdownValue.findElement(By.xpath("//span[contains(text(),'" + value + "')]")).click();
                 return true;
             } catch (Exception exp1) {
+
                 Debugger.println("Dropdown value: " + value + ", not present in the dropdown list. See screen shot DropDownValues.jpg, Element:" + dropdownValue);
                 SeleniumLib.takeAScreenShot("DropDownValues.jpg");
             }
@@ -199,7 +200,13 @@ public class Actions {
     }
 
     public static String getTextOfAlertMessage(WebDriver driver) {
-        return driver.switchTo().alert().getText();
+        try {
+            return driver.switchTo().alert().getText();
+        }catch(Exception exp){
+            Debugger.println("Alert expected, but not present.");
+            SeleniumLib.takeAScreenShot("NoAlertMessage.jpg");
+            return "";
+        }
     }
 
     public static void refreshBrowser(WebDriver driver) {

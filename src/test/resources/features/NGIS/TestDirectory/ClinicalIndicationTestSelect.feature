@@ -1,15 +1,17 @@
-@regression
-@testDirectory
-@clinicalIndicationTestSelect
-
+#@regression
+#@clinicalIndicationTestSelect
+@TEST_DIRECTORY
+@SYSTEM_TEST
 Feature: Home Page
 
   Background:
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
-  @E2EUI-2093 @NTS-3161 @v_1 @P0 @COMP1_TD_ClinicalIndications
-  Scenario: NTS-3161 - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
+
+ @NTS-3161
+# @E2EUI-2093
+ Scenario: NTS-3161 - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | 270 |
@@ -20,7 +22,8 @@ Feature: Home Page
 #    @securitydebugging When user run security scan
 
 
-  @E2EUI-1530 @E2EUI-1500 @NTS-3238 @NTS-3205 @v_1 @P0 @COMP1_TD_EligibilityCriteria @COMP1_TD_ClinicalTests
+ @NTS-3238 @NTS-3205
+# @E2EUI-1530 @E2EUI-1500
   Scenario: NTS-3205 - NTS-3238 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
   As a user when I start the test order I want that action to be my confirmation that I agree to the patient eligibility criteria, so that I don't have to re-read it in a modal
     When the user types in the CI term  in the search field and selects the first result from the results list
@@ -37,7 +40,9 @@ Feature: Home Page
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
 
-  @E2EUI-1501 @E2EUI-1033 @NTS-3244 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage
+
+  @NTS-3244
+#  @E2EUI-1501 @E2EUI-1033
   Scenario: NTS-3244 - Clinical Indication Page -  View details for a Tumor Clinical Indication.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | M85 |
@@ -49,7 +54,9 @@ Feature: Home Page
     And the user should be able to see all "4" tabs and are clickable
       | Clinical Indications | Test details | Labs | Order process |
 
-  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069 @NTS-3251 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail
+
+  @NTS-3251
+#  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069
   Scenario: NTS-3251 - Clinical Indication Page - View details for a Rare Disease Clinical Indication.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
@@ -70,7 +77,9 @@ Feature: Home Page
     And the user should be able to see "5" sections of Order process are displayed
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
-  @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242 @NTS-3254 @v_1 @P0 @COMP1_TD_ClinicalTests @COMP1_TD_TestPackage @COMP1_TD_TestDetail @COMP1_TD_ClinicalIndications
+
+    @NTS-3254
+#    @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242  @E2EUI-1849
   Scenario Outline: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
@@ -92,7 +101,9 @@ Feature: Home Page
       | tabName1     | tabName2             | linkName       |
       | Test Package | Clinical Indications | Back to search |
 
-  @E2EUI-1003 @E2EUI-1174 @NTS-3260 @v_1 @P0 @COMP1_TD_EligibilityCriteria
+
+    @NTS-3260
+#      @E2EUI-1003 @E2EUI-1174
   Scenario Outline: NTS-3260 - Clinical Indication Page - Display additional details on who can order card.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
@@ -109,7 +120,9 @@ Feature: Home Page
       | R100       | Eligibility Criteria | Who to test | When to test  | Clinical speciality | Who can order | Clinical Genetics                                                     |
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
 
-  @E2EUI-1419 @E2EUI-1497 @NTS-3262 @v_1 @P0 @COMP1_TD_ClinicalIndications @COMP1_TD_ClinicalTests
+
+    @NTS-3262
+#      @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
   Scenario Outline: NTS-3262 - Clinical Indication Page - View details for Clinical Indications Tab.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
@@ -130,7 +143,9 @@ Feature: Home Page
       | 270        | Test Package | Clinical Indications | Who to test  | Test package includes... |
       | M85        | Test Package | Clinical Indications | Who to test  | Test package includes... |
 
-  @E2EUI-1063 @NTS-3265 @v_1 @P0 @COMP1_TD_ClinicalIndications
+
+    @NTS-3265
+#      @E2EUI-1063
   Scenario Outline: NTS-3265 - Clinical Indication Page - View details for Further Info Tab..
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
@@ -145,7 +160,9 @@ Feature: Home Page
       | R100       |
       | R237       |
 
-  @E2EUI-948 @NTS-3268 @v_1 @P0 @COMP1_TD_ClinicalIndications
+
+    @NTS-3268
+#      @E2EUI-948
   Scenario Outline: NTS-3268 - Clinical Indication Page - View details for Clinical Indications Tab.
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |

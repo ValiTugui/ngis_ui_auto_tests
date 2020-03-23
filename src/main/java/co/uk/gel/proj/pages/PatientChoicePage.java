@@ -84,9 +84,9 @@ public class PatientChoicePage {
     String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
     String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
-    String bornInformation = "//span[contains(@id,'dateOfBirth')]";
-    String genderInformation = "//span[contains(@id,'gender')]";
-    String ngsIdInformation = "//span[contains(@id,'ngisId')]";
+    String bornInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'dateOfBirth')]";
+    String genderInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'gender')]";
+    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'ngisId')]";
     String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
     String editButtonInformation = "//button[@aria-label='edit button']";
 
@@ -629,82 +629,6 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean verifyPatientIdentifiersInPatientChoicePage() {
-        try {
-            //Validation of Core Information Presence
-            int noOfPatients = 0;
-            List<WebElement> patientLists = seleniumLib.getElements(By.xpath(patientList));
-            if (patientLists != null) {
-                noOfPatients = patientLists.size();
-            }
-
-            if (noOfPatients != FamilyMemberDetailsPage.noOfPatientsForIdentification) {
-                Debugger.println("No of Patients Information Present in FamilyMember Landing Page and Patient Choice Page is not matching.");
-                SeleniumLib.takeAScreenShot("PatientListChoicePage.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            //Debugger.println("Validating Information of " + noOfPatients + " Patients in Patient Choice Page.");
-            List<WebElement> nameList = seleniumLib.getElements(By.xpath(firstNameLastName));
-            if (nameList == null || nameList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of First/Last Name field for " + noOfPatients + " patients in  Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("firstLastNameLst.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> probandTestedList = seleniumLib.getElements(By.xpath(probandBeingTested));
-            if (probandTestedList == null || probandTestedList.size() != (noOfPatients * 2)) {
-                Debugger.println("Expected Presence of Proband and Being Tested Information for " + noOfPatients + " patients in  Patient ChoicePage.");
-                SeleniumLib.takeAScreenShot("probandTested.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> bornList = seleniumLib.getElements(By.xpath(bornInformation));
-            if (bornList == null || bornList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of Born Information for " + noOfPatients + " patients in  Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("bornInfo.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> genderList = seleniumLib.getElements(By.xpath(genderInformation));
-            if (genderList == null || genderList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of Gender Information for " + noOfPatients + " patients in  Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("genderInfo.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> ngisList = seleniumLib.getElements(By.xpath(ngsIdInformation));
-            if (ngisList == null || ngisList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of NGSID Information for " + noOfPatients + " patients in  Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("ngsInfo.jpg");
-                return false;
-            }
-            Wait.seconds(2);
-            List<WebElement> pchoiceList = seleniumLib.getElements(By.xpath(patientChoiceInformation));
-            if (pchoiceList == null || pchoiceList.size() != noOfPatients) {
-                Debugger.println("Expected Presence of PatientChoice Information for " + noOfPatients + " patients in  Patient Choice Page.");
-                SeleniumLib.takeAScreenShot("pchoiceInfo.jpg");
-                return false;
-            }
-            //EDIT and REMOVE BUTTON
-            Wait.seconds(2);
-            List<WebElement> editButtonList = seleniumLib.getElements(By.xpath(editButtonInformation));
-            if (editButtonList != null) {
-                if (editButtonList.size() != noOfPatients) {
-                    Debugger.println("Expected Presence of Edit Information for " + noOfPatients + " patients in  Patient Choice Page.");
-                    SeleniumLib.takeAScreenShot("editButtonInfo.jpg");
-                    return false;
-                }
-            }
-
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in  Verifying Patient Identifier Information in Patient Choice Page.");
-            return false;
-        }
-
-    }
-
     public boolean clickOnPatientChoiceInformationLink(String linkText) {
         try {
             if (linkText == null || linkText.isEmpty()) {
@@ -1110,14 +1034,15 @@ public class PatientChoicePage {
 
     public boolean backButtonOnPatientChoiceInformationPage() {
         try {
-            Wait.forElementToBeDisplayed(driver, backButtonOnAddPatientChoiceInformationPage);
-            if (!seleniumLib.isElementPresent(backButtonOnAddPatientChoiceInformationPage)) {
-                Debugger.println("Add patient Choice Page:Recorded by:Back Button Not found");
+            if (!Wait.isElementDisplayed(driver,backButtonOnAddPatientChoiceInformationPage,30)) {
+                Debugger.println("Back button link not present in Patient Choice Page.");
+                SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Add patient Choice Page:backButtonOnPatientChoiceInformationPage:" + exp);
+            Debugger.println("Exception in verifying backButtonOnPatientChoiceInformationPage:" + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceBackButtonPage.jpg");
             return false;
         }
     }
@@ -1348,7 +1273,7 @@ public class PatientChoicePage {
         try {
             String formLinkPath = formSection.replaceAll("dummySection", sectionName);
             WebElement formLinkElement = driver.findElement(By.xpath(formLinkPath));
-            if (!formLinkElement.isDisplayed()) {
+            if (!Wait.isElementDisplayed(driver,formLinkElement,10)) {
                 Debugger.println("Section:" + sectionName + " Not present under Form Library in Patient Choice");
                 SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
                 return false;
@@ -1369,13 +1294,13 @@ public class PatientChoicePage {
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
                 if (supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)) {
                     //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
-                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
+                    Actions.retryClickAndIgnoreElementInterception(driver,supportingInformationLinks.get(i));
                     Wait.seconds(3);//Wait for three second to Load the form.
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
                     Actions.scrollToTop(driver);
-                    formLiraryBackButton.click();
+                    Actions.clickElement(driver,formLiraryBackButton);
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }

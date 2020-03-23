@@ -10,6 +10,7 @@ import co.uk.gel.proj.pages.PatientDetailsPage;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.And;
@@ -104,7 +105,7 @@ public class PatientDetailsSteps extends Pages {
         String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
         patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
         Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
     }
@@ -136,7 +137,7 @@ public class PatientDetailsSteps extends Pages {
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
         patientSearchPage.clickSearchButtonByXpath(driver);
-        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
     }
 
@@ -619,5 +620,29 @@ public class PatientDetailsSteps extends Pages {
         patientDetailsPage.clickAddDetailsToNGISButton();
     }
 
+    @And("the user retrieve the patient HumanReadable-ID from the patient detail url")
+    public void theUserRetrieveThePatientHumanReadableIDFromThePatientDetailUrl() {
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String currentURl = driver.getCurrentUrl();
+        String patientIdRegex = "^[p0-9]+$";
+        String expectedPatientID = TestUtils.getTheExpectedCurrentHumanReadableID(currentURl,patientIdRegex);
+        Debugger.println("Expected patient ID " + expectedPatientID);
+        Assert.assertNotNull(expectedPatientID);
+        newPatient.setPatientID(expectedPatientID);
+    }
+
+    @And("the user clicks on RelationshipToProband drop down and sees the values of the drop down{string} with recently used suggestion values")
+    public void theUserClicksOnRelationshipToProbandDropDownAndSeesTheValuesOfTheDropDownWithRecentlyUsedSuggestionValues(String expValue) {
+        boolean testResult=false;
+        testResult=patientDetailsPage.verifyRelationshipToProbandDropDownShowsRecentlyUsedSuggestion(expValue);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the Save PatientDetails button highlighted with color as {string}")
+    public void theUserSeesTheButtonAndColorAs(String expButtonColor) {
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyColorOfSavePatientDetailsToNGISButton(expButtonColor);
+        Assert.assertTrue(testResult);
+    }
 
 }

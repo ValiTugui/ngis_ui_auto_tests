@@ -3,6 +3,7 @@ package co.uk.gel.proj.pages;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,9 @@ public class NotesPage {
 
     @FindBy(name = "notes")
     public WebElement addNoteField;
+
+    @FindBy(xpath="//p[contains(text(),'Max. character count')]")
+    public WebElement infoMessageForCharacters;
 
     public NotesPage(WebDriver driver) {
         this.driver = driver;
@@ -56,5 +60,53 @@ public class NotesPage {
 
     public WebElement getNotesFieldLocator() {
         return addNoteField;
+    }
+
+    public boolean verifyInfoMessageOnNotesPage(String infoMessage) {
+        try {
+            Wait.forElementToBeDisplayed(driver, addNoteField);
+            if(!Wait.isElementDisplayed(driver,infoMessageForCharacters,10)){
+                Debugger.println("Notes Info Message not displayed.");
+                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+                return false;
+            }
+            String actualMessage = infoMessageForCharacters.getText();
+            if (!actualMessage.equalsIgnoreCase(infoMessage)) {
+                Debugger.println("Expected Message: " + infoMessage + ", but Actual Message is: " + actualMessage);
+                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Notes Page: Max Characters Information Message :not found " + exp);
+            SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+            return false;
+        }
+    }
+
+    public boolean checkTheErrorMessageForMaxCharacters(String errorMessage, String fontColor) {
+        try {
+            //Verify the Message Content
+            Wait.forElementToBeDisplayed(driver, addNoteField);
+
+            if(!Wait.isElementDisplayed(driver,infoMessageForCharacters,10)){
+                Debugger.println("Notes Info Message not displayed.");
+                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+                return false;
+            }
+            //Verify the Message Color
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = infoMessageForCharacters.getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Notes info message color:"+expectedFontColor+" Not displayed.");
+                SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from validating Error Message " + exp);
+            SeleniumLib.takeAScreenShot("NoteInfoMessage.jpg");
+            return false;
+        }
     }
 }

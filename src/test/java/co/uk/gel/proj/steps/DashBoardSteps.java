@@ -28,4 +28,18 @@ public class DashBoardSteps extends Pages {
     public void theUserShouldSeeThePageTitleAs(String titleText) {
         Assert.assertTrue("The Correct Page Title is NOT Displayed", dashBoardPage.pageTitleValidation(titleText));
     }
+
+    @And("the user sees the NHS logo on top in left side")
+    public void theUserSeesTheNHSLogoOnTopInLeftSide() {
+        boolean testResult = false;
+        testResult = dashBoardPage.verifyTheNHSLogo();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see clickable tabs")
+    public void theUserShouldBeAbleToSeeClickableTabs() {
+        boolean testResult = false;
+        testResult = dashBoardPage.verifyTheDashboardTabs();
+        Assert.assertTrue(testResult);
+    }
 }

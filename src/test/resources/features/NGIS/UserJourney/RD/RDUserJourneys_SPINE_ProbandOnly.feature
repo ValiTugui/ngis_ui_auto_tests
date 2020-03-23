@@ -1,9 +1,11 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_SPINE
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for SPINE Patient
 
-  @NTS-4570 @E2EUI-1430 @UseCase02 @LOGOUT
+  @NTS-4570  @LOGOUT
+#    @E2EUI-1430 @UseCase02
   Scenario Outline: NTS-4570: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -80,7 +82,8 @@ Feature: Create Referrals for SPINE Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | ClinicianName      | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4608 @E2EUI-1267 @UseCase03 @LOGOUT
+  @NTS-4608 @LOGOUT
+#     @E2EUI-1267 @UseCase03
   Scenario Outline: NTS-4608: Use Case#03: Create Referral for Proband Only + Edit Data + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -159,7 +162,8 @@ Feature: Create Referrals for SPINE Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                                   | ClinicalQuestion   | ClinicalQuestionDetails                                       | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree | SearchPanels |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=William:LastName=John:Department=West Minister road | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=04,05:HpoPhenoType=Cachexia | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
 
-  @NTS-4575 @E2EUI-1059 @UseCase04  @LOGOUT
+  @NTS-4575   @LOGOUT
+#    @E2EUI-1059 @UseCase04
   Scenario Outline: NTS-4575: Use Case#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
@@ -234,7 +238,8 @@ Feature: Create Referrals for SPINE Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4554 @E2EUI-1383 @UseCase05 @LOGOUT
+  @NTS-4554  @LOGOUT
+#    @E2EUI-1383 @UseCase05
   Scenario Outline: NTS-4554:: Use Case#05: User Journey to Create NGIS Referral for Proband Only + Edit Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449308969:DOB=11-03-2009 |
@@ -307,7 +312,8 @@ Feature: Create Referrals for SPINE Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                             | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Sam:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
 
-  @NTS-4571 @E2EUI-907 @UseCase06 @LOGOUT
+  @NTS-4571  @LOGOUT
+#    @E2EUI-907 @UseCase06
   Scenario Outline: NTS-4571: Use Case#06 Create Referral for Proband Only + Default Data + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449303673:DOB=16-07-2010 |
@@ -382,7 +388,8 @@ Feature: Create Referrals for SPINE Patient
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Glen:LastName=Martin:Department=Victoria st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | ClinicianName=John | Panels | Pedigree |
 
-  @NTS-4561 @E2EUI-977 @UseCase07 @LOGOUT
+  @NTS-4561  @LOGOUT
+#    @E2EUI-977 @UseCase07
   Scenario Outline: NTS-4561: Use Case#07: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R59 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |

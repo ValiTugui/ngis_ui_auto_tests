@@ -146,7 +146,9 @@ public class PrintFormSteps extends Pages {
     @Then("the cancel referral dialog box is displayed with the following fields")
     public void theCancelReferralDialogBoxIsDisplayedWithTheFollowingFields(DataTable fieldDetails) {
         boolean testResult = false;
-        testResult = referralPage.validateCancelReferralDialog(fieldDetails);
+        List<List<String>> contents = fieldDetails.asLists();
+        //Title,Question,Warning,button1,button2
+        testResult = referralPage.validateCancelReferralDialog(contents.get(1).get(0),contents.get(2).get(0),contents.get(3).get(0),contents.get(4).get(0),contents.get(5).get(0));
         Assert.assertTrue(testResult);
     }
 
@@ -201,14 +203,14 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToDownloadFormOfTheSectionAndValidateTheTextInTheFile(String expectedSection, String expectedText, String fileName) {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Referral")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }
-        if (expectedSection.equalsIgnoreCase("Additional family members")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+         }else if (expectedSection.equalsIgnoreCase("Additional family members")) {
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.validatePDFContent(expectedText, fileName);
-        }
-        if (expectedSection.equalsIgnoreCase("Patient choice")) {
+         }else if (expectedSection.equalsIgnoreCase("Patient choice")) {
             testResult=printFormsPage.downloadForm(fileName, expectedSection);
             if (!expectedText.isEmpty()) {
                 testResult = printFormsPage.validatePDFContent(expectedText, fileName);
@@ -289,7 +291,8 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToDownloadFormOfTheSectionHavingFileName(String expectedSection, String fileName) {
         boolean testResult = false;
         if (expectedSection.equalsIgnoreCase("Patient choice")) {
-            printFormsPage.downloadForm(fileName, expectedSection);
+            testResult = printFormsPage.downloadForm(fileName, expectedSection);
+            Assert.assertTrue(testResult);
             testResult = printFormsPage.extractAndValidateZipFile(fileName);
         }
         Assert.assertTrue(testResult);
@@ -326,10 +329,10 @@ public class PrintFormSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user should be able to close the pop up dialog box")
-    public void theUserShouldBeAbleToCloseThePopUpDialogBox() {
-        boolean testResult= false;
-        testResult=referralPage.closeMandatoryStagePopUp();
+    @And("the user verifies that the relationship to proband {string} is updated in Print forms section")
+    public void verifyRelationshipInPrintFormsSection(String relationToProband) {
+        boolean testResult = false;
+        testResult = printFormsPage.verifyRelationshipToProband(relationToProband);
         Assert.assertTrue(testResult);
     }
 

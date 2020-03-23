@@ -4,7 +4,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.proj.miportal_pages.MiPortalFileSubmissionPage;
+import co.uk.gel.proj.miportal_pages.*;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -45,6 +45,13 @@ public class Pages implements Navigable {
     protected PrintFormsPage printFormsPage;
 
     protected MiPortalFileSubmissionPage miPortalFileSubmissionPage;
+    protected MiPortalHomePage miPortalHomePage;
+    protected MiOrderTrackingPage miOrderTrackingPage;
+    protected MiGlhSamplesPage miGlhSamplesPage;
+    protected MiPlaterSamplesPage miPlaterSamplesPage;
+    protected MiPickListsPage miPickListsPage;
+    protected MiSequencerSamplesPage miSequencerSamplesPage;
+    protected MiNewReferralsPage miNewReferralsPage;
 
 
     public Pages(SeleniumDriver driver) {
@@ -78,7 +85,14 @@ public class Pages implements Navigable {
         printFormsPage = PageFactory.initElements(driver,PrintFormsPage.class);
 
         // MI-PORTAL PAGES
+        miPortalHomePage = PageFactory.initElements(driver, MiPortalHomePage.class);
         miPortalFileSubmissionPage = PageFactory.initElements(driver, MiPortalFileSubmissionPage.class);
+        miOrderTrackingPage = PageFactory.initElements(driver, MiOrderTrackingPage.class);
+        miGlhSamplesPage = PageFactory.initElements(driver, MiGlhSamplesPage.class);
+        miPlaterSamplesPage = PageFactory.initElements(driver, MiPlaterSamplesPage.class);
+        miPickListsPage = PageFactory.initElements(driver, MiPickListsPage.class);
+        miSequencerSamplesPage = PageFactory.initElements(driver, MiSequencerSamplesPage.class);
+        miNewReferralsPage = PageFactory.initElements(driver, MiNewReferralsPage.class);
     }
 
     public static void login(WebDriver driver, WebElement emailAddressField, WebElement passwordField, WebElement nextButton) {
@@ -230,9 +244,20 @@ public class Pages implements Navigable {
                 //  Actions.cleanUpSession(driver);
             } else if (currentURL.contains(testOrderLoginURL) || driver.getCurrentUrl().contains(testOrderURL)) {
                 if(userType.equalsIgnoreCase(normalUser)) {
-                    patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                   String email = AppConfig.getApp_username();
+                   if(email.contains("nhs.net")){
+                       // If the email id contains nhs, proceed with NHS login
+                       referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                   }else {
+                       patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
+                   }
                 }else if(userType.equalsIgnoreCase(superUser)){
-                    patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                    String super_email = AppConfig.getPropertyValueFromPropertyFile("SUPER_USERNAME");
+                    if(super_email.contains("nhs.net")){
+                        referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
+                    }else {
+                        patientSearchPage.loginToTestOrderingSystem(driver, userType);
+                    }
                 }
             }
             //Added below Section as it is observed that after login sometime page not loading and url redirecting to
@@ -250,4 +275,5 @@ public class Pages implements Navigable {
             Assert.assertFalse("Exception from Switch URL:"+exp,true);
         }
     }
+
 }//end class

@@ -1,14 +1,16 @@
-@regression
-@testDirectory
-@globalBehaviour
-
+#@regression
+#@globalBehaviour
+@TEST_DIRECTORY
+@SYSTEM_TEST
 Feature: Global Behaviour Page
 
   Background:
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
 
-  @E2EUI-1755 @NTS-3169 @TD_VERSION_INFO @v_1 @P0 @COMP1_TD
+
+  @NTS-3169 @TD_VERSION_INFO
+#  @E2EUI-1755
   Scenario: NTS-3169 - Home Page - User is able to see the version of NGIS at the bottom of the page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
@@ -31,7 +33,8 @@ Feature: Global Behaviour Page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the NGIS version number on the right side bottom of the page next to the privacy policy link
 
-  @E2EUI-1658 @NTS-3236 @v_1 @P0 @COMP1_TD_ClinicalTests
+   @NTS-3236
+#   @E2EUI-1658
   Scenario: NTS-3236 - Home Page - User is able to see the privacy policy link at the bottom of the page
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
@@ -55,3 +58,22 @@ Feature: Global Behaviour Page
     Then the "Offline order" page is properly displayed for chosen clinical indication
     And the user has scrolled down the page to the bottom (Footer)
     Then the user can see the "Privacy Policy" link at bottom of the page
+
+  @NTS-3501 @LOGOUT
+#    @E2EUI-1761
+  Scenario Outline:NTS-3501:Validating NGIS Id and Referral Id and web element text
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+
+    Then the user should verify the referral banner present at the top
+    When the user navigates to the "<PatientDetails>" stage
+    Then the user is navigated to a page with title Check your patient's details
+    And the user clicks the Save and Continue button
+    And the user should verify the referral banner present at the top
+    Then the "<PatientDetails>" stage is marked as Completed
+    And the user verifies the Ngis Id and Referral Id from the referral banner
+    Then user copies text from NgisId and verifies it with actual content
+
+    Examples:
+      | PatientDetails  |
+      | Patient details |

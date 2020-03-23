@@ -105,6 +105,7 @@ public class Wait {
     }
 
     public static void forAlertToBePresent(WebDriver driver) {
+
         WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.alertIsPresent());
     }

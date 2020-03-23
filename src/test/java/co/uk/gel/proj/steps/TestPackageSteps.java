@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -89,10 +90,21 @@ public class TestPackageSteps extends Pages {
 
     @Then("the user sees a warning message on the page")
     public void theUserSeesAWarningMessageOnThePage() {
-        Wait.forAlertToBePresent(driver);
-        Actions.acceptAlert(driver);
-        Wait.seconds(10);
-        System.out.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        try {
+            Wait.seconds(2);
+            if(!Actions.isAlertPresent(driver)){
+                Debugger.println("No Alert message present as expected.");
+                SeleniumLib.takeAScreenShot("AlertMessage.jpg");
+                return;
+            }
+            //Wait.forAlertToBePresent(driver);
+            Actions.acceptAlert(driver);
+            Wait.seconds(5);
+            System.out.println("URL info after accepting alert :: " + driver.getCurrentUrl());
+        }catch(Exception exp){
+            Debugger.println("Exception from theUserSeesAWarningMessageOnThePage:"+exp);
+            SeleniumLib.takeAScreenShot("AlertMessage.jpg");
+        }
     }
 
     @And("the user clicks a test to de-select it")
@@ -220,5 +232,26 @@ public class TestPackageSteps extends Pages {
         testResult =testPackagePage.selectTheDeselectedTestPackage();
         Assert.assertTrue(testResult);
 
+    }
+
+    @Then("the user should be able to sees trio family icon in review test selection")
+    public void theUserShouldBeAbleToSeesTrioFamilyIconInReviewTestSelection() {
+        boolean testResult = false;
+        testResult = testPackagePage.validateTrioFamilyIconInOfflineOrder();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should be able to see trio family icon in test package")
+    public void theUserShouldBeAbleToSeeTrioFamilyIconInTestPackage() {
+        boolean testResult = false;
+        testResult = testPackagePage.verifyTrioFamilyIconPresenceInTestPackage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the User should be able to see the clinical indication code and name in the test package card")
+    public void theUserShouldBeAbleToSeeTheClinicalIndicationCodeAndNameInTheTestPackageCard() {
+        boolean testResult = false;
+        testResult = testPackagePage.verifyCINameIDPresence();
+        Assert.assertTrue(testResult);
     }
 }

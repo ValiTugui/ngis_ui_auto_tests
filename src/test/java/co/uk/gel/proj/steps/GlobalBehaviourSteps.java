@@ -53,7 +53,7 @@ public class GlobalBehaviourSteps extends Pages {
 //        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
 //        Assert.assertTrue(testResult);
 //    }
-    @When("the the user should see previous labels replaced as current labels")
+    @When("the user should see previous labels replaced as current labels")
     public void theUserVerifyTheTextPresentInThePageAs(DataTable labelsList) {
         boolean testResult = false;
         List<List<String>> labels = labelsList.asLists();
@@ -63,6 +63,38 @@ public class GlobalBehaviourSteps extends Pages {
                 Assert.assertTrue(testResult);
             }
         }
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user checks for different screen width of {string}")
+    public void theUserChecksForDifferentScreenWidthOf(String widthValue) throws InterruptedException {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.verifyDifferentScreenWidth(Integer.parseInt(widthValue));
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user checks the presence of  horizontal scrollbar {string}")
+    public void theUserChecksThePresenceOfHorizontalScrollbar(String isPresent) {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.isHorizontalScrollBarPresent();
+        if(isPresent.equalsIgnoreCase("Present")){
+            Assert.assertTrue(testResult);
+        }else{
+            Assert.assertFalse(testResult);
+        }
+    }
+
+    @And("the user should be able to see NHS logo image")
+    public void theUserVerifiesNHSLogoImageFormatAsSVG() {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.verifyNHSEnglandLogoIsSVG();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user should verify the referral banner present at the top")
+    public void theUserShouldVerifyTheReferralBannerPresentAtTheTop() {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
         Assert.assertTrue(testResult);
     }
 }
