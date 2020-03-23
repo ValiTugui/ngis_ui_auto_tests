@@ -8,6 +8,7 @@ Feature: Test Package 2 - RD
   Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
   @NTS-3080 @LOGOUT

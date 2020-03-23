@@ -369,17 +369,47 @@ public class TumoursPage {
     }
 
     public boolean verifyTheElementsOnAddTumoursPageAreDisplayed() {
+
         try {
-            AddATumourPageTitle.isDisplayed();
-            descriptiveName.isDisplayed();
-            dateOfDiagnosisLabel.isDisplayed();
-            tumourTypeLabel.isDisplayed();
-            PathologyIdOrSampleIdLabel.isDisplayed();
-            dateMonth.isDisplayed();
-            dateYear.isDisplayed();
+            if(!Wait.isElementDisplayed(driver,AddATumourPageTitle,30)){
+                Debugger.println("AddATumourPageTitle, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,descriptiveName,5)){
+                Debugger.println("descriptiveName, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,dateOfDiagnosisLabel,5)){
+                Debugger.println("dateOfDiagnosisLabel, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,tumourTypeLabel,5)){
+                Debugger.println("tumourTypeLabel, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,PathologyIdOrSampleIdLabel,5)){
+                Debugger.println("PathologyIdOrSampleIdLabel, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,dateMonth,5)){
+                Debugger.println("dateMonth, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
+            if(!Wait.isElementDisplayed(driver,dateYear,5)){
+                Debugger.println("dateYear, not present as expected.");
+                SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
+                return false;
+            }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from verifying tumour stage page layout."+exp);
+            SeleniumLib.takeAScreenShot("ElementsOnAddTumoursPage.jpg");
             return false;
         }
     }

@@ -625,8 +625,14 @@ public class ReferralPage<check> {
     }
 
     public String logoutSuccessMessageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "login.microsoftonline.com");
-        return driver.getTitle();
+        try {
+            Wait.forURLToContainSpecificText(driver, "login.microsoftonline.com");
+            return driver.getTitle();
+        }catch(Exception exp){
+            Debugger.println("Exception in logoutSuccessMessageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("logOutMessage.jpg");
+            return null;
+        }
     }
 
     public String getTheCurrentPageTitle() {
@@ -896,8 +902,12 @@ public class ReferralPage<check> {
     }
 
     public String getPatientReferralId() {
-        Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
-        return Actions.getText(referralHeaderReferralId);
+        try {
+            Wait.isElementDisplayed(driver, referralHeaderReferralId, 3);
+            return Actions.getText(referralHeaderReferralId);
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     public String getPatientClinicalIndication() {
@@ -1908,7 +1918,7 @@ public class ReferralPage<check> {
             if(!Wait.isElementDisplayed(driver,nhsLogo,20)){
                 Debugger.println("NHS mail account login page is not displayed.");
                 SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
-                Assert.fail("NHS Login Page is not displayed.");
+                Assert.assertFalse("NHS Login Page is not displayed.",true);
             }
             Wait.forElementToBeClickable(driver,emailAddressFieldNHSPage);
             String mailIdPresent=emailAddressFieldNHSPage.getAttribute("value");
@@ -1923,6 +1933,7 @@ public class ReferralPage<check> {
         }catch(Exception exp){
             Debugger.println("Exception in Logging to TO as user type: "+userType+".Exception: "+exp);
             SeleniumLib.takeAScreenShot("NHSLoginPage.jpg");
+            Assert.assertFalse("Exception in Logging to TO as user type.",true);
         }
     }
 

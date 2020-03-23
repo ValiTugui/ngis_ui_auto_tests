@@ -571,19 +571,17 @@ public class ReferralSteps extends Pages {
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
-
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        boolean stepResult = false;
+        stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        Assert.assertTrue(stepResult);
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println("User Type : " + userType);
         if(userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
         switchToURL(driver.getCurrentUrl(), userType);
-        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
-        if(!searchPageLoaded){
-            Debugger.println("Search Page Could not load Properly:");
-            Assert.assertFalse("Search Page not loaded successfully.",true);
-        }
+        stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
+        Assert.assertTrue(stepResult);
         //Create NGIS Patient with the given Details and the use for referral Creation
         NGISPatientModel searchPatient = new NGISPatientModel();
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
@@ -735,7 +733,15 @@ public class ReferralSteps extends Pages {
         String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
         String expectedPageSourceTitle = "Sign out";
         Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
-        Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
+        if(actualSourcePageSourceTitle != null) {
+            if(!expectedPageSourceTitle.equalsIgnoreCase(actualSourcePageSourceTitle)) {
+                SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+                Assert.assertFalse("Logout Message not displayed as expected:"+expectedPageSourceTitle,true);
+            }
+        }else{
+            SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+            Assert.assertFalse("Logout Message not displayed.",true);
+        }
     }
 
     @And("the page url address contains the directory-path web-page {string}")
