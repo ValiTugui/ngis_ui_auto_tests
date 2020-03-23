@@ -184,6 +184,13 @@ public class ClinicalQuestionsPage {
             Wait.seconds(2);
             int numberOfHPO = hpoTerms.size();
             if(numberOfHPO < 1){
+                //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
+                SeleniumLib.scrollToElement(hpoSearchField);
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                // determine the total number of HPO terms Loaded - If selected, it would be minimum one
+                Wait.seconds(2);
+            }
+            if(numberOfHPO < 1){
                 Debugger.println("No HPO Phenotype has got selected..");
                 SeleniumLib.takeAScreenShot("HPOTerms.jpg");
                 return 0;

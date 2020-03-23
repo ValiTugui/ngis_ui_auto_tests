@@ -117,7 +117,9 @@ public class ClinicalQuestionsSteps extends Pages {
     }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        Assert.assertTrue(clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails));
+       boolean testResult = false;
+       testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails);
+       Assert.assertTrue(testResult);
     }
 
     @And("the HPO phenotype drop-down is allowed to have values up to {string}")
