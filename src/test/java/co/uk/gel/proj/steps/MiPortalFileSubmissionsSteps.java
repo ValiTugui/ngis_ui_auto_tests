@@ -112,19 +112,6 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     }
 
 
-    @And("the column\\(s) of the search result table displayed the only filtered {string}")
-    public void theColumnSOfTheSearchResultTableDisplayedTheOnlyFiltered(String date) throws ParseException {
-        List<String> columnValues = miPortalFileSubmissionPage.getValuesOfAColumnField("Created");
-        String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
-        Debugger.println(badge + "is new date ");
-        String expectedFilteredDate = (badge.split("="))[1].trim();
-        Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
-
-        for (String fieldValue : columnValues) {
-            Assert.assertTrue(fieldValue.contains(expectedFilteredDate));
-        }
-    }
-
     @And("the column\\(s) field {string} in the search result table displayed the only filtered {string}")
     public void theColumnSFieldInTheSearchResultTableDisplayedTheOnlyFiltered(String columnField, String columnFieldValue) {
 
