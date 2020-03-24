@@ -135,7 +135,7 @@ Feature: Tumours Page - 4
 
 
   @NTS-4757 @LOGOUT
-#    @E2EUI-1339
+#    @E2EUI-1339 @E2EUI-2781
   Scenario Outline: NTS-4757: Add Tumour page error validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
