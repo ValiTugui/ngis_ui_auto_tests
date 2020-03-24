@@ -37,7 +37,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions |
 
 
-  @NTS_todo
+  @NTS-3390
   Scenario Outline: verify the drop-down values of file-submission search column
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
@@ -344,3 +344,25 @@ Feature: This is mi-portal fileSubmission
       | mi_stage         | column | operator | value   | columnHeader | fieldValue |
       | File Submissions | Status | is       | Valid   | Status       | valid      |
       | File Submissions | Status | is       | Invalid | Status       | invalid    |
+
+  @NTS-4938
+  Scenario Outline: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    And the columns fields are not displayed in the list of columns headers of the search result table
+      | columnHeaders              |
+      | gel1001-glhlabID           |
+      | gel1001-ordering entity ID |
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |

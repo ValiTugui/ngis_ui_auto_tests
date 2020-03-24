@@ -49,7 +49,9 @@ public class ReferralSteps extends Pages {
 
     @And("the user clicks the Save and Continue button")
     public void theUserClicksTheSaveAndContinueButton() {
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @Given("a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service")

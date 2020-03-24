@@ -280,4 +280,23 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public List<String> getAllHeadersInSearchResultTable() {
+        Wait.seconds(3);
+        try {
+            List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
+            //Retrieve the column headers
+            List<String> headers = new ArrayList<>();
+            for (WebElement elementHeader : allHeaders) {
+                String header = elementHeader.getText();
+                headers.add(header);
+            }
+            Debugger.println("All headers" + headers);
+            return headers;
+        } catch (Exception exp) {
+            Debugger.println("Exception from retrieving data." + exp);
+            SeleniumLib.takeAScreenShot("UnableToRetrieiveAllHeaders.jpg");
+            return null;
+        }
+    }
+
 }

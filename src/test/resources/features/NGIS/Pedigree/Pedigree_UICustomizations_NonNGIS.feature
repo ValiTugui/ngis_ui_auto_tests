@@ -30,7 +30,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 #    @E2EUI-1391 @E2EUI-1629
   Scenario Outline: NTS-4759: AgeOfOnset should be editable for Non NGIS Patients in Pedigree tool
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1986:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1987:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Pedigree Stage
@@ -46,7 +46,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
     ##Note: Proband details same as the DOB used for search in first step
     Examples:
       | PedigreeStage | ProbandDetails              | AgeOfOnset       | WarningMessage                                                                                |
-      | Pedigree      | NHSNumber=NA:DOB=25-11-1986 | 2 years,2 months | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Pedigree      | NHSNumber=NA:DOB=25-11-1987 | 2 years,2 months | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4759 @LOGOUT
 #    @E2EUI-1670
@@ -76,7 +76,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 #    @E2EUI-1126
   Scenario Outline: NTS-4759: Age at death input field validations under Personal tab
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2002:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Pedigree Stage
@@ -95,13 +95,13 @@ Feature: Pedigree - UI Customizations - Non NGIS
     ##Strike Mark on the diagrom not verified - not able to automate
     Examples:
       | PedigreeStage | ProbandDetails              | AgeAtDeath | ErrorMessage                                                     | WarningMessage                                                                                |
-      | Pedigree      | NHSNumber=NA:DOB=25-11-2001 | 20hmy      | Invalid value entered for 'Age of Death' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Pedigree      | NHSNumber=NA:DOB=25-11-2002 | 20hmy      | Invalid value entered for 'Age of Death' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4759 @LOGOUT
 #    @E2EUI-1311 @E2EUI-1230
   Scenario Outline: NTS-4759: Updating Ethnicity Enumerations to Reflect FHIR Definition
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2003:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Pedigree Stage
@@ -153,13 +153,13 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
     Examples:
       | PedigreeStage | ProbandDetails              | WarningMessage                                                                                |
-      | Pedigree      | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Pedigree      | NHSNumber=NA:DOB=25-11-2003 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4759 @LOGOUT
 #    @E2EUI-1105 @E2EUI-1030 @E2EUI-1165
   Scenario Outline: NTS-4759: Add additional non-tested family member
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2004:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Family Member
@@ -192,14 +192,14 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
     Examples:
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
-      | Family members | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Family members | NHSNumber=NA:DOB=25-11-2004 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4796 @LOGOUT
 #    @E2EUI-1138 @E2EUI-933
   Scenario Outline: NTS-4796: editing panel – Personal tab
     ##Note: E2EUI-933 talks about pedigree diagram embedded as part of NGIS app - Can be part of any diagram click ticket
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2005:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     ##Family Member
@@ -274,7 +274,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
     Examples:
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
-      | Family members | NHSNumber=NA:DOB=25-11-2001 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+      | Family members | NHSNumber=NA:DOB=25-11-2005 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
   @NTS-4796 @LOGOUT
 #    @E2EUI-1345 @E2EUI-1160
