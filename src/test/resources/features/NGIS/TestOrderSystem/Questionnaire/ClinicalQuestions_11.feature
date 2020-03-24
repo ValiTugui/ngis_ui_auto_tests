@@ -7,6 +7,7 @@ Feature: ClinicalQuestions 11 - RD Questionnaire
   Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
   @NTS-3209 @LOGOUT
@@ -31,16 +32,16 @@ Feature: ClinicalQuestions 11 - RD Questionnaire
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     And  the user selects "<diseaseStatueValue>"
     When the user provided the values "<year>" "<month>" for Age of onset fields
     And the user does not see an error message on the page
     Examples:
-      | stage              | title                     | diseaseStatueValue | year | month |
-      | Clinical questions | Answer clinical questions | Affected           | 1    | 2     |
-      | Clinical questions | Answer clinical questions | Affected           | 2    | 8     |
-      | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
-      | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
+      | stage              | diseaseStatueValue | year | month |
+      | Clinical questions | Affected           | 1    | 2     |
+      | Clinical questions | Affected           | 2    | 8     |
+      | Clinical questions | Affected           | 3    | 1     |
+      | Clinical questions | Affected           | 0    | 0     |
 
   @NTS-3346 @LOGOUT
 #    @E2EUI-995
