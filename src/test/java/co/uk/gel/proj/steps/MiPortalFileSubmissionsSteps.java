@@ -47,7 +47,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -93,7 +93,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("the search criteria badge disappears")
     public void theSearchCriteriaBadgeDisappears() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 

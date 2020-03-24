@@ -78,6 +78,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
     public WebElement resetButton;
 
+    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
+    public WebElement badgeFilterSearchCriteria;
+
     @FindBy(xpath = "//h3[text()='Search Results']")
     public WebElement searchResultTitle;
 
@@ -126,6 +129,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//label[text()='Hide']")
     public WebElement headerHide;
+
+    String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
 
 
     public boolean navigateToMiPage(String expectedMipage) {
@@ -227,6 +232,42 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Actual values are not displayed");
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
             return null;
+        }
+    }
+
+    public boolean badgeFilterSearchCriteriaIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
+            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is displayed");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is not found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is not found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
+        try {
+            Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
+            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is NOT displayed as expected");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is found");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
+            return false;
         }
     }
 
@@ -462,6 +503,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean getTheTotalNumberOfSearchResult(int size) {
         try {
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, searchResultRowHeader);
             if (!(searchResultTable.size() <= size)) {
                 Debugger.println("Pagination is not working");

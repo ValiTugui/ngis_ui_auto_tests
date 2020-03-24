@@ -196,24 +196,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public boolean badgeFilterSearchCriteriaIsDisplayed() {
-        try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
-            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
-                Debugger.println("badge search criteria is displayed");
-                return true;
-            } else {
-                Debugger.println("badge search criteria element is not found");
-                return false;
-            }
-        } catch (Exception exp) {
-            Debugger.println("badge search criteria element is not found");
-            SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
-            return false;
-        }
-    }
-
     public boolean verifyTheElementsOnFileSubmissionPage() {
         Wait.forElementToBeDisplayed(driver, mainSearchContainer);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
@@ -231,23 +213,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             }
         }
         return true;
-    }
-
-    public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
-        try {
-            Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
-            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
-                Debugger.println("badge search criteria is NOT displayed as expected");
-                return true;
-            } else {
-                Debugger.println("badge search criteria element is found");
-                return false;
-            }
-        } catch (Exception exp) {
-            Debugger.println("badge search criteria element is found");
-            SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
-            return false;
-        }
     }
 
     public List<String> getValuesOfAColumnField(String headerName) {

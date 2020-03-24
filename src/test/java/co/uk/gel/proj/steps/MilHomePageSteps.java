@@ -166,7 +166,7 @@ public class MilHomePageSteps extends Pages {
     public void theSelectedSearchOptionIsResetAfterTest() {
         miPortalHomePage.clickResetButton();
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
