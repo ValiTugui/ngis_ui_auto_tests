@@ -312,7 +312,7 @@ public class ReferralPage<check> {
 
     public boolean clickSaveAndContinueButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
                 Actions.scrollToBottom(driver);
             }
             if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
