@@ -382,4 +382,11 @@ public class ClinicalQuestionsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @Then("the user should be able to see all the fields left blank in clinical questions page")
+    public void theUserShouldBeAbleToSeeAllTheFieldsLeftBlankInClinicalQuestionsPage() {
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifyTheFieldsLeftBlankInClinicalQuestionsPage();
+        Assert.assertTrue(testResult);
+    }
+
 }

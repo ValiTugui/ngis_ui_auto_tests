@@ -310,9 +310,15 @@ public class ReferralPage<check> {
         return element.getText();
     }
 
-    public void clickSaveAndContinueButton() {
+    public boolean clickSaveAndContinueButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+                Actions.scrollToBottom(driver);
+            }
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+                Debugger.println("Save and Continue not visible even after 120 minutes.");
+                return false;
+            }
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
@@ -333,13 +339,15 @@ public class ReferralPage<check> {
                 }
             }
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
+            return true;
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
             SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            return false;
         }
     }
 

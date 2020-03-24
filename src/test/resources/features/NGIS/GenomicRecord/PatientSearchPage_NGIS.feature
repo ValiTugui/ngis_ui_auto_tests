@@ -100,7 +100,7 @@ Feature: Patient search page_NGIS
       | Patient details | NGIS                | NGIS         |
 
   @NTS-2795 @LOGOUT
-#    @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788
+#    @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1883
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, gender and post-code
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
