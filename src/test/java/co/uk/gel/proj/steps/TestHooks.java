@@ -1,9 +1,6 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
-import co.uk.gel.lib.SeleniumLib;
-import co.uk.gel.lib.Actions;
-import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -12,39 +9,31 @@ import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.RequestSpecification;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
-import io.cucumber.java.Before;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.When;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.Spider;
 import net.continuumsecurity.proxy.ZAProxyScanner;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.server.DriverFactory;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.zaproxy.clientapi.core.Alert;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
-import static co.uk.gel.lib.Actions.acceptAlert;
-import static co.uk.gel.lib.Actions.isAlertPresent;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+/*import static co.uk.gel.lib.Actions.acceptAlert;
+import static co.uk.gel.lib.Actions.isAlertPresent;*/
 
 
 public class TestHooks extends Pages {
@@ -451,7 +440,7 @@ public class TestHooks extends Pages {
 
         }
     }
-    @After("@secuirtyscans, @securitytest, @securityscan_cancer , @securityscan_rd , @securitydebugging")
+    @After("@secuirtyscans, @securityscan, @securitytest, @securityscan_cancer , @securityscan_rd , @securitydebugging")
     public void secuirtyScansCancer() {
         secuirtyScans();
     }

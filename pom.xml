@@ -122,6 +122,13 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/org.zaproxy/zap-clientapi -->
+        <dependency>
+            <groupId>org.zaproxy</groupId>
+            <artifactId>zap-clientapi</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
         <dependency>
             <groupId>net.continuumsecurity</groupId>
             <artifactId>zap-java-api</artifactId>
