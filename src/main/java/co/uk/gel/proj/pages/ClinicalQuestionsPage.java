@@ -63,9 +63,6 @@ public class ClinicalQuestionsPage {
     @FindBy(xpath = "//label[contains(@class,'radio')]")
     public List<WebElement> radioButtons;
 
-    @FindBy(xpath = "//input[contains(@class,'radio')]")
-    public List<WebElement> selectedRadioButtons;
-
     @FindBy(xpath = "//td[contains(@class,'hpo-term__modifiers')]//child::div")
     public WebElement hpoModifiersDropdown;
 
@@ -114,8 +111,6 @@ public class ClinicalQuestionsPage {
     @FindBy(css = "[class*='switchable-enum']")
     public WebElement rareDiseaseDiagnosisTable;
 
-    public List<WebElement> rareDiseaseDiagnosisTexts;
-
     @FindBy(xpath = "//span[contains(text(),'Orphanet')]")
     public WebElement orphanetRadioButton;
 
@@ -124,9 +119,6 @@ public class ClinicalQuestionsPage {
 
     @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]")
     public List<WebElement> rareDiseaseDiagnosesRadioButtons;
-
-    @FindBy(xpath = "//label[contains(@class,'switchable-enum__radio')]//input")
-    public List<WebElement> selectedRareDiseaseDiagnosesRadioButtons;
 
     @FindBy(xpath = "//*[contains(@id,'question-id-q114')]")
     public WebElement rareDiseaseDiagnosisStatusDropdown;
@@ -191,6 +183,13 @@ public class ClinicalQuestionsPage {
             // determine the total number of HPO terms Loaded - If selected, it would be minimum one
             Wait.seconds(2);
             int numberOfHPO = hpoTerms.size();
+            if(numberOfHPO < 1){
+                //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
+                SeleniumLib.scrollToElement(hpoSearchField);
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                // determine the total number of HPO terms Loaded - If selected, it would be minimum one
+                Wait.seconds(2);
+            }
             if(numberOfHPO < 1){
                 Debugger.println("No HPO Phenotype has got selected..");
                 SeleniumLib.takeAScreenShot("HPOTerms.jpg");
@@ -898,4 +897,50 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+    public boolean verifyTheFieldsLeftBlankInClinicalQuestionsPage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+            if (!diseaseStatusDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("Disease Status not blank as expected: " + diseaseStatusDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!ageOfOnsetYearsField.getText().isEmpty()) {
+                Debugger.println("AgeOfOnsetYearsField not blank as expected: " + ageOfOnsetYearsField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!ageOfOnsetMonthsField.getText().isEmpty()) {
+                Debugger.println("AgeOfOnsetMonthsField not blank as expected: " + ageOfOnsetMonthsField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!diagnosisField.getText().isEmpty()) {
+                Debugger.println("DiagnosisField not blank as expected: " + diagnosisField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!phenotypicSexDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("AgeOfOnsetMonthsField not blank as expected: " + phenotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!karyotypicSexDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("KaryotypicSexDropdown not blank as expected: " + karyotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheFieldsLeftBlankInClinicalQuestionsPage" + exp);
+            SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+            return false;
+        }
+    }
+
 }

@@ -179,24 +179,35 @@ public class SamplesPage {
     @FindBy(css ="span[class*='checkmark--checked']")
     public WebElement sampleTypeSVGTickMark;
 
-    public void selectSampleType(String type) {
-        Actions.clickElement(driver, sampleType);
-        Actions.selectValueFromDropdown(dropdownValue, type);
-        sampleDetails.setSampleType(type);
-        Wait.seconds(1);
+    public boolean selectSampleType(String type) {
+        try {
+            Actions.clickElement(driver, sampleType);
+            Actions.selectValueFromDropdown(dropdownValue, type);
+            sampleDetails.setSampleType(type);
+            Wait.seconds(1);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from selectSampleType:"+exp);
+            SeleniumLib.takeAScreenShot("selectSampleType.jpg");
+            return false;
+        }
     }
 
     public void selectSampleState() {
-        Wait.isElementDisplayed(driver, sampleState, 30);
-        Actions.clickElement(driver, sampleState);
-        // Counter for number of tries -loop for when error message is triggered upon selecting sample state
-        int numberOfAttempts = 5;
-        Actions.reClickDropDownFieldIfLabelErrorIsShown(driver,fieldsLabelErrors,sampleState,sampleStateLabel,numberOfAttempts);
-        Actions.retrySelectRandomValueFromDropDown(dropdownValues);
-        sampleDetails.setSampleState(Actions.getText(selectedSampleStateValue));
+        try {
+            Wait.isElementDisplayed(driver, sampleState, 30);
+            Actions.clickElement(driver, sampleState);
+            // Counter for number of tries -loop for when error message is triggered upon selecting sample state
+            int numberOfAttempts = 5;
+            Actions.reClickDropDownFieldIfLabelErrorIsShown(driver, fieldsLabelErrors, sampleState, sampleStateLabel, numberOfAttempts);
+            Actions.retrySelectRandomValueFromDropDown(dropdownValues);
+            sampleDetails.setSampleState(Actions.getText(selectedSampleStateValue));
+        }catch(Exception exp){
+
+        }
     }
 
-    public void selectSampleState(String sampleStateValue) {
+    public boolean selectSpecificSampleState(String sampleStateValue) {
       /*
         Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
         // Counter for number of tries - loop for when intermittent error message is triggered upon selecting sample state
@@ -209,26 +220,40 @@ public class SamplesPage {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.clickElement(driver, sampleState);
+            Wait.seconds(2);
+            if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
+                Debugger.println("SampleState Drop values not loaded: ");
+                SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
+                return false;
+            }
             Actions.selectValueFromDropdown(dropdownValue, sampleStateValue);
             sampleDetails.setSampleState(sampleStateValue);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Add Sample Page : Exception from selecting Sample State value : " + exp);
+            Debugger.println("Exception from SelectSpecificSampleState : " + exp);
             SeleniumLib.takeAScreenShot("SelectSampleStateValue.jpg");
+            return false;
         }
     }
 
-    public void fillInSampleID() {
-        Wait.forElementToBeDisplayed(driver, labId);
-        String ID = faker.numerify("S#####");
-        if (Actions.getValue(labId).isEmpty()) {
-            Actions.fillInValue(labId, ID);
-        } else {
-            Actions.clearTextField(labId);
-            Actions.fillInValue(labId, ID);
+    public boolean fillInSampleID() {
+        try {
+            Wait.forElementToBeDisplayed(driver, labId);
+            String ID = faker.numerify("S#####");
+            if (Actions.getValue(labId).isEmpty()) {
+                Actions.fillInValue(labId, ID);
+            } else {
+                Actions.clearTextField(labId);
+                Actions.fillInValue(labId, ID);
+            }
+            sampleDetails.setSampleID(ID);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInSampleID:"+exp);
+            SeleniumLib.takeAScreenShot("fillInSampleID.jpg");
+            return false;
         }
-        sampleDetails.setSampleID(ID);
     }
 
     public void answerSampleTopography(String value) {
@@ -364,12 +389,19 @@ public class SamplesPage {
     }
 
     public boolean verifySearchIconInsideSampleStateField() {
-        // Find elements
-        Wait.forElementToBeDisplayed(driver, sampleState);
-        if (!seleniumLib.isElementPresent(sampleStateSearchIcon)) {
+        try {
+            Wait.forElementToBeDisplayed(driver, sampleState);
+            if (!Wait.isElementDisplayed(driver, sampleStateSearchIcon, 10)) {
+                Debugger.println("Sample State Search Icon could not locate:");
+                SeleniumLib.takeAScreenShot("SampleStateSearch.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifySearchIconInsideSampleStateField:"+exp);
+            SeleniumLib.takeAScreenShot("SampleStateSearch.jpg");
             return false;
         }
-        return true;
     }
 
     public List<String> getTheFieldPlaceHolderTextOnAddASamplePage() {
@@ -386,17 +418,23 @@ public class SamplesPage {
     }
 
     public boolean verifyTheSubPageTitle(String expectedSubPageTitle) {
-        By actualSubPageTitle = By.xpath("//p[contains(text(),'" + expectedSubPageTitle + "')]");
-        if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
-            Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
+        try {
+            By actualSubPageTitle = By.xpath("//p[contains(text(),'" + expectedSubPageTitle + "')]");
             if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
-                Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
-                return false;
+                Wait.forElementToBeDisplayed(driver, driver.findElement(actualSubPageTitle));
+                if (!seleniumLib.isElementPresent(actualSubPageTitle)) {
+                    Debugger.println("Expected title :" + expectedSubPageTitle + " not loaded in the page.");
+                    return false;
+                }
             }
+            //Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
+            //Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyTheSubPageTitle:"+exp);
+            SeleniumLib.takeAScreenShot("verifyTheSubPageTitle.jpg");
+            return false;
         }
-        Debugger.println("Actual Add-Sample sub-title :" + driver.findElement(actualSubPageTitle).getText());
-        Debugger.println("Expected Add-Sample sub-title :" + expectedSubPageTitle);
-        return true;
     }
 
     public List<String> getTheSampleStateDropDownValues() {
@@ -411,8 +449,20 @@ public class SamplesPage {
         return actualSampleStateValues;
     }
 
-    public void selectSampleFromLandingPage() {
-        Actions.retryClickAndIgnoreElementInterception(driver, editSampleButton);
+    public boolean selectSampleFromLandingPage() {
+        try {
+            if(!Wait.isElementDisplayed(driver,editSampleButton,30)){
+                Debugger.println("Edit Sample type option not present.");
+                SeleniumLib.takeAScreenShot("editSample.jpg");
+                return false;
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, editSampleButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from selectSampleFromLandingPage:"+exp);
+            SeleniumLib.takeAScreenShot("editSample.jpg");
+            return false;
+        }
     }
 
     public List<String> getTheSampleDetailsOnEditASamplePage() {

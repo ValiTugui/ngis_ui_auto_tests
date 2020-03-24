@@ -155,6 +155,10 @@ public class TestPackagePage {
 
     public boolean selectNumberOfParticipants(int number) {
         try {
+            if(!Wait.isElementDisplayed(driver,routinePriorityButton,30)){
+                Debugger.println("TestPackage Not loaded.");
+
+            }
             Wait.forElementToBeDisplayed(driver, routinePriorityButton);
             Wait.forElementToBeDisplayed(driver, testCardBody);
             Wait.forElementToBeDisplayed(driver, numberOfParticipants);

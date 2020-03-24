@@ -9,6 +9,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
   Scenario Outline: NTS-3428: Editing Patient choice for a Child in person
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     When the user edits the patient choice status

@@ -47,7 +47,9 @@ public class ReferralSteps extends Pages {
 
     @And("the user clicks the Save and Continue button")
     public void theUserClicksTheSaveAndContinueButton() {
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @Given("a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service")
@@ -160,7 +162,9 @@ public class ReferralSteps extends Pages {
 
     @Then("the {string} stage is selected")
     public void theStageIsSelected(String newStage) {
-        Assert.assertTrue(referralPage.stageIsSelected(newStage));
+        boolean testResult = false;
+        testResult = referralPage.stageIsSelected(newStage);
+        Assert.assertTrue(testResult);
     }
 
     @And("the {string} stage is marked as Completed")
@@ -372,7 +376,7 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.clicksOnCancelReferralLink();
         Assert.assertTrue(testResult);
     }
-    
+
     @Then("the message should display as {string}")
     public void theMessageShouldDisplayAs(String revokeMessage) {
         boolean testResult = false;
@@ -569,19 +573,17 @@ public class ReferralSteps extends Pages {
 
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         Assert.assertTrue(homePage.searchForTheTest(searchTerm));
-
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        boolean stepResult = false;
+        stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        Assert.assertTrue(stepResult);
         paperFormPage.clickSignInToTheOnlineServiceButton();
         Debugger.println("User Type : " + userType);
         if(userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
         }
         switchToURL(driver.getCurrentUrl(), userType);
-        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
-        if(!searchPageLoaded){
-            Debugger.println("Search Page Could not load Properly:");
-            Assert.assertFalse("Search Page not loaded successfully.",true);
-        }
+        stepResult = referralPage.verifyThePageTitlePresence("Find your patient");
+        Assert.assertTrue(stepResult);
         //Create NGIS Patient with the given Details and the use for referral Creation
         NGISPatientModel searchPatient = new NGISPatientModel();
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(referralDetails);
@@ -733,7 +735,15 @@ public class ReferralSteps extends Pages {
         String actualSourcePageSourceTitle = referralPage.logoutSuccessMessageIsDisplayed();
         String expectedPageSourceTitle = "Sign out";
         Debugger.println("Expected :" + expectedPageSourceTitle + " : " + "Actual "  + actualSourcePageSourceTitle);
-        Assert.assertEquals(expectedPageSourceTitle, actualSourcePageSourceTitle);
+        if(actualSourcePageSourceTitle != null) {
+            if(!expectedPageSourceTitle.equalsIgnoreCase(actualSourcePageSourceTitle)) {
+                SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+                Assert.assertFalse("Logout Message not displayed as expected:"+expectedPageSourceTitle,true);
+            }
+        }else{
+            SeleniumLib.takeAScreenShot("LogoutMessage.jpg");
+            Assert.assertFalse("Logout Message not displayed.",true);
+        }
     }
 
     @And("the page url address contains the directory-path web-page {string}")
@@ -847,6 +857,12 @@ public class ReferralSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
+    @And("the NHS display format as {string} in patient card")
+    public void theUserVerifiesTheNHSFormatInPatientCard(String nhsFormat) {
+        boolean testResult = false;
+        testResult = referralPage.verifyNHSDisplayFormatInPatientCard(nhsFormat);
+        Assert.assertTrue(testResult);
+    }
 
     @And("the user retrieve the referral HumanReadable-ID from the referral page url")
     public void theUserRetrieveTheReferralHumanReadableIDFromTheReferralPageUrl() {
@@ -921,16 +937,17 @@ public class ReferralSteps extends Pages {
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
         List<String> actualMandatoryStages = referralPage.getTheListOfMandatoryStagesOnDialogBox();
         for (int i = 0; i < expectedList.size(); i++) {
-            Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
-            Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
+            //Debugger.println("Expected mandatory stages: " + i + " : " + expectedList.get(i).get("MandatoryStagesToComplete"));
+            //Debugger.println("Actual mandatory stages: " + i + " : " + actualMandatoryStages.get(i));
             Assert.assertEquals(expectedList.get(i).get("MandatoryStagesToComplete"), actualMandatoryStages.get(i));
         }
     }
 
     @And("the user clicks on the mandatory stage {string} in the dialog box")
     public void theUserClicksOnTheMandatoryStageInTheDialogBox(String mandatoryStageTextLink) {
-        boolean flag = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
-        Assert.assertTrue(flag);
+        boolean testResult = false;
+        testResult = referralPage.clickOnTheMandatoryStageTextLinkInDialogBox(mandatoryStageTextLink);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see same referral id in the global banner and the url")

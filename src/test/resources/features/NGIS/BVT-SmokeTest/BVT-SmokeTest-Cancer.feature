@@ -3,7 +3,6 @@
 #@BVT_UI_SMOKE_TEST_CANCER
 Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
    
-
   @NTS-3362 @LOGOUT
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -52,7 +51,8 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
     #Samples 2 - Add Normal or Germline Sample
     And the user navigates to the "<samples>" stage
@@ -70,7 +70,8 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
     And the user navigates to the "<notes>" stage
     Then the "<notes>" stage is selected

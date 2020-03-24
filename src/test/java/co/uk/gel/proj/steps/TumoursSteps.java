@@ -136,13 +136,17 @@ public class TumoursSteps extends Pages {
 
     @And("the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation {string}")
     public void theUserAnswersTheTumourDynamicQuestionsForTumourCoreDataBySelectingTheTumourPresentation(String tumourPresentation) {
-        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
+        boolean testResult = false;
+        testResult = tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(tumourPresentation);
+        Assert.assertTrue(testResult);
     }
 
 
     @And("the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched {string} result drop list")
     public void theUserAnswersTheTumourDynamicQuestionsForTumourDiagnosisBySelectingASnomedCTFromTheSearchedResultDropList(String snomedTest) {
-        tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
+        boolean testResult = false;
+        testResult = tumoursPage.answerTumourDiagnosisQuestions(snomedTest);
+        Assert.assertTrue(testResult);
     }
 
 

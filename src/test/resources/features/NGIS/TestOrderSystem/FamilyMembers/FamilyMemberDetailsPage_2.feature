@@ -9,6 +9,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1970:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -50,6 +51,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-3342: Update FamilyMember card to use PatientIndentifiers in Test package and Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<Family member>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -57,7 +59,7 @@ Feature: Family Members Details Page - Field Validation_2
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
@@ -77,8 +79,8 @@ Feature: Family Members Details Page - Field Validation_2
     Then the user is navigated to a page with title Patient choice
 
     Examples:
-      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     | Patient Choice |
-      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected | Patient choice |
+      | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
+      | Family members | NHSNumber=9449310157:DOB=15-01-2000 | Full Sibling          | DiseaseStatus=Unaffected |
 
   @NTS-3475
 #    @E2EUI-2090 @v_1 @P1
@@ -103,7 +105,7 @@ Feature: Family Members Details Page - Field Validation_2
       | Requesting organisation | Queen                | Family members | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. |
 
   @NTS-4413 @LOGOUT
-#    @E2EUI-833 @E2EUI-1880 @LOGOUT @Scenario1
+#    @E2EUI-833 @E2EUI-1880 @Scenario1
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
@@ -139,6 +141,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-4409: Remove diagnosis Age at Onset
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -146,7 +149,7 @@ Feature: Family Members Details Page - Field Validation_2
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
@@ -161,6 +164,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline:NTS-4380: Validate the Relationship to proband drop down values to check the order of the drop down is logical
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -172,13 +176,13 @@ Feature: Family Members Details Page - Field Validation_2
     Then the message "No patient found" is displayed below the search button
     Then the user clicks on the create new patient record
     And the user is navigated to a page with title Add a new patient to the database
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband | relationShipType |
-      | Family members | Patient is a foreign national | Father                | Father           |
+      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |
+      | Family members | Patient is a foreign national | Father                |
 
 
   @NTS-4053 @LOGOUT
@@ -187,6 +191,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-4053 - To verify that Auto filled should not be enabled for search fields in family member page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
@@ -201,6 +206,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
@@ -213,6 +219,7 @@ Feature: Family Members Details Page - Field Validation_2
   Scenario Outline:NTS-4019: Assign family members to specific tests
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -221,7 +228,7 @@ Feature: Family Members Details Page - Field Validation_2
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
     Then the user is navigated to a page with title Confirm family member details
-    When the user selects the Relationship to proband as "<RelationshipToProband>"
+    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
