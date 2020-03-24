@@ -48,7 +48,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "file_submissions-search-add")
     public WebElement addButton;
 
-    @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span")
+    // //div[@id='file_submissions-search-search_term_pills']/span
+    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
     public WebElement badgeFilterSearchCriteria;
 
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")

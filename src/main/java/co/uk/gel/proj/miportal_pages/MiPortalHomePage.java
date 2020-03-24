@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,11 +87,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download CSV')]")
     public WebElement downloadCSVButton;
 
+    @FindBy(xpath = "//div[contains(@class,'active')]//table[contains(@id,'DataTables_Table')]//tbody/tr")
+    public List<WebElement> searchResultTable;
+
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
     public WebElement searchResultRowHeader;
 
     @FindBy(xpath = "//select[contains(@name,'DataTables_Table')]")
     public WebElement searchResultEntryOptionsSelection;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//label[contains(string(),'Show')]//select")
+    public WebElement defaultPaginationEntryOptionsValue;
 
     @FindBy(css = "div[class*='modal-content']")
     public WebElement displayOptionsModalContent;
@@ -413,6 +420,60 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("No element shown.");
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
             return null;
+        }
+    }
+
+    public String getTheSelectedPaginationEntryValue() {
+        try {
+            Wait.forElementToBeDisplayed(driver, searchResultEntryOptionsSelection);
+            Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
+            if (!Wait.isElementDisplayed(driver, defaultPaginationEntryOptionsValue, 10)) {
+                Debugger.println("No defaultPaginationEntryOptionsValue element shown.");
+                SeleniumLib.takeAScreenShot("NodDefaultPaginationEntryOptionsElement.jpg");
+                return null;
+            }
+            return Actions.getText(defaultPaginationEntryOptionsValue);
+        } catch (Exception exp) {
+            Debugger.println("No element shown.");
+            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            return null;
+        }
+    }
+
+    public List<String> getAllThePaginationEntryDropDownValues() {
+        Wait.seconds(3);
+        Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
+        Select paginationSelect = new Select(defaultPaginationEntryOptionsValue);
+        List<WebElement> allOptionsElement = paginationSelect.getOptions();
+        List<String> allOptions = new ArrayList<>();
+        for (WebElement optionElement : allOptionsElement) {
+            allOptions.add(optionElement.getText());
+        }
+        Debugger.println("Options are " + allOptions);
+        return allOptions;
+    }
+
+    public void selectValueInPagination(String valueToSelect) {
+        Wait.seconds(5);
+        Wait.forElementToBeDisplayed(driver, defaultPaginationEntryOptionsValue);
+        Select paginationSelect = new Select(defaultPaginationEntryOptionsValue);
+        paginationSelect.selectByVisibleText(valueToSelect);
+    }
+
+    public boolean getTheTotalNumberOfSearchResult(int size) {
+        try {
+            Wait.forElementToBeDisplayed(driver, searchResultRowHeader);
+            if (!(searchResultTable.size() <= size)) {
+                Debugger.println("Pagination is not working");
+                SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+                return false;
+            }
+            Debugger.println("The total search result is " + searchResultTable.size());
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("No element shown.");
+            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            return false;
         }
     }
 
