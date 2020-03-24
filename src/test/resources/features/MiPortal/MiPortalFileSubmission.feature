@@ -346,7 +346,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Status | is       | Invalid | Status       | invalid    |
 
   @NTS-4938
-  Scenario Outline: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
+  Scenario Outline: NTS-4938: Remove glh_laboratory_id and ordering_entity_id from filesubmissions endpoint
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
