@@ -166,7 +166,7 @@ public class MilHomePageSteps extends Pages {
     public void theSelectedSearchOptionIsResetAfterTest() {
         miPortalHomePage.clickResetButton();
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -186,6 +186,7 @@ public class MilHomePageSteps extends Pages {
 
     @And("the user sees the displayed fields-columns under {string} section")
     public void theUserSeesTheDisplayedFieldsColumnsUnderSection(String expColumnHeaderStatus, DataTable dataTable) {
+        Wait.seconds(2);
         List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
         List actualListOfColumnHeaders = null;
 
@@ -208,5 +209,51 @@ public class MilHomePageSteps extends Pages {
     @And("the user selects a value {string} from the {string} value drop-down")
     public void theUserSelectsAValueFromTheValueDropDown(String value, String dropDownButton) {
         miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
+    }
+
+
+    @And("the user sees the search results pagination entry drop-down with default selection of {string}")
+    public void theUserSeesTheSearchResultsPaginationEntryDropDownWithDefaultSelectionOf(String expectedEntryPagination) {
+        String actualEntryPagination = miPortalHomePage.getTheSelectedPaginationEntryValue();
+        Debugger.println("ExpectedEntry: " + expectedEntryPagination + " : ActualEntry :" + actualEntryPagination);
+        Assert.assertTrue(actualEntryPagination.contains(expectedEntryPagination));
+    }
+
+    @And("the user sees all the drop-down values in the search results pagination entry selection")
+    public void theUserSeesAllTheDropDownValuesInTheSearchResultsPaginationEntrySelection(DataTable dataTable) {
+        List<Map<String, String>> expectedPaginationDropDownValues = dataTable.asMaps(String.class, String.class);
+        List actualPaginationDropDownValues = miPortalHomePage.getAllThePaginationEntryDropDownValues();
+
+        for (int i = 0; i < expectedPaginationDropDownValues.size(); i++) {
+            Debugger.println("Expected " + expectedPaginationDropDownValues.get(i).get("paginationDropDownValues") + " : Actual : " + actualPaginationDropDownValues.get(i));
+            Assert.assertEquals(expectedPaginationDropDownValues.get(i).get("paginationDropDownValues"), actualPaginationDropDownValues.get(i));
+        }
+    }
+
+    @When("the user selects a pagination drop-down value {string}")
+    public void theUserSelectsAPaginationDropDownValue(String paginationValue) {
+        miPortalHomePage.selectValueInPagination(paginationValue);
+    }
+
+    @And("the user sees the search result table updated with {string} results")
+    public void theUserSeesTheSearchResultTableUpdatedWithResults(String paginationValue) {
+        int value = Integer.parseInt(paginationValue);
+        boolean testResult = false;
+        testResult = miPortalHomePage.getTheTotalNumberOfSearchResult(value);
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page")
+    public void theUserSeesTheButtonsShowAllAndHideAllButtonsUnderColumnOrderingSectionOnModalContentPage() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyTheButtonsShowAllAndHideAllAreDisplayedOnModalContent();
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the button {string}")
+    public void theUserClicksOnTheButton(String showOrHideButton) {
+        miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
     }
 }
