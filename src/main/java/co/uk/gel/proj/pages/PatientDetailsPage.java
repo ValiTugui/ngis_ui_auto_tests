@@ -126,6 +126,10 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
+    @FindBy(xpath = "//button[text()='Create record']")
+    public WebElement createRecord;
+
+
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public List<WebElement> updateNGISRecordButtonList;
 
@@ -141,7 +145,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Start a new referral']")
     public WebElement startNewReferralButton;
 
-    @FindBy(css = "*[data-testid*='notification-success']")
+    //@FindBy(css = "*[data-testid*='notification-success']")
+    @FindBy(xpath = "//div[@data-testid='notification-success']//span")
     public WebElement successNotification;
 
     @FindBy(xpath = "//*[text()='Go back to patient search']")
@@ -390,20 +395,40 @@ public class PatientDetailsPage {
         }
     }
 
-    public void clickSavePatientDetailsToNGISButton() {
+//    public void clickSavePatientDetailsToNGISButton() {
+//        try {
+//            Wait.forElementToBeClickable(driver, savePatientDetailsToNGISButton);
+//            Click.element(driver, savePatientDetailsToNGISButton);
+//        } catch (Exception exp) {
+//            Debugger.println("Exception from Clicking on SavePatientDetailsToNGISButton:" + exp);
+//            SeleniumLib.takeAScreenShot("NosavePatientDetailsToNGISButton.jpg");
+//        }
+//    }
+    public boolean clickOnCreateRecord() {
         try {
-            Wait.forElementToBeClickable(driver, savePatientDetailsToNGISButton);
-            Click.element(driver, savePatientDetailsToNGISButton);
+            if(!Wait.isElementDisplayed(driver,createRecord,30)){
+                Debugger.println("Create Record button not present in new patient creation page.");
+                SeleniumLib.takeAScreenShot("CreateRecord.jpg");
+                return false;
+            }
+            Wait.forElementToBeClickable(driver, createRecord);
+            Click.element(driver, createRecord);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on SavePatientDetailsToNGISButton:" + exp);
-            SeleniumLib.takeAScreenShot("NosavePatientDetailsToNGISButton.jpg");
+            Debugger.println("Exception in clickOnCreateRecord:" + exp);
+            SeleniumLib.takeAScreenShot("CreateRecord.jpg");
+            return false;
         }
     }
 
     public boolean patientIsCreated() {
         try {
-            Wait.forElementToBeDisplayed(driver, successNotification, 30);
-            if (Actions.getText(successNotification).equalsIgnoreCase("Details saved")) {
+            if(!Wait.isElementDisplayed(driver,successNotification,30)){
+                Debugger.println("NGIS Patient Created Message not displayed.");
+                SeleniumLib.takeAScreenShot("PatientNoCreated.jpg");
+                return false;
+            }
+            if (Actions.getText(successNotification).equalsIgnoreCase("NGIS patient record created")) {
                 return true;
             }
             Debugger.println("Patient Referral Creation Success Message not displayed: Pls check PatientNotCreated.jpg");
@@ -412,20 +437,24 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception in creating the patient." + exp);
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
-            Assert.assertTrue("Patient could not create.Pls check PatientNotCreated.jpg", false);
             return false;
         }
     }
 
-    public void clickStartReferralButton() {
+    public boolean clickStartReferralButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, startReferralButton);
+            if(!Wait.isElementDisplayed(driver,startReferralButton,10)){
+                Debugger.println("Start Referral Button not displayed.");
+                SeleniumLib.takeAScreenShot("StartReferral.jpg");
+                return false;
+            }
             Actions.clickElement(driver, startReferralButton);
-            Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+           // Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+            return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
-            SeleniumLib.takeAScreenShot("StartReferralButton.jpg");
-            Assert.assertFalse("PatientDetailsPage: clickStartReferralButton. Exception:" + exp, true);
+            SeleniumLib.takeAScreenShot("StartReferral.jpg");
+            return false;
         }
     }
 
@@ -987,14 +1016,19 @@ public class PatientDetailsPage {
                 Assert.assertTrue(false);
             }
             //Adding Patient to NGIS
-            clickSavePatientDetailsToNGISButton();
+            //clickSavePatientDetailsToNGISButton();
+            if(!clickOnCreateRecord()){
+                return false;
+            }
             if (!patientIsCreated()) {
+                return false;
+            }
+            if(!clickStartReferralButton()){
                 return false;
             }
             //Adding referral to to a list for later stage verification, if needed
             FamilyMemberDetailsPage.addFamilyMemberToList(referralDetails);
             Debugger.println("Referral Added to List: NHS:" + referralDetails.getNHS_NUMBER() + ",DOB:" + referralDetails.getDATE_OF_BIRTH() + ",LNAME:" + referralDetails.getLAST_NAME() + ",FNAME:" + referralDetails.getFIRST_NAME());
-            clickStartNewReferralButton();
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in creating new Referral:" + exp);
@@ -1021,7 +1055,8 @@ public class PatientDetailsPage {
                 clickStartReferralButton();
             } else if (savePatientDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Save Patient Details button shown");
-                clickSavePatientDetailsToNGISButton();
+                //clickSavePatientDetailsToNGISButton();
+                clickOnCreateRecord();
                 patientIsCreated();
                 clickStartNewReferralButton();
             }

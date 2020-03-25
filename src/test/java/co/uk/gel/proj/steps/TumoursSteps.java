@@ -310,11 +310,11 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 
-
     @And("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
     public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
-
-        tumoursPage.clickEditTumourArrow();
+        boolean testResult = false;
+        testResult = tumoursPage.clickEditTumourArrow();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")

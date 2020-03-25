@@ -84,33 +84,33 @@ public class ReferralSteps extends Pages {
         patientSearchPage.clickPatientCard();
 
         // Check condition for different scenarios when referral submit button is displayed
-        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {  // AddDetailsToNGISButton is shown when adding SPINE data
-            Debugger.println("Add Patient Details button shown");
-            Wait.seconds(1);
-
-            //https://jira.extge.co.uk/browse/E2EUI-2499 - Ethnicity is now a mandatory field, hence Ethnicity field - for SPINE data need to be updated with a value in Patient Details
-            if (Wait.isElementDisplayed(driver, patientDetailsPage.ethnicityButton, 15)) {
-                String ethnicityFieldCurrentValue = Actions.getText(patientDetailsPage.ethnicityButton);
-                if (ethnicityFieldCurrentValue.equalsIgnoreCase("Select..."))
-                {
-                    patientDetailsPage.addPatientEthnicity("A - White - British");
-                }
-            }
-            Debugger.println("New Ethnicity " + Actions.getText(patientDetailsPage.ethnicityButton));
-            patientDetailsPage.clickAddDetailsToNGISButton();
-            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
-            Debugger.println("Update Patient Details button shown");
-            patientDetailsPage.updateNGISRecordButton.click();
-            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
-            Debugger.println("Save Patient Details button shown");
-            patientDetailsPage.clickSavePatientDetailsToNGISButton();
-            patientDetailsPage.patientIsCreated();
-            patientDetailsPage.clickStartNewReferralButton();
-        }
+//        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {  // AddDetailsToNGISButton is shown when adding SPINE data
+//            Debugger.println("Add Patient Details button shown");
+//            Wait.seconds(1);
+//            //https://jira.extge.co.uk/browse/E2EUI-2499 - Ethnicity is now a mandatory field, hence Ethnicity field - for SPINE data need to be updated with a value in Patient Details
+//            if (Wait.isElementDisplayed(driver, patientDetailsPage.ethnicityButton, 15)) {
+//                String ethnicityFieldCurrentValue = Actions.getText(patientDetailsPage.ethnicityButton);
+//                if (ethnicityFieldCurrentValue.equalsIgnoreCase("Select..."))
+//                {
+//                    patientDetailsPage.addPatientEthnicity("A - White - British");
+//                }
+//            }
+//            Debugger.println("New Ethnicity " + Actions.getText(patientDetailsPage.ethnicityButton));
+//            patientDetailsPage.clickAddDetailsToNGISButton();
+//            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+//            patientDetailsPage.clickStartReferralButton();
+//        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
+//            Debugger.println("Update Patient Details button shown");
+//            patientDetailsPage.updateNGISRecordButton.click();
+//            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
+//            patientDetailsPage.clickStartReferralButton();
+//        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
+//            Debugger.println("Save Patient Details button shown");
+//            patientDetailsPage.clickSavePatientDetailsToNGISButton();
+//
+//            patientDetailsPage.patientIsCreated();
+//            patientDetailsPage.clickStartNewReferralButton();
+//        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
@@ -243,9 +243,17 @@ public class ReferralSteps extends Pages {
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickStartNewReferralButton();
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
@@ -346,9 +354,17 @@ public class ReferralSteps extends Pages {
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickStartNewReferralButton();
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
@@ -468,9 +484,17 @@ public class ReferralSteps extends Pages {
             SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
             Assert.assertTrue(false);
         }
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickStartNewReferralButton();
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
         referralPage.checkThatReferralWasSuccessfullyCreated();
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();

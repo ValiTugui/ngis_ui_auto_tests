@@ -9,7 +9,7 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
-  @NTS-3439 @LOGOUT
+  @NTS-34391 @LOGOUT
 #    @E2EUI-1443 @E2EUI-918
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 1 - verify the 'Save and Continue' button on the Clinical Questions stage
     And the user navigates to the "<stage>" stage

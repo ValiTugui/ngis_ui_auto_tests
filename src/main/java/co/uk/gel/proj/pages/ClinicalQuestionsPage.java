@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import cucumber.api.java.hu.De;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -49,7 +50,7 @@ public class ClinicalQuestionsPage {
 
     //Adding family members in a loop, the orginal xpath is getting changed
     @FindBy(xpath = "//input[contains(@id,'react-select-')]")
-    public WebElement hpoSearchField;
+    public List<WebElement> hpoSearchField;
 
     @FindBy(css = "*[class*='hpo-term__name']")
     public List<WebElement> hpoTermNames;
@@ -157,18 +158,23 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            if(!Wait.isElementDisplayed(driver,hpoSearchField,10)) {
+            if(hpoSearchField.size() < 1){
+                Debugger.println("HPO Search field not displayed.");
+                SeleniumLib.takeAScreenShot("HPOSearchField.jpg");
+                return 0;
+            }
+            if(!Wait.isElementDisplayed(driver,hpoSearchField.get(0),10)) {
                 Debugger.println("HPO Phenotype search field is not visible.");
                 SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch.jpg");
                 //Scroll to the element and try
-                SeleniumLib.scrollToElement(hpoSearchField);
-                if(!Wait.isElementDisplayed(driver,hpoSearchField,10)){
+                SeleniumLib.scrollToElement(hpoSearchField.get(0));
+                if(!Wait.isElementDisplayed(driver,hpoSearchField.get(0),10)){
                     Debugger.println("Scrolled to HPO Phenotype search field, still not displayed.");
                     SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch1.jpg");
                     Actions.scrollToTop(driver);
                 }
             }
-            hpoSearchField.sendKeys(hpoTerm);
+            hpoSearchField.get(0).sendKeys(hpoTerm);
             if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
                 Debugger.println("HPO Phenotype options are not loaded for search term:"+hpoTerm);
                 SeleniumLib.takeAScreenShot("HPOPhenoTypeDDValues.jpg");
@@ -185,7 +191,7 @@ public class ClinicalQuestionsPage {
             int numberOfHPO = hpoTerms.size();
             if(numberOfHPO < 1){
                 //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
-                SeleniumLib.scrollToElement(hpoSearchField);
+                SeleniumLib.scrollToElement(hpoSearchField.get(0));
                 Actions.selectByIndexFromDropDown(dropdownValues, 0);
                 // determine the total number of HPO terms Loaded - If selected, it would be minimum one
                 Wait.seconds(2);
@@ -211,11 +217,31 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
-        Wait.seconds(2);
-        Wait.forElementToBeDisplayed(driver, hpoTable);
-        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
-        String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
-        return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
+        try {
+            Wait.seconds(2);
+            if(!Wait.isElementDisplayed(driver, hpoTable,10)){
+                Debugger.println("hpoTable not loaded..");
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            if(hpoTermNames.size() < 1){
+                Debugger.println("hpoTermNames not loaded..");
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+            String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
+            if(!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow)){
+                Debugger.println("Expected HPOTerms in first Row:"+expectedHPOTermToBeDisplayedInTheFirstRow+",Actual:"+actualHPOTermDisplayedInTheFirstRow);
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:"+exp);
+            SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+            return false;
+        }
     }
 
     public String searchAndSelectSpecificDiagnosis(String diagnosis) {
@@ -424,7 +450,11 @@ public class ClinicalQuestionsPage {
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {
             Wait.seconds(5);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField, "Nephritis");
+            if(hpoSearchField.size() < 1){
+                Debugger.println("HPO");
+                return false;
+            }
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField.get(0), "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
             int i = 0;

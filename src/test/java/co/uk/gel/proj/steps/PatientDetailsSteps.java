@@ -49,10 +49,13 @@ public class PatientDetailsSteps extends Pages {
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        boolean flag = false;
-        flag = patientDetailsPage.patientIsCreated();
-        Assert.assertTrue(flag);
+        ///patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+       if(!patientDetailsPage.patientIsCreated()) {
+           Assert.assertTrue(false);
+       }
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -266,10 +269,13 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        boolean flag = false;
-        flag = patientDetailsPage.patientIsCreated();
-        Assert.assertTrue(flag);
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()) {
+            Assert.assertTrue(false);
+        }
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
@@ -285,7 +291,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Save patient details to NGIS button")
     public void theUserClicksTheSavePatientDetailsToNGISButton() {
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.clickOnCreateRecord();
     }
 
     @Then("the patient is successfully created with a message {string}")
