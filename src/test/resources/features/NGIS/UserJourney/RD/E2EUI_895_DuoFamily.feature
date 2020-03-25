@@ -3,7 +3,7 @@
   ## This is for testing purpose as we see many failures in the add family member section
 Feature: NTS-3407 - RD flow - Adding Duo family
 
-  @NTS-3407  @LOGOUT
+  @NTS-3377  @LOGOUT
 #    @E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 

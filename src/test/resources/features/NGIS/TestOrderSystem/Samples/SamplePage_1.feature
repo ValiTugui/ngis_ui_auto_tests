@@ -6,7 +6,7 @@
 Feature: Samples Page -1
 
   @NTS-32871 @LOGOUT
-#    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @E2EUI-1467 @E2EUI-962
+#    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @E2EUI-1467 @E2EUI-962 @E2EUI-2782
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |

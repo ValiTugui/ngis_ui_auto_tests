@@ -184,6 +184,13 @@ public class ClinicalQuestionsPage {
             Wait.seconds(2);
             int numberOfHPO = hpoTerms.size();
             if(numberOfHPO < 1){
+                //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
+                SeleniumLib.scrollToElement(hpoSearchField);
+                Actions.selectByIndexFromDropDown(dropdownValues, 0);
+                // determine the total number of HPO terms Loaded - If selected, it would be minimum one
+                Wait.seconds(2);
+            }
+            if(numberOfHPO < 1){
                 Debugger.println("No HPO Phenotype has got selected..");
                 SeleniumLib.takeAScreenShot("HPOTerms.jpg");
                 return 0;
@@ -890,4 +897,50 @@ public class ClinicalQuestionsPage {
             return false;
         }
     }
+    public boolean verifyTheFieldsLeftBlankInClinicalQuestionsPage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, diseaseStatusDropdown);
+            if (!diseaseStatusDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("Disease Status not blank as expected: " + diseaseStatusDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!ageOfOnsetYearsField.getText().isEmpty()) {
+                Debugger.println("AgeOfOnsetYearsField not blank as expected: " + ageOfOnsetYearsField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!ageOfOnsetMonthsField.getText().isEmpty()) {
+                Debugger.println("AgeOfOnsetMonthsField not blank as expected: " + ageOfOnsetMonthsField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!diagnosisField.getText().isEmpty()) {
+                Debugger.println("DiagnosisField not blank as expected: " + diagnosisField.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!phenotypicSexDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("AgeOfOnsetMonthsField not blank as expected: " + phenotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+
+            if (!karyotypicSexDropdown.getText().equalsIgnoreCase("Select...")) {
+                Debugger.println("KaryotypicSexDropdown not blank as expected: " + karyotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyTheFieldsLeftBlankInClinicalQuestionsPage" + exp);
+            SeleniumLib.takeAScreenShot("ClinicalQuestionsPage.jpg");
+            return false;
+        }
+    }
+
 }

@@ -48,7 +48,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "file_submissions-search-add")
     public WebElement addButton;
 
-    @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span")
+    // //div[@id='file_submissions-search-search_term_pills']/span
+    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
     public WebElement badgeFilterSearchCriteria;
 
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
@@ -276,6 +277,25 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from retrieving data." + exp);
             SeleniumLib.takeAScreenShot("UnableToRetrieveAllColumnData.jpg");
+            return null;
+        }
+    }
+
+    public List<String> getAllHeadersInSearchResultTable() {
+        Wait.seconds(3);
+        try {
+            List<WebElement> allHeaders = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]/thead//th"));
+            //Retrieve the column headers
+            List<String> headers = new ArrayList<>();
+            for (WebElement elementHeader : allHeaders) {
+                String header = elementHeader.getText();
+                headers.add(header);
+            }
+            Debugger.println("All headers" + headers);
+            return headers;
+        } catch (Exception exp) {
+            Debugger.println("Exception from retrieving data." + exp);
+            SeleniumLib.takeAScreenShot("UnableToRetrieiveAllHeaders.jpg");
             return null;
         }
     }

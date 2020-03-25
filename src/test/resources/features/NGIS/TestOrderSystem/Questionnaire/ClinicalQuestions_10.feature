@@ -250,4 +250,3 @@ Feature: ClinicalQuestions 10 - Page Validation
     Examples:
       | TumourAdded  | TumourStage | PrimaryTumour | Tumour | morphology |
       | Tumour added | Tumours     | testis        | Liver  | solid      |
-

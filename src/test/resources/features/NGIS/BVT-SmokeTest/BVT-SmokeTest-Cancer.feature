@@ -3,7 +3,6 @@
 #@BVT_UI_SMOKE_TEST_CANCER
 Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
    
-
   @NTS-3362 @LOGOUT
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

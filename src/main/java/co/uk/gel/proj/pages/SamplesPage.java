@@ -220,7 +220,8 @@ public class SamplesPage {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
+            Actions.clickElement(driver, sampleState);
+            Wait.seconds(2);
             if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
                 Debugger.println("SampleState Drop values not loaded: ");
                 SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
