@@ -48,10 +48,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(id = "file_submissions-search-add")
     public WebElement addButton;
 
-    // //div[@id='file_submissions-search-search_term_pills']/span
-    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
-    public WebElement badgeFilterSearchCriteria;
-
     @FindBy(xpath = "//div[@id='file_submissions-search-search_term_pills']/span/a")
     public WebElement badgeClosefilterCriteria;
 
@@ -61,13 +57,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@id='file_submissions-search-reset']")
     public WebElement resetButton;
 
-    @FindBy(id = "file_submissions-display-display_options")
-    public WebElement searchResultDisplayOptionsButton;
-
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
-
-    String badgeFilterSearchCriteriaBy = "//div[@id='file_submissions-search-search_term_pills']/span";
 
 
     public void fillInTheFileSubmissionDate(String date) {
