@@ -41,7 +41,7 @@ public class BrowserFactory {
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-    String strDate = "NGIS-UI-" + getBrowser() + "-" + dateFormat.format(date);
+    String strDate = "NGIS-UI-" + getBrowser() + getBrowserVersion() + "_" + "-" + dateFormat.format(date);
 
     public WebDriver getDriver() throws MalformedURLException {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
@@ -247,7 +247,6 @@ public class BrowserFactory {
     }
 
     private WebDriver getEdge(String userAgent, boolean javascriptEnabled) {
-        //System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + File.separator + "driver/msedgedriver.exe");
         EdgeOptions edgeOptions = new EdgeOptions();
         return driver = new EdgeDriver(edgeOptions);
 
