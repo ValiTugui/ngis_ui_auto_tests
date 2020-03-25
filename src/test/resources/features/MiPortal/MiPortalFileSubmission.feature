@@ -397,3 +397,58 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 | 50              |
       | File Submissions | Created | equals   | 09-03-2020 | 100             |
       | File Submissions | Created | equals   | 09-03-2020 | 10              |
+
+
+  @NTS-4987
+  Scenario Outline: Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
+    And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
+    And the user clicks on the button "Show all"
+    And the user sees the displayed fields-columns under "Show" section
+      | HeaderColumnOrderingList |
+      | id                       |
+      | submitted_by_code        |
+      | submitted_by             |
+      | field_errors             |
+      | field_warnings           |
+      | filename                 |
+      | created                  |
+      | status                   |
+      | error_msgs               |
+      | warning_msgs             |
+      | file_type                |
+      | path                     |
+    And the user clicks on the button "Hide all"
+    And the user sees the displayed fields-columns under "Hide" section
+      | HeaderColumnOrderingList |
+      | id                       |
+      | submitted_by_code        |
+      | submitted_by             |
+      | field_errors             |
+      | field_warnings           |
+      | filename                 |
+      | created                  |
+      | status                   |
+      | error_msgs               |
+      | warning_msgs             |
+      | file_type                |
+      | path                     |
+    And the Save and Close button under Show All and Hide All button becomes disabled
+    And the user closes the modal content by clicking on the reset-button
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
