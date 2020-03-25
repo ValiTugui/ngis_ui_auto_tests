@@ -21,6 +21,11 @@
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
         <reportName>test</reportName>
+        <browser>Chrome</browser>
+        <browserVersion>70</browserVersion>
+        <serverType>Local</serverType>
+        <osName>Windows</osName>
+        <osVersion>10</osVersion>
     </properties>
     <build>
         <plugins>
@@ -32,6 +37,13 @@
                     <excludes>
                         <exclude>**/RunnerTest.java</exclude>
                     </excludes>
+                <systemPropertyVariables>
+                    <browser>${browser}</browser>
+                    <browserVersion>${browserVersion}</browserVersion>
+                    <serverType>${serverType}</serverType>
+                    <osName>${osName}</osName>
+                    <osVersion>${osVersion}</osVersion>
+                </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -50,7 +62,7 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features</featuresDirectory>
-                            <tags>@userJourneys</tags>
+                            <tags>@E2EUI-1974</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
