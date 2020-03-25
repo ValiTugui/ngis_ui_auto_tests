@@ -4,10 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -121,8 +119,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[text()='Column ordering']")
     public WebElement headerColumnOrdering;
 
-    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
-    public WebElement resetHeaderOrdering;
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]']")
+    public WebElement resetHeaderOrderingButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]']")
+    public WebElement saveAndCloseHeaderOrderingButton;
 
     @FindBy(xpath = "//label[text()='Show']")
     public WebElement headerShow;
@@ -250,6 +251,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("badge search criteria element is not found");
+                SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
@@ -261,6 +263,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
+        Wait.seconds(2);
         try {
             Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
             if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
@@ -268,6 +271,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("badge search criteria element is found");
+                SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
@@ -396,8 +400,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void clickResetButtonOnModalContent() {
         try {
-            Wait.forElementToBeClickable(driver, resetHeaderOrdering);
-            Click.element(driver, resetHeaderOrdering);
+            Wait.forElementToBeClickable(driver, resetHeaderOrderingButton);
+            Click.element(driver, resetHeaderOrderingButton);
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
@@ -532,6 +536,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(headerHideAll);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                SeleniumLib.takeAScreenShot(" element" + i + "is NOT shown.jpg");
                 return false;
             }
             Debugger.println("element " + i + " shown");
@@ -553,6 +558,22 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("No noShowAllOrHideAllButtonShown shown.");
             SeleniumLib.takeAScreenShot("noShowAllOrHideAllButtonShown.jpg");
+        }
+    }
+
+    public boolean saveAndCloseButtonIsDisabled() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+                return false;
+            }
+            Debugger.println("Save and Close Header Ordering button is disabled :  " + saveAndCloseHeaderOrderingButton.isEnabled());
+            return saveAndCloseHeaderOrderingButton.isEnabled();
+        } catch (Exception exp) {
+            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
+            SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButton.jpg");
+            return false;
         }
     }
 
