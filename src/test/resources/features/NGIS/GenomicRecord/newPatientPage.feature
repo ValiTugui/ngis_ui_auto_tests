@@ -4,16 +4,17 @@
 @SYSTEM_TEST
 Feature: New Patient page
 
-  @NTS-3072
+  @NTS-3072 @debugSecurity
 #    @E2EUI-981
   Scenario Outline: NTS-3072: Verify the interface links and buttons for a New Patient Patient page - Invalid NhsNo and DOB
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    When the user types in invalid details of a patient in the NHS number and DOB fields
-    And the user clicks the Search button
-    And the user clicks the "<hyperlinkText>" link from the No Search Results page
-    Then the new patient page is opened
-    And the new patient page displays expected input-fields and a "<label_on_submit_button>" submit button
+    When user run security scan
+#    When the user types in invalid details of a patient in the NHS number and DOB fields
+#    And the user clicks the Search button
+#    And the user clicks the "<hyperlinkText>" link from the No Search Results page
+#    Then the new patient page is opened
+#    And the new patient page displays expected input-fields and a "<label_on_submit_button>" submit button
 
     Examples:
       | hyperlinkText               | label_on_submit_button       |
