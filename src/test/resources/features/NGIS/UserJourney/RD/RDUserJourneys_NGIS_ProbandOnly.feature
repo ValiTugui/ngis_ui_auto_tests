@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NGIS_ProbandOnly
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST1
 Feature: Create Referrals for NGIS Patient
 
   @NTS-4552 @LOGOUT

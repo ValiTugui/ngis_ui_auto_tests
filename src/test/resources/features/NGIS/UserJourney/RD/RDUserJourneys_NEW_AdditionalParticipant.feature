@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NEW_AdditionalParticipant
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST1
 Feature: Create Referrals for NEW Patient - Additional Participant
 
   @NTS-4613 @LOGOUT
@@ -85,9 +85,9 @@ Feature: Create Referrals for NEW Patient - Additional Participant
     Then the "<Pedigree>" stage is marked as Completed
      ##Print forms
     Then the user is navigated to a page with title Print sample forms
-    And the user submits the referral
-    And the submission confirmation message "Your referral has been submitted" is displayed
-    Then the referral status is set to "Submitted"
+#    And the user submits the referral
+#    And the submission confirmation message "Your referral has been submitted" is displayed
+#    Then the referral status is set to "Submitted"
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                           | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | FamilyMemberStage | Status           | PatientChoiceStage | Panels | Pedigree | RecordedBy                            |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Samuel:LastName=John:Department=Midlands,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Family members    | Not being tested | Patient choice     | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |

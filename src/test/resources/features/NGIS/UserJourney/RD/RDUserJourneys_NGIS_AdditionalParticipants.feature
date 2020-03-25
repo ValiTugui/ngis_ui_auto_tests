@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NGIS_AdditionalParticipant
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST1
 Feature: Create Referrals for NGIS Patient - Additional Participant
 
   @NTS-4609  @LOGOUT
