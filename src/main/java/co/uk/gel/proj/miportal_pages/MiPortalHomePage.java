@@ -130,6 +130,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//label[text()='Hide']")
     public WebElement headerHide;
 
+    @FindBy(xpath = "//button[contains(string(),'Show all')]")
+    public WebElement headerShowAll;
+
+    @FindBy(xpath = "//button[contains(string(),'Hide all')]")
+    public WebElement headerHideAll;
+
     String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
 
 
@@ -513,9 +519,40 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("The total search result is " + searchResultTable.size());
             return true;
         } catch (Exception exp) {
-            Debugger.println("No element shown.");
-            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            Debugger.println("No search result");
+            SeleniumLib.takeAScreenShot("NoSearchResultShown.jpg");
             return false;
+        }
+    }
+
+    public boolean verifyTheButtonsShowAllAndHideAllAreDisplayedOnModalContent() {
+        Wait.forElementToBeDisplayed(driver, displayOptionsModalContent, 10);
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(headerShowAll);
+        expectedElements.add(headerHideAll);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                return false;
+            }
+            Debugger.println("element " + i + " shown");
+        }
+        return true;
+    }
+
+    public void clickShowAllOrHideAllButton(String headerDisplayButton) {
+        try {
+            By buttonElement;
+            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            buttonElement = By.xpath("//button[contains(string(),\"" + headerDisplayButton + "\")]");
+            Wait.forElementToBeDisplayed(driver, driver.findElement(buttonElement));
+            if (!Wait.isElementDisplayed(driver, driver.findElement(buttonElement), 10)) {
+                Debugger.println("No " + headerDisplayButton + "element shown.");
+                SeleniumLib.takeAScreenShot("no" + headerDisplayButton + " button.jpg");
+            }
+            Actions.clickElement(driver, driver.findElement(buttonElement));
+        } catch (Exception exp) {
+            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
+            SeleniumLib.takeAScreenShot("noShowAllOrHideAllButtonShown.jpg");
         }
     }
 
