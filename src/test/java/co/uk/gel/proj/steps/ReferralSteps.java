@@ -485,11 +485,11 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
     }
 
-    @When("the user clicks the Save and Continue button on the {string}")
-    public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
-        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
-
-    }
+//    @When("the user clicks the Save and Continue button on the {string}")
+//    public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
+//        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+//
+//    }
 
     @And("the referral status is set to {string}")
     public void theReferralStatusIsSetTo(String expectedReferralStatus) {
