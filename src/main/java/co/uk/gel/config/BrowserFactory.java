@@ -42,6 +42,9 @@ public class BrowserFactory {
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     String strDate = "NGIS-UI-" + getBrowser() + getBrowserVersion() + "_" + "-" + dateFormat.format(date);
+    String resolution = "1920x1080";
+    String project = "NGIS UI Automation";
+    String applicationType = "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream";
 
     public WebDriver getDriver() throws MalformedURLException {
         return getDriver(BrowserConfig.getServerType(), BrowserConfig.getBrowser(), true);
@@ -134,13 +137,13 @@ public class BrowserFactory {
 
     private SafariOptions getsafariOptions(String userAgent, boolean javascriptEnabled) {
         SafariOptions safariOptions = new SafariOptions();
-        safariOptions.setCapability("project", "NGIS UI Automation");
+        safariOptions.setCapability("project", project);
         safariOptions.setCapability("build", "NGIS UI Browser Stack Safari");
         safariOptions.setCapability("browser", "Safari");
         safariOptions.setCapability("browser_version", getBrowserVersion());
         safariOptions.setCapability("os", getOsName());
         safariOptions.setCapability("os_version", getOsVersion());
-        safariOptions.setCapability("resolution", "1920x1080");
+        safariOptions.setCapability("resolution", resolution);
         safariOptions.setCapability("name", strDate);
         safariOptions.setCapability("safari.options.dataDir", downloadFilepath());
         return safariOptions;
@@ -157,7 +160,7 @@ public class BrowserFactory {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir",downloadFilepath());
-        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", applicationType);
         if (null != userAgent) {
             profile.setPreference("general.useragent.override", userAgent);
         }
@@ -171,18 +174,18 @@ public class BrowserFactory {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir", downloadFilepath());
-        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+        profile.setPreference("browser.helperApps.neverAsk.saveToDisk", applicationType);
         if (null != userAgent) {
             profile.setPreference("general.useragent.override", userAgent);
         }
         FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setCapability("project", "NGIS UI Automation");
+        firefoxOptions.setCapability("project", project);
         firefoxOptions.setCapability("build", "NGIS UI Browser Stack Firefox");
         firefoxOptions.setCapability("browser", "Firefox");
         firefoxOptions.setCapability("browser_version", getBrowserVersion());
         firefoxOptions.setCapability("os", getOsName());
         firefoxOptions.setCapability("os_version", getOsVersion());
-        firefoxOptions.setCapability("resolution", "1920x1080");
+        firefoxOptions.setCapability("resolution", resolution);
         firefoxOptions.setCapability("name", strDate);
         firefoxOptions.setProfile(profile);
         return firefoxOptions;
@@ -210,13 +213,13 @@ public class BrowserFactory {
                                                                boolean javascriptEnabled) {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("prefs", downloadPathsetup());
-        chromeOptions.setCapability("project", "NGIS UI Automation");
+        chromeOptions.setCapability("project", project);
         chromeOptions.setCapability("build", "NGIS UI Browser Stack Chrome");
         chromeOptions.setCapability("browser", "Chrome");
         chromeOptions.setCapability("browser_version", getBrowserVersion());
         chromeOptions.setCapability("os", getOsName());
         chromeOptions.setCapability("os_version", getOsVersion());
-        chromeOptions.setCapability("resolution", "1920x1080");
+        chromeOptions.setCapability("resolution", resolution);
         chromeOptions.setCapability("name", strDate);
         return chromeOptions;
     }
@@ -235,13 +238,13 @@ public class BrowserFactory {
 
     private InternetExplorerOptions getInternetExplorerOptions(String userAgent, boolean javascriptEnabled) {
         InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
-        internetExplorerOptions.setCapability("project", "NGIS UI Automation");
+        internetExplorerOptions.setCapability("project", project);
         internetExplorerOptions.setCapability("build", "NGIS UI Browser Stack IE");
         internetExplorerOptions.setCapability("browser", "IE");
         internetExplorerOptions.setCapability("browser_version", getBrowserVersion());
         internetExplorerOptions.setCapability("os", getOsName());
         internetExplorerOptions.setCapability("os_version", getOsVersion());
-        internetExplorerOptions.setCapability("resolution", "1920x1080");
+        internetExplorerOptions.setCapability("resolution", resolution);
         internetExplorerOptions.setCapability("name", strDate);
         return internetExplorerOptions;
     }
@@ -261,13 +264,13 @@ public class BrowserFactory {
 
     private EdgeOptions getEdgeOptions(String userAgent, boolean javascriptEnabled) {
         EdgeOptions edgeOptions = new EdgeOptions();
-        edgeOptions.setCapability("project", "NGIS UI Automation");
+        edgeOptions.setCapability("project", project);
         edgeOptions.setCapability("build", "NGIS UI Browser Stack Edge");
         edgeOptions.setCapability("browser", "Edge");
         edgeOptions.setCapability("browser_version", getBrowserVersion());
         edgeOptions.setCapability("os", getOsName());
         edgeOptions.setCapability("os_version", getOsVersion());
-        edgeOptions.setCapability("resolution", "1920x1080");
+        edgeOptions.setCapability("resolution", resolution);
         edgeOptions.setCapability("name", strDate);
         return edgeOptions;
     }
@@ -286,13 +289,13 @@ public class BrowserFactory {
 
     private OperaOptions getOperaOptions(String userAgent, boolean javascriptEnabled) {
         OperaOptions operaOptions = new OperaOptions();
-        operaOptions.setCapability("project", "NGIS UI Automation");
+        operaOptions.setCapability("project", project);
         operaOptions.setCapability("build", "NGIS UI Browser Stack Opera");
         operaOptions.setCapability("browser", "Opera");
         operaOptions.setCapability("browser_version", getBrowserVersion());
         operaOptions.setCapability("os", getOsName());
         operaOptions.setCapability("os_version", getOsVersion());
-        operaOptions.setCapability("resolution", "1920x1080");
+        operaOptions.setCapability("resolution", resolution);
         operaOptions.setCapability("name", strDate);
         return operaOptions;
     }
@@ -310,20 +313,20 @@ public class BrowserFactory {
         return pathPrefs;
     }
 
-    private String downloadFilepath()
-    {
-        //Setting default download path
-        String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-        try{
-            File download_loc = new File(downloadFilepath);
-            if(!download_loc.exists()){
-                download_loc.mkdirs();
+        private String downloadFilepath()
+        {
+            //Setting default download path
+            String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+            try{
+                File download_loc = new File(downloadFilepath);
+                if(!download_loc.exists()){
+                    download_loc.mkdirs();
+                }
+            }catch(Exception exp){
+                System.out.println("Exception in creating download directory..."+exp);
             }
-        }catch(Exception exp){
-            System.out.println("Exception in creating download directory..."+exp);
+            return downloadFilepath;
         }
-        return downloadFilepath;
-    }
 }//end
 
 
