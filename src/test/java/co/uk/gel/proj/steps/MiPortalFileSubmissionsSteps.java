@@ -47,7 +47,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -93,7 +93,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("the search criteria badge disappears")
     public void theSearchCriteriaBadgeDisappears() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -140,7 +140,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
 
         if (columnHeader.equalsIgnoreCase("Created")) {
-            String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+            String badge = miPortalHomePage.badgeFilterSearchCriteria.getText();
             Debugger.println(badge + " is new date ");
             String expectedFilteredDate = (badge.split("="))[1].trim();
             Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
@@ -164,6 +164,11 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
             Assert.assertFalse(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
         }
+    }
+
+    @And("the Save and Close button under Show All and Hide All button becomes disabled")
+    public void theSaveAndCloseButtonUnderShowAllAndHideAllButtonBecomesDisabled() {
+        Assert.assertTrue("Save and Close button is not disabled", !(miPortalHomePage.saveAndCloseButtonIsDisabled()));
     }
 
 }
