@@ -166,4 +166,9 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
+    @And("the Save and Close button under Show All and Hide All button becomes disabled")
+    public void theSaveAndCloseButtonUnderShowAllAndHideAllButtonBecomesDisabled() {
+        Assert.assertTrue("Save and Close button is not disabled", !(miPortalHomePage.saveAndCloseButtonIsDisabled()));
+    }
+
 }

@@ -399,8 +399,8 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 | 10              |
 
 
-
-  Scenario Outline: Verify "Show All" and "Hide All" buttons under Display Options in modal contents
+  @NTS-4987
+  Scenario Outline: Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -445,6 +445,7 @@ Feature: This is mi-portal fileSubmission
       | warning_msgs             |
       | file_type                |
       | path                     |
+    And the Save and Close button under Show All and Hide All button becomes disabled
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
