@@ -62,7 +62,7 @@
                                 <package>co.uk.gel.proj.steps</package>
                             </glue>
                             <featuresDirectory>src/test/resources/features</featuresDirectory>
-                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
+                            <tags>@E2EUI-1974</tags>
                             <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
                             <outputDirectory>target/generated-test-sources</outputDirectory>
                             <namingPattern>Parallel{c}IT</namingPattern>
@@ -76,7 +76,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
-                    <forkCount>10</forkCount>
+                    <forkCount>5</forkCount>
                     <reuseForks>false</reuseForks>
                     <includes>
                         <include>**/Parallel*IT.class</include>
