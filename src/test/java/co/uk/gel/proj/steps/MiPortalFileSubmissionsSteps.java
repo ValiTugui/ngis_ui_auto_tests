@@ -140,7 +140,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
 
         if (columnHeader.equalsIgnoreCase("Created")) {
-            String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+            String badge = miPortalHomePage.badgeFilterSearchCriteria.getText();
             Debugger.println(badge + " is new date ");
             String expectedFilteredDate = (badge.split("="))[1].trim();
             Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);

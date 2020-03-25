@@ -119,7 +119,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[text()='Column ordering']")
     public WebElement headerColumnOrdering;
 
-    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]']")
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]")
     public WebElement resetHeaderOrderingButton;
 
     @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]']")
@@ -201,7 +201,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickResetButton() {
         try {
             Wait.forElementToBeClickable(driver, resetButton);
-            Click.element(driver, resetButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetButton.jpg");
@@ -399,9 +399,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public void clickResetButtonOnModalContent() {
+        Wait.seconds(2);
         try {
             Wait.forElementToBeClickable(driver, resetHeaderOrderingButton);
-            Click.element(driver, resetHeaderOrderingButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, resetHeaderOrderingButton);
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
