@@ -723,7 +723,9 @@ public class ReferralSteps extends Pages {
         boolean stepResult = false;
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         Assert.assertTrue(stepResult);
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         Debugger.println("User Type : " + userType);
         if(userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER

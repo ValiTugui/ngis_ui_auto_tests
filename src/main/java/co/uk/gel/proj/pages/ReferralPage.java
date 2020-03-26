@@ -193,7 +193,8 @@ public class ReferralPage<check> {
     public WebElement familyMemberGender;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    //@FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
@@ -291,6 +292,46 @@ public class ReferralPage<check> {
     }
 
     public boolean clickSaveAndContinueButton() {
+        try {
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
+                Actions.scrollToBottom(driver);
+            }
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+                Debugger.println("Save and Continue not visible even after 120 minutes.");
+                return false;
+            }
+            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+            // Click.element(driver, saveAndContinueButton)
+            Wait.seconds(5);
+            //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
+            if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
+                Actions.clickElement(driver, tryAgain);
+            }
+            if (helix.size() > 0) {
+                try {
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                } catch (TimeoutException texp) {
+                    //Still the helix in action, waiting for another 40 seconds.
+                    //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
+                    Wait.seconds(40);
+                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
+                }
+            }
+            Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
+            return true;
+        } catch (UnhandledAlertException exp) {
+            Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
+            seleniumLib.dismissAllert();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
+            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+            return false;
+        }
+    }
+    public boolean clickOnContinueButton() {
         try {
             if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
                 Actions.scrollToBottom(driver);

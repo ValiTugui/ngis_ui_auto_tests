@@ -215,12 +215,8 @@ public class PatientDetailsPage {
     String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
 
-    @FindBy(xpath = "//button[text()='Add new patient to referral']")
+    @FindBy(xpath = "//button[text()='Create NGIS record']")
     public WebElement addNewPatientToReferral;
-
-    //Details of submitted Referrals
-    @FindBy(xpath = "//label[text()='Relationship to proband']//following::div[1]")
-    public WebElement relationshipToProbandDropdown;
 
     String relationshipToProbandType = "//span[contains(text(),'dummyOption')]/ancestor::div[contains(@class,'container')]";
 
@@ -959,7 +955,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine4, familyMember.getADDRESS_LINE4());
             Actions.fillInValue(postcode, familyMember.getPOST_CODE());
             Actions.clickElement(driver, addNewPatientToReferral);
-            Wait.seconds(5);//Wait for 5 seconds to create the new member
+            Wait.seconds(10);//Wait for 10 seconds to create the new member
             //Removed isPatientCreated check for Family member addition as it is not needed
             FamilyMemberDetailsPage.addFamilyMemberToList(familyMember);
             Debugger.println("Family Member Added to List: NHS:" + familyMember.getNHS_NUMBER() + ",DOB:" + familyMember.getDATE_OF_BIRTH() + ",LNAME:" + familyMember.getLAST_NAME() + ",FNAME:" + familyMember.getFIRST_NAME());
@@ -967,7 +963,6 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from adding mew family member:" + exp);
             SeleniumLib.takeAScreenShot("NewFamilyMember.jpg");
-            Assert.assertTrue("Could not add new family member. Pls check NewFamilyMember.jpg", false);
             return false;
         }
     }
@@ -978,7 +973,9 @@ public class PatientDetailsPage {
 
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
         try {
-            newPatientPageIsDisplayed();
+            if(!newPatientPageIsDisplayed()){
+                return false;
+            }
             //Going ahead with NHS number, for new NGIS Patients
             if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {
                 Actions.clickElement(driver, yesButton);
@@ -1029,19 +1026,6 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine3, referralDetails.getADDRESS_LINE3());
             Actions.fillInValue(addressLine4, referralDetails.getADDRESS_LINE4());
             Actions.fillInValue(postcode, referralDetails.getPOST_CODE());
-            //Ensure all the fields are correctly populated without any error shown on patient details page
-            boolean flag = false;
-            if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {//Created as SUPER USER
-                flag = verifyTheElementsOnAddNewPatientPageSuperUserFlow();
-            } else {
-                flag = verifyTheElementsOnAddNewPatientPageNormalUserFlow();
-            }
-            if (!flag) {
-                // Navigate to top of page
-                Actions.scrollToTop(driver);
-                SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
-                Assert.assertTrue(false);
-            }
             //Adding Patient to NGIS
             //clickSavePatientDetailsToNGISButton();
             if(!clickOnCreateRecord()){
