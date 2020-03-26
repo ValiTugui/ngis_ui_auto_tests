@@ -1,4 +1,4 @@
-@MIPORTAL1
+@MIPORTAL
 @SYSTEM_TEST
 
 Feature: This is mi-portal fileSubmission
@@ -506,3 +506,4 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | column  | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
+
