@@ -49,10 +49,13 @@ public class PatientDetailsSteps extends Pages {
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        boolean flag = false;
-        flag = patientDetailsPage.patientIsCreated();
-        Assert.assertTrue(flag);
+        ///patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+       if(!patientDetailsPage.patientIsCreated()) {
+           Assert.assertTrue(false);
+       }
     }
 
     @And("the user clicks the Start a new Referral button")
@@ -104,7 +107,7 @@ public class PatientDetailsSteps extends Pages {
 
         String[] value = dob.split("-");  // Split DOB in the format 01-01-1900
         patientSearchPage.fillInValidPatientDetailsUsingNHSNumberAndDOB(nhsNo, value[0], value[1], value[2]);
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
         Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
         Assert.assertTrue("Patient details page is displayed", patientDetailsPage.patientDetailsPageIsDisplayed());
@@ -120,7 +123,7 @@ public class PatientDetailsSteps extends Pages {
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")
     public void aWebBrowserIsLoggedInAsAUserAtThePatientDetailsPageOfAWithValidDetailsOfNHSNumberAndDOB(String userType, String patientType) throws IOException {
         patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
         // Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));  // Spine test data converted to NGIS causing test to fail
         patientSearchPage.clickPatientCard();
     }
@@ -136,7 +139,7 @@ public class PatientDetailsSteps extends Pages {
         String confirmationPage = attributeOfUrl.get(1);
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
         Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed());
         patientSearchPage.clickPatientCard();
     }
@@ -266,10 +269,13 @@ public class PatientDetailsSteps extends Pages {
     @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        boolean flag = false;
-        flag = patientDetailsPage.patientIsCreated();
-        Assert.assertTrue(flag);
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()) {
+            Assert.assertTrue(false);
+        }
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
@@ -285,7 +291,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Save patient details to NGIS button")
     public void theUserClicksTheSavePatientDetailsToNGISButton() {
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.clickOnCreateRecord();
     }
 
     @Then("the patient is successfully created with a message {string}")

@@ -561,7 +561,10 @@ public class PatientChoiceSteps extends Pages {
     }
     @When("the user clicks the Save and Continue button on the patient choice")
     public void theUserClicksTheSaveAndContinueButtonOnThe() {
-        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        //referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        boolean testResult = false;
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
 
     }
     @And("the user sees the patient choice status for family member (.*) as (.*)")
