@@ -342,10 +342,10 @@ public class FamilyMemberDetailsSteps extends Pages {
                         familyMember.setETHNICITY("A - White - British");
                     }
                     patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
-                    patientSearchPage.clickSearchButtonByXpath(driver);
+                    patientSearchPage.clickSearchButtonByXpath();
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                         if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                            patientSearchPage.clickSearchButtonByXpath(driver);
+                            patientSearchPage.clickSearchButtonByXpath();
                         }
                     }
                     patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();

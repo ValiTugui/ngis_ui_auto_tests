@@ -47,9 +47,6 @@ public class ReferralPage<check> {
     @FindBy(css = "*[data-testid*='referral-sidebar']")
     public WebElement toDoList;
 
-    @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
-    public WebElement tumourToDoList;
-
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
 
@@ -153,21 +150,6 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//table/thead/tr/th[text()!='']")
     public List<WebElement> tableColumnHeaders;
-
-    @FindBy(css = "*[class*=consent-page-full]")
-    public WebElement consentDocument;
-
-    @FindBy(css = "*[class*=shadow]")
-    public WebElement consentDocumentShadow;
-
-    @FindBy(id = "printable-form-id")
-    public WebElement consentDocumentPrintableForm;
-
-    @FindBy(css = "*[class*=summary-header-container]")
-    public WebElement consentDocumentHeaderInfo;
-
-    @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
-    public List<WebElement> clearDropDownValue;
 
     @FindBy(xpath = "//*[contains(@class,'header')]//p")    //*[contains(@class,'header')]//child::a
     public WebElement genomicMedicineServicelogo;
@@ -274,9 +256,6 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
-
-    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
-    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
 
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
@@ -410,7 +389,6 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralHeader, 200);
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             Wait.forElementToBeDisplayed(driver, sectionBody, 200);
-//            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);

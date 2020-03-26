@@ -101,12 +101,12 @@ public class FamilyMemberSearchSteps extends Pages {
                 Debugger.println("Could not fill the NHS number and DOB for search....");
                 Assert.assertTrue(false);
             }
-            patientSearchPage.clickSearchButtonByXpath(driver);
+            patientSearchPage.clickSearchButtonByXpath();
             if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                 Debugger.println("NHS Not Found...going with No option.");
                 familyMember.setGENDER(paramNameValue.get("Gender"));
                  if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                     patientSearchPage.clickSearchButtonByXpath(driver);
+                     patientSearchPage.clickSearchButtonByXpath();
                 }
             }
             patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
