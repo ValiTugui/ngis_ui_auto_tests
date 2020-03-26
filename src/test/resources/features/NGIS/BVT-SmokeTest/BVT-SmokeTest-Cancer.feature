@@ -83,7 +83,6 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
-#    And the user clicks the Save and Continue button on the "<patientChoice>"
     And the user clicks the Save and Continue button
     Then the "<patientChoice>" page is displayed
     Then the help text is displayed

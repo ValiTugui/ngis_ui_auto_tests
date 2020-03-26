@@ -405,15 +405,6 @@ public class PatientDetailsPage {
         }
     }
 
-//    public void clickSavePatientDetailsToNGISButton() {
-//        try {
-//            Wait.forElementToBeClickable(driver, savePatientDetailsToNGISButton);
-//            Click.element(driver, savePatientDetailsToNGISButton);
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from Clicking on SavePatientDetailsToNGISButton:" + exp);
-//            SeleniumLib.takeAScreenShot("NosavePatientDetailsToNGISButton.jpg");
-//        }
-//    }
     public boolean clickOnCreateRecord() {
         try {
             if(!Wait.isElementDisplayed(driver,createRecord,30)){
@@ -1027,7 +1018,6 @@ public class PatientDetailsPage {
             Actions.fillInValue(addressLine4, referralDetails.getADDRESS_LINE4());
             Actions.fillInValue(postcode, referralDetails.getPOST_CODE());
             //Adding Patient to NGIS
-            //clickSavePatientDetailsToNGISButton();
             if(!clickOnCreateRecord()){
                 return false;
             }

@@ -105,34 +105,6 @@ public class ReferralSteps extends Pages {
         if(!patientSearchPage.clickPatientCard()){
             Assert.assertTrue(false);
         }
-        // Check condition for different scenarios when referral submit button is displayed
-//        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {  // AddDetailsToNGISButton is shown when adding SPINE data
-//            Debugger.println("Add Patient Details button shown");
-//            Wait.seconds(1);
-//            //https://jira.extge.co.uk/browse/E2EUI-2499 - Ethnicity is now a mandatory field, hence Ethnicity field - for SPINE data need to be updated with a value in Patient Details
-//            if (Wait.isElementDisplayed(driver, patientDetailsPage.ethnicityButton, 15)) {
-//                String ethnicityFieldCurrentValue = Actions.getText(patientDetailsPage.ethnicityButton);
-//                if (ethnicityFieldCurrentValue.equalsIgnoreCase("Select..."))
-//                {
-//                    patientDetailsPage.addPatientEthnicity("A - White - British");
-//                }
-//            }
-//            Debugger.println("New Ethnicity " + Actions.getText(patientDetailsPage.ethnicityButton));
-//            patientDetailsPage.clickAddDetailsToNGISButton();
-//            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-//            patientDetailsPage.clickStartReferralButton();
-//        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
-//            Debugger.println("Update Patient Details button shown");
-//            patientDetailsPage.updateNGISRecordButton.click();
-//            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-//            patientDetailsPage.clickStartReferralButton();
-//        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
-//            Debugger.println("Save Patient Details button shown");
-//            patientDetailsPage.clickSavePatientDetailsToNGISButton();
-//
-//            patientDetailsPage.patientIsCreated();
-//            patientDetailsPage.clickStartNewReferralButton();
-//        }
         if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
             Assert.assertTrue(false);
         }

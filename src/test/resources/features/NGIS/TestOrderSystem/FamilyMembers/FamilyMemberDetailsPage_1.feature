@@ -56,7 +56,6 @@ Feature: Family Members Details Page - Field Validation_1
     Then the user is navigated to a page with title Add missing family member details
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
-#    Then the user is navigated to a page with title Confirm family member details
     And confirm family member details page populate with same details found in patient card for "<FamilyMemberDetails>"
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
@@ -83,7 +82,6 @@ Feature: Family Members Details Page - Field Validation_1
     Then the user is navigated to a page with title Add missing family member details
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
-#    Then the user is navigated to a page with title Confirm family member details
     And the default family member details page is correctly displayed with the proper number of fields
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
@@ -118,7 +116,6 @@ Feature: Family Members Details Page - Field Validation_1
     Then the user is navigated to a page with title Add missing family member details
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
-#    Then the user is navigated to a page with title Confirm family member details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Continue with this family member

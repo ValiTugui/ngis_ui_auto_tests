@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NGIS_TrioFamily
-@SYSTEM_INTEGRATION_TEST1
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NGIS Patient - Trio Family
 
   @NTS-4563  @LOGOUT

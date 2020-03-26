@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NEW_TrioFamily
-@SYSTEM_INTEGRATION_TEST1
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NEW Patient - Trio Family
 
   @NTS-4564  @LOGOUT

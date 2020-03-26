@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_NEW_ProbandOnly
-@SYSTEM_INTEGRATION_TEST1
+@SYSTEM_INTEGRATION_TEST
 Feature: Create Referrals for NEW Patient - Proband Only
 
   @NTS-4568  @LOGOUT
