@@ -47,6 +47,9 @@ public class ReferralPage<check> {
     @FindBy(css = "*[data-testid*='referral-sidebar']")
     public WebElement toDoList;
 
+    @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
+    public WebElement tumourToDoList;
+
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
 
@@ -150,6 +153,21 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//table/thead/tr/th[text()!='']")
     public List<WebElement> tableColumnHeaders;
+
+    @FindBy(css = "*[class*=consent-page-full]")
+    public WebElement consentDocument;
+
+    @FindBy(css = "*[class*=shadow]")
+    public WebElement consentDocumentShadow;
+
+    @FindBy(id = "printable-form-id")
+    public WebElement consentDocumentPrintableForm;
+
+    @FindBy(css = "*[class*=summary-header-container]")
+    public WebElement consentDocumentHeaderInfo;
+
+    @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
+    public List<WebElement> clearDropDownValue;
 
     @FindBy(xpath = "//*[contains(@class,'header')]//p")    //*[contains(@class,'header')]//child::a
     public WebElement genomicMedicineServicelogo;
@@ -258,6 +276,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
 
+    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
+    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
+
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
@@ -331,82 +352,6 @@ public class ReferralPage<check> {
             return false;
         }
     }
-    public boolean clickOnContinueButton() {
-        try {
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
-                Actions.scrollToBottom(driver);
-            }
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
-                Debugger.println("Save and Continue not visible even after 120 minutes.");
-                return false;
-            }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-            // Click.element(driver, saveAndContinueButton)
-            Wait.seconds(5);
-            //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
-            if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
-                Actions.clickElement(driver, tryAgain);
-            }
-            if (helix.size() > 0) {
-                try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 40 seconds.
-                    //Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 40 seconds:" + texp);
-                    Wait.seconds(40);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }
-            }
-            Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
-            return true;
-        } catch (UnhandledAlertException exp) {
-            Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
-            seleniumLib.dismissAllert();
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            return false;
-        }
-    }
-
-//    public void clickSaveAndContinueButtonOnThePatientChoiceComponent() {
-//        try {
-//            try {
-//                Wait.forElementToBeDisplayed(driver, consentDocument, 200);
-//                Wait.forElementToBeDisplayed(driver, consentDocumentShadow, 200);
-//                Wait.forElementToBeDisplayed(driver, consentDocumentPrintableForm, 200);
-//                Wait.forElementToBeDisplayed(driver, consentDocumentHeaderInfo, 200);
-//            } catch (Exception exp) {
-//                Debugger.println("Consent Form is not visible ...");
-//                SeleniumLib.takeAScreenShot("PatientChoiceConsentDocument.jpg");
-//                //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
-//            }
-//
-//            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-//            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-//            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
-//            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-//            // Click.element(driver, saveAndContinueButton)
-//            if (helix.size() > 0) {
-//                try {
-//                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-//                } catch (TimeoutException texp) {
-//                    //Still the helix in action, waiting for another 30 seconds.
-//                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
-//                    Wait.seconds(30);
-//                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-//                }
-//            }
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-//            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-//            seleniumLib.clickOnWebElement(saveAndContinueButton);
-//            //Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
-//        }
-//    }
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
