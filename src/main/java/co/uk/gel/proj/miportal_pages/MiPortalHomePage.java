@@ -578,5 +578,44 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public boolean dragAndDropAColumnHeaderBetweenShowAndHide(String columnHeader, String fromSection, String toSection) {
+        try {
+            String sectionLocator = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'dummySection')]";
+            String columnHeaderLocator = "//div[text()=\"" + columnHeader + "\"]";
+            String toSectionLocator = "";
+            List actualListOfColumnHeaders = null;
+
+            // first check the column header is in 'From Section'
+            if (fromSection.equalsIgnoreCase("Show")) {
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("visible");
+            } else if (fromSection.equalsIgnoreCase("Hide")) {
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hidden");
+            }
+            assert actualListOfColumnHeaders != null;
+
+            if (!actualListOfColumnHeaders.contains(columnHeader)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("columnHeaderNotFoundInColumnHeaderList.jpg");
+                return false;
+            }
+            // Check the element locator for the 'To section'
+            if (toSection.equalsIgnoreCase("Show")) {
+                toSectionLocator = sectionLocator.replace("dummySection", "visible");
+                Debugger.println("Show section locator " + toSectionLocator);
+            } else if (toSection.equalsIgnoreCase("Hide")) {
+                toSectionLocator = sectionLocator.replace("dummySection", "hidden");
+                Debugger.println("Hide section locator " + toSectionLocator);
+            }
+            WebElement columnHeaderElement = driver.findElement(By.xpath(columnHeaderLocator));
+            WebElement toSectionElement = driver.findElement(By.xpath(toSectionLocator));
+            org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+            action.dragAndDrop(columnHeaderElement, toSectionElement).build().perform();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("unable to move column header between show and hide.");
+            SeleniumLib.takeAScreenShot("unableToMoveColumnHeaderBetweenShowAndHide.jpg");
+            return false;
+        }
+    }
 }
 

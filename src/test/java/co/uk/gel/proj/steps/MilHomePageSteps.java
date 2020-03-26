@@ -199,10 +199,10 @@ public class MilHomePageSteps extends Pages {
         } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
             actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
         }
-
+        assert actualListOfColumnHeaders != null;
         for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList") + " : " + "Actual: " + actualListOfColumnHeaders.get(i));
-            Assert.assertEquals(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"), actualListOfColumnHeaders.get(i));
+            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"));
+            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList")));
         }
     }
 
@@ -255,5 +255,14 @@ public class MilHomePageSteps extends Pages {
     @And("the user clicks on the button {string}")
     public void theUserClicksOnTheButton(String showOrHideButton) {
         miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
+    }
+
+
+    @When("the user drag the column header {string} from the section {string} to {string} section")
+    public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
+        boolean testResult = false;
+        testResult =  miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
     }
 }
