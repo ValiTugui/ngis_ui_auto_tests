@@ -275,4 +275,9 @@ public class MilHomePageSteps extends Pages {
     public void theUserSaveTheChangesOnModalContentByClickingSaveAndCloseButton() {
         miPortalHomePage.clickSaveAndCloseButtonOnModalContent();
     }
+
+    @And("the user click on the {string} check box on the modal content page")
+    public void theUserClickOnTheCheckBoxOnTheModalContentPage(String checkBox) {
+        miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
+    }
 }
