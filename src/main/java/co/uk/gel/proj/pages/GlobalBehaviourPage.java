@@ -75,6 +75,7 @@ public class GlobalBehaviourPage {
     }
 
     public boolean checkPrivacyPolicyLinkPage(String pageTitle) {
+        Wait.forElementToBeDisplayed(driver, privacyPolicyPageTitle);
         return privacyPolicyPageTitle.getText().matches(pageTitle);
     }
 

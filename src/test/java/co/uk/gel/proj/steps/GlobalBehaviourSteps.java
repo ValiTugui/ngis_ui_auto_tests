@@ -97,4 +97,9 @@ public class GlobalBehaviourSteps extends Pages {
         testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
         Assert.assertTrue(testResult);
     }
+
+    @Given("the user gets the NGIS version")
+    public void theUserGetsTheNGISVersion() {
+        globalBehaviourPage.getNGISVersion();
+    }
 }

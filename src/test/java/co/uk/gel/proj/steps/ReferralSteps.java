@@ -282,7 +282,7 @@ public class ReferralSteps extends Pages {
         if(!patientDetailsPage.patientIsCreated()){
             Assert.assertTrue(false);
         }
-        //patientDetailsPage.clickStartNewReferralButton();
+
         if(!patientDetailsPage.clickStartReferralButton()){
             Assert.assertTrue(false);
         }
@@ -423,8 +423,8 @@ public class ReferralSteps extends Pages {
         if(!patientDetailsPage.patientIsCreated()){
             Assert.assertTrue(false);
         }
-        //patientDetailsPage.clickStartNewReferralButton();
-        if(!patientDetailsPage.clickStartReferralButton()){
+
+        if(!patientDetailsPage.clickStartNewReferralButton()){
             Assert.assertTrue(false);
         }
         if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
@@ -779,7 +779,11 @@ public class ReferralSteps extends Pages {
             if(!patientSearchPage.clickPatientCard()){
                 Assert.assertTrue(false);
             }
-            if(!patientDetailsPage.startReferral()){
+            if(!patientDetailsPage.clickStartNewReferralButton()){
+                Assert.assertTrue(false);
+            }
+
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
                 Assert.assertTrue(false);
             }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();

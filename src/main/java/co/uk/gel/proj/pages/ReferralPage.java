@@ -610,8 +610,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            //Reduced the waiting time to 10 seconds from 30 seconds
-            if (Wait.isElementDisplayed(driver, pageTitle, 10)){
+            if (Wait.isElementDisplayed(driver, pageTitle, 30)){
                 return Actions.getText(pageTitle);
             }
             return null;
