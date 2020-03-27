@@ -122,7 +122,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]")
     public WebElement resetHeaderOrderingButton;
 
-    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]']")
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]")
     public WebElement saveAndCloseHeaderOrderingButton;
 
     @FindBy(xpath = "//label[text()='Show']")
@@ -615,6 +615,21 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("unable to move column header between show and hide.");
             SeleniumLib.takeAScreenShot("unableToMoveColumnHeaderBetweenShowAndHide.jpg");
             return false;
+        }
+    }
+
+    public void clickSaveAndCloseButtonOnModalContent() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+            }
+            //Wait.forElementToBeClickable(driver, saveAndCloseHeaderOrderingButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndCloseHeaderOrderingButton);
+            //Click.element(driver, resetHeaderOrderingButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
+            SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
         }
     }
 }
