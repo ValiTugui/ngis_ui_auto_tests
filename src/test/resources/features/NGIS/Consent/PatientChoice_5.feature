@@ -170,6 +170,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
+    Then the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral

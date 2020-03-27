@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT1
+@CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-6 - File uploads
 

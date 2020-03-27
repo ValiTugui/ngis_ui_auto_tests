@@ -299,6 +299,8 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
+    @FindBy(xpath = "//div[contains(@class,'referral__main')]//h1")
+    List<WebElement> titleElements;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -322,7 +324,7 @@ public class ReferralPage<check> {
                 return false;
             }
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            Actions.clickElement(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -692,20 +694,23 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
+            Debugger.println("EXPTITLE: "+expTitle);
             Wait.seconds(5);//Many places observed the Title loading issue, trying with a 5 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
+            Debugger.println("CONTINUING...............TITLE."+titleElements.size());
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
-            List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
-            if (titleElements != null) {
-                for (int i = 0; i < titleElements.size(); i++) {
-                    if (titleElements.get(i).getText().contains(expTitle)) {
-                        return true;
-                    }
+           // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
+           for (int i = 0; i < titleElements.size(); i++) {
+                Debugger.println("ACT TITLE:"+titleElements.get(i).getText());
+                if (titleElements.get(i).getText().contains(expTitle)) {
+                    return true;
                 }
             }
+
+            Debugger.println("TITLE--STILLL NOT..");
             //In case of failure again, trying with another method.
             By pageTitle;
             if (expTitle.contains("\'")) {

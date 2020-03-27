@@ -306,15 +306,18 @@ public class PatientChoicePage {
                 Actions.clickElement(driver,webElement);
                 return true;
             }
+            Debugger.println("PatientChoice category could not select: "+category);
+            SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
         } catch (NoSuchElementException exp) {
             //Waiting for another 20 seconds and trying again - Added this based on the errors observed
-            Wait.seconds(20);
-            webElement = driver.findElement(By.xpath(categoryToBeSelected));
-            if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                Actions.clickElement(driver,webElement);
+            Wait.seconds(10);
+            if(seleniumLib.isElementPresent(By.xpath(categoryToBeSelected))){
+                seleniumLib.clickOnElement(By.xpath(categoryToBeSelected));
                 return true;
             }
+            Debugger.println("PatientChoice category could not select: "+category);
+            SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
