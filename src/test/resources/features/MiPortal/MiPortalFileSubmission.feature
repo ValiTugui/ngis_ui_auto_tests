@@ -508,7 +508,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
 
-  @NTS-3390_1
+  @NTS-3390
   Scenario Outline: Verify the drag and drop columnHeader in search result table
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
