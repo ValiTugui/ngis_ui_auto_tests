@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER1
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Search Page 3- Re-Adding existing members

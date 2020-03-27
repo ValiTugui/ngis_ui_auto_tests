@@ -81,17 +81,7 @@ public class PatientChoicePage {
     String childAssent = "//label[contains(@class,'radio-container')][contains(text(),'dummyAssent')]";
 
     //For PatientInformation Identifiers
-    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
-    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
-    String bornInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'dateOfBirth')]";
-    String genderInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'gender')]";
-    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'ngisId')]";
-    String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
-    String editButtonInformation = "//button[@aria-label='edit button']";
-
-    String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
-
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
 
     @FindBy(id = "upload_doc")
@@ -283,18 +273,6 @@ public class PatientChoicePage {
     @FindBy(xpath = "//img[contains(@class,'cancel-logo')]")
     public WebElement cancelUpload;
 
-    public boolean editPatientChoice() {
-        try {
-            Wait.forElementToBeDisplayed(driver, editPatientChoice);
-            seleniumLib.clickOnWebElement(editPatientChoice);
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Could not click on Patient Choice Edit: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
-            return false;
-        }
-    }
-
     public boolean verifySelectedTabInPatientChoice(String tabSectionTitle) {
         String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle", tabSectionTitle);
         try {
@@ -325,7 +303,7 @@ public class PatientChoicePage {
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
             webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                seleniumLib.clickOnWebElement(webElement);
+                Actions.clickElement(driver,webElement);
                 return true;
             }
             return false;
@@ -334,7 +312,7 @@ public class PatientChoicePage {
             Wait.seconds(20);
             webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                seleniumLib.clickOnWebElement(webElement);
+                Actions.clickElement(driver,webElement);
                 return true;
             }
             return false;
@@ -354,6 +332,7 @@ public class PatientChoicePage {
             List<WebElement> optionsList = driver.findElements(By.xpath(options));
             if (optionsList == null || optionsList.size() == 0) {
                 Debugger.println("Could not find any options under the section :" + sectionName);
+                SeleniumLib.takeAScreenShot("patientChoice.jpg");
                 return false;
             }
             boolean isFound = false;
@@ -366,6 +345,7 @@ public class PatientChoicePage {
             }
             if (!isFound) {
                 Debugger.println("Option :" + optionName + " could not found under the section :" + sectionName);
+                SeleniumLib.takeAScreenShot("patientChoice.jpg");
             }
             return isFound;
         } catch (Exception exp) {
@@ -383,9 +363,11 @@ public class PatientChoicePage {
             String selectedTestType = testType.replaceAll("dummyTestType", test_type);
             WebElement webElement = driver.findElement(By.xpath(selectedTestType));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                seleniumLib.clickOnWebElement(webElement);
+                Actions.clickElement(driver,webElement);
             } else {
                 Debugger.println("Test Type: " + test_type + " not displayed.");
+                SeleniumLib.takeAScreenShot("PatientChoiceTestType.jpg");
+                return false;
             }
 
             return true;
@@ -471,16 +453,18 @@ public class PatientChoicePage {
         }
     }
 
-    public void clickOnContinue() {
+    public boolean clickOnContinue() {
         try {
             if (Wait.isElementDisplayed(driver, continueButton, 10)) {
                 Actions.retryClickAndIgnoreElementInterception(driver, continueButton);
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 Actions.clickElement(driver, formToFollow);
             }
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in clicking on Continue Button in PC:" + exp);
             SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
+            return false;
         }
     }
 
@@ -729,15 +713,21 @@ public class PatientChoicePage {
         try {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
+            if(warningMessages.size() < 1){
+                Debugger.println("No Warning messaged displayed as expected.");
+                SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
+                return false;
+            }
             for (int i = 0; i < warningMessages.size(); i++) {
+                Debugger.println("\nMESSAGE: "+warningMessages.get(i).getText());
                 if (message.equalsIgnoreCase(warningMessages.get(i).getText())) {
                     return true;
                 }
             }
             Debugger.println("WarningMessage:" + message + " not present.");
-            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
-            Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
+            Actions.scrollToTop(driver);
+            SeleniumLib.takeAScreenShot("NoWarningMessage2.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception validating warning message in PC: " + exp);

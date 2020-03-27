@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@CONSENT1
 @SYSTEM_TEST
 Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
 

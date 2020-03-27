@@ -65,8 +65,8 @@ Feature: Patient Choice-2 ConsentScenario - Child
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3441
     #@E2EUI-1215 @scenario_2
@@ -114,10 +114,10 @@ Feature: Patient Choice-2 ConsentScenario - Child
     When the user selects the option No for the question Has research participation been discussed?
     Then the user should see the question displayed as Why has research participation not been discussed?
     And the options displayed as below for the question Why has research participation not been discussed?
-      | Inappropriate to have discussion |
-      | Parent(s) / guardian would like to revisit at a later date  |
-      | Patient lacks capacity and no consultee available  |
-      | Other  |
+      | Inappropriate to have discussion                           |
+      | Parent(s) / guardian would like to revisit at a later date |
+      | Patient lacks capacity and no consultee available          |
+      | Other                                                      |
     When the user selects the option Parent(s) / guardian would like to revisit at a later date for the question Why has research participation not been discussed?
     And the user will see a warning message "<WarningMessage1>"
     And the user clicks on Continue Button
@@ -141,7 +141,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage1                                                                                                        | WarningMessage2    |
+      | WarningMessage1                                                                                                        | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3441
@@ -188,7 +188,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage2    | WarningMessage                                                                                                                                                      |
+      | WarningMessage2                                                                                                                                                                                                                                                                                          | WarningMessage                                                                                                                                                      |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. |
 
   @NTS-3441 @LOGOUT
@@ -233,7 +233,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage    |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3471 @LOGOUT
@@ -288,8 +288,12 @@ Feature: Patient Choice-2 ConsentScenario - Child
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the user selects the Relationship to proband as "Full Sibling" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button

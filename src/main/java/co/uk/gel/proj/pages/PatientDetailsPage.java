@@ -289,7 +289,7 @@ public class PatientDetailsPage {
             Actions.fillInValue(dateOfDeath, "01/01/2015");
             editDropdownField(ethnicityButton, "A - White - British");
             Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
-            return false;
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from fillInNewPatientDetailsWithoutAddressFields:"+exp);
             SeleniumLib.takeAScreenShot("fillInNewPatientDetailsWithoutAddressFields.jpg");
@@ -309,7 +309,6 @@ public class PatientDetailsPage {
             if(!fillInNewPatientDetailsWithoutAddressFields()){
                 return false;
             }
-
             List<String> patientAddressDetails = new ArrayList<String>();
             patientAddressDetails.add(faker.address().buildingNumber());
             patientAddressDetails.add(faker.address().streetAddressNumber());
@@ -412,8 +411,7 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("CreateRecord.jpg");
                 return false;
             }
-            Wait.forElementToBeClickable(driver, createRecord);
-            Click.element(driver, createRecord);
+            Actions.clickElement(driver,createRecord);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in clickOnCreateRecord:" + exp);

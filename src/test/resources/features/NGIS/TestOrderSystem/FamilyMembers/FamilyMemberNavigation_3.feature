@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_patientIdentifier
-@TEST_ORDER1
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Navigation Stage 3 - Patient Identifiers

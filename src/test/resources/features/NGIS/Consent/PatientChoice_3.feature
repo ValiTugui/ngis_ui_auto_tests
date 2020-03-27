@@ -206,6 +206,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage |
       | Patient choice       |
 
+
   @NTS-3472 @LOGOUT
     #@E2EUI-2149
   Scenario Outline: NTS-3472: Remove Child Assent section where paper form is not present
