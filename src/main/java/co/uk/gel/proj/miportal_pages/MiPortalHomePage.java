@@ -632,5 +632,21 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
         }
     }
+
+    public void clickOnCheckBoxOptionsForSaveSpaceOnScreen(String saveSpaceCompactorTruncate) {
+        try {
+            String saveSpaceScreen = "//span[text()='dummySaveSpace']/../input";
+            String saveSpaceScreenLocator = saveSpaceScreen.replace("dummySaveSpace", saveSpaceCompactorTruncate);
+            WebElement saveSpaceScreenElement = driver.findElement(By.xpath(saveSpaceScreenLocator));
+            if (!Wait.isElementDisplayed(driver, saveSpaceScreenElement, 10)) {
+                Debugger.println("No saveSpaceCompactOrTruncate element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver,saveSpaceScreenElement);
+        } catch (Exception exp) {
+            Debugger.println("No saveSpaceCompactOrTruncate element shown.");
+            SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+        }
+    }
 }
 
