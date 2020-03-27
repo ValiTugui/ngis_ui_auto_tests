@@ -50,8 +50,8 @@ Feature: Test Directory Test Order
   @NTS-3161 @LOGOUT
 #    @E2EUI-2091 @scenario1
   Scenario Outline: NTS-3161: Verify Spinning Helix
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=26-10-1998:Gender=Male |
     ##Patient Details Page
     When the user is navigated to a page with title Check your patient
     And the user clicks the Save and Continue button
@@ -175,9 +175,9 @@ Feature: Test Directory Test Order
   @NTS-4810 @LOGOUT
 #    @E2EUI-1545
   Scenario Outline: NTS-4810: Deep linking - Add patient_id to URLs
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    ##Patient Details Page
+    Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+   ##Patient Details Page
     When the user is navigated to a page with title Check your patient
     Then the user should be able to see same referral id in the global banner and the url
     And the user clicks the Save and Continue button
