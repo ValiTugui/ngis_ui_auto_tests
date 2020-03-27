@@ -95,6 +95,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[contains(text(),'Back')]")
     public WebElement backButton;
 
+    @FindBy(xpath = "//button/span[contains(text(),'Edit patient details')]")
+    public WebElement editPatientDetailsLink;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
 
@@ -338,9 +341,35 @@ public class FamilyMemberDetailsPage {
         return true;
     }
 
-    public void clickPatientCard() {
-        Wait.forElementToBeDisplayed(driver, patientCard);
-        patientCard.click();
+    public boolean clickPatientCard() {
+        try {
+            if(!Wait.isElementDisplayed(driver, patientCard,10)){
+                Debugger.println("Patient Card Not displayed..");
+                SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,patientCard);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickPatientCard:"+exp);
+            SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
+            return false;
+        }
+    }
+    public boolean editPatientDetails() {
+        try {
+            if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
+                Debugger.println("Edit Patient Details Link not displayed..");
+                SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editPatientDetailsLink);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from editPatientDetails:"+exp);
+            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+            return false;
+        }
     }
 
     public void fillTheRelationshipToProband(String relationToProband) {
@@ -399,6 +428,8 @@ public class FamilyMemberDetailsPage {
             }
             Debugger.println("Verifying Relationship to proband tag");
             //2. Verify the display of Relation to Proband as given.
+            //Select the test if not selected by default
+            selectTheTest();
             if(relationShipTags.size() == 0){
                 Debugger.println("Relationship to Proband is not loaded...");
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");

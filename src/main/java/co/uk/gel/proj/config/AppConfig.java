@@ -70,7 +70,6 @@ public class AppConfig {
         BASE_URL_PP =  properties.getProperty("BASE_URL_PP");
         BASE_URL_DS =  properties.getProperty("BASE_URL_DS");
 
-
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {

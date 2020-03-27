@@ -210,7 +210,8 @@ public class ReferralPage<check> {
     public WebElement familyMemberGender;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    //@FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
@@ -351,42 +352,6 @@ public class ReferralPage<check> {
         }
     }
 
-    public void clickSaveAndContinueButtonOnThePatientChoiceComponent() {
-        try {
-            try {
-                Wait.forElementToBeDisplayed(driver, consentDocument, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentShadow, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentPrintableForm, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentHeaderInfo, 200);
-            } catch (Exception exp) {
-                Debugger.println("Consent Form is not visible ...");
-                SeleniumLib.takeAScreenShot("PatientChoiceConsentDocument.jpg");
-                //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
-            }
-
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-            // Click.element(driver, saveAndContinueButton)
-            if (helix.size() > 0) {
-                try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 30 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
-                    Wait.seconds(30);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }
-            }
-        } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            seleniumLib.clickOnWebElement(saveAndContinueButton);
-            //Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
-        }
-    }
-
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
@@ -409,7 +374,6 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralHeader, 200);
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             Wait.forElementToBeDisplayed(driver, sectionBody, 200);
-//            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);

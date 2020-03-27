@@ -4,10 +4,8 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -78,6 +76,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
     public WebElement resetButton;
 
+    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
+    public WebElement badgeFilterSearchCriteria;
+
     @FindBy(xpath = "//h3[text()='Search Results']")
     public WebElement searchResultTitle;
 
@@ -118,14 +119,25 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[text()='Column ordering']")
     public WebElement headerColumnOrdering;
 
-    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
-    public WebElement resetHeaderOrdering;
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]")
+    public WebElement resetHeaderOrderingButton;
+
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]']")
+    public WebElement saveAndCloseHeaderOrderingButton;
 
     @FindBy(xpath = "//label[text()='Show']")
     public WebElement headerShow;
 
     @FindBy(xpath = "//label[text()='Hide']")
     public WebElement headerHide;
+
+    @FindBy(xpath = "//button[contains(string(),'Show all')]")
+    public WebElement headerShowAll;
+
+    @FindBy(xpath = "//button[contains(string(),'Hide all')]")
+    public WebElement headerHideAll;
+
+    String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
 
 
     public boolean navigateToMiPage(String expectedMipage) {
@@ -189,7 +201,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickResetButton() {
         try {
             Wait.forElementToBeClickable(driver, resetButton);
-            Click.element(driver, resetButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, resetButton);
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetButton.jpg");
@@ -227,6 +239,45 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("Actual values are not displayed");
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
             return null;
+        }
+    }
+
+    public boolean badgeFilterSearchCriteriaIsDisplayed() {
+        try {
+            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
+            if (Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is displayed");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is not found");
+                SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is not found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsNotFound.jpg");
+            return false;
+        }
+    }
+
+
+    public boolean badgeFilterSearchCriteriaIsNotDisplayed() {
+        Wait.seconds(2);
+        try {
+            Wait.forElementToDisappear(driver,By.xpath(badgeFilterSearchCriteriaBy));
+            if (!Wait.isElementDisplayed(driver, badgeFilterSearchCriteria, 10)) {
+                Debugger.println("badge search criteria is NOT displayed as expected");
+                return true;
+            } else {
+                Debugger.println("badge search criteria element is found");
+                SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
+                return false;
+            }
+        } catch (Exception exp) {
+            Debugger.println("badge search criteria element is found");
+            SeleniumLib.takeAScreenShot("badgeSearchIsFound.jpg");
+            return false;
         }
     }
 
@@ -348,9 +399,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public void clickResetButtonOnModalContent() {
+        Wait.seconds(2);
         try {
-            Wait.forElementToBeClickable(driver, resetHeaderOrdering);
-            Click.element(driver, resetHeaderOrdering);
+            Wait.forElementToBeClickable(driver, resetHeaderOrderingButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, resetHeaderOrderingButton);
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
@@ -462,6 +514,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean getTheTotalNumberOfSearchResult(int size) {
         try {
+            Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, searchResultRowHeader);
             if (!(searchResultTable.size() <= size)) {
                 Debugger.println("Pagination is not working");
@@ -471,8 +524,96 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Debugger.println("The total search result is " + searchResultTable.size());
             return true;
         } catch (Exception exp) {
-            Debugger.println("No element shown.");
-            SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+            Debugger.println("No search result");
+            SeleniumLib.takeAScreenShot("NoSearchResultShown.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheButtonsShowAllAndHideAllAreDisplayedOnModalContent() {
+        Wait.forElementToBeDisplayed(driver, displayOptionsModalContent, 10);
+        List<WebElement> expectedElements = new ArrayList<WebElement>();
+        expectedElements.add(headerShowAll);
+        expectedElements.add(headerHideAll);
+        for (int i = 0; i < expectedElements.size(); i++) {
+            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                SeleniumLib.takeAScreenShot(" element" + i + "is NOT shown.jpg");
+                return false;
+            }
+            Debugger.println("element " + i + " shown");
+        }
+        return true;
+    }
+
+    public void clickShowAllOrHideAllButton(String headerDisplayButton) {
+        try {
+            By buttonElement;
+            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
+            buttonElement = By.xpath("//button[contains(string(),\"" + headerDisplayButton + "\")]");
+            Wait.forElementToBeDisplayed(driver, driver.findElement(buttonElement));
+            if (!Wait.isElementDisplayed(driver, driver.findElement(buttonElement), 10)) {
+                Debugger.println("No " + headerDisplayButton + "element shown.");
+                SeleniumLib.takeAScreenShot("no" + headerDisplayButton + " button.jpg");
+            }
+            Actions.clickElement(driver, driver.findElement(buttonElement));
+        } catch (Exception exp) {
+            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
+            SeleniumLib.takeAScreenShot("noShowAllOrHideAllButtonShown.jpg");
+        }
+    }
+
+    public boolean saveAndCloseButtonIsDisabled() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+                return false;
+            }
+            Debugger.println("Save and Close Header Ordering button is disabled :  " + saveAndCloseHeaderOrderingButton.isEnabled());
+            return saveAndCloseHeaderOrderingButton.isEnabled();
+        } catch (Exception exp) {
+            Debugger.println("No noShowAllOrHideAllButtonShown shown.");
+            SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButton.jpg");
+            return false;
+        }
+    }
+
+    public boolean dragAndDropAColumnHeaderBetweenShowAndHide(String columnHeader, String fromSection, String toSection) {
+        try {
+            String sectionLocator = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[contains(@id,'dummySection')]";
+            String columnHeaderLocator = "//div[text()=\"" + columnHeader + "\"]";
+            String toSectionLocator = "";
+            List actualListOfColumnHeaders = null;
+
+            // first check the column header is in 'From Section'
+            if (fromSection.equalsIgnoreCase("Show")) {
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("visible");
+            } else if (fromSection.equalsIgnoreCase("Hide")) {
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hidden");
+            }
+            assert actualListOfColumnHeaders != null;
+
+            if (!actualListOfColumnHeaders.contains(columnHeader)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("columnHeaderNotFoundInColumnHeaderList.jpg");
+                return false;
+            }
+            // Check the element locator for the 'To section'
+            if (toSection.equalsIgnoreCase("Show")) {
+                toSectionLocator = sectionLocator.replace("dummySection", "visible");
+                Debugger.println("Show section locator " + toSectionLocator);
+            } else if (toSection.equalsIgnoreCase("Hide")) {
+                toSectionLocator = sectionLocator.replace("dummySection", "hidden");
+                Debugger.println("Hide section locator " + toSectionLocator);
+            }
+            WebElement columnHeaderElement = driver.findElement(By.xpath(columnHeaderLocator));
+            WebElement toSectionElement = driver.findElement(By.xpath(toSectionLocator));
+            org.openqa.selenium.interactions.Actions action = new org.openqa.selenium.interactions.Actions(driver);
+            action.dragAndDrop(columnHeaderElement, toSectionElement).build().perform();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("unable to move column header between show and hide.");
+            SeleniumLib.takeAScreenShot("unableToMoveColumnHeaderBetweenShowAndHide.jpg");
             return false;
         }
     }

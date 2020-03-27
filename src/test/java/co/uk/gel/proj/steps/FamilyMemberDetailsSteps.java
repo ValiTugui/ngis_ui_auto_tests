@@ -31,7 +31,16 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on the patient card")
     public void theUserSelectsThePatientSearchResultTab() {
-        familyMemberDetailsPage.clickPatientCard();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.clickPatientCard();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on edit patient details")
+    public void theUserClicksOnEditPatientDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.editPatientDetails();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user selects the Relationship to proband as {string} for family member {string}")
@@ -341,19 +350,33 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }else{
                         familyMember.setETHNICITY("A - White - British");
                     }
-                    patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
-                    patientSearchPage.clickSearchButtonByXpath(driver);
+                    if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
+                        Assert.assertTrue(false);
+                    }
+                    if(!patientSearchPage.clickSearchButtonByXpath()){
+                        Assert.assertTrue(false);
+                    }
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                         if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                            patientSearchPage.clickSearchButtonByXpath(driver);
+                            patientSearchPage.clickSearchButtonByXpath();
                         }
+                        }
+                    if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                        Assert.assertTrue(false);
                     }
-                    patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-                    patientDetailsPage.newPatientPageIsDisplayed();
+                    if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                        Assert.assertTrue(false);
+                    }
                     if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                        break;
+                        Assert.assertTrue(false);
+                    }
+                    if(!referralPage.verifyThePageTitlePresence("Continue with this family member")){
+                        Assert.assertTrue(false);
                     }
                     referralPage.updatePatientNGSID(familyMember);
+                    if(!referralPage.clickSaveAndContinueButton()){
+                        Assert.assertTrue(false);
+                    }
                 }else {
                     familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {

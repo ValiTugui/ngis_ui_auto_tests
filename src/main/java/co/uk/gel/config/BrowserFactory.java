@@ -26,12 +26,13 @@ import java.util.concurrent.TimeUnit;
 public class BrowserFactory {
     WebDriver driver;
 
-    private final static String ZAP_PROXYHOST = "localhost";
+    private final static String ZAP_PROXYHOST = "127.0.0.1";
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
     private final static String CHROME_DRIVER_UBUNTU = "/home/kshukla1/driverforsecurity/chromedriver";
-    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
+    //private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
+    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:/Users/Santhosh/.m2/repository/webdriver/chromedriver/win32/80.0.3987.106/chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private ScanningProxy zapScanner;
@@ -50,38 +51,45 @@ public class BrowserFactory {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
         switch (browserEnum) {
             case CHROME:
+                Debugger.println("Browser: CHROME");
                 WebDriverManager.chromedriver().clearPreferences();
                 WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                 driver = getChromeDriver(null, javascriptEnabled);
                 break;
             case FIREFOX:
+                Debugger.println("Browser: FIREFOX");
                 WebDriverManager.firefoxdriver().setup();
                 driver = getFirefoxDriver(null, javascriptEnabled);
                 break;
             case SAFARI:
+                Debugger.println("Browser: SAFARI");
                 driver = getSafariDriver(null, javascriptEnabled);
                 break;
             case IE:
+                Debugger.println("Browser: IE");
                 driver = getInternetExplorer(null, javascriptEnabled);
                 break;
             case SECUREBROWSER:
-
-                zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
-                zapScanner.clear(); //Start a new session
-                zapSpider = (Spider) zapScanner;
-                Debugger.println("Created client to ZAP API");
-                OS = System.getProperty("os.name").toLowerCase();
-                if (OS.indexOf("win") >= 0)
-                    driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
-                else {
-                    if (OS.indexOf("linux") >= 0) {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU , "linux" );
-
-
-                    } else
+                try {
+                    Debugger.println("Browser: SECUREBROWSER...Initializing ZAPProxyScanner...");
+                    zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
+                    Debugger.println("ZAProxyScanner Initialized......Clearing to start new session...");
+                    zapScanner.clear(); //Start a new session
+                    Debugger.println("Cleared...Initializing zapSpider.....");
+                    zapSpider = (Spider) zapScanner;
+                    Debugger.println("Initialized SPider.......");
+                    OS = System.getProperty("os.name").toLowerCase();
+                    Debugger.println("OS: " + OS);
+                    if (OS.indexOf("win") >= 0) {
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
+                    } else if (OS.indexOf("linux") >= 0) {
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU, "linux");
+                    } else {
                         driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                    }
+                }catch(Exception exp){
+                    Debugger.println("EXCEPTION: "+exp);
                 }
-
 
                 //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
                 break;

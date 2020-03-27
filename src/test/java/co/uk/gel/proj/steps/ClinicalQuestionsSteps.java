@@ -1,6 +1,7 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -33,11 +34,18 @@ public class ClinicalQuestionsSteps extends Pages {
     @When("the user adds a new HPO phenotype term {string}")
     public void theUserAddsANewHPOPhenotypeTerm(String newHPOTerm) {
         int actualNumberOfHPOTerms = clinicalQuestionsPage.searchAndSelectRandomHPOPhenotype(newHPOTerm);
+        if(actualNumberOfHPOTerms < 1){
+            Debugger.println("HPO Term: "+newHPOTerm +" Could not add.");
+            SeleniumLib.takeAScreenShot("NewHPOTermAdd.jpg");
+            Assert.assertTrue(false);
+        }
     }
 
     @Then("the new HPO term {string} appears at the top of the list of the HPO terms")
     public void theNewHPOTermAppearsAtTheTopOfTheListOfTheHPOTerms(String expectedHPOTerm) {
-        Assert.assertTrue(clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm));
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.verifySpecificHPOTermDisplayedInTheFirstRow(expectedHPOTerm);
+        Assert.assertTrue(testResult);
     }
 
     @And("the Clinical Questions page is displayed with at least {string} HPO terms in the HPO Phenotype section")

@@ -63,7 +63,6 @@ public class ClinicalIndicationsTestSelectPage {
     String furtherInfoSectionsLocator = "//*[contains (@class, 'card_')]";
 
     @FindBy(css = ".btn.btn-md.btn-primary")
-   // @FindBy(css = "button[class*='startOrderButton']")
     public WebElement startTestOrderButton;
 
     @FindBy(css = "div[class*='closeButton']")
@@ -105,11 +104,10 @@ public class ClinicalIndicationsTestSelectPage {
     public boolean clickStartTestOrderReferralButton() {
         try {
             Debugger.println("Starting Referral....");
-            Wait.forElementToBeDisplayed(driver, startTestOrderButton, 30);
-            if (!Wait.isElementDisplayed(driver, startTestOrderButton, 10)) {
-                Debugger.println("Start Referral button not displayed even after waiting period...Failing.");
+            if (!Wait.isElementDisplayed(driver, startTestOrderButton, 60)) {
+                Debugger.println("Start Referral button not displayed even after waiting period 60s...Failing.");
                 SeleniumLib.takeAScreenShot("startReferralError.jpg");
-                Assert.assertFalse("Start Referral button not displayed even after waiting period...Failing.", true);
+                return false;
             }
             Actions.clickElement(driver,startTestOrderButton);
             return true;

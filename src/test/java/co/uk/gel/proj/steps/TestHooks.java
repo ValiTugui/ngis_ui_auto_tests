@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
@@ -9,6 +11,7 @@ import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.RequestSpecification;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
+import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.When;
@@ -52,7 +55,7 @@ public class TestHooks extends Pages {
     private final static String ZAP_PROXYHOST = "localhost";
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
-    private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
+   // private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private final static String LOW = "LOW";

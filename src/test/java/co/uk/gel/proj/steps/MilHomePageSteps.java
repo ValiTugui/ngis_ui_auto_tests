@@ -166,7 +166,7 @@ public class MilHomePageSteps extends Pages {
     public void theSelectedSearchOptionIsResetAfterTest() {
         miPortalHomePage.clickResetButton();
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -186,6 +186,7 @@ public class MilHomePageSteps extends Pages {
 
     @And("the user sees the displayed fields-columns under {string} section")
     public void theUserSeesTheDisplayedFieldsColumnsUnderSection(String expColumnHeaderStatus, DataTable dataTable) {
+        Wait.seconds(2);
         List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
         List actualListOfColumnHeaders = null;
 
@@ -198,10 +199,10 @@ public class MilHomePageSteps extends Pages {
         } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
             actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
         }
-
+        assert actualListOfColumnHeaders != null;
         for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList") + " : " + "Actual: " + actualListOfColumnHeaders.get(i));
-            Assert.assertEquals(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"), actualListOfColumnHeaders.get(i));
+            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"));
+            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList")));
         }
     }
 
@@ -239,6 +240,28 @@ public class MilHomePageSteps extends Pages {
         int value = Integer.parseInt(paginationValue);
         boolean testResult = false;
         testResult = miPortalHomePage.getTheTotalNumberOfSearchResult(value);
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page")
+    public void theUserSeesTheButtonsShowAllAndHideAllButtonsUnderColumnOrderingSectionOnModalContentPage() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyTheButtonsShowAllAndHideAllAreDisplayedOnModalContent();
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user clicks on the button {string}")
+    public void theUserClicksOnTheButton(String showOrHideButton) {
+        miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
+    }
+
+
+    @When("the user drag the column header {string} from the section {string} to {string} section")
+    public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
+        boolean testResult = false;
+        testResult =  miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
         Debugger.println("test + " + testResult);
         Assert.assertTrue(testResult);
     }

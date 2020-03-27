@@ -94,7 +94,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
     }
 
 
@@ -407,7 +407,7 @@ public class PatientSearchSteps extends Pages {
     @And("the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page")
     public void theUserSearchesForAPatientByProvidingValidDetailsOfNHSNumberAndDOBFieldsInThePatientSearchPage(List<String> patientTypesList) throws IOException {
         theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(patientTypesList);
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
     }
 
     @When("the user types in invalid details of a patient in the NHS number and DOB fields")
