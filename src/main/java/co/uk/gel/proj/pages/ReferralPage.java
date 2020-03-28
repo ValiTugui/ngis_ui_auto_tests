@@ -1323,13 +1323,15 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralSubmitButton);
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             String actualColor = referralSubmitButton.getCssValue("background-color");
-            Debugger.println("Actual Color: " + actualColor);
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                Debugger.println("Actual Color: " + actualColor+",Expected:"+expectedBackground);
+                SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
+            SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
             return false;
         }
     }
