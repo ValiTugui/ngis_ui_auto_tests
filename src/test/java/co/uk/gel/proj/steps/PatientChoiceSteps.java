@@ -473,6 +473,7 @@ public class PatientChoiceSteps extends Pages {
                    Debugger.println("Form "+linkDetails.get(i).get(0)+" could not verify in section:"+formSection);
                    Assert.assertTrue(testResult);
                }
+               Wait.seconds(2);
             }
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
