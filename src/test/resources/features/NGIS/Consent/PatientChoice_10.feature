@@ -77,8 +77,8 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
-      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                            |
+      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060 @scenario_1(a)
@@ -106,8 +106,8 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                                                                                                                                           |
-      | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                             |
+      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060  @scenario_1(b)
@@ -135,8 +135,8 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                                                                                                                                           |
-      | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | WarningMessage                                                                                                                                                                             |
+      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060 @scenario_2
