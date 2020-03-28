@@ -199,10 +199,10 @@ public class MilHomePageSteps extends Pages {
         } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
             actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
         }
-
+        assert actualListOfColumnHeaders != null;
         for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList") + " : " + "Actual: " + actualListOfColumnHeaders.get(i));
-            Assert.assertEquals(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"), actualListOfColumnHeaders.get(i));
+            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"));
+            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList")));
         }
     }
 
@@ -255,5 +255,29 @@ public class MilHomePageSteps extends Pages {
     @And("the user clicks on the button {string}")
     public void theUserClicksOnTheButton(String showOrHideButton) {
         miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
+    }
+
+
+    @When("the user drag the column header {string} from the section {string} to {string} section")
+    public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
+        boolean testResult = false;
+        testResult =  miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
+        Debugger.println("test + " + testResult);
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the Save and Close button under Show All and Hide All button becomes disabled")
+    public void theSaveAndCloseButtonUnderShowAllAndHideAllButtonBecomesDisabled() {
+        Assert.assertTrue("Save and Close button is not disabled", !(miPortalHomePage.saveAndCloseButtonIsDisabled()));
+    }
+
+    @And("the user save the changes on modal content by clicking Save and Close button")
+    public void theUserSaveTheChangesOnModalContentByClickingSaveAndCloseButton() {
+        miPortalHomePage.clickSaveAndCloseButtonOnModalContent();
+    }
+
+    @And("the user click on the {string} check box on the modal content page")
+    public void theUserClickOnTheCheckBoxOnTheModalContentPage(String checkBox) {
+        miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
     }
 }

@@ -452,3 +452,138 @@ Feature: This is mi-portal fileSubmission
     Examples:
       | mi_stage         | column  | operator | date       |
       | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-5020
+  Scenario Outline: File Submissions - field_errors and field_warnings in search result table
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+#    And the columns fields are displayed in the list of columns headers of the search result table - ToDo
+      | columnHeaders |
+      | Error Msgs    |
+      | Warning Msgs  |
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-3390
+  Scenario Outline: Drag and drop a column header from Show to Hide section (vice-versa)
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
+    And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
+    When the user drag the column header "id" from the section "Show" to "Hide" section
+    And the user sees the displayed fields-columns under "Hide" section
+      | HeaderColumnOrderingList |
+      | id                       |
+    When the user drag the column header "path" from the section "Hide" to "Show" section
+    And the user sees the displayed fields-columns under "Show" section
+      | HeaderColumnOrderingList |
+      | path                     |
+    And the user closes the modal content by clicking on the reset-button
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-3390
+  Scenario Outline: Verify the drag and drop columnHeader in search result table
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
+    And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
+    When the user drag the column header "id" from the section "Show" to "Hide" section
+    And the user sees the displayed fields-columns under "Hide" section
+      | HeaderColumnOrderingList |
+      | id                       |
+    And the user save the changes on modal content by clicking Save and Close button
+    And the user sees a search box container section for "<mi_stage>" page
+    And the columns fields are not displayed in the list of columns headers of the search result table
+      | columnHeaders |
+      | id            |
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+  @NTS-3390
+  Scenario Outline: User select the "Compact grid" check box on the modal content page
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user click on the "Compact grid" check box on the modal content page
+    And the user save the changes on modal content by clicking Save and Close button
+    And the user sees a search box container section for "<mi_stage>" page
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column   | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-3390
+  Scenario Outline: User select the "Truncate Columns" check box on the modal content page
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user click on the "Truncate columns" check box on the modal content page
+    And the user save the changes on modal content by clicking Save and Close button
+    And the user sees a search box container section for "<mi_stage>" page
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |

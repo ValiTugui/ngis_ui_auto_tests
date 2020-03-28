@@ -142,7 +142,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Start referral']")  //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
     public WebElement startReferralButton;
 
-    @FindBy(xpath = "//button[text()='Start a new referral']")
+    @FindBy(xpath = "//button[text()='Start new referral']")
     public WebElement startNewReferralButton;
 
     //@FindBy(css = "*[data-testid*='notification-success']")
@@ -457,15 +457,20 @@ public class PatientDetailsPage {
         }
     }
 
-    public void clickStartNewReferralButton() {
+    public boolean clickStartNewReferralButton() {
         try {
-            Wait.forElementToBeDisplayed(driver, startNewReferralButton);
+            if(!Wait.isElementDisplayed(driver, startNewReferralButton, 30)){
+                Debugger.println("Start New Referral Button not displayed.");
+                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+                return false;
+            }
             Actions.clickElement(driver, startNewReferralButton);
             Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+            return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
             SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
-            Assert.assertFalse("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp, true);
+            return false;
         }
     }
 
@@ -1039,7 +1044,7 @@ public class PatientDetailsPage {
     }
     public boolean startReferral() {
         try {
-
+            boolean flag = false;
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");
@@ -1056,9 +1061,9 @@ public class PatientDetailsPage {
                 //clickSavePatientDetailsToNGISButton();
                 clickOnCreateRecord();
                 patientIsCreated();
-                clickStartNewReferralButton();
+                flag = clickStartNewReferralButton();
             }
-            return true;
+            return flag;
         } catch (Exception exp) {
             Debugger.println("Exception in starting the Referral: " + exp);
             SeleniumLib.takeAScreenShot("startReferralError.jpg");
