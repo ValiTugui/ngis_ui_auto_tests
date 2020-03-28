@@ -316,14 +316,14 @@ public class ReferralPage<check> {
 
     public boolean clickSaveAndContinueButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)){
                 Actions.scrollToBottom(driver);
             }
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)){
                 Debugger.println("Save and Continue not visible even after 120 minutes.");
                 return false;
             }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            //Wait.forElementToBeClickable(driver, saveAndContinueButton);
             Actions.clickElement(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
@@ -357,7 +357,7 @@ public class ReferralPage<check> {
 
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 30);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             return true;
         } catch (Exception exp) {

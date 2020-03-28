@@ -1285,15 +1285,29 @@ public class PatientChoicePage {
             String linkForms = formLinks.replaceAll("dummySection", formSection);
             List<WebElement> supportingInformationLinks = driver.findElements(By.xpath(linkForms));
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
+                Wait.seconds(3);
                 if (supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)) {
                     //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
-                    Actions.retryClickAndIgnoreElementInterception(driver,supportingInformationLinks.get(i));
+                    try {
+                        Actions.clickElement(driver, supportingInformationLinks.get(i));
+                    }catch(Exception exp){
+                        Debugger.println("Exception from Clicking form link....trying via selenium lib.");
+                        seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
+                    }
                     Wait.seconds(3);//Wait for three second to Load the form.
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
-                    Actions.scrollToTop(driver);
-                    Actions.clickElement(driver,formLiraryBackButton);
+                    try{
+                        Actions.clickElement(driver,formLiraryBackButton);
+                    }catch(Exception exp){
+                       try {
+                           Debugger.println("Exception from clicking Back button...Trying via selenium lib.");
+                           seleniumLib.clickOnWebElement(formLiraryBackButton);
+                        }catch(Exception exp1){
+                            Debugger.println("Exception from clicking back button: "+exp);
+                        }
+                    }
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }

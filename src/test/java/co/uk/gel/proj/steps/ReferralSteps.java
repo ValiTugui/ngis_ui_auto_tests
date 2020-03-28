@@ -34,9 +34,13 @@ public class ReferralSteps extends Pages {
 
     @Then("^the referral page is displayed$")
     public void referralPageIsDisplayed() {
-        referralPage.checkThatReferralWasSuccessfullyCreated();
-        referralPage.saveAndContinueButtonIsDisplayed();
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.saveAndContinueButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")

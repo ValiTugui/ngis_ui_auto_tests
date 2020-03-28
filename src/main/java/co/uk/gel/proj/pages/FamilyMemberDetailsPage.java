@@ -429,7 +429,7 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Verifying Relationship to proband tag");
             //2. Verify the display of Relation to Proband as given.
             //Select the test if not selected by default
-            selectTheTest();
+            selectTheTest(); //Added this step to select, if not selected = IT is a BUG in Demo
             if(relationShipTags.size() == 0){
                 Debugger.println("Relationship to Proband is not loaded...");
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
