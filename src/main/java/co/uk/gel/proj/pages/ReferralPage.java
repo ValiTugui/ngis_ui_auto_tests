@@ -694,7 +694,7 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Debugger.println("EXPTITLE: "+expTitle);
-            Wait.seconds(5);//Many places observed the Title loading issue, trying with a 5 seconds forceful wait
+            Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;

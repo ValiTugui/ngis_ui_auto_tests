@@ -2,7 +2,7 @@
 #@FamilyMemberSearchPage
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Family Members Search Page - Field Validation_1
+Feature: Family Members Search Page 1- Field Validation_1
 
   @NTS-3302
 #    @E2EUI-965 @E2EUI-1395

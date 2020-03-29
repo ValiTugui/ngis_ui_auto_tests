@@ -94,7 +94,9 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-        patientSearchPage.clickSearchButtonByXpath();
+        boolean testResult = false;
+        testResult = patientSearchPage.clickSearchButtonByXpath();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -412,7 +414,9 @@ public class PatientSearchSteps extends Pages {
 
     @When("the user types in invalid details of a patient in the NHS number and DOB fields")
     public void theUserTypesInInvalidDetailsOfAPatientInTheNHSNumberAndDOBFields() {
-        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -646,7 +650,9 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user clicks on the hyper link")
     public void theUserClicksOnTheHyperLink() {
-        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        boolean testResult = false;
+        testResult = patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        Assert.assertTrue(testResult);
     }
 
     @And("the display question for NHS Number is (.*)$")

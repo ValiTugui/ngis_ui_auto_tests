@@ -30,6 +30,8 @@ Feature: Family Members Navigation Stage 2 - Varying Members addition and remova
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button

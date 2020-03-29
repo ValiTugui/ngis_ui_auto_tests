@@ -60,7 +60,10 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Start a new Referral button")
     public void theUserClicksTheStartANewReferralButton() {
-        patientDetailsPage.clickStartNewReferralButton();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickStartNewReferralButton();
+        Assert.assertTrue(testResult);
+
     }
 
     @When("the user clicks the Start Referral button")
@@ -383,8 +386,11 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user fills in all the fields with NHS number on the New Patient page")
     public void theUserFillsInAllTheFieldsWithNHSNumberOnTheNewPatientPage() {
-        patientDetailsPage.fillInAllNewPatientDetails();
-        patientDetailsPage.fillInNHSNumber();
+        boolean testResult = false;
+        testResult = patientDetailsPage.fillInAllNewPatientDetails();
+        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.fillInNHSNumber();
+        Assert.assertTrue(testResult);
     }
 
     @And("the message displayed on the notification banner is {string}")
@@ -407,7 +413,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user select the life status {string}")
     public void theUserSelectTheLifeStatus(String lifeStatus) {
-        patientDetailsPage.editDropdownField(patientDetailsPage.lifeStatusButton, lifeStatus);
+        boolean testResult = false;
+        testResult = patientDetailsPage.editDropdownField(patientDetailsPage.lifeStatusButton, lifeStatus);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user fills in the date of birth {string}")
@@ -437,7 +445,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the selects the ethnicity as {string}")
     public void theSelectsTheEthnicityAs(String ethnicity) {
-        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, ethnicity);
+        boolean testResult = false;
+        testResult = patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, ethnicity);
+        Assert.assertTrue(testResult);
     }
 
     @And("the Relationship to Proband from the patient referral card is {string}")
@@ -544,9 +554,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserFillsInAllTheMandatoryFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasons) {
-        patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
-
-
+        boolean testResult  = false;
+        testResult = patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user fills in the HospitalNo field")
@@ -584,11 +594,14 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fills in all the fields without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserFillsInAllTheFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        boolean testResult = false;
+        testResult = patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user fill in the first name field")
     public void theUserFillInTheFirstNameField() {
+
         patientDetailsPage.fillInFirstName();
     }
 
@@ -611,7 +624,9 @@ public class PatientDetailsSteps extends Pages {
     @When("the user select the gender {string}")
     public void theUserSelectTheGender(String gender) {
         Actions.scrollToTop(driver);
-        patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+        boolean testResult = false;
+        testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+        Assert.assertTrue(testResult);
     }
 
     @And("the Add To Patient Details {string} button is displayed")
@@ -624,7 +639,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Add patient details to NGIS button")
     public void theUserClicksTheAddPatientDetailsToNGISButton() {
-        patientDetailsPage.clickAddDetailsToNGISButton();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickAddDetailsToNGISButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user retrieve the patient HumanReadable-ID from the patient detail url")

@@ -93,14 +93,8 @@ public class PatientDetailsPage {
     @FindBy(css = "*[data-testid*='notification-warning']")     //@FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
 
-    @FindBy(xpath = "//a[text()='Test Directory']")
-    public WebElement testDirectoryLinkOnBanner;
-
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]")
     public WebElement textOnPatientDetailsNotificationBanner;
-
-    @FindBy(xpath = "//div[contains(@class,'notification--warning')]/. //div[contains(@class,'notification__text')]")
-    public WebElement textOnPatientDetailsNotificationBanner1;
 
     @FindBy(xpath = "//label[contains(@for,'lifeStatus')]//following::div")
     public WebElement lifeStatusButton;
@@ -113,9 +107,6 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "(//label[contains(@for,'noNhsNumberReason')]//following::div)[4]")
     public WebElement noNhsNumberReasonDropdown;
-
-    @FindBy(css = "label[for*='noNhsNumberReason']")
-    public WebElement noNhsNumberReasonLabel;
 
     @FindBy(xpath = "//button[text()='Update NGIS record']")
     public WebElement updateNGISRecordButton;
@@ -333,32 +324,41 @@ public class PatientDetailsPage {
         }
     }
 
-    public void fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(String reason) {
-        Wait.forElementToBeDisplayed(driver, firstName);
-        newPatient.setFirstName(TestUtils.getRandomFirstName());
-        newPatient.setLastName(TestUtils.getRandomLastName());
-        newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
-        newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
-        newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        Actions.fillInValue(firstName, newPatient.getFirstName());
-        Actions.fillInValue(familyName, newPatient.getLastName());
-        Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
-        selectGender(administrativeGenderButton, "Male");
-        editDropdownField(lifeStatusButton, "Alive");
-        editDropdownField(ethnicityButton, "B - White - Irish");
-        Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
-        selectMissingNhsNumberReason(reason);
+    public boolean fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(String reason) {
+        try {
+            Wait.forElementToBeDisplayed(driver, firstName);
+            newPatient.setFirstName(TestUtils.getRandomFirstName());
+            newPatient.setLastName(TestUtils.getRandomLastName());
+            newPatient.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+            newPatient.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+            newPatient.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+            Actions.fillInValue(firstName, newPatient.getFirstName());
+            Actions.fillInValue(familyName, newPatient.getLastName());
+            Actions.fillInValue(dateOfBirth, newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear());
+            selectGender(administrativeGenderButton, "Male");
+            editDropdownField(lifeStatusButton, "Alive");
+            editDropdownField(ethnicityButton, "B - White - Irish");
+            Actions.fillInValue(hospitalNumber, faker.numerify("A#R##BB##"));
+            return selectMissingNhsNumberReason(reason);
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason:"+exp);
+            SeleniumLib.takeAScreenShot("fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason.jpg");
+            return false;
+        }
     }
 
-    public void editDropdownField(WebElement element, String value) {
+    public boolean editDropdownField(WebElement element, String value) {
         try {
             Actions.retryClickAndIgnoreElementInterception(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(2);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+            return true;
         } catch (Exception exp) {
             Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+            SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+            return false;
         }
     }
 
@@ -840,13 +840,15 @@ public class PatientDetailsPage {
         }
     }
 
-    public void clickAddDetailsToNGISButton() {
+    public boolean clickAddDetailsToNGISButton() {
         try {
             Wait.forElementToBeClickable(driver, addDetailsToNGISButton);
             Click.element(driver, addDetailsToNGISButton);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on addPatientDetailsToNGISButton:" + exp);
             SeleniumLib.takeAScreenShot("NoAddPatientDetailsToNGISButton.jpg");
+            return false;
         }
     }
 
@@ -961,8 +963,15 @@ public class PatientDetailsPage {
         }
     }
 
-    public void fillInNHSNumber() {
-        Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
+    public boolean fillInNHSNumber() {
+        try {
+            Actions.fillInValue(nhsNumber, newPatient.getNhsNumber());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInNHSNumber:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNHSNumber.jpg");
+            return false;
+        }
     }
 
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
