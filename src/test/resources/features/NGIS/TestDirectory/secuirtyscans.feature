@@ -146,8 +146,8 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
-      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
-      | NHSNumber=NA:DOB=14-05-1935:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+      | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=14-05-1935:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
     Then the "<FamilyMembers>" stage is marked as Completed
     #patient choice for the proband
     When the user navigates to the "<PatientChoice>" stage
@@ -155,7 +155,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<PatientChoice>"
+    And the user clicks the Save and Continue button
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
