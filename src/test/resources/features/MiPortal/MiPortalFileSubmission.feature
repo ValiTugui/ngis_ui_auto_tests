@@ -25,7 +25,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
  @NTS-3390
-  Scenario Outline: verify the defaults elements on File Submission search page
+  Scenario Outline: NTS-3390:verify the defaults elements on File Submission search page
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -38,7 +38,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: verify the drop-down values of file-submission search column
+  Scenario Outline:NTS-3390: verify the drop-down values of file-submission search column
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -113,7 +113,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-4865
-  Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline: NTS-4865:When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -157,7 +157,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: When no result is found
+  Scenario Outline:NTS-3390: When no result is found
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -176,7 +176,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Verify the main elements displayed in search result section
+  Scenario Outline: NTS-3390:Verify the main elements displayed in search result section
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -196,7 +196,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Verify user is able to Download the CSV fileSubmission result
+  Scenario Outline: NTS-3390:Verify user is able to Download the CSV fileSubmission result
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -216,7 +216,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Verify the elements in the Column Ordering section of File-Submission Display Options
+  Scenario Outline: NTS-3390:Verify the elements in the Column Ordering section of File-Submission Display Options
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -309,7 +309,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-4969
-  Scenario Outline:ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+  Scenario Outline: NTS-4969:ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
@@ -400,7 +400,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-4987
-  Scenario Outline: Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
+  Scenario Outline: NTS-4987:Verify "Show All" and "Hide All" buttons under Column Ordering in modal contents
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -455,7 +455,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-5020
-  Scenario Outline: File Submissions - field_errors and field_warnings in search result table
+  Scenario Outline:NTS-5020 File Submissions - field_errors and field_warnings in search result table
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -477,7 +477,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Drag and drop a column header from Show to Hide section (vice-versa)
+  Scenario Outline:NTS-3390: Drag and drop a column header from Show to Hide section (vice-versa)
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -509,7 +509,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: Verify the drag and drop columnHeader in search result table
+  Scenario Outline:NTS-3390:Verify the drag and drop columnHeader in search result table
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -540,7 +540,7 @@ Feature: This is mi-portal fileSubmission
       | File Submissions | Created | equals   | 09-03-2020 |
 
   @NTS-3390
-  Scenario Outline: User select the "Compact grid" check box on the modal content page
+  Scenario Outline:NTS-3390: User select the "Compact grid" check box on the modal content page
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -565,7 +565,7 @@ Feature: This is mi-portal fileSubmission
 
 
   @NTS-3390
-  Scenario Outline: User select the "Truncate Columns" check box on the modal content page
+  Scenario Outline: NTS-3390:User select the "Truncate Columns" check box on the modal content page
     When the user navigates to the mi-portal "<mi_stage>" stage
 #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
@@ -582,6 +582,32 @@ Feature: This is mi-portal fileSubmission
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date       |
+      | File Submissions | Created | equals   | 09-03-2020 |
+
+
+  @NTS-3390
+  Scenario Outline: NTS-3390:Verify the expand compact button on a search row result and click to expand
+    When the user navigates to the mi-portal "<mi_stage>" stage
+#    And the mi-portal "<mi_stage>" stage is selected
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Display Options button
+    Then the user sees a modal-content page
+    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user click on the "Compact grid" check box on the modal content page
+    And the user save the changes on modal content by clicking Save and Close button
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values
     And the selected search option is reset after test
 
     Examples:
