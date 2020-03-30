@@ -174,4 +174,17 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("test + " + testResult);
     }
 
+    @And("the columns headers are displayed in the list of columns headers of the search result table")
+    public void theColumnsHeadersAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
+
+        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
+
+        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
+            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
+            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
+            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
+        }
+    }
+
 }
