@@ -18,6 +18,7 @@ import io.cucumber.java.en.When;
 import net.continuumsecurity.proxy.ScanningProxy;
 import net.continuumsecurity.proxy.Spider;
 import net.continuumsecurity.proxy.ZAProxyScanner;
+import org.apache.commons.exec.util.DebugUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -106,11 +107,10 @@ public class TestHooks extends Pages {
         request = RestAssured.with();
 
         Debugger.println("\n******* Security RUN STARTS " + new java.util.Date() + " *******************************");
-
         zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
         zapScanner.clear(); //Start a new session
         zapSpider = (Spider) zapScanner;
-        Debugger.println("Created client to ZAP API");
+        Debugger.println("Created client to ZAP API...Initializing URLS to SCAN");
 
         BASE_URL_TS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_TS");
         BASE_URL_TO = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_TO");
@@ -129,7 +129,7 @@ public class TestHooks extends Pages {
 
     @When("user run security scan")
     public void userRunSecurityScan() {
-
+        Debugger.println("Running Security Scan...");
         List<String> urlsToSpider = new LinkedList<>();
         // String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis\\.io|https:\\/\\/test-ordering.e2e-latest.ngis\\.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis\\io|https:\\/\\/dashboard.e2e-latest.ngis.\\.io))).*$";
 
@@ -141,7 +141,14 @@ public class TestHooks extends Pages {
         urlsToSpider.add(BASE_URL_PEDG);
         urlsToSpider.add(BASE_URL_API);
         urlsToSpider.add(BASE_URL_PEDT);
-
+        Debugger.println("Added URL: BASE_URL_TS:"+BASE_URL_TS);
+        Debugger.println("Added URL: BASE_URL_TO:"+BASE_URL_TO);
+        Debugger.println("Added URL: BASE_URL_PA:"+BASE_URL_PA);
+        Debugger.println("Added URL: BASE_URL_PP:"+BASE_URL_PP);
+        Debugger.println("Added URL: BASE_URL_DS:"+BASE_URL_DS);
+        Debugger.println("Added URL: BASE_URL_PEDG:"+BASE_URL_PEDG);
+        Debugger.println("Added URL: BASE_URL_API:"+BASE_URL_API);
+        Debugger.println("Added URL: BASE_URL_PEDT:"+BASE_URL_PEDT);
 
         urlsToSpider.stream().forEach(inciWinciSpider -> spiderWithZap(inciWinciSpider));
         setAlertAndAttackStrength();
@@ -151,6 +158,7 @@ public class TestHooks extends Pages {
 
         List<Alert> alerts = filterAlerts(zapScanner.getAlerts());
         logAlerts(alerts);
+        Debugger.println("Logged Alerts");
         try {
 
             String zapResultXML = "ZAP_ResultOn_" + new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
@@ -167,6 +175,7 @@ public class TestHooks extends Pages {
     }
 
     public void writeHTMLReport(String path) throws IOException {
+        Debugger.println("SCAN: writeHTMLReport............. ");
         byte[] htmlReport = zapScanner.getHtmlReport();
         Path pathToFile = Paths.get(path);
         Files.createDirectories(pathToFile.getParent());
@@ -174,6 +183,7 @@ public class TestHooks extends Pages {
     }
 
     public void writeXmlReport(String path) throws IOException {
+        Debugger.println("SCAN: writeXmlReport............. ");
         byte[] xmlReport = zapScanner.getXmlReport();
         Path pathToFile = Paths.get(path);
         Files.createDirectories(pathToFile.getParent());
@@ -181,14 +191,12 @@ public class TestHooks extends Pages {
     }
 
     private void spiderWithZap(String baseURLToSprider) {
-
+        Debugger.println("spiderWithZap............"+baseURLToSprider);
         if(baseURLToSprider !=null) {
             zapSpider.setThreadCount(5);
             zapSpider.setMaxDepth(5);
             zapSpider.setPostForms(false);
-            System.out.println("Krishan baseURLToSprider" + baseURLToSprider);
             LOGGER.info("Krishan baseURLToSprider" + baseURLToSprider);
-
 
             zapSpider.spider(baseURLToSprider);
             int spiderID = zapSpider.getLastSpiderScanId();
@@ -197,17 +205,20 @@ public class TestHooks extends Pages {
                 complete = zapSpider.getSpiderProgress(spiderID);
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException exp) {
+                    Debugger.println("Exception from spiderWithZap :"+exp);
+                    exp.printStackTrace();
                 }
             }
             for (String url : zapSpider.getSpiderResults(spiderID)) {
                 LOGGER.info("Found URL: " + url);
+                Debugger.println("spiderWithZap:FoundURL:"+url);
             }
         }
     }
 
     public void setAlertAndAttackStrength() {
+        Debugger.println("setAlertAndAttackStrength........:"+policyNames.length);
         for (String policyName : policyNames) {
             String ids = enableZapPolicy(policyName);
             for (String id : ids.split(",")) {
@@ -219,6 +230,7 @@ public class TestHooks extends Pages {
     }
 
     private String enableZapPolicy(String policyName) {
+        Debugger.println("enableZapPolicy: "+policyName);
         String scannerIds = null;
         switch (policyName.toLowerCase()) {
             case "directory-browsing":
@@ -293,7 +305,7 @@ public class TestHooks extends Pages {
     }
 
     private void scanWithZap(String scanBaseURL) {
-        LOGGER.info("ZAP Scanning...");
+        Debugger.println("ZAP Scanning...scanWithZap.....:"+scanBaseURL);
         if (scanBaseURL != null) {
             zapScanner.scan(scanBaseURL);
 
@@ -304,20 +316,22 @@ public class TestHooks extends Pages {
             int complete = 0;
             while (complete < 100) {
                 complete = zapScanner.getScanProgress(currentScanID);
-                LOGGER.info("Scan is " + complete + "% complete.");
+                Debugger.println("Scan is " + complete + "% complete.");
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (InterruptedException exp) {
+                    Debugger.println("Exception from scanWithZap:"+exp);
+                    exp.printStackTrace();
                 }
             }
-            LOGGER.info("Scanning done.");
+            Debugger.println("Scanning DONE...................");
         }
     }
 
     private void logAlerts(List<Alert> alerts) {
         for (Alert alert : alerts) {
             LOGGER.info("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
+            Debugger.println("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
         }
     }
 
@@ -325,6 +339,7 @@ public class TestHooks extends Pages {
         Remove false positives, filter based on risk and reliability
      */
     private List<Alert> filterAlerts(List<Alert> alerts) {
+        Debugger.println("filterAlerts...............");
         List<Alert> filtered = new ArrayList<Alert>();
         for (Alert alert : alerts) {
             if (alert.getRisk().equals(Alert.Risk.High) && alert.getConfidence() != Alert.Confidence.Low)
