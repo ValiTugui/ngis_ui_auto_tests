@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -255,5 +256,43 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
+
+
+    public boolean verifyThePusIconAtTheStartOfEachRowAndClickToExpand() {
+        try {
+            String loc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[1]/td[@style='display: none;']";
+            List<WebElement> allRows = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr"));
+            String allHiddenCol = "//table[contains(@id,'DataTables_Table')]//tbody/tr/td[@style='display: none;']";
+            List<WebElement> allHiddenColEle = driver.findElements(By.xpath(allHiddenCol));
+
+            if (allHiddenColEle.size() > 0) {
+                for (int i = 0; i < allRows.size(); i++) {
+                    List<WebElement> allHiddenColumns = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr[" + i + "]/td[@style='display: none;']"));
+                    Debugger.println("Columns hidden :" + allHiddenColumns.size());
+                    String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i+1) + "]/td[1]";
+                    Actions.clickElement(driver, driver.findElement(By.xpath(expandLoc)));
+                    Wait.seconds(2);
+                    List<WebElement> allUnhiddenColumns = driver.findElements(By.xpath("//tbody/tr[position()= " + (i + 2) + "and @class='child']"));
+                    for (WebElement col : allUnhiddenColumns) {
+                        String value = col.getText();
+                        // Checking if no col value is null
+                        Assert.assertNotNull(value);
+                        Debugger.println("Unhidden col values " + value);
+                    }
+                }
+                return true;
+            } else {
+                Debugger.println("No column is hidden");
+                SeleniumLib.takeAScreenShot("noColumnIsHidden.jpg");
+                return false;
+            }
+
+        } catch (Exception exp) {
+            Debugger.println("Exception due to ExpandCompactLocator element." + exp);
+            SeleniumLib.takeAScreenShot("noExpandCompactLocatorExp.jpg");
+            return false;
+        }
+    }
+
 
 }

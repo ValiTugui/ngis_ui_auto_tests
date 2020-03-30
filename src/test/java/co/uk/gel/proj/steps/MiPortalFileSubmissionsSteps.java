@@ -166,5 +166,12 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
+    @And("the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values")
+    public void theUserSeesTheExpandPlusIconAtTheStartOfEachRowWhereItIsClickedToShowColumnNamesAndValues() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyThePusIconAtTheStartOfEachRowAndClickToExpand();
+        Assert.assertTrue(testResult);
+        Debugger.println("test + " + testResult);
+    }
 
 }
