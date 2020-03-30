@@ -550,7 +550,7 @@ public class PrintFormsPage {
             return false;
         }
     }
-    //Split as per the previous PR comment
+
     public String readSelectedTestDetails() {
         try {
             String returnValue = null;

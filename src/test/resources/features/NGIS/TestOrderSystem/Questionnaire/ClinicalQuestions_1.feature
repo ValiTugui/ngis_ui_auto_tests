@@ -4,9 +4,9 @@
 @TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Clinical Question Page 1 - Family Members
+Feature: Clinical Questions 1 - Family Members
 
-  @NTS-47351 @LOGOUT
+  @NTS-4735 @LOGOUT
 #    @E2EUI-1271
   Scenario Outline: NTS-4735: Show dynamic Clinical Questions about additional family members
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -37,6 +37,8 @@ Feature: Clinical Question Page 1 - Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     And the user edits to complete the highlighted family member
     Then the user is navigated to a page with title Edit patient details
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the test package page has Selected family members with the "<FamilyMemberDetails>"

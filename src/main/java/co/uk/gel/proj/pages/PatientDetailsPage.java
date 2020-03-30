@@ -224,9 +224,15 @@ public class PatientDetailsPage {
     List<WebElement> submittedReferralCardsList;
 
     public boolean patientDetailsPageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "/patient-details");
-        //Wait.forElementToBeDisplayed(driver, startReferralButton);
-        return true;
+        try {
+            Wait.forURLToContainSpecificText(driver, "/patient");
+            //Wait.forElementToBeDisplayed(driver, startReferralButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in patientDetailsPageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("PatientDetails.jpg");
+            return false;
+        }
     }
 
     public boolean newPatientPageIsDisplayed() {
@@ -465,7 +471,7 @@ public class PatientDetailsPage {
                 return false;
             }
             Actions.clickElement(driver, startNewReferralButton);
-            Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+            //Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
@@ -914,8 +920,15 @@ public class PatientDetailsPage {
         return actualEthnicityValues;
     }
 
-    public void fillInLastName() {
-        Actions.fillInValue(familyName, TestUtils.getRandomLastName());
+    public boolean fillInLastName() {
+        try {
+            Actions.fillInValue(familyName, TestUtils.getRandomLastName());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInLastName:"+exp);
+            SeleniumLib.takeAScreenShot("fillInLastName.jpg");
+            return false;
+        }
     }
 
     public boolean createNewFamilyMember(NGISPatientModel familyMember) {
@@ -1179,24 +1192,29 @@ public class PatientDetailsPage {
             return false;
         }
     }
-    public boolean verifyColorOfSavePatientDetailsToNGISButton(String expectedColor) {
+
+    public boolean verifyColorOfCreateRecordButton(String expectedColor) {
         try {
-            Wait.forElementToBeDisplayed(driver, savePatientDetailsToNGISButton);
-            String buttonBgColor = savePatientDetailsToNGISButton.getCssValue("background-color");
+            if(!Wait.isElementDisplayed(driver, createRecord,30)){
+                Debugger.println("Create Record Button not displayed.");
+                SeleniumLib.takeAScreenShot("CreateButton.jpg");
+                return false;
+            }
+            String buttonBgColor = createRecord.getCssValue("background-color");
             if(buttonBgColor == null){
                 Debugger.println("Button background color attribute is not present");
-                SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
+                SeleniumLib.takeAScreenShot("CreateButton.jpg");
                 return false;
             }
             if (!buttonBgColor.equalsIgnoreCase(StylesUtils.convertFontColourStringToCSSProperty(expectedColor))) {
                 Debugger.println("Actual button color :" + buttonBgColor + ", But Excepted button color :" + expectedColor);
-                SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
+                SeleniumLib.takeAScreenShot("CreateButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Save Patient Details To NGIS Button not found. " + exp);
-            SeleniumLib.takeAScreenShot("PatientDetailsToNGIS.jpg");
+            Debugger.println("Exception from verifyColorOfCreateRecordButton. " + exp);
+            SeleniumLib.takeAScreenShot("CreateButton.jpg");
             return false;
         }
     }

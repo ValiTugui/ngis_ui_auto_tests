@@ -17,9 +17,9 @@ Feature: Global Patient Flow 3 - End to end Tumour
     And the message "No patient found" is displayed below the search button
     And the user clicks on the create new patient record
     ##Create a New Patient Page Title
-    And the user is navigated to a page with title Add a new patient to the database
+    And the user is navigated to a page with title Create a record for this patient
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
-    And the user clicks the Start a new Referral button
+    And the user clicks the Start Referral button
     ##Patient Details Page Title
     When the user is navigated to a page with title Check your patient's details
     And the user should see previous labels replaced as current labels

@@ -40,7 +40,9 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("^the Patient Details page is displayed$")
     public void thePatientDetailsPageIsDisplayed() {
-        patientDetailsPage.patientDetailsPageIsDisplayed();
+        boolean testResult = false;
+        testResult = patientDetailsPage.patientDetailsPageIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
@@ -68,7 +70,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {
-        patientDetailsPage.clickStartReferralButton();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickStartReferralButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks the Start Referral button to display the referral page")
@@ -271,8 +275,9 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo)){
+            Assert.assertTrue(false);
+        }
         if(!patientDetailsPage.clickOnCreateRecord()){
             Assert.assertTrue(false);
         }
@@ -338,7 +343,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user fill in the last name field")
     public void theUserFillInTheLastNameField() {
-        patientDetailsPage.fillInLastName();
+        boolean testResult = false;
+        testResult = patientDetailsPage.fillInLastName();
+        Assert.assertTrue(testResult);
     }
 
     @And("the sub-heading title is displayed {string}")
@@ -662,10 +669,10 @@ public class PatientDetailsSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the Save PatientDetails button highlighted with color as {string}")
+    @And("the user sees the Create Record button highlighted with color as {string}")
     public void theUserSeesTheButtonAndColorAs(String expButtonColor) {
         boolean testResult = false;
-        testResult = patientDetailsPage.verifyColorOfSavePatientDetailsToNGISButton(expButtonColor);
+        testResult = patientDetailsPage.verifyColorOfCreateRecordButton(expButtonColor);
         Assert.assertTrue(testResult);
     }
 

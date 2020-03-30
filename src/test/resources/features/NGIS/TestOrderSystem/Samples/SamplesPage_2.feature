@@ -188,12 +188,18 @@ Feature: Samples Page -2
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
-      | sampleStateHeader   |
-      | Fibroblasts         |
-      | DNA                 |
-      | Saliva              |
-      | Fresh frozen tumour |
-      | Fresh frozen tissue |
+      | sampleStateHeader       |
+      | Fibroblasts             |
+      | Fresh frozen tumour     |
+      | Tumour fresh fluid      |
+      | Bone marrow             |
+      | Blood (EDTA)            |
+      | Amniotic fluid          |
+      | Chorionic villus sample |
+      | Fetal blood (EDTA)      |
+      | Saliva                  |
+      | Fresh frozen tissue     |
+      | Skin biopsy             |
 
 
     Examples:
@@ -232,7 +238,7 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | DNA                | Sample updated           |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | Bone marrow        | Sample updated           |
 
 
   @NTS-3345 @LOGOUT
@@ -273,4 +279,4 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited         | sampleState-edited | notificationText-updated |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | Bone marrow        | Sample updated           |
