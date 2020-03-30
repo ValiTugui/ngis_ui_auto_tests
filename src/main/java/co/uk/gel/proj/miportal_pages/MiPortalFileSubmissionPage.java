@@ -283,6 +283,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("No column is hidden");
+                SeleniumLib.takeAScreenShot("noColumnIsHidden.jpg");
                 return false;
             }
 
