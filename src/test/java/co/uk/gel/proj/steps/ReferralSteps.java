@@ -428,7 +428,7 @@ public class ReferralSteps extends Pages {
             Assert.assertTrue(false);
         }
 
-        if(!patientDetailsPage.clickStartNewReferralButton()){
+        if(!patientDetailsPage.clickStartReferralButton()){
             Assert.assertTrue(false);
         }
         if(!referralPage.checkThatReferralWasSuccessfullyCreated()){

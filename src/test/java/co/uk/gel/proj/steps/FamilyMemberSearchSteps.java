@@ -109,8 +109,12 @@ public class FamilyMemberSearchSteps extends Pages {
                      patientSearchPage.clickSearchButtonByXpath();
                 }
             }
-            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-            patientDetailsPage.newPatientPageIsDisplayed();
+            if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                Assert.assertTrue(false);
+            }
             familyMember.setNO_NHS_REASON("Patient is a foreign national");
             familyMember.setGENDER(paramNameValue.get("Gender"));
             familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
@@ -169,7 +173,9 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @When("the user clicks on the create new patient record")
     public void theUserClicksOnThe() {
-        familyMemberSearchPage.clickOnNewPatientLink();
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.clickOnNewPatientLink();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the family member landing page displayed without incomplete error message")

@@ -39,8 +39,10 @@ Feature: Family Members Navigation Stage 4 - Member additions
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
+#    And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
     When the user navigates to the "<FamilyMembers>" stage
     And the color of referral name for "<FamilyMemberDetails>" displays as "<ReferralColor>"
@@ -59,6 +61,8 @@ Feature: Family Members Navigation Stage 4 - Member additions
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
@@ -138,8 +142,12 @@ Feature: Family Members Navigation Stage 4 - Member additions
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
@@ -171,6 +179,8 @@ Feature: Family Members Navigation Stage 4 - Member additions
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                         | RelationshipToProband |
       | NHSNumber=NA:DOB=14-05-1931:Gender=Male:Relationship=Father | Father                |
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And the user is able to clicks on deselected test

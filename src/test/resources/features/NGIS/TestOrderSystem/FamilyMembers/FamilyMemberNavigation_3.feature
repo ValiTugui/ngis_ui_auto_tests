@@ -28,9 +28,11 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks on back button
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
@@ -59,6 +61,8 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     When the user deselects the test
@@ -88,11 +92,15 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage
     Then the user should see an error message "<ErrorMessage>" in "<MessageColor>" for the family member
     When the user edits to complete the highlighted family member
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Edit patient details
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
@@ -117,9 +125,13 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     Then the default family member details page is correctly displayed
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user is able to clicks on deselected test
@@ -172,9 +184,10 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
-    And the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"

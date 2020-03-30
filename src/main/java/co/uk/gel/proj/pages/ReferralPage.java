@@ -250,13 +250,13 @@ public class ReferralPage<check> {
     public WebElement dialogBoxCloseButton;
 
     @FindBy(xpath = "//span[text()='Cancelled']")
-    public WebElement cancelledReferralStatus;
+    public List<WebElement> cancelledReferralStatus;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-header']")
-    public WebElement referralCardHeader;
+    public List<WebElement> referralCardHeaders;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
-    public WebElement referralCancelReasonOnCard;
+    public List<WebElement> referralCancelReasonOnCard;
 
     @FindBy(xpath = "//*[contains(@class,'referral-header__stage-list')]//a")
     List<WebElement> incompleteSection;
@@ -694,10 +694,14 @@ public class ReferralPage<check> {
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
             Debugger.println("EXPTITLE: "+expTitle);
-            Wait.seconds(5);//Many places observed the Title loading issue, trying with a 5 seconds forceful wait
+            Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
+            }
+            if(titleElements.size() == 0){
+                //Wait for 10 more seconds - as some page title takes time to load
+                Wait.seconds(10);
             }
             Debugger.println("CONTINUING...............TITLE."+titleElements.size());
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
@@ -1406,7 +1410,7 @@ public class ReferralPage<check> {
     public boolean referralCancelledStatusWithReason(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, referralCancelReason, 100);
-            if (!seleniumLib.isElementPresent(cancelledReferralStatus)) {
+            if(cancelledReferralStatus.size() == 0){
                 Debugger.println("The referral cancelled status not found");
                 SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
                 return false;
@@ -1428,15 +1432,32 @@ public class ReferralPage<check> {
 
     public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
         try {
-            Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
-            if (!cancelledReferralStatus.isDisplayed()) {
-                Debugger.println("The referral cancelled status not found");
-                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+            Wait.seconds(5);//To load the cancelled referrals if any
+            if(referralCardHeaders.size() == 0){
+                Debugger.println("No Cancelled referrals are listed...");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
-            String actStatus = referralCancelReasonOnCard.getText();
-            if (!reason.equalsIgnoreCase(actStatus)) {
+            if(cancelledReferralStatus.size() == 0){
+                Debugger.println("The referral cancelled status not found");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
+                return false;
+            }
+            if(referralCancelReasonOnCard.size() == 0){
+                Debugger.println("The referral cancelled reason not found");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
+                return false;
+            }
+            String actStatus = "";
+            boolean isPresent = false;
+            for(int i=0; i<referralCancelReasonOnCard.size(); i++){
+                actStatus= referralCancelReasonOnCard.get(i).getText();
+                if (reason.equalsIgnoreCase(actStatus)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
                 Debugger.println("The referral cancellation reason not found");
                 SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
                 return false;
@@ -1451,13 +1472,12 @@ public class ReferralPage<check> {
 
     public boolean clickOnCancelledReferralCard() {
         try {
-            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
-            if (!Wait.isElementDisplayed(driver, cancelledReferralStatus, 30)) {
+            if(cancelledReferralStatus.size() == 0){
                 Debugger.println("PatientDetailsPage:clickReferralCard: ReferralCard Not Visible.");
                 SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, cancelledReferralStatus);
+            Actions.clickElement(driver, cancelledReferralStatus.get(0));
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);

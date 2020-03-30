@@ -226,9 +226,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public void clickNoButton() {
-        Wait.forElementToBeDisplayed(driver, noButton);
-        noButton.click();
+    public boolean clickNoButton() {
+        try {
+            if(!Wait.isElementDisplayed(driver, noButton,30)){
+                Debugger.println("No button not present:");
+                SeleniumLib.takeAScreenShot("clickNoButton.jpg");
+                return false;
+            }
+            noButton.click();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clickNoButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickNoButton.jpg");
+            return false;
+        }
     }
 
     public void clickSearchButton(WebDriver driver) {
@@ -887,22 +898,29 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public void fillInInvalidPatientDetailsInTheNOFields() {
-        Wait.forElementToBeDisplayed(driver, dateDay);
-        testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
-        testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
-        testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
-        dateDay.sendKeys(testData.getDay());
-        dateMonth.sendKeys(testData.getMonth());
-        dateYear.sendKeys(testData.getYear());
-        testData.setFirstName(TestUtils.getRandomFirstName());
-        firstName.sendKeys(testData.getFirstName());
-        testData.setLastName(TestUtils.getRandomLastName());
-        lastName.sendKeys(testData.getLastName());
-        Click.element(driver, genderButton);
-        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
-        testData.setPostCode(getRandomUKPostCode());
-        postcode.sendKeys(testData.getPostCode());
+    public boolean fillInInvalidPatientDetailsInTheNOFields() {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            testData.setDay(String.valueOf(faker.number().numberBetween(10, 31)));
+            testData.setMonth(String.valueOf(faker.number().numberBetween(10, 12)));
+            testData.setYear(String.valueOf(faker.number().numberBetween(1900, 2019)));
+            dateDay.sendKeys(testData.getDay());
+            dateMonth.sendKeys(testData.getMonth());
+            dateYear.sendKeys(testData.getYear());
+            testData.setFirstName(TestUtils.getRandomFirstName());
+            firstName.sendKeys(testData.getFirstName());
+            testData.setLastName(TestUtils.getRandomLastName());
+            lastName.sendKeys(testData.getLastName());
+            Click.element(driver, genderButton);
+            Click.element(driver, genderValue.findElement(By.xpath("//span[text()='Male']")));
+            testData.setPostCode(getRandomUKPostCode());
+            postcode.sendKeys(testData.getPostCode());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInInvalidPatientDetailsInTheNOFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInInvalidPatientDetailsInTheNOFields.jpg");
+            return false;
+        }
     }
 
     public void noFieldsArePrePopulatedInNewPatientPage() {
@@ -1006,13 +1024,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    public void fillInNewPatientDetailsInTheYesFields() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        nhsNumber.sendKeys(newPatient.getNhsNumber());
-        dateDay.sendKeys(newPatient.getDay());
-        dateMonth.sendKeys(newPatient.getMonth());
-        dateYear.sendKeys(newPatient.getYear());
-        Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " +  newPatient.getDay()  + " " + newPatient.getMonth() + " " +  newPatient.getYear() );
+    public boolean fillInNewPatientDetailsInTheYesFields() {
+        try {
+            Wait.forElementToBeDisplayed(driver, nhsNumber);
+            nhsNumber.sendKeys(newPatient.getNhsNumber());
+            dateDay.sendKeys(newPatient.getDay());
+            dateMonth.sendKeys(newPatient.getMonth());
+            dateYear.sendKeys(newPatient.getYear());
+            Debugger.println(" New patient search details " + newPatient.getNhsNumber() + " " + newPatient.getDay() + " " + newPatient.getMonth() + " " + newPatient.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from fillInNewPatientDetailsInTheYesFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInNewPatientDetailsInTheYesFields.jpg");
+            return false;
+        }
     }
 
     public void fillInNewPatientDetailsWithPostCodeInTheNoFields() {

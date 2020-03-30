@@ -17,7 +17,7 @@ Feature: Family Members Details Page - Field Validation_2
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user can see a message "<SearchDetails>" "<PatientSearchMessage>" in "bold" font
     When the user clicks on the create new patient record
-    Then the user is navigated to a page with title Add a new patient to the database
+    Then the user is navigated to a page with title Create a record for this family member
     And the mandatory fields shown with the symbol in red color
       | mandatory_field              | field_type | symbol | symbol color |
       | First name                   | label      | ✱      | #dd2509      |
@@ -58,13 +58,15 @@ Feature: Family Members Details Page - Field Validation_2
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
@@ -74,7 +76,6 @@ Feature: Family Members Details Page - Field Validation_2
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks on back button
     Then the user is navigated to a page with title Patient choice
 
@@ -101,15 +102,15 @@ Feature: Family Members Details Page - Field Validation_2
     Then the user should "get" participant error message as "<ErrorMessage>"
 
     Examples:
-      | Requesting organisation | ordering_entity_name | FamilyMembers  | NoOfParticipants | ErrorMessage                                                                                                                                                                                |
+      | Requesting organisation | ordering_entity_name | FamilyMembers  | NoOfParticipants | ErrorMessage                                                                                                 |
       | Requesting organisation | Queen                | Family members | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. |
 
   @NTS-4413 @LOGOUT
 #    @E2EUI-833 @E2EUI-1880 @Scenario1
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user should be able to see trio family icon in test package
@@ -118,7 +119,7 @@ Feature: Family Members Details Page - Field Validation_2
       | TestPackage  |
       | Test package |
 
-  @NTS-4413  @LOGOUT
+  @NTS-4413 @LOGOUT
 #    @E2EUI-833  @Scenario2
   Scenario Outline: NTS-4413 : Change 'Trio Pedigree' icon as it is upside down
     Given a web browser is at the Private Test Selection homepage
@@ -127,7 +128,6 @@ Feature: Family Members Details Page - Field Validation_2
       | R105 |
     And the user clicks the Start Test Order Referral button
     And the user clicks the PDF order form button
-    Then the user is navigated to a page with title Add a requesting organisation
     When the user enters the keyword "<ordering_entity_name>" in the search field
     And the user selects a random entity from the suggestions list
     And the user clicks on Continue Button
@@ -148,9 +148,14 @@ Feature: Family Members Details Page - Field Validation_2
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
     Then The user should not see the rare disease diagnoses "<AgeOfOnset>" field
@@ -174,16 +179,15 @@ Feature: Family Members Details Page - Field Validation_2
     And the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the message "No patient found" is displayed below the search button
-    Then the user clicks on the create new patient record
-    And the user is navigated to a page with title Add a new patient to the database
+    When the user clicks on the create new patient record
+    Then the user is navigated to a page with title Create a record for this family member
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |
-      | Family members | Patient is a foreign national | Father                |
-
+      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband | FamilyMemberDetails                 |
+      | Family members | Patient is a foreign national | Father                | NHSNumber=9449305307:DOB=14-02-2011 |
 
   @NTS-4053 @LOGOUT
 #    @E2EUI-2474 @scenario_3
@@ -198,8 +202,8 @@ Feature: Family Members Details Page - Field Validation_2
     When the user navigates to the "<Panels>" stage
     Then User clicks on a field "panelsSearchBox" and auto-complete is disabled
     Examples:
-      | FamilyMembers  |Panels |
-      | Family members |Panels |
+      | FamilyMembers  | Panels |
+      | Family members | Panels |
 
   @NTS-4053 @LOGOUT
 #    @E2EUI-2474 @scenario_5
@@ -227,9 +231,13 @@ Feature: Family Members Details Page - Field Validation_2
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the Test package page has Targeted genes section with the "<TargetedGenes>"
