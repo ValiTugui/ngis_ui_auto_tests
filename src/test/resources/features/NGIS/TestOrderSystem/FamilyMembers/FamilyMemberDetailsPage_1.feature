@@ -310,7 +310,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 |
       | Family members | Test package | 2                | NHSNumber=9449305919:DOB=24-07-2011 |
 
-  @NTS-40541 @LOGOUT
+  @NTS-4054 @LOGOUT
 #    @E2EUI-1882 @scenario_2
   Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
     Given a new patient referral is created with associated tests in Test Order System online service
