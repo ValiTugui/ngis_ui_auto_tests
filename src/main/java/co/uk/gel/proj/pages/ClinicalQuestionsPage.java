@@ -217,7 +217,7 @@ public class ClinicalQuestionsPage {
 
     public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
         try {
-        Wait.seconds(2);
+            Wait.seconds(2);
             if(!Wait.isElementDisplayed(driver, hpoTable,10)){
                 Debugger.println("hpoTable not loaded..");
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
@@ -228,8 +228,8 @@ public class ClinicalQuestionsPage {
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
                 return false;
             }
-        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
-        String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
+            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+            String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
             if(!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow)){
                 Debugger.println("Expected HPOTerms in first Row:"+expectedHPOTermToBeDisplayedInTheFirstRow+",Actual:"+actualHPOTermDisplayedInTheFirstRow);
                 SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
@@ -594,7 +594,7 @@ public class ClinicalQuestionsPage {
     }
 
     public String selectSpecificKaryotypicSexDropdownValue(String value){
-     try {
+        try {
             if(!Wait.isElementDisplayed(driver, karyotypicSexDropdown,15)){
                 Actions.scrollToTop(driver);
             }
@@ -666,10 +666,10 @@ public class ClinicalQuestionsPage {
             Actions.selectValueFromDropdown(dropdownValue, value);
             return Actions.getText(rareDiseaseDiagnosisStatusDropdown.findElement(By.cssSelector(selectSingleValue)));
         } catch (Exception exp) {
-        Debugger.println("Clinical Questions Page : Exception from selecting RareDiseaseStatus value  : " + exp);
-        SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
-        return null;
-    }
+            Debugger.println("Clinical Questions Page : Exception from selecting RareDiseaseStatus value  : " + exp);
+            SeleniumLib.takeAScreenShot("RareDiseaseStatusDropdown.jpg");
+            return null;
+        }
     }
 
     public String selectRareDiseaseStatus(String value, int itemPositionInTable) {
@@ -719,9 +719,9 @@ public class ClinicalQuestionsPage {
     }
 
     public String getErrorMessageFromHPOPhenotypeSection(){
-            Wait.forElementToBeDisplayed(driver, hpoErrorNotification);
-            return Actions.getText(hpoErrorNotification);
-        }
+        Wait.forElementToBeDisplayed(driver, hpoErrorNotification);
+        return Actions.getText(hpoErrorNotification);
+    }
 
     public List<String> getValuesFromPhenotypicSexDropDown() {
         Actions.clickElement(driver, phenotypicSexDropdown);

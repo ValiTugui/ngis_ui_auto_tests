@@ -438,8 +438,8 @@ public class TumoursPage {
                 SeleniumLib.takeAScreenShot("tumoursLandingPageTable.jpg");
                 return false;
             }
-        Wait.seconds(3);
-        Actions.clickElement(driver, editTumourArrow);
+            Wait.seconds(3);
+            Actions.clickElement(driver, editTumourArrow);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from clickEditTumourArrow:"+exp);
@@ -634,7 +634,7 @@ public class TumoursPage {
         }
     }
 
-     public boolean verifyLabelTextInTumourIsNotPresent(String expected) {
+    public boolean verifyLabelTextInTumourIsNotPresent(String expected) {
         try {
             if(!Wait.isElementDisplayed(driver, labelTextInTumour,10)){
                 Debugger.println("labelTextInTumour not present.");

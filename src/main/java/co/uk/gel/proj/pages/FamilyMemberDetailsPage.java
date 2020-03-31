@@ -372,13 +372,14 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public void fillTheRelationshipToProband(String relationToProband) {
+    public boolean fillTheRelationshipToProband(String relationToProband) {
         try {
             validationErrors.clear();
             Actions.scrollToTop(driver);
             if (!Wait.isElementDisplayed(driver, relationshipToProbandDropdown, 60)) {
                 Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown element not displayed even after waiting period.");
-                return;
+                SeleniumLib.takeAScreenShot("fillTheRelationshipToProband.jpg");
+                return false;
             }
             seleniumLib.clickOnWebElement(relationshipToProbandDropdown);
             Wait.seconds(2);
@@ -391,23 +392,20 @@ public class FamilyMemberDetailsPage {
                 if (!seleniumLib.isElementPresent(ddElement)) {
                     Debugger.println("FamilyMemberDetailsPage:relationshipToProbandDropdown value: " + relationToProband + " not present in drop down.");
                     SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
-                    return;
+                    return false;
                 }
                 seleniumLib.clickOnWebElement(dropdownValue.findElement(ddElement));
             }
-
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in selecting Relationship to Proband:" + exp);
+            SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
+            return false;
         }
     }
 
     public boolean verifyTheTestAndDetailsOfAddedFamilyMember(NGISPatientModel familyMember) {
         try {
-            if (familyMember == null) {
-                Debugger.println("Family Member cannot be null.");
-                return false;
-            }
-
             Debugger.println("Verifying Selected Test To Relationship Title");
             //1. Verify the display of Title for the added Test.
             if(!Wait.isElementDisplayed(driver,selectedTestForRelationship,30)){
@@ -429,7 +427,12 @@ public class FamilyMemberDetailsPage {
             Debugger.println("Verifying Relationship to proband tag");
             //2. Verify the display of Relation to Proband as given.
             //Select the test if not selected by default
-            selectTheTest();
+            //Added this step to select, if not selected = IT is a BUG in Demo
+            if (!Wait.isElementDisplayed(driver, selectedTest, 5)) {
+                Actions.clickElement(driver,unSelectedTest);
+                Wait.seconds(2);
+            }
+
             if(relationShipTags.size() == 0){
                 Debugger.println("Relationship to Proband is not loaded...");
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
@@ -447,7 +450,7 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("RelationshipToProband.jpg");
                 return false;
             }
-             Debugger.println("Verifying Selected Test");
+            Debugger.println("Verifying Selected Test");
             //3. Select the test as checked by default.
             if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
                 if (!Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
@@ -462,6 +465,7 @@ public class FamilyMemberDetailsPage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in verifying selected test title:" + exp);
+            SeleniumLib.takeAScreenShot("FMSelectTestPage.jpg");
             return false;
         }
     }
@@ -924,11 +928,11 @@ public class FamilyMemberDetailsPage {
             return true;
         }catch(ElementClickInterceptedException exp){
             //The box might be in selected stage and element may not be able to click. So moving control out and click again
-           Actions.clickElement(driver,selectedFamilyMembersLabel);
-           Wait.seconds(2);
-           Actions.clickElement(driver,unSelectedTest);
+            Actions.clickElement(driver,selectedFamilyMembersLabel);
             Wait.seconds(2);
-           return true;
+            Actions.clickElement(driver,unSelectedTest);
+            Wait.seconds(2);
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception in clickOnDeselectedTestCheckBox.."+exp);
             SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");

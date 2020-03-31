@@ -34,9 +34,13 @@ public class ReferralSteps extends Pages {
 
     @Then("^the referral page is displayed$")
     public void referralPageIsDisplayed() {
-        referralPage.checkThatReferralWasSuccessfullyCreated();
-        referralPage.saveAndContinueButtonIsDisplayed();
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.saveAndContinueButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
@@ -282,7 +286,7 @@ public class ReferralSteps extends Pages {
         if(!patientDetailsPage.patientIsCreated()){
             Assert.assertTrue(false);
         }
-        //patientDetailsPage.clickStartNewReferralButton();
+
         if(!patientDetailsPage.clickStartReferralButton()){
             Assert.assertTrue(false);
         }
@@ -423,7 +427,7 @@ public class ReferralSteps extends Pages {
         if(!patientDetailsPage.patientIsCreated()){
             Assert.assertTrue(false);
         }
-        //patientDetailsPage.clickStartNewReferralButton();
+
         if(!patientDetailsPage.clickStartReferralButton()){
             Assert.assertTrue(false);
         }
@@ -780,7 +784,11 @@ public class ReferralSteps extends Pages {
             if(!patientSearchPage.clickPatientCard()){
                 Assert.assertTrue(false);
             }
-            if(!patientDetailsPage.startReferral()){
+            if(!patientDetailsPage.clickStartNewReferralButton()){
+                Assert.assertTrue(false);
+            }
+
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
                 Assert.assertTrue(false);
             }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
@@ -965,7 +973,7 @@ public class ReferralSteps extends Pages {
     @And("the user should see the referral submit button as (.*)")
     public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
         boolean testResult = false;
-        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
+        testResult = referralPage.referralSubmitButtonStatus("#eaebee");
         if (expectedStatus.equals("enabled")) {
             Assert.assertFalse(testResult);
         } else {

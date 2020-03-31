@@ -233,6 +233,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Test Type: "+testType);
             testResult = printFormsPage.validatePDFContent(testType, fileName);
             Assert.assertTrue(testResult);
         }
@@ -242,6 +243,7 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
             Assert.assertTrue(testResult);
         }

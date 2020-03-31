@@ -75,23 +75,23 @@ public class HomePage {
 
 
     public boolean waitUntilHomePageResultsContainerIsLoaded() {
-       try {
-           if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
-               Debugger.println("HomePage:filtersPanel not displayed even after waiting period(200s).");
-               SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
-               return false;
-           }
-           if (!Wait.isElementDisplayed(driver, resultsPanel, 200)) {
-               Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
-               SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
-               return false;
-           }
-           return true;
-       }catch(Exception exp){
-           Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
-           SeleniumLib.takeAScreenShot("HomePagePanels.jpg");
-           return false;
-       }
+        try {
+            if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
+                Debugger.println("HomePage:filtersPanel not displayed even after waiting period(200s).");
+                SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, resultsPanel, 200)) {
+                Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
+                SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
+            SeleniumLib.takeAScreenShot("HomePagePanels.jpg");
+            return false;
+        }
     }
 
     public boolean typeInSearchField(String searchTerm) {
@@ -117,7 +117,7 @@ public class HomePage {
                 SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
                 return false;
             }
-        Click.element(driver, searchIcon);
+            Click.element(driver, searchIcon);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception in clickSearchIconFromSearchField:"+exp);
@@ -128,9 +128,9 @@ public class HomePage {
 
     public void closeCookiesBannerFromFooter() {
         try {
-        if (cookiesUnderstandButton.size() > 0) {
-            Click.element(driver, cookiesUnderstandButton.get(0));
-            Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
+            if (cookiesUnderstandButton.size() > 0) {
+                Click.element(driver, cookiesUnderstandButton.get(0));
+                Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
             }
         }catch(Exception exp){
             Debugger.println("Exception from closeCookiesBannerFromFooter. Continue..");
@@ -139,25 +139,25 @@ public class HomePage {
 
     public boolean selectFirstEntityFromResultList() {
         try {
-        if(resultsPanels != null && resultsPanels.size() > 0){
-            Click.element(driver, resultsPanels.get(0));
-        }else{
-            Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
-            Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
-            if(resultsPanels != null && resultsPanels.size() > 0) {
+            if (resultsPanels != null && resultsPanels.size() > 0) {
                 Click.element(driver, resultsPanels.get(0));
-            }else{
+            } else {
+                Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
+                Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
+                if (resultsPanels != null && resultsPanels.size() > 0) {
+                    Click.element(driver, resultsPanels.get(0));
+                } else {
                     Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 more seconds");
                     Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
                     if (resultsPanels != null && resultsPanels.size() > 0) {
                         Click.element(driver, resultsPanels.get(0));
                     }else {
-                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
+                        Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:" + driver.getCurrentUrl());
+                        SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
                         return false;
                     }
+                }
             }
-        }
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from selectFirstEntityFromResultList:"+exp);

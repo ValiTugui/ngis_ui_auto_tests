@@ -122,7 +122,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Reset')]")
     public WebElement resetHeaderOrderingButton;
 
-    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]']")
+    @FindBy(xpath = "//div[contains(@class,'active')]//ancestor::div[@class='wrapper']/..//div[@class='modal-footer']//button[contains(string(),'Save')]")
     public WebElement saveAndCloseHeaderOrderingButton;
 
     @FindBy(xpath = "//label[text()='Show']")
@@ -618,5 +618,35 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
+    public void clickSaveAndCloseButtonOnModalContent() {
+        try {
+            if (!Wait.isElementDisplayed(driver, saveAndCloseHeaderOrderingButton, 10)) {
+                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveAndCloseHeaderOrderingButtonElement.jpg");
+            }
+            //Wait.forElementToBeClickable(driver, saveAndCloseHeaderOrderingButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndCloseHeaderOrderingButton);
+            //Click.element(driver, resetHeaderOrderingButton);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
+            SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
+        }
+    }
+
+    public void clickOnCheckBoxOptionsForSaveSpaceOnScreen(String saveSpaceCompactorTruncate) {
+        try {
+            String saveSpaceScreen = "//span[text()='dummySaveSpace']/../input";
+            String saveSpaceScreenLocator = saveSpaceScreen.replace("dummySaveSpace", saveSpaceCompactorTruncate);
+            WebElement saveSpaceScreenElement = driver.findElement(By.xpath(saveSpaceScreenLocator));
+            if (!Wait.isElementDisplayed(driver, saveSpaceScreenElement, 10)) {
+                Debugger.println("No saveSpaceCompactOrTruncate element is shown.");
+                SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver,saveSpaceScreenElement);
+        } catch (Exception exp) {
+            Debugger.println("No saveSpaceCompactOrTruncate element shown.");
+            SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
+        }
+    }
 }
 

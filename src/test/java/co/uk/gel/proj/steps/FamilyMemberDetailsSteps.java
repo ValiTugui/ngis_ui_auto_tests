@@ -46,8 +46,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
-        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+        if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
+            Assert.assertTrue(false);
+        }
+        if(!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)){
+            Assert.assertTrue(false);
+        }
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
         if(familyMember != null){
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);
@@ -133,7 +137,9 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks the Add new patient to referral button")
     public void theUserClicksTheAddNewPatientToReferralButton() {
-        familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
+        boolean testResult = false;
+        testResult = familyMemberNewPatientPage.clickOnCreateNGISRecord();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user deselects the test")
@@ -360,7 +366,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                         if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
                             patientSearchPage.clickSearchButtonByXpath();
                         }
-                        }
+                    }
                     if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
                         Assert.assertTrue(false);
                     }
@@ -378,12 +384,16 @@ public class FamilyMemberDetailsSteps extends Pages {
                         Assert.assertTrue(false);
                     }
                 }else {
-                    familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
+                    if(!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))){
+                        Assert.assertTrue(false);
+                    }
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
-                    familyMemberDetailsPage.clickPatientCard();
+                    if(!familyMemberDetailsPage.clickPatientCard()){
+                        Assert.assertTrue(false);
+                    }
                     familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
                     referralPage.clickSaveAndContinueButton();
                 }
@@ -483,11 +493,11 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @Then("the family member details on family Member landing page is shown as {string} for the participant {string}")
     public void theFamilyMemberDetailsOnFamilyMemberLandingPageIsShownAsForTheParticipant(String testStatus, String relationToProband) {
-       if(testStatus.equalsIgnoreCase("Not being tested")) {
-           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
-       }else { // check Being tested status
-           familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
-       }
+        if(testStatus.equalsIgnoreCase("Not being tested")) {
+            familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPageForNotBeingTested();
+        }else { // check Being tested status
+            familyMemberDetailsPage.verifyTheDetailsOfFamilyMemberOnFamilyMemberPage();
+        }
     }
 
     @And("the user selects the test for the {string}")

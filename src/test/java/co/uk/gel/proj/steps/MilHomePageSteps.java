@@ -265,4 +265,19 @@ public class MilHomePageSteps extends Pages {
         Debugger.println("test + " + testResult);
         Assert.assertTrue(testResult);
     }
+
+    @And("the Save and Close button under Show All and Hide All button becomes disabled")
+    public void theSaveAndCloseButtonUnderShowAllAndHideAllButtonBecomesDisabled() {
+        Assert.assertTrue("Save and Close button is not disabled", !(miPortalHomePage.saveAndCloseButtonIsDisabled()));
+    }
+
+    @And("the user save the changes on modal content by clicking Save and Close button")
+    public void theUserSaveTheChangesOnModalContentByClickingSaveAndCloseButton() {
+        miPortalHomePage.clickSaveAndCloseButtonOnModalContent();
+    }
+
+    @And("the user click on the {string} check box on the modal content page")
+    public void theUserClickOnTheCheckBoxOnTheModalContentPage(String checkBox) {
+        miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
+    }
 }
