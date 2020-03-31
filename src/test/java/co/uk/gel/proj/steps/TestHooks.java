@@ -308,9 +308,7 @@ public class TestHooks extends Pages {
         Debugger.println("ZAP Scanning...scanWithZap.....:"+scanBaseURL);
         if (scanBaseURL != null) {
             zapScanner.scan(scanBaseURL);
-
             //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
-
             zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
             currentScanID = zapScanner.getLastScannerScanId();
             int complete = 0;
@@ -318,7 +316,7 @@ public class TestHooks extends Pages {
                 complete = zapScanner.getScanProgress(currentScanID);
                 Debugger.println("Scan is " + complete + "% complete.");
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(30000);//wait for 30 seconds
                 } catch (InterruptedException exp) {
                     Debugger.println("Exception from scanWithZap:"+exp);
                     exp.printStackTrace();
