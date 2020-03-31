@@ -612,7 +612,7 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            if (Wait.isElementDisplayed(driver, pageTitle, 30)){
+            if (Wait.isElementDisplayed(driver, pageTitle, 10)){
                 return Actions.getText(pageTitle);
             }
             return null;
@@ -693,14 +693,15 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
-            Debugger.println("EXPTITLE: "+expTitle);
+            Debugger.println("EXP TITLE: "+expTitle);
             Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
+            //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
+            Wait.seconds(8);
             if(titleElements.size() == 0){
-                //Wait for 10 more seconds - as some page title takes time to load
                 Wait.seconds(10);
             }
             Debugger.println("CONTINUING...............TITLE."+titleElements.size());
@@ -713,8 +714,9 @@ public class ReferralPage<check> {
                 }
             }
 
-            Debugger.println("TITLE--STILLL NOT..");
+            Debugger.println("TITLE--STILL NOT..");
             //In case of failure again, trying with another method.
+            Wait.seconds(10);
             By pageTitle;
             if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
@@ -748,25 +750,6 @@ public class ReferralPage<check> {
             Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
             return false;
-        }
-    }
-
-    public void clickOnSaveAndContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
-                Debugger.println("Save and Continue Button not displayed even after wait period.");
-            }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
-            Wait.seconds(5);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
-            Debugger.println("Could not click on Save and Continue...." + exp);
         }
     }
 

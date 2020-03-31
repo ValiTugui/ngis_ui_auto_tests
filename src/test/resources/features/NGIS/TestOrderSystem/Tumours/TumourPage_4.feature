@@ -5,7 +5,7 @@
 @SYSTEM_TEST
 Feature: Tumours Page - 4
 
- @NTS-3204 @LOGOUT
+  @NTS-3204 @LOGOUT
 #    @E2EUI-890 @E2EUI-1026
   Scenario Outline: NTS-3204:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

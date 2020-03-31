@@ -7,6 +7,7 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
   @NTS-3506 @LOGOUT
@@ -34,13 +35,13 @@ Feature: ClinicalQuestions 3 - RD Questionnaire
   Scenario Outline: NTS-3245 - Clinical Questions - Check if HPO Phenotype is mandatory if Disease status is set to "<diseaseStatueValue>"
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
-    When the user selects "<diseaseStatueValue>"
-    Then the HPO phenotype details mandatory state is "<mandatory>"
+    And the phenotype label marked as mandatory based on the disease status selection
+      | diseaseStatueValue             | phenotypeMandatory |
+      | USER_DOES_NOT_SELECT_ANY_VALUE | false              |
+      | Affected                       | true               |
+      | Unaffected                     | false              |
+      | Uncertain                      | false              |
+      | Unknown                        | false              |
     Examples:
-      | stage              | title                     | diseaseStatueValue             | mandatory |
-      | Clinical questions | Answer clinical questions | USER_DOES_NOT_SELECT_ANY_VALUE | false     |
-      | Clinical questions | Answer clinical questions | Affected                       | true      |
-      | Clinical questions | Answer clinical questions | Unaffected                     | false     |
-      | Clinical questions | Answer clinical questions | Uncertain                      | false     |
-      | Clinical questions | Answer clinical questions | Unknown                        | false     |
-
+      | stage              | title                     |
+      | Clinical questions | Answer clinical questions |

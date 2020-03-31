@@ -67,7 +67,7 @@ public class TumoursSteps extends Pages {
                 break;
             }
             default:
-                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
                 Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
                 break;

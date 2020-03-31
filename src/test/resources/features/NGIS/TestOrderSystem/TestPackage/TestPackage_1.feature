@@ -35,7 +35,6 @@ Feature: Test Package 1  - Cancer
       | stage        | new_stage             |
       | Test package | Responsible clinician |
 
-
   @NTS-3109 @LOGOUT
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Cancer
@@ -62,7 +61,7 @@ Feature: Test Package 1  - Cancer
       | stage        | priority | new_stage             | number_of |
       | Test package | Routine  | Responsible clinician | 1         |
 
-  @NTS-3070 @NTS-3823 @LOGOUT
+  @NTS-3070 @LOGOUT
 #    @E2EUI-1316 @E2EUI-1123
   Scenario Outline: NTS-3070 - Test package - Urgency selection
     And the user navigates to the "<stage>" stage

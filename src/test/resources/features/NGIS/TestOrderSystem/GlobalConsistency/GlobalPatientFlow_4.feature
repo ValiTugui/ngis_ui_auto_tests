@@ -4,24 +4,6 @@
 @SYSTEM_TEST
 Feature: Global Patient Flow 4 - Common validations
 
-  @NTS-4621 @LOGOUT
-#    @E2EUI-1191
-  Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
-    Given a web browser is at the patient search page
-      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Find your patient
-    And the user clicks the NO button
-    And the user types in invalid details of a patient in the NO fields
-    And the user clicks the Search button
-    And the message "No patient found" is displayed below the search button
-    And the user clicks on the create new patient record
-    When the user is navigated to a page with title Create a record for this patient
-    Then the user sees the Create Record button highlighted with color as "<ButtonColor>"
-
-    Examples:
-      | ButtonColor |
-      | #005eb8     |
-
   @NTS-4692 @LOGOUT
 #    @E2EUI-1176
   Scenario Outline: NTS-4692: Copy & Design only - Create or update copy on Add a sample/Edit a sample
@@ -53,4 +35,20 @@ Feature: Global Patient Flow 4 - Common validations
       | Stage   | sampleType                | sampleState        | sampleType1               | sampleState1 |
       | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Saliva       |
 
+  @NTS-4621 @LOGOUT
+#    @E2EUI-1191
+  Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
+    Given a web browser is at the patient search page
+      | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Find your patient
+    And the user clicks the NO button
+    And the user types in invalid details of a patient in the NO fields
+    And the user clicks the Search button
+    And the message "No patient found" is displayed below the search button
+    And the user clicks on the create new patient record
+    When the user is navigated to a page with title Create a record for this patient
+    Then the user sees the Create Record button highlighted with color as "<ButtonColor>"
 
+    Examples:
+      | ButtonColor |
+      | #005eb8     |
