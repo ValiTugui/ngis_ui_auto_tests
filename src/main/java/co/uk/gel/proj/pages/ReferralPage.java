@@ -420,7 +420,7 @@ public class ReferralPage<check> {
         return partialUrl;
     }
 
-    public void navigateToStage(String stage) {
+    public boolean navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
             //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
@@ -434,23 +434,19 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
                 Actions.scrollToBottom(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (TimeoutException exp) {
-            Debugger.println("Stage Click: TimeoutException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (NoSuchElementException exp) {
-            Debugger.println("Stage Click: NoSuchElementException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Stage Click: Exception: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            try {
+                Wait.seconds(15);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                seleniumLib.clickOnWebElement(referralStage);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from navigating to Stage:"+stage);
+                SeleniumLib.takeAScreenShot("StageNavigation.jpg");
+                return false;
+            }
         }
     }
     public boolean stageIsSelected(String expStage) {
