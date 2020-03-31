@@ -362,6 +362,7 @@ public class ClinicalQuestionsPage {
             return actualErrorMessage;
         }catch(Exception exp){
             Debugger.println("Exception from getErrorMessageText:"+exp);
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
             return "";
         }
     }

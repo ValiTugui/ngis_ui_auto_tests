@@ -710,7 +710,7 @@ public class ReferralPage<check> {
                 }
             }
 
-            Debugger.println("TITLE--STILL NOT..");
+            Debugger.println("Page title not loaded after 21 seconds waiting for another 10 seconds and trying to locate.");
             //In case of failure again, trying with another method.
             Wait.seconds(10);
             By pageTitle;
