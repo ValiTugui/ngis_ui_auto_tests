@@ -10,7 +10,7 @@ Feature: ClinicalQuestions 9 - RD Questionnaire
     And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
-  @NTS-4708  @LOGOUT
+  @NTS-4708 @LOGOUT
   # @E2EUI-1323
   Scenario Outline: NTS-4708 - Clinical Questions - drop-downs in the Phenotypic and Karyotypic Sex section
     And the user navigates to the "<stage>" stage

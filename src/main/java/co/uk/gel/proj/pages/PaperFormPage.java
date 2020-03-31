@@ -151,6 +151,13 @@ public class PaperFormPage {
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from Selecting Requesting Organization: "+exp);
+            //Added below snippet as observed IllegalArgumentException sometimes, just an alternative to proceed with first selection
+            int num =  orderEntitySearchSuggestionsList.size();
+            if(num != 0){
+                Debugger.println("Proceeding with First Organisation.");
+                Actions.clickElement(driver,orderEntitySearchSuggestionsList.get(0));
+                return true;
+            }
             SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
             return false;
         }

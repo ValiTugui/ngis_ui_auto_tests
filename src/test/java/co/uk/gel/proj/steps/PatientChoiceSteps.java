@@ -35,24 +35,31 @@ public class PatientChoiceSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             for (int i = 1; i < memberDetails.size(); i++) {
-                patientChoicePage.selectMember(i);
+                Debugger.println("\nPatient Choice for Family Member:"+i);
+                if(!patientChoicePage.selectMember(i)){
+                    Assert.assertTrue(false);
+                }
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Wait.seconds(2);
-                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
+                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Wait.seconds(2);
-                patientChoicePage.clickOnContinue();
+                if(!patientChoicePage.clickOnContinue()){
+                    Assert.assertTrue(false);
+                }
                 Wait.seconds(2);
                 patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
                 patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 Wait.seconds(2);
-                patientChoicePage.clickOnContinue();
+                if(!patientChoicePage.clickOnContinue()){
+                    Assert.assertTrue(false);
+                }
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
                     Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
-                    patientChoicePage.clickOnContinue();
+                    Assert.assertTrue(patientChoicePage.clickOnContinue());
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
                     //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
@@ -65,6 +72,7 @@ public class PatientChoiceSteps extends Pages {
                 }
                 patientChoicePage.clickOnSaveAndContinueButton();
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+                Debugger.println("\nPC done for FM:"+i);
             }//end
 
         } catch (Exception exp) {

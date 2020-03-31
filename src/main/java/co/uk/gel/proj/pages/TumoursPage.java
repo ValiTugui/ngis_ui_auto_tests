@@ -215,7 +215,7 @@ public class TumoursPage {
         dateMonth.sendKeys(monthOfDiagnosis);
     }
 
-    public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+    public boolean fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
         try {
             if(dayOfDiagnosis != null && !dayOfDiagnosis.isEmpty()) {
                 dateDay.sendKeys(dayOfDiagnosis);
@@ -226,8 +226,11 @@ public class TumoursPage {
             if(yearOfDiagnosis != null && !yearOfDiagnosis.isEmpty()) {
                 dateYear.sendKeys(yearOfDiagnosis);
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception in fillInDateOfDiagnosis:"+exp);
+            SeleniumLib.takeAScreenShot("fillInDateOfDiagnosis.jpg");
+            return false;
         }
     }
 

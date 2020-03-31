@@ -309,15 +309,29 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory() {
-        Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
-        Debugger.println(" HPO section Label :  " + hpoSectionLabel.getText());
-        return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
+        try {
+            Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
+            Debugger.println(" HPO section Label :  " + hpoSectionLabel.getText());
+            return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
+        }catch(Exception exp){
+            Debugger.println("Exception in confirmHPOPhenotypeSectionIsMarkedAsMandatory:"+exp);
+            SeleniumLib.takeAScreenShot("confirmHPOPhenotypeSectionIsMarkedAsMandatory.jpg");
+            return false;
+        }
 
     }
 
-    public void fillInYearsOfOnset(String years) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
-        Actions.fillInValue(ageOfOnsetYearsField, years);
+    public boolean fillInYearsOfOnset(String years) {
+        try {
+            Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+            ageOfOnsetYearsField.clear();
+            Actions.fillInValue(ageOfOnsetYearsField, years);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInYearsOfOnset:"+exp);
+            SeleniumLib.takeAScreenShot("fillInYearsOfOnset.jpg");
+            return false;
+        }
     }
     public void clearValueFromYearsOfOnset() {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
@@ -328,22 +342,42 @@ public class ClinicalQuestionsPage {
         Actions.clearTextField(ageOfOnsetMonthsField);
     }
 
-    public void fillInMonthsOfOnset(String months) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
-        Actions.fillInValue(ageOfOnsetMonthsField, months);
+    public boolean fillInMonthsOfOnset(String months) {
+        try {
+            Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+            ageOfOnsetMonthsField.clear();
+            Actions.fillInValue(ageOfOnsetMonthsField, months);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInMonthsOfOnset:"+exp);
+            SeleniumLib.takeAScreenShot("fillInMonthsOfOnset.jpg");
+            return false;
+        }
     }
 
     public String getErrorMessageText() {
-        Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
-        String actualErrorMessage = nonNullableFieldErrorMessage.getText();
-        return actualErrorMessage;
+        try {
+            Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
+            String actualErrorMessage = nonNullableFieldErrorMessage.getText();
+            return actualErrorMessage;
+        }catch(Exception exp){
+            Debugger.println("Exception from getErrorMessageText:"+exp);
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return "";
+        }
     }
 
     public boolean checkNoErrorMessageIsDisplayed() {
         try {
-            return nonNullableFieldErrorMessage.isDisplayed();
-        } catch (NoSuchElementException nseException) {
-            Debugger.println("Web element locator for error message is not visible , hence Error message is not shown on the page");
+            if(Wait.isElementDisplayed(driver,nonNullableFieldErrorMessage,5)){
+                Debugger.println("Expected No Error message, but present.");
+                SeleniumLib.takeAScreenShot("checkNoErrorMessageIsDisplayed.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checkNoErrorMessageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("checkNoErrorMessageIsDisplayed.jpg");
             return false;
         }
     }

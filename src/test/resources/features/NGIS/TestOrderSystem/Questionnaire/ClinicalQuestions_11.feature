@@ -28,21 +28,6 @@ Feature: ClinicalQuestions 11 - RD Questionnaire
       | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount | termPresence |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             | Present      |
 
-  @NTS-3246 @LOGOUT
-#    @E2EUI-1531
-  Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
-    And the user navigates to the "<stage>" stage
-    Then the user is navigated to a page with title Answer clinical questions
-    And  the user selects "<diseaseStatueValue>"
-    When the user provided the values "<year>" "<month>" for Age of onset fields
-    And the user does not see an error message on the page
-    Examples:
-      | stage              | diseaseStatueValue | year | month |
-      | Clinical questions | Affected           | 1    | 2     |
-      | Clinical questions | Affected           | 2    | 8     |
-      | Clinical questions | Affected           | 3    | 1     |
-      | Clinical questions | Affected           | 0    | 0     |
-
   @NTS-3346 @LOGOUT
 #    @E2EUI-995
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown

@@ -1431,7 +1431,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public int getDisplayIndexOfSpecificReferral(String referralIdentifierName) {
-
         try {
             Wait.forElementToBeDisplayed(driver, displayedChildElements.get(0));
             for (int i = 0; i < displayedChildElements.size(); i++) {

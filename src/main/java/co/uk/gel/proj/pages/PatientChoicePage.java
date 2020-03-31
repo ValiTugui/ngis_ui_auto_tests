@@ -909,16 +909,21 @@ public class PatientChoicePage {
         }
     }
 
-    public void selectMember(int i) {
+    public boolean selectMember(int i) {
         try {
             if (Wait.isElementDisplayed(driver, landingPageList, 10)) {
                 if (memberEditButton.size() > i) {
                     Click.element(driver, memberEditButton.get(i));
+                    return true;
                 }
             }
+            Debugger.println("Could not select member in specified location in PC " + i);
+            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+            return false;
         } catch (Exception exp) {
             Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp);
             SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+            return false;
         }
     }
 
