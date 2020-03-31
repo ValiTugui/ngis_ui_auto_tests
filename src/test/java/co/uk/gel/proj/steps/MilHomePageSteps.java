@@ -216,7 +216,8 @@ public class MilHomePageSteps extends Pages {
     public void theUserSeesTheSearchResultsPaginationEntryDropDownWithDefaultSelectionOf(String expectedEntryPagination) {
         String actualEntryPagination = miPortalHomePage.getTheSelectedPaginationEntryValue();
         Debugger.println("ExpectedEntry: " + expectedEntryPagination + " : ActualEntry :" + actualEntryPagination);
-        Assert.assertTrue(actualEntryPagination.contains(expectedEntryPagination));
+        //Assert.assertTrue(actualEntryPagination.contains(expectedEntryPagination));
+        Assert.assertEquals(expectedEntryPagination,actualEntryPagination);
     }
 
     @And("the user sees all the drop-down values in the search results pagination entry selection")
