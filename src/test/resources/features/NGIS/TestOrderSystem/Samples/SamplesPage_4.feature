@@ -29,7 +29,7 @@ Feature: Samples Page -4
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva         |
 
 
   @NTS-3416 @LOGOUT
@@ -137,7 +137,7 @@ Feature: Samples Page -4
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Normal or germline sample | DNA         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | Tumour fresh fluid         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
   @NTS-3432 @LOGOUT

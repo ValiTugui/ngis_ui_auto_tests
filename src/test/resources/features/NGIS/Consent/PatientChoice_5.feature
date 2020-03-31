@@ -121,9 +121,9 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | Patient choice stage |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Patient choice       |
 
-  @NTS-3411 @LOGOUT
+  @NTS-5035 @LOGOUT
     #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
-  Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
+  Scenario Outline: NTS-5035 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1997:Gender=Male |
     ##Patient Details
@@ -170,6 +170,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information
+    Then the "<TestPackage>" stage is marked as Completed
     ##Family Members - Family member details to be added
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral

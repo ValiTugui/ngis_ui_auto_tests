@@ -67,7 +67,7 @@ public class TumoursSteps extends Pages {
                 break;
             }
             default:
-                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
                 Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
                 break;
@@ -310,11 +310,11 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 
-
     @And("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
     public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
-
-        tumoursPage.clickEditTumourArrow();
+        boolean testResult = false;
+        testResult = tumoursPage.clickEditTumourArrow();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")

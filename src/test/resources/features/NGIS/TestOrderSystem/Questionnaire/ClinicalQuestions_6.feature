@@ -7,6 +7,7 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
   @NTS-3439 @LOGOUT

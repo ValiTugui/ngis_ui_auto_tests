@@ -101,16 +101,20 @@ public class FamilyMemberSearchSteps extends Pages {
                 Debugger.println("Could not fill the NHS number and DOB for search....");
                 Assert.assertTrue(false);
             }
-            patientSearchPage.clickSearchButtonByXpath(driver);
+            patientSearchPage.clickSearchButtonByXpath();
             if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                 Debugger.println("NHS Not Found...going with No option.");
                 familyMember.setGENDER(paramNameValue.get("Gender"));
                  if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                     patientSearchPage.clickSearchButtonByXpath(driver);
+                     patientSearchPage.clickSearchButtonByXpath();
                 }
             }
-            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-            patientDetailsPage.newPatientPageIsDisplayed();
+            if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                Assert.assertTrue(false);
+            }
             familyMember.setNO_NHS_REASON("Patient is a foreign national");
             familyMember.setGENDER(paramNameValue.get("Gender"));
             familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
@@ -169,7 +173,9 @@ public class FamilyMemberSearchSteps extends Pages {
 
     @When("the user clicks on the create new patient record")
     public void theUserClicksOnThe() {
-        familyMemberSearchPage.clickOnNewPatientLink();
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.clickOnNewPatientLink();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the family member landing page displayed without incomplete error message")

@@ -9,6 +9,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage1>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -33,7 +34,6 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
     Examples:
       | stage1  | stage2  | tumour_type              | pageTitle                          | dynamicQuestionsLabel                   | presentationType   | searchTerm | notificationText | sampleDynamicQuestionsPageTitle | sampleDynamicQuestionsLabel                              | sampleType           | topography | morphology |
       | Tumours | Samples | Solid tumour: metastatic | Answer questions about this tumour | Working diagnosis/morphology (SnomedCT) | First presentation | test       | Tumour added     | Add sample details              | Tumour content (percentage of malignant nuclei / blasts) | Liquid tumour sample | test       | test       |
-
 
   @NTS-4728 @LOGOUT
 #    @E2EUI-970

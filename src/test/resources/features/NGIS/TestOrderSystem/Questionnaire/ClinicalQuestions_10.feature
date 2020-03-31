@@ -29,8 +29,8 @@ Feature: ClinicalQuestions 10 - Page Validation
   @NTS-4624 @LOGOUT
 #    @E2EUI-1299
   Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
     When the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
@@ -56,9 +56,9 @@ Feature: ClinicalQuestions 10 - Page Validation
   @NTS-4631 @LOGOUT
 #    @E2EUI-1169
   Scenario Outline: Age of Onset field input validation with special characters under Disease status - Clinical questions
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R86 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    ##Patient details Stage
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+     ##Patient details Stage
     When the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
     And the user clicks the Save and Continue button

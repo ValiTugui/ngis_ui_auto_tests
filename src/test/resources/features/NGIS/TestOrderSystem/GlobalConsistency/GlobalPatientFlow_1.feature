@@ -71,16 +71,14 @@ Feature: Feature: Global Patient Flow 1- Stage Validation
       | NHS number,NHS no. | NHS Number,NHS No |
     And the user clicks the patient result card
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
-    And the user should see previous labels replaced as current labels
+    When the user is navigated to a page with title Patient record
+    Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
-    When the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
-    And the user clicks the Start Referral button
+    When the user clicks the Start a new Referral button
     ##Referral Details Page
-    When the user is navigated to a page with title Check your patient's details
-    Then the user should see previous labels replaced as current labels
+    Then the user is navigated to a page with title Check your patient's details
+    And the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
      ##Requesting Organisation Page

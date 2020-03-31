@@ -2,7 +2,7 @@
 #@FamilyMemberSearchPage
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Family Members Search Page - Field Validation_2
+Feature: Family Members Search Page 2 - Field Validation_2
 
   @NTS-3328
 #    @E2EUI-841
@@ -132,8 +132,7 @@ Feature: Family Members Search Page - Field Validation_2
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the family member search page display description title contains the phrase "Add any information you have to search the NHS Spine and the Genomics England database (NGIS)"
-    And the family member search page display description title contains the phrase "Full name, gender and postcode are required if NHS Number is not available."
-    Then the default family member search page is correctly displayed with the NHS number and Date of Birth fields
+    And the default family member search page is correctly displayed with the NHS number and Date of Birth fields
 
     Examples:
       | stage          |

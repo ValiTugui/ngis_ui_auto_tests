@@ -37,10 +37,8 @@ public class AppConfig {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
-                //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-            //  System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();

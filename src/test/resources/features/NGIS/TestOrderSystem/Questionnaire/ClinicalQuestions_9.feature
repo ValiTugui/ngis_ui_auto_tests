@@ -5,12 +5,12 @@
 Feature: ClinicalQuestions 9 - RD Questionnaire
 
   Background:
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
+    And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
-
-  @NTS-4708  @LOGOUT
+  @NTS-4708 @LOGOUT
   # @E2EUI-1323
   Scenario Outline: NTS-4708 - Clinical Questions - drop-downs in the Phenotypic and Karyotypic Sex section
     And the user navigates to the "<stage>" stage

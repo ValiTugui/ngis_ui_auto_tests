@@ -49,7 +49,7 @@ public class ClinicalQuestionsPage {
 
     //Adding family members in a loop, the orginal xpath is getting changed
     @FindBy(xpath = "//input[contains(@id,'react-select-')]")
-    public WebElement hpoSearchField;
+    public List<WebElement> hpoSearchField;
 
     @FindBy(css = "*[class*='hpo-term__name']")
     public List<WebElement> hpoTermNames;
@@ -157,18 +157,23 @@ public class ClinicalQuestionsPage {
     public int searchAndSelectRandomHPOPhenotype(String hpoTerm) {
         Wait.seconds(5);
         try {
-            if(!Wait.isElementDisplayed(driver,hpoSearchField,10)) {
+            if(hpoSearchField.size() < 1){
+                Debugger.println("HPO Search field not displayed.");
+                SeleniumLib.takeAScreenShot("HPOSearchField.jpg");
+                return 0;
+            }
+            if(!Wait.isElementDisplayed(driver,hpoSearchField.get(0),10)) {
                 Debugger.println("HPO Phenotype search field is not visible.");
                 SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch.jpg");
                 //Scroll to the element and try
-                SeleniumLib.scrollToElement(hpoSearchField);
-                if(!Wait.isElementDisplayed(driver,hpoSearchField,10)){
+                SeleniumLib.scrollToElement(hpoSearchField.get(0));
+                if(!Wait.isElementDisplayed(driver,hpoSearchField.get(0),10)){
                     Debugger.println("Scrolled to HPO Phenotype search field, still not displayed.");
                     SeleniumLib.takeAScreenShot("HPOPhenoTypeSearch1.jpg");
                     Actions.scrollToTop(driver);
                 }
             }
-            hpoSearchField.sendKeys(hpoTerm);
+            hpoSearchField.get(0).sendKeys(hpoTerm);
             if(!Wait.isElementDisplayed(driver,dropdownValue,10)){
                 Debugger.println("HPO Phenotype options are not loaded for search term:"+hpoTerm);
                 SeleniumLib.takeAScreenShot("HPOPhenoTypeDDValues.jpg");
@@ -185,7 +190,7 @@ public class ClinicalQuestionsPage {
             int numberOfHPO = hpoTerms.size();
             if(numberOfHPO < 1){
                 //Scrolling to search field and Selecting as some time overlay observed while running from jenkins
-                SeleniumLib.scrollToElement(hpoSearchField);
+                SeleniumLib.scrollToElement(hpoSearchField.get(0));
                 Actions.selectByIndexFromDropDown(dropdownValues, 0);
                 // determine the total number of HPO terms Loaded - If selected, it would be minimum one
                 Wait.seconds(2);
@@ -211,11 +216,31 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificHPOTermDisplayedInTheFirstRow(String expectedHPOTermToBeDisplayedInTheFirstRow) {
-        Wait.seconds(2);
-        Wait.forElementToBeDisplayed(driver, hpoTable);
-        Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
-        String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
-        return actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow);
+        try {
+            Wait.seconds(2);
+            if(!Wait.isElementDisplayed(driver, hpoTable,10)){
+                Debugger.println("hpoTable not loaded..");
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            if(hpoTermNames.size() < 1){
+                Debugger.println("hpoTermNames not loaded..");
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            Wait.forElementToBeDisplayed(driver, hpoTermNames.get(0));
+            String actualHPOTermDisplayedInTheFirstRow = hpoTermNames.get(0).getText();
+            if(!actualHPOTermDisplayedInTheFirstRow.contains(expectedHPOTermToBeDisplayedInTheFirstRow)){
+                Debugger.println("Expected HPOTerms in first Row:"+expectedHPOTermToBeDisplayedInTheFirstRow+",Actual:"+actualHPOTermDisplayedInTheFirstRow);
+                SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifySpecificHPOTermDisplayedInTheFirstRow:"+exp);
+            SeleniumLib.takeAScreenShot("HPOTermDisplayFirstRow.jpg");
+            return false;
+        }
     }
 
     public String searchAndSelectSpecificDiagnosis(String diagnosis) {
@@ -284,15 +309,29 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean confirmHPOPhenotypeSectionIsMarkedAsMandatory() {
-        Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
-        Debugger.println(" HPO section Label :  " + hpoSectionLabel.getText());
-        return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
+        try {
+            Wait.forElementToBeDisplayed(driver, hpoSectionLabel);
+            Debugger.println(" HPO section Label :  " + hpoSectionLabel.getText());
+            return hpoSectionLabel.getText().contains(hpoSectionMarkedAsMandatoryToDO);
+        }catch(Exception exp){
+            Debugger.println("Exception in confirmHPOPhenotypeSectionIsMarkedAsMandatory:"+exp);
+            SeleniumLib.takeAScreenShot("confirmHPOPhenotypeSectionIsMarkedAsMandatory.jpg");
+            return false;
+        }
 
     }
 
-    public void fillInYearsOfOnset(String years) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
-        Actions.fillInValue(ageOfOnsetYearsField, years);
+    public boolean fillInYearsOfOnset(String years) {
+        try {
+            Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
+            ageOfOnsetYearsField.clear();
+            Actions.fillInValue(ageOfOnsetYearsField, years);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInYearsOfOnset:"+exp);
+            SeleniumLib.takeAScreenShot("fillInYearsOfOnset.jpg");
+            return false;
+        }
     }
     public void clearValueFromYearsOfOnset() {
         Wait.forElementToBeDisplayed(driver, ageOfOnsetYearsField);
@@ -303,22 +342,42 @@ public class ClinicalQuestionsPage {
         Actions.clearTextField(ageOfOnsetMonthsField);
     }
 
-    public void fillInMonthsOfOnset(String months) {
-        Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
-        Actions.fillInValue(ageOfOnsetMonthsField, months);
+    public boolean fillInMonthsOfOnset(String months) {
+        try {
+            Wait.forElementToBeDisplayed(driver, ageOfOnsetMonthsField);
+            ageOfOnsetMonthsField.clear();
+            Actions.fillInValue(ageOfOnsetMonthsField, months);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInMonthsOfOnset:"+exp);
+            SeleniumLib.takeAScreenShot("fillInMonthsOfOnset.jpg");
+            return false;
+        }
     }
 
     public String getErrorMessageText() {
-        Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
-        String actualErrorMessage = nonNullableFieldErrorMessage.getText();
-        return actualErrorMessage;
+        try {
+            Wait.forElementToBeDisplayed(driver, nonNullableFieldErrorMessage);
+            String actualErrorMessage = nonNullableFieldErrorMessage.getText();
+            return actualErrorMessage;
+        }catch(Exception exp){
+            Debugger.println("Exception from getErrorMessageText:"+exp);
+            SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
+            return "";
+        }
     }
 
     public boolean checkNoErrorMessageIsDisplayed() {
         try {
-            return nonNullableFieldErrorMessage.isDisplayed();
-        } catch (NoSuchElementException nseException) {
-            Debugger.println("Web element locator for error message is not visible , hence Error message is not shown on the page");
+            if(Wait.isElementDisplayed(driver,nonNullableFieldErrorMessage,5)){
+                Debugger.println("Expected No Error message, but present.");
+                SeleniumLib.takeAScreenShot("checkNoErrorMessageIsDisplayed.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from checkNoErrorMessageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("checkNoErrorMessageIsDisplayed.jpg");
             return false;
         }
     }
@@ -424,7 +483,11 @@ public class ClinicalQuestionsPage {
     public boolean verifyMaxAllowedValuesHPOField(int maxAllowedValues) {
         try {
             Wait.seconds(5);
-            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField, "Nephritis");
+            if(hpoSearchField.size() < 1){
+                Debugger.println("HPO");
+                return false;
+            }
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(hpoSearchField.get(0), "Nephritis");
             Wait.forElementToBeDisplayed(driver, dropdownValues.get(0));
             Wait.seconds(2);
             int i = 0;

@@ -14,6 +14,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import javax.swing.text.Style;
 import java.util.ArrayList;
@@ -210,7 +211,8 @@ public class ReferralPage<check> {
     public WebElement familyMemberGender;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    //@FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
@@ -248,13 +250,13 @@ public class ReferralPage<check> {
     public WebElement dialogBoxCloseButton;
 
     @FindBy(xpath = "//span[text()='Cancelled']")
-    public WebElement cancelledReferralStatus;
+    public List<WebElement> cancelledReferralStatus;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-header']")
-    public WebElement referralCardHeader;
+    public List<WebElement> referralCardHeaders;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
-    public WebElement referralCancelReasonOnCard;
+    public List<WebElement> referralCancelReasonOnCard;
 
     @FindBy(xpath = "//*[contains(@class,'referral-header__stage-list')]//a")
     List<WebElement> incompleteSection;
@@ -297,6 +299,8 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
+    @FindBy(xpath = "//div[contains(@class,'referral__main')]//h1")
+    List<WebElement> titleElements;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -312,15 +316,15 @@ public class ReferralPage<check> {
 
     public boolean clickSaveAndContinueButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 120)){
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)){
                 Actions.scrollToBottom(driver);
             }
-            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 60)){
+            if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)){
                 Debugger.println("Save and Continue not visible even after 120 minutes.");
                 return false;
             }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            //Wait.forElementToBeClickable(driver, saveAndContinueButton);
+            Actions.clickElement(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -351,45 +355,9 @@ public class ReferralPage<check> {
         }
     }
 
-    public void clickSaveAndContinueButtonOnThePatientChoiceComponent() {
-        try {
-            try {
-                Wait.forElementToBeDisplayed(driver, consentDocument, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentShadow, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentPrintableForm, 200);
-                Wait.forElementToBeDisplayed(driver, consentDocumentHeaderInfo, 200);
-            } catch (Exception exp) {
-                Debugger.println("Consent Form is not visible ...");
-                SeleniumLib.takeAScreenShot("PatientChoiceConsentDocument.jpg");
-                //Assert.assertFalse("Consent Form is not visible ...Exception : " + exp, true);
-            }
-
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-            // Click.element(driver, saveAndContinueButton)
-            if (helix.size() > 0) {
-                try {
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                } catch (TimeoutException texp) {
-                    //Still the helix in action, waiting for another 30 seconds.
-                    Debugger.println("ReferralPage:clickSaveAndContinueButton, Still helix in action, waiting for another 30 seconds:" + texp);
-                    Wait.seconds(30);
-                    Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-                }
-            }
-        } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            seleniumLib.clickOnWebElement(saveAndContinueButton);
-            //Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
-        }
-    }
-
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
+            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 30);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
             return true;
         } catch (Exception exp) {
@@ -409,7 +377,6 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralHeader, 200);
             Wait.forElementToBeDisplayed(driver, toDoList, 200);
             Wait.forElementToBeDisplayed(driver, sectionBody, 200);
-//            Wait.forNumberOfElementsToBeEqualTo(driver, By.cssSelector(valuesInReferralHeaderBar), 7);
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage:checkThatReferralWasSuccessfullyCreated:Exception." + exp);
@@ -453,7 +420,7 @@ public class ReferralPage<check> {
         return partialUrl;
     }
 
-    public void navigateToStage(String stage) {
+    public boolean navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
             //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
@@ -467,23 +434,19 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
                 Actions.scrollToBottom(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (TimeoutException exp) {
-            Debugger.println("Stage Click: TimeoutException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (NoSuchElementException exp) {
-            Debugger.println("Stage Click: NoSuchElementException: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Stage Click: Exception: " + exp);
-            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            try {
+                Wait.seconds(15);
+                referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+                seleniumLib.clickOnWebElement(referralStage);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from navigating to Stage:"+stage);
+                SeleniumLib.takeAScreenShot("StageNavigation.jpg");
+                return false;
+            }
         }
     }
     public boolean stageIsSelected(String expStage) {
@@ -645,7 +608,6 @@ public class ReferralPage<check> {
 
     public String getTheCurrentPageTitle() {
         try {
-            //Reduced the waiting time to 10 seconds from 30 seconds
             if (Wait.isElementDisplayed(driver, pageTitle, 10)){
                 return Actions.getText(pageTitle);
             }
@@ -727,21 +689,30 @@ public class ReferralPage<check> {
 
     public boolean verifyThePageTitlePresence(String expTitle) {
         try {
-            Wait.seconds(5);//Many places observed the Title loading issue, trying with a 5 seconds forceful wait
+            Debugger.println("EXP TITLE: "+expTitle);
+            Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
+            //Observed that there is a delay sometimes to load the Page Title...so waiting for 15 seconds with 5 sec interval
+            Wait.seconds(8);
+            if(titleElements.size() == 0){
+                Wait.seconds(10);
+            }
+            Debugger.println("CONTINUING...............TITLE."+titleElements.size());
             //Added extra below code, as it is observed that the page title path for each element in stage is not same
-            List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
-            if (titleElements != null) {
-                for (int i = 0; i < titleElements.size(); i++) {
-                    if (titleElements.get(i).getText().contains(expTitle)) {
-                        return true;
-                    }
+           // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
+           for (int i = 0; i < titleElements.size(); i++) {
+                Debugger.println("ACT TITLE:"+titleElements.get(i).getText());
+                if (titleElements.get(i).getText().contains(expTitle)) {
+                    return true;
                 }
             }
+
+            Debugger.println("Page title not loaded after 21 seconds waiting for another 10 seconds and trying to locate.");
             //In case of failure again, trying with another method.
+            Wait.seconds(10);
             By pageTitle;
             if (expTitle.contains("\'")) {
                 // if the string contains apostrophe character, apply double quotes in the xpath string
@@ -775,25 +746,6 @@ public class ReferralPage<check> {
             Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("PageWithTitleNotLoaded.jpg");
             return false;
-        }
-    }
-
-    public void clickOnSaveAndContinueButton() {
-        try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
-            if (!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)) {
-                Debugger.println("Save and Continue Button not displayed even after wait period.");
-            }
-            Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Wait.seconds(2);
-            Click.element(driver, saveAndContinueButton);
-            Wait.seconds(5);
-            if (helix.size() > 0) {
-                Wait.forElementToDisappear(driver, By.cssSelector(helixIcon));
-            }
-        } catch (Exception exp) {
-            SeleniumLib.takeAScreenShot("FamilyDetailsSaveContinue.jpg");
-            Debugger.println("Could not click on Save and Continue...." + exp);
         }
     }
 
@@ -1354,13 +1306,15 @@ public class ReferralPage<check> {
             Wait.forElementToBeDisplayed(driver, referralSubmitButton);
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
             String actualColor = referralSubmitButton.getCssValue("background-color");
-            Debugger.println("Actual Color: " + actualColor);
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                Debugger.println("Actual Color: " + actualColor+",Expected:"+expectedBackground);
+                SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
+            SeleniumLib.takeAScreenShot("ButtonStatus.jpg");
             return false;
         }
     }
@@ -1435,7 +1389,7 @@ public class ReferralPage<check> {
     public boolean referralCancelledStatusWithReason(String reason) {
         try {
             Wait.forElementToBeDisplayed(driver, referralCancelReason, 100);
-            if (!seleniumLib.isElementPresent(cancelledReferralStatus)) {
+            if(cancelledReferralStatus.size() == 0){
                 Debugger.println("The referral cancelled status not found");
                 SeleniumLib.takeAScreenShot("referralCancelledStatus.jpg");
                 return false;
@@ -1457,15 +1411,32 @@ public class ReferralPage<check> {
 
     public boolean verifyReferralCancelledStatusOnPatientCard(String reason) {
         try {
-            Wait.forElementToBeDisplayed(driver, referralCardHeader, 60);
-            if (!cancelledReferralStatus.isDisplayed()) {
-                Debugger.println("The referral cancelled status not found");
-                SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
+            Wait.seconds(5);//To load the cancelled referrals if any
+            if(referralCardHeaders.size() == 0){
+                Debugger.println("No Cancelled referrals are listed...");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
                 return false;
             }
-            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
-            String actStatus = referralCancelReasonOnCard.getText();
-            if (!reason.equalsIgnoreCase(actStatus)) {
+            if(cancelledReferralStatus.size() == 0){
+                Debugger.println("The referral cancelled status not found");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
+                return false;
+            }
+            if(referralCancelReasonOnCard.size() == 0){
+                Debugger.println("The referral cancelled reason not found");
+                SeleniumLib.takeAScreenShot("CancelledReferrals.jpg");
+                return false;
+            }
+            String actStatus = "";
+            boolean isPresent = false;
+            for(int i=0; i<referralCancelReasonOnCard.size(); i++){
+                actStatus= referralCancelReasonOnCard.get(i).getText();
+                if (reason.equalsIgnoreCase(actStatus)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
                 Debugger.println("The referral cancellation reason not found");
                 SeleniumLib.takeAScreenShot("referralCancelledStatusOnCard.jpg");
                 return false;
@@ -1480,13 +1451,12 @@ public class ReferralPage<check> {
 
     public boolean clickOnCancelledReferralCard() {
         try {
-            Wait.forElementToBeDisplayed(driver, referralCancelReasonOnCard, 10);
-            if (!Wait.isElementDisplayed(driver, cancelledReferralStatus, 30)) {
+            if(cancelledReferralStatus.size() == 0){
                 Debugger.println("PatientDetailsPage:clickReferralCard: ReferralCard Not Visible.");
                 SeleniumLib.takeAScreenShot("cancelReferralCard.jpg");
                 return false;
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, cancelledReferralStatus);
+            Actions.clickElement(driver, cancelledReferralStatus.get(0));
             return true;
         } catch (Exception exp) {
             Debugger.println("ReferralPage: clickCancelledReferralCard: " + exp);

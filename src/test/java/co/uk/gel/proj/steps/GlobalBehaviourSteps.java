@@ -47,12 +47,7 @@ public class GlobalBehaviourSteps extends Pages {
         testResult = globalBehaviourPage.verifyTheContinueButtonOnLandingPage();
         Assert.assertTrue(testResult);
     }
-//    @And("the user should verify the referral banner present at the top")
-//    public void theUserShouldVerifyTheReferralBannerPresentAtTheTop() {
-//        boolean testResult = false;
-//        testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
-//        Assert.assertTrue(testResult);
-//    }
+
     @When("the user should see previous labels replaced as current labels")
     public void theUserVerifyTheTextPresentInThePageAs(DataTable labelsList) {
         boolean testResult = false;
@@ -96,5 +91,10 @@ public class GlobalBehaviourSteps extends Pages {
         boolean testResult = false;
         testResult = globalBehaviourPage.verifyTheElementsOnReferralBanner();
         Assert.assertTrue(testResult);
+    }
+
+    @Given("the user gets the NGIS version")
+    public void theUserGetsTheNGISVersion() {
+        globalBehaviourPage.getNGISVersion();
     }
 }
