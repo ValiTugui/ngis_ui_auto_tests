@@ -187,4 +187,20 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         }
     }
 
+
+    @And("the user see dates value in {string} column of file-submission search result in descending order")
+    public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
+
+        List<String> actualValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
+        Debugger.println("Actual " + actualValues);
+        Debugger.println("Size of actual: " + actualValues.size());
+
+        List<String> expectedValues = new ArrayList<>();
+        expectedValues.addAll(actualValues);
+        Collections.sort(expectedValues, Collections.reverseOrder());
+        Debugger.println("Expected :" + expectedValues);
+        Assert.assertEquals(expectedValues, actualValues);
+    }
+
+
 }
