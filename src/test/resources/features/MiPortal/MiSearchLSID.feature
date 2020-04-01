@@ -1,6 +1,6 @@
 
 
-Feature: This is mi-portal MiSearchLSID
+Feature: MI Portal - This is mi-portal MiSearchLSID
 
 
   @NTS_todo

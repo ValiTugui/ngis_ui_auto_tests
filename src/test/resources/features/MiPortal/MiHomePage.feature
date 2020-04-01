@@ -1,6 +1,6 @@
 
 
-Feature: This is mi-portal homepage
+Feature: MI Portal - This is mi-portal homepage
 
   @NTS_todo
   Scenario Outline: mi-portal page
