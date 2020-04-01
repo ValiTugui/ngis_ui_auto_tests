@@ -2,7 +2,7 @@
 #@requestingOrganisationTestDirectory
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Requesting Organisation page
+Feature: Test Directory - Requesting Organisation
 
   Background:
     #Test Directory

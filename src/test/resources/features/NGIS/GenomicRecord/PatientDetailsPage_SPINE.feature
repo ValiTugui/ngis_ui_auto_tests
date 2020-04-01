@@ -3,7 +3,7 @@
 @GENOMIC_RECORD
 @SYSTEM_TEST
 
-Feature: Patient details page_SPINE
+Feature: Genomic Record - Patient details page_SPINE
 
   @NTS-3541 @LOGOUT
 #    @E2EUI-1289

@@ -2,7 +2,7 @@
 #@CancerQuestionnaire
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: ClinicalQuestions 12 - Tumour Questionnaire
+Feature: TestOrder - ClinicalQuestions 12 - Tumour Questionnaire
 
   @NTS-3266 @LOGOUT
 #    @E2EUI-1602

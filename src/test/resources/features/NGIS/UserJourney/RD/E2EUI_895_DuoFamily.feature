@@ -1,7 +1,7 @@
 #@RD_DUO
 @SYSTEM_INTEGRATION_TEST
   ## This is for testing purpose as we see many failures in the add family member section
-Feature: NTS-3407 - RD flow - Adding Duo family
+Feature: User flow - RD - Adding Duo family
 
   @NTS-3377 @LOGOUT
 #    @E2EUI-895

@@ -2,7 +2,7 @@
 #@patientSearchSPINE
 @GENOMIC_RECORD
 @SYSTEM_TEST
-Feature: Patient search page_SPINE
+Feature: Genomic Record - Patient search page_SPINE
 
   Background:
     Given a web browser is at the patient search page

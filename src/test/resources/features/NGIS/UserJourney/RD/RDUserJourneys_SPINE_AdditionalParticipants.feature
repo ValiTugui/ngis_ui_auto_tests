@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_SPINE_AdditionalParticipant
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for SPINE Patient - Additional Participant
+Feature: User flow - RD - Create Referrals for SPINE Patient - Additional Participant
 
   @NTS-4591 @LOGOUT
 #    @E2EUI-1264 @UseCase14

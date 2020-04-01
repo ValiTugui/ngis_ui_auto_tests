@@ -4,7 +4,7 @@
 @TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Clinical Questions 1 - Family Members
+Feature: TestOrder - Clinical Questions 1 - Family Members
 
   @NTS-4735 @LOGOUT
 #    @E2EUI-1271

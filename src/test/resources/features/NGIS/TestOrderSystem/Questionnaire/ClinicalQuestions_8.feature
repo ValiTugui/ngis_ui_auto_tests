@@ -2,7 +2,7 @@
 #@clinicalQuestions
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: ClinicalQuestions 8 - RD Questionnaire
+Feature: TestOrder - ClinicalQuestions 8 - RD Questionnaire
 
   Background:
     Given a new patient referral is created with associated tests in Test Order System online service

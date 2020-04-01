@@ -1,6 +1,6 @@
 #@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
-Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
+Feature: User flow - Cancer - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
   ##Covered in BVT smoke test, so changing NTS ticket as, it is executing two time, if need to try the Cancer flow with the
   ##NTS ticket. Keeping same NTS as for usecase 21 - 4678. Original was NTS-3362 which is same as mentioned in BVT_SMOKE_TEST Pack
   @NTS-4678 @LOGOUT

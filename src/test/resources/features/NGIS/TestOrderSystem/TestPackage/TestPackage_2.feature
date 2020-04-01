@@ -3,7 +3,7 @@
 @TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Test Package 2 - RD
+Feature: TestOrder - Test Package 2 - RD
 
   Background:
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

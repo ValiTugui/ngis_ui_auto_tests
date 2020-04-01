@@ -2,7 +2,7 @@
 #@userJourneysCancer
 #@userJourneysCancer_NEW_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Cancer Referrals for NEW Patient - Proband Only
+Feature: User flow - Cancer - Create Referrals for NEW Patient - Proband Only
 
   @NTS-4687 @LOGOUT
 #    @E2EUI-1637 @UseCase21

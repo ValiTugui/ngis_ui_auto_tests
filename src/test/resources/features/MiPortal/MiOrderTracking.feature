@@ -1,6 +1,6 @@
 @MIPORTAL
 
-Feature: This is mi-portal Order_Tracking
+Feature: MI Portal - This is mi-portal Order_Tracking
 
   Background:
     Given a web browser is at the mi-portal home page

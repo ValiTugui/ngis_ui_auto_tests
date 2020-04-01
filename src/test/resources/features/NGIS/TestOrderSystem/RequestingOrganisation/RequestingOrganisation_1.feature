@@ -1,7 +1,7 @@
 #@regression
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Requesting Organisation page 1
+Feature: TestOrder - Requesting Organisation page 1
 
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

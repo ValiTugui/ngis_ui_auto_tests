@@ -1,7 +1,6 @@
 @MIPORTAL
-@SYSTEM_TEST
 
-Feature: This is mi-portal fileSubmission
+Feature: MI Portal - This is mi-portal fileSubmission
 
   Background:
     Given a web browser is at the mi-portal home page

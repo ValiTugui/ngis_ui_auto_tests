@@ -3,7 +3,7 @@
 #@samplesPage1
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Samples Page -3
+Feature: TestOrder - Samples Page -3
 
   @NTS-4734 @LOGOUT
 #    @E2EUI-1342 @E2EUI-1440

@@ -3,7 +3,7 @@
 #@tumoursPage
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Tumours Page - 4
+Feature: TestOrder - Tumours Page - 4
 
   @NTS-3204 @LOGOUT
 #    @E2EUI-890 @E2EUI-1026
@@ -57,45 +57,6 @@ Feature: Tumours Page - 4
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   | pageTitle     |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary | Edit a tumour |
-
-  @NTS-3176 @LOGOUT
-#    @E2EUI-1412
-  Scenario Outline: NTS-3176: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<stage>" stage
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-    And the user clicks the Save and Continue button
-    And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
-    And the user answers the tumour dynamic questions for Tumour Diagnosis by selecting a SnomedCT from the searched "<searchTerm>" result drop list
-    And the user clicks the Save and Continue button
-    Then the new tumour is displayed in the landing page
-    And the new tumour is not highlighted
-    And the "<stage>" stage is marked as Completed
-    And the success notification is displayed "<notificationText>"
-    When the user clicks the Save and Continue button
-    And the user navigates to the "<stage>" stage
-    And the tumour stage is on select or edit a tumour page showing
-      | pageTitleHeader         | notificationTextHeader | textInformationHeader                           | linkToAddANewTumourHeader | NumberOfTumoursAdded |
-      | Select or edit a tumour | None                   | Only one tumour can be tested in each referral. | add a new tumour          | 1                    |
-    And information text are displayed on the select or edit a tumour page
-      | informationTextHeader                           |
-      | Only one tumour can be tested in each referral. |
-      | If the tumour to be tested is:                  |
-      | not shown                                       |
-      | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
-    And on the select or edit a tumour page, the tumour table list shows the column names
-      | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
-#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
-      | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
-    And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
-    And Save and Continue button is displayed
-#
-    Examples:
-      | stage   | tumour_type              | presentationType | searchTerm | notificationText |
-      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
-
 
   @NTS-3431 @LOGOUT
 #    @E2EUI-997

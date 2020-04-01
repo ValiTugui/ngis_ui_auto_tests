@@ -2,7 +2,7 @@
 #@noComponent
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patient Flow 4 - Common validations
+Feature: TestOrder - Global Patient Flow 4 - Common validations
 
   @NTS-4692 @LOGOUT
 #    @E2EUI-1176

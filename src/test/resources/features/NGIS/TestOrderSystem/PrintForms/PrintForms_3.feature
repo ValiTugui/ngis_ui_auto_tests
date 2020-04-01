@@ -2,7 +2,7 @@
 #@printForms
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 3 - Validations
+Feature: TestOrder - Print Forms 3 - Validations
 
   @NTS-4702  @LOGOUT
 #    @E2EUI-1306

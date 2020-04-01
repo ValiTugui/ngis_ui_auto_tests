@@ -2,7 +2,7 @@
 #@printForms
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 6 - Family Members in Print Forms
+Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
 
   @NTS-4802 @LOGOUT
 #    @E2EUI-1789 @E2EUI-1262 @E2EUI-826

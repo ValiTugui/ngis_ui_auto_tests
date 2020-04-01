@@ -1,6 +1,6 @@
 @MIPORTAL
 
-Feature: This is mi-portal Sequencer Samples
+Feature: MI Portal - This is mi-portal Sequencer Samples
 
   Background:
     Given a web browser is at the mi-portal home page

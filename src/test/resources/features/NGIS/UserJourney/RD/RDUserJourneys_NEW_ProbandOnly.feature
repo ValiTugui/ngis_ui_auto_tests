@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_NEW_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for NEW Patient - Proband Only
+Feature: User flow - RD - Create Referrals for NEW Patient - Proband Only
 
   @NTS-4568  @LOGOUT
 #    @E2EUI-1166 @UseCase02

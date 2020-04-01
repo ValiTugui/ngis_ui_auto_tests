@@ -2,7 +2,7 @@
 #@printForms
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 4 - Field name consistency in Print Forms
+Feature: TestOrder - Print Forms 4 - Field name consistency in Print Forms
 
   @NTS-4746 @LOGOUT
 #    @E2EUI-889 @LOGOUT

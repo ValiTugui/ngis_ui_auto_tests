@@ -2,7 +2,7 @@
 #@FamilyMembersDetailsPage
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Family Members Details Page - Field Validation_2
+Feature: TestOrder - Family Members Details Page - Field Validation_2
 
   @NTS-3296 @LOGOUT
 #    @E2EUI-1038

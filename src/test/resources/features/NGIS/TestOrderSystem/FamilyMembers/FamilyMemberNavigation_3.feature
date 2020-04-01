@@ -4,7 +4,7 @@
 @TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Family Members Navigation Stage 3 - Patient Identifiers
+Feature: TestOrder - Family Members Navigation Stage 3 - Patient Identifiers
 
   @NTS-3243 @LOGOUT
 #    @E2EUI-1287

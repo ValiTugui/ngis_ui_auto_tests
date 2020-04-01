@@ -3,7 +3,7 @@
 #@tumoursPage
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Tumours Page - 1
+Feature: TestOrder - Tumours Page - 1
 
   @NTS-3165 @LOGOUT
 #   @E2EUI-953
