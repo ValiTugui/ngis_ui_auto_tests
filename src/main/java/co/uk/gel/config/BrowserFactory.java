@@ -53,7 +53,6 @@ public class BrowserFactory {
     public WebDriver getDriver(String serverType, String browser,
                                boolean javascriptEnabled) throws MalformedURLException {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
-        Debugger.println("BROWSER: "+browserEnum);
         ServerTypeEnum serverTypeEnum = ServerTypeEnum.valueOf(serverType.toUpperCase());
         if (serverTypeEnum == ServerTypeEnum.LOCAL) {
             switch (browserEnum) {

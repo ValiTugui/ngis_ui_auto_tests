@@ -795,7 +795,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
-            //This code added to make the test pass, it is a known issue
+            //This code added to make the test pass, it is a known issue, as per manual team suggestion
             if(!selectTheTest()){
                 Debugger.println("Selected by default....");
             }
