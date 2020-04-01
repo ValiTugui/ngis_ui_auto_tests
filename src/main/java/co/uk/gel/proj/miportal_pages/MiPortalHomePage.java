@@ -484,7 +484,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("NodDefaultPaginationEntryOptionsElement.jpg");
                 return null;
             }
-            return Actions.getText(defaultPaginationEntryOptionsValue);
+            Select select = new Select(defaultPaginationEntryOptionsValue);
+            return select.getFirstSelectedOption().getText();
         } catch (Exception exp) {
             Debugger.println("No element shown.");
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
