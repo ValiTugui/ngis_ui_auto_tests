@@ -2,7 +2,7 @@
 #@responsibleClinicianOrg
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Responsible Clinician 3
+Feature: TestOrder - Responsible Clinician 3
 
   @NTS-3324 @LOGOUT
 #    @E2EUI-1014

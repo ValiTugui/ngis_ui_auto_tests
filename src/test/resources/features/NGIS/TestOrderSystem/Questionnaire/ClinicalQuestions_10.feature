@@ -3,7 +3,7 @@
 #@clinicalQuestionsFM
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: ClinicalQuestions 10 - Page Validation
+Feature: TestOrder - ClinicalQuestions 10 - Page Validation
 
   @NTS-4438 @LOGOUT
 #    @E2EUI-1273 @E2EUI-1198

@@ -2,7 +2,7 @@
 #@newPatientPage
 @GENOMIC_RECORD
 @SYSTEM_TEST
-Feature: New Patient page
+Feature: Genomic Record - New Patient page
 
   @NTS-3072
 #    @E2EUI-981

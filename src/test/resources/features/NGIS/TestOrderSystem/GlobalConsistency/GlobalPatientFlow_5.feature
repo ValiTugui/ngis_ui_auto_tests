@@ -3,7 +3,7 @@
 #@FamilyMemberStageNavigation_globalPatientInformation
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patient Flow 5 - Global Patient Information Bar on Family Members Navigation Stage Navigation
+Feature: TestOrder - Global Patient Flow 5 - Global Patient Information Bar on FM Navigation Stage
 
   @NTS-3329 @LOGOUT
 #    @E2EUI-1665

@@ -2,7 +2,7 @@
 #@clinicalIndicationTestSelect
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Test Directory Test Order
+Feature: Test Directory -  Test Order
 
   @NTS-4565 @LOGOUT
 #    @E2EUI-1842

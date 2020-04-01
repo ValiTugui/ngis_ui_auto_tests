@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_NEW_TrioFamily
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for NEW Patient - Trio Family
+Feature: User flow - RD - Create Referrals for NEW Patient - Trio Family
 
   @NTS-4564  @LOGOUT
 #    @E2EUI-844 @UseCase08

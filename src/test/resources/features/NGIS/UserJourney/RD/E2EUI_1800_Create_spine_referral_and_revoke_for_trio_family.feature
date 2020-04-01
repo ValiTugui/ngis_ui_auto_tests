@@ -9,7 +9,7 @@
 #@userJourneysRD
 #@BVT-P0
 @SYSTEM_INTEGRATION_TEST
-Feature: E2EUI-1800 - Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
+Feature: User flow - RD -  Create Spine Referral and Revoke for Trio Family - Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
 
   @NTS-TODO @LOGOUT
 #    @E2EUI-1800  @v_1

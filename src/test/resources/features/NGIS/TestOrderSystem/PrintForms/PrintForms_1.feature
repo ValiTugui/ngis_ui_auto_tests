@@ -2,7 +2,7 @@
 #@printForms
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 1 - Offline Orders
+Feature: TestOrder - Print Forms 1 - Offline Orders
 
   @NTS-4703
 #    @E2EUI-847 @E2EUI-938

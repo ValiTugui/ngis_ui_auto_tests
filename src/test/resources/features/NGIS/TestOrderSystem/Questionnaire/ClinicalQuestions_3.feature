@@ -2,7 +2,7 @@
 #@clinicalQuestions
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: ClinicalQuestions 3 - RD Questionnaire
+Feature: TestOrder - ClinicalQuestions 3 - RD Questionnaire
 
   Background:
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

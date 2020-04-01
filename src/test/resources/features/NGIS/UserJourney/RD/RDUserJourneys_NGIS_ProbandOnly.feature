@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_NGIS_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for NGIS Patient
+Feature: User flow - RD - Create Referrals for NGIS Patient
 
   @NTS-4552 @LOGOUT
 #     @E2EUI-1281 @UseCase02

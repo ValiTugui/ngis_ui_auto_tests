@@ -2,7 +2,7 @@
 #@userJourneysCancer
 #@userJourneysCancer_SPINE_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Cancer Referrals for SPINE Patient - Proband Only
+Feature: User flow - Cancer - Create Referrals for SPINE Patient - Proband Only
 
   @NTS-4684 @LOGOUT
 #    @E2EUI-1635 @UseCase21

@@ -4,7 +4,7 @@
 @TEST_ORDER
 @SYSTEM_TEST
 
-Feature: Family Members Navigation Stage 1 - Remove Family Member
+Feature: TestOrder - Family Members Navigation Stage 1 - Remove Family Member
 
   @NTS-3292 @LOGOUT
 #    @E2EUI-1331 @E2EUI-1485 @E2EUI-1639

@@ -2,7 +2,7 @@
 #@userJourneysCancer
 #@userJourneysCancer_NGIS_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Cancer Referrals for NGIS Patient - Proband Only
+Feature: User flow - Cancer - Create Referrals for NGIS Patient - Proband Only
 
   @NTS-4678 @LOGOUT
 #    @E2EUI-1636 @UseCase21

@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_NEW_AdditionalParticipant
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for NEW Patient - Additional Participant
+Feature: User flow - RD - Create Referrals for NEW Patient - Additional Participant
 
   @NTS-4613 @LOGOUT
 #    @E2EUI-1310 @UseCase14

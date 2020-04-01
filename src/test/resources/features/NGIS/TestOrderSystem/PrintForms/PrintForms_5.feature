@@ -2,7 +2,7 @@
 #@printForms
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 5 - User flows
+Feature: TestOrder - Print Forms 5 - User flows
 
   @NTS-4746 @LOGOUT
 #    @E2EUI-1223 @E2EUI-1848 @E2EUI-1445

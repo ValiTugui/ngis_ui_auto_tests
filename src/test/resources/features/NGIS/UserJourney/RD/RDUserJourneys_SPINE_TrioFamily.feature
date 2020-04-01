@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_SPINE_TrioFamily
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Referrals for SPINE Patient - Trio Family
+Feature: User flow - RD - Create Referrals for SPINE Patient - Trio Family
 
   @NTS-4592  @LOGOUT
 #    @E2EUI-1195 @UseCase08

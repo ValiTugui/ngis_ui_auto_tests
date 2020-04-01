@@ -3,7 +3,7 @@
 #@userJourneys3
 @SYSTEM_INTEGRATION_TEST
 
-Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
+Feature: User flow - Cancer - Create Referral for Proband Only + Edit Data + Patient Choice Not given + Tumour + Sample - Cancel referral - NGIS Patient
 
     @NTS-3348 @LOGOUT
 #      @E2EUI-1804 @E2EUI-905

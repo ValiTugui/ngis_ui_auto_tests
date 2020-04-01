@@ -2,7 +2,7 @@
 #@globalBehaviour
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Global Behaviour Page
+Feature: Test Directory - Global Behaviour Page 2
 
   @NTS-3169
 #  @E2EUI-1755
