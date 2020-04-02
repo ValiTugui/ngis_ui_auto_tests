@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Patient Choice-12 - Adult with Capacity
 
-  @NTS-34361 @LOGOUT
+  @NTS-3436 @LOGOUT
     #@E2EUI-1173 @E2EUI-1112
   Scenario Outline:the user should be navigate to patient choice page by not entered link
     Given a new patient referral is created with associated tests in Test Order System online service
