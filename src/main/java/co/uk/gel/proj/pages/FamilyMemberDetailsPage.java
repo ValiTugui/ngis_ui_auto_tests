@@ -796,9 +796,8 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
             //This code added to make the test pass, it is a known issue, as per manual team suggestion
-            if(!selectTheTest()){
-                Debugger.println("Selected by default....");
-            }
+            selectTheTest();
+
             NGISPatientModel ngisPatientModel = getFamilyMember(nhsDetails);
             if(!Wait.isElementDisplayed(driver, selectedTest,20)){
                 Debugger.println("Test is not selected by default for the family member with NHS:"+ngisPatientModel.getNHS_NUMBER());
@@ -1484,7 +1483,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean selectTheTest() {
         try {
-            if (Wait.isElementDisplayed(driver, unSelectedTest, 10)) {
+            if (!Wait.isElementDisplayed(driver, selectedTest, 10)) {
                 Actions.clickElement(driver,unSelectedTest);
                 return true;
             }

@@ -109,18 +109,27 @@ public class ReferralSteps extends Pages {
         if(!patientSearchPage.clickPatientCard()){
             Assert.assertTrue(false);
         }
-        if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
-            Assert.assertTrue(false);
+        if(patientSearchPage.isNotificationErrorPresent()){
+            if(!patientSearchPage.editPatientDetails()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton,"A - White - British")){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.clickOnSaveAndContinueButton()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.clickStartReferralButton()){
+                Assert.assertTrue(false);
+            }
+        }else{
+            if(!patientDetailsPage.clickStartReferralButton()){
+                Assert.assertTrue(false);
+            }
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
 
-        if(!referralPage.saveAndContinueButtonIsDisplayed()){
-            Assert.assertTrue(false);
-        }
-        if(!referralPage.clickSaveAndContinueButton()){
-            Assert.assertTrue(false);
-        }
     }
 
     @And("the {string} patient details searched for are the same in the referral header bar")

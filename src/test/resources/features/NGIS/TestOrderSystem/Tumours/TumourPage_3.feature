@@ -10,6 +10,7 @@ Feature: TestOrder - Tumours Page - 3
   Scenario Outline: NTS-3255: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
@@ -32,6 +33,7 @@ Feature: TestOrder - Tumours Page - 3
   Scenario Outline: NTS-3255: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
@@ -54,6 +56,7 @@ Feature: TestOrder - Tumours Page - 3
   Scenario Outline:NTS:3171:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
 # moving to another Stage e.g Samples page
@@ -71,6 +74,7 @@ Feature: TestOrder - Tumours Page - 3
   Scenario Outline:NTS:3171:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    Then the user is navigated to a page with title Check your patient's details
     And the user navigates to the "<stage>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
    #  User click on refresh button

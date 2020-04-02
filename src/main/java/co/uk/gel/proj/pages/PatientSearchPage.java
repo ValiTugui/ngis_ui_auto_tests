@@ -187,6 +187,16 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//input[@placeholder='e.g. Adult solid tumours for rare disease']")
     public WebElement panelsSearchFieldPlaceHolder;
 
+    //For Spine patient Search
+    @FindBy(xpath = "//div[@data-testid='notification-error']//span")
+    public WebElement notificationError;
+
+    @FindBy(xpath = "//button[@type='submit' and contains(text(),'Continue')]")
+    public WebElement continueButton;
+
+    @FindBy(xpath = "//button[@type='button']//span[contains(text(),'Edit patient details')]")
+    public WebElement editPatientDetails;
+
     public void pageIsDisplayed() {
         Wait.forURLToContainSpecificText(driver, "/patient-search");
         Wait.forElementToBeDisplayed(driver, yesButton);
@@ -212,6 +222,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean fillInValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
         try {
+            Debugger.println("SPINE SEARCH:NHS:"+nhsNo+":"+dayOfBirth+"-"+monthOfBirth+"-"+yearOfBirth);
             Wait.forElementToBeDisplayed(driver, nhsNumber);
             nhsNumber.sendKeys(nhsNo);
             dateDay.sendKeys(dayOfBirth);
@@ -1169,6 +1180,28 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         } catch (Exception exp) {
             Debugger.println("Exception from  verifyTheNHSQuestionOfThePage..." + exp);
             SeleniumLib.takeAScreenShot("NHSQuestion.jpg");
+            return false;
+        }
+    }
+    public boolean isNotificationErrorPresent(){
+        if(Wait.isElementDisplayed(driver,notificationError,10)){
+            return true;
+        }
+        return false;
+
+    }
+    public boolean editPatientDetails(){
+        try{
+            if(!Wait.isElementDisplayed(driver,editPatientDetails,10)){
+                Debugger.println("Edit Patient Details Link not exists.");
+                SeleniumLib.takeAScreenShot("EditPatientLink.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,editPatientDetails);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from editPatientDetails:"+exp);
+            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
             return false;
         }
     }
