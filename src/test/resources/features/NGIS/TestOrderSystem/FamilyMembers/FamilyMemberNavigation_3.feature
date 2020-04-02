@@ -201,6 +201,8 @@ Feature: TestOrder - Family Members Navigation Stage 3 - Patient Identifiers
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     When the user search the family member with the specified details "<FamilyMemberDetails2>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color

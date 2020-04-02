@@ -814,6 +814,7 @@ public class FamilyMemberDetailsPage {
 
     public boolean deSelectTheTest() {
         try {
+            selectTheTest();//If not selected already
             if (!Wait.isElementDisplayed(driver, selectedTest, 20)) {
                 Debugger.println("Expected status of Test is Selected, but it is not.");
                 SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
@@ -922,13 +923,11 @@ public class FamilyMemberDetailsPage {
 
     public boolean clickOnDeselectedTestCheckBox() {
         try {
-            if(!Wait.isElementDisplayed(driver, unSelectedTest,30)){
-                Debugger.println("Selected test check box has not loaded..");
-                SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
-                return false;
+            if(Wait.isElementDisplayed(driver, selectedTest,30)){
+                Actions.clickElement(driver,selectedTest);
+                return true;
             }
-            Actions.clickElement(driver,unSelectedTest);
-            return true;
+            return true;//Already deselected
         }catch(ElementClickInterceptedException exp){
             //The box might be in selected stage and element may not be able to click. So moving control out and click again
            Actions.clickElement(driver,selectedFamilyMembersLabel);

@@ -917,6 +917,7 @@ public class PatientChoicePage {
                     return true;
                 }
             }
+
             Debugger.println("Could not select member in specified location in PC " + i);
             SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
             return false;

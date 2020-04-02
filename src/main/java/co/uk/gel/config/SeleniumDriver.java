@@ -37,7 +37,8 @@ public class SeleniumDriver extends EventFiringWebDriver {
             e.printStackTrace();
         }
         Actions.deleteCookies(DRIVER);
-        TestUtils.clearAllSnapShots();
+        //Commenting the snapshot clean up as each browser invocation clean the existing snapshots, loosing snapshots with parallel run
+        //TestUtils.clearAllSnapShots();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
         Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();
         String browserName = cap.getBrowserName().toLowerCase();

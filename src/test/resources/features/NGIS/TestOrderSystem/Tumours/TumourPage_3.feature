@@ -47,7 +47,7 @@ Feature: TestOrder - Tumours Page - 3
 
     Examples:
       | stage   | tumour_type                              | presentationType   | searchTerm | notificationText |
-      | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
+#      | Tumours | Brain tumour                             | Recurrence         | test       | Tumour added     |
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 

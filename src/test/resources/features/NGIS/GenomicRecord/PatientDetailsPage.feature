@@ -195,7 +195,7 @@ Feature: Genomic Record - Patient details page
 
     Examples:
       | pageTitle                         | maximumAllowedValues |
-      | Add a new patient to the database | 50                   |
+      | Create a record for this patient | 50                   |
 
   @NTS-3438 @LOGOUT
 #    @E2EUI-1511 @E2EUI-1128

@@ -559,16 +559,25 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user navigate to Family Member - Add a new Patient to the database page {string}")
     public void theUserNavigateToFamilyMemberAddANewPatientToTheDatabasePage(String expectedPageTitle,List<String> attributeOfURL) {
-
-        String existingReferralID = referralPage.getPatientReferralId();
-        Debugger.println("existingReferralID " + existingReferralID);
-        String baseURL = attributeOfURL.get(0);
-        String confirmationPage = attributeOfURL.get(1);
-        String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
-        Debugger.println("referralFullUrl :" + referralFullUrl);
-        NavigateTo(referralFullUrl, confirmationPage);
-        Wait.forElementToBeDisplayed(driver, referralPage.pageTitle);
-        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
+        try {
+            String existingReferralID = referralPage.getPatientReferralId();
+            Debugger.println("existingReferralID " + existingReferralID);
+            String baseURL = attributeOfURL.get(0);
+            String confirmationPage = attributeOfURL.get(1);
+            String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);
+            Debugger.println("referralFullUrl :" + referralFullUrl);
+            NavigateTo(referralFullUrl, confirmationPage);
+            Wait.seconds(5);
+            String currentTitle = referralPage.getTheCurrentPageTitle();
+            Debugger.println("CurrentTitle:"+currentTitle);
+            if(!currentTitle.equalsIgnoreCase(expectedPageTitle)){
+                Assert.assertTrue(false);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from validating new family member url:"+exp);
+            SeleniumLib.takeAScreenShot("FamilyMemberNew.jpg");
+            Assert.assertTrue(false);
+        }
     }
     @And("the user edits the highlighted family member with {string}")
     public void theUserEditsTheHighlightedFamilyMemberWith(String familyMember) {
