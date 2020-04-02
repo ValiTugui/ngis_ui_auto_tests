@@ -121,7 +121,6 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user does not see an error message on the page")
     public void theUserDoesNotSeeAnErrorMessageOnThePage() {
-        Debugger.println("Checking Error message");
         boolean testResult  = false;
         testResult = clinicalQuestionsPage.checkNoErrorMessageIsDisplayed();
         Assert.assertTrue(testResult);

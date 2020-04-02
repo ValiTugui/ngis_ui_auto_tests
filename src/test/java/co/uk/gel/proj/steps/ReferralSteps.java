@@ -109,6 +109,7 @@ public class ReferralSteps extends Pages {
         if(!patientSearchPage.clickPatientCard()){
             Assert.assertTrue(false);
         }
+        //New flow observed for an existing patient - Spine
         if(patientSearchPage.isNotificationErrorPresent()){
             if(!patientSearchPage.editPatientDetails()){
                 Assert.assertTrue(false);

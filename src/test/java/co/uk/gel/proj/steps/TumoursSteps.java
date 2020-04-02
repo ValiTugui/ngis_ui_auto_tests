@@ -347,6 +347,7 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
+        //No need to separate for Add Sample details - Same as other title check only
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
         Debugger.println("test-result flag for verifying page title is: " + testResult);
