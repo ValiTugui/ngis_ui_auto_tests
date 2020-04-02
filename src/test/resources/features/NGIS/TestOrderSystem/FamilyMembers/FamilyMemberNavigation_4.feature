@@ -124,7 +124,7 @@ Feature: TestOrder - Family Members Navigation Stage 4 - Member additions
 
     Examples:
       | FamilyMembers  | pageTitle                         |
-      | Family members | Add a new patient to the database |
+      | Family members | Create a record for this family member |
 
   @NTS-3503 @LOGOUT
 #    @E2EUI-1897

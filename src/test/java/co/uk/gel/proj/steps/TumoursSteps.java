@@ -347,16 +347,7 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-        if (expectedPageTitle.equals("Add sample details")) {
-            try {
-                Wait.seconds(2);
-                Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
-                Debugger.println("Sub heading - Sample Details found :");
-            } catch (TimeoutException exp) {
-                SeleniumLib.takeAScreenShot("AddSampleDetailsPage.jpg");
-                Debugger.println("Timeout loading sub-heading sample details " + exp);
-            }
-        }
+        //No need to separate for Add Sample details - Same as other title check only
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
         Debugger.println("test-result flag for verifying page title is: " + testResult);

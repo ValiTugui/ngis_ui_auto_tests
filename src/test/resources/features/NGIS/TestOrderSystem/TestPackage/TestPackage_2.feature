@@ -5,15 +5,13 @@
 
 Feature: TestOrder - Test Package 2 - RD
 
-  Background:
+  @NTS-3080 @LOGOUT
+#    @E2EUI-911
+  Scenario Outline: NTS-3080 - Test package - Page Layout - Rare Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
-
-  @NTS-3080 @LOGOUT
-#    @E2EUI-911
-  Scenario Outline: NTS-3080 - Test package - Page Layout - Rare Disease
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
     And the Test Package page has two "<priority>" buttons
@@ -31,6 +29,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3109 @LOGOUT
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Moving to another To do list - Rare-Disease
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user selects the number of participants as "<number>"
     When the user navigates to the "<new_stage>" stage
@@ -44,6 +46,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3109 @LOGOUT
 #    @E2EUI-2139
   Scenario Outline: NTS-3109 - Test package - verify Warning Messages of unsaved changes - Browser "<browser_exit_option>" - Rare-Disease
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the user selects the number of participants as "<number>"
     When the user attempts to navigate away by clicking "<browser_exit_option>"
@@ -56,6 +62,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3156 @LOGOUT
 #    @E2EUI-828 @E2EUI-1585
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
     And the user selects the number of participants: "<count>"
@@ -70,6 +80,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3177 @LOGOUT
 #    @E2EUI-1547 @E2EUI-1585
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do - verify permissible Number of Participants
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
     And The user sees a drop down box for the Total number of participants
@@ -84,10 +98,13 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | title                    | minParticipants | maxParticipants | new_stage             | number_of |
       | Test package | Confirm the test package | 1               | 8               | Responsible clinician | 1         |
 
-
   @NTS-3177 @LOGOUT
 #    @E2EUI-1547 @E2EUI-1585
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
     And The user sees a drop down box for the Total number of participants
@@ -108,6 +125,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3253 @LOGOUT
 #    @E2EUI-1585
   Scenario Outline: NTS-3253 - Test package - If the test is de-selected then Total number of participants field should disappear
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
     When the user clicks a test to de-select it
@@ -121,6 +142,10 @@ Feature: TestOrder - Test Package 2 - RD
   @NTS-3258 @LOGOUT
 #    @E2EUI-1900
   Scenario Outline: NTS-3258 - Test package - Selection/deselection of test should be saved based on the submission
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage1>" stage
     And the Test Package page header is shown as "<title>"
     And the user sees the test has been selected by default
@@ -138,6 +163,10 @@ Feature: TestOrder - Test Package 2 - RD
 #    @E2EUI-1569
   Scenario Outline: NTS-4540 - Test package - Showing participants selected for the test - Family Member
     ##Test Package - Trio family - No of participants - 2
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants: "<NoOfParticipants>"
@@ -167,6 +196,10 @@ Feature: TestOrder - Test Package 2 - RD
 #    @E2EUI-886
   Scenario Outline: NTS-4700 : New fields on Test package page
     ##Test Package
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user sees the test has been selected by default

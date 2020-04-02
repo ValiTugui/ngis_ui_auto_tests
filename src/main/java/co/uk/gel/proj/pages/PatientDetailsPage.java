@@ -117,6 +117,9 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
+    @FindBy(xpath = "//button[text()='Save and continue']")
+    public WebElement saveAndContinue;
+
     @FindBy(xpath = "//button[text()='Create record']")
     public WebElement createRecord;
 
@@ -186,9 +189,6 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> ethnicityValues;
 
-    @FindBy(css = "*[class*='error-message__text']")
-    public List<WebElement> errorMessages;
-
     @FindBy(xpath = "(//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path'])[5]")
     public WebElement clearEthnicityDropDownValue;
 
@@ -202,8 +202,6 @@ public class PatientDetailsPage {
     public WebElement clearLifeStatusDropDown;
 
 
-    String startReferralButtonLocator = "//button[contains(@class,'submit-button') and @type='button']";
-    String startANewReferralButtonLocator = "//button[contains(@class,'submit-button') and text()='Start a new referral']";
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
 
     @FindBy(xpath = "//button[text()='Create NGIS record']")
@@ -1215,6 +1213,22 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception from verifyColorOfCreateRecordButton. " + exp);
             SeleniumLib.takeAScreenShot("CreateButton.jpg");
+            return false;
+        }
+    }
+    public boolean clickOnSaveAndContinueButton(){
+        try{
+            //This is different from Referral page save nd Continue
+            if(!Wait.isElementDisplayed(driver,saveAndContinue,10)){
+                Debugger.println("saveAndContinue button not exists.");
+                SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,saveAndContinue);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from saveAndContinue:"+exp);
+            SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
             return false;
         }
     }

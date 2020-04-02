@@ -36,9 +36,8 @@ public class PatientChoiceSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nPatient Choice for Family Member:"+i);
-                if(!patientChoicePage.selectMember(i)){
-                    Assert.assertTrue(false);
-                }
+                //No need to alert as there are cases which directly landing to specific patient page
+                patientChoicePage.selectMember(i);
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Wait.seconds(2);
