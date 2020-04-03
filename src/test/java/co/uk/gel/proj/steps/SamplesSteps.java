@@ -528,4 +528,17 @@ public class SamplesSteps extends Pages {
         testResult = samplesPage.editSpecificSample();
         Assert.assertTrue(testResult);
     }
+    @Then("the user sees the Add sample button to add additional samples")
+    public void theUserSeesTheAddSampleButtonToAddAdditionalSampleOnPage() {
+        boolean testResult = false;
+        testResult = samplesPage.verifyAddSampleButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user edits the added sample (.*)")
+    public void theUserEditsTheThAddedSample(String sampleNo) {
+        boolean testResult = false;
+        testResult = samplesPage.editSpecificSample(sampleNo);
+        Assert.assertTrue(testResult);
+    }
 }

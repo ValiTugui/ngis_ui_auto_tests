@@ -281,4 +281,21 @@ public class MilHomePageSteps extends Pages {
     public void theUserClickOnTheCheckBoxOnTheModalContentPage(String checkBox) {
         miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
     }
+
+    @Then("the table column {string} is displayed with data")
+    public void theTableColumnIsDisplayedWithData(String selectedOption) {
+        boolean testResult = false;
+        String[] valueList = null;
+        if (selectedOption.indexOf(",") == -1) {
+            valueList = new String[]{selectedOption};
+        } else {
+            valueList = selectedOption.split(",");
+        }
+        for (int i = 0; i < valueList.length; i++) {
+            testResult = miPortalHomePage.verifyThePresenceOfColumnHeader(valueList[i]);
+            Assert.assertTrue(testResult);
+        }
+
+    }
+
 }

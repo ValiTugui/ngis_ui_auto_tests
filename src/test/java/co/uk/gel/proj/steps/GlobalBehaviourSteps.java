@@ -97,4 +97,24 @@ public class GlobalBehaviourSteps extends Pages {
     public void theUserGetsTheNGISVersion() {
         globalBehaviourPage.getNGISVersion();
     }
+
+    @When("the user login to Test Order with (.*) credential")
+    public void theUserFillsUsernameAndPasswordToLogin(String loginType) {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.loginWithMicrosoftAccount(loginType);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be able to see an error message {string}")
+    public void theUserShouldBeAbleToSeeAnErrorMessage(String errMessage) {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.verifyMicrosoftLoginError(errMessage);
+        Assert.assertTrue(testResult);
+    }
+    @When("the user provides an invalid referral id in the url {string}")
+    public void theUserProvidesAnInvalidReferralIdInTheUrl(String invalidReferralURL) {
+        boolean testResult = false;
+        testResult = globalBehaviourPage.navigateToURLWithInvalidReferralID(invalidReferralURL);
+        Assert.assertTrue(testResult);
+    }
+
 }

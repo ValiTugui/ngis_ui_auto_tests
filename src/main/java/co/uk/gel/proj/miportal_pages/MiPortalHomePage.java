@@ -94,6 +94,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
     public WebElement searchResultRowHeader;
 
+   By searchResultTableHeading = By.xpath("//div[contains(@class,'active')]//table[contains(@id,'DataTables_Table')]//thead");
+
     @FindBy(xpath = "//select[contains(@name,'DataTables_Table')]")
     public WebElement searchResultEntryOptionsSelection;
 
@@ -649,5 +651,55 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             SeleniumLib.takeAScreenShot("noSaveSpaceCompactOrTruncate.jpg");
         }
     }
+    public boolean verifyThePresenceOfColumnHeader(String columnName) {
+        try {
+            if (!Wait.isElementDisplayed(driver, searchResultRowHeader, 30)) {
+                Debugger.println("MI Search Result table is not loaded.");
+                SeleniumLib.takeAScreenShot("MISearchResultTable.jpg");
+                return false;
+            }
+            int colIndex = seleniumLib.getColumnIndex(searchResultTableHeading,columnName);
+            if(colIndex == -1){
+                Debugger.println("Expected Column: "+columnName+" not present in the search result table");
+                SeleniumLib.takeAScreenShot("MISearchResultTable.jpg");
+                return false;
+            }
+            return true;
+//            Wait.seconds(3);//As observed it take time to load
+//            if (displayOptionsTableHeaders.size() == 0) {
+//                Debugger.println("Nothing present in the table header.");
+//                SeleniumLib.takeAScreenShot("TableHeaderNotPresent.jpg");
+//                return false;
+//            }
+//            for (int i = 0; i < displayOptionsTableHeaders.size(); i++) {
+//                if (displayOptionsTableHeaders.get(i).getText().equalsIgnoreCase(selectedOption)) {
+//                    int cellNumber = i + 1;
+//                    String expectedDataValue = resultData.replaceAll("dummyValue", String.valueOf(cellNumber));
+//                    Wait.seconds(2);
+//                    List<WebElement> dataCell = driver.findElements(By.xpath(expectedDataValue));
+//                    Wait.seconds(2);//As observed it take time to load
+//                    if (dataCell.size() == 0) {
+//                        Debugger.println("Nothing present in the selected table cell.");
+//                        SeleniumLib.takeAScreenShot("TableCellNotPresent.jpg");
+//                        return false;
+//                    }
+//                    for (int j = 0; j < dataCell.size(); j++) {
+//                        //As per the TC, checking the elements are present or not
+//                        if (!seleniumLib.isElementPresent(dataCell.get(j))) {
+//                            Debugger.println("Not present any data in cell number " + j);
+//                            SeleniumLib.takeAScreenShot("TableCellNotPresent.jpg");
+//                            return false;
+//                        }
+//                    }
+//                }
+//            }
+//            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfColumnHeaderWithData " + exp);
+            SeleniumLib.takeAScreenShot("MISearchResultTable.jpg");
+            return false;
+        }
+    }
+
 }
 

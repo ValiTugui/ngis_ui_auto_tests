@@ -40,15 +40,11 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='referral-header']")
     public WebElement referralHeader;
 
-    //@FindBy(xpath = "//*[@id='referral__header']//button[text()='Submit']")
     @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
     public WebElement submitReferralButton;
 
     @FindBy(css = "*[data-testid*='referral-sidebar']")
     public WebElement toDoList;
-
-    @FindBy(xpath = "//span[contains(string(),'Tumours')]/..")
-    public WebElement tumourToDoList;
 
     @FindBy(css = "div[class*='referral__main']")
     public WebElement sectionBody;
@@ -65,27 +61,21 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//ul[contains(@class,'referral-header__details')]//span[@aria-labelledby='name_1']")
     public WebElement referralHeaderPatientName;
 
-    //@FindBy(xpath = "//span[text()='Born']/..//strong")
     @FindBy(xpath = "//span[text()='Born']/following-sibling::span")
     public WebElement referralHeaderBorn;
 
-    //@FindBy(xpath = "//span[text()='Gender']/..//strong")
     @FindBy(xpath = "//span[text()='Gender']/following-sibling::span")
     public WebElement referralHeaderGender;
 
-    //@FindBy(xpath = "//span[text()='NHS No.']/..//strong")
     @FindBy(xpath = "//span[text()='NHS No.']/following-sibling::span")
     public WebElement referralHeaderNhsNo;
 
-    //@FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
     @FindBy(xpath = "//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement referralHeaderPatientNgisId;
 
-    //@FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
     @FindBy(xpath = "//span[text()='Clinical Indication']/following-sibling::span")
     public WebElement referralHeaderClinicalId;
 
-    //@FindBy(xpath = "//span[text()='Referral ID']/..//strong")
     @FindBy(xpath = "//span[text()='Referral ID']/following-sibling::span")
     public WebElement referralHeaderReferralId;
 
@@ -95,22 +85,18 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-    // @FindBy(css = "*[class*='referral-header__badge']")
     @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
-    //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
     @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement referralCancelReason;
 
-    // @FindBy(css = "*[href*='signout']")
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
     @FindBy(css = "*[class*='header__user']")
     public WebElement user;
 
-    //    @FindBy(css = "*[class*='referral-header__cancel']")
     @FindBy(css = "*[class*='cancel__button_']")
     public WebElement cancelReferralLink;
 
@@ -123,7 +109,6 @@ public class ReferralPage<check> {
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement cancelReferralNotification;
 
-    //    @FindBy(css = "button[class*='modal__action']")
     @FindBy(xpath = "//div[@role='dialog']//div[contains(@class,'actionButtonCss')]//button")
     public List<WebElement> cancelReferralButtons;
 
@@ -153,21 +138,6 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//table/thead/tr/th[text()!='']")
     public List<WebElement> tableColumnHeaders;
-
-    @FindBy(css = "*[class*=consent-page-full]")
-    public WebElement consentDocument;
-
-    @FindBy(css = "*[class*=shadow]")
-    public WebElement consentDocumentShadow;
-
-    @FindBy(id = "printable-form-id")
-    public WebElement consentDocumentPrintableForm;
-
-    @FindBy(css = "*[class*=summary-header-container]")
-    public WebElement consentDocumentHeaderInfo;
-
-    @FindBy(xpath = "//div[contains(@class,'indicatorContainer')]//*[name()='svg']//*[name()='path']")
-    public List<WebElement> clearDropDownValue;
 
     @FindBy(xpath = "//*[contains(@class,'header')]//p")    //*[contains(@class,'header')]//child::a
     public WebElement genomicMedicineServicelogo;
@@ -200,7 +170,6 @@ public class ReferralPage<check> {
     String stageCompleteLocator = "*[data-testid*='completed-icon']";
     String cancelReferralLocator = "*[class*='button--disabled-clickable']";
 
-    //    @FindBy(xpath = "//div[contains(@class,'notification-bar__text')]")
     @FindBy(xpath = "//div[@data-testid='notification-success']")
     public WebElement notificationSuccessMessage;
 
@@ -211,7 +180,6 @@ public class ReferralPage<check> {
     public WebElement familyMemberGender;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    //@FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
     @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
@@ -228,7 +196,6 @@ public class ReferralPage<check> {
     String mandatoryFieldLabel = "//label[contains(text(),'dummyLabel')]";
     String mandatoryAsterix = "*[data-testid*='mandatory-icon']";
     String stageCompletedMark = "//a[contains(text(),'dummyStage')]//*[name()='svg' and @data-testid='completed-icon']";
-
     String referralButtonStatusTitle = "//*[contains(@class,'referral-header__column')]//span[text()='dummyStatus']";
 
     @FindBy(xpath = "//div[@role='dialog']/h1")
@@ -276,9 +243,6 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
 
-    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
-    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
-
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
@@ -296,11 +260,27 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//p[text()='NHS No.']//span[contains(@class,'_chunk__separator_')]")
     List<WebElement> patientCardNHSChunks;
 
-
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
     @FindBy(xpath = "//div[contains(@class,'referral__main')]//h1")
     List<WebElement> titleElements;
+
+    @FindBy(name = "loginfmt")
+    public WebElement emailAddressField;
+    @FindBy(xpath = "//input[contains(@type,'submit')]")
+    public WebElement nextButton;
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
+
+    //new paths for the NHS Login page
+    @FindBy(id ="companyLogo")
+    public WebElement nhsLogo;
+    @FindBy(id="userNameInput")
+    public WebElement emailAddressFieldNHSPage;
+    @FindBy(id="passwordInput")
+    public WebElement passwordFieldNHSPage;
+    @FindBy(id="submitButton")
+    public WebElement signInNHSPage;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);
@@ -590,9 +570,15 @@ public class ReferralPage<check> {
         return actualAlertText;
     }
 
-    public void clickLogoutButton() {
-        // Wait.forElementToBeDisplayed(driver, headerRightArea); // Element not in E2E-Latest
-        Actions.clickElement(driver, logoutButton);
+    public boolean clickLogoutButton() {
+        try {
+            Actions.clickElement(driver, logoutButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickLogoutButton:"+exp);
+            SeleniumLib.takeAScreenShot("clickLogoutButton.jpg");
+            return false;
+        }
     }
 
     public String logoutSuccessMessageIsDisplayed() {
@@ -1850,22 +1836,6 @@ public class ReferralPage<check> {
         }
     }
 
-    @FindBy(name = "loginfmt")
-    public WebElement emailAddressField;
-    @FindBy(xpath = "//input[contains(@type,'submit')]")
-    public WebElement nextButton;
-    @FindBy(id = "otherTileText")
-    public WebElement useAnotherAccount;
-
-    //new paths for the NHS Login page
-    @FindBy(id ="companyLogo")
-    public WebElement nhsLogo;
-    @FindBy(id="userNameInput")
-    public WebElement emailAddressFieldNHSPage;
-    @FindBy(id="passwordInput")
-    public WebElement passwordFieldNHSPage;
-    @FindBy(id="submitButton")
-    public WebElement signInNHSPage;
 
     public void loginToTestOrderingSystemAsNHSUser(WebDriver driver,String userType ) {
         Actions.deleteCookies(driver);
@@ -1915,5 +1885,46 @@ public class ReferralPage<check> {
         }
     }
 
+    public boolean verifyMicrosoftLoginPage(String loginPageUrl) {
+        try {
+            if (!Wait.isElementDisplayed(driver, useAnotherAccount, 20)) {
+                Debugger.println("Sign Pop up");
+                SeleniumLib.takeAScreenShot("signInPopUP.jpg");
+                return false;
+            }
+            String fullCurrentURL = driver.getCurrentUrl();
+            if (!fullCurrentURL.contains(loginPageUrl)) {
+                Debugger.println("Expected URL:"+loginPageUrl+",Actual:"+fullCurrentURL);
+                SeleniumLib.takeAScreenShot("loginPageUrl.jpg");
+                return false;
+            }
 
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyMicrosoftLoginPage:" + exp);
+            SeleniumLib.takeAScreenShot("verifyMicrosoftLoginPage.jpg");
+            return false;
+        }
+    }
+    public boolean verifyPageLoadingWithInvalidReferralURL() {
+        try {
+            Wait.seconds(3);
+            if(helix.size() < 1){
+                Debugger.println("Page should load with helix in action.... but helix not present.");
+                SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
+                return false;
+            }
+            Wait.seconds(30);//Waiting for another 30 seconds and ensuring still the helix present
+            if(helix.size() < 1){
+                Debugger.println("Page should load with helix in action.... but helix not present.");
+                SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyPageLoadingWithInvalidReferralURL: " + exp);
+            SeleniumLib.takeAScreenShot("verifyPageLoadingWithInvalidReferralURL.jpg");
+            return false;
+        }
+    }
 }
