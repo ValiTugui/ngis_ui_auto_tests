@@ -325,7 +325,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks the Log out button")
     public void theUserClicksTheLogOutButton() {
-        referralPage.clickLogoutButton();
+        boolean testResult = false;
+        testResult = referralPage.clickLogoutButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees a warning message {string} on the page")
@@ -1209,6 +1211,18 @@ public class ReferralSteps extends Pages {
     public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
         boolean testResult = false;
         testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be navigated to Microsoft login {string} page")
+    public void theUserShouldBeNavigatedToMicrosoftLoginPage(String loginPageUrl) {
+        boolean testResult = false;
+        testResult = referralPage.verifyMicrosoftLoginPage(loginPageUrl);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should see page is not loading")
+    public void theUserShouldSeePageIsNotLoading() {
+        boolean testResult = false;
+        testResult = referralPage.verifyPageLoadingWithInvalidReferralURL();
         Assert.assertTrue(testResult);
     }
 }
