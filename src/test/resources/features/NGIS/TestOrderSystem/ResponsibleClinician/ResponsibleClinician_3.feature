@@ -1,6 +1,6 @@
 #@regression
 #@responsibleClinicianOrg
-@TEST_ORDER
+@TEST_ORDER5
 @SYSTEM_TEST
 Feature: Responsible Clinician 3
 

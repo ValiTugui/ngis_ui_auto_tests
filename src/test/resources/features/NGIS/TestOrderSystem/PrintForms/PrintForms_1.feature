@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@TEST_ORDER_PF
+@TEST_ORDER3
 @SYSTEM_TEST
 Feature: Print Forms 1 - Offline Orders
 

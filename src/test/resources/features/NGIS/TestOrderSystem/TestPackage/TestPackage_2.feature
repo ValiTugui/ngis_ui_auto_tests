@@ -1,6 +1,6 @@
 #@regression
 #@testPackageRD
-@TEST_ORDER
+@TEST_ORDER5
 @SYSTEM_TEST
 
 Feature: Test Package 2 - RD

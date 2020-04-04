@@ -1,10 +1,10 @@
 #@regression
 #@noComponent
-@TEST_ORDER
+@TEST_ORDER1
 @SYSTEM_TEST
 Feature: Global Patient Flow 4 - Common validations
 
-  @NTS-4621  @LOGOUT
+  @NTS-4621 @LOGOUT
 #    @E2EUI-1191
   Scenario Outline:NTS-4621:To validate interface links and buttons for the NHS patient creation
     Given a web browser is at the patient search page
@@ -21,7 +21,7 @@ Feature: Global Patient Flow 4 - Common validations
       | hyperlinkText               | ButtonColor |
       | create a new patient record | #005eb8     |
 
-  @NTS-4692  @LOGOUT
+  @NTS-4692 @LOGOUT
 #    @E2EUI-1176
   Scenario Outline: NTS-4692: Copy & Design only - Create or update copy on Add a sample/Edit a sample
     Given a new patient referral is created with associated tests in Test Order System online service

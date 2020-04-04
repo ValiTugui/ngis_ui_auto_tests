@@ -1,6 +1,6 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@TEST_ORDER4
 @SYSTEM_TEST
 Feature: ClinicalQuestions 9 - RD Questionnaire
 

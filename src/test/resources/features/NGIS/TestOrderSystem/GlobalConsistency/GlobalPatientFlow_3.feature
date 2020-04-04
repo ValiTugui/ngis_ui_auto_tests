@@ -1,7 +1,7 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_Tumour
-@TEST_ORDER
+@TEST_ORDER1
 @SYSTEM_TEST
 Feature: Global Patient Flow 3 - End to end Tumour
 

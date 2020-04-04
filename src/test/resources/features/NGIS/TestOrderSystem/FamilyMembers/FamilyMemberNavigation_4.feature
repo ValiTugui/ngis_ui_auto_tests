@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_addFM
-@TEST_ORDER
+@TEST_ORDER2
 @SYSTEM_TEST
 Feature: Family Members Navigation Stage 4 - Member additions
 

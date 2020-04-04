@@ -1,7 +1,7 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_Common
-@TEST_ORDER
+@TEST_ORDER1
 @SYSTEM_TEST
 Feature: Feature: Global Patient Flow 1- Stage Validation
 

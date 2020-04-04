@@ -1,7 +1,7 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER
+@TEST_ORDER4
 @SYSTEM_TEST
 Feature: ClinicalQuestions 10 - Page Validation
 

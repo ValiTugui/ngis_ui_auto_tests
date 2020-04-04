@@ -1,6 +1,6 @@
 #@regression
 #@testPackageTumour
-@TEST_ORDER
+@TEST_ORDER5
 @SYSTEM_TEST
 Feature: Test Package 1  - Cancer
 

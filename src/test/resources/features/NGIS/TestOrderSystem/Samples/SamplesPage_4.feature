@@ -1,7 +1,7 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@TEST_ORDER5
 @SYSTEM_TEST
 Feature: Samples Page -4
 

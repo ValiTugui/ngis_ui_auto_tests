@@ -1,10 +1,10 @@
 #@regression
 #@referral
-@TEST_ORDER
+@TEST_ORDER1
 @SYSTEM_TEST
 Feature: Global Patent Flow 6 - Referral Header
 
-  @NTS-4502 @NTS-4728 @LOGOUT
+  @NTS-4728 @LOGOUT
 #   @E2EUI-1250 @E2EUI-1368
   Scenario Outline: Referral: Date of Birth and Age format in the referral header bar
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
