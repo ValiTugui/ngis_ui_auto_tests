@@ -1,7 +1,7 @@
 #@regression
 #@tumoursPage2
 #@tumoursPage
-@TEST_ORDER6
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 2
 

@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER2
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Search Page - Field Validation_1
 

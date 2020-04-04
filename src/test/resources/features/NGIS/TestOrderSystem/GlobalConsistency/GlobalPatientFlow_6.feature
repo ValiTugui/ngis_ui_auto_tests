@@ -1,6 +1,6 @@
 #@regression
 #@referral
-@TEST_ORDER1
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Global Patent Flow 6 - Referral Header
 

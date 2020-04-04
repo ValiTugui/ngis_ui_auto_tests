@@ -1,7 +1,7 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER5
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -2
 
@@ -177,7 +177,7 @@ Feature: Samples Page -2
       | Samples | Manage samples | Add a sample | Enter sample information if your local processes require it. |
 
 
-  @NTS-3335 @LOGOUT
+  @NTS-33351 @LOGOUT
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
   Scenario Outline: NTS-3335 - Add a Sample page - page layout - verify sample-states drop-down values
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -188,13 +188,18 @@ Feature: Samples Page -2
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
-      | sampleStateHeader   |
-      | Fibroblasts         |
-      | DNA                 |
-      | Saliva              |
-      | Fresh frozen tumour |
-      | Fresh frozen tissue |
-
+      | sampleStateHeader       |
+      | Fibroblasts             |
+      | Fresh frozen tumour     |
+      | Tumour fresh fluid      |
+      | Bone marrow             |
+      | Blood (EDTA)            |
+      | Amniotic fluid          |
+      | Chorionic villus sample |
+      | Fetal blood (EDTA)      |
+      | Saliva                  |
+      | Fresh frozen tissue     |
+      | Skin biopsy             |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -232,7 +237,7 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | DNA                | Sample updated           |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | Tumour fresh fluid | Sample updated           |
 
 
   @NTS-3345 @LOGOUT
@@ -273,4 +278,4 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited         | sampleState-edited | notificationText-updated |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | Tumour fresh fluid | Sample updated           |

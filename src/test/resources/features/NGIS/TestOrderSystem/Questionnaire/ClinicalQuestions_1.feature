@@ -1,7 +1,7 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER4
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Clinical Question Page 1 - Family Members

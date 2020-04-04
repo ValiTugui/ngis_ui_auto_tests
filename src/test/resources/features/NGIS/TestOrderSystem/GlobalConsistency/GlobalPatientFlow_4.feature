@@ -1,6 +1,6 @@
 #@regression
 #@noComponent
-@TEST_ORDER1
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Global Patient Flow 4 - Common validations
 

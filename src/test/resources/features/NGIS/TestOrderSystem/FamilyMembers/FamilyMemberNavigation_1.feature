@@ -1,7 +1,7 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_removeFM
-@TEST_ORDER2
+@TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Navigation Stage 1 - Remove Family Member
