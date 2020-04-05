@@ -1280,9 +1280,15 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheFormLibrarySection:" + exp);
-            SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
-            return false;
+            try {
+                String formLinkPath = formSection.replaceAll("dummySection", sectionName);
+                seleniumLib.clickOnElement(By.xpath(formLinkPath));
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from verifyTheFormLibrarySection:" + exp1);
+                SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+                return false;
+            }
         }
     }
 
@@ -1294,13 +1300,13 @@ public class PatientChoicePage {
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
                 if (supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)) {
                     //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
-                    Actions.retryClickAndIgnoreElementInterception(driver,supportingInformationLinks.get(i));
+                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
                     Wait.seconds(3);//Wait for three second to Load the form.
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
                     Actions.scrollToTop(driver);
-                    Actions.clickElement(driver,formLiraryBackButton);
+                    seleniumLib.clickOnWebElement(formLiraryBackButton);
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }

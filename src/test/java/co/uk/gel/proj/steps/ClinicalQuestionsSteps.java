@@ -418,5 +418,26 @@ public class ClinicalQuestionsSteps extends Pages {
             Assert.assertTrue(testResult);
         }
     }
+    @And("the phenotype label marked as mandatory based on the disease status selection")
+    public void thePhenotypeLabelMarkedAsMandatoryBasedOnTheDiseaseStatusSelection(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> fieldDetails = inputDetails.asLists();
+        String actSelection = "";
+        boolean expStatus = false;
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            Wait.seconds(3);
+            if(!fieldDetails.get(i).get(0).equalsIgnoreCase("USER_DOES_NOT_SELECT_ANY_VALUE")) {
+                actSelection = clinicalQuestionsPage.selectDiseaseStatus(fieldDetails.get(i).get(0));
+                if (!actSelection.contains(fieldDetails.get(i).get(0))) {
+                    Assert.assertTrue(false);
+                }
+            }
+            expStatus = Boolean.parseBoolean(fieldDetails.get(i).get(1));
+            testResult = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
+            if(testResult != expStatus){
+                Assert.assertTrue(false);
+            }
+        }
+    }
 
 }

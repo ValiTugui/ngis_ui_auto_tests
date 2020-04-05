@@ -28,7 +28,6 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType | searchTerm | pageTitle     | information                                                                                              |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Edit a tumour | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
-
   @NTS-3225 @LOGOUT
 #    @E2EUI-2279 @E2EUI-1434
   Scenario Outline: :NTS-3225: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page

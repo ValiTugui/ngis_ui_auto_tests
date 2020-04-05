@@ -237,8 +237,15 @@ public class PatientDetailsPage {
         return true;
     }
 
-    public void newPatientPageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "/new-patient");
+    public boolean newPatientPageIsDisplayed() {
+        try {
+            Wait.forURLToContainSpecificText(driver, "/new-patient");
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from newPatientPageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("newPatientPageIsDisplayed.jpg");
+            return false;
+        }
     }
 
     public void fillInNewPatientDetailsWithoutAddressFields() {
@@ -922,7 +929,9 @@ public class PatientDetailsPage {
 
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
         try {
-            newPatientPageIsDisplayed();
+            if(!newPatientPageIsDisplayed()){
+                return false;
+            }
             //Going ahead with NHS number, for new NGIS Patients
             if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {
                 Actions.clickElement(driver, yesButton);
@@ -1007,7 +1016,6 @@ public class PatientDetailsPage {
 
     public boolean startReferral() {
         try {
-
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");

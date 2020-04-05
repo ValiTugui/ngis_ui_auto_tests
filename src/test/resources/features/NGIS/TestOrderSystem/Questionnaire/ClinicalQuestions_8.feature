@@ -4,14 +4,13 @@
 @SYSTEM_TEST
 Feature: ClinicalQuestions 8 - RD Questionnaire
 
-  Background:
-    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the "Patient details" stage is marked as Completed
-
   @NTS-3511 @LOGOUT
 #    @E2EUI-876 @E2EUI-1180
   Scenario Outline: NTS-3511 - Clinical Questions - Term presence value is 'Present' for atleast one HPO phenotype
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user selects "<diseaseStatueValue>"
@@ -49,6 +48,10 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
   @NTS-3511 @LOGOUT
 #    @E2EUI-876 @E2EUI-944 - specify single omim value
   Scenario Outline: NTS-3511 - Clinical Questions - Show dynamic Clinical Questions about the proband
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user selects "<diseaseStatueValue>"
@@ -79,6 +82,10 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
   @NTS-3511 @LOGOUT
 #    @E2EUI-1068  @E2EUI-944 - multiple HPO terms added in the test
   Scenario Outline: NTS-3511 - Clinical Questions -  Search for HPO terms in Questionnaire
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    When the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     # user adds 3 HPO terms

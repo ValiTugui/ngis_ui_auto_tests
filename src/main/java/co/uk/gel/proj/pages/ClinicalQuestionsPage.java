@@ -373,9 +373,11 @@ public class ClinicalQuestionsPage {
         String paramValue = paramNameValue.get("DiseaseStatus");
         if (paramValue != null && !paramValue.isEmpty()) {
             if(selectDiseaseStatus(paramValue) == null){
+                Debugger.println("Disease Status Could not Select");
                 return false;
             }
         }
+
         //Age Of Onset
         paramValue = paramNameValue.get("AgeOfOnset");
         if (paramValue != null && !paramValue.isEmpty()) {
@@ -393,6 +395,9 @@ public class ClinicalQuestionsPage {
                 isFilled = isHPOAlreadyConsidered(paramValue);
             }else{
                 isFilled = true;
+            }
+            if(!isFilled){
+                Debugger.println("Phenotype Could not Select");
             }
         }
         //PhenotypicSex

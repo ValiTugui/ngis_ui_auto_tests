@@ -11,12 +11,12 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | Rare-Disease | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
+    When the user is navigated to a page with title Answer clinical questions
     And  the user selects "<diseaseStatueValue>"
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
     And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence>" and corresponding modifier
-    Then the "<title>" page is displayed
+    When the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
     And the user answers the phenotypic and karyotypic sex questions
@@ -25,8 +25,8 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
     Then the user navigates to the "<stage>" stage
     And the user sees the data such as "<diseaseStatueValue>" "<hpoTerm1>" "<ClinicalQuestionDetails>" "<rareDiseaseValue>" phenotypic and karyotypic sex are saved
     Examples:
-      | stage              | title                     | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue |
-      | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           |
+      | stage              | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue |
+      | Clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           |
 
   @NTS-3439 @LOGOUT
 #    @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @E2EUI-902

@@ -128,21 +128,20 @@ public class PaperFormPage {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
     }
 
-    public void clickSignInToTheOnlineServiceButton() {
+    public boolean clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: ");
-            Wait.forElementToBeDisplayed(driver,signInToOnlineServiceButton);
-            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,10)){
-                Debugger.println("Sign Into Online Service Button not displayed even after waiting time...failing."+driver.getCurrentUrl());
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,60)){
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
-                Assert.assertFalse("Sign Into Online Service Button not displayed even after waiting time...failing.",true);
+                return false;
             }
             Click.element(driver, signInToOnlineServiceButton);
-            Wait.seconds(5);
+            Wait.seconds(8);
+            return true;
         } catch (Exception exp) {
             Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
             SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
-            Assert.assertFalse("PaperFormPage: Exception from login to signInToOnlineServiceButton:...failing.Check ClickSignInButton.jpg",true);
+            return false;
         }
     }
 

@@ -119,10 +119,8 @@ Feature: Print Forms 1 - Offline Orders
     And the user should see the "Download" button next to each of the forms
     And the user is able to download form of the "Referral" section and validate the text "<Text>" in the file "ReferralForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "ReferralForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "ReferralForm.pdf"
     And the user is able to download form of the "Additional family members" section and validate the text "<Text>" in the file "AdditionalParticipantForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "AdditionalParticipantForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "AdditionalParticipantForm.pdf"
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
@@ -148,7 +146,6 @@ Feature: Print Forms 1 - Offline Orders
     And the user should see the "Download" button next to each of the forms
     And the user is able to download form of the "Referral" section and validate the text "<Text>" in the file "ReferralForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "ReferralForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "ReferralForm.pdf"
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:

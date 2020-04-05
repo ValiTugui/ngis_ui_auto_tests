@@ -51,7 +51,7 @@ Feature: ClinicalQuestions 13 - Page Validation
     When the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
+    When the user is navigated to a page with title Answer clinical questions
     And the mandatory fields shown with the symbol in red color
       | mandatory_field | field_type | symbol | symbol color |
       | Disease status  | label      | ✱      | #dd2509      |
@@ -67,8 +67,8 @@ Feature: ClinicalQuestions 13 - Page Validation
       | Karyotypic sex |
 
     Examples:
-      | stage              | title                     | DiseaseStatus |
-      | Clinical questions | Answer clinical questions | Affected      |
+      | stage              | DiseaseStatus |
+      | Clinical questions | Affected      |
 
   @NTS-4631 @LOGOUT
 #    @E2EUI-1514

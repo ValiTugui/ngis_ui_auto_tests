@@ -407,16 +407,23 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals("rgba(221, 37, 9, 1)", genderLabel.getCssValue("color").toString());
     }
 
-    public void clickPatientCard() {
-        Wait.forElementToBeDisplayed(driver, patientCard);
-        if(!Wait.isElementDisplayed(driver,patientCard,30)){
-            Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
-            SeleniumLib.takeAScreenShot("PatientCard.jpg");
-            Assert.assertFalse("PatientCard not found to be clicked.",true);
+    public boolean clickPatientCard() {
+        try {
+            Wait.forElementToBeDisplayed(driver, patientCard);
+            if (!Wait.isElementDisplayed(driver, patientCard, 30)) {
+                Debugger.println("PatientSearchPage:clickPatientCard: PatientCard Not Visible.");
+                SeleniumLib.takeAScreenShot("PatientCard.jpg");
+                Assert.assertFalse("PatientCard not found to be clicked.", true);
+            }
+            Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
+            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
+            // patientCard.click();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickPatientCard:"+exp);
+            SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
+            return false;
         }
-        Actions.retryClickAndIgnoreElementInterception(driver, patientCard);
-        // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-        // patientCard.click();
     }
 
     public void fillInDifferentValidPatientDetailsUsingNHSNumberAndDOB(String nhsNo, String dayOfBirth, String monthOfBirth, String yearOfBirth) {
@@ -493,9 +500,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         Assert.assertEquals(expErrorText, noPatientFoundLabel.getText());
     }
 
-    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
-        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
-        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
+    public boolean checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
+        try {
+            Wait.forElementToBeDisplayed(driver, createNewPatientLink);
+            if(!hyperLinkText.equalsIgnoreCase(createNewPatientLink.getText())){
+                Debugger.println("Expected Message:"+hyperLinkText+", Actual: "+createNewPatientLink.getText());
+                SeleniumLib.takeAScreenShot("checkCreateNewPatientLinkDisplayed.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from checkCreateNewPatientLinkDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("checkCreateNewPatientLinkDisplayed.jpg");
+            return false;
+        }
     }
 
     public void validateFormLabelFontFace(String fontFace) {
@@ -740,12 +758,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     }
 
-    public void clickCreateNewPatientLinkFromNoSearchResultsPage() {
+    public boolean clickCreateNewPatientLinkFromNoSearchResultsPage() {
         try {
             Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
             Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+            SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
+            return false;
         }
     }
 
