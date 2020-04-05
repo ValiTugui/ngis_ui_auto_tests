@@ -126,8 +126,8 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                                       | RequestingOrganisation                                  |
-      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West GLH,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                     | RequestingOrganisation                                  |
+      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
   @NTS-4713
 #    @E2EUI-1795
@@ -152,5 +152,5 @@ Feature: Print Forms 1 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                      | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West GLH,N oC l i n i c a l U s e | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                    | RequestingOrganisation                                  |
+      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N oC l i n i c a l U s e | Liverpool Heart and Chest Hospital NHS Foundation Trust |

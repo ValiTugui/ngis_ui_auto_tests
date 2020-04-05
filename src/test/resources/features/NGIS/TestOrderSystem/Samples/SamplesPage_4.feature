@@ -28,9 +28,8 @@ Feature: Samples Page -4
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState            |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Fresh frozen tumourDNA |
-
+      | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva         |
 
   @NTS-3416 @LOGOUT
 #    @E2EUI-2141 @E2EUI-2440

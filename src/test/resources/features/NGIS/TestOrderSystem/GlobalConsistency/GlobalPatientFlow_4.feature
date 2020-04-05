@@ -32,8 +32,8 @@ Feature: Global Patient Flow 4 - Common validations
     Then the user clicks the Save and Continue button
 
     Examples:
-      | Stage   | sampleType                | sampleState      | sampleType1            | sampleState1            |
-      | Samples | Normal or germline sample | Fetal EDTA blood | Abnormal tissue sample | FFPE sections on slides |
+      | Stage   | sampleType                | sampleState        | sampleType1            | sampleState1            |
+      | Samples | Normal or germline sample | Fetal blood (EDTA) | Abnormal tissue sample | FFPE sections on slides |
 
   @NTS-4621 @LOGOUT
 #    @E2EUI-1191
