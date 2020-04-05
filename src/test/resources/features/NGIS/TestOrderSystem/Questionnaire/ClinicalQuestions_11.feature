@@ -41,15 +41,3 @@ Feature: ClinicalQuestions 11 - RD Questionnaire
       | Clinical questions | Answer clinical questions | Affected           | 2    | 8     |
       | Clinical questions | Answer clinical questions | Affected           | 3    | 1     |
       | Clinical questions | Answer clinical questions | Affected           | 0    | 0     |
-
-  @NTS-3346 @LOGOUT
-#    @E2EUI-995
-  Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
-    When the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And the HPO phenotype drop-down is allowed to have values up to "<maximumAllowedValues>"
-    And the OMIM and Oprhanet drop-down is allowed to have values up to "<maximumAllowedValues>"
-
-    Examples:
-      | stage              | title                     | maximumAllowedValues |
-      | Clinical questions | Answer clinical questions | 50                   |
