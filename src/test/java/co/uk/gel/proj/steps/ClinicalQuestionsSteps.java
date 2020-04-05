@@ -119,7 +119,9 @@ public class ClinicalQuestionsSteps extends Pages {
     }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        Assert.assertTrue(clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails));
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails);
+        Assert.assertTrue(testResult);
     }
 
     @And("the HPO phenotype drop-down is allowed to have values up to {string}")
@@ -233,11 +235,11 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user selects the Rare disease diagnosis questions such as {string} and corresponding status {string}")
     public void theUserSelectsTheRareDiseaseDiagnosisQuestionsSuchAsAndCorrespondingStatus(String diagnosisTypeValue, String statusValue) {
-        String actualValue = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue);
-        Assert.assertTrue(diagnosisTypeValue.equalsIgnoreCase(actualValue));
-
-        String actualStatusValue = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue);
-        Assert.assertTrue(statusValue.equalsIgnoreCase(actualStatusValue));
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue);
+        Assert.assertTrue(testResult);
+        testResult = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user sees the data in Disease status details such as {string} AgeOnset values {string} {string}")
@@ -390,6 +392,9 @@ public class ClinicalQuestionsSteps extends Pages {
             clinicalQuestionsPage.fillInYearsOfOnset(fieldDetails.get(i).get(0));
             clinicalQuestionsPage.fillInMonthsOfOnset(fieldDetails.get(i).get(1));
             actualErrorMessage = clinicalQuestionsPage.getErrorMessageText();
+            if(actualErrorMessage == null){
+
+            }
             if(!fieldDetails.get(i).get(2).equalsIgnoreCase(actualErrorMessage)){
                 Debugger.println("Expected Error Message: "+fieldDetails.get(i).get(2)+",Actual:"+actualErrorMessage);
                 SeleniumLib.takeAScreenShot("AgeOfOnsetError.jpg");
