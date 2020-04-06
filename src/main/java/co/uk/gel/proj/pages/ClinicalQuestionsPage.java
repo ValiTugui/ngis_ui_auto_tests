@@ -586,9 +586,24 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificRareDiseaseValue(String expectedRareDisease){
-        Wait.forElementToBeDisplayed(driver, diagnosisField);
-        Debugger.println("Rare disease diagnosisField: " + Actions.getText(diagnosisField));
-        return Actions.getText(diagnosisField).equalsIgnoreCase(expectedRareDisease);
+        try {
+            if(!Wait.isElementDisplayed(driver, diagnosisField,10)){
+                Debugger.println("Diagnosis field not displayed.");
+                SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseValue.jpg");
+                return false;
+            }
+            String actText = Actions.getText(diagnosisField);
+            if(!actText.equalsIgnoreCase(expectedRareDisease)){
+                Debugger.println("Expected RDiagnosis :"+expectedRareDisease+",Actual:"+actText);
+                SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseValue.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from verifySpecificRareDiseaseValue:"+exp);
+            SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseValue.jpg");
+            return false;
+        }
     }
 
     public String getPhenotypicSexDropdownValue(){
@@ -752,10 +767,18 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean verifySpecificRareDiseaseDiagnosisStatusValue(String expectedStatus) {
-        Wait.forElementToBeDisplayed(driver, rareDiseaseDiagnosisStatusDropdown);
-        Debugger.println("Expected diseaseStatus       : " + expectedStatus);
-        Debugger.println("Actual diseaseStatusDropdown : " + Actions.getText(rareDiseaseDiagnosisStatusDropdown));
-        return Actions.getText(rareDiseaseDiagnosisStatusDropdown).equalsIgnoreCase(expectedStatus);
+        if(!Wait.isElementDisplayed(driver, rareDiseaseDiagnosisStatusDropdown,10)){
+            Debugger.println("RDDiagnosis status dropdown not present.");
+            SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseDiagnosisStatusValue.jpg");
+            return false;
+        }
+        String actText = Actions.getText(rareDiseaseDiagnosisStatusDropdown);
+        if(!actText.equalsIgnoreCase(expectedStatus)){
+            Debugger.println("Expected RDDiagnosis status :"+expectedStatus+",Actual:"+actText);
+            SeleniumLib.takeAScreenShot("verifySpecificRareDiseaseDiagnosisStatusValue.jpg");
+            return false;
+        }
+        return true;
     }
 
     public String getErrorMessageFromHPOPhenotypeSection(){
