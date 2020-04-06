@@ -26,7 +26,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | Panels | DiscardMessage                                              | Dismiss | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1986 | Panels | This section contains unsaved information. Discard changes? | Dismiss | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-47591 @LOGOUT
+  @NTS-4759 @LOGOUT
 #    @E2EUI-1391 @E2EUI-1629
   Scenario Outline: NTS-4759: AgeOfOnset should be editable for Non NGIS Patients in Pedigree tool
     Given a new patient referral is created with associated tests in Test Order System online service

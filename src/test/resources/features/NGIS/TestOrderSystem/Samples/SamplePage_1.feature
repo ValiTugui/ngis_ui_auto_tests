@@ -5,7 +5,7 @@
 @SYSTEM_TEST
 Feature: Samples Page -1
 
-  @NTS-32871 @LOGOUT
+  @NTS-3287 @LOGOUT
 #    @E2EUI-1945 @E2EUI-1209 @E2EUI-850 @E2EUI-941 @E2EUI-1467 @E2EUI-962
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

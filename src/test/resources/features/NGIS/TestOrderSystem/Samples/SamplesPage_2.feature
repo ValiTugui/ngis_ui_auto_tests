@@ -194,7 +194,7 @@ Feature: Samples Page -2
       | Samples | Manage samples | Add a sample | Enter sample information if your local processes require it. |
 
 
-  @NTS-33351 @LOGOUT
+  @NTS-3335 @LOGOUT
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
   Scenario Outline: NTS-3335 - Add a Sample page - page layout - verify sample-states drop-down values
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
