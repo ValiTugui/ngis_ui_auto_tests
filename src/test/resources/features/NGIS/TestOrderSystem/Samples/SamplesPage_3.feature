@@ -5,7 +5,7 @@
 @SYSTEM_TEST
 Feature: Samples Page -3
 
-  @NTS-4734 @NTS-3347 @LOGOUT
+  @NTS-4734 @LOGOUT
 #    @E2EUI-1342 @E2EUI-1440
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -43,7 +43,7 @@ Feature: Samples Page -3
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour     | sampleState | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | DNA         | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | Saliva      | test                   |
 
 
   @NTS-3365 @LOGOUT
@@ -172,6 +172,6 @@ Feature: Samples Page -3
     And the Tumour description value is reset after test
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | stageStatus   | sampleType-tumour    | sampleState | asterisk                                                   | sampleTopoMorphyGraphy |
-      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Saliva      | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
-      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | DNA         | Tumour content (percentage of malignant nuclei / blasts)   | test                   |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | stageStatus   | sampleType-tumour    | sampleState        | asterisk                                                   | sampleTopoMorphyGraphy |
+      | Tumours | Manage samples | Add a sample | Add sample details | MandatoryToDo | Solid tumour sample  | Saliva             | Tumour content (percentage of malignant nuclei / blasts) ✱ | test                   |
+      | Tumours | Manage samples | Add a sample | Add sample details | Completed     | Liquid tumour sample | Tumour fresh fluid | Tumour content (percentage of malignant nuclei / blasts)   | test                   |

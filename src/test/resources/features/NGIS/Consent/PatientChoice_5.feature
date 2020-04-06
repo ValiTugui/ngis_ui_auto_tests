@@ -156,7 +156,6 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | PatientDetails  | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Patient details | Test package | 3                | Family members | Patient choice |
 
-
   @NTS-3451 @LOGOUT
     #@E2EUI-2109
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member

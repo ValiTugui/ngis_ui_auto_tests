@@ -265,14 +265,27 @@ public class TumoursPage {
     public boolean selectTumourFirstPresentationOrOccurrenceValue(String value) {
         Wait.seconds(2);
         try {
-            Wait.forElementToBeDisplayed(driver, tumourCoreDataDropdown);
+            if(!Wait.isElementDisplayed(driver, tumourCoreDataDropdown,30)){
+                Debugger.println("selectTumourFirstPresentationOrOccurrenceValue Not displayed.");
+                SeleniumLib.takeAScreenShot("SelectTumourFirstPresentation.jpg");
+                return false;
+            }
             Actions.clickElement(driver, tumourCoreDataDropdown);
+            Wait.seconds(2);
             Actions.selectValueFromDropdown(dropdownValue, value);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
-            SeleniumLib.takeAScreenShot("SelectTumourFirstPresentation.jpg");
-            return false;
+            try {
+                //Trying again - added based on Jenkins run failure
+                seleniumLib.clickOnWebElement(tumourCoreDataDropdown);
+                Wait.seconds(2);
+                Actions.selectValueFromDropdown(dropdownValue, value);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in selectTumourFirstPresentationOrOccurrenceValue: " + exp + " : " + value);
+                SeleniumLib.takeAScreenShot("SelectTumourFirstPresentation.jpg");
+                return false;
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@TEST_ORDER_PF
+@TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 1 - Offline Orders
 
@@ -119,15 +119,13 @@ Feature: Print Forms 1 - Offline Orders
     And the user should see the "Download" button next to each of the forms
     And the user is able to download form of the "Referral" section and validate the text "<Text>" in the file "ReferralForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "ReferralForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "ReferralForm.pdf"
     And the user is able to download form of the "Additional family members" section and validate the text "<Text>" in the file "AdditionalParticipantForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "AdditionalParticipantForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "AdditionalParticipantForm.pdf"
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                                       | RequestingOrganisation                                  |
-      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West GLH,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                                     | RequestingOrganisation                                  |
+      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
   @NTS-4713
 #    @E2EUI-1795
@@ -148,9 +146,8 @@ Feature: Print Forms 1 - Offline Orders
     And the user should see the "Download" button next to each of the forms
     And the user is able to download form of the "Referral" section and validate the text "<Text>" in the file "ReferralForm.pdf"
     And the user is able to verify the section "ordered test type" in the downloaded form "ReferralForm.pdf"
-    And the user is able to verify the section "receiving laboratory" in the downloaded form "ReferralForm.pdf"
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Text                                                                                                                      | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,North West GLH,N oC l i n i c a l U s e | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | Text                                                                                    | RequestingOrganisation                                  |
+      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N oC l i n i c a l U s e | Liverpool Heart and Chest Hospital NHS Foundation Trust |

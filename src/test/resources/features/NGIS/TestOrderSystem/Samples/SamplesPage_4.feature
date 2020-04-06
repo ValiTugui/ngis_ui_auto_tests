@@ -29,8 +29,7 @@ Feature: Samples Page -4
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | DNA         |
-
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva         |
 
   @NTS-3416 @LOGOUT
 #    @E2EUI-2141 @E2EUI-2440
@@ -136,8 +135,8 @@ Feature: Samples Page -4
     And the user clicks the Save and Continue button
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
-      | Samples | Manage samples | Add a sample | Normal or germline sample | DNA         | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
+      | stage   | pageTitle      | pageTitle2   | sampleType-non-tumour     | sampleState         | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | partialCurrentUrl2 |
+      | Samples | Manage samples | Add a sample | Normal or germline sample | Fresh frozen tumour | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
   @NTS-3432 @LOGOUT
@@ -149,7 +148,7 @@ Feature: Samples Page -4
     When the user navigates to the "<stage>" stage
     And the user adds new tumours
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
-      | Solid tumour: metastatic | First presentation     | test                 |    3                 |
+      | Solid tumour: metastatic | First presentation     | test                 | 3                    |
     And the user clicks the Save and Continue button
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button

@@ -237,8 +237,15 @@ public class PatientDetailsPage {
         return true;
     }
 
-    public void newPatientPageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "/new-patient");
+    public boolean newPatientPageIsDisplayed() {
+        try {
+            Wait.forURLToContainSpecificText(driver, "/new-patient");
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from newPatientPageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("newPatientPageIsDisplayed.jpg");
+            return false;
+        }
     }
 
     public void fillInNewPatientDetailsWithoutAddressFields() {
@@ -484,9 +491,18 @@ public class PatientDetailsPage {
     }
 
     public boolean nhsNumberFieldIsDisabled() {
-        Wait.forElementToBeDisplayed(driver, title);
-        Debugger.println("For normal user, NHSNumber field is disabled and set to FALSE:  " + nhsNumber.isEnabled());
-        return nhsNumber.isEnabled();
+        try {
+            Wait.forElementToBeDisplayed(driver, title);
+            if(nhsNumber.isEnabled()){
+                Debugger.println("NHSNumber is supposed to be Disabled..But enabled");
+                SeleniumLib.takeAScreenShot("NHSDisabled.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in nhsNumberFieldIsDisabled:"+exp);
+            return false;
+        }
     }
 
     public boolean nhsNumberFieldIsEnabled() {
@@ -494,14 +510,18 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, title);
             if(!Wait.isElementDisplayed(driver,nhsNumber,10)){
                 Debugger.println("NHS number field not displayed");
-                SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+                SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
                 return false;
             }
-            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-            return nhsNumber.isEnabled();
+            if(!nhsNumber.isEnabled()){
+                Debugger.println("NHSNumber is supposed to be Enabled..But disabled");
+                SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
+                return false;
+            }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from nhsNumberFieldIsEnabled:"+exp);
-            SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+            SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
             return false;
         }
     }
@@ -922,7 +942,9 @@ public class PatientDetailsPage {
 
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
         try {
-            newPatientPageIsDisplayed();
+            if(!newPatientPageIsDisplayed()){
+                return false;
+            }
             //Going ahead with NHS number, for new NGIS Patients
             if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {
                 Actions.clickElement(driver, yesButton);
@@ -1007,7 +1029,6 @@ public class PatientDetailsPage {
 
     public boolean startReferral() {
         try {
-
             // Check condition for different scenarios when referral submit button is displayed
             if (addDetailsToNGISButtonList.size() > 0) {
                 Debugger.println("Add Patient Details button shown");

@@ -574,7 +574,9 @@ public class ReferralSteps extends Pages {
         boolean stepResult = false;
         stepResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
         Assert.assertTrue(stepResult);
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         Debugger.println("User Type : " + userType);
         if(userType == null || userType.isEmpty()) {
             userType = "GEL_NORMAL_USER";//Default Login as NORMAL_USER
@@ -636,21 +638,29 @@ public class ReferralSteps extends Pages {
         String searchResult = patientSearchPage.searchPatientReferral(searchPatient);
         if(searchResult.equalsIgnoreCase("No patient found")){
             //Create New Patient and Add as Referral
-            patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
-            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-            Assert.assertTrue(patientDetailsPage.createNewPatientReferral(searchPatient));
+            if(!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")){
+                Assert.assertTrue(false);
+            }
+            if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.createNewPatientReferral(searchPatient)){
+                Assert.assertTrue(false);
+            }
             if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
-                Debugger.println("Referral could not created successfully...");
                 Assert.assertTrue(false);
             }
             if(!referralPage.saveAndContinueButtonIsDisplayed()){
-                Debugger.println("SaveAndContinueButton not displayed:");
-                Assert.assertTrue("SaveAndContinueButton not displayed:",false);
+                Assert.assertTrue(false);
             }
         }else if(searchResult.equalsIgnoreCase("1 patient record found")){
             //Existing Patient
-            patientSearchPage.clickPatientCard();
-            Assert.assertTrue(patientDetailsPage.startReferral());
+            if(!patientSearchPage.clickPatientCard()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.startReferral()){
+                Assert.assertTrue(false);
+            }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if(!toDoListDisplayed){
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");

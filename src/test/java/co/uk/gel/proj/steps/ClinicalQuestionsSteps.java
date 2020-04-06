@@ -1,6 +1,8 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
@@ -113,11 +115,15 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user does not see an error message on the page")
     public void theUserDoesNotSeeAnErrorMessageOnThePage() {
-            Assert.assertFalse(clinicalQuestionsPage.checkNoErrorMessageIsDisplayed());
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.checkNoErrorMessageIsDisplayed();
+        Assert.assertTrue(testResult);
     }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        Assert.assertTrue(clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails));
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.fillDiseaseStatusAgeOfOnsetAndHPOTerm(searchDetails);
+        Assert.assertTrue(testResult);
     }
 
     @And("the HPO phenotype drop-down is allowed to have values up to {string}")
@@ -231,11 +237,11 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user selects the Rare disease diagnosis questions such as {string} and corresponding status {string}")
     public void theUserSelectsTheRareDiseaseDiagnosisQuestionsSuchAsAndCorrespondingStatus(String diagnosisTypeValue, String statusValue) {
-        String actualValue = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue);
-        Assert.assertTrue(diagnosisTypeValue.equalsIgnoreCase(actualValue));
-
-        String actualStatusValue = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue);
-        Assert.assertTrue(statusValue.equalsIgnoreCase(actualStatusValue));
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.selectRareDiseaseDiagnosisType(diagnosisTypeValue);
+        Assert.assertTrue(testResult);
+        testResult = clinicalQuestionsPage.selectRareDiseaseStatus(statusValue);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user sees the data in Disease status details such as {string} AgeOnset values {string} {string}")
@@ -378,6 +384,62 @@ public class ClinicalQuestionsSteps extends Pages {
         boolean testResult = false;
         testResult = familyMemberDetailsPage.verifySubTitleMessage(subTitlemsg);
         Assert.assertTrue(testResult);
+    }
+    @And("the user see error message when providing invalid age of onsets")
+    public void theUserSeeErrorMessageWhenProvidingInvalidAgeOfOnsets(DataTable inputDetails) {
+        List<List<String>> fieldDetails = inputDetails.asLists();
+        String actualErrorMessage = "";
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            Wait.seconds(3);
+            clinicalQuestionsPage.fillInYearsOfOnset(fieldDetails.get(i).get(0));
+            clinicalQuestionsPage.fillInMonthsOfOnset(fieldDetails.get(i).get(1));
+            actualErrorMessage = clinicalQuestionsPage.getErrorMessageText();
+            if(actualErrorMessage == null){
+
+            }
+            if(!fieldDetails.get(i).get(2).equalsIgnoreCase(actualErrorMessage)){
+                Debugger.println("Expected Error Message: "+fieldDetails.get(i).get(2)+",Actual:"+actualErrorMessage);
+                SeleniumLib.takeAScreenShot("AgeOfOnsetError.jpg");
+                Assert.assertTrue(false);
+            }
+        }
+    }
+    @And("the user should not see error message when providing valid age of onsets")
+    public void theUserShouldNotSeeErrorMessageWhenProvidingValidAgeOfOnsets(DataTable inputDetails) {
+        List<List<String>> fieldDetails = inputDetails.asLists();
+        boolean testResult = false;
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            Wait.seconds(3);
+            if(fieldDetails.get(i).get(0) != null && !fieldDetails.get(i).get(0).isEmpty()) {
+                clinicalQuestionsPage.fillInYearsOfOnset(fieldDetails.get(i).get(0));
+            }
+            if(fieldDetails.get(i).get(1) != null && !fieldDetails.get(i).get(1).isEmpty()) {
+                clinicalQuestionsPage.fillInMonthsOfOnset(fieldDetails.get(i).get(1));
+            }
+            testResult = clinicalQuestionsPage.checkNoErrorMessageIsDisplayed();
+            Assert.assertTrue(testResult);
+        }
+    }
+    @And("the phenotype label marked as mandatory based on the disease status selection")
+    public void thePhenotypeLabelMarkedAsMandatoryBasedOnTheDiseaseStatusSelection(DataTable inputDetails) {
+        boolean testResult = false;
+        List<List<String>> fieldDetails = inputDetails.asLists();
+        String actSelection = "";
+        boolean expStatus = false;
+        for (int i = 1; i < fieldDetails.size(); i++) {
+            Wait.seconds(3);
+            if(!fieldDetails.get(i).get(0).equalsIgnoreCase("USER_DOES_NOT_SELECT_ANY_VALUE")) {
+                actSelection = clinicalQuestionsPage.selectDiseaseStatus(fieldDetails.get(i).get(0));
+                if (!actSelection.contains(fieldDetails.get(i).get(0))) {
+                    Assert.assertTrue(false);
+                }
+            }
+            expStatus = Boolean.parseBoolean(fieldDetails.get(i).get(1));
+            testResult = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
+            if(testResult != expStatus){
+                Assert.assertTrue(false);
+            }
+        }
     }
 
 }

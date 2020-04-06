@@ -69,6 +69,23 @@ Feature: Samples Page -2
       | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample type is required.  | #dd2509      | sampleType  |
       | Samples | Manage samples | Add a sample | Sample state is required. | #dd2509      | sampleState |
+
+  @NTS-3308 @LOGOUT
+#    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
+  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without the "<sampleField>"
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample ID is required.    | #dd2509      | sampleID    |
 
   @NTS-3308 @LOGOUT
@@ -188,13 +205,18 @@ Feature: Samples Page -2
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
-      | sampleStateHeader   |
-      | Fibroblasts         |
-      | DNA                 |
-      | Saliva              |
-      | Fresh frozen tumour |
-      | Fresh frozen tissue |
-
+      | sampleStateHeader       |
+      | Fibroblasts             |
+      | Fresh frozen tumour     |
+      | Tumour fresh fluid      |
+      | Bone marrow             |
+      | Blood (EDTA)            |
+      | Amniotic fluid          |
+      | Chorionic villus sample |
+      | Fetal blood (EDTA)      |
+      | Saliva                  |
+      | Fresh frozen tissue     |
+      | Skin biopsy             |
 
     Examples:
       | stage   | pageTitle      | pageTitle2   |
@@ -232,7 +254,7 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
-      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | DNA                | Sample updated           |
+      | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | Tumour fresh fluid | Sample updated           |
 
 
   @NTS-3345 @LOGOUT
@@ -273,4 +295,4 @@ Feature: Samples Page -2
 
     Examples:
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleState | sampleTopoMorphyGraphy | notificationText | sampleType-edited         | sampleState-edited | notificationText-updated |
-      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | DNA                | Sample updated           |
+      | Tumours | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | Saliva      | test                   | Sample added     | Normal or germline sample | Tumour fresh fluid | Sample updated           |

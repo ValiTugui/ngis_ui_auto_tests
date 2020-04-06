@@ -1,4 +1,4 @@
-
+@MIPORTAL
 
 Feature: This is mi-portal homepage
 
