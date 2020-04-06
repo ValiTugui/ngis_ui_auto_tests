@@ -1280,6 +1280,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
+            //Trying with SeleniumLib click which handles javascript click also
             try {
                 String formLinkPath = formSection.replaceAll("dummySection", sectionName);
                 seleniumLib.clickOnElement(By.xpath(formLinkPath));

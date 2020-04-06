@@ -6,7 +6,6 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -368,7 +367,7 @@ public class ClinicalQuestionsPage {
     //Method added by @Stag for filling the ClinicalQuestionsPage
     public boolean fillDiseaseStatusAgeOfOnsetAndHPOTerm(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        //Changed the Swicth-Case implementation as the order makes a difference, continuosly failing in Jenkins run.
+        //Changed the Switch-Case implementation as the order makes a difference, continuosly failing in Jenkins run.
         //DiseaseStatus
         String paramValue = paramNameValue.get("DiseaseStatus");
         if (paramValue != null && !paramValue.isEmpty()) {
