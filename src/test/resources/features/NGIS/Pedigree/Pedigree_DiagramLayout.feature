@@ -53,7 +53,7 @@ Feature: Pedigree - Diagram Layout
 #    @E2EUI-1457
   Scenario Outline: NTS-3304 : Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
      ##Pedigree

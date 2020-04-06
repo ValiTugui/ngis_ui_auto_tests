@@ -127,7 +127,9 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("^the NHS number field is disabled$")
     public void nhsNumberFieldIsDisabled() {
-        Assert.assertTrue("NHS Number field is not disabled", !(patientDetailsPage.nhsNumberFieldIsDisabled()));
+        boolean testResult = false;
+        testResult = patientDetailsPage.nhsNumberFieldIsDisabled();
+        Assert.assertTrue(testResult);
     }
 
     @Given("web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")
@@ -143,7 +145,9 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the NHS number field is enabled")
     public void theNHSNumberFieldIsEnabled() {
-        Assert.assertTrue("NHS Number field is not enabled", (patientDetailsPage.nhsNumberFieldIsEnabled()));
+        boolean testResult = false;
+        testResult = patientDetailsPage.nhsNumberFieldIsEnabled();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the new patient page is opened")

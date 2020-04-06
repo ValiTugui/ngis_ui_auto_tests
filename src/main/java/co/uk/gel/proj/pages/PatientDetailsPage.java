@@ -491,9 +491,18 @@ public class PatientDetailsPage {
     }
 
     public boolean nhsNumberFieldIsDisabled() {
-        Wait.forElementToBeDisplayed(driver, title);
-        Debugger.println("For normal user, NHSNumber field is disabled and set to FALSE:  " + nhsNumber.isEnabled());
-        return nhsNumber.isEnabled();
+        try {
+            Wait.forElementToBeDisplayed(driver, title);
+            if(nhsNumber.isEnabled()){
+                Debugger.println("NHSNumber is supposed to be Disabled..But enabled");
+                SeleniumLib.takeAScreenShot("NHSDisabled.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in nhsNumberFieldIsDisabled:"+exp);
+            return false;
+        }
     }
 
     public boolean nhsNumberFieldIsEnabled() {
@@ -501,14 +510,18 @@ public class PatientDetailsPage {
             Wait.forElementToBeDisplayed(driver, title);
             if(!Wait.isElementDisplayed(driver,nhsNumber,10)){
                 Debugger.println("NHS number field not displayed");
-                SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+                SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
                 return false;
             }
-            Debugger.println("For a Super user, NHSNumber field is enabled and set to True:  " + nhsNumber.isEnabled());
-            return nhsNumber.isEnabled();
+            if(!nhsNumber.isEnabled()){
+                Debugger.println("NHSNumber is supposed to be Enabled..But disabled");
+                SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
+                return false;
+            }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from nhsNumberFieldIsEnabled:"+exp);
-            SeleniumLib.takeAScreenShot("NHSNumberDisable.jpg");
+            SeleniumLib.takeAScreenShot("NHSEnabled.jpg");
             return false;
         }
     }

@@ -69,6 +69,23 @@ Feature: Samples Page -2
       | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample type is required.  | #dd2509      | sampleType  |
       | Samples | Manage samples | Add a sample | Sample state is required. | #dd2509      | sampleState |
+
+  @NTS-3308 @LOGOUT
+#    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
+  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user answers all sample questions on Add a Sample page without the "<sampleField>"
+    And the user clicks the Save and Continue button
+    Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample ID is required.    | #dd2509      | sampleID    |
 
   @NTS-3308 @LOGOUT

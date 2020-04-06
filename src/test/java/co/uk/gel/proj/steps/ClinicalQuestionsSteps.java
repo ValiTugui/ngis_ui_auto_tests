@@ -115,7 +115,9 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user does not see an error message on the page")
     public void theUserDoesNotSeeAnErrorMessageOnThePage() {
-            Assert.assertFalse(clinicalQuestionsPage.checkNoErrorMessageIsDisplayed());
+        boolean testResult = false;
+        testResult = clinicalQuestionsPage.checkNoErrorMessageIsDisplayed();
+        Assert.assertTrue(testResult);
     }
     @And("the user fills the ClinicalQuestionsPage with the {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
