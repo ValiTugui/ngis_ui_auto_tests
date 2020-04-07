@@ -1,5 +1,6 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
 import org.apache.commons.io.FileUtils;
@@ -16,6 +17,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -668,6 +670,16 @@ public class SeleniumLib {
             return;
         }
         action.click(we).build().perform();
+    }
+
+    public static boolean skipIfBrowserStack(String serverType) {
+        return BrowserConfig.getServerType().toUpperCase().equals(serverType);
+    }
+
+    public static void writeToFile(String dataToWrite) throws IOException {
+        FileWriter myWriter = new FileWriter("Referrals.properties", true);
+        myWriter.write(dataToWrite);
+        myWriter.close();
     }
 
 }//end

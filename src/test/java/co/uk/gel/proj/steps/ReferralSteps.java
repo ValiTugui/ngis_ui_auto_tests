@@ -1072,4 +1072,9 @@ public class ReferralSteps extends Pages {
         testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
         Assert.assertTrue(testResult);
     }
+
+    @And("the referralID is saved to a file")
+    public void theReferralIDIsSavedToAFile() throws IOException {
+        referralPage.saveReferralID();
+    }
 }
