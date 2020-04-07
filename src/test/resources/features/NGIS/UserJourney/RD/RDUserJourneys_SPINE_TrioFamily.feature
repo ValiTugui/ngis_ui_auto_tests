@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_SPINE_TrioFamily
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST_SPINE
 Feature: Create Referrals for SPINE Patient - Trio Family
 
   @NTS-4592  @LOGOUT

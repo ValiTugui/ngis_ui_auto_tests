@@ -30,7 +30,6 @@ public class PrintFormSteps extends Pages {
 
     @And("the user is able to download print forms for {string} family members with the below details")
     public void theUserDownloadsPrintFormsForFamilyMembersWithTheBelowDetails(String noParticipant, DataTable inputDetails) {
-        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
             try {
                 boolean testResult = false;
                 int noOfParticipants = Integer.parseInt(noParticipant);
@@ -69,11 +68,9 @@ public class PrintFormSteps extends Pages {
                 Assert.assertFalse("PrintFormSteps: Exception in downloading PrintForms: " + exp, true);
             }
         }
-    }
 
     @And("the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details")
     public void theUserIsAbleToDownloadSampleFormWhichHasTheCorrectUserNameDOBPatientIdReferralIdLaboratoryAddressClinicianInfoTumourInfoDetails() {
-        if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
             boolean testResult = false;
             PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
             PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
@@ -145,7 +142,6 @@ public class PrintFormSteps extends Pages {
             testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
             Assert.assertTrue(testResult);
         }
-    }
 
     @Then("the cancel referral dialog box is displayed with the following fields")
     public void theCancelReferralDialogBoxIsDisplayedWithTheFollowingFields(DataTable fieldDetails) {

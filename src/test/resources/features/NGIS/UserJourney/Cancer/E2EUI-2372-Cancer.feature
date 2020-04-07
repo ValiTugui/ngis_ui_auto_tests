@@ -53,7 +53,7 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
     And the user navigates to the "<notes>" stage
     Then the "<notes>" stage is selected

@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysCancer
 #@userJourneysCancer_SPINE_ProbandOnly
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST_SPINE
 Feature: Create Cancer Referrals for SPINE Patient - Proband Only
 
   @NTS-4684 @LOGOUT
@@ -73,7 +73,7 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the referral status is set to "Submitted"
     Examples:
       | tumour_type  | presentationType | sampleType   | sampleState         | RecordedBy                            |
-      | Brain tumour | Recurrence       | Omics sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
+      | Brain tumour | Recurrence       | Normal or germline sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 |
 
   @NTS-4566 @LOGOUT
 #    @E2EUI-1803
@@ -132,4 +132,4 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     And the referral status is set to "Submitted"
     Examples:
       | tumour_type                             | presentationType | stage2  | stage3         | sampleType          | sampleState  | RecordedBy                            |
-      | Haematological malignancy: solid sample | Unknown          | Samples | Patient choice | Solid tumour sample | Li Hep blood | ClinicianName=John:HospitalNumber=123 |
+      | Haematological malignancy: solid sample | Unknown          | Samples | Patient choice | Normal or germline sample | Fibroblasts | ClinicianName=John:HospitalNumber=123 |

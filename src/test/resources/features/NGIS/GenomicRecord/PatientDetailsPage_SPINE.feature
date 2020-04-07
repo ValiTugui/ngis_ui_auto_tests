@@ -1,7 +1,7 @@
 #@regression
 #@patientDetails_SPINE
 @GENOMIC_RECORD
-@SYSTEM_TEST
+@SYSTEM_TEST_SPINE
 
 Feature: Patient details page_SPINE
 

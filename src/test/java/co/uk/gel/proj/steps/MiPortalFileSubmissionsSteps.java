@@ -47,7 +47,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("file submission search criteria badge information is displayed below drop-down buttons")
     public void fileSubmissionSearchCriteriaBadgeInformationIsDisplayedBelowDropDownButtons() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -93,7 +93,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     @Then("the search criteria badge disappears")
     public void theSearchCriteriaBadgeDisappears() {
         boolean testResult = false;
-        testResult = miPortalFileSubmissionPage.badgeFilterSearchCriteriaIsNotDisplayed();
+        testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
@@ -140,7 +140,7 @@ public class MiPortalFileSubmissionsSteps extends Pages {
     public void theSpecifiedColumnHeaderDisplaysTheFilteredColumnFieldValues(String columnHeader, String columnFieldValue) {
 
         if (columnHeader.equalsIgnoreCase("Created")) {
-            String badge = miPortalFileSubmissionPage.badgeFilterSearchCriteria.getText();
+            String badge = miPortalHomePage.badgeFilterSearchCriteria.getText();
             Debugger.println(badge + " is new date ");
             String expectedFilteredDate = (badge.split("="))[1].trim();
             Debugger.println("Formatted date yyyy-MM-dd :" + expectedFilteredDate);
@@ -151,6 +151,76 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         for (String fieldValue : columnValues) {
             Assert.assertTrue(fieldValue.contains(columnFieldValue));
         }
+    }
+
+    @And("the columns fields are not displayed in the list of columns headers of the search result table")
+    public void theColumnsFieldsAreNotDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
+
+        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
+
+        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
+            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
+            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
+            Assert.assertFalse(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
+        }
+    }
+
+    @And("the user sees the Expand plus icon at the start of each row where it is clicked to show column names and values")
+    public void theUserSeesTheExpandPlusIconAtTheStartOfEachRowWhereItIsClickedToShowColumnNamesAndValues() {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.verifyThePusIconAtTheStartOfEachRowAndClickToExpand();
+        Assert.assertTrue(testResult);
+        Debugger.println("test + " + testResult);
+    }
+
+    @And("the columns headers are displayed in the list of columns headers of the search result table")
+    public void theColumnsHeadersAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
+
+        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
+
+        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
+            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
+            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
+            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
+        }
+    }
+
+
+    @And("the user see dates value in {string} column of file-submission search result in descending order")
+    public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
+
+        List<String> actualValues = miPortalFileSubmissionPage.getValuesOfAColumnField(columnHeader);
+        Debugger.println("Actual " + actualValues);
+        Debugger.println("Size of actual: " + actualValues.size());
+
+        List<String> expectedValues = new ArrayList<>();
+        expectedValues.addAll(actualValues);
+        Collections.sort(expectedValues, Collections.reverseOrder());
+        Debugger.println("Expected :" + expectedValues);
+        Assert.assertEquals(expectedValues, actualValues);
+    }
+
+    @When("the user clicks {string} button on the modal-content page")
+    public void theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(String buttonOnModalContentPage) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(buttonOnModalContentPage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the selected {string} value in file submissions page")
+    public void theUserShouldBeAbleToSeeTheSelectedValueInFileSubmissionsPage(String selectedOption) {
+        boolean testResult = false;
+        testResult =miPortalFileSubmissionPage.verifyThePresenceOfSelectedOption(selectedOption);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user adds {string} column to Hide section")
+    public void theUserAddsColumnToHideSection(String fieldColumn) {
+        boolean testResult = false;
+        testResult =miPortalFileSubmissionPage.addColumnHeadersToHideSection(fieldColumn);
+        Assert.assertTrue(testResult);
     }
 
 }

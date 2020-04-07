@@ -54,7 +54,7 @@ Feature: E2EUI-1804 - Cancer flow - Create Referral for Proband Only + Edit Data
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
+      | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<stage6>" stage is marked as Completed
     And the user navigates to the "<stage7>" stage
     Then the "<stage7>" stage is selected
