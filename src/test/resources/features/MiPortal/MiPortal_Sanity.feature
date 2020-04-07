@@ -1,6 +1,4 @@
 @MIPORTAL
-@MIPORTAL_UJ
-@MIPORTAL_Sanity
 
 Feature: MI Portal - This is mi-portal for Sanity
 
