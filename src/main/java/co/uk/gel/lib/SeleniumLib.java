@@ -679,6 +679,7 @@ public class SeleniumLib {
     public static void writeToFile(String dataToWrite) throws IOException {
         FileWriter myWriter = new FileWriter("Referrals.properties", true);
         myWriter.write(dataToWrite);
+        myWriter.write("\n");
         myWriter.close();
     }
 

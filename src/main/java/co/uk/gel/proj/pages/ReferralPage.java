@@ -1940,8 +1940,9 @@ public class ReferralPage<check> {
     public void saveReferralID () throws IOException {
         if (referralHeaderClinicalId.getText().toUpperCase().contains("RARE")) {
             SeleniumLib.writeToFile("referralID_RD=" + referralHeaderReferralId.getText());
-        }
+        }  else {
             SeleniumLib.writeToFile("referralID_Cancer=" + referralHeaderReferralId.getText());
+        }
     }
 
 }
