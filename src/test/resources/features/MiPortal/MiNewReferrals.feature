@@ -29,6 +29,20 @@ Feature: This is mi-portal New Referrals
       | New Referrals | GLH   | is        |
       | New Referrals | GLH   | is one of |
 
+  @NTS-5066
+    # @E2EUI-2408
+  Scenario Outline: NTS-5017:For the New referrals Report filter the operator 'is one of' is not present
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user selects a value "<search_report>" from the "new_referrals-search-col" column drop-down
+    Then the user sees the values in the search operator "new_referrals-search-operator" drop-down menu
+      | fileSubmissionsSearchOperatorHeader |
+      | is                                  |
+    Then the selected search option is reset after test
+    Examples:
+      | mi_stage      | search_report |
+      | New Referrals | Has Gel1001   |
+
 
 
 

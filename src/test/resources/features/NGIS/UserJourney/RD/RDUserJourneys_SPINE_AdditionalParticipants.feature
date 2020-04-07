@@ -1,7 +1,7 @@
 #@userJourneys
 #@userJourneysRD
 #@userJourneysRD_SPINE_AdditionalParticipant
-@SYSTEM_INTEGRATION_TEST
+@SYSTEM_INTEGRATION_TEST_SPINE
 Feature: Create Referrals for SPINE Patient - Additional Participant
 
   @NTS-4591 @LOGOUT

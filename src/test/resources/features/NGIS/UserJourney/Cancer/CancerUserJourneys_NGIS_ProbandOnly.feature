@@ -5,7 +5,7 @@
 Feature: Create Cancer Referrals for NGIS Patient - Proband Only
 
   @NTS-4678 @LOGOUT
-#    @E2EUI-1636 @UseCase21
+    ##@E2EUI-1636 @UseCase21
   Scenario Outline:Use Case#21: Create Referral for Proband Only + Edit Data + Patient Choice No + Tumour + Sample - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M170 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-06-2011:Gender=Male |
@@ -73,5 +73,5 @@ Feature: Create Cancer Referrals for NGIS Patient - Proband Only
     And the referral status is set to "Submitted"
 
     Examples:
-      | tumour_type                             | presentationType   | stage2  | sampleType          | sampleState         | RecordedBy                            | PatientChoiceStage |
-      | Haematological malignancy: solid sample | First presentation | Samples | Solid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Patient choice     |
+      | tumour_type                             | presentationType   | sampleType          | sampleState         | RecordedBy                            | PatientChoiceStage |
+      | Haematological malignancy: solid sample | First presentation | Solid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Patient choice     |

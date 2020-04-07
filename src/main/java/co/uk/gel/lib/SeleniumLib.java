@@ -672,6 +672,7 @@ public class SeleniumLib {
         action.click(we).build().perform();
     }
 
+
     public static boolean skipIfBrowserStack(String serverType) {
         return BrowserConfig.getServerType().toUpperCase().equals(serverType);
     }
@@ -681,6 +682,30 @@ public class SeleniumLib {
         myWriter.write(dataToWrite);
         myWriter.write("\n");
         myWriter.close();
+    }
+    public int getColumnIndex(By TableHeading, String column_name) {
+        List<WebElement> Headings =  getHeadingElements(TableHeading);
+        if(Headings == null || Headings.size() == 0){
+            return -1;
+        }
+        String heading_name = "";
+        for (int index = 0; index < Headings.size(); index++) {
+            heading_name = Headings.get(index).getText();
+            if(column_name.equalsIgnoreCase(heading_name)) {
+                return index + 1;
+            }
+        }
+        return -1;
+    }
+    public List<WebElement> getHeadingElements(By element) {
+        try {
+            waitForElementVisible(driver.findElement(element));
+            return driver.findElements(element);
+        } catch (NoSuchElementException exp) {
+            exp.printStackTrace();
+            // DDFREDebugger.println("SeleniumLib: [Error]" + element.toString() + " Not Found ");
+            return null;
+        }
     }
 
 }//end
