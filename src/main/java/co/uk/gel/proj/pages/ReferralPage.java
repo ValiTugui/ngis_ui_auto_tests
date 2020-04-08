@@ -95,22 +95,19 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-    // @FindBy(css = "*[class*='referral-header__badge']")
-    @FindBy(css = "*[class*='referral-header__details']")
+    //@FindBy(css = "*[class*='referral-header__details']")
+    @FindBy(xpath = "//div[@id='referral__header']//div[@data-testid='spacing']//span[@class='child-element']")
     public WebElement referralStatus;
 
-    //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
     @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement referralCancelReason;
 
-    // @FindBy(css = "*[href*='signout']")
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
     @FindBy(css = "*[class*='header__user']")
     public WebElement user;
 
-    //    @FindBy(css = "*[class*='referral-header__cancel']")
     @FindBy(css = "*[class*='cancel__button_']")
     public WebElement cancelReferralLink;
 
@@ -481,7 +478,7 @@ public class ReferralPage<check> {
     public boolean stageIsSelected(String expStage) {
         try {
             Wait.seconds(2);
-            if(!Wait.isElementDisplayed(driver,activeStage,10)){
+            if(!Wait.isElementDisplayed(driver,activeStage,30)){
                 Debugger.println("No stage is marked as active.");
                 SeleniumLib.takeAScreenShot("ActiveStage.jpg");
                 return false;

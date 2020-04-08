@@ -171,8 +171,11 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the option (.*) displayed with edit option in (.*)")
     public void theUserWillSeeTheChosenWithEditButton(String option, String category) {
-        Assert.assertTrue(patientChoicePage.verifySelectedOption(option));
-        Assert.assertTrue(patientChoicePage.verifyEditButton(category));
+        boolean testResult = false;
+        testResult = patientChoicePage.verifySelectedOption(option);
+        Assert.assertTrue(testResult);
+        testResult = patientChoicePage.verifyEditButton(category);
+        Assert.assertTrue(testResult);
     }
 
     @Then("the (.*) option is marked as completed")
@@ -238,26 +241,35 @@ public class PatientChoiceSteps extends Pages {
 
     @And("the user answers the patient choice questions with agreeing to testing")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTesting() {
-        patientChoicePage.selectPatientChoiceCategory();
+        boolean testResult = patientChoicePage.selectPatientChoiceCategory();
+        Assert.assertTrue(testResult);
         Wait.seconds(2);
-        patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        Assert.assertTrue(testResult);
         Wait.seconds(2);
-        patientChoicePage.enterRecordedByDetails();
+        testResult = patientChoicePage.enterRecordedByDetails();
+        Assert.assertTrue(testResult);
         Wait.seconds(2);
-        patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
+        testResult = patientChoicePage.selectChoicesWithPatientChoiceNotRequired();
+        Assert.assertTrue(testResult);
         Wait.seconds(2);
-        patientChoicePage.submitPatientChoiceWithoutSignature();
+        testResult = patientChoicePage.submitPatientChoiceWithoutSignature();
+        Assert.assertTrue(testResult);
         Wait.seconds(2);
     }
 
     @And("the user submits the patient choice with signature")
     public void theUserSubmitsThePatientChoiceWithSignature() {
-        patientChoicePage.submitPatientChoiceWithSignature();
+        boolean testResult = false;
+        testResult = patientChoicePage.submitPatientChoiceWithSignature();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should be able to see the patient choice form with success message")
     public void theUserShouldBeAbleToSeeThePatientChoiceFormWithSuccessMessage() {
-        Assert.assertTrue(patientChoicePage.patientChoiceFormCompleted());
+        boolean testResult = false;
+        testResult = patientChoicePage.patientChoiceFormCompleted();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user should see patient choice submit button as (.*)")
