@@ -36,12 +36,13 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     And the new tumour is not highlighted
     And the "<tumours>" stage is marked as Completed
     And the success notification is displayed "Tumour added"
+    #Samples 1 - Sample Type - Solid tumour sample and Sample State - tumour_freshFrozen
     And the user navigates to the "<samples>" stage
     And the "<samples>" stage is selected
     Then the "Manage samples" page is displayed
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
-    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Fresh frozen tumour" and filling SampleID
     And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
@@ -55,13 +56,13 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
 #      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
-    #Samples 2 - Add Normal or Germline Sample
+    #Samples 2 - Sample Type - Add Normal or Germline Sample and Sample State - tissue_freshFrozen
     And the user navigates to the "<samples>" stage
     And the "<samples>" stage is selected
     Then the "Manage samples" page is displayed
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
-    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or germline sample", sample state and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or germline sample", sample state "Fresh frozen tissue" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
