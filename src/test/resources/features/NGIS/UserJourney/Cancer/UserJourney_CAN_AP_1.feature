@@ -1,7 +1,6 @@
 #@userJourneysCancer
 @SYSTEM_INTEGRATION_TEST
-Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
-
+Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
 
   @NTS-3362 @LOGOUT
     # E2EUI-905

@@ -2,7 +2,7 @@
 #@userJourneysCancer
 #@userJourneysCancer_NEW_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: Create Cancer Referrals for NEW Patient - Proband Only
+Feature: UserJourney_CAN_NEW_Proband_1 - UC21-27- E2EUI-1637,1802
 
   @NTS-4687 @LOGOUT
 #    @E2EUI-1637 @UseCase21
