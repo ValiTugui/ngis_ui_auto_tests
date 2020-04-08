@@ -187,7 +187,9 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the referral status from the card is {string}")
     public void theReferralStatusFromTheCardIs(String expectedStatus) {
-        Assert.assertTrue(patientDetailsPage.verifyReferralStatus(expectedStatus));
+        boolean testResult = false;
+        testResult = patientDetailsPage.verifyReferralStatus(expectedStatus);
+        Assert.assertTrue(testResult);
     }
 
     @And("the referral cancel reason from the card is {string}")

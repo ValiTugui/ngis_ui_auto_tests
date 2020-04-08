@@ -881,19 +881,53 @@ public class ReferralPage<check> {
             Wait.forElementToDisappear(driver, By.cssSelector(cancelReferralLocator));
             return true;
         } catch (Exception exp) {
-            Debugger.println("Cancel Referral notification is not displayed");
+            Debugger.println("Cancel Referral notification is not displayed:"+exp);
+            SeleniumLib.takeAScreenShot("cancelReferralConfirmationIsDisplayed.jpg");
             return false;
         }
 
     }
 
     public boolean cancelReasonMatches(String reason) {
-        return reason.equalsIgnoreCase(Actions.getText(referralCancelReason));
+        try {
+            if(!Wait.isElementDisplayed(driver,referralCancelReason,30)){
+                Debugger.println("referralCancelReason not displayed.");
+                SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
+                return false;
+            }
+            String actReason = Actions.getText(referralCancelReason);
+            if(!actReason.equalsIgnoreCase(reason)){
+                Debugger.println("Expected Reason:"+reason+", but Actual:"+actReason);
+                SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from cancelReasonMatches:"+exp);
+            SeleniumLib.takeAScreenShot("cancelReasonMatches.jpg");
+            return false;
+        }
     }
 
     public boolean verifyTheReferralStatus(String expectedStatus) {
-        Wait.forElementToBeDisplayed(driver, referralStatus);
-        return Actions.getText(referralStatus).contains(expectedStatus);
+        try {
+            if(!Wait.isElementDisplayed(driver,referralStatus,30)){
+                Debugger.println("referralStatus not displayed.");
+                SeleniumLib.takeAScreenShot("referralStatus.jpg");
+                return false;
+            }
+            String actReason = Actions.getText(referralStatus);
+            if(!actReason.equalsIgnoreCase(expectedStatus)){
+                Debugger.println("Expected Status:"+expectedStatus+", but Actual:"+actReason);
+                SeleniumLib.takeAScreenShot("referralStatus.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyTheReferralStatus:"+exp);
+            SeleniumLib.takeAScreenShot("verifyTheReferralStatus.jpg");
+            return false;
+        }
     }
 
     public String getPatientNGISId() {

@@ -397,9 +397,13 @@ public class ReferralSteps extends Pages {
 
     @Then("the referral is successfully {string} with reason {string}")
     public void theReferralIsSuccessfullyWithReason(String referralStatus, String reason) {
-        Assert.assertTrue(referralPage.cancelReferralConfirmationIsDisplayed());
-        Assert.assertTrue(referralPage.cancelReasonMatches(reason));
-        Assert.assertTrue(referralPage.verifyTheReferralStatus(referralStatus));
+        boolean testResult = false;
+        testResult = referralPage.cancelReferralConfirmationIsDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.cancelReasonMatches(reason);
+        Assert.assertTrue(testResult);
+        testResult = referralPage.verifyTheReferralStatus(referralStatus);
+        Assert.assertTrue(testResult);
     }
 
     @Given("a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service")

@@ -2,7 +2,7 @@
 #@userJourneysRD
 #@userJourneysRD_NGIS_AdditionalParticipant
 @SYSTEM_INTEGRATION_TEST
-Feature: UserJourney_RD_NGIS_AP_2 - UC18-19 - E2EUI-1210,1303
+Feature: UserJourney_RD_NGIS_AP_3 - UC18-19 - E2EUI-1210,1303
 
   @NTS-4617 @LOGOUT
 #     @E2EUI-1210 @UseCase18
