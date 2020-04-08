@@ -47,6 +47,7 @@ Feature: UserJourney_RD_NEW_AP_2 - UC16-17 - E2EUI-1428,1207
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
@@ -78,7 +79,7 @@ Feature: UserJourney_RD_NEW_AP_2 - UC16-17 - E2EUI-1428,1207
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     ##pedigree diagram has to updated
-    And the user clicks the Save and Continue button
+    And the user clicks on Save and Continue on Pedigree Page
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
     Then the user is navigated to a page with title Print sample forms
@@ -132,6 +133,7 @@ Feature: UserJourney_RD_NEW_AP_2 - UC16-17 - E2EUI-1428,1207
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral

@@ -45,9 +45,14 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
+                String patientChoice=memberDetails.get(i).get(4);
+                if(patientChoice.equalsIgnoreCase("Patient has agreed to the test")) {
                 patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
                 patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
+                }else{
+                    patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                }
                 Wait.seconds(2);
                 patientChoicePage.clickOnContinue();
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {

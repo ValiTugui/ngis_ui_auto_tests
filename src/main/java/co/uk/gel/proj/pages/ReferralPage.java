@@ -99,15 +99,18 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']//div[@data-testid='spacing']//span[@class='child-element']")
     public WebElement referralStatus;
 
+    //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
     @FindBy(css = "*[class*='referral-header__cancel']")
     public WebElement referralCancelReason;
 
+    // @FindBy(css = "*[href*='signout']")
     @FindBy(xpath = "//*[text()='Log out']")
     public WebElement logoutButton;
 
     @FindBy(css = "*[class*='header__user']")
     public WebElement user;
 
+    //    @FindBy(css = "*[class*='referral-header__cancel']")
     @FindBy(css = "*[class*='cancel__button_']")
     public WebElement cancelReferralLink;
 

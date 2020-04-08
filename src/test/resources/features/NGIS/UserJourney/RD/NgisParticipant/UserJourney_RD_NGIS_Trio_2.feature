@@ -6,7 +6,7 @@ Feature: UserJourney_RD_NGIS_Trio_2 - UC10-11 - E2EUI-1009,1478
 
   @NTS-4569  @LOGOUT
 #    @E2EUI-1009 @UseCase10
-  Scenario Outline: NTS-4569: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
+  Scenario Outline: NTS-4569: Use Case#10: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -69,6 +69,9 @@ Feature: UserJourney_RD_NGIS_Trio_2 - UC10-11 - E2EUI-1009,1478
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                            | PatientChoice                                      | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=17-07-1965 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
       | NHSNumber=NA:DOB=19-12-1970 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123 | Patient changed their mind about the clinical test |             |                 |
+    Then the user is navigated to a page with title Patient choice
+    And the user clicks the Save and Continue button
+    And the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
