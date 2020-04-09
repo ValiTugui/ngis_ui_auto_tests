@@ -1,6 +1,7 @@
 #@RD_DUO
 @SYSTEM_INTEGRATION_TEST_DUO
   ## This is for testing purpose for security test as we see many failures in the add family member section for trio
+##This is not required to be part of SIT.. actual ticket is for trio family.. we created this separately when krishan shukla faced issue in running RD trio flow.. exactly same as that, only diff is adding duo instead of trio.
 Feature: NTS-3407 - RD flow - Adding Duo family
 
   @NTS-3407 @LOGOUT

@@ -789,6 +789,7 @@ public class FamilyMemberDetailsPage {
     public boolean verifyTheTestCheckboxIsSelected(String nhsDetails) {
         try {
             //This code added to make the test pass, it is a known issue, as per manual team suggestion
+            //https://jira.extge.co.uk/browse/NTOS-4911
             selectTheTest();
 
             NGISPatientModel ngisPatientModel = getFamilyMember(nhsDetails);
@@ -807,9 +808,11 @@ public class FamilyMemberDetailsPage {
 
     public boolean deSelectTheTest() {
         try {
-            selectTheTest();//If not selected already
+            //This code added to make the test pass, it is a known issue, as per manual team suggestion
+            //https://jira.extge.co.uk/browse/NTOS-4911
+            selectTheTest();
             if (!Wait.isElementDisplayed(driver, selectedTest, 20)) {
-                Debugger.println("Expected status of Test is Selected, but it is not.");
+                Debugger.println("Expected status of Test is Selected default, but the current status is Deselected.");
                 SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
                 return false;
             }
@@ -916,10 +919,12 @@ public class FamilyMemberDetailsPage {
 
     public boolean clickOnDeselectedTestCheckBox() {
         try {
+            //This method is to verify whether we can click on an unselected test check box
+            //If the test is in selected mode, then making it as unselected and clicking
             if(Wait.isElementDisplayed(driver, selectedTest,30)){
                 Actions.clickElement(driver,selectedTest);
-            return true;
             }
+            Actions.clickElement(driver,unSelectedTest);
             return true;//Already deselected
         }catch(ElementClickInterceptedException exp){
             //The box might be in selected stage and element may not be able to click. So moving control out and click again
