@@ -109,8 +109,12 @@ public class FamilyMemberSearchSteps extends Pages {
                      patientSearchPage.clickSearchButtonByXpath(driver);
                 }
             }
-            patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-            patientDetailsPage.newPatientPageIsDisplayed();
+            if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                Assert.assertTrue(false);
+            }
             familyMember.setNO_NHS_REASON("Patient is a foreign national");
             familyMember.setGENDER(paramNameValue.get("Gender"));
             familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
@@ -120,7 +124,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 familyMember.setETHNICITY("A - White - British");
             }
             if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                return;
+                Assert.assertTrue(false);
             }
             referralPage.updatePatientNGSID(familyMember);
         }else {

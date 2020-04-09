@@ -917,19 +917,26 @@ public class PatientChoicePage {
         }
     }
 
-    public void selectMember(int i) {
+    public boolean selectMember(int i) {
         try {
-            if (Wait.isElementDisplayed(driver, landingPageList, 10)) {
+            if (Wait.isElementDisplayed(driver, landingPageList, 30)) {
                 if (memberEditButton.size() > i) {
                     Click.element(driver, memberEditButton.get(i));
                 }
+            }else{
+                Debugger.println("Could not locate the Patient choice for member at location: "+i);
+                SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+                return false;
             }
+            return true;
         } catch (Exception exp) {
             try{
                 seleniumLib.clickOnWebElement(memberEditButton.get(i));
+                return true;
             }catch(Exception exp1){
                 Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp);
                 SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+                return false;
             }
 
         }

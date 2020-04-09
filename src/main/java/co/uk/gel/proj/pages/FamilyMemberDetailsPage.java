@@ -461,81 +461,86 @@ public class FamilyMemberDetailsPage {
     public boolean fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
-        //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
-        if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
-            Debugger.println("Updating Disease Status ....");
+        //DiseaseStatus
+        String parValue = paramNameValue.get("DiseaseStatus");
+        if (parValue != null && !parValue.isEmpty()) {
             try {
                 Click.element(driver, diseaseStatusDropdown);
                 Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get("DiseaseStatus") + "']")));
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
             } catch (Exception exp) {
-                Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp);
-                SeleniumLib.takeAScreenShot("DiseaseDropDown.jpg");
-                return false;
+                try{
+                    seleniumLib.clickOnWebElement(diseaseStatusDropdown);
+                    Wait.seconds(2);
+                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
+                }catch(Exception exp1) {
+                    Debugger.println("Exception from selecting disease from the disease dropdown...:" + exp1);
+                    SeleniumLib.takeAScreenShot("DiseaseDropDown.jpg");
+                    return false;
+                }
             }
         }
+        //Age Of Onset
+        parValue = paramNameValue.get("AgeOfOnset");
+        if (parValue != null && !parValue.isEmpty()) {
+            String[] age_of_onsets = parValue.split(",");
+            ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
+            ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
+        }
+        //HpoPhenoType
         boolean isHpoSelected = true;
-        for (String key : paramsKey) {
-            if (key.equalsIgnoreCase("DiseaseStatus")) {
-                continue;
+        parValue = paramNameValue.get("HpoPhenoType");
+        if (parValue != null && !parValue.isEmpty()) {
+            isHpoSelected = false;//Consider only if HPO Passed as an argument
+            isHpoSelected = isHPOAlreadyConsidered(parValue);
+            if (!isHpoSelected) {
+                Debugger.println("Selecting Phenotype.... ....");
+                if (searchAndSelectRandomHPOPhenotype(parValue) > 0) {
+                    Debugger.println("Phenotype Selected....");
+                    isHpoSelected = true;
+                }
             }
-            switch (key) {
-                case "AgeOfOnset": {
-                    Debugger.println("Updating Age of Onset ....");
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        String[] age_of_onsets = paramNameValue.get(key).split(",");
-                        ageOfOnsetYearsField.sendKeys(age_of_onsets[0]);
-                        ageOfOnsetMonthsField.sendKeys(age_of_onsets[1]);
-                    }
-                    break;
-                }
-                case "HpoPhenoType": {
-                    Debugger.println("Updating Phenotype ....");
-                    isHpoSelected = false;//Consider only if HPO Passed as an argument
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        //Check whether the given Phenotype already added to the patient, if yes no need to enter again.
-                        isHpoSelected = isHPOAlreadyConsidered(paramNameValue.get(key));
-                        if (!isHpoSelected) {
-                            Debugger.println("Selecting Phenotype.... ....");
-                            if (searchAndSelectRandomHPOPhenotype(paramNameValue.get(key)) > 0) {
-                                Debugger.println("Phenotype Selected....");
-                                isHpoSelected = true;
-                            }
-                        }
-                    }
-                    break;
-                }
-                case "PhenotypicSex": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        try {
-                            Click.element(driver, phenotypicSexDropdown);
-                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
-                        } catch (Exception exp) {
-                            Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp);
-                            SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
-                            return false;
-                        }
-                    }
-                    break;
-                }
-                case "KaryotypicSex": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        try {
-                            Click.element(driver, karyotypicSexDropdown);
-                            Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
-                            Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")));
-                        } catch (Exception exp) {
-                            Debugger.println("Exception from selecting karyotypicSexDropdown...:" + exp);
-                            SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
-                            return false;
-                        }
-                    }
-                    break;
+        }
+        //PhenotypicSex
+        parValue = paramNameValue.get("PhenotypicSex");
+        if (parValue != null && !parValue.isEmpty()) {
+            try {
+                Click.element(driver, phenotypicSexDropdown);
+                Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
+            } catch (Exception exp) {
+                try{
+                    seleniumLib.clickOnWebElement(phenotypicSexDropdown);
+                    Wait.seconds(2);
+                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
+                }catch(Exception exp1) {
+                    Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1);
+                    SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
+                    return false;
                 }
 
-            }//switch
-        }//for
+            }
+        }
+        //KaryotypicSex
+        parValue = paramNameValue.get("KaryotypicSex");
+        if (parValue != null && !parValue.isEmpty()) {
+            try {
+                Click.element(driver, karyotypicSexDropdown);
+                Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
+            } catch (Exception exp) {
+                try{
+                    seleniumLib.clickOnWebElement(karyotypicSexDropdown);
+                    Wait.seconds(2);
+                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
+                }catch(Exception exp1) {
+                    Debugger.println("Exception from selecting karyotypicSexDropdown...:" + exp1);
+                    SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
+                    return false;
+                }
+
+            }
+        }
         return isHpoSelected;
     }//method
 

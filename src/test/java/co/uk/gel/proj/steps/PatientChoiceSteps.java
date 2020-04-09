@@ -241,7 +241,9 @@ public class PatientChoiceSteps extends Pages {
 
     @When("the user selects the proband")
     public void theUserSelectsTheProband() {
-        patientChoicePage.selectMember(0);
+        boolean testResult = false;
+        testResult = patientChoicePage.selectMember(0);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user answers the patient choice questions with agreeing to testing")
