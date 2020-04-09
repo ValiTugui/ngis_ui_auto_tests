@@ -731,6 +731,7 @@ public class PatientChoicePage {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
             for (int i = 0; i < warningMessages.size(); i++) {
+                Debugger.println("WM:ACT:"+warningMessages.get(i).getText());
                 if (message.equalsIgnoreCase(warningMessages.get(i).getText())) {
                     return true;
                 }
@@ -1354,7 +1355,11 @@ public class PatientChoicePage {
             //Trying with SeleniumLib click which handles javascript click also
             try {
                 String formLinkPath = formSection.replaceAll("dummySection", sectionName);
-                seleniumLib.clickOnElement(By.xpath(formLinkPath));
+                if(!seleniumLib.isElementPresent(By.xpath(formLinkPath))) {
+                    Debugger.println("Section:" + sectionName + " Not present under Form Library in Patient Choice");
+                    SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+                    return false;
+                }
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from verifyTheFormLibrarySection:" + exp1);

@@ -2,7 +2,7 @@
 #@clinicalIndicationTestSelect
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Home Page
+Feature: Test Directory : ClinicalIndicationTestSelect_1
 
   Background:
     Given a web browser is at the Private Test Selection homepage

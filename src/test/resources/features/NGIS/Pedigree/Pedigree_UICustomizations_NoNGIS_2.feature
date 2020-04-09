@@ -118,7 +118,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FamilyMember   | ProbandDetails              | TumourFieldValues | ErrorMessage                                                                                                                                                                   | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-1991 | 123abc,234jut     | Invalid value entered for 'Number Of Colorectal Polyps Total' for Participant with id,Invalid value entered for 'Number of Colorectal Polyps Adenomas' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @LOGOUT
+  @NTS-47961 @LOGOUT
 #    @E2EUI-1348 @E2EUI-1230
     ##One part of 1230 covered here and another part in NTS-4795
   Scenario Outline: NTS-4796: Non NGIS Patient Stable UID

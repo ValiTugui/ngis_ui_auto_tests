@@ -84,7 +84,7 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
 
     Examples:
       | WarningMessage                                                                                                                                                                                                                                                                                           |
-      | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+      | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3389
     #@E2EUI-2039 @scenario_03

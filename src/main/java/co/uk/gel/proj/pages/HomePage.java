@@ -144,40 +144,58 @@ public class HomePage {
     }
 
     public long rareAndInheritedDiseasesSearchResult() {
-        rareAndInheritedDiseasesChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        rareAndInheritedDiseasesChkBox.click();
-        Wait.seconds(1);
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            rareAndInheritedDiseasesChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            rareAndInheritedDiseasesChkBox.click();
+            Wait.seconds(1);
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in rareAndInheritedDiseasesSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long tumorSearchResult() {
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in tumorSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("tumorSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long totalSearchResult() {
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in totalSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("totalSearchResult.jpg");
+            return 0;
+        }
     }
 
     public boolean testResultsAreLoaded() {

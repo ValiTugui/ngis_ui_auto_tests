@@ -315,7 +315,7 @@ public class ReferralPage<check> {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            Actions.clickElement(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -338,9 +338,14 @@ public class ReferralPage<check> {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
         } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            try{
+                Debugger.println("Clicking on Save and Continue Via SeleniumLib....");
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            }catch(Exception exp1) {
+                Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp1);
+                SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+                Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            }
         }
     }
 
@@ -496,30 +501,7 @@ public class ReferralPage<check> {
         } catch (NoSuchElementException nexp) {
             return false;
         }
-            //Commented below as it is observed that for non-completed stage also, it was returning as selected
-            // Looks like some change in the css property
-//
-//            Wait.forURLToContainSpecificText(driver, getPartialUrl(stage));
-//            Wait.forElementToBeDisplayed(driver, toDoList);
-//            Debugger.println("Stage: "+stage+",partialURL:"+getPartialUrl(stage));
-//            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-//            Debugger.println("WebLocator: "+webElementLocator);
-//            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-//            Debugger.println("data-selected: "+referralStage.getAttribute("data-selected"));
-//            boolean check1 = referralStage.getAttribute("data-selected").contains(currentStageLocator);
-//            boolean check2 = Actions.getText(referralStage).contains(stage);
-//            Debugger.println("Check1:"+check1+",Check2:"+check2);
-//            if (check1 == true && check2 == true) {
-//                return true;
-//            }
-//            return false;
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from verifying stageIsSelected: " + stage + "," + exp);
-//            SeleniumLib.takeAScreenShot("stageIsSelected.jpg");
-//            return false;
-//        }
-
-    }
+     }
 
     public boolean stageIsCompleted(String stage) {
         try {

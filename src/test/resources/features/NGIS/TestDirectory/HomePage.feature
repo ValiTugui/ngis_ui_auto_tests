@@ -2,7 +2,7 @@
 #@homePage
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Home Page
+Feature: TestDirectory : Home Page
 
   Background:
     Given a web browser is at the Private Test Selection homepage

@@ -2,7 +2,7 @@
 #@globalBehaviour
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Global Behaviour Page
+Feature: TestDirectory: Global Behaviour Page
 
   Background:
     Given a web browser is at the Private Test Selection homepage

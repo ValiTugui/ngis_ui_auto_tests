@@ -2,7 +2,7 @@
 #@panelsPage_LandingPage
 @PANEL
 @SYSTEM_TEST
-Feature: Panels Page Landing Page
+Feature: PanelAssigner: Panels Page Landing Page
 
   @NTS-3424 @LOGOUT
 #    @E2EUI-1469 @E2EUI-1322 @E2EUI-1278 @E2EUI-1258

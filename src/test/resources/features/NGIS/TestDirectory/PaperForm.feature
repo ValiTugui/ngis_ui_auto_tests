@@ -2,7 +2,7 @@
 #@paperForm
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Paper Form page functionalities
+Feature: TestDirectory: Paper Form
 
   Background:
     Given a web browser is at the Private Test Selection homepage

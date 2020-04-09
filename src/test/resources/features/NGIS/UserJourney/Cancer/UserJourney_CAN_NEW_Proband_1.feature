@@ -39,6 +39,7 @@ Feature: UserJourney_CAN_NEW_Proband_1 - UC21- E2EUI-1637
     And the user clicks the Add sample button
     Then the user is navigated to a page with title Add a sample
     When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType>", sample state "<sampleState>" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Fresh frozen tumour" and filling SampleID
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
     When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"test"
