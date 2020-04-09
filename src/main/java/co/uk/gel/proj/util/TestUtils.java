@@ -190,8 +190,10 @@ public class TestUtils {
             if (files == null || files.length < 1) {
                 return;
             }
+            String[] today = getCurrentDay();
+            String prefix = today[0]+today[1];
             for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().endsWith(".jpg")) {
+                if (!(files[i].getName().startsWith("T"+prefix))) {
                     files[i].delete();
                 }
             }

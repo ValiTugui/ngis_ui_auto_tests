@@ -2,7 +2,7 @@
 #@patientDetails
 @GENOMIC_RECORD
 @SYSTEM_TEST
-Feature: Patient details page-2
+Feature: GenomicRecord: Patient details page 2
 
  @NTS-3101 @LOGOUT
 #    @E2EUI-2147

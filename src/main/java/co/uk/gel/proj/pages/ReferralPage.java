@@ -95,8 +95,8 @@ public class ReferralPage<check> {
     @FindBy(css = "*[class*='notice__title']")
     public WebElement submissionConfirmationBannerTitle;
 
-    // @FindBy(css = "*[class*='referral-header__badge']")
-    @FindBy(css = "*[class*='referral-header__details']")
+    //@FindBy(css = "*[class*='referral-header__details']")
+    @FindBy(xpath = "//div[@id='referral__header']//div[@data-testid='spacing']//span[@class='child-element']")
     public WebElement referralStatus;
 
     //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
@@ -315,7 +315,7 @@ public class ReferralPage<check> {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
+            Actions.clickElement(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -338,9 +338,14 @@ public class ReferralPage<check> {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
         } catch (Exception exp) {
-            Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp);
-            SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-            Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            try{
+                Debugger.println("Clicking on Save and Continue Via SeleniumLib....");
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            }catch(Exception exp1) {
+                Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp1);
+                SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
+                Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+            }
         }
     }
 
@@ -481,7 +486,7 @@ public class ReferralPage<check> {
     public boolean stageIsSelected(String expStage) {
         try {
             Wait.seconds(2);
-            if(!Wait.isElementDisplayed(driver,activeStage,10)){
+            if(!Wait.isElementDisplayed(driver,activeStage,30)){
                 Debugger.println("No stage is marked as active.");
                 SeleniumLib.takeAScreenShot("ActiveStage.jpg");
                 return false;
@@ -496,30 +501,7 @@ public class ReferralPage<check> {
         } catch (NoSuchElementException nexp) {
             return false;
         }
-            //Commented below as it is observed that for non-completed stage also, it was returning as selected
-            // Looks like some change in the css property
-//
-//            Wait.forURLToContainSpecificText(driver, getPartialUrl(stage));
-//            Wait.forElementToBeDisplayed(driver, toDoList);
-//            Debugger.println("Stage: "+stage+",partialURL:"+getPartialUrl(stage));
-//            String webElementLocator = stageIsToDo.replace("dummyStage", getPartialUrl(stage));
-//            Debugger.println("WebLocator: "+webElementLocator);
-//            WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
-//            Debugger.println("data-selected: "+referralStage.getAttribute("data-selected"));
-//            boolean check1 = referralStage.getAttribute("data-selected").contains(currentStageLocator);
-//            boolean check2 = Actions.getText(referralStage).contains(stage);
-//            Debugger.println("Check1:"+check1+",Check2:"+check2);
-//            if (check1 == true && check2 == true) {
-//                return true;
-//            }
-//            return false;
-//        } catch (Exception exp) {
-//            Debugger.println("Exception from verifying stageIsSelected: " + stage + "," + exp);
-//            SeleniumLib.takeAScreenShot("stageIsSelected.jpg");
-//            return false;
-//        }
-
-    }
+     }
 
     public boolean stageIsCompleted(String stage) {
         try {
@@ -881,19 +863,53 @@ public class ReferralPage<check> {
             Wait.forElementToDisappear(driver, By.cssSelector(cancelReferralLocator));
             return true;
         } catch (Exception exp) {
-            Debugger.println("Cancel Referral notification is not displayed");
+            Debugger.println("Cancel Referral notification is not displayed:"+exp);
+            SeleniumLib.takeAScreenShot("cancelReferralConfirmationIsDisplayed.jpg");
             return false;
         }
 
     }
 
     public boolean cancelReasonMatches(String reason) {
-        return reason.equalsIgnoreCase(Actions.getText(referralCancelReason));
+        try {
+            if(!Wait.isElementDisplayed(driver,referralCancelReason,30)){
+                Debugger.println("referralCancelReason not displayed.");
+                SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
+                return false;
+            }
+            String actReason = Actions.getText(referralCancelReason);
+            if(!actReason.equalsIgnoreCase(reason)){
+                Debugger.println("Expected Reason:"+reason+", but Actual:"+actReason);
+                SeleniumLib.takeAScreenShot("referralCancelReason.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from cancelReasonMatches:"+exp);
+            SeleniumLib.takeAScreenShot("cancelReasonMatches.jpg");
+            return false;
+        }
     }
 
     public boolean verifyTheReferralStatus(String expectedStatus) {
-        Wait.forElementToBeDisplayed(driver, referralStatus);
-        return Actions.getText(referralStatus).contains(expectedStatus);
+        try {
+            if(!Wait.isElementDisplayed(driver,referralStatus,30)){
+                Debugger.println("referralStatus not displayed.");
+                SeleniumLib.takeAScreenShot("referralStatus.jpg");
+                return false;
+            }
+            String actReason = Actions.getText(referralStatus);
+            if(!actReason.equalsIgnoreCase(expectedStatus)){
+                Debugger.println("Expected Status:"+expectedStatus+", but Actual:"+actReason);
+                SeleniumLib.takeAScreenShot("referralStatus.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyTheReferralStatus:"+exp);
+            SeleniumLib.takeAScreenShot("verifyTheReferralStatus.jpg");
+            return false;
+        }
     }
 
     public String getPatientNGISId() {

@@ -2,7 +2,7 @@
 #@requestingOrganisationTestDirectory
 @TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Requesting Organisation page
+Feature: TestDirectory: Requesting Organisation page
 
   Background:
     #Test Directory
@@ -49,3 +49,4 @@ Feature: Requesting Organisation page
     And the user should be able to see a click able link "Cancel order" at top right side of the page
     When the user clicks the link Cancel Order
     Then the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation
+

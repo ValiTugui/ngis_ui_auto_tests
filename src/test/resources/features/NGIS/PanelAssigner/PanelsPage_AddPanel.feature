@@ -2,7 +2,7 @@
 #@panelsPage_AddPanel
 @PANEL
 @SYSTEM_TEST
-Feature: Panels Page Verification
+Feature: PanelAssigner: Panels Page Add Panel
 
   @NTS-3380 @LOGOUT
 #    @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976

@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -60,9 +61,22 @@ public class HomePageSteps extends Pages {
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
         long a = homePage.totalSearchResult();
+        if(a == 0){
+            Assert.assertTrue(false);
+        }
         long b = homePage.rareAndInheritedDiseasesSearchResult();
+        if(b == 0){
+            Assert.assertTrue(false);
+        }
         long c = homePage.tumorSearchResult();
-        Assert.assertEquals(a, b + c);
+        if(c == 0){
+            Assert.assertTrue(false);
+        }
+        if(a != (b+c)){
+            Debugger.println("Total search result not equals the inherited and tumor search results as expected.");
+            Assert.assertTrue(false);
+        }
+
     }
 
     @And("the user selects the Tests tab")

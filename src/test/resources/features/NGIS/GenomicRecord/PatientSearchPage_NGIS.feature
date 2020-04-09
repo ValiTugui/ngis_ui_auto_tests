@@ -2,7 +2,7 @@
 #@patientSearchNGIS
 @GENOMIC_RECORD
 @SYSTEM_TEST
-Feature: Patient search page_NGIS
+Feature: GenomicRecord: Patient search page_NGIS
 
 
   @NTS-2780 @LOGOUT

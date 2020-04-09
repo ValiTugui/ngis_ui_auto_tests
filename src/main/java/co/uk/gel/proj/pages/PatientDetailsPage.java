@@ -156,8 +156,7 @@ public class PatientDetailsPage {
     @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
-    //@FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
-    @FindBy(xpath = "//div[contains(@data-testid,'referral-card-header')]/div//child::span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//div[contains(@id,'referral__header')]//div[contains(@data-testid,'spacing')]//child::span[contains(@class,'child-element')]")
     public WebElement referralStatus;
 
     @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
