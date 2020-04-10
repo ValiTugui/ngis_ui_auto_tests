@@ -6,7 +6,7 @@ Feature: GenomicRecord: Patient details page 2
 
  @NTS-3101 @LOGOUT
 #    @E2EUI-2147
-  Scenario Outline: NTS-3101:A normal user cannot edit or add into the NHS number field from the patient details page
+  Scenario Outline: NTS-3101:E2EUI-2147:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     Given a web browser is logged in as a "GEL_NORMAL_USER" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
@@ -20,7 +20,7 @@ Feature: GenomicRecord: Patient details page 2
 
   @NTS-3101 @LOGOUT
 #    @E2EUI-2146
-  Scenario Outline: NTS-3101:A super-user can edit or add into the NHS number field from the patient details page
+  Scenario Outline: NTS-3101:E2EUI-2146:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
@@ -33,7 +33,7 @@ Feature: GenomicRecord: Patient details page 2
 
   @NTS-3151 @LOGOUT
 #    @E2EUI-1047
-  Scenario Outline: NTS-3151:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
+  Scenario Outline: NTS-3151:E2EUI-1047:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | None | GEL_SUPER_USER |
     And the user navigates to the "<stage1>" stage
@@ -55,7 +55,7 @@ Feature: GenomicRecord: Patient details page 2
 
   @NTS-4762 @LOGOUT
 #    @E2EUI-1192
-  Scenario Outline: NTS-4762: Referral-Patient Detail - Update the 'success' message design
+  Scenario Outline: NTS-4762:E2EUI-1192: Referral-Patient Detail - Update the 'success' message design
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     When the user navigates to the "<stage>" stage
@@ -71,7 +71,7 @@ Feature: GenomicRecord: Patient details page 2
   @NTS-4052 @LOGOUT
     #@E2EUI-1837
 #    @scenario_1
-  Scenario Outline: NTS-4052: Multidate picker - Real dates validation in Find your Patient Page.
+  Scenario Outline: NTS-4052:E2EUI-1837: Multidate picker - Real dates validation in Find your Patient Page.
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     And the user is navigated to a page with title Find your patient

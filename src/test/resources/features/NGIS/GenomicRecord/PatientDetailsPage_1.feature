@@ -149,7 +149,7 @@ Feature: GenomicRecord: Patient details page 1
 
   @NTS-3438 @LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
-  Scenario Outline: NTS-3438 - Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
+  Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
@@ -186,7 +186,7 @@ Feature: GenomicRecord: Patient details page 1
 
   @NTS-3454 @LOGOUT
 #    @E2EUI-893
-  Scenario Outline: NTS-3454: Verify the elements and mandatory fields on patient detail page
+  Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
@@ -216,7 +216,7 @@ Feature: GenomicRecord: Patient details page 1
 
   @NTS-3470 @LOGOUT
 #    @E2EUI-1538
-  Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
+  Scenario Outline: NTS-3470:E2EUI-1538:Test Order - Patient details page - Patient details update message
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user types in invalid details of a patient in the NHS number and DOB fields
@@ -240,7 +240,7 @@ Feature: GenomicRecord: Patient details page 1
 
   @NTS-3470 @LOGOUT
 #    @E2EUI-1538
-  Scenario Outline: NTS-3470: Referral Component - Patient details Page - Patient details update message
+  Scenario Outline: NTS-3470:E2EUI-1538: Referral Component - Patient details Page - Patient details update message
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the user navigates to the "<stage>" stage
