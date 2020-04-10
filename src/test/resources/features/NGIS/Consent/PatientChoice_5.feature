@@ -92,10 +92,12 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
 
   @NTS-3450 @LOGOUT
     #@E2EUI-1773
-  Scenario Outline: NTS-3450: As a user, I should be able to see family member identifiers so that I know who the family member is.
+  Scenario Outline: NTS-3450:E2EUI-1773: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add clinician information

@@ -17,10 +17,12 @@ import java.util.List;
 public class TestPackagePage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public TestPackagePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(css = "h1[class*='page-title']")
@@ -70,6 +72,7 @@ public class TestPackagePage {
     @FindBy(id = "numberOfParticipants")
     public List<WebElement> numberOfParticipantsDropDown;
 
+    @FindBy(xpath = "//div[@id='numberOfParticipants']")
     public WebElement numberOfParticipants;
 
     @FindBy(css = "div[class*='error-message']")
@@ -155,16 +158,9 @@ public class TestPackagePage {
 
     public boolean selectNumberOfParticipants(int number) {
         try {
-            if(!Wait.isElementDisplayed(driver,routinePriorityButton,30)){
+            if(!Wait.isElementDisplayed(driver,numberOfParticipants,30)){
                 Debugger.println("TestPackage Not loaded.");
-
-            }
-            Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-            Wait.forElementToBeDisplayed(driver, testCardBody);
-            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-            if (!Wait.isElementDisplayed(driver, numberOfParticipants, 5)) {
-                Debugger.println("Number of Participants element in TestPackage is not displayed:");
-                Assert.assertFalse("Number of Participants element in TestPackage is not displayed:", true);
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
             }
             numberOfParticipants.click();
             Wait.seconds(2);
@@ -174,9 +170,14 @@ public class TestPackagePage {
             //Ensure that the test package is selected
             WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
             if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
-                Debugger.println("Test Package could not select with number: " + number);
-                SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
-                return false;
+                //Trying with seleniumlib click which handled the javascript click also
+                seleniumLib.clickOnWebElement(numberOfParticipants);
+                if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
+                    seleniumLib.clickOnWebElement(numberOfParticipants);
+                    Wait.seconds(2);
+                }
+                Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+                Wait.seconds(4);
             }
             return true;
         } catch (Exception exp) {
