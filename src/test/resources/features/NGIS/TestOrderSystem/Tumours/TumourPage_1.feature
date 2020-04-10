@@ -24,7 +24,7 @@ Feature: Tumours Page - 1
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
     Then an information "<information>" is displayed that a test cannot start without a tumour
-
+    ##Add the step to verify there are NO existing tumours present (list of toumours)
     Examples:
       | stage   | information                                                                                              |
       | Tumours | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
