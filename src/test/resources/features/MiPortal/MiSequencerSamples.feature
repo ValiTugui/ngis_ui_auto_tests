@@ -1,15 +1,14 @@
 @MIPORTAL
 
-Feature: This is mi-portal Sequencer Samples
+Feature: MIPORTAL:  Sequencer Samples (E2EUI-2321,2256,2233,2332)
 
   Background:
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
   @NTS-4865
-  Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "sequencer_samples-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "sequencer_samples-search-operator" operator drop-down
@@ -28,9 +27,8 @@ Feature: This is mi-portal Sequencer Samples
       | Sequencer Samples | GLH   | is        |
       | Sequencer Samples | GLH   | is one of |
 
-###New From Stag
-  ###Aftab
-  @NTS-5051 @E2EUI-2321
+  @NTS-5051
+   # @E2EUI-2321
   Scenario Outline:NTS-5051: Add "glh" and "ordering_entity" as fields which are returned from the miportalplateview API and are also fields which can be used as filters - Sequencer samples
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
@@ -47,7 +45,7 @@ Feature: This is mi-portal Sequencer Samples
 
   @NTS-4917
     #@E2EUI-2256
-  Scenario Outline: Plate Date Of Dispatch field should be displayed as in 'dd/mm/yyyy' format
+  Scenario Outline:NTS-4917: Plate Date Of Dispatch field should be displayed as in 'dd/mm/yyyy' format
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "sequencer_samples-search-col" column drop-down
@@ -66,7 +64,7 @@ Feature: This is mi-portal Sequencer Samples
 
   @NTS-4919
     #@E2EUI-2233
-  Scenario Outline: Fields not poulating in Sequencer samples
+  Scenario Outline:NTS-4919: Fields not poulating in Sequencer samples
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "sequencer_samples-search-col" column drop-down
@@ -90,7 +88,7 @@ Feature: This is mi-portal Sequencer Samples
 
    @NTS-5032
      #@E2EUI-2332
-  Scenario Outline:E2EUI-2332 Sequencer Sample Report UI improvement
+  Scenario Outline:NTS-5032:E2EUI-2332 Sequencer Sample Report UI improvement
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage

@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -103,7 +104,22 @@ public class MilHomePageSteps extends Pages {
             Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"), actualDropDownValues.get(i));
         }
     }
-
+//same method as above, added with contains check in place of equals to pass value in any order
+    @And("the user sees the values in the search value {string} drop-down menu values")
+    public void theUserSeesTheValuesInTheSearchValueDropDownMenuValues(String dropDownButton, DataTable dataTable) {
+        List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
+        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
+        Assert.assertNotNull(actualDropDownValues);
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            boolean testResult = true;
+            if (!actualDropDownValues.contains(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"))){
+                Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
+                SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
+                testResult = false;
+            }
+            Assert.assertTrue(testResult);
+        }
+    }
 
     @Then("the user sees the message {string} below the search container")
     public void theUserSeesTheMessageBelowTheSearchContainer(String noResultFoundMessage) {
@@ -403,7 +419,6 @@ public class MilHomePageSteps extends Pages {
         }
     }
 
-    //New From Stag
     @And("the user should be able to see {string} search boxes in the {string} page")
     public void theUserShouldBeAbleToSeeSearchBoxesInThePage(String numberOfSearchField, String section) {
         boolean testResult = false;

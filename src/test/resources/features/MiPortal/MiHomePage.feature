@@ -1,6 +1,6 @@
 @MIPORTAL
 
-Feature: This is mi-portal homepage
+Feature: MIPORTAL: Homepage (E2EUI-2328,2772,2329,2335,2704,1433)
 
 #  @NTS_todo
 #  Scenario Outline: mi-portal page
@@ -16,9 +16,9 @@ Feature: This is mi-portal homepage
 #      | mi_stage         | value   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
 #      | file_submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
-  @NTS-todo
+  @NTS-5180
     #@E2EUI-2328
-  Scenario Outline: NTS- :Feedback Link removed from Mi Portal
+  Scenario Outline: NTS-5180:E2EUI-2328: Feedback Link removed from Mi Portal
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     Then the user validates there is no feedback link on the page
@@ -37,7 +37,7 @@ Feature: This is mi-portal homepage
 
   @NTS-4985
    ## @E2EUI-2772 @E2EUI-2329
-  Scenario Outline: NTS-4985:Standardized MI portal name
+  Scenario Outline: NTS-4985:E2EUI-2772,2329:Standardized MI portal name
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     And the user sees the "MI Portal" logo and environment name at their position
@@ -62,7 +62,7 @@ Feature: This is mi-portal homepage
 
   @NTS-5038
    # @E2EUI-2355
-  Scenario Outline:NTS-5038: Fields Referral ID and Patient NGIS ID appear below the GLH and Ordering Entity filters followed by report specific filters across all reports
+  Scenario Outline:NTS-5038:E2EUI-2355: Fields Referral ID and Patient NGIS ID appear below the GLH and Ordering Entity filters followed by report specific filters across all reports
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage1>" stage
@@ -129,7 +129,7 @@ Feature: This is mi-portal homepage
 
   @NTS-4975
   #@E2EUI-2704
-  Scenario:NTS-4975: Implement sql-performance recommendations for miportalsampleview
+  Scenario:NTS-4975:E2EUI-2704: Implement sql-performance recommendations for miportalsampleview
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see sample processing menu is displayed
@@ -146,7 +146,7 @@ Feature: This is mi-portal homepage
 
   @NTS-4460
     #@E2EUI-1433
-  Scenario Outline: MI Dashboard | Search LSIDs
+  Scenario Outline:NTS-4460:E2EUI-1433: MI Dashboard | Search LSIDs
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see sample processing menu is displayed

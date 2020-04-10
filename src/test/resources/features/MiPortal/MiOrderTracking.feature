@@ -1,15 +1,14 @@
 @MIPORTAL
 
-Feature: This is mi-portal Order_Tracking
+Feature: MIPORTAL: Order_Tracking (E2EUI-2337,2438,2398,2234,1929)
 
   Background:
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
   @NTS-4865
-  Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "order_tracking-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "order_tracking-search-operator" operator drop-down
@@ -30,7 +29,7 @@ Feature: This is mi-portal Order_Tracking
 
   @NTS-5046
    # @E2EUI-2337
-  Scenario Outline:NTS-5046 : A user should be able to see the column header "gel1001__clinical_indication_test_type_id" in the results section of Order Tracking when filter Clinical Indication Test Type is selected.
+  Scenario Outline:NTS-5046:E2EUI-2337: A user should be able to see the column header "gel1001__clinical_indication_test_type_id" in the results section of Order Tracking when filter Clinical Indication Test Type is selected.
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<filter>" from the "order_tracking-search-col" column drop-down
@@ -59,7 +58,7 @@ Feature: This is mi-portal Order_Tracking
 
   @NTS-5029
     #@E2EUI-2438
-  Scenario Outline: NTS-5029:Drag and drop clinical_indication code on Sample View
+  Scenario Outline: NTS-5029:E2EUI-2438:Drag and drop clinical_indication code on Sample View
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user should be able to see "<NoOfSearchField>" search boxes in the "order_tracking" page
@@ -82,7 +81,7 @@ Feature: This is mi-portal Order_Tracking
 
   @NTS-5052
     #@E2EUI-2398
-  Scenario Outline:NTS-5052 : clinical_indication_test_type_id parameter on miportalsampleview support "in" operatorclinical_indication_test_type_id parameter on miportalsampleview support "in" operator
+  Scenario Outline:NTS-5052:E2EUI-2408: clinical_indication_test_type_id parameter on miportalsampleview support "in" operatorclinical_indication_test_type_id parameter on miportalsampleview support "in" operator
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<filter>" from the "order_tracking-search-col" column drop-down

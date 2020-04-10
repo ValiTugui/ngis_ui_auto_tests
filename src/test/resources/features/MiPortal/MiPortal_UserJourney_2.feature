@@ -1,6 +1,6 @@
 @MIPORTAL
 
-Feature: MI Portal - This is mi-portal User Journey for Plater Samples and Picklists.
+Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,2580,1305)
 
   @NTS-4459
      #@E2EUI-1424  @E2EUI-2580
@@ -139,7 +139,6 @@ Feature: MI Portal - This is mi-portal User Journey for Plater Samples and Pickl
       | mi_stage       | paginationValue | filter_value1 | operator  | value1                    | filter_value2   | value2                                              | filter_value3 | operator1  | value3      | filter_value4   | value4                                 | filter_value5              | fixed_operator | value5         | filter_value6        | value6       | filter_value7                         | value7           | filter_value8         | value8     | filter_value9                    | operator9    | date       |
       | Plater Samples | 25              | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | is exactly | r1234       | Patient NGIS ID | p24295001324                           | gel1004 Clinic Sample Type | is             | dna_saliva     | gel1004 Disease Area | Rare Disease | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | North West | gel1005 Sample Received Datetime | equals       | 14-03-2020 |
       | Plater Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | is one of  | r1234,r5678 | Patient NGIS ID | p24295001324,p44616417782,p67752570099 | gel1004 Clinic Sample Type | is             | dna_fibroblast | gel1004 Disease Area | Cancer       | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | South West | gel1005 Sample Received Datetime | before or on | 15-03-2020 |
-
 
   @NTS-5063
    ## @E2EUI-1305

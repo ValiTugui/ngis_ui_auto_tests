@@ -227,8 +227,6 @@ Feature: MI Portal - File Submission 2
       | file_type                |
       | path                     |
     When the user adds "<field-column>" column to Hide section
-    And the user adds "<field-column1>" column to Hide section
-    And the user adds "<field-column2>" column to Hide section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
       | id                       |
@@ -251,12 +249,12 @@ Feature: MI Portal - File Submission 2
     Then the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date       | field-column | field-column1  | field-column2 |
-      | File Submissions | Created | equals   | 09-03-2020 | filename     | field_warnings | status        |
+      | mi_stage         | value   | operator | date       | field-column                   |
+      | File Submissions | Created | equals   | 09-03-2020 | filename,field_warnings,status |
 
   @NTS-5031
     #@E2EUI-2513
-  Scenario Outline:E2EUI-2513 Search by "Status" in File Submissions
+  Scenario Outline:NTS-5031:E2EUI-2513 Search by "Status" in File Submissions
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -283,3 +281,40 @@ Feature: MI Portal - File Submission 2
     Examples:
       | mi_stage         | value1 | operator | value2      | columnHeader | fieldValue  |
       | File Submissions | Status | is       | In Progress | Status       | in_progress |
+
+  @NTS-5177 @E2EUI-2578
+  Scenario Outline:NTS-5177: MIS - Add "Status" search filter to File Submissions
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user should be able to see "<NoOfSearchField>" search boxes in the "file_submissions" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then the user sees the message "<noResultFound>" below the search container
+    And the selected search option is reset after test
+    And the user selects a value "<column1>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator1>" from the "file_submissions-search-operator" operator drop-down
+    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
+      | fileSubmissionsSearchOperatorHeader |
+      | is                                  |
+      | is one of                           |
+    And the user sees the values in the search value "file_submissions-search-value" drop-down menu
+      | fileSubmissionsSearchValueHeader |
+      | Duplicate                        |
+      | In Progress                      |
+      | Invalid                          |
+      | Valid                            |
+      | Valid with Warnings              |
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then search results are displayed for the file-submission search
+    When the user clicks on the Download CSV button to download the CSV file as "file_submissions_filtered".csv
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date        | noResultFound                            | NoOfSearchField | column1 | operator1 |
+      | File Submissions | Created | equals   | future_date | No results found for these search terms. | 3               | Status  | is        |

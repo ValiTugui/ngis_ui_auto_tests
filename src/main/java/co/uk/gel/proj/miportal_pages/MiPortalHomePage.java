@@ -112,7 +112,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[text()='Column ordering']")
     public WebElement headerColumnOrdering;
 
-    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
+//    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
+    @FindBy(xpath = "//button[contains(@id,'-display-reset')]")
     public WebElement resetHeaderOrdering;
 
     @FindBy(xpath = "//label[text()='Show']")
@@ -215,7 +216,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public void clickResetButton() {
         try {
             Wait.forElementToBeClickable(driver, resetButton);
+            try {
             Click.element(driver, resetButton);
+                Wait.seconds(2);
+            } catch (ElementClickInterceptedException exc) { //to handle the 3rd dropdown selection box overlay intercepting sometimes.
+                Debugger.println("Click on Reset Intercepted, clicking on body first and trying to reset again...."+exc);
+                WebElement body = driver.findElement(By.xpath("//body"));
+                body.click();
+                Wait.seconds(2);
+            }
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on resetButton:" + exp);
             SeleniumLib.takeAScreenShot("NoResetButton.jpg");
@@ -998,6 +1007,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfSearchBoxes(String numberOfSearchField, String section) {
         try {
+//            Wait.seconds(30);
             Wait.forElementToBeDisplayed(driver, addButton, 10);
             if (!Wait.isElementDisplayed(driver, searchTitle, 10)) {
                 Debugger.println("Search title is not displayed.");

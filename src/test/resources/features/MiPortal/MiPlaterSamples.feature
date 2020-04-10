@@ -1,15 +1,14 @@
 @MIPORTAL
 
-Feature: This is mi-portal Glh Samples
+Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
 
   Background:
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
   @NTS-4865
-  Scenario Outline: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "plater_samples-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "plater_samples-search-operator" operator drop-down
@@ -85,7 +84,7 @@ Feature: This is mi-portal Glh Samples
 
   @NTS-5030
     #@E2EUI-2331
-  Scenario Outline:E2EUI-2331 Plater Sample Report UI improvement
+  Scenario Outline:NTS-5030:E2EUI-2331 Plater Sample Report UI improvement
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
