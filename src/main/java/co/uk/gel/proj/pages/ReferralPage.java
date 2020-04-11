@@ -311,11 +311,11 @@ public class ReferralPage<check> {
         return element.getText();
     }
 
-    public void clickSaveAndContinueButton() {
+    public boolean clickSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.clickElement(driver, saveAndContinueButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -334,17 +334,28 @@ public class ReferralPage<check> {
                 }
             }
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
+            //e2elatest - observed some un-wanted validation errors and not moving to next page
+            //So added this line to print out, if any validation error present after clicking on SaveAndContinue Button
+            if(validationErrors.size() > 0){
+                Debugger.println("ValidationError:"+validationErrors.get(0).getText());
+                SeleniumLib.scrollToElement(pageTitle);
+                SeleniumLib.takeAScreenShot("SaveAndContinueValidationError.jpg");
+                return false;
+            }
+            return true;
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
+            return true;
         } catch (Exception exp) {
             try{
                 Debugger.println("Clicking on Save and Continue Via SeleniumLib....");
                 seleniumLib.clickOnWebElement(saveAndContinueButton);
+                return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp1);
                 SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-                Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
+                return false;
             }
         }
     }

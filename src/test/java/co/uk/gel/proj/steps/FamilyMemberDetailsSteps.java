@@ -37,8 +37,12 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
-        patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British");
-        familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband);
+        if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
+            Assert.assertTrue(false);
+        }
+        if(!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)){
+            Assert.assertTrue(false);
+        }
         NGISPatientModel familyMember = FamilyMemberDetailsPage.getFamilyMember(memberDetails);
         if(familyMember != null){
             familyMember.setRELATIONSHIP_TO_PROBAND(relationToProband);

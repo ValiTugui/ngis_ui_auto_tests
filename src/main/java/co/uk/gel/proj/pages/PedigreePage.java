@@ -1283,16 +1283,18 @@ public class PedigreePage {
 
     public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID){
 
-        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,10)){
+        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,30)){
             Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
             SeleniumLib.takeAScreenShot("PersonalTab.jpg");
             return false;
         }
-        String actualUid = personalTab_nonNgisPatientStableUid.getText();
-        if(!actualUid.equalsIgnoreCase(nonNgisUID)){
-            Debugger.println("Expected nonNgisPatientStableUid:"+nonNgisUID+", but actual:"+actualUid);
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            return false;
+        if(personalTab_nonNgisPatientStableUid.isEnabled()) {//Read and compare when the field is enabled
+            String actualUid = personalTab_nonNgisPatientStableUid.getText();
+            if (!actualUid.equalsIgnoreCase(nonNgisUID)) {
+                Debugger.println("Expected nonNgisPatientStableUid:" + nonNgisUID + ", but actual:" + actualUid);
+                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+                return false;
+            }
         }
         return true;
     }
