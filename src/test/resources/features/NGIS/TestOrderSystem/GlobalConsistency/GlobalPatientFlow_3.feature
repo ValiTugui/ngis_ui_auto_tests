@@ -3,7 +3,7 @@
 #@GlobalFlow_Validations_Tumour
 @TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patient Flow 3 - End to end Tumour
+Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4711 @LOGOUT
 #    @E2EUI-964 @E2EUI-1587
