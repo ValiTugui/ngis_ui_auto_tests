@@ -311,7 +311,7 @@ public class ReferralPage<check> {
         return element.getText();
     }
 
-    public boolean clickSaveAndContinueButton() {
+    public void clickSaveAndContinueButton() {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
@@ -337,26 +337,19 @@ public class ReferralPage<check> {
             //e2elatest - observed some un-wanted validation errors and not moving to next page
             //So added this line to print out, if any validation error present after clicking on SaveAndContinue Button
             if(validationErrors.size() > 0){
-                Debugger.println("ValidationError:"+validationErrors.get(0).getText());
-                SeleniumLib.scrollToElement(pageTitle);
-                SeleniumLib.takeAScreenShot("SaveAndContinueValidationError.jpg");
-                return false;
+                Debugger.println("SaveAndClick:ValidationError:"+validationErrors.get(0).getText());
             }
-            return true;
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
-            return true;
-        } catch (Exception exp) {
+         } catch (Exception exp) {
             try{
                 Debugger.println("Clicking on Save and Continue Via SeleniumLib....");
                 seleniumLib.clickOnWebElement(saveAndContinueButton);
-                return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp1);
                 SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-                return false;
-            }
+           }
         }
     }
 
@@ -461,7 +454,7 @@ public class ReferralPage<check> {
         return partialUrl;
     }
 
-    public void navigateToStage(String stage) {
+    public boolean navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
             //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
@@ -475,24 +468,26 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
                 Actions.scrollToBottom(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (StaleElementReferenceException staleExp) {
             Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (TimeoutException exp) {
             Debugger.println("Stage Click: TimeoutException: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (NoSuchElementException exp) {
             Debugger.println("Stage Click: NoSuchElementException: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (Exception exp) {
             Debugger.println("Stage Click: Exception: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            seleniumLib.clickOnWebElement(referralStage);
         }
+        //Ensure the stage is selected
+        return stageIsSelected(stage);
     }
     public boolean stageIsSelected(String expStage) {
         try {
@@ -742,9 +737,6 @@ public class ReferralPage<check> {
                     return true;
                 }
             } catch (NoSuchElementException exp) {
-                //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
-                //So clicking on save abd continue and trying again.
-                clickSaveAndContinueButton();
                 Wait.seconds(1);
                 actualPageTitle = getTheCurrentPageTitle();
                 if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {

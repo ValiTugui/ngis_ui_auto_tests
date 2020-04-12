@@ -7,7 +7,7 @@ Feature: Samples Page -2
 
   @NTS-3272 @LOGOUT
 #    @E2EUI-1946 @E2EUI-1239
-  Scenario Outline: NTS-3272: Verifying the page titles and sub-title of Manage Samples, Add a Sample, Edit details and Add sample details pages
+  Scenario Outline: NTS-3272:E2EUI-1946,1239: Verifying the page titles and sub-title of Manage Samples, Add a Sample, Edit details and Add sample details pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -53,7 +53,7 @@ Feature: Samples Page -2
 
   @NTS-3308 @LOGOUT
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
-  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+  Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -72,7 +72,7 @@ Feature: Samples Page -2
 
   @NTS-3308 @LOGOUT
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
-  Scenario Outline: NTS-3308: Add a sample page - sample state field validation
+  Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -90,7 +90,7 @@ Feature: Samples Page -2
 
   @NTS-3308 @LOGOUT
 #    @E2EUI-943 @E2EUI-2338 @E2EUI-1232
-  Scenario Outline: NTS-3308: Add a sample page - verify the sample type drop down list
+  Scenario Outline: NTS-3308:E2EUI-943,2338,1232: Add a sample page - verify the sample type drop down list
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -113,7 +113,7 @@ Feature: Samples Page -2
 
   @NTS-3312 @LOGOUT
 #    @E2EUI-868 @@E2EUI-1261 @E2EUI-887
-  Scenario Outline: NTS-3312: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
+  Scenario Outline: NTS-3312:E2EUI-868,1261,887: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -135,7 +135,7 @@ Feature: Samples Page -2
 
   @NTS-3332 @LOGOUT
 #    @E2EUI-1446 @E2EUI-1272
-  Scenario Outline: NTS-3332 - Add a Sample page - Verify sample type, sample state and sampleID are display
+  Scenario Outline: NTS-3332:E2EUI-1446,1272: Add a Sample page - Verify sample type, sample state and sampleID are display
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -152,7 +152,7 @@ Feature: Samples Page -2
 
   @NTS-3333 @LOGOUT
 #    @E2EUI-1252
-  Scenario Outline: NTS-3333 - Add a Sample page - verify the help hint-text on Local sample tube ID
+  Scenario Outline: NTS-3333:E2EUI-1252: Add a Sample page - verify the help hint-text on Local sample tube ID
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -172,7 +172,7 @@ Feature: Samples Page -2
 
   @NTS-3335 @LOGOUT
 #    @E2EUI-1261 @E2EUI-1476
-  Scenario Outline: NTS-3335 - Add a Sample page - page layout
+  Scenario Outline: NTS-3335:E2EUI-1261,1476: Add a Sample page - page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -196,7 +196,7 @@ Feature: Samples Page -2
 
   @NTS-3335 @LOGOUT
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
-  Scenario Outline: NTS-3335 - Add a Sample page - page layout - verify sample-states drop-down values
+  Scenario Outline: NTS-3335:E2EUI-1261,1232,1476: Add a Sample page - page layout - verify sample-states drop-down values
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -225,7 +225,7 @@ Feature: Samples Page -2
 
   @NTS-3345 @LOGOUT
 #    @E2EUI-838 @E2EUI-857
-  Scenario Outline: NTS-3345:Edit a non tumour sample type that has already been added to my referral
+  Scenario Outline: NTS-3345:E2EUI-838,857:Edit a non tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details
@@ -259,7 +259,7 @@ Feature: Samples Page -2
 
   @NTS-3345 @LOGOUT
 #    @E2EUI-838 @E2EUI-857
-  Scenario Outline: NTS-3345: Edit a tumour sample type that has already been added to my referral
+  Scenario Outline: NTS-3345:E2EUI-838,857: Edit a tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     And the user is navigated to a page with title Check your patient's details

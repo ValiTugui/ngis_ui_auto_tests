@@ -42,14 +42,14 @@ public class ReferralSteps extends Pages {
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
-        referralPage.navigateToStage(stage);
+        boolean testResult = false;
+        testResult = referralPage.navigateToStage(stage);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks the Save and Continue button")
     public void theUserClicksTheSaveAndContinueButton() {
-        boolean testResult = false;
-        testResult = referralPage.clickSaveAndContinueButton();
-        Assert.assertTrue(testResult);
+        referralPage.clickSaveAndContinueButton();
     }
 
     @Given("a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service")

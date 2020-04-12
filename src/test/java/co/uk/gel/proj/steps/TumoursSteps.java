@@ -121,13 +121,23 @@ public class TumoursSteps extends Pages {
 
     @And("the user answers the tumour system questions fields and select a tumour type {string}")
     public void theUserAnswersTheTumourSystemQuestionsFieldsAndSelectATumourType(String tumourType) {
+        boolean testResult = false;
         try {
-            tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-            tumoursPage.fillInTumourDescription();
-            tumoursPage.fillInDateOfDiagnosis();
+            testResult = tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+            Assert.assertTrue(testResult);
+            if(tumoursPage.fillInTumourDescription() == null){
+                Assert.assertTrue(false);
+            }
+            testResult = tumoursPage.fillInDateOfDiagnosis();
+            Assert.assertTrue(testResult);
             String tumour = tumoursPage.selectTumourType(tumourType);
+            if(tumour == null){
+                Assert.assertTrue(false);
+            }
             PatientDetailsPage.newPatient.setTumourType(tumour);
-            tumoursPage.fillInSpecimenID();
+            if(tumoursPage.fillInSpecimenID() == null){
+                Assert.assertTrue(false);
+            }
             Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
         }catch(Exception exp){
             Debugger.println("Exception from Answering Tumour Question Field: "+exp);
@@ -310,11 +320,11 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 
-
-    @And("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
+    @When("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
     public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
-
-        tumoursPage.clickEditTumourArrow();
+        boolean testResult = false;
+        testResult = tumoursPage.clickEditTumourArrow();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")
@@ -347,19 +357,8 @@ public class TumoursSteps extends Pages {
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-        if (expectedPageTitle.equals("Add sample details")) {
-            try {
-                Wait.seconds(2);
-                Wait.forElementToBeDisplayed(driver, samplesPage.addSampleDetailsSubHeading);
-                Debugger.println("Sub heading - Sample Details found :");
-            } catch (TimeoutException exp) {
-                SeleniumLib.takeAScreenShot("AddSampleDetailsPage.jpg");
-                Debugger.println("Timeout loading sub-heading sample details " + exp);
-            }
-        }
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
-        Debugger.println("test-result flag for verifying page title is: " + testResult);
         Assert.assertTrue(testResult);
     }
 

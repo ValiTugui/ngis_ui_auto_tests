@@ -107,7 +107,8 @@ public class TumoursPage {
     @FindBy(xpath = "//button[text()='add a new tumour']")  //added
     public List<WebElement> addAnotherTumourLinkList;
 
-    @FindBy(css = "*[class*='checkbox-row__arrow']")
+    //@FindBy(css = "*[class*='checkbox-row__arrow']")
+    @FindBy(xpath = "//button[@aria-label='Edit a tumour']")
     public WebElement editTumourArrow;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")
@@ -180,18 +181,21 @@ public class TumoursPage {
     @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
-    public void navigateToAddTumourPageIfOnEditTumourPage() {
+    public boolean navigateToAddTumourPageIfOnEditTumourPage() {
 
         if (descriptiveNameList.size() > 0) {
             Debugger.println("User is on Add Tumour Page");
+            return true;
         } else if (addAnotherTumourLinkList.size() > 0) {
             Debugger.println("User is on Edit Tumour Page");
             addAnotherTumourLink.click();
             Debugger.println("User is NOW on Add Tumour Page");
+            return true;
         } else {
             Debugger.println("User is not on tumour page");
+            SeleniumLib.takeAScreenShot("ToumourPage.jpg");
+            return false;
         }
-
     }
 
     public String fillInTumourDescription() {
@@ -214,7 +218,7 @@ public class TumoursPage {
         dateMonth.sendKeys(monthOfDiagnosis);
     }
 
-    public void fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
+    public boolean fillInDateOfDiagnosis(String dayOfDiagnosis, String monthOfDiagnosis, String yearOfDiagnosis) {
         try {
             if(dayOfDiagnosis != null && !dayOfDiagnosis.isEmpty()) {
                 dateDay.sendKeys(dayOfDiagnosis);
@@ -225,8 +229,11 @@ public class TumoursPage {
             if(yearOfDiagnosis != null && !yearOfDiagnosis.isEmpty()) {
                 dateYear.sendKeys(yearOfDiagnosis);
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception in fillInDateOfDiagnosis:"+exp);
+            SeleniumLib.takeAScreenShot("fillInDateOfDiagnosis.jpg");
+            return false;
         }
     }
 
@@ -237,29 +244,48 @@ public class TumoursPage {
         Wait.seconds(2);
     }
 
-    public void fillInDateOfDiagnosis() {
-        tumourDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
-        tumourDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
-        tumourDetails.setYear(String.valueOf(faker.number().numberBetween(2018, 2019)));
-        Actions.fillInValue(dateDay, tumourDetails.getDay());
-        Actions.fillInValue(dateMonth, tumourDetails.getMonth());
-        Actions.fillInValue(dateYear, tumourDetails.getYear());
+    public boolean fillInDateOfDiagnosis() {
+        try {
+            tumourDetails.setDay(String.valueOf(faker.number().numberBetween(1, 31)));
+            tumourDetails.setMonth(String.valueOf(faker.number().numberBetween(1, 12)));
+            tumourDetails.setYear(String.valueOf(faker.number().numberBetween(2018, 2019)));
+            Actions.fillInValue(dateDay, tumourDetails.getDay());
+            Actions.fillInValue(dateMonth, tumourDetails.getMonth());
+            Actions.fillInValue(dateYear, tumourDetails.getYear());
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInDateOfDiagnosis:"+exp);
+            SeleniumLib.takeAScreenShot("fillInDateOfDiagnosis.jpg");
+            return false;
+        }
     }
 
     public String selectTumourType(String type) {
-        Wait.forElementToBeClickable(driver, tumourType);
-        Actions.retryClickAndIgnoreElementInterception(driver, tumourType);
-        Wait.forElementToBeClickable(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, type);
-        tumourDetails.setTumourType(type);
-        return Actions.getText(tumourType);
+        try {
+            Wait.forElementToBeClickable(driver, tumourType);
+            Actions.retryClickAndIgnoreElementInterception(driver, tumourType);
+            Wait.forElementToBeClickable(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, type);
+            tumourDetails.setTumourType(type);
+            return Actions.getText(tumourType);
+        }catch(Exception exp){
+            Debugger.println("Exception in selectTumourType:"+exp);
+            SeleniumLib.takeAScreenShot("selectTumourType.jpg");
+            return null;
+        }
     }
 
     public String fillInSpecimenID() {
-        String ID = faker.numerify("N#####");
-        Actions.fillInValue(pathologyReportId, ID);
-        tumourDetails.setTumourSpecimenID(ID);
-        return ID;
+        try {
+            String ID = faker.numerify("N#####");
+            Actions.fillInValue(pathologyReportId, ID);
+            tumourDetails.setTumourSpecimenID(ID);
+            return ID;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInSpecimenID:"+exp);
+            SeleniumLib.takeAScreenShot("fillInSpecimenID.jpg");
+            return null;
+        }
     }
 
     public boolean selectTumourFirstPresentationOrOccurrenceValue(String value) {
@@ -443,10 +469,21 @@ public class TumoursPage {
         return actualInformationText;
     }
 
-    public void clickEditTumourArrow() {
-        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
-        Wait.seconds(3);
-        Actions.clickElement(driver, editTumourArrow);
+    public boolean clickEditTumourArrow() {
+        try {
+            if(!Wait.isElementDisplayed(driver, tumoursLandingPageTable,30)){
+                Debugger.println("tumoursLandingPageTable not loaded.");
+                SeleniumLib.takeAScreenShot("tumoursLandingPageTable.jpg");
+                return false;
+            }
+            Wait.seconds(3);
+            Actions.clickElement(driver, editTumourArrow);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickEditTumourArrow:"+exp);
+            SeleniumLib.takeAScreenShot("clickEditTumourArrow.jpg");
+            return false;
+        }
     }
 
     public void editTumourDescription() {
