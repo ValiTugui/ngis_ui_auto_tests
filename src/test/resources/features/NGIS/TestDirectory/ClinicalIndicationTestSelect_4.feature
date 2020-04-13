@@ -56,6 +56,7 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     And the user sees the Save and Continue button
     And the user clicks the Save and Continue button
     ##Patient Choice Landing Page
+    When the user navigates to the "<PatientChoice>" stage
     And the user is navigated to a page with title Patient choice
     Then the "<PatientChoice>" stage is selected
     When the user selects the proband
