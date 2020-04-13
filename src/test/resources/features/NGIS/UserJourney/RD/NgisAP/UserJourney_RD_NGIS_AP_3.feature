@@ -79,7 +79,7 @@ Feature: UserJourney_RD_NGIS_AP_3 - UC18 - E2EUI-1210
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ##need to modify pedigree
+    ##Need to modify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ##Print forms
