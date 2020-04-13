@@ -39,13 +39,15 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the text {string} is not displayed")
     public void theTextIsNotDisplayed(String wrongText) {
+
         Assert.assertTrue(wrongText + "  is Displayed", clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(clinicalIndicationsTestSelect.loadingText, wrongText));
     }
 
     @Then("the text {string} is displayed")
     public void theTextIsDisplayed(String correctText) {
-        Assert.assertTrue(correctText + "  is NOT Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
-
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(correctText);
+        Assert.assertTrue(testResult);
     }
 
     @And("the list of clinical indications are loaded")
@@ -60,7 +62,9 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user sees the button {string} on Bottom right")
     public void theUserSeesTheButtonOnBottomRight(String buttonName) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.startTestOrderButton, buttonName));
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.validateIfCorrectButtonDisplayed(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the {string} tab")

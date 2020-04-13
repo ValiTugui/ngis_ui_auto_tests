@@ -6,6 +6,7 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import cucumber.api.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -160,9 +161,33 @@ public class ClinicalIndicationsTestSelectPage {
         return loadingWheel.size() >= 0;
     }
 
-    public boolean validateIfCorrectTextIsDisplayed(WebElement element, String expected) {
-        String actual = element.getText();
-        return actual.equalsIgnoreCase(expected);
+    public boolean validateIfCorrectTextIsDisplayed(String expected) {
+        if(!Wait.isElementDisplayed(driver,loadingText,10)){
+            Debugger.println("Text element not displayed:"+expected);
+            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
+            return false;
+        }
+        String actual = loadingText.getText();
+        if(!actual.equalsIgnoreCase(expected)){
+            Debugger.println("Expected text:"+expected+",Actual:"+actual);
+            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
+            return false;
+        }
+        return true;
+    }
+    public boolean validateIfCorrectButtonDisplayed(String expected) {
+        if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
+            Debugger.println("Text element not displayed:"+expected);
+            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
+            return false;
+        }
+        String actual = startTestOrderButton.getText();
+        if(!actual.equalsIgnoreCase(expected)){
+            Debugger.println("Expected text:"+expected+",Actual:"+actual);
+            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
+            return false;
+        }
+        return true;
     }
 
     public boolean validateIfWrongTextIsNotDisplayed(WebElement element, String expected) {

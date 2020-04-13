@@ -470,19 +470,19 @@ public class ReferralPage<check> {
             }
             Actions.clickElement(driver, referralStage);
         } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
+            Debugger.println("Stage Click: StaleElementReferenceException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             Actions.clickElement(driver, referralStage);
         } catch (TimeoutException exp) {
-            Debugger.println("Stage Click: TimeoutException: " + exp);
+            Debugger.println("Stage Click: TimeoutException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             Actions.clickElement(driver, referralStage);
         } catch (NoSuchElementException exp) {
-            Debugger.println("Stage Click: NoSuchElementException: " + exp);
+            Debugger.println("Stage Click: NoSuchElementException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             Actions.clickElement(driver, referralStage);
         }catch(ElementClickInterceptedException interceptExp){
-            Debugger.println("Stage Click: ElementClickInterceptedException: " + interceptExp);
+            Debugger.println("Stage Click: ElementClickInterceptedException: Trying with SeleniumLib");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             seleniumLib.clickOnWebElement(referralStage);
         }catch (Exception exp) {
