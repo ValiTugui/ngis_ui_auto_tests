@@ -181,8 +181,11 @@ public class TumoursSteps extends Pages {
 
     @And("the new tumour is not highlighted")
     public void theNewTumourIsNotHighlighted() {
-        tumoursPage.tumourIsNotHighlighted();
-        tumoursPage.warningMessageIsNotDisplayed();
+        boolean testResult = false;
+        testResult = tumoursPage.tumourIsNotHighlighted();
+        Assert.assertTrue(testResult);
+        testResult = tumoursPage.warningMessageIsNotDisplayed();
+        Assert.assertTrue(testResult);
     }
 
 

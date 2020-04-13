@@ -481,7 +481,11 @@ public class ReferralPage<check> {
             Debugger.println("Stage Click: NoSuchElementException: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             Actions.clickElement(driver, referralStage);
-        } catch (Exception exp) {
+        }catch(ElementClickInterceptedException interceptExp){
+            Debugger.println("Stage Click: ElementClickInterceptedException: " + interceptExp);
+            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+            seleniumLib.clickOnWebElement(referralStage);
+        }catch (Exception exp) {
             Debugger.println("Stage Click: Exception: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             seleniumLib.clickOnWebElement(referralStage);

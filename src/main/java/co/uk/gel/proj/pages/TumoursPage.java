@@ -398,13 +398,46 @@ public class TumoursPage {
         return listOfTumoursInTheTable.size();
     }
 
-    public void tumourIsNotHighlighted() {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        Assert.assertTrue(!tumoursLandingPageList.get(1).getAttribute("class").contains("row--warning"));
+    public boolean tumourIsNotHighlighted() {
+        try {
+            if(!Wait.isElementDisplayed(driver, successNotification,10)){
+                Debugger.println("Tumour page successNotification not displayed:");
+                SeleniumLib.takeAScreenShot("tumourIsNotHighlighted.jpg");
+                return false;
+            }
+            if(tumoursLandingPageList.size() < 2){
+                Debugger.println("Tumour page tumoursLandingPageList not more than one as expected:");
+                SeleniumLib.takeAScreenShot("tumoursLandingPageList.jpg");
+                return false;
+            }
+            String warning = tumoursLandingPageList.get(1).getAttribute("class");
+            Debugger.println("Warning: "+warning);
+            if(warning.contains("row-warning")){
+                Debugger.println("Tumour page tumoursLandingPageList contains warning:");
+                SeleniumLib.takeAScreenShot("tumoursLandingPageList.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from tumourIsNotHighlighted:"+exp);
+            SeleniumLib.takeAScreenShot("tumourIsNotHighlighted.jpg");
+            return false;
+        }
     }
 
-    public void warningMessageIsNotDisplayed() {
-        Assert.assertTrue(tumoursWarningMessage.size() == 0);
+    public boolean warningMessageIsNotDisplayed() {
+        try {
+            if(tumoursWarningMessage.size() > 0){
+                Debugger.println("Warning message present in Tumours page, but not expected.");
+                SeleniumLib.takeAScreenShot("warningMessageIsNotDisplayed.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from warningMessageIsNotDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("warningMessageIsNotDisplayed.jpg");
+            return false;
+        }
     }
 
     public boolean verifyTheElementsOnAddTumoursPageAreDisplayed() {
