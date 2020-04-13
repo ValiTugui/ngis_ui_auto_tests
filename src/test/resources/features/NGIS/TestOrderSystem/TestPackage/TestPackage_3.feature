@@ -24,7 +24,6 @@ Feature: TestOrder - Test Package 3 - RD
       | stage1       | title                    | stage2         | message                                                     |
       | Test package | Confirm the test package | Family members | This section contains unsaved information. Discard changes? |
 
-
   @NTS-4540 @LOGOUT
 #    @E2EUI-1569
   Scenario Outline: NTS-4540:E2EUI-1569:Showing participants selected for the test - Family Member
