@@ -69,13 +69,16 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user selects the {string} tab")
     public void theUserClicksOnTab(String tabName) {
-
-        clinicalIndicationsTestSelect.selectTab(tabName);
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.selectTab(tabName);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks on view more icon")
     public void theUserClicksOnViewMoreIcon() {
-        Click.element(driver, clinicalIndicationsTestSelect.testInfoIcon);
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.clickOnViewMoreIcon();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on Go to test page button")
@@ -87,6 +90,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user should be able to see all {string} tabs and are clickable")
     public void theUserShouldBeAbleToSeeAllTabsAndAreClickable(String tabCount, List<String> tabName) {
+
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tabName.get(0), tabName.get(1), tabName.get(2), tabName.get(3)));
         Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }

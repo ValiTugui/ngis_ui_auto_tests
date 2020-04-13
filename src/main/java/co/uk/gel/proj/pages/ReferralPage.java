@@ -1830,12 +1830,12 @@ public class ReferralPage<check> {
             Point referralBannerLocation = referralHeader.getLocation();
             int currentLocationX = referralBannerLocation.getX();
             int currentLocationY = referralBannerLocation.getY();
-            if (currentLocationX != referralBannerXLocation) {
+            if (Math.abs(currentLocationX-referralBannerXLocation) > 10) {
                 Debugger.println("Referral Banner XLocation has changed...Expected at X:" + referralBannerXLocation + ",Actual X:" + currentLocationX);
                 SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;
             }
-            if (currentLocationY != referralBannerYLocation) {
+            if (Math.abs(currentLocationY - referralBannerYLocation)> 10) {
                 Debugger.println("Referral Banner YLocation has changed...Expected at Y:" + referralBannerYLocation + ",Actual Y:" + currentLocationY);
                 SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;

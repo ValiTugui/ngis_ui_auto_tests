@@ -169,5 +169,5 @@ Feature: Test Directory: ClinicalIndicationSelect_2
     Then the user is navigated to a page with title Print sample forms
 
     Examples:
-      | ordering_entity_name                     | NoOfParticipants | ResponsibleClinicianDetails                          | ClinicalQuestionDetails                                                     | FamilyMemberDetails                | PatientChoice  | Panels | Pedigree | RelationshipToProband |
-      | UNIVERSITY DENTAL HOSPITAL OF MANCHESTER | 1                | FirstName=Winnie:LastName=Ocean:Department=Down Town | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | NHSNumber=9449304831:DOB=27-4-2007 | Patient choice | Panels | Pedigree | Maternal Uncle        |
+      | ordering_entity_name                     | NoOfParticipants | ResponsibleClinicianDetails                          | ClinicalQuestionDetails                                                     | FamilyMemberDetails                | PatientChoice  | RelationshipToProband |
+      | UNIVERSITY DENTAL HOSPITAL OF MANCHESTER | 1                | FirstName=Winnie:LastName=Ocean:Department=Down Town | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | NHSNumber=9449303924:DOB=14-05-2004 | Patient choice | Maternal Uncle        |
