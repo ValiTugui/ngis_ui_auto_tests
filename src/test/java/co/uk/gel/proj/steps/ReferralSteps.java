@@ -42,9 +42,7 @@ public class ReferralSteps extends Pages {
     @When("^the user navigates to the \"([^\"]*)\" stage$")
     public void navigateTOSpecificStage(String stage) {
         Debugger.println("Stage: "+stage+" Starting.");
-        boolean testResult = false;
-        testResult = referralPage.navigateToStage(stage);
-        Assert.assertTrue(testResult);
+        referralPage.navigateToStage(stage);
     }
 
     @And("the user clicks the Save and Continue button")

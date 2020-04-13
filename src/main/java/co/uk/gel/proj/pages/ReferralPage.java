@@ -454,7 +454,7 @@ public class ReferralPage<check> {
         return partialUrl;
     }
 
-    public boolean navigateToStage(String stage) {
+    public void navigateToStage(String stage) {
         WebElement referralStage = null;
         try {
             //200 seconds waiting is too much I think. One minute is more than enough, observed that mainly this can
@@ -486,8 +486,7 @@ public class ReferralPage<check> {
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
             seleniumLib.clickOnWebElement(referralStage);
         }
-        //Ensure the stage is selected
-        return stageIsSelected(stage);
+
     }
     public boolean stageIsSelected(String expStage) {
         try {

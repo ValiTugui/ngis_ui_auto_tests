@@ -53,24 +53,6 @@ Feature: Tumours Page - 3
 
   @NTS-3171 @LOGOUT
 #    @E2EUI-2145
-  Scenario Outline:NTS:3171:E2EUI-2145:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
-    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user navigates to the "<stage>" stage
-    Then the user is navigated to a page with title Add a tumour
-    And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
-# moving to another Stage e.g Samples page
-    When the user navigates to the "<new_stage>" stage
-    Then the user sees a prompt alert "<partOfMessage>" after clicking "<new_stage>" button and "<acknowledgeMessage>" it
-    And the web browser is still at the same "<partialCurrentUrl1>" page
-    And the user clicks the Save and Continue button
-
-    Examples:
-      | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
-      | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
-
-  @NTS-3171 @LOGOUT
-#    @E2EUI-2145
   Scenario Outline:NTS:3171:E2EUI-2145:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
@@ -94,19 +76,7 @@ Feature: Tumours Page - 3
     And the user clicks the Save and Continue button
 
     Examples:
-      | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partOfMessage2      | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
-      | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | unsaved information | tumours/create     | refresh       | back          | logout        | tumours            |
+      | stage   | tumour_type              | acknowledgeMessage | partOfMessage1    | partialCurrentUrl1 | browser_exit1 | browser_exit2 | browser_exit3 | partialCurrentUrl2 |
+      | Tumours | Solid tumour: metastatic | Dismiss            | may not be saved. | tumours/create     | refresh       | back          | logout        | tumours            |
 
-  @NTS-3172 @LOGOUT
-#    @E2EUI-1465
-  Scenario Outline: NTS-3172:E2EUI-1465:Validate the mandatory input field 'The tumour is' for the Tumour Section
-    Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
-    When the user navigates to the "<stage>" stage
-    And the user answers all tumour system questions without selecting any tumour type
-    And the user clicks the Save and Continue button
-    Then the message will be displayed as "<error_message>" in "#dd2509" color for the date of diagnosis field
 
-    Examples: Tumour type is not selected
-      | stage   | error_message                 |
-      | Tumours | Please select the tumour type |
