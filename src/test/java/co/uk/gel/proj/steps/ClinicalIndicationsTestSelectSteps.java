@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -39,7 +40,6 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the text {string} is not displayed")
     public void theTextIsNotDisplayed(String wrongText) {
-
         Assert.assertTrue(wrongText + "  is Displayed", clinicalIndicationsTestSelect.validateIfWrongTextIsNotDisplayed(clinicalIndicationsTestSelect.loadingText, wrongText));
     }
 
@@ -52,6 +52,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
+        Wait.seconds(3);
         Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
     }
 

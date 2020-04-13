@@ -44,6 +44,7 @@ public class HomePageSteps extends Pages {
         homePage.closeCookiesBannerFromFooter();
         testResult = homePage.selectFirstEntityFromResultList();
         Assert.assertTrue(testResult);
+        Wait.seconds(3);
     }
 
     @And("the user types in the CI term  in the search field")
@@ -86,9 +87,14 @@ public class HomePageSteps extends Pages {
 
     @And("the user selects the Tests tab")
     public void theUserSelectsTheTestsTab() {
+        Wait.seconds(2);
         homePage.testsTab.click();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(2);
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
+
     }
 
     @Then("various test details are displayed")

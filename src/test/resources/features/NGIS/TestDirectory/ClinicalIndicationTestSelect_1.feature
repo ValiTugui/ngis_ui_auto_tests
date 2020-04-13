@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Test Directory : ClinicalIndicationTestSelect_1
 
-  @NTS-3161
+  @NTS-31611
 # @E2EUI-2093
   Scenario: NTS-3161:E2EUI-2093: - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     Given a web browser is at the Private Test Selection homepage
