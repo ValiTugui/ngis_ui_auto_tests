@@ -6,10 +6,10 @@
 Feature: UserJourney_CAN_NGIS_Proband_2 UC-29 - E2EUI-1804,905
 
   @NTS-3348 @LOGOUT
-  #@E2EUI-1804 @E2EUI-905
+  ##@E2EUI-1804 @E2EUI-905
   Scenario Outline: NTS-3348 - UseCase 29: Create Referral for Proband Only - Patient Choice Not given
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_SUPER_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_SUPER_USER |
     And the "<stage1>" stage is marked as Completed
     And the user navigates to the "<stage2>" stage
     And the user enters the keyword "Maidstone" in the search field
@@ -80,5 +80,5 @@ Feature: UserJourney_CAN_NGIS_Proband_2 UC-29 - E2EUI-1804,905
     Then the referral is successfully "<referralStatus>" with reason "<referralCancelledReason>"
 
     Examples:
-      | stage1          | stage2                  | stage3       | stage4                | stage5  | stage6 |stage7 |stage8          | stage9            | referralStatus | referralCancelledReason |
-      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours |Samples |Notes  | Patient choice | Print forms       |Cancelled       | Marked in error         |
+      | stage1          | stage2                  | stage3       | stage4                | stage5  | stage6  | stage7 | stage8         | stage9      | referralStatus | referralCancelledReason |
+      | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes  | Patient choice | Print forms | Cancelled      | Marked in error         |

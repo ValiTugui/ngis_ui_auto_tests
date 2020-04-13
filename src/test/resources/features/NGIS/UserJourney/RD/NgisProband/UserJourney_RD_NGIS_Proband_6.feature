@@ -59,7 +59,7 @@ Feature: UserJourney_RD_NGIS_Proband_6 - UC07 - E2EUI-1298
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-     ##Panels
+    ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Incomplete
@@ -77,5 +77,5 @@ Feature: UserJourney_RD_NGIS_Proband_6 - UC07 - E2EUI-1298
     Then the referral status is set to "Submitted"
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |

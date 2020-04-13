@@ -69,16 +69,16 @@ Feature: UserJourney_RD_NGIS_AP_2 - UC16 - E2EUI-1077
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigree
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ###Modify Pedigree Pending
+    ##Modify Pedigree Pending
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
