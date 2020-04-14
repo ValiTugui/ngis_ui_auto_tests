@@ -460,7 +460,6 @@ public class FamilyMemberDetailsPage {
 
     public boolean fillFamilyMemberDiseaseStatusWithGivenParams(String searchParams) {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
@@ -510,15 +509,25 @@ public class FamilyMemberDetailsPage {
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
             } catch (Exception exp) {
                 try{
+                    Debugger.println("PhenoTypicSex..SelenimumLib...");
                     seleniumLib.clickOnWebElement(phenotypicSexDropdown);
+                    if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
+                        seleniumLib.clickOnWebElement(phenotypicSexDropdown);
+                    }
                     Wait.seconds(2);
-                    seleniumLib.clickOnWebElement(dropdownValue.findElement(By.xpath("//span[text()='" + parValue+ "']")));
+                    seleniumLib.clickOnElement(By.xpath("//span[text()='" + parValue+ "']"));
                 }catch(Exception exp1) {
                     Debugger.println("Exception from selecting phenotypicSexDropdown...:" + exp1);
                     SeleniumLib.takeAScreenShot("phenotypicSexDropdown.jpg");
                     return false;
                 }
-
+            }
+            String selectedValue = phenotypicSexDropdown.getText();
+            if(!selectedValue.equalsIgnoreCase(parValue)){
+                Debugger.println("PhenoTypicSex...not selected:");
+                seleniumLib.clickOnWebElement(phenotypicSexDropdown);
+                Wait.seconds(2);
+                Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
             }
         }
         //KaryotypicSex

@@ -821,15 +821,16 @@ public class ClinicalQuestionsPage {
         HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
         Set<String> paramsKey = paramNameValue.keySet();
         //DiseaseStatus handling as the first item, otherwise some overlay element visible on top of this and creating issue in clicking on the same.
-        if (paramNameValue.get("DiseaseStatus") != null && !paramNameValue.get("DiseaseStatus").isEmpty()) {
+        String paramValue = paramNameValue.get("DiseaseStatus");
+        if (paramValue != null && !paramValue.isEmpty()) {
             try {
                 if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 10)) {
                     Debugger.println("Disease Status drop down not present.");
                     SeleniumLib.takeAScreenShot("DiseaseStatusDropDown.jpg");
                     return false;
                 }
-                if (!diseaseStatusDropdown.getText().equalsIgnoreCase(paramNameValue.get("DiseaseStatus"))) {
-                    Debugger.println("Expected DiseaseStatus " + paramNameValue.get("DiseaseStatus") + ", Actual:" + diseaseStatusDropdown.getText());
+                if (!diseaseStatusDropdown.getText().equalsIgnoreCase(paramValue)) {
+                    Debugger.println("Expected DiseaseStatus " + paramValue + ", Actual:" + diseaseStatusDropdown.getText());
                     SeleniumLib.takeAScreenShot("DiseaseStatusDropDown.jpg");
                     return false;
                 }
@@ -839,59 +840,48 @@ public class ClinicalQuestionsPage {
                 return false;
             }
         }
-        for (String key : paramsKey) {
-            if (key.equalsIgnoreCase("DiseaseStatus")) {
-                continue;
+        //AgeOfOnset
+        paramValue = paramNameValue.get("AgeOfOnset");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            String[] age_of_onsets = paramValue.split(",");
+            if (!(age_of_onsets[0]).contains(ageOfOnsetYearsField.getAttribute("value"))) {
+                Debugger.println("Expected ageOfOnsetYearsField " + age_of_onsets[0] + ", Actual:" + ageOfOnsetYearsField.getAttribute("value"));
+                SeleniumLib.takeAScreenShot("ageOfOnsetYearsField.jpg");
+                return false;
             }
-            switch (key) {
-                case "AgeOfOnset": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        String[] age_of_onsets = paramNameValue.get(key).split(",");
-                        if (!(age_of_onsets[0]).contains(ageOfOnsetYearsField.getAttribute("value"))) {
-                            Debugger.println("Expected ageOfOnsetYearsField " + age_of_onsets[0] + ", Actual:" + ageOfOnsetYearsField.getAttribute("value"));
-                            SeleniumLib.takeAScreenShot("ageOfOnsetYearsField.jpg");
-                            return false;
-                        }
-                        if (!(age_of_onsets[1]).contains(ageOfOnsetMonthsField.getAttribute("value"))) {
-                            Debugger.println("Expected ageOfOnsetMonthsField " + age_of_onsets[1] + ", Actual:" + ageOfOnsetMonthsField.getAttribute("value"));
-                            SeleniumLib.takeAScreenShot("ageOfOnsetMonthsField.jpg");
-                            return false;
-                        }
-                    }
-                    break;
-                }
-                case "HpoPhenoType": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        if (!isHPOAlreadyConsidered(paramNameValue.get(key))) {
-                            Debugger.println("Expected Phenotype: " + paramNameValue.get(key) + " not listed.");
-                            SeleniumLib.takeAScreenShot("PhenotypeList.jpg");
-                            return false;
-                        }
-                    }
-                    break;
-                }
-                case "PhenotypicSex": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        if (!phenotypicSexDropdown.getText().equalsIgnoreCase(paramNameValue.get(key))) {
-                            Debugger.println("Expected PhenoTypeSex " + paramNameValue.get(key) + ", Actual:" + phenotypicSexDropdown.getText());
-                            SeleniumLib.takeAScreenShot("PhenoTypeSexDropDown.jpg");
-                            return false;
-                        }
-                    }
-                    break;
-                }
-                case "KaryotypicSex": {
-                    if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        if (!karyotypicSexDropdown.getText().equalsIgnoreCase(paramNameValue.get(key))) {
-                            Debugger.println("Expected karyotypicSexDropdown " + paramNameValue.get(key) + ", Actual:" + karyotypicSexDropdown.getText());
-                            SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
-                            return false;
-                        }
-                    }
-                    break;
-                }
-            }//switch
-        }//for
+            if (!(age_of_onsets[1]).contains(ageOfOnsetMonthsField.getAttribute("value"))) {
+                Debugger.println("Expected ageOfOnsetMonthsField " + age_of_onsets[1] + ", Actual:" + ageOfOnsetMonthsField.getAttribute("value"));
+                SeleniumLib.takeAScreenShot("ageOfOnsetMonthsField.jpg");
+                return false;
+            }
+        }
+        //HpoPhenoType
+        paramValue = paramNameValue.get("HpoPhenoType");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            if (!isHPOAlreadyConsidered(paramValue)) {
+                Debugger.println("Expected Phenotype: " + paramValue + " not listed.");
+                SeleniumLib.takeAScreenShot("PhenotypeList.jpg");
+                return false;
+            }
+        }
+        //PhenotypicSex
+        paramValue = paramNameValue.get("PhenotypicSex");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            if (!phenotypicSexDropdown.getText().equalsIgnoreCase(paramValue)) {
+                Debugger.println("Expected PhenoTypeSex " + paramValue+ ", Actual:" + phenotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("PhenoTypeSexDropDown.jpg");
+                return false;
+            }
+        }
+        //KaryotypicSex
+        paramValue = paramNameValue.get("KaryotypicSex");
+        if (paramValue != null && !paramValue.isEmpty()) {
+            if (!karyotypicSexDropdown.getText().equalsIgnoreCase(paramValue)) {
+                Debugger.println("Expected karyotypicSexDropdown " + paramValue + ", Actual:" + karyotypicSexDropdown.getText());
+                SeleniumLib.takeAScreenShot("karyotypicSexDropdown.jpg");
+                return false;
+            }
+        }
         return true;
     }//method
 

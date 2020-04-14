@@ -65,4 +65,4 @@ Feature: Patient Choice-14 ConsentScenario - Child
 
     Examples:
       | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | WarningMessage                                                                                                         | RecordedBy                            |
-      | Family members | NHSNumber=9449305919:DOB=24-07-2011 | DiseaseStatus=Affected:AgeOfOnset=02,02 | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |
+      | Family members | NHSNumber=9449303959:DOB=14-09-2005 | DiseaseStatus=Affected:AgeOfOnset=02,02 | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |
