@@ -569,37 +569,32 @@ public class ResponsibleClinicianPage {
 				return true;
 			}
 			HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
-			Set<String> paramsKey = paramNameValue.keySet();
-			for (String key : paramsKey) {
-				switch (key) {
-					case "FirstName":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianFirstNameField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "LastName":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianLastNameField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Email":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianEmailField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Department":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianDepartmentAddressField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Registration":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianProfesionalRegistrationNumberField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-				}//switch
-			}//for
-
+			//Changed switch case, as the order matters to avoid overlay elements
+			//FirstName
+			String paramValue = paramNameValue.get("FirstName");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianFirstNameField.sendKeys(paramValue);
+			}
+			//LastName
+			paramValue = paramNameValue.get("LastName");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianLastNameField.sendKeys(paramValue);
+			}
+			//Email
+			paramValue = paramNameValue.get("Email");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianEmailField.sendKeys(paramValue);
+			}
+			//Department
+			paramValue = paramNameValue.get("Department");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianDepartmentAddressField.sendKeys(paramValue);
+			}
+			//Registration
+			paramValue = paramNameValue.get("Registration");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianProfesionalRegistrationNumberField.sendKeys(paramValue);
+			}
 			return true;
 		}catch(Exception exp){
 			Debugger.println("Exception in Filling ResponsibleClinician Information: "+exp);

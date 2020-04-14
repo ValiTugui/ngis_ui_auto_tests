@@ -28,10 +28,12 @@ public class PatientDetailsPage {
     WebDriver driver;
     Faker faker = new Faker();
     public static NewPatient newPatient = new NewPatient();
+    SeleniumLib seleniumLib;
 
     public PatientDetailsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     public WebElement title;
@@ -338,15 +340,26 @@ public class PatientDetailsPage {
         selectMissingNhsNumberReason(reason);
     }
 
-    public void editDropdownField(WebElement element, String value) {
+    public boolean editDropdownField(WebElement element, String value) {
         try {
-            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            Actions.clickElement(driver, element);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
             //Click.element(driver, element);
             Wait.seconds(2);
             Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + value + "']")));
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Oops unable to locate drop-down element value : " + value + ":" + exp);
+            try{
+               Debugger.println("editDropdownField trying with seleniumLib..");
+                seleniumLib.clickOnWebElement(element);
+               Wait.seconds(2);
+               seleniumLib.clickOnElement(By.xpath("//span[text()='" + value + "']"));
+               return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in editDropdownField:"+ value + " on:" + element+"\n"+exp1);
+                SeleniumLib.takeAScreenShot("editDropdownField.jpg");
+                return false;
+            }
         }
     }
 

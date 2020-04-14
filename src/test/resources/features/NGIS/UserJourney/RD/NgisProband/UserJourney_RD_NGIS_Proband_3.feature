@@ -56,7 +56,7 @@ Feature: UserJourney_RD_NGIS_Proband_3 - UC06 - E2EUI-1286
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    #Panels
+    ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
@@ -70,6 +70,7 @@ Feature: UserJourney_RD_NGIS_Proband_3 - UC06 - E2EUI-1286
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                                             | Notes | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Pedigree |

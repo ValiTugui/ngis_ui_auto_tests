@@ -33,12 +33,18 @@ public class HomePageSteps extends Pages {
 
     @And("the user types in the CI term  in the search field and selects the first result from the results list")
     public void theUserTypesInTheCITermInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(List<String> searchTerms) {
-        homePage.typeInSearchField(searchTerms.get(0));
-        AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+       boolean testResult = false;
+       testResult =  homePage.typeInSearchField(searchTerms.get(0));
+       Assert.assertTrue(testResult);
+       AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
+       testResult = homePage.clickSearchIconFromSearchField();
+       Assert.assertTrue(testResult);
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(testResult);
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        testResult = homePage.selectFirstEntityFromResultList();
+        Assert.assertTrue(testResult);
+        Wait.seconds(3);
     }
 
     @And("the user types in the CI term  in the search field")
@@ -81,9 +87,14 @@ public class HomePageSteps extends Pages {
 
     @And("the user selects the Tests tab")
     public void theUserSelectsTheTestsTab() {
+        Wait.seconds(2);
         homePage.testsTab.click();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(2);
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
+
     }
 
     @Then("various test details are displayed")

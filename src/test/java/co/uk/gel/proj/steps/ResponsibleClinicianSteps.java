@@ -278,7 +278,9 @@ public class ResponsibleClinicianSteps extends Pages {
 
     @When("the user fills the responsible clinician page with {string}")
     public void theUserFillsTheResponsibleClinicianPageWith(String clinicalInfo) {
-        responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
+        boolean testResult = false;
+        testResult = responsibleClinicianPage.fillResponsibleClinicianDetails(clinicalInfo);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user deletes the data in the Clinician Phone Number field")

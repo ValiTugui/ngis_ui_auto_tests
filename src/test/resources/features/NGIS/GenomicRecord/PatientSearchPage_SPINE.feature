@@ -19,7 +19,6 @@ Feature: Patient search page_SPINE
       | NHS Number ✱      |
       | Date of birth ✱   |
 
-
   @NTS-3336
 #  @E2EUI-1663
   Scenario: NTS-3336: Auto-fill feature not enabled for NHS Number field

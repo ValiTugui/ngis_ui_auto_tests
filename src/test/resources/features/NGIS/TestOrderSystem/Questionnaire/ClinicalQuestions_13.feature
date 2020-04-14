@@ -94,7 +94,6 @@ Feature: ClinicalQuestions 13 - Page Validation
       | stage              | title                     | diseaseStatueValue | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | errorMessage2                         | yearvalue3 | monthvalue3 | errorMessage3                                     | yearvalue4 | monthvalue4 | errorMessage4                                | yearvalue5 | monthvalue5 | errorMessage5                            |
       | Clinical questions | Answer clinical questions | Affected           | 130        | 0           | Patient age cannot exceed 125 years | 0          | 1501        | Patient age cannot exceed 1500 months | 1          | 12          | Number of months can only exceed 11 if years is 0 | -1         | 0           | Please enter prenatal age in negative months | 0          | -10         | Patient cannot be younger than -9 months |
 
-
   @NTS-3346 @LOGOUT
 #    @E2EUI-995
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown

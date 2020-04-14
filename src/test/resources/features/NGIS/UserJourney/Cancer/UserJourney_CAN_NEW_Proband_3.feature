@@ -5,7 +5,7 @@
 Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
 
   @NTS-4550 @LOGOUT
-#    @E2EUI-1802 @UseCase27
+  ##@E2EUI-1802 @UseCase27
   Scenario Outline: Use Case#27: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
@@ -76,4 +76,3 @@ Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
     Examples:
       | tumour_type                             | presentationType   | stage2  | stage3         | sampleType          | sampleState        | RecordedBy                            |
       | Haematological malignancy: solid sample | First presentation | Samples | Patient choice | Solid tumour sample | Tumour fresh fluid | ClinicianName=John:HospitalNumber=123 |
-

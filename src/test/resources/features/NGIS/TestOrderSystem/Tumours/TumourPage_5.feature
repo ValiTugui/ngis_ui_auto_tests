@@ -7,10 +7,11 @@ Feature: Tumours Page - 5
 
   @NTS-3174 @LOGOUT
 #    @E2EUI-1159 @E2EUI-1577 @E2EUI-1377
-  Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
+  Scenario Outline: NTS-3174:E2EUI-1159,1577,1377:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | SPINE | Cancer |
     And the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the tumours stage is at Add a Tumour page
     When the user clicks the Save and Continue button
     Then the error messages for the tumour mandatory fields are displayed
@@ -26,10 +27,11 @@ Feature: Tumours Page - 5
 
   @NTS-3176 @LOGOUT
 #    @E2EUI-1171
-  Scenario Outline: NTS-3176: Select or edit a tumour page - Add a new tumour and Tumour added notification is shown
+  Scenario Outline: NTS-3176:E2EUI-1171: Select or edit a tumour page - Add a new tumour and Tumour added notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
@@ -60,10 +62,11 @@ Feature: Tumours Page - 5
 
   @NTS-3190 @LOGOUT
 #    @E2EUI-1513 @E2EUI-903
-  Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
+  Scenario Outline: NTS-3190:E2EUI-1513,903: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"
@@ -99,10 +102,11 @@ Feature: Tumours Page - 5
 
   @NTS-3190 @LOGOUT
 #    @E2EUI-1513 @E2EUI-903
-  Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
+  Scenario Outline: NTS-3190:E2EUI-1513,903: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a tumour
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "<presentationType>"

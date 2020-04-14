@@ -18,7 +18,7 @@ Feature: MI Portal - File Submission 2
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     Then the table column "<ColumnHeader>" is displayed with data
     When the user clicks on the Display Options button
@@ -57,7 +57,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5018
     # @E2EUI-2503
-  Scenario Outline: NTS-5018:Validate 'is one of' filter working and standardized date search to a single 'Created' filter
+  Scenario Outline: NTS-5018:E2EUI-2503:Validate 'is one of' filter working and standardized date search to a single 'Created' filter
     When the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
@@ -84,7 +84,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5016
     #@E2EUI-2224
-  Scenario Outline: NTS-5016: No warnings are displayed for files with status valid_with_warning
+  Scenario Outline: NTS-5016:E2EUI-2224: No warnings are displayed for files with status valid_with_warning
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -112,7 +112,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5050
     #@E2EUI-2470
-  Scenario Outline: NTS-5050: Workaround - Suppress ambiguous "valid with warnings" statuses and warnings
+  Scenario Outline: NTS-5050:E2EUI-2470: Workaround - Suppress ambiguous "valid with warnings" statuses and warnings
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -135,7 +135,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5060
      #@E2EUI-1851 @Scenario1
-  Scenario Outline: NTS-5060:Scenario1- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5060:E2EUI-1851:Scenario1- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -161,7 +161,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5060
     #@E2EUI-1851 @Scenario2
-  Scenario Outline: NTS-5060:Scenario2- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5060:E2EUI-1851:Scenario2- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -186,7 +186,7 @@ Feature: MI Portal - File Submission 2
 
   @NTS-5027
     #@E2EUI-1156
-  Scenario Outline:NTS-5027 : As a user I want to arrange the column order the results displayed, so that I can analyse the data accordingly
+  Scenario Outline:NTS-5027:E2EUI-1156: As a user I want to arrange the column order the results displayed, so that I can analyse the data accordingly
     When the user should be able to see sample processing menu is displayed
     Then the user should be able to see the below header sections in Sample Processing
       | HeaderSection     |
@@ -206,7 +206,8 @@ Feature: MI Portal - File Submission 2
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
+    Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
@@ -227,8 +228,6 @@ Feature: MI Portal - File Submission 2
       | file_type                |
       | path                     |
     When the user adds "<field-column>" column to Hide section
-    And the user adds "<field-column1>" column to Hide section
-    And the user adds "<field-column2>" column to Hide section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
       | id                       |
@@ -251,12 +250,12 @@ Feature: MI Portal - File Submission 2
     Then the selected search option is reset after test
 
     Examples:
-      | mi_stage         | value   | operator | date       | field-column | field-column1  | field-column2 |
-      | File Submissions | Created | equals   | 09-03-2020 | filename     | field_warnings | status        |
+      | mi_stage         | value   | operator | date       | field-column                   |
+      | File Submissions | Created | equals   | 09-03-2020 | filename,field_warnings,status |
 
   @NTS-5031
     #@E2EUI-2513
-  Scenario Outline:E2EUI-2513 Search by "Status" in File Submissions
+  Scenario Outline:NTS-5031:E2EUI-2513 Search by "Status" in File Submissions
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -276,10 +275,50 @@ Feature: MI Portal - File Submission 2
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
+    Then search results are displayed in table format with display options button
     And the column(s) field "<columnHeader>" in the search result table displayed the only filtered "<fieldValue>"
     And the selected search option is reset after test
 
     Examples:
       | mi_stage         | value1 | operator | value2      | columnHeader | fieldValue  |
       | File Submissions | Status | is       | In Progress | Status       | in_progress |
+
+  @NTS-5177
+    #@E2EUI-2578
+  Scenario Outline:NTS-5177:@E2EUI-2578: MIS - Add "Status" search filter to File Submissions
+    When the user navigates to the mi-portal "<mi_stage>" stage
+    And the user sees a search box container section for "<mi_stage>" page
+    And the user should be able to see "<NoOfSearchField>" search boxes in the "file_submissions" page
+    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user enters a date "<date>" in the file-submission date field
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+    Then the user sees the message "<noResultFound>" below the search container
+    And the selected search option is reset after test
+    And the user selects a value "<column1>" from the "file_submissions-search-col" column drop-down
+    And the user selects a search operator "<operator1>" from the "file_submissions-search-operator" operator drop-down
+    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
+      | fileSubmissionsSearchOperatorHeader |
+      | is                                  |
+      | is one of                           |
+    And the user sees the values in the search value "file_submissions-search-value" drop-down menu
+      | fileSubmissionsSearchValueHeader |
+      | Duplicate                        |
+      | In Progress                      |
+      | Invalid                          |
+      | Valid                            |
+      | Valid with Warnings              |
+    And the user clicks on Add criteria button
+    Then file submission search criteria badge information is displayed below drop-down buttons
+    When the user click on the Search button
+#    Then search results are displayed for the file-submission search
+    Then search results are displayed in table format with display options button
+    When the user clicks on the Download CSV button to download the CSV file as "file_submissions_filtered".csv
+    And the selected search option is reset after test
+
+    Examples:
+      | mi_stage         | column  | operator | date        | noResultFound                            | NoOfSearchField | column1 | operator1 |
+      | File Submissions | Created | equals   | future_date | No results found for these search terms. | 3               | Status  | is        |

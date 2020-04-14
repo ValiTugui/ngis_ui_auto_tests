@@ -6,7 +6,7 @@ Feature: Pedigree - Pedigree Flow 2
 
   @NTS-3386 @LOGOUT
 #    @E2EUI-1373 @E2EUI-836 @E2EUI-1269
-  Scenario Outline: NTS-3386 : Test with a trio (mother & father)
+  Scenario Outline: NTS-3386 :E2EUI-1373,836,1269: Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
     ##Patient Details
@@ -63,7 +63,7 @@ Feature: Pedigree - Pedigree Flow 2
 
   @NTS-3386 @LOGOUT
 #    @E2EUI-1630 @E2EUI-1051
-  Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
+  Scenario Outline: NTS-3464:E2EUI-1630,1051: User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2000:Gender=Female |
     When the user is navigated to a page with title Check your patient's details
@@ -98,7 +98,7 @@ Feature: Pedigree - Pedigree Flow 2
 
   @NTS-3386 @LOGOUT
 #    @E2EUI-1194
-  Scenario Outline: NTS-3386 : Order the display of HPO Terms in Pedigree
+  Scenario Outline: NTS-3386 :E2EUI-1194: Order the display of HPO Terms in Pedigree
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Female |
     ##Patient Details

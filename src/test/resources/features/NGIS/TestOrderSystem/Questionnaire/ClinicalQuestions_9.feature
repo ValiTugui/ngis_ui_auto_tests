@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: ClinicalQuestions 9 - RD Questionnaire
 
-  @NTS-4708  @LOGOUT
+  @NTS-4708 @LOGOUT
   # @E2EUI-1323
   Scenario Outline: NTS-4708 - Clinical Questions - drop-downs in the Phenotypic and Karyotypic Sex section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

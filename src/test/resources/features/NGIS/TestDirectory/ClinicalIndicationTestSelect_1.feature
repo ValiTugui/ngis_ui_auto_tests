@@ -4,26 +4,25 @@
 @SYSTEM_TEST
 Feature: Test Directory : ClinicalIndicationTestSelect_1
 
-  Background:
+  @NTS-3161
+# @E2EUI-2093
+  Scenario: NTS-31611:E2EUI-2093: - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-
-
- @NTS-3161
-# @E2EUI-2093
- Scenario: NTS-3161 - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | 270 |
-    Then the text "Please wait a moment - clinical indications are loading" is displayed
+    Then the text "Clinical Indications that include this test" is displayed
     And the text "This test cannot be ordered yet" is not displayed
     And the loading wheel is displayed
     And the list of clinical indications are loaded
 
- @NTS-3238 @NTS-3205
+  @NTS-3238 @NTS-3205
 # @E2EUI-1530 @E2EUI-1500
-  Scenario: NTS-3205 - NTS-3238 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
+  Scenario: NTS-3205 - NTS-3238:E2EUI-1530,1500 - Clinical Indication Page - Test order to be a confirmation of Eligibility Criteria and Clinical Indications.
   As a user when I start the test order I want that action to be my confirmation that I agree to the patient eligibility criteria, so that I don't have to re-read it in a modal
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
     Then the user sees the "Eligibility Criteria" tab is selected by default
@@ -41,7 +40,9 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
 
   @NTS-3244
 #  @E2EUI-1501 @E2EUI-1033
-  Scenario: NTS-3244 - Clinical Indication Page -  View details for a Tumor Clinical Indication.
+  Scenario: NTS-3244:E2EUI-1501,1033: - Clinical Indication Page -  View details for a Tumor Clinical Indication.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | M85 |
     And the user clicks on view more icon
@@ -55,7 +56,9 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
 
   @NTS-3251
 #  @E2EUI-1503 @E2EUI-1504 @E2EUI-1429 @E2EUI-1418 @E2EUI-1069
-  Scenario: NTS-3251 - Clinical Indication Page - View details for a Rare Disease Clinical Indication.
+  Scenario: NTS-3251:E2EUI-1503,1504,1429,1418,1069: - Clinical Indication Page - View details for a Rare Disease Clinical Indication.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
     And the user selects the "Test Package" tab
@@ -76,9 +79,11 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | Find your patient’s Clinical Indication | Enter your patient’s information | Send your test order to a laboratory | Get your patient’s test results | Order more genomic tests |
 
 
-    @NTS-3254
+  @NTS-3254
 #    @E2EUI-1495 @E2EUI-986 @E2EUI-982 @E2EUI-1242  @E2EUI-1849
-  Scenario Outline: NTS-3254 - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+  Scenario Outline: NTS-3254:E2EUI-1495,986,982,1242,1849: - Clinical Indication Page - View details for Clinical Indication Test and Back to search.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | R100 |
     Then the user should be able to see all "4" tabs and are clickable
@@ -100,9 +105,11 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | Test Package | Clinical Indications | Back to search |
 
 
-    @NTS-3260
+  @NTS-3260
 #      @E2EUI-1003 @E2EUI-1174
-  Scenario Outline: NTS-3260 - Clinical Indication Page - Display additional details on who can order card.
+  Scenario Outline: NTS-3260:E2EUI-1003,1174: - Clinical Indication Page - Display additional details on who can order card.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     Then the user should be able to see all "4" tabs and are clickable
@@ -119,9 +126,11 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | M89        | Test Package         | Who to test | Who can order | null                | null          | Consultant Haematologist with access to suitable material for testing |
 
 
-    @NTS-3262
+  @NTS-3262
 #      @E2EUI-1419 @E2EUI-1497  @E2EUI-1197
-  Scenario Outline: NTS-3262 - Clinical Indication Page - View details for Clinical Indications Tab.
+  Scenario Outline: NTS-3262:E2EUI-1419,1497,1197: - Clinical Indication Page - View details for Clinical Indications Tab.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     And the user selects the "<tabName1>" tab
@@ -142,9 +151,11 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | M85        | Test Package | Clinical Indications | Who to test  | Test package includes... |
 
 
-    @NTS-3265
+  @NTS-3265
 #      @E2EUI-1063
-  Scenario Outline: NTS-3265 - Clinical Indication Page - View details for Further Info Tab..
+  Scenario Outline: NTS-3265:E2EUI-1063:Clinical Indication Page - View details for Further Info Tab..
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     Then the user should be able to see all "4" tabs and are clickable
@@ -159,9 +170,11 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
       | R237       |
 
 
-    @NTS-3268
+  @NTS-3268
 #      @E2EUI-948
-  Scenario Outline: NTS-3268 - Clinical Indication Page - View details for Clinical Indications Tab.
+  Scenario Outline: NTS-3268:E2EUI-948:Clinical Indication Page - View details for Clinical Indications Tab.
+    Given a web browser is at the Private Test Selection homepage
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user types in the CI term  in the search field and selects the first result from the results list
       | <searchTerm> |
     And the user selects the "<tabName1>" tab

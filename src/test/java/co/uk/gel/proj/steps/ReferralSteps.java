@@ -169,7 +169,7 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
-        Debugger.println("Verifying completion of Package:"+stage);
+        Debugger.println("Verifying completion of Stage:"+stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);

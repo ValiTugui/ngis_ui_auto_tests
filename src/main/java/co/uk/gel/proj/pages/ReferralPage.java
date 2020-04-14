@@ -315,7 +315,7 @@ public class ReferralPage<check> {
         try {
             Wait.forElementToBeDisplayed(driver, saveAndContinueButton, 200);
             Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.clickElement(driver, saveAndContinueButton);
+            Actions.retryClickAndIgnoreElementInterception(driver, saveAndContinueButton);
             // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
             // Click.element(driver, saveAndContinueButton)
             Wait.seconds(5);
@@ -334,18 +334,22 @@ public class ReferralPage<check> {
                 }
             }
             Wait.seconds(5);//Increased to 5 seconds after clicking on Save and Continue as many places package complete icon validation failing
+            //e2elatest - observed some un-wanted validation errors and not moving to next page
+            //So added this line to print out, if any validation error present after clicking on SaveAndContinue Button
+            if(validationErrors.size() > 0){
+                Debugger.println("SaveAndClick:ValidationError:"+validationErrors.get(0).getText());
+            }
         } catch (UnhandledAlertException exp) {
             Debugger.println("UnhandledAlertException from ReferralPage:clickSaveAndContinueButton: " + exp);
             seleniumLib.dismissAllert();
-        } catch (Exception exp) {
+         } catch (Exception exp) {
             try{
                 Debugger.println("Clicking on Save and Continue Via SeleniumLib....");
                 seleniumLib.clickOnWebElement(saveAndContinueButton);
             }catch(Exception exp1) {
                 Debugger.println("Exception from ReferralPage:clickSaveAndContinueButton: " + exp1);
                 SeleniumLib.takeAScreenShot("RefPageSaveAndContinue.jpg");
-                Assert.assertFalse("ReferralPage:clickSaveAndContinueButton:Exception:" + exp, true);
-            }
+           }
         }
     }
 
@@ -464,24 +468,29 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, referralStage, 10)) {
                 Actions.scrollToBottom(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (StaleElementReferenceException staleExp) {
-            Debugger.println("Stage Click: StaleElementReferenceException: " + staleExp);
+            Debugger.println("Stage Click: StaleElementReferenceException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (TimeoutException exp) {
-            Debugger.println("Stage Click: TimeoutException: " + exp);
+            Debugger.println("Stage Click: TimeoutException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            Actions.clickElement(driver, referralStage);
         } catch (NoSuchElementException exp) {
-            Debugger.println("Stage Click: NoSuchElementException: " + exp);
+            Debugger.println("Stage Click: NoSuchElementException: Trying again.");
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
-        } catch (Exception exp) {
+            Actions.clickElement(driver, referralStage);
+        }catch(ElementClickInterceptedException interceptExp){
+            Debugger.println("Stage Click: ElementClickInterceptedException: Trying with SeleniumLib");
+            referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
+            seleniumLib.clickOnWebElement(referralStage);
+        }catch (Exception exp) {
             Debugger.println("Stage Click: Exception: " + exp);
             referralStage = driver.findElement(By.xpath("//a[contains(text(),'" + stage + "')]"));
-            Actions.retryClickAndIgnoreElementInterception(driver, referralStage);
+            seleniumLib.clickOnWebElement(referralStage);
         }
+
     }
     public boolean stageIsSelected(String expStage) {
         try {
@@ -731,9 +740,6 @@ public class ReferralPage<check> {
                     return true;
                 }
             } catch (NoSuchElementException exp) {
-                //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
-                //So clicking on save abd continue and trying again.
-                clickSaveAndContinueButton();
                 Wait.seconds(1);
                 actualPageTitle = getTheCurrentPageTitle();
                 if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
@@ -1824,12 +1830,12 @@ public class ReferralPage<check> {
             Point referralBannerLocation = referralHeader.getLocation();
             int currentLocationX = referralBannerLocation.getX();
             int currentLocationY = referralBannerLocation.getY();
-            if (currentLocationX != referralBannerXLocation) {
+            if (Math.abs(currentLocationX-referralBannerXLocation) > 10) {
                 Debugger.println("Referral Banner XLocation has changed...Expected at X:" + referralBannerXLocation + ",Actual X:" + currentLocationX);
                 SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;
             }
-            if (currentLocationY != referralBannerYLocation) {
+            if (Math.abs(currentLocationY - referralBannerYLocation)> 10) {
                 Debugger.println("Referral Banner YLocation has changed...Expected at Y:" + referralBannerYLocation + ",Actual Y:" + currentLocationY);
                 SeleniumLib.takeAScreenShot("ReferralHeaderLocation.jpg");
                 return false;

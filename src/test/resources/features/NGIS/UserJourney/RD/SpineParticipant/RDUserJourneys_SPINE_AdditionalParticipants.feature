@@ -74,20 +74,21 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigree
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-     ###Modify Pedigree Pending
+    ##Modify Pedigree Pending
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree |
@@ -174,6 +175,7 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberDetails                                         | DiseaseStatusDetails                                            | Status           | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1                | Responsible clinician | FirstName=Karan:LastName=Singh:Department=Riverside st,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | NHSNumber=NA:DOB=14-04-1983:Gender=Male:Relationship=Father | DiseaseStatus=Unaffected:AgeOfOnset=01,02:HpoPhenoType=Nocturia | Not being tested | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Cataracts    | Pedigree |
@@ -245,16 +247,16 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigress
+    ##Pedigress
     Then the user is navigated to a page with title Build a pedigree
-    #Pedigree modification steps will be added later
+    ##Pedigree modification steps will be added later
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         |
@@ -333,17 +335,17 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigree
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ### need to madify pedigree
+    ## need to madify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     When the user navigates to the "<PrintFormsStage>" stage
     Then the user is navigated to a page with title Print sample forms
     ##Submit Referral
@@ -422,16 +424,16 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigress
+    ##Pedigress
     Then the user is navigated to a page with title Build a pedigree
-    #Pedigree modification steps will be added later
+    ##Pedigree modification steps will be added later
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
@@ -508,21 +510,22 @@ Feature: Create Referrals for SPINE Patient - Additional Participant
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    # ##Pedigree
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ###Modify Pedigree Pending
+    ##Modify Pedigree Pending
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    # ##Print forms
+    ##Print forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels |
       | Patient details | Requesting organisation | Test package | 1                | NHSNumber=NA:DOB=14-04-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
