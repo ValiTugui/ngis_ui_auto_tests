@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SeleniumDriver extends EventFiringWebDriver {
 
-    private static WebDriver DRIVER;
+    private static  WebDriver DRIVER;
 
     private static final Thread CLOSE_THREAD = new Thread() {
         @Override
