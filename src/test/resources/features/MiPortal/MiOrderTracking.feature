@@ -6,8 +6,8 @@ Feature: MIPORTAL: Order_Tracking (E2EUI-2337,2438,2398,2234,1929)
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
-  @NTS-4865
-  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  @NTS-5190
+  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "order_tracking-search-col" column drop-down
@@ -81,7 +81,7 @@ Feature: MIPORTAL: Order_Tracking (E2EUI-2337,2438,2398,2234,1929)
 
   @NTS-5052
     #@E2EUI-2398
-  Scenario Outline:NTS-5052:E2EUI-2408: clinical_indication_test_type_id parameter on miportalsampleview support "in" operatorclinical_indication_test_type_id parameter on miportalsampleview support "in" operator
+  Scenario Outline:NTS-5052:E2EUI-2398: clinical_indication_test_type_id parameter on miportal Sample view support "in" operator.
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<filter>" from the "order_tracking-search-col" column drop-down
@@ -98,7 +98,7 @@ Feature: MIPORTAL: Order_Tracking (E2EUI-2337,2438,2398,2234,1929)
 
   @NTS-5056
     #@E2EUI-2234
-  Scenario Outline: NTS-5056:The plate id and well id fields in Order tracking should be different for each files
+  Scenario Outline: NTS-5056:E2EUI-2234:The plate id and well id fields in Order tracking should be different for each files
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "order_tracking-search-col" column drop-down
@@ -116,7 +116,7 @@ Feature: MIPORTAL: Order_Tracking (E2EUI-2337,2438,2398,2234,1929)
 
   @NTS-5028
     #@E2EUI-1929
-  Scenario Outline: NTS-5028 : Status field should show referral status in Order Tracking
+  Scenario Outline: NTS-5028:E2EUI-1929: Status field should show referral status in Order Tracking
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<filter_value1>" from the "order_tracking-search-col" column drop-down

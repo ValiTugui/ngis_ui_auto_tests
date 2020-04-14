@@ -151,7 +151,9 @@ public class MilHomePageSteps extends Pages {
 
     @When("the user clicks on the Display Options button")
     public void theUserClicksOnTheDisplayOptionsButton() {
-        miPortalHomePage.clickSearchResultDisplayOptionsButton();
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickSearchResultDisplayOptionsButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees a modal-content page")

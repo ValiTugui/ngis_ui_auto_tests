@@ -176,18 +176,23 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean searchBoxContainerIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
-            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
-            if (Wait.isElementDisplayed(driver, mainSearchContainer, 10)) {
-                Debugger.println("main search container is displayed");
+//            Wait.forElementToBeDisplayed(driver, mainSearchContainer);
+//            Wait.forElementToBeDisplayed(driver, searchBoxHeader);
+            if(!Wait.isElementDisplayed(driver,searchBoxHeader,15)){
+                Debugger.println("Search Terms header is not displayed");
+                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+                return false;
+            }
+            if (Wait.isElementDisplayed(driver, mainSearchContainer, 5)) {
+                Debugger.println("Main search container is displayed");
                 return true;
             } else {
-                Debugger.println("element not found ");
+                Debugger.println("Element not found ");
                 SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
-            Debugger.println("main search container is not displayed");
+            Debugger.println("Main search container is not displayed");
             SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
             return false;
         }
@@ -356,7 +361,19 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public boolean verifyTheElementsInTheSearchResultSection() {
-        Wait.forElementToBeDisplayed(driver,searchResultDisplayOptionsButton, 10 );
+        try {
+            Wait.seconds(1);
+            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 20)) {
+                Debugger.println("Search result display option is not displayed.");
+                SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver, displayedResultTable, 10)) {
+                Debugger.println("Search result is not displayed as a table format.");
+                SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
+                return false;
+            }
+//            Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton, 20);
         List<WebElement> expectedElements = new ArrayList<WebElement>();
         expectedElements.add(searchResultTitle);
         expectedElements.add(searchResultDisplayOptionsButton);
@@ -365,11 +382,18 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(downloadCSVButton);
         for (int i = 0; i < expectedElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+                    Debugger.println("Search result section element not displayed: "+expectedElements.get(i));
+                    SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                 return false;
             }
-            Debugger.println("element " + i + " shown");
+                Debugger.println("Element " + i + " shown");
         }
         return true;
+        } catch (Exception exp) {
+            Debugger.println("Search result section is not properly loaded"+exp);
+            SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
+            return false;
+        }
     }
 
 
@@ -388,14 +412,19 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-
-    public void clickSearchResultDisplayOptionsButton() {
+    public boolean clickSearchResultDisplayOptionsButton() {
         try {
-            Wait.forElementToBeClickable(driver, searchResultDisplayOptionsButton);
+            if(!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton,10)){
+                Debugger.println("The Display Options button is not displayed");
+                SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
+                return false;
+            }
             Click.element(driver, searchResultDisplayOptionsButton);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Clicking on displayOptions:" + exp);
             SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
+            return false;
         }
     }
 
@@ -406,6 +435,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("modal-content is NOT displayed");
+                SeleniumLib.takeAScreenShot("modalContentNotShown.jpg");
                 return false;
             }
         } catch (Exception exp) {
@@ -1007,7 +1037,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfSearchBoxes(String numberOfSearchField, String section) {
         try {
-//            Wait.seconds(30);
+            Wait.seconds(3);
             Wait.forElementToBeDisplayed(driver, addButton, 10);
             if (!Wait.isElementDisplayed(driver, searchTitle, 10)) {
                 Debugger.println("Search title is not displayed.");
@@ -1359,6 +1389,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyThePresenceOfResultInTableFormatWithDisplayOptions() {
         try {
+            Wait.seconds(2);
             if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 20)) {
                 Debugger.println("Search result display option is not displayed.");
                 SeleniumLib.takeAScreenShot("DisplayOptionsButton.jpg");

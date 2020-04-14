@@ -114,8 +114,8 @@ Feature: MIPORTAL:  User Journey for Order Tracking and GLH Samples.(E2EUI-855,1
       | Order Tracking | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | r1234,r5678 | Patient NGIS ID | is one of  | p24295001324,p44616417782 | Clinical Indication Test Type | Cerebral malformations WGS: Cerebral malformation,Epilepsy - early onset or syndromic WGS: Early onset or syndromic epilepsy | 50              |
 
   @NTS-5064
-    #@E2EUI-1292
-  Scenario Outline:NTS-5064 : MI Dashboard | GLH Samples
+    #@E2EUI-1292 E2EUI-2579
+  Scenario Outline:NTS-5064:E2EUI-1292,E2EUI-2579: MI Dashboard | GLH Samples
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage

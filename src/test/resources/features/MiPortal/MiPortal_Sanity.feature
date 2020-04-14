@@ -1,6 +1,6 @@
 @MIPORTAL
 
-Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
+Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700)
 
   Background:
     Given a web browser is at the mi-portal home page
@@ -8,7 +8,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5065
     #@E2EUI-1985
-  Scenario Outline: NTS-5065:Sanity for Mi Portal
+  Scenario Outline: NTS-5065:E2EUI-1985:Sanity for Mi Portal
     When the user should be able to see sample processing menu is displayed
     ##Header And Naviagtion Options
     Then the user should be able to see the below header sections in Sample Processing
@@ -60,7 +60,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
     ##Plater Samples Section
@@ -112,7 +112,8 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
     And the user sees the buttons - Add, Search, Reset buttons under the Search boxes
     And the user clicks on Add criteria button
     When the user click on the Search button
-    Then search results are displayed in the search results
+#    Then search results are displayed in the search results
+    Then search results are displayed in table format with display options button
     ###The results are displayed
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     ### CSV File download
@@ -147,7 +148,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario1
-  Scenario Outline: NTS-5053:File Submissions- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:File Submissions- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -178,7 +179,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario2
-  Scenario Outline: NTS-5053:Order Tracking- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:Order Tracking- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -211,7 +212,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario3
-  Scenario Outline: NTS-5053:GLH Samples- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:GLH Samples- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -246,7 +247,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario4
-  Scenario Outline: NTS-5053:Plater Samples- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:Plater Samples- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -283,7 +284,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario5
-  Scenario Outline: NTS-5053:Picklists- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:Picklists- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -318,7 +319,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario5
-  Scenario Outline: NTS-5053:Sequencer Samples- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:Sequencer Samples- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -355,7 +356,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5053
     #@E2EUI-2705 @Scenario6
-  Scenario Outline: NTS-5053:New Referrals- Prevent user from hiding all columns in Display Options
+  Scenario Outline: NTS-5053:E2EUI-2705:New Referrals- Prevent user from hiding all columns in Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -390,7 +391,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario1
-  Scenario Outline: NTS-5057 :  File Submissions :The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700: File Submissions :The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -428,7 +429,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario2
-  Scenario Outline: NTS-5057 :Order Tracking- The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 :Order Tracking- The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -469,7 +470,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario3
-  Scenario Outline: NTS-5057 :GLH Samples- The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 :GLH Samples- The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -509,7 +510,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario4
-  Scenario Outline: NTS-5057 :Plater Samples- The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 :Plater Samples- The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -551,7 +552,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario5
-  Scenario Outline: NTS-5057 : Picklists- The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 : Picklists- The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -591,7 +592,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario6
-  Scenario Outline: NTS-5057 :Sequencer Samples- The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 :Sequencer Samples- The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -633,7 +634,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700,
 
   @NTS-5057
     #@E2EUI-2700 @Scenario7
-  Scenario Outline: NTS-5057 :New Referrals-The page size will not reset to default after using Display Options
+  Scenario Outline: NTS-5057:E2EUI-2700 :New Referrals-The page size will not reset to default after using Display Options
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page

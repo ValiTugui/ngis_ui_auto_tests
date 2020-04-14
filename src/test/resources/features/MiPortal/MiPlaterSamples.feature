@@ -6,8 +6,8 @@ Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
-  @NTS-4865
-  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+  @NTS-5190
+  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "plater_samples-search-col" column drop-down
@@ -29,7 +29,7 @@ Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
 
   @NTS-4978
    ## @E2EUI-2706
-  Scenario Outline:NTS-4978: MIS - Datetime filters for "before or on" dates do not bring back all records for the specified date
+  Scenario Outline:NTS-4978:E2EUI-2706: MIS - Datetime filters for "before or on" dates do not bring back all records for the specified date
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -59,7 +59,7 @@ Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
 
   @NTS-5021
    ## @E2EUI-2231
-  Scenario Outline:NTS-5021: MIS: Fields not populating in Plater Samples
+  Scenario Outline:NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
@@ -84,7 +84,7 @@ Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
 
   @NTS-5030
     #@E2EUI-2331
-  Scenario Outline:NTS-5030:E2EUI-2331 Plater Sample Report UI improvement
+  Scenario Outline:NTS-5030:E2EUI-2331: Plater Sample Report UI improvement
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -105,15 +105,9 @@ Feature: MIPORTAL:  Plater Samples (E2EUI-2706,2231,2331)
     And the user clicks on Add criteria button
     When the user click on the Search button
     And search results are displayed in table format with display options button
-    And the table column "<ColumnHeader1>" is displayed with data
-    And the table column "<ColumnHeader2>" is displayed with data
-    And the table column "<ColumnHeader3>" is displayed with data
+    And the table column "<ColumnHeader>" is displayed with data
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage       | value | operator | ColumnHeader1           | ColumnHeader2       | ColumnHeader3         |
-      | Plater Samples | GLH   | is       | gel1001 Patient NGIS ID | gel1004 GMC Rack ID | gel1004 GMC Rack Well |
-
-
-
-
+      | mi_stage       | value | operator | ColumnHeader                                                      |
+      | Plater Samples | GLH   | is       | gel1001 Patient NGIS ID,gel1004 GMC Rack ID,gel1004 GMC Rack Well |

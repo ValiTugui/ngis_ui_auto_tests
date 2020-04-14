@@ -6,8 +6,8 @@ Feature: MIPORTAL: Glh Samples (E2EUI-2336,2486,1162,2579,2771)
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
 
- @NTS-4865
-  Scenario Outline:NTS-4865: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
+ @NTS-5190
+  Scenario Outline:NTS-5190:E2EUI-2770: When Search-column is "Submitted By" and operator is "<operator>": verify the drop-down values of file-submission search values
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects a value "<value>" from the "glh_samples-search-col" column drop-down
@@ -102,7 +102,7 @@ Feature: MIPORTAL: Glh Samples (E2EUI-2336,2486,1162,2579,2771)
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the table column "<ColumnHeader>" is displayed with data
     Then the selected search option is reset after test
@@ -124,7 +124,7 @@ Feature: MIPORTAL: Glh Samples (E2EUI-2336,2486,1162,2579,2771)
     And the user clicks on Add criteria button
     When the user click on the Search button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    Then search results are displayed for the file-submission search
+#    Then search results are displayed for the file-submission search
     When the user clicks on the Download CSV button to download the CSV file as "file_submissions_filtered".csv in GLH samples page
     And the selected search option is reset after test
 

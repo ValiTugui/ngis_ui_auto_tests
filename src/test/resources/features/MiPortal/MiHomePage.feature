@@ -144,33 +144,9 @@ Feature: MIPORTAL: Homepage (E2EUI-2328,2772,2329,2335,2704,1433)
       | New Referrals     |
       | Search LSIDs      |
 
-  @NTS-4460
-    #@E2EUI-1433
-  Scenario Outline:NTS-4460:E2EUI-1433: MI Dashboard | Search LSIDs
-    Given a web browser is at the mi-portal home page
-      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-    When the user should be able to see sample processing menu is displayed
-    Then the user should be able to see the below header sections in Sample Processing
-      | HeaderSection     |
-      | File Submissions  |
-      | Order Tracking    |
-      | GLH Samples       |
-      | Plater Samples    |
-      | Picklists         |
-      | Sequencer Samples |
-      | New Referrals     |
-      | Search LSIDs      |
-    When the user navigates to the mi-portal "<mi_stage>" stage
-    And  the user inputs the "<LSIDRefNo>" reference number
-    And the user clicks on Find LSID
-    #after clicking on find Button ,the data is displayed in image format,not able to identify any validation
-
-    Examples:
-      | mi_stage                        | LSIDRefNo  |
-      | samplemsgstate_sampleprocessing | 1888152722 |
-
   @NTS-5059
-  Scenario Outline:NTS-5059 : Fix CSV Download fails to truncate cells
+    #@E2EUI-2779
+  Scenario Outline:NTS-5059:E2EUI-2779: Fix CSV Download fails to truncate cells
     When the user should be able to see sample processing menu is displayed
     Then the user should be able to see the below header sections in Sample Processing
       | HeaderSection     |

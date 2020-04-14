@@ -17,9 +17,9 @@ Feature: MIPORTAL:  MiSearchLSID (E2EUI-1433)
 #      | samplemsgstate_sampleprocessing | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
 
 
-  @NTS-4460
+  @NTS-5179
     #@E2EUI-1433
-  Scenario Outline:NTS-4460: MI Dashboard | Search LSIDs
+  Scenario Outline:NTS-5179:E2EUI-1433: MI Dashboard | Search LSIDs
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user should be able to see sample processing menu is displayed

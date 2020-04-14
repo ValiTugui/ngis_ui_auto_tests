@@ -2,9 +2,9 @@
 
 Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,2580,1305)
 
-  @NTS-4459
+  @NTS-5188
      #@E2EUI-1424  @E2EUI-2580
-  Scenario Outline: MI Dashboard | Plater Samples
+  Scenario Outline:NTS-5188:E2EUI-1424,2580: MI Dashboard | Plater Samples
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -142,7 +142,7 @@ Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,25
 
   @NTS-5063
    ## @E2EUI-1305
-  Scenario Outline:NTS-5063 :Mi dashboard Picklists section
+  Scenario Outline:NTS-5063:E2EUI-1305 :Mi dashboard Picklists section
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
