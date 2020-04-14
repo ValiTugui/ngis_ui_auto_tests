@@ -23,7 +23,6 @@ public class SeleniumDriver extends EventFiringWebDriver {
         @Override
         public void run() {
             try {
-                Debugger.println("Quitting DRIVER.......................");
                 DRIVER.quit();
             } catch (Exception exp) {
                 Debugger.println("Exception from Quiting the Driver...." + exp.getLocalizedMessage());
@@ -33,10 +32,8 @@ public class SeleniumDriver extends EventFiringWebDriver {
 
     static {
         try {
-            Debugger.println("INIT DRIVER.......................");
             DRIVER = new BrowserFactory().getDriver();
         } catch (MalformedURLException e) {
-            Debugger.println("INIT DRIVER: EXCEPTION:"+e);
             e.printStackTrace();
         }
         Actions.deleteCookies(DRIVER);
