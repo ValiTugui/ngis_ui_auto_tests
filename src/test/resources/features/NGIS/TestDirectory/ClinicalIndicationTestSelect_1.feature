@@ -4,15 +4,15 @@
 @SYSTEM_TEST
 Feature: Test Directory : ClinicalIndicationTestSelect_1
 
-  @NTS-31611
+  @NTS-3161
 # @E2EUI-2093
-  Scenario: NTS-3161:E2EUI-2093: - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
+  Scenario: NTS-31611:E2EUI-2093: - Clinical Indication Page - Loading wheel for Test Detail page/Clinical Indications tab
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
     When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | 270 |
-    Then the text "Please wait a moment - clinical indications are loading" is displayed
+    Then the text "Clinical Indications that include this test" is displayed
     And the text "This test cannot be ordered yet" is not displayed
     And the loading wheel is displayed
     And the list of clinical indications are loaded

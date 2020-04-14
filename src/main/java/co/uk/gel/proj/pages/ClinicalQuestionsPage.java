@@ -434,7 +434,7 @@ public class ClinicalQuestionsPage {
             }
         }
         //PhenotypicSex
-        paramValue = paramNameValue.get("PhenotypicSex");
+        paramValue = paramNameValue.get("KaryotypicSex");
         if (paramValue != null && !paramValue.isEmpty()) {
             try {
                 Click.element(driver, karyotypicSexDropdown);

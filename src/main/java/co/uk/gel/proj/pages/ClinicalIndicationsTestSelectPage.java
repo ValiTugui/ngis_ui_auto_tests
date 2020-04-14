@@ -162,12 +162,13 @@ public class ClinicalIndicationsTestSelectPage {
     }
 
     public boolean validateIfCorrectTextIsDisplayed(String expected) {
-        if(!Wait.isElementDisplayed(driver,loadingText,10)){
+        if(!Wait.isElementDisplayed(driver,loadingText,30)){
             Debugger.println("Text element not displayed:"+expected);
             SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
             return false;
         }
         String actual = loadingText.getText();
+        Debugger.println("ActualText:"+actual);
         if(!actual.equalsIgnoreCase(expected)){
             Debugger.println("Expected text:"+expected+",Actual:"+actual);
             SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
