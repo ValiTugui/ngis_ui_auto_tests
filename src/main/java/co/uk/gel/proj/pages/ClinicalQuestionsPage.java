@@ -247,7 +247,6 @@ public class ClinicalQuestionsPage {
         try {
             Wait.forElementToBeDisplayed(driver, diagnosisValue);
             Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(diagnosisValue, diagnosis);
-            Wait.forElementToBeDisplayed(driver, dropdownValue);
             if (!Wait.isElementDisplayed(driver, dropdownValue, 10)) {
                 Debugger.println("Diagnosis term " + diagnosis + " not present in the dropdown.");
                 return null;
@@ -255,6 +254,7 @@ public class ClinicalQuestionsPage {
             Actions.selectByIndexFromDropDown(dropdownValues, 0);
             return Actions.getText(diagnosisField);
         } catch (Exception exp) {
+            Debugger.println("Exception from searchAndSelectSpecificDiagnosis:"+exp);
             SeleniumLib.takeAScreenShot("RareDiseaseDiagnosis.jpg");
             return null;
         }

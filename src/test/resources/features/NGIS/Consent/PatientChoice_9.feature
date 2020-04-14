@@ -170,7 +170,7 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                                                                      | Question2                                                                                      |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
-  @NTS-3389
+  @NTS-3389 @LOGOUT
   #@E2EUI-2039 @LOGOUT @scenario_05
   Scenario: NTS-3389: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
