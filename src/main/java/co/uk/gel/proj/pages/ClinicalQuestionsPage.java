@@ -824,7 +824,7 @@ public class ClinicalQuestionsPage {
         String paramValue = paramNameValue.get("DiseaseStatus");
         if (paramValue != null && !paramValue.isEmpty()) {
             try {
-                if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 10)) {
+                if (!Wait.isElementDisplayed(driver, diseaseStatusDropdown, 30)) {
                     Debugger.println("Disease Status drop down not present.");
                     SeleniumLib.takeAScreenShot("DiseaseStatusDropDown.jpg");
                     return false;

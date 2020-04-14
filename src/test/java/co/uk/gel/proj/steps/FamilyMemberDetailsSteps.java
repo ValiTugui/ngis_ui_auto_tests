@@ -37,8 +37,11 @@ public class FamilyMemberDetailsSteps extends Pages {
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
-        if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
-            Assert.assertTrue(false);
+        //For already existing members, no need to fill the ethnicity
+        if(memberDetails.startsWith("NHSNumber=NA")) {
+            if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
+                Assert.assertTrue(false);
+            }
         }
         if(!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)){
             Assert.assertTrue(false);
