@@ -1,10 +1,17 @@
 package co.uk.gel.lib;
 
 import co.uk.gel.config.BrowserConfig;
+import co.uk.gel.models.ReferralID;
+import co.uk.gel.models.Referrals;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
+import com.google.gson.*;
+import com.google.gson.stream.JsonWriter;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
@@ -17,14 +24,14 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -677,12 +684,60 @@ public class SeleniumLib {
         return BrowserConfig.getServerType().toUpperCase().equals(serverType);
     }
 
-    public static void writeToFile(String dataToWrite) throws IOException {
-        FileWriter myWriter = new FileWriter("Referrals.properties", true);
-        myWriter.write(dataToWrite);
-        myWriter.write("\n");
-        myWriter.close();
+    public static void writeToFile(String dataToWrite) {
+        FileWriter myWriter;
+        JSONArray referrals = new JSONArray();
+        JSONObject referralDetails = new JSONObject();
+        referralDetails.put("referralID", dataToWrite);
+        referrals.add(referralDetails);
+        JSONObject referralObject = new JSONObject();
+        referralObject.put("referrals", referrals);
+        try {
+            myWriter = new FileWriter("Referrals.json", true);
+            myWriter.write(referralObject.toJSONString());
+            myWriter.write("\n");
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    public static void writeToJsonFile (String dataToWrite) {
+        String nameRead;
+        try {
+            JsonParser parser = new JsonParser();
+            Object obj = parser.parse(new FileReader("Referrals.json"));
+            JsonObject jsonObject = (JsonObject) obj;
+            System.out.println("The values of employee1.json file:\n" + jsonObject);
+            JsonArray msg = (JsonArray)jsonObject.get("referrals");
+            Iterator<JsonElement> iterator = msg.iterator();
+            while(iterator.hasNext()) {
+                nameRead = iterator.next().toString();
+                System.out.println(nameRead);
+            }
+            ReferralID referralID = new ReferralID();
+
+            referralID.setReferralID(dataToWrite);
+            Gson gson = new Gson();
+            String json = gson.toJson(referralID);
+
+            FileWriter file = new FileWriter("Referrals.json", false);
+            JsonWriter jw = new JsonWriter(file);
+            iterator = msg.iterator();
+
+            Referrals referrals = new Referrals();
+
+            while(iterator.hasNext()) {
+                referrals.addReferrals(gson.fromJson(iterator.next().toString(), ReferralID.class));
+            }
+            referrals.addReferrals(referralID);
+            gson.toJson(referrals, Referrals.class, jw);
+            file.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);
         if(Headings == null || Headings.size() == 0){

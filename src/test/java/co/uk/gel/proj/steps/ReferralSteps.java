@@ -494,11 +494,11 @@ public class ReferralSteps extends Pages {
     }
 
     @And("the referral status is set to {string}")
-    public void theReferralStatusIsSetTo(String expectedReferralStatus) {
+    public void theReferralStatusIsSetTo(String expectedReferralStatus) throws IOException {
         boolean testResult  = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
         Assert.assertTrue(testResult);
-
+        referralPage.saveReferralID();
     }
 
     @Then("the submission confirmation message {string} is displayed")
@@ -1075,10 +1075,5 @@ public class ReferralSteps extends Pages {
         boolean testResult = false;
         testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
         Assert.assertTrue(testResult);
-    }
-
-    @And("the referralID is saved to a file")
-    public void theReferralIDIsSavedToAFile() throws IOException {
-        referralPage.saveReferralID();
     }
 }

@@ -99,8 +99,6 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
-    ##Save ReferralID for @E2E_TEST
-    And the referralID is saved to a file
     Examples:
       | patientDetails  | requestingOrganisation  | testPackage  | responsibleClinician  | tumours | samples | notes | patientChoice  | PrintForms  |
       | Patient details | Requesting organisation | Test package | Responsible clinician | Tumours | Samples | Notes | Patient choice | Print forms |
