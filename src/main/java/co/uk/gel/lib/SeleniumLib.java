@@ -46,6 +46,7 @@ public class SeleniumLib {
     private String strtext;
     public static String ParentWindowID = null;
     static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String referralFileName = "Referrals.json";
 
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
@@ -683,19 +684,17 @@ public class SeleniumLib {
     public static boolean skipIfBrowserStack(String serverType) {
         return BrowserConfig.getServerType().toUpperCase().equals(serverType);
     }
-    
+
     public static void writeToJsonFile (String dataToWrite) {
         String nameRead;
         try {
             JsonParser parser = new JsonParser();
-            Object obj = parser.parse(new FileReader("Referrals.json"));
+            Object obj = parser.parse(new FileReader(referralFileName));
             JsonObject jsonObject = (JsonObject) obj;
-            System.out.println("The values of employee1.json file:\n" + jsonObject);
             JsonArray msg = (JsonArray)jsonObject.get("referrals");
             Iterator<JsonElement> iterator = msg.iterator();
             while(iterator.hasNext()) {
                 nameRead = iterator.next().toString();
-                System.out.println(nameRead);
             }
             ReferralID referralID = new ReferralID();
 
@@ -703,7 +702,7 @@ public class SeleniumLib {
             Gson gson = new Gson();
             String json = gson.toJson(referralID);
 
-            FileWriter file = new FileWriter("Referrals.json", false);
+            FileWriter file = new FileWriter(referralFileName, false);
             JsonWriter jw = new JsonWriter(file);
             iterator = msg.iterator();
 
