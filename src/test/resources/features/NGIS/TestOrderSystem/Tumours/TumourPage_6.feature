@@ -1,11 +1,11 @@
 #@regression
 #@tumoursPage2
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 6
 
-  @NTS-3250 @LOGOUT
+  @NTS-3250 @Z-LOGOUT
 #    @E2EUI-1247
   Scenario Outline: NTS-3250:E2EUI-1247: Verify the presence of pathology Sample Id and check long characters more than 20 can be entered.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -28,7 +28,7 @@ Feature: Tumours Page - 6
       | Tumours | A12345678912345667890-ABCDEFGHIJK | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
 
-  @NTS-3171 @LOGOUT
+  @NTS-3171 @Z-LOGOUT
 #    @E2EUI-2145
   Scenario Outline:NTS:3171:E2EUI-2145:Moving to other section:The user is stopped to navigate away from dynamic questions step from Tumours stage after editing
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -46,7 +46,7 @@ Feature: Tumours Page - 6
       | stage   | tumour_type              | new_stage | acknowledgeMessage | partOfMessage       | partialCurrentUrl1 |
       | Tumours | Solid tumour: metastatic | Samples   | Dismiss            | unsaved information | tumours/create     |
 
-  @NTS-3172 @LOGOUT
+  @NTS-3172 @Z-LOGOUT
 #    @E2EUI-1465
   Scenario Outline: NTS-3172:E2EUI-1465:Validate the mandatory input field 'The tumour is' for the Tumour Section
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service

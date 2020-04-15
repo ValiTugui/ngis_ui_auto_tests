@@ -25,7 +25,7 @@ Feature: GenomicRecord: Patient Record
       | NHSNumber=5922721713:DOB=20-09-2008 |
 
 
-  @NTS-3513 @LOGOUT
+  @NTS-3513 @Z-LOGOUT
 #    @E2EUI-849
   Scenario Outline:NTS-3513:(E2EUI-849) New Patient Page - User journey when Clinical Indication has not been selected
     Given a web browser is at create new patient page
@@ -56,7 +56,7 @@ Feature: GenomicRecord: Patient Record
       | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
       | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
-  @NTS-3516 @LOGOUT
+  @NTS-3516 @Z-LOGOUT
 #    @E2EUI-1056
   Scenario Outline: NTS-3516:(E2EUI-1056):Normal-User - Create a new non-NHS patient record to Verify the mandatory input field validations with a Life status and all mandatory fields left blank
     Given a web browser is at create new patient page
@@ -95,7 +95,7 @@ Feature: GenomicRecord: Patient Record
       | Add a new patient to the database | Deceased   |
 
 
-  @NTS-3517 @LOGOUT
+  @NTS-3517 @Z-LOGOUT
 #    @E2EUI-891
   Scenario Outline: NTS-3517:(E2EUI-891): Normal-User: Verify the mandatory input field validations for non-NHS patient creation when invalid DOB is entered and all mandatory fields left blank
     Given a web browser is at create new patient page
@@ -135,7 +135,7 @@ Feature: GenomicRecord: Patient Record
       | Add a new patient to the database | Jan012020          |
 
 # Ethnicity is now Mandatory
-  @NTS-4500 @LOGOUT
+  @NTS-4500 @Z-LOGOUT
 #   @E2EUI-2499
   Scenario Outline: NTS-4500:(E2EUI-2499):Ethnicity - Create New Patient Page - Lookup an existing NGIS patient – NHSNo = Yes
     Given a web browser is at create new patient page
@@ -158,7 +158,7 @@ Feature: GenomicRecord: Patient Record
       | Add a new patient to the database |
 
 
-  @NTS-4541 @LOGOUT
+  @NTS-4541 @Z-LOGOUT
 #   @E2EUI-1753
   Scenario Outline: NTS-4541:(E2EUI-1753): New patient be created without filling in the non-mandatory Title field
     Given a web browser is at create new patient page
@@ -173,7 +173,7 @@ Feature: GenomicRecord: Patient Record
       | Add a new patient to the database | Other - provide explanation |
 
 
-  @NTS-4745 @LOGOUT
+  @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
   Scenario Outline: NTS-4745:(E2EUI-821): Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
     Given a web browser is at the patient search page
@@ -202,7 +202,7 @@ Feature: GenomicRecord: Patient Record
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
 
-  @NTS-4745 @LOGOUT
+  @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
   Scenario Outline: NTS-4745:(E2EUI-821):Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with  valid Forename and all mandatory fields left blank
     Given a web browser is at the patient search page
@@ -233,7 +233,7 @@ Feature: GenomicRecord: Patient Record
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
 
 
-  @NTS-4754 @LOGOUT
+  @NTS-4754 @Z-LOGOUT
 #     @E2EUI-1380
   Scenario Outline: NTS-4754:(E2EUI-1380): Normal User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
     Given a web browser is at the patient search page
@@ -263,7 +263,7 @@ Feature: GenomicRecord: Patient Record
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
 
 
-  @NTS-4754 @LOGOUT
+  @NTS-4754 @Z-LOGOUT
 #     @E2EUI-1380
   Scenario Outline: NTS-4754:(E2EUI-1380):Super User :Create a new non-NHS patient record to Verify the mandatory input field validations with valid Gender and all mandatory fields left blank
     Given a web browser is at the patient search page
@@ -295,7 +295,7 @@ Feature: GenomicRecord: Patient Record
       | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
 
 
-  @NTS-4760 @LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline:NTS-4760:(E2EUI-1097):New patient page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a web browser is at create new patient page

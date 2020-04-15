@@ -23,7 +23,7 @@ Feature: TestDirectory : Home Page
     Then various test details are displayed
 
 
-  @NTS-4726 @LOGOUT
+  @NTS-4726 @Z-LOGOUT
 #    @E2EUI-1155
   Scenario Outline: NTS-4726:E2EUI-1155: Displaying the current state for each stage
     Given a new patient referral is created with associated tests in Test Order System online service

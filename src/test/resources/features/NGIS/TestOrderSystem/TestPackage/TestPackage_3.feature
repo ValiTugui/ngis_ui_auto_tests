@@ -1,11 +1,11 @@
 #@regression
 #@testPackageRD
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: TestOrder - Test Package 3 - RD
 
-  @NTS-3258 @LOGOUT
+  @NTS-3258 @Z-LOGOUT
 #    @E2EUI-1900
   Scenario Outline: NTS-3258:E2EUI-1900:Selection/deselection of test should be saved based on the submission
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -24,7 +24,7 @@ Feature: TestOrder - Test Package 3 - RD
       | stage1       | title                    | stage2         | message                                                     |
       | Test package | Confirm the test package | Family members | This section contains unsaved information. Discard changes? |
 
-  @NTS-4540 @LOGOUT
+  @NTS-4540 @Z-LOGOUT
 #    @E2EUI-1569
   Scenario Outline: NTS-4540:E2EUI-1569:Showing participants selected for the test - Family Member
     ##Test Package - Trio family - No of participants - 2
@@ -57,7 +57,7 @@ Feature: TestOrder - Test Package 3 - RD
       | TestPackage  | NoOfParticipants | FamilyMembers  | RelationshipToProband | NotBeingTested   | BeingTested  |
       | Test package | 2                | Family members | Father                | Not Being Tested | Being Tested |
 
-  @NTS-4700 @LOGOUT
+  @NTS-4700 @Z-LOGOUT
 #    @E2EUI-886
   Scenario Outline: NTS-4700:E2EUI-886: New fields on Test package page
     ##Test Package

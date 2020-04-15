@@ -1,11 +1,11 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questionnaire- Rare Disease/Cancer.
 
-  @NTS-5183 @LOGOUT
+  @NTS-5183 @Z-LOGOUT
    #@E2EUI-1042
   Scenario Outline:NTS-5183:E2EUI-1042:Scenario-1: Validation of dynamic questions in Questionnaire- Rare Disease
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -79,7 +79,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |
 
        ###In Progress @NTS-5183
-  @E2EUI-1042 @LOGOUT
+  @E2EUI-1042 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |

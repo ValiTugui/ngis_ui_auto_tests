@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -7
 
-  @NTS-4734 @LOGOUT
+  @NTS-4734 @Z-LOGOUT
 #    @E2EUI-1342 @E2EUI-1440
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -45,7 +45,7 @@ Feature: Samples Page -7
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleType-non-tumour     | sampleState | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | Saliva      | test                   |
 
-  @NTS-3376 @LOGOUT
+  @NTS-3376 @Z-LOGOUT
 #    @E2EUI-1490
   Scenario Outline: NTS-3376: Add Sample Details - Sample non-Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -64,7 +64,7 @@ Feature: Samples Page -7
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      |
 
-  @NTS-3376 @LOGOUT
+  @NTS-3376 @Z-LOGOUT
 #    @E2EUI-1490
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

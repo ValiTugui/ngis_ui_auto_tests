@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-14 ConsentScenario - Child
 
-  @NTS-3415 @LOGOUT
+  @NTS-3415 @Z-LOGOUT
     #@E2EUI-1627
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a new patient referral is created with associated tests in Test Order System online service
