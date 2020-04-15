@@ -27,7 +27,6 @@ Feature: Patient Choice -13 Page - FamilyMemberAddition
       | FamilyMemberDetails                                                 | RelationshipToProband | DiseaseStatusDetails                                            |
       | NHSNumber=NA:DOB=14-05-1928:Gender=Male:Relationship=Father         | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
       | NHSNumber=NA:DOB=10-11-1929:Gender=Male:Relationship=Maternal Uncle | Maternal Uncle        | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
-    Then the "<FamilyMembers>" stage is marked as Completed
     When the user navigates to the "<PatientChoice>" stage
     Then the user is navigated to a page with title Patient choice
     And the user should see the details of family members displayed in patient choice landing page

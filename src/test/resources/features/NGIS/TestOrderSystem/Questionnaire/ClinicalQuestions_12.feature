@@ -34,7 +34,6 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
       | stage1  | stage2  | tumour_type              | pageTitle                          | dynamicQuestionsLabel                   | presentationType   | searchTerm | notificationText | sampleDynamicQuestionsPageTitle | sampleDynamicQuestionsLabel                              | sampleType           | topography | morphology |
       | Tumours | Samples | Solid tumour: metastatic | Answer questions about this tumour | Working diagnosis/morphology (SnomedCT) | First presentation | test       | Tumour added     | Add sample details              | Tumour content (percentage of malignant nuclei / blasts) | Liquid tumour sample | test       | test       |
 
-
   @NTS-4728 @Z-LOGOUT
 #    @E2EUI-970
   Scenario Outline:  NTS-4728 -  Add Sample Details - Sample morphology

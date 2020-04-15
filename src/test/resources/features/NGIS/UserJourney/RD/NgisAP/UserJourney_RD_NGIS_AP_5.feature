@@ -70,17 +70,17 @@ Feature: UserJourney_RD_NGIS_AP_5 - UC-17 - E2EUI-843
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    # ##Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    ###Pedigree
+    ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
-    ### need to madify pedigree
+    ##Need to madify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ###Print forms
+    ##Print forms
     When the user navigates to the "<PrintFormsStage>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<OneParticipant>" family members with the below details

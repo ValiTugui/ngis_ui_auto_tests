@@ -6,7 +6,7 @@ Feature: Pedigree - Pedigree Flow 1
 
   @NTS-3458 @Z-LOGOUT
 #    @E2EUI-1994 @E2EUI-1728 @E2EUI-2148 @E2EUI-1996
-  Scenario Outline: NTS-3458 : Validating Pedigree section must be completed to submit the referral
+  Scenario Outline: NTS-3458 :E2EUI-1994,1728,2148,1996: Validating Pedigree section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2007:Gender=Male |
     ##Patient Details
@@ -85,7 +85,7 @@ Feature: Pedigree - Pedigree Flow 1
 
   @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1854
-  Scenario Outline: NTS-3386 : Add a new RD family of female proband and 2 female daughters with no error messages in the Pedigree application.
+  Scenario Outline: NTS-3386 :E2EUI-1854: Add a new RD family of female proband and 2 female daughters with no error messages in the Pedigree application.
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1990:Gender=Female |
     ##Patient Details
@@ -98,6 +98,7 @@ Feature: Pedigree - Pedigree Flow 1
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     ##Test Package
+    When the user navigates to the "<Test Package>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
@@ -130,5 +131,5 @@ Feature: Pedigree - Pedigree Flow 1
       | NHSNumber=NA:DOB=17-07-2011 |
 
     Examples:
-      | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
-      | Requesting organisation | Maidstone            | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
+      | Requesting organisation | ordering_entity_name | Test Package | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
+      | Requesting organisation | Maidstone            | Test package | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |

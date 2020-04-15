@@ -3,7 +3,7 @@
 #@GlobalFlow_Validations_Common
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Feature: Global Patient Flow 1- Stage Validation
+Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
 
   @NTS-4320 @Z-LOGOUT
 #    @E2EUI-1065

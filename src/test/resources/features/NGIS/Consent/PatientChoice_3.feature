@@ -130,7 +130,7 @@ Feature: Patient Choice -3 Navigation
 
   @NTS-3418 @Z-LOGOUT
     #@E2EUI-1702
-  Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
+  Scenario Outline: NTS-3418:Research change messages displayed in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
@@ -182,7 +182,7 @@ Feature: Patient Choice -3 Navigation
 
   @NTS-3446 @Z-LOGOUT
     #@E2EUI-2035
-  Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
+  Scenario Outline: NTS-3446: Editing Patient Choice ‘Test type’
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details

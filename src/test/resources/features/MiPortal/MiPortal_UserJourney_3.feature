@@ -1,10 +1,10 @@
 @MIPORTAL
 
-Feature: MI Portal - This is mi-portal User Journey for Sequencer Samples and New Referrals
+Feature: MIPORTAL:  User Journey for Sequencer Samples and New Referrals(E2EUI-1489,1836)
 
-  @NTS-4461
+  @NTS-5189
     #@E2EUI-1489
-  Scenario Outline: MI Dashboard | Sequencer Samples
+  Scenario Outline:NTS-5189:E2EUI-1489: MI Dashboard | Sequencer Samples
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -131,10 +131,9 @@ Feature: MI Portal - This is mi-portal User Journey for Sequencer Samples and Ne
       | Sequencer Samples | 25              | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | r1234       | Patient NGIS ID | is exactly | p08395405325              | gel1009 Plate Barcode | is             | r1234                       | gel1010 Illumina QC Status | Pass   | gel1010 Illumina Sample Concentration | r9876  | gel1009 Patient ID | gel1009 Plate Date of Dispatch | equals       | 11-03-2020 |
       | Sequencer Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | r1234,r5678 | Patient NGIS ID | is one of  | p08395405325,p67752570099 | gel1009 Plate Barcode | is             | LP6264316-DNA,LP8907987-DNA | gel1010 Illumina QC Status | Fail   | gel1010 Illumina Sample Concentration | r9888  | gel1009 Patient ID | gel1009 Plate Date of Dispatch | before or on | 14-03-2020 |
 
-
   @NTS-5017
-   ## @E2EUI-1836
-  Scenario Outline: NTS-5017:Mi dashboard New referrals section
+   ## @E2EUI-1836 @E2EUI-2408
+  Scenario Outline: NTS-5017:E2EUI-1836,E2EUI-2408:Mi dashboard New referrals section
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage

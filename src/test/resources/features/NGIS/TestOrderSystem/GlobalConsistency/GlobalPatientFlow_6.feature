@@ -2,7 +2,7 @@
 #@referral
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Global Patent Flow 6 - Referral Header
+Feature: GlobalConsistency:Global Patent Flow 6 - Referral Header
 
   @NTS-4728 @Z-LOGOUT
 #   @E2EUI-1250 @E2EUI-1368

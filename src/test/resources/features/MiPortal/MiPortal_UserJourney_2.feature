@@ -1,10 +1,10 @@
 @MIPORTAL
 
-Feature: MI Portal - This is mi-portal User Journey for Plater Samples and Picklists.
+Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,2580,1305)
 
-  @NTS-4459
+  @NTS-5188
      #@E2EUI-1424  @E2EUI-2580
-  Scenario Outline: MI Dashboard | Plater Samples
+  Scenario Outline:NTS-5188:E2EUI-1424,2580: MI Dashboard | Plater Samples
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
@@ -140,10 +140,9 @@ Feature: MI Portal - This is mi-portal User Journey for Plater Samples and Pickl
       | Plater Samples | 25              | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | is exactly | r1234       | Patient NGIS ID | p24295001324                           | gel1004 Clinic Sample Type | is             | dna_saliva     | gel1004 Disease Area | Rare Disease | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | North West | gel1005 Sample Received Datetime | equals       | 14-03-2020 |
       | Plater Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | is one of  | r1234,r5678 | Patient NGIS ID | p24295001324,p44616417782,p67752570099 | gel1004 Clinic Sample Type | is             | dna_fibroblast | gel1004 Disease Area | Cancer       | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | South West | gel1005 Sample Received Datetime | before or on | 15-03-2020 |
 
-
   @NTS-5063
    ## @E2EUI-1305
-  Scenario Outline:NTS-5063 :Mi dashboard Picklists section
+  Scenario Outline:NTS-5063:E2EUI-1305 :Mi dashboard Picklists section
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage

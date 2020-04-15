@@ -20,7 +20,7 @@ Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-     ##Test Package - proband only - No of participants -1
+    ##Test Package - proband only - No of participants -1
     And the user selects the number of participants as "<OneParticipant>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
@@ -56,7 +56,7 @@ Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-    #Panels
+    ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
@@ -71,6 +71,7 @@ Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                         | Notes | PatientChoiceStage | RecordedBy                            | Panels | searchPanels | Pedigree |
       | Patient details | Requesting organisation | Test package | 1              | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes | Patient choice     | ClinicianName=John:HospitalNumber=123 | Panels | Hyper        | Pedigree |

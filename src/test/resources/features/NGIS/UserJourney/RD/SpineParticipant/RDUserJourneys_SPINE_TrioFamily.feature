@@ -9,23 +9,23 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4592: Use Case#08: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes- Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-     #Patient Details
+    ##Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "London North West Healthcare NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-   ##Test Package - proband only - No of participants -3
+    ##Test Package - proband only - No of participants -3
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
-      ###Responsible Clinician
+    ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
@@ -35,12 +35,12 @@ Feature: Create Referrals for SPINE Patient - Trio Family
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-    ###Notes
+    ##Notes
     Then the user is navigated to a page with title Add notes to this referral
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-     ##Family Members
+    ##Family Members
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
       | FamilyMemberDetails                                           | RelationshipToProband | DiseaseStatusDetails                                           |
@@ -77,7 +77,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | FamilyMemberDetails         |
       | NHSNumber=NA:DOB=11-03-1977 |
       | NHSNumber=NA:DOB=12-02-1980 |
-    ###Submitting Referral
+    ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
@@ -91,11 +91,11 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4560: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-     #Patient Details
+    ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Rotherham Doncaster and South Humber NHS Foundation Trust" in the search field
     And the user selects a random entity from the suggestions list
@@ -161,6 +161,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
+
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                              | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | PatientChoiceStage | Panels | Pedigree | FamilyMembers  | searchPanels |
       | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Samuel:LastName=John:Department=Greenvalley,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Patient choice     | Panels | Pedigree | Family members | Cataracts    |
@@ -170,38 +171,38 @@ Feature: Create Referrals for SPINE Patient - Trio Family
   Scenario Outline: NTS-4567: Use Case#10: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
-    ###Patient Details
+    ##Patient Details
     When the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
-    ###Requesting Organisation
+    ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "Maidstone" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
     And the "<RequestingOrganisation>" stage is marked as Completed
-    ###Test Package - Trio family - No of participants 3
+    ##Test Package - Trio family - No of participants 3
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"
     And the user clicks the Save and Continue button
     And the "<TestPackage>" stage is marked as Completed
-    ###Responsible Clinician
+    ##Responsible Clinician
     Then the user is navigated to a page with title Add clinician information
     And the user fills the responsible clinician page with "<ResponsibleClinicianDetails>"
     And the user clicks the Save and Continue button
     And the "<ResponsibleClinician>" stage is marked as Completed
-    ###Clinical Question
+    ##Clinical Question
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
-    ###Notes
+    ##Notes
     Then the user is navigated to a page with title Add notes to this referral
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ###Family Members - Adding two members - Father and Mother
+    ##Family Members - Adding two members - Father and Mother
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user adds "<NoOfParticipants>" family members to the proband patient as new family member patient record with below details
@@ -210,7 +211,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | NHSNumber=NA:DOB=12-02-1940:Gender=Female:Relationship=Mother     | Mother                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis |
     Then the "<FamilyMembers>" stage is marked as Completed
     And the user clicks the Save and Continue button
-    ###patient choice for the proband
+    ##patient choice for the proband
     Then the user is navigated to a page with title Patient choice
     And the user selects the proband
     When the user selects the option Adult (With Capacity) in patient choice category
@@ -224,29 +225,29 @@ Feature: Create Referrals for SPINE Patient - Trio Family
     And the user clicks the Save and Continue button
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
-    ###Patient Choice - Family Details Provided below same as the Family Members
+    ##Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
-    ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
+    ##Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails         | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                                      | ChildAssent | ParentSignature |
       | NHSNumber=NA:DOB=11-03-2017 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
       | NHSNumber=NA:DOB=12-02-1940 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
-    ###Panels
+    ##Panels
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
-    ###Pedigree - Pedigree by default marked as completed
+    ##Pedigree - Pedigree by default marked as completed
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
-    ###Print forms - FamilyDetails -same as provided above Family details
+    ##Print forms - FamilyDetails -same as provided above Family details
     Then the user is navigated to a page with title Print sample forms
-    ###Submitting Referral
+    ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
-    And the referral status is set to "Submitted"
+    Then the referral status is set to "Submitted"
 
     Examples:
       | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | RecordedBy                            |
@@ -315,7 +316,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
       | NHSNumber=NA:DOB=12-02-1940 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient changed their mind about the clinical test |             |                 |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
-   ###Panels
+    ###Panels
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
@@ -411,7 +412,7 @@ Feature: Create Referrals for SPINE Patient - Trio Family
     Then the "<Pedigree>" stage is marked as Completed
     ##Print Forms
     Then the user is navigated to a page with title Print sample forms
-    ###Submitting Referral
+    ##Submitting Referral
     When the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"

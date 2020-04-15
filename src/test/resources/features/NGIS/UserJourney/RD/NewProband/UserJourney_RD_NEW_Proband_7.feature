@@ -61,7 +61,7 @@ Feature: UserJourney_RD_NEW_Proband_7 - UC07 - E2EUI-1274
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
-     ##Panels
+    ##Panels
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user should see the default status of penetrance button as Complete

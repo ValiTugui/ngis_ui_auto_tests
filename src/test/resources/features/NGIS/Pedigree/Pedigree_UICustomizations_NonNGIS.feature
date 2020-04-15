@@ -6,7 +6,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1626
-  Scenario Outline: NTS-4759: Warn a user that they will lose their changes when navigating away from pedigree
+  Scenario Outline: NTS-4759:E2EUI-1626: Warn a user that they will lose their changes when navigating away from pedigree
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1986:Gender=Male |
     ##Patient Details
@@ -28,7 +28,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1391 @E2EUI-1629
-  Scenario Outline: NTS-4759: AgeOfOnset should be editable for Non NGIS Patients in Pedigree tool
+  Scenario Outline: NTS-4759:E2EUI-1391,1629: AgeOfOnset should be editable for Non NGIS Patients in Pedigree tool
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1987:Gender=Male |
     ##Patient Details
@@ -50,7 +50,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1670
-  Scenario Outline: NTS-4759: Date of death and birth field validation with respect to a proband
+  Scenario Outline: NTS-4759:E2EUI-1670: Date of death and birth field validation with respect to a proband
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2001:Gender=Male |
     ##Patient Details
@@ -74,7 +74,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1126
-  Scenario Outline: NTS-4759: Age at death input field validations under Personal tab
+  Scenario Outline: NTS-4759:E2EUI-1126: Age at death input field validations under Personal tab
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2002:Gender=Male |
     ##Patient Details
@@ -99,7 +99,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1311 @E2EUI-1230
-  Scenario Outline: NTS-4759: Updating Ethnicity Enumerations to Reflect FHIR Definition
+  Scenario Outline: NTS-4759:E2EUI-1311,230: Updating Ethnicity Enumerations to Reflect FHIR Definition
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2003:Gender=Male |
     ##Patient Details
@@ -157,7 +157,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
 
   @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1105 @E2EUI-1030 @E2EUI-1165
-  Scenario Outline: NTS-4759: Add additional non-tested family member
+  Scenario Outline: NTS-4759:E2EUI-1105,1030,1165: Add additional non-tested family member
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-2004:Gender=Male |
     ##Patient Details

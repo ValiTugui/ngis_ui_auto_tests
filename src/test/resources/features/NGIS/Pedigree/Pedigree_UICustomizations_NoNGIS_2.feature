@@ -6,7 +6,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
 
   @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1138 @E2EUI-933
-  Scenario Outline: NTS-4796: editing panel – Personal tab
+  Scenario Outline: NTS-4796:(E2EUI-1138,933): editing panel – Personal tab
     ##Note: E2EUI-933 talks about pedigree diagram embedded as part of NGIS app - Can be part of any diagram click ticket
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1990:Gender=Male |
@@ -88,7 +88,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
 
   @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1345 @E2EUI-1160
-  Scenario Outline: NTS-4796: Editable Fields for Non NGIS Participants
+  Scenario Outline: NTS-4796:(E2EUI-1345,1160): Editable Fields for Non NGIS Participants
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1991:Gender=Male |
     ##Patient Details
@@ -121,7 +121,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
   @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1348 @E2EUI-1230
     ##One part of 1230 covered here and another part in NTS-4795
-  Scenario Outline: NTS-4796: Non NGIS Patient Stable UID
+  Scenario Outline: NTS-4796:(E2EUI-1348,1230): Non NGIS Patient Stable UID
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1992:Gender=Male |
     ##Patient Details
@@ -144,7 +144,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
 
   @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1074
-  Scenario Outline: NTS-4796: Connecting Lookup Services to Pedigree Tool
+  Scenario Outline: NTS-4796:E2EUI-1074: Connecting Lookup Services to Pedigree Tool
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1993:Gender=Male |
     ##Patient Details

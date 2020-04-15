@@ -3,7 +3,7 @@
 #@GlobalFlow_Validations_RD
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Feature: Global Patient Flow 2- End to end RD
+Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 
   @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
