@@ -55,7 +55,8 @@ public class TestHooks extends Pages {
 
     private final static String ZAP_PROXYHOST = "localhost";
     private final static int ZAP_PROXYPORT = 9191;
-    private final static String ZAP_APIKEY = null;
+   private final static String ZAP_APIKEY = null;
+//    private final static String ZAP_APIKEY="j6atjjv5mtkfl7vdptc29pr6s6";
    // private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";

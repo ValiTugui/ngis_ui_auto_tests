@@ -32,7 +32,7 @@ public class BrowserFactory {
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
     private final static String CHROME_DRIVER_UBUNTU = "/home/kshukla1/driverforsecurity/chromedriver";
     //private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
-    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:/Users/Santhosh/.m2/repository/webdriver/chromedriver/win32/80.0.3987.106/chromedriver.exe";
+    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:/Users/StagT/.m2/repository/webdriver/chromedriver/win32/80.0.3987.106/chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private ScanningProxy zapScanner;
