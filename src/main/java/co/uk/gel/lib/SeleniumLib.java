@@ -683,25 +683,7 @@ public class SeleniumLib {
     public static boolean skipIfBrowserStack(String serverType) {
         return BrowserConfig.getServerType().toUpperCase().equals(serverType);
     }
-
-    public static void writeToFile(String dataToWrite) {
-        FileWriter myWriter;
-        JSONArray referrals = new JSONArray();
-        JSONObject referralDetails = new JSONObject();
-        referralDetails.put("referralID", dataToWrite);
-        referrals.add(referralDetails);
-        JSONObject referralObject = new JSONObject();
-        referralObject.put("referrals", referrals);
-        try {
-            myWriter = new FileWriter("Referrals.json", true);
-            myWriter.write(referralObject.toJSONString());
-            myWriter.write("\n");
-            myWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    
     public static void writeToJsonFile (String dataToWrite) {
         String nameRead;
         try {
