@@ -1,11 +1,11 @@
 #@regression
 #@testPackageRD
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: TestOrder - Test Package 2 - RD
 
-  @NTS-3080 @LOGOUT
+  @NTS-3080 @Z-LOGOUT
 #    @E2EUI-911
   Scenario Outline: NTS-3080 - Test package - Page Layout - Rare Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -25,7 +25,7 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | title                    | priority        | helpText                                                                          | section        | text                         | testInfo           | membersInfo |
       | Test package | Confirm the test package | Urgent, Routine | Choose Urgent if you want the laboratory to prioritise some or all of your tests. | Selected tests | Cerebral malformations (491) | Routine, Singleton | Proband     |
 
-  @NTS-3156 @LOGOUT
+  @NTS-3156 @Z-LOGOUT
 #    @E2EUI-828 @E2EUI-1585
   Scenario Outline: NTS-3156 - Test package - selecting Urgent for the question priority of the test - Rare-Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -43,7 +43,7 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | priority | count | new_stage             | number_of |
       | Test package | Urgent   | 2     | Responsible clinician | 1         |
 
-  @NTS-3177 @LOGOUT
+  @NTS-3177 @Z-LOGOUT
 #    @E2EUI-1547 @E2EUI-1585
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do - verify permissible Number of Participants
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -64,7 +64,7 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | title                    | minParticipants | maxParticipants | new_stage             | number_of |
       | Test package | Confirm the test package | 1               | 8               | Responsible clinician | 1         |
 
-  @NTS-3177 @LOGOUT
+  @NTS-3177 @Z-LOGOUT
 #    @E2EUI-1547 @E2EUI-1585
   Scenario Outline: NTS-3177 - Test package - To Do list should be Mandatory To Do
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -88,7 +88,7 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | title                    | errorMessage                                                     | count | new_stage             | number_of |
       | Test package | Confirm the test package | Select the total number of participants you expect for this test | 2     | Responsible clinician | 1         |
 
-  @NTS-3253 @LOGOUT
+  @NTS-3253 @Z-LOGOUT
 #    @E2EUI-1585
   Scenario Outline: NTS-3253 - Test package - If the test is de-selected then Total number of participants field should disappear
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -105,7 +105,7 @@ Feature: TestOrder - Test Package 2 - RD
       | stage        | title                    |
       | Test package | Confirm the test package |
 
-  @NTS-3258 @LOGOUT
+  @NTS-3258 @Z-LOGOUT
 #    @E2EUI-1900
   Scenario Outline: NTS-3258 - Test package - Selection/deselection of test should be saved based on the submission
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -125,7 +125,7 @@ Feature: TestOrder - Test Package 2 - RD
       | Test package | Confirm the test package | Family members | This section contains unsaved information. Discard changes? |
 
 
-  @NTS-4540 @LOGOUT
+  @NTS-4540 @Z-LOGOUT
 #    @E2EUI-1569
   Scenario Outline: NTS-4540 - Test package - Showing participants selected for the test - Family Member
     ##Test Package - Trio family - No of participants - 2
@@ -158,7 +158,7 @@ Feature: TestOrder - Test Package 2 - RD
       | TestPackage  | NoOfParticipants | FamilyMembers  | RelationshipToProband | NotBeingTested   | BeingTested  |
       | Test package | 2                | Family members | Father                | Not Being Tested | Being Tested |
 
-  @NTS-4700 @LOGOUT
+  @NTS-4700 @Z-LOGOUT
 #    @E2EUI-886
   Scenario Outline: NTS-4700 : New fields on Test package page
     ##Test Package

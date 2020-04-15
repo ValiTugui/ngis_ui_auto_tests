@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 4 - Field name consistency in Print Forms
 
@@ -27,7 +27,7 @@ Feature: Print Forms 4 - Field name consistency in Print Forms
       | TextToValidate                                                                                                                                                                                          |
       | RARE AND INHERITED,v1.17,Samples (being sent to GLH DNA extraction lab),Blood (EDTA),Amniotic fluid, Fetal blood (EDTA), Chorionic Villus, Fresh Tissue (not tumour),Stored DNA,Sample ID, Age of onset |
 
-  @NTS-3414 @LOGOUT
+  @NTS-3414 @Z-LOGOUT
 #    @E2EUI-2780
   Scenario Outline: NTS-3414: scenario-2:User visits offline order page for form download for Cancer
     Given a web browser is at the Private Test Selection homepage

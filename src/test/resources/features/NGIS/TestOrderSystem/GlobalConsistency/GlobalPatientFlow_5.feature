@@ -1,11 +1,11 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_globalPatientInformation
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Global Patient Flow 5 - Global Patient Information Bar on Family Members Navigation Stage Navigation
 
-  @NTS-3329 @LOGOUT
+  @NTS-3329 @Z-LOGOUT
 #    @E2EUI-1665
   Scenario Outline: NTS-3329: Verify Global patient information bar component
     Given a new patient referral is created with associated tests in Test Order System online service

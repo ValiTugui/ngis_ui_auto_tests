@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice -13 Page - FamilyMemberAddition
 
-  @NTS-3411 @LOGOUT
+  @NTS-3411 @Z-LOGOUT
     #@E2EUI-1583 @E2EUI-1760 @E2EUI-1516 @E2EUI-1570
   Scenario Outline: NTS-4099 : The Patient Choice page is not loading when there are more than 1 participants
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -39,7 +39,7 @@ Feature: Patient Choice -13 Page - FamilyMemberAddition
       | PatientDetails  | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Patient details | Test package | 3                | Family members | Patient choice |
 
-  @NTS-3451 @LOGOUT
+  @NTS-3451 @Z-LOGOUT
     #@E2EUI-2109
   Scenario Outline: NTS-3451: Validate the Patient choice section is incomplete by not submitting the choice for selected Family member
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -72,7 +72,7 @@ Feature: Patient Choice -13 Page - FamilyMemberAddition
       | Test package | 3                | Family members | Patient choice |
 
 
-  @NTS-3445 @LOGOUT
+  @NTS-3445 @Z-LOGOUT
     #@E2EUI-1931
   Scenario Outline: NTS-3445: Validate the incomplete status of Patient choice and Family members stage with a red asterisk and without a green tick
     Given a new patient referral is created with associated tests in Test Order System online service

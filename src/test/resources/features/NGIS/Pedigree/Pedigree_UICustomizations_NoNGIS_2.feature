@@ -1,10 +1,10 @@
 #@regression
 #@pedigree_uiCustomizationNonNGIS
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - UI Customizations - Non NGIS-2
 
-  @NTS-4796 @LOGOUT
+  @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1138 @E2EUI-933
   Scenario Outline: NTS-4796: editing panel – Personal tab
     ##Note: E2EUI-933 talks about pedigree diagram embedded as part of NGIS app - Can be part of any diagram click ticket
@@ -86,7 +86,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-1990 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @LOGOUT
+  @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1345 @E2EUI-1160
   Scenario Outline: NTS-4796: Editable Fields for Non NGIS Participants
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -118,7 +118,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FamilyMember   | ProbandDetails              | TumourFieldValues | ErrorMessage                                                                                                                                                                   | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-1991 | 123abc,234jut     | Invalid value entered for 'Number Of Colorectal Polyps Total' for Participant with id,Invalid value entered for 'Number of Colorectal Polyps Adenomas' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @LOGOUT
+  @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1348 @E2EUI-1230
     ##One part of 1230 covered here and another part in NTS-4795
   Scenario Outline: NTS-4796: Non NGIS Patient Stable UID
@@ -142,7 +142,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
       | FamilyMember   | ProbandDetails              | WarningMessage                                                                                |
       | Family members | NHSNumber=NA:DOB=25-11-1992 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4796 @LOGOUT
+  @NTS-4796 @Z-LOGOUT
 #    @E2EUI-1074
   Scenario Outline: NTS-4796: Connecting Lookup Services to Pedigree Tool
     Given a new patient referral is created with associated tests in Test Order System online service

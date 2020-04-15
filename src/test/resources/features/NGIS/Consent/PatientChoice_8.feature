@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-8 - History - Preference
 
@@ -33,7 +33,7 @@ Feature: Patient Choice-8 - History - Preference
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3437 @LOGOUT
+  @NTS-3437 @Z-LOGOUT
     #@E2EUI-1878  @scenario_02
   Scenario Outline: NTS-3437 :scenario_02: Verify the Supporting information form section in form library
     When the user selects the History tab in patient choice page
@@ -56,7 +56,7 @@ Feature: Patient Choice-8 - History - Preference
       | RecordedBy                            |
       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3481 @LOGOUT
+  @NTS-3481 @Z-LOGOUT
     #@E2EUI-2151
   Scenario Outline: NTS-3481: Verify the updated warning message content in patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -86,7 +86,7 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  |
       | Patient choice |
 
-  @NTS-3415 @LOGOUT
+  @NTS-3415 @Z-LOGOUT
     #@E2EUI-1678
   Scenario Outline:Remove word consent from UI
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -113,7 +113,7 @@ Feature: Patient Choice-8 - History - Preference
       | PatientChoice  | WarningMessage2                                                                                                         | WarningMessage1                                                                                    |
       | Patient choice | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. | No patient choice data found. Please complete patient choice before modifying patient preferences. |
 
-  @NTS-4603 @LOGOUT
+  @NTS-4603 @Z-LOGOUT
     #@E2EUI-1891
   Scenario Outline: NTS-4603: Verify verify referral id displayed in history tab is same as on the banner
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

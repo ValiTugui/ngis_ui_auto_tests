@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Search Page - Field Validation_1
 
@@ -27,7 +27,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-  @NTS-3304  @LOGOUT
+  @NTS-3304  @Z-LOGOUT
 #    @E2EUI-1301
   Scenario Outline: NTS-3304: Search a family member record with NHS selected No, Date of birth Field validation with incorrect date
     When the user navigates to the "<stage>" stage
@@ -48,7 +48,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-  @NTS-3234  @LOGOUT
+  @NTS-3234  @Z-LOGOUT
 #    @E2EUI-1249
   Scenario Outline:NTS-3234: Search a family member record with NHS selected - No, First name field validation with incorrect data
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -64,7 +64,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-  @NTS-3233  @LOGOUT
+  @NTS-3233  @Z-LOGOUT
 #    @E2EUI-1394
   Scenario Outline:NTS-3233: Find a family member page validation with NHS selected as YES: Invalid NHS number
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -83,7 +83,7 @@ Feature: Family Members Search Page - Field Validation_1
       | stage          |
       | Family members |
 
-  @NTS-2801  @LOGOUT
+  @NTS-2801  @Z-LOGOUT
 #    @E2EUI-1399 @E2EUI-1406 @E2EUI-1885 @E2EUI-1614
   Scenario Outline: NTS-2801-DOB field Validations - invalid day , month , year values
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -110,7 +110,7 @@ Feature: Family Members Search Page - Field Validation_1
       | Family members | NGIS                | 9449305099 | 14-11-1800 | Enter a year beyond 1900       |
 
 
-  @NTS-4722  @LOGOUT
+  @NTS-4722  @Z-LOGOUT
 #    @E2EUI-835
   Scenario Outline: - NTS-4722: Integer/decimal Type Validation in NHS Number Field
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

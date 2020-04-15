@@ -1,10 +1,10 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page 3- Field Validation_3
 
-  @NTS-4612 @LOGOUT
+  @NTS-4612 @Z-LOGOUT
 #    @E2EUI-1772
   Scenario Outline: Make family member details editable
     Given a new patient referral is created with associated tests in Test Order System online service

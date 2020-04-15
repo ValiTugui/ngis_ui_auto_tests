@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
 
-  @NTS-4550 @LOGOUT
+  @NTS-4550 @Z-LOGOUT
 #    @E2EUI-1802 @UseCase27
   Scenario Outline: Use Case#27: Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
     Given a new patient referral is created with associated tests in Test Order System online service

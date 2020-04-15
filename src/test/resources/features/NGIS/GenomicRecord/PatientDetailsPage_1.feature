@@ -1,10 +1,10 @@
 #@regression
 #@patientDetails
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 1
 
-  @NTS-3068 @LOGOUT
+  @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182 @E2EUI-1463
   Scenario Outline: NTS-3068: New "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with with NHS-Number
     Given a web browser is at create new patient page
@@ -30,7 +30,7 @@ Feature: GenomicRecord: Patient details page 1
       | Add a new patient to the database | Find your patient | NGIS                |
 
 
-  @NTS-3068 @LOGOUT
+  @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068:Existing "<patient-search-type>" patients - Verifying the Patient Details page after performing a search with without NHS-Number
     Given a web browser is at create new patient page
@@ -53,7 +53,7 @@ Feature: GenomicRecord: Patient details page 1
       | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
 
 
-  @NTS-3068 @LOGOUT
+  @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068: The user can return to the patient search page by clicking the Back link
     Given a web browser is at create new patient page
@@ -67,7 +67,7 @@ Feature: GenomicRecord: Patient details page 1
       | Add a new patient to the database |
 
 
-  @NTS-3067 @LOGOUT
+  @NTS-3067 @Z-LOGOUT
 #    @E2EUI-1128
   Scenario Outline:NTS-3067:The user can not create a referral for a newly created patient without a clinical indication test selected
     Given a web browser is at the patient search page
@@ -83,7 +83,7 @@ Feature: GenomicRecord: Patient details page 1
       | create a new patient record | Patient is a foreign national |
 
 
-  @NTS-3067 @LOGOUT
+  @NTS-3067 @Z-LOGOUT
 #    @E2EUI-1128
   Scenario Outline: NTS-3067: The user can navigate to Test Directory from the notification banner on patient details page when a clinical indication is not selected
     Given a web browser is at the patient search page
@@ -99,7 +99,7 @@ Feature: GenomicRecord: Patient details page 1
       | hyperlinkText               | reason_for_no_nhsNumber       |
       | create a new patient record | Patient is a foreign national |
 
-  @NTS-3173 @LOGOUT
+  @NTS-3173 @Z-LOGOUT
 #    @E2EUI-1364
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -135,7 +135,7 @@ Feature: GenomicRecord: Patient details page 1
       | patient-search-type | stage1          | stage2                  | ordering_entity_name | stage3       | priority | stage4                | number_of |
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
 
-  @NTS-3346 @LOGOUT
+  @NTS-3346 @Z-LOGOUT
 #    @E2EUI-995
   Scenario Outline: NTS-3346 - Patient Details - Page Layout - Verify enum values in Ethnicity dropdown
     Given a web browser is at create new patient page
@@ -147,7 +147,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                         | maximumAllowedValues |
       | Add a new patient to the database | 50                   |
 
-  @NTS-3438 @LOGOUT
+  @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438 - Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -184,7 +184,7 @@ Feature: GenomicRecord: Patient details page 1
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved |
 
-  @NTS-3454 @LOGOUT
+  @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
   Scenario Outline: NTS-3454: Verify the elements and mandatory fields on patient detail page
     Given a web browser is at create new patient page
@@ -214,7 +214,7 @@ Feature: GenomicRecord: Patient details page 1
       | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |
 
 
-  @NTS-3470 @LOGOUT
+  @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538
   Scenario Outline: NTS-3470:Test Order - Patient details page - Patient details update message
     Given a web browser is at the patient search page
@@ -238,7 +238,7 @@ Feature: GenomicRecord: Patient details page 1
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                | Other  | Deceased   | G - Mixed - Any other mixed background |
 
-  @NTS-3470 @LOGOUT
+  @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538
   Scenario Outline: NTS-3470: Referral Component - Patient details Page - Patient details update message
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

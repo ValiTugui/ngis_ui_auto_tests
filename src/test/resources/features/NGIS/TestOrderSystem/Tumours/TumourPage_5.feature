@@ -1,11 +1,11 @@
 #@regression
 #@tumoursPage1
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 5
 
-  @NTS-3174 @LOGOUT
+  @NTS-3174 @Z-LOGOUT
 #    @E2EUI-1159 @E2EUI-1577 @E2EUI-1377
   Scenario Outline: NTS-3174:Verify Estimated Date of Diagnosis, Tumour Type and Specimen ID fields are mandatory fields
     Given a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service
@@ -24,7 +24,7 @@ Feature: Tumours Page - 5
       | stage   |
       | Tumours |
 
-  @NTS-3176 @LOGOUT
+  @NTS-3176 @Z-LOGOUT
 #    @E2EUI-1171
   Scenario Outline: NTS-3176: Select or edit a tumour page - Add a new tumour and Tumour added notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -58,7 +58,7 @@ Feature: Tumours Page - 5
       | stage   | tumour_type              | presentationType | searchTerm |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       |
 
-  @NTS-3190 @LOGOUT
+  @NTS-3190 @Z-LOGOUT
 #    @E2EUI-1513 @E2EUI-903
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour - functional and text rendering
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -97,7 +97,7 @@ Feature: Tumours Page - 5
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary |
 
-  @NTS-3190 @LOGOUT
+  @NTS-3190 @Z-LOGOUT
 #    @E2EUI-1513 @E2EUI-903
   Scenario Outline: NTS-3190: Select or edit a tumour page - Edit and save changes to a Tumour and Tumour updated notification is shown
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

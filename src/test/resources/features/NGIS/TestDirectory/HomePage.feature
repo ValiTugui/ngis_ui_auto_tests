@@ -1,6 +1,6 @@
 #@regression
 #@homePage
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: TestDirectory : Home Page
 

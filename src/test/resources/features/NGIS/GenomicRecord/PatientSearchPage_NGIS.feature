@@ -1,11 +1,11 @@
 #@regression
 #@patientSearchNGIS
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient search page_NGIS
 
 
-  @NTS-2780 @LOGOUT
+  @NTS-2780 @Z-LOGOUT
 #    @E2EUI-2128 @E2EUI-1109 @E2EUI-1363 @E2EUI-1025 @E2EUI-1217 @E2EUI-1125 @E2EUI-1268
   Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
     Given a web browser is at create new patient page
@@ -31,7 +31,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | Add a new patient to the database | Find your patient | NGIS                | NGIS         |
 
 
-  @NTS-3068 @LOGOUT
+  @NTS-3068 @Z-LOGOUT
 #    @E2EUI-1182
   Scenario Outline: NTS-3068: Verifying the Patient Details page after successful search for "<patient-type>" patient
     Given a web browser is at create new patient page
@@ -56,7 +56,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | pageTitle                         | pageTitle2        | patient-type |
       | Add a new patient to the database | Find your patient | NGIS         |
 
-  @NTS-2796 @LOGOUT
+  @NTS-2796 @Z-LOGOUT
 #    @E2EUI-1472 @E2EUI-2137
   Scenario Outline: NTS-2796:patient search - Patient Search Results Page validation
     Given a web browser is at create new patient page
@@ -80,7 +80,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | Add a new patient to the database | Find your patient | 1 patient record found |
 
 
-  @NTS-2795 @LOGOUT
+  @NTS-2795 @Z-LOGOUT
 #    @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788 @E2EUI-1363 @E2EUI-1662 @E2EUI-865 @E2EUI-1217 @E2EUI-1125 @E2EUI-1268
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, and gender
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -99,7 +99,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | stage           | patient-search-type | patient-type |
       | Patient details | NGIS                | NGIS         |
 
-  @NTS-2795 @LOGOUT
+  @NTS-2795 @Z-LOGOUT
 #    @E2EUI-2129  @E2EUI-2136 @E2EUI-1762 @E2EUI-1788
   Scenario Outline: NTS-2795:patient search - "<patient-search-type>" Alternate Search - date of birth, first-name, last-name, gender and post-code
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -118,7 +118,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | Patient details | NGIS                | NGIS         |
 
 
-  @NTS-2822 @LOGOUT
+  @NTS-2822 @Z-LOGOUT
 #    @E2EUI-2140 @E2EUI-2132 @E2EUI-2131
   Scenario Outline: NTS-2822:patient search - "<patient-search-type>" Defuzzing, accented and special characters
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -137,7 +137,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | Patient details | NGIS                | NGIS         |
 
 
-    @NTS-4503 @LOGOUT
+    @NTS-4503 @Z-LOGOUT
 #      @E2EUI-1130
   Scenario Outline: NTS-4503-Patient search - NHSNumber field - maximum length validation
       Given a web browser is at the patient search page
@@ -149,7 +149,7 @@ Feature: GenomicRecord: Patient search page_NGIS
       | NHSNumber        |
       | 9449310602111111 |
 
-  @NTS-3477 @LOGOUT
+  @NTS-3477 @Z-LOGOUT
 #    @E2EUI-1692
   Scenario Outline: NTS-3477: Display the role of the patient on the referral card
     Given a web browser is at the patient search page

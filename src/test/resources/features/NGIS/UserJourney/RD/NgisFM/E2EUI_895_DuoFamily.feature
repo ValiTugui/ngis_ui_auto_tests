@@ -4,7 +4,7 @@
 ##This is not required to be part of SIT.. actual ticket is for trio family.. we created this separately when krishan shukla faced issue in running RD trio flow.. exactly same as that, only diff is adding duo instead of trio.
 Feature: NTS-3407 - RD flow - Adding Duo family
 
-  @NTS-3407 @LOGOUT
+  @NTS-3407 @Z-LOGOUT
 #    @E2EUI-895
   Scenario Outline: NTS-3407: User Journey by creating new NGIS Referral for Trio Family - By Signature
 

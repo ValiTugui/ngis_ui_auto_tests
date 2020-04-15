@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 1 - Offline Orders
 
@@ -74,7 +74,7 @@ Feature: Print Forms 1 - Offline Orders
       | Watermark                     |
       | N o t f o r C i n i c a l U s |
 
-  @NTS-4703 @LOGOUT
+  @NTS-4703 @Z-LOGOUT
 #    @E2EUI-1993
   Scenario Outline: NTS-4703: Scenario_2: PDF forms - change watermark 'VOID' to 'Not for Clinical Use'
     Given a new patient referral is created with associated tests in Test Order System online service

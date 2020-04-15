@@ -1,10 +1,10 @@
 #@regression
 #@responsibleClinicianOrg
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Responsible Clinician 3
 
-  @NTS-3324 @LOGOUT
+  @NTS-3324 @Z-LOGOUT
 #    @E2EUI-1014
   Scenario Outline: NTS-3324 - Responsible Clinician Page - Verify the mandatory fields validations under 'Add Another Clinician' section
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 11 - RD Questionnaire
 
-  @NTS-3209 @LOGOUT
+  @NTS-3209 @Z-LOGOUT
 #    @E2EUI-2089 @E2EUI-1404
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

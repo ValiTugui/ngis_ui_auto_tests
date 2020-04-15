@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 6 - RD Questionnaire
 
-  @NTS-3439 @LOGOUT
+  @NTS-3439 @Z-LOGOUT
 #    @E2EUI-1443 @E2EUI-918
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 1 - verify the 'Save and Continue' button on the Clinical Questions stage
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 6 - RD Questionnaire
       | stage              | hpoTerm1                | termPresence | ClinicalQuestionDetails                 | rareDiseaseValue | diseaseStatueValue |
       | Clinical questions | Sparse and thin eyebrow | Present      | AgeOfOnset=10,3:HpoPhenoType=Lymphedema | CEREBRAL SARCOMA | Affected           |
 
-  @NTS-3439 @LOGOUT
+  @NTS-3439 @Z-LOGOUT
 #    @E2EUI-1443 @E2EUI-918 @E2EUI-1351 @E2EUI-902
   Scenario Outline: NTS-3439 - Clinical Questions -  scenario 2 - Return enum values for previous answers
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

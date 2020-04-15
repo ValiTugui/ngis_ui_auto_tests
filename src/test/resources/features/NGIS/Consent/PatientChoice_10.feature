@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
 
@@ -426,7 +426,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @LOGOUT
+  @NTS-3417 @Z-LOGOUT
     #@E2EUI-2040 @E2EUI-1060  @scenario_4(b)
   Scenario Outline: NTS-3417: scenario 4(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation
@@ -599,7 +599,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @LOGOUT
+  @NTS-3417 @Z-LOGOUT
     #@E2EUI-2040 @E2EUI-1060 @scenario_5(b)
   Scenario Outline: NTS-3417: scenario 5(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation

@@ -1,10 +1,10 @@
 #@regression
 #@pedigree_uiCustomizationNonNGIS
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - UI Customizations - Non NGIS
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1626
   Scenario Outline: NTS-4759: Warn a user that they will lose their changes when navigating away from pedigree
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -26,7 +26,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | Panels | DiscardMessage                                              | Dismiss | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1986 | Panels | This section contains unsaved information. Discard changes? | Dismiss | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1391 @E2EUI-1629
   Scenario Outline: NTS-4759: AgeOfOnset should be editable for Non NGIS Patients in Pedigree tool
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -48,7 +48,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | AgeOfOnset       | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-1987 | 2 years,2 months | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1670
   Scenario Outline: NTS-4759: Date of death and birth field validation with respect to a proband
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -72,7 +72,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | ParentDOY | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-2001 | 2005      | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1126
   Scenario Outline: NTS-4759: Age at death input field validations under Personal tab
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -97,7 +97,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | AgeAtDeath | ErrorMessage                                                     | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-2002 | 20hmy      | Invalid value entered for 'Age of Death' for Participant with id | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1311 @E2EUI-1230
   Scenario Outline: NTS-4759: Updating Ethnicity Enumerations to Reflect FHIR Definition
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -155,7 +155,7 @@ Feature: Pedigree - UI Customizations - Non NGIS
       | PedigreeStage | ProbandDetails              | WarningMessage                                                                                |
       | Pedigree      | NHSNumber=NA:DOB=25-11-2003 | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-4759 @LOGOUT
+  @NTS-4759 @Z-LOGOUT
 #    @E2EUI-1105 @E2EUI-1030 @E2EUI-1165
   Scenario Outline: NTS-4759: Add additional non-tested family member
     Given a new patient referral is created with associated tests in Test Order System online service

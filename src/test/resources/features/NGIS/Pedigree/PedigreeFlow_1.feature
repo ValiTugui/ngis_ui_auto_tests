@@ -1,10 +1,10 @@
 #@regression
 #@pedigree_flow
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - Pedigree Flow 1
 
-  @NTS-3458 @LOGOUT
+  @NTS-3458 @Z-LOGOUT
 #    @E2EUI-1994 @E2EUI-1728 @E2EUI-2148 @E2EUI-1996
   Scenario Outline: NTS-3458 : Validating Pedigree section must be completed to submit the referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -83,7 +83,7 @@ Feature: Pedigree - Pedigree Flow 1
       | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Patient Choice | Pedigree | RecordedBy                                                                                                           | RelationshipToProband |
       | Requesting organisation | Maidstone            | 2                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Patient choice | Pedigree | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Full Sibling          |
 
-  @NTS-3386 @LOGOUT
+  @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1854
   Scenario Outline: NTS-3386 : Add a new RD family of female proband and 2 female daughters with no error messages in the Pedigree application.
     Given a new patient referral is created with associated tests in Test Order System online service

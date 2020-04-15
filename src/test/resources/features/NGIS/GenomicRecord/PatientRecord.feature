@@ -1,10 +1,10 @@
 #@regression
 #@patientSearchNGIS
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient Record
 
-  @NTS-3379 @LOGOUT
+  @NTS-3379 @Z-LOGOUT
 #    @E2EUI-2135
   Scenario Outline: NTS-3379: NHS Number field validation
     Given a web browser is at the patient search page

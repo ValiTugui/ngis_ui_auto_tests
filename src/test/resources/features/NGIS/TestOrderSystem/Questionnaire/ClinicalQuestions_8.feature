@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 8 - RD Questionnaire
 
-  @NTS-3511 @LOGOUT
+  @NTS-3511 @Z-LOGOUT
 #    @E2EUI-876 @E2EUI-1180
   Scenario Outline: NTS-3511 - Clinical Questions - Term presence value is 'Present' for atleast one HPO phenotype
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -45,7 +45,7 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
       | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Anonychia | Absent        | Sparse and thin eyebrow | Unknown       | Fibrosarcoma     | Orphanet           | Suspected   |
 
 
-  @NTS-3511 @LOGOUT
+  @NTS-3511 @Z-LOGOUT
 #    @E2EUI-876 @E2EUI-944 - specify single omim value
   Scenario Outline: NTS-3511 - Clinical Questions - Show dynamic Clinical Questions about the proband
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -79,7 +79,7 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
       | Clinical questions | Answer clinical questions | Affected           | true      | 1    | 2     | Sparse and thin eyebrow | Present      | CEREBRAL SARCOMA | Omim               | Confirmed   |
 
 
-  @NTS-3511 @LOGOUT
+  @NTS-3511 @Z-LOGOUT
 #    @E2EUI-1068  @E2EUI-944 - multiple HPO terms added in the test
   Scenario Outline: NTS-3511 - Clinical Questions -  Search for HPO terms in Questionnaire
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

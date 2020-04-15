@@ -1,10 +1,10 @@
 #@regression
 #@panelsPage_AddPanel
-@PANEL
+@06-PANEL_ASSIGNER
 @SYSTEM_TEST
 Feature: PanelAssigner: Panels Page Add Panel
 
-  @NTS-3380 @LOGOUT
+  @NTS-3380 @Z-LOGOUT
 #    @E2EUI-1231 @E2EUI-1906 @E2EUI-1278 @E2EUI-976
   Scenario Outline: NTS-3380: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -38,7 +38,7 @@ Feature: PanelAssigner: Panels Page Add Panel
       | Panels | searchPanels                                  | textLine                                                                                                      |
       | Panels | Cardiac arrhythmias,Pigmentary skin disorders | If penetrance is marked 'unknown' on the request form, leave the default setting for the clinical indication. |
 
-  @NTS-3381 @LOGOUT
+  @NTS-3381 @Z-LOGOUT
 #    @E2EUI-1045 @E2EUI-1484 @E2EUI-1158
   Scenario Outline: NTS-3381: Suggest and select panels on panels page
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Proband_1 - UC02 - E2EUI-1281
 
-  @NTS-4552 @LOGOUT
+  @NTS-4552 @Z-LOGOUT
 #     @E2EUI-1281 @UseCase02
   Scenario Outline: NTS-4552: Use Case#02: Create Referral for Proband Only + Default Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

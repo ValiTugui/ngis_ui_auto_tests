@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-4 Edit Paper Form - Child
 
@@ -214,7 +214,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
 
     ### Parent(s) / guardian have agreed to the test  - Yes - Yes
     ### Child Assent - Yes
-  @NTS-3428 @LOGOUT
+  @NTS-3428 @Z-LOGOUT
     #@E2EUI-2041 @scenario_5
   Scenario Outline: NTS-3428: scenario 5 - Editing Patient choice for a Child in person
     When the user clicks on edit button in Patient choices
@@ -273,7 +273,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
       | Parent/Guardian signature          |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-4603 @LOGOUT
+  @NTS-4603 @Z-LOGOUT
     #@E2EUI-1892
   Scenario Outline: NTS-4603: Moving the warn message to research section
     Given a new patient referral is created with associated tests in Test Order System online service

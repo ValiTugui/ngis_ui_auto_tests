@@ -1,11 +1,11 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 13 - Page Validation
 
-  @NTS-4672 @LOGOUT
+  @NTS-4672 @Z-LOGOUT
 #    @E2EUI-1378
   Scenario Outline: NTS-4672 : Implement "repeating" units from dynamic content framework
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -43,7 +43,7 @@ Feature: ClinicalQuestions 13 - Page Validation
       | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | rareDiseaseValue1         | diagnosisTypeValue1 | statusValue1 | TermPresence |
       | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XYY | BASAL CELL NEVUS SYNDROME | Omim                | Confirmed    | Present      |
 
-  @NTS-4624 @LOGOUT
+  @NTS-4624 @Z-LOGOUT
 #    @E2EUI-1299
   Scenario Outline: NTS-4624 -To validate mandatory and non-mandatory input fields for Clinical question for Disease status section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -70,7 +70,7 @@ Feature: ClinicalQuestions 13 - Page Validation
       | stage              | DiseaseStatus |
       | Clinical questions | Affected      |
 
-  @NTS-4631 @LOGOUT
+  @NTS-4631 @Z-LOGOUT
 #    @E2EUI-1514
   Scenario Outline: NTS-4631: Updating age of onset in Clinical Questions
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -95,7 +95,7 @@ Feature: ClinicalQuestions 13 - Page Validation
       | Clinical questions | Answer clinical questions | Affected           | 130        | 0           | Patient age cannot exceed 125 years | 0          | 1501        | Patient age cannot exceed 1500 months | 1          | 12          | Number of months can only exceed 11 if years is 0 | -1         | 0           | Please enter prenatal age in negative months | 0          | -10         | Patient cannot be younger than -9 months |
 
 
-  @NTS-3346 @LOGOUT
+  @NTS-3346 @Z-LOGOUT
 #    @E2EUI-995
   Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

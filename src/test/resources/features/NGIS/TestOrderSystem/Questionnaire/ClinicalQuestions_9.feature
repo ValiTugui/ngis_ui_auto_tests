@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 9 - RD Questionnaire
 
-  @NTS-4708  @LOGOUT
+  @NTS-4708  @Z-LOGOUT
   # @E2EUI-1323
   Scenario Outline: NTS-4708 - Clinical Questions - drop-downs in the Phenotypic and Karyotypic Sex section
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -24,7 +24,7 @@ Feature: ClinicalQuestions 9 - RD Questionnaire
       | stage              | title                     |
       | Clinical questions | Answer clinical questions |
 
-  @NTS-4708 @LOGOUT
+  @NTS-4708 @Z-LOGOUT
 #    @E2EUI-876 @E2EUI-944 - add multiple diagnosisTypeValue
   Scenario Outline: NTS-3511 - Clinical Questions - verify switchable static enum component
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

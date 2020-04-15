@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Trio_4 - UC09 - E2EUI-940
 
-  @NTS-4573 @LOGOUT
+  @NTS-4573 @Z-LOGOUT
 #    @E2EUI-940 @UseCase09
   Scenario Outline:NTS:4573: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Non-Spine/Non-NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

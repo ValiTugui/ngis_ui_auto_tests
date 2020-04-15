@@ -1,6 +1,6 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 4 - RD Questionnaire
 
@@ -9,7 +9,7 @@ Feature: ClinicalQuestions 4 - RD Questionnaire
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
 
-  @NTS-3240 @LOGOUT
+  @NTS-3240 @Z-LOGOUT
 #  @E2EUI-1972
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
     And the user navigates to the "<stage>" stage

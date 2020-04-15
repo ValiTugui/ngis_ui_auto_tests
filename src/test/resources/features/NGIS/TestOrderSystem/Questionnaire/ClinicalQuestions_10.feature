@@ -1,11 +1,11 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 10 - Page Validation
 
-  @NTS-4438 @LOGOUT
+  @NTS-4438 @Z-LOGOUT
 #    @E2EUI-1273 @E2EUI-1198
   Scenario Outline: NTS-4438: Field headers on clinical questions page
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -26,7 +26,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Stage              |
       | Clinical questions |
 
-  @NTS-4631 @LOGOUT
+  @NTS-4631 @Z-LOGOUT
 #    @E2EUI-1169
   Scenario Outline: Age of Onset field input validation with special characters under Disease status - Clinical questions
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -64,7 +64,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | RequestingOrganisation  | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | diseaseStatueValue | year | month | errorMessage                        | specialChar1 | specialChar2 |
       | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Affected           | 2.4  | 0     | Please enter whole years and months | @@           | @#$          |
 
-  @NTS-4679 @LOGOUT
+  @NTS-4679 @Z-LOGOUT
 #    @E2EUI-1479
   Scenario Outline: NTS-4679: UI | Recommended vs mandatory fields
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -100,7 +100,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Clinical Questions Stage | HintText | HpoHintText  | DiseaseStatus  | PhenotypicSex  | KaryotypicSex  |
       | Clinical questions       | Select   | Start typing | Disease status | Phenotypic sex | Karyotypic sex |
 
-  @NTS-4440 @LOGOUT
+  @NTS-4440 @Z-LOGOUT
 #    @E2EUI-1198
   Scenario Outline:NTS-4440:Form fields for the referral shown in sections (CI specific)
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -133,7 +133,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | stage              | diseaseStatueValue | Message1                                             | Message3                                             | year | month | Message2                                                            | hpoTerm | termPresence | diagnosisTypeValue | statusValue | rareDiseaseValue                                |
       | Clinical questions | Unaffected         | Choose the status of the condition being tested for. | For example, ventricular fibrillation or HP:0001663. | 2    | 3     | For prenatal patients, enter number of months before birth, e.g. -3 | Leuk    | Present      | Orphanet           | Suspected   | Lissencephaly with cerebellar hypoplasia type A |
 
-  @NTS-4628 @LOGOUT
+  @NTS-4628 @Z-LOGOUT
 #    @E2EUI-1338
   Scenario Outline: NTS-4628: Create the SNOMED custom dynamic unit
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

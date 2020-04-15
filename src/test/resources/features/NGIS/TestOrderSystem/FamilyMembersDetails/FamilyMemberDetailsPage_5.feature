@@ -1,17 +1,17 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page 5- Field Validation_5
 
-  @NTS-4744 @LOGOUT
+  @NTS-4744 @Z-LOGOUT
 #  @E2EUI-1694  @scenario1
   Scenario: NTS-4744: Referral create as a Proband
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=9449306206:DOB=06-05-2011 |
     Then the user is navigated to a page with title Check your patient
 
-  @NTS-4744 @LOGOUT
+  @NTS-4744 @Z-LOGOUT
 #    @E2EUI-1694 @scenario2
   Scenario Outline: NTS-4744: Referral create as a Family member
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -37,7 +37,7 @@ Feature: Family Members Details Page 5- Field Validation_5
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
       | Family members | NHSNumber=9449306206:DOB=06-05-2011 | Father                | DiseaseStatus=Unaffected |
 
-  @NTS-4744 @LOGOUT
+  @NTS-4744 @Z-LOGOUT
 #    @E2EUI-1694 @scenario3
   Scenario Outline: NTS-TODO: Verify the referrals relationship on patient page
     Given a web browser is at the patient search page
@@ -56,7 +56,7 @@ Feature: Family Members Details Page 5- Field Validation_5
       | NGIS                | 9449306206 | 06-05-2011 |
 
 
-  @NTS-4052 @LOGOUT
+  @NTS-4052 @Z-LOGOUT
 #    @E2EUI-1837 @scenario_2
   Scenario Outline: NTS-4052: Multidate picker - Real dates validation on Family Members Page.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -74,7 +74,7 @@ Feature: Family Members Details Page 5- Field Validation_5
       | patient-search-type | FamilyMembers  | NhsNumber  | DOB        | error_message                  | DOB2       |
       | NGIS                | Family members | 9449305935 | 20-13-2000 | Enter a month between 1 and 12 | 19-03-2000 |
 
-  @NTS-4054 @LOGOUT
+  @NTS-4054 @Z-LOGOUT
 #    @E2EUI-1882
   Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -101,7 +101,7 @@ Feature: Family Members Details Page 5- Field Validation_5
       | FamilyMembers  | TestPackage  | NoOfParticipants | FamilyMemberDetails                 |
       | Family members | Test package | 2                | NHSNumber=9449305919:DOB=24-07-2011 |
 
-  @NTS-4054 @LOGOUT
+  @NTS-4054 @Z-LOGOUT
 #    @E2EUI-1882 @scenario_2
   Scenario Outline: NTS-4054: As a user, I want to see the 'Relationship to proband' field highlighted with a validation error if left empty on the 'Confirm family member details' or 'Add a new family member' page when adding a new family member
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

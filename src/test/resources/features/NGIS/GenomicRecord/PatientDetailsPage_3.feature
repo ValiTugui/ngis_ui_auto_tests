@@ -1,10 +1,10 @@
 #@regression
 #@patientDetails
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 3
 
-  @NTS-3848 @LOGOUT
+  @NTS-3848 @Z-LOGOUT
 #    @E2EUI-1609
   Scenario Outline: NTS-3848: Verifying the sub-heading on patient details page
     Given a web browser is at the patient search page
@@ -28,7 +28,7 @@ Feature: GenomicRecord: Patient details page 3
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
 
 
-  @NTS-3513 @LOGOUT
+  @NTS-3513 @Z-LOGOUT
 #    @E2EUI-849
   Scenario Outline:NTS-3513: Patient-detail page - User journey when Clinical Indication has not been selected
     Given a web browser is at the patient search page
@@ -69,7 +69,7 @@ Feature: GenomicRecord: Patient details page 3
       | create a new patient record | Find your patient | Other - provide explanation | NGIS                |
 
 
-  @NTS-4500 @LOGOUT
+  @NTS-4500 @Z-LOGOUT
 #    @E2EUI-2499
       # Ethnicity is now Mandatory
   Scenario Outline: NTS-4500-Ethnicity - Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
@@ -102,7 +102,7 @@ Feature: GenomicRecord: Patient details page 3
       | pageTitle                         | pageTitle2        | pageTitle3                   | patient-search-type |
       | Add a new patient to the database | Find your patient | Check your patient's details | NGIS                |
 
-  @NTS-4500 @LOGOUT
+  @NTS-4500 @Z-LOGOUT
 #    @E2EUI-2499
      # Ethnicity is now Mandatory
   Scenario Outline: NTS-4500-Ethnicity - Referral Component Patient Detail Page - Lookup an existing NGIS patient – NHSNo = Yes
@@ -123,7 +123,7 @@ Feature: GenomicRecord: Patient details page 3
       | Patient details | Check your patient's details | Add a requesting organisation |
 
 
-  @NTS-4503 @LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
   Scenario Outline: NTS-4503 - Patient detail - NHSNumber and Hospital Number field - maximum length validation
     Given a web browser is at create new patient page
@@ -154,7 +154,7 @@ Feature: GenomicRecord: Patient details page 3
       | Add a new patient to the database | Find your patient | NGIS                | 9449310602111111 | 1234567890123456789 |
 
 
-  @NTS-4538 @LOGOUT
+  @NTS-4538 @Z-LOGOUT
 #    @E2EUI-1054 @E2EUI-1507
   Scenario Outline: NTS-4538 - Add patient contact(address) details to a patient
     Given a web browser is at create new patient page
@@ -181,7 +181,7 @@ Feature: GenomicRecord: Patient details page 3
       | Add a new patient to the database | Find your patient | NGIS         | NGIS                |
 
 
-  @NTS-4565 @LOGOUT
+  @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
   Scenario Outline: NTS-4565- New Patient Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -199,7 +199,7 @@ Feature: GenomicRecord: Patient details page 3
       | Patient details | Add a new patient to the database | test-order/new-patient |
 
 
-  @NTS-4565 @LOGOUT
+  @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1582
   Scenario Outline: NTS-4565- Patient Detailed Page - The Patient Details page is loaded when clicking browser's Back button after starting a referral
     Given a web browser is at create new patient page
@@ -245,7 +245,7 @@ Feature: GenomicRecord: Patient details page 3
       | Patient details | Add a new patient to the database | Find your patient | Check your patient's details | Other - provide explanation | NGIS                | test-order/patient-search |
 
 
-  @NTS-4627 @LOGOUT
+  @NTS-4627 @Z-LOGOUT
 #    @E2EUI-1664
   Scenario Outline:NTS-4627-Patient detail - Hospital Number field - Display an editable hospital number
     Given a web browser is at create new patient page
@@ -274,7 +274,7 @@ Feature: GenomicRecord: Patient details page 3
       | Add a new patient to the database | Find your patient | NGIS                | 1234567890123456789 | B123456  |
 
 
-  @NTS-4549 @LOGOUT
+  @NTS-4549 @Z-LOGOUT
 #    @E2EUI-822
   Scenario Outline:NTS-4549-Verify the mandatory input field validations for navigation from Patient Details to Patient details in ToDo List page
     Given a web browser is at create new patient page
@@ -309,7 +309,7 @@ Feature: GenomicRecord: Patient details page 3
       | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search |
 
 
-  @NTS-4752 @LOGOUT
+  @NTS-4752 @Z-LOGOUT
 #    @E2EUI-1184
   Scenario Outline:NTS-4752:Patient details stage is editable and it's not locked
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -326,7 +326,7 @@ Feature: GenomicRecord: Patient details page 3
       | stage           | dateOfBirth |
       | Patient details | 20/10/2010  |
 
-  @NTS-4760 @LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline: NTS-4760:Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a web browser is at create new patient page
@@ -362,7 +362,7 @@ Feature: GenomicRecord: Patient details page 3
       | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
 
 
-  @NTS-4760 @LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline:NTS-4760:Referral-Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -388,7 +388,7 @@ Feature: GenomicRecord: Patient details page 3
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
 
-  @NTS-3557 @LOGOUT
+  @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_1
   Scenario: NTS-3557: Validating cancel button present when login as super user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -404,7 +404,7 @@ Feature: GenomicRecord: Patient details page 3
     When the user is navigated to a page with title Check your patient
     Then the user should be able to see a cancel referral link "not present"
 
-  @NTS-4055 @LOGOUT
+  @NTS-4055 @Z-LOGOUT
 #    @E2EUI-1904
   Scenario Outline: NTS-4055: The patient record should be saved without entering "DATE OF DEATH", As a user I want to save a new patient record without date of death.
     Given a web browser is at the patient search page

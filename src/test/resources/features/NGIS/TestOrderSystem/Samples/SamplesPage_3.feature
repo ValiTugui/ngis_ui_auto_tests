@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -3
 
-  @NTS-4734 @LOGOUT
+  @NTS-4734 @Z-LOGOUT
 #    @E2EUI-1342 @E2EUI-1440
   Scenario Outline: NTS-3374: Adding a child sample to a parent sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -46,7 +46,7 @@ Feature: Samples Page -3
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Normal or germline sample | Saliva      | test                   |
 
 
-  @NTS-3365 @LOGOUT
+  @NTS-3365 @Z-LOGOUT
 #    @E2EUI-2359 @E2EUI-1302 @E2EUI-842
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -67,7 +67,7 @@ Feature: Samples Page -3
       | stage   | pageTitle      | pageTitle2   | pageTitle3   | sampleType          | partOfMessage                                  | addATumourLink | acknowledgeMessage |
       | Samples | Manage samples | Add a sample | Add a tumour | Solid tumour sample | contains unsaved information. Discard changes? | add a Tumour   | Accept             |
 
-  @NTS-3364 @LOGOUT
+  @NTS-3364 @Z-LOGOUT
 #    @E2EUI-2360
   Scenario Outline: NTS-3364: Add a Sample - Verify the link 'Not the Right Tumour' in 'Add a Sample' page.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -95,7 +95,7 @@ Feature: Samples Page -3
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Solid tumour sample | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
 
 
-  @NTS-3376 @LOGOUT
+  @NTS-3376 @Z-LOGOUT
 #    @E2EUI-1490
   Scenario Outline: NTS-3376: Add Sample Details - Sample non-Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -114,7 +114,7 @@ Feature: Samples Page -3
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva      |
 
-  @NTS-3376 @LOGOUT
+  @NTS-3376 @Z-LOGOUT
 #    @E2EUI-1490
   Scenario Outline:  NTS-3376: Add Sample Details - Sample Tumour type -  Verify the fields elements are displayed on Add Sample Details page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -141,7 +141,7 @@ Feature: Samples Page -3
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Saliva      |
 
 
-  @NTS-3408 @LOGOUT
+  @NTS-3408 @Z-LOGOUT
 #    @E2EUI-2143 @E2EUI-2108 @E2EUI-2106 @E2EUI-2098
   Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

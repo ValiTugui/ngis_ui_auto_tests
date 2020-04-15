@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_2 - UC16 - E2EUI-1077
 
-  @NTS-4590 @LOGOUT
+  @NTS-4590 @Z-LOGOUT
 #    @E2EUI-1077 @UseCase16
   Scenario Outline: NTS-4590: Use Case#16: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

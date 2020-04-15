@@ -1,10 +1,10 @@
 #@regression
 #@clinicalIndicationTestSelect
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory: ClinicalIndicationSelect_2
 
-  @NTS-4565 @LOGOUT
+  @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1842
   Scenario Outline: NTS-4565: Verify the confirmation message doesn't push down the content after cancelling a referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -31,7 +31,7 @@ Feature: Test Directory: ClinicalIndicationSelect_2
       | TestPackageTab |
       | Test Package   |
 
-  @NTS-3493 @LOGOUT
+  @NTS-3493 @Z-LOGOUT
 #    @E2EUI-2015 @scenario_01
   Scenario Outline: NTS-3493: Restricted access to navigate to cancelled referrals
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -47,7 +47,7 @@ Feature: Test Directory: ClinicalIndicationSelect_2
       | Reason                                             | RevokeMessage                                                             |
       | The referral has been paused or stopped (“Revoke”) | This referral has been cancelled so further changes might not take effect |
 
-  @NTS-3161 @LOGOUT
+  @NTS-3161 @Z-LOGOUT
 #    @E2EUI-2091 @scenario1
   Scenario Outline: NTS-3161: Verify Spinning Helix
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -95,7 +95,7 @@ Feature: Test Directory: ClinicalIndicationSelect_2
       | linkName       | sectionName1 | sectionName2             |
       | Back to search | Who to test  | Test package includes... |
 
-  @NTS-4710 @LOGOUT
+  @NTS-4710 @Z-LOGOUT
 #    @E2EUI-1573
   Scenario Outline: NTS-4710: test environment content consistency: update save and continue
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
