@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 5 - RD Questionnaire
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -24,7 +24,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | Clinical questions | DiseaseStatus=Uncertain:AgeOfOnset=10,02:HpoPhenoType=Lymphedema  | Notes |
       | Clinical questions | DiseaseStatus=Unknown:AgeOfOnset=10,02:HpoPhenoType=Lymphedema    | Notes |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1894
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -43,7 +43,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | ClinicalQuestions  | title                     | ClinicalQuestionDetails                                         | notes |
       | Clinical questions | Answer clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Notes |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1546
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -68,7 +68,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
 
-  @NTS-3433 @LOGOUT
+  @NTS-3433 @Z-LOGOUT
 #    @E2EUI-1625 @E2EUI-1068 @E2EUI-842
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

@@ -1,10 +1,10 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page 1- Field Validation_1
 
-  @NTS-3235 @LOGOUT
+  @NTS-3235 @Z-LOGOUT
 #    @E2EUI-908
   Scenario Outline: NTS-3235: Verify addition of a family member to a referral without providing Relationship to Proband field.
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -37,7 +37,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | stage          | FamilyMemberDetails                 |
       | Family members | NHSNumber=9449305552:DOB=20-09-2008 |
 
-  @NTS-3300 @LOGOUT
+  @NTS-3300 @Z-LOGOUT
 #    @E2EUI-1349
   Scenario Outline: NTS-3300: Check family member Details validation:The family member details have to be verified on the 'Check family member Details' Page with respect to the 'Find a family member' Page
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -61,7 +61,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Maternal Aunt         |
 
-  @NTS-3298 @LOGOUT
+  @NTS-3298 @Z-LOGOUT
 #    @E2EUI-1369
   Scenario Outline: NTS-3298: Verify "relationship to proband" field mandatory when adding a family member to referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -93,7 +93,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310602:DOB=23-03-2011 | Maternal Aunt         |
 
-  @NTS-3297 @LOGOUT
+  @NTS-3297 @Z-LOGOUT
 #    @E2EUI-1012
   Scenario Outline: NTS-3297: To validate the flow when the user chooses to add a test for family members
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -118,7 +118,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310122:DOB=30-06-1974 | Full Sibling          |
 
-  @NTS-4503 @LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
   Scenario Outline: Family members Detail Page - Hospital Number field - maximum length validation
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -139,7 +139,7 @@ Feature: Family Members Details Page 1- Field Validation_1
       | stage          | FamilyMemberDetails                 | HospitalNumber      |
       | Family members | NHSNumber=9449305552:DOB=20-09-2008 | 1234567890123456789 |
 
-  @NTS-3474 @LOGOUT
+  @NTS-3474 @Z-LOGOUT
 #    @E2EUI-1876
   Scenario Outline:NTS-3474: Validating family member section must be completed to submit the referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

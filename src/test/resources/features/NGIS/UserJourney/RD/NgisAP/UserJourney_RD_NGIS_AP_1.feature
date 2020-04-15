@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_AP_1 - UC14 - E2EUI-1193
 
-  @NTS-4609 @LOGOUT
+  @NTS-4609 @Z-LOGOUT
 #    @E2EUI-1193 @UseCase14
   Scenario Outline: NTS-4609: Use Case#14: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Yes - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

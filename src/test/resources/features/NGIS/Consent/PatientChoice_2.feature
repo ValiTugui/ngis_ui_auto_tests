@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-2 ConsentScenario - Child
 
@@ -191,7 +191,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage2                                                                                                                                                                                                                                                                                          | WarningMessage                                                                                                                                                      |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. |
 
-  @NTS-3441 @LOGOUT
+  @NTS-3441 @Z-LOGOUT
     #@E2EUI-1215 @scenario_5
   Scenario Outline: NTS-3441: scenario 5 - Verify the relevant Patient choice for a Child paper form
     When the user clicks on edit button in Patient choices
@@ -236,7 +236,7 @@ Feature: Patient Choice-2 ConsentScenario - Child
       | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3471 @LOGOUT
+  @NTS-3471 @Z-LOGOUT
     #@E2EUI-2155
   Scenario Outline: NTS-3471: Verify the child assent question content
     Given a new patient referral is created with associated tests in Test Order System online service

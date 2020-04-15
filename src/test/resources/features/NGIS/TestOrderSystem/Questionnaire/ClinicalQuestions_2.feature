@@ -1,11 +1,11 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: ClinicalQuestions 2 - RD Questionnaire
 
-  @NTS-3246 @LOGOUT
+  @NTS-3246 @Z-LOGOUT
 #    @E2EUI-1531 @E2EUI-992
   Scenario Outline: NTS-3246 - Clinical Questions - Age at Onset - Negative Tests
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -28,7 +28,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
        | stage              | title                     | diseaseStatueValue |
        | Clinical questions | Answer clinical questions | Affected           |
 
-  @NTS-3246 @LOGOUT
+  @NTS-3246 @Z-LOGOUT
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset to be stored in months
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -47,7 +47,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
       | stage              | title                     | diseaseStatueValue |
       | Clinical questions | Answer clinical questions | Affected           |
 
-  @NTS-3246 @LOGOUT
+  @NTS-3246 @Z-LOGOUT
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  months only provided
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -66,7 +66,7 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
       | stage              | title                     | diseaseStatueValue |
       | Clinical questions | Answer clinical questions | Affected           |
 
-  @NTS-3246 @LOGOUT
+  @NTS-3246 @Z-LOGOUT
 #    @E2EUI-1531
   Scenario Outline: NTS-3246 - Clinical Questions - Convert Disease status Age at Onset -  years only provided
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

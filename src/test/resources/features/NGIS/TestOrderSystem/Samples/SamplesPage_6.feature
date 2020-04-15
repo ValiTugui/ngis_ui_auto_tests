@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -6
 
-  @NTS-3345 @LOGOUT
+  @NTS-3345 @Z-LOGOUT
 #    @E2EUI-838 @E2EUI-857
   Scenario Outline: NTS-3345:E2EUI-838,857:Edit a non tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -38,7 +38,7 @@ Feature: Samples Page -6
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | non-tumour-SampleType     | sampleState | notificationText | non-tumour-sampleType-edited | sampleState-edited | notificationText-updated |
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Fibroblasts | Sample added     | Normal or germline sample    | Tumour fresh fluid | Sample updated           |
 
-  @NTS-3345 @LOGOUT
+  @NTS-3345 @Z-LOGOUT
 #    @E2EUI-838 @E2EUI-857
   Scenario Outline: NTS-3345:E2EUI-838,857: Edit a tumour sample type that has already been added to my referral
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -5
 
-  @NTS-3308 @LOGOUT
+  @NTS-3308 @Z-LOGOUT
 #    @E2EUI-943 @E2EUI-2338 @E2EUI-1232
   Scenario Outline: NTS-3308:E2EUI-943,2338,1232: Add a sample page - verify the sample type drop down list
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -27,7 +27,7 @@ Feature: Samples Page -5
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
 
-  @NTS-3312 @LOGOUT
+  @NTS-3312 @Z-LOGOUT
 #    @E2EUI-868 @@E2EUI-1261 @E2EUI-887
   Scenario Outline: NTS-3312:E2EUI-868,1261,887: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -49,7 +49,7 @@ Feature: Samples Page -5
       | Samples | Manage samples | Add a sample |
 
 
-  @NTS-3332 @LOGOUT
+  @NTS-3332 @Z-LOGOUT
 #    @E2EUI-1446 @E2EUI-1272
   Scenario Outline: NTS-3332:E2EUI-1446,1272: Add a Sample page - Verify sample type, sample state and sampleID are display
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -66,7 +66,7 @@ Feature: Samples Page -5
       | Samples | Manage samples | Add a sample |
 
 
-  @NTS-3333 @LOGOUT
+  @NTS-3333 @Z-LOGOUT
 #    @E2EUI-1252
   Scenario Outline: NTS-3333:E2EUI-1252: Add a Sample page - verify the help hint-text on Local sample tube ID
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

@@ -1,10 +1,10 @@
 #@regression
 #@patientDetails
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 2
 
- @NTS-3101 @LOGOUT
+ @NTS-3101 @Z-LOGOUT
 #    @E2EUI-2147
   Scenario Outline: NTS-3101:E2EUI-2147:A normal user cannot edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
@@ -18,7 +18,7 @@ Feature: GenomicRecord: Patient details page 2
       | NGIS                |
       | NHS Spine           |
 
-  @NTS-3101 @LOGOUT
+  @NTS-3101 @Z-LOGOUT
 #    @E2EUI-2146
   Scenario Outline: NTS-3101:E2EUI-2146:A super-user can edit or add into the NHS number field from the patient details page
     Given a web browser is at the patient search page
@@ -31,7 +31,7 @@ Feature: GenomicRecord: Patient details page 2
       | patient-search-type |
       | NGIS                |
 
-  @NTS-3151 @LOGOUT
+  @NTS-3151 @Z-LOGOUT
 #    @E2EUI-1047
   Scenario Outline: NTS-3151:E2EUI-1047:'Completed and ongoing referrals' should display the details only with respect to the concerned patient
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -53,7 +53,7 @@ Feature: GenomicRecord: Patient details page 2
       | patient-search-type | stage1          |
       | NGIS                | Patient details |
 
-  @NTS-4762 @LOGOUT
+  @NTS-4762 @Z-LOGOUT
 #    @E2EUI-1192
   Scenario Outline: NTS-4762:E2EUI-1192: Referral-Patient Detail - Update the 'success' message design
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -68,7 +68,7 @@ Feature: GenomicRecord: Patient details page 2
       | stage           |
       | Patient details |
 
-  @NTS-4052 @LOGOUT
+  @NTS-4052 @Z-LOGOUT
     #@E2EUI-1837
 #    @scenario_1
   Scenario Outline: NTS-4052:E2EUI-1837: Multidate picker - Real dates validation in Find your Patient Page.

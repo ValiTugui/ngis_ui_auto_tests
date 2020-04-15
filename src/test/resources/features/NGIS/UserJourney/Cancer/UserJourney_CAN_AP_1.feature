@@ -2,7 +2,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
 
-  @NTS-3362 @LOGOUT
+  @NTS-3362 @Z-LOGOUT
   ##@E2EUI-2372 @E2EUI-905
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

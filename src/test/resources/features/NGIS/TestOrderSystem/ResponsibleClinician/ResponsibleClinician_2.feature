@@ -1,10 +1,10 @@
 #@regression
 #@responsibleClinicianOrg
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Responsible Clinician 2 - Modal Dialog
 
-  @NTS-3895 @LOGOUT
+  @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_01
   Scenario Outline: NTS-3895:  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -18,7 +18,7 @@ Feature: Responsible Clinician 2 - Modal Dialog
       | Title                        |
       | There is missing information |
 
-  @NTS-3895 @LOGOUT
+  @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_02
   Scenario Outline: NTS-3895:  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -34,7 +34,7 @@ Feature: Responsible Clinician 2 - Modal Dialog
       | Title                        |
       | There is missing information |
 
-  @NTS-3895 @LOGOUT
+  @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_03
   Scenario Outline: NTS-3895 :  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -51,7 +51,7 @@ Feature: Responsible Clinician 2 - Modal Dialog
       | There is missing information |
 
 
-  @NTS-3895 @LOGOUT
+  @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_04
   Scenario Outline: NTS-3895 :  Modal showing when there are incomplete stages
     Given a new patient referral is created with associated tests in Test Order System online service

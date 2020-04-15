@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 4 - RD Questionnaire
 
-  @NTS-3240 @LOGOUT
+  @NTS-3240 @Z-LOGOUT
 #  @E2EUI-1972
   Scenario Outline: NTS-3240 - Clinical Questions - clear the rare disease diagnosis field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

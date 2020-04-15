@@ -1,12 +1,12 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_removeFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Navigation Stage 1 - FM Stage Navigation
 
-  @NTS-3292 @LOGOUT
+  @NTS-3292 @Z-LOGOUT
 #    @E2EUI-1331 @E2EUI-1485 @E2EUI-1639
   Scenario Outline: NTS-3292: Remove a family member from a referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -44,7 +44,7 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
       | FamilyMembers  | TestPackage  | ClinicalQuestions  | NoOfParticipants | ClinicalQuestionDetails                                         | SuccessDeleteMessage                |
       | Family members | Test package | Clinical questions | 2                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema | Family member removed from referral |
 
-  @NTS-3337 @LOGOUT
+  @NTS-3337 @Z-LOGOUT
 #    @E2EUI-1326 @E2EUI-1770
   Scenario Outline:NTS-3337: Verify the family members test package are selected by default
     Given a new patient referral is created with associated tests in Test Order System online service

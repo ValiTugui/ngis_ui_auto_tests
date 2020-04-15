@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
 
-  @NTS-5185 @LOGOUT
+  @NTS-5185 @Z-LOGOUT
 #    @E2EUI-1801
   Scenario Outline: NTS-5185: Use Case #26: Create Referral for Proband Only + Edit Data + Patient Choice Not Given - Create new Patient
     Given a new patient referral is created with associated tests in Test Order System online service

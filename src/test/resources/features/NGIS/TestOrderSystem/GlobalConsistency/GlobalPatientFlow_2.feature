@@ -1,11 +1,11 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_RD
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 
-  @NTS-4731 @LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service

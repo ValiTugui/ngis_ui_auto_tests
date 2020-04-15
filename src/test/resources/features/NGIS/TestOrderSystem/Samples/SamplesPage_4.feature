@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -4
 
-  @NTS-3412 @LOGOUT
+  @NTS-3412 @Z-LOGOUT
 #    @E2EUI-2103
   Scenario Outline: NTS-3412:Add sample details - Sample non-tumour type "<sampleType-non-tumour>" - Sample stage is completed even if sample questionnaire is unattended
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -31,7 +31,7 @@ Feature: Samples Page -4
       | stage   | stage2  | pageTitle      | pageTitle2   | pageTitle3         | sampleType-non-tumour     | sampleState |
       | Tumours | Samples | Manage samples | Add a sample | Add sample details | Normal or germline sample | Saliva         |
 
-  @NTS-3416 @LOGOUT
+  @NTS-3416 @Z-LOGOUT
 #    @E2EUI-2141 @E2EUI-2440
   Scenario Outline: NTS-3416: Moving to other stage: user is stopped if changes are not saved and try to navigate away from Sample stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -68,7 +68,7 @@ Feature: Samples Page -4
       | Samples | Manage samples | Add a sample | Notes     | Normal or germline sample | Saliva      | Dismiss            | unsaved information | samples/add        |
 
 
-  @NTS-3416 @LOGOUT
+  @NTS-3416 @Z-LOGOUT
 #    @E2EUI-2141
   Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Sample stage
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -102,7 +102,7 @@ Feature: Samples Page -4
       | Samples | Manage samples | Add a sample | Normal or germline sample | Saliva      | Dismiss            | may not be saved. | unsaved information | samples/add        | samples            |
 
 
-  @NTS-3416 @LOGOUT
+  @NTS-3416 @Z-LOGOUT
 #    @E2EUI-2440
   Scenario Outline: NTS-3416: Refresh, back-button and logout - User is stopped if changes are not saved and try to navigate away from Add sample details
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -139,7 +139,7 @@ Feature: Samples Page -4
       | Samples | Manage samples | Add a sample | Normal or germline sample | Fresh frozen tumour | Dismiss            | may not be saved. | unsaved information | samples            | samples            |
 
 
-  @NTS-3432 @LOGOUT
+  @NTS-3432 @Z-LOGOUT
 #    @E2EUI-1352
   Scenario Outline: NTS-3432: Add a Sample - 'Not the Right Tumour' in 'Add a Sample' page and Selecting a different tumour in 'Select or edit a tumour' page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -183,7 +183,7 @@ Feature: Samples Page -4
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
 
-  @NTS-4531 @LOGOUT
+  @NTS-4531 @Z-LOGOUT
 #    @E2EUI-1480
   Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -213,7 +213,7 @@ Feature: Samples Page -4
       | Samples | Manage samples | Add a sample | Add sample details | Edit a sample | Normal or germline sample | Sample added     |
 
 
-  @NTS-4709 @LOGOUT
+  @NTS-4709 @Z-LOGOUT
 #     @E2EUI-1023
   Scenario Outline:NTS-4709:Verify Sample Collection date is displayed in Add sample details for non-Tumour Sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

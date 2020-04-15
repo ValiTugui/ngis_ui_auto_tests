@@ -1,10 +1,10 @@
 #@regression
 #@panelsPage_LandingPage
-@PANEL
+@06-PANEL_ASSIGNER
 @SYSTEM_TEST
 Feature: PanelAssigner: Panels Page Landing Page
 
-  @NTS-3424 @LOGOUT
+  @NTS-3424 @Z-LOGOUT
 #    @E2EUI-1469 @E2EUI-1322 @E2EUI-1278 @E2EUI-1258
   Scenario Outline: NTS-3424: Search and add panels to referral
     Given a new patient referral is created with associated tests in Test Order System online service

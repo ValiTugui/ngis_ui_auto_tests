@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Family Members Search Page 3- Re-Adding existing members
@@ -20,7 +20,7 @@ Feature: Family Members Search Page 3- Re-Adding existing members
       | stage          | FamilyMemberDetails                 | ErrorMessage1                                      | ErrorMessage2                                       |
       | Family members | NHSNumber=9449310327:DOB=16-12-1970 | That person has already been added to the referral | Check that all details have been entered correctly. |
 
-  @NTS-3227 @LOGOUT
+  @NTS-3227 @Z-LOGOUT
 #    @E2EUI-1947
   Scenario Outline: NTS-3227: Verify that re-adding a patient who is already included in referral via No option displays error message
     When the user clicks the NO button in family member search page

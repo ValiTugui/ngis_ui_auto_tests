@@ -1,10 +1,10 @@
 #@regression
 #@clinicalIndicationTestSelect
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory: ClinicalIndicationSelect_3
 
-  @NTS-4810 @LOGOUT
+  @NTS-4810 @Z-LOGOUT
 #    @E2EUI-1545
   Scenario Outline: NTS-4810: Deep linking - Add patient_id to URLs
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -56,7 +56,7 @@ Feature: Test Directory: ClinicalIndicationSelect_3
       | PatientDetails  | FamilyMember   | TestPackage  | ClinicalQuestions  | RelationshipToProband | FamilyMemberDetails                 |
       | Patient details | Family members | Test package | Clinical questions | Father                | NHSNumber=9449305307:DOB=14-02-2011 |
 
-  @NTS-4701 @LOGOUT
+  @NTS-4701 @Z-LOGOUT
 #    @E2EUI-1645
   Scenario Outline: NTS-4701 : Stop a user losing their changes when they try to navigate to away using browser behaivor
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

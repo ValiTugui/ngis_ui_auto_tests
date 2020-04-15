@@ -1,10 +1,10 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: ClinicalQuestions 7 - RD Questionnaire
 
-  @NTS-3453 @LOGOUT
+  @NTS-3453 @Z-LOGOUT
 #    @E2EUI-881
   Scenario Outline: NTS-3453 - Clinical Questions -  landing page is marked as mandatory
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -35,7 +35,7 @@ Feature: ClinicalQuestions 7 - RD Questionnaire
       | RequestingOrganisation  | ordering_entity_name | TestPackage  | NoOfParticipants | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestions  |
       | Requesting organisation | Maidstone            | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions |
 
-  @NTS-3453 @LOGOUT
+  @NTS-3453 @Z-LOGOUT
 #  @E2EUI-1124
   Scenario Outline: NTS-3453 - Clinical Questions -  mandatory field validations for Disease status field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

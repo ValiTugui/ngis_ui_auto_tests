@@ -1,6 +1,6 @@
 #@regression
 #@requestingOrganisationTestDirectory
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: TestDirectory: Requesting Organisation page
 
@@ -62,7 +62,7 @@ Feature: TestDirectory: Requesting Organisation page
     When the user clicks the link Cancel Order
     Then the browser navigates to the previously selected Clinical Indication Details page while still saving the user's most recent search for further page navigation
 
-  @NTS-4725 @LOGOUT
+  @NTS-4725 @Z-LOGOUT
 #    @E2EUI-879
   Scenario Outline: NTS-4725:E2EUI-879: Highlight the current/active stage
     Given a new patient referral is created with associated tests in Test Order System online service

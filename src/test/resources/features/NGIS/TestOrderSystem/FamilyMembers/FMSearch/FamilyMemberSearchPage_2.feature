@@ -1,6 +1,6 @@
 #@regression
 #@FamilyMemberSearchPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Search Page - Field Validation_2
 
@@ -206,7 +206,7 @@ Feature: Family Members Search Page - Field Validation_2
       | stage          | SearchDetails     |
       | Family members | FirstName=StaMbuk |
 
-  @NTS-3328 @LOGOUT
+  @NTS-3328 @Z-LOGOUT
 #    @E2EUI-1260 @E2EUI-1259
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
     And the user navigates to the "<stage>" stage
@@ -255,7 +255,7 @@ Feature: Family Members Search Page - Field Validation_2
       | stage          |
       | Family members |
 
-  @NTS-3207 @LOGOUT
+  @NTS-3207 @Z-LOGOUT
 #  @E2EUI-1083
   Scenario:NTS-3207: Search a family member record with NHS selected No and All mandatory fields left blank
     When the user clicks the NO button in family member search page

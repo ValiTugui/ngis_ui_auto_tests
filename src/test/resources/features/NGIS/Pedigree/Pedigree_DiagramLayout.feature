@@ -1,10 +1,10 @@
 #@regression
 #@pedigree_diagramLayout
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - Diagram Layout
 
-  @NTS-3304 @LOGOUT
+  @NTS-3304 @Z-LOGOUT
 #    @E2EUI-934 @E2EUI-1046
   Scenario Outline: NTS-3304:(E2EUI-934,1046) Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -49,7 +49,7 @@ Feature: Pedigree - Diagram Layout
       | FamilyMemberDetails         | Pedigree | WarningMessage                                                                                |
       | NHSNumber=NA:DOB=25-10-2008 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3304 @LOGOUT
+  @NTS-3304 @Z-LOGOUT
 #    @E2EUI-1457
   Scenario Outline: NTS-3304 :E2EUI-1457: Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service

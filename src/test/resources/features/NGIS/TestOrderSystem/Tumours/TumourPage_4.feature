@@ -1,11 +1,11 @@
 #@regression
 #@tumoursPage1
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 4
 
- @NTS-3204 @LOGOUT
+ @NTS-3204 @Z-LOGOUT
 #    @E2EUI-890 @E2EUI-1026
   Scenario Outline: NTS-3204:E2EUI-890,1026:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -28,7 +28,7 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType | searchTerm | information                                                                                              |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | A laboratory cannot start a test without a tumour (neoplasm).-Each referral can only include one tumour. |
 
-  @NTS-3225 @LOGOUT
+  @NTS-3225 @Z-LOGOUT
 #    @E2EUI-2279 @E2EUI-1434
   Scenario Outline: :NTS-3225:E2EUI-2279,1434: Edit a tumour page - The saved changes are displayed in the Edit a Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -58,7 +58,7 @@ Feature: Tumours Page - 4
       | stage   | tumour_type              | presentationType | searchTerm | updated_tumour_type   | pageTitle     |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Solid tumour: primary | Edit a tumour |
 
-  @NTS-3176 @LOGOUT
+  @NTS-3176 @Z-LOGOUT
 #    @E2EUI-1412
   Scenario Outline: NTS-3176:E2EUI-1412: Select or edit a tumour page - Added Tumour is displayed as a list on Select or edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -98,7 +98,7 @@ Feature: Tumours Page - 4
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
 
-  @NTS-3431 @LOGOUT
+  @NTS-3431 @Z-LOGOUT
 #    @E2EUI-997
   Scenario Outline:NTS-3431:E2EUI-997:The Tumours stage is marked 'Mandatory ToDo' when not completed and marked 'Completed' when all tumour field completed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -121,7 +121,7 @@ Feature: Tumours Page - 4
       | Tumours | Solid tumour: metastatic | First presentation | test       | Tumour added     |
 
 
-  @NTS-4503 @LOGOUT
+  @NTS-4503 @Z-LOGOUT
 #    @E2EUI-1130
   Scenario Outline:NTS-4503:E2EUI-1130: Add Tumour Page - Description field - maximum length validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -136,7 +136,7 @@ Feature: Tumours Page - 4
       | Tumours | 12345678901234567890123456789012345678901234567890 |
 
 
-  @NTS-4757 @LOGOUT
+  @NTS-4757 @Z-LOGOUT
 #    @E2EUI-1339
   Scenario Outline: NTS-4757:E2EUI-1339: Add Tumour page error validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -156,7 +156,7 @@ Feature: Tumours Page - 4
       | Tumours | Add a tumour |
 
 
-  @NTS-4829 @LOGOUT
+  @NTS-4829 @Z-LOGOUT
 #    @E2EUI-1758
   Scenario Outline:NTS-4829:E2EUI-1758:Update validation in Estimated Date of Diagnosis to account for birth date on Tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -171,7 +171,7 @@ Feature: Tumours Page - 4
       | Tumours | Date_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
       | Tumours | Year_is_more_than_9_months_before_date_of_birth  | Cannot be more than 9 months before date of birth |
 
-  @NTS-3487 @LOGOUT
+  @NTS-3487 @Z-LOGOUT
 #    @E2EUI-2144 @E2EUI-2097
   Scenario Outline: NTS-3487:E2EUI-2144,2097: Change 'Tumour Content' display value
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

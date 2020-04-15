@@ -1,10 +1,10 @@
 #@regression
 #@clinicalIndicationTestSelect
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory: ClinicalIndicationSelect_4
 
-  @NTS-4710 @LOGOUT
+  @NTS-4710 @Z-LOGOUT
 #    @E2EUI-1573
   Scenario Outline: NTS-4710:E2EUI-1573: test environment content consistency: update save and continue
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

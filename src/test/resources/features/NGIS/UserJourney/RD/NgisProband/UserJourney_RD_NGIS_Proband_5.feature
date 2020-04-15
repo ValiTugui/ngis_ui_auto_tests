@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
 
-  @NTS-4558 @LOGOUT
+  @NTS-4558 @Z-LOGOUT
 #    @E2EUI-1296 @UseCase05
   Scenario Outline: NTS-4558: Use Case#05: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
     Given a new patient referral is created with associated tests in Test Order System online service

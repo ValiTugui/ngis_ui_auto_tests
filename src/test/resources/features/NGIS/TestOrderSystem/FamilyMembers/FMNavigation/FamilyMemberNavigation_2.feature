@@ -1,11 +1,11 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_mismatchFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Navigation Stage 2 - Varying Members addition and removal
 
-  @NTS-3309 @LOGOUT
+  @NTS-3309 @Z-LOGOUT
 #    @E2EUI-1539
   Scenario Outline: NTS-3309: Verify message when the number of participants in Test Package are less than family member selected
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -52,7 +52,7 @@ Feature: Family Members Navigation Stage 2 - Varying Members addition and remova
       | FamilyMembers  | TestPackage  | NoOfParticipants | NoOfParticipants1 | FamilyMemberDetails                                               | DiseaseStatusDetails  | ErrorMessage                                                                                                |
       | Family members | Test package | 2                | 1                 | NHSNumber=NA:DOB=14-02-2011:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unknown | The number of participants you’ve selected for one or more tests does not match the number that was entered |
 
-  @NTS-3309 @LOGOUT
+  @NTS-3309 @Z-LOGOUT
 #    @E2EUI-2105 @E2EUI-1149
   Scenario Outline: NTS-3309: Verify warning message if number of family members is less than number of participants
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -75,7 +75,7 @@ Feature: Family Members Navigation Stage 2 - Varying Members addition and remova
       | stage          | TestPackage  | NoOfParticipants | ErrorMessage                                                                                                                                  |
       | Family members | Test package | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. Check participants for each test |
 
-  @NTS-3309 @LOGOUT
+  @NTS-3309 @Z-LOGOUT
 #    @E2EUI-2104 @E2EUI-1149
   Scenario Outline: NTS-3309: Validate the user is displayed with the warning message on Family members landing page by adding extra Family member more than the expected number of participants
     Given a new patient referral is created with associated tests in Test Order System online service

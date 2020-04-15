@@ -1,11 +1,11 @@
 #@regression
 #@samplesPage
 #@samplesPage1
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Samples Page -2
 
-  @NTS-3272 @LOGOUT
+  @NTS-3272 @Z-LOGOUT
 #    @E2EUI-1946 @E2EUI-1239
   Scenario Outline: NTS-3272:E2EUI-1946,1239: Verifying the page titles and sub-title of Manage Samples, Add a Sample, Edit details and Add sample details pages
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -51,7 +51,7 @@ Feature: Samples Page -2
       | stage   | pageTitle      | pageTitle2   | pageTitle3         | pageTitle4    | sampleType          | sampleTopoMorphyGraphy |
       | Tumours | Manage samples | Add a sample | Add sample details | Edit a sample | Solid tumour sample | test                   |
 
-  @NTS-3308 @LOGOUT
+  @NTS-3308 @Z-LOGOUT
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
   Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -70,7 +70,7 @@ Feature: Samples Page -2
       | Samples | Manage samples | Add a sample | Sample type is required.  | #dd2509      | sampleType  |
       | Samples | Manage samples | Add a sample | Sample state is required. | #dd2509      | sampleState |
 
-  @NTS-3308 @LOGOUT
+  @NTS-3308 @Z-LOGOUT
 #    @E2EUI-943 @E2EUI-1050 @E2EUI-1186 @E2EUI-887
   Scenario Outline: NTS-3308:E2EUI-943,1050,1186,887: Add a sample page - sample state field validation
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -88,7 +88,7 @@ Feature: Samples Page -2
       | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
       | Samples | Manage samples | Add a sample | Sample ID is required.    | #dd2509      | sampleID    |
 
-  @NTS-3335 @LOGOUT
+  @NTS-3335 @Z-LOGOUT
 #    @E2EUI-1261 @E2EUI-1476
   Scenario Outline: NTS-3335:E2EUI-1261,1476: Add a Sample page - page layout
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -112,7 +112,7 @@ Feature: Samples Page -2
       | Samples | Manage samples | Add a sample | Enter sample information if your local processes require it. |
 
 
-  @NTS-3335 @LOGOUT
+  @NTS-3335 @Z-LOGOUT
 #   @E2EUI-1261 @E2EUI-1232 @E2EUI-1476
   Scenario Outline: NTS-3335:E2EUI-1261,1232,1476: Add a Sample page - page layout - verify sample-states drop-down values
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

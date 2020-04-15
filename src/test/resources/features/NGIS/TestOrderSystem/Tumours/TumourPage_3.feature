@@ -1,11 +1,11 @@
 #@regression
 #@tumoursPage1
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 3
 
-  @NTS-3255 @LOGOUT
+  @NTS-3255 @Z-LOGOUT
 #    @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098
   Scenario Outline: NTS-3255:E2EUI-993,1325,1078,1098: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -28,7 +28,7 @@ Feature: Tumours Page - 3
       | Tumours | Solid tumour: primary                    | Recurrence         | test       | Tumour added     |
       | Tumours | Solid tumour: unknown                    | Unknown            | test       | Tumour added     |
 
-  @NTS-3255 @LOGOUT
+  @NTS-3255 @Z-LOGOUT
 #    @E2EUI-993 @E2EUI-1325 @E2EUI-1078 @E2EUI-1098
   Scenario Outline: NTS-3255:E2EUI-993,1325,1078,1098: Add a new tumour : "<tumour_type>" for a new patient with various tumour type "<tumour_type>"
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -51,7 +51,7 @@ Feature: Tumours Page - 3
       | Tumours | Haematological malignancy: liquid sample | First presentation | test       | Tumour added     |
       | Tumours | Haematological malignancy: solid sample  | Unknown            | test       | Tumour added     |
 
-  @NTS-3171 @LOGOUT
+  @NTS-3171 @Z-LOGOUT
 #    @E2EUI-2145
   Scenario Outline:NTS:3171:E2EUI-2145:The user is stopped to navigate away from dynamic questions step from Tumours stage after making changes
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

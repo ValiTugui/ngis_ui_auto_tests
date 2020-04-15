@@ -1,10 +1,10 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page 4- Field Validation_4
 
-  @NTS-4413 @LOGOUT
+  @NTS-4413 @Z-LOGOUT
 #    @E2EUI-833  @Scenario2
   Scenario Outline: NTS-4413 : Change 'Trio Pedigree' icon as it is upside down
     Given a web browser is at the Private Test Selection homepage
@@ -22,7 +22,7 @@ Feature: Family Members Details Page 4- Field Validation_4
       | ordering_entity_name |
       | Maidstone            |
 
-  @NTS-4409 @LOGOUT
+  @NTS-4409 @Z-LOGOUT
 #    @E2EUI-1426
   Scenario Outline: NTS-4409: Remove diagnosis Age at Onset
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -45,7 +45,7 @@ Feature: Family Members Details Page 4- Field Validation_4
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | AgeOfOnset   |
       | Family members | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Age of onset |
 
-  @NTS-4380 @LOGOUT
+  @NTS-4380 @Z-LOGOUT
 #    @E2EUI-859
   Scenario Outline:NTS-4380: Validate the Relationship to proband drop down values to check the order of the drop down is logical
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -71,7 +71,7 @@ Feature: Family Members Details Page 4- Field Validation_4
       | Family members | Patient is a foreign national | Father                |
 
 
-  @NTS-4053 @LOGOUT
+  @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_3
   ##Note: Scenarios 1 and 2 for this ticket is covered in 1990
   Scenario Outline: NTS-4053 - To verify that Auto filled should not be enabled for search fields in family member page
@@ -87,7 +87,7 @@ Feature: Family Members Details Page 4- Field Validation_4
       | FamilyMembers  |Panels |
       | Family members |Panels |
 
-  @NTS-4053 @LOGOUT
+  @NTS-4053 @Z-LOGOUT
 #    @E2EUI-2474 @scenario_5
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -100,7 +100,7 @@ Feature: Family Members Details Page 4- Field Validation_4
       | stage   |
       | Tumours |
 
-  @NTS-4019 @LOGOUT
+  @NTS-4019 @Z-LOGOUT
 #    @E2EUI-960
   Scenario Outline:NTS-4019: Assign family members to specific tests
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice -5 Page - FamilyMemberAddition
 
-  @NTS-3341 @LOGOUT
+  @NTS-3341 @Z-LOGOUT
     #@E2EUI-1659
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -45,7 +45,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | Family members | Patient choice stage | RecordedBy                            |
       | Family members | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3435 @LOGOUT
+  @NTS-3435 @Z-LOGOUT
     #@E2EUI-1877
   Scenario Outline: NTS-3435: AS a user I should be able to see the patient choice stage completion when any one of the members declined the test package
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -90,7 +90,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
       | PatientDetails  | TestPackage  | NoOfParticipants | FamilyMembers  | PatientChoice  |
       | Patient details | Test package | 2                | Family members | Patient choice |
 
-  @NTS-3450 @LOGOUT
+  @NTS-3450 @Z-LOGOUT
     #@E2EUI-1773
   Scenario Outline: NTS-3450:E2EUI-1773: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service

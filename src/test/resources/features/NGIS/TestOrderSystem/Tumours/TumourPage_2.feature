@@ -1,11 +1,11 @@
 #@regression
 #@tumoursPage2
 #@tumoursPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Tumours Page - 2
 
-  @NTS-3249 @LOGOUT
+  @NTS-3249 @Z-LOGOUT
 #    @E2EUI-1459
   Scenario Outline: NTS-3249:E2EUI-1459: Fuzzy date "<Date_of_Diagnosis>" on Date of Diagnosis field
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -35,7 +35,7 @@ Feature: Tumours Page - 2
       | stage   | Date_of_Diagnosis | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | 10-11-2018        | Solid tumour: metastatic | Unknown          | test       | Tumour added     |
 
-  @NTS-3252 @LOGOUT
+  @NTS-3252 @Z-LOGOUT
 #    @E2EUI-1107 @E2EUI-1096
   Scenario Outline: NTS-3252:E2EUI-1107,1096: Tumour-list - Indicate any tumour list with incomplete or outstanding mandatory questions
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -56,7 +56,7 @@ Feature: Tumours Page - 2
       | stage   | pageTitle               | tumour_type              | notificationText | errorMessage                                           | messageColor |
       | Tumours | Select or edit a tumour | Solid tumour: metastatic | Tumour added     | There is essential information missing from this entry | #dd2509      |
 
-  @NTS-3259 @LOGOUT
+  @NTS-3259 @Z-LOGOUT
 #    @E2EUI-1075
   Scenario Outline: NTS-3259:E2EUI-1075:Back link button - Create referral navigation component - Tumours
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

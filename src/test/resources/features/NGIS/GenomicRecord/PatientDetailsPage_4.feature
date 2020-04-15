@@ -1,10 +1,10 @@
 #@regression
 #@patientDetails
-@GENOMIC_RECORD
+@04-GENOMIC_RECORD
 @SYSTEM_TEST
 Feature: GenomicRecord: Patient details page 4
 
-  @NTS-3173 @LOGOUT
+  @NTS-3173 @Z-LOGOUT
 #    @E2EUI-1364
   Scenario Outline: NTS-3173 - Patient Details page - navigation to the Responsible clinician page from the Test Package page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -41,7 +41,7 @@ Feature: GenomicRecord: Patient details page 4
       | NGIS                | Patient details | Requesting organisation | Maidstone            | Test package | Routine  | Responsible clinician | 1         |
 
 
-  @NTS-4760 @LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline: NTS-4760:E2EUI-1097: The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a web browser is at create new patient page
@@ -76,7 +76,7 @@ Feature: GenomicRecord: Patient details page 4
       | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
 
-  @NTS-4760 @LOGOUT
+  @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
   Scenario Outline:NTS-4760:E2EUI-1097:Referral-Patient Detail Page - The user is stopped from navigating away when mandatory fields have not been completed in new patient page
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -102,7 +102,7 @@ Feature: GenomicRecord: Patient details page 4
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
       | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
 
-  @NTS-3557 @LOGOUT
+  @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_1
   Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -118,7 +118,7 @@ Feature: GenomicRecord: Patient details page 4
     When the user is navigated to a page with title Check your patient
     Then the user should be able to see a cancel referral link "not present"
 
-  @NTS-4055 @LOGOUT
+  @NTS-4055 @Z-LOGOUT
 #    @E2EUI-1904
   Scenario Outline: NTS-4055:E2EUI-1904: The patient record should be saved without entering "DATE OF DEATH", As a user I want to save a new patient record without date of death.
     Given a web browser is at the patient search page

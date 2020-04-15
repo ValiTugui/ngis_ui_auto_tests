@@ -1,12 +1,12 @@
 #@regression
 #@clinicalQuestions
 #@clinicalQuestionsFM
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 
 Feature: Clinical Question Page 1 - Family Members
 
-  @NTS-4735 @LOGOUT
+  @NTS-4735 @Z-LOGOUT
 #    @E2EUI-1271
   Scenario Outline: NTS-4735: Show dynamic Clinical Questions about additional family members
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -45,7 +45,7 @@ Feature: Clinical Question Page 1 - Family Members
       | FamilyMembers  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails                                                                         | RareDiseaseValue |
       | Family members | NHSNumber=9449303959:DOB=14-09-2005 | Full Sibling          | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality:KaryotypicSex=XY | WEAVER SYNDROME  |
 
-  @NTS-4735 @LOGOUT
+  @NTS-4735 @Z-LOGOUT
 #    @E2EUI-1884
   Scenario Outline: NTS-4735 :  The update to the diagnosis type for the Rare Disease question will not be saved
     Given a new patient referral is created with associated tests in Test Order System online service

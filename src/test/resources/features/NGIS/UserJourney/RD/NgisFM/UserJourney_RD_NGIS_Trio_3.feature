@@ -4,7 +4,7 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_3 - UC12 - E2EUI-1233
 
-  @NTS-4598 @LOGOUT
+  @NTS-4598 @Z-LOGOUT
 #    @E2EUI-1233 @UseCase12
   Scenario Outline:NTS:4598: Use Case#12: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Not Given - Search NGIS Patient
     Given a new patient referral is created with associated tests in Test Order System online service

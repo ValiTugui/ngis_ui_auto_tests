@@ -1,10 +1,10 @@
 #@regression
 #@FamilyMembersDetailsPage
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Family Members Details Page 2- Field Validation_2
 
-  @NTS-3296 @LOGOUT
+  @NTS-3296 @Z-LOGOUT
 #    @E2EUI-1038
   Scenario Outline: NTS-3296: Verify the mandatory input fields validations for non-NHS family member creation
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -46,7 +46,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      |
 
-  @NTS-3342 @LOGOUT
+  @NTS-3342 @Z-LOGOUT
 #    @E2EUI-1790
   Scenario Outline: NTS-3342: Update FamilyMember card to use PatientIndentifiers in Test package and Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -104,7 +104,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | Requesting organisation | ordering_entity_name | FamilyMembers  | NoOfParticipants | ErrorMessage                                                                                                                                                                                |
       | Requesting organisation | Queen                | Family members | 3                | The number of participants you’ve selected for one or more tests does not match the number that was entered. |
 
-  @NTS-4413 @LOGOUT
+  @NTS-4413 @Z-LOGOUT
 #    @E2EUI-833 @E2EUI-1880 @Scenario1
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
@@ -118,7 +118,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | TestPackage  |
       | Test package |
 
-  @NTS-4413 @LOGOUT
+  @NTS-4413 @Z-LOGOUT
 #    @E2EUI-833  @Scenario2
   Scenario Outline: NTS-4413 : Change 'Trio Pedigree' icon as it is upside down
     Given a web browser is at the Private Test Selection homepage
