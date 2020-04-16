@@ -944,7 +944,7 @@ public class PedigreePage {
             return false;
         }
         //Scroll to the WorkArea to locate the diagram nodes without interruption
-        SeleniumLib.scrollToElement(zoomInButton);
+        SeleniumLib.scrollToElement(pedigreeWorkArea);
         String gender = patient.getGENDER();
         if (gender == null || patient.getNGIS_ID() == null) {
             Debugger.println("Gender: " + gender + " and/or NGSID:" + patient.getNGIS_ID() + " is NULL.");
@@ -976,7 +976,7 @@ public class PedigreePage {
             return true;
         } catch (Exception exp) {
             Debugger.println("Pedigree Node for NGSID:" + patient.getNGIS_ID() + " could not locate.");
-            SeleniumLib.takeAScreenShot("PedigreeDiagram.jpg");
+            SeleniumLib.takeAScreenShot("Pedigree"+patient.getNGIS_ID()+".jpg");
             return false;
         }
     }
@@ -1197,16 +1197,16 @@ public class PedigreePage {
             switch(fieldName) {
                 case "Ethnicity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Ethnicity, option);
-                break;
+                    break;
                 case "Gender":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Gender, option);
-                break;
+                    break;
                 case "KaryoTypicSex":
                     isPresent = seleniumLib.selectFromListByText(personalTab_KaryotypicSex, option);
-                break;
+                    break;
                 case "GestationAge":
                     isPresent = seleniumLib.selectFromListByText(personalTab_gestationAge, option);
-                break;
+                    break;
                 case "Heredity":
                     isPresent = seleniumLib.selectFromListByText(personalTab_Heredity, option);
                     break;
@@ -1283,16 +1283,18 @@ public class PedigreePage {
 
     public boolean verifyNonNGISPatientIDInPersonalTab(String nonNgisUID){
 
-        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,10)){
+        if(!Wait.isElementDisplayed(driver,personalTab_nonNgisPatientStableUid,30)){
             Debugger.println("nonNgisPatientStableUid field not loaded under Personal Tab:");
             SeleniumLib.takeAScreenShot("PersonalTab.jpg");
             return false;
         }
-        String actualUid = personalTab_nonNgisPatientStableUid.getText();
-        if(!actualUid.equalsIgnoreCase(nonNgisUID)){
-            Debugger.println("Expected nonNgisPatientStableUid:"+nonNgisUID+", but actual:"+actualUid);
-            SeleniumLib.takeAScreenShot("PersonalTab.jpg");
-            return false;
+        if(personalTab_nonNgisPatientStableUid.isEnabled()) {//Read and compare when the field is enabled
+            String actualUid = personalTab_nonNgisPatientStableUid.getText();
+            if (!actualUid.equalsIgnoreCase(nonNgisUID)) {
+                Debugger.println("Expected nonNgisPatientStableUid:" + nonNgisUID + ", but actual:" + actualUid);
+                SeleniumLib.takeAScreenShot("PersonalTab.jpg");
+                return false;
+            }
         }
         return true;
     }

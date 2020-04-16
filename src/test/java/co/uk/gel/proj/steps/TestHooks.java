@@ -36,13 +36,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-/*import static co.uk.gel.lib.Actions.acceptAlert;
-import static co.uk.gel.lib.Actions.isAlertPresent;*/
-
-
 public class TestHooks extends Pages {
-
-    private static Logger LOGGER = LoggerFactory.getLogger(TestHooks.class);
 
     //SeleniumLib seleniumLib;
     public static String currentTagName = "";
@@ -122,34 +116,28 @@ public class TestHooks extends Pages {
         BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_API");
         BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDT");
         EXCLUDE_URL_FROM_SECURITYSCAN = AppConfig.getPropertyValueFromPropertyFile("EXCLUDE_URL_FROM_SECURITYSCAN");
-
-
-        //   driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
-        //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
     }
 
     @When("user run security scan")
     public void userRunSecurityScan() {
         Debugger.println("Running Security Scan...");
         List<String> urlsToSpider = new LinkedList<>();
-        // String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis\\.io|https:\\/\\/test-ordering.e2e-latest.ngis\\.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis\\io|https:\\/\\/dashboard.e2e-latest.ngis.\\.io))).*$";
-
         urlsToSpider.add(BASE_URL_TS);
         urlsToSpider.add(BASE_URL_TO);
         urlsToSpider.add(BASE_URL_PA);
         urlsToSpider.add(BASE_URL_PP);
         urlsToSpider.add(BASE_URL_DS);
-        urlsToSpider.add(BASE_URL_PEDG);
-        urlsToSpider.add(BASE_URL_API);
-        urlsToSpider.add(BASE_URL_PEDT);
+       // urlsToSpider.add(BASE_URL_PEDG);
+        //urlsToSpider.add(BASE_URL_API);
+        //urlsToSpider.add(BASE_URL_PEDT);
         Debugger.println("Added URL: BASE_URL_TS:"+BASE_URL_TS);
         Debugger.println("Added URL: BASE_URL_TO:"+BASE_URL_TO);
         Debugger.println("Added URL: BASE_URL_PA:"+BASE_URL_PA);
         Debugger.println("Added URL: BASE_URL_PP:"+BASE_URL_PP);
         Debugger.println("Added URL: BASE_URL_DS:"+BASE_URL_DS);
-        Debugger.println("Added URL: BASE_URL_PEDG:"+BASE_URL_PEDG);
-        Debugger.println("Added URL: BASE_URL_API:"+BASE_URL_API);
-        Debugger.println("Added URL: BASE_URL_PEDT:"+BASE_URL_PEDT);
+        //Debugger.println("Added URL: BASE_URL_PEDG:"+BASE_URL_PEDG);
+        //Debugger.println("Added URL: BASE_URL_API:"+BASE_URL_API);
+        //Debugger.println("Added URL: BASE_URL_PEDT:"+BASE_URL_PEDT);
 
         urlsToSpider.stream().forEach(inciWinciSpider -> spiderWithZap(inciWinciSpider));
         setAlertAndAttackStrength();
@@ -161,18 +149,15 @@ public class TestHooks extends Pages {
         logAlerts(alerts);
         Debugger.println("Logged Alerts");
         try {
-
             String zapResultXML = "ZAP_ResultOn_" + new SimpleDateFormat("yyyyMMddHHmm'.xml'").format(new Date());
             String zapResultHTML = "ZAP_ResultOn_" + new SimpleDateFormat("yyyyMMddHHmm'.html'").format(new Date());
-
             writeXmlReport("logs/" + zapResultXML);
             writeHTMLReport("logs/" + zapResultHTML);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exp) {
+            Debugger.println("Exception in userRunSecurityScan:"+exp);
+            exp.printStackTrace();
         }
-        //  assertThat(alerts.size(), equalTo(0));
-        LOGGER.info("Spider done.");
-
+        Debugger.println("Spider DONE.");
     }
 
     public void writeHTMLReport(String path) throws IOException {
@@ -197,7 +182,7 @@ public class TestHooks extends Pages {
             zapSpider.setThreadCount(5);
             zapSpider.setMaxDepth(5);
             zapSpider.setPostForms(false);
-            LOGGER.info("Krishan baseURLToSprider" + baseURLToSprider);
+            Debugger.println("BASE URL TO SPIDER: " + baseURLToSprider);
 
             zapSpider.spider(baseURLToSprider);
             int spiderID = zapSpider.getLastSpiderScanId();
@@ -212,7 +197,6 @@ public class TestHooks extends Pages {
                 }
             }
             for (String url : zapSpider.getSpiderResults(spiderID)) {
-                LOGGER.info("Found URL: " + url);
                 Debugger.println("spiderWithZap:FoundURL:"+url);
             }
         }
@@ -306,10 +290,9 @@ public class TestHooks extends Pages {
     }
 
     private void scanWithZap(String scanBaseURL) {
-        Debugger.println("ZAP Scanning...scanWithZap.....:"+scanBaseURL);
+        Debugger.println("scanWithZap.START FOR BASE URL:"+scanBaseURL);
         if (scanBaseURL != null) {
             zapScanner.scan(scanBaseURL);
-            //  String patternOfScan = "^((?!(https:\\/\\/test-selection-private.e2e-latest.ngis.io|https:\\/\\/pc-assets-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/test-ordering.e2e-latest.ngis.io|https:\\/\\/pc-proxy-optum-patientchoice.e2e-latest.ngis.io|https:\\/\\/dashboard.e2e-latest.ngis\\.io))).*$";
             zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
             currentScanID = zapScanner.getLastScannerScanId();
             int complete = 0;
@@ -323,13 +306,12 @@ public class TestHooks extends Pages {
                     exp.printStackTrace();
                 }
             }
-            Debugger.println("Scanning DONE...................");
+            Debugger.println("scanWithZap DONE FOR BASE URL:"+scanBaseURL);
         }
     }
 
     private void logAlerts(List<Alert> alerts) {
         for (Alert alert : alerts) {
-            LOGGER.info("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
             Debugger.println("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
         }
     }
@@ -346,68 +328,6 @@ public class TestHooks extends Pages {
         }
         return filtered;
     }
-    /*@Before("@secuirtytest_rd")
-    public  void setupSecurityConfig() {
-        Debugger.println("\n******* Security RUN STARTS " + new java.util.Date() + " *******************************");
-
-        zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
-        zapScanner.clear(); //Start a new session
-        zapSpider = (Spider) zapScanner;
-        Debugger.println("Created client to ZAP API");
-            driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
-            //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
-    }*/
-
-   /* public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
-        if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
-        else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
-        throw new RuntimeException("Unknown WebDriver browser: "+type);
-    }
-
-    public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
-        System.setProperty("webdriver.chrome.driver", path);
-        if (capabilities != null) {
-            capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-            return new ChromeDriver(capabilities);
-        } else return new ChromeDriver();
-
-    }
-
-    public static WebDriver createFirefoxDriver(DesiredCapabilities capabilities) {
-        if (capabilities != null) {
-            return new FirefoxDriver(capabilities);
-        }
-
-        ProfilesIni allProfiles = new ProfilesIni();
-        FirefoxProfile myProfile = allProfiles.getProfile("WebDriver");
-        if (myProfile == null) {
-            File ffDir = new File(System.getProperty("user.dir")+ File.separator+"ffProfile");
-            if (!ffDir.exists()) {
-                ffDir.mkdir();
-            }
-            myProfile = new FirefoxProfile(ffDir);
-        }
-        myProfile.setAcceptUntrustedCertificates(true);
-        myProfile.setAssumeUntrustedCertificateIssuer(true);
-        myProfile.setPreference("webdriver.load.strategy", "unstable");
-        if (capabilities == null) {
-            capabilities = new DesiredCapabilities();
-        }
-        capabilities.setCapability(FirefoxDriver.PROFILE, myProfile);
-        return new FirefoxDriver(capabilities);
-    }
-
-    public static DesiredCapabilities createProxyCapabilities(Proxy proxy) {
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        capabilities.setCapability("proxy", proxy);
-        return capabilities;
-    }
-    private static Proxy createZapProxyConfigurationForWebDriver() {
-        Proxy proxy = new Proxy();
-        proxy.setHttpProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
-        proxy.setSslProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
-        return proxy;
-    }*/
 
     @Before("@TD_VERSION_INFO")
     public void getNGISVersion() {
@@ -428,14 +348,6 @@ public class TestHooks extends Pages {
             scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
-
-        // 14/10/2019 - Log-out now commented as Test will continue running until the session times-out, and user will be prompted to log-in
-        // once the session times-out
-        // driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-        // driver.manage().deleteAllCookies(); //
-        // driver.quit();//28 /09/2019  -To delete cookies to terminate session /28 /09/2019
-        // driver=null;
-
     }
 
 
@@ -444,37 +356,24 @@ public class TestHooks extends Pages {
         homePage.logOutFromApplication();
     }
 
-    public void secuirtyScans() {
+    public void securityScans() {
         if (scenario.isFailed()) {
-            LOGGER.info("START - Security scan is starting though selenium scenario failed");
+            Debugger.println("START - Security scan is starting though selenium scenario FAILED.");
             userRunSecurityScan();
-            LOGGER.info("END - Security scan is starting though selenium scenario failed");
-            LOGGER.info("Selenium Script of Security scan FAILED for Scenario" + scenario.getName());
-        }
-        else
-        {
-            LOGGER.info("Selenium Script of Security scan PASSED for Scenario" + scenario.getName());
-
+            Debugger.println("END - Security scan is starting though selenium scenario failed........");
+        }else{
+            Debugger.println("Selenium Script of Security scan PASSED for Scenario" + scenario.getName());
         }
     }
-    @After("@secuirtyscans, @securityscan, @securitytest, @securityscan_cancer , @securityscan_rd , @securitydebugging")
-    public void secuirtyScansCancer() {
-        secuirtyScans();
+    @After("@secuirtyscans, @securityscan, @securitytest, @securityscan_cancer , @securityscan_rd , @securitydebugging,@securityscan_cancer_demo")
+    public void securityScansCancer() {
+        Debugger.println("TestHooks...START SECURITY SCANS......");
+        securityScans();
     }
-   /* @After("")
-    public void secuirtyScansRD() {
-        secuirtyScans();
-    }*/
-
 
     @After("@CLEANUP")
     public void cleanUp() {
         //   driver = null;
-    }
-
-    @After(order = 1)
-    public void afterScenario() {
-        //login_page.logoutFromMI();
     }
 
     public RequestSpecification getRequest() {

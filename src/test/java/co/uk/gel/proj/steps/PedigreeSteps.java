@@ -273,17 +273,16 @@ public class PedigreeSteps extends Pages {
 
     @When("the user adds new parent node to proband {string}")
     public void theUserAddNewParentNodeToProband(String searchDetails) {
-        boolean testResult = false;
         NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(searchDetails);
         if (patient == null) {
             Debugger.println("Specified Proband Details could not get from the list.");
-            Assert.assertTrue(testResult);
+            return;
         }
         if (patient.getNGIS_ID() == null) {
             patient.setNGIS_ID(referralPage.getPatientNGISId());
         }
 
-        testResult  = pedigreePage.addParentNodeToProband(patient);
+        boolean testResult = pedigreePage.addParentNodeToProband(patient);
         Assert.assertTrue(testResult);
     }
 

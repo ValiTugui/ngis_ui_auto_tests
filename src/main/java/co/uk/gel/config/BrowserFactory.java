@@ -32,7 +32,7 @@ public class BrowserFactory {
     private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
     private final static String CHROME_DRIVER_UBUNTU = "/home/kshukla1/driverforsecurity/chromedriver";
     //private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
-    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:/Users/StagT/.m2/repository/webdriver/chromedriver/win32/80.0.3987.106/chromedriver.exe";
+    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Santhosh\\.m2\\repository\\webdriver\\chromedriver\\win32\\80.0.3987.106\\chromedriver.exe";
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private ScanningProxy zapScanner;
@@ -51,28 +51,29 @@ public class BrowserFactory {
         BrowserEnum browserEnum = BrowserEnum.valueOf(browser.toUpperCase());
         switch (browserEnum) {
             case CHROME:
-                Debugger.println("Browser: CHROME");
                 WebDriverManager.chromedriver().clearPreferences();
                 WebDriverManager.chromedriver().setup(); // 30-09-2019 - Added WebDriver Manager to get the Chrome Driver version and download
                 driver = getChromeDriver(null, javascriptEnabled);
                 break;
             case FIREFOX:
-                Debugger.println("Browser: FIREFOX");
                 WebDriverManager.firefoxdriver().setup();
                 driver = getFirefoxDriver(null, javascriptEnabled);
                 break;
             case SAFARI:
-                Debugger.println("Browser: SAFARI");
                 driver = getSafariDriver(null, javascriptEnabled);
                 break;
             case IE:
-                Debugger.println("Browser: IE");
                 driver = getInternetExplorer(null, javascriptEnabled);
                 break;
             case SECUREBROWSER:
                 try {
-                    Debugger.println("Browser: SECUREBROWSER...Initializing ZAPProxyScanner...");
-                    zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
+                    Debugger.println("Browser: SECUREBROWSER...Initializing ZAPProxyScanner...Host:");
+                    try {
+                        zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
+                    }catch(Exception exp1){
+                        Debugger.println("INIT EXCEPTION: "+exp1);
+                        Assert.assertTrue(false);
+                    }
                     Debugger.println("ZAProxyScanner Initialized......Clearing to start new session...");
                     zapScanner.clear(); //Start a new session
                     Debugger.println("Cleared...Initializing zapSpider.....");
@@ -87,6 +88,7 @@ public class BrowserFactory {
                     } else {
                         driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
                     }
+
                 }catch(Exception exp){
                     Debugger.println("EXCEPTION: "+exp);
                 }
@@ -105,11 +107,12 @@ public class BrowserFactory {
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
+        Debugger.println("createProxyDriver111............");
         return createProxyDriver(type ,proxy , path,null );
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path , String typeOfOS) {
-
+        Debugger.println("createProxyDriver............");
         if(typeOfOS!=null){
             System.out.println("Calling typeOfOS = linux");
             if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path , "linux");
@@ -126,7 +129,7 @@ public class BrowserFactory {
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
 
-        System.out.printf("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
+        Debugger.println("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-certificate-errors");
@@ -185,12 +188,14 @@ public class BrowserFactory {
     }
 
     public static DesiredCapabilities createProxyCapabilities(Proxy proxy) {
+        Debugger.println("createProxyCapabilities.........");
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         capabilities.setCapability("proxy", proxy);
         return capabilities;
     }
 
     private static Proxy createZapProxyConfigurationForWebDriver() {
+        Debugger.println("createZapProxyConfigurationForWebDriver.........");
         Proxy proxy = new Proxy();
         proxy.setHttpProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
         proxy.setSslProxy(ZAP_PROXYHOST + ":" + ZAP_PROXYPORT);
@@ -250,12 +255,14 @@ public class BrowserFactory {
 
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
+        Debugger.println("getChromeDriver.........");
         return new ChromeDriver(getChromeOptions(userAgent, javascriptEnabled));
     }
 
 
     private ChromeOptions getChromeOptions(String userAgent,
                                            boolean javascriptEnabled) {
+        Debugger.println("getChromeOptions.........");
         //Setting default download path for chrome browser
         String downloadFilePath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
         File location = new File(downloadFilePath);

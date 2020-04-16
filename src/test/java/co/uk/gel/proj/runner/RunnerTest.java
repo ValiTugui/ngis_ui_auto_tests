@@ -11,7 +11,7 @@ import co.uk.gel.proj.util.Debugger;
         plugin = {"pretty", "html:target/cucumber","json:target/cucumber.json"},
         glue = {"co.uk.gel.proj.steps"},
         features = {"src/test/resources/features"},
-        tags = {"@securityscan_cancer"}
+        tags = {"@securityscan_cancer_demo"}
 )
 public class RunnerTest {
     @BeforeClass

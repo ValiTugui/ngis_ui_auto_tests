@@ -29,19 +29,19 @@ public class SamplesSteps extends Pages {
     public void theManageSamplesPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 
-        Debugger.println("Expected Page Title: " + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
+        //Debugger.println("Expected Page Title: " + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
         Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
 
         if (list.get(0).get("subTitleHeader1").contains("Add")) {
             // Subtitle before adding a sample on Manage Sample page
-            Debugger.println("Expected Subtitle1 : " + list.get(0).get("subTitleHeader1") + " Actual Subtitle1: " + getText(samplesPage.manageSamplesSubTitles.get(0)));
+            //Debugger.println("Expected Subtitle1 : " + list.get(0).get("subTitleHeader1") + " Actual Subtitle1: " + getText(samplesPage.manageSamplesSubTitles.get(0)));
             Assert.assertEquals(list.get(0).get("subTitleHeader1"), getText(samplesPage.manageSamplesSubTitles.get(0)));
 
-            Debugger.println("Expected Subtitle2: " + list.get(0).get("subTitleHeader2") + " Actual Subtitle2: " + getText(samplesPage.manageSamplesSubTitles.get(1)));
+            // Debugger.println("Expected Subtitle2: " + list.get(0).get("subTitleHeader2") + " Actual Subtitle2: " + getText(samplesPage.manageSamplesSubTitles.get(1)));
             Assert.assertEquals(list.get(0).get("subTitleHeader2"), getText(samplesPage.manageSamplesSubTitles.get(1)));
         } else if (list.get(0).get("subTitleHeader1").contains("Change")) {
             // // Subtitle after adding a sample on Manage Sample page
-            Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.manageSamplesSubTitles.get(0)));
+            //Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.manageSamplesSubTitles.get(0)));
             Assert.assertEquals(list.get(0).get("subTitleHeader1"), getText(samplesPage.manageSamplesSubTitles.get(0)));
         }
     }
@@ -50,10 +50,10 @@ public class SamplesSteps extends Pages {
     public void theSamplesPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 
-        Debugger.println("Expected Page Title:" + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
+        //Debugger.println("Expected Page Title:" + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
         Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
 
-        Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.addASampleOrEditASubTitle));
+        //Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.addASampleOrEditASubTitle));
         Assert.assertEquals(list.get(0).get("subTitleHeader1"), getText(samplesPage.addASampleOrEditASubTitle));
     }
 
@@ -89,10 +89,10 @@ public class SamplesSteps extends Pages {
     public void theAddSamplesDetailsPageDisplaysThePageTitleAndSubTitlesTextBody(DataTable dataTable) {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 
-        Debugger.println("Expected Page Title:" + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
+        //Debugger.println("Expected Page Title:" + list.get(0).get("pageTitleHeader") + "Actual Page Title: " + referralPage.getTheCurrentPageTitle());
         Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
 
-        Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.addSampleDetailsSubTitle));
+        //Debugger.println("Expected Subtitle1 :" + list.get(0).get("subTitleHeader1") + " Actual Subtitle1:" + getText(samplesPage.addSampleDetailsSubTitle));
         Assert.assertEquals(list.get(0).get("subTitleHeader1"), getText(samplesPage.addSampleDetailsSubTitle));
     }
 
@@ -136,7 +136,7 @@ public class SamplesSteps extends Pages {
     @Then("the new sample is displayed in the landing page")
     public void theNewSampleIsDisplayedInTheLandingPage() {
         int numberOfSamples = samplesPage.numberOfNewSamplesDisplayedInLandingPage();
-        Debugger.println("Number of sample(s) :" + numberOfSamples);
+        ///Debugger.println("Number of sample(s) :" + numberOfSamples);
         Assert.assertTrue("Numbers of samples displayed should 1 or great than 1", numberOfSamples > 0);
     }
 
@@ -177,12 +177,12 @@ public class SamplesSteps extends Pages {
         List<String> actualFieldsErrorLabels = samplesPage.getTheListOfFieldsErrorLabelsOnAddASamplePage();
 
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldErrorMessages.get(i - 1) + "\n");
+            //Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0));
+            //Debugger.println("Actual labelHeader " + actualFieldErrorMessages.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(0), actualFieldsErrorLabels.get(i - 1));
 
-            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1));
-            Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
+            //Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1));
+            // Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
         }
     }
@@ -201,8 +201,8 @@ public class SamplesSteps extends Pages {
         Collections.sort(expectedSampleTypesList);
         Collections.sort(actualSampleTypesList);
         for (int i = 0; i < expectedList.size(); i++) {
-            Debugger.println("Expected Sample type values after sorting in ascending order: " + i + " : " + expectedSampleTypesList.get(i));
-            Debugger.println("Actual Sample type values after sorting in ascending order" + i + " : " + actualSampleTypesList.get(i) + "\n");
+            //Debugger.println("Expected Sample type values after sorting in ascending order: " + i + " : " + expectedSampleTypesList.get(i));
+            // Debugger.println("Actual Sample type values after sorting in ascending order" + i + " : " + actualSampleTypesList.get(i) + "\n");
             Assert.assertEquals(expectedSampleTypesList.get(i), actualSampleTypesList.get(i));
         }
     }
@@ -226,12 +226,12 @@ public class SamplesSteps extends Pages {
         actualHelpHintTexts.add(1, "None");
 
         for (int i = 1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            //Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
+            //Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i - 1));
 
-            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
-            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i - 1) + "\n");
+            // Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
+            // Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i - 1));
         }
     }
@@ -249,7 +249,7 @@ public class SamplesSteps extends Pages {
         List<String> actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
 
         for (int i = 0; i < actualFieldsLabels.size(); i++) { //i starts from 1 because i=0 represents the header;
-            Debugger.println("Actual fields labels on Add a Sample page :" + actualFieldsLabels.get(i) + "\n");
+            //Debugger.println("Actual fields labels on Add a Sample page :" + actualFieldsLabels.get(i) + "\n");
             Assert.assertTrue(actualFieldsLabels.get(i).contains("✱"));
         }
     }
@@ -262,12 +262,12 @@ public class SamplesSteps extends Pages {
         List<String> actualPlaceHolderTexts = samplesPage.getTheFieldPlaceHolderTextOnAddASamplePage();
 
         for (int i = 1; i < expectedLabelsAndPlaceHolderList.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLabelsAndPlaceHolderList.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
+            //Debugger.println("Expected labelHeader " + expectedLabelsAndPlaceHolderList.get(i).get(0));
+            //Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(0), actualFieldsLabels.get(i - 1));
 
-            Debugger.println("Expected PlaceHolderText " + expectedLabelsAndPlaceHolderList.get(i).get(1));
-            Debugger.println("Actual PlaceHolderText " + actualPlaceHolderTexts.get(i - 1) + "\n");
+            //Debugger.println("Expected PlaceHolderText " + expectedLabelsAndPlaceHolderList.get(i).get(1));
+            //Debugger.println("Actual PlaceHolderText " + actualPlaceHolderTexts.get(i - 1) + "\n");
             Assert.assertEquals(expectedLabelsAndPlaceHolderList.get(i).get(1), actualPlaceHolderTexts.get(i - 1));
         }
     }
@@ -289,7 +289,7 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < expectedList.size(); i++) {
             expectedSampleStateList.add(expectedList.get(i).get("sampleStateHeader"));
-            Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
+            //Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
             Assert.assertTrue(actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i)));
         }
     }
@@ -322,7 +322,7 @@ public class SamplesSteps extends Pages {
         List<String> actualSampleDetails = samplesPage.getTheSampleDetailsOnEditASamplePage();
 
         for (int i = 0; i < expectectedSampleDetails.size(); i++) {
-            Debugger.println("Expected sampleDetail: " + expectectedSampleDetails.get(i) + ":" + i + ":" + "Actual sampleDetail " + actualSampleDetails.get(i));
+            //Debugger.println("Expected sampleDetail: " + expectectedSampleDetails.get(i) + ":" + i + ":" + "Actual sampleDetail " + actualSampleDetails.get(i));
             Assert.assertEquals(expectectedSampleDetails.get(i), actualSampleDetails.get(i));
         }
     }
@@ -341,8 +341,8 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < headerRow.size(); i++) {
             expectedHeaders.add(headerRow.get(i));
-            Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
-            Debugger.println("Actual Sample Table columns: " + actualHeaders.get(i));
+            //Debugger.println("Expected Sample Table columns: " + expectedHeaders.get(i));
+            //Debugger.println("Actual Sample Table columns: " + actualHeaders.get(i));
             Assert.assertEquals(expectedHeaders.get(i), actualHeaders.get(i));
         }
         Debugger.println("Expected Table columns: " + expectedHeaders);
@@ -356,8 +356,8 @@ public class SamplesSteps extends Pages {
         List<String> expectedSampleTestData = samplesPage.getTheExpectedSampleDetails();
         List<String> actualSampleTestData = samplesPage.getTheSampleDetailsOnTableList();
 
-        Debugger.println(("Actual Sample Test Data from list: " + actualSampleTestData));
-        Debugger.println(" Expected SampleTestData for list: " + expectedSampleTestData);
+        //Debugger.println(("Actual Sample Test Data from list: " + actualSampleTestData));
+        // Debugger.println(" Expected SampleTestData for list: " + expectedSampleTestData);
 
         for (int i = 0; i < expectedSampleTestData.size(); i++) {
             Assert.assertTrue(actualSampleTestData.contains(expectedSampleTestData.get(i)));
@@ -368,7 +368,7 @@ public class SamplesSteps extends Pages {
         String expectedTumourDescription = tumoursPage.getTheCurrentTumourDescription();
         boolean testResult = false;
         testResult = samplesPage.verifyTumourDescriptionIsOnlyDisplayForSampleTumourType(actualSampleTestData, expectedTumourDescription);
-        Debugger.println("test-result for tumourDescription " + testResult);
+        //Debugger.println("test-result for tumourDescription " + testResult);
         Assert.assertTrue(testResult);
     }
 
@@ -379,9 +379,9 @@ public class SamplesSteps extends Pages {
         /* index 0 is for parent and index 1 is for child */
         List<String> actualParentSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(0);
         List<String> actualChildSampleTestData = samplesPage.getTheParentAndChildSampleDetailsOnTableList(1);
-        Debugger.println("Actual Parent Sample Test Data: " + actualParentSampleTestData);
-        Debugger.println("Actual Child Sample Test Data: " + actualChildSampleTestData);
-        Debugger.println("Expected Child Sample Test Data: " + expectedChildSampleTestData);
+        // Debugger.println("Actual Parent Sample Test Data: " + actualParentSampleTestData);
+        // Debugger.println("Actual Child Sample Test Data: " + actualChildSampleTestData);
+        // Debugger.println("Expected Child Sample Test Data: " + expectedChildSampleTestData);
 
         for (int i = 0; i < expectedChildSampleTestData.size(); i++) {
             Assert.assertTrue(actualChildSampleTestData.contains(expectedChildSampleTestData.get(i)));
@@ -396,8 +396,8 @@ public class SamplesSteps extends Pages {
         Assert.assertTrue(testResult);
 
         /* Assert Local-Lab ID of Parent match Parent-ID of Child */
-        Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
-        Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
+        //Debugger.println("Lab-Id of Parent : " + actualParentSampleTestData.get(2));
+        // Debugger.println("Parent-ID of Child : " + actualChildSampleTestData.get(3));
         Assert.assertEquals(actualParentSampleTestData.get(2), actualChildSampleTestData.get(3));
     }
 
@@ -410,8 +410,8 @@ public class SamplesSteps extends Pages {
     public void theAddTumourErrorMessageIsDisplayedBelowSampleTypeField(String expectedTumourErrorMessage) {
 
         String actualErrorMessage = samplesPage.getTheDisplayedAddTumourErrorMessage();
-        Debugger.println("Expected error message :" + expectedTumourErrorMessage);
-        Debugger.println("Actual error message :" + actualErrorMessage);
+        //Debugger.println("Expected error message :" + expectedTumourErrorMessage);
+        //Debugger.println("Actual error message :" + actualErrorMessage);
         Assert.assertEquals(expectedTumourErrorMessage, actualErrorMessage);
     }
 
@@ -425,8 +425,8 @@ public class SamplesSteps extends Pages {
     public void theUserSeesAHyperTextLinkMessageBelowTheLinkedTumourDetailsOnAddASamplePage(String expectedTumourTextLink) {
 
         String actualTumourTextLink = samplesPage.getTheDisplayedTumourTextLinkOnAddASamplePage();
-        Debugger.println("Expected Tumour text link : " + expectedTumourTextLink);
-        Debugger.println("Actual Tumour text link : " + expectedTumourTextLink);
+        //Debugger.println("Expected Tumour text link : " + expectedTumourTextLink);
+        //Debugger.println("Actual Tumour text link : " + expectedTumourTextLink);
         Assert.assertEquals(expectedTumourTextLink, actualTumourTextLink);
     }
 
@@ -439,8 +439,8 @@ public class SamplesSteps extends Pages {
     public void theUserSeesATextBelowTheTheSampleIDOnAddASamplePage(String expectedLinkedSampleText) {
 
         String actualLinkedSampleText = samplesPage.getTheDisplayedSampleTextLinkOnAddASamplePage();
-        Debugger.println("Expected Sample text link : " + expectedLinkedSampleText);
-        Debugger.println("Actual Sample text link : " + actualLinkedSampleText);
+        //Debugger.println("Expected Sample text link : " + expectedLinkedSampleText);
+        //Debugger.println("Actual Sample text link : " + actualLinkedSampleText);
         Assert.assertEquals(expectedLinkedSampleText, actualLinkedSampleText);
     }
 
@@ -464,8 +464,8 @@ public class SamplesSteps extends Pages {
     public void asteriskStarSymbolIsShownAsMandatoryNextToTheTumourContentPercentageOfMalignantFieldLabelForOnlySolidTumourSample(String expectedTumourContentFieldLabel) {
 
         String actualTumourContentPercentage = samplesPage.getTheLabelForTumourContentPercentageField();
-        Debugger.println("Actual Tumour Content Field Label: " + actualTumourContentPercentage);
-        Debugger.println("Expected Tumour Content Field Label: " + expectedTumourContentFieldLabel);
+        //Debugger.println("Actual Tumour Content Field Label: " + actualTumourContentPercentage);
+        //Debugger.println("Expected Tumour Content Field Label: " + expectedTumourContentFieldLabel);
         Assert.assertEquals(expectedTumourContentFieldLabel, actualTumourContentPercentage);
     }
 
@@ -484,12 +484,12 @@ public class SamplesSteps extends Pages {
 
         switch (stageStatus) {
             case "MandatoryToDo": {
-                Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
+                //Debugger.println(stage + " status stage for Solid tumour Sample is : " + stageStatus);
                 Assert.assertTrue(referralPage.stageIsMandatoryToDo(stage));
                 break;
             }
             case "Completed": {
-                Debugger.println(stage + " status stage for Liquid tumour Sample is : " + stageStatus);
+                // Debugger.println(stage + " status stage for Liquid tumour Sample is : " + stageStatus);
                 Assert.assertTrue(referralPage.stageIsCompleted(stage));
                 break;
             }
@@ -504,17 +504,17 @@ public class SamplesSteps extends Pages {
         boolean flag = Wait.isElementDisplayed(driver, samplesPage.sampleCollectionDateField, 10);
         Assert.assertTrue(flag);
         String actualSampleCollectionDateLabel = Actions.getText(samplesPage.sampleCollectionDateFieldLabel);
-        Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDateLabel);
-        Debugger.println("Expected sampleCollection label: " + expectedSampleCollectionDateLabel);
+        // Debugger.println("Actual sampleCollection label: " + actualSampleCollectionDateLabel);
+        //  Debugger.println("Expected sampleCollection label: " + expectedSampleCollectionDateLabel);
         Assert.assertEquals(expectedSampleCollectionDateLabel,actualSampleCollectionDateLabel);
     }
 
     @And("the user is able to enter date in the Sample Collection date field")
     public void theUserIsAbleToEnterDateInTheSampleCollectionDateField() {
-          samplesPage.selectSampleCollectionDate();
-          String actualSampleCollectionDate = Actions.getValue(samplesPage.sampleCollectionDateField);
-          Debugger.println("Actual sampleCollection Date:" + actualSampleCollectionDate);
-          Assert.assertTrue(!Objects.requireNonNull(getValue(samplesPage.sampleCollectionDateField)).isEmpty()); //Collection field date is not empty
+        samplesPage.selectSampleCollectionDate();
+        String actualSampleCollectionDate = Actions.getValue(samplesPage.sampleCollectionDateField);
+        // Debugger.println("Actual sampleCollection Date:" + actualSampleCollectionDate);
+        Assert.assertTrue(!Objects.requireNonNull(getValue(samplesPage.sampleCollectionDateField)).isEmpty()); //Collection field date is not empty
     }
 
     @And("the user see a tick mark next to the selected parent Sample")

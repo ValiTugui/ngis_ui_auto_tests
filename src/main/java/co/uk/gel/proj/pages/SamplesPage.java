@@ -148,14 +148,14 @@ public class SamplesPage {
     @FindBy(xpath = "//label[@for='sampleState']/..//div[contains(@class,'option')]/span/span")
     public List<WebElement> sampleStateDropDownValues;
 
-	@FindBy (css = "label[for*='sampleType']")
-	public WebElement sampleTypeLabel;
+    @FindBy (css = "label[for*='sampleType']")
+    public WebElement sampleTypeLabel;
 
-	@FindBy (css = "label[for*='sampleState']")
-	public WebElement sampleStateLabel;
+    @FindBy (css = "label[for*='sampleState']")
+    public WebElement sampleStateLabel;
 
-	@FindBy (css = "label[for*='labId']")
-	public WebElement labIdLabel;
+    @FindBy (css = "label[for*='labId']")
+    public WebElement labIdLabel;
 
     @FindBy(css = "*[class*='styles_field-label--error']")
     public List<WebElement> fieldsLabelErrors;
@@ -220,8 +220,7 @@ public class SamplesPage {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.clickElement(driver, sampleState);
-            Wait.seconds(2);
+            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
             if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
                 Debugger.println("SampleState Drop values not loaded: ");
                 SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
@@ -258,10 +257,10 @@ public class SamplesPage {
 
     public void answerSampleTopography(String value) {
         try {
-        Wait.forElementToBeDisplayed(driver, sampleTopographyField);
-        Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectRandomValueFromDropdown(dropdownValues);
+            Wait.forElementToBeDisplayed(driver, sampleTopographyField);
+            Actions.fillInValueOneCharacterAtATimeOnTheDynamicInputField(sampleTopographyField, value);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectRandomValueFromDropdown(dropdownValues);
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("SampleTopograhy.jpg");
             Debugger.println(" Sample Topograhy value " + value + " is not displayed in the dynamic dropdown list");
@@ -276,10 +275,10 @@ public class SamplesPage {
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectRandomValueFromDropdown(dropdownValues);
         } catch (Exception exp) {
-                SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
-                Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
-                Assert.assertFalse(true);
-            }
+            SeleniumLib.takeAScreenShot("SampleMorphology.jpg");
+            Debugger.println(" Sample Morphology value " + value + " is not displayed in the dynamic dropdown list");
+            Assert.assertFalse(true);
+        }
     }
 
     public int fillInPercentageOfMalignantNuclei() {
@@ -342,7 +341,7 @@ public class SamplesPage {
         for (WebElement sampleType : sampleTypesDropDownValues) {
             actualSampleTypes.add(sampleType.getText().trim());
         }
-        Debugger.println("Print sampleTypes" + actualSampleTypes);
+        //Debugger.println("Print sampleTypes" + actualSampleTypes);
         return actualSampleTypes;
     }
 
@@ -353,7 +352,7 @@ public class SamplesPage {
         for (WebElement fieldLabel : fieldsLabelErrors) {
             actualFieldErrorLabels.add(fieldLabel.getText().trim());
         }
-        Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
+        // Debugger.println("Actual-Field Labels Errors" + actualFieldErrorLabels);
         return actualFieldErrorLabels;
     }
 
@@ -364,7 +363,7 @@ public class SamplesPage {
         for (WebElement actualTumourDetail : tumourDetailsValuesFromAddSamplePage) {
             actualTumourDetailsFromAddSamplePage.add(actualTumourDetail.getText().trim());
         }
-        Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
+        //Debugger.println("actual tumour-details on " + actualTumourDetailsFromAddSamplePage);
         return actualTumourDetailsFromAddSamplePage;
     }
 
@@ -413,7 +412,7 @@ public class SamplesPage {
         actualFieldPlaceHolderTexts.add(Actions.getText(sampleStateDropDownPlaceHolder));
         actualFieldPlaceHolderTexts.add(labId.getAttribute("placeholder"));
 
-        Debugger.println("Actual PlaceHolder on Add a Sample page " + actualFieldPlaceHolderTexts);
+        //Debugger.println("Actual PlaceHolder on Add a Sample page " + actualFieldPlaceHolderTexts);
         return actualFieldPlaceHolderTexts;
     }
 
@@ -445,7 +444,7 @@ public class SamplesPage {
         for (WebElement actualSampleStateValue : sampleStateDropDownValues) {
             actualSampleStateValues.add(actualSampleStateValue.getText().trim());
         }
-        Debugger.println("Actual sample-state values: " + actualSampleStateValues);
+        //Debugger.println("Actual sample-state values: " + actualSampleStateValues);
         return actualSampleStateValues;
     }
 
@@ -474,7 +473,7 @@ public class SamplesPage {
         actualSampleDetails.add(Actions.getText(sampleState));
         actualSampleDetails.add(Actions.getValue(labId));
 
-        Debugger.println("Actual Sample Details on Edit a Sample " + actualSampleDetails);
+        //Debugger.println("Actual Sample Details on Edit a Sample " + actualSampleDetails);
         return actualSampleDetails;
     }
 
@@ -486,7 +485,7 @@ public class SamplesPage {
         expectedSampleDetails.add(sampleDetails.getSampleState());
         expectedSampleDetails.add(sampleDetails.getSampleID());
 
-        Debugger.println("Expected Sample Details on Edit a Sample " + expectedSampleDetails);
+        //Debugger.println("Expected Sample Details on Edit a Sample " + expectedSampleDetails);
         return expectedSampleDetails;
     }
 
@@ -501,7 +500,7 @@ public class SamplesPage {
         for (WebElement sampleDetails : newlyAddedSampleDetailsList) {
             actualSampleTestData.add(sampleDetails.getText().trim());
         }
-        Debugger.println("Method Actual-SampleDetails-In List " + actualSampleTestData);
+        //Debugger.println("Method Actual-SampleDetails-In List " + actualSampleTestData);
         return actualSampleTestData;
     }
 
@@ -515,7 +514,7 @@ public class SamplesPage {
         for (WebElement sampleDetails : parentSampleDetails) {
             actualSampleTestData.add(sampleDetails.getText().trim());
         }
-        Debugger.println("Actual-SampleDetails In List " + actualSampleTestData);
+        //Debugger.println("Actual-SampleDetails In List " + actualSampleTestData);
         return actualSampleTestData;
     }
 

@@ -77,7 +77,7 @@ public class HomePage {
     public boolean waitUntilHomePageResultsContainerIsLoaded() {
         try {
             if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
-                Debugger.println("HomePage:filtersPanel not displayed even after waiting period(200s).");
+                Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
                 SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
                 return false;
             }
@@ -96,74 +96,57 @@ public class HomePage {
 
     public boolean typeInSearchField(String searchTerm) {
         try {
-            if(!Wait.isElementDisplayed(driver,searchField,60)){
-                Debugger.println("searchField for present even after waiting period: Check SearchFieldNotLoaded.jpg");
-                SeleniumLib.takeAScreenShot("SearchFieldNotLoaded.jpg");
+            if(!Wait.isElementDisplayed(driver,searchField,30)){
+                Debugger.println("searchField for present even after waiting period: ");
+                SeleniumLib.takeAScreenShot("typeInSearchField.jpg");
                 return false;
             }
             searchField.sendKeys(searchTerm);
             return true;
         }catch(Exception exp){
             Debugger.println("Exception from entering the search Term: "+exp);
-            SeleniumLib.takeAScreenShot("typeInSearchField.jpg");
+            SeleniumLib.takeAScreenShot("stypeInSearchField.jpg");
             return false;
         }
     }
 
     public boolean clickSearchIconFromSearchField() {
         try {
-            if(!Wait.isElementDisplayed(driver,searchIcon,10)){
-                Debugger.println("Search icon not displayed: clickSearchIconFromSearchField.jpg");
-                SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
-                return false;
-            }
             Click.element(driver, searchIcon);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickSearchIconFromSearchField:"+exp);
+            Debugger.println("Exception from clickSearchIconFromSearchField:"+exp);
             SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
             return false;
         }
     }
 
     public void closeCookiesBannerFromFooter() {
-        try {
-            if (cookiesUnderstandButton.size() > 0) {
-                Click.element(driver, cookiesUnderstandButton.get(0));
-                Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
-            }
-        }catch(Exception exp){
-            Debugger.println("Exception from closeCookiesBannerFromFooter. Continue..");
+        if (cookiesUnderstandButton.size() > 0) {
+            Click.element(driver, cookiesUnderstandButton.get(0));
+            Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
+            Debugger.println("Cookies Banner Closed.");
         }
     }
 
     public boolean selectFirstEntityFromResultList() {
-        try {
-            if (resultsPanels != null && resultsPanels.size() > 0) {
-                Click.element(driver, resultsPanels.get(0));
-            } else {
-                Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
-                Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
-                if (resultsPanels != null && resultsPanels.size() > 0) {
-                    Click.element(driver, resultsPanels.get(0));
-                } else {
-                    Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 more seconds");
-                    Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
-                    if (resultsPanels != null && resultsPanels.size() > 0) {
-                        Click.element(driver, resultsPanels.get(0));
-                    }else {
-                        Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:" + driver.getCurrentUrl());
-                        SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
-                        return false;
-                    }
-                }
-            }
+
+        if(resultsPanels != null && resultsPanels.size() > 0){
+            Click.element(driver, resultsPanels.get(0));
             return true;
-        }catch(Exception exp){
-            Debugger.println("Exception from selectFirstEntityFromResultList:"+exp);
-            SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
-            return false;
+        }else{
+            Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
+            Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
+            if(resultsPanels != null && resultsPanels.size() > 0) {
+                Click.element(driver, resultsPanels.get(0));
+                return true;
+            }else{
+                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
+                return false;
+            }
         }
+
     }
 
     public void TestDirectoryHomePageIsDisplayed() {
@@ -172,40 +155,58 @@ public class HomePage {
     }
 
     public long rareAndInheritedDiseasesSearchResult() {
-        rareAndInheritedDiseasesChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        rareAndInheritedDiseasesChkBox.click();
-        Wait.seconds(1);
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            rareAndInheritedDiseasesChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            rareAndInheritedDiseasesChkBox.click();
+            Wait.seconds(1);
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in rareAndInheritedDiseasesSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long tumorSearchResult() {
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in tumorSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("tumorSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long totalSearchResult() {
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in totalSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("totalSearchResult.jpg");
+            return 0;
+        }
     }
 
     public boolean testResultsAreLoaded() {

@@ -81,7 +81,17 @@ public class PatientChoicePage {
     String childAssent = "//label[contains(@class,'radio-container')][contains(text(),'dummyAssent')]";
 
     //For PatientInformation Identifiers
+    String patientList = "//div[contains(@class,'styles_participant-list_')]/div[contains(@class,'css')]";
     String firstNameLastName = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'css-')]//h2";
+    String probandBeingTested = "//div[contains(@class,'styles_participant-list_')]//span[contains(@class,'child-element')]";
+    String bornInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'dateOfBirth')]";
+    String genderInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'gender')]";
+    String ngsIdInformation = "//div[contains(@class,'styles_participant-list_')]//span[contains(@id,'ngisId')]";
+    String patientChoiceInformation = "//span[contains(@id,'patientChoiceStatus')]";
+    String editButtonInformation = "//button[@aria-label='edit button']";
+
+    String fileTypeDropDownValue = "//a[@class='dropdown-item'][contains(text(),'dummyOption')]";
+
     String uploadFilepath = System.getProperty("user.dir") + File.separator + "testdata" + File.separator;
 
     @FindBy(id = "upload_doc")
@@ -273,6 +283,18 @@ public class PatientChoicePage {
     @FindBy(xpath = "//img[contains(@class,'cancel-logo')]")
     public WebElement cancelUpload;
 
+    public boolean editPatientChoice() {
+        try {
+            Wait.forElementToBeDisplayed(driver, editPatientChoice);
+            seleniumLib.clickOnWebElement(editPatientChoice);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Could not click on Patient Choice Edit: " + exp);
+            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+            return false;
+        }
+    }
+
     public boolean verifySelectedTabInPatientChoice(String tabSectionTitle) {
         String selectedSubtitle = selectedTabTitle.replaceAll("dummySubtitle", tabSectionTitle);
         try {
@@ -303,21 +325,18 @@ public class PatientChoicePage {
             Wait.seconds(10);//Default observed a delay of 5-10 seconds for loading this section
             webElement = driver.findElement(By.xpath(categoryToBeSelected));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                Actions.clickElement(driver,webElement);
+                seleniumLib.clickOnWebElement(webElement);
                 return true;
             }
-            Debugger.println("PatientChoice category could not select: "+category);
-            SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
         } catch (NoSuchElementException exp) {
             //Waiting for another 20 seconds and trying again - Added this based on the errors observed
-            Wait.seconds(10);
-            if(seleniumLib.isElementPresent(By.xpath(categoryToBeSelected))){
-                seleniumLib.clickOnElement(By.xpath(categoryToBeSelected));
+            Wait.seconds(20);
+            webElement = driver.findElement(By.xpath(categoryToBeSelected));
+            if (Wait.isElementDisplayed(driver, webElement, 100)) {
+                seleniumLib.clickOnWebElement(webElement);
                 return true;
             }
-            Debugger.println("PatientChoice category could not select: "+category);
-            SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
@@ -335,7 +354,6 @@ public class PatientChoicePage {
             List<WebElement> optionsList = driver.findElements(By.xpath(options));
             if (optionsList == null || optionsList.size() == 0) {
                 Debugger.println("Could not find any options under the section :" + sectionName);
-                SeleniumLib.takeAScreenShot("patientChoice.jpg");
                 return false;
             }
             boolean isFound = false;
@@ -348,7 +366,6 @@ public class PatientChoicePage {
             }
             if (!isFound) {
                 Debugger.println("Option :" + optionName + " could not found under the section :" + sectionName);
-                SeleniumLib.takeAScreenShot("patientChoice.jpg");
             }
             return isFound;
         } catch (Exception exp) {
@@ -366,11 +383,9 @@ public class PatientChoicePage {
             String selectedTestType = testType.replaceAll("dummyTestType", test_type);
             WebElement webElement = driver.findElement(By.xpath(selectedTestType));
             if (Wait.isElementDisplayed(driver, webElement, 100)) {
-                Actions.clickElement(driver,webElement);
+                seleniumLib.clickOnWebElement(webElement);
             } else {
                 Debugger.println("Test Type: " + test_type + " not displayed.");
-                SeleniumLib.takeAScreenShot("PatientChoiceTestType.jpg");
-                return false;
             }
 
             return true;
@@ -456,18 +471,16 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean clickOnContinue() {
+    public void clickOnContinue() {
         try {
             if (Wait.isElementDisplayed(driver, continueButton, 10)) {
                 Actions.retryClickAndIgnoreElementInterception(driver, continueButton);
             } else if (Wait.isElementDisplayed(driver, formToFollow, 10)) {
                 Actions.clickElement(driver, formToFollow);
             }
-            return true;
         } catch (Exception exp) {
             Debugger.println("Exception in clicking on Continue Button in PC:" + exp);
             SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
-            return false;
         }
     }
 
@@ -640,6 +653,7 @@ public class PatientChoicePage {
             WebElement selectedOptionResult = driver.findElement(By.xpath(selectedOptionField));
             if (!Wait.isElementDisplayed(driver, selectedOptionResult, 30)) {
                 Debugger.println("Element before Edit button not found for " + expectedResult);
+                SeleniumLib.takeAScreenShot("PCOptionTitle.jpg");
                 return false;
             }
             if (!selectedOptionResult.getText().contains(expectedResult)) {
@@ -716,21 +730,16 @@ public class PatientChoicePage {
         try {
             Wait.seconds(2);
             Wait.forElementToBeDisplayed(driver, warningMessageBox);
-            if(warningMessages.size() < 1){
-                Debugger.println("No Warning messaged displayed as expected.");
-                SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
-                return false;
-            }
             for (int i = 0; i < warningMessages.size(); i++) {
-                Debugger.println("\nMESSAGE: "+warningMessages.get(i).getText());
+                Debugger.println("WM:ACT:"+warningMessages.get(i).getText());
                 if (message.equalsIgnoreCase(warningMessages.get(i).getText())) {
                     return true;
                 }
             }
             Debugger.println("WarningMessage:" + message + " not present.");
-            SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
+            SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
             Actions.scrollToTop(driver);
-            SeleniumLib.takeAScreenShot("NoWarningMessage2.jpg");
+            SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
             return false;
         } catch (Exception exp) {
             Debugger.println("Exception validating warning message in PC: " + exp);
@@ -909,36 +918,90 @@ public class PatientChoicePage {
         }
     }
 
-    public void selectMember(int i) {
+    public boolean selectMember(int i) {
         try {
-            if (Wait.isElementDisplayed(driver, landingPageList, 10)) {
+            if (Wait.isElementDisplayed(driver, landingPageList, 30)) {
                 if (memberEditButton.size() > i) {
                     Click.element(driver, memberEditButton.get(i));
                 }
+            }else{
+                Debugger.println("Could not locate the Patient choice for member at location: "+i);
+                SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+                return false;
             }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp);
-            SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+            try{
+                seleniumLib.clickOnWebElement(memberEditButton.get(i));
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from selecting Patient choice to edit at " + i + ".:" + exp);
+                SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+                return false;
+            }
+
         }
     }
 
-    public void selectPatientChoiceCategory() {
-        Click.element(driver, adultWithCapacityCategory);
+    public boolean selectPatientChoiceCategory() {
+        try {
+            if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,10)){
+                Debugger.println("adultWithCapacityCategory not displayed.");
+                SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
+            }
+            Click.element(driver, adultWithCapacityCategory);
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(adultWithCapacityCategory);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in adultWithCapacityCategory:"+exp);
+                SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
+                return false;
+            }
+        }
     }
 
     public void selectTestType() {
         Click.element(driver, adultWithCapacityCategory);
     }
 
-    public void enterRecordedByDetails() {
-        Wait.forElementToBeDisplayed(driver, recordedByField);
-        co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
-        Click.element(driver, recordedByContinueButton);
+    public boolean enterRecordedByDetails() {
+        try {
+
+            Wait.forElementToBeDisplayed(driver, recordedByField);
+            co.uk.gel.lib.Actions.fillInValue(recordedByField, "Sue");
+            Click.element(driver, recordedByContinueButton);
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(recordedByContinueButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in enterRecordedByDetails:" + exp1);
+                SeleniumLib.takeAScreenShot("enterRecordedByDetails.jpg");
+                return false;
+            }
+        }
     }
 
-    public void selectChoicesWithPatientChoiceNotRequired() {
-        Click.element(driver, patientChoiceNotRequiredForTheTest);
-        Click.element(driver, patientChoicesContinueButton);
+    public boolean selectChoicesWithPatientChoiceNotRequired() {
+        try {
+            Click.element(driver, patientChoiceNotRequiredForTheTest);
+            Click.element(driver, patientChoicesContinueButton);
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.clickOnWebElement(patientChoiceNotRequiredForTheTest);
+                seleniumLib.clickOnWebElement(patientChoicesContinueButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in selectChoicesWithPatientChoiceNotRequired:" + exp1);
+                SeleniumLib.takeAScreenShot("selectChoicesWithPatientChoiceNotRequired.jpg");
+                return false;
+            }
+        }
     }
 
     public void selectChoicesWithAgreeingTesting() {
@@ -974,21 +1037,37 @@ public class PatientChoicePage {
         }
     }
 
-    public void submitPatientChoiceWithSignature() {
+    public boolean submitPatientChoiceWithSignature() {
         try {
             Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
             Click.element(driver, submitSignatureButton);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from submitting Patient Choice with Signature...." + exp);
+            try{
+                seleniumLib.clickOnWebElement(submitSignatureButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from submitting Patient Choice with Signature...." + exp1);
+                SeleniumLib.takeAScreenShot("submitPatientChoiceWithSignature.jpg");
+                return false;
+            }
 
         }
     }
 
-    public void submitPatientChoiceWithoutSignature() {
+    public boolean submitPatientChoiceWithoutSignature() {
         try {
             Click.element(driver, submitButton);
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from submitting Patient Choice...." + exp);
+            try{
+                seleniumLib.clickOnWebElement(submitButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from submitting Patient Choice...." + exp1);
+                SeleniumLib.takeAScreenShot("submitPatientChoiceWithoutSignature.jpg");
+                return false;
+            }
         }
     }
 
@@ -1273,9 +1352,20 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyTheFormLibrarySection:" + exp);
-            SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
-            return false;
+            //Trying with SeleniumLib click which handles javascript click also
+            try {
+                String formLinkPath = formSection.replaceAll("dummySection", sectionName);
+                if(!seleniumLib.isElementPresent(By.xpath(formLinkPath))) {
+                    Debugger.println("Section:" + sectionName + " Not present under Form Library in Patient Choice");
+                    SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+                    return false;
+                }
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from verifyTheFormLibrarySection:" + exp1);
+                SeleniumLib.takeAScreenShot("formLibrarySection.jpg");
+                return false;
+            }
         }
     }
 
@@ -1285,29 +1375,15 @@ public class PatientChoicePage {
             String linkForms = formLinks.replaceAll("dummySection", formSection);
             List<WebElement> supportingInformationLinks = driver.findElements(By.xpath(linkForms));
             for (int i = 0; i < supportingInformationLinks.size(); i++) {
-                Wait.seconds(3);
                 if (supportingInformationLinks.get(i).getText().equalsIgnoreCase(linkForm)) {
                     //Click on the link, Using seleniumLib click as the direct click sometimes gives some element not clickable error
-                    try {
-                        Actions.clickElement(driver, supportingInformationLinks.get(i));
-                    }catch(Exception exp){
-                        Debugger.println("Exception from Clicking form link....trying via selenium lib.");
-                        seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
-                    }
+                    seleniumLib.clickOnWebElement(supportingInformationLinks.get(i));
                     Wait.seconds(3);//Wait for three second to Load the form.
                     if (formSubHeader.getText().equalsIgnoreCase(linkForm)) {
                         isPresent = true;
                     }
-                    try{
-                        Actions.clickElement(driver,formLiraryBackButton);
-                    }catch(Exception exp){
-                        try {
-                            Debugger.println("Exception from clicking Back button...Trying via selenium lib.");
-                            seleniumLib.clickOnWebElement(formLiraryBackButton);
-                        }catch(Exception exp1){
-                            Debugger.println("Exception from clicking back button: "+exp);
-                        }
-                    }
+                    Actions.scrollToTop(driver);
+                    seleniumLib.clickOnWebElement(formLiraryBackButton);
                     Wait.seconds(3);//Wait for three second to navigate back to previous page.
                     break;
                 }

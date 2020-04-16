@@ -94,9 +94,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-        boolean testResult = false;
-        testResult = patientSearchPage.clickSearchButtonByXpath();
-        Assert.assertTrue(testResult);
+        patientSearchPage.clickSearchButtonByXpath(driver);
     }
 
 
@@ -262,9 +260,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the NO button$")
     public void theUserClicksTheNOButton() throws Throwable {
-        boolean testResult = false;
-        testResult = patientSearchPage.clickNoButton();
-        Assert.assertTrue(testResult);
+        patientSearchPage.clickNoButton();
     }
 
 
@@ -328,9 +324,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the patient result card$")
     public void theUserClicksThePatientResultCard() {
-        boolean testResult = false;
-        testResult = patientSearchPage.clickPatientCard();
-        Assert.assertTrue(testResult);
+        patientSearchPage.clickPatientCard();
     }
 
 
@@ -413,14 +407,12 @@ public class PatientSearchSteps extends Pages {
     @And("the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page")
     public void theUserSearchesForAPatientByProvidingValidDetailsOfNHSNumberAndDOBFieldsInThePatientSearchPage(List<String> patientTypesList) throws IOException {
         theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(patientTypesList);
-        patientSearchPage.clickSearchButtonByXpath();
+        patientSearchPage.clickSearchButtonByXpath(driver);
     }
 
     @When("the user types in invalid details of a patient in the NHS number and DOB fields")
     public void theUserTypesInInvalidDetailsOfAPatientInTheNHSNumberAndDOBFields() {
-        boolean testResult = false;
-        testResult = patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
-        Assert.assertTrue(testResult);
+        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
     }
 
 
@@ -432,9 +424,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user types in invalid details of a patient in the NO fields")
     public void theUserTypesInInvalidDetailsOfAPatientInTheNOFields() {
-        boolean testResult = false;
-        testResult = patientSearchPage.fillInInvalidPatientDetailsInTheNOFields();
-        Assert.assertTrue(testResult);
+        patientSearchPage.fillInInvalidPatientDetailsInTheNOFields();
     }
 
     @And("the fields from NO section are pre-populated in the new patient page from the search page")
@@ -589,9 +579,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user types in the details of the NGIS patient in the NHS number and DOB fields")
     public void theUserTypesInTheDetailsOfTheNGISPatientInTheNHSNumberAndDOBFields() {
-        boolean testResult = false;
-        testResult = patientSearchPage.fillInNewPatientDetailsInTheYesFields();
-        Assert.assertTrue(testResult);
+        patientSearchPage.fillInNewPatientDetailsInTheYesFields();
     }
 
     @And("the user search for the new patient using date of birth, first name, last name, gender and post-code")
@@ -609,15 +597,9 @@ public class PatientSearchSteps extends Pages {
 
     @Then("the message {string} is displayed below the search button")
     public void theMessageIsDisplayedBelowTheSearchButton(String expectedMessage) {
-        String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
-        if(actualNoPatientFoundLabel == null){
-            SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
-            Assert.assertTrue(false);
-        }
-        if(!expectedMessage.equalsIgnoreCase(actualNoPatientFoundLabel)){
-            SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
-            Assert.assertTrue(false);
-        }
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.noPatientFoundLabel);
+        String actualMessage = patientSearchPage.noPatientFoundLabel.getText();
+        Assert.assertEquals(expectedMessage, actualMessage);
     }
 
     @Then("the NHS number field remains empty as invalid characters are not accepted")
@@ -664,9 +646,7 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user clicks on the hyper link")
     public void theUserClicksOnTheHyperLink() {
-        boolean testResult = false;
-        testResult = patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-        Assert.assertTrue(testResult);
+        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
     }
 
     @And("the display question for NHS Number is (.*)$")

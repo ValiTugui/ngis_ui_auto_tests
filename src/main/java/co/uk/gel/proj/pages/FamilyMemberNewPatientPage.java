@@ -79,8 +79,8 @@ public class FamilyMemberNewPatientPage {
     @FindBy(name = "noNhsNumberReason")
     public WebElement noNHSNumber;
 
-    @FindBy(xpath = "//button[text()='Create NGIS record']")
-    public WebElement createNGISRecord;
+    @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
+    public WebElement addReferralButton;
 
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
@@ -145,20 +145,14 @@ public class FamilyMemberNewPatientPage {
             }
         }
     }
-    public boolean clickOnCreateNGISRecord(){
+    public void clickOnAddNewPatientToReferral(){
         try {
-            if(!Wait.isElementDisplayed(driver, createNGISRecord,10)){
-                Debugger.println("Create NGIS Record button not displayed:");
-                SeleniumLib.takeAScreenShot("CreateNGISRecord.jpg");
-                return false;
-            }
-            Actions.clickElement(driver,createNGISRecord);
+            Wait.forElementToBeDisplayed(driver, addReferralButton);
+            Click.element(driver, addReferralButton);
             Wait.seconds(2);//To ensure the error messages if any, is loaded.
-            return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickOnCreateNGISRecord:"+exp);
-            SeleniumLib.takeAScreenShot("CreateNGISRecord.jpg");
-            return false;
+            Debugger.println("Exception in clicking AddNewReferral:"+exp);
+            SeleniumLib.takeAScreenShot("AddNewReferralError.jpg");
         }
     }
     public boolean checkTheErrorMessageForMandatoryFields(String errorMessage, String fontColor) {

@@ -29,7 +29,9 @@ public class SeleniumDriver extends EventFiringWebDriver {
     };
 
     static {
+
         DRIVER = new BrowserFactory().getDriver();
+
         Actions.deleteCookies(DRIVER);
         TestUtils.clearAllSnapShots();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();

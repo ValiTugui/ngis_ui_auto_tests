@@ -31,23 +31,17 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on the patient card")
     public void theUserSelectsThePatientSearchResultTab() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.clickPatientCard();
-        Assert.assertTrue(testResult);
-    }
-
-    @When("the user clicks on edit patient details")
-    public void theUserClicksOnEditPatientDetails() {
-        boolean testResult = false;
-        testResult = familyMemberDetailsPage.editPatientDetails();
-        Assert.assertTrue(testResult);
+        familyMemberDetailsPage.clickPatientCard();
     }
 
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
-        if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
-            Assert.assertTrue(false);
+        //For already existing members, no need to fill the ethnicity
+        if(memberDetails.startsWith("NHSNumber=NA")) {
+            if (!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")) {
+                Assert.assertTrue(false);
+            }
         }
         if(!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)){
             Assert.assertTrue(false);
@@ -137,9 +131,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks the Add new patient to referral button")
     public void theUserClicksTheAddNewPatientToReferralButton() {
-        boolean testResult = false;
-        testResult = familyMemberNewPatientPage.clickOnCreateNGISRecord();
-        Assert.assertTrue(testResult);
+        familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
     }
 
     @When("the user deselects the test")
@@ -356,44 +348,26 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }else{
                         familyMember.setETHNICITY("A - White - British");
                     }
-                    if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
-                        Assert.assertTrue(false);
-                    }
-                    if(!patientSearchPage.clickSearchButtonByXpath()){
-                        Assert.assertTrue(false);
-                    }
+                    patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
+                    patientSearchPage.clickSearchButtonByXpath(driver);
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                         if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                            patientSearchPage.clickSearchButtonByXpath();
+                            patientSearchPage.clickSearchButtonByXpath(driver);
                         }
                     }
-                    if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
-                        Assert.assertTrue(false);
-                    }
-                    if(!patientDetailsPage.newPatientPageIsDisplayed()){
-                        Assert.assertTrue(false);
-                    }
+                    patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+                    patientDetailsPage.newPatientPageIsDisplayed();
                     if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                        Assert.assertTrue(false);
-                    }
-                    if(!referralPage.verifyThePageTitlePresence("Continue with this family member")){
-                        Assert.assertTrue(false);
+                        break;
                     }
                     referralPage.updatePatientNGSID(familyMember);
-                    if(!referralPage.clickSaveAndContinueButton()){
-                        Assert.assertTrue(false);
-                    }
                 }else {
-                    if(!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))){
-                        Assert.assertTrue(false);
-                    }
+                    familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0));
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
-                    if(!familyMemberDetailsPage.clickPatientCard()){
-                        Assert.assertTrue(false);
-                    }
+                    familyMemberDetailsPage.clickPatientCard();
                     familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
                     referralPage.clickSaveAndContinueButton();
                 }

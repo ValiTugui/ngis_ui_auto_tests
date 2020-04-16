@@ -141,7 +141,7 @@ public class TestPackageSteps extends Pages {
 
     @And("the Test Package page {string} is de-selected")
     public void theTestPackagePageIsDeSelected(String previousPriority) {
-       Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
+        Assert.assertFalse(testPackagePage.verifyGivenPriorityIsSelected(previousPriority));
     }
 
     @And("the Test Package page has the help text as {string} on the page")
@@ -158,18 +158,26 @@ public class TestPackageSteps extends Pages {
 
     @And("the drop down box is displayed as empty by default")
     public void theDropDownBoxIsDisplayedAsEmptyByDefault() {
-        Assert.assertTrue(testPackagePage.verifyNumberOfParticipantsFieldDefaultValueIsEmpty());
+        boolean testResult = false;
+        testResult = testPackagePage.verifyNumberOfParticipantsFieldDefaultValueIsEmpty();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user does not select one of the values")
     public void theUserDoesNotSelectOneOfTheValues() {
-        testPackagePage.setTotalNumberOfParticipantsField(2);
-        testPackagePage.clearNumberOfParticipants();
+        boolean testResult = false;
+        testResult = testPackagePage.selectNumberOfParticipants(2);
+        Assert.assertTrue(testResult);
+        testResult = testPackagePage.clearNumberOfParticipants();
+        Assert.assertTrue(testResult);
+
     }
 
     @And("the user sees an error message {string}")
     public void theUserSeesAnErrorMessage(String errorMessage) {
-        Assert.assertTrue(testPackagePage.verifyErrorMessageInTotalNumberOfParticipants(errorMessage));
+        boolean testResult = false;
+        testResult = testPackagePage.verifyErrorMessageInTotalNumberOfParticipants(errorMessage);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user clicks on the drop down box to see the values between {string} - {string} displayed")
@@ -177,8 +185,6 @@ public class TestPackageSteps extends Pages {
         int intMinValueParticipantsDropBox = Integer.parseInt(minValueParticipantsDropBox);
         int intMaxValueParticipantsDropBox = Integer.parseInt(maxValueParticipantsDropBox);
         Assert.assertTrue(testPackagePage.verifyTheValuesShownInNumberOfParticipantsField(intMinValueParticipantsDropBox, intMaxValueParticipantsDropBox));
-
-
     }
 
     @And("The user sees a drop down box for the Total number of participants")

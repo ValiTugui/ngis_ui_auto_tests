@@ -25,9 +25,9 @@ public class ResponsibleClinicianPage {
 	Faker fake = new Faker();
 
 
-    String key1 = "mainClinician";
-    String key2 = "additionalClinician1";
-    String key3 = "additionalClinician2";
+	String key1 = "mainClinician";
+	String key2 = "additionalClinician1";
+	String key3 = "additionalClinician2";
 	public HashMap<String, ArrayList<String>> cliniciansMap = new HashMap<>();
 
 	public ResponsibleClinicianPage(WebDriver driver) {
@@ -113,7 +113,7 @@ public class ResponsibleClinicianPage {
 	@FindBy(css = "textarea[id*='additionalClinicians[0].professionalRegistrationNumber']")
 	public WebElement additionalClinician1ProfessionalRegistrationNumberField;
 
-    @FindBy(css = "input[id*='additionalClinicians[1].forename']")
+	@FindBy(css = "input[id*='additionalClinicians[1].forename']")
 	public WebElement additionalClinician2FirstNameField;
 
 	@FindBy(css = "input[id*='additionalClinicians[1].surname']")
@@ -184,18 +184,18 @@ public class ResponsibleClinicianPage {
 
 	}
 
-    public void enterEmail(String emailValue) {
-        Wait.forElementToBeDisplayed(driver, clinicianEmailField);
-        clinicianEmailField.sendKeys(emailValue);
-    }
+	public void enterEmail(String emailValue) {
+		Wait.forElementToBeDisplayed(driver, clinicianEmailField);
+		clinicianEmailField.sendKeys(emailValue);
+	}
 
-    public boolean verifyInvalidEmailWarningMessage(String expectedErrorMessage) {
-        return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
-    }
+	public boolean verifyInvalidEmailWarningMessage(String expectedErrorMessage) {
+		return clinicianErrorMessages.get(0).getText().contains(expectedErrorMessage);
+	}
 
-    public void enterPhoneNumber(String phoneNumberValue) {
-        clinicianPhoneNumberField.sendKeys(phoneNumberValue);
-    }
+	public void enterPhoneNumber(String phoneNumberValue) {
+		clinicianPhoneNumberField.sendKeys(phoneNumberValue);
+	}
 
 	public boolean verifyTotalNumberOfDigitsInPhoneNumberField(int maxNumberOfAllowedDigits) {
 		Wait.forElementToBeDisplayed(driver, clinicianPhoneNumberField);
@@ -237,16 +237,16 @@ public class ResponsibleClinicianPage {
 
 
 	public boolean verifyHyperlinkExists(String expectedHyperlinkText){
-      Wait.forElementToBeDisplayed(driver, addAnotherClinicianButton);
-      if(addAnotherClinicianButton.isDisplayed() && addAnotherClinicianButton.getText().contains(expectedHyperlinkText)){
-      	return true;
-	  }
-      else return false;
+		Wait.forElementToBeDisplayed(driver, addAnotherClinicianButton);
+		if(addAnotherClinicianButton.isDisplayed() && addAnotherClinicianButton.getText().contains(expectedHyperlinkText)){
+			return true;
+		}
+		else return false;
 	}
 
 	public boolean verifyRemoveHyperlinkExists(String expectedHyperlinkText){
-      Wait.forElementToBeDisplayed(driver, removeClinicianButton.get(0));
-      return removeClinicianButton.get(0).isDisplayed() && Actions.getText(removeClinicianButton.get(0)).contains(expectedHyperlinkText);
+		Wait.forElementToBeDisplayed(driver, removeClinicianButton.get(0));
+		return removeClinicianButton.get(0).isDisplayed() && Actions.getText(removeClinicianButton.get(0)).contains(expectedHyperlinkText);
 	}
 
 	public boolean verifyLastNameFieldIsMandatory(String expectedErrorMessage) {
@@ -259,10 +259,10 @@ public class ResponsibleClinicianPage {
 		String lastNameLabelActualColorUponError = clinicianLastNameLabel.getCssValue("color").toString();
 		String lastNameFieldErrorMessageActualColorUponError = clinicianErrorMessages.get(0).getCssValue("color").toString();
 		String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
-        if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
-        	return true;
+		if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
+			return true;
 		}
-        else return false;
+		else return false;
 	}
 
 	public boolean verifyLastNameFieldInAdditionalClinicianOneIsHighlightedInRed(String expectedColourUponError){
@@ -271,10 +271,10 @@ public class ResponsibleClinicianPage {
 		String lastNameLabelActualColorUponError = additionalClinician1LastNameLabel.getCssValue("color").toString();
 		String lastNameFieldErrorMessageActualColorUponError = clinicianErrorMessages.get(0).getCssValue("color").toString();
 		String redColour = StylesUtils.convertFontColourStringToCSSProperty(expectedColourUponError);
-        if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
-        	return true;
+		if(lastNameLabelActualColorUponError.equals(redColour) && lastNameFieldErrorMessageActualColorUponError.equals(redColour)){
+			return true;
 		}
-        else return false;
+		else return false;
 	}
 
 	public boolean verifyDepartmentalAddressIsDisplayedAsMandatoryField(){
@@ -342,7 +342,7 @@ public class ResponsibleClinicianPage {
 		clinicianDetails.add(4,departmentAddress);
 		clinicianDetails.add(5,professionalRegistrationNumber);
 
-	    storeClinicianDataForVerification(key2 , clinicianDetails);
+		storeClinicianDataForVerification(key2 , clinicianDetails);
 
 	}
 
@@ -370,7 +370,7 @@ public class ResponsibleClinicianPage {
 		clinicianDetails.add(4,departmentAddress);
 		clinicianDetails.add(5,professionalRegistrationNumber);
 
-	    storeClinicianDataForVerification(key3 , clinicianDetails);
+		storeClinicianDataForVerification(key3 , clinicianDetails);
 
 	}
 
@@ -569,37 +569,32 @@ public class ResponsibleClinicianPage {
 				return true;
 			}
 			HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(clinicalInfo);
-			Set<String> paramsKey = paramNameValue.keySet();
-			for (String key : paramsKey) {
-				switch (key) {
-					case "FirstName":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianFirstNameField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "LastName":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianLastNameField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Email":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianEmailField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Department":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianDepartmentAddressField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-					case "Registration":
-						if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-							clinicianProfesionalRegistrationNumberField.sendKeys(paramNameValue.get(key));
-						}
-						break;
-				}//switch
-			}//for
-
+			//Changed switch case, as the order matters to avoid overlay elements
+			//FirstName
+			String paramValue = paramNameValue.get("FirstName");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianFirstNameField.sendKeys(paramValue);
+			}
+			//LastName
+			paramValue = paramNameValue.get("LastName");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianLastNameField.sendKeys(paramValue);
+			}
+			//Email
+			paramValue = paramNameValue.get("Email");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianEmailField.sendKeys(paramValue);
+			}
+			//Department
+			paramValue = paramNameValue.get("Department");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianDepartmentAddressField.sendKeys(paramValue);
+			}
+			//Registration
+			paramValue = paramNameValue.get("Registration");
+			if (paramValue != null && (!paramValue.isEmpty())) {
+				clinicianProfesionalRegistrationNumberField.sendKeys(paramValue);
+			}
 			return true;
 		}catch(Exception exp){
 			Debugger.println("Exception in Filling ResponsibleClinician Information: "+exp);

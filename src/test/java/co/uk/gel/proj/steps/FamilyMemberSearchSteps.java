@@ -101,12 +101,12 @@ public class FamilyMemberSearchSteps extends Pages {
                 Debugger.println("Could not fill the NHS number and DOB for search....");
                 Assert.assertTrue(false);
             }
-            patientSearchPage.clickSearchButtonByXpath();
+            patientSearchPage.clickSearchButtonByXpath(driver);
             if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                 Debugger.println("NHS Not Found...going with No option.");
                 familyMember.setGENDER(paramNameValue.get("Gender"));
-                 if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
-                     patientSearchPage.clickSearchButtonByXpath();
+                if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                    patientSearchPage.clickSearchButtonByXpath(driver);
                 }
             }
             if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
@@ -124,7 +124,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 familyMember.setETHNICITY("A - White - British");
             }
             if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                return;
+                Assert.assertTrue(false);
             }
             referralPage.updatePatientNGSID(familyMember);
         }else {
@@ -166,16 +166,14 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-     @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+    @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         familyMemberSearchPage.verifyNoPatientFoundDetails(expSearchString, errorMessage, fontFace);
     }
 
     @When("the user clicks on the create new patient record")
     public void theUserClicksOnThe() {
-        boolean testResult = false;
-        testResult = familyMemberSearchPage.clickOnNewPatientLink();
-        Assert.assertTrue(testResult);
+        familyMemberSearchPage.clickOnNewPatientLink();
     }
 
     @Then("the family member landing page displayed without incomplete error message")

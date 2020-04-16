@@ -17,10 +17,12 @@ import java.util.List;
 public class TestPackagePage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public TestPackagePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(css = "h1[class*='page-title']")
@@ -70,6 +72,7 @@ public class TestPackagePage {
     @FindBy(id = "numberOfParticipants")
     public List<WebElement> numberOfParticipantsDropDown;
 
+    @FindBy(xpath = "//div[@id='numberOfParticipants']")
     public WebElement numberOfParticipants;
 
     @FindBy(css = "div[class*='error-message']")
@@ -155,16 +158,9 @@ public class TestPackagePage {
 
     public boolean selectNumberOfParticipants(int number) {
         try {
-            if(!Wait.isElementDisplayed(driver,routinePriorityButton,30)){
+            if(!Wait.isElementDisplayed(driver,numberOfParticipants,30)){
                 Debugger.println("TestPackage Not loaded.");
-
-            }
-            Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-            Wait.forElementToBeDisplayed(driver, testCardBody);
-            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-            if (!Wait.isElementDisplayed(driver, numberOfParticipants, 5)) {
-                Debugger.println("Number of Participants element in TestPackage is not displayed:");
-                Assert.assertFalse("Number of Participants element in TestPackage is not displayed:", true);
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
             }
             numberOfParticipants.click();
             Wait.seconds(2);
@@ -174,9 +170,14 @@ public class TestPackagePage {
             //Ensure that the test package is selected
             WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
             if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
-                Debugger.println("Test Package could not select with number: " + number);
-                SeleniumLib.takeAScreenShot("TestPackageSelection.jpg");
-                return false;
+                //Trying with seleniumlib click which handled the javascript click also
+                seleniumLib.clickOnWebElement(numberOfParticipants);
+                if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
+                    seleniumLib.clickOnWebElement(numberOfParticipants);
+                    Wait.seconds(2);
+                }
+                Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+                Wait.seconds(4);
             }
             return true;
         } catch (Exception exp) {
@@ -228,10 +229,14 @@ public class TestPackagePage {
     }
 
     public void setTotalNumberOfParticipantsField(int number) {
-        Wait.forElementToBeDisplayed(driver, numberOfParticipants);
-        Actions.clickElement(driver, numberOfParticipants);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        try {
+            Wait.forElementToBeDisplayed(driver, numberOfParticipants);
+            Actions.clickElement(driver, numberOfParticipants);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        }catch(Exception exp){
+            Debugger.println("setTotalNumberOfParticipantsField");
+        }
     }
 
     public boolean verifyTheTestsList(String expectedNumberOfTests) {
@@ -265,8 +270,20 @@ public class TestPackagePage {
     }
 
     public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty() {
-        Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
-        return numberOfParticipantsDropDown.get(0).getText().contains("");
+        try {
+            if(!Wait.isElementDisplayed(driver,numberOfParticipantsDropDown.get(0),10)){
+                Debugger.println("Participant dropdown list not displayed.");
+                SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
+                return false;
+            }
+            String actValue = numberOfParticipantsDropDown.get(0).getText();
+            Debugger.println("ActValue:"+actValue+":");
+            return numberOfParticipantsDropDown.get(0).getText().contains("");
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyNumberOfParticipantsFieldDefaultValueIsEmpty:"+exp);
+            SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
+            return false;
+        }
     }
 
     public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue) {
@@ -277,21 +294,52 @@ public class TestPackagePage {
     }
 
     public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage) {
-        Wait.forElementToBeDisplayed(driver, errorMessage);
-        return errorMessage.getText().contains(expectedErrorMessage);
+        try {
+            if(!Wait.isElementDisplayed(driver, errorMessage,10)){
+                Debugger.println("Expected TestPackage Number of Participant Error, nit displayed.");
+                SeleniumLib.takeAScreenShot("TestPackageError.jpg");
+                return false;
+            }
+            return errorMessage.getText().contains(expectedErrorMessage);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyErrorMessageInTotalNumberOfParticipants:"+exp);
+            SeleniumLib.takeAScreenShot("verifyErrorMessageInTotalNumberOfParticipants.jpg");
+            return false;
+        }
     }
 
-    public void clearNumberOfParticipants() {
-        if (!getText(numberOfParticipants).contains("Select")) {
-            Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
-            Actions.clickElement(driver, selectTestsHeader);
-            Wait.forElementToBeDisplayed(driver, errorMessage);
+    public boolean clearNumberOfParticipants() {
+        String currentValue = "";
+        try {
+            currentValue = getText(numberOfParticipants);
+            if (!currentValue.contains("Select")) {
+                Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
+                Actions.clickElement(driver, selectTestsHeader);
+                if(!Wait.isElementDisplayed(driver, errorMessage,10)){
+                    Debugger.println("Expected Error message to be displayed in TestPackage, but not.");
+                    SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                    return false;
+                }
+            }
+            return true;
+        }catch(Exception exp){
+            currentValue = getText(numberOfParticipants);
+            if (!currentValue.contains("Select")) {
+                Debugger.println("Exception in clearNumberOfParticipants:" + exp);
+                SeleniumLib.takeAScreenShot("clearNumberOfParticipants.jpg");
+                return false;
+            }
+            return true;//If the value is selected as "Select", means, nothing selected
         }
     }
 
     public String getText(WebElement element) {
-        Wait.forElementToBeDisplayed(driver, element);
-        return element.getText();
+        try {
+            Wait.forElementToBeDisplayed(driver, element);
+            return element.getText();
+        }catch(Exception exp){
+            return "";
+        }
     }
 
     public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants) {
