@@ -3,7 +3,6 @@ package co.uk.gel.config;
 import co.uk.gel.proj.util.Debugger;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import net.continuumsecurity.proxy.ScanningProxy;
-import net.continuumsecurity.proxy.Spider;
 import net.continuumsecurity.proxy.ZAProxyScanner;
 import org.junit.Assert;
 import org.openqa.selenium.Proxy;
@@ -29,18 +28,8 @@ public class BrowserFactory {
     private final static String ZAP_PROXYHOST = "127.0.0.1";
     private final static int ZAP_PROXYPORT = 9191;
     private final static String ZAP_APIKEY = null;
-    private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
-    private final static String CHROME_DRIVER_UBUNTU = "/home/kshukla1/driverforsecurity/chromedriver";
-    //private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Testing Team\\OWASP ZAP\\webdriver\\windows\\32\\chromedriver.exe";
-    private final static String CHROME_DRIVER_PATH_On_TEST_MACHINE = "C:\\Users\\Santhosh\\.m2\\repository\\webdriver\\chromedriver\\win32\\80.0.3987.106\\chromedriver.exe";
-    private final static String MEDIUM = "MEDIUM";
-    private final static String HIGH = "HIGH";
     private ScanningProxy zapScanner;
-    private Spider zapSpider;
-    private final static String CHROME = "chrome";
-    private final static String FIREFOX = "firefox";
     private String OS = null;
-
 
     public WebDriver getDriver() {
         return getDriver(BrowserConfig.getBrowser(), true);
@@ -65,35 +54,35 @@ public class BrowserFactory {
             case IE:
                 driver = getInternetExplorer(null, javascriptEnabled);
                 break;
-            case SECUREBROWSER:
+            case SECUREBROWSER_CHROME:
                 try {
-                    Debugger.println("Browser: SECUREBROWSER...Initializing ZAPProxyScanner...Host:");
+                    Debugger.println("Browser: SECURE BROWSER...Initializing ZAPProxyScanner...Host:");
                     try {
                         zapScanner = new ZAProxyScanner(ZAP_PROXYHOST, ZAP_PROXYPORT, ZAP_APIKEY);
-                    }catch(Exception exp1){
-                        Debugger.println("INIT EXCEPTION: "+exp1);
+                    } catch (Exception exp1) {
+                        Debugger.println("INIT EXCEPTION: " + exp1);
                         Assert.assertTrue(false);
                     }
                     Debugger.println("ZAProxyScanner Initialized......Clearing to start new session...");
                     zapScanner.clear(); //Start a new session
-                    Debugger.println("Cleared...Initializing zapSpider.....");
-                    zapSpider = (Spider) zapScanner;
-                    Debugger.println("Initialized SPider.......");
+                    //Debugger.println("Cleared...Initializing zapSpider.....");
+                    //Default considering Chrome
+                    WebDriverManager.chromedriver().clearPreferences();
+                    WebDriverManager.chromedriver().setup();
+                    Debugger.println("ChromePath: "+WebDriverManager.chromedriver().getBinaryPath());
                     OS = System.getProperty("os.name").toLowerCase();
                     Debugger.println("OS: " + OS);
                     if (OS.indexOf("win") >= 0) {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH_On_TEST_MACHINE);
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
                     } else if (OS.indexOf("linux") >= 0) {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_UBUNTU, "linux");
-                    } else {
-                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), CHROME_DRIVER_PATH);
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath(), "linux");
+                    } else {//Mac
+                        driver = createProxyDriver("chrome", createZapProxyConfigurationForWebDriver(), WebDriverManager.chromedriver().getBinaryPath());
                     }
 
-                }catch(Exception exp){
-                    Debugger.println("EXCEPTION: "+exp);
+                } catch (Exception exp) {
+                    Debugger.println("EXCEPTION: " + exp);
                 }
-
-                //  driver = DriverFactory.createProxyDriver("firefox", createZapProxyConfigurationForWebDriver(), "");
                 break;
             default:
                 Debugger.println("Invalid Browser information");
@@ -107,67 +96,60 @@ public class BrowserFactory {
     }
 
     public static WebDriver createProxyDriver(String type, Proxy proxy, String path) {
-        Debugger.println("createProxyDriver111............");
-        return createProxyDriver(type ,proxy , path,null );
+        return createProxyDriver(type, proxy, path, null);
     }
 
-    public static WebDriver createProxyDriver(String type, Proxy proxy, String path , String typeOfOS) {
+    public static WebDriver createProxyDriver(String type, Proxy proxy, String path, String typeOfOS) {
         Debugger.println("createProxyDriver............");
-        if(typeOfOS!=null){
+        if (typeOfOS != null) {
             System.out.println("Calling typeOfOS = linux");
-            if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path , "linux");
-            else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy) );
-            throw new RuntimeException("Unknown WebDriver browser in linux OS selction " + type);
-        }
-        else {
-            System.out.println("Calling typeOfOS = non-linux");
-            if (type.equalsIgnoreCase(CHROME)) return createChromeDriver(createProxyCapabilities(proxy), path);
-            else if (type.equalsIgnoreCase(FIREFOX)) return createFirefoxDriver(createProxyCapabilities(proxy));
-            throw new RuntimeException("Unknown WebDriver browser: " + type);
+            if (type.equalsIgnoreCase("Chrome")){
+                return createChromeDriver(createProxyCapabilities(proxy), path, "linux");
+            }else{//FireFox
+                return createFirefoxDriver(createProxyCapabilities(proxy));
+            }
+        } else {
+            Debugger.println("Calling typeOfOS = non-linux");
+            if (type.equalsIgnoreCase("Chrome")) {
+                return createChromeDriver(createProxyCapabilities(proxy), path);
+            }else{//FireFox
+                return createFirefoxDriver(createProxyCapabilities(proxy));
+            }
         }
     }
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path, String OS) {
-
         Debugger.println("I am in create createChromeDriver" + "path=" + path + " OS.toString()=");
 
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--ignore-certificate-errors");
         System.setProperty("webdriver.chrome.driver", path);
         if (OS.equalsIgnoreCase("linux")) {
-                chromeOptions.addArguments("--headless");
-                chromeOptions.addArguments("window-size=1920,1080");
-           // 1920x1080x24
-         //   chromeOptions.addArguments("start-maximized"); // open Browser in maximized mode
+            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("window-size=1920,1080");
+            // 1920x1080x24
             chromeOptions.addArguments("disable-infobars"); // disabling infobars
-           // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
-         //   chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
+            // chromeOptions.addArguments("--disable-extensions"); // disabling extensions
+            //   chromeOptions.addArguments("--disable-gpu"); // applicable to windows os only
             chromeOptions.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
             chromeOptions.addArguments("--no-sandbox"); // Bypass OS security model
         }
-
-
         //  chromeOptions.addArguments("--headless");
-
         if (capabilities != null) {
             capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
             return new ChromeDriver(capabilities);
         } else return new ChromeDriver();
-
     }
 
     public static WebDriver createChromeDriver(DesiredCapabilities capabilities, String path) {
-
-       return createChromeDriver(capabilities, path, "non-linux");
-
+        return createChromeDriver(capabilities, path, "non-linux");
     }
 
     public static WebDriver createFirefoxDriver(DesiredCapabilities capabilities) {
         if (capabilities != null) {
             return new FirefoxDriver(capabilities);
         }
-
         ProfilesIni allProfiles = new ProfilesIni();
         FirefoxProfile myProfile = allProfiles.getProfile("WebDriver");
         if (myProfile == null) {
@@ -202,7 +184,6 @@ public class BrowserFactory {
         return proxy;
     }
 
-
     private WebDriver getSafariDriver(Object object,
                                       boolean javascriptEnabled) {
         DesiredCapabilities safariCaps = DesiredCapabilities.safari();
@@ -211,9 +192,8 @@ public class BrowserFactory {
     }
 
     private WebDriver getFirefoxDriver(String userAgent,
-                                       boolean javascriptEnabled) {
+                                      boolean javascriptEnabled) {
         return new FirefoxDriver(getFirefoxOptions(userAgent, javascriptEnabled));
-
     }
 
     private FirefoxOptions getFirefoxOptions(String userAgent,
@@ -244,14 +224,6 @@ public class BrowserFactory {
         firefoxOptions.setCapability("marionette", true);
         return firefoxOptions;
     }
-
-    //Deprecated Selenium Driver Path 30/09/2019
-    /*private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {
-        System.setProperty("webdriver.chrome.driver",
-                //System.getProperty("user.dir") + File.separator + "drivers/chromedriver.exe");
-                System.getProperty("user.dir") + File.separator + "drivers/chromedriver_mac_76v");
-        return new ChromeDriver(getChromeOptions(userAgent, javascriptEnabled));
-    } */
 
     // Added the functions for getChromeDriver for WebDriver Manager  30/09/2019..
     private WebDriver getChromeDriver(String userAgent, boolean javascriptEnabled) {

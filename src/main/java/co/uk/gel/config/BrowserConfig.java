@@ -18,10 +18,8 @@ public class BrowserConfig {
         }
 
         String configFileName = "%s-BrowserConfig.properties";
-
         String EnvironmentName = System.getProperty("TestEnvironment");
         System.out.println("\nTestEnvironment: " + EnvironmentName);
-
         configFileName = String.format(configFileName, EnvironmentName);
         Debugger.println("CONFIG FILE NAME: "+configFileName);
         Properties  properties = new Properties();
@@ -36,7 +34,6 @@ public class BrowserConfig {
             Debugger.println("Exception in loading Config File.:"+e);
             e.printStackTrace();
             Assert.assertTrue(false);
-
         }
         config          = properties;
         browser         = properties.getProperty("Browser");

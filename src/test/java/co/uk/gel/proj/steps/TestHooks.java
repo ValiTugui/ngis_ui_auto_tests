@@ -38,28 +38,21 @@ import java.util.List;
 
 public class TestHooks extends Pages {
 
-    //SeleniumLib seleniumLib;
     public static String currentTagName = "";
     public static String currentTags = "";
     public static String currentFeature = "";
     public static String temptagname = "";
     public static boolean new_scenario_feature = false;
     private RequestSpecification request;
-    private ValidatableResponse response;
 
     private final static String ZAP_PROXYHOST = "localhost";
     private final static int ZAP_PROXYPORT = 9191;
-   private final static String ZAP_APIKEY = null;
-//    private final static String ZAP_APIKEY="j6atjjv5mtkfl7vdptc29pr6s6";
-   // private final static String CHROME_DRIVER_PATH = "/Users/krishanshukla/Library/Application Support/ZAP/webdriver/macos/64/chromedriver";
+    private final static String ZAP_APIKEY = null;
     private final static String MEDIUM = "MEDIUM";
     private final static String HIGH = "HIGH";
     private final static String LOW = "LOW";
     private ScanningProxy zapScanner;
     private Spider zapSpider;
-    private WebDriver driver;
-    private final static String CHROME = "chrome";
-    private final static String FIREFOX = "firefox";
 
     private static String BASE_URL_TS;
     private static String BASE_URL_TO;
@@ -80,8 +73,6 @@ public class TestHooks extends Pages {
 
     public TestHooks(SeleniumDriver driver) {
         super(driver);
-        driver = driver;
-        //seleniumLib = new SeleniumLib(driver);
     }
 
     @Before
@@ -112,33 +103,33 @@ public class TestHooks extends Pages {
         BASE_URL_PA = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PA");
         BASE_URL_PP = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PP");
         BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_DS");
-        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDG");
-        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_API");
-        BASE_URL_DS = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDT");
+        BASE_URL_PEDG = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDG");
+        BASE_URL_API = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_API");
+        BASE_URL_PEDT = AppConfig.getPropertyValueFromPropertyFile("BASE_URL_PEDT");
         EXCLUDE_URL_FROM_SECURITYSCAN = AppConfig.getPropertyValueFromPropertyFile("EXCLUDE_URL_FROM_SECURITYSCAN");
     }
 
     @When("user run security scan")
     public void userRunSecurityScan() {
-        Debugger.println("Running Security Scan starts at: "+new Date());
+        Debugger.println("Running Security Scan starts at: " + new Date());
         long startTime = System.currentTimeMillis();
         List<String> urlsToSpider = new LinkedList<>();
         urlsToSpider.add(BASE_URL_TS);
-        //urlsToSpider.add(BASE_URL_TO);
-       // urlsToSpider.add(BASE_URL_PA);
-       // urlsToSpider.add(BASE_URL_PP);
-       // urlsToSpider.add(BASE_URL_DS);
-       // urlsToSpider.add(BASE_URL_PEDG);
-        //urlsToSpider.add(BASE_URL_API);
-        //urlsToSpider.add(BASE_URL_PEDT);
-        Debugger.println("Added URL: BASE_URL_TS:"+BASE_URL_TS);
-        //Debugger.println("Added URL: BASE_URL_TO:"+BASE_URL_TO);
-        //Debugger.println("Added URL: BASE_URL_PA:"+BASE_URL_PA);
-       // Debugger.println("Added URL: BASE_URL_PP:"+BASE_URL_PP);
-       // Debugger.println("Added URL: BASE_URL_DS:"+BASE_URL_DS);
-        //Debugger.println("Added URL: BASE_URL_PEDG:"+BASE_URL_PEDG);
-        //Debugger.println("Added URL: BASE_URL_API:"+BASE_URL_API);
-        //Debugger.println("Added URL: BASE_URL_PEDT:"+BASE_URL_PEDT);
+        urlsToSpider.add(BASE_URL_TO);
+        urlsToSpider.add(BASE_URL_PA);
+        urlsToSpider.add(BASE_URL_PP);
+        urlsToSpider.add(BASE_URL_DS);
+        urlsToSpider.add(BASE_URL_PEDG);
+        urlsToSpider.add(BASE_URL_API);
+        urlsToSpider.add(BASE_URL_PEDT);
+        Debugger.println("Added URL: BASE_URL_TS:" + BASE_URL_TS);
+        Debugger.println("Added URL: BASE_URL_TO:" + BASE_URL_TO);
+        Debugger.println("Added URL: BASE_URL_PA:" + BASE_URL_PA);
+        Debugger.println("Added URL: BASE_URL_PP:" + BASE_URL_PP);
+        Debugger.println("Added URL: BASE_URL_DS:" + BASE_URL_DS);
+        Debugger.println("Added URL: BASE_URL_PEDG:" + BASE_URL_PEDG);
+        Debugger.println("Added URL: BASE_URL_API:" + BASE_URL_API);
+        Debugger.println("Added URL: BASE_URL_PEDT:" + BASE_URL_PEDT);
 
         urlsToSpider.stream().forEach(inciWinciSpider -> spiderWithZap(inciWinciSpider));
         setAlertAndAttackStrength();
@@ -155,12 +146,12 @@ public class TestHooks extends Pages {
             writeXmlReport("logs/" + zapResultXML);
             writeHTMLReport("logs/" + zapResultHTML);
         } catch (IOException exp) {
-            Debugger.println("Exception in userRunSecurityScan:"+exp);
+            Debugger.println("Exception in userRunSecurityScan:" + exp);
             exp.printStackTrace();
         }
-        Debugger.println("Running security scan completed at:"+new Date());
+        Debugger.println("Running security scan completed at:" + new Date());
         long endTime = System.currentTimeMillis();
-        Debugger.println("TOTAL TIME TAKEN: "+(endTime-startTime)/(1000*60)+" Minutes.");
+        Debugger.println("TOTAL TIME TAKEN: " + (endTime - startTime) / (1000 * 60) + " Minutes.");
     }
 
     public void writeHTMLReport(String path) throws IOException {
@@ -170,20 +161,20 @@ public class TestHooks extends Pages {
             Path pathToFile = Paths.get(path);
             Files.createDirectories(pathToFile.getParent());
             Files.write(pathToFile, htmlReport);
-        }catch(Exception exp){
-            Debugger.println("Exception from Generating HTML Report."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Generating HTML Report." + exp);
         }
     }
 
-    public void writeXmlReport(String path) throws IOException {
+    public void writeXmlReport(String path) {
         try {
             Debugger.println("SCAN: generateXmlReport............. ");
             byte[] xmlReport = zapScanner.getXmlReport();
             Path pathToFile = Paths.get(path);
             Files.createDirectories(pathToFile.getParent());
             Files.write(pathToFile, xmlReport);
-        }catch(Exception exp){
-            Debugger.println("Exception from Generating XML Report."+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from Generating XML Report." + exp);
         }
     }
 
@@ -209,7 +200,9 @@ public class TestHooks extends Pages {
                     Debugger.println("Spider with Zap " + complete + "% complete........");
                 }
                 try {
-                    Thread.sleep(60000);
+                    if(complete < 100) {
+                        Thread.sleep(120000);//2 minutes
+                    }
                 } catch (InterruptedException exp) {
                     Debugger.println("Exception from spiderWithZap :" + exp);
                     exp.printStackTrace();
@@ -220,8 +213,8 @@ public class TestHooks extends Pages {
             }
             long endTime = System.currentTimeMillis();
             Debugger.println("TIME TAKEN: " + (endTime - startTime) / (1000 * 60) + " Minutes.");
-        }catch(Exception exp){
-            Debugger.println("Exception from spiderWithZap for URL:"+baseURLToSprider+"\nExp:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from spiderWithZap for URL:" + baseURLToSprider + "\nExp:" + exp);
         }
     }
 
@@ -229,7 +222,7 @@ public class TestHooks extends Pages {
         try {
             for (String policyName : policyNames) {
                 String ids = enableZapPolicy(policyName);
-                if(ids == null){
+                if (ids == null) {
                     continue;
                 }
                 for (String id : ids.split(",")) {
@@ -237,10 +230,10 @@ public class TestHooks extends Pages {
                     zapScanner.setScannerAlertThreshold(id, LOW);
                     zapScanner.setScannerAttackStrength(id, HIGH);
                 }
-                Debugger.println("enableZapPolicy :"+policyName+":"+ids);
+                Debugger.println("enableZapPolicy :" + policyName + ":" + ids);
             }
-        }catch(Exception exp){
-            Debugger.println("Exception from setAlertAndAttackStrength:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from setAlertAndAttackStrength:" + exp);
         }
     }
 
@@ -319,8 +312,8 @@ public class TestHooks extends Pages {
             }
             zapScanner.setEnableScanners(scannerIds, true);
             return scannerIds;
-        }catch(Exception exp){
-            Debugger.println("Exception from enableZapPlicy:"+policyName+"\nExp:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception from enableZapPlicy:" + policyName + "\nExp:" + exp);
             return null;
         }
     }
@@ -341,15 +334,17 @@ public class TestHooks extends Pages {
                     Debugger.println("Scan with ZAP " + complete + "% complete......");
                 }
                 try {
-                    Thread.sleep(60000);//wait for 60 seconds
+                    if(complete < 100) {
+                        Thread.sleep(120000);//wait for 2 minutes
+                    }
                 } catch (InterruptedException exp) {
                     Debugger.println("Exception from scanWithZap:" + exp);
                     exp.printStackTrace();
                 }
             }
             Debugger.println("scanWithZap DONE FOR BASE URL:" + scanBaseURL);
-        }catch(Exception exp){
-            Debugger.println("Exception in scanWithZap:"+scanBaseURL+"\nExp:"+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in scanWithZap:" + scanBaseURL + "\nExp:" + exp);
         }
     }
 
@@ -358,6 +353,7 @@ public class TestHooks extends Pages {
             Debugger.println("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
         }
     }
+
     /*
         Remove false positives, filter based on risk and reliability
      */
@@ -394,7 +390,7 @@ public class TestHooks extends Pages {
 
 
     @After("@LOGOUT")
-    public void logOutAndTearDown(Scenario scenario) {
+    public void logOutAndTearDown() {
         homePage.logOutFromApplication();
     }
 
@@ -403,10 +399,11 @@ public class TestHooks extends Pages {
             Debugger.println("START - Security scan is starting though selenium scenario FAILED.");
             userRunSecurityScan();
             Debugger.println("END - Security scan is starting though selenium scenario failed........");
-        }else{
+        } else {
             Debugger.println("Selenium Script of Security scan PASSED for Scenario" + scenario.getName());
         }
     }
+
     @After("@secuirtyscans, @securityscan, @securitytest, @securityscan_cancer , @securityscan_rd , @securitydebugging,@securityscan_cancer_demo")
     public void securityScansCancer() {
         Debugger.println("TestHooks...START SECURITY SCANS......");
@@ -425,14 +422,5 @@ public class TestHooks extends Pages {
     public void setRequest(RequestSpecification request) {
         this.request = request;
     }
-
-    public ValidatableResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(ValidatableResponse response) {
-        this.response = response;
-    }
-
 
 }//end class
