@@ -120,21 +120,22 @@ public class TestHooks extends Pages {
 
     @When("user run security scan")
     public void userRunSecurityScan() {
-        Debugger.println("Running Security Scan...");
+        Debugger.println("Running Security Scan starts at: "+new Date());
+        long startTime = System.currentTimeMillis();
         List<String> urlsToSpider = new LinkedList<>();
         urlsToSpider.add(BASE_URL_TS);
-        urlsToSpider.add(BASE_URL_TO);
-        urlsToSpider.add(BASE_URL_PA);
-        urlsToSpider.add(BASE_URL_PP);
-        urlsToSpider.add(BASE_URL_DS);
+        //urlsToSpider.add(BASE_URL_TO);
+       // urlsToSpider.add(BASE_URL_PA);
+       // urlsToSpider.add(BASE_URL_PP);
+       // urlsToSpider.add(BASE_URL_DS);
        // urlsToSpider.add(BASE_URL_PEDG);
         //urlsToSpider.add(BASE_URL_API);
         //urlsToSpider.add(BASE_URL_PEDT);
         Debugger.println("Added URL: BASE_URL_TS:"+BASE_URL_TS);
-        Debugger.println("Added URL: BASE_URL_TO:"+BASE_URL_TO);
-        Debugger.println("Added URL: BASE_URL_PA:"+BASE_URL_PA);
-        Debugger.println("Added URL: BASE_URL_PP:"+BASE_URL_PP);
-        Debugger.println("Added URL: BASE_URL_DS:"+BASE_URL_DS);
+        //Debugger.println("Added URL: BASE_URL_TO:"+BASE_URL_TO);
+        //Debugger.println("Added URL: BASE_URL_PA:"+BASE_URL_PA);
+       // Debugger.println("Added URL: BASE_URL_PP:"+BASE_URL_PP);
+       // Debugger.println("Added URL: BASE_URL_DS:"+BASE_URL_DS);
         //Debugger.println("Added URL: BASE_URL_PEDG:"+BASE_URL_PEDG);
         //Debugger.println("Added URL: BASE_URL_API:"+BASE_URL_API);
         //Debugger.println("Added URL: BASE_URL_PEDT:"+BASE_URL_PEDT);
@@ -157,156 +158,198 @@ public class TestHooks extends Pages {
             Debugger.println("Exception in userRunSecurityScan:"+exp);
             exp.printStackTrace();
         }
-        Debugger.println("Spider DONE.");
+        Debugger.println("Running security scan completed at:"+new Date());
+        long endTime = System.currentTimeMillis();
+        Debugger.println("TOTAL TIME TAKEN: "+(endTime-startTime)/(1000*60)+" Minutes.");
     }
 
     public void writeHTMLReport(String path) throws IOException {
-        Debugger.println("SCAN: writeHTMLReport............. ");
-        byte[] htmlReport = zapScanner.getHtmlReport();
-        Path pathToFile = Paths.get(path);
-        Files.createDirectories(pathToFile.getParent());
-        Files.write(pathToFile, htmlReport);
+        try {
+            Debugger.println("SCAN: generateHTMLReport............. ");
+            byte[] htmlReport = zapScanner.getHtmlReport();
+            Path pathToFile = Paths.get(path);
+            Files.createDirectories(pathToFile.getParent());
+            Files.write(pathToFile, htmlReport);
+        }catch(Exception exp){
+            Debugger.println("Exception from Generating HTML Report."+exp);
+        }
     }
 
     public void writeXmlReport(String path) throws IOException {
-        Debugger.println("SCAN: writeXmlReport............. ");
-        byte[] xmlReport = zapScanner.getXmlReport();
-        Path pathToFile = Paths.get(path);
-        Files.createDirectories(pathToFile.getParent());
-        Files.write(pathToFile, xmlReport);
+        try {
+            Debugger.println("SCAN: generateXmlReport............. ");
+            byte[] xmlReport = zapScanner.getXmlReport();
+            Path pathToFile = Paths.get(path);
+            Files.createDirectories(pathToFile.getParent());
+            Files.write(pathToFile, xmlReport);
+        }catch(Exception exp){
+            Debugger.println("Exception from Generating XML Report."+exp);
+        }
     }
 
     private void spiderWithZap(String baseURLToSprider) {
-        Debugger.println("spiderWithZap............"+baseURLToSprider);
-        if(baseURLToSprider !=null) {
+        try {
+            Debugger.println("spiderWithZap............" + baseURLToSprider);
+            if (baseURLToSprider == null) {
+                return;
+            }
             zapSpider.setThreadCount(5);
             zapSpider.setMaxDepth(5);
             zapSpider.setPostForms(false);
-            Debugger.println("BASE URL TO SPIDER: " + baseURLToSprider);
+            Debugger.println("Spider with Zap Starts on BASE URL: " + baseURLToSprider);
 
             zapSpider.spider(baseURLToSprider);
             int spiderID = zapSpider.getLastSpiderScanId();
             int complete = 0;
+            long startTime = System.currentTimeMillis();
+            Debugger.println("SpiderZAP starting...." + new Date());
             while (complete < 100) {
                 complete = zapSpider.getSpiderProgress(spiderID);
+                if (complete % 5 == 0) {
+                    Debugger.println("Spider with Zap " + complete + "% complete........");
+                }
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException exp) {
-                    Debugger.println("Exception from spiderWithZap :"+exp);
+                    Debugger.println("Exception from spiderWithZap :" + exp);
                     exp.printStackTrace();
                 }
             }
             for (String url : zapSpider.getSpiderResults(spiderID)) {
-                Debugger.println("spiderWithZap:FoundURL:"+url);
+                Debugger.println("spiderWithZap:FoundURL:" + url);
             }
+            long endTime = System.currentTimeMillis();
+            Debugger.println("TIME TAKEN: " + (endTime - startTime) / (1000 * 60) + " Minutes.");
+        }catch(Exception exp){
+            Debugger.println("Exception from spiderWithZap for URL:"+baseURLToSprider+"\nExp:"+exp);
         }
     }
 
     public void setAlertAndAttackStrength() {
-        Debugger.println("setAlertAndAttackStrength........:"+policyNames.length);
-        for (String policyName : policyNames) {
-            String ids = enableZapPolicy(policyName);
-            for (String id : ids.split(",")) {
-                zapScanner.setScannerAlertThreshold(id, MEDIUM);
-                zapScanner.setScannerAlertThreshold(id, LOW);
-                zapScanner.setScannerAttackStrength(id, HIGH);
+        try {
+            for (String policyName : policyNames) {
+                String ids = enableZapPolicy(policyName);
+                if(ids == null){
+                    continue;
+                }
+                for (String id : ids.split(",")) {
+                    zapScanner.setScannerAlertThreshold(id, MEDIUM);
+                    zapScanner.setScannerAlertThreshold(id, LOW);
+                    zapScanner.setScannerAttackStrength(id, HIGH);
+                }
+                Debugger.println("enableZapPolicy :"+policyName+":"+ids);
             }
+        }catch(Exception exp){
+            Debugger.println("Exception from setAlertAndAttackStrength:"+exp);
         }
     }
 
     private String enableZapPolicy(String policyName) {
-        Debugger.println("enableZapPolicy: "+policyName);
-        String scannerIds = null;
-        switch (policyName.toLowerCase()) {
-            case "directory-browsing":
-                scannerIds = "0";
-                break;
-            case "cross-site-scripting":
-                scannerIds = "40012,40014,40016,40017";
-                break;
-            case "sql-injection":
-                scannerIds = "40018";
-                break;
-            case "path-traversal":
-                scannerIds = "6";
-                break;
-            case "remote-file-inclusion":
-                scannerIds = "7";
-                break;
-            case "server-side-include":
-                scannerIds = "40009";
-                break;
-            case "script-active-scan-rules":
-                scannerIds = "50000";
-                break;
-            case "server-side-code-injection":
-                scannerIds = "90019";
-                break;
-            case "remote-os-command-injection":
-                scannerIds = "90020";
-                break;
-            case "external-redirect":
-                scannerIds = "20019";
-                break;
-            case "crlf-injection":
-                scannerIds = "40003";
-                break;
-            case "source-code-disclosure":
-                scannerIds = "42,10045,20017";
-                break;
-            case "shell-shock":
-                scannerIds = "10048";
-                break;
-            case "remote-code-execution":
-                scannerIds = "20018";
-                break;
-            case "ldap-injection":
-                scannerIds = "40015";
-                break;
-            case "xpath-injection":
-                scannerIds = "90021";
-                break;
-            case "xml-external-entity":
-                scannerIds = "90023";
-                break;
-            case "padding-oracle":
-                scannerIds = "90024";
-                break;
-            case "el-injection":
-                scannerIds = "90025";
-                break;
-            case "insecure-http-methods":
-                scannerIds = "90028";
-                break;
+        try {
+            String scannerIds = null;
+            switch (policyName.toLowerCase()) {
+                case "directory-browsing":
+                    scannerIds = "0";
+                    break;
+                case "cross-site-scripting":
+                    scannerIds = "40012,40014,40016,40017";
+                    break;
+                case "sql-injection":
+                    scannerIds = "40018";
+                    break;
+                case "path-traversal":
+                    scannerIds = "6";
+                    break;
+                case "remote-file-inclusion":
+                    scannerIds = "7";
+                    break;
+                case "server-side-include":
+                    scannerIds = "40009";
+                    break;
+                case "script-active-scan-rules":
+                    scannerIds = "50000";
+                    break;
+                case "server-side-code-injection":
+                    scannerIds = "90019";
+                    break;
+                case "remote-os-command-injection":
+                    scannerIds = "90020";
+                    break;
+                case "external-redirect":
+                    scannerIds = "20019";
+                    break;
+                case "crlf-injection":
+                    scannerIds = "40003";
+                    break;
+                case "source-code-disclosure":
+                    scannerIds = "42,10045,20017";
+                    break;
+                case "shell-shock":
+                    scannerIds = "10048";
+                    break;
+                case "remote-code-execution":
+                    scannerIds = "20018";
+                    break;
+                case "ldap-injection":
+                    scannerIds = "40015";
+                    break;
+                case "xpath-injection":
+                    scannerIds = "90021";
+                    break;
+                case "xml-external-entity":
+                    scannerIds = "90023";
+                    break;
+                case "padding-oracle":
+                    scannerIds = "90024";
+                    break;
+                case "el-injection":
+                    scannerIds = "90025";
+                    break;
+                case "insecure-http-methods":
+                    scannerIds = "90028";
+                    break;
             /*case "parameter-pollution":
                 scannerIds = "20014";
                 break;*/
-            default:
-                throw new RuntimeException("No policy found for: " + policyName);
+                default:
+                    throw new RuntimeException("No policy found for: " + policyName);
+            }
+            if (scannerIds == null) {
+                throw new RuntimeException("No matching policy found for: " + policyName);
+            }
+            zapScanner.setEnableScanners(scannerIds, true);
+            return scannerIds;
+        }catch(Exception exp){
+            Debugger.println("Exception from enableZapPlicy:"+policyName+"\nExp:"+exp);
+            return null;
         }
-        if (scannerIds == null) throw new RuntimeException("No matching policy found for: " + policyName);
-        zapScanner.setEnableScanners(scannerIds, true);
-        return scannerIds;
     }
 
     private void scanWithZap(String scanBaseURL) {
-        Debugger.println("scanWithZap.START FOR BASE URL:"+scanBaseURL);
-        if (scanBaseURL != null) {
+        try {
+            Debugger.println("scanWithZap.START FOR BASE URL:" + scanBaseURL);
+            if (scanBaseURL == null) {
+                return;
+            }
             zapScanner.scan(scanBaseURL);
             zapScanner.excludeFromScanner(EXCLUDE_URL_FROM_SECURITYSCAN);
             currentScanID = zapScanner.getLastScannerScanId();
             int complete = 0;
             while (complete < 100) {
                 complete = zapScanner.getScanProgress(currentScanID);
-                Debugger.println("Scan is " + complete + "% complete.");
+                if (complete % 5 == 0) {
+                    Debugger.println("Scan with ZAP " + complete + "% complete......");
+                }
                 try {
-                    Thread.sleep(30000);//wait for 30 seconds
+                    Thread.sleep(60000);//wait for 60 seconds
                 } catch (InterruptedException exp) {
-                    Debugger.println("Exception from scanWithZap:"+exp);
+                    Debugger.println("Exception from scanWithZap:" + exp);
                     exp.printStackTrace();
                 }
             }
-            Debugger.println("scanWithZap DONE FOR BASE URL:"+scanBaseURL);
+            Debugger.println("scanWithZap DONE FOR BASE URL:" + scanBaseURL);
+        }catch(Exception exp){
+            Debugger.println("Exception in scanWithZap:"+scanBaseURL+"\nExp:"+exp);
         }
     }
 
@@ -315,7 +358,6 @@ public class TestHooks extends Pages {
             Debugger.println("Alert: " + alert.getAlert() + " at URL: " + alert.getUrl() + " Parameter: " + alert.getParam() + " CWE ID: " + alert.getCweId());
         }
     }
-
     /*
         Remove false positives, filter based on risk and reliability
      */

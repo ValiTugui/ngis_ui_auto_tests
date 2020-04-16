@@ -12,7 +12,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     And the user selects a random entity from the suggestions list
     And the details of the new organisation are displayed
     And the user clicks the Save and Continue button
-    And the "<requestingOrganisation>" stage is marked as Completed
+#    And the "<requestingOrganisation>" stage is marked as Completed
 #    And the user navigates to the "<testPackage>" stage
 #    And the user selects the "Routine"
 #    And the user clicks the Save and Continue button
@@ -77,14 +77,14 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
 #    Then the "<notes>" stage is selected
 #    When the user fills in the Add Notes field
 #    And the user clicks the Save and Continue button
-    And the user navigates to the "<patientChoice>" stage
-    Then the "<patientChoice>" stage is selected
+#    And the user navigates to the "<patientChoice>" stage
+#    Then the "<patientChoice>" stage is selected
 #    And the "<notes>" stage is marked as Completed
-    When the user selects the proband
-    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
-    And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<patientChoice>"
-    Then the "<patientChoice>" page is displayed
+#    When the user selects the proband
+#    And the user answers the patient choice questions with agreeing to testing - patient choice Yes
+#    And the user submits the patient choice with signature
+#    And the user clicks the Save and Continue button on the "<patientChoice>"
+#    Then the "<patientChoice>" page is displayed
 #    Then the help text is displayed
 #    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
 #    When the user clicks the Save and Continue button
