@@ -2,7 +2,7 @@
 #@notes
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Notes page
+Feature: TestOrder - Notes page
 
  @NTS-4503 @Z-LOGOUT
 #   @E2EUI-1130 @E2EUI-1172

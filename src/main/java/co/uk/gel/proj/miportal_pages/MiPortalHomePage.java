@@ -78,6 +78,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//button[contains(string(),'Reset')]")
     public WebElement resetButton;
 
+//    @FindBy(xpath = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]")
+//    public WebElement badgeFilterSearchCriteria;
+
     @FindBy(xpath = "//h3[text()='Search Results']")
     public WebElement searchResultTitle;
 
@@ -87,11 +90,19 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@class,'active')]//a[contains(string(),'Download CSV')]")
     public WebElement downloadCSVButton;
 
+//    @FindBy(xpath = "//div[contains(@class,'active')]//table[contains(@id,'DataTables_Table')]//tbody/tr")
+//    public List<WebElement> searchResultTable;
+
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]/thead//tr")
     public WebElement searchResultRowHeader;
 
+//   By searchResultTableHeading = By.xpath("//div[contains(@class,'active')]//table[contains(@id,'DataTables_Table')]//thead");
+
     @FindBy(xpath = "//select[contains(@name,'DataTables_Table')]")
     public WebElement searchResultEntryOptionsSelection;
+
+//    @FindBy(xpath = "//div[contains(@class,'active')]//label[contains(string(),'Show')]//select")
+//    public WebElement defaultPaginationEntryOptionsValue;
 
     @FindBy(css = "div[class*='modal-content']")
     public WebElement displayOptionsModalContent;
@@ -461,6 +472,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
 
     public void clickResetButtonOnModalContent() {
+        Wait.seconds(2);
         try {
             Wait.forElementToBeClickable(driver, resetHeaderOrdering);
             Click.element(driver, resetHeaderOrdering);

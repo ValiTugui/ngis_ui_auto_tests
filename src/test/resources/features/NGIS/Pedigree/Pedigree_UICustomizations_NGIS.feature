@@ -152,3 +152,35 @@ Feature: Pedigree - UI Customizations - NGIS
     Examples:
       | TestPackage  | ProbandDetails              | NoOfParticipants | Pedigree | WarningMessage                                                                                |
       | Test package | NHSNumber=NA:DOB=25-10-2005 | 1                | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
+
+  @NTS-3386 @LOGOUT
+#    @E2EUI-1194
+  Scenario Outline: NTS-3386 : Order the display of HPO Terms in Pedigree
+    Given a new patient referral is created with associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Female |
+    ##Patient Details
+    Then the user is navigated to a page with title Check your patient's details
+     ##Test Package
+    When the user navigates to the "<TestPackage>" stage
+    Then the user is navigated to a page with title Confirm the test package
+    And the user selects the number of participants as "<Two>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add clinician information
+    ##Family Member
+    When the user navigates to the "<FamilyMembers>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
+    When the user adds "<Two>" family members to the proband patient as new family member patient record with below details
+      | FamilyMemberDetails                                         | RelationshipToProband | DiseaseStatusDetails                                            |
+      | NHSNumber=NA:DOB=17-07-1979:Gender=Male:Relationship=Father | Father                | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema |
+    And the user added additional phenotypes "<Phenotypes>" to the family member
+    Then the "<FamilyMembers>" stage is marked as Completed
+    ##Pedigree
+    When the user navigates to the "<Pedigree>" stage
+    Then the user is navigated to a page with title Build a pedigree
+    When the user clicks on the specified node on the pedigree diagram for "<FamilyMemberDetails>"
+    And the user select the pedigree tab Phenotype
+    Then the user should see the hpo phenotypes "<Phenotypes>" displayed
+
+    Examples:
+      | TestPackage  | Two | FamilyMembers  | Pedigree | Phenotypes                          | FamilyMemberDetails         |
+      | Test package | 2   | Family members | Pedigree | Congestive heart failure,Lymphedema | NHSNumber=NA:DOB=17-07-1979 |

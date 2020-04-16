@@ -96,6 +96,7 @@ public class ReferralPage<check> {
 
     //@FindBy(css = "*[class*='referral-header__details']")
     @FindBy(xpath = "//div[@id='referral__header']//div[@data-testid='spacing']//span[@class='child-element']")
+//    @FindBy(css = "*[class*='referral-header__details']")
     public WebElement referralStatus;
 
     //    @FindBy(css = "*[class*='referral-header__cancel-reason']")
@@ -211,6 +212,7 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]")
+//    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
@@ -249,12 +251,15 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//span[text()='Cancelled']")
     public WebElement cancelledReferralStatus;
+//    public List<WebElement> cancelledReferralStatus;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-header']")
     public WebElement referralCardHeader;
+//    public List<WebElement> referralCardHeaders;
 
     @FindBy(xpath = "//div[@data-testid='referral-card-status-info']")
     public WebElement referralCancelReasonOnCard;
+//    public List<WebElement> referralCancelReasonOnCard;
 
     @FindBy(xpath = "//*[contains(@class,'referral-header__stage-list')]//a")
     List<WebElement> incompleteSection;
@@ -297,6 +302,26 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
+
+//    @FindBy(xpath = "//div[contains(@class,'referral__main')]//h1")
+//    List<WebElement> titleElements;
+//
+//    @FindBy(name = "loginfmt")
+//    public WebElement emailAddressField;
+//    @FindBy(xpath = "//input[contains(@type,'submit')]")
+//    public WebElement nextButton;
+//    @FindBy(id = "otherTileText")
+//    public WebElement useAnotherAccount;
+//
+//    //new paths for the NHS Login page
+//    @FindBy(id ="companyLogo")
+//    public WebElement nhsLogo;
+//    @FindBy(id="userNameInput")
+//    public WebElement emailAddressFieldNHSPage;
+//    @FindBy(id="passwordInput")
+//    public WebElement passwordFieldNHSPage;
+//    @FindBy(id="submitButton")
+//    public WebElement signInNHSPage;
 
     public void checkThatReferalWasSuccessfullyCreated() {
         Wait.forElementToBeDisplayed(driver, referralHeader, 120);

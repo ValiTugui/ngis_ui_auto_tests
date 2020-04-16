@@ -141,8 +141,11 @@ public class PatientDetailsPage {
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Start a new referral']")
+//   @FindBy(xpath = "//button[text()='Start new referral']")
     public WebElement startNewReferralButton;
 
+//    //@FindBy(css = "*[data-testid*='notification-success']")
+//    @FindBy(xpath = "//div[@data-testid='notification-success']//span")
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement successNotification;
 
@@ -158,7 +161,10 @@ public class PatientDetailsPage {
     @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
+    //@FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
+//    @FindBy(xpath = "//div[contains(@data-testid,'referral-card-header')]/div//child::span[contains(@class,'child-element')]")
     @FindBy(xpath = "//div[contains(@id,'referral__header')]//div[contains(@data-testid,'spacing')]//child::span[contains(@class,'child-element')]")
+
     public WebElement referralStatus;
 
     @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
@@ -212,6 +218,8 @@ public class PatientDetailsPage {
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
 
     @FindBy(xpath = "//button[text()='Add new patient to referral']")
+//    @FindBy(xpath = "//button[text()='Create NGIS record']")
+
     public WebElement addNewPatientToReferral;
 
     //Details of submitted Referrals
@@ -431,7 +439,6 @@ public class PatientDetailsPage {
         } catch (Exception exp) {
             Debugger.println("Exception in creating the patient." + exp);
             SeleniumLib.takeAScreenShot("PatientNotCreated.jpg");
-            Assert.assertTrue("Patient could not create.Pls check PatientNotCreated.jpg", false);
             return false;
         }
     }
@@ -954,9 +961,7 @@ public class PatientDetailsPage {
 
     public boolean createNewPatientReferral(NGISPatientModel referralDetails) {
         try {
-            if(!newPatientPageIsDisplayed()){
-                return false;
-            }
+            newPatientPageIsDisplayed();
             //Going ahead with NHS number, for new NGIS Patients
             if (referralDetails.getNO_NHS_REASON().equalsIgnoreCase("NGIS")) {
                 Actions.clickElement(driver, yesButton);

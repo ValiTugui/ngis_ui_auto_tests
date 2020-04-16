@@ -2,7 +2,7 @@
 #@responsibleClinicianOrg
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Responsible Clinician 2 - Modal Dialog
+Feature: TestOrder - Responsible Clinician 2 - Modal Dialog
 
   @NTS-3895 @Z-LOGOUT
 #    @E2EUI-1730  @Scenario_01

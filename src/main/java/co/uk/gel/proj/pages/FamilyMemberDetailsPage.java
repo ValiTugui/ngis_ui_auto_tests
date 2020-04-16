@@ -95,6 +95,9 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//button[contains(text(),'Back')]")
     public WebElement backButton;
 
+//    @FindBy(xpath = "//button/span[contains(text(),'Edit patient details')]")
+//    public WebElement editPatientDetailsLink;
+
     @FindBy(css = "*[class*='helix']")
     public List<WebElement> helix;
 
@@ -354,6 +357,43 @@ public class FamilyMemberDetailsPage {
         }
     }
 
+//
+//    public boolean clickPatientCard() {
+//        try {
+//            if(!Wait.isElementDisplayed(driver, patientCard,10)){
+//                Debugger.println("Patient Card Not displayed..");
+//                SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
+//                return false;
+//            }
+//            Actions.clickElement(driver,patientCard);
+//            return true;
+//        }catch(Exception exp){
+//            Debugger.println("Exception from clickPatientCard:"+exp);
+//            SeleniumLib.takeAScreenShot("clickPatientCard.jpg");
+//            return false;
+//        }
+//    }
+//    public boolean editPatientDetails() {
+//        try {
+//            if(!Wait.isElementDisplayed(driver, editPatientDetailsLink,10)){
+//                Debugger.println("Edit Patient Details Link not displayed..");
+//                SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+//                return false;
+//            }
+//            Actions.clickElement(driver,editPatientDetailsLink);
+//            return true;
+//        }catch(Exception exp){
+//            Debugger.println("Exception from editPatientDetails:"+exp);
+//            SeleniumLib.takeAScreenShot("editPatientDetails.jpg");
+//            return false;
+//        }
+//    }
+
+
+
+
+
+
 
     public boolean fillTheRelationshipToProband(String relationToProband) {
         try {
@@ -389,6 +429,9 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheTestAndDetailsOfAddedFamilyMember(NGISPatientModel familyMember) {
         try {
+
+//            Debugger.println("Verifying Selecte
+
             if (familyMember == null) {
                 Debugger.println("Family Member cannot be null.");
                 return false;

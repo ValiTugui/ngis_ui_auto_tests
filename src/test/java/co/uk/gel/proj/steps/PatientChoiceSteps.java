@@ -35,14 +35,19 @@ public class PatientChoiceSteps extends Pages {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
             for (int i = 1; i < memberDetails.size(); i++) {
+                Debugger.println("\nPatient Choice for Family Member:"+i);
+                //No need to alert as there are cases which directly landing to specific patient page
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
                 Wait.seconds(2);
-                 Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
+                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
                 Wait.seconds(2);
+//                if(!patientChoicePage.clickOnContinue()){
+//                    Assert.assertTrue(false);
+//                }
                 patientChoicePage.clickOnContinue();
                 Wait.seconds(2);
                 String patientChoice=memberDetails.get(i).get(4);
@@ -54,9 +59,13 @@ public class PatientChoiceSteps extends Pages {
                     patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 }
                 Wait.seconds(2);
+//                if(!patientChoicePage.clickOnContinue()){
+//                    Assert.assertTrue(false);
+//                }
                 patientChoicePage.clickOnContinue();
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
                     Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
+//                    Assert.assertTrue(patientChoicePage.clickOnContinue());
                     patientChoicePage.clickOnContinue();
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
@@ -70,6 +79,7 @@ public class PatientChoiceSteps extends Pages {
                 }
                 patientChoicePage.clickOnSaveAndContinueButton();
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
+                Debugger.println("\nPC done for FM:"+i);
             }//end
 
         } catch (Exception exp) {
@@ -492,6 +502,7 @@ public class PatientChoiceSteps extends Pages {
                    Debugger.println("Form "+linkDetails.get(i).get(0)+" could not verify in section:"+formSection);
                    Assert.assertTrue(testResult);
                }
+               Wait.seconds(2);
             }
             Assert.assertTrue(testResult);
         } catch (Exception exp) {
@@ -580,7 +591,11 @@ public class PatientChoiceSteps extends Pages {
     }
     @When("the user clicks the Save and Continue button on the patient choice")
     public void theUserClicksTheSaveAndContinueButtonOnThe() {
-        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        //referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
+        boolean testResult = false;
+//        testResult = referralPage.clickSaveAndContinueButton();
+//        Assert.assertTrue(testResult);
+        referralPage.clickSaveAndContinueButton();
 
     }
     @And("the user sees the patient choice status for family member (.*) as (.*)")

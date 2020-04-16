@@ -78,7 +78,8 @@ public class ReferralSteps extends Pages {
         } else if (patientType.equalsIgnoreCase("SPINE")) {
             patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
         }
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
+//        patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.clickPatientCard();
 
         // Check condition for different scenarios when referral submit button is displayed
@@ -232,7 +233,8 @@ public class ReferralSteps extends Pages {
                 patientSearchPage.fillInNonExistingPatientDetailsForChildReferral();
             }
         }
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
+//        patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.getPatientSearchNoResult();
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
@@ -337,7 +339,8 @@ public class ReferralSteps extends Pages {
             Assert.assertFalse("Search Page not loaded successfully.",true);
         }
         patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
-        patientSearchPage.clickSearchButtonByXpath(driver);
+//        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
         String actualSearchResult = patientSearchPage.getPatientSearchNoResult();
         Assert.assertEquals("No patient found", actualSearchResult);
         patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
@@ -439,7 +442,8 @@ public class ReferralSteps extends Pages {
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
         patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral();
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
+//        patientSearchPage.clickSearchButtonByXpath(driver);
         patientSearchPage.getPatientSearchNoResult();
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
@@ -665,6 +669,18 @@ public class ReferralSteps extends Pages {
             if(!patientDetailsPage.startReferral()){
                 Assert.assertTrue(false);
             }
+//
+//            //Existing Patient
+//            if(!patientSearchPage.clickPatientCard()){
+//                Assert.assertTrue(false);
+//            }
+//            if(!patientDetailsPage.clickStartNewReferralButton()){
+//                Assert.assertTrue(false);
+//            }
+//
+//            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+//                Assert.assertTrue(false);
+//            }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if(!toDoListDisplayed){
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
@@ -848,6 +864,8 @@ public class ReferralSteps extends Pages {
     public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
         boolean testResult = false;
         testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
+//        testResult = referralPage.referralSubmitButtonStatus("#eaebee");
+
         if (expectedStatus.equals("enabled")) {
             Assert.assertFalse(testResult);
         } else {

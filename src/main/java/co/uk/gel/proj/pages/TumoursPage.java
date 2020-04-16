@@ -109,6 +109,7 @@ public class TumoursPage {
 
     //@FindBy(css = "*[class*='checkbox-row__arrow']")
     @FindBy(xpath = "//button[@aria-label='Edit a tumour']")
+
     public WebElement editTumourArrow;
 
     @FindBy(xpath = "//div[contains(@class,'notification--success')]/div[2]")

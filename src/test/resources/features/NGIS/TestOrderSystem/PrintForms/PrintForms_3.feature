@@ -2,7 +2,7 @@
 #@printForms
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: Print Forms 3 - Validations
+Feature: TestOrder - Print Forms 3 - Validations
 
   @NTS-4702  @Z-LOGOUT
 #    @E2EUI-1306
@@ -91,12 +91,7 @@ Feature: Print Forms 3 - Validations
     And the user clicks the Search button
     And the user clicks the patient result card
     ##Referral Details Page
-    When the user is navigated to a page with title Check your patient's details
-    And the user should be able to see referral card status as cancelled with selected "<Reason>" reason
-    And the user clicks the cancelled patient referral card
-    ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
-    Then the user should be able to see referral status as cancelled with selected "<Reason>" reason
+    Then the user should be able to see referral card status as cancelled with selected "<Reason>" reason
 
     Examples:
       | NhsNumber            | DOB            | Reason  |
@@ -167,7 +162,9 @@ Feature: Print Forms 3 - Validations
     When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     ###Print Forms
@@ -177,7 +174,7 @@ Feature: Print Forms 3 - Validations
     ###Family Members for modification
     When the user navigates to the "<FamilyMembers>" stage
     And the user edits the highlighted family member with "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<ChangedRelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     ###Print Forms

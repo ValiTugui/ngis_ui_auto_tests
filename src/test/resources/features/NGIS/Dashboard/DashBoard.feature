@@ -1,7 +1,7 @@
 #@regression
 @02-DASHBOARD
 @SYSTEM_TEST
-Feature: Dashboard Page
+Feature: DashBoard - Dashboard Page
 
 #  Background:
 #    Given a web browser is at the dashboard page

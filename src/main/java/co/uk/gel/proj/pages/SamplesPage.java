@@ -173,11 +173,11 @@ public class SamplesPage {
     @FindBy (css = "h6[class*='styles_text--6']")
     public WebElement infoTextForLinkingSamples;
 
-    @FindBy(xpath = "//h2[contains(@class,'styles_text--3')]")
-    public WebElement addSampleDetailsSubHeading;
-
     @FindBy(css ="span[class*='checkmark--checked']")
     public WebElement sampleTypeSVGTickMark;
+
+    @FindBy(xpath = "//a[contains(@class,'styles_sample-detail__edit-link')]")
+    List<WebElement> sampleEditButtons;
 
     public boolean selectSampleType(String type) {
         try {
@@ -220,7 +220,8 @@ public class SamplesPage {
             if (!Wait.isElementDisplayed(driver, sampleState, 30)) {
                 Actions.scrollToTop(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, sampleState);
+            Actions.clickElement(driver, sampleState);
+            Wait.seconds(2);
             if(!Wait.isElementDisplayed(driver, dropdownValue,10)){
                 Debugger.println("SampleState Drop values not loaded: ");
                 SeleniumLib.takeAScreenShot("SampleStateNotLoaded.jpg");
@@ -623,4 +624,28 @@ public class SamplesPage {
             return false;
         }
     }
-}
+    public boolean verifyAddSampleButtonIsDisplayed() {
+        if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+            Debugger.println("Add Samples Button not displayed as expected.");
+            SeleniumLib.takeAScreenShot("AddSamplesButton.jpg");
+            return false;
+        }
+        return true;
+    }
+    public boolean editSpecificSample(String sampleNo) {
+        try {
+            int noOfSamples = Integer.parseInt(sampleNo);
+            if(sampleEditButtons.size() < noOfSamples){
+                Debugger.println("Edit Sample Button Not Present ");
+                SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,sampleEditButtons.get((noOfSamples-1)));
+            return true;
+        } catch (NumberFormatException exp) {
+            Debugger.println("Exception in : editSpecificSample" + exp);
+            SeleniumLib.takeAScreenShot("editSpecificSample.jpg");
+            return false;
+        }
+    }
+}//

@@ -83,6 +83,19 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should see previous labels replaced as current labels
       | PreviousLabel      | CurrentLabel      |
       | NHS number,NHS no. | NHS Number,NHS No |
+
+#    ##Patient Details Page
+#    When the user is navigated to a page with title Patient record
+#    Then the user should see previous labels replaced as current labels
+#      | PreviousLabel      | CurrentLabel      |
+#      | NHS number,NHS no. | NHS Number,NHS No |
+#    When the user clicks the Start a new Referral button
+#    ##Referral Details Page
+#    Then the user is navigated to a page with title Check your patient's details
+#    And the user should see previous labels replaced as current labels
+#      | PreviousLabel      | CurrentLabel      |
+#      | NHS number,NHS no. | NHS Number,NHS No |
+#
      ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation

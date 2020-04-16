@@ -81,7 +81,6 @@ public class ClinicalQuestionsSteps extends Pages {
     public void theHPOPhenotypeDetailsMandatoryStateIs(String mandatoryValue) {
         boolean expectedMandatoryValue = Boolean.parseBoolean(mandatoryValue);
         boolean actualMandatoryValue = clinicalQuestionsPage.confirmHPOPhenotypeSectionIsMarkedAsMandatory();
-
         Assert.assertEquals(actualMandatoryValue, expectedMandatoryValue);
     }
 

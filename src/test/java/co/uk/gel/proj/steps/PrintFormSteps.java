@@ -1,5 +1,6 @@
 package co.uk.gel.proj.steps;
 
+import co.uk.gel.config.BrowserConfig;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.models.NGISPatientModel;
@@ -232,15 +233,16 @@ public class PrintFormSteps extends Pages {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Test Type: "+testType);
             testResult = printFormsPage.validatePDFContent(testType, fileName);
             Assert.assertTrue(testResult);
-        }
-        else if (fieldType.contains("laboratory")) {
+        } else if (fieldType.contains("laboratory")) {
             String labDetails = printFormsPage.readSelectedLabDetails();
             if (labDetails == null) {
                 Debugger.println("No value present for " + fieldType + " on the Offline test order page ");
                 Assert.assertTrue(testResult);
             }
+            Debugger.println("Validate Laboratory: "+labDetails);
             testResult = printFormsPage.validatePDFContent(labDetails, fileName);
             Assert.assertTrue(testResult);
         }
