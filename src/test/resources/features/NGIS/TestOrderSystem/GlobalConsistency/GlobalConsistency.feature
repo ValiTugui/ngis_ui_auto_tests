@@ -1,8 +1,8 @@
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Global behaviors
 
-  @NTS-5069 @LOGOUT
+  @NTS-5069 @Z-LOGOUT
     #@E2EUI-875
   Scenario Outline: NTS-5069: Microsoft Login / Authentication
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -20,7 +20,7 @@ Feature: TestOrder - Global behaviors
       | MicrosoftLoginUrl           | errorMessage                                                                |
       | /login.microsoftonline.com/ | Your account or password is incorrect. If you don't remember your password, |
 
-  @NTS-5068 @LOGOUT
+  @NTS-5068 @Z-LOGOUT
     #@E2EUI-1841 taken
   Scenario Outline:NTS-5068:Verify Referral Id same as url
     Given a new patient referral is created with associated tests in Test Order System online service

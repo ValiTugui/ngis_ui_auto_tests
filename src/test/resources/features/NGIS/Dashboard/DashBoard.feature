@@ -1,5 +1,5 @@
 #@regression
-@DASHBOARD
+@02-DASHBOARD
 @SYSTEM_TEST
 Feature: DashBoard - Dashboard Page
 

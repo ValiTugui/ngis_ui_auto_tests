@@ -1,47 +1,87 @@
-@TEST_ORDER
+#@regression
+#@samplesPage
+#@samplesPage1
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - Samples Page -5
+Feature: Samples Page -5
 
-  @NTS-5070 @LOGOUT
-    #@E2EUI-1241
-  Scenario Outline: NTS-5070  :  User is completing a referral and wants to add a new sample to a referral
+  @NTS-3308 @Z-LOGOUT
+#    @E2EUI-943 @E2EUI-2338 @E2EUI-1232
+  Scenario Outline: NTS-3308:E2EUI-943,2338,1232: Add a sample page - verify the sample type drop down list
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    When the user navigates to the "<TumourStage>" stage
-    And the user adds a new tumour
-      | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
-      | Solid tumour: metastatic | First presentation     | test                 | 1                    |
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Manage samples
-    ###Adding the first sample which is of tumour type.
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
-    Then the user is navigated to a page with title Add a sample
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-tumour>", sample state "<sampleState>" and filling SampleID
-    And the tumour details are displayed in the Add a sample page on selecting a tumour sample type
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add sample details
-    When the user answers the Samples dynamic questions on Add a Sample Details page by selecting sample search"<sampleTopoMorphyGraphy>"
-    And the user clicks the Save and Continue button
-    Then the success notification is displayed "<notificationText>"
-    And the user is navigated to a page with title Manage samples
-    And on the Manage Samples page, the new sample details are displayed in the sample table list
-    ###Adding second sample which is of non-tumour type
-    When the user clicks the Add sample button
-    Then the user is navigated to a page with title Add a sample
-    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType-non-tumour>", sample state and filling SampleID
-    And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add sample details
-    When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
-    And the user clicks the Save and Continue button
-    Then the success notification is displayed "<notificationText>"
-    And the new sample is displayed in the landing page
-    And on the Manage samples page, the sample table list shows the column header names
-      | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeade | SampleParentIDHeader | TumourDescriptionHeader |
-      | Sample type      | State             | Sample ID             | Parent ID            | Tumour description      |
-    And the "<SampleStage>" stage is marked as Completed
-    And the user is navigated to a page with title Manage samples
-    And the user sees the Add sample button to add additional samples
+    Then the "<pageTitle2>" page is displayed
+    And the following drop-down values are displayed for Sample types on Add a sample page
+      | sampleTypesHeader         |
+      | Solid tumour sample       |
+      | Liquid tumour sample      |
+      | Normal or germline sample |
+#      | Abnormal tissue sample - Descoped 24/02/2020 |
+#      | Omics sample  - Descoped 24/02/2020            |
 
     Examples:
-      | TumourStage | SampleStage | sampleType-tumour   | sampleState | sampleTopoMorphyGraphy | sampleType-non-tumour     | notificationText |
-      | Tumours     | Samples     | Solid tumour sample | Saliva      | test                   | Normal or germline sample | Sample added     |
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+
+  @NTS-3312 @Z-LOGOUT
+#    @E2EUI-868 @@E2EUI-1261 @E2EUI-887
+  Scenario Outline: NTS-3312:E2EUI-868,1261,887: Add a sample page - Validate the mandatory input fields in add a Sample page without filling in the fields
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the user clicks the Save and Continue button
+    Then the error messages for the sample mandatory fields on Add a Sample page are displayed
+      | labelHeader    | errorMessageHeader        |
+      | Sample type ✱  | Sample type is required.  |
+      | Sample state ✱ | Sample state is required. |
+      | Sample ID ✱    | Sample ID is required.    |
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+
+
+  @NTS-3332 @Z-LOGOUT
+#    @E2EUI-1446 @E2EUI-1272
+  Scenario Outline: NTS-3332:E2EUI-1446,1272: Add a Sample page - Verify sample type, sample state and sampleID are display
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the Add a Sample page displays the appropriate field elements - sample type, sample state and sampleID
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |
+
+
+  @NTS-3333 @Z-LOGOUT
+#    @E2EUI-1252
+  Scenario Outline: NTS-3333:E2EUI-1252: Add a Sample page - verify the help hint-text on Local sample tube ID
+    Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
+    And the user is navigated to a page with title Check your patient's details
+    When the user navigates to the "<stage>" stage
+    Then the "<pageTitle>" page is displayed
+    When the user clicks the Add sample button
+    Then the "<pageTitle2>" page is displayed
+    And the labels and help hint texts are displayed on Add a Sample page
+      | labelHeader    | HintTextHeader                                                                         |
+      | Sample type ✱  | None                                                                                   |
+      | Sample state ✱ | None                                                                                   |
+      | Sample ID ✱    | This could be the block ID, sample ID or nucleic acid ID given at the local laboratory |
+
+    Examples:
+      | stage   | pageTitle      | pageTitle2   |
+      | Samples | Manage samples | Add a sample |

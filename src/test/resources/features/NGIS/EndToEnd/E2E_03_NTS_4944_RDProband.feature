@@ -2,7 +2,7 @@
 
 Feature: NTS-4944:E2E03: Create Referrals for NEW Patient - Proband Only - E2E
 
-  @NTS-4944 @LOGOUT
+  @NTS-4944 @Z-LOGOUT
     #@E2EUI-2654
   Scenario Outline: NTS-4944: Use Case_E2E#03: Submit a RD Referral for Proband with Patient Choice Yes and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

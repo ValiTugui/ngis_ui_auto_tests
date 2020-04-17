@@ -2,7 +2,7 @@
 
 Feature: NTS-4963:Submit an RD referral for 7 participants with various relationships to proband (2 siblings,2 grand parents,father,mother)
 
-  @NTS-4963 @LOGOUT
+  @NTS-4963 @Z-LOGOUT
     #@E2EUI-2690
   Scenario Outline:NTS-4963: Create a referral with 2 siblings,2 grand parents,father,mother for a proband and process the CSVs and check in DDF payload
     Given a new patient referral is created with associated tests in Test Order System online service

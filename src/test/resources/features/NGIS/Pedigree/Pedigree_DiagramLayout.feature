@@ -1,12 +1,12 @@
 #@regression
 #@pedigree_diagramLayout
-@PEDIGREE
+@07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - Diagram Layout
 
-  @NTS-3304 @LOGOUT
+  @NTS-3304 @Z-LOGOUT
 #    @E2EUI-934 @E2EUI-1046
-  Scenario Outline: NTS-3304 : Pedigree Diagram layout
+  Scenario Outline: NTS-3304:(E2EUI-934,1046) Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
     ##Patient Details
@@ -49,11 +49,11 @@ Feature: Pedigree - Diagram Layout
       | FamilyMemberDetails         | Pedigree | WarningMessage                                                                                |
       | NHSNumber=NA:DOB=25-10-2008 | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3304 @LOGOUT
+  @NTS-3304 @Z-LOGOUT
 #    @E2EUI-1457
-  Scenario Outline: NTS-3304 : Pedigree Diagram layout
+  Scenario Outline: NTS-3304 :E2EUI-1457: Pedigree Diagram layout
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2008:Gender=Male |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2009:Gender=Male |
     ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
      ##Pedigree
@@ -71,7 +71,7 @@ Feature: Pedigree - Diagram Layout
       | Pedigree | WarningMessage                                                                                |
       | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3386 @LOGOUT
+  @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1373 @E2EUI-836 @E2EUI-1269
   Scenario Outline: NTS-3386 : Test with a trio (mother & father)
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -128,7 +128,7 @@ Feature: Pedigree - Diagram Layout
       | Requesting organisation | ordering_entity_name | NoOfParticipants | ResponsibleClinicianDetails               | ClinicalQuestionDetails                   | FamilyMembers  | Pedigree |
       | Requesting organisation | Maidstone            | 3                | LastName=Smith:Department=Victoria Street | DiseaseStatus=Unaffected:AgeOfOnset=03,02 | Family members | Pedigree |
 
-  @NTS-3386 @LOGOUT
+  @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1630 @E2EUI-1051
   Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service

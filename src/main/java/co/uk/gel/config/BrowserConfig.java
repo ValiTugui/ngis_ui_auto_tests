@@ -17,11 +17,9 @@ public class BrowserConfig {
     public static String osVersion;
 
     /*public static void loadConfig() {
-
         String configFileName = "%s-BrowserConfig.properties";
         String EnvironmentName = System.getProperty("TestEnvironment");
         System.out.println("TestEnvironment: " + EnvironmentName);
-
         configFileName = String.format(configFileName, EnvironmentName);
         Properties properties = new Properties();
         try {
@@ -29,7 +27,6 @@ public class BrowserConfig {
             try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
                 properties.load(resourceStream);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,4 +78,4 @@ public class BrowserConfig {
         return osVersion;
     }
 
-}//end
+}

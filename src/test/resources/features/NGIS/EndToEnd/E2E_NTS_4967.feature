@@ -2,7 +2,7 @@
 
 Feature: NTS-4967:Select a test type in TS instead of CI and check the downstream
 
-  @NTS-4967 @E2EUI-2680 @LOGOUT
+  @NTS-4967 @E2EUI-2680 @Z-LOGOUT
   Scenario Outline: NTS-4967 - CSV-E2E- Select a testtype in TS instead of CI and check the downstream
     Given a web browser is at the Private Test Selection homepage
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |

@@ -1,10 +1,10 @@
 #@regression
 #@printForms
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Print Forms 2 - User flows
 
-  @NTS-4746 @LOGOUT
+  @NTS-4746 @Z-LOGOUT
 #    @E2EUI-1729
   Scenario Outline: NTS-4746: Update copy on print form
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -32,7 +32,7 @@ Feature: TestOrder - Print Forms 2 - User flows
       | OneParticipant | PrintForms  | WarningMessage                                                                                            |
       | 1              | Print forms | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @LOGOUT
+  @NTS-4746 @Z-LOGOUT
 #    @E2EUI-1332
   Scenario Outline: NTS-4746: Download sample form stage becomes available
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -60,7 +60,7 @@ Feature: TestOrder - Print Forms 2 - User flows
       | OneParticipant | PrintForms  |
       | 1              | Print forms |
 
-  @NTS-4746 @LOGOUT
+  @NTS-4746 @Z-LOGOUT
 #    @E2EUI-1132
   Scenario Outline: NTS-4746: User has submitted a referral and able to start a new referral
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -87,7 +87,7 @@ Feature: TestOrder - Print Forms 2 - User flows
       | PrintForms  | OneParticipant |
       | Print forms | 1              |
 
-  @NTS-4746 @LOGOUT
+  @NTS-4746 @Z-LOGOUT
 #    @E2EUI-2094 @scenario_01
   Scenario Outline: NTS-4746: scenario_01 Update warning box content on print sample forms
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -154,7 +154,7 @@ Feature: TestOrder - Print Forms 2 - User flows
       | tumour_type           | presentationType   | sampleType          | sampleState         | ClinicianName                         | WarningMessage                                                                                            |
       | Solid tumour: primary | First presentation | Solid tumour sample | Fresh frozen tumour | ClinicianName=John:HospitalNumber=123 | Follow local trust information governance guidelines for data protection if saving sample forms anywhere. |
 
-  @NTS-4746 @LOGOUT
+  @NTS-4746 @Z-LOGOUT
 #    @E2EUI-2094  @scenario_02
   Scenario Outline: NTS-4746 : scenario_02 Update warning box content on print sample forms
     Given a new patient referral is created with associated tests in Test Order System online service

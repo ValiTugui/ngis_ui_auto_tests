@@ -3,6 +3,7 @@ package co.uk.gel.proj.steps;
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -44,12 +45,14 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @Then("the text {string} is displayed")
     public void theTextIsDisplayed(String correctText) {
-        Assert.assertTrue(correctText + "  is NOT Displayed", clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.loadingText, correctText));
-
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(correctText);
+        Assert.assertTrue(testResult);
     }
 
     @And("the list of clinical indications are loaded")
     public void theListOfClinicalIndicationsIsLoading() {
+        Wait.seconds(3);
         Assert.assertTrue("The List of Clinical Indication are NOT Loaded", clinicalIndicationsTestSelect.checkIfClinicalIndicationsAreLoaded());
     }
 
@@ -60,18 +63,23 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user sees the button {string} on Bottom right")
     public void theUserSeesTheButtonOnBottomRight(String buttonName) {
-        Assert.assertTrue(clinicalIndicationsTestSelect.validateIfCorrectTextIsDisplayed(clinicalIndicationsTestSelect.startTestOrderButton, buttonName));
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.validateIfCorrectButtonDisplayed(buttonName);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user selects the {string} tab")
     public void theUserClicksOnTab(String tabName) {
-
-        clinicalIndicationsTestSelect.selectTab(tabName);
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.selectTab(tabName);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks on view more icon")
     public void theUserClicksOnViewMoreIcon() {
-        Click.element(driver, clinicalIndicationsTestSelect.testInfoIcon);
+        boolean testResult = false;
+        testResult = clinicalIndicationsTestSelect.clickOnViewMoreIcon();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on Go to test page button")
@@ -83,6 +91,7 @@ public class ClinicalIndicationsTestSelectSteps extends Pages {
 
     @And("the user should be able to see all {string} tabs and are clickable")
     public void theUserShouldBeAbleToSeeAllTabsAndAreClickable(String tabCount, List<String> tabName) {
+
         Assert.assertTrue(clinicalIndicationsTestSelect.isTabPresent(Integer.parseInt(tabCount), tabName.get(0), tabName.get(1), tabName.get(2), tabName.get(3)));
         Assert.assertTrue(Actions.isTabClickable(driver, Integer.parseInt(tabCount), clinicalIndicationsTestSelect.clinicalIndicationTabs));
     }

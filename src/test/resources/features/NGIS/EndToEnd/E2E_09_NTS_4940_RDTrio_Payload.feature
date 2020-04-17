@@ -2,7 +2,7 @@
 
 Feature: NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Patient Choice Yes
 
-  @NTS-4940 @LOGOUT
+  @NTS-4940 @Z-LOGOUT
     #@E2EUI-2687
   Scenario Outline:NTS:4940: E2E#09: Verify payload for RD Referral for Trio Family with one parent with disease and another no disease with Patient Choice Yes
     Given a new patient referral is created with associated tests in Test Order System online service

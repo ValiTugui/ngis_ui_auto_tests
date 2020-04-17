@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
 
@@ -55,8 +55,11 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+#      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                          |
+#      | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the patient has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+
 
   @NTS-3389
     #@E2EUI-2039  @scenario_02
@@ -83,7 +86,7 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                           |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
   @NTS-3389
@@ -170,8 +173,8 @@ Feature: Patient Choice-9 Edit Paper Form - Adult With Capacity
       | WarningMessage                                                                                                                                                      | Question2                                                                                      |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | The patient agrees that their data and samples may be used for research, separate to NHS care. |
 
-  @NTS-3389 @LOGOUT
-  #@E2EUI-2039 @LOGOUT @scenario_05
+  @NTS-3389 @Z-LOGOUT
+  #@E2EUI-2039 @Z-LOGOUT @scenario_05
   Scenario: NTS-3389: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
     And the user should be able to see previous section re-opened

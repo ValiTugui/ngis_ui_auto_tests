@@ -43,7 +43,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[@data-id='file_submissions-search-operator']")
     public WebElement fileSubmissionSearchOperatorDropDownButton;
 
-    @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
+//    @FindBy(xpath = "//input[@data-shinyjs-resettable-id='file_submissions-search-value']")
+    @FindBy(xpath = "//input[contains(@data-shinyjs-resettable-id,'search-value')]")
     public WebElement getFileSubmissionDate;
 
     @FindBy(id = "file_submissions-search-add")
@@ -60,6 +61,9 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
 
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]//tbody/tr")
     public List<WebElement> searchResultTable;
+
+    @FindBy(xpath = "//div[contains(@id,'column_order_hidden')]")
+    public WebElement hideColumnSpace;
 
 
     public void fillInTheFileSubmissionDate(String date) {
@@ -122,8 +126,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         }
         return pairs;
     }
-
-    //getValuesOfCsvFileNamesSearchedResult
 
     public List<Map<String, String>> getValuesOfCsvFileNamesSearchedResult(String filterCriteria) {
         Wait.seconds(5);
@@ -268,8 +270,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             if (allHiddenColEle.size() > 0) {
                 for (int i = 0; i < allRows.size(); i++) {
                     List<WebElement> allHiddenColumns = driver.findElements(By.xpath("//table[contains(@id,'DataTables_Table')]//tbody/tr[" + i + "]/td[@style='display: none;']"));
-                    Debugger.println("Columns hidden :" + allHiddenColumns.size());
-                    String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i+1) + "]/td[1]";
+//                    Debugger.println("Columns hidden :" + allHiddenColumns.size());
+                    String expandLoc = "//table[contains(@id,'DataTables_Table')]//tbody/tr[" + (i + 1) + "]/td[1]";
                     Actions.clickElement(driver, driver.findElement(By.xpath(expandLoc)));
                     Wait.seconds(2);
                     List<WebElement> allUnhiddenColumns = driver.findElements(By.xpath("//tbody/tr[position()= " + (i + 2) + "and @class='child']"));
@@ -277,7 +279,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                         String value = col.getText();
                         // Checking if no col value is null
                         Assert.assertNotNull(value);
-                        Debugger.println("Unhidden col values " + value);
+//                        Debugger.println("Unhidden col values " + value);
                     }
                 }
                 return true;
@@ -286,13 +288,79 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("noColumnIsHidden.jpg");
                 return false;
             }
-
         } catch (Exception exp) {
             Debugger.println("Exception due to ExpandCompactLocator element." + exp);
             SeleniumLib.takeAScreenShot("noExpandCompactLocatorExp.jpg");
             return false;
         }
     }
+    @FindBy(xpath = "//button[contains(.,'Show all')]")
+    public WebElement showAllButtonOnModalContentPage;
+    @FindBy(xpath = "//button[contains(.,'Hide all')]")
+    public WebElement hideAllButtonOnModalContentPage;
+    public boolean theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(String buttonOnModalContentPage) {
+        try {
+            if (showAllButtonOnModalContentPage.isDisplayed()) {
+                if (showAllButtonOnModalContentPage.getText().contains(buttonOnModalContentPage)) {
+                    Actions.clickElement(driver, showAllButtonOnModalContentPage);
+                    Debugger.println("Show All button clicked");
+                    Wait.seconds(5);
+                    return true;
+                } else {
+                    Actions.clickElement(driver, hideAllButtonOnModalContentPage);
+                    Debugger.println("Hide All button clicked");
+                    Wait.seconds(5);
+                    return true;
+                }
+            }
+            SeleniumLib.takeAScreenShot("buttonOnModalContentPage.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("MiportalfileSubmissionPage : userClicksButonOnModalContentPage" + exp);
+            SeleniumLib.takeAScreenShot("buttonOnModalContentPage.jpg");
+            return false;
+        }
+    }
+    @FindBy(xpath = "//button[contains(@data-id,'file_submissions-search')]")
+    public List<WebElement> searchFieldsForFileSubmission;
+    public boolean verifyThePresenceOfSelectedOption(String selectedOption) {
+        try {
+            if (searchFieldsForFileSubmission.size() == 0) {
+                Debugger.println("There is nothing with search field.");
+                SeleniumLib.takeAScreenShot("SearchFieldNotFound.jpg");
+                return false;
+            }
+            for (int i = 0; i < searchFieldsForFileSubmission.size(); i++) {
+                if (searchFieldsForFileSubmission.get(i).getText().equalsIgnoreCase(selectedOption)) {
+                    return true;
+                }
+            }
+            Debugger.println("Not selected any options for " + selectedOption);
+            SeleniumLib.takeAScreenShot("SelectedOptionNotFound.jpg");
+            return false;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyThePresenceOfSelectedOption," + exp);
+            SeleniumLib.takeAScreenShot("SelectedOptionNotFound.jpg");
+            return false;
+        }
+    }
 
-
+    public boolean addColumnHeadersToHideSection(String fieldColumn) {
+        try {
+            String culumn_value = "//div[text()='" + fieldColumn + "']";
+            WebElement columnToHide = driver.findElement(By.xpath(culumn_value));
+            org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
+            if (!columnToHide.isDisplayed()) {
+                Debugger.println("teh column is not avilable");
+                SeleniumLib.takeAScreenShot("selectedColumn.jpg");
+                return false;
+            }
+            act.dragAndDrop(columnToHide, hideColumnSpace).build().perform();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("MiPortalfileSubmissionPage :addColumnHeadersToHideSection :" + exp);
+            SeleniumLib.takeAScreenShot("selectedColumn.jpg");
+            return false;
+        }
+    }
 }

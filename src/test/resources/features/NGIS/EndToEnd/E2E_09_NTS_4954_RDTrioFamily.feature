@@ -2,7 +2,7 @@
 
 Feature: NTS-4954: #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes
 
-  @NTS-4954 @LOGOUT
+  @NTS-4954 @Z-LOGOUT
     #@E2EUI-2616
   Scenario Outline: NTS-4954 : #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -2,7 +2,7 @@
 
 Feature: NTS-4947:E2E05: Create RD Referrals for NEW Patient - Proband Only
 
-  @NTS-4947 @LOGOUT
+  @NTS-4947 @Z-LOGOUT
     #@E2EUI-2664
   Scenario Outline: NTS-4947: E2E #5: Submit a RD Referral for Proband with Patient Choice No and check ddf payload
     ###creating new patient

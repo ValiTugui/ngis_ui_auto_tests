@@ -2,7 +2,7 @@
 
 Feature: NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband Only
 
-  @NTS-4946 @LOGOUT
+  @NTS-4946 @Z-LOGOUT
     #@E2EUI-2684
   Scenario Outline: NTS-4946: E2E#20 : Submit a Cancel referral with patient choice Yes and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

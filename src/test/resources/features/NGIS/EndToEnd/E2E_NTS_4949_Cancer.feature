@@ -2,7 +2,7 @@
 
 Feature: NTS-4949:Create RD Referrals for NEW Patient - Proband Only
 
-  @NTS-4949 @E2EUI-2682 @LOGOUT
+  @NTS-4949 @E2EUI-2682 @Z-LOGOUT
   Scenario Outline: NTS-4949: CSV-E2E-Add additional clinician to a referral and check in downstream
     ###creating new patient
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -1,8 +1,8 @@
 #@regression
 #@patientSearchSPINE
-@GENOMIC_RECORD
-@SYSTEM_TEST
-Feature: Genomic Record - Patient search page_SPINE
+@04-GENOMIC_RECORD
+@SYSTEM_TEST_SPINE
+Feature: Patient search page_SPINE
 
   Background:
     Given a web browser is at the patient search page
@@ -18,7 +18,6 @@ Feature: Genomic Record - Patient search page_SPINE
       | labelHeader       |
       | NHS Number ✱      |
       | Date of birth ✱   |
-
 
   @NTS-3336
 #  @E2EUI-1663
@@ -43,16 +42,15 @@ Feature: Genomic Record - Patient search page_SPINE
       | Postcode    |
 
   @NTS-2780
-    ##This test has SPINE data dependancy - Need to provide valid SPINE data to make it pass
 #    @E2EUI-2128 @E2EUI-1109 @E2EUI-1437
-#  Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
-#    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
-#    And the user clicks the Search button
-#    Then a "<patient-search-type>" result is successfully returned
-#    And the correct details of the "<patient-search-type>" patient are displayed in the card
-#    Examples:
-#      | patient-search-type | NhsNumber  | DOB        |
-#      | NHS Spine           | 9449310602 | 23-03-2011 |
+  Scenario Outline: NTS-2780:patient search "<patient-search-type>" With NHS Number and Date of Birth
+    When the user types in valid details of a "<patient-search-type>" patient in the NHS number "<NhsNumber>" and Date of Birth "<DOB>" fields
+    And the user clicks the Search button
+    Then a "<patient-search-type>" result is successfully returned
+    And the correct details of the "<patient-search-type>" patient are displayed in the card
+    Examples:
+      | patient-search-type | NhsNumber  | DOB        |
+      | NHS Spine           | 9449310602 | 23-03-2011 |
 
   @NTS-2795
 #    @E2EUI-2129 @E2EUI-2136 @E2EUI-1762 @E2EUI-1788

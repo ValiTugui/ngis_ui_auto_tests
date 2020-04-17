@@ -2,7 +2,7 @@
 
 Feature: NTS-4959:E2E15:Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes
 
-  @NTS-4959 @LOGOUT
+  @NTS-4959 @Z-LOGOUT
     #@E2EUI-2673
   Scenario Outline: NTS-4959: E2E #15: Submit a RD Referral for Additional Participants (not part of Referral) with Patient Choice Yes and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

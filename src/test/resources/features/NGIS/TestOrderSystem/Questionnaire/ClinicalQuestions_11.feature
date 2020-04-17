@@ -1,18 +1,16 @@
 #@regression
 #@clinicalQuestions
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - ClinicalQuestions 11 - RD Questionnaire
+Feature: ClinicalQuestions 11 - RD Questionnaire
 
-  Background:
-   Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
-    And the user is navigated to a page with title Check your patient's details
-    And the "Patient details" stage is marked as Completed
-
-  @NTS-3209 @LOGOUT
+  @NTS-3209 @Z-LOGOUT
 #    @E2EUI-2089 @E2EUI-1404
   Scenario Outline: NTS-3209 - Clinical Questions - Display HPO terms newest to the oldest when added
+    Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
+    And the user is navigated to a page with title Check your patient's details
+    And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed
     When the user adds a new HPO phenotype term "<hpoTerm1>"
@@ -27,15 +25,3 @@ Feature: TestOrder - ClinicalQuestions 11 - RD Questionnaire
     Examples:
       | stage              | title                     | hpoTerm1                | hpoTerm2  | hpoTermsCount | termPresence |
       | Clinical questions | Answer clinical questions | Sparse and thin eyebrow | Anonychia | 2             | Present      |
-
-  @NTS-3346 @LOGOUT
-#    @E2EUI-995
-  Scenario Outline: NTS-3346 - Clinical Questions - Page Layout - Verify enum values in dropdown
-    When the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
-    And the HPO phenotype drop-down is allowed to have values up to "<maximumAllowedValues>"
-    And the OMIM and Oprhanet drop-down is allowed to have values up to "<maximumAllowedValues>"
-
-    Examples:
-      | stage              | title                     | maximumAllowedValues |
-      | Clinical questions | Answer clinical questions | 50                   |

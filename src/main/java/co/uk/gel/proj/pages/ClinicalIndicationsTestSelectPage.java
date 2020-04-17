@@ -159,9 +159,34 @@ public class ClinicalIndicationsTestSelectPage {
         return loadingWheel.size() >= 0;
     }
 
-    public boolean validateIfCorrectTextIsDisplayed(WebElement element, String expected) {
-        String actual = element.getText();
-        return actual.equalsIgnoreCase(expected);
+    public boolean validateIfCorrectTextIsDisplayed(String expected) {
+        if(!Wait.isElementDisplayed(driver,loadingText,30)){
+            Debugger.println("Text element not displayed:"+expected);
+            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
+            return false;
+        }
+        String actual = loadingText.getText();
+        Debugger.println("ActualText:"+actual);
+        if(!actual.equalsIgnoreCase(expected)){
+            Debugger.println("Expected text:"+expected+",Actual:"+actual);
+            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
+            return false;
+        }
+        return true;
+    }
+    public boolean validateIfCorrectButtonDisplayed(String expected) {
+        if(!Wait.isElementDisplayed(driver,startTestOrderButton,10)){
+            Debugger.println("Text element not displayed:"+expected);
+            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
+            return false;
+        }
+        String actual = startTestOrderButton.getText();
+        if(!actual.equalsIgnoreCase(expected)){
+            Debugger.println("Expected text:"+expected+",Actual:"+actual);
+            SeleniumLib.takeAScreenShot("validateIfCorrectButtonDisplayed.jpg");
+            return false;
+        }
+        return true;
     }
 
     public boolean validateIfWrongTextIsNotDisplayed(WebElement element, String expected) {
@@ -208,37 +233,47 @@ public class ClinicalIndicationsTestSelectPage {
         }
     }
 
-    public void selectTab(String tabName) {
-        switch (tabName) {
-            case "Eligibility Criteria":
-            case "Clinical Indications": {
-                Click.element(driver, clinicalIndicationTabs.get(0));
-                //Debugger.println(clinicalIndicationTabs.get(0).getAttribute("href"));
-                break;
+    public boolean selectTab(String tabName) {
+        boolean isSelected  = false;
+        try {
+            switch (tabName) {
+                case "Eligibility Criteria":
+                case "Clinical Indications": {
+                    Click.element(driver, clinicalIndicationTabs.get(0));
+                    isSelected = true;
+                    break;
+                }
+                case "Test Package":
+                case "Test details": {
+                    Click.element(driver, clinicalIndicationTabs.get(1));
+                    isSelected = true;
+                    break;
+                }
+                case "Further Info":
+                case "Labs": {
+                    Click.element(driver, clinicalIndicationTabs.get(2));
+                    isSelected = true;
+                    break;
+                }
+                case "Order process": {
+                    Click.element(driver, clinicalIndicationTabs.get(3));
+                    isSelected = true;
+                    break;
+                }
+                default:
+                    isSelected = false;
+                    break;
             }
-            case "Test Package":
-            case "Test details": {
-                Click.element(driver, clinicalIndicationTabs.get(1));
-                //Debugger.println(clinicalIndicationTabs.get(1).getAttribute("href"));
-                break;
-            }
-            case "Further Info":
-            case "Labs": {
-                Click.element(driver, clinicalIndicationTabs.get(2));
-                //Debugger.println(clinicalIndicationTabs.get(2).getAttribute("href"));
-                break;
-            }
-            case "Order process": {
-                Click.element(driver, clinicalIndicationTabs.get(3));
-                //Debugger.println(clinicalIndicationTabs.get(3).getAttribute("href"));
-                break;
-            }
-            default:
-                throw new IllegalStateException("Section Number Mismatch " + tabName);
+            return isSelected;
+        }catch(Exception exp){
+            Debugger.println("Exception from selectTab:"+exp);
+            SeleniumLib.takeAScreenShot("selectTab.jpg");
+            return false;
         }
     }
 
     public boolean isTabPresent(Integer tabCount, String tab1, String tab2, String tab3, String tab4) {
+
         return ((clinicalIndicationTabs.size() == tabCount) && (clinicalIndicationTabs.get(0).getText().matches(tab1)) && (clinicalIndicationTabs.get(1).getText().matches(tab2)) && (clinicalIndicationTabs.get(2).getText().matches(tab3)) && (clinicalIndicationTabs.get(3).getText().matches(tab4)));
     }
 
@@ -399,5 +434,19 @@ public class ClinicalIndicationsTestSelectPage {
             return false;
         }
     }
-
+    public boolean clickOnViewMoreIcon(){
+        try{
+            if(!Wait.isElementDisplayed(driver,testInfoIcon,10)){
+                Debugger.println("View More Icon not present.");
+                SeleniumLib.takeAScreenShot("clickOnViewMoreIcon.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,testInfoIcon);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickOnViewMoreIcon:"+exp);
+            SeleniumLib.takeAScreenShot("clickOnViewMoreIcon.jpg");
+            return false;
+        }
+    }
 }

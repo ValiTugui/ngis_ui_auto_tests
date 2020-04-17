@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice -3 Navigation
 
-  @NTS-3409 @LOGOUT
+  @NTS-3409 @Z-LOGOUT
     #@E2EUI-1822
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -37,7 +37,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3411 @LOGOUT
+  @NTS-3411 @Z-LOGOUT
     #@E2EUI-1960
   Scenario Outline: NTS-3411: Adult (With Capacity): Verify the info message when user declined for a test
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -64,7 +64,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            | InfoMessage                                                                                                                                                   |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
-  @NTS-3411 @LOGOUT
+  @NTS-3411 @Z-LOGOUT
     #@E2EUI-1960
   Scenario Outline: NTS-3411: Child: Verify the info message when user declined for a test
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -93,7 +93,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            | InfoMessage                                                                                                                                                   |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
-  @NTS-3410 @LOGOUT
+  @NTS-3410 @Z-LOGOUT
     #@E2EUI-1127 @E2EUI-1934
   Scenario Outline: NTS-3410: Verify the patient Choice stage marked as completed
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -128,9 +128,9 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
-  @NTS-3418 @LOGOUT
+  @NTS-3418 @Z-LOGOUT
     #@E2EUI-1702
-  Scenario Outline: NTS-3418: Validation of change in research message inside patient choices section if I change my choice to participate in research.
+  Scenario Outline: NTS-3418:Research change messages displayed in Patient choice section
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2006:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
@@ -180,9 +180,9 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            | WarningMessage1                                                                                                                                                     | WarningMessage3                                                                                                                                                            | WarningMessage2                                                                                                         |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | If you change this choice it will also apply to any genomic tests the patient has previously had. This will also apply to any future tests, unless they change their mind. | Note: Patient preferences are applied across all completed patient choice forms and will autopopulate on all new forms. |
 
-  @NTS-3446 @LOGOUT
+  @NTS-3446 @Z-LOGOUT
     #@E2EUI-2035
-  Scenario Outline: NTS-3446: As a user, I should be able to edit test type for a family member in the patient choice form
+  Scenario Outline: NTS-3446: Editing Patient Choice ‘Test type’
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
@@ -206,8 +206,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage |
       | Patient choice       |
 
-
-  @NTS-3472 @LOGOUT
+  @NTS-3472 @Z-LOGOUT
     #@E2EUI-2149
   Scenario Outline: NTS-3472: Remove Child Assent section where paper form is not present
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -246,7 +245,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice       | ClinicianName=John:HospitalNumber=123 |
 
    ###Commented the below test, as this is about checking the session expiry time. Manual team suggesetd they may take it separately.
-#  @NTS-3473 @E2EUI-2037 @LOGOUT @v_1 @P1
+#  @NTS-3473 @E2EUI-2037 @Z-LOGOUT @v_1 @P1
 #  Scenario Outline: NTS-3473: Patient Choice critical error Should not be occurred when refresh token expires
 #    Given a new patient referral is created with associated tests in Test Order System online service
 #      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
@@ -266,7 +265,7 @@ Feature: Patient Choice -3 Navigation
 #      | Patient choice |
 #
 
-  @NTS-3409 @LOGOUT
+  @NTS-3409 @Z-LOGOUT
     #@E2EUI-1824
   Scenario Outline: NTS-3409: Navigate around the patient choice pages
     Given a new patient referral is created with associated tests in Test Order System online service

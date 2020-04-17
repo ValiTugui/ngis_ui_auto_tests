@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-7 - Form Library
 
-  @NTS-3435 @LOGOUT
+  @NTS-3435 @Z-LOGOUT
     #@E2EUI-2180
   Scenario Outline: NTS-3435: Upload the latest 'Opt-in' form to the form library
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -23,7 +23,7 @@ Feature: Patient Choice-7 - Form Library
       | Patient choice stage |
       | Patient choice       |
 
-  @NTS-3382 @LOGOUT
+  @NTS-3382 @Z-LOGOUT
     #@E2EUI-2110 @E2EUI-1889
   Scenario Outline: NTS-3382: Verify the upload revised patient choice documentation to form library
     Given a new patient referral is created with associated tests in Test Order System online service

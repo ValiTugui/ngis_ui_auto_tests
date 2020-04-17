@@ -84,7 +84,7 @@ public class TestHooks extends Pages {
 
     }
 
-    @After("@LOGOUT")
+    @After("@Z-LOGOUT")
     public void logOutAndTearDown(Scenario scenario) {
         homePage.logOutFromApplication();
     }

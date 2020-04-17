@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
@@ -34,7 +35,10 @@ public class MiPortalFileSubmissionsSteps extends Pages {
             NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage, userType);
         }
         Wait.seconds(1);
-
+        SeleniumLib.refreshPage();
+        Wait.seconds(1);
+        Actions.acceptAlert(driver);
+        Debugger.println("Refreshing the browser page before starting...");
     }
 
 
@@ -174,19 +178,19 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Debugger.println("test + " + testResult);
     }
 
-    @And("the columns headers are displayed in the list of columns headers of the search result table")
-    public void theColumnsHeadersAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
-
-        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
-        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
-
-        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
-            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
-            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
-        }
-    }
-
+//    @And("the columns headers are displayed in the list of columns headers of the search result table")
+//    public void theColumnsHeadersAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
+//
+//        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+//        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
+//
+//        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
+//            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
+//            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
+//            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
+//        }
+//    }
+// Duplicate
 
     @And("the user see dates value in {string} column of file-submission search result in descending order")
     public void theUserSeeDatesValueInColumnOfFileSubmissionSearchResultInDescendingOrder(String columnHeader) {
@@ -202,5 +206,33 @@ public class MiPortalFileSubmissionsSteps extends Pages {
         Assert.assertEquals(expectedValues, actualValues);
     }
 
+    @When("the user clicks {string} button on the modal-content page")
+    public void theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(String buttonOnModalContentPage) {
+        boolean testResult = false;
+        testResult = miPortalFileSubmissionPage.theUserClicksHideAllOrShowAllButtonOnTheModalContentPage(buttonOnModalContentPage);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the user should be able to see the selected {string} value in file submissions page")
+    public void theUserShouldBeAbleToSeeTheSelectedValueInFileSubmissionsPage(String selectedOption) {
+        boolean testResult = false;
+        testResult =miPortalFileSubmissionPage.verifyThePresenceOfSelectedOption(selectedOption);
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user adds {string} column to Hide section")
+    public void theUserAddsColumnToHideSection(String columnName) {
+        boolean testResult = false;
+        String[] valueList = null;
+        if (!columnName.contains(",")) {
+            valueList = new String[]{columnName};
+        } else {
+            valueList = columnName.split(",");
+        }
+        for (int i = 0; i < valueList.length; i++) {
+            testResult = miPortalFileSubmissionPage.addColumnHeadersToHideSection(valueList[i]);
+        Assert.assertTrue(testResult);
+    }
+    }
 
 }

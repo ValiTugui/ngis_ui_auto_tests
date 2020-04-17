@@ -1,5 +1,5 @@
 #@regression
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Requesting Organisation page 1
 
@@ -9,7 +9,7 @@ Feature: TestOrder - Requesting Organisation page 1
     And the user is navigated to a page with title Check your patient's details
     And the "Patient details" stage is marked as Completed
 
-  @NTS-3047 @LOGOUT
+  @NTS-3047 @Z-LOGOUT
 #    @E2EUI-1413 @E2EUI-1360
   Scenario Outline: NTS-3047 - Find my ordering entity via name to order a test from the correct Lab/GLH
     #And the "Requesting organisation" stage is marked as Mandatory To Do
@@ -22,7 +22,7 @@ Feature: TestOrder - Requesting Organisation page 1
       | stage                   | ordering_entity_name |
       | Requesting organisation | Maidstone            |
 
-  @NTS-3069 @LOGOUT
+  @NTS-3069 @Z-LOGOUT
 #    @E2EUI-916 @E2EUI-936 @E2EUI-1421 @E2EUI-1343 @E2EUI-980 @E2EUI-1290
   Scenario Outline: NTS-3069 - Feature: Find/Select Ordering Entity
     When the user navigates to the "<stage>" stage
@@ -38,7 +38,7 @@ Feature: TestOrder - Requesting Organisation page 1
       | Requesting organisation | 11111                | Your search has returned 0 results. Please try again. |
 
 
-  @NTS-3069 @LOGOUT
+  @NTS-3069 @Z-LOGOUT
 #    @E2EUI-924 @E2EUI-1206
   Scenario Outline: NTS-3069 - Feature: page validation with a single character
     When the user navigates to the "<stage>" stage
@@ -51,7 +51,7 @@ Feature: TestOrder - Requesting Organisation page 1
       | Requesting organisation | lm                   |
 
 
-  @NTS-3155 @LOGOUT
+  @NTS-3155 @Z-LOGOUT
 #    @E2EUI-1361 @E2EUI-1542
   Scenario Outline: NTS-3155 - Requesting Organisation Page Layout
     When the user navigates to the "<stage>" stage
@@ -64,7 +64,7 @@ Feature: TestOrder - Requesting Organisation page 1
       | stage                   | pageTitle                     | expectedText                                                   | placeholderText                                                                         |
       | Requesting organisation | Add a requesting organisation | Enter the hospital trust for the clinic you are ordering from. | e.g. Dorset County Hospital NHS Foundation Trust, Imperial College Healthcare NHS Trust |
 
-  @NTS-3383 @LOGOUT
+  @NTS-3383 @Z-LOGOUT
 #    @E2EUI-1415
   Scenario Outline: NTS-3383: Requesting Organisation landing page
     When the user navigates to the "<Requesting organisation>" stage

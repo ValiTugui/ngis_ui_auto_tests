@@ -1,6 +1,6 @@
 #@regression
 #@globalBehaviour
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory - Global Behaviour Page 2
 

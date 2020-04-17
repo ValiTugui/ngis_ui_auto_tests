@@ -2,7 +2,7 @@
 
 Feature: NTS-4962:CSV-E2E- Deceased patient CSV process
 
-  @NTS-4962 @LOGOUT
+  @NTS-4962 @Z-LOGOUT
 #    @E2EUI-2685
   Scenario Outline:NTS-4962:Provide the life status as Deceased for proband,submitt the RD referral and Process the CSVs and verify payload.
     Given a new patient referral is created with associated tests in Test Order System online service

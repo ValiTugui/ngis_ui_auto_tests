@@ -1,11 +1,11 @@
 #@regression
 #@FamilyMemberStageNavigation
 #@FamilyMemberStageNavigation_globalPatientInformation
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - Global Patient Flow 5 - Global Patient Information Bar on FM Navigation Stage
+Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Bar on Family Members Navigation Stage Navigation
 
-  @NTS-3329 @LOGOUT
+  @NTS-3329 @Z-LOGOUT
 #    @E2EUI-1665
   Scenario Outline: NTS-3329: Verify Global patient information bar component
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -32,13 +32,25 @@ Feature: TestOrder - Global Patient Flow 5 - Global Patient Information Bar on F
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
-    Then the user is navigated to a page with title Add missing family member details
-    When the user clicks on edit patient details
-    Then the user is navigated to a page with title Edit patient details
+    Then the user is navigated to a page with title Confirm family member details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     And the referral submit button is not enabled
     And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+
+#    Then the user is navigated to a page with title Add missing family member details
+#    When the user clicks on edit patient details
+#    Then the user is navigated to a page with title Edit patient details
+#    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+#    And the user clicks the Save and Continue button
+#    And the referral submit button is not enabled
+#    And the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
+#    And the user clicks the Save and Continue button
+
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
     And the user reads the patient details in family member landing page

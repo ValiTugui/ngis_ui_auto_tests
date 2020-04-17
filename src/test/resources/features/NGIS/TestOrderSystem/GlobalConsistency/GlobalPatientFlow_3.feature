@@ -1,11 +1,11 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_Tumour
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - Global Patient Flow 3 - End to end Tumour
+Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
-  @NTS-4711 @LOGOUT
+  @NTS-4711 @Z-LOGOUT
 #    @E2EUI-964 @E2EUI-1587
   Scenario Outline:NTS-4711:Verify Page titles for Cancer/Tumour on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
@@ -17,9 +17,13 @@ Feature: TestOrder - Global Patient Flow 3 - End to end Tumour
     And the message "No patient found" is displayed below the search button
     And the user clicks on the create new patient record
     ##Create a New Patient Page Title
-    And the user is navigated to a page with title Create a record for this patient
+#    And the user is navigated to a page with title Create a record for this patient
+
+    And the user is navigated to a page with title Add a new patient to the database
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
-    And the user clicks the Start Referral button
+    And the user clicks the Start a new Referral button
+#    And the user clicks the Start Referral button
+
     ##Patient Details Page Title
     When the user is navigated to a page with title Check your patient's details
     And the user should see previous labels replaced as current labels
@@ -140,7 +144,7 @@ Feature: TestOrder - Global Patient Flow 3 - End to end Tumour
       | tumour_type           | presentationType | sampleType          | sampleState         | RecordedBy                                |
       | Solid tumour: primary | Recurrence       | Solid tumour sample | Fresh frozen tumour | ClinicianName=Herman:HospitalNumber=11203 |
 
-  @NTS-4731 @LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service

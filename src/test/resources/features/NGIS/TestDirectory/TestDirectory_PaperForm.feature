@@ -1,8 +1,8 @@
 #@regression
 #@paperForm
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Test Directory - Paper Form
+Feature: TestDirectory: Paper Form
 
   Background:
     Given a web browser is at the Private Test Selection homepage

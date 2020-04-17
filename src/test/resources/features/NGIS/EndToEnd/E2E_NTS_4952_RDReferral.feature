@@ -2,7 +2,7 @@
 
 Feature: NTS-4952: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes
 
-  @NTS-4952 @LOGOUT
+  @NTS-4952 @Z-LOGOUT
     #@E2EUI-2666
   Scenario Outline: NTS-4952 : E2EUI-2666 E2E #8: Create Referral for Trio Family + Default Data + Add Family Members to Test + Patient Choice Yes
   Given a new patient referral is created with associated tests in Test Order System online service

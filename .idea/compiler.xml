@@ -9,8 +9,5 @@
         <module name="ngis_ui_auto_tests" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ngis_ui_auto_tests" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

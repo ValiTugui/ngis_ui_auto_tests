@@ -1,10 +1,10 @@
 #@regression
 #@notes
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Notes page
 
- @NTS-4503 @LOGOUT
+ @NTS-4503 @Z-LOGOUT
 #   @E2EUI-1130 @E2EUI-1172
   Scenario Outline: Responsible Clinician Page - Phone number field - maximum length validation
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -19,7 +19,7 @@ Feature: TestOrder - Notes page
       | stage |
       | Notes |
 
-  @NTS-4375 @LOGOUT
+  @NTS-4375 @Z-LOGOUT
 #    @E2EUI-1213 @E2EUI-834 @E2EUI-1488
   Scenario Outline: NTS-4375 : Validation of the character count in Add notes text box in Notes section
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

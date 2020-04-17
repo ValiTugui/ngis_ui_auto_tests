@@ -276,7 +276,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public String checkThatPatientCardIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, patientCard, 200);
+            Wait.forElementToBeDisplayed(driver, patientCard, 60);
             Wait.forElementToBeDisplayed(driver, patientSearchResultsHeader);
             Debugger.println("The search result is from :" + patientCardBadge.getText());
             //Assert.assertEquals(badgeText, patientCardBadge.getText().trim());
@@ -316,6 +316,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(5);
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
+            SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
         }
     }
 

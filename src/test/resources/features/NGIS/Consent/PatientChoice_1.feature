@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-1 - Adult with Capacity
 
@@ -157,7 +157,7 @@ Feature: Patient Choice-1 - Adult with Capacity
       | WarningMessage                                                                                                                                                      | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | You have selected \"No\" to participation in research. Please ensure the patient is aware they might be contacted in the future about other research opportunities. | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
-  @NTS-3434 @LOGOUT
+  @NTS-3434 @Z-LOGOUT
     #@E2EUI-1447
   Scenario Outline: NTS-3434: scenario_05 - Verify the relevant Patient choice for an Adult with capacity
     When the user clicks on edit button in Patient choices
@@ -189,7 +189,7 @@ Feature: Patient Choice-1 - Adult with Capacity
       | By hitting submit you are confirming that either you have uploaded a valid record of discussion form and transcribed it correctly, or the clinical team has indicated that the patient has agreed to the test, but you are still awaiting a record of discussion form and will upload it when available. |
 
 
-  @NTS-3449 @LOGOUT
+  @NTS-3449 @Z-LOGOUT
     #@E2EUI-989
   Scenario Outline: NTS-3449: User is making a referral – Adding patient consent
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

@@ -1,10 +1,10 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-12 - Adult with Capacity
 
-  @NTS-3436 @LOGOUT
+  @NTS-3436 @Z-LOGOUT
     #@E2EUI-1173 @E2EUI-1112
   Scenario Outline:the user should be navigate to patient choice page by not entered link
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -36,7 +36,7 @@ Feature: Patient Choice-12 - Adult with Capacity
       | FamilyMembers  | TestPackage  | NoOfParticipants |
       | Family members | Test package | 2                |
 
-  @NTS-4100 @LOGOUT
+  @NTS-4100 @Z-LOGOUT
     #@E2EUI-1540
   Scenario Outline: NTS-4100: Removing the patient choice step in the family member flow
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -62,7 +62,7 @@ Feature: Patient Choice-12 - Adult with Capacity
       | TestPackage  | NoOfParticipants | FamilyMembers  |
       | Test package | 2                | Family members |
 
-  @NTS-3505 @LOGOUT
+  @NTS-3505 @Z-LOGOUT
     #@E2EUI-1644
   Scenario Outline: NTS-3505:When additional family members are added and their patient choice hasn't been provided, the patient choice stage status should be updated as incomplete
     Given a new patient referral is created with associated tests in Test Order System online service

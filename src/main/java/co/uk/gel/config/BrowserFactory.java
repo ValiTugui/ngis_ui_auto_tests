@@ -41,7 +41,7 @@ public class BrowserFactory {
     public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
     Date date = Calendar.getInstance().getTime();
     DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-    String strDate = "NGIS-UI-" + getBrowser() + getBrowserVersion() + "_" + "-" + dateFormat.format(date);
+    String strDate = "NGIS-UI-" + getBrowser() + "-" + getBrowserVersion() + "-" + dateFormat.format(date);
     String resolution = "1920x1080";
     String project = "NGIS UI Automation";
     String applicationType = "text/csv,application/msword, application/json, application/ris, participant_id/csv, image/png, application/pdf, participant_id/html, participant_id/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream";
@@ -71,7 +71,7 @@ public class BrowserFactory {
                     break;
                 case IE:
                     WebDriverManager.iedriver().clearPreferences();
-                    WebDriverManager.iedriver().setup();
+                    WebDriverManager.iedriver().arch32().setup();
                     driver = getInternetExplorer(null, javascriptEnabled);
                     break;
                 case OPERA:
@@ -156,7 +156,7 @@ public class BrowserFactory {
     }
 
     private FirefoxOptions getFirefoxLocalOptions(String userAgent,
-                                             boolean javascriptEnabled) {
+                                                  boolean javascriptEnabled) {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.download.folderList", 2);
         profile.setPreference("browser.download.dir",downloadFilepath());
@@ -197,7 +197,7 @@ public class BrowserFactory {
     }
 
     private ChromeOptions getChromeLocalOptions(String userAgent,
-                                           boolean javascriptEnabled) {
+                                                boolean javascriptEnabled) {
         ChromeOptions chromeLocalOptions = new ChromeOptions();
         if (null != userAgent) {
             chromeLocalOptions.addArguments("user-agent=" + userAgent);
@@ -210,7 +210,7 @@ public class BrowserFactory {
     }
 
     private ChromeOptions getChromeOptions(String userAgent,
-                                                               boolean javascriptEnabled) {
+                                           boolean javascriptEnabled) {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("prefs", downloadPathsetup());
         chromeOptions.setCapability("project", project);
@@ -229,9 +229,15 @@ public class BrowserFactory {
         internetExplorerOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         internetExplorerOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         internetExplorerOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-        internetExplorerOptions.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.NATIVE_EVENTS, true);
+        internetExplorerOptions.setCapability("unexpectedAlertBehaviour", "accept");
+        internetExplorerOptions.setCapability("ignoreProtectedModeSettings", true);
+        internetExplorerOptions.setCapability("disable-popup-blocking", true);
         internetExplorerOptions.setCapability(InternetExplorerDriver.INITIAL_BROWSER_URL, "");
         internetExplorerOptions.setCapability(InternetExplorerDriver.EXTRACT_PATH, downloadFilepath());
+        internetExplorerOptions.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+        internetExplorerOptions.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, false);
         return driver = new InternetExplorerDriver(internetExplorerOptions);
 
     }
@@ -313,20 +319,18 @@ public class BrowserFactory {
         return pathPrefs;
     }
 
-        private String downloadFilepath()
-        {
-            //Setting default download path
-            String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-            try{
-                File download_loc = new File(downloadFilepath);
-                if(!download_loc.exists()){
-                    download_loc.mkdirs();
-                }
-            }catch(Exception exp){
-                System.out.println("Exception in creating download directory..."+exp);
+    private String downloadFilepath()
+    {
+        //Setting default download path
+        String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+        try{
+            File download_loc = new File(downloadFilepath);
+            if(!download_loc.exists()){
+                download_loc.mkdirs();
             }
-            return downloadFilepath;
+        }catch(Exception exp){
+            System.out.println("Exception in creating download directory..."+exp);
         }
-}//end
-
-
+        return downloadFilepath;
+    }
+}

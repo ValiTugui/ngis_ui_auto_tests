@@ -1,6 +1,6 @@
 #@regression
 #@patientChoice
-@CONSENT
+@05-CONSENT
 @SYSTEM_TEST
 Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
 
@@ -77,7 +77,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                            |
+      | WarningMessage                                                                                                                                                | WarningMessage2                                                                                                                                                                                                                                                                                          |
       | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
@@ -106,8 +106,11 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+#      | WarningMessage                                                                                                                                                                             |
+#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060  @scenario_1(b)
@@ -135,8 +138,11 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
     And Save and continue button is displayed as disabled
 
     Examples:
-      | WarningMessage                                                                                                                                                                             |
+      | WarningMessage                                                                                                                                                                                                                                                                                           |
       | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
+
+#      | WarningMessage                                                                                                                                                                             |
+#      | By hitting submit you are confirming that the consultee has indicated their choice and that you have accurately recorded this choice as described or that a patient choice was not needed. |
 
   @NTS-3417
     #@E2EUI-2040 @E2EUI-1060 @scenario_2
@@ -426,7 +432,7 @@ Feature: Patient Choice-10 Edit Paper Form - Adult Without Capacity
       | Consultee signature                |
       | FirstName=WILTON:LastName=BRITTAIN |
 
-  @NTS-3417 @LOGOUT
+  @NTS-3417 @Z-LOGOUT
     #@E2EUI-2040 @E2EUI-1060  @scenario_4(b)
   Scenario Outline: NTS-3417: scenario 4(b) - Editing Patient choice for an Adult (without capacity)
     When the user clicks on edit button in Consultee attestation

@@ -2,7 +2,7 @@
 
 Feature: NTS-4948:Create Cancer Referrals for NEW Patient - Proband Only
 
-  @NTS-4948 @LOGOUT
+  @NTS-4948 @Z-LOGOUT
     #@E2EUI-2689
   Scenario Outline: NTS-4948: CSV -E2E-Submit a Cancer referral for Solid Tumour sample with tumour content >= 30 or NULL
     Given a new patient referral is created with associated tests in Test Order System online service

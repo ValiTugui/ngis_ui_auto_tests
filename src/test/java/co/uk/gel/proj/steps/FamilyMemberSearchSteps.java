@@ -124,7 +124,7 @@ public class FamilyMemberSearchSteps extends Pages {
                 familyMember.setETHNICITY("A - White - British");
             }
             if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                return;
+                Assert.assertTrue(false);
             }
             referralPage.updatePatientNGSID(familyMember);
         }else {

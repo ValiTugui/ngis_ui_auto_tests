@@ -1,11 +1,11 @@
 #@regression
 #@GlobalFlow
 #@GlobalFlow_Validations_RD
-@TEST_ORDER
+@03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - Global Patient Flow 2- End to end RD
+Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
 
-  @NTS-4731 @LOGOUT
+  @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
   Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -96,13 +96,15 @@ Feature: TestOrder - Global Patient Flow 2- End to end RD
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Continue with this family member
-    When the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Continue with this family member
+#    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks on the Back link
-    Then the user is navigated to a page with title Continue with this family member
-    When the user clicks on edit patient details
-    Then the user is navigated to a page with title Edit patient details
+    Then the user is navigated to a page with title Confirm family member details
+#    Then the user is navigated to a page with title Continue with this family member
+#    When the user clicks on edit patient details
+#    Then the user is navigated to a page with title Edit patient details
+
     And the user fill in the last name field
     ##Navigating By Logout
     When the user clicks the Log out button
@@ -115,8 +117,9 @@ Feature: TestOrder - Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Family Members Test Package Page
-    Then the user is navigated to a page with title Continue with this family member
-    When the user clicks the Save and Continue button
+#    Then the user is navigated to a page with title Continue with this family member
+#    When the user clicks the Save and Continue button
+#
     Then the user is navigated to a page with title Select tests for
     And the user selects the test by clicking the deselected test
     ##Navigating By Logout

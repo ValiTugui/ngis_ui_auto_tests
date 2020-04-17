@@ -67,7 +67,7 @@ public class TumoursSteps extends Pages {
                 break;
             }
             default:
-                String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
+                 String[] value = criteriaForDateDiagnosis.split("-");  // Split DOB in the format 01-01-1900
                 tumoursPage.fillInDateOfDiagnosis(value[0], value[1], value[2]);
                 Actions.retryClickAndIgnoreElementInterception(driver,tumoursPage.tumourTypeLabel);
                 break;
@@ -121,13 +121,23 @@ public class TumoursSteps extends Pages {
 
     @And("the user answers the tumour system questions fields and select a tumour type {string}")
     public void theUserAnswersTheTumourSystemQuestionsFieldsAndSelectATumourType(String tumourType) {
+        boolean testResult = false;
         try {
-            tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
-            tumoursPage.fillInTumourDescription();
-            tumoursPage.fillInDateOfDiagnosis();
+            testResult = tumoursPage.navigateToAddTumourPageIfOnEditTumourPage();
+            Assert.assertTrue(testResult);
+            if(tumoursPage.fillInTumourDescription() == null){
+                Assert.assertTrue(false);
+            }
+            testResult = tumoursPage.fillInDateOfDiagnosis();
+            Assert.assertTrue(testResult);
             String tumour = tumoursPage.selectTumourType(tumourType);
+            if(tumour == null){
+                Assert.assertTrue(false);
+            }
             PatientDetailsPage.newPatient.setTumourType(tumour);
-            tumoursPage.fillInSpecimenID();
+            if(tumoursPage.fillInSpecimenID() == null){
+                Assert.assertTrue(false);
+            }
             Wait.seconds(5);//Observed timeout in next step, so introducing a wait fo 5 seconds.
         }catch(Exception exp){
             Debugger.println("Exception from Answering Tumour Question Field: "+exp);
@@ -165,14 +175,17 @@ public class TumoursSteps extends Pages {
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
 
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
-        Debugger.println("Number of Tumour(s) :" + numberOfTumours);
+        //Debugger.println("Number of Tumour(s) :" + numberOfTumours);
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);
     }
 
     @And("the new tumour is not highlighted")
     public void theNewTumourIsNotHighlighted() {
-        tumoursPage.tumourIsNotHighlighted();
-        tumoursPage.warningMessageIsNotDisplayed();
+        boolean testResult = false;
+        testResult = tumoursPage.tumourIsNotHighlighted();
+        Assert.assertTrue(testResult);
+        testResult = tumoursPage.warningMessageIsNotDisplayed();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -186,17 +199,12 @@ public class TumoursSteps extends Pages {
 
     @And("an information {string} is displayed that a test cannot start without a tumour")
     public void anInformationIsDisplayedThatATestCannotStartWithoutATumour(String tumourInformation) {
-        Wait.forElementToBeDisplayed(driver, tumoursPage.TumourSubTitle);
-        String actualTumourSubTitle = tumoursPage.TumourSubTitle.getText();
-        Debugger.println("Actual Tumour subtitle : " + actualTumourSubTitle);
+
         String[] expectedTumourSubTitle = tumourInformation.split("-");
         for (int i = 0; i < expectedTumourSubTitle.length; i++) {
-            Assert.assertTrue(actualTumourSubTitle.contains(expectedTumourSubTitle[i]));
-            Debugger.println("Expected SubTitle: " + i + ": " + expectedTumourSubTitle[i]);
+            Assert.assertTrue(tumoursPage.verifyTumourSubTitle(expectedTumourSubTitle[i]));
         }
-
     }
-
 
     @And("the web browser is still at the same {string} page")
     public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
@@ -226,7 +234,7 @@ public class TumoursSteps extends Pages {
 
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (int i = 0; i < list.size(); i++) {
-            Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
+            //Debugger.println("Expected: " + list.get(i).get("errorMessageHeader") + " : " + "Actual: " + tumoursPage.errorMessages.get(i).getText());
             Assert.assertEquals(list.get(i).get("errorMessageHeader"), getText(tumoursPage.errorMessages.get(i)));
         }
     }
@@ -236,29 +244,29 @@ public class TumoursSteps extends Pages {
 
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
 
-        Debugger.println("Expected :" + list.get(0).get("pageTitleHeader") + " Actual:" + referralPage.getTheCurrentPageTitle());
+        //Debugger.println("Expected :" + list.get(0).get("pageTitleHeader") + " Actual:" + referralPage.getTheCurrentPageTitle());
         Assert.assertEquals(list.get(0).get("pageTitleHeader"), referralPage.getTheCurrentPageTitle());
 
         if (list.get(0).get("notificationTextHeader").equalsIgnoreCase("None")) { //assert that notification success is not displayed
             // Boolean flagStatus =  tumoursPage.checkNotificationElementIsNotPresent();
             boolean flagStatus = seleniumLib.isElementPresent(tumoursPage.successNotification);
-            Debugger.println("Success notification Element is displayed but it's not meant to be displayed " + flagStatus);
+            //Debugger.println("Success notification Element is displayed but it's not meant to be displayed " + flagStatus);
             Assert.assertFalse("Success notification Element is not displayed", flagStatus);
 
         } else {
-            Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + getText(tumoursPage.successNotification));
+            //Debugger.println("Expected :" + list.get(0).get("notificationTextHeader") + " Actual:" + getText(tumoursPage.successNotification));
             Assert.assertEquals(list.get(0).get("notificationTextHeader"), getText(tumoursPage.successNotification));
         }
 
-        Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + getText(tumoursPage.tumourInformationText));
+        //Debugger.println("Expected :" + list.get(0).get("textInformationHeader") + " Actual:" + getText(tumoursPage.tumourInformationText));
         Assert.assertEquals(list.get(0).get("textInformationHeader"), getText(tumoursPage.tumourInformationText));
 
-        Debugger.println("Expected :" + list.get(0).get("linkToAddANewTumourHeader") + " Actual:" + getText(tumoursPage.addAnotherTumourLink));
+        //Debugger.println("Expected :" + list.get(0).get("linkToAddANewTumourHeader") + " Actual:" + getText(tumoursPage.addAnotherTumourLink));
         Assert.assertEquals(list.get(0).get("linkToAddANewTumourHeader"), getText(tumoursPage.addAnotherTumourLink));
 
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
         int actualListOfTumours = tumoursPage.listOfTumoursInTheTable.size();
-        Debugger.println("Expected: " + list.get(0).get("NumberOfTumoursAdded") + " Actual: " + tumoursPage.listOfTumoursInTheTable.size());
+        //Debugger.println("Expected: " + list.get(0).get("NumberOfTumoursAdded") + " Actual: " + tumoursPage.listOfTumoursInTheTable.size());
         Assert.assertEquals(expectedListOfTumours, actualListOfTumours);
     }
 
@@ -272,12 +280,12 @@ public class TumoursSteps extends Pages {
 
         for (int i = 0; i < expectedList.size(); i++) {
             expectedInformationText.add(expectedList.get(i).get("informationTextHeader"));
-            Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
+            //Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
         }
 
-        for (int i = 0; i < actualInformationText.size(); i++) {
-            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
-        }
+//        for (int i = 0; i < actualInformationText.size(); i++) {
+//            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
+//        }
 
         Assert.assertEquals(expectedInformationText.get(0), actualInformationText.get(0));
         Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(1)));
@@ -297,9 +305,9 @@ public class TumoursSteps extends Pages {
         for (int i = 0; i < headerRow.size(); i++) {
             expectedHeaders.add(headerRow.get(i));
         }
-        Debugger.println("Expected Table columns: " + expectedHeaders);
+        //Debugger.println("Expected Table columns: " + expectedHeaders);
         actualHeaders = tumoursPage.getTumourTableHeaders();
-        Debugger.println("Actual Table columns: " + actualHeaders.toString());
+       // Debugger.println("Actual Table columns: " + actualHeaders.toString());
         Assert.assertEquals(expectedHeaders, actualHeaders);
     }
 
@@ -310,7 +318,7 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.checkedRadioButton.isDisplayed());
     }
 
-    @And("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
+    @When("the user selects the existing tumour from the landing page by clicking on the chevron right arrow icon")
     public void theUserSelectsTheExistingTumourFromTheLandingPageByClickingOnTheChevronRightArrowIcon() {
         boolean testResult = false;
         testResult = tumoursPage.clickEditTumourArrow();
@@ -319,75 +327,54 @@ public class TumoursSteps extends Pages {
 
     @And("the user edits the tumour system questions fields and select a new tumour type {string}")
     public void theUserEditsTheTumourSystemQuestionsFieldsAndSelectANewTumourType(String tumourType) {
-        Debugger.println("One");
-        tumoursPage.editTumourDescription();
-        Debugger.println("One1");
-        tumoursPage.editDateOfDiagnosis();
-        Debugger.println("One2");
-        tumoursPage.selectTumourType(tumourType);
-        Debugger.println("One3");
-        tumoursPage.editSpecimenID();
-        Debugger.println("One4");
+        boolean testResult = false;
+        testResult = tumoursPage.editTumourDescription();
+        Assert.assertTrue(testResult);
+        testResult = tumoursPage.editDateOfDiagnosis();
+        Assert.assertTrue(testResult);
+        if(tumoursPage.selectTumourType(tumourType) == null){
+            Assert.assertTrue(false);
+        }
+        testResult = tumoursPage.editSpecimenID();
+        Assert.assertTrue(testResult);
     }
 
     @And("on the select or edit a tumour page, the new tumour details are displayed in the tumour table list")
     public void onTheSelectOrEditATumourPageTheNewTumourDetailsAreDisplayedInTheTumourTableList() {
-
         List<String> expectedTumourTestData;
         List<String> actualTumourTestData;
-
         expectedTumourTestData = tumoursPage.getExpectedTumourTestDataForAddATumourPage();
-        Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
         actualTumourTestData = tumoursPage.getTheTumourDetailsOnTableList();
-        Debugger.println("Actual TumourTestData:" + actualTumourTestData);
-
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
-
     }
 
     @And("the {string} page is displayed")
     public void thePageIsDisplayed(String expectedPageTitle) {
-        //No need to separate for Add Sample details - Same as other title check only
         boolean testResult = false;
         testResult = referralPage.verifyThePageTitlePresence(expectedPageTitle);
-        Debugger.println("test-result flag for verifying page title is: " + testResult);
         Assert.assertTrue(testResult);
     }
 
     @And("the new tumour details are displayed in the Edit a Tumour page")
     public void theNewTumourDetailsAreDisplayedInTheEditATumourPage() {
-
         List<String> expectedTumourTestData;
         List<String> actualTumourTestData;
-
         expectedTumourTestData = tumoursPage.getTheTumourDetailsOnEditATumourPage();
-        Debugger.println("Expected TumourTestData : " + expectedTumourTestData);
         actualTumourTestData = tumoursPage.getTheExpectedTumourDetailsForAddATumourPage();
-        Debugger.println("Actual TumourTestData on Edit a Tumour Pge:" + actualTumourTestData);
-
         Assert.assertEquals(expectedTumourTestData, actualTumourTestData);
-
     }
 
     @And("the labels and help hint texts are displayed")
     public void theLabelsAndHelpHintTextsAreDisplayed(DataTable dataTable) {
-
-
         List<List<String>> expectedLabelsAndHintTextsListMap = dataTable.asLists(String.class);
         List<String> actualHelpHintTexts = referralPage.getTheListOfHelpHintTextsOnCurrentPage();
         List<String> actualFieldsLabels = tumoursPage.getTheTumourFieldsLabelsOnAddATumourPage();
-
         /* Add "None" element to the fourth index of actualHelpHintTexts, as Tumour type has no help hint text */
         actualHelpHintTexts.add(3, "None");
-
         for(int i=1; i < expectedLabelsAndHintTextsListMap.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLabelsAndHintTextsListMap.get(i).get(0));
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i-1) + "\n");
             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(0), actualFieldsLabels.get(i-1));
-
-            Debugger.println("Expected HintTextHeader " + expectedLabelsAndHintTextsListMap.get(i).get(1));
-            Debugger.println("Actual HintTextHeader " + actualHelpHintTexts.get(i-1) + "\n");
             Assert.assertEquals(expectedLabelsAndHintTextsListMap.get(i).get(1), actualHelpHintTexts.get(i-1));
+            Wait.seconds(2);
         }
 
 
