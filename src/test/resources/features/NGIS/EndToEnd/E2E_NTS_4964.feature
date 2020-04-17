@@ -2,7 +2,7 @@
 
 Feature: NTS-4964:Submit+cancel referral and check ddf payload
 
-  @NTS-4964 @LOGOUT
+  @NTS-4964 @Z-LOGOUT
     #@E2EUI-2681
   Scenario Outline: NTS-4964: CSV-E2E -Submit+cancel referal and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

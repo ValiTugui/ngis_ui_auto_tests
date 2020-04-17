@@ -2,7 +2,7 @@
 
 Feature: NTS-4951: Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No
 
-  @NTS-4951 @LOGOUT
+  @NTS-4951 @Z-LOGOUT
     #@E2EUI-2676
   Scenario Outline: NTS-4951 : Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice No
     Given a new patient referral is created with associated tests in Test Order System online service

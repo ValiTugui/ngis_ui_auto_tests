@@ -1,10 +1,10 @@
 #@regression
 #@globalBehaviour
-@TEST_DIRECTORY
+@01-TEST_DIRECTORY
 @SYSTEM_TEST
 Feature: Test Directory - Global Behaviour Page 3
 
-  @NTS-3501 @LOGOUT
+  @NTS-3501 @Z-LOGOUT
 #    @E2EUI-1761
   Scenario Outline:NTS-3501:Validating NGIS Id and Referral Id and web element text
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service

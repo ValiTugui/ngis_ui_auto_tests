@@ -2,7 +2,7 @@
 
 Feature: NTS-4950:  CSV-E2E- CSV process for a referral which has additional 10 plus panels
 
-  @NTS-4950 @LOGOUT
+  @NTS-4950 @Z-LOGOUT
     #@E2EUI-2686
   Scenario Outline: NTS-4950 : CSV-E2E- CSV process for a referral which has additional 10 plus panels
     Given a new patient referral is created with associated tests in Test Order System online service

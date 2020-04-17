@@ -2,7 +2,7 @@
 
 Feature: NTS-4943:E2E04:Create Referrals for SPINE Patient_E2E
 
-  @NTS-4943 @LOGOUT
+  @NTS-4943 @Z-LOGOUT
     #@E2EUI-2658
   Scenario Outline: NTS-4943: Use Case_E2E#04: Create Referral for Proband Only + Default Data + Patient Choice No - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service

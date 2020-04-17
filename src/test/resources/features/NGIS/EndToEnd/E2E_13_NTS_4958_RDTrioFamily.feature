@@ -2,7 +2,7 @@
 
 Feature: NTS-4958:E2E20::Create Referral for Trio Family, Add Family Members to Test with Patient Choice Not Given and check DDF Payload
 
-  @NTS-4958 @LOGOUT
+  @NTS-4958 @Z-LOGOUT
       #@E2EUI-2671
   Scenario Outline:NTS-4958: E2E#13:Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Not Given
     Given a new patient referral is created with associated tests in Test Order System online service

@@ -2,7 +2,7 @@
 
 Feature: NTS-4966:Create Referral for Additional Participants
 
-  @NTS-4966 @LOGOUT
+  @NTS-4966 @Z-LOGOUT
     #@E2EUI-2678
   Scenario Outline: NTS-4966 : Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given
     Given a new patient referral is created with associated tests in Test Order System online service

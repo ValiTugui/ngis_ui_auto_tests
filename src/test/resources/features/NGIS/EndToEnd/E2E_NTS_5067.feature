@@ -2,7 +2,7 @@
 
 Feature: NTS-5067:Create end to end Referrals for NEW Patient - Trio Family - E2E
 
-  @NTS-5067 @LOGOUT
+  @NTS-5067 @Z-LOGOUT
     #@E2EUI-1986
   Scenario Outline:NTS:5067: Sanity Test for RD Referral for Trio Family Patient Choice Yes
     Given a new patient referral is created with associated tests in Test Order System online service

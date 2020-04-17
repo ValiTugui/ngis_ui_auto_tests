@@ -153,7 +153,7 @@ Feature: Pedigree - UI Customizations - NGIS
       | TestPackage  | ProbandDetails              | NoOfParticipants | Pedigree | WarningMessage                                                                                |
       | Test package | NHSNumber=NA:DOB=25-10-2005 | 1                | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3386 @LOGOUT
+  @NTS-3386 @Z-LOGOUT
 #    @E2EUI-1194
   Scenario Outline: NTS-3386 : Order the display of HPO Terms in Pedigree
     Given a new patient referral is created with associated tests in Test Order System online service

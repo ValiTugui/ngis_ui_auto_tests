@@ -2,7 +2,7 @@
 
 Feature: NTS-4945:E2E06: Create Referrals for SPINE Patient_E2E
 
-  @NTS-4945 @LOGOUT
+  @NTS-4945 @Z-LOGOUT
     #@E2EUI-2653
   Scenario Outline: NTS-4945: Use Case_E2E#06: Submit a RD referral for Proband with Patient Choice Not Given and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

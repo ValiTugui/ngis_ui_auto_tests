@@ -2,7 +2,7 @@
 
 Feature: NTS-4951: CSV -E2E-Submit a RD referral and process the csv and check ddf payload
 
-  @NTS-4953 @LOGOUT
+  @NTS-4953 @Z-LOGOUT
     #@E2EUI-2656
   Scenario Outline: NTS-4953 : E2EUI-2656 CSV -E2E-Submit a RD referral and process the csv and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

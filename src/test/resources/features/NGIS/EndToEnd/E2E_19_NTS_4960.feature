@@ -2,7 +2,7 @@
 
 Feature: NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
 
-  @NTS-4960 @LOGOUT
+  @NTS-4960 @Z-LOGOUT
 #    @E2EUI-2668
   Scenario Outline: NTS-4960: E2E #19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
     Given a new patient referral is created with associated tests in Test Order System online service

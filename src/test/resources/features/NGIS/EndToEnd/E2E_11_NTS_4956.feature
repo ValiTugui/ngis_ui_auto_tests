@@ -2,7 +2,7 @@
 
 Feature: NTS-4956: Create Referral for Trio Family with Patient Choice option as No and check DDF payload
 
-  @NTS-4956 @LOGOUT
+  @NTS-4956 @Z-LOGOUT
     #@E2EUI-2669
   Scenario Outline: NTS-4956: E2EUI-2669 E2E #11: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice No
     Given a new patient referral is created with associated tests in Test Order System online service
