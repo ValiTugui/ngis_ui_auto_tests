@@ -167,8 +167,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//a[text()='Log out']")
     public WebElement logout;
 
-    @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink; // create a new patient link
+    @FindBy(xpath = "//a[text()='create a new patient record']")
+    public WebElement createNewPatientRecordLink; // create a new patient link
 
     String noResultsLocator = "img[class*='no-results__img']";
     String errorMessageLocator = "div[class*='error-message']";
@@ -791,12 +791,17 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean clickCreateNewPatientLinkFromNoSearchResultsPage() {
         try {
             Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(noResultsLocator), 0);
-            Actions.retryClickAndIgnoreElementInterception(driver, noResultsHelpLink);
+            Actions.clickElement(driver, createNewPatientRecordLink);
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
-            SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(createNewPatientRecordLink);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from verifying clickCreateNewPatientLinkFromNoSearchResultsPage: "+exp);
+                SeleniumLib.takeAScreenShot("clickCreateNewPatientLinkFromNoSearchResultsPage.jpg");
+                return false;
+            }
         }
     }
 

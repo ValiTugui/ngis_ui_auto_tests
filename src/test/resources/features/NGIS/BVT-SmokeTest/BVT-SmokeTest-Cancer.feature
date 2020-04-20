@@ -3,8 +3,7 @@
 #@BVT_UI_SMOKE_TEST_CANCER
 Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data + Patient Choice Yes + Tumour + Sample - Create New Patient
    
-
-  @NTS-3362 @Z-LOGOUT
+  @NTS-33621 @Z-LOGOUT
   #@E2EUI-2372
   Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -54,7 +53,6 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
     #Samples 2 - Sample Type - Add Normal or Germline Sample and Sample State - tissue_freshFrozen
@@ -63,7 +61,7 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the "Manage samples" page is displayed
     When the user clicks the Add sample button
     Then the "Add a sample" page is displayed
-    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or germline sample", sample state "Fresh frozen tissue" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or germline sample", sample state "Fresh tissue (not tumour)" and filling SampleID
     And the user clicks the Save and Continue button
     Then the "Add sample details" page is displayed
     When the user answers the Samples dynamic questions for non-tumour sample on Add a Sample Details page
@@ -73,7 +71,6 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     Then the new sample is displayed in the landing page
     And on the Manage samples page, the sample table list shows the column header names
       | SampleTypeHeader | SampleStateHeader | SampleLocalLabIDHeader | SampleParentIDHeader | TumourDescriptionHeader |
-#      | Sample type      | State             | Local sample tube ID   | Parent ID            | Tumour description      |
       | Sample type      | State             | Sample ID              | Parent ID            | Tumour description      |
     And the "<samples>" stage is marked as Completed
     And the user navigates to the "<notes>" stage
@@ -86,7 +83,7 @@ Feature: NTS-3362 - Cancer flow - Create Referral for Proband Only + Edit Data +
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<patientChoice>"
+    And the user clicks the Save and Continue button
 
     Then the "<patientChoice>" page is displayed
     Then the help text is displayed
