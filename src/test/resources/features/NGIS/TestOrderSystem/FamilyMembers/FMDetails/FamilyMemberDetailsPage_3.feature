@@ -15,7 +15,9 @@ Feature: Family Members Details Page 3- Field Validation_3
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |

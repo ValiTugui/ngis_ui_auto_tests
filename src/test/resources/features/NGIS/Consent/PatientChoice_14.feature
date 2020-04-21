@@ -9,18 +9,25 @@ Feature: Patient Choice-14 ConsentScenario - Child
   Scenario Outline: NTS-3415: Verify the patient Choice 'Save & Continue' button is disabled until the patient choice has been submitted
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1991:Gender=Male |
+    Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the user selects the Relationship to proband as "Full Sibling" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Continue Button
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
@@ -64,5 +71,5 @@ Feature: Patient Choice-14 ConsentScenario - Child
     And Save and continue button is displayed as disabled
 
     Examples:
-      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                 | WarningMessage                                                                                                         | RecordedBy                            |
-      | Family members | NHSNumber=9449303959:DOB=14-09-2005 | DiseaseStatus=Affected:AgeOfOnset=02,02 | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |
+      | FamilyMembers  | FamilyMemberDetails                 | ClinicalQuestionDetails                                         | WarningMessage                                                                                                         | RecordedBy                            |
+      | Family members | NHSNumber=9449303959:DOB=14-09-2005 | DiseaseStatus=Affected:AgeOfOnset=02,02:HpoPhenoType=Lymphedema | All patients who receive genomic tests should be offered the opportunity to participate in research where appropriate. | ClinicianName=John:HospitalNumber=123 |

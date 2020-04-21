@@ -16,7 +16,9 @@ Feature: Family Members Details Page 1- Field Validation_1
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
       | First name              | label      | ✱      | #dd2509      |
@@ -51,12 +53,16 @@ Feature: Family Members Details Page 1- Field Validation_1
     Then the patient card displays with Born,Gender and NHS No details
     And verify the patient card displays the same NHS and DOB in "<FamilyMemberDetails>"
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And confirm family member details page populate with same details found in patient card for "<FamilyMemberDetails>"
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
-#    Then the user is navigated to a page with title Continue with this family member
+
     Examples:
       | stage          | FamilyMemberDetails                 | RelationshipToProband |
       | Family members | NHSNumber=9449310165:DOB=25-12-2000 | Maternal Aunt         |
@@ -75,10 +81,9 @@ Feature: Family Members Details Page 1- Field Validation_1
     Then the patient card displays with Born,Gender and NHS No details
     And verify the patient card displays the same NHS and DOB in "<FamilyMemberDetails>"
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Add missing family member details
-#    When the user clicks on edit patient details
-#    Then the user is navigated to a page with tit
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the default family member details page is correctly displayed with the proper number of fields
     And the mandatory fields shown with the symbol in red color
       | mandatory_field         | field_type | symbol | symbol color |
@@ -110,14 +115,12 @@ Feature: Family Members Details Page 1- Field Validation_1
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Add missing family member details
-#    When the user clicks on edit patient details
-#    Then the user is navigated to a page with title Edit patient details
-#    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with tit
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
@@ -139,10 +142,9 @@ Feature: Family Members Details Page 1- Field Validation_1
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Add missing family member details
-#    When the user clicks on edit patient details
-#    Then the user is navigated to a page with titl
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the user deletes the data in the Hospital Number field
     When the user attempts to fill in the Hospital Number "<HospitalNumber>" with data that exceed the maximum data allowed 15
     Then the user is prevented from entering data that exceed that allowable maximum data 15 in the "HospitalNumber" field
@@ -185,14 +187,12 @@ Feature: Family Members Details Page 1- Field Validation_1
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Add missing family member details
-#    When the user clicks on edit patient details
-#    Then the user is navigated to a page with title Edit patient details
-#    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with tit
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default

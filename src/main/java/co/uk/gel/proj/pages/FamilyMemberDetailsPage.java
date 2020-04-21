@@ -925,12 +925,24 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         try {
-            Actions.scrollToTop(driver);
-            Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
-            Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
+            if(!Wait.isElementDisplayed(driver,successDeletionMessageOfFamilyMember,10)){
+                Actions.scrollToTop(driver);
+            }
+            String actualMessage = "";
+            try{
+                actualMessage = successDeletionMessageOfFamilyMember.getText();
+            }catch(Exception exp1){
+                actualMessage  =seleniumLib.getText(successDeletionMessageOfFamilyMember);
+            }
+            if(!actualMessage.equalsIgnoreCase(deleteMessage)){
+                Debugger.println("Expected Message:"+deleteMessage+",But Actual:"+actualMessage);
+                SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying the Family Member Removal Message: " + exp);
+            SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
             return false;
         }
     }

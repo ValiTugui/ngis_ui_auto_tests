@@ -222,7 +222,7 @@ public class HomePage {
                 return;
             }
             Actions.clickElement(driver,logOutLink);
-            Wait.seconds(2);
+            Wait.seconds(5);
             if(Actions.isAlertPresent(driver)){
                 Actions.acceptAlert(driver);
             }

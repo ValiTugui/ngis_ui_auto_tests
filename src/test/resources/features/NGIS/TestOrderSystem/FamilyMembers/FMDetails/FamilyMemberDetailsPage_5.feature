@@ -22,12 +22,17 @@ Feature: Family Members Details Page 5- Field Validation_5
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
@@ -89,7 +94,9 @@ Feature: Family Members Details Page 5- Field Validation_5
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     And the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     And the user clicks the Save and Continue button
     Then the user will see error messages highlighted in red colour
       | message                              | color   |
@@ -118,7 +125,7 @@ Feature: Family Members Details Page 5- Field Validation_5
     When the user types in valid details "<SearchDetails>" of a "<patient-search-type>" patient in the No of Fields
     And the user clicks the Search button
     And the user clicks on the hyper link
-    Then the user is navigated to a page with title Add a new patient
+    Then the user is navigated to a page with title Create a record for this family member
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks the Add new patient to referral button
     Then the user will see error messages highlighted in red colour
