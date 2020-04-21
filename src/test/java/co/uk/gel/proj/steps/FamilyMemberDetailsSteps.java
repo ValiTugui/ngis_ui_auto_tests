@@ -31,29 +31,24 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on the patient card")
     public void theUserSelectsThePatientSearchResultTab() {
-        familyMemberDetailsPage.clickPatientCard();
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.clickPatientCard();
+        Assert.assertTrue(testResult);
+    }
 
-//        boolean testResult = false;
-//        testResult = familyMemberDetailsPage.clickPatientCard();
-//        Assert.assertTrue(testResult);
-//    }
-//
-//    @When("the user clicks on edit patient details")
-//    public void theUserClicksOnEditPatientDetails() {
-//        boolean testResult = false;
-//        testResult = familyMemberDetailsPage.editPatientDetails();
-//        Assert.assertTrue(testResult);
+    @When("the user clicks on edit patient details")
+    public void theUserClicksOnEditPatientDetails() {
+        boolean testResult = false;
+        testResult = familyMemberDetailsPage.editPatientDetails();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user selects the Relationship to proband as {string} for family member {string}")
     public void theUserSelectRelationshipForFamilyMember(String relationToProband,String memberDetails) {
         //To fill ethnicity also, as this field made mandatory.
-        //For already existing members, no need to fill the ethnicity
-        if(memberDetails.startsWith("NHSNumber=NA")) {
             if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton, "A - White - British")){
                 Assert.assertTrue(false);
             }
-        }
         if(!familyMemberDetailsPage.fillTheRelationshipToProband(relationToProband)){
             Assert.assertTrue(false);
         }
@@ -347,6 +342,7 @@ public class FamilyMemberDetailsSteps extends Pages {
             List<List<String>> memberDetails = inputDetails.asLists();
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {
+                Debugger.println("\nAdding Family Member: "+i);
                 referralPage.navigateToFamilyMemberSearchPage();
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
@@ -363,55 +359,44 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }else{
                         familyMember.setETHNICITY("A - White - British");
                     }
-                    patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember);
-//                    if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
-//                        Assert.assertTrue(false);
-//                    }
-//                    if(!patientSearchPage.clickSearchButtonByXpath()){
-//                        Assert.assertTrue(false);
-//                    }
-                    patientSearchPage.clickSearchButtonByXpath();
-//                    patientSearchPage.clickSearchButtonByXpath(driver);
+                    if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
+                        Assert.assertTrue(false);
+                    }
+                    if(!patientSearchPage.clickSearchButtonByXpath()){
+                        Assert.assertTrue(false);
+                    }
                     if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
                         if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
                             patientSearchPage.clickSearchButtonByXpath();
-//                            patientSearchPage.clickSearchButtonByXpath(driver);
-//                            patientSearchPage.clickSearchButtonByXpath();
-
                         }
+                        }
+                    if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                        Assert.assertTrue(false);
                     }
-                    patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-//                    if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
-//                        Assert.assertTrue(false);
-//                    }
-//                    if(!patientDetailsPage.newPatientPageIsDisplayed()){
-//                        Assert.assertTrue(false);
-//                    }
-                    patientDetailsPage.newPatientPageIsDisplayed();
+                    if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                        Assert.assertTrue(false);
+                    }
                     if(!patientDetailsPage.createNewFamilyMember(familyMember)){
-                        break;
-//                        Assert.assertTrue(false);
-//                    }
-//                    if(!referralPage.verifyThePageTitlePresence("Continue with this family member")){
-//                        Assert.assertTrue(false);
-//                    }
+                        Assert.assertTrue(false);
+                    }
+                    if(!referralPage.verifyThePageTitlePresence("Continue with this family member")){
+                        Assert.assertTrue(false);
                     }
                     referralPage.updatePatientNGSID(familyMember);
-//                    if(!referralPage.clickSaveAndContinueButton()){
-//                        Assert.assertTrue(false);
-//                    }
+                    if(!referralPage.clickSaveAndContinueButton()){
+                        Assert.assertTrue(false);
+                    }
                 }else {
-//                    if(!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))){
-//                        Assert.assertTrue(false);
-//                    }
+                    if(!familyMemberSearchPage.searchFamilyMemberWithGivenParams(memberDetails.get(i).get(0))){
+                        Assert.assertTrue(false);
+                    }
                     if (!familyMemberDetailsPage.verifyPatientRecordDetailsDisplay(memberDetails.get(i).get(1))) {
                         Debugger.println("Patient already added...continuing with next.");
                         continue;
                     }
-                    familyMemberDetailsPage.clickPatientCard();
-//                    if(!familyMemberDetailsPage.clickPatientCard()){
-//                        Assert.assertTrue(false);
-//                    }
+                    if(!familyMemberDetailsPage.clickPatientCard()){
+                        Assert.assertTrue(false);
+                    }
                     familyMemberDetailsPage.fillTheRelationshipToProband(memberDetails.get(i).get(1));
                     referralPage.clickSaveAndContinueButton();
                 }
@@ -432,10 +417,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     continue;//Some times the Disease status not passing
                 }
                 Debugger.println("Clicking on Save and Continue in Family Member Stage...to proceed with Disease status updation");
-                referralPage.clickSaveAndContinueButton();
-//                if(!referralPage.clickSaveAndContinueButton()){
-//                    Assert.assertTrue(false);
-//                }
+                if(!referralPage.clickSaveAndContinueButton()){
+                    Assert.assertTrue(false);
+                }
                 Debugger.println("Clicked on Save and Continue in Family Member Stage...");
                 Wait.seconds(5);
                 Debugger.println("Updating family member with Disease status...");
@@ -445,10 +429,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                 }
                 Wait.seconds(5);
                 Debugger.println("Disease status updated .. Clicking on Save and Continue in Family Member Stage...");
-                referralPage.clickSaveAndContinueButton();
-//                if(!referralPage.clickSaveAndContinueButton()){
-//                    Assert.assertTrue(false);
-//                }
+                if(!referralPage.clickSaveAndContinueButton()){
+                    Assert.assertTrue(false);
+                }
                 Wait.seconds(5);
                 if(!referralPage.verifyThePageTitlePresence("Add a family member to this referral")){
                     Debugger.println("Family Member Details Page is Yet be loaded......waiting for 10 more seconds");
@@ -464,7 +447,7 @@ public class FamilyMemberDetailsSteps extends Pages {
                     Debugger.println("Details of Added family member not displayed as expected in FamilyMember Landing Page.");
                     Assert.assertTrue(false);
                 }
-                Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.");
+                Debugger.println("Verified added family member"+memberDetails.get(i).get(0)+" details in the FM landing page.\n");
                 Wait.seconds(5);
             }//end
         }catch(Exception exp){
@@ -494,8 +477,8 @@ public class FamilyMemberDetailsSteps extends Pages {
     public void probandParticipantIsDisplayedFirstInTheListFollowedBy(String relationshipToProband) {
         int indexOfProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral("Proband");
         int indexOfRelationToProband = familyMemberDetailsPage.getDisplayIndexOfSpecificReferral(relationshipToProband);
-        Debugger.println("Index of proband :: "+ indexOfProband);
-        Debugger.println("Index of relationshipToProband :: "+ relationshipToProband);
+        //Debugger.println("Index of proband :: "+ indexOfProband);
+        //Debugger.println("Index of relationshipToProband :: "+ relationshipToProband);
         Assert.assertTrue(indexOfProband != -1);
         Assert.assertTrue(indexOfRelationToProband != -1);
         Assert.assertTrue(indexOfRelationToProband > indexOfProband);
@@ -506,7 +489,9 @@ public class FamilyMemberDetailsSteps extends Pages {
         Debugger.println("Tests going to be unselected for "+ relationshipToProband);
         Assert.assertTrue(familyMemberDetailsPage.editFamilyMember());
         // navigate from family member patient details page
-        referralPage.clickSaveAndContinueButton();
+        if(!referralPage.clickSaveAndContinueButton()){
+            Assert.assertTrue(false);
+        }
         theUserDeselectTheSelectedTest();
         theUserSeesTheTestRemainsUnSelected();
         // navigate from family members selected tests page
@@ -576,26 +561,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user navigate to Family Member - Add a new Patient to the database page {string}")
     public void theUserNavigateToFamilyMemberAddANewPatientToTheDatabasePage(String expectedPageTitle,List<String> attributeOfURL) {
-//        try {
-//            String existingReferralID = referralPage.getPatientReferralId();
-//            Debugger.println("existingReferralID " + existingReferralID);
-//            String baseURL = attributeOfURL.get(0);
-//            String confirmationPage = attributeOfURL.get(1);
-//            String referralFullUrl = TestUtils.getReferralURL(baseURL, existingReferralID, confirmationPage);
-//            Debugger.println("referralFullUrl :" + referralFullUrl);
-//            NavigateTo(referralFullUrl, confirmationPage);
-//            Wait.seconds(5);
-//            String currentTitle = referralPage.getTheCurrentPageTitle();
-//            Debugger.println("CurrentTitle:"+currentTitle);
-//            if(!currentTitle.equalsIgnoreCase(expectedPageTitle)){
-//                Assert.assertTrue(false);
-//            }
-//        }catch(Exception exp){
-//            Debugger.println("Exception from validating new family member url:"+exp);
-//            SeleniumLib.takeAScreenShot("FamilyMemberNew.jpg");
-//            Assert.assertTrue(false);
-//        }
-
+        try {
         String existingReferralID = referralPage.getPatientReferralId();
         Debugger.println("existingReferralID " + existingReferralID);
         String baseURL = attributeOfURL.get(0);
@@ -603,8 +569,17 @@ public class FamilyMemberDetailsSteps extends Pages {
         String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
         Debugger.println("referralFullUrl :" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
-        Wait.forElementToBeDisplayed(driver, referralPage.pageTitle);
-        Assert.assertEquals(expectedPageTitle, referralPage.getTheCurrentPageTitle());
+            Wait.seconds(5);
+            String currentTitle = referralPage.getTheCurrentPageTitle();
+            Debugger.println("CurrentTitle:"+currentTitle);
+            if(!currentTitle.equalsIgnoreCase(expectedPageTitle)){
+                Assert.assertTrue(false);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception from validating new family member url:"+exp);
+            SeleniumLib.takeAScreenShot("FamilyMemberNew.jpg");
+            Assert.assertTrue(false);
+        }
     }
     @And("the user edits the highlighted family member with {string}")
     public void theUserEditsTheHighlightedFamilyMemberWith(String familyMember) {

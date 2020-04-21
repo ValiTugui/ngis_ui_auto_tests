@@ -60,18 +60,23 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//ul[contains(@class,'referral-header__details')]//span[@aria-labelledby='name_1']")
     public WebElement referralHeaderPatientName;
 
+    //@FindBy(xpath = "//span[text()='Born']/..//strong")
     @FindBy(xpath = "//span[text()='Born']/following-sibling::span")
     public WebElement referralHeaderBorn;
 
+    //@FindBy(xpath = "//span[text()='Gender']/..//strong")
     @FindBy(xpath = "//span[text()='Gender']/following-sibling::span")
     public WebElement referralHeaderGender;
 
+    //@FindBy(xpath = "//span[text()='NHS No.']/..//strong")
     @FindBy(xpath = "//span[text()='NHS No.']/following-sibling::span")
     public WebElement referralHeaderNhsNo;
 
+    //@FindBy(xpath = "//span[text()='Patient NGIS ID']/..//strong")
     @FindBy(xpath = "//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement referralHeaderPatientNgisId;
 
+    //@FindBy(xpath = "//span[text()='Clinical Indication']/..//strong")
     @FindBy(xpath = "//span[text()='Clinical Indication']/following-sibling::span")
     public WebElement referralHeaderClinicalId;
 
@@ -243,6 +248,9 @@ public class ReferralPage<check> {
     @FindBy(xpath = "//div[@id='referral__header']")
     public WebElement referralHeaderBanner;
 
+    @FindBy(xpath = "//p[contains(@class,'card')]//../span/span[contains(@class,'chunk__separator')]")
+    public List<WebElement> nhsChunkSeparatorsInPatientRecordCard;
+
     @FindBy(xpath = "//div[@role='dialog']//ul/li/a")
     public List<WebElement> listOfMandatoryStagesOnDialogBox;
 
@@ -301,7 +309,7 @@ public class ReferralPage<check> {
                 Actions.scrollToBottom(driver);
             }
             if(!Wait.isElementDisplayed(driver, saveAndContinueButton, 30)){
-                Debugger.println("Save and Continue not visible even after 120 minutes.");
+                Debugger.println("Save and Continue not visible even after 60 minutes.");
                 return false;
             }
             //Wait.forElementToBeClickable(driver, saveAndContinueButton);
@@ -312,6 +320,11 @@ public class ReferralPage<check> {
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
             if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
                 Actions.clickElement(driver, tryAgain);
+                Wait.seconds(10);
+                if (Wait.isElementDisplayed(driver, tryAgain, 5)) {
+                    Actions.clickElement(driver, tryAgain);
+                    Wait.seconds(3);
+                }
             }
             if (helix.size() > 0) {
                 try {
