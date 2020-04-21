@@ -34,9 +34,13 @@ public class ReferralSteps extends Pages {
 
     @Then("^the referral page is displayed$")
     public void referralPageIsDisplayed() {
-        referralPage.checkThatReferralWasSuccessfullyCreated();
-        referralPage.saveAndContinueButtonIsDisplayed();
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.saveAndContinueButtonIsDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @When("^the user navigates to the \"([^\"]*)\" stage$")
@@ -47,74 +51,86 @@ public class ReferralSteps extends Pages {
 
     @And("the user clicks the Save and Continue button")
     public void theUserClicksTheSaveAndContinueButton() {
-        referralPage.clickSaveAndContinueButton();
+        boolean testResult = false;
+        testResult = referralPage.clickSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @Given("a referral is created with the below details for an existing patient record type and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForAnExistingPatientRecordTypeAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) throws IOException {
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
         String patientType = attributeOfURL.get(3);
         String diseaseType = attributeOfURL.get(4);
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
+
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.typeInSearchField(searchTerm)){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.clickSearchIconFromSearchField()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        if(!homePage.selectFirstEntityFromResultList()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         switchToURL(driver.getCurrentUrl());
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        if(!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()){
+            Assert.assertTrue(false);
+        }
         // utilising static NGIS test data for now. In future test framework will support api calls to get a random NGIS record
         if (diseaseType.equalsIgnoreCase("cancer") && patientType.equalsIgnoreCase("NGIS")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne();
-        } else if (diseaseType.equalsIgnoreCase("rare-disease") && patientType.equalsIgnoreCase("NGIS")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo();
-        } else if (patientType.equalsIgnoreCase("SPINE")) {
-            patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord();
-        }
-        patientSearchPage.clickSearchButtonByXpath();
-//        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.clickPatientCard();
-
-        // Check condition for different scenarios when referral submit button is displayed
-        if (patientDetailsPage.addDetailsToNGISButtonList.size() > 0) {  // AddDetailsToNGISButton is shown when adding SPINE data
-            Debugger.println("Add Patient Details button shown");
-            Wait.seconds(1);
-
-            //https://jira.extge.co.uk/browse/E2EUI-2499 - Ethnicity is now a mandatory field, hence Ethnicity field - for SPINE data need to be updated with a value in Patient Details
-            if (Wait.isElementDisplayed(driver, patientDetailsPage.ethnicityButton, 15)) {
-                String ethnicityFieldCurrentValue = Actions.getText(patientDetailsPage.ethnicityButton);
-                if (ethnicityFieldCurrentValue.equalsIgnoreCase("Select..."))
-                {
-                    patientDetailsPage.addPatientEthnicity("A - White - British");
-                }
+            if(!patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientOne()){
+                Assert.assertTrue(false);
             }
-            Debugger.println("New Ethnicity " + Actions.getText(patientDetailsPage.ethnicityButton));
-            patientDetailsPage.clickAddDetailsToNGISButton();
-            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.updateNGISRecordButtonList.size() > 0) {
-            Debugger.println("Update Patient Details button shown");
-            patientDetailsPage.updateNGISRecordButton.click();
-            Wait.forElementToBeDisplayed(driver, patientDetailsPage.successNotification);
-            patientDetailsPage.clickStartReferralButton();
-        } else if (patientDetailsPage.savePatientDetailsToNGISButtonList.size() > 0) {
-            Debugger.println("Save Patient Details button shown");
-            patientDetailsPage.clickSavePatientDetailsToNGISButton();
-            patientDetailsPage.patientIsCreated();
-            patientDetailsPage.clickStartNewReferralButton();
+        } else if (diseaseType.equalsIgnoreCase("rare-disease") && patientType.equalsIgnoreCase("NGIS")) {
+            if(!patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingNGISPatientTwo()){
+                Assert.assertTrue(false);
+            }
+        } else if (patientType.equalsIgnoreCase("SPINE")) {
+            if(!patientSearchPage.fillInNHSNumberAndDateOfBirthByProvidingRandomSpinePatientRecord()){
+                Assert.assertTrue(false);
+            }
         }
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        if(!patientSearchPage.clickSearchButtonByXpath()){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickPatientCard()){
+            Assert.assertTrue(false);
+        }
+        //New flow observed for an existing patient - Spine
+        if(patientSearchPage.isNotificationErrorPresent()){
+            if(!patientSearchPage.editPatientDetails()){
+                Assert.assertTrue(false);
+        }
+            if(!patientDetailsPage.editDropdownField(patientDetailsPage.ethnicityButton,"A - White - British")){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.clickOnSaveAndContinueButton()){
+                Assert.assertTrue(false);
+                }
+            if(!patientDetailsPage.clickStartReferralButton()){
+                Assert.assertTrue(false);
+            }
+        }else{
+            if(!patientDetailsPage.clickStartReferralButton()){
+                Assert.assertTrue(false);
+        }
+        }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        referralPage.saveAndContinueButtonIsDisplayed();
-        referralPage.clickSaveAndContinueButton();
+
     }
 
     @And("the {string} patient details searched for are the same in the referral header bar")
@@ -170,7 +186,7 @@ public class ReferralSteps extends Pages {
     public void theStageIsMarkedAsCompleted(String stage) {
         // deliberate 2 seconds wait is added to handle the slowness of UI on Jenkins run
         // Exception in Checking Stage Completion Status: org.openqa.selenium.StaleElementReferenceException: stale element reference: element is not attached to the page
-        Debugger.println("Verifying completion of Stage:"+stage);
+        Debugger.println("Verifying completion of Package:"+stage);
         Wait.seconds(2);
         try {
             boolean testResult = referralPage.stageIsCompleted(stage);
@@ -206,15 +222,29 @@ public class ReferralSteps extends Pages {
             patientType = attributeOfURL.get(7);//Child or adult
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.typeInSearchField(searchTerm)){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.clickSearchIconFromSearchField()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        if(!homePage.selectFirstEntityFromResultList()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         if(userType != null && !userType.isEmpty()) {
             switchToURL(driver.getCurrentUrl(), userType);
@@ -222,34 +252,62 @@ public class ReferralSteps extends Pages {
             switchToURL(driver.getCurrentUrl());
         }
         //switchToURL(driver.getCurrentUrl());
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+       if(!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()){
+           Assert.assertTrue(false);
+       }
         if(patientType == null || patientType.isEmpty()) {
             Debugger.println("SEARCH USING NHS AND DOB...........");
-            patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+            if(!patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB()){
+                Assert.assertTrue(false);
+            }
         }else{
             if(patientType.equalsIgnoreCase("Child")) {
                 Debugger.println("SEARCH FORA CHILD...........");
-                patientSearchPage.fillInNonExistingPatientDetailsForChildReferral();
+                if(!patientSearchPage.fillInNonExistingPatientDetailsForChildReferral()){
+                    Assert.assertTrue(false);
+                }
             }
         }
-        patientSearchPage.clickSearchButtonByXpath();
-//        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.getPatientSearchNoResult();
+        if(!patientSearchPage.clickSearchButtonByXpath()){
+            Assert.assertTrue(false);
+        }
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
+        if(actualNoPatientFoundLabel == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
-        patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
+        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)){
+            Assert.assertTrue(false);
+        }
         //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
-        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-        patientDetailsPage.newPatientPageIsDisplayed();
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber)){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+            Assert.assertTrue(false);
+        }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        referralPage.saveAndContinueButtonIsDisplayed();
+        if(!referralPage.saveAndContinueButtonIsDisplayed()){
+            Assert.assertTrue(false);
+        }
     }
 
     @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
@@ -267,7 +325,9 @@ public class ReferralSteps extends Pages {
 
     @When("the user clicks the Log out button")
     public void theUserClicksTheLogOutButton() {
-        referralPage.clickLogoutButton();
+        boolean testResult = false;
+        testResult = referralPage.clickLogoutButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user sees a warning message {string} on the page")
@@ -306,7 +366,6 @@ public class ReferralSteps extends Pages {
     }
     @Given("a referral is created for a new patient without nhs number and associated tests in Test Order System online service")
     public void aReferralIsCreatedWithTheBelowDetailsForANewlyCreatedPatientRecord(List<String> attributeOfURL) throws IOException {
-        boolean toDoListDisplayed;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -318,42 +377,80 @@ public class ReferralSteps extends Pages {
             userType = attributeOfURL.get(6);
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.typeInSearchField(searchTerm)){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.clickSearchIconFromSearchField()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        if(!homePage.selectFirstEntityFromResultList()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
             switchToURL(driver.getCurrentUrl());
         }
-        boolean searchPageLoaded = referralPage.verifyThePageTitlePresence("Find your patient");
-        if(!searchPageLoaded){
-            Debugger.println("Search Page Could not load Properly:");
-            Assert.assertFalse("Search Page not loaded successfully.",true);
+        if(!referralPage.verifyThePageTitlePresence("Find your patient")){
+            Assert.assertTrue(false);
         }
-        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
-//        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.clickSearchButtonByXpath();
+        if(!patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB()){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickSearchButtonByXpath()){
+            Assert.assertTrue(false);
+        }
         String actualSearchResult = patientSearchPage.getPatientSearchNoResult();
+        if(actualSearchResult == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertEquals("No patient found", actualSearchResult);
-        patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record");
-        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-        patientDetailsPage.newPatientPageIsDisplayed();
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber)){
+            Assert.assertTrue(false);
+        }
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+            Assert.assertTrue(false);
+        }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        referralPage.saveAndContinueButtonIsDisplayed();
+        if(!referralPage.saveAndContinueButtonIsDisplayed()){
+            Assert.assertTrue(false);
+        }
     }
     @And("the success notification is displayed {string}")
     public void theSuccessNotificationIsDisplayed(String notificationText) {
@@ -400,18 +497,13 @@ public class ReferralSteps extends Pages {
 
     @Then("the referral is successfully {string} with reason {string}")
     public void theReferralIsSuccessfullyWithReason(String referralStatus, String reason) {
-        boolean testResult = false;
-        testResult = referralPage.cancelReferralConfirmationIsDisplayed();
-        Assert.assertTrue(testResult);
-        testResult = referralPage.cancelReasonMatches(reason);
-        Assert.assertTrue(testResult);
-        testResult = referralPage.verifyTheReferralStatus(referralStatus);
-        Assert.assertTrue(testResult);
+        Assert.assertTrue(referralPage.cancelReferralConfirmationIsDisplayed());
+        Assert.assertTrue(referralPage.cancelReasonMatches(reason));
+        Assert.assertTrue(referralPage.verifyTheReferralStatus(referralStatus));
     }
 
     @Given("a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service")
     public void aReferralIsCreatedByTheLoggedInUserWithTheBelowDetailsForANewlyCreatedPatientAndAssociatedTestsInTestOrderSystemOnlineService(List<String> attributeOfURL) {
-        boolean eachElementIsLoaded;
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String searchTerm = attributeOfURL.get(2);
@@ -423,15 +515,29 @@ public class ReferralSteps extends Pages {
             userType = attributeOfURL.get(6);
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.typeInSearchField(searchTerm)){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.clickSearchIconFromSearchField()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        if(!homePage.selectFirstEntityFromResultList()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
@@ -439,48 +545,62 @@ public class ReferralSteps extends Pages {
         } else {
             switchToURL(driver.getCurrentUrl());
         }
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
-        patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral();
-        patientSearchPage.clickSearchButtonByXpath();
-//        patientSearchPage.clickSearchButtonByXpath(driver);
-        patientSearchPage.getPatientSearchNoResult();
+        if(!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()){
+           Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.fillInNonExistingPatientDetailsForAdultReferral()){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickSearchButtonByXpath()){
+            Assert.assertTrue(false);
+        }
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
+        if(actualNoPatientFoundLabel == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
-        patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
-        //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
-        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-        patientDetailsPage.newPatientPageIsDisplayed();
-        boolean flag = false;
+        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            Assert.assertTrue(false);
+        }
         // assert userType != null;  // if user type is declared, use declared user name, else use default normal user
         if (userType != null) {
             if (userType.equalsIgnoreCase("GEL_NORMAL_USER")) {
-                patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber); //check DOB is pre-filled
-                //Ensure all the fields are correctly populated without any error shown on patient details page
-                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
-
+                if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber)){
+                    Assert.assertTrue(false);
+                }
             }else if (userType.equalsIgnoreCase("GEL_SUPER_USER")  && patientNameWithSpecialCharacters != null) {
-                patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters);
-                //Ensure all the fields are correctly populated without any error shown on patient details page
-                flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageSuperUserFlow();
+                if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithNHSNumber(patientNameWithSpecialCharacters)){
+                    Assert.assertTrue(false);
+                }
             }
         } else {
-            patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber);
-            flag = patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow();
+            if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsExceptNHSNumber(reasonForNoNHSNumber)){
+                Assert.assertTrue(false);
         }
-        if(!flag){
-            // Navigate to top of page
-            Actions.scrollToTop(driver);
-            SeleniumLib.takeAScreenShot("PatientDetailsPage.jpg");
+        }
+        if(!patientDetailsPage.clickOnCreateRecord()){
             Assert.assertTrue(false);
         }
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.patientIsCreated();
-        patientDetailsPage.clickStartNewReferralButton();
-        referralPage.checkThatReferralWasSuccessfullyCreated();
+        if(!patientDetailsPage.patientIsCreated()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.clickStartReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+            Assert.assertTrue(false);
+        }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        referralPage.saveAndContinueButtonIsDisplayed();
+        if(!referralPage.saveAndContinueButtonIsDisplayed()){
+            Assert.assertTrue(false);
+        }
         // Store the Clinical Indication info into the NewPatient test context
         Debugger.println("PATIENT CI " + referralPage.getPatientClinicalIndication());
         Debugger.println("PATIENT Referral Id " + referralPage.getPatientReferralId());
@@ -491,18 +611,12 @@ public class ReferralSteps extends Pages {
         patientDetailsPage.newPatient.setPatientHumanReadableID(referralPage.getPatientNGISId());
     }
 
-    @When("the user clicks the Save and Continue button on the {string}")
-    public void theUserClicksTheSaveAndContinueButtonOnThe(String stage) {
-        referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
-
-    }
-
     @And("the referral status is set to {string}")
-    public void theReferralStatusIsSetTo(String expectedReferralStatus) throws IOException {
+    public void theReferralStatusIsSetTo(String expectedReferralStatus) {
         boolean testResult  = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
         Assert.assertTrue(testResult);
-        referralPage.saveReferralID();
+
     }
 
     @Then("the submission confirmation message {string} is displayed")
@@ -546,23 +660,38 @@ public class ReferralSteps extends Pages {
             userType = attributeOfURL.get(4);
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
-        homePage.typeInSearchField(searchTerm);
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.typeInSearchField(searchTerm)){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.clickSearchIconFromSearchField()){
+            Assert.assertTrue(false);
+        }
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        if(!homePage.selectFirstEntityFromResultList()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
-        clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
-        paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
+            Assert.assertTrue(false);
+        }
+        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
+            Assert.assertTrue(false);
+        }
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
             switchToURL(driver.getCurrentUrl());
         }
-        eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
-        Assert.assertTrue(eachElementIsLoaded);
+        if(!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()){
+            Assert.assertTrue(false);
+        }
     }
 
     //Added on January 14-2020 - All the referral creation steps in RD package changed to this step.
@@ -666,21 +795,13 @@ public class ReferralSteps extends Pages {
             if(!patientSearchPage.clickPatientCard()){
                 Assert.assertTrue(false);
             }
-            if(!patientDetailsPage.startReferral()){
+            if(!patientDetailsPage.clickStartNewReferralButton()){
                 Assert.assertTrue(false);
             }
-//
-//            //Existing Patient
-//            if(!patientSearchPage.clickPatientCard()){
-//                Assert.assertTrue(false);
-//            }
-//            if(!patientDetailsPage.clickStartNewReferralButton()){
-//                Assert.assertTrue(false);
-//            }
-//
-//            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
-//                Assert.assertTrue(false);
-//            }
+
+            if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
+                Assert.assertTrue(false);
+            }
             boolean toDoListDisplayed = referralPage.checkThatToDoListSuccessfullyLoaded();
             if(!toDoListDisplayed){
                 SeleniumLib.takeAScreenShot("ToDoList.jpg");
@@ -863,9 +984,7 @@ public class ReferralSteps extends Pages {
     @And("the user should see the referral submit button as (.*)")
     public void theUserShouldBeAbleToSeeReferralSubmitButton(String expectedStatus) {
         boolean testResult = false;
-        testResult = referralPage.referralSubmitButtonStatus("#d1d5da");
-//        testResult = referralPage.referralSubmitButtonStatus("#eaebee");
-
+        testResult = referralPage.referralSubmitButtonStatus("#eaebee");
         if (expectedStatus.equals("enabled")) {
             Assert.assertFalse(testResult);
         } else {
@@ -1092,6 +1211,18 @@ public class ReferralSteps extends Pages {
     public void theUserSeesTheColorOfPrivacyPolicyLinkAsNHSBlue(String colorValue) {
         boolean testResult = false;
         testResult = referralPage.verifyPrivacyPolicyLinkFontColor(colorValue);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should be navigated to Microsoft login {string} page")
+    public void theUserShouldBeNavigatedToMicrosoftLoginPage(String loginPageUrl) {
+        boolean testResult = false;
+        testResult = referralPage.verifyMicrosoftLoginPage(loginPageUrl);
+        Assert.assertTrue(testResult);
+    }
+    @Then("the user should see page is not loading")
+    public void theUserShouldSeePageIsNotLoading() {
+        boolean testResult = false;
+        testResult = referralPage.verifyPageLoadingWithInvalidReferralURL();
         Assert.assertTrue(testResult);
     }
 }

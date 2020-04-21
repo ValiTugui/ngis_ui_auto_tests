@@ -51,10 +51,10 @@ public class PatientDetailsSteps extends Pages {
         patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
         patientDetailsPage.newPatientPageIsDisplayed();
         patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-//        if(!patientDetailsPage.clickOnCreateRecord()){
-//            Assert.assertTrue(false);
-//        }
+        ///patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
        if(!patientDetailsPage.patientIsCreated()) {
            Assert.assertTrue(false);
        }
@@ -63,8 +63,7 @@ public class PatientDetailsSteps extends Pages {
     @And("the user clicks the Start a new Referral button")
     public void theUserClicksTheStartANewReferralButton() {
         boolean testResult = false;
-//        testResult = patientDetailsPage.clickStartNewReferralButton();
-        patientDetailsPage.clickStartNewReferralButton();
+        testResult = patientDetailsPage.clickStartNewReferralButton();
         Assert.assertTrue(testResult);
 
     }
@@ -72,8 +71,7 @@ public class PatientDetailsSteps extends Pages {
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {
         boolean testResult = false;
-//        testResult = patientDetailsPage.clickStartReferralButton();
-        patientDetailsPage.clickStartReferralButton();
+        testResult = patientDetailsPage.clickStartReferralButton();
         Assert.assertTrue(testResult);
     }
 
@@ -283,15 +281,15 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the user create a new patient record without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserCreateANewPatientRecordWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
-//        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo)){
-//            Assert.assertTrue(false);
-//        }
-//        if(!patientDetailsPage.clickOnCreateRecord()){
-//            Assert.assertTrue(false);
-//        }
-//        if(!patientDetailsPage.patientIsCreated()) {
-//            Assert.assertTrue(false);
-//        }
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo)){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.clickOnCreateRecord()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.patientIsCreated()) {
+            Assert.assertTrue(false);
+        }
     }
 
     @And("the Ethnicity drop-down values are in Alphabetical order")
@@ -307,8 +305,8 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Save patient details to NGIS button")
     public void theUserClicksTheSavePatientDetailsToNGISButton() {
-        patientDetailsPage.clickSavePatientDetailsToNGISButton();
-//        patientDetailsPage.clickOnCreateRecord();
+        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        patientDetailsPage.clickOnCreateRecord();
     }
 
     @Then("the patient is successfully created with a message {string}")
@@ -352,9 +350,8 @@ public class PatientDetailsSteps extends Pages {
     @And("the user fill in the last name field")
     public void theUserFillInTheLastNameField() {
         boolean testResult = false;
-//        testResult = patientDetailsPage.fillInLastName();
-        patientDetailsPage.fillInLastName();
-//        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.fillInLastName();
+        Assert.assertTrue(testResult);
     }
 
     @And("the sub-heading title is displayed {string}")
@@ -403,12 +400,10 @@ public class PatientDetailsSteps extends Pages {
     @When("the user fills in all the fields with NHS number on the New Patient page")
     public void theUserFillsInAllTheFieldsWithNHSNumberOnTheNewPatientPage() {
         boolean testResult = false;
-        patientDetailsPage.fillInAllNewPatientDetails();
-//        testResult = patientDetailsPage.fillInAllNewPatientDetails();
-//        Assert.assertTrue(testResult);
-//        testResult = patientDetailsPage.fillInNHSNumber();
-        patientDetailsPage.fillInNHSNumber();
-//        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.fillInAllNewPatientDetails();
+        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.fillInNHSNumber();
+        Assert.assertTrue(testResult);
     }
 
     @And("the message displayed on the notification banner is {string}")
@@ -573,9 +568,8 @@ public class PatientDetailsSteps extends Pages {
     @When("the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserFillsInAllTheMandatoryFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasons) {
         boolean testResult  = false;
-//        testResult = patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
-       patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
-//        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.fillInAllMandatoryPatientDetailsWithoutMissingNhsNumberReason(reasons);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user fills in the HospitalNo field")
@@ -614,10 +608,8 @@ public class PatientDetailsSteps extends Pages {
     @And("the user fills in all the fields without NHS number and enter a reason for noNhsNumber {string}")
     public void theUserFillsInAllTheFieldsWithoutNHSNumberAndEnterAReasonForNoNhsNumber(String reasonForNoNHSNo) {
         boolean testResult = false;
-//        testResult = patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-//        Assert.assertTrue(testResult);
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
-
+        testResult = patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNo);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user fill in the first name field")
@@ -646,9 +638,8 @@ public class PatientDetailsSteps extends Pages {
     public void theUserSelectTheGender(String gender) {
         Actions.scrollToTop(driver);
         boolean testResult = false;
-//        testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
-        patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
-//        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.selectGender(patientDetailsPage.administrativeGenderButton, gender);
+        Assert.assertTrue(testResult);
     }
 
     @And("the Add To Patient Details {string} button is displayed")
@@ -662,9 +653,8 @@ public class PatientDetailsSteps extends Pages {
     @And("the user clicks the Add patient details to NGIS button")
     public void theUserClicksTheAddPatientDetailsToNGISButton() {
         boolean testResult = false;
-//        testResult = patientDetailsPage.clickAddDetailsToNGISButton();
-//        Assert.assertTrue(testResult);
-        patientDetailsPage.clickAddDetailsToNGISButton();
+        testResult = patientDetailsPage.clickAddDetailsToNGISButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user retrieve the patient HumanReadable-ID from the patient detail url")
@@ -688,8 +678,8 @@ public class PatientDetailsSteps extends Pages {
     @And("the user sees the Create Record button highlighted with color as {string}")
     public void theUserSeesTheButtonAndColorAs(String expButtonColor) {
         boolean testResult = false;
-//testResult = patientDetailsPage.verifyColorOfCreateRecordButton(expButtonColor);
-//        Assert.assertTrue(testResult);
+        testResult = patientDetailsPage.verifyColorOfCreateRecordButton(expButtonColor);
+        Assert.assertTrue(testResult);
     }
 
 }
