@@ -289,8 +289,10 @@ public class SamplesSteps extends Pages {
 
         for (int i = 0; i < expectedList.size(); i++) {
             expectedSampleStateList.add(expectedList.get(i).get("sampleStateHeader"));
-            //Debugger.println("Expected sample states options: " + i + " : " + expectedSampleStateList.get(i));
-            Assert.assertTrue(actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i)));
+            if(!actualSampleStateDropDownValues.contains(expectedSampleStateList.get(i))) {
+                Debugger.println("Expected sample states option: " + expectedSampleStateList.get(i)+" Not present in :"+actualSampleStateDropDownValues);
+                Assert.assertTrue(false);
+            }
         }
     }
 

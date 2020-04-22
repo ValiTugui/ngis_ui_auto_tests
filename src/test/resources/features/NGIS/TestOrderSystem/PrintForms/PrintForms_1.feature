@@ -4,7 +4,7 @@
 @SYSTEM_TEST
 Feature: Print Forms 1 - Offline Orders
 
-  @NTS-4703
+  @NTS-47031
 #    @E2EUI-847 @E2EUI-938
   Scenario Outline: NTS-4703: User visits offline order page for form download
     Given a web browser is at the Private Test Selection homepage

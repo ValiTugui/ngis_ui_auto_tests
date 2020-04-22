@@ -88,7 +88,6 @@ Feature: Tumours Page - 4
       | you must add a new tumour then select it.       |
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
-#      | Description       | Histopathology laboratory ID or local sample ID | Date diagnosed      | Status       |
       | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
     And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
     And Save and Continue button is displayed

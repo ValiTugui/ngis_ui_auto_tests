@@ -85,8 +85,8 @@ Feature: Samples Page -2
     Then the message will be displayed as "<errorMessage>" in "<messageColor>" for the invalid field
 
     Examples:
-      | stage   | pageTitle      | pageTitle2   | errorMessage              | messageColor | sampleField |
-      | Samples | Manage samples | Add a sample | Sample ID is required.    | #dd2509      | sampleID    |
+      | stage   | pageTitle      | pageTitle2   | errorMessage           | messageColor | sampleField |
+      | Samples | Manage samples | Add a sample | Sample ID is required. | #dd2509      | sampleID    |
 
   @NTS-3335 @Z-LOGOUT
 #    @E2EUI-1261 @E2EUI-1476
@@ -123,19 +123,18 @@ Feature: Samples Page -2
     When the user clicks the Add sample button
     Then the "<pageTitle2>" page is displayed
     And the expected sub-set of sample-state values are displayed in the Sample state drop-down
-      | sampleStateHeader       |
-      | Fibroblasts             |
-      | Fresh frozen tumour     |
-      | Tumour fresh fluid      |
-      | Bone marrow             |
-      | Blood (EDTA)            |
-      | Amniotic fluid          |
-      | Chorionic villus sample |
-      | Fetal blood (EDTA)      |
-      | Saliva                  |
-      | Fresh frozen tissue     |
-      | Skin biopsy             |
-
+      | sampleStateHeader         |
+      | Fresh frozen tumour       |
+      | Bone marrow               |
+      | Blood (EDTA)              |
+      | Tumour fresh fluid        |
+      | Saliva                    |
+      | Fibroblasts               |
+      | Skin biopsy               |
+      | Amniotic fluid            |
+      | Fetal blood (EDTA)        |
+      | Chorionic villus sample   |
+      | Fresh tissue (not tumour) |
     Examples:
       | stage   | pageTitle      | pageTitle2   |
       | Samples | Manage samples | Add a sample |
