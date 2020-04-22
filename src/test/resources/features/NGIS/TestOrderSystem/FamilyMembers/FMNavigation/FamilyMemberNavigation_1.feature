@@ -55,7 +55,7 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
     And the user clicks on Add family member button
     When the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the user is navigated to a page with title Continue with this family member
-    And the user clicks on Add family member button
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button

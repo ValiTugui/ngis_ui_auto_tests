@@ -668,6 +668,15 @@ public class ReferralPage<check> {
         try {
             Debugger.println("EXP TITLE: "+expTitle);
             Wait.seconds(3);//Many places observed the Title loading issue, trying with a 3 seconds forceful wait
+            //Added extra below code, as it is observed that the page title path for each element in stage is not same
+            // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
+            for (int i = 0; i < titleElements.size(); i++) {
+                Debugger.println("ACT TITLE:"+titleElements.get(i).getText());
+                    if (titleElements.get(i).getText().contains(expTitle)) {
+                        return true;
+                    }
+                }
+            Debugger.println("CONTINUING...............TITLE."+titleElements.size());
             String actualPageTitle = getTheCurrentPageTitle();
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
@@ -677,16 +686,6 @@ public class ReferralPage<check> {
             if(titleElements.size() == 0){
                 Wait.seconds(10);
             }
-            Debugger.println("CONTINUING...............TITLE."+titleElements.size());
-            //Added extra below code, as it is observed that the page title path for each element in stage is not same
-           // List<WebElement> titleElements = driver.findElements(By.xpath("/h1"));
-                for (int i = 0; i < titleElements.size(); i++) {
-                Debugger.println("ACT TITLE:"+titleElements.get(i).getText());
-                    if (titleElements.get(i).getText().contains(expTitle)) {
-                        return true;
-                    }
-                }
-
             Debugger.println("Page title not loaded after 21 seconds waiting for another 10 seconds and trying to locate.");
             //In case of failure again, trying with another method.
             Wait.seconds(10);

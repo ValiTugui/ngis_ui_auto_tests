@@ -44,7 +44,7 @@ Feature: Family Members Details Page 5- Field Validation_5
 
   @NTS-4744 @Z-LOGOUT
 #    @E2EUI-1694 @scenario3
-  Scenario Outline: NTS-TODO: Verify the referrals relationship on patient page
+  Scenario Outline: NTS-4744:E2EUI-1694: Verify the referrals relationship on patient page
     Given a web browser is at the patient search page
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     When the user is navigated to a page with title Find your patient
@@ -52,7 +52,7 @@ Feature: Family Members Details Page 5- Field Validation_5
     And the user clicks the Search button
     Then the user clicks the patient result card
     ##Referral Details Page
-    When the user is navigated to a page with title Check your patient
+    When the user is navigated to a page with title Patient record
     And the user should verify the role and relationship of patient on referral card
     Then the user should see the visible and clickable referral card
 
@@ -136,4 +136,4 @@ Feature: Family Members Details Page 5- Field Validation_5
       | Relationship to proband | #dd2509 |
     Examples:
       | FamilyMembers  | TestPackage  | NoOfParticipants | reason_for_no_nhsNumber       | SearchDetails                                                                  | patient-search-type |
-      | Family members | Test package | 2                | Patient is a foreign national | DOB=13-03-2010:FirstName=NELLY:LastName=StschitZ:Gender=Female:Postcode=RE40BE | NGIS                |
+      | Family members | Test package | 2                | Patient is a foreign national | DOB=13-03-2010:FirstName=NELLY:LastName=StschitZ:Gender=Female:Postcode=R2E40BE | NGIS                |

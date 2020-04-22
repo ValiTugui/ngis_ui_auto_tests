@@ -269,7 +269,9 @@ public class PatientSearchSteps extends Pages {
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
-        patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        Assert.assertTrue(testResult);
     }
 
 

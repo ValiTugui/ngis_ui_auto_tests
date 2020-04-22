@@ -174,6 +174,8 @@ Feature: TestOrder - Print Forms 3 - Validations
     ###Family Members for modification
     When the user navigates to the "<FamilyMembers>" stage
     And the user edits the highlighted family member with "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<ChangedRelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
@@ -183,5 +185,5 @@ Feature: TestOrder - Print Forms 3 - Validations
     And the user verifies that the relationship to proband "<ChangedRelationshipToProband>" is updated in Print forms section
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband |
-      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | NoOfParticipants | FamilyMembers  | PrintForms  | FamilyMemberDetails                 | RelationshipToProband | ChangedRelationshipToProband | DiseaseStatusDetails                      |
+      | Patient details | Requesting organisation | Test package | 2                | Family members | Print forms | NHSNumber=9449305307:DOB=14-02-2011 | Full Sibling          | Paternal Half Sibling        | DiseaseStatus=Unaffected:AgeOfOnset=01,02 |

@@ -841,7 +841,11 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
                 return false;
             }
-            Actions.clickElement(driver,selectedTest);
+            try {
+                Actions.clickElement(driver, selectedTest);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(selectedTest);
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in deSelectTheTest:" + exp);

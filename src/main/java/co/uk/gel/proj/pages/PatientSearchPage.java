@@ -357,44 +357,47 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void fillInValidPatientDetailsUsingNOFields(String searchParams) {
-
-        //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
-        // Extract the patient details from the example-table
-
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            switch (key) {
-                case "DOB": {
-                    String dobValue = paramNameValue.get(key);
-                    String[] dobSplit = dobValue.split("-");
-                    dateDay.sendKeys(dobSplit[0]);
-                    dateMonth.sendKeys(dobSplit[1]);
-                    dateYear.sendKeys(dobSplit[2]);
-                    break;
-                }
-                case "FirstName": {
-                    firstName.sendKeys(paramNameValue.get(key));
-                    break;
-                }
-                case "LastName": {
-                    lastName.sendKeys(paramNameValue.get(key));
-                    break;
-                }
-                case "Gender": {
-                    genderButton.click();
-                    genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
-                    break;
-                }
-                case "Postcode": {
-                    postcode.sendKeys(paramNameValue.get(key));
-                    break;
+    public boolean fillInValidPatientDetailsUsingNOFields(String searchParams) {
+        try {
+            //DOB=23-03-2011:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female
+            // Extract the patient details from the example-table
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                switch (key) {
+                    case "DOB": {
+                        String dobValue = paramNameValue.get(key);
+                        String[] dobSplit = dobValue.split("-");
+                        dateDay.sendKeys(dobSplit[0]);
+                        dateMonth.sendKeys(dobSplit[1]);
+                        dateYear.sendKeys(dobSplit[2]);
+                        break;
+                    }
+                    case "FirstName": {
+                        firstName.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
+                    case "LastName": {
+                        lastName.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
+                    case "Gender": {
+                        genderButton.click();
+                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                        break;
+                    }
+                    case "Postcode": {
+                        postcode.sendKeys(paramNameValue.get(key));
+                        break;
+                    }
                 }
             }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in fillInValidPatientDetailsUsingNOFields:"+exp);
+            SeleniumLib.takeAScreenShot("fillInValidPatientDetailsUsingNOFields.jpg");
+            return false;
         }
-
-
     }
 
     public void checkSearchResultHeaderIsDisplayed(WebDriver driver, String resultHeader) {

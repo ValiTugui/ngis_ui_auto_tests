@@ -38,7 +38,6 @@ Feature: Family Members Details Page 3- Field Validation_3
       | Life status             | #dd2509 |
       | Ethnicity               | #dd2509 |
       | Relationship to proband | #dd2509 |
-    And the NHS number field is disabled
 
     Examples:
       | FamilyMember   | ClearFields                                          | FamilyMemberDetails                 |

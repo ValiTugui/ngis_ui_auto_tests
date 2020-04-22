@@ -28,7 +28,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks the Save and Continue button
@@ -63,7 +63,7 @@ Feature: Family Members Navigation Stage 3 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<FamilyMembers>" stage

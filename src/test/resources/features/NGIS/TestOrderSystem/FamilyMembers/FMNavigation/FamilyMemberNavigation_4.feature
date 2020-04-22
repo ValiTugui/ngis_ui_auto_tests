@@ -38,8 +38,9 @@ Feature: Family Members Navigation Stage 4 - Member additions
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
+    Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
@@ -74,7 +75,6 @@ Feature: Family Members Navigation Stage 4 - Member additions
       | FamilyMember   | TestPackage  | Two |
       | Family members | Test package | 2   |
 
-
   @NTS-4801 @Z-LOGOUT
 #    @E2EUI-1106
   Scenario Outline: NTS-4801 - Family members add page - Add non-nullable validation for system fields
@@ -99,8 +99,8 @@ Feature: Family Members Navigation Stage 4 - Member additions
       | Relationship to proband ✱      | Relationship to proband is required. | #dd2509             |
 
     Examples:
-      | FamilyMembers  | pageTitle                         |
-      | Family members | Add a new patient to the database |
+      | FamilyMembers  | pageTitle                              |
+      | Family members | Create a record for this family member |
 
   @NTS-3503 @Z-LOGOUT
 #    @E2EUI-1897
@@ -138,7 +138,9 @@ Feature: Family Members Navigation Stage 4 - Member additions
     And the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     When the user edits to complete the highlighted family member
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     Then the user sees the relationship to proband which was previously selected is same as "<RelationshipToProband>"
 
     Examples:

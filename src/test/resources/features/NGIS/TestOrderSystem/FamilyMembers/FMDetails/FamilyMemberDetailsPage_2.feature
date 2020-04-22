@@ -16,7 +16,7 @@ Feature: Family Members Details Page 2- Field Validation_2
     When the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
     Then the user can see a message "<SearchDetails>" "<PatientSearchMessage>" in "bold" font
-    When the user clicks on the create new patient record
+    And the user clicks on the hyper link
     Then the user is navigated to a page with title Create a record for this family member
     And the mandatory fields shown with the symbol in red color
       | mandatory_field              | field_type | symbol | symbol color |
@@ -62,13 +62,13 @@ Feature: Family Members Details Page 2- Field Validation_2
     When the user clicks on edit patient details
     Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+#    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user selects the test to add to the family member "<FamilyMemberDetails>"
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+#    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
@@ -78,7 +78,7 @@ Feature: Family Members Details Page 2- Field Validation_2
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
-    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
+#    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks on back button
     Then the user is navigated to a page with title Patient choice
 
