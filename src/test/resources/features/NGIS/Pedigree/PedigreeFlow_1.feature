@@ -71,13 +71,10 @@ Feature: Pedigree - Pedigree Flow 1
     And the user should see the referral submit button as disabled
     When the user navigates to the "<FamilyMembers>" stage
     When the user edits to complete the highlighted family member
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Edit patient details
-#    When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-#    And the user clicks the Save and Continue button
-#    Then the user is navigated to a page with title Continue with this family member
-
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     When the user navigates to the "<Pedigree>" stage

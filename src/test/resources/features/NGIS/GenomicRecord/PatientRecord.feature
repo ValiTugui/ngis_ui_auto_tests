@@ -1,7 +1,7 @@
 #@regression
 #@patientSearchNGIS
 @04-GENOMIC_RECORD
-@SYSTEM_TEST1
+@SYSTEM_TEST
 Feature: GenomicRecord: Patient Record
 
   @NTS-3379 @Z-LOGOUT
@@ -33,8 +33,7 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
-    And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
-    And the Start New Referral button is disabled
+    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
     #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
@@ -47,9 +46,7 @@ Feature: GenomicRecord: Patient Record
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    When the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
-    And the user clicks the Start Referral button
+    When the user clicks the Start Referral button
     And the referral page is displayed
 
     Examples:
@@ -143,15 +140,8 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     When the user click YES button for the question - Do you have the NHS no?
-    When the user fills in all the fields with NHS number on the New Patient page
+    And the user fills in all the fields with NHS number on the New Patient page
     When the user deletes the content of the Ethnicity field
-    And the user clicks the Save patient details to NGIS button
-    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader | errorMessageHeader     | messageColourHeader |
-      | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
-    When the user fills in the Ethnicity field "B - White - Irish"
-    And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
 
     Examples:
       | pageTitle                         |
@@ -166,7 +156,7 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+    Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     |
@@ -311,7 +301,7 @@ Feature: GenomicRecord: Patient Record
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+    Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |

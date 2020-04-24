@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
@@ -187,9 +188,11 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow());
-        Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " + "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
-        Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
+        if(labelOnSubmitButton.equalsIgnoreCase("Create record")){
+            Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.createRecord.getText());
+        }else {
+            Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
+        }
     }
 
     @And("the user click on the referral card on patient details page to navigate to referral page")
@@ -232,7 +235,6 @@ public class PatientDetailsSteps extends Pages {
         boolean testResult = false;
         testResult = patientDetailsPage.clickUpdateNGISRecordButton();
         Assert.assertTrue(testResult);
-        //
     }
     @And("the user clicks the Save and Continue button on Patient details page")
     public void theUserClicksSaveAndContinue() {
@@ -246,6 +248,9 @@ public class PatientDetailsSteps extends Pages {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
+        if(actualNotification == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertEquals(expectedNotification, actualNotification);
     }
 
@@ -349,6 +354,7 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
+
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
         List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();

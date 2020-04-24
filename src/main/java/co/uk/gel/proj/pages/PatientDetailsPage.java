@@ -13,6 +13,7 @@ import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -107,6 +108,9 @@ public class PatientDetailsPage {
 
     @FindBy(xpath = "//label[contains(@for,'ethnicity')]//following::div")
     public WebElement ethnicityButton;
+
+    @FindBy(xpath = "//label[@for='ethnicity']/..//div[contains(@class,'indicatorContainer')]")
+    public List<WebElement> ethnicityIndicators;
 
     @FindBy(xpath = "//label[contains(@for,'relationship')]//following::div")
     public WebElement relationshipButton;
@@ -973,8 +977,14 @@ public class PatientDetailsPage {
     }
 
     public String getNotificationMessageForPatientCreatedOrUpdated() {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        return Actions.getText(successNotification);
+        try {
+            Wait.forElementToBeDisplayed(driver, successNotification);
+            return Actions.getText(successNotification);
+        }catch(Exception exp){
+            Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: "+exp);
+            SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
+            return null;
+        }
     }
 
 
@@ -1341,6 +1351,30 @@ public class PatientDetailsPage {
             } catch (Exception exp1) {
                 Debugger.println("Exception from saveAndContinue:" + exp);
                 SeleniumLib.takeAScreenShot("saveAndContinue.jpg");
+                return false;
+            }
+        }
+    }
+    public boolean clearEthnicityField(){
+        try{
+            Debugger.println("Clearing Ethnicity Vlue:"+ethnicityIndicators.size());
+            Wait.seconds(5);
+            if(ethnicityIndicators.size() < 1){
+                Debugger.println("Ethnicity Indicators not visible.");
+                SeleniumLib.takeAScreenShot("EthnicityIndicator.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,ethnicityIndicators.get(0));
+            Wait.seconds(5);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(ethnicityIndicators.get(0));
+                Wait.seconds(5);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clearEthnicityField:" + exp1);
+                SeleniumLib.takeAScreenShot("clearEthnicityField.jpg");
                 return false;
             }
         }
