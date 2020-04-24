@@ -22,6 +22,7 @@
         <org.apache.poi.version>3.17</org.apache.poi.version>
         <forkCount>5</forkCount>
         <reportName>test</reportName>
+        <jsonFolder>target/cucumber-parallel</jsonFolder>
         <browser>Chrome</browser>
         <browserVersion>70</browserVersion>
         <serverType>Local</serverType>
@@ -109,7 +110,7 @@
                                 <resultSource>
                                     <!-- optional format, defaults to cucumber -->
                                     <format>cucumber</format>
-                                    <directory>target/cucumber-parallel</directory>
+                                    <directory>${jsonFolder}</directory>
                                 </resultSource>
                             </resultSources>
                             <outputPath>target/test-report</outputPath>
