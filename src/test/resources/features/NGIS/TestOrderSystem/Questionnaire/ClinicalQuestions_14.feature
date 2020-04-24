@@ -78,7 +78,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
       | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |
       | Last name is required | #dd2509            | Test package | Queen                | 1                | Affected      | 130        | 0           | Patient age cannot exceed 125 years | 5          | 8           | Phenotypic abnormality |
 
-       ###In Progress @NTS-5183
+
   @NTS-5183 @Z-LOGOUT
   Scenario Outline:NTS-5183:E2EUI-1042:scenario-2: Validation of dynamic questions in Questionnaire- Cancer
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -87,11 +87,10 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     Then the user is navigated to a page with title Add a tumour
     And the user clicks the Save and Continue button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                                       | errorMessageHeader                                           |
-      | Date of diagnosis ✱                               | Enter a year                                                 |
-      | The tumour is... ✱                                | Please select the tumour type                                |
-      | Histopathology laboratory ID or local sample ID ✱ | Histopathology laboratory ID or local sample ID is required. |
-      | Histopathology or SIHMDS Lab ID ✱                 | Histopathology or SIHMDS Lab ID is required.                 |
+      | labelHeader                       | errorMessageHeader                           |
+      | Date of diagnosis ✱               | Enter a year                                 |
+      | The tumour is... ✱                | Please select the tumour type                |
+      | Histopathology or SIHMDS Lab ID ✱ | Histopathology or SIHMDS Lab ID is required. |
     Then the tumours stage displays Add a tumour page with appropriate fields - description, Date of diagnosis etc
     ##We can fill any kind of data in Description field
     When the user attempts to fill in the Tumour Description "<TumourDescription>" with data that exceed the maximum data allowed 45

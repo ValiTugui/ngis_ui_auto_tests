@@ -48,7 +48,7 @@ Feature: GenomicRecord: Patient details page 4
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    And the user clicks the - "Go back to patient search" - link
+    And the user clicks the - "Back to patient search" - link
     And the page url address contains the directory-path web-page "<directoryPathPage>"
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
@@ -59,6 +59,7 @@ Feature: GenomicRecord: Patient details page 4
     And the user clicks the patient result card
     Then the Patient Details page is displayed
       #  User click on refresh button
+    And the user clicks on edit patient details
     And the user clears the date of birth field
     When the user attempts to navigate away by clicking "<browser_exit1>"
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit1>" button and "<acknowledgeMessage>" it
@@ -69,12 +70,12 @@ Feature: GenomicRecord: Patient details page 4
     And the web browser is still at the same "<partialCurrentUrl1>" page
 #    fill in date of birth
     And the user fills in the date of birth "01/03/2010"
-    And the user clicks the Update NGIS record button
-    Then the patient is successfully created with a message "Details saved"
+    And the user clicks the Save and Continue button on Patient details page
+    Then the patient is successfully created with a message "Patient details updated"
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       | directoryPathPage         | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
+      | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national | test-order/patient-search | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
   @NTS-4760 @Z-LOGOUT
 #   @E2EUI-1097
@@ -127,11 +128,11 @@ Feature: GenomicRecord: Patient details page 4
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the message "No patient found" is displayed below the search button
-    Then the user clicks on the create new patient record
-    And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
+    When the user clicks on the hyper link
+    Then the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol in the current page
       | labelHeader   |
       | Date of death |
-    When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
+    And the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     Examples:
       | reason_for_no_nhsNumber       |
       | Patient is a foreign national |

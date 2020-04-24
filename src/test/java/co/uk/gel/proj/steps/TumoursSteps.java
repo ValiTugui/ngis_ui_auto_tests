@@ -210,7 +210,10 @@ public class TumoursSteps extends Pages {
     public void theWebBrowserIsStillAtTheSamePage(String partCurrentUrl) {
         String fullCurrentURL = driver.getCurrentUrl();
         partCurrentUrl = partCurrentUrl.toLowerCase();
-        Assert.assertTrue(fullCurrentURL.contains(partCurrentUrl));
+        if(!fullCurrentURL.contains(partCurrentUrl)){
+            Debugger.println("FullURL:"+fullCurrentURL+"\nPart:"+partCurrentUrl);
+            Assert.assertTrue(false);
+        }
 
     }
 

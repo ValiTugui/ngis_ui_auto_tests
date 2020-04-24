@@ -1,7 +1,7 @@
 #@regression
 #@patientSearchNGIS
 @04-GENOMIC_RECORD
-@SYSTEM_TEST
+@SYSTEM_TEST1
 Feature: GenomicRecord: Patient Record
 
   @NTS-3379 @Z-LOGOUT
@@ -54,7 +54,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
+      | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
   @NTS-3516 @Z-LOGOUT
 #    @E2EUI-1056
@@ -92,7 +92,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | lifeStatus |
-      | Add a new patient to the database | Deceased   |
+      | Create a record for this patient | Deceased   |
 
 
   @NTS-3517 @Z-LOGOUT
@@ -132,7 +132,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | InvalidDateOfBirth |
-      | Add a new patient to the database | Jan012020          |
+      | Create a record for this patient | Jan012020          |
 
 # Ethnicity is now Mandatory
   @NTS-4500 @Z-LOGOUT
@@ -155,7 +155,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         |
-      | Add a new patient to the database |
+      | Create a record for this patient |
 
 
   @NTS-4541 @Z-LOGOUT
@@ -170,7 +170,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     |
-      | Add a new patient to the database | Other - provide explanation |
+      | Create a record for this patient | Other - provide explanation |
 
 
   @NTS-4745 @Z-LOGOUT
@@ -200,7 +200,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
@@ -230,7 +230,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
 
   @NTS-4754 @Z-LOGOUT
@@ -260,7 +260,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
 
   @NTS-4754 @Z-LOGOUT
@@ -292,7 +292,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
 
   @NTS-4760 @Z-LOGOUT
@@ -315,4 +315,4 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Add a new patient to the database | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |
+      | Create a record for this patient | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |

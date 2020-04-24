@@ -480,6 +480,11 @@ public class FamilyMemberDetailsPage {
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
             try {
+                if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,60)){
+                    Debugger.println("diseaseStatusDropdown not loaded...");
+                    SeleniumLib.takeAScreenShot("diseaseStatusDropdown.jpg");
+                    return false;
+                }
                 Click.element(driver, diseaseStatusDropdown);
                 Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));

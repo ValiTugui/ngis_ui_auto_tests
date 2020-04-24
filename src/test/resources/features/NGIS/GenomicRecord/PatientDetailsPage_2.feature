@@ -11,6 +11,7 @@ Feature: GenomicRecord: Patient details page 2
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_NORMAL_USER |
     Given a web browser is logged in as a "GEL_NORMAL_USER" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     Then the NHS number field is disabled
 
     Examples:
@@ -25,6 +26,7 @@ Feature: GenomicRecord: Patient details page 2
       | TO_PATIENT_SEARCH_URL | patient-search | GEL_SUPER_USER |
     Given a web browser is logged in as a "GEL-ops" user at the Patient Details page of a "<patient-search-type>" with valid details of NHS number and DOB
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     Then the NHS number field is enabled
 
     Examples:
@@ -46,8 +48,10 @@ Feature: GenomicRecord: Patient details page 2
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    And the user click on the referral card on patient details page to navigate to referral page
-    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
+    And the user clicks on edit patient details
+    ##Below two steps not valid for Gonzalo
+#    And the user click on the referral card on patient details page to navigate to referral page
+#    And the "<patient-search-type>" patient details searched for are the same in the referral header bar
 
     Examples:
       | patient-search-type | stage1          |

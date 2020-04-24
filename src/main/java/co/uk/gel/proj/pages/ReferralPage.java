@@ -732,7 +732,7 @@ public class ReferralPage<check> {
             for (WebElement errorMessage : errorMessages) {
                 actualErrorMessages.add(errorMessage.getText().trim());
             }
-            Debugger.println("Actual-Error Messages" + actualErrorMessages);
+            //Debugger.println("Actual-Error Messages" + actualErrorMessages);
             return actualErrorMessages;
         } catch (Exception exp) {
             SeleniumLib.takeAScreenShot("fieldsErrorMessages.jpg");
@@ -748,7 +748,7 @@ public class ReferralPage<check> {
         for (WebElement fieldLabel : genericFieldLabels) {
             actualFieldLabels.add(fieldLabel.getText().trim());
         }
-        Debugger.println("`Actual field labels " + actualFieldLabels);
+        //Debugger.println("`Actual field labels " + actualFieldLabels);
         return actualFieldLabels;
     }
 
@@ -922,36 +922,53 @@ public class ReferralPage<check> {
 
     public String getSubmissionConfirmationMessageIsDisplayed() {
         try {
-            Wait.forElementToBeDisplayed(driver, submissionConfirmationBanner, 200);
+            if(!Wait.isElementDisplayed(driver,submissionConfirmationBanner,60)){
+                Debugger.println("Submission Confirmation Bar not displayed:");
+                SeleniumLib.takeAScreenShot("submissionConfirmationBanner.jpg");
+                return null;
+            }
+            if(!Wait.isElementDisplayed(driver,submissionConfirmationBannerTitle,30)){
+                Debugger.println("submissionConfirmationBannerTitle not displayed:");
+                SeleniumLib.takeAScreenShot("submissionConfirmationBannerTitle.jpg");
+                return null;
+            }
             return Actions.getText(submissionConfirmationBannerTitle);
         } catch (Exception exp) {
-            Debugger.println("Referral submission confirm message not displayed: " + exp);
-            SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
-            return null;
+            try{
+                return seleniumLib.getText(submissionConfirmationBannerTitle);
+            }catch(Exception exp1) {
+                Debugger.println("Referral submission confirm message not displayed: " + exp);
+                SeleniumLib.takeAScreenShot("SubmitConfirmMsg.jpg");
+                return null;
+            }
         }
     }
-
-    public String getReferralStatus() {
-        try {
-            Wait.forElementToBeDisplayed(driver, referralStatus);
-            return Actions.getText(referralStatus);
-        } catch (Exception exp) {
-            Debugger.println("Exception in verifying referral Submission status:" + exp);
-            return null;
-        }
-    }
-
     public boolean verifyReferralButtonStatus(String expectedStatus) {
+        By referralStatus = null;
         try {
             String submitStatus = referralButtonStatusTitle.replaceAll("dummyStatus", expectedStatus);
-            return Wait.isElementDisplayed(driver, driver.findElement(By.xpath(submitStatus)), 60);
+            referralStatus = By.xpath(submitStatus);
+            if(!Wait.isElementDisplayed(driver,driver.findElement(referralStatus),30)){
+                Debugger.println("ReferralStatus could not verify.");
+                SeleniumLib.takeAScreenShot("verifyReferralButtonStatus.jpg");
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in verifying referral Submission status:" + exp);
-            SeleniumLib.takeAScreenShot("referralButtonStatus.jpg");
-            return false;
+            try{
+                if(!seleniumLib.isElementPresent(referralStatus)){
+                    Debugger.println("ReferralStatus could not verify.");
+                    SeleniumLib.takeAScreenShot("verifyReferralButtonStatus.jpg");
+                    return false;
+                }
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in verifying referral Submission status:" + exp);
+                SeleniumLib.takeAScreenShot("referralButtonStatus.jpg");
+                return false;
+            }
         }
     }
-    //*[contains(@class,'referral-header__column')]//span[text()='Submitted']
 
     public boolean verifyTheExpectedFieldLabelsWithActualFieldLabels(List<Map<String, String>> expectedLabelList) {
         try {

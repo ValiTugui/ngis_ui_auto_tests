@@ -92,7 +92,8 @@ public class PatientChoiceSteps extends Pages {
         try {
             List<List<String>> memberDetails = inputDetails.asLists();
             for (int i = 1; i < memberDetails.size(); i++) {//First line is title
-                patientChoicePage.selectMember(i);
+                Debugger.println("Patient Choice for Member: "+i);
+                Assert.assertTrue(patientChoicePage.selectMember(i));
                 Wait.seconds(2);
                 Assert.assertTrue(patientChoicePage.completePatientChoiceWithAgreeingTestForFamilyMember(memberDetails.get(i).get(0),memberDetails.get(i).get(1),memberDetails.get(i).get(2)));
                 Wait.seconds(5);//After submitting PC

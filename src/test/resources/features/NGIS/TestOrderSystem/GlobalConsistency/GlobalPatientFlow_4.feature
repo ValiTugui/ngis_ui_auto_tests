@@ -30,10 +30,10 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
     Then the user is navigated to a page with title Manage samples
     And the success notification is displayed "Sample updated"
     Then the user clicks the Save and Continue button
-
+##examples changed below a/c to Gonzalo release
     Examples:
       | Stage   | sampleType                | sampleState        | sampleType1            | sampleState1            |
-      | Samples | Normal or germline sample | Fetal blood (EDTA) | Abnormal tissue sample | FFPE sections on slides |
+      | Samples | Normal or germline sample | Fetal blood (EDTA) | Normal or germline sample | Amniotic fluid |
 
   @NTS-4621 @Z-LOGOUT
 #    @E2EUI-1191
@@ -45,8 +45,11 @@ Feature: GlobalConsistency:Global Patient Flow 4 - Common validations
     And the user types in invalid details of a patient in the NO fields
     And the user clicks the Search button
     And the user clicks the "<hyperlinkText>" link from the No Search Results page
-    When the user is navigated to a page with title Add a new patient to the database
-    Then the user sees the Save PatientDetails button highlighted with color as "<ButtonColor>"
+#    When the user is navigated to a page with title Add a new patient to the database
+#    Then the user sees the Save PatientDetails button highlighted with color as "<ButtonColor>"
+    ## Changed a/c to Gonzalo release
+    When the user is navigated to a page with title Create a record for this patient
+    Then the user sees the Create Record button highlighted with color as "<ButtonColor>"
 
     Examples:
       | hyperlinkText               | ButtonColor |

@@ -21,7 +21,7 @@ Feature: TestOrder - Global behaviors
       | /login.microsoftonline.com/ | Your account or password is incorrect. If you don't remember your password, |
 
   @NTS-5068 @Z-LOGOUT
-    #@E2EUI-1841 taken
+    #@E2EUI-1841
   Scenario Outline:NTS-5068:Verify Referral Id same as url
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
@@ -31,6 +31,10 @@ Feature: TestOrder - Global behaviors
     ##Requesting Organisation Page
     When the user navigates to the "<RequestingOrganisation>" stage
     Then the user is navigated to a page with title Add a requesting organisation
+    And the user enters the keyword "manchester" in the search field
+    And the user selects a random entity from the suggestions list
+    Then the details of the new organisation are displayed
+    And the user clicks the Save and Continue button
     Then the user should be able to see same referral id in the global banner and the url
     ##Test Package Page
     When the user navigates to the "<TestPackage>" stage
@@ -65,6 +69,7 @@ Feature: TestOrder - Global behaviors
     And the user navigates to the "<Pedigree>" stage
     And the user is navigated to a page with title Build a pedigree
     Then the user should be able to see same referral id in the global banner and the url
+    And the user clicks the Save and Continue button
     ##Print Forms Page
     And the user navigates to the "<PrintForms>" stage
     And the user is navigated to a page with title Print sample forms

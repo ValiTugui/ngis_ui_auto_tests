@@ -601,8 +601,14 @@ public class PatientChoicePage {
             submitPatientChoiceButton.click();
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from submitting Patient Choice...." + exp);
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(submitPatientChoiceButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception from submitting Patient Choice...." + exp);
+                SeleniumLib.takeAScreenShot("submitPatientChoice.jpg");
+                return false;
+            }
         }
     }
 
@@ -925,9 +931,13 @@ public class PatientChoicePage {
                     Click.element(driver, memberEditButton.get(i));
                 }
             }else{
-                Debugger.println("Could not locate the Patient choice for member at location: "+i);
-                SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
-                return false;
+                if (memberEditButton.size() > i) {
+                    Click.element(driver, memberEditButton.get(i));
+                }else {
+                    Debugger.println("Could not locate the Patient choice for member at location: " + i);
+                    SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {
@@ -939,7 +949,6 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("PatientChoiceEdit.jpg");
                 return false;
             }
-
         }
     }
 
@@ -1549,18 +1558,26 @@ public class PatientChoicePage {
     }
 
     public boolean fillTheDateOfSignatureInRecordedBy() {
+        String today[] = TestUtils.getCurrentDay();
         try {
             Wait.forElementToBeDisplayed(driver, uploadDay, 5);
-            String today[] = TestUtils.getCurrentDay();
             uploadDay.sendKeys(today[0]);
             uploadMonth.sendKeys(today[1]);
             uploadYear.sendKeys(today[2]);
             uploadDay.sendKeys(today[0]);//Purposefully entering again to ensure the continue button enabled
             return true;
         } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
-            SeleniumLib.takeAScreenShot("PCDateofSignatureFilling.jpg");
-            return false;
+            try{
+                seleniumLib.sendValue(uploadDay,today[0]);
+                seleniumLib.sendValue(uploadMonth,today[1]);
+                seleniumLib.sendValue(uploadYear,today[2]);
+                seleniumLib.sendValue(uploadDay,today[0]);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("PatientChoicePage: fillTheDateOfSignatureInRecordedBy: " + exp);
+                SeleniumLib.takeAScreenShot("PCDateofSignatureFilling.jpg");
+                return false;
+            }
         }
     }
 
