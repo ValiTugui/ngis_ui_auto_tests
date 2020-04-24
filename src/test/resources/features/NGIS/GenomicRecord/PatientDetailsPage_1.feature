@@ -14,8 +14,8 @@ Feature: GenomicRecord: Patient details page 1
     When the user click YES button for the question - Do you have the NHS no?
     When the user fills in all the fields with NHS number on the New Patient page
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
-    And the user clicks the - "Go back to patient search" - link
+    Then the patient is successfully created with a message "NGIS patient record created"
+    And the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
@@ -23,11 +23,12 @@ Feature: GenomicRecord: Patient details page 1
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type |
-      | Add a new patient to the database | Find your patient | NGIS                |
+      | Create a record for this patient | Find your patient | NGIS                |
 
 
   @NTS-3068 @Z-LOGOUT
@@ -37,7 +38,7 @@ Feature: GenomicRecord: Patient details page 1
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    And the user clicks the - "Go back to patient search" - link
+    And the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user clicks the NO button
@@ -46,11 +47,12 @@ Feature: GenomicRecord: Patient details page 1
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
       | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
+      | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
 
   @NTS-3068 @Z-LOGOUT
@@ -59,12 +61,12 @@ Feature: GenomicRecord: Patient details page 1
     Given a web browser is at create new patient page
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
-    When the user clicks the - "Go back to patient search" - link
+    When the user clicks the - "Back to patient search" - link
     Then the Patient Search page is displayed
 
     Examples:
       | pageTitle                         |
-      | Add a new patient to the database |
+      | Create a record for this patient |
 
 
   @NTS-3067 @Z-LOGOUT
@@ -76,7 +78,7 @@ Feature: GenomicRecord: Patient details page 1
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
-    And the Start New Referral button is disabled
+    And the Start Referral button is disabled
 
     Examples:
       | hyperlinkText               | reason_for_no_nhsNumber       |
@@ -109,7 +111,7 @@ Feature: GenomicRecord: Patient details page 1
 
     Examples:
       | pageTitle                         | maximumAllowedValues |
-      | Add a new patient to the database | 50                   |
+      | Create a record for this patient | 50                   |
 
   @NTS-3438 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
@@ -126,17 +128,19 @@ Feature: GenomicRecord: Patient details page 1
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
-    And the user clicks the Update NGIS record button
+    And the user clicks the Save and Continue button on Patient details page
     Then the patient is successfully updated with a message "<notification>"
 #   Navigate back to patient search, to search for the patient details and verify edited details
-    When the user clicks the - "Go back to patient search" - link
+    When the user clicks the - "Back to patient search" - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     When the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
 #    Navigate back to referral page
     And the user navigates back to patient existing referral page
@@ -146,7 +150,7 @@ Feature: GenomicRecord: Patient details page 1
 
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
-      | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Details saved |
+      | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
 
   @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
@@ -155,7 +159,7 @@ Feature: GenomicRecord: Patient details page 1
       | TO_PATIENT_NEW_URL | new-patient | GEL_NORMAL_USER |
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
-    And the user clicks the - "Go back to patient search" - link
+    And the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user clicks the NO button
@@ -164,6 +168,7 @@ Feature: GenomicRecord: Patient details page 1
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the patient detail page displays expected input-fields and drop-down fields
     And the mandatory input-fields and drops-downs labels are shown with mandatory asterisk star symbol
       | labelHeader     |
@@ -175,7 +180,7 @@ Feature: GenomicRecord: Patient details page 1
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
-      | Add a new patient to the database | Find your patient | NGIS                | Patient is a foreign national |
+      | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national |
 
 
   @NTS-3470 @Z-LOGOUT
@@ -186,7 +191,7 @@ Feature: GenomicRecord: Patient details page 1
     When the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
-    When the user clicks the - "Go back to patient search" - link
+    When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle>" page is displayed
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and gender
@@ -194,9 +199,10 @@ Feature: GenomicRecord: Patient details page 1
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
+    And the user clicks on edit patient details
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
-    And the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
+    And the user clicks the Save and Continue button on Patient details page
+    Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
       | hyperlinkText               | pageTitle         | reason_for_no_nhsNumber     | patient-search-type | gender | lifeStatus | ethnicity                              |

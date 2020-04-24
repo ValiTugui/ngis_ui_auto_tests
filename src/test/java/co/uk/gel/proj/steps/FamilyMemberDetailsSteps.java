@@ -137,8 +137,6 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks the Add new patient to referral button")
     public void theUserClicksTheAddNewPatientToReferralButton() {
-       // familyMemberNewPatientPage.clickOnAddNewPatientToReferral();
-
         boolean testResult = false;
         testResult = familyMemberNewPatientPage.clickOnCreateNGISRecord();
         Assert.assertTrue(testResult);

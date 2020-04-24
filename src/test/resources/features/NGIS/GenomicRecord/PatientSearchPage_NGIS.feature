@@ -16,8 +16,8 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
-    When the user clicks the - "Go back to patient search" - link
+    Then the patient is successfully created with a message "NGIS patient record created"
+    When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
@@ -27,7 +27,7 @@ Feature: GenomicRecord: Patient search page_NGIS
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-search-type | patient-type |
-      | Add a new patient to the database | Find your patient | NGIS                | NGIS         |
+      | Create a record for this patient | Find your patient | NGIS                | NGIS         |
 
 
   @NTS-3068 @Z-LOGOUT
@@ -41,8 +41,8 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
-    When the user clicks the - "Go back to patient search" - link
+    Then the patient is successfully created with a message "NGIS patient record created"
+    When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
@@ -53,7 +53,7 @@ Feature: GenomicRecord: Patient search page_NGIS
 
     Examples:
       | pageTitle                         | pageTitle2        | patient-type |
-      | Add a new patient to the database | Find your patient | NGIS         |
+      | Create a record for this patient | Find your patient | NGIS         |
 
   @NTS-2796 @Z-LOGOUT
 #    @E2EUI-1472 @E2EUI-2137
@@ -66,8 +66,8 @@ Feature: GenomicRecord: Patient search page_NGIS
     Then the NHS number field is displayed
     When the user fills in all the fields with NHS number on the New Patient page
     When the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
-    When the user clicks the - "Go back to patient search" - link
+    Then the patient is successfully created with a message "NGIS patient record created"
+    When the user clicks the - "Back to patient search" - link
     Then the "<pageTitle2>" page is displayed
     And the YES button is selected by default on patient search
     And the user types in the details of the NGIS patient in the NHS number and DOB fields
@@ -76,7 +76,7 @@ Feature: GenomicRecord: Patient search page_NGIS
 
     Examples:
       | pageTitle                         | pageTitle2        | result_message         |
-      | Add a new patient to the database | Find your patient | 1 patient record found |
+      | Create a record for this patient | Find your patient | 1 patient record found |
 
 
   @NTS-2795 @Z-LOGOUT
@@ -156,7 +156,7 @@ Feature: GenomicRecord: Patient search page_NGIS
     And the user clicks the Search button
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Patient record
     And the user should verify the role and relationship of patient on referral card
 
     Examples:

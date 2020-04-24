@@ -480,6 +480,11 @@ public class FamilyMemberDetailsPage {
         String parValue = paramNameValue.get("DiseaseStatus");
         if (parValue != null && !parValue.isEmpty()) {
             try {
+                if(!Wait.isElementDisplayed(driver,diseaseStatusDropdown,60)){
+                    Debugger.println("diseaseStatusDropdown not loaded...");
+                    SeleniumLib.takeAScreenShot("diseaseStatusDropdown.jpg");
+                    return false;
+                }
                 Click.element(driver, diseaseStatusDropdown);
                 Wait.seconds(3);//Explicitly waiting here as below element is dynamically created
                 Click.element(driver, dropdownValue.findElement(By.xpath("//span[text()='" + parValue + "']")));
@@ -841,7 +846,11 @@ public class FamilyMemberDetailsPage {
                 SeleniumLib.takeAScreenShot("DeSelectTest.jpg");
                 return false;
             }
-            Actions.clickElement(driver,selectedTest);
+            try {
+                Actions.clickElement(driver, selectedTest);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(selectedTest);
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in deSelectTheTest:" + exp);
@@ -925,12 +934,24 @@ public class FamilyMemberDetailsPage {
 
     public boolean verifyTheDeleteMessage(String deleteMessage) {
         try {
-            Actions.scrollToTop(driver);
-            Wait.forElementToBeDisplayed(driver, successDeletionMessageOfFamilyMember);
-            Assert.assertEquals(deleteMessage, successDeletionMessageOfFamilyMember.getText());
+            if(!Wait.isElementDisplayed(driver,successDeletionMessageOfFamilyMember,10)){
+                Actions.scrollToTop(driver);
+            }
+            String actualMessage = "";
+            try{
+                actualMessage = successDeletionMessageOfFamilyMember.getText();
+            }catch(Exception exp1){
+                actualMessage  =seleniumLib.getText(successDeletionMessageOfFamilyMember);
+            }
+            if(!actualMessage.equalsIgnoreCase(deleteMessage)){
+                Debugger.println("Expected Message:"+deleteMessage+",But Actual:"+actualMessage);
+                SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from verifying the Family Member Removal Message: " + exp);
+            SeleniumLib.takeAScreenShot("FMDeleteMessage.jpg");
             return false;
         }
     }

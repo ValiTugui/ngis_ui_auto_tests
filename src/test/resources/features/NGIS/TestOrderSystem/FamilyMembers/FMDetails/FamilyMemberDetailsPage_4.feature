@@ -34,9 +34,14 @@ Feature: Family Members Details Page 4- Field Validation_4
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     And the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user clicks the Save and Continue button
     Then The user should not see the rare disease diagnoses "<AgeOfOnset>" field
@@ -60,15 +65,15 @@ Feature: Family Members Details Page 4- Field Validation_4
     And the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     Then the message "No patient found" is displayed below the search button
-    Then the user clicks on the create new patient record
-    And the user is navigated to a page with title Add a new patient to the database
+    And the user clicks on the hyper link
+    Then the user is navigated to a page with title Create a record for this family member
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
     When the user fills in all the fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks on RelationshipToProband drop down and sees the values of the drop down"<RelationshipToProband>" with recently used suggestion values
     Then the user clicks the Add new patient to referral button
     Examples:
-      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |
-      | Family members | Patient is a foreign national | Father                |
+      | FamilyMember   | reason_for_no_nhsNumber       | RelationshipToProband |FamilyMemberDetails|
+      | Family members | Patient is a foreign national | Father                | NHSNumber=9449305327:DOB=14-02-2012                  |
 
 
   @NTS-4053 @Z-LOGOUT
@@ -113,9 +118,13 @@ Feature: Family Members Details Page 4- Field Validation_4
     And the user search the family member with the specified details "<FamilyMemberDetails>"
     Then the patient card displays with Born,Gender and NHS No details
     When the user clicks on the patient card
-    Then the user is navigated to a page with title Confirm family member details
+    Then the user is navigated to a page with title Add missing family member details
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
     When the user selects the Relationship to proband as "<RelationshipToProband>" for family member "<FamilyMemberDetails>"
-    And  the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the Test package page has Targeted genes section with the "<TargetedGenes>"

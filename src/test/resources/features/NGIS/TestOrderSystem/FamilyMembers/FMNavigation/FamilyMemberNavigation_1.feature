@@ -54,9 +54,12 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
@@ -65,4 +68,3 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
     Examples:
       | FamilyMembers  | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           |
       | Family members | NHSNumber=NA:DOB=25-12-2000:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested |
-

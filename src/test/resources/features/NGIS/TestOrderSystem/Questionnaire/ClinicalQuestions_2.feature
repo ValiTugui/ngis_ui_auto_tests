@@ -24,9 +24,9 @@ Feature: ClinicalQuestions 2 - RD Questionnaire
       | 1000 | 0     | Patient age cannot exceed 125 years               |
       | 24   | -1    | Only prenatal cases can have a negative number    |
       | 0    | -10   | Patient cannot be younger than -9 months          |
-     Examples:
-       | stage              | title                     | diseaseStatueValue |
-       | Clinical questions | Answer clinical questions | Affected           |
+    Examples:
+      | stage              | title                     | diseaseStatueValue |
+      | Clinical questions | Answer clinical questions | Affected           |
 
   @NTS-3246 @Z-LOGOUT
 #    @E2EUI-1531

@@ -149,9 +149,16 @@ public class HomePage {
 
     }
 
-    public void TestDirectoryHomePageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "/clinical-tests");
-        Wait.forElementToBeDisplayed(driver, searchField);
+    public boolean TestDirectoryHomePageIsDisplayed() {
+        try {
+            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+            Wait.forElementToBeDisplayed(driver, searchField);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from TestDirectoryHomePageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("TestDirectoryHomePageIsDisplayed.jpg");
+            return false;
+        }
     }
 
     public long rareAndInheritedDiseasesSearchResult() {

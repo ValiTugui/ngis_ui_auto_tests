@@ -17,6 +17,8 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     When the user deselects the test
@@ -45,6 +47,8 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     When the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user should see an error message displayed as "One participant was quoted for this test" in "<color>" color
@@ -61,6 +65,8 @@ Feature: Family Members Navigation Stage 5 - Patient Identifiers
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     When the user search the family member with the specified details "<FamilyMemberDetails2>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user should be able to see test package for family member "<FamilyMemberDetails>" is selected by default
     And the user should see a warning message displayed as "Four participants were quoted for this test" in "<color2>" color

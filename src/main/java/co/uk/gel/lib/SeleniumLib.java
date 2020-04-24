@@ -474,6 +474,25 @@ public class SeleniumLib {
             return strtext;
         }
     }
+    public String getText(WebElement element) {
+        try {
+
+            elementHighlight(element);
+            strtext = element.getText();
+            return "" + strtext;
+
+        } catch (Exception ex) {
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+            try {
+                elementHighlight(element);
+                strtext = element.getText();
+            } catch (Exception exp1) {
+                return "";
+            }
+            return strtext;
+        }
+    }
 
     /**
      * @param i

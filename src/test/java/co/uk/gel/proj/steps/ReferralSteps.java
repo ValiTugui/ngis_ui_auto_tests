@@ -622,6 +622,10 @@ public class ReferralSteps extends Pages {
     @Then("the submission confirmation message {string} is displayed")
     public void theSubmissionConfirmationMessageIsDisplayed(String expectedMessage) {
         String actualMessage = referralPage.getSubmissionConfirmationMessageIsDisplayed();
+        //Debugger.println("SUBMISSION REFERRAL: "+driver.getCurrentUrl());
+        if(actualMessage == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertTrue(actualMessage.contains(expectedMessage));
     }
 

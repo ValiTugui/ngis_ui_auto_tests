@@ -209,6 +209,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
 #    @E2EUI-1260 @E2EUI-1259
   Scenario Outline: NTS-3328: Search for a family member record with NHS selected No and provided a valid Postcode and all other mandatory fields left blank
     And the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
     When the user clicks on Add family member button
     And the user clicks the NO button in family member search page
     And the user search the family member with the specified details "<SearchDetails>"
@@ -236,6 +237,7 @@ Feature: TestOrder - Family Members Search Page 2 - Field Validation_2
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
     Then the user is navigated to a page with title Check your patient's details
     When the user navigates to the "<stage>" stage
+    Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the default family member search page is correctly displayed with the NHS number and Date of Birth fields

@@ -2,6 +2,7 @@ package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
 import co.uk.gel.lib.Actions;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.TestDataProvider.NewPatient;
 import co.uk.gel.proj.config.AppConfig;
@@ -47,11 +48,18 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
-        patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink);
-        patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
-        patientDetailsPage.newPatientPageIsDisplayed();
-        patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason);
-        ///patientDetailsPage.clickSavePatientDetailsToNGISButton();
+        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink)){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.newPatientPageIsDisplayed()){
+            Assert.assertTrue(false);
+        }
+        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason)){
+            Assert.assertTrue(false);
+        }
         if(!patientDetailsPage.clickOnCreateRecord()){
             Assert.assertTrue(false);
         }
@@ -89,7 +97,9 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the clinical indication ID missing banner is displayed")
     public void theClinicalIndicationIDMissingBannerIsDisplayed() {
-        patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clinicalIndicationIDMissingBannerIsDisplayed();
+        Assert.assertTrue(testResult);
     }
 
     @And("the Start Referral button is disabled")
@@ -105,8 +115,9 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the - {string} - link")
     public void theUserClicksTheLink(String goBackToPatientSearch) {
-        patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
-        Wait.seconds(1);
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickTheGoBackLink(goBackToPatientSearch);
+        Assert.assertTrue(testResult);
     }
 
     @Given("a web browser is at the Patient Details page of a {string} patient with NHS number {string} and Date of Birth {string} without clinical indication test selected")
@@ -122,17 +133,22 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the {string} link on the notification banner")
     public void theUserClicksTheLinkOnTheNotificationBanner(String linkOnNotification) {
-        boolean testDirectoryLinkClickAble;
-        testDirectoryLinkClickAble = patientDetailsPage.clickTheLinkOnNotificationBanner(linkOnNotification);
-        Assert.assertTrue(testDirectoryLinkClickAble);
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickTheLinkOnNotificationBanner();
+        Assert.assertTrue(testResult);
     }
 
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")
     public void aWebBrowserIsLoggedInAsAUserAtThePatientDetailsPageOfAWithValidDetailsOfNHSNumberAndDOB(String userType, String patientType) throws IOException {
-        patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType);
-        patientSearchPage.clickSearchButtonByXpath();
-        // Assert.assertEquals(patientType, patientSearchPage.checkThatPatientCardIsDisplayed(driver));  // Spine test data converted to NGIS causing test to fail
-        patientSearchPage.clickPatientCard();
+        if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType)){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickSearchButtonByXpath()){
+            Assert.assertTrue(false);
+        }
+        if(!patientSearchPage.clickPatientCard()){
+            Assert.assertTrue(false);
+        }
     }
 
     @Then("^the NHS number field is disabled$")
@@ -172,9 +188,11 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the new patient page displays expected input-fields and a {string} submit button")
     public void theNewPatientPageDisplaysExpectedInputFieldsAndASubmitButton(String labelOnSubmitButton) {
-        Assert.assertTrue("All expected fields are not displayed on new patient page", patientDetailsPage.verifyTheElementsOnAddNewPatientPageNormalUserFlow());
-        Debugger.println("Actual referral submit button: " + labelOnSubmitButton + " : " + "Expected referral submit button " + patientDetailsPage.savePatientDetailsToNGISButton.getText());
-        Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
+        if(labelOnSubmitButton.equalsIgnoreCase("Create record")){
+            Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.createRecord.getText());
+        }else {
+            Assert.assertEquals(labelOnSubmitButton, patientDetailsPage.savePatientDetailsToNGISButton.getText());
+        }
     }
 
     @And("the user click on the referral card on patient details page to navigate to referral page")
@@ -214,7 +232,15 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the user clicks the Update NGIS record button")
     public void theUserClicksTheUpdateNGISRecordButton() {
-        patientDetailsPage.clickUpdateNGISRecordButton();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickUpdateNGISRecordButton();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user clicks the Save and Continue button on Patient details page")
+    public void theUserClicksSaveAndContinue() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickOnSaveAndContinueButton();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the patient is successfully updated with a message {string}")
@@ -222,6 +248,9 @@ public class PatientDetailsSteps extends Pages {
         String actualNotification = patientDetailsPage.getNotificationMessageForPatientCreatedOrUpdated();
         Debugger.println("Expected notification : " + expectedNotification);
         Debugger.println(("Actual notification " + actualNotification));
+        if(actualNotification == null){
+            Assert.assertTrue(false);
+        }
         Assert.assertEquals(expectedNotification, actualNotification);
     }
 
@@ -306,7 +335,9 @@ public class PatientDetailsSteps extends Pages {
     @And("the user clicks the Save patient details to NGIS button")
     public void theUserClicksTheSavePatientDetailsToNGISButton() {
         //patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        patientDetailsPage.clickOnCreateRecord();
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickOnCreateRecord();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the patient is successfully created with a message {string}")
@@ -323,27 +354,24 @@ public class PatientDetailsSteps extends Pages {
 
     @Then("the error messages for the mandatory fields on the {string} page are displayed as follows")
     public void theErrorMessagesForTheMandatoryFieldsOnThePageAreDisplayedAsFollows(String titlePage, DataTable dataTable) {
+
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<List<String>> expectedLabelsAndErrorMessagesList = dataTable.asLists(String.class);
         List actualFieldsLabels = referralPage.getTheFieldsLabelsOnCurrentPage();
         List actualFieldErrorMessages = referralPage.getTheListOfFieldsErrorMessagesOnCurrentPage();
-        List actualColourFieldErrorMessages = referralPage.getColourOfTheFieldsErrorMessagesOnCurrentPage();
-        String expectedFontColorInRGB = "";
 
         for (int i = 1; i < expectedLabelsAndErrorMessagesList.size(); i++) { //i starts from 1 because i=0 represents the header
-            Debugger.println("Expected labelHeader " + expectedLabelsAndErrorMessagesList.get(i).get(0) + " count: " + i);
-            Debugger.println("Actual labelHeader " + actualFieldsLabels.get(i - 1) + "\n");
-            Assert.assertTrue(actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0)));
+            if(!actualFieldsLabels.contains(expectedLabelsAndErrorMessagesList.get(i).get(0))) {
+                Debugger.println("Expected Header:"+ expectedLabelsAndErrorMessagesList.get(i).get(0));
+                Debugger.println("ActualHeader:" + actualFieldsLabels);
+                Assert.assertTrue(false);
+            }
+            if(!actualFieldErrorMessages.contains(expectedLabelsAndErrorMessagesList.get(i).get(1))){
+                Debugger.println("Expected ErrorMessage:" + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
+                Debugger.println("Actual ErrorMessage:" + actualFieldErrorMessages);
+                Assert.assertTrue(false);
+            }
 
-            Debugger.println("Expected ErrorMessage Header " + expectedLabelsAndErrorMessagesList.get(i).get(1) + " count: " + i);
-            Debugger.println("Actual ErrorMessage Header " + actualFieldErrorMessages.get(i - 1) + "\n");
-            Assert.assertEquals(expectedLabelsAndErrorMessagesList.get(i).get(1), actualFieldErrorMessages.get(i - 1));
-
-            Debugger.println("Expected ErrorMessage Colour " + expectedLabelsAndErrorMessagesList.get(i).get(2) + " count: " + i);
-            expectedFontColorInRGB = StylesUtils.convertFontColourStringToCSSProperty(expectedLabelsAndErrorMessagesList.get(i).get(2));
-            Debugger.println("Expected ErrorMessage Colour RGB " + expectedFontColorInRGB);
-            Debugger.println("Actual ErrorMessage Colour RGB " + actualColourFieldErrorMessages.get(i - 1) + "\n");
-            Assert.assertEquals(expectedFontColorInRGB, actualColourFieldErrorMessages.get(i - 1));
         }
     }
 
@@ -356,11 +384,15 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the sub-heading title is displayed {string}")
     public void theSubHeadingTitleIsDisplayed(String expectedSubHeading) {
-        String actualSubHeading = Objects.requireNonNull(Actions.getText(patientDetailsPage.subPageTitle)).trim();
-        expectedSubHeading = expectedSubHeading.trim();
-        Debugger.println("Expected Patient Details sub-heading : " + expectedSubHeading);
-        Debugger.println("Actual Patient Details sub-heading : " + actualSubHeading);
-        Assert.assertEquals(expectedSubHeading, actualSubHeading);
+        String actualSubHeading = patientDetailsPage.getPageSubTitle();
+        if(actualSubHeading == null){
+            Assert.assertTrue("Subheading not displayed.",false);
+        }
+        if(!actualSubHeading.trim().contains(expectedSubHeading)){
+            Debugger.println("ActualSubHeading\n"+actualSubHeading+"\nExpected\n"+expectedSubHeading+"\n");
+            Debugger.println("LEN:"+actualSubHeading.length()+":Expected:"+expectedSubHeading.length()+":");
+            Assert.assertTrue(false);
+        }
     }
 
     @Then("the user fills in all fields without NHS number, enters a reason for noNhsNumber {string} and leaves HospitalNo field blank")
@@ -408,10 +440,11 @@ public class PatientDetailsSteps extends Pages {
 
     @And("the message displayed on the notification banner is {string}")
     public void theMessageDisplayedOnTheNotificationBannerIs(String expectedTextOnBanner) {
-        String actualTextOnBanner = Actions.getText(patientDetailsPage.textOnPatientDetailsNotificationBanner);
-        Debugger.println("Expected Text on Banner : " + expectedTextOnBanner);
-        Debugger.println("Actual Text on Banner : " + actualTextOnBanner);
-        Assert.assertEquals(expectedTextOnBanner, actualTextOnBanner);
+        String actualSubHeading = patientDetailsPage.getNotificationBannerText();
+        if(!actualSubHeading.equalsIgnoreCase(expectedTextOnBanner)){
+            Debugger.println("ActualSubHeading:"+actualSubHeading+":Expected:"+expectedTextOnBanner+":");
+            Assert.assertTrue(false);
+        }
     }
 
     @Given("a web browser is at create new patient page")

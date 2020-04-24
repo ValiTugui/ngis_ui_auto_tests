@@ -104,12 +104,13 @@ public class PatientSearchSteps extends Pages {
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
         boolean testResult = false;
         String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
-        if(actualBadge != null){
-            Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed());
-        }else{
+        if(actualBadge == null) {
             Assert.assertTrue(testResult);
         }
-
+        if(actualBadge.equalsIgnoreCase(badgeText)) {
+            testResult = true;
+        }
+        Assert.assertTrue(testResult);
     }
 
 
@@ -269,7 +270,9 @@ public class PatientSearchSteps extends Pages {
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
-        patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        Assert.assertTrue(testResult);
     }
 
 
@@ -455,7 +458,6 @@ public class PatientSearchSteps extends Pages {
                 String actualNHSNumber = patientDetailsPage.nhsNumber.getAttribute("value");
                 String expectedDOB = SpinePatientOne.DAY_OF_BIRTH + "/" + SpinePatientOne.MONTH_OF_BIRTH + "/" + SpinePatientOne.YEAR_OF_BIRTH;
 
-
                 Debugger.println("Expected Prefix = " + SpinePatientOne.TITLE + ", Actual Prefix : " + actualPrefix);
                 Debugger.println("Expected FirstName = " + SpinePatientOne.FIRST_NAME + ", Actual FirstName: " + actualFirstName);
                 Debugger.println("Expected LastName = " + SpinePatientOne.LAST_NAME + ", Actual LastName: " + actualLastName);
@@ -575,8 +577,9 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user search for the new patient using date of birth, first name, last name and gender")
     public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndGender() {
-        //patientDetailsPage.fillInNewPatientDetailsInTheNoFields();
-        patientSearchPage.fillInNewPatientDetailsInTheNoFields();
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInNewPatientDetailsInTheNoFields();
+        Assert.assertTrue(testResult);
     }
 
 

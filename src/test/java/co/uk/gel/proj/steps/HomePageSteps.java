@@ -55,7 +55,10 @@ public class HomePageSteps extends Pages {
 
     @Then("the Test Directory homepage is displayed")
     public void theTestDirectoryHomepageIsDisplayed() {
-        homePage.TestDirectoryHomePageIsDisplayed();
+        boolean testResult = false;
+        testResult = homePage.TestDirectoryHomePageIsDisplayed();
+        Assert.assertTrue(testResult);
+
     }
 
     @Then("^the search results have been displayed$")

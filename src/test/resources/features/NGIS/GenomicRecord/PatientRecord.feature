@@ -33,8 +33,7 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the clinical indication ID missing banner is displayed
-    And the message displayed on the notification banner is "You need to add a Clinical Indication from the Test Directory before you can start a new referral."
-    And the Start New Referral button is disabled
+    And the message displayed on the notification banner is "You must add a Clinical Indication from the Test Directory to start a new referral"
     When the user clicks the "Test Directory" link on the notification banner
     Then the Test Directory homepage is displayed
     #    User is navigated back to test-directory to search and select  Ci for the patient and start a referral
@@ -47,14 +46,12 @@ Feature: GenomicRecord: Patient Record
     Then a "<patient-search-type>" result is successfully returned
     And the user clicks the patient result card
     Then the Patient Details page is displayed
-    When the user clicks the Update NGIS record button
-    Then the patient is successfully updated with a message "Details saved"
-    And the user clicks the Start Referral button
+    When the user clicks the Start Referral button
     And the referral page is displayed
 
     Examples:
       | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
-      | Add a new patient to the database | Find your patient | Other - provide explanation | NGIS                |
+      | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
   @NTS-3516 @Z-LOGOUT
 #    @E2EUI-1056
@@ -92,7 +89,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | lifeStatus |
-      | Add a new patient to the database | Deceased   |
+      | Create a record for this patient | Deceased   |
 
 
   @NTS-3517 @Z-LOGOUT
@@ -132,7 +129,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle                         | InvalidDateOfBirth |
-      | Add a new patient to the database | Jan012020          |
+      | Create a record for this patient | Jan012020          |
 
 # Ethnicity is now Mandatory
   @NTS-4500 @Z-LOGOUT
@@ -143,19 +140,12 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     And the No button is selected by default for the question - Do you have the NHS Number?
     When the user click YES button for the question - Do you have the NHS no?
-    When the user fills in all the fields with NHS number on the New Patient page
+    And the user fills in all the fields with NHS number on the New Patient page
     When the user deletes the content of the Ethnicity field
-    And the user clicks the Save patient details to NGIS button
-    Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader | errorMessageHeader     | messageColourHeader |
-      | Ethnicity ✱ | Ethnicity is required. | #dd2509             |
-    When the user fills in the Ethnicity field "B - White - Irish"
-    And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
 
     Examples:
       | pageTitle                         |
-      | Add a new patient to the database |
+      | Create a record for this patient |
 
 
   @NTS-4541 @Z-LOGOUT
@@ -166,11 +156,11 @@ Feature: GenomicRecord: Patient Record
     Then the "<pageTitle>" page is displayed
     When the user fills in all the mandatory fields without NHS number and enter a reason for noNhsNumber "<reason_for_no_nhsNumber>"
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+    Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     |
-      | Add a new patient to the database | Other - provide explanation |
+      | Create a record for this patient | Other - provide explanation |
 
 
   @NTS-4745 @Z-LOGOUT
@@ -200,7 +190,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-4745 @Z-LOGOUT
 #    @E2EUI-821
@@ -230,7 +220,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient |
 
 
   @NTS-4754 @Z-LOGOUT
@@ -260,7 +250,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
 
   @NTS-4754 @Z-LOGOUT
@@ -292,7 +282,7 @@ Feature: GenomicRecord: Patient Record
 
     Examples:
       | pageTitle         | searchDetails                                                            | message          | hyperlinkText               | pageTitle2                        | gender  |
-      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Add a new patient to the database | Unknown |
+      | Find your patient | DOB=12-03-2019:FirstName=NELLY:LastName=StaMbukdelifschitZ:Gender=Female | No patient found | create a new patient record | Create a record for this patient | Unknown |
 
 
   @NTS-4760 @Z-LOGOUT
@@ -311,8 +301,8 @@ Feature: GenomicRecord: Patient Record
     Then the user sees a prompt alert "<partOfMessage1>" after clicking "<browser_exit2>" button and "<acknowledgeMessage>" it
     And the web browser is still at the same "<partialCurrentUrl1>" page
     And the user clicks the Save patient details to NGIS button
-    Then the patient is successfully created with a message "Details saved"
+    Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
       | pageTitle                         | reason_for_no_nhsNumber     | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Add a new patient to the database | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |
+      | Create a record for this patient | Other - provide explanation | refresh       | may not be saved. | Dismiss            | new-patient        | logout        |

@@ -96,14 +96,15 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     And the user clicks on Add family member button
     Then the user is navigated to a page with title Find a family member
     And the user search the family member with the specified details "<FamilyMemberDetails>"
-#    Then the user is navigated to a page with title Continue with this family member
-#    When the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user clicks on the Back link
-    Then the user is navigated to a page with title Confirm family member details
-#    Then the user is navigated to a page with title Continue with this family member
-#    When the user clicks on edit patient details
-#    Then the user is navigated to a page with title Edit patient details
+#    Then the user is navigated to a page with title Confirm family member details
+#  ## commented the above step and uncommented the below ones to match a/c to Gonzalo release
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks on edit patient details
+    Then the user is navigated to a page with title Edit patient details
 
     And the user fill in the last name field
     ##Navigating By Logout
@@ -117,9 +118,9 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user sees a prompt alert "<warningMessage>" after clicking "refresh" button and "<acknowledgeMessage>" it
     And the user clicks the Save and Continue button
     ##Family Members Test Package Page
-#    Then the user is navigated to a page with title Continue with this family member
-#    When the user clicks the Save and Continue button
-#
+    Then the user is navigated to a page with title Continue with this family member
+    When the user clicks the Save and Continue button
+
     Then the user is navigated to a page with title Select tests for
     And the user selects the test by clicking the deselected test
     ##Navigating By Logout
