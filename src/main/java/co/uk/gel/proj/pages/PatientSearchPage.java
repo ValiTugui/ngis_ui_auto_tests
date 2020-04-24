@@ -127,6 +127,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//button[contains(@class,'button--search')]")   //@FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButtonByXpath;
 
+
     @FindBy(xpath = "//a[contains(@class,'patient-card')]")
     public WebElement patientCard;
 

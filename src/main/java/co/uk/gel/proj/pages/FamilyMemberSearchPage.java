@@ -421,8 +421,6 @@ public class FamilyMemberSearchPage {
             if(!Wait.isElementDisplayed(driver,createNewPatientLink,10)){
                 Debugger.println("createNewPatientLink not displayed");
                 SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
-                Actions.scrollToBottom(driver);
-                SeleniumLib.takeAScreenShot("clickOnNewPatientLink1.jpg");
                 return false;
             }
             Actions.clickElement(driver,createNewPatientLink);

@@ -13,7 +13,6 @@ import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
 import com.github.javafaker.Faker;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -94,7 +93,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//label[contains(@for,'administrativeGender')]//following::div")
     public WebElement administrativeGenderButton;
 
-    @FindBy(css = "*[data-testid*='notification-warning']")
+    @FindBy(css = "*[data-testid*='notification-warning']")     //@FindBy(css = "*[class*='notification--warning']")
     public WebElement patientDetailsnotificationBanner;
 
     @FindBy(xpath = "//div[contains(@data-testid,'notification-warning')]//a")
@@ -235,6 +234,7 @@ public class PatientDetailsPage {
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
+        //Wait.forElementToBeDisplayed(driver, startReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in patientDetailsPageIsDisplayed:" + exp);
@@ -966,13 +966,22 @@ public class PatientDetailsPage {
 
     public boolean clickUpdateNGISRecordButton() {
         try {
-            Wait.forElementToBeClickable(driver, updateNGISRecordButton);
-            Click.element(driver, updateNGISRecordButton);
+            if(!Wait.isElementDisplayed(driver, updateNGISRecordButton,30)){
+                Actions.scrollToBottom(driver);
+                SeleniumLib.takeAScreenShot("updateNGISRecordButton.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, updateNGISRecordButton);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:" + exp);
-            SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(updateNGISRecordButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:" + exp);
+                SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
+                return false;
+            }
         }
     }
 

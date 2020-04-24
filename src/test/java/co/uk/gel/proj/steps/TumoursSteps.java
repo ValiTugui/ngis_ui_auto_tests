@@ -170,10 +170,8 @@ public class TumoursSteps extends Pages {
         Assert.assertTrue(tumoursPage.newTumourIsDisplayedInLandingPage(1));
     }
 
-
     @Then("the new tumour is displayed in the landing page for the existing patient with tumour list")
     public void theNewTumourIsDisplayedInTheLandingPageForTheExistingPatientWithTumourList() {
-
         int numberOfTumours = tumoursPage.getTheNumbersOfTumoursDisplayedInLandingPage();
         //Debugger.println("Number of Tumour(s) :" + numberOfTumours);
         Assert.assertTrue("Numbers of Tumours displayed should 1 or great than 1", numberOfTumours > 0);

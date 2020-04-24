@@ -201,7 +201,7 @@ Feature: GenomicRecord: Patient details page 1
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
-    And the user clicks the Update NGIS record button
+    And the user clicks the Save and Continue button on Patient details page
     Then the patient is successfully updated with a message "Patient details updated"
 
     Examples:
