@@ -312,10 +312,11 @@ public class ReferralPage<check> {
                 Debugger.println("Save and Continue not visible even after 60 minutes.");
                 return false;
             }
-            //Wait.forElementToBeClickable(driver, saveAndContinueButton);
-            Actions.clickElement(driver, saveAndContinueButton);
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted
-            // Click.element(driver, saveAndContinueButton)
+            try {
+                Actions.clickElement(driver, saveAndContinueButton);
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(saveAndContinueButton);
+            }
             Wait.seconds(5);
             //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
             if (Wait.isElementDisplayed(driver, tryAgain, 5)) {

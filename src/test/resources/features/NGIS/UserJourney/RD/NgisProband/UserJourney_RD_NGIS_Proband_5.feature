@@ -61,7 +61,6 @@ Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
-    Then the "<Panels>" stage is marked as Completed
     ##Pedigree
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
