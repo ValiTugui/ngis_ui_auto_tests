@@ -20,9 +20,11 @@ import java.util.Random;
 public class PaperFormPage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public PaperFormPage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -151,16 +153,15 @@ public class PaperFormPage {
             Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception from Selecting Requesting Organization: "+exp);
-//            //Added below snippet as observed IllegalArgumentException sometimes, just an alternative to proceed with first selection
-//            int num =  orderEntitySearchSuggestionsList.size();
-//            if(num != 0){
-//                Debugger.println("Proceeding with First Organisation.");
-//                Actions.clickElement(driver,orderEntitySearchSuggestionsList.get(0));
-//                return true;
-//            }
-            SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
-            return false;
+            try{
+              By firstElement = By.xpath("//div[contains(@class,'suggestions')]//ul/li[1]");
+              seleniumLib.clickOnElement(firstElement);
+              return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Selecting Requesting Organization: " + exp);
+                SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+                return false;
+            }
         }
     }
 

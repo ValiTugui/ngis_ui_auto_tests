@@ -122,7 +122,7 @@ public class ReferralPage<check> {
     @FindBy(css = "*[data-testid*='notification-success']")
     public WebElement genericSuccessNotification;
 
-    @FindBy(css = "*[class*='helix']")
+    @FindBy(css = "*[data-testid*='helix']")
     public List<WebElement> helix;
     //Family Member Search
     @FindBy(xpath = "//button[contains(text(),'Add family member')]")
@@ -184,7 +184,7 @@ public class ReferralPage<check> {
     public WebElement familyMemberGender;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
-    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
+    @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
@@ -271,6 +271,7 @@ public class ReferralPage<check> {
 
     @FindBy(xpath = "//button[contains(text(),'Try again')]")
     public WebElement tryAgain;
+
     @FindBy(xpath = "//div[contains(@class,'referral__main')]//h1")
     List<WebElement> titleElements;
 
@@ -679,6 +680,7 @@ public class ReferralPage<check> {
                 }
             Debugger.println("CONTINUING...............TITLE."+titleElements.size());
             String actualPageTitle = getTheCurrentPageTitle();
+            Debugger.println("TITLE...:"+actualPageTitle);
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
                 return true;
             }
@@ -700,17 +702,17 @@ public class ReferralPage<check> {
             WebElement titleElement = null;
             try {
                 Wait.seconds(2);
+                Debugger.println("Trying with Path...:"+pageTitle);
                 titleElement = driver.findElement(pageTitle);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
                     return true;
                 }
-            } catch (NoSuchElementException exp) {
+            } catch (Exception exp) {
                 //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
                 //So clicking on save abd continue and trying again.
                 clickSaveAndContinueButton();
-                Wait.seconds(1);
-                actualPageTitle = getTheCurrentPageTitle();
-                if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
+                Wait.seconds(2);
+                if (Wait.isElementDisplayed(driver, titleElement, 5)) {
                     return true;
                 }
                 Actions.scrollToTop(driver);
@@ -1024,6 +1026,7 @@ public class ReferralPage<check> {
 
     public boolean verifyGlobalPatientInformationBar(NGISPatientModel familyMember) {
         try {
+            Debugger.println("URL Here:"+driver.getCurrentUrl());
             //Verify  First name and last name
             if (!Wait.isElementDisplayed(driver, familyMemberNames, 10)) {
                 Debugger.println("Global Patient Card not displayed with Patient names..");

@@ -1,10 +1,10 @@
 @03-TEST_ORDER
 @SYSTEM_TEST
-Feature: TestOrder - Global behaviors
+Feature: TestOrder - Global Consistency
 
-  @NTS-5069 @Z-LOGOUT
+  @NTS-5069
     #@E2EUI-875
-  Scenario Outline: NTS-5069: Microsoft Login / Authentication
+  Scenario Outline: NTS-5069:E2EUI-875: Microsoft Login / Authentication
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-07-2000:Gender=Male |
     When the user is navigated to a page with title Check your patient's details
@@ -22,7 +22,7 @@ Feature: TestOrder - Global behaviors
 
   @NTS-5068 @Z-LOGOUT
     #@E2EUI-1841
-  Scenario Outline:NTS-5068:Verify Referral Id same as url
+  Scenario Outline:NTS-5068:E2EUI-1841:Verify Referral Id same as url
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
@@ -80,5 +80,3 @@ Feature: TestOrder - Global behaviors
     Examples:
       | RequestingOrganisation  | TestPackage  | invalidReferralURL                                                                | ClinicalQuestion   | Notes | FamilyMembers  | PatientChoice  | Panels | Pedigree | PrintForms  |
       | Requesting organisation | Test package | https://test-ordering.int.ngis.io/test-order/referral/r5E$&%5E943/patient-details | Clinical questions | Notes | Family members | Patient choice | Panels | Pedigree | Print forms |
-
-

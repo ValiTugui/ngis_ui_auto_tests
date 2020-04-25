@@ -7,7 +7,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4711 @Z-LOGOUT
 #    @E2EUI-964 @E2EUI-1587
-  Scenario Outline:NTS-4711:Verify Page titles for Cancer/Tumour on every stage
+  Scenario Outline:NTS-4711:E2EUI-964,1587:Verify Page titles for Cancer/Tumour on every stage
     Given the user search and select clinical indication test for the patient through to Test Order System online service patient search
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M89 | GEL_NORMAL_USER |
     ##Patient Search Page Title
@@ -15,15 +15,11 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
     And the user types in invalid details of a patient in the NHS number and DOB fields
     And the user clicks the Search button
     And the message "No patient found" is displayed below the search button
-    And the user clicks on the create new patient record
+    And the user clicks on the hyper link
     ##Create a New Patient Page Title
     And the user is navigated to a page with title Create a record for this patient
-
-#    And the user is navigated to a page with title Add a new patient to the database
     When the user create a new patient record without NHS number and enter a reason for noNhsNumber "Patient is a foreign national"
-#    And the user clicks the Start a new Referral button
     And the user clicks the Start Referral button
-
     ##Patient Details Page Title
     When the user is navigated to a page with title Check your patient's details
     And the user should see previous labels replaced as current labels
@@ -146,7 +142,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
 
   @NTS-4731 @Z-LOGOUT
 #    @E2EUI-1087 @E2EUI-873
-  Scenario Outline: NTS-4731: Verify warning pop up when navigating without saving changes
+  Scenario Outline: NTS-4731:E2EUI-1087,873: Verify warning pop up when navigating without saving changes
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M211 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=11-11-2011:Gender=Male |
     ##Patient Details Page

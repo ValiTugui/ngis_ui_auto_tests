@@ -56,8 +56,10 @@ public class GlobalBehaviourPage {
 
     @FindBy(xpath = "//div[@id='passwordError']")
     WebElement errorMessageOnLoginPage;
+
     @FindBy(xpath = ("//button[@id='idBtn_Back']//img"))
     WebElement backToLoginPage;
+
     @FindBy(id = "otherTileText")
     public WebElement useAnotherAccount;
 
@@ -231,16 +233,18 @@ public class GlobalBehaviourPage {
             if(Wait.isElementDisplayed(driver, useAnotherAccount, 20)){
                 useAnotherAccount.click();
             }
-            emailAddressField.sendKeys(username);
-            nextButton.click();
-            Wait.seconds(4);
+            if(Wait.isElementDisplayed(driver,emailAddressField,5)) {
+                emailAddressField.sendKeys(username);
+                nextButton.click();
+                Wait.seconds(4);
+            }
             Actions.clearInputField(passwordField);
             passwordField.sendKeys(password);
             nextButton.click();
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in fill In User Name:" + exp);
-            SeleniumLib.takeAScreenShot("UserNameAndPwordField.jpg");
+            SeleniumLib.takeAScreenShot("UserNameAndPasswordField.jpg");
             return false;
         }
     }
@@ -252,7 +256,7 @@ public class GlobalBehaviourPage {
                 return false;
             }
             String actualErrMessage = errorMessageOnLoginPage.getText();
-            if (!actualErrMessage.equalsIgnoreCase(errMessage)) {
+            if (!actualErrMessage.contains(errMessage)) {
                 Debugger.println("Actual error message : " + actualErrMessage + ",Expected :" + errMessage);
                 SeleniumLib.takeAScreenShot("LoginError.jpg");
                 return false;
