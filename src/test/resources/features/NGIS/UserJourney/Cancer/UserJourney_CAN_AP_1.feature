@@ -2,9 +2,9 @@
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
 
-  @NTS-3362 @Z-LOGOUT
-  ##@E2EUI-2372 @E2EUI-905
-  Scenario Outline: NTS-3362 - Create Referral for Proband Only - Standard user - patient choice Yes
+  @NTS-3347 @Z-LOGOUT
+  # @E2EUI-905
+  Scenario Outline: NTS-3347 - Create Referral for Proband Only - Standard user - patient choice Yes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
     ##Patient Details
@@ -31,7 +31,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     And the user clicks the Save and Continue button
     And the "<responsibleClinician>" stage is marked as Completed
     ##Tumour
-    And the "<tumours>" stage is selected
+    And the user navigates to the "<tumours>" stage
     And the user answers the tumour system questions fields and select a tumour type "Solid tumour: metastatic"
     And the user clicks the Save and Continue button
     And the user answers the tumour dynamic questions for Tumour Core Data by selecting the tumour presentation "Recurrence"
@@ -72,7 +72,7 @@ Feature: UserJourney_CAN_NGIS_AP_1 - E2EUI-905
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button on the "<patientChoice>"
+    And the user clicks the Save and Continue button
     Then the "<patientChoice>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband

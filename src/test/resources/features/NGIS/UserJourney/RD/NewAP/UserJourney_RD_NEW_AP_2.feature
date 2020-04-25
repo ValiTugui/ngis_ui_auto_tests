@@ -44,6 +44,8 @@ Feature: UserJourney_RD_NEW_AP_2 - UC16 - E2EUI-1428
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button

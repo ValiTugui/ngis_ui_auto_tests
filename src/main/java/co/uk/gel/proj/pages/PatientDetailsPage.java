@@ -165,12 +165,8 @@ public class PatientDetailsPage {
     @FindBy(css = "div[class*='css-1jwqj7b']") //@FindBy(css = "div[class*='referral-card']")
     public WebElement referralCard;
 
-    //@FindBy(css = "*[data-testid*='referral-card-status']")  //@FindBy(css = "*[class*='badge']")
-    @FindBy(xpath = "//div[contains(@data-testid,'referral-card-header')]/div//child::span[contains(@class,'child-element')]")
-    public WebElement referralStatus;
-
-    @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Relationship to proband']")
-    public List<WebElement> referralProbandRelationShip;
+    @FindBy(xpath = "//div[contains(@id,'referral__header')]/div//child::span[contains(@class,'child-element')]")
+    public List<WebElement> referralStatus;
 
     @FindBy(xpath = "(//a[contains(@class,'referral-list')])[1]/.//*[text()='Full Sibling']")
     public WebElement referralProbandRelationShipStatus;
@@ -774,17 +770,23 @@ public class PatientDetailsPage {
 
     public boolean verifyReferralStatus(String expectedStatus) {
         try {
-            if (!Wait.isElementDisplayed(driver, referralStatus, 100)) {
+            if (referralStatus.size() == 0) {
                 Debugger.println("Referral status is not displayed....");
                 SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
                 return false;
             }
-            if (!expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus))) {
-                Debugger.println("Referral status expected:" + expectedStatus + ",Actual:" + Actions.getText(referralStatus));
-                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
-                return false;
+            boolean isPresent = false;
+            for(int i=0; i<referralStatus.size(); i++){
+                if (expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus.get(i)))) {
+                    isPresent = true;
+                    break;
+                }
             }
-            return true;
+            if(!isPresent){
+                Debugger.println("Referral status expected:" + expectedStatus + " not displayed.");
+                SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
+            }
+            return isPresent;
         } catch (Exception exp) {
             Debugger.println("Exception in verifyReferralStatus:" + exp);
             SeleniumLib.takeAScreenShot("ReferralStatus.jpg");

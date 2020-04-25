@@ -294,4 +294,3 @@ Feature: Patient Choice -3 Navigation
     Examples:
       | Patient choice stage | RecordedBy                            |
       | Patient choice       | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
-
