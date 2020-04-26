@@ -1,6 +1,7 @@
 @MIPORTAL
+@MIPORTAL_SIT
 
-Feature: MIPORTAL:  MiSearchLSID (E2EUI-1433)
+Feature: MIPORTAL:  MiSearchLSID SIT (E2EUI-1433)
 
 
 #  @NTS_todo
