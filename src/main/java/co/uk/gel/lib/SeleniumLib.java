@@ -737,7 +737,24 @@ public class SeleniumLib {
             e.printStackTrace();
         }
     }
-
+    public static void writeToFile(String dataToWrite) throws IOException {
+        FileWriter myWriter = new FileWriter("Referrals.properties", true);
+        myWriter.write(dataToWrite);
+        myWriter.write("\n");
+        myWriter.close();
+    }
+    public int getNoOfRows(By element) {
+        try {
+            waitForElementVisible(driver.findElement(element));
+            return driver.findElements(element).size();
+        } catch (NoSuchElementException exp) {
+            return 0;
+        }
+    }
+    public int getNoOfRows(String rowPath){
+        By element = By.xpath(rowPath);
+        return getNoOfRows(element);
+    }
     public int getColumnIndex(By TableHeading, String column_name) {
         List<WebElement> Headings =  getHeadingElements(TableHeading);
         if(Headings == null || Headings.size() == 0){
