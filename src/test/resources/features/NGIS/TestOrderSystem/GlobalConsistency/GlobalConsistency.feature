@@ -18,7 +18,7 @@ Feature: TestOrder - Global Consistency
 
     Examples:
       | MicrosoftLoginUrl           | errorMessage                                                                |
-      | /login.microsoftonline.com/ | Your account or password is incorrect. If you can't remember your password, |
+      | /login.microsoftonline.com/ | Your account or password is incorrect.|
 
   @NTS-5068 @Z-LOGOUT
     #@E2EUI-1841

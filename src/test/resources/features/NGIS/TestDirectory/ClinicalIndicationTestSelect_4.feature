@@ -67,8 +67,7 @@ Feature: Test Directory: ClinicalIndicationSelect_4
     Then the user is navigated to a page with title Add patient choice information
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes
     And the user submits the patient choice with signature
-    And the user sees the Save and Continue button
-    And the user clicks the Save and Continue button on the "<PatientChoice>"
+    And the user clicks the Save and Continue button
     And the user is navigated to a page with title Patient choice
     And the user clicks on Continue Button
     ##Panels Page
