@@ -440,13 +440,28 @@ public class TumoursSteps extends Pages {
         int expectedListOfTumours = Integer.parseInt(list.get(0).get("NumberOfTumoursAdded"));
 
         tumoursPage.fillInTumourDescription();
-        tumoursPage.fillInDateOfDiagnosis();
-        tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader"));
-        tumoursPage.fillInSpecimenID();
-        referralPage.clickSaveAndContinueButton();
-        tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"));
-        tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"));
-        referralPage.clickSaveAndContinueButton();
+        if(!tumoursPage.fillInDateOfDiagnosis()){
+            Assert.assertTrue(false);
+        }
+        if(tumoursPage.selectTumourType(list.get(0).get("TumourTypeHeader")) == null){
+            Assert.assertTrue(false);
+
+        }
+        if(tumoursPage.fillInSpecimenID() == null){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.clickSaveAndContinueButton()){
+            Assert.assertTrue(false);
+        }
+        if(!tumoursPage.selectTumourFirstPresentationOrOccurrenceValue(list.get(0).get("PresentationTypeHeader"))){
+            Assert.assertTrue(false);
+        }
+        if(!tumoursPage.answerTumourDiagnosisQuestions(list.get(0).get("SnomedCTSearchHeader"))){
+            Assert.assertTrue(false);
+        }
+        if(!referralPage.clickSaveAndContinueButton()){
+            Assert.assertTrue(false);
+        }
         tumoursPage.newTumourIsDisplayedInLandingPage(expectedListOfTumours);
 
     }

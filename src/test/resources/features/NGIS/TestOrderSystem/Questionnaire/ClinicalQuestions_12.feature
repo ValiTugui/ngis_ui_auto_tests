@@ -36,7 +36,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 
   @NTS-4728 @Z-LOGOUT
 #    @E2EUI-970
-  Scenario Outline:  NTS-4728 -  Add Sample Details - Sample morphology
+  Scenario Outline: NTS-4728 -  Add Sample Details - Sample morphology
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     When the user navigates to the "<stage>" stage
