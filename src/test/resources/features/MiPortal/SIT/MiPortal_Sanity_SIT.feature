@@ -1,6 +1,7 @@
 @MIPORTAL
+@MIPORTAL_SIT
 
-Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700)
+Feature: MIPORTAL SIT - Sanity
 
   Background:
     Given a web browser is at the mi-portal home page
@@ -51,12 +52,12 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700)
     When the user navigates to the mi-portal "<mi_stage3>" stage
     And the user selects a value "<value3>" from the "glh_samples-search-col" column drop-down
     And the user selects a search operator "<operator1>" from the "glh_samples-search-operator" operator drop-down
-    And the user selects a value "<value4>" from the "glh_samples -search-value" value drop-down
+    And the user selects a value "<value4>" from the "glh_samples-search-value" value drop-down
     And the user clicks on Add criteria button
     And the user click on the reset button
     And the user selects a value "<value2>" from the "glh_samples-search-col" column drop-down
     And the user selects a search operator "<operator>" from the "glh_samples-search-operator" operator drop-down
-    And the user selects a value "<value5>" from the "glh_samples -search-value" value drop-down
+    And the user selects a value "<value5>" from the "glh_samples-search-value" value drop-down
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -145,6 +146,7 @@ Feature: MIPORTAL: Sanity (E2EUI-1985,2705,2700)
     Examples:
       | mi_stage     | mi_stage1        | value1 | value | mi_stage2      | mi_stage3   | mi_stage4      | mi_stage5 | mi_stage6         | mi_stage7     | value2 | dropdown     | value4                      | NoOfSearchField | section        | value3          | value5       | value6                           | value7                        | operator1 | operator2    | date       | paginationValue | operator | ColumnHeader    | LSID       |
       | Search LSIDs | File Submissions | Status | Valid | Order Tracking | GLH Samples | Plater Samples | Picklists | Sequencer Samples | New Referrals | GLH    | London North | Bolton NHS Foundation Trust | 3               | plater_samples | Ordering Entity | London North | gel1005 Sample Received Datetime | East Mids and East of England | is one of | before or on | 21-02-2020 | 25              | is       | gel1008 Created | 1371612610 |
+
 
   @NTS-5053
     #@E2EUI-2705 @Scenario1

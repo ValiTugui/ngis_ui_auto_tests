@@ -1,6 +1,7 @@
 @MIPORTAL
+@MIPORTAL_SIT
 
-Feature: MIPORTAL:  User Journey for Sequencer Samples and New Referrals(E2EUI-1489,1836)
+Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EUI-1489,1836)
 
   @NTS-5189
     #@E2EUI-1489

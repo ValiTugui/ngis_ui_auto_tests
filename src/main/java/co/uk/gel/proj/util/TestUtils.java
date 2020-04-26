@@ -178,6 +178,30 @@ public class TestUtils {
 
         }
     }
+    public static boolean isFilePresent(String fileName, String folder) {
+        String downloadLocation = "";
+        if (folder == null || folder.isEmpty()) {
+            downloadLocation = defaultDownloadLocation;
+        } else if (folder.equalsIgnoreCase("RD")) {
+            downloadLocation = defaultDownloadLocation + folder;
+        }
+        File location = new File(downloadLocation);
+        if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
+            Debugger.println("Specified download location: "+downloadLocation+" not exists.");
+            return false;
+        }
+        boolean isPresent = false;
+        File[] files = location.listFiles();
+        if (files != null && files.length > 0) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().startsWith(fileName)) {
+                    isPresent = true;
+                    break;
+                }
+            }
+        }
+        return isPresent;
+    }
 
     public static void clearAllSnapShots() {
         try {
@@ -319,8 +343,8 @@ public class TestUtils {
     public static boolean compareTwoCollectionsContainIdenticalValues(List<String> list1, List<String> list2){
         List<String> sortedList1 = list1.stream().sorted().collect(Collectors.toList());
         List<String> sortedList2 = list2.stream().sorted().collect(Collectors.toList());
-        Debugger.println("Sorted List 1: " + sortedList1);
-        Debugger.println("Sorted List 2: " + sortedList2);
+        //Debugger.println("Sorted List 1: " + sortedList1);
+        //Debugger.println("Sorted List 2: " + sortedList2);
         return sortedList1.equals(sortedList2);
     }
 

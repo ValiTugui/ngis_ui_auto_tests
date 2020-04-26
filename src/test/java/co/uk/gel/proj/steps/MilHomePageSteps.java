@@ -6,12 +6,15 @@ import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.CSVFileReader;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.MIPortalTestData;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.internal.common.assertion.AssertionSupport;
 import org.junit.Assert;
 
 import java.text.DateFormat;
@@ -28,37 +31,46 @@ public class MilHomePageSteps extends Pages {
 
     @When("the user navigates to the mi-portal {string} stage")
     public void theUserNavigatesToTheMiPortalStage(String miPage) {
-        // Actions.clickElement(driver, miPortalFileSubmissionPage.fileSubmissionLnk);
-        miPortalHomePage.navigateToMiPage(miPage);
+        boolean testResult = false;
+        testResult = miPortalHomePage.navigateToMiPage(miPage);
+        Assert.assertTrue(testResult);
     }
 
 
     @And("the user selects a value {string} from the {string} column drop-down")
     public void theUserSelectsAValueFromTheColumnDropDown(String value, String dropDownButton) {
-        miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
+        boolean testResult = false;
+        testResult = miPortalHomePage.selectSearchValueDropDown(value, dropDownButton);
+        Assert.assertTrue(testResult);
     }
 
 
     @And("the user selects a search operator {string} from the {string} operator drop-down")
     public void theUserSelectsASearchOperatorFromTheOperatorDropDown(String searchOperator,String dropDownButton) {
-        miPortalHomePage.selectSearchValueDropDown(searchOperator, dropDownButton);
+        boolean testResult = false;
+        testResult = miPortalHomePage.selectSearchValueDropDown(searchOperator, dropDownButton);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user clicks on Add criteria button")
     public void theUserClicksOnAddCriteriaButton() {
-        miPortalHomePage.clickAddButton();
-        Wait.seconds(1);
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickAddButton();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user click on the Search button")
     public void theUserClickOnTheSearchButton() {
-        miPortalHomePage.clickSearchButton();
-        Wait.seconds(2);
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickSearchButton();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user click on the reset button")
     public void theUserClickOnTheResetButton() {
-        miPortalHomePage.clickResetButton();
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickResetButton();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -74,10 +86,17 @@ public class MilHomePageSteps extends Pages {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
         Assert.assertNotNull(actualDropDownValues);
-
+        String expValue = "";
+        if((expectedDropDownValues.size()) != actualDropDownValues.size()){
+            Debugger.println("Expected no of drop down values in "+dropDownButton+" is "+(expectedDropDownValues.size())+",but actual:"+actualDropDownValues.size());
+            Assert.assertTrue(false);
+        }
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
-            Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader"), actualDropDownValues.get(i));
+            expValue = expectedDropDownValues.get(i).get("fileSubmissionsSearchColumnHeader");
+            if(!expValue.equalsIgnoreCase(actualDropDownValues.get(i))){
+                Debugger.println("Expected drop down value :"+expValue+" not present in "+dropDownButton);
+                Assert.assertTrue(false);
+            }
         }
     }
 
@@ -86,34 +105,33 @@ public class MilHomePageSteps extends Pages {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
         Assert.assertNotNull(actualDropDownValues);
-
-        for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchOperatorHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
-            Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchOperatorHeader"), actualDropDownValues.get(i));
+        String expValue = "";
+        if((expectedDropDownValues.size()) != actualDropDownValues.size()){
+            Debugger.println("Expected no of drop down values in "+dropDownButton+" is "+(expectedDropDownValues.size())+",but actual:"+actualDropDownValues.size());
+            Assert.assertTrue(false);
         }
+        for (int i = 0; i < expectedDropDownValues.size(); i++) {
+            expValue = expectedDropDownValues.get(i).get("fileSubmissionsSearchOperatorHeader");
+            if(!expValue.equalsIgnoreCase(actualDropDownValues.get(i))){
+                Debugger.println("Expected drop down value :"+expValue+" not present in "+dropDownButton);
+                Assert.assertTrue(false);
+            }
+         }
     }
 
-    @And("the user sees the values in the search value {string} drop-down menu")
+    @Then("the user sees the values in the search value {string} drop-down menu")
     public void theUserSeesTheValuesInTheSearchValueDropDownMenu(String dropDownButton, DataTable dataTable) {
         List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
         List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
         Assert.assertNotNull(actualDropDownValues);
-
+        boolean testResult = false;
+        String expValue = "";
         for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
-            Assert.assertEquals(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"), actualDropDownValues.get(i));
-        }
-    }
-//same method as above, added with contains check in place of equals to pass value in any order
-    @And("the user sees the values in the search value {string} drop-down menu values")
-    public void theUserSeesTheValuesInTheSearchValueDropDownMenuValues(String dropDownButton, DataTable dataTable) {
-        List<Map<String, String>> expectedDropDownValues = dataTable.asMaps(String.class, String.class);
-        List<String> actualDropDownValues = miPortalHomePage.getDropDownValues(dropDownButton);
-        Assert.assertNotNull(actualDropDownValues);
-        for (int i = 0; i < expectedDropDownValues.size(); i++) {
-            boolean testResult = true;
-            if (!actualDropDownValues.contains(expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader"))){
-                Debugger.println("Expected: " + expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader") + " : " + "Actual: " + actualDropDownValues.get(i));
+            expValue = expectedDropDownValues.get(i).get("fileSubmissionsSearchValueHeader");
+            if (actualDropDownValues.contains(expValue)){
+               testResult = true;
+            }else{
+                Debugger.println("Expected: " + expValue + " : " + "Actual: " + actualDropDownValues.get(i));
                 SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
                 testResult = false;
             }
@@ -124,9 +142,7 @@ public class MilHomePageSteps extends Pages {
     @Then("the user sees the message {string} below the search container")
     public void theUserSeesTheMessageBelowTheSearchContainer(String noResultFoundMessage) {
         boolean testResult = false;
-
         testResult = miPortalHomePage.verifyNoSearchResultMessage(noResultFoundMessage);
-        Debugger.println("test-result flag for verifying no result found is: " + testResult);
         Assert.assertTrue(testResult);
     }
 
@@ -141,12 +157,14 @@ public class MilHomePageSteps extends Pages {
     public void theUserClicksOnTheDownloadCSVButtonToDownloadTheCSVFileAsCsv(String fileName) {
         //String dateToday = miPortalFileSubmissionPage.getFileSubmissionDate.getAttribute("data-shinyjs-resettable-value");
         //Modified to take the date based on todays date to make the step reusable in all the section pages
+        boolean testResult = false;
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date d = new Date();
         String dateFormate = df.format(d);
         fileName = fileName + "-" + dateFormate + ".csv";
         Debugger.println("Actual-filename : " + fileName);
-        miPortalHomePage.downloadMiCSVFile(fileName);
+        testResult = miPortalHomePage.downloadMiCSVFile(fileName);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user clicks on the Display Options button")
@@ -163,37 +181,32 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the user sees the checkboxes with the label names {string} and {string}")
-    public void theUserSeesTheCheckboxesWithTheLabelNamesAnd(String expectedCgCheckBoxLabel, String expectedTcCheckBoxLabel) {
+    @And("the user sees the checkboxes with the label names Compact grid and Truncate columns")
+    public void theUserSeesTheCheckboxesWithTheLabelNamesAnd() {
         boolean testResult = false;
-        testResult = miPortalHomePage.verifyTheCheckBoxesDisplayedOnModalContent();
+        testResult = miPortalHomePage.verifyTheCheckBoxesUnderSaveSpaceSection();
         Assert.assertTrue(testResult);
-
-        String actualCgCheckBoxLabel = Actions.getText(miPortalHomePage.compactGridCheckBoxLabel);
-        Debugger.println("Expected CompactCheckBox: " + expectedCgCheckBoxLabel + ":" + " Actual CompactCheckBox: " + actualCgCheckBoxLabel );
-        Assert.assertEquals(expectedCgCheckBoxLabel,actualCgCheckBoxLabel);
-
-        String actualTcCheckBoxLabel = Actions.getText(miPortalHomePage.truncateColumnsCheckBoxLabel);
-        Debugger.println("Expected TruncatedCheckBox: " + expectedTcCheckBoxLabel + ":" + " Actual TruncatedCheckBox: " + actualTcCheckBoxLabel );
-        Assert.assertEquals(expectedTcCheckBoxLabel,actualTcCheckBoxLabel);
     }
 
     @And("the user closes the modal content by clicking on the reset-button")
     public void theUserClosesTheModalContentByClickingOnTheResetButton() {
-        miPortalHomePage.clickResetButtonOnModalContent();
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickResetButtonOnModalContent();
+        Assert.assertTrue(testResult);
     }
 
     @And("the selected search option is reset after test")
     public void theSelectedSearchOptionIsResetAfterTest() {
-        miPortalHomePage.clickResetButton();
         boolean testResult = false;
+        testResult = miPortalHomePage.clickResetButton();
+        Assert.assertTrue(testResult);
         testResult = miPortalHomePage.badgeFilterSearchCriteriaIsNotDisplayed();
         Assert.assertTrue(testResult);
     }
 
-
     @And("the user sees a section {string} split into two parts {string} and {string}")
     public void theUserSeesASectionColumnOrderingSplitIntoTwoPartsShowAndHide(String expColumnOrdering, String expShow, String expHide) {
+
         List<String>expectedColumnShowHideLabel = new ArrayList<>();
         List actualColumnShowHideLabel = miPortalHomePage.getColumnOrderShowHideLabelsOnDisplayedModal();
         expectedColumnShowHideLabel.add(expColumnOrdering);
@@ -208,30 +221,33 @@ public class MilHomePageSteps extends Pages {
     @And("the user sees the displayed fields-columns under {string} section")
     public void theUserSeesTheDisplayedFieldsColumnsUnderSection(String expColumnHeaderStatus, DataTable dataTable) {
         Wait.seconds(2);
-        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
+        List <List<String>> expectedListOfColumnHeaders = dataTable.asLists();
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyListOfColumnsInHeaderShowOrHidden(expColumnHeaderStatus,expectedListOfColumnHeaders);
+        Assert.assertTrue(testResult);
+    }
+    @And("the user sees the displayed fields-columns under {string} section as empty")
+    public void theUserSeesTheDisplayedFieldsColumnsUnderSectionAsEmpty(String expColumnHeaderStatus) {
         List actualListOfColumnHeaders = null;
-
-        String actualColumnHeaderStatus = miPortalHomePage.getHeaderShowOrHideLabel(expColumnHeaderStatus);
-        Debugger.println("Values " + actualColumnHeaderStatus);
-        Assert.assertEquals(expColumnHeaderStatus,actualColumnHeaderStatus);
-
         if (expColumnHeaderStatus.equalsIgnoreCase("Show")) {
             actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("visible");
         } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
             actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
         }
-        assert actualListOfColumnHeaders != null;
-        for (int i = 0; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected: " + expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList"));
-            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("HeaderColumnOrderingList")));
+        if(actualListOfColumnHeaders == null){
+            Assert.assertTrue(false);
+        }
+        if(actualListOfColumnHeaders.size() > 0){
+            Assert.assertTrue(false);
         }
     }
 
     @And("the user selects a value {string} from the {string} value drop-down")
     public void theUserSelectsAValueFromTheValueDropDown(String value, String dropDownButton) {
-        miPortalHomePage.selectSearchValueDropDown(value,dropDownButton);
+        boolean testResult = false;
+        testResult = miPortalHomePage.selectSearchValueDropDown(value, dropDownButton);
+        Assert.assertTrue(testResult);
     }
-
 
     @And("the user sees the search results pagination entry drop-down with default selection of {string}")
     public void theUserSeesTheSearchResultsPaginationEntryDropDownWithDefaultSelectionOf(String expectedEntryPagination) {
@@ -245,24 +261,50 @@ public class MilHomePageSteps extends Pages {
     public void theUserSeesAllTheDropDownValuesInTheSearchResultsPaginationEntrySelection(DataTable dataTable) {
         List<Map<String, String>> expectedPaginationDropDownValues = dataTable.asMaps(String.class, String.class);
         List actualPaginationDropDownValues = miPortalHomePage.getAllThePaginationEntryDropDownValues();
-
-        for (int i = 0; i < expectedPaginationDropDownValues.size(); i++) {
-            Debugger.println("Expected " + expectedPaginationDropDownValues.get(i).get("paginationDropDownValues") + " : Actual : " + actualPaginationDropDownValues.get(i));
-            Assert.assertEquals(expectedPaginationDropDownValues.get(i).get("paginationDropDownValues"), actualPaginationDropDownValues.get(i));
+        if(expectedPaginationDropDownValues.size() != actualPaginationDropDownValues.size()){
+            Assert.assertTrue(false);
         }
+        String actValue="",expValue="";
+        for (int i = 0; i < expectedPaginationDropDownValues.size(); i++) {
+            actValue = actualPaginationDropDownValues.get(i).toString();
+            expValue = expectedPaginationDropDownValues.get(i).get("paginationDropDownValues").toString();
+            if(!actValue.equalsIgnoreCase(expValue)){
+                Assert.assertTrue(false);
+            }
+        }
+    }
+    @When("the search result table should display based on the pagination value selected")
+    public void theSearchTableShouldDisplayBasedOnPaginationSelection(DataTable dataInputs) {
+        boolean testResult = false;
+
+        List<List<String>> paginationValues = dataInputs.asLists();
+        String paginationValue = "",expectedRows="";
+        for(int i=1;i<paginationValues.size(); i++){
+           paginationValue = paginationValues.get(i).get(0);
+           expectedRows   = paginationValues.get(i).get(1);
+           testResult = miPortalHomePage.selectValueInPagination(paginationValue);
+           Assert.assertTrue(testResult);
+           Wait.seconds(3);//Load the result
+           miPortalFileSubmissionPage.verifyTheTotalNumberOfSearchResult(Integer.parseInt(expectedRows));
+            Assert.assertTrue(testResult);
+            Wait.seconds(3);//For next Iteration
+        }
+        testResult = miPortalHomePage.selectValueInPagination(paginationValue);
+        Assert.assertTrue(testResult);
     }
 
     @When("the user selects a pagination drop-down value {string}")
     public void theUserSelectsAPaginationDropDownValue(String paginationValue) {
-        miPortalHomePage.selectValueInPagination(paginationValue);
+        boolean testResult = false;
+        testResult = miPortalHomePage.selectValueInPagination(paginationValue);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user sees the search result table updated with {string} results")
     public void theUserSeesTheSearchResultTableUpdatedWithResults(String paginationValue) {
         int value = Integer.parseInt(paginationValue);
         boolean testResult = false;
-        testResult = miPortalHomePage.getTheTotalNumberOfSearchResult(value);
-        Debugger.println("test + " + testResult);
+        testResult = miPortalFileSubmissionPage.verifyTheTotalNumberOfSearchResult(value);
         Assert.assertTrue(testResult);
     }
 
@@ -273,10 +315,19 @@ public class MilHomePageSteps extends Pages {
         Debugger.println("test + " + testResult);
         Assert.assertTrue(testResult);
     }
+    @And("the user sees the Re-Ordering Section of DisplayOptions sections displayed correctly")
+    public void reOrderingSectionOfDisplayOptionsDisplayedCorrectly() {
+        boolean testResult = false;
+        testResult = miPortalHomePage.verifyColumnOrderingSectionDisplay();
+        Assert.assertTrue(testResult);
+    }
+
 
     @And("the user clicks on the button {string}")
     public void theUserClicksOnTheButton(String showOrHideButton) {
-        miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickShowAllOrHideAllButton(showOrHideButton);
+        Assert.assertTrue(testResult);
     }
 
 
@@ -284,40 +335,31 @@ public class MilHomePageSteps extends Pages {
     public void theUserDragTheColumnHeaderFromTheSectionToSection(String columnHeader, String fromSection, String toSection) {
         boolean testResult = false;
         testResult = miPortalHomePage.dragAndDropAColumnHeaderBetweenShowAndHide(columnHeader, fromSection, toSection);
-        Debugger.println("test + " + testResult);
-        Assert.assertTrue(testResult);
+         Assert.assertTrue(testResult);
     }
 
     @And("the Save and Close button under Show All and Hide All button becomes disabled")
     public void theSaveAndCloseButtonUnderShowAllAndHideAllButtonBecomesDisabled() {
-        Assert.assertTrue("Save and Close button is not disabled", !(miPortalHomePage.saveAndCloseButtonIsDisabled()));
+        boolean testResult = false;
+        testResult = miPortalHomePage.saveAndCloseButtonIsDisabled();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user save the changes on modal content by clicking Save and Close button")
     public void theUserSaveTheChangesOnModalContentByClickingSaveAndCloseButton() {
-        miPortalHomePage.clickSaveAndCloseButtonOnModalContent();
+        boolean testResult = false;
+        testResult = miPortalHomePage.clickSaveAndCloseButtonOnModalContent();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user click on the {string} check box on the modal content page")
     public void theUserClickOnTheCheckBoxOnTheModalContentPage(String checkBox) {
-        miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
-    }
-
-    @Then("the table column {string} is displayed with data")
-    public void theTableColumnIsDisplayedWithData(String selectedOption) {
         boolean testResult = false;
-        String[] valueList = null;
-        if (!selectedOption.contains(",")) {
-            valueList = new String[]{selectedOption};
-        } else {
-            valueList = selectedOption.split(",");
-        }
-        for (int i = 0; i < valueList.length; i++) {
-            testResult = miPortalHomePage.verifyThePresenceOfColumnHeader(valueList[i]);
-            Assert.assertTrue(testResult);
-        }
-
+        testResult = miPortalHomePage.clickOnCheckBoxOptionsForSaveSpaceOnScreen(checkBox);
+        Assert.assertTrue(testResult);
     }
+
+
 
     @And("the user fills in a {string} in the {string} search box")
     public void theUserFillsInAInTheSearchBox(String value, String searchBox) {
@@ -368,18 +410,7 @@ public class MilHomePageSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("the columns fields are  displayed in the list of columns headers of the search result table")
-    public void theColumnsFieldsAreDisplayedInTheListOfColumnsHeadersOfTheSearchResultTable(DataTable dataTable) {
 
-        List<Map<String, String>> expectedListOfColumnHeaders = dataTable.asMaps(String.class, String.class);
-        List actualListOfColumnHeaders = miPortalFileSubmissionPage.getAllHeadersInSearchResultTable();
-
-        for (int i = 1; i < expectedListOfColumnHeaders.size(); i++) {
-            Debugger.println("Expected " + expectedListOfColumnHeaders.get(i).get("columnHeaders"));
-            Debugger.println("Actual list of headers : " + actualListOfColumnHeaders);
-            Assert.assertTrue(actualListOfColumnHeaders.contains(expectedListOfColumnHeaders.get(i).get("columnHeaders")));
-        }
-    }
 
     @And("the user verify the date format displayed")
     public void theUserVerifyTheDateFormatDisplayed() {
@@ -527,4 +558,5 @@ public class MilHomePageSteps extends Pages {
         testresult = miPortalHomePage.verifyErrorMessage(errorMessage);
         Assert.assertTrue(testresult);
     }
+
 }

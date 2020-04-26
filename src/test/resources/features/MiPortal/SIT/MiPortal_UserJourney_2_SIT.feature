@@ -1,6 +1,7 @@
 @MIPORTAL
+@MIPORTAL_SIT
 
-Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,2580,1305)
+Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
 
   @NTS-5188
      #@E2EUI-1424  @E2EUI-2580
@@ -10,8 +11,7 @@ Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,25
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
     ## Search Dropdown Validation
-    Then the user sees the values in the search value "plater_samples-search-col" drop-down menu
-      | fileSubmissionsSearchValueHeader      |
+    And the user sees the below values in the plater samples search column drop-down menu
       | GLH                                   |
       | Ordering Entity                       |
       | Referral ID                           |
@@ -23,32 +23,29 @@ Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,25
       | gel1005 Sample Received Datetime      |
     Then the selected search option is reset after test
      ##For 1st filter-GLH
-    And the user selects a value "<filter_value1>" from the "plater_samples-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "plater_samples-search-operator" operator drop-down
-    And the user selects a value "<value1>" from the "plater_samples-search-value" value drop-down
-    And the user sees the selected "<value1>" in the "plater_samples-search-value" value drop-down
+    And the user selects GLH as the plater samples search column dropdown
+    And the user selects is as the plater samples search operator dropdown
+    And the user selects GLHName as the plater samples search value dropdown
     Then the selected search option is reset after test
     ###For 2nd filter-Ordering Entity
-    And the user selects a value "<filter_value2>" from the "plater_samples-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "plater_samples-search-operator" operator drop-down
-    And the user selects a value "<value2>" from the "plater_samples-search-value" value drop-down
-    And the user sees the selected "<value2>" in the "plater_samples-search-value" value drop-down
+    And the user selects Ordering Entity as the plater samples search column dropdown
+    And the user selects is as the plater samples search operator dropdown
+    And the user selects OrderingEntity as the plater samples search value dropdown
     Then the selected search option is reset after test
     ###For 3rd filter-Referral ID
-    And the user selects a value "<filter_value3>" from the "plater_samples-search-col" column drop-down
-    And the user selects a search operator "<operator1>" from the "plater_samples-search-operator" operator drop-down
-    And the user fills in a "<value3>" in the "plater_samples-search-value" search box
+    When the user selects Referral ID as the plater samples search column dropdown
+    And the user selects is exactly as the plater samples search operator dropdown
+    And the user selects Referral ID as the plater samples search input value
     Then the selected search option is reset after test
     ###For 4th filter-Patient NGIS ID
-    And the user selects a value "<filter_value4>" from the "plater_samples-search-col" column drop-down
-    And the user selects a search operator "<operator1>" from the "plater_samples-search-operator" operator drop-down
-    And the user fills in a "<value4>" in the "plater_samples-search-value" search box
+    When the user selects Patient NGIS ID as the plater samples search column dropdown
+    And the user selects is exactly as the plater samples search operator dropdown
+    And the user selects Patient NGIS ID as the plater samples search input value
     Then the selected search option is reset after test
     ###5 gel1004 Clinic Sample Type
-    And the user selects a value "<filter_value5>" from the "plater_samples-search-col" column drop-down
-    And the user selects a search operator "<fixed_operator>" from the "plater_samples-search-operator" operator drop-down
-    And the user selects a value "<value5>" from the "plater_samples-search-value" column drop-down
-    And the user sees the selected "<value5>" in the "plater_samples-search-value" value drop-down
+    When the user selects Test Type as the plater samples search column dropdown
+    And the user selects is as the plater samples search operator dropdown
+    And the user selects Test Type as the plater samples search value dropdown
     Then the selected search option is reset after test
     ####6  gel1004 Disease Area
     And the user selects a value "<filter_value6>" from the "plater_samples-search-col" column drop-down
@@ -136,9 +133,9 @@ Feature: MIPORTAL:  User Journey for Plater Samples and Picklists.(E2EUI-1424,25
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage       | paginationValue | filter_value1 | operator  | value1                    | filter_value2   | value2                                              | filter_value3 | operator1  | value3      | filter_value4   | value4                                 | filter_value5              | fixed_operator | value5         | filter_value6        | value6       | filter_value7                         | value7           | filter_value8         | value8     | filter_value9                    | operator9    | date       |
-      | Plater Samples | 25              | GLH           | is        | London North              | Ordering Entity | Barts Health NHS Trust                              | Referral ID   | is exactly | r1234       | Patient NGIS ID | p24295001324                           | gel1004 Clinic Sample Type | is             | dna_saliva     | gel1004 Disease Area | Rare Disease | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | North West | gel1005 Sample Received Datetime | equals       | 14-03-2020 |
-      | Plater Samples | 50              | GLH           | is one of | London North,London South | Ordering Entity | 2gether NHS Foundation Trust,Barts Health NHS Trust | Referral ID   | is one of  | r1234,r5678 | Patient NGIS ID | p24295001324,p44616417782,p67752570099 | gel1004 Clinic Sample Type | is             | dna_fibroblast | gel1004 Disease Area | Cancer       | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | South West | gel1005 Sample Received Datetime | before or on | 15-03-2020 |
+      | mi_stage       | paginationValue | filter_value1 | operator  | value1                    | filter_value6        | value6       | filter_value7                         | value7           | filter_value8         | value8     | filter_value9                    | operator9    | date       |
+      | Plater Samples | 25              | GLH           | is        | London North              | gel1004 Disease Area | Rare Disease | gel1004 GLH Sample Consignment Number | lns-2020-04-08-1 | gel1004 Laboratory ID | North West | gel1005 Sample Received Datetime | equals       | 14-03-2020 |
+
 
   @NTS-5063
    ## @E2EUI-1305

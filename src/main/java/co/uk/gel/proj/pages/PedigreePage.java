@@ -176,13 +176,14 @@ public class PedigreePage {
     public void closePopup() {
         try {
             Wait.forElementToBeClickable(driver,closePopup);
-            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
-        } catch (ElementClickInterceptedException exp) {
-            SeleniumLib.scrollToElement(closePopup);
-            Actions.retryClickAndIgnoreElementInterception(driver, closePopup);
+            Actions.clickElement(driver, closePopup);
         } catch (Exception exp) {
-            Debugger.println("Could not close the Popup." + exp);
-            SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
+            try{
+                seleniumLib.clickOnWebElement(closePopup);
+            }catch(Exception exp1) {
+                Debugger.println("Could not close the Popup." + exp);
+                SeleniumLib.takeAScreenShot("PedigreePopupClose.jpg");
+            }
         }
 
     }

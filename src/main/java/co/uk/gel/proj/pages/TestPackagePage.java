@@ -181,9 +181,19 @@ public class TestPackagePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Selecting number of Participants in Test Package." + exp);
-            SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
-            return false;
+            try{
+                By tpDiv = By.xpath("//div[@id='numberOfParticipants']");
+                seleniumLib.clickOnElement(tpDiv);
+                Wait.seconds(1);
+                By tpValue = By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']");
+                seleniumLib.clickOnElement(tpValue);
+                Wait.seconds(1);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in Selecting number of Participants in Test Package." + exp);
+                SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
+                return false;
+            }
         }
     }
 

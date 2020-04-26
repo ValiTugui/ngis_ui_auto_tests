@@ -1,16 +1,36 @@
 package co.uk.gel.proj.miportal_pages;
 
 import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.util.Debugger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
 
     WebDriver driver;
     SeleniumLib seleniumLib;
+
+    @FindBy(xpath = "//select[@id='sequencer_samples-search-value']")
+    public WebElement sequencerSamplesSearchValue;
+
+    @FindBy(xpath = "//select[@id='sequencer_samples-search-operator']")
+    public WebElement sequencerSamplesSearchOperator;
+
+    @FindBy(xpath = "//select[@id='sequencer_samples-search-col']")
+    public WebElement sequencerSamplesSearchColumn;
+
+    By sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
+    String sequencerSampleTableRows = "//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
     public MiSequencerSamplesPage(WebDriver driver) {
         this.driver = driver;
@@ -22,5 +42,82 @@ public class MiSequencerSamplesPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box-header']")
     public WebElement searchBoxHeader;
 
+    public boolean selectSequencerSamplesDropDownSearchColumn(String value) {
+        try {
+            Wait.seconds(2);
+            return seleniumLib.selectFromListByText(sequencerSamplesSearchColumn,value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchColumn: "+ exp);
+            SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchColumn.jpg");
+            return false;
+        }
+    }
+    public boolean selectSequencerSamplesDropDownSearchOperator(String value) {
+        try {
+            Wait.seconds(2);
+            return seleniumLib.selectFromListByText(sequencerSamplesSearchOperator,value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchOperator: "+ exp);
+            SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchOperator.jpg");
+            return false;
+        }
+    }
+    public boolean selectSequencerSamplesDropDownSearchValue(String value) {
+        try {
+            Wait.seconds(2);
+            return seleniumLib.selectFromListByText(sequencerSamplesSearchValue,value);
+        } catch (Exception exp) {
+            Debugger.println("Exception in MIPortalSequencerSamples:selectDropDownSearchValue: "+ exp);
+            SeleniumLib.takeAScreenShot("SequencerSamplesselectDropDownSearchValue.jpg");
+            return false;
+        }
+    }
+    public boolean verifyDateDisplayFormatOnColumn(String columnName,String format) {
+        try {
+            int noOfFilteredRows = seleniumLib.getNoOfRows(sequencerSampleTableRows);
+            if(noOfFilteredRows == 0){
+                Debugger.println("No search result found in Sequencer Sample Search Result Table");
+                SeleniumLib.takeAScreenShot("sequencerSamplesTable.jpg");
+                return false;
+            }
+            int colIndex = -1;
+            try {
+                colIndex = seleniumLib.getColumnIndex(sequencerSampleTableHead, columnName);
+            }catch(Exception StaleElementReferenceException){
+                //Re-initializing on StaleElementReferenceException
+                sequencerSampleTableHead = By.xpath("//div[@id='sequencer_samples-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
+                colIndex = seleniumLib.getColumnIndex(sequencerSampleTableHead, columnName);
+            }
+            if(colIndex == -1){
+                Debugger.println("Specified column "+columnName+" not present in the Sequencer Sample Search Result Table.");
+                SeleniumLib.takeAScreenShot("sequencerSamplesTable.jpg");
+                return false;
+            }
+            //Verify value in each column value as expected.
+            String regex = "";
+            if(format.equalsIgnoreCase("dd/mm/yyyy")) {
+                regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+            }
+            Pattern p = Pattern.compile(regex);
+            By cellPath = null;
+            String cellValue = "";
+            for(int i=0; i<noOfFilteredRows;i++){
+                Wait.seconds(2);
+                cellPath = By.xpath(sequencerSampleTableRows+"["+(i+1)+"]/td["+colIndex+"]");
+                cellValue = seleniumLib.getText(cellPath);
+                Matcher matcher = p.matcher(cellValue);
+                if (!matcher.matches()) {
+                    Debugger.println("Column:" + columnName + " value, Expected format :" + format + ",Actual:" + cellValue);
+                    SeleniumLib.takeAScreenShot("SequencerSampleResult.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verify Date Format " + exp);
+            SeleniumLib.takeAScreenShot("verifyDateFormat.jpg");
+            return false;
+        }
+    }
 
 }

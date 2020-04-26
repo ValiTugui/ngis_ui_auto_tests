@@ -45,12 +45,14 @@ public class PedigreeSteps extends Pages {
             NGISPatientModel patient = FamilyMemberDetailsPage.getFamilyMember(memberDetails.get(i).get(0));
             if (patient == null) {
                 Debugger.println("Specified Member" + memberDetails.get(i).get(0) + " could not get from the list.");
+                continue;
             }
             if (patient.getNGIS_ID() == null) {
                 patient.setNGIS_ID(referralPage.getPatientNGISId());
             }
             testResult = pedigreePage.clickSpecificNodeOnPedigreeDiagram(patient, "NGIS");
-            Assert.assertTrue(testResult);
+            Assert.assertTrue("Error from click specific node for member with NGIS:"+patient.getNON_NGIS_ID1(),testResult);
+            pedigreePage.closePopup();
             Wait.seconds(10);//Waiting to ensure the diagram loaded and dissappeard
         }
     }

@@ -37,7 +37,6 @@ Feature: Test Directory : ClinicalIndicationTestSelect_1
     And the user selects the test in the test page and clicks on Continue button
     And the user should able to select online or offline order
 
-
   @NTS-3244
 #  @E2EUI-1501 @E2EUI-1033
   Scenario: NTS-3244:E2EUI-1501,1033: - Clinical Indication Page -  View details for a Tumor Clinical Indication.

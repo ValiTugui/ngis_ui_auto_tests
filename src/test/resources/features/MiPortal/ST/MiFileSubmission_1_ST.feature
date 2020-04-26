@@ -1,34 +1,14 @@
 @MIPORTAL
+@MIPORTAL_ST
 
-Feature:  MIPORTAL:  fileSubmission_1
+Feature: MIPORTAL ST - File Submission 1
 
-  Background:
+  @NTS-3390
+    #@E2EUI-1283
+  Scenario Outline: NTS-3390:E2EUI-1283:verify the defaults elements on File Submission search page
     Given a web browser is at the mi-portal home page
       | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
-
-  @NTS_todo
-  Scenario Outline: verify the CSV filename submitted in CSV downstream is shown fileSubmission
     When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
-    And the user clicks on Add criteria button
-    Then file submission search criteria badge information is displayed below drop-down buttons
-    When the user click on the Search button
-    Then search results are displayed in table format with display options button
-#    Then search results are displayed for the file-submission search
-#    And the user is able to see the field values - Filenames "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
-    And the user is able to see one or more of the Filenames "<filename>", Status "<Status>", ErrorMessage "<ErrorMessage>" and WarningMessage "<WarningMessage>"
-
-    Examples:
-      | mi_stage         | column   | operator     | date       | filename                                            | Status  | ErrorMessage | WarningMessage |
-      | File Submissions | Created | before or on | 09-03-2020 | ngis_glh_to_gel_sample_sent_now_20200309_200002.csv | invalid |              |                |
-
- @NTS-3390
-    #@E2EUI-1283
-  Scenario Outline: NTS-3390:verify the defaults elements on File Submission search page
-    When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
     Then the file-submission page displays the search header, drop-down - column, operator, and value, add, search and reset buttons
     And the selected search option is reset after test
@@ -39,15 +19,15 @@ Feature:  MIPORTAL:  fileSubmission_1
 
   @NTS-3390
     #@E2EUI-1283 @E2EUI-2513
-  Scenario Outline:NTS-3390: verify the drop-down values of file-submission search column
+  Scenario Outline:NTS-3390:E2EUI-1283,2513: verify the drop-down values of file-submission search column
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user sees the values in the file-submission search column "file_submissions-search-col" drop-down menu
-      | fileSubmissionsSearchColumnHeader |
-      | Created                           |
-      | Status                            |
-      | Submitted By                      |
+    Then the user sees the below values in the file-submission search column drop-down menu
+      | Created      |
+      | Status       |
+      | Submitted By |
     And the selected search option is reset after test
 
     Examples:
@@ -56,69 +36,71 @@ Feature:  MIPORTAL:  fileSubmission_1
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: When Search-column is "Created" - verify the drop-down values of file-submission search operator
+  Scenario Outline:E2EUI-1283: When Search-column is "Created" - verify the drop-down values of file-submission search operator
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
-      | fileSubmissionsSearchOperatorHeader |
-      | equals                            |
-      | before or on                      |
-      | on or after                       |
+    And the user selects Created as the search column dropdown
+    Then the user sees the below values in the file-submission search operator drop-down menu
+      | equals       |
+      | before or on |
+      | on or after  |
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  |
-      | File Submissions | Created |
+      | mi_stage         |
+      | File Submissions |
 
   @NTS-3390
     #@E2EUI-1283 @E2EUI-2513
-  Scenario Outline: When Search-column is "<column>":verify the drop-down values of file-submission search operator
+  Scenario Outline:E2EUI-1283,E2EUI-2513: When Search-column is "<column>":verify the drop-down values of file-submission search operator
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
-    #    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user sees the values in the search operator "file_submissions-search-operator" drop-down menu
-      | fileSubmissionsSearchOperatorHeader |
-      | is                                  |
-      | is one of                           |
+    And the user selects <column> as the search column dropdown
+    Then the user sees the below values in the file-submission search operator drop-down menu
+      | is        |
+      | is one of |
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column        |
+      | mi_stage         | column       |
       | File Submissions | Status       |
       | File Submissions | Submitted By |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: When Search-column is "Status" and operator is "<operator>": verify the drop-down values of file-submission search values
+  Scenario Outline:E2EUI-1283: When Search-column is "Status" and operator is "<operator>": verify the drop-down values of file-submission search values
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
-#    And the mi-portal "<mi_stage>" stage is selected
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user sees the values in the search value "file_submissions-search-value" drop-down menu
-      | fileSubmissionsSearchValueHeader |
-      | Duplicate                        |
-      | In Progress                      |
-      | Invalid                          |
-      | Valid                            |
-      | Valid with Warnings              |
+    And the user selects <column> as the search column dropdown
+    And the user selects <operator> as the search operator dropdown
+    Then the user sees the below values in the file-submission search value drop-down menu
+      | Duplicate           |
+      | In Progress         |
+      | Invalid             |
+      | Valid               |
+      | Valid with Warnings |
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator  |
+      | mi_stage         | column | operator  |
       | File Submissions | Status | is        |
       | File Submissions | Status | is one of |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: User is able to reset selected search criteria badge
+  Scenario Outline:E2EUI-1283: User is able to reset selected search criteria badge
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user selects Created as the search column dropdown
+    And the user selects equals as the search operator dropdown
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -126,16 +108,18 @@ Feature:  MIPORTAL:  fileSubmission_1
     Then the search criteria badge disappears
 
     Examples:
-      | mi_stage         | column   | operator | date  |
-      | File Submissions | Created | equals   | today |
+      | mi_stage         | date  |
+      | File Submissions | today |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline:NTS-3390: When no result is found
+  Scenario Outline:NTS-3390:E2EUI-1283: When no result is found
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user selects Created as the search column dropdown
+    And the user selects equals as the search operator dropdown
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -144,83 +128,87 @@ Feature:  MIPORTAL:  fileSubmission_1
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column   | operator | date        | noResultFound                            |
-      | File Submissions | Created | equals   | future_date | No results found for these search terms. |
+      | mi_stage         | date        | noResultFound                            |
+      | File Submissions | future_date | No results found for these search terms. |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:Verify the main elements displayed in search result section
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column   | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:Verify user is able to Download the CSV fileSubmission result
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Download CSV button to download the CSV file as "file_submissions_filtered".csv
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column   | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:Verify the elements in the Column Ordering section of File-Submission Display Options
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
-  Scenario Outline: NTS-3390:Verify the default header values of 'Show' and 'Hide' in the Column Ordering section of File-Submission Display Options
+  Scenario Outline: NTS-3390:E2EUI-1283: Verify the default header values of 'Show' and 'Hide' in the Column Ordering section of File-Submission Display Options
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
@@ -245,20 +233,21 @@ Feature:  MIPORTAL:  fileSubmission_1
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283 @E2EUI-2513
-  Scenario Outline: File Submissions: ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+  Scenario Outline: E2EUI-1283,2513:File Submissions: ColumnHeader "<columnHeader>" displays only filtered "<fieldValue>" results in report table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user selects a value "<value>" from the "file_submissions-search-value" value drop-down
+    And the user selects <column> as the search column dropdown
+    And the user selects <operator> as the search operator dropdown
+    And the user selects <value> as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     And the column(s) field "<columnHeader>" in the search result table displayed the only filtered "<fieldValue>"
     And the selected search option is reset after test
@@ -271,34 +260,36 @@ Feature:  MIPORTAL:  fileSubmission_1
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390: Default selection in pagination entry of 10 is shown
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     And the user sees the search results pagination entry drop-down with default selection of "10"
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390: Pagination drop-down options shown in search result table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     And the user sees all the drop-down values in the search results pagination entry selection
       | paginationDropDownValues |
@@ -306,29 +297,31 @@ Feature:  MIPORTAL:  fileSubmission_1
       | 25                       |
       | 50                       |
       | 100                      |
-    When the user selects a pagination drop-down value "<paginationValue>"
-    And the user sees the search result table updated with "<paginationValue>" results
+    And the search result table should display based on the pagination value selected
+      | Pagination | Expected Rows |
+      | 50         | 50            |
+      | 25         | 25            |
+      | 10         | 10            |
+      | 100        | 100           |
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       | paginationValue |
-      | File Submissions | Created | equals   | 09-03-2020 | 25              |
-      | File Submissions | Created | equals   | 09-03-2020 | 50              |
-      | File Submissions | Created | equals   | 09-03-2020 | 100             |
-      | File Submissions | Created | equals   | 09-03-2020 | 10              |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
-    #@E2EUI-1283
+    #@E2EUI-1283 ##Drag and Drop to be rechecked
   Scenario Outline:NTS-3390: Drag and drop a column header from Show to Hide section (vice-versa)
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
@@ -346,16 +339,18 @@ Feature:  MIPORTAL:  fileSubmission_1
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
-    #@E2EUI-1283
+    #@E2EUI-1283 ##Drag and Drop
   Scenario Outline:NTS-3390:Verify the drag and drop columnHeader in search result table
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
+    And the user selects Created as the search column dropdown
+    And the user selects equals as the search operator dropdown
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
@@ -373,80 +368,83 @@ Feature:  MIPORTAL:  fileSubmission_1
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
-      | columnHeaders              |
+      | columnHeaders |
       | id            |
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | date       |
+      | File Submissions | 09-03-2020 |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline:NTS-3390: User select the "Compact grid" check box on the modal content page
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:User select the "Truncate Columns" check box on the modal content page
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |
 
   @NTS-3390
     #@E2EUI-1283
   Scenario Outline: NTS-3390:Verify the expand compact button on a search row result and click to expand
+    Given a web browser is at the mi-portal home page
+      | MI_PORTAL_URL | ngis.io | GEL_NORMAL_USER |
     When the user navigates to the mi-portal "<mi_stage>" stage
     And the user sees a search box container section for "<mi_stage>" page
-    And the user selects a value "<column>" from the "file_submissions-search-col" column drop-down
-    And the user selects a search operator "<operator>" from the "file_submissions-search-operator" operator drop-down
-    And the user enters a date "<date>" in the file-submission date field
+    And the user selects Created as the search column dropdown
+    And the user selects before or on as the search operator dropdown
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
-#    Then search results are displayed for the file-submission search
     Then search results are displayed in table format with display options button
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
+    And the user sees the checkboxes with the label names Compact grid and Truncate columns
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -454,5 +452,5 @@ Feature:  MIPORTAL:  fileSubmission_1
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | column  | operator | date       |
-      | File Submissions | Created | equals   | 09-03-2020 |
+      | mi_stage         | noOfDays |
+      | File Submissions | 5        |

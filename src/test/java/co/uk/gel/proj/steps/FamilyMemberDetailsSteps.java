@@ -341,7 +341,9 @@ public class FamilyMemberDetailsSteps extends Pages {
             String nhsNumber = "";
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nAdding Family Member: "+i);
-                referralPage.navigateToFamilyMemberSearchPage();
+                if(!referralPage.navigateToFamilyMemberSearchPage()){
+                    Assert.assertTrue("Could not click on Add Family Member Button.",false);
+                }
                 HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(memberDetails.get(i).get(0));
                 //Verify whether the search with or without NHS
                 nhsNumber = paramNameValue.get("NHSNumber");

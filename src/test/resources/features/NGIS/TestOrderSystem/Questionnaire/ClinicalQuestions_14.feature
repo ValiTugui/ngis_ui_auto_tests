@@ -72,7 +72,6 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     When the user provided the values "<yearvalue2>" "<monthvalue2>" for Age of onset fields
     And the user adds a new HPO phenotype term "<hpoTerm>" using the autosuggest terms
     And the user clicks the Save and Continue button
-    Then the "Clinical questions" stage is marked as Completed
 
     Examples:
       | error_info            | red_color_hex_code | TestPackage  | ordering_entity_name | NoOfParticipants | DiseaseStatus | yearvalue1 | monthvalue1 | errorMessage1                       | yearvalue2 | monthvalue2 | hpoTerm                |

@@ -386,11 +386,24 @@ public class TumoursPage {
     }
 
     public boolean newTumourIsDisplayedInLandingPage(int i) {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
-        int numberOfTumours = tumoursLandingPageList.size() - 1;
-        Assert.assertEquals(i, numberOfTumours);
-        return true;
+        try {
+            if(!Wait.isElementDisplayed(driver, tumoursLandingPageTable,30)){
+                Debugger.println("Tumour Table not displayed.");
+                Debugger.println("newTumourIsDisplayedInLandingPage.jpg");
+                return false;
+            }
+            int numberOfTumours = tumoursLandingPageList.size() - 1;
+            if(numberOfTumours != i){
+                Debugger.println("Expected Number of Tumours: "+i+", Actual:"+numberOfTumours);
+                SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in newTumourIsDisplayedInLandingPage:"+exp);
+            SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
+            return false;
+        }
     }
 
     public int getTheNumbersOfTumoursDisplayedInLandingPage() {

@@ -288,7 +288,6 @@ public class ClinicalQuestionsPage {
     public boolean confirmRareDiseaseDiagnosisFieldIsEmpty(String diagnosisValue) {
         Wait.forElementToBeDisplayed(driver, diagnosisField);
         return (!diagnosisField.getText().equalsIgnoreCase(diagnosisValue));
-
     }
 
     public String selectDiseaseStatus(String diseaseStatusValue) {
@@ -794,22 +793,34 @@ public class ClinicalQuestionsPage {
     }
 
     public List<String> getValuesFromPhenotypicSexDropDown() {
-        Actions.clickElement(driver, phenotypicSexDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        // this step is necessary to make the dropdown to disappear
-        Actions.selectRandomValueFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        return values;
+        try {
+            Actions.clickElement(driver, phenotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            // this step is necessary to make the dropdown to disappear
+            Actions.selectRandomValueFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            return values;
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromPhenotypicSexDropDown: "+exp);
+            SeleniumLib.takeAScreenShot("getValuesFromPhenotypicSexDropDown.jpg");
+            return null;
+        }
     }
 
     public List<String> getValuesFromKaryotypicSexDropDown() {
-        Actions.clickElement(driver, karyotypicSexDropdown);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        List<String> values = Actions.getValuesFromDropdown(dropdownValues);
-        Wait.seconds(1);
-        return values;
+        try {
+            Actions.clickElement(driver, karyotypicSexDropdown);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            List<String> values = Actions.getValuesFromDropdown(dropdownValues);
+            Wait.seconds(1);
+            return values;
+        }catch(Exception exp){
+            Debugger.println("Exception from getValuesFromKaryotypicSexDropDown: "+exp);
+            SeleniumLib.takeAScreenShot("getValuesFromKaryotypicSexDropDown.jpg");
+            return null;
+        }
     }
 
     public void clickAddAnotherLink() {
