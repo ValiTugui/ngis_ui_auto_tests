@@ -180,16 +180,25 @@ public class ReferralPage<check> {
     //For Global Patient Banner Verification - Family Members
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Born']/following::span[contains(@aria-labelledby,'dateOfBirth')]")
     public WebElement familyMemberDob;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Gender']/following::span[contains(@aria-labelledby,'gender')]")
     public WebElement familyMemberGender;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]")
     public WebElement familyMemberNhsNumbers;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following-sibling::span")
     public WebElement familyMemberNgisId;
+
+    @FindBy(xpath = "//form//span[text()='Patient NGIS ID']/following-sibling::span")
+    public WebElement newFamilyMemberNgisId;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='NHS No.']/following::span[contains(@aria-labelledby,'nhsNumber')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> nhsChunkSeparators;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//span[text()='Patient NGIS ID']/following::span[contains(@aria-labelledby,'ngisId')]//span[contains(@class,'_chunk__separator_')]")
     public List<WebElement> ngisIDChunkSeparators;
+
     @FindBy(xpath = "//div[contains(@class,'participant-info')]//h2[contains(@class,'css-')]")
     public WebElement familyMemberNames;
 
@@ -596,9 +605,21 @@ public class ReferralPage<check> {
         }
     }
 
-    public void navigateToFamilyMemberSearchPage() {
-        Wait.forElementToBeDisplayed(driver, addFamilyMember);
-        Actions.clickElement(driver, addFamilyMember);
+    public boolean navigateToFamilyMemberSearchPage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, addFamilyMember);
+            Actions.clickElement(driver, addFamilyMember);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addFamilyMember);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from navigateToFamilyMemberSearchPage:" + exp);
+                SeleniumLib.takeAScreenShot("navigateToFamilyMemberSearchPage.jpg");
+                return false;
+            }
+        }
     }
 
     public List<String> getTheListOfHelpHintTextsOnCurrentPage() {
@@ -705,14 +726,17 @@ public class ReferralPage<check> {
                 Debugger.println("Trying with Path...:"+pageTitle);
                 titleElement = driver.findElement(pageTitle);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
+                    Debugger.println("Title found..");
                     return true;
                 }
             } catch (Exception exp) {
                 //Observed from some failure screen shot that, the issue was - previous page Save&Continue not clicked
                 //So clicking on save abd continue and trying again.
+                Debugger.println("Title verification..exception....Clicking on Save and Continue.");
                 clickSaveAndContinueButton();
                 Wait.seconds(2);
                 if (Wait.isElementDisplayed(driver, titleElement, 5)) {
+                    Debugger.println("Title found..");
                     return true;
                 }
                 Actions.scrollToTop(driver);
@@ -1093,14 +1117,18 @@ public class ReferralPage<check> {
 
     public void updatePatientNGSID(NGISPatientModel familyMember) {
         try {
-            if (!Wait.isElementDisplayed(driver, familyMemberNgisId, 10)) {
-                Debugger.println("Could not locate FM NGSID element.");
-                return;
+            String bannerNGIS = "";
+            if (Wait.isElementDisplayed(driver, familyMemberNgisId, 10)) {
+                bannerNGIS = familyMemberNgisId.getText();
+            }else{
+                if(Wait.isElementDisplayed(driver,newFamilyMemberNgisId,10)){
+                    bannerNGIS = newFamilyMemberNgisId.getText();
+                }
             }
-            String bannerNGIS = familyMemberNgisId.getText();
-            if (bannerNGIS == null || bannerNGIS.isEmpty()) {
-                Debugger.println("NGSID could not read.");
-                SeleniumLib.takeAScreenShot("NGISIDCouldNotRead.jpg");
+            if(bannerNGIS.isEmpty()) {
+                Debugger.println("Could not locate FM NGSID element.");
+                SeleniumLib.takeAScreenShot("familyMemberNgisId.jpg");
+                return;
             }
             familyMember.setNGIS_ID(bannerNGIS);
             FamilyMemberDetailsPage.updateNGISID(familyMember);
