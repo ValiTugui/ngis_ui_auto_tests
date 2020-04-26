@@ -281,15 +281,12 @@ public class ClinicalQuestionsSteps extends Pages {
     @When("the user clicks the phenotypic sex dropdown")
     public void theUserClicksThePhenotypicSexDropdown() {
         phenotypicSexDropdownList = clinicalQuestionsPage.getValuesFromPhenotypicSexDropDown();
-
     }
 
     @When("the user clicks the karyotypic sex dropdown")
     public void theUserClicksTheKaryotypicSexDropdown() {
         karyotypicSexDropdownList = clinicalQuestionsPage.getValuesFromKaryotypicSexDropDown();
-
     }
-
 
     @And("the user sees the following values in phenotypic sex dropdown")
     public void theUserSeesTheFollowingValuesInPhenotypicSexDropdown(List<String> expectedValues) {

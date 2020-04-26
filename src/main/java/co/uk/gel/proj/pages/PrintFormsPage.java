@@ -469,7 +469,6 @@ public class PrintFormsPage {
                 Debugger.println("Could not switch to new tab for reading " + fileName + " PDF form file content.");
                 return false;
             }
-
             //creating path for the downloaded pdf file
             String pathToFile = defaultDownloadLocation + fileName;
             File fileLocation = new File(pathToFile);
