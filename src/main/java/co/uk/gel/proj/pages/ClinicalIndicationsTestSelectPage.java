@@ -167,6 +167,19 @@ public class ClinicalIndicationsTestSelectPage {
         }
         String actual = loadingText.getText();
         Debugger.println("ActualText:"+actual);
+        if(actual.equalsIgnoreCase(expected)){
+            return true;
+        }
+        if(actual.contains("Please wait a moment")) {
+            //Wait for another 30 seconds more - as observed from jenkins failure
+            Wait.seconds(30);
+        }else{
+            Debugger.println("Expected text:"+expected+",Actual:"+actual);
+            SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
+            return false;
+        }
+        actual = loadingText.getText();
+        Debugger.println("ActualText1:"+actual);
         if(!actual.equalsIgnoreCase(expected)){
             Debugger.println("Expected text:"+expected+",Actual:"+actual);
             SeleniumLib.takeAScreenShot("validateIfCorrectTextIsDisplayed.jpg");
