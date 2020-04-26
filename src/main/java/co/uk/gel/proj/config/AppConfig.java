@@ -26,6 +26,8 @@ public class AppConfig {
     public static String searchTerm;
     public static String panel_app_url;
     public static Properties properties = null;
+    //MIPortal test data
+    public static String mi_portal_test_data_file;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -56,6 +58,7 @@ public class AppConfig {
         app_superUsername = properties.getProperty("SUPER_USERNAME");
         app_superPassword = properties.getProperty("SUPER_PASSWORD");
         panel_app_url = properties.getProperty("PANEL_APP_URL");
+        mi_portal_test_data_file = properties.getProperty("MI_PORTAL_TEST_DATA_FILE");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
