@@ -846,14 +846,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
             // first check the column header is in 'From Section'
             if (fromSection.equalsIgnoreCase("Show")) {
-                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("visible");
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("show");
             } else if (fromSection.equalsIgnoreCase("Hide")) {
-                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hidden");
+                actualListOfColumnHeaders = getListOfColumnsInHeaderShowOrHidden("hide");
             }
             assert actualListOfColumnHeaders != null;
 
             if (!actualListOfColumnHeaders.contains(columnHeader)) {
-                Debugger.println("No saveAndCloseHeaderOrderingButton element is shown.");
+                Debugger.println("No columnHeader: " + columnHeader + " element is present.");
                 SeleniumLib.takeAScreenShot("columnHeaderNotFoundInColumnHeaderList.jpg");
                 return false;
             }
@@ -1271,11 +1271,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             String searchBoxes = searchBox.replace("dummySection", section);
             List<WebElement> searchBoxFields = driver.findElements(By.xpath(searchBoxes));
             int searchBoxSize = Integer.parseInt(numberOfSearchField);
-            if (searchBoxFields.size() != searchBoxSize) {
-                Debugger.println("Actual search box size :" + searchBoxFields.size() + ", Excepted search box size :" + searchBoxSize);
-                SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
-                return false;
-            }
+            if (searchBoxFields.size() == searchBoxSize) {
+                return true;
+            } else if (searchBoxFields.size() != searchBoxSize) {
             if (searchBoxFields.size() == 2) {
                 if (!seleniumLib.isElementPresent(dateSearchField)) {
                     Debugger.println("Number of search box is " + searchBoxFields.size() + " and expected is " + searchBoxSize + " ,But the date box is not present");
@@ -1284,6 +1282,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 }
             }
                     return true;
+            } else {
+                Debugger.println("Actual search box size :" + searchBoxFields.size() + ", Excepted search box size :" + searchBoxSize);
+                SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
+                return false;
+            }
+
         } catch (Exception exp) {
             Debugger.println("Exception from verifyThePresenceOfSearchBoxes, " + exp);
             SeleniumLib.takeAScreenShot("SearchBoxes.jpg");

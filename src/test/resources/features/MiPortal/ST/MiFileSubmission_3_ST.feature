@@ -94,7 +94,7 @@ Feature: MIPORTAL ST - File Submission 3
     And the user sees a search box container section for "<mi_stage>" page
     And the user should be able to see "<NoOfSearchField>" search boxes in the "file_submissions" page
     And the user selects Created as the search column dropdown
-    And the user selects before or on as the search operator dropdown
+    And the user selects on or after as the search operator dropdown
     And the user enters a date "<date>" in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons

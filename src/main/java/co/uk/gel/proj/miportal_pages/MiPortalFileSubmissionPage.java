@@ -491,7 +491,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
             WebElement columnToHide = driver.findElement(By.xpath(culumn_value));
             org.openqa.selenium.interactions.Actions act = new org.openqa.selenium.interactions.Actions(driver);
             if (!columnToHide.isDisplayed()) {
-                Debugger.println("teh column is not avilable");
+                Debugger.println("The column"+fieldColumn+" is not available");
                 SeleniumLib.takeAScreenShot("selectedColumn.jpg");
                 return false;
             }
