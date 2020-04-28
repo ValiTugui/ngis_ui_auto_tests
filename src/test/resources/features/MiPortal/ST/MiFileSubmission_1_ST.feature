@@ -351,7 +351,8 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees a search box container section for "<mi_stage>" page
     And the user selects Created as the search column dropdown
     And the user selects equals as the search operator dropdown
-    And the user enters a date "<date>" in the file-submission date field
+#    And the user enters a date "<date>" in the file-submission date field
+    And the user enters a date "<noOfDays>" days before today in the file-submission date field
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
@@ -373,8 +374,8 @@ Feature: MIPORTAL ST - File Submission 1
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | date       |
-      | File Submissions | 09-03-2020 |
+      | mi_stage         | date  | noOfDays |
+      | File Submissions | today | 1        |
 
   @NTS-3390
     #@E2EUI-1283

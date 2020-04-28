@@ -54,9 +54,9 @@ Feature:  MIPORTAL ST - Plater Samples
 
     Examples:
       | mi_stage       | section        | NoOfSearchField | date       |
-      | Plater Samples | plater_samples | 3               | 21-02-2020 |
+      | Plater Samples | plater_samples | 3               | 21-04-2020 |
 
-  @NTS-50211
+  @NTS-5021
    ## @E2EUI-2231 ##Drag and Drop  - need to recheck
   Scenario Outline:NTS-5021:E2EUI-2231: MIS: Fields not populating in Plater Samples
     When the user should be able to see sample processing menu is displayed
@@ -79,4 +79,4 @@ Feature:  MIPORTAL ST - Plater Samples
 
     Examples:
       | mi_stage       |date       |
-      | Plater Samples |21-02-2020 |
+      | Plater Samples |27-04-2020 |

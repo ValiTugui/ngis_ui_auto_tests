@@ -60,7 +60,8 @@ Feature:  MIPORTAL ST -  Home Page
       | Ordering Entity               |
       | Referral ID                   |
       | Patient NGIS ID               |
-      | Clinical Indication Test Type |
+      | Test Type       |
+#      | Clinical Indication Test Type |
     When the user navigates to the mi-portal "<glh_samples>" stage
     And the user sees a search box container section for "<glh_samples>" page
     And the user sees the below values in the glh samples search column drop-down menu

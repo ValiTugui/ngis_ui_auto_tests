@@ -65,7 +65,8 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@id,'column_order_hidden')]")
     public WebElement hideColumnSpace;
 
-    By fileSubmissionTableHead = By.xpath("//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
+//    By fileSubmissionTableHead = By.xpath("//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
+    By fileSubmissionTableHead = By.xpath("//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String fileSubmissionTableRows = "//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
     @FindBy(xpath = "//select[@id='file_submissions-search-value']")
@@ -91,7 +92,12 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 String dateToday = TestUtils.todayInDDMMYYYFormat();
                 dateToday = dateToday.replace("/", "-");
                 String updatedFutureDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, 1,0, 0); //Add future day +1
+                try {
                 Actions.clickElement(driver, getFileSubmissionDate);
+                }catch(Exception exp1){
+                    Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
+                    getFileSubmissionDate.click();
+                }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
                 Actions.fillInValue(getFileSubmissionDate,updatedFutureDate);
@@ -100,14 +106,24 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 String dateToday = TestUtils.todayInDDMMYYYFormat();
                 dateToday = dateToday.replace("/", "-");
                 String updatedFutureDate =  TestUtils.getDateNineMonthsOrMoreBeforeDoB(dateToday, -5,0, 0); //Add future day +1
+                try {
                 Actions.clickElement(driver, getFileSubmissionDate);
+                }catch(Exception exp1){
+                    Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
+                    getFileSubmissionDate.click();
+                }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
                 Actions.fillInValue(getFileSubmissionDate,updatedFutureDate);
                 return true;
             }else{
                 Wait.seconds(2);
+                try {
                 Actions.clickElement(driver, getFileSubmissionDate);
+                }catch(Exception exp1){
+                    Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
+                    getFileSubmissionDate.click();
+                }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
                 Actions.fillInValue(getFileSubmissionDate,date);

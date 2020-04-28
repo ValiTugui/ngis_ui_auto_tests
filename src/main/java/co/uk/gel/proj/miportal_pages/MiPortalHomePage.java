@@ -162,26 +162,27 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         By miStage = null;
         try {
             miStage = By.xpath("//a[contains(string(),\"" + expectedMipage + "\")]");
+            SeleniumLib.scrollToElement(genericNavigation);
             //Wait.forElementToBeDisplayed(driver, driver.findElement(miPage), 30);
-            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 30)) {
+            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 40)) {
                 Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
+           try {
             Actions.clickElement(driver, driver.findElement(miStage));
-            Wait.seconds(2);
-            return true;
         } catch (Exception exp) {
-            try{
+               Debugger.println("Exception from clicking on Stage." + exp);
+               Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(miStage));
                 seleniumLib.clickOnElement(miStage);
+           }
                 Wait.seconds(2);
                 return true;
-            }catch(Exception exp1) {
-                Debugger.println("Mandatory Page Link is not displayed even after waiting period...Failing." + exp1);
-                SeleniumLib.takeAScreenShot("MandatoryStageLink.jpg");
+        } catch (Exception exp) {
+            Debugger.println("Exception from clicking on Mandatory page link. " + exp);
+            SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
-        }
     }//end
 
     public boolean searchBoxContainerIsDisplayed() {
@@ -468,7 +469,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickSearchResultDisplayOptionsButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton,10)){
+            if (!Wait.isElementDisplayed(driver, searchResultDisplayOptionsButton, 30)) {
                 Debugger.println("The Display Options button is not displayed");
                 SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
                 return false;

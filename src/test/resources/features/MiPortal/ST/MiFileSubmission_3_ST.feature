@@ -112,6 +112,7 @@ Feature: MIPORTAL ST - File Submission 3
       | Invalid                          |
       | Valid                            |
       | Valid with Warnings              |
+    And the user selects Valid as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
