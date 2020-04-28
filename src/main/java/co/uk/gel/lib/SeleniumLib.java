@@ -737,12 +737,7 @@ public class SeleniumLib {
             e.printStackTrace();
         }
     }
-    public static void writeToFile(String dataToWrite) throws IOException {
-        FileWriter myWriter = new FileWriter("Referrals.properties", true);
-        myWriter.write(dataToWrite);
-        myWriter.write("\n");
-        myWriter.close();
-    }
+
     public int getNoOfRows(By element) {
         try {
             waitForElementVisible(driver.findElement(element));

@@ -2001,4 +2001,8 @@ public class ReferralPage<check> {
         }
     }
 
+    public void saveReferralID () {
+        SeleniumLib.writeToJsonFile(referralHeaderReferralId.getText());
+    }
+
 }
