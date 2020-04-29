@@ -94,7 +94,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     When the user clicks on the Display Options button
     And the user sees a modal-content page
     Then the user sees the buttons - Reset, Save and close under Display Options
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
     When the user drag the column header "gel1001__referral_id" from the section "Show" to "Hide" section
@@ -117,7 +116,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     ## Compact grid click
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -126,7 +124,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     ## Truncate columns click
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -222,7 +219,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     ### Display Options Button
     When the user clicks on the Display Options button
     And the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user sees the buttons - Reset, Save and close under Display Options
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
@@ -243,7 +239,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     ### Compact grid check
     When the user clicks on the Display Options button
     And the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -252,7 +247,6 @@ Feature: MIPORTAL SIT - User Journey - Plater Samples and Picklists
     ### Truncate columns check
     When the user clicks on the Display Options button
     And the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page

@@ -2,7 +2,7 @@
 #@clinicalIndicationTestSelect
 @01-TEST_DIRECTORY
 @SYSTEM_TEST
-Feature: Test Directory: ClinicalIndicationSelect_2
+Feature: Test Directory: TestOrder
 
   @NTS-4565 @Z-LOGOUT
 #    @E2EUI-1842

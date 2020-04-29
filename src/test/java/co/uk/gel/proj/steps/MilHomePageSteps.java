@@ -230,9 +230,9 @@ public class MilHomePageSteps extends Pages {
     public void theUserSeesTheDisplayedFieldsColumnsUnderSectionAsEmpty(String expColumnHeaderStatus) {
         List actualListOfColumnHeaders = null;
         if (expColumnHeaderStatus.equalsIgnoreCase("Show")) {
-            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("visible");
+            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("Show");
         } else if (expColumnHeaderStatus.equalsIgnoreCase("Hide")){
-            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("hidden");
+            actualListOfColumnHeaders = miPortalHomePage.getListOfColumnsInHeaderShowOrHidden("Hide");
         }
         if(actualListOfColumnHeaders == null){
             Assert.assertTrue(false);

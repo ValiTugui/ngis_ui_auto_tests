@@ -94,7 +94,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     When the user clicks on the Display Options button
     And the user sees a modal-content page
     Then the user sees the buttons - Reset, Save and close under Display Options
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
     When the user drag the column header "gel1008__gel1009__ethnicity" from the section "Hide" to "Show" section
@@ -113,7 +112,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     ## Compact grid click
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -122,7 +120,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     ## Truncate columns click
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -213,7 +210,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     ### Display Button options
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user sees the buttons - Reset, Save and close under Display Options
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
@@ -223,7 +219,7 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
       | priority                 |
     And the user save the changes on modal content by clicking Save and Close button
     And the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    Then the table column "<ColumnHeader>" is displayed with data
+#    Then the table column "<ColumnHeader>" is displayed with data
     When the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user clicks on the button "Hide all"
@@ -233,7 +229,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     ### Compact grid check
     When the user clicks on the Display Options button
     And the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Compact grid" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
@@ -242,7 +237,6 @@ Feature: MIPORTAL: SIT User Journey for Sequencer Samples and New Referrals(E2EU
     ### Truncate columns check
     When the user clicks on the Display Options button
     And the user sees a modal-content page
-    And the user sees the checkboxes with the label names "Compact grid" and "Truncate columns"
     And the user click on the "Truncate columns" check box on the modal content page
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page

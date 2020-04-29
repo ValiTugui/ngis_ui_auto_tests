@@ -102,7 +102,7 @@ Feature: MIPORTAL SIT - Sanity
     When the user drag the column header "gel1008__created" from the section "Hide" to "Show" section
     And the user clicks on save and close button
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
-    And the table column "<ColumnHeader>" is displayed with data
+#    And the table column "<ColumnHeader>" is displayed with data
     Then the selected search option is reset after test
     ##Sequencer Samples Section
     When the user navigates to the mi-portal "<mi_stage6>" stage

@@ -26,9 +26,9 @@ Feature: MIPORTAL: Sequencer Samples SIT (E2EUI-2256,2233)
     And the columns fields are  displayed in the list of columns headers of the search result table
       | columnHeaders    |
       | gel1010 Filename |
-    Then the table column "<ColumnHeader>" is displayed with data
+#    Then the table column "<ColumnHeader>" is displayed with data
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage          | value                      | operator | dropdown | ColumnHeader     |
-      | Sequencer Samples | gel1010 Illumina QC Status | is       | Pass     | gel1010 Filename |
+      | mi_stage          | value                      | operator | dropdown |
+      | Sequencer Samples | gel1010 Illumina QC Status | is       | Pass     |
