@@ -78,7 +78,6 @@ public class PrintFormsPage {
     @FindBy(css = "a[class*='btn-secondary']")
     public List<WebElement> downloadButton;
 
-    //    @FindBy(xpath = "//div[contains(@class,'styles_body')]//div//div")
     @FindBy(xpath = "//h3[text()='Tests']//following::div[contains(@class,'styles_cellSection')]")
     public WebElement orderedTestType;
 
@@ -93,9 +92,6 @@ public class PrintFormsPage {
 
     @FindBy(xpath = "//div[contains(@class,'notice__text')]")
     public WebElement downloadNotice;
-
-    @FindBy(xpath = "//*[@id='referral__header']//button/span[text()='Submit']")
-    public WebElement referralSubmitButton;
 
     @FindBy(xpath = "//span[text()='Show address']")
     WebElement showLabAddressLink;
@@ -135,58 +131,42 @@ public class PrintFormsPage {
         Debugger.println("NG:" + ngsId + ",REF:" + referralId + ",dob:" + dob);
         String output;
         PDDocument document = null;
-        BufferedInputStream fileToParse = null;
-        InputStream is = null;
         try {
-            if (!SeleniumLib.switchToNewTab()) {
-                Debugger.println("Could not switch to new tab for reading print form PDF file content.");
-                return false;
-            }
+
             String pathToFile = "";
             if (folder == null || folder.isEmpty()) {
                 pathToFile = defaultDownloadLocation + "SampleForm.pdf";
             } else {
                 pathToFile = defaultDownloadLocation + folder + File.separator + "SampleForm.pdf";
             }
-            //Debugger.println("PDF file location: "+pathToFile);
-            // pdf file with full path name
-            driver.get("file:///" + pathToFile);
-            Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
-            URL url = new URL(driver.getCurrentUrl());
-            //Debugger.println("Opening Inputstream from loaded PDF.");
-            is = url.openStream();
-            fileToParse = new BufferedInputStream(is);
-            document = PDDocument.load(fileToParse);
+            document = PDDocument.load(new File(pathToFile));
             //Debugger.println("Reading PDF content....");
             if (familyMember.getREFERAL_ID() == null) {
                 Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");
             }
-            output = new PDFTextStripper().getText(document);
+            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
+            output = pdfTextStripper.getText(document);
             if (output.contains(dob) &&
                     output.contains(referralId)) {
-                //Close the tab and return.
-                SeleniumLib.closeCurrentWindow();
                 return true;
             } else {
                 Debugger.println("PDF content does not contain ngsid:" + ngsId + ",dob:" + dob + " and referralID:" + referralId + "\n Actual Content:" + output);
-                SeleniumLib.closeCurrentWindow();
                 return false;
             }
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);
-            return SeleniumLib.closeCurrentWindow();
+            return false;
         } finally {
             try {
                 if (document != null) {
                     document.close();
                 }
-                fileToParse.close();
-                is.close();
             } catch (Exception ex) {
 
             }
         }
+
     }
 
     public boolean downloadProbandPrintForm() {
@@ -256,23 +236,14 @@ public class PrintFormsPage {
         String expectedSample = expValues.get(11);
 
         PDDocument document = null;
-        BufferedInputStream fileToParse = null;
+
         InputStream is = null;
         try {
-            if (!SeleniumLib.switchToNewTab()) {
-                Debugger.println("Could not switch to new tab for reading print form PDF file content.");
-                return false;
-            }
+
             String pathToFile = defaultDownloadLocation + "SampleForm.pdf";
             Debugger.println("PDF file location: " + pathToFile);
             // pdf file with full path name
-            driver.get("file:///" + pathToFile);
-            Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
-            URL url = new URL(driver.getCurrentUrl());
-            Debugger.println("Opening Inputstream from loaded PDF.");
-            is = url.openStream();
-            fileToParse = new BufferedInputStream(is);
-            document = PDDocument.load(fileToParse);
+            document = PDDocument.load(new File(pathToFile));
             Debugger.println("Reading PDF content....");
             PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
             String outputData = pdfTextStripper.getText(document);
@@ -329,9 +300,6 @@ public class PrintFormsPage {
                 testResult = false;
             }
 
-
-            //Close the tab and return.
-            SeleniumLib.closeCurrentWindow();
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);
@@ -342,8 +310,7 @@ public class PrintFormsPage {
                 if (document != null) {
                     document.close();
                 }
-                fileToParse.close();
-                is.close();
+
             } catch (Exception ex) {
 
             }
@@ -456,8 +423,6 @@ public class PrintFormsPage {
             }
         }
         PDDocument document = null;
-        BufferedInputStream fileToParse = null;
-        InputStream is = null;
         String[] textList = null;
         if (!expText.contains(",")) {
             textList = new String[]{expText};
@@ -465,10 +430,6 @@ public class PrintFormsPage {
             textList = expText.split(",");
         }
         try {
-            if (!SeleniumLib.switchToNewTab()) {
-                Debugger.println("Could not switch to new tab for reading " + fileName + " PDF form file content.");
-                return false;
-            }
             //creating path for the downloaded pdf file
             String pathToFile = defaultDownloadLocation + fileName;
             File fileLocation = new File(pathToFile);
@@ -476,15 +437,7 @@ public class PrintFormsPage {
                 pathToFile = defaultDownloadLocation + "RD" + File.separator + fileName;
             }
             Debugger.println("PDF file location: " + pathToFile);
-            // pdf file with full path name
-            driver.get("file:///" + pathToFile);
-            Wait.seconds(10);//Waiting for 10 seconds to load the PDF file in the browser.
-            URL url = new URL(driver.getCurrentUrl());
-            Debugger.println("Opening InputStream from loaded PDF.");
-            is = url.openStream();
-            fileToParse = new BufferedInputStream(is);
-            document = PDDocument.load(fileToParse);
-            Debugger.println("Reading PDF content....");
+            document = PDDocument.load(new File(pathToFile));
             PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
             String outputData = pdfTextStripper.getText(document);
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
@@ -498,21 +451,16 @@ public class PrintFormsPage {
                     testResult = false;
                 }
             }
-            //Close the tab and return.
-            SeleniumLib.closeCurrentWindow();
             return testResult;
         } catch (Exception exp) {
             Debugger.println("Exception from loading PDF content: " + exp);
-            SeleniumLib.takeAScreenShot("PrintFormPdfValidation.jpg");
-            SeleniumLib.closeCurrentWindow();
             return false;
         } finally {
             try {
                 if (document != null) {
                     document.close();
                 }
-                fileToParse.close();
-                is.close();
+
             } catch (Exception exc) {
                 Debugger.println("Exception in closing pdf file: " + exc);
             }

@@ -198,7 +198,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
         try {
             if (!Wait.isElementDisplayed(driver, searchBoxHeader, 15)) {
                 Debugger.println("Search Terms header is not displayed");
-                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+                SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
                 return false;
             }
             if (Wait.isElementDisplayed(driver, mainSearchContainer, 5)) {
@@ -206,12 +206,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } else {
                 Debugger.println("Element not found ");
-                SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+                SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
                 return false;
             }
         } catch (Exception exp) {
             Debugger.println("Main search container is not displayed");
-            SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
+            SeleniumLib.takeAScreenShot("searchContainerNotFound.jpg");
             return false;
         }
     }

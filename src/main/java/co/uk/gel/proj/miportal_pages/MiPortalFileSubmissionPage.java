@@ -272,7 +272,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
         expectedElements.add(resetButton);
 
         for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+            if (!Wait.isElementDisplayed(driver,expectedElements.get(i),10)) {
                 Debugger.println("The element "+expectedElements.get(i)+" is not present on the page");
                 SeleniumLib.takeAScreenShot("FileSubmissionPageElements.jpg");
                 return false;

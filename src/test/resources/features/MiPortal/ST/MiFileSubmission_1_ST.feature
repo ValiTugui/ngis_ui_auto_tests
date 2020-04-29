@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST_1
+@SYSTEM_TEST
 
 Feature: MIPORTAL ST - File Submission 1
 
@@ -111,7 +111,7 @@ Feature: MIPORTAL ST - File Submission 1
       | mi_stage         | date  |
       | File Submissions | today |
 
-  @NTS-3390
+  @NTS-33901
     #@E2EUI-1283
   Scenario Outline:NTS-3390:E2EUI-1283: When no result is found
     Given a web browser is at the mi-portal home page
