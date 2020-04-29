@@ -31,8 +31,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
 
-    @FindBy(xpath = "//a[contains(string(),'File Submissions')]")
-    public WebElement genericNavigation;
+    @FindBy(xpath = "//a[contains(string(),'Sample Processing')]")
+    public WebElement sampleProcessingMenuLink;
 
     @FindBy(xpath = "//div[@class='tab-pane active']//div[@class='box box-solid box-primary']")
     public WebElement mainSearchContainer;
@@ -161,8 +161,13 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
         try {
+            if(!Wait.isElementDisplayed(driver,sampleProcessingMenuLink,40)){
+                Debugger.println("MIPortal Menu List not loaded.");
+                SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
+                return false;
+            }
             miStage = By.xpath("//a[contains(string(),'" + expectedMipage + "')]");
-            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 40)) {
+            if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 20)) {
                 Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
