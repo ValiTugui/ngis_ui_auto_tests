@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST
+@MIPORTAL_ST_2
 
 Feature:  MIPORTAL ST -  Home Page
 

@@ -64,7 +64,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public WebElement sampleProcessing2;
 
     @FindBy(xpath = "//ul[contains(string(),'Sample Processing')]//ul/li/a")
-    public List <WebElement> subMenusOfSimpleProcessing;
+    public List<WebElement> subMenusOfSimpleProcessing;
 
     @FindBy(xpath = "//a[@class='sidebar-toggle']")
     public WebElement sideBarToggle;
@@ -111,7 +111,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//h3[text()='Column ordering']")
     public WebElement headerColumnOrdering;
 
-//    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
+    //    @FindBy(xpath = "//button[@id='file_submissions-display-reset']")
     @FindBy(xpath = "//button[contains(@id,'-display-reset')]")
     public WebElement resetHeaderOrdering;
 
@@ -153,7 +153,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//table[contains(@id,'DataTables_Table')]")
     public WebElement displayedResultTable;
 
-    @FindBy(xpath="//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
+    @FindBy(xpath = "//p[contains(.,'Select a valid choice. That choice is not one of the available choices.')]")
     public WebElement errorMessageElement;
 
     String badgeFilterSearchCriteriaBy = "//div[contains(@class,'active')]//span[contains(@class,'badge-info')]";
@@ -161,33 +161,30 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public boolean navigateToMiPage(String expectedMipage) {
         By miStage = null;
         try {
-            miStage = By.xpath("//a[contains(string(),\"" + expectedMipage + "\")]");
-            SeleniumLib.scrollToElement(genericNavigation);
-            //Wait.forElementToBeDisplayed(driver, driver.findElement(miPage), 30);
+            miStage = By.xpath("//a[contains(string(),'" + expectedMipage + "')]");
             if (!Wait.isElementDisplayed(driver, driver.findElement(miStage), 40)) {
                 Debugger.println(" Mandatory page Link is not displayed even after waiting period...Failing.");
                 SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
                 return false;
             }
-           try {
-            Actions.clickElement(driver, driver.findElement(miStage));
-        } catch (Exception exp) {
-               Debugger.println("Exception from clicking on Stage." + exp);
-               Actions.retryClickAndIgnoreElementInterception(driver, driver.findElement(miStage));
+            try {
+                Actions.clickElement(driver, driver.findElement(miStage));
+            } catch (Exception exp) {
+                Debugger.println("Exception from clicking on Stage." + exp);
                 seleniumLib.clickOnElement(miStage);
-           }
-                Wait.seconds(2);
-                return true;
+            }
+            Wait.seconds(2);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from clicking on Mandatory page link. " + exp);
             SeleniumLib.takeAScreenShot("MandatoryPageLink.jpg");
-                return false;
-            }
+            return false;
+        }
     }//end
 
     public boolean searchBoxContainerIsDisplayed() {
         try {
-            if(!Wait.isElementDisplayed(driver,searchBoxHeader,15)){
+            if (!Wait.isElementDisplayed(driver, searchBoxHeader, 15)) {
                 Debugger.println("Search Terms header is not displayed");
                 SeleniumLib.takeAScreenShot("searchcontainerNotFound.jpg");
                 return false;
@@ -219,7 +216,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             Wait.seconds(1);
             return true;
         } catch (Exception exp) {
-        try {
+            try {
                 seleniumLib.clickOnWebElement(addButton);
                 Wait.seconds(1);
                 return true;
@@ -264,11 +261,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             }
             Wait.forElementToBeClickable(driver, resetButton);
             try {
-            Click.element(driver, resetButton);
+                Click.element(driver, resetButton);
                 Wait.seconds(2);
                 return true;
             } catch (ElementClickInterceptedException exc) { //to handle the 3rd dropdown selection box overlay intercepting sometimes.
-                Debugger.println("Click on Reset Intercepted, clicking on body first and trying to reset again...."+exc);
+                Debugger.println("Click on Reset Intercepted, clicking on body first and trying to reset again...." + exc);
                 WebElement body = driver.findElement(By.xpath("//body"));
                 body.click();
                 Wait.seconds(2);
@@ -282,7 +279,6 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
-
 
 
     public boolean selectSearchValueDropDown(String value, String dropDownButton) {
@@ -328,7 +324,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             }
             return actualDropDownValues;
         } catch (Exception exp) {
-            Debugger.println("Exception in getDropDownValues for dropdown field:"+dropDownButton+"\nExp:"+exp);
+            Debugger.println("Exception in getDropDownValues for dropdown field:" + dropDownButton + "\nExp:" + exp);
             SeleniumLib.takeAScreenShot("dropDownValuesAreNotFound.jpg");
             return null;
         }
@@ -371,7 +367,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean searchResultTableIsDisplayed() {
-      Wait.seconds(2);
+        Wait.seconds(2);
         try {
             Wait.forElementToBeDisplayed(driver, searchResultDisplayOptionsButton);
             if (Wait.isElementDisplayed(driver, searchResultRowHeader, 10)) {
@@ -433,14 +429,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             expectedElements.add(downloadCSVButton);
             for (int i = 0; i < expectedElements.size(); i++) {
                 if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
-                    Debugger.println("Search result section element not displayed: "+expectedElements.get(i));
+                    Debugger.println("Search result section element not displayed: " + expectedElements.get(i));
                     SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
                     return false;
                 }
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Search result section is not properly loaded"+exp);
+            Debugger.println("Search result section is not properly loaded" + exp);
             SeleniumLib.takeAScreenShot("SearchResultSectionNotFound.jpg");
             return false;
         }
@@ -483,9 +479,9 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on displayOptions:" + exp1);
                 SeleniumLib.takeAScreenShot("NoDisplayOptions.jpg");
-            return false;
+                return false;
+            }
         }
-    }
     }
 
     public boolean modalContentIsDisplayed() {
@@ -510,12 +506,12 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("CheckBoxOnModalPopup.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,compactGridCheckBox,10)){
+            if (!Wait.isElementDisplayed(driver, compactGridCheckBox, 10)) {
                 Debugger.println("The compactGridCheckBox is not present");
                 SeleniumLib.takeAScreenShot("compactGridCheckBox.jpg");
                 return false;
             }
-            if(!Wait.isElementDisplayed(driver,truncateColumnsCheckBox,10)){
+            if (!Wait.isElementDisplayed(driver, truncateColumnsCheckBox, 10)) {
                 Debugger.println("The truncateColumnsCheckBox is not present");
                 SeleniumLib.takeAScreenShot("truncateColumnsCheckBox.jpg");
                 return false;
@@ -545,14 +541,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on resetHeaderOrderingButton:" + exp1);
-            SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
+                SeleniumLib.takeAScreenShot("NoResetHeaderOrderingButton.jpg");
                 return false;
             }
         }
     }
+
     public boolean verifyColumnOrderingSectionDisplay() {
         try {
-           if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 10)) {
+            if (!Wait.isElementDisplayed(driver, headerColumnOrdering, 10)) {
                 Debugger.println("Column Ordering Section not displayed.");
                 SeleniumLib.takeAScreenShot("noHeaderColumnHeader.jpg");
                 return false;
@@ -584,6 +581,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return false;
         }
     }
+
     public List<String> getColumnOrderShowHideLabelsOnDisplayedModal() {
         try {
 //            Wait.forElementToBeDisplayed(driver, headerColumnOrdering);
@@ -614,8 +612,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return null;
             }
             columnElement = By.xpath("//label[text()=\"" + headerColumnStatus + "\"]");
-            if (!Wait.isElementDisplayed(driver,driver.findElement(columnElement) , 10)){
-                Debugger.println("No " + columnElement +  "element shown.");
+            if (!Wait.isElementDisplayed(driver, driver.findElement(columnElement), 10)) {
+                Debugger.println("No " + columnElement + "element shown.");
                 SeleniumLib.takeAScreenShot("ShowHideLabelsOnModalPopUp.jpg");
                 return null;
             }
@@ -630,11 +628,11 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     public List<String> getListOfColumnsInHeaderShowOrHidden(String headerColumnStatus) {
         try {
             List<String> actualHeaderValueList = new ArrayList<>();
-            if(headerColumnStatus.equalsIgnoreCase("Show")){
+            if (headerColumnStatus.equalsIgnoreCase("Show")) {
                 for (WebElement headerValue : visibleColumnReorderingList) {
                     actualHeaderValueList.add(headerValue.getText().trim());
                 }
-            }else if(headerColumnStatus.equalsIgnoreCase("Hide")){
+            } else if (headerColumnStatus.equalsIgnoreCase("Hide")) {
                 for (WebElement headerValue : hiddenColumnReorderingList) {
                     actualHeaderValueList.add(headerValue.getText().trim());
                 }
@@ -646,28 +644,29 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             return null;
         }
     }
-    public boolean verifyListOfColumnsInHeaderShowOrHidden(String headerColumnStatus,List <List<String>> expValues) {
+
+    public boolean verifyListOfColumnsInHeaderShowOrHidden(String headerColumnStatus, List<List<String>> expValues) {
         try {
             List<String> actualHeaderValueList = new ArrayList<>();
-            if(headerColumnStatus.equalsIgnoreCase("Show")){
+            if (headerColumnStatus.equalsIgnoreCase("Show")) {
                 for (WebElement headerValue : visibleColumnReorderingList) {
                     actualHeaderValueList.add(headerValue.getText().trim());
                 }
-            }else if(headerColumnStatus.equalsIgnoreCase("Hide")){
+            } else if (headerColumnStatus.equalsIgnoreCase("Hide")) {
                 for (WebElement headerValue : hiddenColumnReorderingList) {
                     actualHeaderValueList.add(headerValue.getText().trim());
                 }
             }
             boolean isPresent = false;
-            for(int i=1; i<expValues.size(); i++){//Starts from index 1 to exclude heading
-                for(int j=0;j<actualHeaderValueList.size(); j++){
-                    if(expValues.get(i).get(0).equalsIgnoreCase(actualHeaderValueList.get(j))){
+            for (int i = 1; i < expValues.size(); i++) {//Starts from index 1 to exclude heading
+                for (int j = 0; j < actualHeaderValueList.size(); j++) {
+                    if (expValues.get(i).get(0).equalsIgnoreCase(actualHeaderValueList.get(j))) {
                         isPresent = true;
                         break;
                     }
                 }
-                if(!isPresent){
-                    Debugger.println("Expected value :" + expValues.get(i).get(0)+" Not present under section:"+headerColumnStatus);
+                if (!isPresent) {
+                    Debugger.println("Expected value :" + expValues.get(i).get(0) + " Not present under section:" + headerColumnStatus);
                     SeleniumLib.takeAScreenShot("ColumnHeaderOrderingShowHide.jpg");
                     return isPresent;
                 }
@@ -734,7 +733,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("SelectPagination.jpg");
                 return false;
             }
-            seleniumLib.selectFromListByText(defaultPaginationEntryOptionsValue,valueToSelect);
+            seleniumLib.selectFromListByText(defaultPaginationEntryOptionsValue, valueToSelect);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from selecting pagination value: " + exp);
@@ -774,17 +773,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 SeleniumLib.takeAScreenShot("ShowAllHideAllOptions.jpg");
                 return false;
             }
-        List<WebElement> expectedElements = new ArrayList<WebElement>();
-        expectedElements.add(headerShowAll);
-        expectedElements.add(headerHideAll);
-        for (int i = 0; i < expectedElements.size(); i++) {
-            if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
+            List<WebElement> expectedElements = new ArrayList<WebElement>();
+            expectedElements.add(headerShowAll);
+            expectedElements.add(headerHideAll);
+            for (int i = 0; i < expectedElements.size(); i++) {
+                if (!seleniumLib.isElementPresent(expectedElements.get(i))) {
                     SeleniumLib.takeAScreenShot("Element" + i + "is_NOT_shown.jpg");
-                return false;
+                    return false;
+                }
+                Debugger.println("element " + i + " shown");
             }
-            Debugger.println("element " + i + " shown");
-        }
-        return true;
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from checking Show all-Hide all option in the modal pop-up: " + exp);
             SeleniumLib.takeAScreenShot("ShowAllHideAllOptions.jpg");
@@ -794,17 +793,17 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickShowAllOrHideAllButton(String displayOption) {
         try {
-            if(displayOption.equalsIgnoreCase("Show all")){
-                Actions.clickElement(driver,headerShowAll);
-            }else {
-                Actions.clickElement(driver,headerHideAll);
+            if (displayOption.equalsIgnoreCase("Show all")) {
+                Actions.clickElement(driver, headerShowAll);
+            } else {
+                Actions.clickElement(driver, headerHideAll);
             }
             return true;
         } catch (Exception exp) {
             try {
-                if(displayOption.equalsIgnoreCase("Show all")){
+                if (displayOption.equalsIgnoreCase("Show all")) {
                     seleniumLib.clickOnWebElement(headerShowAll);
-                }else {
+                } else {
                     seleniumLib.clickOnWebElement(headerHideAll);
                 }
                 return true;
@@ -895,8 +894,8 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 seleniumLib.clickOnWebElement(saveAndCloseHeaderOrderingButton);
                 return true;
             } catch (Exception exp1) {
-            Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
-            SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
+                Debugger.println("Exception from Clicking on saveAndCloseHeaderOrderingButton:" + exp);
+                SeleniumLib.takeAScreenShot("saveAndCloseHeaderOrderingButton.jpg");
                 return false;
             }
 
@@ -905,16 +904,16 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickOnCheckBoxOptionsForSaveSpaceOnScreen(String optionName) {
         try {
-            if(optionName.equalsIgnoreCase("Compact grid")){
-                if(!Wait.isElementDisplayed(driver,compactGridCheckBox,10)){
-                    Debugger.println("Check box option:"+optionName+" not displayed.");
+            if (optionName.equalsIgnoreCase("Compact grid")) {
+                if (!Wait.isElementDisplayed(driver, compactGridCheckBox, 10)) {
+                    Debugger.println("Check box option:" + optionName + " not displayed.");
                     SeleniumLib.takeAScreenShot("CheckBoxOption.jpg");
                     return false;
                 }
                 seleniumLib.clickOnWebElement(compactGridCheckBox);
-            }else  if(optionName.equalsIgnoreCase("Truncate columns")){
-                if(!Wait.isElementDisplayed(driver,truncateColumnsCheckBox,10)){
-                    Debugger.println("Check box option:"+optionName+" not displayed.");
+            } else if (optionName.equalsIgnoreCase("Truncate columns")) {
+                if (!Wait.isElementDisplayed(driver, truncateColumnsCheckBox, 10)) {
+                    Debugger.println("Check box option:" + optionName + " not displayed.");
                     SeleniumLib.takeAScreenShot("CheckBoxOption.jpg");
                     return false;
                 }
@@ -1019,10 +1018,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception in: MiOrderTrackingPage : clickOnSaveAndCloseButton : " + exp1);
-            SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
-            return false;
+                SeleniumLib.takeAScreenShot("SaveAndCloseButton.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean verifyPresenceOfFeedbackLink() {
@@ -1275,14 +1274,14 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             if (searchBoxFields.size() == searchBoxSize) {
                 return true;
             } else if (searchBoxFields.size() != searchBoxSize) {
-            if (searchBoxFields.size() == 2) {
-                if (!seleniumLib.isElementPresent(dateSearchField)) {
-                    Debugger.println("Number of search box is " + searchBoxFields.size() + " and expected is " + searchBoxSize + " ,But the date box is not present");
-                    SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
-                    return false;
+                if (searchBoxFields.size() == 2) {
+                    if (!seleniumLib.isElementPresent(dateSearchField)) {
+                        Debugger.println("Number of search box is " + searchBoxFields.size() + " and expected is " + searchBoxSize + " ,But the date box is not present");
+                        SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
+                        return false;
+                    }
                 }
-            }
-                    return true;
+                return true;
             } else {
                 Debugger.println("Actual search box size :" + searchBoxFields.size() + ", Excepted search box size :" + searchBoxSize);
                 SeleniumLib.takeAScreenShot("SearchBoxes.jpg");
@@ -1442,10 +1441,10 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
                 return true;
             } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on FindLSID:" + exp1);
-            SeleniumLib.takeAScreenShot("FindLSID.jpg");
-            return false;
+                SeleniumLib.takeAScreenShot("FindLSID.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean verifyThePresenceOfExplanationForTheCellData(String explanationHeader, String cellValue, String columnHeader) {
@@ -1644,27 +1643,25 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
     }
 
     public boolean verifyErrorMessage(String expErrorMessage) {
-        try{
-            if (!Wait.isElementDisplayed(driver,errorMessageElement,15)) {
-                Debugger.println("Error message element not displayed as expected :"+expErrorMessage);
+        try {
+            if (!Wait.isElementDisplayed(driver, errorMessageElement, 15)) {
+                Debugger.println("Error message element not displayed as expected :" + expErrorMessage);
                 SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
                 return false;
             }
             String actMessage = errorMessageElement.getText();
-            if(!actMessage.contains(expErrorMessage)){
-                Debugger.println("Actual error message : "+actMessage+",Expected:"+expErrorMessage);
+            if (!actMessage.contains(expErrorMessage)) {
+                Debugger.println("Actual error message : " + actMessage + ",Expected:" + expErrorMessage);
                 SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifyErrorMessage : "+exp);
+            Debugger.println("Exception from verifyErrorMessage : " + exp);
             SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
             return false;
         }
     }
-
-
 
 
 }

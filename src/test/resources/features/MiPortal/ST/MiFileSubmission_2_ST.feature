@@ -1,5 +1,5 @@
 @MIPORTAL
-@MIPORTAL_ST
+@MIPORTAL_ST_1
 
 Feature: MIPORTAL ST - File Submission 2
 

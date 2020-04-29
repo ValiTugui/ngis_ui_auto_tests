@@ -616,7 +616,7 @@ public class ReferralSteps extends Pages {
         boolean testResult  = false;
         testResult = referralPage.verifyReferralButtonStatus(expectedReferralStatus);
         Assert.assertTrue(testResult);
-
+        referralPage.saveReferralID();
     }
 
     @Then("the submission confirmation message {string} is displayed")
