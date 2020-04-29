@@ -170,8 +170,15 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
             try {
                 Actions.clickElement(driver, driver.findElement(miStage));
             } catch (Exception exp) {
-                Debugger.println("Exception from clicking on Stage." + exp);
-                seleniumLib.clickOnElement(miStage);
+                Debugger.println("MIPortal Menu accessing via SeleniumLib:");
+                try {
+                    seleniumLib.clickOnElement(miStage);
+                    return true;
+                }catch(Exception exp1){
+                    Debugger.println("Could not access the MIPortal:"+exp1);
+                    SeleniumLib.takeAScreenShot("MIPortalMenuLists.jpg");
+                    return false;
+                }
             }
             Wait.seconds(2);
             return true;
