@@ -65,7 +65,6 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(xpath = "//div[contains(@id,'column_order_hidden')]")
     public WebElement hideColumnSpace;
 
-//    By fileSubmissionTableHead = By.xpath("//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     By fileSubmissionTableHead = By.xpath("//div[contains(@id,'-display-table_contents')]//table[contains(@id,'DataTables_Table')]/thead/tr/th");
     String fileSubmissionTableRows = "//div[@id='file_submissions-display-table_contents']//table[contains(@id,'DataTables_Table')]/tbody/tr";
 
@@ -96,7 +95,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, getFileSubmissionDate);
                 }catch(Exception exp1){
                     Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
-                    getFileSubmissionDate.click();
+                    seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
@@ -110,7 +109,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, getFileSubmissionDate);
                 }catch(Exception exp1){
                     Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
-                    getFileSubmissionDate.click();
+                    seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
@@ -122,7 +121,7 @@ public class MiPortalFileSubmissionPage<checkTheErrorMessagesInDOBFutureDate> {
                 Actions.clickElement(driver, getFileSubmissionDate);
                 }catch(Exception exp1){
                     Debugger.println("Exception in clicking on Date field...trying again..."+exp1);
-                    getFileSubmissionDate.click();
+                    seleniumLib.clickOnWebElement(getFileSubmissionDate);
                 }
                 Actions.clearInputField(getFileSubmissionDate);
                 Wait.seconds(2);
