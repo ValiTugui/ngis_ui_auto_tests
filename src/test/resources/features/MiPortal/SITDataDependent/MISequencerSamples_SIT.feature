@@ -30,5 +30,5 @@ Feature: MIPORTAL: Sequencer Samples SIT (E2EUI-2256,2233)
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage          | value                      | operator | dropdown | ColumnHeader     |
-      | Sequencer Samples | gel1010 Illumina QC Status | is       | Pass     | gel1010 Filename |
+      | mi_stage          | value                      | operator | dropdown |
+      | Sequencer Samples | gel1010 Illumina QC Status | is       | Pass     |

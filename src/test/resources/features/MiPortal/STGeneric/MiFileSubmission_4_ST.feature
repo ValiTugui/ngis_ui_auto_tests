@@ -120,8 +120,8 @@ Feature: MIPORTAL ST - File Submission 4
     And the selected search option is reset after test
 
     Examples:
-      | mi_stage         | date  | noOfDays |
-      | File Submissions | today | 1        |
+      | mi_stage         | noOfDays |
+      | File Submissions | 1        |
 
   @NTS-3390
     #@E2EUI-1283
