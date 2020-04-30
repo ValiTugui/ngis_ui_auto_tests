@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@03-TEST_ORDER
+@03-TEST_ORDER4
 @SYSTEM_TEST
 Feature: Print Forms 4 - Field name consistency in Print Forms
 

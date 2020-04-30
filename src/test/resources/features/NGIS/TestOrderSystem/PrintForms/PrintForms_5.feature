@@ -1,6 +1,6 @@
 #@regression
 #@printForms
-@03-TEST_ORDER
+@03-TEST_ORDER5
 @SYSTEM_TEST
 Feature: Print Forms 5 - Field name validations in Print Forms
 
