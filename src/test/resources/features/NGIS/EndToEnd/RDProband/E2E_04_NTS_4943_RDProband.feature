@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4943:E2E04:Create Referrals for SPINE Patient_E2E
+Feature: RDProband:NTS-4943:E2E04:Create Referrals for SPINE Patient_E2E
 
   @NTS-4943 @Z-LOGOUT
     #@E2EUI-2658

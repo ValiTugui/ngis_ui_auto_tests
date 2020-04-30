@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband Only
+Feature: Cancer:NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband Only
 
   @NTS-4946 @Z-LOGOUT
     #@E2EUI-2684
@@ -49,7 +49,7 @@ Feature: NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband Only
     Then the user is navigated to a page with title Manage samples
     When the user edits the added sample 1
     Then the user is navigated to a page with title Edit a sample
-    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or Germline sample", sample state "Bone marrow (EDTA - unsorted)" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or Germline sample", sample state "Bone marrow" and filling SampleID
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
     And the user clicks the Save and Continue button
@@ -92,5 +92,5 @@ Feature: NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband Only
      ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
 
     Examples:
-      | sampleType1               | sampleState1                  | RecordedBy                              | sampleType2         | sampleState2        |
-      | Normal or germline sample | Bone marrow (EDTA - unsorted) | ClinicianName=Seaun:HospitalNumber=5607 | Solid tumour sample | Fresh frozen tumour |
+      | sampleType1               | sampleState1 | RecordedBy                              | sampleType2         | sampleState2        |
+      | Normal or germline sample | Bone marrow  | ClinicianName=Seaun:HospitalNumber=5607 | Solid tumour sample | Fresh frozen tumour |

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4967:Select a test type in TS instead of CI and check the downstream
+Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the downstream
 
   @NTS-4967 @E2EUI-2680 @Z-LOGOUT
   Scenario Outline: NTS-4967 - CSV-E2E- Select a testtype in TS instead of CI and check the downstream

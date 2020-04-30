@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
+Feature: RDReferral:NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
 
   @NTS-4960 @Z-LOGOUT
 #    @E2EUI-2668

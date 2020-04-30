@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4954: #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes
+Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes
 
   @NTS-4954 @Z-LOGOUT
     #@E2EUI-2616

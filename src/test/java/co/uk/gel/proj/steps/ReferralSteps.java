@@ -468,6 +468,7 @@ public class ReferralSteps extends Pages {
     public void theUserSubmitsTheReferral() {
         referralPage.submitReferral();
     }
+
     @When("the user clicks the Cancel referral link")
     public void theUserClicksTheCancelReferralLink() {
         boolean testResult = false;

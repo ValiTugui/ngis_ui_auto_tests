@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4944:E2E03: Create Referrals for NEW Patient - Proband Only - E2E
+Feature: RDProband:NTS-4944:E2E03: Create Referrals for NEW Patient - Proband Only - E2E
 
   @NTS-4944 @Z-LOGOUT
     #@E2EUI-2654

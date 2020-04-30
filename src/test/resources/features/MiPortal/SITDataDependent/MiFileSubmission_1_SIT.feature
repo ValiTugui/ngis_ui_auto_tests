@@ -1,4 +1,4 @@
-@MIPORTAL
+@MIPORTAL_DATA
 @MIPORTAL_SIT
 
 Feature: MIPORTAL SIT - File Submission 1

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4962:CSV-E2E- Deceased patient CSV process
+Feature: RDFamily:NTS-4962:CSV-E2E- Deceased patient CSV process
 
   @NTS-4962 @Z-LOGOUT
 #    @E2EUI-2685
@@ -62,7 +62,7 @@ Feature: NTS-4962:CSV-E2E- Deceased patient CSV process
     And the user clicks the Save and Continue button
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+    Then the Patient Choice landing page is updated to "Agreed: Form to follow" for the proband
      ###Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.

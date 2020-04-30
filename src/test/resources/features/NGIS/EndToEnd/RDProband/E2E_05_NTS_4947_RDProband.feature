@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4947:E2E05: Create RD Referrals for NEW Patient - Proband Only
+Feature: RDProband:NTS-4947:E2E05: Create RD Referrals for NEW Patient - Proband Only
 
   @NTS-4947 @Z-LOGOUT
     #@E2EUI-2664

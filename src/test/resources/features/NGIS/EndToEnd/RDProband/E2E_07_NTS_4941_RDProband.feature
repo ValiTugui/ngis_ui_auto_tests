@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4941:E2E07:Sanity Test for RD Referral for Trio Family Patient Choice Yes
+Feature: RDProband:NTS-4941:E2E07:Sanity Test for RD Referral for Trio Family Patient Choice Yes
 
   @NTS-4941 @Z-LOGOUT
   #@E2EUI-2665
@@ -58,7 +58,7 @@ Feature: NTS-4941:E2E07:Sanity Test for RD Referral for Trio Family Patient Choi
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" page is displayed
     Then the help text is displayed
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+    Then the Patient Choice landing page is updated to "Agreed: Form to follow" for the proband
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
      ##Panels

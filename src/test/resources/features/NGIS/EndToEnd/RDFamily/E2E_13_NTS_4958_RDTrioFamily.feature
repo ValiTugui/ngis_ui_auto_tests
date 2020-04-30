@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4958:E2E20::Create Referral for Trio Family, Add Family Members to Test with Patient Choice Not Given and check DDF Payload
+Feature: RDFamily:NTS-4958:E2E20::Create Referral for Trio Family, Add Family Members to Test with Patient Choice Not Given and check DDF Payload
 
   @NTS-4958 @Z-LOGOUT
       #@E2EUI-2671

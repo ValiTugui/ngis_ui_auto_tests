@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4959:E2E15:Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes
+Feature: RDReferral:NTS-4959:E2E15:Create Referral for Additional Participants (not part of Referral) + Edit Data + Patient Choice Yes
 
   @NTS-4959 @Z-LOGOUT
     #@E2EUI-2673

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-5067:Create end to end Referrals for NEW Patient - Trio Family - E2E
+Feature: RDFamily:NTS-5067:Create end to end Referrals for NEW Patient - Trio Family - E2E-Patient Choice Yes
 
   @NTS-5067 @Z-LOGOUT
     #@E2EUI-1986

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4961:E2E17:Submit RD Referral for Additional Participants (not part of Referral) with Patient Choice No and check ddf payload
+Feature: RDReferral:NTS-4961:E2E17:Submit RD Referral for Additional Participants (not part of Referral) with Patient Choice No and check ddf payload
 
   @NTS-4961 @Z-LOGOUT
     #@E2EUI-2677

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4950:  CSV-E2E- CSV process for a referral which has additional 10 plus panels
+Feature: RDReferral:NTS-4950:  CSV-E2E- CSV process for a referral which has additional 10 plus panels
 
   @NTS-4950 @Z-LOGOUT
     #@E2EUI-2686

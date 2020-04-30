@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4957:E2E20:Referral for Trio Family and add Family Members to Test + Patient Choice Not Given and check DDF payload.
+Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members to Test + Patient Choice Not Given and check DDF payload.
 
   @NTS-4957 @Z-LOGOUT
     #@E2EUI-2670

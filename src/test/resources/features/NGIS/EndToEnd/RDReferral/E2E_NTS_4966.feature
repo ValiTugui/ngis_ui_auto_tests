@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4966:Create Referral for Additional Participants
+Feature: RDReferral:NTS-4966:Create Referral for Additional Participants
 
   @NTS-4966 @Z-LOGOUT
     #@E2EUI-2678

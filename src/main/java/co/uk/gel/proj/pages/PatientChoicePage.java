@@ -1081,8 +1081,29 @@ public class PatientChoicePage {
     }
 
     public boolean statusUpdatedCorrectly(String status, int row) {
-        Wait.forElementToBeDisplayed(driver, landingPageList, 100);
-        return status.equalsIgnoreCase(statuses.get(row).getText());
+        try {
+            if(!Wait.isElementDisplayed(driver,landingPageList,30)){
+                Debugger.println("Patient Choice Landing Page not loaded.");
+                SeleniumLib.takeAScreenShot("PCLandingPage.jpg");
+                return false;
+            }
+            if(statuses.size() < 1){
+                Debugger.println("Patient Choice Test Status not loaded.");
+                SeleniumLib.takeAScreenShot("PCLandingPageTestStatus.jpg");
+                return false;
+            }
+            String actualStatus = statuses.get(row).getText();
+            if(!actualStatus.equalsIgnoreCase(status)){
+                Debugger.println("Patient Choice Landing Page Status, Actual:"+actualStatus+",Expected:"+status);
+                SeleniumLib.takeAScreenShot("PCLandingPageStatusMismatch.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from statusUpdatedCorrectly:"+exp);
+            SeleniumLib.takeAScreenShot("PCLandingPageExp.jpg");
+            return false;
+        }
     }
 
     public boolean verifyHelpTextLabelIsVisible() {

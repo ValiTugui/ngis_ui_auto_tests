@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Patient Choice Yes
+Feature: RDFamily:NTS-4940:E2E09:Sanity Test for RD Referral for Trio Family Patient Choice Yes
 
   @NTS-4940 @Z-LOGOUT
     #@E2EUI-2687

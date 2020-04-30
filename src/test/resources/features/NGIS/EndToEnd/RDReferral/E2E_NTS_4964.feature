@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4964:Submit+cancel referral and check ddf payload
+Feature: RDReferral:NTS-4964:Submit+cancel referral and check ddf payload
 
   @NTS-4964 @Z-LOGOUT
     #@E2EUI-2681

@@ -1,6 +1,6 @@
 @E2E_TEST
 
-Feature: NTS-4963:Submit an RD referral for 7 participants with various relationships to proband (2 siblings,2 grand parents,father,mother)
+Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various relationships to proband (2 siblings,2 grand parents,father,mother)
 
   @NTS-4963 @Z-LOGOUT
     #@E2EUI-2690
