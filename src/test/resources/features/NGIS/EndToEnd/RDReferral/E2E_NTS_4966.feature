@@ -1,19 +1,19 @@
 @E2E_TEST
 
-Feature: NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
+Feature: NTS-4966:Create Referral for Additional Participants
 
-  @NTS-4960 @Z-LOGOUT
-#    @E2EUI-2668
-  Scenario Outline: NTS-4960: E2E #19:Submit a RD Referral for Additional Participants (not part of Referral) with patient Choice Not Given and check ddf payload
+  @NTS-4966 @Z-LOGOUT
+    #@E2EUI-2678
+  Scenario Outline: NTS-4966 : Create Referral for Additional Participants (not part of Referral) + Default Data + Patient Choice Not Given
     Given a new patient referral is created with associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1973:Gender=Male |
-     ##Patient Details
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=29-03-2011:Gender=Male |
+      ##Patient Details
     Then the user is navigated to a page with title Check your patient's details
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user enters the keyword "The Royal Marsden NHS Foundation Trust" in the search field
+    And the user enters the keyword "North Bristol NHS Trust" in the search field
     And the user selects a random entity from the suggestions list
     Then the details of the new organisation are displayed
     And the user clicks the Save and Continue button
@@ -38,10 +38,12 @@ Feature: NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not pa
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
-    ##Family Members - for Adding one member
+    ##Family Members - for Additional Participants, need to deselect the test
     Then the user is navigated to a page with title Add a family member to this referral
-   And the user clicks on Add family member button
+    And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
@@ -67,37 +69,30 @@ Feature: NTS-4960:E2E19:Submit a RD Referral for Additional Participants (not pa
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-          ###Patient Choice - Family Details Provided below same as the Family Members
-    Then the user is navigated to a page with title Patient choice
-     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
-    When the user completes the patient choice for below family members as agreeing to test
-      | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=NA:DOB=22-03-2001 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
-    Then the "<PatientChoiceStage>" stage is marked as Completed
     And the user clicks the Save and Continue button
-    ###Panels
+    Then the "<PatientChoiceStage>" stage is marked as Completed
+   ##Panels
     Then the user is navigated to a page with title Panels
-    And the user clicks on Complete button and button will show tick marked
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree
     Then the user is navigated to a page with title Build a pedigree
-     ###Modify Pedigree Pending
+    ### need to madify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
     ###Print forms
+    When the user navigates to the "<PrintFormsStage>" stage
     Then the user is navigated to a page with title Print sample forms
     And the user is able to download print forms for "<OneParticipant>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=22-03-2001 |
+      | NHSNumber=NA:DOB=18-07-2015 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     Then the referral status is set to "Submitted"
 
-     ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
+    ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails                                                                                | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                         | ClinicalQuestion   | ClinicalQuestionDetails                                                     | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels |
-      | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=22-03-2001:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Lymphedema:PhenotypicSex=Male:KaryotypicSex=XY | Not being tested | Responsible clinician | FirstName=Rose:LastName=Park:Department=Pitt Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=01,02:HpoPhenoType=Phenotypic abnormality | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Cataracts    |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | OneParticipant | FamilyMemberDetails                                               | DiseaseStatusDetails     | Status           | ResponsibleClinician  | ResponsibleClinicianDetails                                    | ClinicalQuestion   | ClinicalQuestionDetails                                                                              | Notes | FamilyMemberStage | PatientChoiceStage | RecordedBy         | Panels | Pedigree | searchPanels | PrintFormsStage |
+      | Patient details | Requesting organisation | Test package | 1              | NHSNumber=NA:DOB=18-07-2015:Gender=Male:Relationship=Full Sibling | DiseaseStatus=Unaffected | Not being tested | Responsible clinician | FirstName=George:LastName=Williams:Department=Prague Street,uk | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=00,11:HpoPhenoType=Prostatitis:PhenotypicSex=Male:KaryotypicSex=XY | Notes | Family members    | Patient choice     | ClinicianName=John | Panels | Pedigree | Catar,Crani  | Print forms     |

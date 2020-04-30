@@ -86,6 +86,6 @@ Feature: NTS-4957:E2E20:Referral for Trio Family and add Family Members to Test 
       ##NOTE: ONLY GUI PART IS DONE. CSV,DDF PART TO BE DONE
 
     Examples:
-      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | searchPanels        | RecordedBy                            |
-      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | Cardiac arrhythmias | ClinicianName=John:HospitalNumber=123 |
+      | PatientDetails  | RequestingOrganisation  | TestPackage  | ThreeParticipant | ResponsibleClinician  | ResponsibleClinicianDetails                               | ClinicalQuestion   | ClinicalQuestionDetails                                        | Notes | FamilyMembers  | Panels | Pedigree | RecordedBy                            |
+      | Patient details | Requesting organisation | Test package | 3                | Responsible clinician | FirstName=Karen:LastName=Smith:Department=Victoria Street | Clinical questions | DiseaseStatus=Affected:AgeOfOnset=10,02:HpoPhenoType=Epistaxis | Notes | Family members | Panels | Pedigree | ClinicianName=John:HospitalNumber=123 |
 

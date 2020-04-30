@@ -39,9 +39,12 @@ Feature: NTS-4959:E2E15:Create Referral for Additional Participants (not part of
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
+    Then the user is navigated to a page with title Add family member details
     When the user fills the DiseaseStatusDetails for family member with the with the "<DiseaseStatusDetails>"
     And  the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add a family member to this referral
