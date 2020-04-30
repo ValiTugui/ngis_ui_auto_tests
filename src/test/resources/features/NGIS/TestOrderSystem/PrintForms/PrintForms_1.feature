@@ -51,7 +51,7 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | NoOfParticipants | PrintForms  | Watermark                         |
-      | 1                | Print forms | N ot for C inical U s |
+      | 1                | Print forms | N ot for C linical U se |
 
   @NTS-4713
 #    @E2EUI-1795
@@ -77,9 +77,9 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | Text                                                                                                     | RequestingOrganisation                                  |
-      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
-  @NTS-47131
+  @NTS-4713
 #    @E2EUI-1795
   Scenario Outline: scenario_2: PDFs: Implement Generic PDF forms-Cancer
     Given a web browser is at the Private Test Selection homepage
@@ -102,4 +102,4 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | Text                                                                                    | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U se  | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U  | Liverpool Heart and Chest Hospital NHS Foundation Trust |
