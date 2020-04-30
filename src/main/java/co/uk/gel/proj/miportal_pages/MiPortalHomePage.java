@@ -1656,7 +1656,7 @@ public class MiPortalHomePage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean verifyErrorMessage(String expErrorMessage) {
         try {
-            if (!Wait.isElementDisplayed(driver, errorMessageElement, 15)) {
+            if (!Wait.isElementDisplayed(driver, errorMessageElement, 30)) {
                 Debugger.println("Error message element not displayed as expected :" + expErrorMessage);
                 SeleniumLib.takeAScreenShot("ErrorMessage.jpg");
                 return false;

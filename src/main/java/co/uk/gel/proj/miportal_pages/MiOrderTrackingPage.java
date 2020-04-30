@@ -70,7 +70,7 @@ public class MiOrderTrackingPage<checkTheErrorMessagesInDOBFutureDate> {
     }
     public boolean selectOrderTrackingDropDownSearchValue(String value) {
         try {
-            Wait.seconds(2);
+            Wait.seconds(5);
             return seleniumLib.selectFromListByText(orderTrackSearchValue,value);
         } catch (Exception exp) {
             Debugger.println("Exception in MIPortalOrderTracking:selectDropDownSearchValue: "+ exp);

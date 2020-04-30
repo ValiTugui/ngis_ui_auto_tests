@@ -7,15 +7,6 @@ import co.uk.gel.lib.Wait;
 import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.TestUtils;
-import io.cucumber.datatable.DataTable;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import io.github.jonathanlink.PDFLayoutTextStripper;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.openqa.selenium.By;
@@ -23,13 +14,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import java.io.*;
-import java.net.URL;
 import java.util.*;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 public class PrintFormsPage {
     WebDriver driver;
@@ -145,7 +131,7 @@ public class PrintFormsPage {
                 Debugger.println("Referral ID Could not read: read as null....need to check it.");
                 familyMember.setREFERAL_ID("");
             }
-            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
             output = pdfTextStripper.getText(document);
             if (output.contains(dob) &&
                     output.contains(referralId)) {
@@ -245,7 +231,7 @@ public class PrintFormsPage {
             // pdf file with full path name
             document = PDDocument.load(new File(pathToFile));
             Debugger.println("Reading PDF content....");
-            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
             // outputData = outputData.replaceAll("/  +/g", " ");
             outputData = outputData.replaceAll("\\s+", " ");
@@ -438,7 +424,7 @@ public class PrintFormsPage {
             }
             Debugger.println("PDF file location: " + pathToFile);
             document = PDDocument.load(new File(pathToFile));
-            PDFTextStripper pdfTextStripper = new PDFLayoutTextStripper();
+            PDFTextStripper pdfTextStripper = new PDFTextStripper();
             String outputData = pdfTextStripper.getText(document);
             //Debugger.println("Actual Data from PDF form :\n" + outputData);
             outputData = outputData.replaceAll("\\s+", " ");
