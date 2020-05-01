@@ -49,13 +49,13 @@ Feature: Cancer:NTS-4946:E2E20:Create Cancer Referrals for NEW Patient - Proband
     Then the user is navigated to a page with title Manage samples
     When the user edits the added sample 1
     Then the user is navigated to a page with title Edit a sample
-    When the user answers the questions on Add a Sample page by selecting the sample type "Normal or Germline sample", sample state "Bone marrow" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType1>", sample state "<sampleState1>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
     And the user clicks the Save and Continue button
     When the user edits the added sample 2
     Then the user is navigated to a page with title Edit a sample
-    When the user answers the questions on Add a Sample page by selecting the sample type "Solid tumour sample", sample state "Fresh frozen tumour" and filling SampleID
+    When the user answers the questions on Add a Sample page by selecting the sample type "<sampleType2>", sample state "<sampleState2>" and filling SampleID
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Add sample details
     And the user clicks the Save and Continue button

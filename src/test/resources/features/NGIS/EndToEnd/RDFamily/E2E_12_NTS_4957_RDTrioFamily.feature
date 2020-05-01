@@ -69,6 +69,7 @@ Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members
       | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient conversation happened; form to follow |             |                 |
     And the user clicks the Save and Continue button
     ###Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

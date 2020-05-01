@@ -54,6 +54,7 @@ Feature: RDReferral:NTS-4951: Create Referral for Additional Participants (not p
     And the user clicks the Save and Continue button
     Then the "<FamilyMemberStage>" stage is marked as Completed
     ##Patient Choice
+    When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information

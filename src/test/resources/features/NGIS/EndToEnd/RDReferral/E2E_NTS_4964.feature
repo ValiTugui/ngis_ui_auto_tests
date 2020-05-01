@@ -42,6 +42,7 @@ Feature: RDReferral:NTS-4964:Submit+cancel referral and check ddf payload
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks the Save and Continue button
     ##Patient Choice
+    When the user navigates to the "<PatientChoiceStage>" stage
     Then the user is navigated to a page with title Patient choice
     When the user selects the proband
     Then the user is navigated to a page with title Add patient choice information

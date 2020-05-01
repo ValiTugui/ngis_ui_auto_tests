@@ -56,6 +56,7 @@ Feature: RDProband:NTS-4947:E2E05: Create RD Referrals for NEW Patient - Proband
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     #Panels
+    When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button

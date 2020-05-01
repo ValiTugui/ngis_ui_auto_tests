@@ -9,11 +9,11 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     When the user selects the Tests tab
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Epilepsy - early onset or syndromic WGS |
-    And the user clicks the Start Referral button
+    And the user clicks the CI Search Start Referral button
     And the user clicks on Continue Button
     And the user clicks the Sign in hyperlink
       | Sign in to the online service |
-       #Test Ordering
+    #Test Ordering
     And the user logs in to the Test Order system successfully
       | Find your patient |
     When the user types in invalid details of a patient in the NHS number and DOB fields

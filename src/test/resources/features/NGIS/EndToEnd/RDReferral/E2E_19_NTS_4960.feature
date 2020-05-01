@@ -69,8 +69,8 @@ Feature: RDReferral:NTS-4960:E2E19:Submit a RD Referral for Additional Participa
     Then the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
-    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
-          ###Patient Choice - Family Details Provided below same as the Family Members
+#    Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
+     ###Patient Choice - Family Details Provided below same as the Family Members
     Then the user is navigated to a page with title Patient choice
      ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
