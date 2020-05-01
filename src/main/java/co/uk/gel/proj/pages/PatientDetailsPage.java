@@ -143,8 +143,14 @@ public class PatientDetailsPage {
     public List<WebElement> addDetailsToNGISButtonList;
 
     @FindBy(xpath = "//button[text()='Start referral']")
-    //@FindBy(xpath = "//button[contains(@class,'button--medium') and @type='button']")
     public WebElement startReferralButton;
+
+    @FindBy(xpath = "//button[text()='Yes, start referral']")
+    public WebElement CISearchStartReferral;
+
+    @FindBy(xpath = "//input[@name='ci-radio']")
+    public WebElement selectCIRadio;
+
 
     @FindBy(xpath = "//button[text()='Start new referral']")
     public WebElement startNewReferralButton;
@@ -500,6 +506,7 @@ public class PatientDetailsPage {
 
     public boolean clickStartReferralButton() {
         try {
+
             if (!Wait.isElementDisplayed(driver, startReferralButton, 10)) {
                 Debugger.println("Start Referral Button not displayed.");
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
@@ -507,6 +514,28 @@ public class PatientDetailsPage {
             }
             Actions.clickElement(driver, startReferralButton);
             // Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
+            SeleniumLib.takeAScreenShot("StartReferral.jpg");
+            return false;
+        }
+    }
+
+    public boolean clickCISearchStartReferralButton() {
+        try {
+
+            if (!Wait.isElementDisplayed(driver, CISearchStartReferral, 10)) {
+                Debugger.println("Start Referral Button not displayed.");
+                SeleniumLib.takeAScreenShot("StartReferral.jpg");
+                return false;
+            }
+            Actions.clickElement(driver, CISearchStartReferral);
+
+            if(Wait.isElementDisplayed(driver,selectCIRadio,10)){
+                Actions.clickElement(driver,selectCIRadio);
+            }
+
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);

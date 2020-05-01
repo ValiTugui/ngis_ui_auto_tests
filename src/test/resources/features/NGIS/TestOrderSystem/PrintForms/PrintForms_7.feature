@@ -1,5 +1,3 @@
-#@regression
-#@printForms
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 7 - Offline Orders
@@ -25,8 +23,8 @@ Feature: Print Forms 7 - Offline Orders
     And the user is able to verify the section "receiving laboratory" in the downloaded form "AdditionalParticipantForm.pdf"
     ###The requesting organisation name should be same in the above step to add and the below example to search
     Examples:
-      | TextToValidate                                                                                   |
-      | RARE AND INHERITED DISEASES,Surrey and Sussex Healthcare NHS Trust,N o t f o r C i n i c a l U s |
+      | TextToValidate                                                                           |
+      | RARE AND INHERITED DISEASES,Surrey and Sussex Healthcare NHS Trust,N ot for C inical U s |
 
   @NTS-4703
 #    @E2EUI-1993
@@ -49,5 +47,5 @@ Feature: Print Forms 7 - Offline Orders
     Then the user is able to download form of the "Patient choice" section having file name "Consent.zip"
 
     Examples:
-      | Watermark                     |
-      | N o t f o r C i n i c a l U s |
+      | Watermark             |
+      | N ot for C inical U s |

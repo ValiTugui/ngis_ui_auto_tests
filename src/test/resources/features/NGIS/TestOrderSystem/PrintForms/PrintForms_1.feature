@@ -1,5 +1,3 @@
-#@regression
-#@printForms
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 1 - Offline Orders
@@ -51,7 +49,7 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | NoOfParticipants | PrintForms  | Watermark                         |
-      | 1                | Print forms | N o t f o r C l i n i c a l U s e |
+      | 1                | Print forms | N ot for C linical U se |
 
   @NTS-4713
 #    @E2EUI-1795
@@ -77,7 +75,7 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | Text                                                                                                     | RequestingOrganisation                                  |
-      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N o t f o r C i n i c a l U s | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | RARE AND INHERITED,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C inical U | Liverpool Heart and Chest Hospital NHS Foundation Trust |
 
   @NTS-4713
 #    @E2EUI-1795
@@ -102,4 +100,4 @@ Feature: Print Forms 1 - Offline Orders
 
     Examples:
       | Text                                                                                    | RequestingOrganisation                                  |
-      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N oC l i n i c a l U s e | Liverpool Heart and Chest Hospital NHS Foundation Trust |
+      | CANCER,Liverpool Heart and Chest Hospital NHS Foundation Trust,N ot for C linical U  | Liverpool Heart and Chest Hospital NHS Foundation Trust |

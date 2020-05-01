@@ -466,7 +466,12 @@ public class PrintFormsPage {
             for (int i = 0; i < formSection.size(); i++) {
                 String actualText = formSection.get(i).getText();
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
-                    Actions.clickElement(driver,downloadButton.get(i));
+                    try {
+                        Actions.clickElement(driver, downloadButton.get(i));
+                    }catch(Exception exp1){
+                        Debugger.println("Clicking download via SeleniumLib:");
+                        seleniumLib.clickOnWebElement(downloadButton.get(i));
+                    }
                     isDownloaded = true;
                     Wait.seconds(15);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
                     break;

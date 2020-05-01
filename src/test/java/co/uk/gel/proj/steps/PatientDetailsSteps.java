@@ -78,8 +78,16 @@ public class PatientDetailsSteps extends Pages {
 
     @When("the user clicks the Start Referral button")
     public void theUserClicksTheStartReferralButton() {
+
         boolean testResult = false;
         testResult = patientDetailsPage.clickStartReferralButton();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks the CI Search Start Referral button")
+    public void theUserClicksTheCISerachStartReferralButton() {
+        boolean testResult = false;
+        testResult = patientDetailsPage.clickCISearchStartReferralButton();
         Assert.assertTrue(testResult);
     }
 
