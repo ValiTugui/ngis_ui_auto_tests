@@ -1,5 +1,3 @@
-#@regression
-@printForms6
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: TestOrder - Print Forms 6 - Family Members in Print Forms

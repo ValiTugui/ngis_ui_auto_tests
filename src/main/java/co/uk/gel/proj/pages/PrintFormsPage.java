@@ -457,7 +457,6 @@ public class PrintFormsPage {
         try {
             //Delete if File already present
             TestUtils.deleteIfFilePresent(fileName, "");
-            Debugger.println("FormSections.size:"+formSection.size()+"\nExpectedSection:"+expectedFormSection);
             if(formSection.size() == 0){
                 Debugger.println("No Form Sections present to download.");
                 SeleniumLib.takeAScreenShot("OfflinePrintForms.jpg");
@@ -466,9 +465,7 @@ public class PrintFormsPage {
             boolean isDownloaded = false;
             for (int i = 0; i < formSection.size(); i++) {
                 String actualText = formSection.get(i).getText();
-                Debugger.println("ActualText: "+actualText);
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
-                    Debugger.println("Yes...Downloading............");
                     try {
                         Actions.clickElement(driver, downloadButton.get(i));
                     }catch(Exception exp1){

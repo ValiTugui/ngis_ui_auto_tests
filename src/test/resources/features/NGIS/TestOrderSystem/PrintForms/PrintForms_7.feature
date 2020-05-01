@@ -1,5 +1,3 @@
-#@regression
-@printForms7
 @03-TEST_ORDER
 @SYSTEM_TEST
 Feature: Print Forms 7 - Offline Orders
