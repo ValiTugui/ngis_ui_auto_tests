@@ -152,7 +152,7 @@ public class TestUtils {
         if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
             location.mkdirs();
         }
-
+        Debugger.println("Deleting file if present from : "+downloadLocation);
         File[] files = location.listFiles();
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
@@ -166,6 +166,7 @@ public class TestUtils {
             return;
         }
         //Delete from default location also
+        Debugger.println("Deleting ALSO file if present from : "+defaultDownloadLocation);
         File defLocation = new File(defaultDownloadLocation);
         File[] files_default = defLocation.listFiles();
         if (files_default != null && files_default.length > 0) {

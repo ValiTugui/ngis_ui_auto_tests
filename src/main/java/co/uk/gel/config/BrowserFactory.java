@@ -90,8 +90,7 @@ public class BrowserFactory {
                     break;
             }
         }
-        if (serverTypeEnum == ServerTypeEnum.BROWSERSTACK)
-        {
+        if (serverTypeEnum == ServerTypeEnum.BROWSERSTACK) {
             switch (browserEnum) {
                 case CHROME:
                     driver = new RemoteWebDriver(new URL(URL), getChromeOptions(null, javascriptEnabled));
@@ -114,7 +113,7 @@ public class BrowserFactory {
 
                 default:
                     Debugger.println("Invalid Browser information");
-                    Assert.assertFalse("Browser : "+browser+" is not present in the BrowserEnum",true);
+                    Assert.assertFalse("Browser : " + browser + " is not present in the BrowserEnum", true);
                     break;
             }
         }
@@ -159,7 +158,7 @@ public class BrowserFactory {
                                                   boolean javascriptEnabled) {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.download.folderList", 2);
-        profile.setPreference("browser.download.dir",downloadFilepath());
+        profile.setPreference("browser.download.dir", downloadFilepath());
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk", applicationType);
         if (null != userAgent) {
             profile.setPreference("general.useragent.override", userAgent);
@@ -306,30 +305,29 @@ public class BrowserFactory {
         return operaOptions;
     }
 
-    private HashMap downloadPathsetup()
-    {
-        String downloadFilePath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
+    private HashMap downloadPathsetup() {
+        String downloadFilePath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
         File location = new File(downloadFilePath);
-        if(!location.exists()){
+        if (!location.exists()) {
             location.mkdirs();
         }
+        Debugger.println("BROWSER FACTORY:DEFAULT DOWNLOAD PATH:"+downloadFilePath);
         HashMap<String, Object> pathPrefs = new HashMap<String, Object>();
         pathPrefs.put("profile.default_content_settings.popups", 0);
         pathPrefs.put("download.default_directory", downloadFilePath);
         return pathPrefs;
     }
 
-    private String downloadFilepath()
-    {
+    private String downloadFilepath() {
         //Setting default download path
-        String downloadFilepath = System.getProperty("user.dir") + File.separator +"downloads"+File.separator;
-        try{
+        String downloadFilepath = System.getProperty("user.dir") + File.separator + "downloads" + File.separator;
+        try {
             File download_loc = new File(downloadFilepath);
-            if(!download_loc.exists()){
+            if (!download_loc.exists()) {
                 download_loc.mkdirs();
             }
-        }catch(Exception exp){
-            System.out.println("Exception in creating download directory..."+exp);
+        } catch (Exception exp) {
+            System.out.println("Exception in creating download directory..." + exp);
         }
         return downloadFilepath;
     }
