@@ -1,5 +1,5 @@
 #@regression
-#@printForms
+@printForms8
 @03-TEST_ORDER8
 @SYSTEM_TEST
 Feature: TestOrder - Print Forms 8 - User flows
