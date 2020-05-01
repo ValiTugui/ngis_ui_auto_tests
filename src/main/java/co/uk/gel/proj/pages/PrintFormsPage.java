@@ -98,6 +98,8 @@ public class PrintFormsPage {
             //Debugger.println("Deleting Files if Present...");
             TestUtils.deleteIfFilePresent("SampleForm", folder);
             Wait.forElementToBeDisplayed(driver, landingPageList);
+            String urlToDownload = formDownloadButtons.get(position).getAttribute("href");
+            TestUtils.downloadFile(urlToDownload,"SampleForm.pdf",folder);
             Click.element(driver, formDownloadButtons.get(position));
             Wait.seconds(10);
             ///Move file to RD folder
@@ -469,14 +471,7 @@ public class PrintFormsPage {
                 if (actualText.equalsIgnoreCase(expectedFormSection)) {
                     urlToDownload = downloadButton.get(i).getAttribute("href");
                     Debugger.println("URL TO DOWNLOAD:"+urlToDownload);
-//                    try {
-//                        Te
-//                        Actions.clickElement(driver, downloadButton.get(i));
-//                    }catch(Exception exp1){
-//                        Debugger.println("Clicking download via SeleniumLib:");
-//                        seleniumLib.clickOnWebElement(downloadButton.get(i));
-//                    }
-                    if(TestUtils.downloadFile(urlToDownload,fileName).equalsIgnoreCase("Success")) {
+                    if(TestUtils.downloadFile(urlToDownload,fileName,"").equalsIgnoreCase("Success")) {
                         isDownloaded = true;
                         Wait.seconds(3);//Wait for 15 seconds to ensure file got downloaded, large file taking time to download
                         break;

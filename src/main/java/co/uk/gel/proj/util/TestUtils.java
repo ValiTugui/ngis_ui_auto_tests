@@ -369,7 +369,7 @@ public class TestUtils {
             while (entries.hasMoreElements()) {
                 ZipEntry zipEntry = entries.nextElement();
                 String name = defaultDownloadLocation + (zipEntry.getName());
-                Debugger.println("Zipped filename- " + name);
+                //Debugger.println("Zipped filename- " + name);
                 //Create directory and sub-directories to extract the zip file
                 File file = new File(name);
                 if (name.endsWith("/")) {//If it is a directory
@@ -442,11 +442,17 @@ public class TestUtils {
         return newDate;
     }
 
-    public static String downloadFile(String url, String fileName) {
+    public static String downloadFile(String url, String fileName,String folder) {
         try {
+            String downLocation = "";
+            if(folder == null || folder.isEmpty()){
+                downLocation = defaultDownloadLocation;
+            }else{
+                downLocation = defaultDownloadLocation+folder+File.separator;
+            }
             InputStream inputStream = new URL(url).openStream();
             Wait.seconds(10);
-            Files.copy(inputStream, Paths.get(defaultDownloadLocation + fileName), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStream, Paths.get(downLocation + fileName), StandardCopyOption.REPLACE_EXISTING);
             Wait.seconds(5);
             return "Success";
         } catch (Exception exp) {
