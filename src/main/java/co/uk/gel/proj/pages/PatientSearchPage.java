@@ -308,12 +308,11 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void loginToTestOrderingSystemAsStandardUser(WebDriver driver) {
         Actions.deleteCookies(driver);
-        Debugger.println("PatientSearchPage: loginToTestOrderingSystemAsStandardUser....");
         try {
             Wait.seconds(5);
-            if (!Wait.isElementDisplayed(driver,emailAddressField,120)) {//If the element is not displayed, even after the waiting time
-                Debugger.println("Email Address Field is not visible, even after the waiting period.");
-                if (Wait.isElementDisplayed(driver,useAnotherAccount,120)) {//Click on UseAnotherAccount and Proceed.
+            if (!Wait.isElementDisplayed(driver,emailAddressField,60)) {//If the element is not displayed, even after the waiting time
+                Debugger.println("Email Address Field is not visible, even after the waiting period of 60 seconds");
+                if (Wait.isElementDisplayed(driver,useAnotherAccount,60)) {//Click on UseAnotherAccount and Proceed.
                     Debugger.println("Clicking on useAnotherAccount to Proceed.");
                     useAnotherAccount.click();
                     Wait.seconds(3);
@@ -336,6 +335,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }catch(Exception exp){
             Debugger.println("PatientSearch:loginToTestOrderingSystemAsServiceDeskUser:Exception:\n"+exp);
             SeleniumLib.takeAScreenShot("TOMSLogin.jpg");
+            Assert.assertTrue("Exception from loginToTestOrderingSystemAsStandardUser"+exp,false);
         }
     }
 

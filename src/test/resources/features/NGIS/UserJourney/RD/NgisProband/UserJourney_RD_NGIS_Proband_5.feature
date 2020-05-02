@@ -1,12 +1,12 @@
 #@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NGIS_ProbandOnly
 @SYSTEM_INTEGRATION_TEST
-Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
+
+Feature: UserJourney_RD_NGIS_Proband_5: - UC05 - E2EUI-1296
 
   @NTS-4558 @Z-LOGOUT
 #    @E2EUI-1296 @UseCase05
-  Scenario Outline: NTS-4558: Use Case#05: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
+  Scenario Outline: NTS-4558: UC#05:E2EUI-1296: User Journey by creating new NGIS Referral for proband with edit data and Patient choice no
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R27 | GEL_SUPER_USER | NHSNumber=NGIS:DOB=14-05-1983:Gender=Male |
     ##Patient Details
@@ -61,7 +61,10 @@ Feature: UserJourney_RD_NGIS_Proband_5 - UC05 - E2EUI-1296
     Then the user is navigated to a page with title Panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
+    ##Added below step as panels page Save and Click have some issue
+    And the user clicks the Save and Continue button
     ##Pedigree
+    When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed

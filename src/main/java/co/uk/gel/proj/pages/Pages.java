@@ -249,6 +249,7 @@ public class Pages implements Navigable {
                        // If the email id contains nhs, proceed with NHS login
                        referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                    }else {
+                       Debugger.println("Login to TOMS as NORMAL_USER");
                        patientSearchPage.loginToTestOrderingSystemAsStandardUser(driver);
                    }
                 }else if(userType.equalsIgnoreCase(superUser)){
@@ -256,6 +257,7 @@ public class Pages implements Navigable {
                     if(super_email.contains("nhs.net")){
                         referralPage.loginToTestOrderingSystemAsNHSUser(driver,userType);
                     }else {
+                        Debugger.println("Login to TOMS as SUPER_USER");
                         patientSearchPage.loginToTestOrderingSystem(driver, userType);
                     }
                 }

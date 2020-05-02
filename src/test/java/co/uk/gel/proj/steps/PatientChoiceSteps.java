@@ -34,43 +34,72 @@ public class PatientChoiceSteps extends Pages {
         try {
             int noOfParticipants = Integer.parseInt(noParticipant);
             List<List<String>> memberDetails = inputDetails.asLists();
+            boolean testResult = false;
             for (int i = 1; i < memberDetails.size(); i++) {
                 Debugger.println("\nPatient Choice for Family Member:"+i);
                 //No need to alert as there are cases which directly landing to specific patient page
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1)));
+                testResult = patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
+                if(!testResult){
+                    Assert.assertTrue("Failed in selectPatientChoiceCategory",false);
+                    break;
+                }
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.selectTestType(memberDetails.get(i).get(2)));
+                testResult = patientChoicePage.selectTestType(memberDetails.get(i).get(2));
+                if(!testResult){
+                    Assert.assertTrue("Failed in selectTestType",false);
+                    break;
+                }
+
                 Wait.seconds(2);
-                Assert.assertTrue(patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3)));
+                testResult = patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3));
+                if(!testResult){
+                    Assert.assertTrue("Failed in fillRecordedByDetails",false);
+                    break;
+                }
+
                 Wait.seconds(2);
-//                if(!patientChoicePage.clickOnContinue()){
-//                    Assert.assertTrue(false);
-//                }
-                patientChoicePage.clickOnContinue();
+                testResult = patientChoicePage.clickOnContinue();
+                if(!testResult){
+                    Assert.assertTrue("Failed in clickOnContinue",false);
+                    break;
+                }
+
                 Wait.seconds(2);
                 String patientChoice=memberDetails.get(i).get(4);
                 if(patientChoice.equalsIgnoreCase("Patient has agreed to the test")) {
-                patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
-                patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
-                patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
+                    patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
+                    patientChoicePage.selectOptionForQuestion("Yes", "Has research participation been discussed?");
+                    patientChoicePage.selectOptionForQuestion("Yes", "The patient agrees that their data and samples may be used for research, separate to NHS care.");
                 }else{
                     patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
                 }
                 Wait.seconds(2);
-//                if(!patientChoicePage.clickOnContinue()){
-//                    Assert.assertTrue(false);
-//                }
-                patientChoicePage.clickOnContinue();
+                testResult = patientChoicePage.clickOnContinue();
+                if(!testResult){
+                    Assert.assertTrue("Failed in clickOnContinue",false);
+                    break;
+                }
                 if(memberDetails.get(i).get(5) != null && !memberDetails.get(i).get(5).isEmpty()) {
-                    Assert.assertTrue(patientChoicePage.selectChildAssent(memberDetails.get(i).get(5)));
-//                    Assert.assertTrue(patientChoicePage.clickOnContinue());
-                    patientChoicePage.clickOnContinue();
+                    testResult = patientChoicePage.selectChildAssent(memberDetails.get(i).get(5));
+                    if(!testResult){
+                        Assert.assertTrue("Failed in selectChildAssent",false);
+                        break;
+                    }
+                    testResult = patientChoicePage.clickOnContinue();
+                    if(!testResult){
+                        Assert.assertTrue("Failed in clickOnContinue",false);
+                        break;
+                    }
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
                     //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
-                    patientChoicePage.drawSignature();
+                    testResult = patientChoicePage.drawSignature();
+                    if(!testResult){
+                        Assert.assertTrue("Failed in drawSignature",false);
+                        break;
+                    }
                 }
                 if (!patientChoicePage.submitPatientChoice()) {
                     referralPage.navigateToStage("Patient choice");
@@ -375,13 +404,21 @@ public class PatientChoiceSteps extends Pages {
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
 
-        patientChoicePage.selectPatientChoiceCategory();
+        if(!patientChoicePage.selectPatientChoiceCategory()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        if(!patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS")){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.enterRecordedByDetails();
+        if(!patientChoicePage.enterRecordedByDetails()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectChoicesWithAgreeingTesting();
+        if(!patientChoicePage.selectChoicesWithAgreeingTesting()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
         patientChoicePage.drawSignature();
         Wait.seconds(2);
@@ -592,11 +629,9 @@ public class PatientChoiceSteps extends Pages {
     }
     @When("the user clicks the Save and Continue button on the patient choice")
     public void theUserClicksTheSaveAndContinueButtonOnThe() {
-        //referralPage.clickSaveAndContinueButtonOnThePatientChoiceComponent();
         boolean testResult = false;
-//        testResult = referralPage.clickSaveAndContinueButton();
-//        Assert.assertTrue(testResult);
-        referralPage.clickSaveAndContinueButton();
+        testResult = patientChoicePage.clickOnSaveAndContinueButton();
+        Assert.assertTrue(testResult);
 
     }
     @And("the user sees the patient choice status for family member (.*) as (.*)")

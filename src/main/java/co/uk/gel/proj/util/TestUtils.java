@@ -12,9 +12,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -115,12 +117,13 @@ public class TestUtils {
         }
         return monthForm;
     }
+
     public static String convertMonthToMonthNumberForm(String monthName) {
 
         String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         String[] monthNumbers = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-        for(int i=0; i<months.length; i++){
-            if(monthName.equalsIgnoreCase(months[i])){
+        for (int i = 0; i < months.length; i++) {
+            if (monthName.equalsIgnoreCase(months[i])) {
                 return monthNumbers[i];
             }
         }
@@ -152,7 +155,7 @@ public class TestUtils {
         if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
             location.mkdirs();
         }
-        Debugger.println("Deleting file if present from : "+downloadLocation);
+        Debugger.println("Deleting file if present from : " + downloadLocation);
         File[] files = location.listFiles();
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
@@ -166,7 +169,7 @@ public class TestUtils {
             return;
         }
         //Delete from default location also
-        Debugger.println("Deleting ALSO file if present from : "+defaultDownloadLocation);
+        Debugger.println("Deleting ALSO file if present from : " + defaultDownloadLocation);
         File defLocation = new File(defaultDownloadLocation);
         File[] files_default = defLocation.listFiles();
         if (files_default != null && files_default.length > 0) {
@@ -179,6 +182,7 @@ public class TestUtils {
 
         }
     }
+
     public static boolean isFilePresent(String fileName, String folder) {
         String downloadLocation = "";
         if (folder == null || folder.isEmpty()) {
@@ -188,7 +192,7 @@ public class TestUtils {
         }
         File location = new File(downloadLocation);
         if (!location.exists()) {//Create the location, if not exists, first time may not be existing.
-            Debugger.println("Specified download location: "+downloadLocation+" not exists.");
+            Debugger.println("Specified download location: " + downloadLocation + " not exists.");
             return false;
         }
         boolean isPresent = false;
@@ -216,9 +220,9 @@ public class TestUtils {
                 return;
             }
             String[] today = getCurrentDay();
-            String prefix = today[0]+today[1];
+            String prefix = today[0] + today[1];
             for (int i = 0; i < files.length; i++) {
-                if (!(files[i].getName().startsWith("T"+prefix))) {
+                if (!(files[i].getName().startsWith("T" + prefix))) {
                     files[i].delete();
                 }
             }
@@ -341,7 +345,7 @@ public class TestUtils {
         return PREFIX + someName;
     }
 
-    public static boolean compareTwoCollectionsContainIdenticalValues(List<String> list1, List<String> list2){
+    public static boolean compareTwoCollectionsContainIdenticalValues(List<String> list1, List<String> list2) {
         List<String> sortedList1 = list1.stream().sorted().collect(Collectors.toList());
         List<String> sortedList2 = list2.stream().sorted().collect(Collectors.toList());
         //Debugger.println("Sorted List 1: " + sortedList1);
@@ -365,7 +369,7 @@ public class TestUtils {
             while (entries.hasMoreElements()) {
                 ZipEntry zipEntry = entries.nextElement();
                 String name = defaultDownloadLocation + (zipEntry.getName());
-                Debugger.println("Zipped filename- " + name);
+                //Debugger.println("Zipped filename- " + name);
                 //Create directory and sub-directories to extract the zip file
                 File file = new File(name);
                 if (name.endsWith("/")) {//If it is a directory
@@ -417,8 +421,7 @@ public class TestUtils {
         return null;
     }
 
-    public static String getDateNineMonthsOrMoreBeforeDoB(String dateToConvert, int days, int months, int years) throws Exception
-    {
+    public static String getDateNineMonthsOrMoreBeforeDoB(String dateToConvert, int days, int months, int years) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date convertedDate = formatter.parse(dateToConvert);
         Debugger.println("Date format with GMT : " + convertedDate);
@@ -429,13 +432,31 @@ public class TestUtils {
         Debugger.println("Base conversion : " + convertedDate);
 
         calendar.add(Calendar.MONTH, months);  //calendar.add(Calendar.MONTH, -9)- To go back by 9 months i.e if month is December, go to March
-        calendar.add(Calendar.DATE,days); // calendar.add(Calendar.DATE,-1) -  To go back by one day i.e if day is 10th, go to 9th
+        calendar.add(Calendar.DATE, days); // calendar.add(Calendar.DATE,-1) -  To go back by one day i.e if day is 10th, go to 9th
         calendar.add(calendar.YEAR, years); // calendar.add(calendar.YEAR, -1) To go back by one year i.e if year is 2020, go to 2019
 
-        Date  expectedDate = calendar.getTime();
+        Date expectedDate = calendar.getTime();
         Debugger.println("Expected Date format with GMT " + expectedDate);
         String newDate = formatter.format(expectedDate);
         Debugger.println("New date is in format dd-mm-yyyy: " + newDate);
         return newDate;
+    }
+
+    public static String downloadFile(String url, String fileName,String folder) {
+        try {
+            String downLocation = "";
+            if(folder == null || folder.isEmpty()){
+                downLocation = defaultDownloadLocation;
+            }else{
+                downLocation = defaultDownloadLocation+folder+File.separator;
+            }
+            InputStream inputStream = new URL(url).openStream();
+            Wait.seconds(10);
+            Files.copy(inputStream, Paths.get(downLocation + fileName), StandardCopyOption.REPLACE_EXISTING);
+            Wait.seconds(5);
+            return "Success";
+        } catch (Exception exp) {
+            return "Exception from downloadFile:" + exp;
+        }
     }
 }

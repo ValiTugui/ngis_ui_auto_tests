@@ -116,15 +116,20 @@ public class PanelsPage {
             for(int i=0; i<panelList.length; i++) {
                 panelsSearchFieldPlaceHolder.clear();
                 panelsSearchFieldPlaceHolder.sendKeys(panelList[i]);
-                Wait.seconds(2);//Wait to load the related panel based on the search word
+                Wait.seconds(5);//Wait to load the related panel based on the search word
                 if(panelsSearchResultsList.size() == 0){
                     Debugger.println("No matching Panels for the word: "+panelList[i]);
                     SeleniumLib.takeAScreenShot("NoPanelsListed.jpg");
                     return false;
                 }
-                Click.element(driver, panelsSearchResultsList.get(0));
+                try {
+                    Click.element(driver, panelsSearchResultsList.get(0));
+                }catch(Exception exp1){
+                    seleniumLib.clickOnWebElement(panelsSearchResultsList.get(0));
+                }
                 Wait.seconds(2);//Waiting for 3 seconds after each panel adding
                 panelsSearchResultsList.clear();
+                Wait.seconds(2);
             }
             return true;
         } catch (Exception exp) {

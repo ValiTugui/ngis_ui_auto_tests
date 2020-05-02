@@ -222,92 +222,125 @@ public class ReferralSteps extends Pages {
             patientType = attributeOfURL.get(7);//Child or adult
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
-        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
-            Assert.assertTrue(false);
+        boolean testResult = false;
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!testResult){
+            Assert.assertTrue("Failed in waitUntilHomePageResultsContainerIsLoaded",false);
         }
-        if(!homePage.typeInSearchField(searchTerm)){
-            Assert.assertTrue(false);
+        testResult = homePage.typeInSearchField(searchTerm);
+        if(!testResult){
+            Assert.assertTrue("Failed in typeInSearchField",false);
         }
-        if(!homePage.clickSearchIconFromSearchField()){
-            Assert.assertTrue(false);
+
+        testResult = homePage.clickSearchIconFromSearchField();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickSearchIconFromSearchField",false);
         }
-        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
-            Assert.assertTrue(false);
+
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        if(!testResult){
+            Assert.assertTrue("Failed in waitUntilHomePageResultsContainerIsLoaded",false);
         }
+
         homePage.closeCookiesBannerFromFooter();
-        if(!homePage.selectFirstEntityFromResultList()){
-            Assert.assertTrue(false);
+        testResult = homePage.selectFirstEntityFromResultList();
+        if(!testResult){
+            Assert.assertTrue("Failed in selectFirstEntityFromResultList",false);
         }
+
         homePage.closeCookiesBannerFromFooter();
-        if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
-            Assert.assertTrue(false);
+        testResult = clinicalIndicationsTestSelect.clickStartTestOrderReferralButton();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickStartTestOrderReferralButton",false);
         }
-        if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
-            Assert.assertTrue(false);
+
+        testResult = paperFormPage.clickSignInToTheOnlineServiceButton();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickSignInToTheOnlineServiceButton",false);
         }
-        //patientSearchPage.loginToTestOrderingSystemAsServiceDeskUser(driver);
+
         if(userType != null && !userType.isEmpty()) {
             switchToURL(driver.getCurrentUrl(), userType);
         } else {
             switchToURL(driver.getCurrentUrl());
         }
-        //switchToURL(driver.getCurrentUrl());
-       if(!patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected()){
-           Assert.assertTrue(false);
-       }
+        testResult = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
+        if(!testResult){
+            Assert.assertTrue("Failed in verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected",false);
+        }
+
         if(patientType == null || patientType.isEmpty()) {
             Debugger.println("SEARCH USING NHS AND DOB...........");
-            if(!patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB()){
-                Assert.assertTrue(false);
+            testResult = patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+            if(!testResult){
+                Assert.assertTrue("Failed in fillInNonExistingPatientDetailsUsingNHSNumberAndDOB",false);
             }
         }else{
             if(patientType.equalsIgnoreCase("Child")) {
                 Debugger.println("SEARCH FORA CHILD...........");
-                if(!patientSearchPage.fillInNonExistingPatientDetailsForChildReferral()){
-                    Assert.assertTrue(false);
+                testResult = patientSearchPage.fillInNonExistingPatientDetailsForChildReferral();
+                if(!testResult){
+                    Assert.assertTrue("Failed in fillInNonExistingPatientDetailsForChildReferral",false);
                 }
             }
         }
-        if(!patientSearchPage.clickSearchButtonByXpath()){
-            Assert.assertTrue(false);
+        testResult = patientSearchPage.clickSearchButtonByXpath();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickSearchButtonByXpath",false);
         }
+
         String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
         if(actualNoPatientFoundLabel == null){
             Assert.assertTrue(false);
         }
         Assert.assertEquals("No patient found", actualNoPatientFoundLabel);
-        if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink)){
-            Assert.assertTrue(false);
-        }
-        //driver.navigate().to("https://test-ordering.e2e.ngis.io/test-order/new-patient");  //Temp
-        if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
-            Assert.assertTrue(false);
-        }
-        if(!patientDetailsPage.newPatientPageIsDisplayed()){
-            Assert.assertTrue(false);
-        }
-        if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber)){
-            Assert.assertTrue(false);
-        }
-        if(!patientDetailsPage.clickOnCreateRecord()){
-            Assert.assertTrue(false);
-        }
-        //patientDetailsPage.clickSavePatientDetailsToNGISButton();
-        if(!patientDetailsPage.patientIsCreated()){
-            Assert.assertTrue(false);
+        testResult = patientSearchPage.checkCreateNewPatientLinkDisplayed(createPatientHyperTextLink);
+        if(!testResult){
+            Assert.assertTrue("Failed in checkCreateNewPatientLinkDisplayed",false);
         }
 
-        if(!patientDetailsPage.clickStartReferralButton()){
-            Assert.assertTrue(false);
+        testResult = patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickCreateNewPatientLinkFromNoSearchResultsPage",false);
         }
-        if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
-            Assert.assertTrue(false);
+
+        testResult = patientDetailsPage.newPatientPageIsDisplayed();
+        if(!testResult){
+            Assert.assertTrue("Failed in newPatientPageIsDisplayed",false);
         }
+
+        testResult = patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber);
+        if(!testResult){
+            Assert.assertTrue("Failed in fillInAllFieldsNewPatientDetailsWithOutNhsNumber",false);
+        }
+
+        testResult = patientDetailsPage.clickOnCreateRecord();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickOnCreateRecord",false);
+        }
+
+        testResult = patientDetailsPage.patientIsCreated();
+        if(!testResult){
+            Assert.assertTrue("Failed in patientIsCreated",false);
+        }
+
+        testResult = patientDetailsPage.clickStartReferralButton();
+        if(!testResult){
+            Assert.assertTrue("Failed in clickStartReferralButton",false);
+        }
+
+        testResult = referralPage.checkThatReferralWasSuccessfullyCreated();
+        if(!testResult){
+            Assert.assertTrue("Failed in checkThatReferralWasSuccessfullyCreated",false);
+        }
+
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
-        if(!referralPage.saveAndContinueButtonIsDisplayed()){
-            Assert.assertTrue(false);
+        testResult = referralPage.saveAndContinueButtonIsDisplayed();
+        if(!testResult){
+            Assert.assertTrue("Failed in saveAndContinueButtonIsDisplayed",false);
         }
+
     }
 
     @Then("the user sees a prompt alert {string} after clicking {string} button and {string} it")
@@ -378,27 +411,27 @@ public class ReferralSteps extends Pages {
         }
         NavigateTo(AppConfig.getPropertyValueFromPropertyFile(baseURL), confirmationPage);
         if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in waitUntilHomePageResultsContainerIsLoaded.",false);
         }
         if(!homePage.typeInSearchField(searchTerm)){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in typeInSearchField",false);
         }
         if(!homePage.clickSearchIconFromSearchField()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickSearchIconFromSearchField",false);
         }
         if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in waitUntilHomePageResultsContainerIsLoaded",false);
         }
         homePage.closeCookiesBannerFromFooter();
         if(!homePage.selectFirstEntityFromResultList()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in selectFirstEntityFromResultList",false);
         }
         homePage.closeCookiesBannerFromFooter();
         if(!clinicalIndicationsTestSelect.clickStartTestOrderReferralButton()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickStartTestOrderReferralButton",false);
         }
         if(!paperFormPage.clickSignInToTheOnlineServiceButton()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickSignInToTheOnlineServiceButton",false);
         }
         Debugger.println(" User Type : " + userType);
         if(userType != null) {
@@ -407,49 +440,49 @@ public class ReferralSteps extends Pages {
             switchToURL(driver.getCurrentUrl());
         }
         if(!referralPage.verifyThePageTitlePresence("Find your patient")){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in verifyThePageTitlePresence:Find your patient",false);
         }
         if(!patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in fillInNonExistingPatientDetailsUsingNHSNumberAndDOB",false);
         }
         if(!patientSearchPage.clickSearchButtonByXpath()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickSearchButtonByXpath",false);
         }
         String actualSearchResult = patientSearchPage.getPatientSearchNoResult();
         if(actualSearchResult == null){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in getPatientSearchNoResult",false);
         }
         Assert.assertEquals("No patient found", actualSearchResult);
         if(!patientSearchPage.checkCreateNewPatientLinkDisplayed("create a new patient record")){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in checkCreateNewPatientLinkDisplayed",false);
         }
         if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickCreateNewPatientLinkFromNoSearchResultsPage",false);
         }
         if(!patientDetailsPage.newPatientPageIsDisplayed()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in newPatientPageIsDisplayed",false);
         }
         if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reasonForNoNHSNumber)){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in fillInAllFieldsNewPatientDetailsWithOutNhsNumber",false);
         }
         //patientDetailsPage.clickSavePatientDetailsToNGISButton();
         if(!patientDetailsPage.clickOnCreateRecord()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickOnCreateRecord",false);
         }
         if(!patientDetailsPage.patientIsCreated()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in patientIsCreated",false);
         }
 
         if(!patientDetailsPage.clickStartReferralButton()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in clickStartReferralButton",false);
         }
         if(!referralPage.checkThatReferralWasSuccessfullyCreated()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in checkThatReferralWasSuccessfullyCreated",false);
         }
         //To log the ReferralI in the Log.
         referralPage.logTheReferralId();
         if(!referralPage.saveAndContinueButtonIsDisplayed()){
-            Assert.assertTrue(false);
+            Assert.assertTrue("Failure in saveAndContinueButtonIsDisplayed",false);
         }
     }
     @And("the success notification is displayed {string}")
