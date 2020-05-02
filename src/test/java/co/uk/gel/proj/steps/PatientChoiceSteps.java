@@ -375,13 +375,21 @@ public class PatientChoiceSteps extends Pages {
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
 
-        patientChoicePage.selectPatientChoiceCategory();
+        if(!patientChoicePage.selectPatientChoiceCategory()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        if(!patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS")){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.enterRecordedByDetails();
+        if(!patientChoicePage.enterRecordedByDetails()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectChoicesWithAgreeingTesting();
+        if(!patientChoicePage.selectChoicesWithAgreeingTesting()){
+            Assert.assertTrue(false);
+        }
         Wait.seconds(2);
         patientChoicePage.drawSignature();
         Wait.seconds(2);

@@ -1013,22 +1013,30 @@ public class PatientChoicePage {
         }
     }
 
-    public void selectChoicesWithAgreeingTesting() {
+    public boolean selectChoicesWithAgreeingTesting() {
         try {
             Click.element(driver, agreeTestChoice);
             Click.element(driver, agreeResearchParticipation);
             Click.element(driver, agreeSampleUsage);
             Click.element(driver, patientChoicesContinueButton);
+            return true;
         } catch (Exception exp) {
-            Actions.scrollToTop(driver);
-            Click.element(driver, agreeTestChoice);
-            Click.element(driver, agreeResearchParticipation);
-            Click.element(driver, agreeSampleUsage);
-            Click.element(driver, patientChoicesContinueButton);
+            try {
+                Actions.scrollToTop(driver);
+                Click.element(driver, agreeTestChoice);
+                Click.element(driver, agreeResearchParticipation);
+                Click.element(driver, agreeSampleUsage);
+                Click.element(driver, patientChoicesContinueButton);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in selectChoicesWithAgreeingTesting:"+exp);
+                SeleniumLib.takeAScreenShot("selectChoicesWithAgreeingTesting.jpg");
+                return false;
+            }
         }
     }
 
-    public void drawSignature() {
+    public boolean drawSignature() {
         try {
             Wait.forElementToBeDisplayed(driver, signatureSection);
             Click.element(driver, signatureSection);
@@ -1041,8 +1049,11 @@ public class PatientChoicePage {
                     .build();
             drawAction.perform();
             Wait.seconds(1);
+            return true;
         } catch (Exception exp) {
             Debugger.println("Exception from drawing Signature in Patient Choice Page." + exp);
+            SeleniumLib.takeAScreenShot("drawSignature.jpg");
+            return false;
         }
     }
 
