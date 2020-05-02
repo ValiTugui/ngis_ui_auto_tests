@@ -531,11 +531,10 @@ public class PatientDetailsPage {
                 return false;
             }
             Actions.clickElement(driver, CISearchStartReferral);
-
-            if(Wait.isElementDisplayed(driver,selectCIRadio,10)){
+            Wait.seconds(10);
+            if(Wait.isElementDisplayed(driver,selectCIRadio,20)){
                 Actions.clickElement(driver,selectCIRadio);
             }
-
             return true;
         } catch (Exception exp) {
             Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);

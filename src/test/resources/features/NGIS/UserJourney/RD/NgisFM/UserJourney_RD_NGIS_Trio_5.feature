@@ -1,12 +1,11 @@
 #@userJourneys
 #@userJourneysRD
-#@userJourneysRD_NGIS_TrioFamily
 @SYSTEM_INTEGRATION_TEST
 Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
 
   @NTS-4551 @Z-LOGOUT
 #     @E2EUI-1358 @UseCase09
-  Scenario Outline: NTS-4551: Use Case#09: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
+  Scenario Outline: NTS-4551: Use Case#09:E2EUI-1358: Create Referral for Trio Family + Edit Data + Add Family Members to Test + Patient Choice Yes - Search Spine Patient
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=9449303924:DOB=14-05-2004 |
     ##Patient Details
@@ -54,7 +53,7 @@ Feature: UserJourney_RD_NGIS_Trio_5 - UC09 - E2EUI-1358
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
-    Then the "<PatientChoiceStage>" page is displayed
+    Then the user is navigated to a page with title Add patient choice information
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
     #Patient Choice - Family Details Provided below should be same as above

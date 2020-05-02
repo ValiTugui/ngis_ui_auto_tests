@@ -969,20 +969,27 @@ public class FamilyMemberDetailsPage {
             //If the test is in selected mode, then making it as unselected and clicking
             if(Wait.isElementDisplayed(driver, selectedTest,30)){
                 Actions.clickElement(driver,selectedTest);
+                Wait.seconds(2);
             }
             Actions.clickElement(driver,unSelectedTest);
             return true;//Already deselected
         }catch(ElementClickInterceptedException exp){
-            //The box might be in selected stage and element may not be able to click. So moving control out and click again
+            //The box might be in selected stage and element may not be able to click.
+            // So moving control out and click again
            Actions.clickElement(driver,selectedFamilyMembersLabel);
            Wait.seconds(2);
            Actions.clickElement(driver,unSelectedTest);
-            Wait.seconds(2);
+           Wait.seconds(2);
            return true;
         }catch(Exception exp){
-            Debugger.println("Exception in clickOnDeselectedTestCheckBox.."+exp);
-            SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(unSelectedTest);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickOnDeselectedTestCheckBox.." + exp1);
+                SeleniumLib.takeAScreenShot("NoDeSelectedCheckBox.jpg");
+                return false;
+            }
         }
 
     }

@@ -1,6 +1,5 @@
 #@regression
 #@clinicalQuestions
-#@clinicalQuestionsFM
 @03-TEST_ORDER
 @SYSTEM_TEST
 
