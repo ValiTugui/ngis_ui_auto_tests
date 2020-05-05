@@ -60,7 +60,7 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
-    And the user clicks the Save and Continue button
+    And the user clicks the Save and Continue button on the patient choice
     Then the "<PatientChoice>" page is displayed
     Then the help text is displayed
     Then the Patient Choice landing page is updated to "Agreed to testing" for the proband
@@ -87,10 +87,10 @@ Feature: NTS-3407 - RD flow - Create New NGIS Patient Referral for Trio Family -
     ##Print forms
     When the user navigates to the "<PrintForms>" stage
     Then the user is navigated to a page with title Print sample forms
-    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
-      | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=14-05-1931 |
-      | NHSNumber=NA:DOB=10-11-1949 |
+#    And the user is able to download print forms for "<NoOfParticipants>" family members with the below details
+#      | FamilyMemberDetails         |
+#      | NHSNumber=NA:DOB=14-05-1931 |
+#      | NHSNumber=NA:DOB=10-11-1949 |
     And the user submits the referral
     And the submission confirmation message "Your referral has been submitted" is displayed
     And the referral status is set to "Submitted"
