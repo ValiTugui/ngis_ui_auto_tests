@@ -112,7 +112,7 @@ public class SamplesPage {
     @FindBy(css = "*[class*='sample-detail__edit-link']")
     public WebElement editSampleButton;
 
-    @FindBy(xpath = "//button[text()='Add sample']")
+    @FindBy(xpath = "//button[@type='button']/span[text()='Add sample']")
     public WebElement addSampleButton;
 
     @FindBy(css = "*[class*='checkmark']")
@@ -320,8 +320,25 @@ public class SamplesPage {
     }
 
 
-    public void clickAddSampleButton() {
+    public boolean clickAddSampleButton() {
+        try {
+            if(!Wait.isElementDisplayed(driver,addSampleButton,10)){
+                Debugger.println("Add sample button not displayed\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
+                return false;
+            }
         Actions.clickElement(driver, addSampleButton);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addSampleButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clickAddSampleButton:" + exp1 + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("clickAddSampleButton.jpg");
+                return false;
+            }
+        }
     }
 
     public String getDynamicQuestionsLabelText() {

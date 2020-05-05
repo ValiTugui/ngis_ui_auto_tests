@@ -112,7 +112,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[contains(@aria-label,'edit')]")
     public List<WebElement> memberEditButton;
 
-    @FindBy(id = "Patient-0")
+    @FindBy(xpath = "//div[@class='radio']/label[@class='radio-container'][@id='Patient-0']")
     public WebElement adultWithCapacityCategory;
 
     @FindBy(xpath = "//*[contains(@class,'recordedByContainer')]//child::input")
@@ -280,8 +280,11 @@ public class PatientChoicePage {
     @FindBy(xpath = "//img[contains(@class,'cancel-logo')]")
     public WebElement cancelUpload;
 
-    @FindBy(xpath = "//button[contains(@class,'referral-navigation__button')][text()='Save and continue']")
+    @FindBy(xpath = "//button[@data-testid='referral-navigation-primary-button']")
     public WebElement saveAndContinuePC;
+
+    @FindBy(xpath = "//button/span[contains(text(),'Try again')]")
+    public WebElement tryAgain;
 
 
     public boolean editPatientChoice() {
@@ -967,9 +970,13 @@ public class PatientChoicePage {
 
     public boolean selectPatientChoiceCategory() {
         try {
-            if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,10)){
-                Debugger.println("adultWithCapacityCategory not displayed.");
+            if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,30)){
+                SeleniumLib.scrollToElement(adultWithCapacityCategory);
+                if(!Wait.isElementDisplayed(driver,adultWithCapacityCategory,3)) {
+                    Debugger.println("adultWithCapacityCategory not displayed.\n" + driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
+                    return false;
+                }
             }
             Click.element(driver, adultWithCapacityCategory);
             return true;
@@ -978,7 +985,7 @@ public class PatientChoicePage {
                 seleniumLib.clickOnWebElement(adultWithCapacityCategory);
                 return true;
             }catch(Exception exp1){
-                Debugger.println("Exception in adultWithCapacityCategory:"+exp);
+                Debugger.println("Exception in adultWithCapacityCategory:"+exp1+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("adultWithCapacityCategory.jpg");
                 return false;
             }
@@ -1077,10 +1084,12 @@ public class PatientChoicePage {
             }
             int count = 1;
             boolean isEnabled = saveAndContinuePC.isEnabled();
-            while(isEnabled){
+            Debugger.println("SaveAndContinue in PC:"+isEnabled);
+            while(!isEnabled){
                 Wait.seconds(10);
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
+                Debugger.println("In While..."+isEnabled);
                 if(count > 12){
                     break;//after a minute
                 }
@@ -1090,22 +1099,43 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
                 return false;
             }
+            Debugger.println("SaveAndContinue in PC1:"+isEnabled);
             seleniumLib.clickOnWebElement(saveAndContinuePC);
+            Wait.seconds(5);
+            //Some times after clicking on SaveAndContinue, Try again option is coming, click on and continue
+            boolean isTryAgain = Wait.isElementDisplayed(driver,tryAgain,10);
+            int tryCount = 1;
+            while (isTryAgain) {
+                Wait.seconds(10);
+                isTryAgain = Wait.isElementDisplayed(driver, tryAgain, 10);
+                if (tryCount > 6) {
+                    break;
+                }
+            }
+            if(isTryAgain){
+                Debugger.println("Try Again appears after SaveAndContinue for 60 seconds....failing\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TryAgain.jpg");
+                return false;
+            }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in saveAndContinueInPC:"+exp);
+            Debugger.println("Exception in saveAndContinueInPC:"+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("saveAndContinueInPC.jpg");
             return false;
         }
     }
 
     public boolean submitPatientChoiceWithSignature() {
         try {
-            Wait.forElementToDisappear(driver, By.cssSelector("button[class*='disabled-submit-signature-button']"));
             Click.element(driver, submitSignatureButton);
+            Debugger.println("SC:"+saveAndContinuePC.isEnabled()+",SC Color:"+saveAndContinuePC.getCssValue("background-color"));
+            Wait.seconds(10);
             return true;
         } catch (Exception exp) {
             try{
                 seleniumLib.clickOnWebElement(submitSignatureButton);
+                Debugger.println("SC1:"+saveAndContinuePC.isEnabled());
+                Wait.seconds(10);
                 return true;
             }catch(Exception exp1) {
                 Debugger.println("Exception from submitting Patient Choice with Signature...." + exp1);
@@ -1159,10 +1189,15 @@ public class PatientChoicePage {
 
     public boolean verifyHelpTextLabelIsVisible() {
         try {
-            Wait.forElementToBeDisplayed(driver, helpTextLabel, 200);
+            if(!Wait.isElementDisplayed(driver,helpTextLabel,60)){
+                Debugger.println("PatientChoice Page Help Text is not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCHelpText.jpg");
+                return false;
+            }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception before seeing Patient Choice participants info ...." + exp);
+            Debugger.println("Exception before seeing Patient Choice participants info ...." + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCHelpText.jpg");
             return false;
         }
     }

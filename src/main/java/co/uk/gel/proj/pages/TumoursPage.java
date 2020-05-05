@@ -407,9 +407,23 @@ public class TumoursPage {
     }
 
     public int getTheNumbersOfTumoursDisplayedInLandingPage() {
-        Wait.forElementToBeDisplayed(driver, successNotification);
-        Wait.forElementToBeDisplayed(driver, tumoursLandingPageTable);
+        try {
+            if(!Wait.isElementDisplayed(driver,successNotification,30)){
+                Debugger.println("TumourPage successNotification not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("TumourSuccessNotification.jpg");
+                return -1;
+            }
+            if(!Wait.isElementDisplayed(driver,tumoursLandingPageTable,30)){
+                Debugger.println("TumourPage tumoursLandingPageTable not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("tumoursLandingPageTable.jpg");
+                return -1;
+            }
         return listOfTumoursInTheTable.size();
+        }catch(Exception exp){
+            Debugger.println("Exception in getTheNumbersOfTumoursDisplayedInLandingPage:"+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("getTheNumbersOfTumoursDisplayedInLandingPage.jpg");
+            return -1;
+        }
     }
 
     public boolean tumourIsNotHighlighted() {
