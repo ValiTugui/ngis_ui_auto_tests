@@ -391,7 +391,9 @@ public class FamilyMemberDetailsSteps extends Pages {
                     }
                     Debugger.println("Created:"+familyMember.getDATE_OF_BIRTH());
                     if (!referralPage.verifyThePageTitlePresence("Continue with this family member")) {
+                        if(!referralPage.verifyThePageTitlePresence("Create a record for this family member")) {
                         Assert.assertTrue(false);
+                    }
                     }
                     referralPage.updatePatientNGSID(familyMember);
                     if (!referralPage.clickSaveAndContinueButton()) {

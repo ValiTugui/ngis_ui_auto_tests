@@ -124,7 +124,7 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "button[class*='search']")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[contains(@class,'button--search')]")   //@FindBy(xpath = "//button[contains(string(),'Search')]")
+    @FindBy(xpath = "//button[@type='submit'][contains(@class,'SearchForm')]")
     public WebElement searchButtonByXpath;
 
 
@@ -260,18 +260,19 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public boolean clickSearchButtonByXpath() {
         try {
-            Wait.forElementToBeDisplayed(driver, searchButtonByXpath, 200);
-            Wait.forElementToBeClickable(driver, searchButtonByXpath);
+            if(!Wait.isElementDisplayed(driver,searchButtonByXpath,30)){
+                Debugger.println("Search Button could not locate on Patient Search Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PatientSearchPage.jpg");
+                return false;
+            }
             Actions.clickElement(driver, searchButtonByXpath);
             return true;
-            // replaced due to intermittent error org.openqa.selenium.ElementClickInterceptedException: element click intercepted:
-            // searchButtonByXpath.Click();
         }catch(Exception exp){
             try{
                 seleniumLib.clickOnWebElement(searchButtonByXpath);
                 return true;
             }catch(Exception exp1) {
-                Debugger.println("Exception from clicking on Search Patient Button:" + exp);
+                Debugger.println("Exception from clicking on Search Patient Button:" + exp+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("SearchPatientButton.jpg");
                 return false;
             }
@@ -992,14 +993,15 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
 
     public void waitForPageTitleDisplayed(){
         try {
-            Wait.forElementToBeDisplayed(driver, pageTitle);
-            if(!Wait.isElementDisplayed(driver,pageTitle,10)){
+            if(!Wait.isElementDisplayed(driver,pageTitle,30)){
                 Debugger.println("Patient Search Page is not Loaded Successfully.");
-                Assert.assertFalse("Patient Search Page is not Loaded Successfully.",true);
+                SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+                Assert.fail("Patient Search Page is not Loaded Successfully.");
             }
         }catch(Exception exp){
             Debugger.println("Exception from loading Patient Search Page:"+exp);
-            Assert.assertFalse("Exception from loading Patient Search Page:",true);
+            SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
+            Assert.fail("Exception from loading Patient Search Page:");
         }
     }
     public void logoutFromApplication(){

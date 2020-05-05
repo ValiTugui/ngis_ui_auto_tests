@@ -1,7 +1,6 @@
 package co.uk.gel.config;
 
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.sl.In;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.openqa.selenium.*;

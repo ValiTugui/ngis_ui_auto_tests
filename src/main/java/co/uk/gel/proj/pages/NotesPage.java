@@ -50,8 +50,26 @@ public class NotesPage {
         element.sendKeys(value);
     }
 
-    public void fillInAddNotesField() {
-        fillInValue(addNoteField, faker.chuckNorris().fact());
+    public boolean fillInAddNotesField() {
+        try {
+            if(!Wait.isElementDisplayed(driver,addNoteField,30)){
+                Debugger.println("AddNoteField not displayed.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+                return false;
+            }
+            addNoteField.clear();
+            addNoteField.sendKeys(faker.chuckNorris().fact());
+            return true;
+        }catch(Exception exp){
+            try {
+                seleniumLib.sendValue(addNoteField, faker.chuckNorris().fact());
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from fillInAddNotesField." + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("fillInAddNotesField.jpg");
+                return false;
+            }
+        }
     }
 
     public void fillInAddNotesFieldWithOverThreeThousandCharacters() {

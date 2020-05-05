@@ -488,6 +488,9 @@ public class ReferralSteps extends Pages {
     @And("the success notification is displayed {string}")
     public void theSuccessNotificationIsDisplayed(String notificationText) {
         String actualNotificationText = referralPage.successNotificationIsDisplayed();
+        if (actualNotificationText == null) {
+            Assert.assertTrue("Expected Notification not displayed", false);
+        }
         Assert.assertEquals(notificationText,actualNotificationText);
     }
     @Then("the user is navigated to a page with title (.*)")

@@ -129,7 +129,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save and continue']")
     public WebElement saveAndContinue;
 
-    @FindBy(xpath = "//button[text()='Create record']")
+    @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
     public WebElement createRecord;
 
 
@@ -142,7 +142,7 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Add details to NGIS']")
     public List<WebElement> addDetailsToNGISButtonList;
 
-    @FindBy(xpath = "//button[text()='Start referral']")
+    @FindBy(xpath = "//button[@type='submit']/span[text()='Start referral']")
     public WebElement startReferralButton;
 
     @FindBy(xpath = "//button[text()='Yes, start referral']")
@@ -216,7 +216,7 @@ public class PatientDetailsPage {
 
     String dropDownValuesFromLocator = "//span[text()[('^[A-Z ]*-*')]]";
 
-    @FindBy(xpath = "//button[text()='Create NGIS record']")
+    @FindBy(xpath = "//button/span[text()='Create NGIS record']")
     public WebElement addNewPatientToReferral;
 
     String relationshipToProbandType = "//span[contains(text(),'dummyOption')]/ancestor::div[contains(@class,'container')]";
@@ -516,10 +516,15 @@ public class PatientDetailsPage {
             // Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
             return true;
         } catch (Exception exp) {
-            Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp);
+            try{
+                seleniumLib.clickOnWebElement(startReferralButton);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp1+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("StartReferral.jpg");
             return false;
         }
+    }
     }
 
     public boolean clickCISearchStartReferralButton() {

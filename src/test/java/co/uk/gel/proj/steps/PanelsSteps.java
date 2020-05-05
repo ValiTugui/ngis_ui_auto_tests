@@ -39,7 +39,9 @@ public class PanelsSteps extends Pages {
 
     @When("the user clicks on VisitPanelApp link")
     public void theUserClicksOnVisitPanelAppLink() {
-        Assert.assertTrue(panelsPage.clicksOnVisitPanelsAppLink());
+        boolean testResult;
+        testResult = panelsPage.clicksOnVisitPanelsAppLink();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user navigates to panelApp page")
