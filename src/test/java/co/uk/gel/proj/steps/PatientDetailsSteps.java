@@ -49,22 +49,22 @@ public class PatientDetailsSteps extends Pages {
     @When("the user create a new patient record by clicking the {string} link to fill all fields without NHS number and reason {string}")
     public void theUserCreateANewPatientRecordByClickingTheLinkToFillAllFieldsWithoutNHSNumberAndReason(String createANewPatientLink, String reason) {
         if(!patientSearchPage.checkCreateNewPatientLinkDisplayed(createANewPatientLink)){
-            Assert.assertTrue(false);
+            Assert.fail("patientSearchPage.checkCreateNewPatientLinkDisplayed");
         }
         if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
-            Assert.assertTrue(false);
+            Assert.fail("patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage");
         }
         if(!patientDetailsPage.newPatientPageIsDisplayed()){
-            Assert.assertTrue(false);
+            Assert.fail("patientDetailsPage.newPatientPageIsDisplayed");
         }
         if(!patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber(reason)){
-            Assert.assertTrue(false);
+            Assert.fail("patientDetailsPage.fillInAllFieldsNewPatientDetailsWithOutNhsNumber");
         }
         if(!patientDetailsPage.clickOnCreateRecord()){
-            Assert.assertTrue(false);
+            Assert.fail("patientDetailsPage.clickOnCreateRecord");
         }
        if(!patientDetailsPage.patientIsCreated()) {
-           Assert.assertTrue(false);
+           Assert.fail("patientDetailsPage.patientIsCreated");
        }
     }
 
@@ -94,7 +94,6 @@ public class PatientDetailsSteps extends Pages {
     @And("the user clicks the Start Referral button to display the referral page")
     public void theUserClicksTheStartReferralButtonToDisplayTheReferralPage() {
         patientDetailsPage.clickStartNewReferralButton();
-        referralPage.checkThatReferalWasSuccessfullyCreated();
     }
 
     @When("the user does not modify the existing information on the {string} form")
@@ -149,13 +148,13 @@ public class PatientDetailsSteps extends Pages {
     @Given("a web browser is logged in as a {string} user at the Patient Details page of a {string} with valid details of NHS number and DOB")
     public void aWebBrowserIsLoggedInAsAUserAtThePatientDetailsPageOfAWithValidDetailsOfNHSNumberAndDOB(String userType, String patientType) throws IOException {
         if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(patientType)){
-            Assert.assertTrue(false);
+            Assert.fail("patientSearchPage.fillInNHSNumberAndDateOfBirth");
         }
         if(!patientSearchPage.clickSearchButtonByXpath()){
-            Assert.assertTrue(false);
+            Assert.fail("patientSearchPage.clickSearchButtonByXpath");
         }
         if(!patientSearchPage.clickPatientCard()){
-            Assert.assertTrue(false);
+            Assert.fail("patientSearchPage.clickPatientCard");
         }
     }
 

@@ -13,7 +13,9 @@ public class NotesSteps extends Pages {
 
     @When("the user fills in the Add Notes field")
     public void theUserFillsInTheAddNotesField() {
-        notesPage.fillInAddNotesField();
+        boolean testResult;
+        testResult = notesPage.fillInAddNotesField();
+        Assert.assertTrue(testResult);
     }
 
     @When("the user attempts to fill in Referral Notes field with data that exceed the maximum data allowed {int}")

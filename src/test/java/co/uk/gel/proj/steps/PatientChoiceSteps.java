@@ -398,49 +398,76 @@ public class PatientChoiceSteps extends Pages {
 
     @Then("the Patient Choice landing page is updated to {string} for the proband")
     public void thePatientChoiceLandingPageIsUpdatedToForTheProband(String expectedStatusInfo) {
-         Assert.assertTrue(patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0));
+        boolean testResult = false;
+        testResult = patientChoicePage.statusUpdatedCorrectly(expectedStatusInfo, 0);
+        Assert.assertTrue(testResult);
     }
 
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYes() {
-
-        if(!patientChoicePage.selectPatientChoiceCategory()){
-            Assert.assertTrue(false);
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            Assert.assertTrue("Cancer : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS")){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.selectTestType("Cancer (paired tumour normal) – WGS");
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectTestType.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.enterRecordedByDetails()){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.enterRecordedByDetails();
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.enterRecordedByDetails.", false);
         }
         Wait.seconds(2);
-        if(!patientChoicePage.selectChoicesWithAgreeingTesting()){
-            Assert.assertTrue(false);
+        testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
+        if (!testResult) {
+            Assert.assertTrue("Cancer: Failure from patientChoicePage.selectChoicesWithAgreeingTesting.", false);
         }
         Wait.seconds(2);
-        patientChoicePage.drawSignature();
+        testResult = patientChoicePage.drawSignature();
+        if (!testResult) {
+            Assert.assertTrue("Cancer:Failure from patientChoicePage.drawSignature.", false);
+        }
         Wait.seconds(2);
 
     }
     @And("the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD")
     public void theUserAnswersThePatientChoiceQuestionsWithAgreeingToTestingPatientChoiceYesForRD() {
-        patientChoicePage.selectPatientChoiceCategory();
+        boolean testResult = false;
+        testResult = patientChoicePage.selectPatientChoiceCategory();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
+        testResult = patientChoicePage.selectTestType("Rare & inherited diseases – WGS");
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectTestType.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.enterRecordedByDetails();
+        testResult = patientChoicePage.enterRecordedByDetails();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.enterRecordedByDetails.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.selectChoicesWithAgreeingTesting();
+        testResult = patientChoicePage.selectChoicesWithAgreeingTesting();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.selectPatientChoiceCategory.", false);
+        }
         Wait.seconds(2);
-        patientChoicePage.drawSignature();
+        testResult = patientChoicePage.drawSignature();
+        if (!testResult) {
+            Assert.assertTrue("RD Proband : Failure from patientChoicePage.drawSignature.", false);
+        }
         Wait.seconds(2);
     }
 
     @Then("the help text is displayed")
     public void theHelpTextIsDisplayed() {
-        Assert.assertTrue(patientChoicePage.verifyHelpTextLabelIsVisible());
+        boolean testResult = false;
+        testResult = patientChoicePage.verifyHelpTextLabelIsVisible();
+        Assert.assertTrue(testResult);
     }
 
     @Then("the user should see the question displayed as (.*)")

@@ -75,18 +75,22 @@ public class PrintFormSteps extends Pages {
     @And("the user is able to download Sample form which has the correct user name, DOB , patient Id, ReferralId, Laboratory address, clinician info, Tumour info details")
     public void theUserIsAbleToDownloadSampleFormWhichHasTheCorrectUserNameDOBPatientIdReferralIdLaboratoryAddressClinicianInfoTumourInfoDetails() {
         if (SeleniumLib.skipIfBrowserStack("LOCAL")) {
+            Debugger.println("Downloading and verifying PrintForm PDF content...");
             boolean testResult = false;
+            try {
             PatientDetailsPage.newPatient.setOrderingEntity(printFormsPage.getLaboratoryAddress());
             PatientDetailsPage.newPatient.setSampleType(printFormsPage.getSampleInfo());
             PatientDetailsPage.newPatient.setTumourType(printFormsPage.getTumourInfo());
-
-            Debugger.println("Downloading and Verifying content the proband ");
+            }catch(Exception exp){
+                Debugger.println("Exception in setting printform details to Patient.."+exp+"\n"+driver.getCurrentUrl());
+            }
+            Debugger.println("Downloading ........");
             if (!printFormsPage.downloadProbandPrintForm()) {
                 Debugger.println("Could not download form for proband");
-                testResult = false;
+                Assert.assertTrue("Could not download print form for proband",false);
             }
-            Debugger.println("Downloaded the sample form...Verifying content....");
 
+            Debugger.println("Verifying content....");
             NewPatient newlyCreatedPatientRecord = patientDetailsPage.getNewlyCreatedPatientData();
             String patientName = newlyCreatedPatientRecord.getPatientFullName();
             String dateOfBirth = newlyCreatedPatientRecord.getPatientDOBInMonthFormat();
@@ -110,21 +114,24 @@ public class PrintFormSteps extends Pages {
             String tumourInfo = newlyCreatedPatientRecord.getTumourType();
             String sampleInfo = newlyCreatedPatientRecord.getSampleType();
 
-            Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
-            Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
-            Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
-            Debugger.println("Patient NGIS Is to verify in the downloaded PDF file               : " + patientNGISId);
-            Debugger.println("Patient Referral Id to verify in the downloaded PDF file               : " + patientReferralId);
-
-            Debugger.println("Patient CI     to verify in the downloaded PDF file               : " + clinicalIndication);
-            Debugger.println("Ordering entity to verify in the downloaded PDF file              : " + requestingOrg);
-            Debugger.println("Responsible Clinician Name to verify in the downloaded PDF file            : " + responsibleClinicianName);
-            Debugger.println("Responsible Clinician Email to verify in the downloaded PDF file           : " + responsibleClinicianEmail);
-            Debugger.println("Responsible Clinician contact number to verify in the downloaded PDF file  : " + responsibleClinicianContact);
+//            Debugger.println("Patient Name to verify in the downloaded PDF file                 : " + patientName);
+//            Debugger.println("Patient DOB to verify in the downloaded PDF file                  : " + dateOfBirth);
+//            Debugger.println("Patient Gender to verify in the downloaded PDF file               : " + gender);
+//            Debugger.println("Patient NGIS Is to verify in the downloaded PDF file               : " + patientNGISId);
+//            Debugger.println("Patient Referral Id to verify in the downloaded PDF file               : " + patientReferralId);
+//            Debugger.println("Patient CI     to verify in the downloaded PDF file               : " + clinicalIndication);
+//            Debugger.println("Ordering entity to verify in the downloaded PDF file              : " + requestingOrg);
+//            Debugger.println("Responsible Clinician Name to verify in the downloaded PDF file            : " + responsibleClinicianName);
+//            Debugger.println("Responsible Clinician Email to verify in the downloaded PDF file           : " + responsibleClinicianEmail);
+//            Debugger.println("Responsible Clinician contact number to verify in the downloaded PDF file  : " + responsibleClinicianContact);
             String[] tumours = tumourInfo.split(" •");
+            if(tumours.length > 0) {
             Debugger.println("Tumour Type to verify in the downloaded PDF file  : " + tumours[0]);
+            }
             String[] samples = sampleInfo.split("sample required");
+            if(samples.length > 0) {
             Debugger.println("Sample info to verify in the downloaded PDF file  : " + samples[0]);
+            }
 
             List<String> expectedValuesToBeVerifiedInPDF = new ArrayList<>();
             expectedValuesToBeVerifiedInPDF.add(patientName);
@@ -140,9 +147,12 @@ public class PrintFormSteps extends Pages {
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianName);
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianEmail);
             expectedValuesToBeVerifiedInPDF.add(responsibleClinicianContact);
-
+            if(tumours.length > 0) {
             expectedValuesToBeVerifiedInPDF.add(tumours[0]);
+            }
+            if(samples.length  >0) {
             expectedValuesToBeVerifiedInPDF.add(samples[0]);
+            }
             testResult = printFormsPage.openAndVerifyPDFContent(expectedValuesToBeVerifiedInPDF);
             Assert.assertTrue(testResult);
         }
@@ -284,8 +294,8 @@ public class PrintFormSteps extends Pages {
     public void theUserIsAbleToSeeTheFollowingGuidelinesBelowTheConfirmationMessage(DataTable guideLines) {
         boolean testResult = false;
         List<String> stages = guideLines.asList();
-        for (int i = 0; i < stages.size(); i++) {
-            testResult = printFormsPage.validateGuidelinesContent(stages.get(i));
+        for (String stage : stages) {
+            testResult = printFormsPage.validateGuidelinesContent(stage);
             if (!testResult) {
                 Assert.assertTrue(testResult);
             }

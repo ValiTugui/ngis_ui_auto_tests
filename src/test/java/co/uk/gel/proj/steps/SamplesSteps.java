@@ -59,7 +59,9 @@ public class SamplesSteps extends Pages {
 
     @And("the user clicks the Add sample button")
     public void theUserClicksTheAddSampleButton() {
-        samplesPage.clickAddSampleButton();
+        boolean testResult = false;
+        testResult = samplesPage.clickAddSampleButton();
+        Assert.assertTrue(testResult);
     }
 
     @And("the user answers the questions on Add a Sample page by selecting the sample type {string}, sample state and filling SampleID")
