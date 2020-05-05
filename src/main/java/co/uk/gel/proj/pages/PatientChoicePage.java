@@ -1075,16 +1075,20 @@ public class PatientChoicePage {
             if(!Wait.isElementDisplayed(driver,saveAndContinuePC,30)){
                 Actions.scrollToBottom(driver);
             }
+            Wait.seconds(3);
             int count = 1;
             boolean isEnabled = saveAndContinuePC.isEnabled();
-            while(isEnabled){
+            Debugger.println("SaveAndContinue in PC:"+isEnabled);
+            while(!isEnabled){
                 Wait.seconds(10);
                 isEnabled = saveAndContinuePC.isEnabled();
                 count++;
+                Debugger.println("In While..."+isEnabled);
                 if(count > 12){
                     break;//after a minute
                 }
             }
+            Debugger.println("SaveAndContinue in PC1:"+isEnabled);
             if(!isEnabled){
                 Debugger.println("Save and Continue But not enabled even after 120 seconds...");
                 SeleniumLib.takeAScreenShot("SaveAndContinueDisabled.jpg");
