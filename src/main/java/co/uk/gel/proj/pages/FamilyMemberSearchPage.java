@@ -8,12 +8,14 @@ import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
 import co.uk.gel.proj.util.TestUtils;
+import cucumber.api.java.eo.Se;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import sun.security.ssl.Debug;
 
 import java.util.*;
 
@@ -25,7 +27,7 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//h1[contains(text(),'Find a family member')]")
     public WebElement pageTitle;
 
-    @FindBy(css = "p[class*='patient-search__intro']")
+     @FindBy(css = "p[class*='patient-search__intro']")
     public WebElement pageDescription;
 
     @FindBy(css = "h3[class*='field-label']")
@@ -55,9 +57,6 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//button[contains(string(),'Search')]")
     public WebElement searchButton;
 
-    @FindBy(xpath = "//button[@class='styles_button__12U2K styles_button--medium__O8vZ3 styles_new-patient-form__submit-button__1VyYW']")
-    public WebElement AddReferralButton;
-
     @FindBy(xpath = "//h3[contains(text(),'Do you have the family member’s NHS Number?')]")
     public WebElement nhsQuestion;
 
@@ -67,17 +66,8 @@ public class FamilyMemberSearchPage {
     @FindBy(id = "firstName")
     public WebElement firstName;
 
-    @FindBy(css = "label[for*='firstName']")
-    public WebElement firstNameLabel;
-
     @FindBy(id = "lastName")
     public WebElement lastName;
-
-    @FindBy(id = "familyName")
-    public WebElement familyName;
-
-    @FindBy(css = "label[for*='lastName']")
-    public WebElement lastNameLabel;
 
     @FindBy(css = "label[for*='gender']")
     public WebElement genderLabel;
@@ -100,8 +90,6 @@ public class FamilyMemberSearchPage {
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
 
-    String errorMessageLocator = "div[class*='error-message']";
-
     @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_no-results__header__1RMRD']")
     public WebElement errorMessage1;
 
@@ -117,19 +105,9 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath = "//label[contains(@for,'gender')]//following::div")
     public WebElement genderButton;
 
-    @FindBy(css = "#dateOfBirth")
-    public WebElement dateOfBirthclear;
-
-    @FindBy(xpath = "//label[text()='Gender']//following::div[@class='css-16pqwjk-indicatorContainer'][1]")
-    public WebElement genderClear;
-
-
-
-
-
     static String searchString = "";
 
-    @FindBy(xpath = "//h3[@class='styles_text__1aikh styles_text--3__117-L styles_results__header__6JQ1P']")
+    @FindBy(xpath = "//h3[contains(@class,'styles_results__header')]")
     public WebElement familyMemeberFound;
 
     @FindBy(xpath="//p[@class='styles_text__1aikh styles_text--6__3mCVT styles_patient-name__2PfmN']")
@@ -147,10 +125,17 @@ public class FamilyMemberSearchPage {
     @FindBy(xpath="//p[contains(text(),'Address')]")
     public WebElement resultCardAddress;
 
-    @FindBy(css = "a[class*='inline-link']")
-    public WebElement noResultsHelpLink;
+    @FindBy(xpath = "//div[@class='css-1yllhwh']/following::h2[@class='css-1ueygkf']/following::button[1]")
+    public WebElement editBoxTestPackage;
 
-    String noResultsLocator = "img[class*='no-results__img']";
+    @FindBy(xpath = "//button[text()='No']/*[name()='svg']")
+    public WebElement noButtonSVG;
+
+    @FindBy(xpath = "//button[text()='Yes']/*[name()='svg']")
+    public WebElement yesButtonSVG;
+
+    @FindBy(xpath = "//a[contains(text(),'add non-tested family members')]")
+    public WebElement addNonTestedFamilyMemberLink;
 
 
     public FamilyMemberSearchPage(WebDriver driver) {
@@ -201,7 +186,7 @@ public class FamilyMemberSearchPage {
     }
 
     public void clickNoButton() {
-        seleniumLib.clickOnWebElement(noButton);
+        Actions.clickElement(driver,noButton);
     }
 
     public void clickYesButton() {
@@ -238,39 +223,6 @@ public class FamilyMemberSearchPage {
         seleniumLib.clickOnWebElement(searchButton);
     }
 
-   public void validateErrorsAreDisplayedForSkippedMandatoryValuesForYes() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("NHS Number is required.", seleniumLib.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(2)));
-        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(3)));
-        Assert.assertEquals("rgba(221, 37, 9, 1)", nhsNumberLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
-    }
-
-    public void validateErrorsAreDisplayedForSkippingMandatoryValuesNo() {
-        Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(errorMessageLocator), 0);
-        Assert.assertEquals("Enter a day", seleniumLib.getText(validationErrors.get(0)));
-        Assert.assertEquals("Enter a month", seleniumLib.getText(validationErrors.get(1)));
-        Assert.assertEquals("Enter a year", seleniumLib.getText(validationErrors.get(2)));
-        Assert.assertEquals("First name is required.", seleniumLib.getText(validationErrors.get(3)));
-        Assert.assertEquals("Last name is required.", seleniumLib.getText(validationErrors.get(4)));
-        Assert.assertEquals("Gender is required.", seleniumLib.getText(validationErrors.get(5)));
-        Assert.assertEquals("rgba(221, 37, 9, 1)", dateOfBirthLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", firstNameLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", lastNameLabel.getCssValue("color").toString());
-        Assert.assertEquals("rgba(221, 37, 9, 1)", genderLabel.getCssValue("color").toString());
-    }
-    public void searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB() {
-        Wait.forElementToBeDisplayed(driver, nhsNumber);
-        //For Rare Disease Referral, NGISPatientTwo has bee considered. So providing same details to search again
-        nhsNumber.sendKeys(NgisPatientTwo.NHS_NUMBER);
-        dateDay.sendKeys(NgisPatientTwo.DAY_OF_BIRTH);
-        dateMonth.sendKeys(NgisPatientTwo.MONTH_OF_BIRTH);
-        dateYear.sendKeys(NgisPatientTwo.YEAR_OF_BIRTH);
-        searchString = "You’ve searched for "+NgisPatientTwo.NHS_NUMBER+", "+NgisPatientTwo.YEAR_OF_BIRTH+"-"+NgisPatientTwo.MONTH_OF_BIRTH+"-"+NgisPatientTwo.DAY_OF_BIRTH;
-        seleniumLib.clickOnWebElement(searchButton);
-    }
     public boolean verifyMessageOfExistingPatient(String expMessage1,String expMessage2) {
         Wait.forElementToBeDisplayed(driver,errorMessage1);
         String actMessage1 = errorMessage1.getText();
@@ -290,71 +242,90 @@ public class FamilyMemberSearchPage {
         Debugger.println("Expected Message:"+expMessage1+" "+expMessage2+", but Actual:"+actMessage1+" "+actMessage2);
         return false;
     }
-    public void fillInDOBFirstNameLastNameGender() {
-        Wait.forElementToBeDisplayed(driver, dateDay);
-        dateDay.sendKeys(NgisPatientTwo.DAY_OF_BIRTH);
-        dateMonth.sendKeys(NgisPatientTwo.MONTH_OF_BIRTH);
-        dateYear.sendKeys(NgisPatientTwo.YEAR_OF_BIRTH);
-        firstName.sendKeys(NgisPatientTwo.FIRST_NAME);
-        lastName.sendKeys(NgisPatientTwo.LAST_NAME);
-        Click.element(driver, genderButton);
-        Click.element(driver, genderValue.findElement(By.xpath("//span[text()='"+NgisPatientTwo.GENDER+"']")));
-        seleniumLib.clickOnWebElement(genderInput);
-        Actions.selectValueFromDropdown(genderInput,NgisPatientTwo.GENDER);
-        searchString = "You’ve searched for "+NgisPatientTwo.FIRST_NAME+", "+NgisPatientTwo.LAST_NAME+", "+NgisPatientTwo.GENDER+", "+NgisPatientTwo.YEAR_OF_BIRTH+"-"+NgisPatientTwo.MONTH_OF_BIRTH+"-"+NgisPatientTwo.DAY_OF_BIRTH;
-        seleniumLib.clickOnWebElement(searchButton);
-    }
 
-    public void searchFamilyMemberWithGivenParams(String searchParams) {
-        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
-        Set<String> paramsKey = paramNameValue.keySet();
-        for (String key : paramsKey) {
-            switch (key) {
-                case "NHSNumber": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+    public boolean searchFamilyMemberWithGivenParams(String searchParams) {
+        try {
+            Wait.forElementToBeDisplayed(driver, dateDay);
+            if (searchParams == null || searchParams.isEmpty()) {//Search without entering any values
+                seleniumLib.clickOnWebElement(searchButton);
+                return true;
+            }
+            HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchParams);
+            Set<String> paramsKey = paramNameValue.keySet();
+            for (String key : paramsKey) {
+                switch (key) {
+                    case "NHSNumber": {
+                        nhsNumber.clear();
                         nhsNumber.sendKeys(paramNameValue.get(key));
+                        break;
                     }
-                    break;
-                }
-                case "DOB": {
-                    String dobValue = paramNameValue.get(key);
-                    if(dobValue != null && !dobValue.isEmpty()) {
-                        String[] dobSplit = dobValue.split("-");
-                        dateDay.sendKeys(dobSplit[0]);
-                        dateMonth.sendKeys(dobSplit[1]);
-                        dateYear.sendKeys(dobSplit[2]);
+                    case "DOB": {
+                        String dobValue = paramNameValue.get(key);
+                        if (dobValue != null && !dobValue.isEmpty()) {
+                            String[] dobSplit = dobValue.split("-");
+                            dateDay.clear();
+                            dateMonth.clear();
+                            dateYear.clear();
+                            dateDay.sendKeys(dobSplit[0]);
+                            dateMonth.sendKeys(dobSplit[1]);
+                            dateYear.sendKeys(dobSplit[2]);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "FirstName": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        firstName.sendKeys(paramNameValue.get(key));
+                    case "FirstName": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            firstName.clear();
+                            firstName.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "LastName": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        lastName.sendKeys(paramNameValue.get(key));
+                    case "LastName": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            lastName.clear();
+                            lastName.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Gender": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        genderButton.click();
-                        genderValue.findElement(By.xpath("//span[text()='" + paramNameValue.get(key) + "']")).click();
+                    case "Gender": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            selectFamilyMemberGender(genderButton, paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-                case "Postcode": {
-                    if(paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
-                        postcode.sendKeys(paramNameValue.get(key));
+                    case "Postcode": {
+                        if (paramNameValue.get(key) != null && !paramNameValue.get(key).isEmpty()) {
+                            postcode.clear();
+                            postcode.sendKeys(paramNameValue.get(key));
+                        }
+                        break;
                     }
-                    break;
-                }
-            }//switch
-        }//for
-        seleniumLib.clickOnWebElement(searchButton);
+
+                }//switch
+            }//for
+            Actions.clickElement(driver, searchButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in searching family member: "+exp);
+            SeleniumLib.takeAScreenShot("searchFM.jpg");
+            return false;
+        }
     }//method
+    public void selectFamilyMemberGender(WebElement element, String optionValue){
+        WebElement ddValue = null;
+        try {
+            Actions.retryClickAndIgnoreElementInterception(driver, element);
+            Wait.seconds(2);
+            List<WebElement> ddElements = driver.findElements(By.xpath("//label[@for='gender']/..//div//span[text()='"+optionValue+"']"));
+            if(ddElements.size() > 0) {
+                Wait.forElementToBeClickable(driver, ddElements.get(0));
+                Actions.clickElement(driver, ddElements.get(0));
+                Wait.seconds(2);
+            }
+        }catch(Exception exp){
+            Debugger.println("Exception in selecting FamilyMember Gender in Search Page: "+exp);
+            SeleniumLib.takeAScreenShot("FMSearchGenderDropDown.jpg");
+        }
+    }
 
     public boolean checkTheErrorMessageForInvalidField(String errorMessage, String fontColor) {
         try {
@@ -368,7 +339,7 @@ public class FamilyMemberSearchPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                actualMessage = validationErrors.get(i).getText();
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;
@@ -386,23 +357,27 @@ public class FamilyMemberSearchPage {
             Debugger.println("FamilyMemberSearchPage:Exception from validating Error Message "+exp);
             return false;
         }
-
     }
+
     public boolean checkTheResultMessageForFamilyMember(String resultMessage) {
+        String actualMessage = "";
         try {
-            String actualMessage = familyMemeberFound.getText();
-            if (!resultMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Expected Message: " + resultMessage + ", but Actual Message: " + actualMessage);
-                return false;
+            if(Wait.isElementDisplayed(driver,familyMemeberFound,30)) {
+                 actualMessage = familyMemeberFound.getText();
+                if (resultMessage.equalsIgnoreCase(actualMessage)) {
+                    return true;
+                }
             }
-            return true;
+            Debugger.println("Family member search result not displayed as expected:" + resultMessage + ", but actual: " + actualMessage);
+            SeleniumLib.takeAScreenShot("FMSearchResult.jpg");
+            return false;
         }catch(Exception exp){
-            Debugger.println("Exception from validating result Message "+exp);
+            Debugger.println("Exception from validating family member search result:"+exp);
             return false;
         }
     }
 
-    public boolean verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed() {
+    public boolean verifyTheFamilyMemberSearchResultDisplay() {
         Wait.forElementToBeDisplayed(driver, familyMemeberFound);
         List<WebElement> expResultElements = new ArrayList<WebElement>();
         expResultElements.add(resultCardPatientName);
@@ -417,40 +392,68 @@ public class FamilyMemberSearchPage {
         }
         return true;
     }
-    public void verifyTheTitleOfThePage(String titleOfPage) {
-        Wait.forElementToBeDisplayed(driver, searchButton);
-        Debugger.println("The actual page title  is :" + pageTitle.getText());
-        Assert.assertEquals(titleOfPage, pageTitle.getText().trim());
-    }
-    public void verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+
+    public boolean verifyTheDescriptionOfThePage(String DescriptionOfPage) {
+        try {
         String actualPageDescription = pageDescription.getText();
-        Debugger.println("The actual Description title  is :" + pageDescription.getText());
-        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+           if(!actualPageDescription.contains(DescriptionOfPage)){
+               Debugger.println("Expected message not found of FamilyMember search page.");
+               SeleniumLib.takeAScreenShot("FMDescription.jpg");
+               return false;
+           }
+           return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying message FamilyMember search page.");
+            SeleniumLib.takeAScreenShot("FMDescription.jpg");
+            return false;
+        }
     }
-    public void verifyTheQuestionOfThePage(String DescriptionOfPage) {
-        String actualPageDescription = nhsQuestion.getText();
-        Debugger.println("The actual Description title  is :" + nhsQuestion.getText());
-        Assert.assertTrue(actualPageDescription.contains(DescriptionOfPage));
+    public boolean verifyTheQuestionOfThePage(String searchQuestion) {
+        String actualQuestion = nhsQuestion.getText();
+       if(!actualQuestion.contains(searchQuestion)){
+           Debugger.println("Actual Question:"+actualQuestion+",Expected Question: "+searchQuestion);
+           return false;
+       }
+       return true;
     }
-    public void checkCreateNewPatientLinkDisplayed(String hyperLinkText) {
-        Wait.forElementToBeDisplayed(driver, createNewPatientLink);
-        Assert.assertEquals(hyperLinkText, createNewPatientLink.getText());
-
-}   public void clickOnNewPatientLink() {
-        seleniumLib.clickOnWebElement(createNewPatientLink);
+     public boolean clickOnNewPatientLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver,createNewPatientLink,10)){
+                Debugger.println("createNewPatientLink not displayed");
+                SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
+                return false;
+            }
+            Actions.clickElement(driver,createNewPatientLink);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickOnNewPatientLink:"+exp);
+            SeleniumLib.takeAScreenShot("clickOnNewPatientLink.jpg");
+            return false;
+        }
     }
 
-    public void createNewPatientLinkDisplayed(String hyperLinkText) {
-
-        seleniumLib.clickOnWebElement(createNewPatientLink);
-        Actions.clearField(firstName);
-        Actions.clearField(familyName);
-        Actions.clearField(dateOfBirthclear);
-        Click.element(driver, genderClear);
-        Wait.seconds(3);
-        Click.element(driver,AddReferralButton);
-
+    public boolean checkTheErrorMessageForIncompleteDetailsForFamilyMember(String errorMessage, String fontColor) {
+        try {
+            //Verify the Message Content
+            By errorElement = By.xpath("//span[text()='"+errorMessage+"']");
+            if(!seleniumLib.isElementPresent(errorElement)){
+                Debugger.println("Expected Error Message:"+errorMessage+" not displayed in family member landing page.");
+                return false;
+            }
+            //Verify the Message Color
+            String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
+            String actColor = driver.findElement(errorElement).getCssValue("color");
+            if (!expectedFontColor.equalsIgnoreCase(actColor)) {
+                Debugger.println("Expected Color: " + expectedFontColor + ", but Actual Color: " + actColor);
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from validating Error Message "+exp);
+            return false;
+        }
     }
+
     public void verifyNoPatientFoundDetails(String expSearchString, String errorMessage, String expectedFontFace) {
         Wait.forElementToBeDisplayed(driver, youHaveSearchedForLabel);
         Map<String, String> expectedResultMap = TestUtils.splitStringIntoKeyValuePairs(expSearchString);
@@ -469,4 +472,98 @@ public class FamilyMemberSearchPage {
 
     }
 
+    public boolean checkTheErrorMessageForIncompleteFamilyMember() {
+        try {
+            if (editBoxTestPackage.isDisplayed()) {
+                return true;
+            }
+        }catch (Exception exp){
+            Debugger.println("Error message not found "+exp);
+            return false;
+        }
+        return false;
+    }
+    public boolean verifyNHSFieldPlaceHolder() {
+        try {
+            String actStatus = nhsNumber.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("e.g. 1231237890")){
+                Debugger.println("NHSField does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying NHS place holder:"+exp);
+            SeleniumLib.takeAScreenShot("NHSPlaceHolderError.jpg");
+            return false;
+        }
+    }
+    public boolean verifyDOBFieldPlaceHolder() {
+        try {
+            String actStatus = dateDay.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("DD")){
+                Debugger.println("Day DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            actStatus = dateMonth.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("MM")){
+                Debugger.println("Month DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            actStatus = dateYear.getAttribute("placeholder");
+            if(!actStatus.equalsIgnoreCase("YYYY")){
+                Debugger.println("Year DOB does not contains placeholder.");
+                SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+                return false;
+            }
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying DOB place holder:"+exp);
+            SeleniumLib.takeAScreenShot("DOBPlaceHolderError.jpg");
+            return false;
+        }
+    }
+    public boolean verifySearchButtonClickable() {
+        try {
+            //Should throw exception, if not clickable
+            Wait.forElementToBeClickable(driver,searchButton);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception verifying search button clickable:"+exp);
+            SeleniumLib.takeAScreenShot("SearchButtonClickableError.jpg");
+            return false;
+        }
+    }
+    public boolean verifySVGForTickMark() {
+        try {
+            Wait.forElementToBeDisplayed(driver, noButton);
+            Wait.forElementToBeDisplayed(driver, yesButton);
+            if (!noButton.isSelected()) {//Select No, if not selected and verify presence of SVG
+                Actions.clickElement(driver,noButton);
+                if(!Wait.isElementDisplayed(driver,noButtonSVG,5)){
+                    Debugger.println("SVG tick not present in selected No button");
+                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
+                    return false;
+                }
+            }
+            if (!yesButton.isSelected()) {
+                Actions.clickElement(driver,yesButton);
+                if(!Wait.isElementDisplayed(driver,yesButtonSVG,5)){
+                    Debugger.println("SVG tick not present in selected Yes button");
+                    SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifying SVG tick mark: "+exp);
+            SeleniumLib.takeAScreenShot("NoSVGPresent.jpg");
+            return false;
+        }
+    }
+    public void clickOnAddNonTestedFamilyMemberLink() {
+        Actions.clickElement(driver,addNonTestedFamilyMemberLink);
+    }
 }//end

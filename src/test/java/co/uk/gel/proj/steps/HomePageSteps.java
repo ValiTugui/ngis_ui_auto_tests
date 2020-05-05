@@ -5,6 +5,7 @@ import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,11 +17,9 @@ import java.util.List;
 
 public class HomePageSteps extends Pages {
 
-
     public HomePageSteps(SeleniumDriver driver) {
         super(driver);
     }
-
 
     @Given("a web browser is at the Private Test Selection homepage")
     public void aWebBrowserIsAtThePrivateTestSelectionHomepage(List<String> attributeOfURL) {
@@ -34,12 +33,18 @@ public class HomePageSteps extends Pages {
 
     @And("the user types in the CI term  in the search field and selects the first result from the results list")
     public void theUserTypesInTheCITermInTheSearchFieldAndSelectsTheFirstResultFromTheResultsList(List<String> searchTerms) {
-        homePage.typeInSearchField(searchTerms.get(0));
-        AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
-        homePage.clickSearchIconFromSearchField();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+       boolean testResult = false;
+       testResult =  homePage.typeInSearchField(searchTerms.get(0));
+       Assert.assertTrue(testResult);
+       AppConfig.properties.setProperty("Search_Term", searchTerms.get(0));
+       testResult = homePage.clickSearchIconFromSearchField();
+       Assert.assertTrue(testResult);
+        testResult = homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Assert.assertTrue(testResult);
         homePage.closeCookiesBannerFromFooter();
-        homePage.selectFirstEntityFromResultList();
+        testResult = homePage.selectFirstEntityFromResultList();
+        Assert.assertTrue(testResult);
+        Wait.seconds(3);
     }
 
     @And("the user types in the CI term  in the search field")
@@ -50,7 +55,10 @@ public class HomePageSteps extends Pages {
 
     @Then("the Test Directory homepage is displayed")
     public void theTestDirectoryHomepageIsDisplayed() {
-        homePage.TestDirectoryHomePageIsDisplayed();
+        boolean testResult = false;
+        testResult = homePage.TestDirectoryHomePageIsDisplayed();
+        Assert.assertTrue(testResult);
+
     }
 
     @Then("^the search results have been displayed$")
@@ -62,16 +70,34 @@ public class HomePageSteps extends Pages {
     @And("^the number of results shown in each filters & total results should match$")
     public void validateFilterResultCountToTotalResult() throws InterruptedException {
         long a = homePage.totalSearchResult();
+        if(a == 0){
+            Assert.assertTrue(false);
+        }
         long b = homePage.rareAndInheritedDiseasesSearchResult();
+        if(b == 0){
+            Assert.assertTrue(false);
+        }
         long c = homePage.tumorSearchResult();
-        Assert.assertEquals(a, b + c);
+        if(c == 0){
+            Assert.assertTrue(false);
+        }
+        if(a != (b+c)){
+            Debugger.println("Total search result not equals the inherited and tumor search results as expected.");
+            Assert.assertTrue(false);
+        }
+
     }
 
     @And("the user selects the Tests tab")
     public void theUserSelectsTheTestsTab() {
+        Wait.seconds(2);
         homePage.testsTab.click();
-        homePage.waitUntilHomePageResultsContainerIsLoaded();
+        Wait.seconds(2);
+        if(!homePage.waitUntilHomePageResultsContainerIsLoaded()){
+            Assert.assertTrue(false);
+        }
         homePage.closeCookiesBannerFromFooter();
+
     }
 
     @Then("various test details are displayed")
@@ -92,4 +118,5 @@ public class HomePageSteps extends Pages {
         Assert.assertTrue(homePage.searchField.getAttribute("value").matches(AppConfig.getSearchTerm()));
 
     }
+
 }

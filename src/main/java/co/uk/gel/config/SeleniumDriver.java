@@ -1,11 +1,18 @@
 package co.uk.gel.config;
 
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.util.Debugger;
-import cucumber.api.java.Before;
+import co.uk.gel.proj.util.TestUtils;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import co.uk.gel.lib.SeleniumLib;
+
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumDriver extends EventFiringWebDriver {
@@ -24,19 +31,27 @@ public class SeleniumDriver extends EventFiringWebDriver {
     };
 
     static {
-        DRIVER = new BrowserFactory().getDriver();
-        DRIVER.manage().deleteAllCookies();
+        try {
+            DRIVER = new BrowserFactory().getDriver();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Actions.deleteCookies(DRIVER);
+        //Commenting the snapshot clean up as each browser invocation clean the existing snapshots, loosing snapshots with parallel run
+        TestUtils.clearAllSnapShots();
         SeleniumLib.ParentWindowID = DRIVER.getWindowHandle();
-        DRIVER.manage().window().maximize();
+        Capabilities cap = ((RemoteWebDriver) DRIVER).getCapabilities();
+        String browserName = cap.getBrowserName().toLowerCase();
+        Debugger.println("BROWSER NAME : " + browserName);
+        if(browserName.equalsIgnoreCase(BrowserConfig.getBrowser())){
+            //DRIVER.manage().window().fullscreen(); //Switching to new tab gives error when in Full screen.
+            DRIVER.manage().window().maximize();
+        } else {
+            DRIVER.manage().window().maximize();
+        }
         DRIVER.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
     }
-
-
-
-
-
-
     public SeleniumDriver() {
         super(DRIVER);
     }
@@ -56,9 +71,7 @@ public class SeleniumDriver extends EventFiringWebDriver {
      * shared state between tests
      */
     public void deleteAllCookies() {
-
         manage().deleteAllCookies();
-
     }
 
 }//end

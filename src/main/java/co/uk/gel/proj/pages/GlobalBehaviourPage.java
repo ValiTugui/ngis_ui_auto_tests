@@ -2,10 +2,11 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
+import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -29,7 +30,7 @@ public class GlobalBehaviourPage {
     @FindBy(xpath = "//*[contains(@class,'styles_footerLinks')]")
     public List<WebElement> footerLinks;
 
-    @FindBy(xpath = "//*[contains(@class,'styles_static-content__header')]")
+    @FindBy(xpath = "//h1[contains(@class,'css-')]")
     public WebElement privacyPolicyPageTitle;
 
     @FindBy(name = "loginfmt")
@@ -41,6 +42,26 @@ public class GlobalBehaviourPage {
     @FindBy(css = "input[type*='submit']")
     public WebElement nextButton;
 
+    @FindBy(xpath = "//div[@id='referral__header']")
+    public WebElement referralHeaderBanner;
+
+    @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
+    List<WebElement> referralHeaderDetails;
+
+    @FindBy(xpath = "//button[text()='Continue']")
+    public WebElement continueButtonOnLandingPage;
+
+    @FindBy(xpath = "//header[contains(@class,'styles_header')]//*[text()='NHS England']/..")
+    WebElement NHSEnglandSVGlogo;
+
+    @FindBy(xpath = "//div[@id='passwordError']")
+    WebElement errorMessageOnLoginPage;
+
+    @FindBy(xpath = ("//button[@id='idBtn_Back']//img"))
+    WebElement backToLoginPage;
+
+    @FindBy(id = "otherTileText")
+    public WebElement useAnotherAccount;
 
     public void getNGISVersion() {
         driver.get(AppConfig.getTo_NGISVerion_url());
@@ -63,6 +84,7 @@ public class GlobalBehaviourPage {
     }
 
     public boolean checkPrivacyPolicyLinkPage(String pageTitle) {
+        Wait.forElementToBeDisplayed(driver, privacyPolicyPageTitle);
         return privacyPolicyPageTitle.getText().matches(pageTitle);
     }
 
@@ -70,8 +92,195 @@ public class GlobalBehaviourPage {
         Click.element(driver, footerLinks.get(1));
         Actions.switchTab(driver);
         if (!(driver.getCurrentUrl().contains("privacy-policy"))) {
-            Pages.login(this.driver, emailAddressField, passwordField, nextButton );
+            Pages.login(this.driver, emailAddressField, passwordField, nextButton);
         }
     }
 
-}
+    public boolean verifyTheContinueButtonOnLandingPage() {
+        try {
+            if (!Wait.isElementDisplayed(driver, continueButtonOnLandingPage, 30)) {
+                Debugger.println("Continue button is not present on landing page");
+                SeleniumLib.takeAScreenShot("ContinueButtonNotPresent.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifying verifyTheContinueButtonOnLandingPage:" + exp);
+            SeleniumLib.takeAScreenShot("ContinueButtonOnLandingPage");
+            return false;
+        }
+    }
+
+    public boolean verifyReplacedLabelsInTheCurrentPage(String shouldNotPresent, String shouldPresent) {
+        try {
+            //Searching in the whole page body, the presence and non-presence of earlier and replaced nhs labels
+            String bodyText = driver.findElement(By.tagName("body")).getText();
+            String[] notExpectedLabels = shouldNotPresent.split(",");
+            String[] expectedLabels = shouldPresent.split(",");
+            //Checking for Non-Presence
+            for (int i = 0; i < notExpectedLabels.length; i++) {
+                if (bodyText.contains(notExpectedLabels[i])) {
+                    Debugger.println("Page contains Unexpected Label/Text :" + notExpectedLabels[i]);
+                    SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
+                    return false;
+                }
+            }
+            //Checking for Presence
+            boolean isPresent = false;
+            for (int i = 0; i < expectedLabels.length; i++) {
+                if (bodyText.contains(expectedLabels[i])) {
+                    isPresent = true;
+                }
+            }
+            if (!isPresent) {
+                Debugger.println("Page not contains Expected Label/Text :" + shouldPresent);
+                SeleniumLib.takeAScreenShot("NHSLabelNonPresence.jpg");
+            }
+            return isPresent;
+        } catch (Exception exp) {
+            Debugger.println("Exception in verifyNHSLabelstInTheCurrentPage " + exp);
+            SeleniumLib.takeAScreenShot("NHSLabelPresence.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyDifferentScreenWidth(int widthValue) throws InterruptedException {
+        try {
+            Dimension initialSize = driver.manage().window().getSize();
+            Debugger.println(" During Launch  : Window Size is: " + initialSize);
+            Dimension newSize = new Dimension(widthValue, 696);
+            driver.manage().window().setSize(newSize);
+            Wait.seconds(6);//Waiting to resize and load new screen
+            Dimension modifiedSize = driver.manage().window().getSize();
+            Debugger.println("After width change : Window Size " + modifiedSize);
+            if (modifiedSize.equals(initialSize)) {
+                Debugger.println("The screen size is not modified; default size: " + initialSize + " ,but expected: " + newSize);
+                SeleniumLib.takeAScreenShot("ScreenSize.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("GlobalBehaviourPage: verifyDifferentScreenWidth: " + exp);
+            SeleniumLib.takeAScreenShot("ScreenSize.jpg");
+            return false;
+        }
+    }
+
+    public boolean isHorizontalScrollBarPresent() {
+        JavascriptExecutor javascript = (JavascriptExecutor) driver;
+        Boolean scrollPresence = false;
+        //checking horizontal scroll bar is present or not
+        try {
+            scrollPresence = (Boolean) javascript.executeScript("return document.documentElement.scrollWidth>document.documentElement.clientWidth;");
+            return scrollPresence;
+        } catch (Exception exp) {
+            Debugger.println("PatientChoicePage: isHorizontalScrollBarPresent :" + exp);
+            SeleniumLib.takeAScreenShot("ScreenSizeScrollBar.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNHSEnglandLogoIsSVG() {
+        try {
+            if(!Wait.isElementDisplayed(driver, NHSEnglandSVGlogo,20)){
+                Debugger.println("NHS Logo is not present in Find your patient page");
+                SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+                return false;
+            }
+            if (!"svg".equalsIgnoreCase(NHSEnglandSVGlogo.getTagName())) {
+                Debugger.println("NHS Logo is not present with svg tag in Find your patient page");
+                SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("GlobalBehaviourPage: verifyNHSEnglandLogoInSVG: " + exp);
+            SeleniumLib.takeAScreenShot("verifyNHSEnglandLogoIsSVG.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTheElementsOnReferralBanner() {
+        try {
+            Wait.forElementToBeDisplayed(driver, referralHeaderBanner);
+            Actions.scrollToBottom(driver);
+            for (int i = 0; i < referralHeaderDetails.size(); i++) {
+                if(!Wait.isElementDisplayed(driver,referralHeaderDetails.get(i),10)){
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    SeleniumLib.takeAScreenShot("referralHeader.jpg");
+                    return false;
+                }
+                if (!referralHeaderDetails.get(i).isDisplayed()) {
+                    Debugger.println("Element not found " + referralHeaderDetails.get(i));
+                    SeleniumLib.takeAScreenShot("referralHeader.jpg");
+                    return false;
+                }
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Probound referral details not found: Elements not found " + exp);
+            SeleniumLib.takeAScreenShot("ReferralHeaderElements.jpg");
+            return false;
+        }
+    }
+    public boolean loginWithMicrosoftAccount(String loginType) {
+        try {
+            String username = AppConfig.getApp_username();
+            String password = AppConfig.getApp_password();
+            if(loginType.equalsIgnoreCase("Invalid")){
+                password = password+"12";//Invalid password
+            }
+            if(Wait.isElementDisplayed(driver, useAnotherAccount, 20)){
+                useAnotherAccount.click();
+            }
+            if(Wait.isElementDisplayed(driver,emailAddressField,5)) {
+                emailAddressField.sendKeys(username);
+                nextButton.click();
+                Wait.seconds(4);
+            }
+            Actions.clearInputField(passwordField);
+            passwordField.sendKeys(password);
+            nextButton.click();
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception in fill In User Name:" + exp);
+            SeleniumLib.takeAScreenShot("UserNameAndPasswordField.jpg");
+            return false;
+        }
+    }
+    public boolean verifyMicrosoftLoginError(String errMessage) {
+        try {
+            if (!Wait.isElementDisplayed(driver, errorMessageOnLoginPage, 10)) {
+                Debugger.println("Error message not found :");
+                SeleniumLib.takeAScreenShot("LoginError.jpg");
+                return false;
+            }
+            String actualErrMessage = errorMessageOnLoginPage.getText();
+            if (!actualErrMessage.contains(errMessage)) {
+                Debugger.println("Actual error message : " + actualErrMessage + ",Expected :" + errMessage);
+                SeleniumLib.takeAScreenShot("LoginError.jpg");
+                return false;
+            }
+            if(Wait.isElementDisplayed(driver,backToLoginPage,10)) {
+                backToLoginPage.click();
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from verifyMicrosoftLoginError : " + exp);
+            SeleniumLib.takeAScreenShot("LoginError.jpg");
+            return false;
+        }
+    }
+    public boolean navigateToURLWithInvalidReferralID(String invalidReferralURL) {
+        try {
+            driver.navigate().to(invalidReferralURL);
+            driver.get(invalidReferralURL);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception from navigateToURLWithInvalidReferralID:" + exp);
+            SeleniumLib.takeAScreenShot("navigateToURLWithInvalidReferralID.jpg");
+            return false;
+        }
+    }
+
+}//end

@@ -1,12 +1,21 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Wait;
+import co.uk.gel.models.NGISPatientModel;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.RandomDataCreator;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class FamilyMemberSearchSteps extends Pages {
 
@@ -63,19 +72,13 @@ public class FamilyMemberSearchSteps extends Pages {
         familyMemberSearchPage.clickSearchButton();
     }
 
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with Yes option selected$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForYes() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippedMandatoryValuesForYes();
-    }
-
-    @Then("^the mandatory fields should be highlighted with a red mark in family member search page with No option$")
-    public void theMandatoryFieldsShouldBeHighlightedWithARedMarkForNo() {
-        familyMemberSearchPage.validateErrorsAreDisplayedForSkippingMandatoryValuesNo();
-    }
-
-    @When("the user provides NHS and DOB of an already added patient and search")
-    public void theUserProvidesDetailsOfExistingPatientAndSearch() {
-        familyMemberSearchPage.searchWithAlreadyAddedPatientDetailsUsingNHSNumberAndDOB();
+    @Then("^the user will see error messages highlighted in red colour when search with the given details$")
+    public void theUserWillSeeErrorMessagesInRedColorWhenSearchWithGivenDetails(DataTable messages) {
+        List<List<String>> messageDetails = messages.asLists();
+        for (int i = 1; i < messageDetails.size(); i++) {
+            familyMemberSearchPage.searchFamilyMemberWithGivenParams(messageDetails.get(i).get(0));
+            referralPage.verifyTheErrorMessageDisplay(messageDetails.get(i).get(1),messageDetails.get(i).get(2));
+        }
     }
 
     @Then("^the message should display as \"([^\"]*)\" and \"([^\"]*)\" along with search string")
@@ -84,21 +87,56 @@ public class FamilyMemberSearchSteps extends Pages {
         testResult = familyMemberSearchPage.verifyMessageOfExistingPatient(message1, message2);
         Assert.assertTrue(testResult);
     }
-//
-//    @When("the user provides DOB,FirstName,LastName and Gender of an already added patient and search")
-//    public void theUserProvidesDOBFirstNameLastNameAndGenderOfAnAlreadyAddedPatientAndSearch() {
-//        familyMemberSearchPage.fillInDOBFirstNameLastNameGender();
-//    }
 
     @And("the user search the family member with the specified details {string}")
     public void theUserSearchTheFamilyMemberWithTheSpecifiedDetails(String searchDetails) {
-        familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        HashMap<String, String> paramNameValue = TestUtils.splitAndGetParams(searchDetails);
+        //Verify whether the search with or without NHS
+        String nhsNumber = paramNameValue.get("NHSNumber");
+        if(nhsNumber != null && nhsNumber.equalsIgnoreCase("NA")){
+            NGISPatientModel familyMember = new NGISPatientModel();
+            familyMember.setDATE_OF_BIRTH(paramNameValue.get("DOB"));
+            familyMember.setNHS_NUMBER(RandomDataCreator.generateRandomNHSNumber());
+            if(!patientSearchPage.fillInNHSNumberAndDateOfBirth(familyMember)){
+                Debugger.println("Could not fill the NHS number and DOB for search....");
+                Assert.assertTrue(false);
+            }
+            patientSearchPage.clickSearchButtonByXpath();
+            if(patientSearchPage.getPatientSearchNoResult() == null){//Got error saying invalid NHS number, proceeding with No search in that case
+                Debugger.println("NHS Not Found...going with No option.");
+                familyMember.setGENDER(paramNameValue.get("Gender"));
+                 if(patientSearchPage.fillInPatientSearchWithNoFields(familyMember)){
+                     patientSearchPage.clickSearchButtonByXpath();
+                }
+            }
+            if(!patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage()){
+                Assert.assertTrue(false);
+            }
+            if(!patientDetailsPage.newPatientPageIsDisplayed()){
+                Assert.assertTrue(false);
+            }
+            familyMember.setNO_NHS_REASON("Patient is a foreign national");
+            familyMember.setGENDER(paramNameValue.get("Gender"));
+            familyMember.setRELATIONSHIP_TO_PROBAND(paramNameValue.get("Relationship"));
+            if(paramNameValue.get("Ethnicity") != null){
+                familyMember.setETHNICITY(paramNameValue.get("Ethnicity"));
+            }else{
+                familyMember.setETHNICITY("A - White - British");
+            }
+            if(!patientDetailsPage.createNewFamilyMember(familyMember)){
+                Assert.assertTrue(false);
+            }
+            referralPage.updatePatientNGSID(familyMember);
+        }else {
+            familyMemberSearchPage.searchFamilyMemberWithGivenParams(searchDetails);
+        }
+        Wait.seconds(2);
     }
 
-    @Then("the message will be displayed as {string} in {string} for the invalid field")
-    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+    @Then("the user should see an error message {string} in {string} for the family member")
+    public void theUserWillBeAbleToSeeAnErrorMessageAsInForTheFamilyMember(String errorMessage, String messageColor) {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteDetailsForFamilyMember(errorMessage, messageColor);
         Assert.assertTrue(testResult);
     }
 
@@ -109,45 +147,78 @@ public class FamilyMemberSearchSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @And("^the display title of the family member search page is \"([^\"]*)\"$")
-    public void theDisplayTitleOfThePageIs(String titlePage) throws Throwable {
-        familyMemberSearchPage.verifyTheTitleOfThePage(titlePage);
-    }
-
     @And("^the family member search page display description title contains the phrase \"([^\"]*)\"$")
     public void theDisplayDescriptionTitleContainsThePhrase(String descriptionOfPage) throws Throwable {
-        familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+        Assert.assertTrue(testResult);
     }
 
-    @And("^the display question for NHS Number of the family member search page is \"([^\"]*)\"$")
+    @And("^the display question for NHS Number of the family member search page is (.*)$")
     public void theDisplayQuestionContainsThePhrase(String descriptionOfPage) throws Throwable {
-        familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage);
+        Assert.assertTrue(familyMemberSearchPage.verifyTheQuestionOfThePage(descriptionOfPage));
     }
 
     @Then("the search results have been displayed with Patient Name, dob, gender, NHS number and address")
     public void theSearchResultsHaveBeenDisplayedWithPatientNameDobGenderNHSNumberAndAddress() {
         boolean testResult = false;
-        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchPatientCardDetailsAreDisplayed();
+        testResult = familyMemberSearchPage.verifyTheFamilyMemberSearchResultDisplay();
         Assert.assertTrue(testResult);
     }
 
-    @And("There is a {string} link available to create a new patient")
-    public void thereIsALinkAvailableToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.checkCreateNewPatientLinkDisplayed(hyperLinkText);
-    }
-
-    @And("the user clicks the {string} to create a new patient")
-    public void theUserClicksTheToCreateANewPatient(String hyperLinkText) {
-        familyMemberSearchPage.createNewPatientLinkDisplayed(hyperLinkText);
-    }
-    @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
+     @Then("^the user can see a message \"([^\"]*)\" \"([^\"]*)\" in \"([^\"]*)\" font$")
     public void theMessageWillBeDisplayedAsYouVeSearchedForInFont(String expSearchString, String errorMessage, String fontFace) throws Throwable {
         familyMemberSearchPage.verifyNoPatientFoundDetails(expSearchString, errorMessage, fontFace);
     }
 
     @When("the user clicks on the create new patient record")
     public void theUserClicksOnThe() {
-        familyMemberSearchPage.clickOnNewPatientLink();
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.clickOnNewPatientLink();
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the family member landing page displayed without incomplete error message")
+    public void theFamilyMemberLandingPageDisplayedWithoutIncompleteErrorMessage() {
+        boolean testResult = true;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForIncompleteFamilyMember();
+        Assert.assertFalse(testResult);
+    }
+    @Then("the message will be displayed as {string} in {string} for the invalid field")
+    public void theMessageWillBeDisplayedAsInForTheInvalidField(String errorMessage, String messageColor) {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.checkTheErrorMessageForInvalidField(errorMessage, messageColor);
+        Assert.assertTrue(testResult);
+
+    }
+    @And("^the NHS number entry fields should be of length 10$")
+    public void theNHSNumberEntryFiledDisplayLengthAs10() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyNHSFieldPlaceHolder();
+        Assert.assertTrue(testResult);
+    }
+    @And("^the DOB entry fields should have the format dd-mm-yyyy displayed$")
+    public void theDOBEntryFiledDisplayFormat() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifyDOBFieldPlaceHolder();
+        Assert.assertTrue(testResult);
+    }
+    @And("^the Search button should be displayed with search symbol and click-able$")
+    public void theSearchButtonShouldBeClickable() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifySearchButtonClickable();
+        Assert.assertTrue(testResult);
+    }
+    @And("the user verifies the svg icon for tick mark")
+    public void theUserVerifiesTheIconForTickMark() {
+        boolean testResult = false;
+        testResult = familyMemberSearchPage.verifySVGForTickMark();
+        Assert.assertTrue(testResult);
+    }
+
+    @When("the user clicks on add non-tested-family member link on family landing page")
+    public void theUserClicksOnAddNonTestedFamilyMemberLinkOnFamilyLandingPage() {
+        familyMemberSearchPage.clickOnAddNonTestedFamilyMemberLink();
     }
 
 }//end

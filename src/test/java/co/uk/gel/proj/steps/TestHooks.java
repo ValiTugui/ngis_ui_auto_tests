@@ -1,14 +1,21 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.response.ValidatableResponse;
+import com.jayway.restassured.specification.RequestSpecification;
 import io.cucumber.core.api.Scenario;
 import io.cucumber.core.event.Status;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import org.openqa.selenium.*;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 import static co.uk.gel.lib.Actions.acceptAlert;
 import static co.uk.gel.lib.Actions.isAlertPresent;
@@ -22,6 +29,9 @@ public class TestHooks extends Pages {
     public static String currentFeature = "";
     public static String temptagname = "";
     public static boolean new_scenario_feature = false;
+    private RequestSpecification request;
+    private ValidatableResponse response;
+
 
     public TestHooks(SeleniumDriver driver) {
         super(driver);
@@ -42,6 +52,7 @@ public class TestHooks extends Pages {
         } else {
             new_scenario_feature = false;
         }
+         request = RestAssured.with();
     }
 
     @Before ("@TD_VERSION_INFO")
@@ -51,7 +62,7 @@ public class TestHooks extends Pages {
 
     @Before("@LOGOUT_BEFORE_TEST")
     public void logoutCurrentSession() {
-        logoutAfterTest(5);
+        homePage.logOutFromApplication();
     }
 
 
@@ -59,6 +70,7 @@ public class TestHooks extends Pages {
     public void tearDown(Scenario scenario) {
         Status scenarioStatus = scenario.getStatus();
         if (!scenarioStatus.toString().equalsIgnoreCase("PASSED")) {
+            Debugger.println("TestHooks..Taking ScreenShot........");
             scenario.embed(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES), "image/png");
         }
         Debugger.println("STATUS: " + scenarioStatus.name().toUpperCase());
@@ -72,10 +84,9 @@ public class TestHooks extends Pages {
 
     }
 
-    @After("@LOGOUT")
-    public void logOutAndTearDown() {
-        logoutAfterTest(10);
-       // cleanUp();
+    @After("@Z-LOGOUT")
+    public void logOutAndTearDown(Scenario scenario) {
+        homePage.logOutFromApplication();
     }
 
     @After("@CLEANUP")
@@ -88,24 +99,21 @@ public class TestHooks extends Pages {
         //login_page.logoutFromMI();
     }
 
-    private void logoutAfterTest(int waitingTime) {
-        Debugger.println("deleted cookies");
-       try {
-            driver.findElement(By.xpath("//a[text()='Log out']")).click(); // Logging out to restart new session
-            if (isAlertPresent(driver)) {
-                acceptAlert(driver);
-            }
-            driver.manage().deleteAllCookies();
-        } catch (UnhandledAlertException f) {
-            try {
-                driver.switchTo().defaultContent();
-                driver.manage().deleteAllCookies();
-
-            } catch (NoAlertPresentException e) {
-                e.printStackTrace();
-            }
-            Wait.seconds(waitingTime);
-
-        }
+    public RequestSpecification getRequest() {
+        return request;
     }
+
+    public void setRequest(RequestSpecification request) {
+        this.request = request;
+    }
+
+    public ValidatableResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(ValidatableResponse response) {
+        this.response = response;
+    }
+
+
 }//end class

@@ -23,9 +23,5 @@ public class AppStepDefs extends Pages {
     public void theUserLoginToTheApplicationWithValidCredentials() throws Throwable {
         Debugger.println("User login to application with valid credentials.");
     }
-
-    @Then("^the user should be be navigated to the application home page$")
-    public void theUserShouldBeBeNavigatedToTheApplicationHomePage() throws Throwable {
-        appHomePage.testMethod();
-    }
+    //appHome.testMethod step removed as it is not part of current applciation
 }//end

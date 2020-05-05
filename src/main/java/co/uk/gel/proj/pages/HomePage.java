@@ -1,15 +1,19 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+
+import static co.uk.gel.lib.Actions.acceptAlert;
+import static co.uk.gel.lib.Actions.isAlertPresent;
 
 public class HomePage {
 
@@ -19,7 +23,6 @@ public class HomePage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
     public String tabTitle = "NHS England | Public Genetic Test Directory";
 
@@ -31,30 +34,6 @@ public class HomePage {
 
     @FindBy(css = "button[class*='searchButton']")
     public WebElement searchIcon;
-
-    @FindBy(css = "div[class*='slide-panel_closeButton']")
-    public WebElement helpMenuXButton;
-
-    @FindBy(css = "button[class*='clearButton']")
-    public WebElement clearSearchFieldButton;
-
-    @FindBy(css = "div[class*='searchCaption']")
-    public WebElement searchCaptionText;
-
-    @FindBy(css = "div[class*='noResultsContainer']")
-    public WebElement noResultsPageContainer;
-
-    @FindBy(css = "*[class*='noResultsImg']")
-    public WebElement noSearchResultsImage;
-
-    @FindBy(css = "button[class*='tooltipTrigger']")
-    public WebElement questionMarkButton;
-
-    @FindBy(css = "ul[class*='imageRadioButtons']")
-    public WebElement filterButtons;
-
-    @FindBy(xpath = "//div[contains(text(), 'Clinical Indications')]")
-    public WebElement clinicalIndicationsTab;
 
     @FindBy(xpath = "//div[contains(text(), 'Tests')]")
     public WebElement testsTab;
@@ -71,219 +50,218 @@ public class HomePage {
     @FindBy(xpath = "//div/ul/li[3]/label")
     public WebElement tumorChkBox;
 
-    @FindBy(xpath = "//div/ul/li[2]/label")
-    public WebElement inheritedCancerPredispositionChkBox;
-
-    @FindBy(xpath = "//div/ul/li[4]/label")
-    public WebElement otherChkBox;
-
-    @FindBy(className = "btn btn-secondary btn-xs")
-    public WebElement clearAllButton;
-
-    @FindBy(css = "a[class*='tab']")
-    public List<WebElement> tabs;
-
     @FindBy(css = "a[class*='link']")
     public List<WebElement> resultsPanels;
-
-    @FindBy(id = "Icon_Tick_Vector")
-    public List<WebElement> tickIcon;
-
-    @FindBy(css = "div[class*='appliedFilters']")
-    public WebElement appliedFiltersMessage;
-
-    @FindBy(xpath = "//*[contains(@class,'infoBanner__text')]")
-    public WebElement tabMessage;
-
-    @FindBy(css = "li[class*='previous']")
-    public WebElement previousPageArrow;
-
-    @FindBy(css = "li[class*='next']")
-    public WebElement nextPageArrow;
-
-    @FindBy(css = "a[aria-label='Page 2 is your current page']")
-    public WebElement selectedSecondPage;
-
-    @FindBy(css = "a[aria-label='Page 1 is your current page']")
-    public WebElement selectedFirstPage;
 
     @FindBy(xpath = "//*[contains(@class,'containerInner')]//descendant::button")
     public List<WebElement> cookiesUnderstandButton;
 
-    @FindBy(css = "div[class*='content']")
-    public WebElement filterHelpContent;
-
-    @FindBy(css = "div[class*='subHeader']")
-    public List<WebElement> filterHelpSubHeaders;
-
-    @FindBy(css = "div[class*='icon']")
-    public List<WebElement> filterHelpIcons;
-
-    @FindBy(css = "p[class*='bodyText']")
-    public List<WebElement> filterHelpbodyTexts;
-
-    @FindBy(css = "ul[class*='list']")
-    public WebElement filterHelpList;
-
-    @FindBy(css = "div[class*='slide-panel_container']")
-    public List<WebElement> filterHelpMenuContainer;
-
-    @FindBy(css = "div[class*='checkbox']")
-    public WebElement checkboxForSingleVariant;
-
-    @FindBy(css = "div[id*='select']")
-    public List<WebElement> pleaseSelectDropdown;
-
-    @FindBy(xpath = "//*[contains(@class,'imageCheckboxes')]//descendant::li")
-    public WebElement ageIcon;
-
-    @FindBy(css = "span[class*='italic']")
-    public List<WebElement> numberOfResults;
-
-    @FindBy(css = "div[class*='homeLink']")
-    public WebElement genomicMedicineServiceLogo;
-
-    @FindBy(css = "div[class*='logoContainer']")
-    public WebElement nhsEnglandLogo;
-
-    @FindBy(css = "div[class*='contentContainer']")
-    public List<WebElement> footerLogo;
-
-    @FindBy(css = "*[class*='footerLinks']")
-    public List<WebElement> footerLinks;
-
-    @FindBy(css = "h4[class*='tableLabel']")
-    public List<WebElement> testPackageTitle;
-
-    @FindBy(css = "table[class*='table']")
-    public List<WebElement> testPackageDetailsTable;
-
-    @FindBy(css = "div[class*='icon']")
-    public List<WebElement> clinicalIndicationsIcons;
-
-    @FindBy(xpath = "//*[contains(@href,'test-detail')]//descendant::svg")
-    public List<WebElement> testsIcons;
-
-    @FindBy(xpath = "//*[contains(@href,'test-detail')]//descendant::table")
-    public List<WebElement> testsDetailsTable;
-
-    @FindBy(css = "h4[class*='samplesHeader']")
-    public List<WebElement> testsRequiredSamplesHeaders;
-
-    @FindBy(css = "div[class*='samples']")
-    public List<WebElement> testsRequiredSamplesValues;
-
-    @FindBy(css = "span[class*='boldText']")
-    public List<WebElement> searchCategoriesExamplesTypes;
-
-    @FindBy(css = "span[class*='text']")
-    public List<WebElement> searchCategoriesExamples;
-
-    @FindBy(css = "div[class*='innerContainer']")
-    public WebElement betaBanner;
-
-    @FindBy(css = "*[class*='infoBanner__closeButton']")
-    public WebElement infoBannerXButton;
-
-    @FindBy(css = "div[class*='tabLabel']")
-    public WebElement tabsLabel;
-
-    @FindBy(css = "svg[class*='tabIcon']")
-    public List<WebElement> tabsIcons;
-
     @FindBy(css = "div[class*='aside']")
+    public WebElement filtersPanel2;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_filter__')]")    // //div[contains(@class,'styles_filter__')]
     public WebElement filtersPanel;
 
     @FindBy(css = "div[class*='main']")
     public WebElement resultsPanel;
-
-    @FindBy(css = "h1[class*='header']")
-    public WebElement privacyPolicyHeader;
-
-    @FindBy(id = "login-form")
-    public WebElement serviceDeskLoginForm;
 
     public String closeCookiesButton = "//*[contains(@class,'cta__')]//descendant::button";
 
     @FindBy(xpath = "//*[contains(@class, 'styles_link')]")
     public List<WebElement> tabResults;
 
+    @FindBy(xpath = "//*[text()='Log out']")
+    public WebElement logOutLink;
 
-    public void waitUntilHomePageResultsContainerIsLoaded() {
-        Wait.forElementToBeDisplayed(driver, filtersPanel);
-        Wait.forElementToBeDisplayed(driver, resultsPanel);
+
+    public boolean waitUntilHomePageResultsContainerIsLoaded() {
+       try {
+           if (!Wait.isElementDisplayed(driver, filtersPanel, 200)) {
+               Debugger.println("HomePage:filtersPanel not displayed even after waiting period.");
+               SeleniumLib.takeAScreenShot("HomePageFilterPanel.jpg");
+               return false;
+           }
+           if (!Wait.isElementDisplayed(driver, resultsPanel, 200)) {
+               Debugger.println("HomePage:resultsPanel not displayed even after waiting period.");
+               SeleniumLib.takeAScreenShot("HomePageResultPanel.jpg");
+                return false;
+           }
+           return true;
+       }catch(Exception exp){
+           Debugger.println("Exception:HomePage:waitUntilHomePageResultsContainerIsLoaded:"+exp);
+           SeleniumLib.takeAScreenShot("HomePagePanels.jpg");
+            return false;
+       }
     }
 
-    public void typeInSearchField(String searchTerm) {
-        Wait.forElementToBeDisplayed(driver, searchField);
-        searchField.sendKeys(searchTerm);
+    public boolean typeInSearchField(String searchTerm) {
+        try {
+            if(!Wait.isElementDisplayed(driver,searchField,30)){
+                Debugger.println("searchField for present even after waiting period: ");
+                SeleniumLib.takeAScreenShot("typeInSearchField.jpg");
+                return false;
+            }
+            searchField.sendKeys(searchTerm);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from entering the search Term: "+exp);
+            SeleniumLib.takeAScreenShot("stypeInSearchField.jpg");
+            return false;
+        }
     }
 
-    public void clickSearchIconFromSearchField() {
-        Click.element(driver, searchIcon);
+    public boolean clickSearchIconFromSearchField() {
+        try {
+            Click.element(driver, searchIcon);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from clickSearchIconFromSearchField:"+exp);
+            SeleniumLib.takeAScreenShot("clickSearchIconFromSearchField.jpg");
+            return false;
+        }
     }
 
     public void closeCookiesBannerFromFooter() {
         if (cookiesUnderstandButton.size() > 0) {
             Click.element(driver, cookiesUnderstandButton.get(0));
             Wait.forNumberOfElementsToBeEqualTo(driver, (By.xpath(closeCookiesButton)), 0);
+            Debugger.println("Cookies Banner Closed.");
         }
     }
 
-    public void selectFirstEntityFromResultList() {
+    public boolean selectFirstEntityFromResultList() {
+
+        if(resultsPanels != null && resultsPanels.size() > 0){
+            Click.element(driver, resultsPanels.get(0));
+            return true;
+        }else{
+            Debugger.println("HomePage:selectFirstEntityFromResultList:No Results Loaded for the Search : Waiting for another 30 seconds");
+            Wait.seconds(30);//Waiting additional 30 seconds to load the list as it is observed IndexOut exception many times here.
+            if(resultsPanels != null && resultsPanels.size() > 0) {
+                Click.element(driver, resultsPanels.get(0));
+                return true;
+            }else{
+                Debugger.println("HomePage:selectFirstEntityFromResultList:Still not loaded. Failing. URL:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("NoResultPanel.jpg");
+                return false;
+            }
+        }
+
+    }
+
+    public boolean TestDirectoryHomePageIsDisplayed() {
         try {
-            waitUntilHomePageResultsContainerIsLoaded();
-            Click.element(driver, resultsPanels.get(0));
-        }catch(IndexOutOfBoundsException exp){
-            Debugger.println("Results Panel Yet to load...waiting for another 30 seconds.");
-            Wait.seconds(30);//Waiting additional 30 to load the list as it is observed IndexOut exception many times here.
-            Click.element(driver, resultsPanels.get(0));
+            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+            Wait.forElementToBeDisplayed(driver, searchField);
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from TestDirectoryHomePageIsDisplayed:"+exp);
+            SeleniumLib.takeAScreenShot("TestDirectoryHomePageIsDisplayed.jpg");
+            return false;
         }
-    }
-
-    public void TestDirectoryHomePageIsDisplayed() {
-        Wait.forURLToContainSpecificText(driver, "/clinical-tests");
-        Wait.forElementToBeDisplayed(driver, searchField);
     }
 
     public long rareAndInheritedDiseasesSearchResult() {
-        rareAndInheritedDiseasesChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        rareAndInheritedDiseasesChkBox.click();
-        Wait.seconds(1);
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            rareAndInheritedDiseasesChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Rare is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            rareAndInheritedDiseasesChkBox.click();
+            Wait.seconds(1);
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in rareAndInheritedDiseasesSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("rareAndInheritedDiseasesSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long tumorSearchResult() {
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        Wait.seconds(1);
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        tumorChkBox.click();
-        waitUntilHomePageResultsContainerIsLoaded();
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            Wait.seconds(1);
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Tumor is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            tumorChkBox.click();
+            waitUntilHomePageResultsContainerIsLoaded();
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in tumorSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("tumorSearchResult.jpg");
+            return 0;
+        }
     }
 
     public long totalSearchResult() {
-        String a = clinicalIndicationsTabValue.getText();
-        String b = testsTabValue.getText();
-        a = a.replaceAll("\\(", "").replaceAll("\\)", "");
-        b = b.replaceAll("\\(", "").replaceAll("\\)", "");
-        Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
-        return Integer.parseInt(a) + Integer.parseInt(b);
+        try {
+            String a = clinicalIndicationsTabValue.getText();
+            String b = testsTabValue.getText();
+            a = a.replaceAll("\\(", "").replaceAll("\\)", "");
+            b = b.replaceAll("\\(", "").replaceAll("\\)", "");
+            Debugger.println("Total is " + (Integer.parseInt(a) + Integer.parseInt(b)));
+            return Integer.parseInt(a) + Integer.parseInt(b);
+        }catch(Exception exp){
+            Debugger.println("Exception in totalSearchResult:"+exp);
+            SeleniumLib.takeAScreenShot("totalSearchResult.jpg");
+            return 0;
+        }
     }
 
     public boolean testResultsAreLoaded() {
         return tabResults.size()>0;
+    }
+
+    public void logOutFromApplication(){
+        try {
+            Debugger.println("Logging Out from Application..");
+            if(!Wait.isElementDisplayed(driver,logOutLink,60)){
+                Debugger.println("Could not locate Log out Link...");
+                SeleniumLib.takeAScreenShot("NoLogOutLink.jpg");
+                return;
+            }
+            Actions.clickElement(driver,logOutLink);
+            Wait.seconds(2);
+            if(Actions.isAlertPresent(driver)){
+                Actions.acceptAlert(driver);
+            }
+            Actions.deleteCookies(driver);
+        } catch (UnhandledAlertException f) {
+            try {
+                driver.switchTo().defaultContent();
+                Actions.deleteCookies(driver);
+
+            } catch (NoAlertPresentException e) {
+                e.printStackTrace();
+            }
+            Wait.seconds(5);
+            Debugger.println("Logged Out Successfully.");
+        }catch(Exception exp){
+            Debugger.println("Exception from Logging out...."+exp);
+        }
+    }
+    public boolean searchForTheTest(String testName){
+        try{
+            waitUntilHomePageResultsContainerIsLoaded();
+            typeInSearchField(testName);
+            clickSearchIconFromSearchField();
+            waitUntilHomePageResultsContainerIsLoaded();
+            closeCookiesBannerFromFooter();
+            selectFirstEntityFromResultList();
+            closeCookiesBannerFromFooter();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception from searching the Test:"+exp);
+            SeleniumLib.takeAScreenShot("TestSearchError.jpg");
+            return false;
+        }
     }
 }

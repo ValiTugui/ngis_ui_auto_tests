@@ -1,11 +1,11 @@
 package co.uk.gel.proj.util;
 
 import co.uk.gel.csvmodels.SpineDataModelFromCSV;
+import com.github.javafaker.Faker;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.text.RandomStringGenerator;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomDataCreator {
+    static Faker fake = new Faker();
 
 
     public static String getRandomAplhabetsOfGivenSize(int size) {
@@ -38,7 +39,7 @@ public class RandomDataCreator {
     }
 
 
-    public static String getRandomPostCode() {
+    public static String getRandomUKPostCode() {
         String[] allPostcode = {"AB1 0AB", "AL10 0QQ", "B1 1TA", "B99 1DY", "CA1 1AA", "CA28 6AQ", "DA1 1AQ", "DA1 1AQ",
                 "E1 0SF", "E20 3PS"};
         int generator = RandomDataCreator.getRandomNumberRange(0, allPostcode.length - 1);
@@ -50,7 +51,7 @@ public class RandomDataCreator {
     public static int getRandomNumberRange(int lowerLimit, int upperLimit) {
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(upperLimit) + lowerLimit;
-        System.out.println("Random number generated is : " + randomInt);
+        //System.out.println("Random number generated is : " + randomInt);
         return randomInt;
     }
 
@@ -174,6 +175,30 @@ public class RandomDataCreator {
 
     public static SpineDataModelFromCSV getAnyNHSDataFromSpineCSV() throws IOException {
         return getAnyNHSDataFromSpineCSV("");
+    }
+
+    public static String getRandomFirstName() {
+        return fake.name().firstName();
+    }
+
+    public static String getRandomLastName() {
+        return fake.name().lastName();
+    }
+
+    public static String getRandomPhoneNumber() {
+        return fake.number().digits(10);
+    }
+
+    public static String getRandomEmailAddress() {
+        return fake.internet().emailAddress();
+    }
+
+    public static String getRandomAddress() {
+        return fake.address().streetAddress();
+    }
+
+    public static String getRandomProfessionalRegistrationNumber() {
+        return fake.number().digits(12);
     }
 
 }

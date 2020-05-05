@@ -2,6 +2,7 @@ package co.uk.gel.proj.pages;
 
 import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
 import co.uk.gel.proj.util.Debugger;
 import org.junit.Assert;
@@ -16,22 +17,30 @@ import java.util.List;
 public class TestPackagePage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public TestPackagePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        seleniumLib = new SeleniumLib(driver);
     }
 
     @FindBy(css = "h1[class*='page-title']")
     public WebElement testPackagePageTitle;
     @FindBy(xpath = "//label[contains(@class,'field-label')]")
     public WebElement priorityLabel;
+    //Urgent button displays first
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
+    public WebElement urgentPriorityButton;
 
     @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]")
     public WebElement routinePriorityButton;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]")
-    public WebElement urgentPriorityButton;
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[2]//*[name()='svg']")
+    public WebElement routinePriorityButtonSVGTickMark;
+
+    @FindBy(xpath = "//div[contains(@class,'test-package__priority')]/button[1]//*[name()='svg']")
+    public WebElement urgentPriorityButtonSVGTickMark;
 
     @FindBy(css = "[class*='button--selected']")
     public WebElement chosenPriorityButton;
@@ -42,12 +51,6 @@ public class TestPackagePage {
     @FindBy(css = "*[class*='test-package__select-tests-heading']")
     public WebElement selectTestsHeader;
 
-    @FindBy(xpath = "//div[contains(@class,'test-package__select-tests')]//following::p")
-    public WebElement selectTestsDescription;
-
-    @FindBy(css = "div[class*='test-list-item']")
-    public WebElement testCard;
-
     @FindBy(css = "div[class*='checkbox-card']")
     public WebElement testCheckBoxCard;
 
@@ -57,20 +60,8 @@ public class TestPackagePage {
     @FindBy(css = "div[class*='test-card']")
     public WebElement testCardBody;
 
-    @FindBy(css = "p[class*='test-card__title']")
-    public WebElement testCardTitle;
-
-    @FindBy(css = "p[class*='test-card__name']")
-    public WebElement testCardName;
-
     @FindBy(css = "*[class*='test-card__test-type']")
     public List<WebElement> testCardCategory;
-
-    @FindBy(css = "*[class*='test-list-item__target']")
-    public WebElement targetedGenesHeader;
-
-    @FindBy(css = "[class*='test-list-item__section']")
-    public WebElement targetedGenesTestInfoLabel;
 
     @FindBy(css = "p[class*='test-list-item__description']")
     public WebElement testTargetDescription;
@@ -81,11 +72,8 @@ public class TestPackagePage {
     @FindBy(id = "numberOfParticipants")
     public List<WebElement> numberOfParticipantsDropDown;
 
-
+    @FindBy(xpath = "//div[@id='numberOfParticipants']")
     public WebElement numberOfParticipants;
-
-    @FindBy(xpath = "//*[contains(@id,'numberOfParticipants')]//following::path")
-    public WebElement clearNumberOfParticipantsButton;
 
     @FindBy(css = "div[class*='error-message']")
     public WebElement errorMessage;
@@ -93,22 +81,26 @@ public class TestPackagePage {
     @FindBy(css = "div[id*='react-select']")
     public WebElement dropdownValue;
 
-    @FindBy(xpath = "//*[contains(@class,'selected-family-members')]//child::h4")
-    public WebElement selectedFamilyMembersHeader;
-
     @FindBy(css = "*[class*='relationship-tag']")
     public List<WebElement> selectedFamilyMembers;
 
-    @FindBy(css = "[class*='error-message__text'])")
-    public WebElement errorMessageNumberOfParticipants;
-
-    @FindBy(css = "[class*='css-ljit9a-placeholder']")
-    public WebElement participantsFieldPlaceHolder;
-
     private String checkboxValue = "checked";
-    private String routine = "Routine";
-    private String urgent = "Urgent";
     private String dropDownBoxValues = "";
+
+    @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
+    WebElement testPackageCheckBox;
+
+    @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
+    public WebElement trioFamilyIconInPedigree;
+
+    @FindBy(xpath = "(//div[contains(@class,'styles_test-card__test-category__25tRP')])[2]/child::*[@fill='inherit']")
+    public WebElement trioFamilyIconInTestPackage;
+
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
+    public WebElement testCardCIName;
+
+    @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__title')]")
+    public WebElement testCardCIId;
 
     public boolean verifyTestPackagePageTitle(String title) {
         Wait.forElementToBeDisplayed(driver, testPackagePageTitle);
@@ -127,7 +119,8 @@ public class TestPackagePage {
 
     public boolean verifyTheHelpText(String expectedHelpText) {
         Wait.forElementToBeDisplayed(driver, priorityHintText);
-        String actualHelpText = priorityHintText.getText();
+        String actualHelpText = Actions.getText(priorityHintText);
+        Debugger.println("Help text info : " + actualHelpText);
         return actualHelpText.contains(expectedHelpText);
     }
 
@@ -163,18 +156,51 @@ public class TestPackagePage {
         return selectedFamilyMembers.get(0).isDisplayed();
     }
 
-    public void selectNumberOfParticipants(int number) {
+    public boolean selectNumberOfParticipants(int number) {
+        try {
+            if(!Wait.isElementDisplayed(driver,numberOfParticipants,30)){
+                Debugger.println("TestPackage Not loaded.");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+            }
+            numberOfParticipants.click();
+            Wait.seconds(2);
+            Wait.forElementToBeDisplayed(driver, dropdownValue);
+            Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+            Wait.seconds(4);//Provided this wait, as even though the selection happened, sometimes test package not marked as completed
+            //Ensure that the test package is selected
+            WebElement selectedPack = driver.findElement(By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']"));
+            if (!Wait.isElementDisplayed(driver, selectedPack, 10)) {
+                //Trying with seleniumlib click which handled the javascript click also
+                seleniumLib.clickOnWebElement(numberOfParticipants);
+                if(!Wait.isElementDisplayed(driver,dropdownValue,5)){
+                    seleniumLib.clickOnWebElement(numberOfParticipants);
+                    Wait.seconds(2);
+                }
+                Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+                Wait.seconds(4);
+            }
+            return true;
+        } catch (Exception exp) {
+            try{
+                By tpDiv = By.xpath("//div[@id='numberOfParticipants']");
+                seleniumLib.clickOnElement(tpDiv);
+                Wait.seconds(1);
+                By tpValue = By.xpath("//div[@id='numberOfParticipants']//span[text()='" + number + "']");
+                seleniumLib.clickOnElement(tpValue);
+                Wait.seconds(1);
+                return true;
+            }catch(Exception exp1){
+                Debugger.println("Exception in Selecting number of Participants in Test Package." + exp);
+                SeleniumLib.takeAScreenShot("TestPackageNoOfPID.jpg");
+                return false;
+            }
+        }
+    }
+
+    public boolean testIsSelected() {
         Wait.forElementToBeDisplayed(driver, routinePriorityButton);
         Wait.forElementToBeDisplayed(driver, testCardBody);
-        Actions.clickElement(driver, numberOfParticipants);
-        //Wait.seconds(1);
-        Wait.forElementToBeDisplayed(driver, dropdownValue);
-        Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
-    }
-    public boolean testIsSelected() {
-    	Wait.forElementToBeDisplayed(driver, routinePriorityButton);
-		Wait.forElementToBeDisplayed(driver, testCardBody);
-		return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
+        return testCheckBoxCard.getAttribute("class").contains(checkboxValue);
     }
 
     public boolean testIsDeselected() {
@@ -185,7 +211,7 @@ public class TestPackagePage {
         // ensure test card is deselected & test is deselected
         if (!testCardIsSelected && !testIsSelected) {
             //Selected tests for pro-band section should now be updated with 0 tests
-            Debugger.println(" HEADER text info ::::  "+ selectTestsHeader.getText());
+            Debugger.println(" HEADER text info ::::  " + selectTestsHeader.getText());
             return selectTestsHeader.getText().contains("0");
         } else {
             return false;
@@ -198,8 +224,13 @@ public class TestPackagePage {
     }
 
     public void clickUrgentPriority() {
-        Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
-        urgentPriorityButton.click();
+        try {
+            Wait.forElementToBeDisplayed(driver, urgentPriorityButton);
+            urgentPriorityButton.click();
+        }catch(Exception exp){
+            Debugger.println("Exception on clickUrgentPriority:"+exp);
+            SeleniumLib.takeAScreenShot("clickUrgentPriority.jpg");
+        }
     }
 
     public void clickRoutinePriority() {
@@ -207,78 +238,216 @@ public class TestPackagePage {
         routinePriorityButton.click();
     }
 
-    public void setTotalNumberOfParticipantsField(int number){
+    public void setTotalNumberOfParticipantsField(int number) {
+        try {
             Wait.forElementToBeDisplayed(driver, numberOfParticipants);
             Actions.clickElement(driver, numberOfParticipants);
             Wait.forElementToBeDisplayed(driver, dropdownValue);
             Actions.selectValueFromDropdown(dropdownValue, String.valueOf(number));
+        }catch(Exception exp){
+            Debugger.println("setTotalNumberOfParticipantsField");
         }
-
-        public boolean verifyTheTestsList(String expectedNumberOfTests) {
-            Wait.forElementToBeDisplayed(driver, selectTestsHeader);
-            return selectTestsHeader.getText().contains(expectedNumberOfTests);
-        }
-
-    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText){
-        return priorityLabel.getText().contains(expectedHeaderText);
     }
 
-    public boolean verifyGivenPriorityIsSelected(String expectedPriority){
-        Wait.forElementToBeDisplayed(driver, chosenPriorityButton);
-        return chosenPriorityButton.getText().contains(expectedPriority);
+    public boolean verifyTheTestsList(String expectedNumberOfTests) {
+        Wait.forElementToBeDisplayed(driver, selectTestsHeader);
+        return selectTestsHeader.getText().contains(expectedNumberOfTests);
     }
 
-    public boolean verifyNumberOfParticipantsFieldExists(){
+    public boolean verifyPrioritySectionHeaderText(String expectedHeaderText) {
+        String actualHeaderText = Actions.getText(priorityLabel);
+        Debugger.println("Actual Priority label header text : " + actualHeaderText);
+        return actualHeaderText.contains(expectedHeaderText);
+    }
+
+    public boolean verifyGivenPriorityIsSelected(String expectedPriority) {
+        try {
+            Wait.forElementToBeDisplayed(driver, chosenPriorityButton, 200);
+            String actualText = Actions.getText(chosenPriorityButton);
+            Debugger.println("Selected test Priority Actual: " + actualText+",Expected:"+expectedPriority);
+            return actualText.contains(expectedPriority);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifying verifyGivenPriorityIsSelected:"+exp);
+            SeleniumLib.takeAScreenShot("verifyGivenPriorityIsSelected.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyNumberOfParticipantsFieldExists() {
         Wait.forElementToBeDisplayed(driver, numberOfParticipantsLabel);
         Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
         return (numberOfParticipantsLabel.isDisplayed() && numberOfParticipantsDropDown.get(0).isDisplayed());
     }
 
-    public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty(){
-        Wait.forElementToBeDisplayed(driver, numberOfParticipantsDropDown.get(0));
-        return numberOfParticipantsDropDown.get(0).getText().contains("");
+    public boolean verifyNumberOfParticipantsFieldDefaultValueIsEmpty() {
+        try {
+            if(!Wait.isElementDisplayed(driver,numberOfParticipantsDropDown.get(0),10)){
+                Debugger.println("Participant dropdown list not displayed.");
+                SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
+                return false;
+            }
+            String actValue = numberOfParticipantsDropDown.get(0).getText();
+            Debugger.println("ActValue:"+actValue+":");
+            return numberOfParticipantsDropDown.get(0).getText().contains("");
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyNumberOfParticipantsFieldDefaultValueIsEmpty:"+exp);
+            SeleniumLib.takeAScreenShot("numberOfParticipantsDropDown.jpg");
+            return false;
+        }
     }
 
-    public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue){
+    public boolean verifyTheValuesShownInNumberOfParticipantsField(int minExpectedValue, int maxExpectedValue) {
         Wait.forElementToBeDisplayed(driver, numberOfParticipants);
         Actions.clickElement(driver, numberOfParticipants);
         dropDownBoxValues = numberOfParticipants.getText();
         return (dropDownBoxValues.contains(String.valueOf(minExpectedValue)) && dropDownBoxValues.contains(String.valueOf(maxExpectedValue)));
     }
 
-    public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage){
-        Wait.forElementToBeDisplayed(driver, errorMessage);
-        return errorMessage.getText().contains(expectedErrorMessage);
+    public boolean verifyErrorMessageInTotalNumberOfParticipants(String expectedErrorMessage) {
+        try {
+            if(!Wait.isElementDisplayed(driver, errorMessage,10)){
+                Debugger.println("Expected TestPackage Number of Participant Error, nit displayed.");
+                SeleniumLib.takeAScreenShot("TestPackageError.jpg");
+                return false;
+            }
+            return errorMessage.getText().contains(expectedErrorMessage);
+        }catch(Exception exp){
+            Debugger.println("Exception in verifyErrorMessageInTotalNumberOfParticipants:"+exp);
+            SeleniumLib.takeAScreenShot("verifyErrorMessageInTotalNumberOfParticipants.jpg");
+            return false;
+        }
     }
 
-    public void clearNumberOfParticipants() {
-        if (!getText(numberOfParticipants).contains("Select")) {
-            Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
-            Actions.clickElement(driver, selectTestsHeader);
-            Wait.forElementToBeDisplayed(driver, errorMessage);
+    public boolean clearNumberOfParticipants() {
+        String currentValue = "";
+        try {
+            currentValue = getText(numberOfParticipants);
+            if (!currentValue.contains("Select")) {
+                Actions.clickElement(driver, numberOfParticipants.findElement(By.tagName("svg")));
+                Actions.clickElement(driver, selectTestsHeader);
+                if(!Wait.isElementDisplayed(driver, errorMessage,10)){
+                    Debugger.println("Expected Error message to be displayed in TestPackage, but not.");
+                    SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                    return false;
+                }
+            }
+            return true;
+        }catch(Exception exp){
+            currentValue = getText(numberOfParticipants);
+            if (!currentValue.contains("Select")) {
+                Debugger.println("Exception in clearNumberOfParticipants:" + exp);
+                SeleniumLib.takeAScreenShot("clearNumberOfParticipants.jpg");
+                return false;
+            }
+            return true;//If the value is selected as "Select", means, nothing selected
         }
     }
 
     public String getText(WebElement element) {
-        Wait.forElementToBeDisplayed(driver, element);
-        return element.getText();
+        try {
+            Wait.forElementToBeDisplayed(driver, element);
+            return element.getText();
+        }catch(Exception exp){
+            return "";
+        }
     }
 
-    public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants){
+    public boolean verifyTheNumberOfParticipants(String expectedNumberOfParticipants) {
         Wait.forElementToBeDisplayed(driver, numberOfParticipants);
         int actualNumberOfParticipants = Integer.parseInt(numberOfParticipants.getText());
-        if(actualNumberOfParticipants == Integer.parseInt(expectedNumberOfParticipants)){
+        if (actualNumberOfParticipants == Integer.parseInt(expectedNumberOfParticipants)) {
             return true;
-        }
-        else return false;
+        } else return false;
 
     }
 
     public boolean numberOfParticipantsFieldIsNotDisplayed() {
-       if(numberOfParticipantsDropDown.size() == 0) {
-           return true;
-       }
-       else return false;
+        if (numberOfParticipantsDropDown.size() == 0) {
+            return true;
+        } else return false;
     }
 
-}
+    public boolean ensureTickMarkIsDisplayedNextToRoutine() {
+        //Wait.forElementToBeDisplayed(driver, routinePriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, routinePriorityButtonSVGTickMark, 30)) {
+            return true;
+        }
+        Debugger.println("RoutineButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("RoutineButtonTick.jpg");
+        return false;
+    }
+
+    public boolean ensureTickMarkIsDisplayedNextToUrgent() {
+        //Wait.forElementToBeDisplayed(driver, urgentPriorityButtonSVGTickMark);
+        if (Wait.isElementDisplayed(driver, urgentPriorityButtonSVGTickMark, 30)) {
+            return true;
+        }
+        Debugger.println("UrgentButton expected to have tick mark. but not.");
+        SeleniumLib.takeAScreenShot("UrgentButtonTick.jpg");
+        return false;
+    }
+
+    public boolean selectTheDeselectedTestPackage() {
+        try {
+            Wait.forElementToBeDisplayed(driver, testPackageCheckBox);
+            testPackageCheckBox.click();
+            return true;
+        } catch (Exception exp) {
+            SeleniumLib.takeAScreenShot("testSelect.jpg");
+            Debugger.println("SelectTheTest:Exception:" + exp);
+            return false;
+        }
+    }
+
+    public boolean validateTrioFamilyIconInOfflineOrder() {
+        try {
+            if (!Wait.isElementDisplayed(driver, trioFamilyIconInPedigree, 10)) {
+                Debugger.println("try family icon not visible : validateTrioFamilyIconInPedigree : in pedigree page");
+                SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("TestPackage : validateTrioFamilyIconInPedigree : in pedigree page : " + exp);
+            SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyTrioFamilyIconPresenceInTestPackage() {
+        try {
+            if (!Wait.isElementDisplayed(driver, trioFamilyIconInTestPackage, 10)) {
+                Debugger.println("try family icon is not visible : test package page");
+                SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+                return false;
+            }
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("try family icon is not visible : test package page : " + exp);
+            SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+            return false;
+        }
+    }
+
+    public boolean verifyCINameIDPresence(){
+        try{
+            Wait.forElementToBeDisplayed(driver, testCardBody);
+            if (!Wait.isElementDisplayed(driver,testCardCIId,10)){
+                Debugger.println("Test Card CI ID not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            if (!Wait.isElementDisplayed(driver,testCardCIName,10)){
+                Debugger.println("Test Card CI Name not present ");
+                SeleniumLib.takeAScreenShot("TestPackage.jpg");
+                return false;
+            }
+            return true;
+        }catch (Exception exp){
+            Debugger.println(" Exception in verifyCINameIDPresence : "+exp);
+            SeleniumLib.takeAScreenShot("TestPackage.jpg");
+            return false;
+        }
+    }
+
+}//end

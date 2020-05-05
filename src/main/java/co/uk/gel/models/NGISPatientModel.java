@@ -1,6 +1,7 @@
 package co.uk.gel.models;
 
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
 
 public class NGISPatientModel {
 
@@ -12,9 +13,12 @@ public class NGISPatientModel {
     private String MONTH_OF_BIRTH;
     private String YEAR_OF_BIRTH;
     private String DATE_OF_BIRTH;
+    private String BORN_DATE;
+    private String BORN_WITH_AGE;
     private String GENDER;
     private String LIFE_STATUS;
     private String NHS_NUMBER;
+    private String ADDRESS_LINE0;
     private String ADDRESS_LINE1;
     private String ADDRESS_LINE2;
     private String ADDRESS_LINE3;
@@ -23,6 +27,17 @@ public class NGISPatientModel {
     private String POST_CODE;
     private String FULL_ADDRESS;
     private String RELATIONSHIP_TO_PROBAND;
+    private String RECORDING_CLINICIAN_NAME;
+    private String REFERAL_ID;
+    private String NGIS_ID;
+    private String PATIENT_TYPE;
+    private String NO_NHS_REASON;
+    private String HOSPITAL_NO;
+    private String ETHNICITY;
+    private String PHENOTYPIC_SEX;
+    //For adding nodes to Pedigree Diagram
+    private String NON_NGIS_ID1;
+    private String NON_NGIS_ID2;
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -183,5 +198,113 @@ public class NGISPatientModel {
 
     public void setRELATIONSHIP_TO_PROBAND(String RELATIONSHIP_TO_PROBAND) {
         this.RELATIONSHIP_TO_PROBAND = RELATIONSHIP_TO_PROBAND;
+    }
+
+    public String getBORN_DATE() {
+        return BORN_DATE;
+    }
+
+    public void setBORN_DATE(String BORN_DATE) {
+        this.BORN_DATE = BORN_DATE;
+        if(DATE_OF_BIRTH == null){
+            String[] dates = BORN_DATE.split("-");
+            DATE_OF_BIRTH = dates[0]+"-"+ TestUtils.convertMonthToMonthNumberForm(dates[1])+"-"+dates[2];
+        }
+    }
+
+    public String getRECORDING_CLINICIAN_NAME() {
+        return RECORDING_CLINICIAN_NAME;
+    }
+
+    public void setRECORDING_CLINICIAN_NAME(String RECORDING_CLINICIAN_NAME) {
+        this.RECORDING_CLINICIAN_NAME = RECORDING_CLINICIAN_NAME;
+    }
+
+    public String getREFERAL_ID() {
+        return REFERAL_ID;
+    }
+
+    public void setREFERAL_ID(String REFERAL_ID) {
+        this.REFERAL_ID = REFERAL_ID;
+    }
+
+    public String getNGIS_ID() {
+        return NGIS_ID;
+    }
+
+    public void setNGIS_ID(String NGIS_ID) {
+        this.NGIS_ID = NGIS_ID;
+    }
+
+    public String getBORN_WITH_AGE() {
+        return BORN_WITH_AGE;
+    }
+
+    public void setBORN_WITH_AGE(String BORN_WITH_AGE) {
+        this.BORN_WITH_AGE = BORN_WITH_AGE;
+    }
+
+    public String getPATIENT_TYPE() {
+        return PATIENT_TYPE;
+    }
+
+    public void setPATIENT_TYPE(String PATIENT_TYPE) {
+        this.PATIENT_TYPE = PATIENT_TYPE;
+    }
+
+    public String getNO_NHS_REASON() {
+        return NO_NHS_REASON;
+    }
+
+    public void setNO_NHS_REASON(String NO_NHS_REASON) {
+        this.NO_NHS_REASON = NO_NHS_REASON;
+    }
+
+    public String getHOSPITAL_NO() {
+        return HOSPITAL_NO;
+    }
+
+    public void setHOSPITAL_NO(String HOSPITAL_NO) {
+        this.HOSPITAL_NO = HOSPITAL_NO;
+    }
+
+    public String getADDRESS_LINE0() {
+        return ADDRESS_LINE0;
+    }
+
+    public void setADDRESS_LINE0(String ADDRESS_LINE0) {
+        this.ADDRESS_LINE0 = ADDRESS_LINE0;
+    }
+
+    public String getETHNICITY() {
+        return ETHNICITY;
+    }
+
+    public void setETHNICITY(String ETHNICITY) {
+        this.ETHNICITY = ETHNICITY;
+    }
+
+    public String getPHENOTYPIC_SEX() {
+        return PHENOTYPIC_SEX;
+    }
+
+    public void setPHENOTYPIC_SEX(String PHENOTYPIC_SEX) {
+        this.PHENOTYPIC_SEX = PHENOTYPIC_SEX;
+    }
+
+    public String getNON_NGIS_ID1() {
+        return NON_NGIS_ID1;
+    }
+
+    public void setNON_NGIS_ID1(String NON_NGIS_ID1) {
+        this.NON_NGIS_ID1 = NON_NGIS_ID1;
+    }
+
+    public String getNON_NGIS_ID2() {
+        return NON_NGIS_ID2;
+    }
+
+    public void setNON_NGIS_ID2(String NON_NGIS_ID2) {
+        this.NON_NGIS_ID2 = NON_NGIS_ID2;
     }
 }//end

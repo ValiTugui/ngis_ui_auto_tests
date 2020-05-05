@@ -1,8 +1,13 @@
 package co.uk.gel.proj.pages;
 
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
+import co.uk.gel.proj.config.AppConfig;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.Debugger;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,28 +20,22 @@ import java.util.Random;
 public class PaperFormPage {
 
     WebDriver driver;
+    SeleniumLib seleniumLib;
 
     public PaperFormPage(WebDriver driver) {
         this.driver = driver;
+        seleniumLib = new SeleniumLib(driver);
         PageFactory.initElements(driver, this);
     }
-
-    @FindBy(xpath = "//div[contains(@class, 'main')]//descendant::strong")
-    public WebElement yourOrderText;
 
     @FindBy(css = "h2[class*='stepHeader']")
     public WebElement paperFormHeader;
 
-    @FindBy(css = "p[class*='sub-title-copy']")
+    @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")
     public WebElement orderEntitySubHeader;
-
-    @FindBy(css = "p[class*='explanatoryText']")
-    public WebElement chooseClinicalSubHeader;
 
     @FindBy(css = "input[class*='input']")
     public WebElement orderEntitySearchField;
-
-
 
     @FindBy(css = "p[class*='instructions']")
     public WebElement orderEntitySearchInstructions;
@@ -56,41 +55,14 @@ public class PaperFormPage {
     @FindBy(css = "h4[class*='selectedHeader']")
     public WebElement selectedOrderEntityName;
 
-    @FindBy(css = "p[class*='boldText']")
-    public List<WebElement> selectedOrderEntityDetailsTitles;
-
-    @FindBy(css = "p[class*='text']")
-    public List<WebElement> selectedOrderEntityDetailsTexts;
-
     @FindBy(css = "p[class*='styles_headerText']")
     public WebElement confirmTestsSubHeader;
-
-    @FindBy(css = "ul[class*='testPackage']")
-    public WebElement confirmTestsPackage;
 
     @FindBy(css = "h3[class*='subCaption']")
     public WebElement confirmTestsSubCaption;
 
     @FindBy(css = "div[class*='card']")
     public List<WebElement> testsPackage;
-
-    @FindBy(css = "h2[class*='name']")
-    public WebElement testsNameFromConfirmTestsPage;
-
-    @FindBy(css = "div[class*='times']")
-    public List<WebElement> testsTimesFromConfirmTestsPage;
-
-    @FindBy(xpath = "//div[contains(@class,'header')]//child::span")
-    public List<WebElement> testsHeadersFromConfirmTestsPage;
-
-    @FindBy(css = "div[class*='info']")
-    public WebElement testsInfoFromConfirmTestsPage;
-
-    @FindBy(css = "h2[class*='header']")
-    public WebElement sampleTypeAndState;
-
-    @FindBy(css = "p[class*='targetedGenes']")
-    public List<WebElement> targetedGenes;
 
     @FindBy(css = "a[class*='btn-secondary']")
     public List<WebElement> downloadButton;
@@ -104,20 +76,8 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='body']")
     public List<WebElement> downloadSections;
 
-    @FindBy(css = "div[class*='body']")
-    public List<WebElement> downloadContainers;
-
     @FindBy(css = "h3[class*='header']")
     public List<WebElement> stepsTitles;
-
-    @FindBy(css = "div[class*='main']")
-    public WebElement nonRoutedNextStepsContent;
-
-    @FindBy(xpath = "//div[contains(@class, 'sampleDescriptions')]//descendant::p")
-    public WebElement nonRoutedNextStepsSampleDescription;
-
-    @FindBy(css = "p[class*='headerText']")
-    public WebElement nextStepsSubHeader;
 
     @FindBy(css = "div[class*='container']")
     public WebElement routedNextStepsContent;
@@ -131,29 +91,8 @@ public class PaperFormPage {
     @FindBy(xpath = "//*[contains(@class,'addressTitle')]//following::div")
     public WebElement addressPanelBody;
 
-    @FindBy(css = "div[class*='boldText']")
-    public List<WebElement> nonRoutedNextStepsRequestingOrganisation;
-
-    @FindBy(css = "p[class*='boldText']")
-    public List<WebElement> nonRoutedNextStepsTests;
-
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement printPageButton;
-
-    @FindBy(css = "span[class*='text']")
-    public WebElement canNotFindMyEntityLink;
-
-    @FindBy(xpath = "//*[contains(@class,'subHeader')]//following-sibling::div[3]")
-    public WebElement noResultsMessage;
-
-    @FindBy(css = "div[class*='slide-panel_show']")
-    public WebElement filterHelpContentPaperForm;
-
-    @FindBy(css = "div[class*='container']")
-    public List<WebElement> elementFromFilterHelpContentPaperForm;
-
-    @FindBy(css = "div[class*='main']")
-    public WebElement clinicalIndicationName;
 
     @FindBy(linkText = "Cancel order")
     public WebElement cancelOrderLink;
@@ -164,47 +103,14 @@ public class PaperFormPage {
     @FindBy(css = "div[class*='radioButton']")
     public WebElement clinicalCardCheckbox;
 
-    @FindBy(css = "div[class*='icon']")
-    public List<WebElement> iconFromClinicalCard;
-
-    @FindBy(xpath = "//*[contains(@class,'mediaBlock')]//descendant::h3")
-    public WebElement clinicalCardTitle;
-
-    @FindBy(css = "div[class*='whoToTest']")
-    public WebElement clinicalCardWhoToTest;
-
-    @FindBy(css = "h3[class*='cellTitle']")
-    public List<WebElement> routedSecondStepCellTitles;
-
-    @FindBy(css = "div[class*='cellContent']")
-    public List<WebElement> routedSecondStepCellContent;
-
-    @FindBy(css = "span[class*='cellBoldText']")
-    public List<WebElement> testDetailsOnNextPage;
-
-    @FindBy(css = "div[class*='cellBoldText']")
-    public List<WebElement> routedSecondStepCellBoldTexts;
-
-    @FindBy(css = "div[class*='cellText']")
-    public List<WebElement> routedSecondStepCellTexts;
-
-    @FindBy(css = "button[class*='resetTestsButton']")
-    public WebElement resetToDefaultSelectionButton;
-
     @FindBy(css = "*[class*='ctaOnlineBtn']")
     public WebElement signInToOnlineServiceButton;
 
     @FindBy(css = "*[class*='testCardContainer']")
     public WebElement testCardContainer;
 
-    @FindBy(css = "*[class*='ctaPdfOrOnlineTitle']")
-    public WebElement orderGenomicTestPageTitle;
-
     @FindBy(css = ".btn.btn-md.btn-primary")
     public WebElement usePDFOrderFormButton;
-
-    @FindBy(css = "*[class*='tumourWarning']")
-    public WebElement cancerOfflineOrderwarningBanner;
 
     @FindBy(xpath = "//*[contains(@class,'styles_list')]")
     public WebElement offlineOrderContainer;
@@ -224,23 +130,52 @@ public class PaperFormPage {
         Wait.forNumberOfElementsToBeGreaterThan(driver, By.cssSelector(entitySuggestionLocatior), 0);
     }
 
-    public void clickSignInToTheOnlineServiceButton() {
+    public boolean clickSignInToTheOnlineServiceButton() {
         try {
-            Debugger.println("clickSignInToTheOnlineServiceButton: "+driver.getCurrentUrl());
+            Debugger.println("clickSignInToTheOnlineServiceButton: ");
+            if(!Wait.isElementDisplayed(driver,signInToOnlineServiceButton,60)){
+                Debugger.println("Sign Into Online Service Button not displayed even after waiting time 60s...failing."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+                return false;
+            }
             Click.element(driver, signInToOnlineServiceButton);
-            Wait.seconds(5);
-        }catch(Exception exp){
-            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: "+exp);
+            Wait.seconds(8);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("PaperFormPage: Exception from login to signInToOnlineServiceButton: " + exp);
+            SeleniumLib.takeAScreenShot("ClickSignInButton.jpg");
+            return false;
         }
     }
 
-    public void selectRandomEntityFromSuggestionsList() {
-        Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+    public boolean selectRandomEntityFromSuggestionsList() {
+        try {
+            Click.element(driver, orderEntitySearchSuggestionsList.get(new Random().nextInt(orderEntitySearchSuggestionsList.size())));
+            return true;
+        }catch(Exception exp){
+            try{
+              By firstElement = By.xpath("//div[contains(@class,'suggestions')]//ul/li[1]");
+              seleniumLib.clickOnElement(firstElement);
+              return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from Selecting Requesting Organization: " + exp);
+                SeleniumLib.takeAScreenShot("RequestingOrganization.jpg");
+                return false;
+            }
+        }
+    }
+
+    public void selectFirstEntityFromSuggestionsList() {
+        Click.element(driver, orderEntitySearchSuggestionsList.get(0));
     }
 
     public void clickContinueButton() {
         Wait.forElementToBeDisplayed(driver, continueButton.get(0));
         Click.element(driver, continueButton.get(0));
+    }
+
+    public void clickCancelOrderLink() {
+        Click.element(driver, cancelOrderLink);
     }
 
     public void checkThatReviewTestSelectionIsOpened() {
@@ -261,14 +196,89 @@ public class PaperFormPage {
         return confirmTestsSubHeader.getText().contentEquals(headerText);
     }
 
-    public boolean confirmOrderingEntityLabelText(String expectedLabelText){
+    public boolean confirmOrderingEntityLabelText(String expectedLabelText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySubHeader);
         orderEntitySubHeader.isDisplayed();
         return orderEntitySubHeader.getText().matches(expectedLabelText);
     }
-    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText){
+
+    public boolean confirmOrderingEntitySearchFieldPlaceholderText(String expectedPlaceholderText) {
         Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
         return orderEntitySearchField.getAttribute("placeholder").matches(expectedPlaceholderText);
+    }
+
+    public boolean checkThatStepsTitlesForRoutedClinicalIndicationAreCorrect(String buttonName, String sectionName1, String sectionName2) {
+        Wait.forElementToBeDisplayed(driver, printPageButton);
+        return ((printPageButton.getText().matches(buttonName)) && (stepsTitles.get(0).getText().matches(sectionName1)) && (stepsTitles.get(1).getText().matches(sectionName2)));
+    }
+
+    public boolean checkThatNameOfDowmloadSectionIsDisplayed(String sectionName1, String sectionName2, String sectionName3) {
+        Wait.forElementToBeDisplayed(driver, routedNextStepsContent);
+        for (int i = 0; i < downloadSections.size(); i++) {
+            Wait.forElementToBeDisplayed(driver, downloadSections.get(i));
+        }
+        Debugger.println("No of sections for " + AppConfig.getSearchTerm() + " are " + downloadSections.size());
+        switch (downloadSections.size()) {
+            case 2: {
+                return ((downloadSections.get(0).findElement(By.tagName("h3")).getText().matches(sectionName1)) && (downloadSections.get(1).findElement(By.tagName("h3")).getText().matches(sectionName2)));
+            }
+            case 3: {
+                return ((downloadSections.get(0).findElement(By.tagName("h3")).getText().matches(sectionName1)) && (downloadSections.get(1).findElement(By.tagName("h3")).getText().matches(sectionName2)) && (downloadSections.get(2).findElement(By.tagName("h3")).getText().matches(sectionName3)));
+            }
+            default:
+                throw new IllegalStateException("Section Mismatch: " + downloadSections.size());
+        }
+    }
+
+    public boolean checkThataddressOfLabIsDisplayed(String placeSearchTerm) {
+        Wait.forElementToBeDisplayed(driver, addressPanelTitle);
+        return (!Actions.getText(sendFormsAndSamplesHospitalName).isEmpty() && (Actions.getText(addressPanelTitle).matches("Send to")) && (Actions.getText(addressPanelBody).contains(placeSearchTerm)));
+    }
+
+    public boolean checkThatDownloadButtonsAreDisplayed() {
+        if(!Wait.isElementDisplayed(driver,routedNextStepsContent,30)){
+            Debugger.println("routedNextStepsContent not present.");
+            SeleniumLib.takeAScreenShot("DownloadButtonContainer.jpg");
+            return false;
+        }
+        if(downloadSections.size() != downloadButton.size()){
+            Wait.seconds(10);//Wait 10 seconds for all sections download buttons are displayed
+        }
+        return (downloadSections.size() == downloadButton.size());
+    }
+
+    public boolean verifyTheDownloadButtonLabel(String buttonName){
+        for (int i = 0; i < downloadButton.size(); i++) {
+            if(!downloadButton.get(i).getText().matches(buttonName)){
+                Debugger.println("Download button label is not as expected:"+buttonName);
+                SeleniumLib.takeAScreenShot("DownLoadButtonName.jpg");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkCancelOrderLinkIdDisplayed(String linkName) {
+        Wait.forElementToBeDisplayed(driver, cancelOrderLink);
+        cancelOrderLink.isDisplayed();
+        cancelOrderLink.getText().matches(linkName);
+        return true;
+    }
+
+    public boolean checkThatInformationEntityIsDisplayed() {
+        Wait.forElementToBeDisplayed(driver, selectedOrderEntityInformationBox);
+        return selectedOrderEntityInformationBox.isDisplayed();
+    }
+
+    public boolean checkThatSelectedEntityNameIsTheSameAsTheSearchValue() {
+        Wait.forElementToBeDisplayed(driver, orderEntitySearchField);
+        String entitySearchValue = orderEntitySearchField.getAttribute("value");
+        String selectedEntityName = selectedOrderEntityName.getText();
+        return entitySearchValue.matches(selectedEntityName);
+    }
+
+    public void checkContinueIsClickable() {
+        Wait.forElementToBeClickable(driver, continueButton.get(0));
     }
 
 }

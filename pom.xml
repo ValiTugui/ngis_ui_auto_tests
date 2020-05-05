@@ -15,32 +15,108 @@
     <properties>
         <!-- Properties for dependencies -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <surefire.fork.count>5</surefire.fork.count>
         <cucumber.version>1.2.4</cucumber.version>
         <io.cucumber.version>4.7.4</io.cucumber.version>
         <selenium.version>3.141.0</selenium.version>
         <junit.version>4.11</junit.version>
         <org.apache.poi.version>3.17</org.apache.poi.version>
+        <forkCount>5</forkCount>
+        <reportName>test</reportName>
+        <jsonFolder>target/cucumber-parallel</jsonFolder>
+        <browser>Chrome</browser>
+        <browserVersion>70</browserVersion>
+        <serverType>Local</serverType>
+        <osName>Windows</osName>
+        <osVersion>10</osVersion>
+        <features></features>
     </properties>
     <build>
         <plugins>
             <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.13.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/RunnerTest.java</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <browser>${browser}</browser>
+                        <browserVersion>${browserVersion}</browserVersion>
+                        <serverType>${serverType}</serverType>
+                        <osName>${osName}</osName>
+                        <osVersion>${osVersion}</osVersion>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>5.0.0</version>
                 <executions>
                     <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
+                        <id>generateRunners</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <glue>
+                                <package>co.uk.gel.proj.steps</package>
+                            </glue>
+                            <featuresDirectory>src/test/resources/features/${features}</featuresDirectory>
+                            <tags>@BVT_UI_SMOKE_TEST_PACK</tags>
+                            <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+                            <outputDirectory>target/generated-test-sources</outputDirectory>
+                            <namingPattern>Parallel{c}IT</namingPattern>
+                            <parallelScheme>FEATURE</parallelScheme>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <forkCount>${forkCount}</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <includes>
+                        <include>**/Parallel*IT.class</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>report.donut</groupId>
+                <artifactId>donut-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>ProjectName</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
-                            <parallelTesting>false</parallelTesting>
-                            <checkBuildResult>true</checkBuildResult>
+                            <resultSources>
+                                <resultSource>
+                                    <!-- optional format, defaults to cucumber -->
+                                    <format>cucumber</format>
+                                    <directory>${jsonFolder}</directory>
+                                </resultSource>
+                            </resultSources>
+                            <outputPath>target/test-report</outputPath>
+                            <timestamp>${maven.build.timestamp}</timestamp>
+                            <prefix>${reportName}</prefix>
+                            <template>default</template>
                         </configuration>
                     </execution>
                 </executions>
@@ -54,45 +130,38 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <testFailureIgnore>true</testFailureIgnore>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.13.0</version>
-                <executions>
-                    <execution>
-                        <id>execution</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <projectName>ProjectName</projectName>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
-                            <parallelTesting>false</parallelTesting>
-                            <checkBuildResult>true</checkBuildResult>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
 
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>${io.cucumber.version}</version>
-        </dependency>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.jayway.restassured/rest-assured -->
+        <!--<dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.9.0</version>
+            <scope>test</scope>
+        </dependency>
+-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>4.1.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>4.1.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
@@ -122,11 +191,11 @@
         </dependency>
 
 
-      <!--  <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java8</artifactId>
-            <version>${io.cucumber.version}</version>
-        </dependency>-->
+        <!--  <dependency>
+              <groupId>io.cucumber</groupId>
+              <artifactId>cucumber-java8</artifactId>
+              <version>${io.cucumber.version}</version>
+          </dependency>-->
 
 
 
@@ -185,29 +254,29 @@
             <version>${junit.version}</version>
         </dependency>
         <!--Cucumber  dependencies-->
-       <!-- <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <scope>test</scope>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-jvm</artifactId>
-            <scope>test</scope>
-            <type>pom</type>
-            <version>${cucumber.version}</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-picocontainer</artifactId>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-junit</artifactId>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-java</artifactId>
+             <scope>test</scope>
+             <version>${cucumber.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>info.cukes</groupId>
+             <artifactId>cucumber-jvm</artifactId>
+             <scope>test</scope>
+             <type>pom</type>
+             <version>${cucumber.version}</version>
+         </dependency>-->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -289,12 +358,6 @@
             <version>20090211</version>
         </dependency>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>3.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>3.7.1</version>
@@ -304,6 +367,36 @@
             <artifactId>javafaker</artifactId>
             <version>0.12</version>
         </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--PDF file reading dependencies-->
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/fontbox -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>fontbox</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jonathanlink</groupId>
+            <artifactId>PDFLayoutTextStripper</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!--Pdf file reading dependencies End-->
     </dependencies>
     <repositories>
         <repository>

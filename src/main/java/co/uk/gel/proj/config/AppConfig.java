@@ -15,6 +15,8 @@ public class AppConfig {
     private static String app_url;
     private static String app_username;
     private static String app_password;
+    private static String app_superUsername;
+    private static String app_superPassword;
     private static String to_patient_search_url;
     private static String td_private_url;
     private static String to_dashboard_url;
@@ -22,7 +24,10 @@ public class AppConfig {
     public static String NGIS_Version_Number;
     private static String NGIS_Version_URL;
     public static String searchTerm;
+    public static String panel_app_url;
     public static Properties properties = null;
+    //MIPortal test data
+    public static String mi_portal_test_data_file;
 
     public static void loadAppConfig() {
         String configFileName = "%s-appconfig.properties";
@@ -34,10 +39,8 @@ public class AppConfig {
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             try (InputStream resourceStream = loader.getResourceAsStream(configFileName)) {
-                //  properties.load(new FileInputStream(new File(configFileName)));
                 properties.load(resourceStream);
             }
-            //  System.out.println("mehnat_karo_bhai" + properties.getProperty("envname"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,11 +48,17 @@ public class AppConfig {
         app_url = properties.getProperty("APP_URL");
         app_username = properties.getProperty("APP_USERNAME");
         app_password = properties.getProperty("APP_PASSWORD");
+        app_superUsername = properties.getProperty("SUPER_USERNAME");
+        app_superPassword = properties.getProperty("SUPER_PASSWORD");
         to_patient_search_url = properties.getProperty("TO_PATIENT_SEARCH_URL");
         td_private_url = properties.getProperty("TEST_DIRECTORY_PRIVATE_URL");
         to_dashboard_url = properties.getProperty("DASHBOARD_PRIVATE_URL");
         MYNewName = properties.getProperty("MYNewName");
         NGIS_Version_URL = properties.getProperty("NGIS_Version_URL");
+        app_superUsername = properties.getProperty("SUPER_USERNAME");
+        app_superPassword = properties.getProperty("SUPER_PASSWORD");
+        panel_app_url = properties.getProperty("PANEL_APP_URL");
+        mi_portal_test_data_file = properties.getProperty("MI_PORTAL_TEST_DATA_FILE");
     }
 
     public static String getPropertyValueFromPropertyFile(String propertyVal) {
@@ -114,12 +123,20 @@ public class AppConfig {
         return app_username;
     }
 
+    public static String getApp_superUsername() {
+        return app_superUsername;
+    }
+
     public static void setApp_username(String app_username) {
         AppConfig.app_username = app_username;
     }
 
     public static String getApp_password() {
         return app_password;
+    }
+
+    public static String getApp_superPassword() {
+        return app_superPassword;
     }
 
     public static void setApp_password(String app_password) {
@@ -137,5 +154,12 @@ public class AppConfig {
     public static String getSearchTerm() {
         searchTerm = properties.getProperty("Search_Term");
         return searchTerm;
+    }
+
+    public static String getPanel_app_url() {
+        if (panel_app_url == null || panel_app_url.isEmpty()) {
+            loadAppConfig();
+        }
+        return panel_app_url;
     }
 }//end

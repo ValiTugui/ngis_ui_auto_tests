@@ -79,8 +79,8 @@ public class FamilyMemberNewPatientPage {
     @FindBy(name = "noNhsNumberReason")
     public WebElement noNHSNumber;
 
-    @FindBy(xpath = "//button[contains(text(),'Add new patient to referral')]")
-    public WebElement addReferralButton;
+    @FindBy(xpath = "//button[text()='Create NGIS record']")
+    public WebElement createNGISRecord;
 
     @FindBy(css = "div[class*='error-message__text']")
     public List<WebElement> validationErrors;
@@ -124,9 +124,9 @@ public class FamilyMemberNewPatientPage {
     }
 
     public void clearFieldsInFamilyMemberNewPatientPage(String clearToDropdown){
-        Actions.clearField(firstName);
-        Actions.clearField(lastName);
-        Actions.clearField(dobOfFamilyMember);
+        Actions.clearInputField(firstName);
+        Actions.clearInputField(lastName);
+        Actions.clearInputField(dobOfFamilyMember);
         String[] expInputs = null;
         expInputs = clearToDropdown.split(",");
         String pathToElement = "";
@@ -145,9 +145,21 @@ public class FamilyMemberNewPatientPage {
             }
         }
     }
-    public void clickOnAddNewPatientToReferral(){
-        Wait.forElementToBeDisplayed(driver, addReferralButton);
-        Click.element(driver, addReferralButton);
+    public boolean clickOnCreateNGISRecord(){
+       try {
+           if(!Wait.isElementDisplayed(driver, createNGISRecord,10)){
+               Debugger.println("Create NGIS Record button not displayed:");
+               SeleniumLib.takeAScreenShot("CreateNGISRecord.jpg");
+               return false;
+           }
+           Actions.clickElement(driver,createNGISRecord);
+           Wait.seconds(2);//To ensure the error messages if any, is loaded.
+           return true;
+       }catch(Exception exp){
+           Debugger.println("Exception in clickOnCreateNGISRecord:"+exp);
+           SeleniumLib.takeAScreenShot("CreateNGISRecord.jpg");
+           return false;
+       }
     }
     public boolean checkTheErrorMessageForMandatoryFields(String errorMessage, String fontColor) {
         try {
@@ -161,7 +173,7 @@ public class FamilyMemberNewPatientPage {
             String actColor = "";
             String expectedFontColor = StylesUtils.convertFontColourStringToCSSProperty(fontColor);
             for(int i=0; i<expMessages.length;i++) {
-                actualMessage = seleniumLib.getText(validationErrors.get(i));
+                actualMessage = Actions.getText(validationErrors.get(i));
                 if (!expMessages[i].equalsIgnoreCase(actualMessage)) {
                     Debugger.println("Expected Message: " + errorMessage + ", but Actual Message: " + actualMessage);
                     return false;

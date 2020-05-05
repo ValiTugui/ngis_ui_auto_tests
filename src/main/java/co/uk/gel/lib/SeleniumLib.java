@@ -1,21 +1,37 @@
 package co.uk.gel.lib;
 
+import co.uk.gel.config.BrowserConfig;
+import co.uk.gel.models.ReferralID;
+import co.uk.gel.models.Referrals;
 import co.uk.gel.proj.util.Debugger;
+import co.uk.gel.proj.util.TestUtils;
+import com.google.gson.*;
+import com.google.gson.stream.JsonWriter;
+import org.apache.commons.io.FileUtils;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -29,6 +45,8 @@ public class SeleniumLib {
 
     private String strtext;
     public static String ParentWindowID = null;
+    static String defaultSnapshotLocation = System.getProperty("user.dir") + File.separator +"snapshots"+File.separator;
+    static String referralFileName = "Referrals.json";
 
     public SeleniumLib(WebDriver driver) {
         SeleniumLib.driver = driver;
@@ -59,16 +77,20 @@ public class SeleniumLib {
     }
 
     public static WebElement waitForElementVisible(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
-        final WebElement el = driver.findElement(element);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 20);
+            final WebElement el = driver.findElement(element);
 
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver driver) {
+            wait.until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver driver) {
 
-                return el.isDisplayed();
-            }
-        });
-        return el;
+                    return el.isDisplayed();
+                }
+            });
+            return el;
+        }catch(Exception exp){
+            return null;
+        }
     }
 
     /**
@@ -81,7 +103,8 @@ public class SeleniumLib {
             return webElement;
         } catch (NoSuchElementException e) {
             Debugger.println("[Error]" + element.toString() + " Not Found ");
-            throw e;
+            return null;
+            //throw e;
         }
     }
 
@@ -112,20 +135,31 @@ public class SeleniumLib {
             } catch (Exception exp1) {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(driver.findElement(element)).click().build().perform();
-                throw exp1;
+                //throw exp1;
             }
         }
     }
 
-    public void clickOnWebElement(WebElement webele) {
+    public void clickOnWebElement(WebElement webEle) {
        try {
-            webele.click();
+           WebDriverWait wait = new WebDriverWait(driver, 30);//Default waiting
+           wait.until(ExpectedConditions.visibilityOf(webEle));
+           if(!webEle.isDisplayed()){
+               //Waiting for another 30 seconds
+               sleepInSeconds(30);
+           }
+           elementHighlight(webEle);
+           webEle.click();
         } catch (Exception exp) {
             try {
-                Actions actions = new Actions(driver);
-                actions.moveToElement(webele).click();
+                Debugger.println("Clicking Via JavaScript....");
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].click();", webEle);
+
             } catch (Exception exp1) {
-                throw exp1;
+                Debugger.println("Clicking Via Action....");
+                Actions actions = new Actions(driver);
+                actions.moveToElement(webEle).click();
             }
         }
     }
@@ -133,6 +167,7 @@ public class SeleniumLib {
     public List<WebElement> getElements(By ele) {
         try {
             waitForElementVisible(driver.findElement(ele));
+            highLightElement(ele);
             return driver.findElements(ele);
         } catch (NoSuchElementException exp) {
             return null;
@@ -193,25 +228,18 @@ public class SeleniumLib {
         }
     }
 
-    public String selectFromListByText(By element, String text) {
+    public boolean selectFromListByText(WebElement element, String text) {
         if (text == null || text.isEmpty()) {
-            return "";
+            return false;
         }
         try {
-            webElement = getElement(element);
-            if (webElement == null) {
-                Debugger.println("element is null " + webElement);
-                return "Web element not present: " + element;
-            }
-            elementHighlight(webElement);
-            // new Select(getElement(element)).selectByVisibleText(text);
-            new Select(webElement).selectByVisibleText(text);
-            return "Success";
+            new Select(element).selectByVisibleText(text);
+            return true;
         } catch (NoSuchElementException e) {
             try {
-                Select select = new Select(webElement);
+                Select select = new Select(element);
                 if (select == null) {
-                    return "Web element is null: " + element;
+                    return false;
                 }
                 List<WebElement> options = select.getOptions();
                 for (WebElement option : options) {
@@ -221,13 +249,13 @@ public class SeleniumLib {
                     if (originalText.equalsIgnoreCase(expectedString)) {
                         select.selectByVisibleText(option.getText());
                         //Debugger.println("Yes..got it..........");
-                        return "Success";
+                        return true;
                     }
                 }
             } catch (Exception exp) {
-                return "Error from Finding element: " + element;
+                return false;
             }
-            return "No found";
+            return false;
         }
     }
 
@@ -251,7 +279,7 @@ public class SeleniumLib {
             }
             return "Option : " + text + " Not Present";
         } catch (NoSuchElementException e) {
-            return "Exception Occured while selecting from DropDown List " + e;
+            return "Exception Occurred while selecting from DropDown List " + e;
         }
     }
 
@@ -277,7 +305,7 @@ public class SeleniumLib {
             elementHighlight(webElement);
             return webElement.isDisplayed();
         } catch (Exception exp) {
-            Debugger.println("Element not Displayed......" + exp + "\nElement..." + element);
+            //Debugger.println("Element not Displayed......" + exp + "\nElement..." + element);
             return false;
         }
     }
@@ -291,7 +319,7 @@ public class SeleniumLib {
             }
             return false;
         } catch (NoSuchElementException e) {
-            Debugger.println("[Error]" + element.toString() + "  Not displayed");
+            //Debugger.println("[Error]" + element.toString() + "  Not displayed");
             return false;
         }
     }
@@ -306,7 +334,7 @@ public class SeleniumLib {
             }
             return false;
         } catch (NoSuchElementException e) {
-            Debugger.println("[Error]" + element.toString() + "  Not displayed");
+            //Debugger.println("[Error]" + element.toString() + "  Not displayed");
             return false;
         }
     }
@@ -395,10 +423,21 @@ public class SeleniumLib {
             return false;
         }
     }
+    public boolean JavaScriptClick(WebElement element) {
+        try {
+            elementHighlight(element);
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            return true;
+        } catch (Exception exp) {
+            Debugger.println("Exception: SeleniumLib: Javascript Click.." + exp);
+            return false;
+        }
+    }
 
     public static WebElement getWebElement(By by) {
         try {
-            WebElement element = new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(by));
+            WebElement element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
             return element;
         } catch (Exception exp) {
             return null;
@@ -407,11 +446,6 @@ public class SeleniumLib {
 
     public static void refreshPage() {
         driver.navigate().refresh();
-    }
-
-    public String getText(WebElement element) {
-        Wait.forElementToBeDisplayed(driver, element);
-        return element.getText();
     }
     /**
      * @param element
@@ -434,6 +468,25 @@ public class SeleniumLib {
             try {
                 elementHighlight(webElement);
                 strtext = webElement.getText();
+            } catch (Exception exp1) {
+                return "";
+            }
+            return strtext;
+        }
+    }
+    public String getText(WebElement element) {
+        try {
+
+            elementHighlight(element);
+            strtext = element.getText();
+            return "" + strtext;
+
+        } catch (Exception ex) {
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
+            try {
+                elementHighlight(element);
+                strtext = element.getText();
             } catch (Exception exp1) {
                 return "";
             }
@@ -494,76 +547,20 @@ public class SeleniumLib {
             driver.switchTo().window(window);
         }
     }
-
-    /**
-     *
-     */
-    public void ChangeToParentWindow() {
-        driver.switchTo().window(ParentWindowID);
-    }
-
-    public void clickonLink(String string) {
-        if (string == null || string.isEmpty()) {
-            return;
-        }
-        waitForAjax(2);
-        driver.findElement(By.linkText(string)).click();
-        waitForAjax(4);
-    }
-
-    public static void clickLink(String text) {
+    //File upload logic changed from using Robot script to Selenium option
+    public static boolean upload(WebElement element, String path) {
         try {
-            if (text == null || text.isEmpty()) {
-                return;
+            File file = new File(path);
+            if (!file.exists()) {
+                Debugger.println("Specified File does not exist for upload:"+path);
+                return false;
             }
-            driver.findElement(By.linkText(text)).isDisplayed();
-            driver.findElement(By.linkText(text)).click();
-        } catch (NoSuchElementException J) {
-            Debugger.println("element not found " + text);
-            //throw new NoSuchElementException (timeoutErrorMessage() + J);
-        }
-    }
-    //   .................. upload file method.............
-
-    public static boolean upload(String path) {
-        WebElement element;
-        // Switch to newly opened window
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-        }
-        sleep(2);
-        element = new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("file")));
-        if (element != null) {
-            element.click();
-        }
-        sleep(2);
-        //Copy file path to cllipboard
-        StringSelection ss = new StringSelection(path);
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-
-        //Java Robot commands to paste the clipboard copy on focused textbox
-        Robot robot = null;
-        try {
-            robot = new Robot();
-
-            robot.keyPress(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_V);
-            robot.keyRelease(KeyEvent.VK_CONTROL);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("html/body/form/div/p/input[1]")));
-            element.click();
-            sleep(2);
-            element = new WebDriverWait(driver, 10)
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value='Close Window']")));
-            element.click();
-            sleep(2);
+            Debugger.println("Uploading the file: "+path);
+            element.sendKeys(path);
+            Debugger.println("Upload Finished.");
             return true;
         } catch (Exception exp) {
-            Debugger.println("Upload Exception from SeleniumLib: " + exp);
+            Debugger.println("Exception from uploading the file: " + exp);
             return false;
         }
     }
@@ -590,49 +587,154 @@ public class SeleniumLib {
             return "";
         }
     }
+    public static void dismissAllert() {
+        if (isAlertPresent()) {
+            driver.switchTo().alert().dismiss();
+        }
+    }
 
-    //-------------------------	//Added by STAG on 26-11-2016.------------------------------------------------
-    public boolean moveMouseAndClickOnElement(By element) {
+    static boolean isAlertPresent() {
         try {
-            Actions action = new Actions(driver);
-            WebElement we = driver.findElement(element);
-            action.moveToElement(we).build().perform();
-            action.click(we).build().perform();
+            driver.switchTo().alert();
             return true;
-        } catch (Exception exp) {
-            Debugger.println("Exception in moveMouseAndClick: "+exp);
+        } catch (NoAlertPresentException ex) {
             return false;
         }
     }
 
-    public void mouseHoverElement(By element) {
-        Actions action = new Actions(driver);
-        WebElement we = driver.findElement(element);
-        action.moveToElement(we).build().perform();
-    }
-
-    public String getAttributeValue(By element, String attribute) {
+    public static void scrollToElement(WebElement element) {
         try {
-            webElement = getElement(element);
-            if (webElement == null) {
-                return null;
+            if(element == null){
+                return;
             }
-            elementHighlight(webElement);
-            return webElement.getAttribute(attribute);
-        } catch (NoSuchElementException e) {
-            Debugger.println("[Error] Selenium Lib....getAttributeValue..." + element.toString() + "Not found");
-            return null;
+            Point location = element.getLocation();
+            String script = "scroll(" + location.x + "," + (location.y - 120) + ")";
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript(script);
+        } catch (Exception e) {
+
         }
     }
+    public static void takeAScreenShot(String filename){
+        try{
+            if(filename == null || filename.isEmpty()){
+                filename = "screenshot";
+            }
+            if(filename.indexOf(".") == -1){
+                filename = filename+".jpg";
+            }
+            String[]today = TestUtils.getCurrentDay();
+            if(today != null && today.length == 3){
+                filename = "T"+today[0]+today[1]+filename;
+            }
+            File screenshot = ((TakesScreenshot) driver)
+                    .getScreenshotAs(OutputType.FILE);
 
-    // Add by manjunath K M 12-9-16
-    public List<WebElement> getHeadingElements(By element) {
+            FileUtils.copyFile(screenshot, new File(defaultSnapshotLocation+filename));
+
+        }catch(Exception exp){
+
+        }
+    }
+    public static boolean switchToNewTab(){
         try {
-            waitForElementVisible(driver.findElement(element));
-            return driver.findElements(element);
-        } catch (NoSuchElementException exp) {
-            Debugger.println("SeleniumLib: [Error]" + element.toString() + " Not Found ");
-            return null;
+            ((JavascriptExecutor) driver).executeScript("window.open()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in switching to new Tab: "+exp);
+            return false;
+        }
+    }
+    public static boolean closeCurrentWindow(){
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.close()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(0));
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Could not close current window: "+exp);
+            return false;
+        }
+    }
+    public static boolean drawSignature(WebElement drawArea) {
+        try {
+            Wait.forElementToBeDisplayed(driver, drawArea);
+            Click.element(driver, drawArea);
+            Actions builder = new Actions(driver);
+            Action drawAction = builder.moveToElement(drawArea, 135, 15) //start points x axis and y axis.
+                    .clickAndHold()
+                    .moveByOffset(80, 80)
+                    .moveByOffset(50, 20)
+                    .release()
+                    .build();
+            drawAction.perform();
+            Wait.seconds(1);
+            return true;
+        }catch(Exception exp){
+           // Debugger.println("SeleniumLib: Could not draw Signature: "+exp);
+            takeAScreenShot("drawSignature.jpg");
+            return false;
+        }
+    }
+    //Created new method, where tooltip on mouseMove need to be validated
+    public boolean moveAndClickOn(WebElement element) {
+        try {
+            Actions action = new Actions(driver);
+            action.moveToElement(element).build().perform();
+            return true;
+        }catch(Exception exp){
+            Debugger.println("Exception in clicking on Element by moving mouse:"+element.toString()+"\n"+exp);
+            return false;
+        }
+    }
+    public void moveMouseAndClickOnElement(By element) {
+        Actions action = new Actions(driver);
+        WebElement we = driver.findElement(element);
+        if(we == null){
+            return;
+        }
+        action.click(we).build().perform();
+    }
+
+
+    public static boolean skipIfBrowserStack(String serverType) {
+        return BrowserConfig.getServerType().toUpperCase().equals(serverType);
+    }
+
+    public static void writeToJsonFile (String dataToWrite) {
+        String nameRead;
+        try {
+            JsonParser parser = new JsonParser();
+            Object obj = parser.parse(new FileReader(referralFileName));
+            JsonObject jsonObject = (JsonObject) obj;
+            JsonArray msg = (JsonArray)jsonObject.get("referrals");
+            Iterator<JsonElement> iterator = msg.iterator();
+            while(iterator.hasNext()) {
+                nameRead = iterator.next().toString();
+            }
+            ReferralID referralID = new ReferralID();
+
+            referralID.setReferralID(dataToWrite);
+            Gson gson = new Gson();
+            String json = gson.toJson(referralID);
+
+            FileWriter file = new FileWriter(referralFileName, false);
+            JsonWriter jw = new JsonWriter(file);
+            iterator = msg.iterator();
+
+            Referrals referrals = new Referrals();
+
+            while(iterator.hasNext()) {
+                referrals.addReferrals(gson.fromJson(iterator.next().toString(), ReferralID.class));
+            }
+            referrals.addReferrals(referralID);
+            gson.toJson(referrals, Referrals.class, jw);
+            file.close();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -644,250 +746,32 @@ public class SeleniumLib {
             return 0;
         }
     }
-
-    public boolean isPopupDisplayed(By popby) {
-        try {
-            WebElement popmsg_element = driver.findElement(popby);
-            if (popmsg_element == null) {
-                return false;
-            }
-            return popmsg_element.isDisplayed();
-        } catch (Exception exp) {
-            return false;
-        }
+    public int getNoOfRows(String rowPath){
+        By element = By.xpath(rowPath);
+        return getNoOfRows(element);
     }
-
-    public static void clearCookies() {
-        driver.manage().deleteAllCookies();
-    }
-
-    public int getHeadingSize(By TableHeading) {
-        List<WebElement> Headings = getHeadingElements(TableHeading);
-        if (Headings == null || Headings.size() == 0) {
-            Debugger.println("No heading elements found for the path..." + TableHeading);
-            return -1;
-        }
-        return Headings.size();
-    }
-
     public int getColumnIndex(By TableHeading, String column_name) {
-        List<WebElement> Headings = getHeadingElements(TableHeading);
-        if (Headings == null || Headings.size() == 0) {
-            Debugger.println("No heading elements found for the path..." + TableHeading);
+        List<WebElement> Headings =  getHeadingElements(TableHeading);
+        if(Headings == null || Headings.size() == 0){
             return -1;
         }
         String heading_name = "";
         for (int index = 0; index < Headings.size(); index++) {
             heading_name = Headings.get(index).getText();
-            // Debugger.println((index + 1) + ".Heading name:" + heading_name + ":...:" + column_name + ":");
-            if (column_name.equalsIgnoreCase(heading_name)) {
+            if(column_name.equalsIgnoreCase(heading_name)) {
                 return index + 1;
             }
         }
-        return (-1);
+        return -1;
     }
-
-    public int getWindowWidth() {
-        return driver.manage().window().getSize().getWidth();
-    }
-
-    public void acceptAllert() {
-        if (isAlertPresent()) {
-            driver.switchTo().alert().accept();
-        }
-    }
-
-    public void dismissAllert() {
-        if (isAlertPresent()) {
-            driver.switchTo().alert().dismiss();
-        }
-    }
-
-    private boolean isAlertPresent() {
+    public List<WebElement> getHeadingElements(By element) {
         try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException ex) {
-            return false;
-        }
-    }
-
-    public String getPopupAlertMessage() {
-        String alertmessage = "";
-        try {
-            alertmessage = driver.switchTo().alert().getText();
-            driver.switchTo().alert().accept();
-            return alertmessage;
-        } catch (NoAlertPresentException ex) {
-            return alertmessage;
-        } catch (Exception exp) {
-            return alertmessage;
-        }
-    }
-
-    public void pageLoadTime() {
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-    }
-
-    public static void downloadFile() throws InterruptedException {
-
-        try {
-            Robot robot = new Robot();
-            robot.delay(2000);
-            robot.keyPress(KeyEvent.VK_DOWN);
-            robot.keyRelease(KeyEvent.VK_DOWN);
-            robot.keyPress(KeyEvent.VK_TAB);
-            robot.keyPress(KeyEvent.VK_TAB);
-            robot.keyPress(KeyEvent.VK_TAB);
-            robot.delay(2000);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.delay(2000);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static boolean IsSelected(WebElement element) {
-        try {
-            if (element == null) {
-                return false;
-            }
-            elementHighlight(element);
-            return element.isSelected();
-        } catch (Exception exp) {
-            Debugger.println("Element not Selected......" + exp + "\nElement..." + element);
-            return false;
-        }
-    }
-
-    public void selectElement(By element) {
-        try {
-            WebElement webele = getElement(element);
-            JavascriptExecutor javascript = (JavascriptExecutor) driver;
-            javascript.executeScript("arguments[0].checked='true'", webele, "");
-        } catch (Exception exp) {
-            Debugger.println("Not able to select ......" + exp + "\nElement..." + element);
-            throw exp;
-        }
-    }
-
-    public void changeProperty(By element, String proprtyToCahnge) {
-        try {
-            WebElement webele = getElement(element);
-            JavascriptExecutor javascript = (JavascriptExecutor) driver;
-            javascript.executeScript("arguments[0]." + proprtyToCahnge, webele, "");
-        } catch (Exception exp) {
-            Debugger.println("Not able to select ......" + exp + "\nElement..." + element);
-            throw exp;
-        }
-    }
-
-    //21-12-2018
-    public String compareTextWithElemntText(WebElement ele, String text)
-    {
-        driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
-        if (!ele.getText().trim().contains(text.trim())) {
-            return "It does not contain your text : " + text;
-        }
-        return "Success";
-
-    }
-
-    public WebElement getSelectedElement(By element)
-    {
-        try {
-            WebElement webele = driver.findElement(element);
-            Select select = new Select(webele);
-            WebElement selectedOption = select.getFirstSelectedOption();
-            Debugger.println("selected option in drop down is : "+selectedOption.getText());
-            return selectedOption;
-        }
-        catch(Exception exp)
-        {
-            Debugger.println("Not able to select ......" + exp + "\nElement..." + element);
-            throw exp;
-        }
-    }
-
-    public String getCurrentDate(String format)
-    {
-        DateFormat dateFormat = new SimpleDateFormat(format);
-        Date date = new Date();
-        String currentdate= dateFormat.format(date);
-        return currentdate;
-    }
-
-    public String compareWebElementTextWithArrayText(WebElement element,String[]inputData)
-    {
-        Debugger.println("element text is : "+element.getText());
-        int i;
-        boolean flag= false;
-        for( i=0;i<inputData.length;i++)
-        {
-            if(inputData[i].equalsIgnoreCase(element.getText()))
-            {
-                flag=true;
-                break;
-            }
-        }
-        if(!flag)
-            return "Following data is not available : "+inputData[i];
-
-
-        return "Success";
-    }
-
-    public String compareTextwithArrayText(String text,String[]inputData)
-    {
-        int i;
-        boolean flag= false;
-        for( i=0;i<inputData.length;i++)
-        {
-            if(inputData[i].toUpperCase().contains(text.toUpperCase().trim()))
-            {
-                flag=true;
-                break;
-            }
-        }
-        if(!flag)
-            return "Following data is not available : "+inputData[i];
-
-        return "Success";
-    }
-
-    public static String getDayOfMonthSuffix(final int n) {
-        checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
-        if (n >= 11 && n <= 13) {
-            return "th";
-        }
-        switch (n % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
-            default: return "th";
-        }
-    }
-    public static WebElement getElementOfHiddenVisibility(By element) {
-        try {
-            sleepInSeconds(3);
-            return driver.findElement(element);
-        } catch (Exception exp) {
-            Debugger.println("Exception is Found in get Element Of Hidden Visibility : " + exp);
-            throw exp;
-        }
-    }
-    public void scrollToElement(WebElement element) {
-        try {
-            if(element == null){
-                return;
-            }
-            Point location = element.getLocation();
-            String script = "scroll(" + location.x + "," + (location.y - 120) + ")";
-            JavascriptExecutor executor = (JavascriptExecutor) driver;
-            executor.executeScript(script);
-        } catch (Exception e) {
-
+            waitForElementVisible(driver.findElement(element));
+            return driver.findElements(element);
+        } catch (NoSuchElementException exp) {
+            exp.printStackTrace();
+            // DDFREDebugger.println("SeleniumLib: [Error]" + element.toString() + " Not Found ");
+            return null;
         }
     }
 

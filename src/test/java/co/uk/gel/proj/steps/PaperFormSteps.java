@@ -21,12 +21,13 @@ public class PaperFormSteps extends Pages {
     }
 
     @Then("the user logs in to the Test Order system successfully")
-    public void theUserLogsInToTheTestOrderSystemSuccessfully() {
+    public void theUserLogsInToTheTestOrderSystemSuccessfully(List<String> pageTitleText) {
 
         boolean eachElementIsLoaded;
         switchToURL(driver.getCurrentUrl());
         eachElementIsLoaded = patientSearchPage.verifyTheElementsOnPatientSearchAreDisplayedWhenYesIsSelected();
         Assert.assertTrue(eachElementIsLoaded);
+        Assert.assertTrue(referralPage.getTheCurrentPageTitle().matches(pageTitleText.get(0)));
     }
 
     @When("the user clicks the PDF order form button")
@@ -42,7 +43,14 @@ public class PaperFormSteps extends Pages {
 
     @And("the user selects a random entity from the suggestions list")
     public void theUserSelectsARandomEntityFromTheSuggestionsList() {
-        paperFormPage.selectRandomEntityFromSuggestionsList();
+        boolean testResult = false;
+        testResult = paperFormPage.selectRandomEntityFromSuggestionsList();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user selects the first entity from the suggestions list")
+    public void theUserSelectsTheFirstEntityFromTheSuggestionsList() {
+        paperFormPage.selectFirstEntityFromSuggestionsList();
     }
 
     @And("the user enters the invalid keyword {string} in the search field")
@@ -53,7 +61,6 @@ public class PaperFormSteps extends Pages {
     @And("the user clicks the Sign in hyperlink")
     public void theUserClicksTheSignInHyperlink(List<String> hyperLinks) {
         paperFormPage.clickSignInToTheOnlineServiceButton();
-
     }
 
     @When("the user clicks the Continue button")
@@ -122,5 +129,51 @@ public class PaperFormSteps extends Pages {
     @And("the user see the search field has placeholder text as {string}")
     public void theUserSeeTheSearchFieldHasPlaceholderTextAs(String expectedPlaceholderText) {
         Assert.assertTrue(paperFormPage.confirmOrderingEntitySearchFieldPlaceholderText(expectedPlaceholderText));
+    }
+
+    @And("the user should be able to see two sections as follows and a {string} button")
+    public void theUserShouldBeAbleToSeeTwoSectionsAsFollowsAndAButton(String buttonName, List<String> sectionName) {
+        Assert.assertTrue(paperFormPage.checkThatStepsTitlesForRoutedClinicalIndicationAreCorrect(buttonName, sectionName.get(0), sectionName.get(1)));
+    }
+
+    @And("the Complete the forms with patient information section the following should be displayed")
+    public void theCompleteTheFormsWithPatientInformationSectionTheFollowingShouldBeDisplayed(List<String> sectionName) {
+        Assert.assertTrue(paperFormPage.checkThatNameOfDowmloadSectionIsDisplayed(sectionName.get(0), sectionName.get(1), sectionName.get(2)));
+    }
+
+    @And("the user should be see lab details for {string} under the heading Send samples and completed forms without any warning message")
+    public void theUserShouldBeSeeLabDetailsForUnderTheHeadingSendSamplesAndCompletedFormsWithoutAnyWarningMessage(String placeSearchTerm) {
+        Assert.assertTrue(paperFormPage.checkThataddressOfLabIsDisplayed(placeSearchTerm));
+    }
+
+    @And("the user should see the {string} button next to each of the forms")
+    public void theUserShouldSeeTheButtonNextToEachOfTheForms(String buttonName) {
+        boolean testResult  = false;
+        testResult = paperFormPage.checkThatDownloadButtonsAreDisplayed();
+        Assert.assertTrue(testResult);
+        testResult = paperFormPage.verifyTheDownloadButtonLabel(buttonName);
+        Assert.assertTrue(testResult);
+    }
+
+    @Then("the details of the search results are displayed")
+    public void theDetailsOfTheSearchResultsAreDisplayed() {
+        Assert.assertTrue(paperFormPage.checkThatInformationEntityIsDisplayed());
+        Assert.assertTrue(paperFormPage.checkThatSelectedEntityNameIsTheSameAsTheSearchValue());
+    }
+
+    @And("the Continue button should be clickable")
+    public void theContinueButtonShouldBeClickable() {
+        paperFormPage.checkContinueIsClickable();
+    }
+
+    @And("the user should be able to see a click able link {string} at top right side of the page")
+    public void theUserShouldBeAbleToSeeAClickAbleLinkAtTopRightSideOfThePage(String linkName) {
+        Assert.assertTrue(paperFormPage.checkCancelOrderLinkIdDisplayed(linkName));
+    }
+
+    @When("the user clicks the link Cancel Order")
+    public void theUseClicksTheLinkCancelOrder() {
+        paperFormPage.clickCancelOrderLink();
+        Actions.acceptAlert(driver);
     }
 }

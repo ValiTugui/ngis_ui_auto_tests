@@ -1,16 +1,19 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.lib.Click;
+import co.uk.gel.lib.SeleniumLib;
 import co.uk.gel.lib.Wait;
-import co.uk.gel.proj.TestDataProvider.NgisPatientOne;
-import co.uk.gel.proj.TestDataProvider.NgisPatientTwo;
-import co.uk.gel.proj.TestDataProvider.SpinePatientOne;
-import co.uk.gel.proj.TestDataProvider.SpinePatientTwo;
+import co.uk.gel.models.NGISPatientModel;
+import co.uk.gel.proj.TestDataProvider.*;
 import co.uk.gel.proj.config.AppConfig;
+import co.uk.gel.proj.pages.FamilyMemberDetailsPage;
 import co.uk.gel.proj.pages.Pages;
 import co.uk.gel.proj.util.Debugger;
 import co.uk.gel.proj.util.StylesUtils;
+import co.uk.gel.proj.util.TestUtils;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,6 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 import java.awt.*;
+import java.util.Map;
 
 public class PatientSearchSteps extends Pages {
 
@@ -54,10 +58,8 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the YES button is selected by default on patient search$")
     public void theYESButtonIsSelectedByDefaultOnPatientSearch() {
-
         String selectedStatus = patientSearchPage.getYesBtnSelectedAttribute();
         Assert.assertEquals(selectedStatus, "true");
-
     }
 
     @And("^the background colour of the YES button is strong blue \"([^\"]*)\"$")
@@ -92,13 +94,23 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the Search button$")
     public void theUserClicksTheSearchButton() throws Throwable {
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        boolean testResult = false;
+        testResult = patientSearchPage.clickSearchButtonByXpath();
+        Assert.assertTrue(testResult);
     }
 
 
     @Then("^a \"([^\"]*)\" result is successfully returned$")
     public void aResultIsSuccessfullyReturned(String badgeText) throws Throwable {
-        Assert.assertEquals(badgeText, patientSearchPage.checkThatPatientCardIsDisplayed(driver));
+        boolean testResult = false;
+        String actualBadge = patientSearchPage.checkThatPatientCardIsDisplayed();
+        if(actualBadge == null) {
+            Assert.assertTrue(testResult);
+        }
+        if(actualBadge.equalsIgnoreCase(badgeText)) {
+            testResult = true;
+        }
+        Assert.assertTrue(testResult);
     }
 
 
@@ -109,6 +121,7 @@ public class PatientSearchSteps extends Pages {
 
         switch (patientSearchType) {
             case "NHS Spine": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientOne.DATE_OF_BIRTH);
@@ -135,6 +148,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NHS Spine2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 //String expectedDateOfBirth =expectedDayOfBirth+"-" + TestUtils.convertMonthNumberToMonthForm(expectedMonthOfBirth)+ "-"+expectedYearOfBirth;
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + SpinePatientTwo.DATE_OF_BIRTH);
@@ -160,7 +174,8 @@ public class PatientSearchSteps extends Pages {
 
                 break;
             }
-            case "NGIS": {
+            case "NGIS-redundant": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientOne.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -186,6 +201,7 @@ public class PatientSearchSteps extends Pages {
                 break;
             }
             case "NGIS2": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
                 String actualFullName = patientSearchPage.patientFullName.getText().trim();
                 Debugger.println("Expected date of birth re-formatted from dd-mm-yyyy to dd-mmm-yyyy: " + NgisPatientTwo.DATE_OF_BIRTH);
                 String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
@@ -209,6 +225,33 @@ public class PatientSearchSteps extends Pages {
                 Assert.assertEquals(NgisPatientTwo.FULL_ADDRESS, actualAddress);
                 break;
             }
+            case "NGIS": {
+                Wait.forElementToBeDisplayed(driver, patientSearchPage.patientFullName);
+                String actualFullName = patientSearchPage.patientFullName.getText().trim();
+                String actualFullDOB = patientSearchPage.patientDateOfBirth.getText().trim();
+                String actualGender = patientSearchPage.patientGender.getText().trim();
+                String actualNHSNumber = patientSearchPage.patientNSNo.getText().trim();
+                String actualAddress = patientSearchPage.patientAddress.getText().trim();
+
+                NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+                String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
+                Debugger.println("Expected full name = " + expectedFullName+ ", Actual full name " + actualFullName);
+                Assert.assertEquals(expectedFullName, actualFullName);
+
+                String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
+                Debugger.println("Expected DOB = " + expectedDateOfBirth  + ", Actual DOB: " + actualFullDOB);
+                Assert.assertTrue(actualFullDOB.contains("Born " + expectedDateOfBirth));
+
+                Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+                Assert.assertEquals("Gender " + newPatient.getGender(), actualGender);
+
+                Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " + actualNHSNumber);
+                Assert.assertEquals("NHS No. " + newPatient.getNhsNumber(), actualNHSNumber);
+
+                Debugger.println("Expected post-code " + newPatient.getPostCode() + " Actual address " + actualAddress);
+                Assert.assertTrue(actualAddress.contains(newPatient.getPostCode()));
+                break;
+            }
             default:
 
                 throw new IllegalArgumentException("Invalid query search parameters");
@@ -217,19 +260,26 @@ public class PatientSearchSteps extends Pages {
 
     }
 
-
     @And("^the user clicks the NO button$")
     public void theUserClicksTheNOButton() throws Throwable {
-        patientSearchPage.clickNoButton();
+        boolean testResult = false;
+        testResult = patientSearchPage.clickNoButton();
+        Assert.assertTrue(testResult);
     }
 
 
     @When("^the user types in valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
-
-        patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInValidPatientDetailsUsingNOFields(searchDetails);
+        Assert.assertTrue(testResult);
     }
 
+
+    @When("the user fills in invalid patient details {string} in the search fields when No is selected")
+    public void theUserFillsInInvalidPatientDetailsInTheSearchFieldsWhenNoIsSelected(String invalidPatientDetails) {
+        patientSearchPage.fillInValidPatientDetailsUsingNOFields(invalidPatientDetails);
+    }
 
     @Then("^The patient record is displayed with a heading of \"([^\"]*)\"$")
     public void thePatientRecordIsDisplayedWithAHeadingOf(String expectedResultHeader) throws Throwable {
@@ -280,7 +330,9 @@ public class PatientSearchSteps extends Pages {
 
     @And("^the user clicks the patient result card$")
     public void theUserClicksThePatientResultCard() {
-        patientSearchPage.clickPatientCard();
+        boolean testResult = false;
+        testResult = patientSearchPage.clickPatientCard();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -300,6 +352,7 @@ public class PatientSearchSteps extends Pages {
     @When("^the user types in different valid details \"([^\"]*)\" of a \"([^\"]*)\" patient in the No of Fields$")
     public void theUserTypesInDifferentValidDetailsOfAPatientInTheNoOfFields(String searchDetails, String patientSearchType) throws Throwable {
         patientSearchPage.fillInValidSecondPatientDetailsUsingNOFields(searchDetails);
+
     }
 
     @Then("^the correct details of the second \"([^\"]*)\" patient using alternative searches are displayed in the result card$")
@@ -318,13 +371,21 @@ public class PatientSearchSteps extends Pages {
         patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
     }
 
+    @And("the patient search page displays the sub-titles text {string}")
+    public void thePatientSearchPageDisplaysTheSubTitlesText(String descriptionOfPage) {
+        patientSearchPage.verifyTheDescriptionOfThePage(descriptionOfPage);
+    }
+
     @Then("^User clicks on a field \"([^\"]*)\" and auto-complete is disabled$")
     public void userClicksOnAFieldAndAutoCompleteIsDisabled(String allTextFields) throws Throwable {
-        String[] textFieldElements = allTextFields.split(":");  // Split all textFieldElement
-        for (String eachElement : textFieldElements) {
-            Debugger.println("Show eachElement: " + eachElement);
+        String[] textFieldElements = null;
+        if(allTextFields.indexOf(":") != -1) {
+            textFieldElements = allTextFields.split(":");  // Split all textFieldElement
+        }else{//If only one field is present
+            textFieldElements = new String[]{allTextFields};
         }
-        patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        boolean testResult = patientSearchPage.clickOnFieldsAndVerifyAutoCompleteIsDisabled(textFieldElements);
+        Assert.assertTrue(testResult);
     }
 
 
@@ -354,12 +415,14 @@ public class PatientSearchSteps extends Pages {
     @And("the user searches for a patient by providing valid details of NHS number and DOB fields in the patient search page")
     public void theUserSearchesForAPatientByProvidingValidDetailsOfNHSNumberAndDOBFieldsInThePatientSearchPage(List<String> patientTypesList) throws IOException {
         theUserTypesInValidDetailsOfAPatientInTheNHSNumberAndDOBFields(patientTypesList);
-        patientSearchPage.clickSearchButtonByXpath(driver);
+        patientSearchPage.clickSearchButtonByXpath();
     }
 
     @When("the user types in invalid details of a patient in the NHS number and DOB fields")
     public void theUserTypesInInvalidDetailsOfAPatientInTheNHSNumberAndDOBFields() {
-        patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInNonExistingPatientDetailsUsingNHSNumberAndDOB();
+        Assert.assertTrue(testResult);
     }
 
 
@@ -371,7 +434,9 @@ public class PatientSearchSteps extends Pages {
 
     @And("the user types in invalid details of a patient in the NO fields")
     public void theUserTypesInInvalidDetailsOfAPatientInTheNOFields() {
-        patientSearchPage.fillInInvalidPatientDetailsInTheNOFields();
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInInvalidPatientDetailsInTheNOFields();
+        Assert.assertTrue(testResult);
     }
 
     @And("the fields from NO section are pre-populated in the new patient page from the search page")
@@ -385,7 +450,6 @@ public class PatientSearchSteps extends Pages {
         switch (patientType) {
             case "NHS Spine": {
                 String actualPrefix = patientDetailsPage.title.getAttribute("value");
-                ;
                 String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
                 String actualLastName = patientDetailsPage.familyName.getAttribute("value");
                 String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
@@ -393,7 +457,6 @@ public class PatientSearchSteps extends Pages {
                 String actualLifeStatus = patientDetailsPage.lifeStatusButton.getText().trim();
                 String actualNHSNumber = patientDetailsPage.nhsNumber.getAttribute("value");
                 String expectedDOB = SpinePatientOne.DAY_OF_BIRTH + "/" + SpinePatientOne.MONTH_OF_BIRTH + "/" + SpinePatientOne.YEAR_OF_BIRTH;
-
 
                 Debugger.println("Expected Prefix = " + SpinePatientOne.TITLE + ", Actual Prefix : " + actualPrefix);
                 Debugger.println("Expected FirstName = " + SpinePatientOne.FIRST_NAME + ", Actual FirstName: " + actualFirstName);
@@ -413,9 +476,8 @@ public class PatientSearchSteps extends Pages {
 
                 break;
             }
-            case "NGIS": {
+            case "NGIS-Redundant-Static": { // used for static data
                 String actualPrefix = patientDetailsPage.title.getAttribute("value");
-                ;
                 String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
                 String actualLastName = patientDetailsPage.familyName.getAttribute("value");
                 String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
@@ -444,6 +506,31 @@ public class PatientSearchSteps extends Pages {
 
                 break;
             }
+            case "NGIS": {
+                String actualPrefix = patientDetailsPage.title.getAttribute("value");
+                String actualFirstName = patientDetailsPage.firstName.getAttribute("value");
+                String actualLastName = patientDetailsPage.familyName.getAttribute("value");
+                String actualFullDOB = patientDetailsPage.dateOfBirth.getAttribute("value");
+                String actualGender = patientDetailsPage.administrativeGenderButton.getText().trim();
+                String actualLifeStatus = patientDetailsPage.lifeStatusButton.getText().trim();
+                //String actualNHSNumber = patientDetailsPage.nhsNumber.getAttribute("value");
+
+                NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+                String expectedDOB = newPatient.getDay() + "/" + newPatient.getMonth() + "/" + newPatient.getYear();
+                Debugger.println("Expected Prefix = " + newPatient.getTitle() + ", Actual Prefix : " + actualPrefix);
+                Debugger.println("Expected FirstName = " + newPatient.getFirstName() + ", Actual FirstName: " + actualFirstName);
+                Debugger.println("Expected LastName = " + newPatient.getLastName() + ", Actual LastName: " + actualLastName);
+                Debugger.println("Expected DOB = " + expectedDOB + ", Actual DOB: " + actualFullDOB);
+                Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
+                //Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " + actualNHSNumber);
+
+                Assert.assertEquals(newPatient.getTitle(), actualPrefix);
+                Assert.assertEquals(newPatient.getFirstName(), actualFirstName);
+                Assert.assertEquals(newPatient.getLastName(), actualLastName);
+                Assert.assertEquals(expectedDOB, actualFullDOB);
+                Assert.assertEquals(newPatient.getGender(), actualGender);
+                break;
+            }
 
             default:
 
@@ -468,4 +555,126 @@ public class PatientSearchSteps extends Pages {
         aWebBrowserIsAtThePatientSearchPage(attributeOfUrl);
     }
 
+    @Then("the NHS number field is not enabled with auto-fill feature")
+    public void theNHSNumberFieldIsNotEnabledWithAutoFillFeature() {
+        Assert.assertTrue(patientSearchPage.confirmAutoCompleteOffOnNHSNumberField());
+    }
+
+    @When("the user types in the same {string} patient record in the patient search page")
+    public void theUserTypesInTheSamePatientRecordInThePatientSearchPage(String patientRecordType) {
+        NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
+        String dayOfBirth = newPatient.getDay();
+        String monthOfBirth = newPatient.getMonth();
+        String yearOfBirth = newPatient.getYear();
+        String firstName = newPatient.getFirstName();
+        String lastName = newPatient.getLastName();
+        String gender = newPatient.getGender();
+        String postCode = newPatient.getPostCode();
+        String searchParams = "DOB="+dayOfBirth +"-" +monthOfBirth +"-" + yearOfBirth+":FirstName="+firstName+":LastName="+lastName+":Gender="+gender+":Postcode="+postCode;
+        Debugger.println("Search Params "+ searchParams);
+        patientSearchPage.useTheSameTestDataUsedForCreatingReferralInUseCase29Tests(searchParams);
+    }
+
+    @And("the user search for the new patient using date of birth, first name, last name and gender")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndGender() {
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInNewPatientDetailsInTheNoFields();
+        Assert.assertTrue(testResult);
+    }
+
+
+    @And("the user search for the new patient using date of birth, first name, last name and edited gender {string}")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameAndEditedGender(String editedGender) {
+        Wait.seconds(7); // Wait for the patient to be updated in the database and for it to be retrieved back
+        patientSearchPage.fillInNewPatientDetailsInTheNoFieldsWithEditedGender(editedGender);
+    }
+
+    @And("the user types in the details of the NGIS patient in the NHS number and DOB fields")
+    public void theUserTypesInTheDetailsOfTheNGISPatientInTheNHSNumberAndDOBFields() {
+        boolean testResult = false;
+        testResult = patientSearchPage.fillInNewPatientDetailsInTheYesFields();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the user search for the new patient using date of birth, first name, last name, gender and post-code")
+    public void theUserSearchForTheNewPatientUsingDateOfBirthFirstNameLastNameGenderAndPostCode() {
+        patientSearchPage.fillInNewPatientDetailsWithPostCodeInTheNoFields();
+    }
+
+    @Then("no validation error red mark highlighted on the DOB field")
+    public void noValidationErrorRedMarkHighlightedOnTheDOBField() {
+        //click on NHSLabel label to move cursor away from DOB field
+        Actions.retryClickAndIgnoreElementInterception(driver,patientSearchPage.nhsNumberLabel);
+        Wait.forElementToBeDisplayed(driver, patientSearchPage.dateOfBirthLabel);
+        Assert.assertEquals(StylesUtils.convertFontColourStringToCSSProperty("#212b32"), patientSearchPage.dateOfBirthLabel.getCssValue("color"));
+    }
+
+    @Then("the message {string} is displayed below the search button")
+    public void theMessageIsDisplayedBelowTheSearchButton(String expectedMessage) {
+        String actualNoPatientFoundLabel = patientSearchPage.getPatientSearchNoResult();
+        if(actualNoPatientFoundLabel == null){
+            SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
+            Assert.assertTrue(false);
+        }
+        if(!expectedMessage.equalsIgnoreCase(actualNoPatientFoundLabel)){
+            SeleniumLib.takeAScreenShot("NoSearchResult.jpg");
+            Assert.assertTrue(false);
+        }
+    }
+
+    @Then("the NHS number field remains empty as invalid characters are not accepted")
+    public void theNHSNumberFieldRemainsEmptyAsInvalidCharactersAreNotAccepted() {
+        Assert.assertTrue(Actions.getText(patientSearchPage.nhsNumber).isEmpty()); //NHS number field is empty
+    }
+
+    @And("the user sees placeholder texts displayed in the fields - Date of birth {string}, First name {string}, Last name {string} and Postcode {string}")
+    public void theUserSeesPlaceholderTextsDisplayedInTheFieldsDateOfBirthFirstNameLastNameAndPostcode(String expectedDOBPlaceHolder, String expectedFirstNamePlaceHolder, String expectedLastNamePlaceHolder, String expectedPostCodePlaceHolder) {
+
+        String actualDOBPlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.dateDay) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateMonth) + "-" + Actions.getPlaceHolderAttribute(patientSearchPage.dateYear);
+        String actualFirstNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.firstName);
+        String actualLastNamePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.lastName);
+        String actualPostCodePlaceHolder = Actions.getPlaceHolderAttribute(patientSearchPage.postcode);
+
+        Debugger.println("Actual placeholder-text: " + "DOB:" + actualDOBPlaceHolder + " FName:" + actualFirstNamePlaceHolder + " LName:" + actualLastNamePlaceHolder + " PostCode:" + actualPostCodePlaceHolder);
+        Debugger.println("Expected placeholder-text: " + "DOB:" + expectedDOBPlaceHolder + " FName: " + expectedFirstNamePlaceHolder + " LName:" + expectedLastNamePlaceHolder + " PostCode:" + expectedPostCodePlaceHolder);
+        Assert.assertEquals(expectedDOBPlaceHolder,actualDOBPlaceHolder);
+        Assert.assertEquals(expectedFirstNamePlaceHolder, actualFirstNamePlaceHolder);
+        Assert.assertEquals(expectedLastNamePlaceHolder,actualLastNamePlaceHolder);
+        Assert.assertEquals(expectedPostCodePlaceHolder,actualPostCodePlaceHolder);
+    }
+
+
+    @And("the following drop-down values are displayed for gender")
+    public void theFollowingDropDownValuesAreDisplayedForGender(DataTable dataTable) {
+        List<Map<String, String>> expectedGenderList = dataTable.asMaps(String.class, String.class);
+        List<String> actualGenderList = patientSearchPage.getTheGenderDropDownValues();
+        for (int i = 0; i < expectedGenderList.size(); i++) {
+            Debugger.println("Expected gender: " + expectedGenderList.get(i).get("genderListHeader") + ":" + i + ":" + "Actual gender list " + actualGenderList.get(i) + "\n");
+            Assert.assertEquals(expectedGenderList.get(i).get("genderListHeader"), actualGenderList.get(i));
+        }
+    }
+
+    @And("the user see a tick mark next to the YES button")
+    public void theUserSeeATickMarkNextToTheYESButton() {
+        Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToYesButton());
+    }
+
+    @And("the user see a tick mark next to the NO button")
+    public void theUserSeeATickMarkNextToTheNOButton() {
+        Assert.assertTrue(patientSearchPage.ensureTickMarkIsDisplayedNextToNoButton());
+    }
+
+    @And("the user clicks on the hyper link")
+    public void theUserClicksOnTheHyperLink() {
+        boolean testResult = false;
+        testResult = patientSearchPage.clickCreateNewPatientLinkFromNoSearchResultsPage();
+        Assert.assertTrue(testResult);
+    }
+
+    @And("the display question for NHS Number is (.*)$")
+    public void theDisplayQuestionForNHSNumber(String nhsQuestion) {
+        boolean testResult = false;
+        testResult = patientSearchPage.verifyTheNHSQuestionOfThePage(nhsQuestion);
+        Assert.assertTrue(testResult);
+    }
 }
