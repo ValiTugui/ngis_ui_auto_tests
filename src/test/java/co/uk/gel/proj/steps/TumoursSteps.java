@@ -274,7 +274,6 @@ public class TumoursSteps extends Pages {
 
     @And("information text are displayed on the select or edit a tumour page")
     public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
-
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
         List<String> actualInformationText = tumoursPage.getInformationTextOnEditTumourPage();
         String expectedText = "";
@@ -287,7 +286,7 @@ public class TumoursSteps extends Pages {
                     isPresent = true;
                     break;
                 }
-        }
+            }
             if(!isPresent){
                 SeleniumLib.takeAScreenShot("TumourPageValue.jpg");
                 Debugger.println("URL:"+driver.getCurrentUrl());

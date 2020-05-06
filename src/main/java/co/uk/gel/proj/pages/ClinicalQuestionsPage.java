@@ -835,7 +835,7 @@ public class ClinicalQuestionsPage {
             return false;
         }
         try {
-        Actions.clickElement(driver, addAnotherRareDiseaseLink);
+            Actions.clickElement(driver, addAnotherRareDiseaseLink);
             return true;
         }catch (Exception exp){
             try{
