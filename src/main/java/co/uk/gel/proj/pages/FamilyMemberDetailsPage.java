@@ -212,10 +212,10 @@ public class FamilyMemberDetailsPage {
     @FindBy(xpath = "//span[text()='Patient choice status']")
     public WebElement patientChoiceStatusField;
 
-    @FindBy(xpath = "//button[contains(text(),'Add family member')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Add family member')]")
     public WebElement addFamilyMemberButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
     @FindBy(xpath = "//span[contains(text(),'Family member removed from referral')]")
@@ -1050,7 +1050,6 @@ public class FamilyMemberDetailsPage {
     }
 
     public boolean verifyTheDetailsOfFamilyMemberOnFamilyMemberPage() {
-        Wait.forElementToBeDisplayed(driver, familyMemberLandingPageTitle);
         List<WebElement> expElements = new ArrayList<WebElement>();
         expElements.add(beingTestedField);
         expElements.add(dobField);
@@ -1060,6 +1059,8 @@ public class FamilyMemberDetailsPage {
 
         for (int i = 0; i < expElements.size(); i++) {
             if (!seleniumLib.isElementPresent(expElements.get(i))) {
+                Debugger.println("Expected Element:"+expElements.get(i)+" not present in FM Page.\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("FMPageValidation.jpg");
                 return false;
             }
         }

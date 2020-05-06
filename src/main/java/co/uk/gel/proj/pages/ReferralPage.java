@@ -410,7 +410,7 @@ public class ReferralPage<check> {
         partialUrls.put("Patient details", "patient-details");
         partialUrls.put("Requesting organisation", "ordering-entity");
         partialUrls.put("Test package", "test-package");
-        partialUrls.put("Responsible clinician", "clinical-details");
+        partialUrls.put("Responsible clinician", "clinicians");
         partialUrls.put("Clinical questions", "clinical-questions");
         partialUrls.put("Notes", "notes");
         partialUrls.put("Print forms", "downloads");
@@ -530,16 +530,23 @@ public class ReferralPage<check> {
 
     public boolean stageIsMandatoryToDo(String stage) {
         try {
-            Wait.forElementToBeDisplayed(driver, toDoList);
+            if(!Wait.isElementDisplayed(driver, toDoList,30)){
+                Debugger.println("ToDoList is not loaded in Landing Page."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("toDoListNotLoaded.jpg");
+                return false;
+            }
             String webElementLocator = stageIsMarkedAsMandatoryToDo.replace("dummyStage", getPartialUrl(stage));
+            //Debugger.println("WebElementLocator:"+webElementLocator);
             WebElement referralStage = toDoList.findElement(By.cssSelector(webElementLocator));
             List<WebElement> webElementList = referralStage.findElements(By.cssSelector(mandatoryAsterix));
             if (webElementList.size() == 1) {
                 return true;
             }
+            Debugger.println("Stage:"+stage+" expected to be marked as Mandatory. But not."+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("MandatoryStage.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp);
+            Debugger.println("ReferralPage: stageIsMandatoryToDo: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("ReferralPageMandatoryStage.jpg");
             return false;
         }
