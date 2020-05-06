@@ -8,7 +8,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
 #    @E2EUI-1602
   Scenario Outline: NTS-3266 - Tumour and Sample Questionnaire -  Dynamic questions label changes
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |GEL_NORMAL_USER |
+      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national | GEL_NORMAL_USER |
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage1>" stage
     And the user answers the tumour system questions fields and select a tumour type "<tumour_type>"
@@ -55,7 +55,7 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
     And the Sample page has the label text is shown as "<sampleDynamicQuestionsLabel>"
     And the user answers the sample dynamic questions by providing topography "<topography>" morphology "<morphology>"
     Examples:
-      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState | sampleDynamicQuestionsLabel                                | topography                               | morphology     |
+      | stage   | pageTitle      | pageTitle2   | pageTitle3         | sampleType-tumour   | sampleState | sampleDynamicQuestionsLabel                                | topography                                | morphology     |
       | Tumours | Manage samples | Add a sample | Add sample details | Solid tumour sample | Fibroblasts | Tumour content (percentage of malignant nuclei / blasts) ✱ | All teeth, gums and supporting structures | Eccrine poroma |
 
   @NTS-4728 @Z-LOGOUT
@@ -100,7 +100,9 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And the user sees the Save and Continue button
     Then the user should be able to see that the "<text>" is not present
 

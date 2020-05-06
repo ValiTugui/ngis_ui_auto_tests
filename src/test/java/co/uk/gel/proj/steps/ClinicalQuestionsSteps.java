@@ -305,7 +305,7 @@ public class ClinicalQuestionsSteps extends Pages {
 
     @And("the user clicks on add another link")
     public void theUserClicksOnAddAnotherLink() {
-        clinicalQuestionsPage.clickAddAnotherLink();
+        Assert.assertTrue(clinicalQuestionsPage.clickAddAnotherLink());
     }
 
     @And("the user selects a value {string} from the Rare disease diagnosis in the second table")
