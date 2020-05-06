@@ -147,7 +147,6 @@ Feature: GenomicRecord: Patient details page 1
       | APP_URL | patient-details |
     And the referral page is displayed
     And the new patient gender "<gender>" is displayed on the referral banner
-
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
