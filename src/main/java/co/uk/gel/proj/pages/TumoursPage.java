@@ -525,7 +525,6 @@ public class TumoursPage {
     public List<String> getInformationTextOnEditTumourPage() {
         List<String> actualInformationText = new ArrayList<>();
         for (WebElement header : tumourInformationTextList) {
-            Debugger.println("........:"+header.getText());
             actualInformationText.add(header.getText().trim());
         }
         return actualInformationText;

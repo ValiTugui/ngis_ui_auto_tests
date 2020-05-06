@@ -237,8 +237,6 @@ Feature: GenomicRecord: Patient details page 3
     And the referral page is displayed
     And the "<stage>" stage is marked as Completed
     When the user attempts to navigate away by clicking "back"
-#    Click the back button the second time due to user already click save and continue in the test "And the referral page is displayed"
-    When the user attempts to navigate away by clicking "back"
     Then the "<pageTitle3>" page is displayed
 
     Examples:

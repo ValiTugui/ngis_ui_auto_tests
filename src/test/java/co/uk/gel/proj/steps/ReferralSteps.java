@@ -678,13 +678,14 @@ public class ReferralSteps extends Pages {
     public void theUserNavigatesBackToPatientExistingReferralPage(List<String> attributeOfURL) {
 
         String existingReferralID = patientDetailsPage.newPatient.getReferralHumanReadableID();
-        Debugger.println("existingReferralID " + existingReferralID);
+        Debugger.println("existingReferralID:" + existingReferralID);
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
-        Debugger.println("referralFullUrl :" + referralFullUrl);
+        Debugger.println("referralFullUrl:" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
-        referralPage.saveAndContinueButtonIsDisplayed();
+        Debugger.println("Navigated to:"+driver.getCurrentUrl());
+        Assert.assertTrue(referralPage.saveAndContinueButtonIsDisplayed());
 
     }
 

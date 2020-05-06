@@ -353,13 +353,13 @@ public class ReferralPage<check> {
     public boolean saveAndContinueButtonIsDisplayed() {
         try {
             if(!Wait.isElementDisplayed(driver,saveAndContinueButton,30)){
-                Debugger.println("Save and Continue Button is not displayed.");
+                Debugger.println("Save and Continue Button is not displayed.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("RefSaveAndContinueBut.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:" + exp);
+            Debugger.println("ReferralPage:Exception from Clicking on saveAndContinueButton:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("RefSaveAndContinue.jpg");
             return false;
         }

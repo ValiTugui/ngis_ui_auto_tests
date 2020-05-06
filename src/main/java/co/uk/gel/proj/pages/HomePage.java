@@ -151,7 +151,8 @@ public class HomePage {
 
     public boolean TestDirectoryHomePageIsDisplayed() {
         try {
-            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+//            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+            Wait.forURLToContainSpecificText(driver, "/test-selection");
             Wait.forElementToBeDisplayed(driver, searchField);
             return true;
         }catch(Exception exp){

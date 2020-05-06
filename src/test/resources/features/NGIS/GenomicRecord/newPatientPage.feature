@@ -74,7 +74,7 @@ Feature: GenomicRecord: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
-      |Ethnicity ✱                     |
+      | Ethnicity ✱                    |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the non mandatory input-fields and drops-downs labels are shown without asterisk star symbol
@@ -85,7 +85,7 @@ Feature: GenomicRecord: New Patient page
       | Postcode      |
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                         |
+      | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
 
@@ -109,7 +109,7 @@ Feature: GenomicRecord: New Patient page
       | Date of birth ✱                |
       | Gender ✱                       |
       | Life status ✱                  |
-      |Ethnicity ✱                     |
+      | Ethnicity ✱                    |
       | Reason NHS Number is missing ✱ |
       | Hospital number ✱              |
     And the No button is selected by default for the question - Do you have the NHS Number?
@@ -129,7 +129,7 @@ Feature: GenomicRecord: New Patient page
       | Postcode      |
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
+      | message          | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     |
       | No patient found | create a new patient record | Create a record for this patient | Other - provide explanation |
 
   @NTS-3465 @Z-LOGOUT
@@ -208,7 +208,7 @@ Feature: GenomicRecord: New Patient page
       | Not known                                               |
 
     Examples:
-      | hyperlinkText               | pageTitle                         |
+      | hyperlinkText               | pageTitle                        |
       | create a new patient record | Create a record for this patient |
 
   @NTS-3468 @Z-LOGOUT
@@ -236,7 +236,7 @@ Feature: GenomicRecord: New Patient page
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                         |
+      | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
   @NTS-3468 @Z-LOGOUT
@@ -280,7 +280,7 @@ Feature: GenomicRecord: New Patient page
       | Hospital number ✱              | Hospital number is required.        | #dd2509             |
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                         |
+      | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
 
@@ -298,14 +298,14 @@ Feature: GenomicRecord: New Patient page
     Then the user fills in all fields without NHS number, enters a reason for noNhsNumber "<reason_for_no_nhsNumber>" and leaves HospitalNo field blank
     When the user clicks the Save patient details to NGIS button
     Then the error messages for the mandatory fields on the "<pageTitle>" page are displayed as follows
-      | labelHeader                    | errorMessageHeader                  | messageColourHeader |
-      | Hospital number ✱              | Hospital number is required.        | #dd2509             |
+      | labelHeader       | errorMessageHeader           | messageColourHeader |
+      | Hospital number ✱ | Hospital number is required. | #dd2509             |
     And the user fills in the HospitalNo field
     When the user clicks the Save patient details to NGIS button
     Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
-      | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     |
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     |
       | create a new patient record | Create a record for this patient | Other - provide explanation |
 
 #  @NTS-3507 @Z-LOGOUT - Not relevant for Gonzalo
@@ -341,7 +341,7 @@ Feature: GenomicRecord: New Patient page
 #      | hyperlinkText               | pageTitle                         |
 #      | create a new patient record | Create a record for this patient |
 
-   @NTS-3508 @Z-LOGOUT
+  @NTS-3508 @Z-LOGOUT
 #     @E2EUI-1660
   Scenario Outline: NTS-3508:E2EUI-1660: Super User - Create a new patient record with an NHS Number
     Given a web browser is at the patient search page
@@ -361,7 +361,7 @@ Feature: GenomicRecord: New Patient page
     Then the patient is successfully created with a message "NGIS patient record created"
 
     Examples:
-      | message          | hyperlinkText               | pageTitle                         |
+      | message          | hyperlinkText               | pageTitle                        |
       | No patient found | create a new patient record | Create a record for this patient |
 
 
@@ -391,5 +391,5 @@ Feature: GenomicRecord: New Patient page
     Then a "<patient-type>" result is successfully returned
 
     Examples:
-      | hyperlinkText               | pageTitle                         | reason_for_no_nhsNumber     | patient-type|
+      | hyperlinkText               | pageTitle                        | reason_for_no_nhsNumber     | patient-type |
       | create a new patient record | Create a record for this patient | Other - provide explanation | NGIS         |
