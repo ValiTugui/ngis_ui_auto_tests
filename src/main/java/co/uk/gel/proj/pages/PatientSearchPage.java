@@ -992,17 +992,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void waitForPageTitleDisplayed(){
+    public boolean waitForPageTitleDisplayed(){
         try {
             if(!Wait.isElementDisplayed(driver,pageTitle,30)){
                 Debugger.println("Patient Search Page is not Loaded Successfully.");
                 SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
                 Assert.fail("Patient Search Page is not Loaded Successfully.");
+                return false;
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from loading Patient Search Page:"+exp);
             SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
             Assert.fail("Exception from loading Patient Search Page:");
+            return false;
         }
     }
     public void logoutFromApplication(){

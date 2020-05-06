@@ -113,7 +113,7 @@ Feature: GenomicRecord: Patient details page 1
       | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-3438 @Z-LOGOUT
+  @NTS-34381 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -143,7 +143,6 @@ Feature: GenomicRecord: Patient details page 1
     And the user clicks on edit patient details
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
 #    Navigate back to referral page
-    ##Patient Search Page is not Loaded Successfully. Need to check with sir
     And the user navigates back to patient existing referral page
       | APP_URL | patient-details |
     And the referral page is displayed
