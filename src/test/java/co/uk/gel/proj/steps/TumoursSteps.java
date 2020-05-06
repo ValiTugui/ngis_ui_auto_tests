@@ -276,23 +276,24 @@ public class TumoursSteps extends Pages {
     public void informationTextAreDisplayedOnTheTheSelectOrEditATumourPage(DataTable dataTable) {
 
         List<Map<String, String>> expectedList = dataTable.asMaps(String.class, String.class);
-        List<String> expectedInformationText = new ArrayList<>();
         List<String> actualInformationText = tumoursPage.getInformationTextOnEditTumourPage();
-
+        String expectedText = "";
+        boolean isPresent;
         for (int i = 0; i < expectedList.size(); i++) {
-            expectedInformationText.add(expectedList.get(i).get("informationTextHeader"));
-            //Debugger.println("Expected : " + i + " : " + expectedInformationText.get(i));
+            expectedText = expectedList.get(i).get("informationTextHeader");
+            isPresent = false;
+            for(int  j=0;j<actualInformationText.size();j++){
+                if(actualInformationText.get(j).contains(expectedText)){
+                    isPresent = true;
+                    break;
+                }
         }
-
-//        for (int i = 0; i < actualInformationText.size(); i++) {
-//            Debugger.println("Actual : " + i + " : " + actualInformationText.get(i));
-//        }
-
-        Assert.assertEquals(expectedInformationText.get(0), actualInformationText.get(0));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(1)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(2)));
-        Assert.assertTrue(actualInformationText.get(1).contains(expectedInformationText.get(3)));
-        Assert.assertTrue(actualInformationText.get(2).contains(expectedInformationText.get(4)));
+            if(!isPresent){
+                SeleniumLib.takeAScreenShot("TumourPageValue.jpg");
+                Debugger.println("URL:"+driver.getCurrentUrl());
+                Assert.fail("Expected value:"+expectedText+" not present in Tumour Page.");
+            }
+        }
     }
 
     @And("on the select or edit a tumour page, the tumour table list shows the column names")

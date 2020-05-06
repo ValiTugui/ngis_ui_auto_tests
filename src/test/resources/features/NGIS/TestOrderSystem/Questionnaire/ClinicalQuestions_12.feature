@@ -100,7 +100,9 @@ Feature: ClinicalQuestions 12 - Tumour Questionnaire
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And the user sees the Save and Continue button
     Then the user should be able to see that the "<text>" is not present
 
