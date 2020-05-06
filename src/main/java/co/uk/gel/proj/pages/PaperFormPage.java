@@ -28,7 +28,7 @@ public class PaperFormPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = "h2[class*='stepHeader']")
+    @FindBy(css = "h1[class*='stepHeader']")
     public WebElement paperFormHeader;
 
     @FindBy(xpath = "//div[contains(@class,'paragraph')]/p")

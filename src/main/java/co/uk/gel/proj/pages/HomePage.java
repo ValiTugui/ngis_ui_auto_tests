@@ -47,7 +47,7 @@ public class HomePage {
     @FindBy(xpath = "//div/ul/li[1]/label")
     public WebElement rareAndInheritedDiseasesChkBox;
 
-    @FindBy(xpath = "//div/ul/li[3]/label")
+    @FindBy(xpath = "//div/ul/li[2]/label")
     public WebElement tumorChkBox;
 
     @FindBy(css = "a[class*='link']")

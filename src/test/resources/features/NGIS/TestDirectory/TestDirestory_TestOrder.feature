@@ -10,7 +10,8 @@ Feature: Test Directory: TestOrder
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
     ##Patient Details Page
-    Then the user is navigated to a page with title Check your patient
+#    Then the user is navigated to a page with title Check your patient
+    Then the user is navigated to a page with title Add a requesting organisation
     And the web browser is still at the same "<PartCurrentURL>" page
     Examples:
       | PartCurrentURL |
@@ -37,7 +38,8 @@ Feature: Test Directory: TestOrder
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_SUPER_USER | NHSNumber=9449305897:DOB=10-10-1987 |
     ##Patient Details Page
-    Then the user is navigated to a page with title Check your patient
+#    Then the user is navigated to a page with title Check your patient
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user clicks the Cancel referral link
     And the user selects the cancellation reason "<Reason>" from the modal
     And the user submits the cancellation
@@ -53,8 +55,8 @@ Feature: Test Directory: TestOrder
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient
-    And the user clicks the Save and Continue button
+#    When the user is navigated to a page with title Check your patient
+#    And the user clicks the Save and Continue button
     ##Requesting Organisation Page
     When the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "<ordering_entity_name>" in the search field
