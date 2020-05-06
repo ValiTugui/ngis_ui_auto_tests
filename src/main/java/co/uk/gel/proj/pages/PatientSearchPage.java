@@ -134,7 +134,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h3[class*='results__header']")
     public WebElement patientSearchResultsHeader;
 
-    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+//    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//a//span[contains(@class,'child-element')]")
     public WebElement patientCardBadge;
 
     @FindBy(css = "p[class*='patient-name']")
