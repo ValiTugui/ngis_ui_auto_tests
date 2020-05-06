@@ -10,7 +10,7 @@ Feature: UserJourney_RD_NEW_Proband_4 - UC26 - E2EUI-1801
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_SUPER_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-06-2011:Gender=Male |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation

@@ -11,7 +11,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R81 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=02-01-2010:Gender=Female |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user fill in the first name field
     ##Navigating By Logout
     When the user clicks the Log out button

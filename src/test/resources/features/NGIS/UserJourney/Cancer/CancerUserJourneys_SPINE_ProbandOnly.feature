@@ -10,7 +10,7 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M39 | GEL_NORMAL_USER | NHSNumber=9449310084:DOB=20-10-1973 |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -81,7 +81,7 @@ Feature: Create Cancer Referrals for SPINE Patient - Proband Only
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M80 | GEL_SUPER_USER | NHSNumber=9449306265:DOB=09-06-2011:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

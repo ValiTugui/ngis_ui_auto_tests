@@ -68,7 +68,7 @@ Feature: TestDirectory: Requesting Organisation page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R14 | GEL_NORMAL_USER | NHSNumber=9449306680:DOB=14-06-2011 |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user should be able to see the active stage "<PatientDetails>" in to-do list
     And the user clicks the Save and Continue button
     Then the "<PatientDetails>" stage is marked as Completed
