@@ -21,7 +21,7 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     Then the user create a new patient record by clicking the "<hyperlinkText>" link to fill all fields without NHS number and reason "<reason_for_no_nhsNumber>"
     When the user clicks the Start a new Referral button
       ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
       ##Requesting Organisation

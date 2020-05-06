@@ -10,7 +10,7 @@ Feature: Samples Page -3
   Scenario Outline: NTS-3365: Add a Sample - User can navigate to the Add a tumour page from the tumour sample error message
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
@@ -31,7 +31,7 @@ Feature: Samples Page -3
   Scenario Outline: NTS-3364: Add a Sample - Verify the link 'Not the Right Tumour' in 'Add a Sample' page.
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |
@@ -58,7 +58,7 @@ Feature: Samples Page -3
   Scenario Outline: NTS-3408: Add sample details - Sample Type Tumour "<sampleType-tumour>" - Verify Tumour content value field is mandatory for Only Solid tumour sample
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     And the user adds a new tumour
       | TumourTypeHeader         | PresentationTypeHeader | SnomedCTSearchHeader | NumberOfTumoursAdded |

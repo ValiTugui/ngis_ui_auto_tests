@@ -10,7 +10,7 @@ Feature: Samples Page -1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button
@@ -39,7 +39,7 @@ Feature: Samples Page -1
   Scenario Outline: NTS-3287: Add a Sample - Without a tumour sample type - sample's details are displayed
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the "<pageTitle>" page is displayed
     When the user clicks the Add sample button

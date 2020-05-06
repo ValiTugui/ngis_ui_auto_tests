@@ -9,7 +9,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
   Scenario Outline: NTS-3341: Verify the patient choice status in family member page
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1998:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<Family members>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user sees the patient choice status for proband as Not entered
@@ -51,7 +51,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2002:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Test Package - No of participants -2
@@ -95,7 +95,7 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
   Scenario Outline: NTS-3450:E2EUI-1773: As a user, I should be able to see family member identifiers so that I know who the family member is.
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user selects the number of participants as "<NoOfParticipants>"

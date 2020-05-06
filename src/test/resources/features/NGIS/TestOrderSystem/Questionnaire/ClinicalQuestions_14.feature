@@ -11,7 +11,7 @@ Feature: ClinicalQuestions 14 - Validation of Dynamic Questions field in Questio
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R88 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=16-5-1999:Gender=Male |
      ###Patient details
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user clicks the Save and Continue button
      ##Requesting Organisation

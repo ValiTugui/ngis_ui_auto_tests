@@ -11,7 +11,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1990:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -92,7 +92,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1991:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -125,7 +125,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1992:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral
@@ -148,7 +148,7 @@ Feature: Pedigree - UI Customizations - Non NGIS-2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-11-1993:Gender=Male |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Family Member
     When the user navigates to the "<FamilyMember>" stage
     Then the user is navigated to a page with title Add a family member to this referral

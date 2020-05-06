@@ -7,7 +7,7 @@ Feature: GlobalConsistency:Global Patient Flow 5 - Global Patient Information Ba
   Scenario Outline: NTS-3329:E2EUI-1665: Verify Global patient information bar component
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2010:Gender=Male|
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     And the referral submit button is not enabled
 
     When the user navigates to the "<Requesting organisation>" stage

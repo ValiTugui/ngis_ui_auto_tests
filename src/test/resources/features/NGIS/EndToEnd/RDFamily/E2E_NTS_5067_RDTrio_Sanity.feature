@@ -8,7 +8,7 @@ Feature: RDFamily:NTS-5067:Create end to end Referrals for NEW Patient - Trio Fa
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R83 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-03-2003:Gender=Male |
     ##Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation

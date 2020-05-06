@@ -27,7 +27,7 @@ Feature: Family Members Details Page 4- Field Validation_4
   Scenario Outline: NTS-4409: Remove diagnosis Age at Onset
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1987:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -55,7 +55,7 @@ Feature: Family Members Details Page 4- Field Validation_4
   Scenario Outline:NTS-4380: Validate the Relationship to proband drop down values to check the order of the drop down is logical
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R55 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
@@ -82,7 +82,7 @@ Feature: Family Members Details Page 4- Field Validation_4
   Scenario Outline: NTS-4053 - To verify that Auto filled should not be enabled for search fields in family member page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Other rare neuromuscular disorders | Rare-Disease | create a new patient record | Patient is a foreign national |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMembers>" stage
     And the user clicks on Add family member button
     Then User clicks on a field "nhsNumber:dateDay:dateMonth:dateYear" and auto-complete is disabled
@@ -97,7 +97,7 @@ Feature: Family Members Details Page 4- Field Validation_4
   Scenario Outline: NTS-4053:  To verify that Auto filled should not be enabled for add tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<stage>" stage
     Then the user is navigated to a page with title Add a tumour
     And User clicks on a field "dateDay:dateMonth:dateYear" and auto-complete is disabled
@@ -110,7 +110,7 @@ Feature: Family Members Details Page 4- Field Validation_4
   Scenario Outline:NTS-4019: Assign family members to specific tests
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R105 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=10-02-1985:Gender=Male |
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     When the user navigates to the "<FamilyMember>" stage
     And the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button

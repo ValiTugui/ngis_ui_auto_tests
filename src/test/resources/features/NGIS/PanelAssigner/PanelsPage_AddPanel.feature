@@ -10,7 +10,7 @@ Feature: PanelAssigner: Panels Page Add Panel
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-1967:Gender=Male |
     ##Patient Details Page
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     ##Panels Page
     When the user navigates to the "<Panels>" stage
     Then the user is navigated to a page with title Panel

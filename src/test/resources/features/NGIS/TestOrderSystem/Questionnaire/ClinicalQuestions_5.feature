@@ -9,7 +9,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     When the user is navigated to a page with title Answer clinical questions
@@ -29,7 +29,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - clear the value from Disease status field
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<ClinicalQuestions>" stage
     Then the "<title>" page is displayed
@@ -48,7 +48,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - Rare Disease Diagnosis field is not mandatory for the Family Members
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<TestPackage>" stage
     And the user selects the number of participants as "<NoOfParticipants>"
@@ -73,7 +73,7 @@ Feature: ClinicalQuestions 5 - RD Questionnaire
   Scenario Outline: NTS-3433 - Clinical Questions - Allow HPO terms to be deleted
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Cerebral malformation | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     Then the "<title>" page is displayed

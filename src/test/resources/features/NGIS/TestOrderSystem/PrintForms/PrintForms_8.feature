@@ -8,7 +8,7 @@ Feature: TestOrder - Print Forms 8 - User flows
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | Angiomatoid Fibrous Histiocytoma | Cancer | create a new patient record | Patient is a foreign national |
     ###Patient Details
-    When the user is navigated to a page with title Check your patient's details
+    When the user is navigated to a page with title Add a requesting organisation
     And the user clicks the Save and Continue button
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation

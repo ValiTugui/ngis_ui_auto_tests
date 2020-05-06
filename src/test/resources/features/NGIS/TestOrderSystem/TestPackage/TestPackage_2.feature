@@ -10,7 +10,7 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3080:E2EUI-911: Page Layout - Rare Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     When the user navigates to the "<stage>" stage
     Then the Test Package page header is shown as "<title>"
@@ -30,7 +30,7 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3156:E2EUI-828,1585: Selecting Urgent for the question priority of the test - Rare-Disease
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     When the user selects the "<priority>"
@@ -48,7 +48,7 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do - verify permissible Number of Participants
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
@@ -69,7 +69,7 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3177:E2EUI-1547,1585: To Do list should be Mandatory To Do
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"
@@ -93,7 +93,7 @@ Feature: TestOrder - Test Package 2 - RD
   Scenario Outline: NTS-3253:E2EUI-1585:If the test is de-selected then Total number of participants field should disappear
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient's details
+    And the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
     And the Test Package page header is shown as "<title>"

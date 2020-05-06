@@ -10,7 +10,7 @@ Feature: Pedigree - Diagram Layout 2
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R29 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Female |
     ##Patient Details
-    Then the user is navigated to a page with title Check your patient's details
+    Then the user is navigated to a page with title Add a requesting organisation
     ##Pedigree - checking for Proband
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree
