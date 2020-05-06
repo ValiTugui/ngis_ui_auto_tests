@@ -12,28 +12,28 @@ Feature: ClinicalQuestions 8 - RD Questionnaire
     When the user is navigated to a page with title Add a requesting organisation
     And the "Patient details" stage is marked as Completed
     And the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     When the user selects "<diseaseStatueValue>"
     Then the HPO phenotype details mandatory state is "<mandatory>"
     When the user provided the values "<year>" "<month>" for Age of onset fields
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     When the user adds a new HPO phenotype term "<hpoTerm1>"
     Then the new HPO term "<hpoTerm1>" appears at the top of the list of the HPO terms
     And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence1>" and corresponding modifier
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     When the user adds a new HPO phenotype term "<hpoTerm2>"
     Then the new HPO term "<hpoTerm2>" appears at the top of the list of the HPO terms
     And the user selects the HPO phenotype questions such as Name, Term presence "<termPresence2>" and corresponding modifier
     And the user sees the error message "At least 1 phenotype must be marked Present" in the HPO phenotype section
     And the count of HPO terms table is 2
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     And the user selects the Rare disease diagnosis questions such as "<diagnosisTypeValue>" and corresponding status "<statusValue>"
     And the user selects a value "<rareDiseaseValue>" from the Rare disease diagnosis
     And the user answers the phenotypic and karyotypic sex questions
     And the user clicks the Save and Continue button
     And the "Notes" stage is selected
     Then the user navigates to the "<stage>" stage
-    Then the "<title>" page is displayed
+    Then the user is navigated to a page with title Answer clinical questions
     And the user sees the data in Disease status details such as "<diseaseStatueValue>" AgeOnset values "<year>" "<month>"
     And the user sees the data in HPO phenotype details such as "<hpoTerm1>" Term presence "<termPresence1>"
     And the user sees the data in HPO phenotype details such as "<hpoTerm2>" Term presence "<termPresence2>"

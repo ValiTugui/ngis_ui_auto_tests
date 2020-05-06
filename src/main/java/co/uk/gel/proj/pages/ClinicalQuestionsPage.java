@@ -829,7 +829,7 @@ public class ClinicalQuestionsPage {
     }
 
     public boolean clickAddAnotherLink() {
-        if(Wait.isElementDisplayed(driver,addAnotherRareDiseaseLink,30)){
+        if(!Wait.isElementDisplayed(driver,addAnotherRareDiseaseLink,30)){
             Debugger.println("Add Another link not present in Tumour page."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("AddAnotherLink.jpg");
             return false;
