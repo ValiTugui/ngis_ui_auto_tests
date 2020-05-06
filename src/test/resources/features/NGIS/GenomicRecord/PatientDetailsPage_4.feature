@@ -101,22 +101,22 @@ Feature: GenomicRecord: Patient details page 4
 
     Examples:
       | stage           | dateOfBirth | browser_exit1 | partOfMessage1    | acknowledgeMessage | partialCurrentUrl1 | browser_exit2 |
-      | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient-details    | logout        |
+      | Patient details | 20/10/2010  | refresh       | may not be saved. | Dismiss            | patient            | logout        |
 
   @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_1
   Scenario: NTS-3557:E2EUI-1809-scenario_1: Validating cancel button present when login as super user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R61 | NGIS | Rare-Disease | Patient is a foreign national | GEL_SUPER_USER |
-    When the user is navigated to a page with title Check your patient
+    When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "present"
 
-  @NTS-3557
+  @NTS-3557 @Z-LOGOUT
 #  @E2EUI-1809 @scenario_2
   Scenario: : NTS-3557:E2EUI-1809-scenario_2 Validating cancel button present when login as normal user
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R84 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    When the user is navigated to a page with title Check your patient
+    When the user is navigated to a page with title Add a requesting organisation
     Then the user should be able to see a cancel referral link "not present"
 
   @NTS-4055 @Z-LOGOUT
