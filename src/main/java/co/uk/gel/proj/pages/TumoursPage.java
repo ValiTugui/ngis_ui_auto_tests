@@ -104,7 +104,7 @@ public class TumoursPage {
     @FindBy(xpath = "//button/span[text()='add a new tumour']")
     public WebElement addAnotherTumourLink;
 
-    @FindBy(xpath = "//button[text()='add a new tumour']")  //added
+    @FindBy(xpath = "//*[text()='add a new tumour']")  //added
     public List<WebElement> addAnotherTumourLinkList;
 
     //@FindBy(css = "*[class*='checkbox-row__arrow']")
