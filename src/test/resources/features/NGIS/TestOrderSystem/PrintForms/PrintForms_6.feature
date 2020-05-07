@@ -8,8 +8,8 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R143 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=15-10-2001:Gender=Female |
     ###Patient Details
-    When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+#    When the user is navigated to a page with title Add a requesting organisation
+#    And the user clicks the Save and Continue button
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ALTRINCHAM GENERAL" in the search field
@@ -28,7 +28,7 @@ Feature: TestOrder - Print Forms 6 - Family Members in Print Forms
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     ###Family Members

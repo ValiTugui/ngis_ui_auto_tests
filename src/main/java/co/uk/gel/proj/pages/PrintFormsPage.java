@@ -31,7 +31,8 @@ public class PrintFormsPage {
 
     String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
 
-    @FindBy(xpath = "//strong[contains(text(),'Tumour')]")
+    //@FindBy(xpath = "//strong[contains(text(),'Tumour')]")
+    @FindBy(xpath = "//button[@aria-label='print button']")
     WebElement probandPrintFormDownloadLocator;
 
     @FindBy(xpath = "//button[@type='button']/span[text()='Show address']")
