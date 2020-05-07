@@ -162,7 +162,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on back button")
     public void clicksOnBackButton() {
-        familyMemberDetailsPage.clickOnBackButton();
+        Assert.assertTrue(familyMemberDetailsPage.clickOnBackButton());
     }
 
     @And("the color of referral name for {string} displays as {string}")
@@ -229,7 +229,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
-        patientChoicePage.clickOnContinue();
+        Assert.assertTrue(patientChoicePage.clickOnContinue());
     }
 
     @And("the user should see an error message displayed as {string} in {string} color")

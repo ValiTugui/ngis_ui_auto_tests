@@ -9,7 +9,7 @@ Feature: Family Members Details Page 5- Field Validation_5
   Scenario: NTS-4744: Referral create as a Proband
     Given a new patient referral is created with associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R54 | GEL_NORMAL_USER | NHSNumber=9449306206:DOB=06-05-2011 |
-    Then the user is navigated to a page with title Check your patient
+    Then the user is navigated to a page with title Add a requesting organisation
 
   @NTS-4744 @Z-LOGOUT
 #    @E2EUI-1694 @scenario2

@@ -92,7 +92,7 @@ public class FamilyMemberDetailsPage {
     @FindBy(css = "a[class*='patient-card']")
     public WebElement patientCard;
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Back')]")
     public WebElement backButton;
 
     @FindBy(xpath = "//button/span[contains(text(),'Edit patient details')]")
@@ -874,16 +874,18 @@ public class FamilyMemberDetailsPage {
         }
     }
 
-    public void clickOnBackButton() {
+    public boolean clickOnBackButton() {
         try {
             Actions.clickElement(driver, backButton);
+            return true;
         } catch (Exception exp) {
             try {
-                Actions.scrollToBottom(driver);
-                Actions.clickElement(driver, backButton);
+                seleniumLib.clickOnWebElement(backButton);
+                return true;
             } catch (Exception exp1) {
                 SeleniumLib.takeAScreenShot("BackButtonOnFMDetails.jpg");
-                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1);
+                Debugger.println("Could not click on Back Button on FamilyDetailsPage: " + exp1+"\n"+driver.getCurrentUrl());
+                return false;
             }
         }
     }

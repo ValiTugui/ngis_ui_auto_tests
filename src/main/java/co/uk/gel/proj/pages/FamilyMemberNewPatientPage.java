@@ -79,7 +79,7 @@ public class FamilyMemberNewPatientPage {
     @FindBy(name = "noNhsNumberReason")
     public WebElement noNHSNumber;
 
-    @FindBy(xpath = "//button[text()='Create NGIS record']")
+    @FindBy(xpath = "//button/span[text()='Create NGIS record']")
     public WebElement createNGISRecord;
 
     @FindBy(css = "div[class*='error-message__text']")
