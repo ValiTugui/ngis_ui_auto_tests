@@ -10,7 +10,6 @@ Feature: TestOrder - Print Forms 3 - Validations
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
     And the print forms stage is locked
-#    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -102,7 +101,6 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R109 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-#    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -139,7 +137,6 @@ Feature: TestOrder - Print Forms 3 - Validations
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-10-2005:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-#    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
