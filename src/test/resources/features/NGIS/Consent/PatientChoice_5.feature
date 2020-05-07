@@ -104,7 +104,8 @@ Feature: Patient Choice -5 Page - FamilyMemberAddition
     And the user navigates to the "<ClinicalQuestions>" stage
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    #Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     Then the "<ClinicalQuestions>" stage is marked as Completed
     And the user navigates to the "<FamilyMembers>" stage
     Then the user is navigated to a page with title Add a family member to this referral

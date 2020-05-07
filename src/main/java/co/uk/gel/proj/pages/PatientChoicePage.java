@@ -160,7 +160,8 @@ public class PatientChoicePage {
     @FindBy(xpath = "//li[@class='message-error-line']")
     public List<WebElement> errorMessageOnPatientChoiceForm;
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    //@FindBy(xpath = "//button/span[contains(text(),'Back')]")
+    @FindBy(xpath = "//*[contains(text(),'Back')]")
     public WebElement backButtonOnAddPatientChoiceInformationPage;
 
     @FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
@@ -712,6 +713,7 @@ public class PatientChoicePage {
                 Actions.dismissAlert(driver);
             }
             String section = sectionTitle.replaceAll("dummySection", sectionName);
+            Wait.seconds(3);
             return seleniumLib.isElementPresent(By.xpath(section));
         } catch (Exception exp) {
             Debugger.println("Section :" + sectionName + " not present.");
