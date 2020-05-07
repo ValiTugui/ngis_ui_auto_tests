@@ -162,7 +162,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @When("the user clicks on back button")
     public void clicksOnBackButton() {
-        familyMemberDetailsPage.clickOnBackButton();
+        Assert.assertTrue(familyMemberDetailsPage.clickOnBackButton());
     }
 
     @And("the color of referral name for {string} displays as {string}")
