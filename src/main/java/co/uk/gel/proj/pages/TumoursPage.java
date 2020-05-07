@@ -101,7 +101,7 @@ public class TumoursPage {
     @FindBy(css = "*[class*='error-message__text']")
     public List<WebElement> errorMessages;
 
-    @FindBy(xpath = "//button[text()='add a new tumour']")
+    @FindBy(xpath = "//button/span[text()='add a new tumour']")
     public WebElement addAnotherTumourLink;
 
     @FindBy(xpath = "//button[text()='add a new tumour']")  //added
@@ -173,13 +173,13 @@ public class TumoursPage {
     @FindBy(xpath = "//div[contains(@id,'question-id-q161')]//input[@type!='hidden']")
     public List<WebElement> topographyOfThisMetastaticDepositFieldList;
 
-    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[1]/child::*[text()='+ Add another']")
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[1]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForTumourDiagnosis;
 
     @FindBy(xpath = "//div[contains(@id,'question-id-q160')]//input[@type!='hidden']")
     public List<WebElement> workingDiagnosisMorphologyFieldList;
 
-    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*[text()='+ Add another']")
+    @FindBy(xpath = "(//div[contains(@class,'styles_repeating')])[2]/child::*/span[text()='+ Add another']")
     public WebElement addAnotherLinkForWorkingDiagnosisMorphology;
 
     public boolean navigateToAddTumourPageIfOnEditTumourPage() {
@@ -676,9 +676,25 @@ public class TumoursPage {
         return expectedTumourFieldsLabels;
     }
 
-    public void clickOnTheAddANewTumourTextLink() {
-        Wait.forElementToBeClickable(driver, addAnotherTumourLink);
+    public boolean clickOnTheAddANewTumourTextLink() {
+        try {
+            if(!Wait.isElementDisplayed(driver, addAnotherTumourLink,10)){
+                Debugger.println("AddAnotherTumourLink not displayed..\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("addAnotherTumourLink.jpg");
+                return false;
+            }
         Click.element(driver, addAnotherTumourLink);
+            return true;
+        }catch(Exception exp){
+            try{
+                seleniumLib.clickOnWebElement(addAnotherTumourLink);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from AddAnotherTumourLink not displayed.." + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("addAnotherTumourLink.jpg");
+                return false;
+            }
+        }
     }
 
     public String getDynamicQuestionsSnomedCTLabelText() {
@@ -811,14 +827,14 @@ public class TumoursPage {
     public boolean clicksOnAddAnotherLinkForTumourDiagnosis() {
         try {
             if (!Wait.isElementDisplayed(driver, addAnotherLinkForTumourDiagnosis, 10)) {
-                Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page");
+                Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
                 return false;
             }
             Actions.clickElement(driver, addAnotherLinkForTumourDiagnosis);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp);
+            Debugger.println("Add Another Link For Topography Of This Tumour Link not available : Tumour page :" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("AddAnotherLinkForTumourDiagnosis.jpg");
             return false;
         }

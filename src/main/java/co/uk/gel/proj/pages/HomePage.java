@@ -47,7 +47,7 @@ public class HomePage {
     @FindBy(xpath = "//div/ul/li[1]/label")
     public WebElement rareAndInheritedDiseasesChkBox;
 
-    @FindBy(xpath = "//div/ul/li[2]/label")
+    @FindBy(xpath = "//div/ul/li[3]/label")
     public WebElement tumorChkBox;
 
     @FindBy(css = "a[class*='link']")
@@ -151,7 +151,8 @@ public class HomePage {
 
     public boolean TestDirectoryHomePageIsDisplayed() {
         try {
-            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+//            Wait.forURLToContainSpecificText(driver, "/clinical-tests");
+            Wait.forURLToContainSpecificText(driver, "/test-selection");
             Wait.forElementToBeDisplayed(driver, searchField);
             return true;
         }catch(Exception exp){

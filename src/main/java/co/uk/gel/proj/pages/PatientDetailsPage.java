@@ -126,7 +126,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
-    @FindBy(xpath = "//button[text()='Save and continue']")
+    //    @FindBy(xpath = "//button[text()='Save and continue']")
+    @FindBy(xpath = "//*[text()='Save and continue']")
     public WebElement saveAndContinue;
 
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")

@@ -21,7 +21,7 @@ Feature: ClinicalQuestions 10 - Page Validation
       | Rare disease diagnoses        |
       | Phenotypic and karyotypic Sex |
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     Examples:
       | Stage              |
       | Clinical questions |

@@ -134,7 +134,8 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
     @FindBy(css = "h3[class*='results__header']")
     public WebElement patientSearchResultsHeader;
 
-    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+//    @FindBy(xpath = "//span[contains(@class,'child-element')]")
+    @FindBy(xpath = "//a//span[contains(@class,'child-element')]")
     public WebElement patientCardBadge;
 
     @FindBy(css = "p[class*='patient-name']")
@@ -991,17 +992,20 @@ public class PatientSearchPage<checkTheErrorMessagesInDOBFutureDate> {
         }
     }
 
-    public void waitForPageTitleDisplayed(){
+    public boolean waitForPageTitleDisplayed(){
         try {
             if(!Wait.isElementDisplayed(driver,pageTitle,30)){
                 Debugger.println("Patient Search Page is not Loaded Successfully.");
                 SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
                 Assert.fail("Patient Search Page is not Loaded Successfully.");
+                return false;
             }
+            return true;
         }catch(Exception exp){
             Debugger.println("Exception from loading Patient Search Page:"+exp);
             SeleniumLib.takeAScreenShot("waitForPageTitleDisplayed.jpg");
             Assert.fail("Exception from loading Patient Search Page:");
+            return false;
         }
     }
     public void logoutFromApplication(){
