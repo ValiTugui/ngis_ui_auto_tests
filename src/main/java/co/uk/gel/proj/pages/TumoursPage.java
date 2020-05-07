@@ -683,7 +683,7 @@ public class TumoursPage {
                 SeleniumLib.takeAScreenShot("addAnotherTumourLink.jpg");
                 return false;
             }
-        Click.element(driver, addAnotherTumourLink);
+            Click.element(driver, addAnotherTumourLink);
             return true;
         }catch(Exception exp){
             try{

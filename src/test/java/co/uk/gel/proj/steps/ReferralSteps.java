@@ -682,7 +682,7 @@ public class ReferralSteps extends Pages {
         String baseURL = attributeOfURL.get(0);
         String confirmationPage = attributeOfURL.get(1);
         String referralFullUrl = TestUtils.getReferralURL(baseURL,existingReferralID,confirmationPage);
-        Debugger.println("referralFullUrl :" + referralFullUrl);
+        Debugger.println("referralFullUrl:" + referralFullUrl);
         NavigateTo(referralFullUrl, confirmationPage);
         Debugger.println("Navigated to:"+driver.getCurrentUrl());
         Assert.assertTrue(referralPage.saveAndContinueButtonIsDisplayed());
