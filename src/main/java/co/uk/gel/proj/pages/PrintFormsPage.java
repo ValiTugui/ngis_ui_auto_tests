@@ -31,7 +31,8 @@ public class PrintFormsPage {
 
     String probandPrintFormDownloadLocator_e2elatest = "//button[@aria-label='print button']";
 
-    @FindBy(xpath = "//strong[contains(text(),'Tumour')]")
+    //@FindBy(xpath = "//strong[contains(text(),'Tumour')]")
+    @FindBy(xpath = "//button[@aria-label='print button']")
     WebElement probandPrintFormDownloadLocator;
 
     @FindBy(xpath = "//button[@type='button']/span[text()='Show address']")
@@ -283,7 +284,11 @@ public class PrintFormsPage {
 
     public boolean validateLockIconInPrintFormsStage(String lockStatus) {
         try {
-            Wait.forElementToBeDisplayed(driver, printFormsStage);
+            if(!Wait.isElementDisplayed(driver, printFormsStage,20)){
+                Debugger.println("printFormsStage not displayed");
+                SeleniumLib.takeAScreenShot("PrintFormsStage.jpg");
+                return false;
+            }
             if (!lockStatus.equals("locked")) {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
