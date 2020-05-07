@@ -56,10 +56,10 @@ public class PatientChoicePage {
     @FindBy(xpath = "//div[@class='text-input']/label[contains(text(),'Admin Name / Email')]/../input[@type='text']")
     WebElement adminNameInput;
 
-    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
-    @FindBy(xpath = "//button[contains(text(),'Form to follow')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Form to follow')]")
     public WebElement formToFollow;
 
     @FindBy(xpath = "//label[contains(@class,'upload-document-button')]")
@@ -160,7 +160,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//li[@class='message-error-line']")
     public List<WebElement> errorMessageOnPatientChoiceForm;
 
-    @FindBy(xpath = "//button[contains(text(),'Back')]")
+    @FindBy(xpath = "//button/span[contains(text(),'Back')]")
     public WebElement backButtonOnAddPatientChoiceInformationPage;
 
     @FindBy(xpath = "//label[contains(text(),'Patient Hospital Number')]")
@@ -492,7 +492,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in clicking on Continue Button in PC:" + exp);
+            Debugger.println("Exception in clicking on Continue Button in PC:" + exp + "\n" + driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
             return false;
         }
@@ -712,6 +712,7 @@ public class PatientChoicePage {
                 Actions.dismissAlert(driver);
             }
             String section = sectionTitle.replaceAll("dummySection", sectionName);
+            Wait.seconds(3);
             return seleniumLib.isElementPresent(By.xpath(section));
         } catch (Exception exp) {
             Debugger.println("Section :" + sectionName + " not present.");

@@ -153,8 +153,7 @@ public class PatientDetailsPage {
     public WebElement selectCIRadio;
 
 
-//    @FindBy(xpath = "//button[text()='Start new referral']")
-    @FindBy(xpath = "//button/span[text()='Start new referral']")
+    @FindBy(xpath = "//button[@type='submit']")
     public WebElement startNewReferralButton;
 
     //@FindBy(css = "*[data-testid*='notification-success']")
@@ -510,7 +509,7 @@ public class PatientDetailsPage {
         try {
 
             if (!Wait.isElementDisplayed(driver, startReferralButton, 10)) {
-                Debugger.println("Start Referral Button not displayed.");
+                Debugger.println("Start Referral Button not displayed.\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("StartReferral.jpg");
                 return false;
             }
@@ -557,14 +556,23 @@ public class PatientDetailsPage {
                 SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
                 return false;
             }
+            Debugger.println("Status: "+startNewReferralButton.isEnabled());
+            if(!startNewReferralButton.isEnabled()){
+                Wait.seconds(3);
+            }
             Actions.clickElement(driver, startNewReferralButton);
-            //Wait.forElementToDisappear(driver, By.xpath(startANewReferralButtonLocator));
+
             return true;
         } catch (Exception exp) {
+            try{
+                seleniumLib.clickOnWebElement(startReferralButton);
+                return true;
+            }catch(Exception exp1) {
             Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
             SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
             return false;
         }
+    }
     }
 
     public boolean clinicalIndicationIDMissingBannerIsDisplayed() {

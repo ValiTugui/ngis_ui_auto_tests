@@ -21,7 +21,7 @@ Feature: Family Members Navigation Stage 1 - FM Stage Navigation
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     Then the "<ClinicalQuestions>" stage is marked as Completed
     ##Family Members - Family member details to be added - creating new referrals
     When the user navigates to the "<FamilyMembers>" stage

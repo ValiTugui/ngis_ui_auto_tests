@@ -78,7 +78,7 @@ Feature: Family Members Details Page 2- Field Validation_2
     Then the user is navigated to a page with title Add family member patient choice information
 #    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks on back button
-    Then the user is navigated to a page with title Patient choice
+    Then the user is navigated to a page with title Add family member patient choice information
 
     Examples:
       | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
@@ -111,7 +111,6 @@ Feature: Family Members Details Page 2- Field Validation_2
   Scenario Outline: NTS-4413 :  Change 'Trio Pedigree' icon as it is upside down
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R104 | NGIS | Rare-Disease | Patient is a foreign national | GEL_NORMAL_USER |
-    And the user is navigated to a page with title Check your patient
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user should be able to see trio family icon in test package
