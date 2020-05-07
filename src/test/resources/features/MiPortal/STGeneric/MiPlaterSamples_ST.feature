@@ -39,11 +39,11 @@ Feature:  MIPORTAL ST - Plater Samples
       | Ordering Entity                       |
       | Referral ID                           |
       | Patient NGIS ID                       |
-      | gel1004 Clinic Sample Type            |
-      | gel1004 Disease Area                  |
-      | gel1004 GLH Sample Consignment Number |
-      | gel1004 Laboratory ID                 |
-      | gel1005 Sample Received Datetime      |
+      | GEL1004 Clinic Sample Type            |
+      | GEL1004 Disease Area                  |
+      | GEL1004 GLH Sample Consignment Number |
+      | GEL1004 Laboratory ID                 |
+      | GEl1005 Sample Received Datetime      |
     And the user selects gel1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
     And the user enters a date "<date>" in the plater-samples date field
@@ -62,7 +62,7 @@ Feature:  MIPORTAL ST - Plater Samples
     When the user should be able to see sample processing menu is displayed
     And the user navigates to the mi-portal "<mi_stage>" stage
     Then the user sees a search box container section for "<mi_stage>" page
-    And the user selects gel1005 Sample Received Datetime as the plater samples search column dropdown
+    And the user selects GEL1005 Sample Received Datetime as the plater samples search column dropdown
     And the user selects before or on as the plater samples search operator dropdown
     And the user enters a date "<date>" in the plater-samples date field
     And the user clicks on Add criteria button
@@ -71,7 +71,7 @@ Feature:  MIPORTAL ST - Plater Samples
     And the user clicks on the Display Options button
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
-    When the user drag the column header "gel1005__laboratory_sample_id" from the section "Hide" to "Show" section
+    When the user drag the column header "GEL1005 Laboratory Sample ID" from the section "Hide" to "Show" section
     And the user clicks on save and close button
     When the search results section displays the elements - Search Results Text, Display Options, Entry Options, Result Row Header and DownLoad CSV
 #    Then the table column "<ColumnHeader>" is displayed with data

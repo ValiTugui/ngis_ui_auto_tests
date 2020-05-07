@@ -215,20 +215,20 @@ Feature: MIPORTAL ST - File Submission 1
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | field_warnings           |
-      | filename                 |
-      | created                  |
-      | status                   |
-      | error_msgs               |
-      | warning_msgs             |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Field Warnings           |
+      | Filename                 |
+      | Created                  |
+      | Status                   |
+      | Error Msgs               |
+      | Warning Msgs             |
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | file_type                |
-      | path                     |
+      | File Type                |
+      | Path                     |
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 

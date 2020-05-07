@@ -37,9 +37,9 @@ Feature: MIPORTAL ST - PickLists 1
       | Ordering Entity                                |
       | Referral ID                                    |
       | Patient NGIS ID                                |
-      | gel1008 Plate ID                               |
-      | gel1008 Normalised Biorepository Sample Volume |
-      | gel1008 Plate Date of Dispatch                 |
+      | GEL1008 Plate ID                               |
+      | GEL1008 Normalised Biorepository Sample Volume |
+      | GEL1008 Plate Date of Dispatch                 |
     Then the user click on the reset button
     And the user selects gel1008 Plate ID as the pick lists search column dropdown
     And the user selects is one of as the pick lists search operator dropdown
