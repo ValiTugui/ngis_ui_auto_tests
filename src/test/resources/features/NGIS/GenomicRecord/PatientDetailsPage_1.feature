@@ -150,7 +150,6 @@ Feature: GenomicRecord: Patient details page 1
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
-
   @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
   Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page
