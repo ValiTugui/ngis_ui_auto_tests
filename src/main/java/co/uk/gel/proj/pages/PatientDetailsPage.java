@@ -153,7 +153,8 @@ public class PatientDetailsPage {
     public WebElement selectCIRadio;
 
 
-    @FindBy(xpath = "//button[text()='Start new referral']")
+//    @FindBy(xpath = "//button[text()='Start new referral']")
+    @FindBy(xpath = "//button/span[text()='Start new referral']")
     public WebElement startNewReferralButton;
 
     //@FindBy(css = "*[data-testid*='notification-success']")
