@@ -46,7 +46,7 @@ Feature: Family Members Details Page 2- Field Validation_2
       | FamilyMember   | SearchDetails                                               | PatientSearchMessage | ClearFields |
       | Family members | DOB=23-03-2011:FirstName=john:LastName=Michel:Gender=Female | No patient found     | Gender      |
 
-  @NTS-3342 @Z-LOGOUT
+  @NTS-33421 @Z-LOGOUT
 #    @E2EUI-1790
   Scenario Outline: NTS-3342: Update FamilyMember card to use PatientIndentifiers in Test package and Patient choice
     Given a new patient referral is created with associated tests in Test Order System online service

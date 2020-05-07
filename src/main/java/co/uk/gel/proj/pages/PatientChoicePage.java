@@ -493,7 +493,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in clicking on Continue Button in PC:" + exp);
+            Debugger.println("Exception in clicking on Continue Button in PC:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCContinueButton.jpg");
             return false;
         }

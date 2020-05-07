@@ -229,7 +229,7 @@ public class FamilyMemberDetailsSteps extends Pages {
 
     @And("the user clicks on Continue Button")
     public void theUserClicksOnContinueButton() {
-        patientChoicePage.clickOnContinue();
+        Assert.assertTrue(patientChoicePage.clickOnContinue());
     }
 
     @And("the user should see an error message displayed as {string} in {string} color")
