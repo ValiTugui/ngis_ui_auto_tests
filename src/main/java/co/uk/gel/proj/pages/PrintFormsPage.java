@@ -284,7 +284,7 @@ public class PrintFormsPage {
 
     public boolean validateLockIconInPrintFormsStage(String lockStatus) {
         try {
-            Wait.forElementToBeDisplayed(driver, printFormsStage);
+            Wait.forElementToBeDisplayed(driver, printFormsStage,10);
             if (!lockStatus.equals("locked")) {
                 String unlockedPrintForms = "//div[contains(@data-testid,'referral-sidebar')]//*[contains(@href,'" + "dummyStage" + "')]";
                 String webElementLocator = unlockedPrintForms.replace("dummyStage", "downloads");
