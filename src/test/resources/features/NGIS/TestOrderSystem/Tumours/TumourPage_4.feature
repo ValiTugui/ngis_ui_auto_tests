@@ -5,7 +5,7 @@
 @SYSTEM_TEST
 Feature: Tumours Page - 4
 
- @NTS-3204 @Z-LOGOUT
+  @NTS-3204 @Z-LOGOUT
 #    @E2EUI-890 @E2EUI-1026
   Scenario Outline: NTS-3204:E2EUI-890,1026:Edit a tumour page
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service
@@ -85,13 +85,15 @@ Feature: Tumours Page - 4
       | If the tumour to be tested is:                  |
       | not shown                                       |
       | a metastasis of one that is shown               |
-      | you must add a new tumour then select it.       |
+      | you must                                        |
+      | add a new tumour                                |
+      | then select it.                                 |
     And on the select or edit a tumour page, the tumour table list shows the column names
       | descriptionHeader | pathologySampleHeader           | dateDiagnosedHeader | statusHeader |
       | Description       | Histopathology or SIHMDS Lab ID | Date diagnosed      | Status       |
     And the new tumour is added as a list, with a checked radio button and a chevron right arrow icon
     And Save and Continue button is displayed
-#
+
     Examples:
       | stage   | tumour_type              | presentationType | searchTerm | notificationText |
       | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
