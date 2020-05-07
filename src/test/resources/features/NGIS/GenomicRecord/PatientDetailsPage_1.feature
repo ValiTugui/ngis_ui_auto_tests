@@ -27,7 +27,7 @@ Feature: GenomicRecord: Patient details page 1
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type |
+      | pageTitle                        | pageTitle2        | patient-search-type |
       | Create a record for this patient | Find your patient | NGIS                |
 
 
@@ -51,7 +51,7 @@ Feature: GenomicRecord: Patient details page 1
     And the correct details of the "<patient-search-type>" are displayed in patient details
 
     Examples:
-      | pageTitle                         | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
+      | pageTitle                        | pageTitle2        | reason_for_no_nhsNumber     | patient-search-type |
       | Create a record for this patient | Find your patient | Other - provide explanation | NGIS                |
 
 
@@ -65,7 +65,7 @@ Feature: GenomicRecord: Patient details page 1
     Then the Patient Search page is displayed
 
     Examples:
-      | pageTitle                         |
+      | pageTitle                        |
       | Create a record for this patient |
 
 
@@ -110,10 +110,10 @@ Feature: GenomicRecord: Patient details page 1
     And the Ethnicity drop-down is allowed to have values up to "<maximumAllowedValues>"
 
     Examples:
-      | pageTitle                         | maximumAllowedValues |
+      | pageTitle                        | maximumAllowedValues |
       | Create a record for this patient | 50                   |
 
-  @NTS-3438 @Z-LOGOUT
+  @NTS-34381 @Z-LOGOUT
 #    @E2EUI-1511 @E2EUI-1128
   Scenario Outline: NTS-3438:(E2EUI-1511,1128): Patient Details page - Update patient details - Life Status, Gender and Ethnicity and verify in patient records
     Given a referral is created by the logged in user with the below details for a newly created patient and associated tests in Test Order System online service
@@ -147,11 +147,9 @@ Feature: GenomicRecord: Patient details page 1
       | APP_URL | patient-details |
     And the referral page is displayed
     And the new patient gender "<gender>" is displayed on the referral banner
-
     Examples:
-      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification  |
+      | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
-
   @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
   Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page
@@ -179,9 +177,8 @@ Feature: GenomicRecord: Patient details page 1
       | Life status ✱   |
 
     Examples:
-      | pageTitle                         | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
+      | pageTitle                        | pageTitle2        | patient-search-type | reason_for_no_nhsNumber       |
       | Create a record for this patient | Find your patient | NGIS                | Patient is a foreign national |
-
 
   @NTS-3470 @Z-LOGOUT
 #    @E2EUI-1538

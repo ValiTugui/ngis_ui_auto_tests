@@ -126,7 +126,8 @@ public class PatientDetailsPage {
     @FindBy(xpath = "//button[text()='Save patient details to NGIS']")
     public WebElement savePatientDetailsToNGISButton;
 
-    @FindBy(xpath = "//button[text()='Save and continue']")
+    //    @FindBy(xpath = "//button[text()='Save and continue']")
+    @FindBy(xpath = "//*[text()='Save and continue']")
     public WebElement saveAndContinue;
 
     @FindBy(xpath = "//button[@type='submit'][contains(@class,'new-patient-form__submit')]")
@@ -152,7 +153,8 @@ public class PatientDetailsPage {
     public WebElement selectCIRadio;
 
 
-    @FindBy(xpath = "//button[text()='Start new referral']")
+//    @FindBy(xpath = "//button[text()='Start new referral']")
+    @FindBy(xpath = "//button/span[text()='Start new referral']")
     public WebElement startNewReferralButton;
 
     //@FindBy(css = "*[data-testid*='notification-success']")
@@ -236,7 +238,7 @@ public class PatientDetailsPage {
     public boolean patientDetailsPageIsDisplayed() {
         try {
             Wait.forURLToContainSpecificText(driver, "/patient");
-        //Wait.forElementToBeDisplayed(driver, startReferralButton);
+            //Wait.forElementToBeDisplayed(driver, startReferralButton);
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception in patientDetailsPageIsDisplayed:" + exp);
@@ -516,15 +518,15 @@ public class PatientDetailsPage {
             // Wait.forElementToDisappear(driver, By.xpath(startReferralButtonLocator));
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(startReferralButton);
                 return true;
-            }catch(Exception exp1) {
-                Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp1+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("StartReferral.jpg");
-            return false;
+            } catch (Exception exp1) {
+                Debugger.println("PatientDetailsPage: clickStartReferralButton. Exception:" + exp1 + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("StartReferral.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean clickCISearchStartReferralButton() {
@@ -537,8 +539,8 @@ public class PatientDetailsPage {
             }
             Actions.clickElement(driver, CISearchStartReferral);
             Wait.seconds(10);
-            if(Wait.isElementDisplayed(driver,selectCIRadio,20)){
-                Actions.clickElement(driver,selectCIRadio);
+            if (Wait.isElementDisplayed(driver, selectCIRadio, 20)) {
+                Actions.clickElement(driver, selectCIRadio);
             }
             return true;
         } catch (Exception exp) {
@@ -809,13 +811,13 @@ public class PatientDetailsPage {
                 return false;
             }
             boolean isPresent = false;
-            for(int i=0; i<referralStatus.size(); i++){
+            for (int i = 0; i < referralStatus.size(); i++) {
                 if (expectedStatus.equalsIgnoreCase(Actions.getText(referralStatus.get(i)))) {
                     isPresent = true;
                     break;
                 }
             }
-            if(!isPresent){
+            if (!isPresent) {
                 Debugger.println("Referral status expected:" + expectedStatus + " not displayed.");
                 SeleniumLib.takeAScreenShot("ReferralStatus.jpg");
             }
@@ -1001,7 +1003,7 @@ public class PatientDetailsPage {
 
     public boolean clickUpdateNGISRecordButton() {
         try {
-            if(!Wait.isElementDisplayed(driver, updateNGISRecordButton,30)){
+            if (!Wait.isElementDisplayed(driver, updateNGISRecordButton, 30)) {
                 Actions.scrollToBottom(driver);
                 SeleniumLib.takeAScreenShot("updateNGISRecordButton.jpg");
                 return false;
@@ -1009,10 +1011,10 @@ public class PatientDetailsPage {
             Actions.clickElement(driver, updateNGISRecordButton);
             return true;
         } catch (Exception exp) {
-            try{
+            try {
                 seleniumLib.clickOnWebElement(updateNGISRecordButton);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception from Clicking on UpdatePatientDetailsToNGISButton:" + exp);
                 SeleniumLib.takeAScreenShot("NoUpdatePatientDetailsToNGISButton.jpg");
                 return false;
@@ -1024,8 +1026,8 @@ public class PatientDetailsPage {
         try {
             Wait.forElementToBeDisplayed(driver, successNotification);
             return Actions.getText(successNotification);
-        }catch(Exception exp){
-            Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: "+exp);
+        } catch (Exception exp) {
+            Debugger.println("Exception in getNotificationMessageForPatientCreatedOrUpdated: " + exp);
             SeleniumLib.takeAScreenShot("getNotificationMessageForPatientCreatedOrUpdated.jpg");
             return null;
         }
@@ -1399,24 +1401,25 @@ public class PatientDetailsPage {
             }
         }
     }
-    public boolean clearEthnicityField(){
-        try{
-            Debugger.println("Clearing Ethnicity Vlue:"+ethnicityIndicators.size());
+
+    public boolean clearEthnicityField() {
+        try {
+            Debugger.println("Clearing Ethnicity Vlue:" + ethnicityIndicators.size());
             Wait.seconds(5);
-            if(ethnicityIndicators.size() < 1){
+            if (ethnicityIndicators.size() < 1) {
                 Debugger.println("Ethnicity Indicators not visible.");
                 SeleniumLib.takeAScreenShot("EthnicityIndicator.jpg");
                 return false;
             }
-            Actions.clickElement(driver,ethnicityIndicators.get(0));
+            Actions.clickElement(driver, ethnicityIndicators.get(0));
             Wait.seconds(5);
             return true;
-        }catch(Exception exp){
-            try{
+        } catch (Exception exp) {
+            try {
                 seleniumLib.clickOnWebElement(ethnicityIndicators.get(0));
                 Wait.seconds(5);
                 return true;
-            }catch(Exception exp1) {
+            } catch (Exception exp1) {
                 Debugger.println("Exception in clearEthnicityField:" + exp1);
                 SeleniumLib.takeAScreenShot("clearEthnicityField.jpg");
                 return false;
