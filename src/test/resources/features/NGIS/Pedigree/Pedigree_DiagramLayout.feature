@@ -3,7 +3,6 @@
 @07-PEDIGREE
 @SYSTEM_TEST
 Feature: Pedigree - Diagram Layout
-
   @NTS-3304 @Z-LOGOUT
 #    @E2EUI-934 @E2EUI-1046
   Scenario Outline: NTS-3304:(E2EUI-934,1046) Pedigree Diagram layout
