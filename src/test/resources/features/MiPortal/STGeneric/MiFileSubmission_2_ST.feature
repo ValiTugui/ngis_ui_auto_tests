@@ -83,34 +83,34 @@ Feature: MIPORTAL ST - File Submission 2
     When the user clicks on the button "Show all"
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | field_warnings           |
-      | filename                 |
-      | created                  |
-      | status                   |
-      | error_msgs               |
-      | warning_msgs             |
-      | file_type                |
-      | path                     |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Field Warnings           |
+      | Filename                 |
+      | Created                  |
+      | Status                   |
+      | Error Msgs               |
+      | Warning Msgs             |
+      | File Type                |
+      | Path                     |
     And the user sees the displayed fields-columns under "Hide" section as empty
     And the user clicks on the button "Hide all"
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | field_warnings           |
-      | filename                 |
-      | created                  |
-      | status                   |
-      | error_msgs               |
-      | warning_msgs             |
-      | file_type                |
-      | path                     |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Field Warnings           |
+      | Filename                 |
+      | Created                  |
+      | Status                   |
+      | Error Msgs               |
+      | Warning Msgs             |
+      | File Type                |
+      | Path                     |
     And the user sees the displayed fields-columns under "Show" section as empty
     When the Save and Close button under Show All and Hide All button becomes disabled
     And the user closes the modal content by clicking on the reset-button
@@ -172,29 +172,29 @@ Feature: MIPORTAL ST - File Submission 2
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | field_warnings           |
-      | filename                 |
-      | created                  |
-      | status                   |
-      | error_msgs               |
-      | warning_msgs             |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Field Warnings           |
+      | Filename                 |
+      | Created                  |
+      | Status                   |
+      | Error Msgs               |
+      | Warning Msgs             |
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | file_type                |
-      | path                     |
-    When the user drag the column header "warning_msgs" from the section "Show" to "Hide" section
+      | File Type                |
+      | Path                     |
+    When the user drag the column header "Warning Msgs" from the section "Show" to "Hide" section
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | warning_msgs             |
+      | Warning Msgs             |
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders |
-      | warning_msgs  |
+      | Warning Msgs  |
     And the selected search option is reset after test
 
     Examples:
@@ -250,37 +250,37 @@ Feature: MIPORTAL ST - File Submission 2
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | field_warnings           |
-      | filename                 |
-      | created                  |
-      | status                   |
-      | error_msgs               |
-      | warning_msgs             |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Field Warnings           |
+      | Filename                 |
+      | Created                  |
+      | Status                   |
+      | Error Msgs               |
+      | Warning Msgs             |
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | file_type                |
-      | path                     |
+      | File Type                |
+      | Path                     |
     When the user adds "<field-column>" column to Hide section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | id                       |
-      | submitted_by_code        |
-      | submitted_by             |
-      | field_errors             |
-      | created                  |
-      | error_msgs               |
-      | warning_msgs             |
+      | ID                       |
+      | Submitted By Code        |
+      | Submitted By             |
+      | Field Errors             |
+      | Created                  |
+      | Error Msgs               |
+      | Warning Msgs             |
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | file_type                |
-      | path                     |
-      | filename                 |
-      | field_warnings           |
-      | status                   |
+      | File Type                |
+      | Path                     |
+      | Filename                 |
+      | Field Warnings           |
+      | Status                   |
     When the user clicks "Hide all" button on the modal-content page
     And the Save and Close button under Show All and Hide All button becomes disabled
     And the user closes the modal content by clicking on the reset-button
@@ -288,4 +288,4 @@ Feature: MIPORTAL ST - File Submission 2
 
     Examples:
       | mi_stage         | noOfDays | field-column                   |
-      | File Submissions | 5        | filename,field_warnings,status |
+      | File Submissions | 5        | Filename,Field Warnings,Status |

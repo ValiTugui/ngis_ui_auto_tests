@@ -37,7 +37,7 @@ Feature: MIPORTAL ST -  Glh Samples
       | Patient NGIS ID                       |
       | Batch Import Filename                 |
       | Dispatched Sample Type                |
-      | gel1004 GLH Sample Consignment Number |
+      | GEL1004 GLH Sample Consignment Number |
     And the selected search option is reset after test
     And the user selects Batch Import Filename as the glh search column dropdown
     And the user selects matches as the glh search operator dropdown

@@ -32,7 +32,7 @@ Feature: MIPORTAL ST - File Submission 3
 
     Examples:
       | mi_stage         | value                                |noOfDays |
-      | File Submissions | London North,London South,North West | 2        |
+      | File Submissions | London North,London South,North West | 2       |
 
   @NTS-5016
     #@E2EUI-2224
@@ -75,12 +75,12 @@ Feature: MIPORTAL ST - File Submission 3
       | is                                  |
       | is one of                           |
     When the user selects is as the search operator dropdown
-    And the user selects In Progress as the search value dropdown
+    And the user selects Duplicate as the search value dropdown
     And the user clicks on Add criteria button
     Then file submission search criteria badge information is displayed below drop-down buttons
     When the user click on the Search button
     Then search results are displayed in table format with display options button
-    And the table column Status is displayed with data in_progress
+    And the table column Status is displayed with data duplicate
     And the selected search option is reset after test
 
     Examples:

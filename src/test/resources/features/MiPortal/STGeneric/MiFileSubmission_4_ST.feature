@@ -73,14 +73,14 @@ Feature: MIPORTAL ST - File Submission 4
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
-    When the user drag the column header "id" from the section "Show" to "Hide" section
+    When the user drag the column header "ID" from the section "Show" to "Hide" section
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | id                       |
-    When the user drag the column header "path" from the section "Hide" to "Show" section
+      | ID                       |
+    When the user drag the column header "Path" from the section "Hide" to "Show" section
     And the user sees the displayed fields-columns under "Show" section
       | HeaderColumnOrderingList |
-      | path                     |
+      | Path                     |
     And the user closes the modal content by clicking on the reset-button
     And the selected search option is reset after test
 
@@ -108,15 +108,15 @@ Feature: MIPORTAL ST - File Submission 4
     Then the user sees a modal-content page
     And the user sees a section 'Column ordering' split into two parts 'Show' and 'Hide'
     And the user sees the buttons - Show All and Hide All buttons under Column Ordering section on modal content page
-    When the user drag the column header "id" from the section "Show" to "Hide" section
+    When the user drag the column header "ID" from the section "Show" to "Hide" section
     And the user sees the displayed fields-columns under "Hide" section
       | HeaderColumnOrderingList |
-      | id                       |
+      | ID                       |
     And the user save the changes on modal content by clicking Save and Close button
     And the user sees a search box container section for "<mi_stage>" page
     And the columns fields are not displayed in the list of columns headers of the search result table
       | columnHeaders |
-      | id            |
+      | ID            |
     And the selected search option is reset after test
 
     Examples:
