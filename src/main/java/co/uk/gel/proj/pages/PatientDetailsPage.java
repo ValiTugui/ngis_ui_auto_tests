@@ -568,11 +568,11 @@ public class PatientDetailsPage {
                 seleniumLib.clickOnWebElement(startReferralButton);
                 return true;
             }catch(Exception exp1) {
-            Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
-            SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
-            return false;
+                Debugger.println("PatientDetailsPage: clickStartNewReferralButton. Exception:" + exp);
+                SeleniumLib.takeAScreenShot("StartNewReferralButton.jpg");
+                return false;
+            }
         }
-    }
     }
 
     public boolean clinicalIndicationIDMissingBannerIsDisplayed() {
