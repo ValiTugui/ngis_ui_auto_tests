@@ -40,33 +40,35 @@ public class PatientChoiceSteps extends Pages {
                 //No need to alert as there are cases which directly landing to specific patient page
                 patientChoicePage.selectMember(i);
                 Wait.seconds(2);
+                //Debugger.println("Selected Family Member:");
                 testResult = patientChoicePage.selectPatientChoiceCategory(memberDetails.get(i).get(1));
                 if(!testResult){
                     Assert.assertTrue("Failed in selectPatientChoiceCategory",false);
                     break;
                 }
                 Wait.seconds(2);
+                //Debugger.println("Category Done:");
                 testResult = patientChoicePage.selectTestType(memberDetails.get(i).get(2));
                 if(!testResult){
                     Assert.assertTrue("Failed in selectTestType",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Test Type done:");
                 testResult = patientChoicePage.fillRecordedByDetails(memberDetails.get(i).get(0), memberDetails.get(i).get(3));
                 if(!testResult){
                     Assert.assertTrue("Failed in fillRecordedByDetails",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Record details done:");
                 testResult = patientChoicePage.clickOnContinue();
                 if(!testResult){
                     Assert.assertTrue("Failed in clickOnContinue",false);
                     break;
                 }
-
                 Wait.seconds(2);
+                //Debugger.println("Continuing:");
                 String patientChoice=memberDetails.get(i).get(4);
                 if(patientChoice.equalsIgnoreCase("Patient has agreed to the test")) {
                     patientChoicePage.selectOptionForQuestion(memberDetails.get(i).get(4), "Has the patient had the opportunity to read and discuss information about genomic testing and agreed to the genomic test?");
@@ -95,12 +97,14 @@ public class PatientChoiceSteps extends Pages {
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
                     //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
+                    Debugger.println("Drawing Picture..");
                     testResult = patientChoicePage.drawSignature();
-                    if(!testResult){
-                        Assert.assertTrue("Failed in drawSignature",false);
-                        break;
-                    }
+//                    if(!testResult){
+//                        Assert.assertTrue("Failed in drawSignature",false);
+//                        break;
+//                    }
                 }
+                Debugger.println("Submitting PC:");
                 if (!patientChoicePage.submitPatientChoice()) {
                     referralPage.navigateToStage("Patient choice");
                     Wait.seconds(5);

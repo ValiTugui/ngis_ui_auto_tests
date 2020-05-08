@@ -59,6 +59,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
+    @FindBy(xpath = "//button[contains(text(),'Continue')]")
+    public WebElement continueOnRecordByButton;
+
     @FindBy(xpath = "//button[contains(text(),'Form to follow')]")
     public WebElement formToFollow;
 
@@ -331,6 +334,9 @@ public class PatientChoicePage {
             if (Wait.isElementDisplayed(driver, webElement, 60)) {
                 seleniumLib.clickOnWebElement(webElement);
                 return true;
+            }else{
+                Debugger.println("PCCategory Selection Failure:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCCategory.jpg");
             }
             return false;
         } catch (NoSuchElementException exp) {
@@ -340,10 +346,13 @@ public class PatientChoicePage {
             if (Wait.isElementDisplayed(driver, webElement, 30)) {
                 seleniumLib.clickOnWebElement(webElement);
                 return true;
+            }else{
+                Debugger.println("PCCategory Selection Failure1:"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCCategory.jpg");
             }
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp);
+            Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
             return false;
         }
@@ -488,6 +497,12 @@ public class PatientChoicePage {
                     Actions.clickElement(driver, formToFollow);
                 }catch(Exception exp1){
                     seleniumLib.clickOnWebElement(formToFollow);
+                }
+            }else if (Wait.isElementDisplayed(driver, continueOnRecordByButton, 10)) {
+                try {
+                    Actions.clickElement(driver, continueOnRecordByButton);
+                }catch(Exception exp1){
+                    seleniumLib.clickOnWebElement(continueOnRecordByButton);
                 }
             }
             return true;
@@ -1058,8 +1073,16 @@ public class PatientChoicePage {
 
     public boolean drawSignature() {
         try {
-            Wait.forElementToBeDisplayed(driver, signatureSection);
-            Click.element(driver, signatureSection);
+            if(!Wait.isElementDisplayed(driver, signatureSection,30)){
+                Debugger.println("DRAW Signature Section not displayed.."+driver.getCurrentUrl());
+            }else {
+                try {
+                    Click.element(driver, signatureSection);
+                }catch(Exception exp1){
+                    Debugger.println("PC Signature section clicked by Selenium Lib.");
+                    seleniumLib.clickOnWebElement(signatureSection);
+                }
+            }
             org.openqa.selenium.interactions.Actions builder = new org.openqa.selenium.interactions.Actions(driver);
             Action drawAction = builder.moveToElement(signatureSection, 135, 15) //start points x axis and y axis.
                     .clickAndHold()
@@ -1071,7 +1094,7 @@ public class PatientChoicePage {
             Wait.seconds(1);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from drawing Signature in Patient Choice Page." + exp);
+            Debugger.println("Exception from drawing Signature in Patient Choice Page." + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("drawSignature.jpg");
             return false;
         }
