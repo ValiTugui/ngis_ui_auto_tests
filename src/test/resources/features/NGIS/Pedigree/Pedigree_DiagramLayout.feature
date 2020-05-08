@@ -71,7 +71,7 @@ Feature: Pedigree - Diagram Layout
       | Pedigree | WarningMessage                                                                                |
       | Pedigree | Save this pedigree before leaving this section. Changes will be lost if details aren’t saved. |
 
-  @NTS-3386 @Z-LOGOUT
+  @NTS-33861 @Z-LOGOUT
 #    @E2EUI-1630 @E2EUI-1051
   Scenario Outline: NTS-3464:User is making a referral and has arrived in the Pedigree section
     Given a new patient referral is created with associated tests in Test Order System online service

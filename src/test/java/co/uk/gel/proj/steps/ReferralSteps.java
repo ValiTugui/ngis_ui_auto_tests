@@ -1070,7 +1070,7 @@ public class ReferralSteps extends Pages {
     public void theUserSeesThePatientDetailsOnTheReferralHeaderOfEachReferralComponentPage(String titlePage, DataTable dataTable) {
         Assert.assertEquals(titlePage, referralPage.getTheCurrentPageTitle());
         List<String> expectedList = dataTable.asList(String.class);
-        Debugger.println("List : " + expectedList);
+        //Debugger.println("List : " + expectedList);
 
         String actualFullName = referralPage.referralHeaderPatientName.getText();
         String actualFullDOB = referralPage.referralHeaderBorn.getText();
@@ -1083,32 +1083,27 @@ public class ReferralSteps extends Pages {
         NewPatient newPatient = patientDetailsPage.getNewlyCreatedPatientData();
         String expectedFullName = newPatient.getLastName().toUpperCase() + ", " + newPatient.getFirstName() + " (" + newPatient.getTitle() +  ")";
 
-        Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
+        //Debugger.println("Expected full name = " + expectedFullName + ", Actual full name " + actualFullName);
         Assert.assertEquals(expectedFullName, actualFullName);
 
         String expectedDateOfBirth = newPatient.getDay() + "-" + TestUtils.convertMonthNumberToMonthForm(newPatient.getMonth()) + "-" + newPatient.getYear();
-        Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
+        //Debugger.println("Expected DOB = " + expectedDateOfBirth + ", Actual DOB: " + actualFullDOB);
         Assert.assertTrue(actualFullDOB.contains(expectedDateOfBirth));
 
         Debugger.println("Expected Gender= " + newPatient.getGender() + ", Actual Gender: " + actualGender);
         Assert.assertEquals(newPatient.getGender(), actualGender);
 
-        Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " +  actualNHSNumber);
+        //Debugger.println("Expected nhs no = " + newPatient.getNhsNumber() + ", Actual nhs no: " +  actualNHSNumber);
         Assert.assertEquals(newPatient.getNhsNumber(), actualNHSNumber);
 
-        Debugger.println("Expected patient ID = " + newPatient.getPatientID() + ", Actual Patient-Id: " + actualPatientId);
+        //Debugger.println("Expected patient ID = " + newPatient.getPatientID() + ", Actual Patient-Id: " + actualPatientId);
         Assert.assertEquals(newPatient.getPatientID(),actualPatientId);
 
-        Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
+        //Debugger.println("Expected Cid = " + newPatient.getClinicalIndication() + ", Actual Cid: " + actualCid);
         Assert.assertNotNull(actualCid);
 
-        Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
+        //Debugger.println("Expected referralId = " + newPatient.getReferralID() + ", Actual referralId: " + actualReferralId);
         Assert.assertEquals(newPatient.getReferralID(),actualReferralId);
-        boolean flag;
-        flag = Wait.isElementDisplayed(driver, referralPage.submitReferralButton, 10);
-        Assert.assertTrue(flag);
-        flag = Wait.isElementDisplayed(driver, referralPage.getReferralHeaderStatus, 10);
-        Assert.assertTrue(flag);
     }
 
     @And("the user sees a dialog box with a title {string}")

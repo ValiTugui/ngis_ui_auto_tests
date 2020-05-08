@@ -93,7 +93,7 @@ Feature: GlobalConsistency:Global Patient Flow 3 - End to end Tumour
       | test order    | Referral     |
     When the user clicks the Save and Continue button
     ##Notes Page Title
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     When the user fills in the Add Notes field
     And the user should see previous labels replaced as current labels
       | PreviousLabel         | CurrentLabel      |

@@ -48,7 +48,7 @@ public class GlobalBehaviourPage {
     @FindBy(xpath = "//li[contains(@class,'styles_text_')]")
     List<WebElement> referralHeaderDetails;
 
-    @FindBy(xpath = "//button[text()='Continue']")
+    @FindBy(xpath = "//button/span[text()='Continue']")
     public WebElement continueButtonOnLandingPage;
 
     @FindBy(xpath = "//header[contains(@class,'styles_header')]//*[text()='NHS England']/..")

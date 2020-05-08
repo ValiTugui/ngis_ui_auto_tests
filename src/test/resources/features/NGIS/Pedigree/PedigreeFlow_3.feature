@@ -32,7 +32,7 @@ Feature: Pedigree - Pedigree Flow 3
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
      ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     ##Family Member
     And the user clicks the Save and Continue button

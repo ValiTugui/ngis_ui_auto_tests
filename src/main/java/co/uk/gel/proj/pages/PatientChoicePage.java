@@ -59,7 +59,7 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button/span[contains(text(),'Continue')]")
     public WebElement continueButton;
 
-    @FindBy(xpath = "//button/span[contains(text(),'Form to follow')]")
+    @FindBy(xpath = "//button[contains(text(),'Form to follow')]")
     public WebElement formToFollow;
 
     @FindBy(xpath = "//label[contains(@class,'upload-document-button')]")
@@ -469,7 +469,7 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception in Filling RecordedBy Information: " + exp);
+            Debugger.println("Exception in Filling RecordedBy Information: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("RecordedBy.jpg");
             return false;
         }
@@ -670,6 +670,7 @@ public class PatientChoicePage {
     public boolean verifySelectedOption(String expectedResult) {
         try {
             String selectedOptionField = selectedOption.replaceAll("dummyOption", expectedResult);
+            Debugger.println("URL: "+driver.getCurrentUrl());
             WebElement selectedOptionResult = driver.findElement(By.xpath(selectedOptionField));
             if (!Wait.isElementDisplayed(driver, selectedOptionResult, 30)) {
                 Debugger.println("Element before Edit button not found for " + expectedResult);

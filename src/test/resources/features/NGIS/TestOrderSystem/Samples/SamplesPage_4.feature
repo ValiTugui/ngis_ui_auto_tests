@@ -183,7 +183,7 @@ Feature: Samples Page -4
       | stage   | pageTitle      | pageTitle2   | pageTitle3              | pageTitle4         | partOfMessage                                  | notTheRightTumourLink | acknowledgeMessage |
       | Tumours | Manage samples | Add a sample | Select or edit a tumour | Add sample details | contains unsaved information. Discard changes? | Not the right tumour  | Accept             |
 
-  @NTS-4531 @Z-LOGOUT
+  @NTS-45311 @Z-LOGOUT
 #    @E2EUI-1480
   Scenario Outline:NTS-4531:Samples stage (Post Edit Sample)
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

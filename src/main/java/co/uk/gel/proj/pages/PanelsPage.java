@@ -299,7 +299,7 @@ public class PanelsPage {
     public boolean verifyPenetranceTitle(String expSubtitle) {
         try {
             if(!Wait.isElementDisplayed(driver,penetranceTitle,10)){
-                Debugger.println("Section "+expSubtitle+" not present in Panels Landing Page");
+                Debugger.println("Section "+expSubtitle+" not present in Panels Landing Page\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PanelsPageSection.jpg");
                 return false;
             }
