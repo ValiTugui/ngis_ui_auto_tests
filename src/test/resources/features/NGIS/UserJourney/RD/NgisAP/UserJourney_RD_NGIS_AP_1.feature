@@ -78,7 +78,7 @@ Feature: UserJourney_RD_NGIS_AP_1 - UC14 - E2EUI-1193
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree - Need to check if modify pedigree is required
