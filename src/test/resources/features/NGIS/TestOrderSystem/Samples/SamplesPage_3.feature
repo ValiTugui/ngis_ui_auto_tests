@@ -77,7 +77,8 @@ Feature: Samples Page -3
     Then the "<pageTitle>" page is displayed
     And the success notification is displayed "Sample added"
     When the user clicks the Save and Continue button
-    Then the "Add notes to this referral" page is displayed
+    #Then the "Add notes to this referral" page is displayed
+    Then the "Add clinical notes" page is displayed
     And the "Notes" stage is selected
     But the "Samples" stage is marked "<stageStatus>"
 #  Tumour Description setter is reset after each Sample Scenario test that uses Tumour Description getter

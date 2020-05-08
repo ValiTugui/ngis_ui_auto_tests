@@ -100,7 +100,7 @@ Feature: Pedigree - UI Customizations - NGIS
     Then the user is navigated to a page with title Answer clinical questions
     And the user fills the ClinicalQuestionsPage with the "<ClinicalQuestionDetails>"
     And the user clicks the Save and Continue button
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
      ##Pedigree
     When the user navigates to the "<Pedigree>" stage
     Then the user is navigated to a page with title Build a pedigree

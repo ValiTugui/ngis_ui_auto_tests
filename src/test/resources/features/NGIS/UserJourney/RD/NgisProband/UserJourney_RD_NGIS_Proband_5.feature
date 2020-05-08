@@ -35,7 +35,7 @@ Feature: UserJourney_RD_NGIS_Proband_5: - UC05 - E2EUI-1296
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -58,7 +58,7 @@ Feature: UserJourney_RD_NGIS_Proband_5: - UC05 - E2EUI-1296
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     ##Added below step as panels page Save and Click have some issue

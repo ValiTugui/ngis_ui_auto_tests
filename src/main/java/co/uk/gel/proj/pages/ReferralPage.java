@@ -653,12 +653,18 @@ public class ReferralPage<check> {
             if (!Wait.isElementDisplayed(driver, backLink, 30)) {
                 Actions.scrollToBottom(driver);
             }
-            Actions.retryClickAndIgnoreElementInterception(driver, backLink);
+            Actions.clickElement(driver, backLink);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from clicking in Back Link..." + exp);
-            SeleniumLib.takeAScreenShot("BackButtonLinkMissing.jpg");
-            return false;
+            try{
+                seleniumLib.clickOnWebElement(backLink);
+                return true;
+            }catch(Exception exp1) {
+                Debugger.println("Exception from clicking in Back Link..." + exp1+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("BackButtonLinkMissing.jpg");
+                return false;
+            }
+
         }
     }
 

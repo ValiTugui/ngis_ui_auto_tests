@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NEW_Trio_2 - UC10 - E2EUI-1251
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -75,7 +75,7 @@ Feature: UserJourney_RD_NEW_Trio_2 - UC10 - E2EUI-1251
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed

@@ -46,7 +46,7 @@ Feature: UserJourney_CAN_NEW_Proband_3 - UC27- E2EUI-1802
     Then the user is navigated to a page with title Manage samples
     When the user clicks the Save and Continue button
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     When the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     And the user navigates to the "<stage3>" stage

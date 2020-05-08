@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NGIS_Proband_6 - UC07 - E2EUI-1298
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -61,7 +61,7 @@ Feature: UserJourney_RD_NGIS_Proband_6 - UC07 - E2EUI-1298
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user should see the default status of penetrance button as Incomplete
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button

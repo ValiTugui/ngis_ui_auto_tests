@@ -71,7 +71,7 @@ Feature: UserJourney_RD_NGIS_Trio_6 - UC11 - E2EUI-1478
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
