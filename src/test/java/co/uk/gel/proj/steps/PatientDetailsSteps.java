@@ -572,13 +572,7 @@ public class PatientDetailsSteps extends Pages {
                 Assert.assertEquals(actualTumourDescription.length(), maximumCharactersAllowed);
                 break;
             }
-            case "referralNotes": {
-                String actualReferralNotes = Actions.getValue(notesPage.addNoteField).trim();
-                Debugger.println("Actual actualReferralNotes :" + actualReferralNotes + " : " + actualReferralNotes.length());
-                Assert.assertEquals(actualReferralNotes.length(), maximumCharactersAllowed);
-                break;
-            }
-            default:
+              default:
                 throw new IllegalArgumentException("Invalid query search parameters");
         }
 

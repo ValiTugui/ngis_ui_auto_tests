@@ -9,7 +9,6 @@ Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=19-10-1999:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -74,7 +73,7 @@ Feature: RDFamily:NTS-4963:Submit an RD referral for 7 participants with various
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ###Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

@@ -9,7 +9,6 @@ Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R193 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-1997:Gender=Male |
     ###Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ###Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -70,7 +69,7 @@ Feature: RDFamily:NTS-4957:E2E20:Referral for Trio Family and add Family Members
     And the user clicks the Save and Continue button
     ###Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ###Pedigree - Pedigree by default marked as completed

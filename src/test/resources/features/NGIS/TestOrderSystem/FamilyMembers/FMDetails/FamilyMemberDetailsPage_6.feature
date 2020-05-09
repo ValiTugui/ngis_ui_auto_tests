@@ -84,7 +84,7 @@ Feature: Family Members Details Page 6- Field Validation_6
     And the user answers the patient choice questions with agreeing to testing - patient choice Yes for RD
     And the user submits the patient choice with signature
     And the user clicks the Save and Continue button on the patient choice
-    Then the user is navigated to a page with title Add patient choice information
+    Then the user is navigated to a page with title Patient choice
     When the user edits patient choice for "<NoOfParticipants>" family members with the below details
       | FamilyMemberDetails                 | PatientChoiceCategory | TestType                        | RecordedBy                                                                                                           | PatientChoice                  | ChildAssent | ParentSignature |
       | NHSNumber=9449305307:DOB=14-02-2011 | Adult (With Capacity) | Rare & inherited diseases – WGS | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf | Patient has agreed to the test |             |                 |

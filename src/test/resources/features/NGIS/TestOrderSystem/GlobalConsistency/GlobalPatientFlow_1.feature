@@ -177,7 +177,7 @@ Feature: GlobalConsistency: Global Patient Flow 1- Stage Validation
     Then the user should be able to see the patient banner at same location
     ###Panels
     When the user navigates to the "<Panels>" stage
-    And the user is navigated to a page with title Panels
+    And the user is navigated to a page with title Manage panels
     Then the user should be able to see the patient banner at same location
     ###Pedigree
     When the user navigates to the "<Pedigree>" stage

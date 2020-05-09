@@ -34,7 +34,7 @@ Feature: RDProband:NTS-4944:E2E03: Create Referrals for NEW Patient - Proband On
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -54,7 +54,7 @@ Feature: RDProband:NTS-4944:E2E03: Create Referrals for NEW Patient - Proband On
     Then the "<PatientChoice>" stage is marked as Completed
     ##Panels
     When the user navigates to the "<Panels>" stage
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
     ##Pedigree

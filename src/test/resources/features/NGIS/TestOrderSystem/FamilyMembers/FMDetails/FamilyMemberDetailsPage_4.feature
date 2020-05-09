@@ -4,24 +4,6 @@
 @SYSTEM_TEST
 Feature: Family Members Details Page 4- Field Validation_4
 
-  @NTS-4413 @Z-LOGOUT
-#    @E2EUI-833  @Scenario2
-  Scenario Outline: NTS-4413 : Change 'Trio Pedigree' icon as it is upside down
-    Given a web browser is at the Private Test Selection homepage
-      | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests |
-    When the user types in the CI term  in the search field and selects the first result from the results list
-      | R105 |
-    And the user clicks the Start Test Order Referral button
-    And the user clicks the PDF order form button
-    Then the user is navigated to a page with title Add a requesting organisation
-    When the user enters the keyword "<ordering_entity_name>" in the search field
-    And the user selects a random entity from the suggestions list
-    And the user clicks on Continue Button
-    Then the user should be able to sees trio family icon in review test selection
-    Examples:
-      | ordering_entity_name |
-      | Maidstone            |
-
   @NTS-4409 @Z-LOGOUT
 #    @E2EUI-1426
   Scenario Outline: NTS-4409: Remove diagnosis Age at Onset

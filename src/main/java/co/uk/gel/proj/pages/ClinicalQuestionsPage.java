@@ -256,7 +256,13 @@ public class ClinicalQuestionsPage {
                 SeleniumLib.takeAScreenShot("DiagnosisValue.jpg");
                 return null;
             }
-            Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            Wait.seconds(2);
+            boolean testResult = Actions.selectByIndexFromDropDown(dropdownValues, 0);
+            if(!testResult){
+                Debugger.println("Could not select the drop down value.."+driver.getCurrentUrl());
+                return null;
+            }
+            Wait.seconds(2);
             return Actions.getText(diagnosisField);
         } catch (Exception exp) {
             Debugger.println("Exception from searchAndSelectSpecificDiagnosis:"+exp+"\n"+driver.getCurrentUrl());

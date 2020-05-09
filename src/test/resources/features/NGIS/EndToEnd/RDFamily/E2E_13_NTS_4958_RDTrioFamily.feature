@@ -9,7 +9,6 @@ Feature: RDFamily:NTS-4958:E2E20::Create Referral for Trio Family, Add Family Me
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R100 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=14-05-2004:Gender=Female |
     ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4958:E2E20::Create Referral for Trio Family, Add Family Me
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -72,7 +71,7 @@ Feature: RDFamily:NTS-4958:E2E20::Create Referral for Trio Family, Add Family Me
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

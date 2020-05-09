@@ -1,7 +1,9 @@
 package co.uk.gel.proj.steps;
 
 import co.uk.gel.config.SeleniumDriver;
+import co.uk.gel.lib.Actions;
 import co.uk.gel.proj.pages.Pages;
+import co.uk.gel.proj.util.Debugger;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -18,22 +20,24 @@ public class NotesSteps extends Pages {
         Assert.assertTrue(testResult);
     }
 
-    @When("the user attempts to fill in Referral Notes field with data that exceed the maximum data allowed {int}")
-    public void theUserAttemptsToFillInReferralNotesFieldWithDataThatExceedTheMaximumDataAllowed(int maximumCharactersAllowed) {
-        notesPage.fillInAddNotesFieldWithOverThreeThousandCharacters();
+    @When("the user attempts to fill in Referral Notes field with {int} data that exceed the maximum data allowed 3000")
+    public void theUserAttemptsToFillInReferralNotesFieldWithDataThatExceedTheMaximumDataAllowed(int dataSize) {
+        notesPage.fillInAddNotesFieldWithOverThreeThousandCharacters(dataSize);
     }
 
-    @Then("the user should be able to see a {string} on the Notes page")
+    @Then("the user should see the message displayed (.*) in the notes page")
+    public void theUserIsPreventedFromEnteringDataThatExceedThatAllowableMaximumDataInTheField(String errorMessage) {
+        boolean testResult  = false;
+        testResult = notesPage.verifyNotesPageWarningMessage(errorMessage);
+        Assert.assertTrue(testResult);
+
+    }
+
+    @Then("the user should be able to see an info message (.*) on the Notes page")
     public void theUserShouldBeAbleToSeeAOnTheNotesPage(String infoMessage) {
         boolean testResult = false;
         testResult = notesPage.verifyInfoMessageOnNotesPage(infoMessage);
         Assert.assertTrue(testResult);
     }
 
-    @Then("the user should see an error message {string} in {string} for maximum chracters")
-    public void theUserShouldSeeAnErrorMessageInForMaximumChracters(String errorMessage, String messageColor) {
-        boolean testResult = false;
-        testResult = notesPage.checkTheErrorMessageForMaxCharacters(errorMessage, messageColor);
-        Assert.assertTrue(testResult);
-    }
 }

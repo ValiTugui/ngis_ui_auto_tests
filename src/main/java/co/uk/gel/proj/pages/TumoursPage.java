@@ -388,19 +388,19 @@ public class TumoursPage {
     public boolean newTumourIsDisplayedInLandingPage(int i) {
         try {
             if(!Wait.isElementDisplayed(driver, tumoursLandingPageTable,30)){
-                Debugger.println("Tumour Table not displayed.");
+                Debugger.println("Tumour Table not displayed."+driver.getCurrentUrl());
                 Debugger.println("newTumourIsDisplayedInLandingPage.jpg");
                 return false;
             }
             int numberOfTumours = tumoursLandingPageList.size() - 1;
             if(numberOfTumours != i){
-                Debugger.println("Expected Number of Tumours: "+i+", Actual:"+numberOfTumours);
+                Debugger.println("Expected Number of Tumours: "+i+", Actual:"+numberOfTumours+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
                 return false;
             }
             return true;
         }catch(Exception exp){
-            Debugger.println("Exception in newTumourIsDisplayedInLandingPage:"+exp);
+            Debugger.println("Exception in newTumourIsDisplayedInLandingPage:"+exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("newTumourIsDisplayedInLandingPage.jpg");
             return false;
         }
@@ -428,7 +428,7 @@ public class TumoursPage {
 
     public boolean tumourIsNotHighlighted() {
         try {
-            if (!Wait.isElementDisplayed(driver, successNotification, 10)) {
+            if (!Wait.isElementDisplayed(driver, successNotification, 30)) {
                 Debugger.println("Tumour page successNotification not displayed:");
                 SeleniumLib.takeAScreenShot("tumourIsNotHighlighted.jpg");
                 return false;
@@ -455,6 +455,7 @@ public class TumoursPage {
 
     public boolean warningMessageIsNotDisplayed() {
         try {
+            Wait.seconds(5);
             if (tumoursWarningMessage.size() > 0) {
                 Debugger.println("Warning message present in Tumours page, but not expected.");
                 SeleniumLib.takeAScreenShot("warningMessageIsNotDisplayed.jpg");
