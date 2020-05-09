@@ -199,7 +199,7 @@ Feature: GlobalConsistency: Global Patient Flow 2- End to end RD
     Then the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     ##Panels Page
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user search and add the "<SearchPanels>" panels
     ##Navigating By Logout
     When the user clicks the Log out button

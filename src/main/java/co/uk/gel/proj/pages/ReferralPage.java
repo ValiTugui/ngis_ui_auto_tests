@@ -745,7 +745,7 @@ public class ReferralPage<check> {
                     return true;
                 }
             }
-            Debugger.println("CONTINUING...............TITLE." + titleElements.size());
+            Debugger.println("CONTINUING...............TITLE." + titleElements.size()+"\nURL:"+driver.getCurrentUrl());
             String actualPageTitle = getTheCurrentPageTitle();
             Debugger.println("TITLE...:" + actualPageTitle);
             if (actualPageTitle != null && actualPageTitle.equalsIgnoreCase(expTitle)) {
@@ -1741,10 +1741,15 @@ public class ReferralPage<check> {
 
     public boolean verifyPatientReferralIdInUrl() {
         try {
+            if(!Wait.isElementDisplayed(driver,referralHeaderReferralId,30)){
+                Debugger.println("referralHeaderReferralId not displayed at top bar."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("referralHeaderReferralId.jpg");
+                return false;
+            }
             String refId = referralHeaderReferralId.getText();
             String getURl = driver.getCurrentUrl();
             if (!getURl.contains("/" + refId + "/")) {
-                Debugger.println("Referral ID : " + refId + " URL : " + getURl);
+                Debugger.println("Referral ID : " + refId + " not contains in the URL : " + getURl);
                 SeleniumLib.takeAScreenShot("NoReferralIDInURL.jpg");
                 return false;
             }

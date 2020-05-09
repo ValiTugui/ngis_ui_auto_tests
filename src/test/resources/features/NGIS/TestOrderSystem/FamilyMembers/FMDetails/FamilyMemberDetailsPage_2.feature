@@ -76,9 +76,8 @@ Feature: Family Members Details Page 2- Field Validation_2
     Then the user is navigated to a page with title Patient choice
     And the user clicks on edit icon to update patient choice status for family member
     Then the user is navigated to a page with title Add family member patient choice information
-#    And the global patient information bar display with the editing members information "<FamilyMemberDetails>"
     When the user clicks on back button
-    Then the user is navigated to a page with title Add family member patient choice information
+    Then the user is navigated to a page with title Patient choice
 
     Examples:
       | Family member  | FamilyMemberDetails                 | RelationshipToProband | DiseaseStatusDetails     |
@@ -114,7 +113,6 @@ Feature: Family Members Details Page 2- Field Validation_2
     When the user navigates to the "<TestPackage>" stage
     Then the user is navigated to a page with title Confirm the test package
     And the user should be able to see trio family icon in test package
-
     Examples:
       | TestPackage  |
       | Test package |

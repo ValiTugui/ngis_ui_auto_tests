@@ -96,13 +96,7 @@ public class PatientChoiceSteps extends Pages {
                     }
                 }
                 if(memberDetails.get(i).get(6) != null && !memberDetails.get(i).get(6).isEmpty()) {
-                    //patientChoicePage.fillTheSignatureDetails(memberDetails.get(i).get(6));
-                    Debugger.println("Drawing Picture..");
-                    testResult = patientChoicePage.drawSignature();
-//                    if(!testResult){
-//                        Assert.assertTrue("Failed in drawSignature",false);
-//                        break;
-//                    }
+                    patientChoicePage.drawSignature();
                 }
                 Debugger.println("Submitting PC:");
                 if (!patientChoicePage.submitPatientChoice()) {
@@ -202,18 +196,10 @@ public class PatientChoiceSteps extends Pages {
         Wait.seconds(3);
     }
 
-    @When("the user fills signature details in (.*)")
-    public void theUserFillsDetailsInPatientSignature(String arg) {
-        boolean testResult = false;
-        testResult = patientChoicePage.selectPatientSignature();
-        Assert.assertTrue(testResult);
-        Wait.seconds(3);
-    }
-
     @When("the user fills PatientSignature details in patient signature")
     public void theUserFillsDetailsInPatientSignature() {
         boolean testResult = false;
-        testResult = patientChoicePage.selectPatientSignature();
+        testResult = patientChoicePage.drawSignature();
         Assert.assertTrue(testResult);
         Wait.seconds(3);
     }

@@ -113,7 +113,7 @@ Feature: TestOrder - Tumours Page - 1
 #      | Tumours | Solid tumour: metastatic | Recurrence       | test       | Tumour added     |
 
  # E2EUI-1440 E2EUI-1219
-  @NTS-3154 @NTS-4734 @NTS-4761 @Z-LOGOUT
+  @NTS-3154 @Z-LOGOUT
 #    @E2EUI-894 @E2EUI-1549 @E2EUI-949
   Scenario Outline: NTS-3154:E2EUI-894,1549,949: Add a new tumour for a new patient
     Given a referral is created with the below details for a newly created patient and associated tests in Test Order System online service

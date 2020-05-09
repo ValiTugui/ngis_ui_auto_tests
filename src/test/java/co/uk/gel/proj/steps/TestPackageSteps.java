@@ -243,14 +243,14 @@ public class TestPackageSteps extends Pages {
     @Then("the user should be able to sees trio family icon in review test selection")
     public void theUserShouldBeAbleToSeesTrioFamilyIconInReviewTestSelection() {
         boolean testResult = false;
-        testResult = testPackagePage.validateTrioFamilyIconInOfflineOrder();
+        testResult = testPackagePage.verifyTrioFamilyIcon();
         Assert.assertTrue(testResult);
     }
 
     @And("the user should be able to see trio family icon in test package")
     public void theUserShouldBeAbleToSeeTrioFamilyIconInTestPackage() {
         boolean testResult = false;
-        testResult = testPackagePage.verifyTrioFamilyIconPresenceInTestPackage();
+        testResult = testPackagePage.verifyTrioFamilyIcon();
         Assert.assertTrue(testResult);
     }
 

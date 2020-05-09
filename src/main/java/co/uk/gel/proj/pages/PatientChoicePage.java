@@ -339,22 +339,17 @@ public class PatientChoicePage {
                 SeleniumLib.takeAScreenShot("PCCategory.jpg");
             }
             return false;
-        } catch (NoSuchElementException exp) {
-            //Waiting for another 20 seconds and trying again - Added this based on the errors observed
-            Wait.seconds(20);
-            webElement = driver.findElement(By.xpath(categoryToBeSelected));
-            if (Wait.isElementDisplayed(driver, webElement, 30)) {
-                seleniumLib.clickOnWebElement(webElement);
-                return true;
-            }else{
-                Debugger.println("PCCategory Selection Failure1:"+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("PCCategory.jpg");
-            }
-            return false;
         } catch (Exception exp) {
-            Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp+"\n"+driver.getCurrentUrl());
-            SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
-            return false;
+            try {
+                //Waiting for another 20 seconds and trying again - Added this based on the errors observed
+                Wait.seconds(20);
+                seleniumLib.clickOnElement(By.xpath(categoryToBeSelected));
+                return true;
+            } catch (Exception exp1) {
+                Debugger.println("Exception from Selecting PatientChoiceCategory:" + exp1 + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("patientChoiceCategory.jpg");
+                return false;
+            }
         }
     }
 
@@ -561,6 +556,7 @@ public class PatientChoicePage {
 
     public boolean selectOptionForQuestion(String option, String question) {
         try {
+           Wait.seconds(3);
             Actions.scrollToTop(driver);
             String optionsString = questionOptions.replaceAll("dummyQuestion", question);
             List<WebElement> options = driver.findElements(By.xpath(optionsString));
@@ -573,14 +569,14 @@ public class PatientChoicePage {
                 }
             }
             if (!isFound) {
-                Debugger.println("Option: " + option + " not present for the question:" + question);
+                Debugger.println("Option: " + option + " not present for the question:" + question+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
                 Actions.scrollToBottom(driver);
                 SeleniumLib.takeAScreenShot("PCOptionNotPresent.jpg");
             }
             return isFound;
         } catch (Exception exp) {
-            Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp);
+            Debugger.println("PatientChoicePage: verifyTheQuestionOptions " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCOptionNotSelected.jpg");
             return false;
         }
@@ -918,23 +914,27 @@ public class PatientChoicePage {
         }
     }
 
-    public boolean selectPatientSignature() {
-        try {
-            Wait.forElementToBeDisplayed(driver, signaturePad);
-            if (!SeleniumLib.drawSignature(signaturePad)) {
-                Actions.scrollToTop(driver);
-                if (!SeleniumLib.drawSignature(signaturePad)) {
-                    Actions.scrollToBottom(driver);
-                    return SeleniumLib.drawSignature(signaturePad);
-                }
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("Patient Choice Page: selectSignature: " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
-            return false;
-        }
-    }
+//    public boolean selectPatientSignature() {
+//        try {
+//            if(Wait.isElementDisplayed(driver, signaturePad,30)){
+//                Debugger.println("Signature Pad not loaded.."+driver.getCurrentUrl());
+//                SeleniumLib.takeAScreenShot("SignaturePad.jpg");
+//                return false;
+//            }
+//            if (!SeleniumLib.drawSignature(signaturePad)) {
+//                Actions.scrollToTop(driver);
+//                if (!SeleniumLib.drawSignature(signaturePad)) {
+//                    Actions.scrollToBottom(driver);
+//                    return SeleniumLib.drawSignature(signaturePad);
+//                }
+//            }
+//            return true;
+//        } catch (Exception exp) {
+//            Debugger.println("Patient Choice Page: selectSignature: " + exp);
+//            SeleniumLib.takeAScreenShot("PatientChoicePageSignature.jpg");
+//            return false;
+//        }
+//    }
 
     public boolean patientChoiceFormCompleted() {
         try {

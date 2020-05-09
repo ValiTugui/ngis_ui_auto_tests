@@ -255,7 +255,7 @@ Feature: Patient Choice-4 Edit Paper Form - Child
     And the user should see Continue button as disabled
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
-    And the user fills signature details in Child signature
+    And the user fills PatientSignature details in patient signature
     And the user clicks on Continue Button
     Then the Child assent option is marked as completed
     And the user should see selected details displayed under the section Child assent

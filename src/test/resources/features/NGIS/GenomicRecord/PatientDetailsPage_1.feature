@@ -132,7 +132,6 @@ Feature: GenomicRecord: Patient details page 1
     And the user edit the patients Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" fields
     And the user clicks the Save and Continue button on Patient details page
     Then the patient is successfully updated with a message "<notification>"
-#   Navigate back to patient search, to search for the patient details and verify edited details
     When the user clicks the - "Back to patient search" - link
     And the user clicks the NO button
     And the user search for the new patient using date of birth, first name, last name and edited gender "<gender>"
@@ -142,14 +141,16 @@ Feature: GenomicRecord: Patient details page 1
     Then the Patient Details page is displayed
     And the user clicks on edit patient details
     And the newly edited patient's Gender "<gender>", Life Status "<lifeStatus>" and Ethnicity "<ethnicity>" are displayed in Patient Details page
-#    Navigate back to referral page
-    And the user navigates back to patient existing referral page
-      | APP_URL | patient-details |
-    And the referral page is displayed
-    And the new patient gender "<gender>" is displayed on the referral banner
+    ###Navigate back to referral page
+    ##Below steps no more valid as per Hanna Release, need to replace
+#    And the user navigates back to patient existing referral page
+#      | APP_URL | patient-details |
+#    And the referral page is displayed
+#    And the new patient gender "<gender>" is displayed on the referral banner
     Examples:
       | stage           | patient-search-type | gender | lifeStatus | ethnicity         | notification            |
       | Patient details | NGIS                | Female | Deceased   | B - White - Irish | Patient details updated |
+
   @NTS-3454 @Z-LOGOUT
 #    @E2EUI-893
   Scenario Outline: NTS-3454:E2EUI-893: Verify the elements and mandatory fields on patient detail page

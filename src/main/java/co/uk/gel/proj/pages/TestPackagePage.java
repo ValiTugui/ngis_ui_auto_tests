@@ -90,11 +90,8 @@ public class TestPackagePage {
     @FindBy(xpath = "//div[contains(@class,'test-list')]//span[contains(@class,'checkbox')]")
     WebElement testPackageCheckBox;
 
-    @FindBy(xpath = "//div[contains(@class,'styles_optimalFamilyStructure')]/child::*[1]")
-    public WebElement trioFamilyIconInPedigree;
-
-    @FindBy(xpath = "(//div[contains(@class,'styles_test-card__test-category__25tRP')])[2]/child::*[@fill='inherit']")
-    public WebElement trioFamilyIconInTestPackage;
+    @FindBy(xpath = "//p[text()='Trio']/../*[name()='svg']")
+    public WebElement trioFamilyIcon;
 
     @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
     public WebElement testCardCIName;
@@ -399,31 +396,16 @@ public class TestPackagePage {
         }
     }
 
-    public boolean validateTrioFamilyIconInOfflineOrder() {
+    public boolean verifyTrioFamilyIcon() {
         try {
-            if (!Wait.isElementDisplayed(driver, trioFamilyIconInPedigree, 10)) {
-                Debugger.println("try family icon not visible : validateTrioFamilyIconInPedigree : in pedigree page");
-                SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
-                return false;
-            }
-            return true;
-        } catch (Exception exp) {
-            Debugger.println("TestPackage : validateTrioFamilyIconInPedigree : in pedigree page : " + exp);
-            SeleniumLib.takeAScreenShot("validateTrioFamilyIconInOfflineOrder.jpg");
-            return false;
-        }
-    }
-
-    public boolean verifyTrioFamilyIconPresenceInTestPackage() {
-        try {
-            if (!Wait.isElementDisplayed(driver, trioFamilyIconInTestPackage, 10)) {
-                Debugger.println("try family icon is not visible : test package page");
+            if (!Wait.isElementDisplayed(driver, trioFamilyIcon, 30)) {
+                Debugger.println("try family icon is not visible."+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("try family icon is not visible : test package page : " + exp);
+            Debugger.println("try family icon is not visible : test package page : " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
             return false;
         }

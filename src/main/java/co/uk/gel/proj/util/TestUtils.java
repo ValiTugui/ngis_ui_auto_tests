@@ -51,12 +51,6 @@ public class TestUtils {
             paramNameValue.put(param.split("=")[0], param.split("=")[1]);
         }
 
-        // To print key and value
-//        Set<Map.Entry<String, String>> allEntries = paramNameValue.entrySet();
-//        for (Map.Entry eachEntry : allEntries) {
-//            System.out.println("Key is :" + eachEntry.getKey() + " and value is :" + eachEntry.getValue());
-//        }
-
         return paramNameValue;
 
     }
@@ -458,5 +452,14 @@ public class TestUtils {
         } catch (Exception exp) {
             return "Exception from downloadFile:" + exp;
         }
+    }
+    public static String fetchNumberFromAGivenString(String InputString) {
+        String numFound = "";
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(InputString);
+        if(m.find()){
+            numFound = m.group(0);
+        }
+        return numFound;
     }
 }

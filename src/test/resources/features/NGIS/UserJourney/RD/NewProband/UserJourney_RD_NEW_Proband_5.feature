@@ -63,7 +63,7 @@ Feature: UserJourney_RD_NEW_Proband_5 - UC03 - E2EUI-1032
     Then the user should see the question displayed as Does the child agree to participate in research?
     When the user selects the option Yes for the question Does the child agree to participate in research?
     And the user clicks on Continue Button
-    And the user fills signature details in Child signature
+    And the user fills PatientSignature details in patient signature
     And the user clicks on Continue Button
     When the user is in the section Parent/Guardian signature
     And the user fills "<Parent/Guardian signature>" details for signature
