@@ -34,7 +34,7 @@ Feature: RDReferral:NTS-4950:  CSV-E2E- CSV process for a referral which has add
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -71,7 +71,7 @@ Feature: RDReferral:NTS-4950:  CSV-E2E- CSV process for a referral which has add
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
     # ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed

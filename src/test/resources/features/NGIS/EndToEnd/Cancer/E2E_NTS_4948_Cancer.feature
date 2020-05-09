@@ -9,7 +9,7 @@ Feature: Cancer:NTS-4948:Create Cancer Referrals for NEW Patient - Proband Only
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | M212 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=23-01-2007:Gender=Male |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
+    And the "Patient details" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
     And the user enters the keyword "ST HELENS HOSPITAL" in the search field
@@ -60,9 +60,9 @@ Feature: Cancer:NTS-4948:Create Cancer Referrals for NEW Patient - Proband Only
     Then the user is navigated to a page with title Add sample details
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Manage samples
-    And the user clicks on Continue Button
+    And the user clicks the Save and Continue button
       ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     When the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     ##Patient Choice
@@ -82,7 +82,7 @@ Feature: Cancer:NTS-4948:Create Cancer Referrals for NEW Patient - Proband Only
     And the user should be able to see the patient choice form with success message
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Patient choice
-    When the user clicks on Continue Button
+    When the user clicks the Save and Continue button
     ##print Forms
     Then the user is navigated to a page with title Print sample forms
     And the user submits the referral

@@ -9,7 +9,6 @@ Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + A
       | TEST_DIRECTORY_PRIVATE_URL | test-selection/clinical-tests | R28 | GEL_NORMAL_USER | NHSNumber=NA-Patient is a foreign national:DOB=25-05-2000:Gender=Male |
     ##Patient Details
     When the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
     ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -34,7 +33,7 @@ Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + A
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -61,12 +60,12 @@ Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + A
     ###Note: FileName mentioned in RecordedBy argument, should be present in the testdata folder. Child Assent and ParentSignature not required, if uploading file.
     When the user completes the patient choice for below family members as agreeing to test
       | FamilyMemberDetails         | PatientChoiceCategory | RecordedBy                                                                                                           |
-      | NHSNumber=NA:DOB=12-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
+      | NHSNumber=NA:DOB=11-03-1978 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
       | NHSNumber=NA:DOB=12-02-1979 | Adult (With Capacity) | ClinicianName=John:HospitalNumber=123:Action=UploadDocument:FileType=Record of Discussion Form:FileName=testfile.pdf |
     Then the "<PatientChoice>" stage is marked as Completed
     And the user clicks the Save and Continue button
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
@@ -79,7 +78,7 @@ Feature: RDFamily:NTS-4954: #09: Create Referral for Trio Family + Edit Data + A
     And the user is able to download print form for the proband
     And the user is able to download print forms for "<TwoFamilyMember>" family members with the below details
       | FamilyMemberDetails         |
-      | NHSNumber=NA:DOB=12-03-1978 |
+      | NHSNumber=NA:DOB=11-03-1978 |
       | NHSNumber=NA:DOB=12-02-1979 |
     ##Submitting Referral
     When the user submits the referral

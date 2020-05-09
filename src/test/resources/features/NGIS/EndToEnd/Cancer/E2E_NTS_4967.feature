@@ -10,7 +10,7 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     And the user types in the CI term  in the search field and selects the first result from the results list
       | Epilepsy - early onset or syndromic WGS |
     And the user clicks the CI Search Start Referral button
-    And the user clicks on Continue Button
+    And the user selects the test in the test page and clicks on Continue button
     And the user clicks the Sign in hyperlink
       | Sign in to the online service |
     #Test Ordering
@@ -22,7 +22,6 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     When the user clicks the Start a new Referral button
       ##Patient Details
     Then the user is navigated to a page with title Add a requesting organisation
-    And the user clicks the Save and Continue button
     And the "<PatientDetails>" stage is marked as Completed
       ##Requesting Organisation
     Then the user is navigated to a page with title Add a requesting organisation
@@ -47,7 +46,7 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
       ##Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
@@ -55,6 +54,8 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     Then the user is navigated to a page with title Add a family member to this referral
     And the user clicks on Add family member button
     And the user search the family member with the specified details "<FamilyMemberDetails>"
+    Then the user is navigated to a page with title Continue with this family member
+    And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Select tests for
     And the user deselects the test
     And  the user clicks the Save and Continue button
@@ -86,13 +87,13 @@ Feature: Cancer:NTS-4967:Select a test type in TS instead of CI and check the do
     And the user clicks the Save and Continue button
     Then the "<PatientChoiceStage>" stage is marked as Completed
            ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     When the user search and add the "<searchPanels>" panels
     And the user clicks the Save and Continue button
     Then the "<Panels>" stage is marked as Completed
       ###Pedigree
     Then the user is navigated to a page with title Build a pedigree
-      ### need to madify pedigree
+      ### need to modify pedigree
     And the user clicks the Save and Continue button
     Then the "<Pedigree>" stage is marked as Completed
       ###Print forms
