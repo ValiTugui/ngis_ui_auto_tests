@@ -93,6 +93,9 @@ public class TestPackagePage {
     @FindBy(xpath = "//p[text()='Trio']/../*[name()='svg']")
     public WebElement trioFamilyIcon;
 
+    @FindBy(xpath = "//span[text()='Trio']/../*[name()='svg']")
+    public WebElement trioFamilyIcon_TestOrder;
+
     @FindBy(xpath = "//div[contains(@class,'checkbox')]//p[contains(@class,'test-card__name')]")
     public WebElement testCardCIName;
 
@@ -399,9 +402,11 @@ public class TestPackagePage {
     public boolean verifyTrioFamilyIcon() {
         try {
             if (!Wait.isElementDisplayed(driver, trioFamilyIcon, 30)) {
-                Debugger.println("try family icon is not visible."+driver.getCurrentUrl());
-                SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
-                return false;
+                if(!Wait.isElementDisplayed(driver,trioFamilyIcon_TestOrder,30)) {
+                    Debugger.println("Try family icon is not visible." + driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("TrioFamilyIcon.jpg");
+                    return false;
+                }
             }
             return true;
         } catch (Exception exp) {

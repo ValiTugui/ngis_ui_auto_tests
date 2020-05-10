@@ -853,8 +853,14 @@ public class ReferralPage<check> {
                 SeleniumLib.takeAScreenShot("CancelReferralLink.jpg");
                 return false;
             }
-            cancelReferralLink.click();
-            Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
+            try {
+                cancelReferralLink.click();
+                Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
+            }catch(Exception exp1){
+                seleniumLib.clickOnWebElement(cancelReferralLink);
+                Wait.seconds(5);//Waiting for 5 seconds to load the popup dialog.
+                return true;
+            }
             return true;
         } catch (Exception exp) {
             Debugger.println("Exception from Cancelling Referral " + exp);

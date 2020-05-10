@@ -108,9 +108,9 @@ public class PatientChoiceSteps extends Pages {
                 Wait.seconds(10);//Waiting for 10 seconds as there is a delay observed in patient choice page in e2elatest
                 Debugger.println("\nPC done for FM:"+i);
             }//end
-
+            Wait.seconds(5);
         } catch (Exception exp) {
-            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp);
+            Debugger.println("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp+"\n"+driver.getCurrentUrl());
             Assert.assertTrue("PatientChoiceSteps: Exception in Filling PatientChoice Details: " + exp,false);
         }
     }
@@ -314,9 +314,9 @@ public class PatientChoiceSteps extends Pages {
         boolean testResult = false;
         testResult = patientChoicePage.verifySubmitPatientChoiceButtonStatus("#f0f0f0");
         if(status.equalsIgnoreCase("enabled")){
-            Assert.assertFalse(testResult);
-        }else {
             Assert.assertTrue(testResult);
+        }else {
+            Assert.assertFalse(testResult);
         }
     }
     @And("the user should see form to follow button as (.*)")
