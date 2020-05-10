@@ -36,7 +36,7 @@ Feature: UserJourney_RD_NGIS_Trio_4 - UC24 - E2EUI-1799
     And the user clicks the Save and Continue button
     Then the "<ClinicalQuestion>" stage is marked as Completed
     ###Notes
-    Then the user is navigated to a page with title Add notes to this referral
+    Then the user is navigated to a page with title Add clinical notes
     And the user fills in the Add Notes field
     And the user clicks the Save and Continue button
     Then the "<Notes>" stage is marked as Completed
