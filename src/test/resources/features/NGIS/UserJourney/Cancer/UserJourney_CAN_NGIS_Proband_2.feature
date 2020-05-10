@@ -68,7 +68,6 @@ Feature: UserJourney_CAN_NGIS_Proband_2: UC-29 - E2EUI-1804,905
     And the "<stage7>" stage is marked as Completed
 
     And the user navigates to the "<stage8>" stage
-    Then the "<stage8>" stage is selected
     When the user selects the proband
     And the user answers the patient choice questions with agreeing to testing
     And the user clicks the Save and Continue button
