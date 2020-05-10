@@ -34,7 +34,7 @@ Feature: TestOrder - Print Forms 3 - Validations
       | PrintForms  | Watermark               | PatientDetails  | RequestingOrganisation  | OrderingEntityName    | TestPackage  | NoOfParticipants |
       | Print forms | N ot for C linical U se | Patient details | Requesting organisation | BOLTON ROYAL HOSPITAL | Test package | 1                |
 
-  @NTS-4702  @Z-LOGOUT
+  @NTS-4702 @Z-LOGOUT
 #    @E2EUI-1794 @E2EUI-1786
   Scenario Outline: NTS-4702: Cancel a referral as revoked or marked in error
     Given a new patient referral is created with associated tests in Test Order System online service

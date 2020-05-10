@@ -64,7 +64,7 @@ Feature: Pedigree - Pedigree Flow 1
     When the user is navigated to a page with title Patient choice
     And the user clicks the Save and Continue button
     ##Panels
-    Then the user is navigated to a page with title Panels
+    Then the user is navigated to a page with title Manage panels
     And the user clicks the Save and Continue button
     Then the user is navigated to a page with title Build a pedigree
     And the "<Pedigree>" stage is marked as Mandatory To Do

@@ -193,6 +193,9 @@ public class PatientChoicePage {
     @FindBy(xpath = "//button[contains(text(),'Submit ')]")
     public WebElement submitPatientChoiceButton;
 
+    @FindBy(xpath = "//button/span[contains(text(),'Submit ')]")
+    public WebElement submitPatientChoiceButton1;
+
     @FindBy(xpath = "//ul[@class='message-list']")
     WebElement warningMessageBox;
 
@@ -723,9 +726,15 @@ public class PatientChoicePage {
                 Actions.dismissAlert(driver);
             }
             String section = sectionTitle.replaceAll("dummySection", sectionName);
-            return seleniumLib.isElementPresent(By.xpath(section));
+            if(!seleniumLib.isElementPresent(By.xpath(section))){
+                Debugger.println("Expected Section name in PC not loaded."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCSection.jpg");
+                return false;
+            }
+            return true;
         } catch (Exception exp) {
-            Debugger.println("Section :" + sectionName + " not present.");
+            Debugger.println("Section :" + sectionName + " not present."+exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCSection.jpg");
             return false;
         }
     }
@@ -759,21 +768,21 @@ public class PatientChoicePage {
 
     public boolean verifyWarningMessage(String message) {
         try {
-            Wait.seconds(2);
-            Wait.forElementToBeDisplayed(driver, warningMessageBox);
+            Wait.seconds(5);
             for (int i = 0; i < warningMessages.size(); i++) {
                 Debugger.println("WM:ACT:" + warningMessages.get(i).getText());
                 if (message.equalsIgnoreCase(warningMessages.get(i).getText())) {
+                    Wait.seconds(5);
                     return true;
                 }
             }
-            Debugger.println("WarningMessage:" + message + " not present.");
+            Debugger.println("WarningMessage:" + message + " not present."+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("NoWarningMessage.jpg");
             Actions.scrollToTop(driver);
             SeleniumLib.takeAScreenShot("NoWarningMessage1.jpg");
             return false;
         } catch (Exception exp) {
-            Debugger.println("Exception validating warning message in PC: " + exp);
+            Debugger.println("Exception validating warning message in PC: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCWarningMessage.jpg");
             return false;
         }
@@ -800,48 +809,53 @@ public class PatientChoicePage {
 
     public boolean verifySubmitPatientChoiceButtonStatus(String expectedColor) {
         try {
-            Wait.forElementToBeDisplayed(driver, submitPatientChoiceButton);
+            String actualColor = "";
+
+            if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton1,15)){
+                if(!Wait.isElementDisplayed(driver, submitPatientChoiceButton,15)) {
+                    Debugger.println("SubmitPatientChoiceButton No Present."+driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
+                    return false;
+                }else{
+                    actualColor = submitPatientChoiceButton.getCssValue("background-color");
+                    if(submitPatientChoiceButton.isEnabled()){
+                        return true;
+                    }
+                }
+            }else{
+                actualColor = submitPatientChoiceButton1.getCssValue("background-color");
+            }
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
-            String actualColor = submitPatientChoiceButton.getCssValue("background-color");
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                Debugger.println("SubmitPatientChoiceButton Exp Color:"+expectedBackground+",Actual:"+actualColor+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp);
+            Debugger.println("Exception from verifying Submit Patient Choice Status:" + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PCSubmitPCButton.jpg");
             return false;
         }
     }
 
     public boolean verifySaveAndContinueButtonStatus() {
         try {
-            Wait.forElementToBeDisplayed(driver, saveAndContinuePC);
+            if(!Wait.isElementDisplayed(driver, saveAndContinuePC,30)){
+                Debugger.println("saveAndContinuePC Button not found. " + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("saveAndContinuePC.jpg");
+                return false;
+            }
             if (saveAndContinuePC.isEnabled()) {
                 return true;
             }
             return false;
         } catch (Exception exp) {
             Debugger.println("Continue Button not found. " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoicePageContinueBtnStatus.jpg");
+            SeleniumLib.takeAScreenShot("saveAndContinuePC.jpg");
             return false;
         }
     }
-//
-//    public boolean clickOnSaveAndContinueButton() {
-//        try {
-//            if (Wait.isElementDisplayed(driver, saveAndContinueButton, 200)) {
-//                Wait.forElementToBeClickable(driver, saveAndContinueButton);
-//                seleniumLib.clickOnWebElement(saveAndContinueButton);
-//            }
-//            if (seleniumLib.isElementPresent(saveAndContinueButton)) {//If still Present, Some times first click is just selecting only. so clicking again.
-//                seleniumLib.clickOnWebElement(saveAndContinueButton);
-//            }
-//            return true;
-//        } catch (Exception exp) {
-//            Debugger.println("Continue Button not found. " + exp);
-//            return false;
-//        }
-//    }
 
     public boolean verifySelectedChoicesInSection(String sectionName, String selectedChoice) {
         try {
@@ -941,15 +955,16 @@ public class PatientChoicePage {
             if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 60)) {
                 Actions.scrollToTop(driver);
                 if (!Wait.isElementDisplayed(driver, patientChoiceFormCompletedMessage, 10)) {
-                    Debugger.println("patientChoiceFormCompletedMessage not loaded....");
+                    Debugger.println("patientChoiceFormCompletedMessage not loaded...."+driver.getCurrentUrl());
                     SeleniumLib.takeAScreenShot("patientChoiceFormCompletedMessage.jpg");
                     return false;
                 }
             }
             Debugger.println("PC Complete Message:" + patientChoiceFormCompletedMessage.getText());
+            Wait.seconds(5);
             return true;
         } catch (Exception exp) {
-            Debugger.println("Patient Choice Page: patientChoiceFormCompleted: Form is not loaded: " + exp);
+            Debugger.println("Patient Choice Page: patientChoiceFormCompleted: Form is not loaded: " + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("patientChoiceFormCompletedMessageExp.jpg");
             return false;
         }
@@ -1341,8 +1356,10 @@ public class PatientChoicePage {
     }
 
     public boolean verifyQuestionTitle(String title) {
+        String question = "";
         try {
-            String question = questionTitle.replaceAll("dummyQuestion", title);
+            Wait.seconds(3);
+            question = questionTitle.replaceAll("dummyQuestion", title);
             WebElement questionTitleElement = driver.findElement(By.xpath(question));
             if (!Wait.isElementDisplayed(driver, questionTitleElement, 60)) {
                 Debugger.println("Could found Question:" + question + " in Patient Choice");
@@ -1350,9 +1367,13 @@ public class PatientChoicePage {
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception:verifyQuestionTitle " + exp);
-            SeleniumLib.takeAScreenShot("PatientChoices.jpg");
-            return false;
+            if(!seleniumLib.isElementPresent(By.xpath(question))) {
+                Debugger.println("Exception:verifyQuestionTitle " + exp + "\n" + driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PatientChoices.jpg");
+                return false;
+            }else{
+                return true;
+            }
         }
     }
 
@@ -1713,16 +1734,20 @@ public class PatientChoicePage {
 
     public boolean verifyFormUploadSuccessMessage(String expMessage) {
         try {
-            Wait.forElementToBeDisplayed(driver, fileUploadSuccessMsg);
+            if(!Wait.isElementDisplayed(driver, fileUploadSuccessMsg,30)){
+                Debugger.println("Upload success message:" + expMessage + " not displayed."+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
+                return false;
+            }
             String actualMessage = fileUploadSuccessMsg.getText();
             if (!expMessage.equalsIgnoreCase(actualMessage)) {
-                Debugger.println("Upload success message:" + expMessage + " not present.");
+                Debugger.println("Upload success message:EXP" + expMessage + ".Actual:"+actualMessage+"\n"+driver.getCurrentUrl());
                 SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from Verifying verifyFormUploadSuccessMessage:" + exp);
+            Debugger.println("Exception from Verifying verifyFormUploadSuccessMessage:" + exp+"\n"+driver.getCurrentUrl());
             SeleniumLib.takeAScreenShot("PCFormUploadSuccessMsg.jpg");
             return false;
         }
@@ -1881,15 +1906,28 @@ public class PatientChoicePage {
 
     public boolean verifyContinueButtonStatus(String expectedColor) {
         try {
-            Wait.forElementToBeDisplayed(driver, continueButton);
+            String actualColor = "";
+            if(!Wait.isElementDisplayed(driver, continueButton,15)){//Two sets of button present
+                if(!Wait.isElementDisplayed(driver, continueOnRecordByButton,15)) {
+                    Debugger.println("Continue button on PC Page not present:" + driver.getCurrentUrl());
+                    SeleniumLib.takeAScreenShot("PContinueButton.jpg");
+                    return false;
+                }else{
+                    actualColor = continueOnRecordByButton.getCssValue("background-color");
+                }
+            }else{
+                actualColor = continueButton.getCssValue("background-color");
+            }
             String expectedBackground = StylesUtils.convertFontColourStringToCSSProperty(expectedColor);
-            String actualColor = continueButton.getCssValue("background-color");
             if (!actualColor.equalsIgnoreCase(expectedBackground)) {
+                Debugger.println("Continue button expected BGColor" + expectedBackground+",Actual:"+actualColor+"\n"+driver.getCurrentUrl());
+                SeleniumLib.takeAScreenShot("PContinueButton.jpg");
                 return false;
             }
             return true;
         } catch (Exception exp) {
-            Debugger.println("Exception from verifying formToFollow button Status:" + exp);
+            Debugger.println("Exception from verifying formToFollow button Status:" + exp+"\n"+driver.getCurrentUrl());
+            SeleniumLib.takeAScreenShot("PContinueButton.jpg");
             return false;
         }
     }
@@ -1902,8 +1940,12 @@ public class PatientChoicePage {
                 Actions.clickElement(driver, formToFollow);
             }
         } catch (Exception exp) {
-            Debugger.println("Exception in clicking on FormToFollow Button in PC:" + exp);
-            SeleniumLib.takeAScreenShot("PCFormToFollowButton.jpg");
+            try{
+                seleniumLib.clickOnWebElement(formToFollow);
+            }catch(Exception exp1) {
+                Debugger.println("Exception in clicking on FormToFollow Button in PC:" + exp);
+                SeleniumLib.takeAScreenShot("PCFormToFollowButton.jpg");
+            }
         }
     }
 

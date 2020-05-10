@@ -64,7 +64,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            | InfoMessage                                                                                                                                                   |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
-  @NTS-3411 @Z-LOGOUT
+  @NTS-34111 @Z-LOGOUT
     #@E2EUI-1960
   Scenario Outline: NTS-3411: Child: Verify the info message when user declined for a test
     Given a new patient referral is created with associated tests in Test Order System online service
@@ -93,7 +93,7 @@ Feature: Patient Choice -3 Navigation
       | Patient choice stage | RecordedBy                            | InfoMessage                                                                                                                                                   |
       | Patient choice       | ClinicianName=John:HospitalNumber=123 | Did you mean to select ‘Patient changed their mind about the clinical test’? If so, please consider whether continuing with this test request is appropriate. |
 
-  @NTS-34101 @Z-LOGOUT
+  @NTS-3411 @NTS-34101 @Z-LOGOUT
     #@E2EUI-1127 @E2EUI-1934
   Scenario Outline: NTS-3410: Verify the patient Choice stage marked as completed
     Given a new patient referral is created with associated tests in Test Order System online service
