@@ -1,4 +1,4 @@
-@MIPORTAL_UI
+@MIPORTAL
 @SYSTEM_TEST
 
 Feature: MIPORTAL ST - File Submission 1

@@ -102,7 +102,7 @@ Feature: Family Members Navigation Stage 4 - Member additions
       | FamilyMembers  | pageTitle                              |
       | Family members | Create a record for this family member |
 
-  @NTS-35031 @Z-LOGOUT
+  @NTS-3503 @Z-LOGOUT
 #    @E2EUI-1897
   Scenario Outline: NTS-3503: Verify Relationship to proband field in the family member's details page is cleared when submitting the Patient Details stage
     Given a referral is created for a new patient without nhs number and associated tests in Test Order System online service
